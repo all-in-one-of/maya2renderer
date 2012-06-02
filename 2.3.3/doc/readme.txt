@@ -41,7 +41,7 @@ RenderMan (R) is a registered trademark of Pixar
  see ./features.txt
 
  ---------------------------------------------------------------------
-                          Build/Install/Test
+                          Build/Install/Test/AutomationTest
  ---------------------------------------------------------------------
 - Development environment
    - msvc 2008(sp1)
@@ -96,6 +96,7 @@ RenderMan (R) is a registered trademark of Pixar
 	searchpath E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/elvishray/bin
   - (For Renderman renderer only)
     run $(LiquidRoot)\2.3.3\lib\shaders\compile.cmd to compile the rm shaders.
+
 - Test 
   - open maya2009, load $(LiquidRoot)\2.3.3\test\er.ma,
   - load liquid plugin:
@@ -109,7 +110,15 @@ RenderMan (R) is a registered trademark of Pixar
        - set "Renderer-->Renderer" to elvishray
   - render.
 
-
+- Automation test( for developer only )
+  - cd $(LiquidRoot)\test\image_diff
+  - copy mayaenv_template.py to mayaenv.py, and add envs from Maya.env into mayaenv.py
+  - copy testscene_template.py to testscene.py, and add the test scenes into testscene.py
+  - run test.py,
+     Generally, the images will be generated at %MayaProjectDirectory%\rmanpix,
+     rib files will be generated at %MayaProjectDirectory%\rib,
+     slo file will be generated at %MayaProjectDirectory%\generatedShader
+    
 
  ---------------------------------------------------------------------
                             Others
