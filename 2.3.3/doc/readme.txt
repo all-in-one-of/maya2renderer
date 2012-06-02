@@ -94,7 +94,8 @@ RenderMan (R) is a registered trademark of Pixar
      - open $(MAYA_PATH2009)/bin/manager.ini, set searchpath to the directory which contain eiIMG.dll and eiSHADER.dll
 	e.g. if $(MAYA_PATH2009)/bin/manager.ini doesn't has searchpath, you can append the follow line to manager.ini
 	searchpath E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/elvishray/bin
-
+  - (For Renderman renderer only)
+    run $(LiquidRoot)\2.3.3\lib\shaders\compile.cmd to compile the rm shaders.
 - Test 
   - open maya2009, load $(LiquidRoot)\2.3.3\test\er.ma,
   - load liquid plugin:
@@ -312,6 +313,8 @@ RenderMan (R) is a registered trademark of Pixar
   - liquid里  ei_make_texture(..., ..., eiInt swrap, eiInt twrap,
 	eiInt filter, eiScalar swidth, eiScalar twidth);时这几个参数如何设置
 
+- 如果rm shader渲染不出来，请确认$(LiquidRoot)\2.3.3\lib\shaders下面的*.sl编译了(执行compile.cmd编译之)
+
 - Bump channel in Phong shader(for er)
   I make a hack to achieve the bump effect.The following steps will deliver (bump)file.outColor to phong.normalCamera
   - create bump2d.bumpNormal
@@ -334,6 +337,7 @@ RenderMan (R) is a registered trademark of Pixar
 - place2dTexture
   - repeatUV is an output plug, so it is not set in OutputHelper::addRSLVariable()
     but repeatUV is set in maya directly. So repeateUV must be set manully. see RSL::Visitor::visitPlace2dTexture()
+
 
   ---------------------------------------------------------------------
                               F.A.Q.
