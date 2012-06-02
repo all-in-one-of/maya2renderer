@@ -31,3 +31,12 @@ https://github.com/maya2renderer/maya2renderer/blob/master/2.3.3/doc/features.tx
 
 Gallary
 https://github.com/maya2renderer/maya2renderer/wiki/Gallary
+
+Animation
+TrexAnimationFile(http://www.creativecrash.com/maya/downloads/3d-motion-data-files/c/trex-animation-motion-data-file--2)
+rendered with prman:
+     image sequence:http://hojocn.googlecode.com/files/AnimTrex_rm.7z
+                avi:http://hojocn.googlecode.com/files/Trex_renderman.avi
+rendered with elvishray:
+     image sequence:http://hojocn.googlecode.com/files/AnimTrex_er.7z
+                avi:http://hojocn.googlecode.com/files/Trex_elvishray.avi
