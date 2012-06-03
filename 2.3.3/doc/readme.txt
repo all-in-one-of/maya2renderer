@@ -48,7 +48,6 @@ RenderMan (R) is a registered trademark of Pixar
    - Boost(1.46.1 or later), set BOOST_ROOT in system environment variables, e.g. BOOST_ROOT=E:/dev/boost/1_46_1
    - Maya2009 x32, set MAYA_PATH2009 in system environment variables, e.g. MAYA_PATH2009=D:\Program Files\Autodesk\Maya2009
    - (For renderman renderer only) Renderman Pro Server.
-
 - Build
   - access https://github.com/yaoyansi/maya2renderer, check out the code to your local directory, say it $(LiquidRoot).
     The directory structure should be£º
@@ -78,6 +77,8 @@ RenderMan (R) is a registered trademark of Pixar
     - (For renderman renderer only)
       - make sure Prman is installed, and $(RMANTREE) is set(e.g. RMANTREE=D:\Program Files\Pixar\RenderManProServer-13.5.2),
         $(RMANTREE) contains 3 sub-directories, bin\, etc\ and lib\.
+      - I have not the right to use 3delight's shader header files in this project,
+        so, it is your choice to put 3delight\<version>\maya\rsl\*.h to $(LiquidRoot)\dependence\_3delight\ or not.
       - build displayDriverAqsis project, liqmaya.dll will be generated;
       - make sure liqmaya.dll is copied to "$(RMANTREE)\etc\d_liqmaya.dll"¡£
     - build liquid project£»
