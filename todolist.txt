@@ -145,7 +145,7 @@ prman
   liq| refactoring|: write mesh/locator/pfxhair data into the main rib file.(liqglo.m_writeDataIntoMainRibFile)
 - volume/light shader
 - test_displacement blinn1.sl_my无法编译
-- lambwert shader里transparent如果有链接，则渲染不出来，是黑的。
+- lambert shader里transparent如果有链接，则渲染不出来，是黑的。
 - bug:texture_anim2.ma用rm渲染的纹理位置不正确，v轴似乎缩小了。用其他格式的图片（.bmp）试试
 - export shader graph as shader object
 
