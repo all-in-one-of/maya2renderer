@@ -1,0 +1,6 @@
+
+print "This is newrenderer /2.3.3/src/newrenderer/mel/usersetup.mel.\n";
+
+source nr_AEliquidInstanceFlags.mel;
+source nr_CreateMenus.mel;
+source liqGlobalsNodenewrenderer.mel;
