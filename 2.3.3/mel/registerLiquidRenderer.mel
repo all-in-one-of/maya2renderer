@@ -8,7 +8,12 @@
  */
 source xxliquidutility.mel;
 
-global  string $renderer[] = {"renderman", "elvishray", "luxrenderer"};
+global  string $renderer[] = {
+	"renderman"
+	,"elvishray"
+	,"luxrenderer"
+	,"newrenderer"
+};
 
 global proc int liquidmayaHasCommonGlobalValue( string $global )
 {

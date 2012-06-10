@@ -82,6 +82,9 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 	else if($rnd=="elvishray"){
 		liqGlobalsNode_elvishray($cmd);
 	}
+	else if($rnd=="newrenderer"){
+		liqGlobalsNode_newrenderer($cmd);
+	}
 	else{
 		liqError("Unkown renderer("+$rnd+").");
 	}
