@@ -2,6 +2,7 @@
 #include "liqlog.h"
 #include "./renderman/rm_factory.h"
 #include "./elvishray/er_factory.h"
+#include "./appleseed/as_factory.h"
 
 namespace liquid
 {
@@ -62,6 +63,9 @@ namespace liquid
 		}
 		else if(renderername=="elvishray"){
 			m_factory = new elvishray::Factory();
+		}
+		else if(renderername=="appleseed"){
+			m_factory = new appleseed::Factory();
 		}
 		else {
 			liquidMessage2(messageError, "Unkown renderer:%s.",renderername.c_str() );

@@ -1,11 +1,11 @@
-#include "nr_shaderOutput.h"
+#include "as_shaderOutput.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-#include "nr_renderer.h"
+#include "as_renderer.h"
 
-namespace newrenderer
+namespace appleseed
 {
 
 OutputHelper::OutputHelper(std::ofstream& file_)
@@ -341,4 +341,4 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 	
 }
 //
-}//namespace ER
+}//namespace appleseed

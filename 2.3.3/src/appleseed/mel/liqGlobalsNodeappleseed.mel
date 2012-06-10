@@ -1,9 +1,9 @@
 source xxliquidutility.mel;
 source liqGlobalsNodeRenderer.mel;
 
-global string $gWindow_newrenderer="liqGlobalWindow_newrenderer";
-global string $gGlobalNode_newrenderer="liqGlobalsNodeRenderer_newrenderer";
-global string $gGlobalValue_newrenderer[]=
+global string $gWindow_appleseed="liqGlobalWindow_appleseed";
+global string $gGlobalNode_appleseed="liqGlobalsNodeRenderer_appleseed";
+global string $gGlobalValue_appleseed[]=
 {
 	"verbose",          "long",	"6"
 	,"link",			"string",		""//,
@@ -47,31 +47,31 @@ global string $gGlobalValue_newrenderer[]=
 };
 proc sayHello()
 {
-	liqlog("Hi, this is newrenderer global panel.");
+	liqlog("Hi, this is appleseed global panel.");
 }
 //
-proc createGlobalNode_newrenderer()
+proc createGlobalNode_appleseed()
 {
 	liqPushIdent();
-	liqlog("createGlobalNode_newrenderer()");
-	global string $gGlobalNode_newrenderer;
-	global string $gGlobalValue_newrenderer[];
+	liqlog("createGlobalNode_appleseed()");
+	global string $gGlobalNode_appleseed;
+	global string $gGlobalValue_appleseed[];
 
     string $gGlobal = xxu_getSingletonNode2( "liqGlobalsNodeRenderer", getGlobalNodeName() );
-	liqAssert($gGlobal==$gGlobalNode_newrenderer,"global node name error");
+	liqAssert($gGlobal==$gGlobalNode_appleseed,"global node name error");
 
 	//add global values 
-	liquidAddGlobals2($gGlobalNode_newrenderer, $gGlobalValue_newrenderer);
+	liquidAddGlobals2($gGlobalNode_appleseed, $gGlobalValue_appleseed);
 
 	liqPopIdent();
 }
 // modified from liquidGlobalsFrameTab()
-proc liquidGlobalsTab_newrenderer_AA( string $prefix )
+proc liquidGlobalsTab_appleseed_AA( string $prefix )
 {
   liqPushIdent();
-	liqlog("liquidGlobalsTab_newrenderer_AA("+$prefix+")");
-	global string $gGlobalNode_newrenderer;
-	string $n = $gGlobalNode_newrenderer;
+	liqlog("liquidGlobalsTab_appleseed_AA("+$prefix+")");
+	global string $gGlobalNode_appleseed;
+	string $n = $gGlobalNode_appleseed;
   ////setUITemplate -pushTemplate attributeEditorTemplate;
   string $previousParent = `setParent -q`;
 
@@ -155,14 +155,14 @@ proc liquidGlobalsTab_newrenderer_AA( string $prefix )
   liqPopIdent();
 }
 // modified from liquidCreateMayaGlobalsTab()
-//proc liquidCreateGlobalsTab_newrenderer( string $prefix, string $name, string $tabCallback )
+//proc liquidCreateGlobalsTab_appleseed( string $prefix, string $name, string $tabCallback )
 //{
 //  liqPushIdent();
-//	liqlog("liquidCreateGlobalsTab_newrenderer("+$prefix+","+$name+")");
+//	liqlog("liquidCreateGlobalsTab_appleseed("+$prefix+","+$name+")");
 //  // sanity check : we need valid globals
 //  xxu_getSingletonNode2( "liqGlobalsNodeRenderer", getGlobalNodeName() );
 //
-//  string $theTabLayout = ( $prefix + "liquidGlobalNode_newrenderer_TabLayout" );
+//  string $theTabLayout = ( $prefix + "liquidGlobalNode_appleseed_TabLayout" );
 //
 //  setParent $theTabLayout;
 //  evalEcho($tabCallback); //evalEcho ("liquidGlobals"+$name+"Tab_"+liqGetRendererName()+"( \""+$prefix+"\");");//tab callback
@@ -172,12 +172,12 @@ proc liquidGlobalsTab_newrenderer_AA( string $prefix )
 //  liqPopIdent();
 //}
 // modified from liquidCreateGlobalsTab()
-//proc createGlobalNodeWindow_newrenderer()
+//proc createGlobalNodeWindow_appleseed()
 //{
 //	liqPushIdent();
-//	liqlog("createGlobalNodeWindow_newrenderer()");
+//	liqlog("createGlobalNodeWindow_appleseed()");
 //	
-//	global string $gWindow_newrenderer;
+//	global string $gWindow_appleseed;
 //
 //	string $currentParent = `setParent -q`;
 //
@@ -186,7 +186,7 @@ proc liquidGlobalsTab_newrenderer_AA( string $prefix )
 //			-title $rnd
 //			-iconName "Short Name"
 //			-widthHeight 200 55
-//			$gWindow_newrenderer;
+//			$gWindow_appleseed;
 //
 //		//setParent $unifiedRendererTabName;
 //		string $prefix = `liquidGetCurrentRenderLayerName`;
@@ -197,7 +197,7 @@ proc liquidGlobalsTab_newrenderer_AA( string $prefix )
 //			columnLayout -adjustableColumn true ($prefix+"liquidTabColumn"+$rnd);
 //		}
 //		// build the content of the globals
-//		string $theTabLayout = ( $prefix + "liquidGlobalNode_newrenderer_TabLayout" );
+//		string $theTabLayout = ( $prefix + "liquidGlobalNode_appleseed_TabLayout" );
 //
 //		string $cmd;
 //		if ( `about -win` == true ) {
@@ -209,15 +209,15 @@ proc liquidGlobalsTab_newrenderer_AA( string $prefix )
 //				//-cc $cmd  -sc $cmd  -dcc $cmd
 //				$theTabLayout;
 //
-//		string $LAYOUT = "liquidTabLayout_newrenderer";
+//		string $LAYOUT = "liquidTabLayout_appleseed";
 //		if ( `layout -q -ex $LAYOUT` ) layout -e -vis false $LAYOUT;
 //
 //
 //
-//		liquidCreateGlobalsTab_newrenderer( $prefix, "AA", 
-//			"liquidGlobalsTab_newrenderer_AA( \""+$prefix+"\");" );
-//		//liquidCreateGlobalsTab_newrenderer( $prefix, "BB",
-//		//	"liquidGlobalsTab_newrenderer_BB( \""+$prefix+"\");");
+//		liquidCreateGlobalsTab_appleseed( $prefix, "AA", 
+//			"liquidGlobalsTab_appleseed_AA( \""+$prefix+"\");" );
+//		//liquidCreateGlobalsTab_appleseed( $prefix, "BB",
+//		//	"liquidGlobalsTab_appleseed_BB( \""+$prefix+"\");");
 //		
 //		// set up the tab so that it may resize and auto-build.
 //		if ( `layout -q -ex $LAYOUT` ) {
@@ -239,12 +239,12 @@ proc liquidGlobalsTab_newrenderer_AA( string $prefix )
 //	liqPopIdent();
 //}
 //
-proc createGlobalNodeWindow_newrenderer2()
+proc createGlobalNodeWindow_appleseed2()
 {
 	liqPushIdent();
-	liqlog("createGlobalNodeWindow_newrenderer2()");
+	liqlog("createGlobalNodeWindow_appleseed2()");
 	
-	global string $gWindow_newrenderer;
+	global string $gWindow_appleseed;
 
 	//string $currentParent = `setParent -q`;
 
@@ -253,14 +253,14 @@ proc createGlobalNodeWindow_newrenderer2()
 			-title ($rnd+" Global Values")
 			-iconName "Short Name"
 			-widthHeight 200 55
-			$gWindow_newrenderer;
+			$gWindow_appleseed;
 
 		columnLayout;
 
 		xxu_getSingletonNode2( "liqGlobalsNodeRenderer", getGlobalNodeName() );
-		liquidGlobalsTab_newrenderer_AA( "" );
-		//liquidCreateGlobalsTab_newrenderer( $prefix, "BB",
-		//	"liquidGlobalsTab_newrenderer_BB( \""+$prefix+"\");");
+		liquidGlobalsTab_appleseed_AA( "" );
+		//liquidCreateGlobalsTab_appleseed( $prefix, "BB",
+		//	"liquidGlobalsTab_appleseed_BB( \""+$prefix+"\");");
 		
 
 
@@ -277,48 +277,48 @@ proc getSingletonWindow(string $window)
 	{
 		liqlog($window +" already exists.\n");
 	}else{
-		//createGlobalNodeWindow_newrenderer();
-		createGlobalNodeWindow_newrenderer2();
+		//createGlobalNodeWindow_appleseed();
+		createGlobalNodeWindow_appleseed2();
 	}
 	//showWindow $window;
 
 	liqPopIdent();
 }
 //
-proc showGlobalNodeWindow_newrenderer()
+proc showGlobalNodeWindow_appleseed()
 {
 	liqPushIdent();
-	liqlog("showGlobalNodeWindow_newrenderer()");
+	liqlog("showGlobalNodeWindow_appleseed()");
 
-	global string $gWindow_newrenderer;
+	global string $gWindow_appleseed;
 
-	getSingletonWindow($gWindow_newrenderer);
-	showWindow $gWindow_newrenderer;
+	getSingletonWindow($gWindow_appleseed);
+	showWindow $gWindow_appleseed;
 
 	liqPopIdent();
 }
-proc hideGlobalNodeWindow_newrenderer()
+proc hideGlobalNodeWindow_appleseed()
 {
 	liqPushIdent();
-	liqlog("hideGlobalNodeWindow_newrenderer()");
+	liqlog("hideGlobalNodeWindow_appleseed()");
 	liqPopIdent();
 }
 
 //
-global proc liqGlobalsNode_newrenderer(string $cmd)
+global proc liqGlobalsNode_appleseed(string $cmd)
 {
 	liqPushIdent();
-	liqlog("liqGlobalsNode_newrenderer("+$cmd+")");
+	liqlog("liqGlobalsNode_appleseed("+$cmd+")");
 
-	global string $gWindow_newrenderer;
+	global string $gWindow_appleseed;
 
 	sayHello();
 	
 	if($cmd=="create") {
-		createGlobalNode_newrenderer();	
+		createGlobalNode_appleseed();	
 	}
 	else if($cmd=="show"){
-		showGlobalNodeWindow_newrenderer();
+		showGlobalNodeWindow_appleseed();
 	}
 
 	liqPopIdent();

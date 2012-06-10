@@ -11,7 +11,7 @@ namespace liquid{
 
 class liqGlobalNodeHelper;
 
-namespace newrenderer
+namespace appleseed
 {
 	class GroupMgr;
 
@@ -343,7 +343,7 @@ namespace newrenderer
 	};
 
 
-}//namespace newrenderer
+}//namespace appleseed
 
 
 

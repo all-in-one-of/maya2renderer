@@ -1,10 +1,10 @@
-#include "nr_factory.h"
-#include "nr_shaderOutput.h"
-#include "nr_shaderOutputCall.h"
-#include "nr_renderer.h"
+#include "as_factory.h"
+#include "as_shaderOutput.h"
+#include "as_shaderOutputCall.h"
+#include "as_renderer.h"
 #include "../shadergraph/shaderOutputMgr.h"
 
-namespace newrenderer
+namespace appleseed
 {
 	Factory::Factory()
 	{
@@ -35,8 +35,8 @@ namespace newrenderer
 	//
 	void Factory::createOutputReceiver()
 	{
-		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new newrenderer::Visitor());
-
+		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new appleseed::Visitor());
+		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new appleseed::call::Visitor());
 	}
 	void Factory::deleteOutputReceiver()
 	{
@@ -44,4 +44,4 @@ namespace newrenderer
 	}
 
 
-}
+}//namespace appleseed

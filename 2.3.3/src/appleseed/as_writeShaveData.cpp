@@ -1,4 +1,4 @@
-#include "nr_renderer.h"
+#include "as_renderer.h"
 #include <liqRibPfxData.h>
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -10,7 +10,7 @@
 #include<maya/shaveAPI.h>
 #include<maya/shaveItHair.h>
 
-namespace newrenderer
+namespace appleseed
 {
 	void Renderer::write(
 		/*const*/ liqRibShaveData* pData,
@@ -102,4 +102,4 @@ namespace newrenderer
 		//todo
 	}
 
-}//namespace elvishray
+}//namespace appleseed

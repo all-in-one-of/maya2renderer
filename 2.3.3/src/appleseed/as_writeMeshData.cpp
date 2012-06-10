@@ -1,4 +1,4 @@
-#include "nr_renderer.h"
+#include "as_renderer.h"
 #include <liqRibMeshData.h>
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -6,7 +6,7 @@
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
 
-namespace newrenderer
+namespace appleseed
 {
 	static void _write(liqRibMeshData* pData, const structJob &currentJob);
 
@@ -124,4 +124,4 @@ namespace newrenderer
 
 		//todo
 	}
-}//namespace elvishray
+}//namespace appleseed

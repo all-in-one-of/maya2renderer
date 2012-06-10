@@ -1,4 +1,4 @@
-#include "nr_renderer.h"
+#include "as_renderer.h"
 
 #include "boost/format.hpp"
 
@@ -29,9 +29,9 @@
 #include "../common/mayacheck.h"
 //#include "MayaConnection.h"
 #include "log_helper.h"
-#include "nr_GlobalNodeHelper.h"
+#include "as_GlobalNodeHelper.h"
 
-namespace newrenderer
+namespace appleseed
 {
 	liquid::LogMgr Renderer::m_log;
 
@@ -39,7 +39,7 @@ namespace newrenderer
 	{
 		//m_groupMgr = new GroupMgr(this);
 
-		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_newrenderer");
+		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_appleseed");
 	}
 	//
 	Renderer::~Renderer()
@@ -53,7 +53,7 @@ namespace newrenderer
 	//
 	void Renderer::test()
 	{
-		liquidMessage2(messageInfo, "this is %s.", "newrenderer" );
+		liquidMessage2(messageInfo, "this is %s.", "appleseed" );
 
 	}
 	//
@@ -277,7 +277,7 @@ namespace newrenderer
 
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
-		m_log.open((currentJob.ribFileName+".nr").asChar());
+		m_log.open((currentJob.ribFileName+".as").asChar());
 		//////////////////////////////////////////////////////////////////////////
 
 		_s("//### SCENE BEGIN ###");
@@ -674,4 +674,4 @@ namespace newrenderer
 
 		return true;
 	}
-}//namespace
+}//namespace appleseed

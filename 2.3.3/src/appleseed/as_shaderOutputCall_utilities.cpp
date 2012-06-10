@@ -1,10 +1,10 @@
-#include "nr_shaderOutputCall.h"
+#include "as_shaderOutputCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 
-namespace newrenderer{
+namespace appleseed{
 namespace call{
 /// General utilities ///
 // @node	maya shader node name
@@ -264,4 +264,4 @@ void Visitor::visitOpticalFX(const char* node)
 	CM_TRACE_FUNC("Visitor::visitOpticalFX("<<node<<")");
 }
 }//namespace call
-}//namespace newrenderer
+}//namespace appleseed

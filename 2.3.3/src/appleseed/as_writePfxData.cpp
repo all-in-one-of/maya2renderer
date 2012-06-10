@@ -1,4 +1,4 @@
-#include "nr_renderer.h"
+#include "as_renderer.h"
 #include <liqRibPfxData.h>
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -7,7 +7,7 @@
 #include <liqRibTranslator.h>
 #include <liqGlobalHelpers.h>
 
-namespace newrenderer
+namespace appleseed
 {
 	void Renderer::write(
 		/*const*/ liqRibPfxData* pData,
@@ -213,4 +213,4 @@ namespace newrenderer
 		lines[2].deleteArray();
 	}
 
-}//namespace newrenderer
+}//namespace appleseed

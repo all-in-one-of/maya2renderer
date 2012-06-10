@@ -9,7 +9,7 @@
 ** Liquid Globals Node Helper
 ** ______________________________________________________________________
 */
-namespace newrenderer
+namespace appleseed
 {
 
 
@@ -37,5 +37,5 @@ private:
 	GlobalNodeHelper& operator=(const GlobalNodeHelper&);
 };
 
-}
+}//namespace appleseed
 //#endif//_ER_GlobalNodeHelper_H

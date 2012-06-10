@@ -1,4 +1,4 @@
-#include "nr_renderer.h"
+#include "as_renderer.h"
 #include <liqRibPfxHairData.h>
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -7,7 +7,7 @@
 #include <liqRibTranslator.h>
 #include <liqGlobalHelpers.h>
 
-namespace newrenderer
+namespace appleseed
 {
 	void Renderer::write(
 		/*const*/ liqRibPfxHairData* pData,
@@ -140,4 +140,4 @@ namespace newrenderer
 		//todo
 
 	}
-}//namespace elvishray
+}//namespace appleseed

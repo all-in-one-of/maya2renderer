@@ -1,5 +1,5 @@
 
-#include "nr_renderer.h"
+#include "as_renderer.h"
 // Maya headers
 #include "../common/prerequest_maya.h"
 // Liquid headers
@@ -10,7 +10,7 @@
 #include "log_helper.h"
 
 
-namespace newrenderer
+namespace appleseed
 {
 	//////////////////////////////////////////////////////////////////////////
 
@@ -258,4 +258,4 @@ namespace newrenderer
 		plugs.push_back("liqEnvironmentShader");
 	}
 
-}//namespace newrenderer
+}//namespace appleseed

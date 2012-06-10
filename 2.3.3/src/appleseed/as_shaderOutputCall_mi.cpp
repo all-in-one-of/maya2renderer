@@ -1,10 +1,10 @@
-#include "nr_shaderOutputCall.h"
+#include "as_shaderOutputCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 
-namespace newrenderer{
+namespace appleseed{
 namespace call{
 // @node	mr shader node name
 void Visitor::visit_mib_amb_occlusion(const char* node)
@@ -25,4 +25,4 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	o.end();
 }
 }//namespace call
-}//namespace newrenderer
+}//namespace appleseed

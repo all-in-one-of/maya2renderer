@@ -4,7 +4,7 @@
 
 #include "../liqAbstractFactory.h"
 
-namespace newrenderer
+namespace appleseed
 {	
 	class Renderer;
 	//Create Factory
@@ -26,6 +26,6 @@ namespace newrenderer
 
 		Renderer* m_renderer;
 	};
-}
+}//namespace appleseed
 
 //#endif//_NR_FACTORY_H_

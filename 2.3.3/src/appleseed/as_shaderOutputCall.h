@@ -5,7 +5,7 @@
 #include "../common/prerequest_maya.h"
 #include "../shadergraph/shaderOutput.h"
 
-namespace newrenderer{
+namespace appleseed{
 namespace call{
 
 class OutputHelper
@@ -295,5 +295,5 @@ private:
 	Visitor& operator=(const Visitor&);
 };
 }//namespace call
-}//namespace newrenderer
+}//namespace appleseed
 //#endif//_SHADER_OUTPUT_NR_CALL_H_

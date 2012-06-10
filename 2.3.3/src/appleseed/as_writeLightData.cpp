@@ -1,10 +1,10 @@
-#include "nr_renderer.h"
+#include "as_renderer.h"
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
 #include <liqRibLightData.h>
 #include "log_helper.h"
 
-namespace newrenderer
+namespace appleseed
 {
 	//
 	void addLightGroupForLight(const MString& lightTransformNode)
@@ -216,4 +216,4 @@ namespace newrenderer
 
 		return (liqLightHandle)(0);
 	}
-}//namespace newrenderer
+}//namespace appleseed

@@ -1,14 +1,14 @@
 source xxliquidutility.mel;
 
 //
-global proc AEliquidInstanceFlags_newrenderer( string $node )
+global proc AEliquidInstanceFlags_appleseed( string $node )
 {
 	liqPushIdent();
-	liqlog("AEliquidInstanceFlags_newrenderer("+$node+")");
+	liqlog("AEliquidInstanceFlags_appleseed("+$node+")");
 
-	editorTemplate -beginLayout "newrenderer" -collapse true;
-		editorTemplate -label "nr_testattr0"    -addDynamicControl "nr_testattr0";
-		editorTemplate -label "nr_testattr1"    -addDynamicControl "nr_testattr1";
+	editorTemplate -beginLayout "appleseed" -collapse true;
+		editorTemplate -label "as_testattr0"    -addDynamicControl "as_testattr0";
+		editorTemplate -label "as_testattr1"    -addDynamicControl "as_testattr1";
 	editorTemplate -endLayout;
 
 	liqPopIdent();

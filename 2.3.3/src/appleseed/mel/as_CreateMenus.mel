@@ -1,75 +1,71 @@
-
-source xxliquidutility.mel;
+
+source xxliquidutility.mel;
 source liquidAttributes.mel;
-
-global proc nr_CreateMenu(string $prefix)
-{
+global proc as_CreateMenu(string $prefix)
+{
 	liqPushIdent();
-	liqlog("nr_CreateMenu("+$prefix+")");
-
-	menuItem -label "newrenderer menu" -subMenu true -tearOff true;
-
-		menuItem -label "add object attrs" -command nr_AddObjectAttributes -ann "Add test attributes to selected Transform node(s)";
-		menuItem -label "test1 " -subMenu true -tearOff true -postMenuCommand ("nr_MenuPost_test1 "+$prefix);
-		  menuItem -label "attr0" -command nr_AddObjectAttribute_attr0;
-		  menuItem -label "attr1" -command nr_AddObjectAttribute_attr1;
+	liqlog("as_CreateMenu("+$prefix+")");
+	menuItem -label "appleseed menu" -subMenu true -tearOff true;
+		menuItem -label "add object attrs" -command as_AddObjectAttributes -ann "Add test attributes to selected Transform node(s)";
+		menuItem -label "test1 " -subMenu true -tearOff true -postMenuCommand ("as_MenuPost_test1 "+$prefix);
+		  menuItem -label "attr0" -command as_AddObjectAttribute_attr0;
+		  menuItem -label "attr1" -command as_AddObjectAttribute_attr1;
 		setParent -menu ..;
-		menuItem -label "Remove attrs" -command nr_DelObjectAttributes -ann "Delete test attributes from selected Transform node(s)";
-		menuItem -d true;
-
-	setParent -menu ..;
-
-	liqPopIdent();
-}
-//
-global proc nr_AddObjectAttributes()
+		menuItem -label "Remove attrs" -command as_DelObjectAttributes -ann "Delete test attributes from selected Transform node(s)";
+		menuItem -d true;
+	setParent -menu ..;
+
+	liqPopIdent();
+}
+//
+global proc as_AddObjectAttributes()
 {
   liqPushIdent();
-  liqlog("nr_AddObjectAttributes()");
+  liqlog("as_AddObjectAttributes()");
 
-  nr_AddObjectAttribute_attr0();
-  nr_AddObjectAttribute_attr1();
+  as_AddObjectAttribute_attr0();
+  as_AddObjectAttribute_attr1();
 
   liqPopIdent();
 }
 //
-global proc nr_AddObjectAttribute_attr0()
+global proc as_AddObjectAttribute_attr0()
 {
   liqPushIdent();
-  liqlog("nr_AddObjectAttribute_attr0()");
+  liqlog("as_AddObjectAttribute_attr0()");
   
   string $nodes[] = liquidGetSelection( "-tr" );
   string $currentNode;
   for ( $currentNode in $nodes ){ 
-	  if ( !`attributeQuery -node $currentNode -ex "nr_testattr0"` ) {
-		addAttr -k true -ln "nr_testattr0" -at "float" -dv 1.0 -min 0.001 $currentNode;
+	  if ( !`attributeQuery -node $currentNode -ex "as_testattr0"` ) {
+		addAttr -k true -ln "as_testattr0" -at "float" -dv 1.0 -min 0.001 $currentNode;
 	  }
   }
 
   liqPopIdent();
 }
-global proc nr_AddObjectAttribute_attr1()
+global proc as_AddObjectAttribute_attr1()
 {
   liqPushIdent();
-  liqlog("nr_AddObjectAttribute_attr1()");
+  liqlog("as_AddObjectAttribute_attr1()");
 
   string $nodes[] = liquidGetSelection( "-tr" );
   string $currentNode;
   for ( $currentNode in $nodes ){ 
-	  if ( !`attributeQuery -node $currentNode -ex "nr_testattr1"` ) {
-		addAttr -k true -ln "nr_testattr1" -dt "string" $currentNode;
+	  if ( !`attributeQuery -node $currentNode -ex "as_testattr1"` ) {
+		addAttr -k true -ln "as_testattr1" -dt "string" $currentNode;
 	  }
   }
   liqPopIdent();
 }
 //
-global proc nr_DelObjectAttributes()
+global proc as_DelObjectAttributes()
 {
   liqPushIdent();
-  liqlog("nr_DelObjectAttributes()");
+  liqlog("as_DelObjectAttributes()");
 
   string $nodes[] = liquidGetSelection( "-tr" );
-  string $attr[] = {"nr_testattr0", "nr_testattr1"};
+  string $attr[] = {"as_testattr0", "as_testattr1"};
   string $currentNode;
 
   for ( $currentNode in $nodes ) 
@@ -87,10 +83,10 @@ global proc nr_DelObjectAttributes()
   liqPopIdent();
 }
 //
-global proc nr_MenuPost_test1(string $prefix)
+global proc as_MenuPost_test1(string $prefix)
 {
   liqPushIdent();
-  liqlog("nr_MenuPost_test1("+$prefix+")");
+  liqlog("as_MenuPost_test1("+$prefix+")");
 
   liqPopIdent();
 }

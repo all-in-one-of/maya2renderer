@@ -1,11 +1,11 @@
 
-#include"nr_GlobalNodeHelper.h"
+#include"as_GlobalNodeHelper.h"
 #include "../common/prerequest_std.h"
 #include "../common/mayacheck.h"
 #include <liqGlobalHelpers.h>
 #include <liqlog.h>
 
-namespace newrenderer
+namespace appleseed
 {
 
 
@@ -124,4 +124,4 @@ MStringArray GlobalNodeHelper::getStringArray(const MString& attrName )
 	return value;
 }
 
-}
+}//namespace appleseed

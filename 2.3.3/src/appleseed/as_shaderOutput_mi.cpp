@@ -1,11 +1,11 @@
-#include "nr_shaderOutput.h"
+#include "as_shaderOutput.h"
 //#include <liqlog.h>
 #include "../common/mayacheck.h"
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
 #include <trace/trace.hpp>
 
-namespace newrenderer
+namespace appleseed
 {
 
 // @node	mr shader node name
@@ -28,4 +28,4 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	o.end();
 }
 
-}//namespace ER
+}//namespace appleseed

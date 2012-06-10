@@ -1,10 +1,10 @@
-#include "nr_shaderOutput.h"
+#include "as_shaderOutput.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
 
-namespace newrenderer
+namespace appleseed
 {
 /// 2D Texture ///
 // @node	maya shader node name
@@ -421,4 +421,4 @@ void Visitor::visitLayeredTexture(const char* node)
 	o.addTo("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.end();
 }
-}//namespace ER
+}//namespace appleseed
