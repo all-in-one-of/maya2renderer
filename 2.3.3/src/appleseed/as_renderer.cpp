@@ -282,7 +282,78 @@ namespace appleseed
 		m_log.open((currentJob.ribFileName+".as").asChar());
 
 		m_doc = XmlInitialize();
+		{
+			XERCES_CPP_NAMESPACE::DOMElement* rootElem = m_doc->getDocumentElement();
 
+			XERCES_CPP_NAMESPACE::DOMElement*  sceneElem = m_doc->createElement(X("scene"));
+			rootElem->appendChild(sceneElem);
+// 			{//scene
+// 				XERCES_CPP_NAMESPACE::DOMText*    prodDataVal = m_doc->createTextNode(X("Xerces-C"));
+// 				sceneElem->appendChild(prodDataVal);
+// 			}
+
+
+			XERCES_CPP_NAMESPACE::DOMElement*  outputElem = m_doc->createElement(X("output"));
+			rootElem->appendChild(outputElem);
+// 			{//outpupt
+// 				outputElem->setAttribute(X("idea"), X("great"));
+// 			}
+
+
+			//XERCES_CPP_NAMESPACE::DOMText*    catDataVal = m_doc->createTextNode(X("XML Parsing Tools"));
+			//catElem->appendChild(catDataVal);
+
+			XERCES_CPP_NAMESPACE::DOMElement*  configurationsElem = m_doc->createElement(X("configurations"));
+			rootElem->appendChild(configurationsElem);
+
+
+
+			//XERCES_CPP_NAMESPACE::DOMText*    devByDataVal = m_doc->createTextNode(X("Apache Software Foundation"));
+			//configurationsElem->appendChild(devByDataVal);
+			{
+				{//configurations
+					{//configuration name="final"
+						XERCES_CPP_NAMESPACE::DOMElement*  configurationElem = m_doc->createElement(X("configuration"));
+						configurationsElem->appendChild(configurationElem);
+
+						configurationElem->setAttribute(X("name"), X("final"));
+						configurationElem->setAttribute(X("base"), X("base_final"));
+					}
+					{//configuration name="interactive"
+						XERCES_CPP_NAMESPACE::DOMElement*  configurationElem = m_doc->createElement(X("configuration"));
+						configurationsElem->appendChild(configurationElem);
+
+						configurationElem->setAttribute(X("name"), X("interactive"));
+						configurationElem->setAttribute(X("base"), X("base_interactive"));
+					}
+				}
+
+				{//output
+					{//frame
+						XERCES_CPP_NAMESPACE::DOMElement*  frameElem = m_doc->createElement(X("output"));
+						outputElem->appendChild(frameElem);
+						{//frame name="beauty"
+							frameElem->setAttribute(X("name"), X("beauty"));
+						}
+					}
+
+				}
+
+				{//scene
+					{//camera
+						XERCES_CPP_NAMESPACE::DOMElement*  cameraElem = m_doc->createElement(X("camera"));
+						sceneElem->appendChild(cameraElem);
+
+						cameraElem->setAttribute(X("name"), X("camera"));
+						cameraElem->setAttribute(X("model"), X("pinhole_camera"));
+					}
+
+
+				}
+
+
+			}
+		}
 		//////////////////////////////////////////////////////////////////////////
 
 		_s("//### SCENE BEGIN ###");
