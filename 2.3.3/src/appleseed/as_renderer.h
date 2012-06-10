@@ -4,9 +4,13 @@
 
 #include "../rendererinterface.h"
 #include "../common/logmgr.h"
+#include "prerequest_xml.h"
 
 namespace liquid{
 	class LogMgr;
+}
+namespace XERCES_CPP_NAMESPACE{
+	class DOMDocument;
 }
 
 class liqGlobalNodeHelper;
@@ -270,6 +274,7 @@ namespace appleseed
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
+		XERCES_CPP_NAMESPACE::DOMDocument *m_doc;
 
 	protected:
 		Renderer(const Renderer&);

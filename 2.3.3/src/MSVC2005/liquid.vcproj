@@ -2799,7 +2799,7 @@
 				AdditionalOptions="/Zm800 "
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="../../include;&quot;$(MAYA_PATH2009)/include&quot;;&quot;$(BOOST_ROOT)&quot;;../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/"
+				AdditionalIncludeDirectories="../../include;&quot;$(MAYA_PATH2009)/include&quot;;&quot;$(BOOST_ROOT)&quot;;../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/xercesc/include;../../../dependence/"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC"
 				StringPooling="true"
 				RuntimeLibrary="3"
@@ -2826,11 +2826,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="image.lib OpenMayaFX.lib Foundation.lib OpenMaya.lib OpenMayaRender.lib OpenMayaUI.lib OpenMayaAnim.lib glu32.lib opengl32.lib netapi32.lib ws2_32.lib zlibstat.lib aqsis_ri2rib.lib aqsis_core.lib aqsis_math.lib aqsis_ribparse.lib aqsis_riutil.lib aqsis_shadervm.lib aqsis_tex.lib aqsis_util.lib libtiff.lib"
+				AdditionalDependencies="image.lib OpenMayaFX.lib Foundation.lib OpenMaya.lib OpenMayaRender.lib OpenMayaUI.lib OpenMayaAnim.lib glu32.lib opengl32.lib netapi32.lib ws2_32.lib zlibstat.lib aqsis_ri2rib.lib aqsis_core.lib aqsis_math.lib aqsis_ribparse.lib aqsis_riutil.lib aqsis_shadervm.lib aqsis_tex.lib aqsis_util.lib libtiff.lib xerces-c_static_3.lib"
 				OutputFile="../../bin/prman/win32/liquid_2009x32d.mll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)/stage/lib&quot;;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/libtiff/lib"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)/stage/lib&quot;;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;../../../dependence/xercesc/lib"
 				IgnoreDefaultLibraryNames="libcmt.lib"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -4375,6 +4375,18 @@
 				</File>
 				<File
 					RelativePath="..\appleseed\log_helper.h"
+					>
+				</File>
+				<File
+					RelativePath="..\appleseed\prerequest_xml.h"
+					>
+				</File>
+				<File
+					RelativePath="..\appleseed\xmlhelper.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\appleseed\xmlhelper.h"
 					>
 				</File>
 				<Filter

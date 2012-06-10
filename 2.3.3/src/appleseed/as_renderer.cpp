@@ -30,6 +30,7 @@
 //#include "MayaConnection.h"
 #include "log_helper.h"
 #include "as_GlobalNodeHelper.h"
+#include "xmlhelper.h"
 
 namespace appleseed
 {
@@ -40,6 +41,7 @@ namespace appleseed
 		//m_groupMgr = new GroupMgr(this);
 
 		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_appleseed");
+		m_doc = NULL;
 	}
 	//
 	Renderer::~Renderer()
@@ -278,6 +280,9 @@ namespace appleseed
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
 		m_log.open((currentJob.ribFileName+".as").asChar());
+
+		m_doc = XmlInitialize();
+
 		//////////////////////////////////////////////////////////////////////////
 
 		_s("//### SCENE BEGIN ###");
@@ -293,6 +298,9 @@ namespace appleseed
 
 		cookInstanceGroup();
 
+		XmlOutput(m_doc, (currentJob.ribFileName+".appleseed").asChar());
+
+
 		assert(!m_root_group.empty());
 		assert(currentJob.camera[0].name.length());
 		assert(!m_option.empty());
@@ -307,6 +315,9 @@ namespace appleseed
 			//todo
 		}
 		//////////////////////////////////////////////////////////////////////////
+		//
+		XmlTerminate(m_doc);
+
 		//close script log file
 		m_log.close();
 		//////////////////////////////////////////////////////////////////////////
