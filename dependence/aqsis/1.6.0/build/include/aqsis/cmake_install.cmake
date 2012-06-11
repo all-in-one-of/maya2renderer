@@ -1,4 +1,4 @@
-# Install script for directory: E:/dev/render/renderer/renderman.compliant/aqsis/1.6.0/src/include/aqsis
+# Install script for directory: E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

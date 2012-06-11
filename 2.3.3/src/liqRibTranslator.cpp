@@ -2420,7 +2420,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						//freeShaders();
 						}*/
 
-						htable = shared_ptr< liqRibHT >( new liqRibHT() );
+						htable = boost::shared_ptr< liqRibHT >( new liqRibHT() );
 						hashTableInited = true;
 						LIQDEBUGPRINTF( "Created hash table...\n" );
 

@@ -1,30 +1,13 @@
 # This file will be configured to contain variables for CPack. These variables
 # should be set in the CMake list file of the project before CPack module is
-# included. Example variables are:
-#   CPACK_GENERATOR                     - Generator used to create package
-#   CPACK_INSTALL_CMAKE_PROJECTS        - For each project (path, name, component)
-#   CPACK_CMAKE_GENERATOR               - CMake Generator used for the projects
-#   CPACK_INSTALL_COMMANDS              - Extra commands to install components
-#   CPACK_INSTALL_DIRECTORIES           - Extra directories to install
-#   CPACK_PACKAGE_DESCRIPTION_FILE      - Description file for the package
-#   CPACK_PACKAGE_DESCRIPTION_SUMMARY   - Summary of the package
-#   CPACK_PACKAGE_EXECUTABLES           - List of pairs of executables and labels
-#   CPACK_PACKAGE_FILE_NAME             - Name of the package generated
-#   CPACK_PACKAGE_ICON                  - Icon used for the package
-#   CPACK_PACKAGE_INSTALL_DIRECTORY     - Name of directory for the installer
-#   CPACK_PACKAGE_NAME                  - Package project name
-#   CPACK_PACKAGE_VENDOR                - Package project vendor
-#   CPACK_PACKAGE_VERSION               - Package project version
-#   CPACK_PACKAGE_VERSION_MAJOR         - Package project version (major)
-#   CPACK_PACKAGE_VERSION_MINOR         - Package project version (minor)
-#   CPACK_PACKAGE_VERSION_PATCH         - Package project version (patch)
-
-# There are certain generator specific ones
-
-# NSIS Generator:
-#   CPACK_PACKAGE_INSTALL_REGISTRY_KEY  - Name of the registry key for the installer
-#   CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS - Extra commands used during uninstall
-#   CPACK_NSIS_EXTRA_INSTALL_COMMANDS   - Extra commands used during install
+# included. The list of available CPACK_xxx variables and their associated
+# documentation may be obtained using
+#  cpack --help-variable-list
+#
+# Some variables are common to all generators (e.g. CPACK_PACKAGE_NAME)
+# and some are specific to a generator
+# (e.g. CPACK_NSIS_EXTRA_INSTALL_COMMANDS). The generator specific variables
+# usually begin with CPACK_<GENNAME>_xxxx.
 
 
 SET(CPACK_ALL_INSTALL_TYPES "Full;Minimal")
@@ -41,7 +24,7 @@ SET(CPACK_BINARY_TBZ2 "")
 SET(CPACK_BINARY_TGZ "")
 SET(CPACK_BINARY_TZ "")
 SET(CPACK_BINARY_ZIP "")
-SET(CPACK_CMAKE_GENERATOR "Visual Studio 8 2005")
+SET(CPACK_CMAKE_GENERATOR "Visual Studio 10")
 SET(CPACK_COMPONENTS_ALL "main;examples;shaders;plugins;development;Unspecified")
 SET(CPACK_COMPONENTS_ALL_SET_BY_USER "TRUE")
 SET(CPACK_COMPONENT_DEVELOPMENT_DESCRIPTION "Include and library files for software development")
@@ -76,6 +59,7 @@ SET(CPACK_NSIS_HELP_LINK "http:\\\\community.aqsis.org")
 SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\eqsl.exe")
 SET(CPACK_NSIS_INSTALLER_ICON_CODE "")
 SET(CPACK_NSIS_INSTALLER_MUI_ICON_CODE "")
+SET(CPACK_NSIS_INSTALL_ROOT "$PROGRAMFILES")
 SET(CPACK_NSIS_MODIFY_PATH "ON")
 SET(CPACK_NSIS_PACKAGE_NAME "Aqsis Renderer 1.6.0")
 SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\www.aqsis.org")

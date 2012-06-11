@@ -424,7 +424,7 @@ TempControlBreak liqRibTranslator::processOneFrame(
 			{
 				LIQDEBUGPRINTF( "Scanning at time: %u \n", scanTime );
 
-				htable = shared_ptr< liqRibHT >( new liqRibHT() );
+				htable = boost::shared_ptr< liqRibHT >( new liqRibHT() );
 				//hashTableInited = true;
 				LIQDEBUGPRINTF( "Created hash table...\n" );
 
@@ -2414,7 +2414,7 @@ MStatus liqRibTranslator::frameEpilogue__( long scanTime)
 MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 	const MArgList& args , const MString& originalLayer )
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::_doItNewWithoutRenderScript(arg,"<<originalLayer<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::_doItNewWithoutRenderScript(arg,"<<originalLayer.asChar()<<")");
 	MStatus status;
 #if (Refactoring == 0)
 	MString lastRibName;

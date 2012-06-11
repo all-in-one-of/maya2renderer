@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\dsoshadeops.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderstack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadervm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadervm1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadervm2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_bake3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_comp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_deriv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_dso.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_illum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_inter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_matrx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_rand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shadeops_tmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shaderexecenv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\dsoshadeops.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\idsoshadeops.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadeopmacros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderstack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadervariable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadervm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shadervm_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\shadervm\shaderexecenv\shaderexecenv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\info.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\src\libs\shadervm\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D1469FFA-1323-4712-B53B-2AA7B0CD2F55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D1D2B18C-1DE5-4910-8F4B-F6374B7C5D0B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

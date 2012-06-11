@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\cellnoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\lowdiscrep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\noise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\noise1234.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\math\spline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\info.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\src\libs\math\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D1469FFA-1323-4712-B53B-2AA7B0CD2F55}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

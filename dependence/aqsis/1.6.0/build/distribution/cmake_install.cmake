@@ -1,4 +1,4 @@
-# Install script for directory: E:/dev/render/renderer/renderman.compliant/aqsis/1.6.0/src/distribution
+# Install script for directory: E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/distribution
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,10 +29,8 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE PROGRAM FILES
-    "D:/Program Files/Microsoft Visual Studio 8/VC/redist/x86/Microsoft.VC80.CRT/Microsoft.VC80.CRT.manifest"
-    "D:/Program Files/Microsoft Visual Studio 8/VC/redist/x86/Microsoft.VC80.CRT/msvcm80.dll"
-    "D:/Program Files/Microsoft Visual Studio 8/VC/redist/x86/Microsoft.VC80.CRT/msvcp80.dll"
-    "D:/Program Files/Microsoft Visual Studio 8/VC/redist/x86/Microsoft.VC80.CRT/msvcr80.dll"
+    "D:/Program Files/Microsoft Visual Studio 10.0/VC/redist/x86/Microsoft.VC100.CRT/msvcp100.dll"
+    "D:/Program Files/Microsoft Visual Studio 10.0/VC/redist/x86/Microsoft.VC100.CRT/msvcr100.dll"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

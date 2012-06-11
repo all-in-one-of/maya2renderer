@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{39db403f-1f41-449c-bfc6-6d3b25092df2}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9b98df0a-626d-49df-8367-9c7bbab7509c}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{1270d22a-a332-4af0-9f0b-ba7db02d1945}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\ribLib\error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ribLib\ri.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ribLib\ribOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ribLib\riInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ribLib\variable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\gzclose.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\gzlib.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\gzread.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\gzwrite.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\minigzip.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\ribLib\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ribLib\error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ribLib\ri.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ribLib\ribOut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ribLib\riInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ribLib\variable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\deflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\gzguts.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\..\tools\zlib\1.2.5\zutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

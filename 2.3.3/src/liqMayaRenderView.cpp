@@ -572,7 +572,7 @@ int liqMayaRenderCmd::createSocket(const char *hostname,const unsigned int port)
 	/* network-order */
 	serverName.sin_port = htons(port);
 
-	status = bind(serverSocket,(struct sockaddr *) &serverName,sizeof(serverName));
+	status = ::bind(serverSocket,(struct sockaddr *) &serverName,sizeof(serverName));
 	if (-1 == status) 
 	{
 		perror("[liqMayaRenderCmd] bind()");

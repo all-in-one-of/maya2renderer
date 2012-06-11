@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\ascii.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\binary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\outstream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\plstore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\ri.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\tokens.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\ascii.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\binary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\output.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\outstream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\ri2rib\plstore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\info.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\src\libs\ri2rib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D1469FFA-1323-4712-B53B-2AA7B0CD2F55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D1D2B18C-1DE5-4910-8F4B-F6374B7C5D0B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\attributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bucket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bucketprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\csgtree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\filters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\imagebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\imagepixel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\imagers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\lights.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\micropolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\mpdump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\multijitter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\occlusion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\optioncache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\options.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\parameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\shaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\stats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\threadscheduler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\condition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\genpoly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\graphicsstate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\ri.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\rif.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\ddmanager\ddmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\ddmanager\debugdd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\blobby.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\bunny.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\cubiccurves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\curves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\jules_bloomenthal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\lath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\linearcurves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\marchingcubes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\nurbs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\patch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\points.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\procedural.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\quadrics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\subdivision2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\teapot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\trimcurve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\raytrace\raytrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\texturing_old\environment_old.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\texturing_old\shadowmap_old.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\texturing_old\texturemap_old.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\ribrequesthandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\raytrace\raytrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\attributes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bilinear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bucket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\bucketprocessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\channelbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\clippingvolume.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\csgtree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\forwarddiff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\imagebuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\imagepixel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\imagers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\isampler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\lights.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\micropolygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\motion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\mpdump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\multijitter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\objectinstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\occlusion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\optioncache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\parameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\shaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\stats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\threadscheduler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\condition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\genpoly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\graphicsstate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\ri_cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\api\ri_debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\core\api\ri_cache.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\core\api\ri_debug.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\core\api\ri_validate.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\ddmanager\ddmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\ddmanager\debugdd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\ddmanager\iddmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\blobby.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\bunny.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\curves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\jules_bloomenthal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\kdtree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\lath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\lookuptable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\marchingcubes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\nurbs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\patch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\points.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\polygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\procedural.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\quadrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\subdivision2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\teapot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\geometry\trimcurve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\raytrace\iraytrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\texturing_old\itexturemap_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\core\texturing_old\texturemap_old.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\ribrequesthandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\info.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\src\libs\core\CMakeLists.txt" />
+    <CustomBuild Include="..\rib2ri\requesthandler_method_impl.inl.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\rib2ri\requestlists.inl.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="api\ri_cache.inl.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="api\ri_debug.inl.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="api\ri_validate.inl.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\rib2ri\requesthandler_method_defs.inl.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D1469FFA-1323-4712-B53B-2AA7B0CD2F55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D1D2B18C-1DE5-4910-8F4B-F6374B7C5D0B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{55959F24-C2CC-4352-AB75-60F55D06D249}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

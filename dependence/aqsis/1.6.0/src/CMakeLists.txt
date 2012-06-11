@@ -264,8 +264,8 @@ add_subdirectory(tools/procedurals/hairgen)
 add_subdirectory(tools/neqsus)
 
 # Build shaders & install examples
-add_subdirectory(shaders)
-add_subdirectory(examples)
+#add_subdirectory(shaders)
+#add_subdirectory(examples)
 
 # Build docs
 if(AQSIS_ENABLE_DEVDOCS)

@@ -31,6 +31,7 @@
 
 #include <iosfwd>
 #include <vector>
+#include <iterator>
 
 #include <boost/format.hpp>
 

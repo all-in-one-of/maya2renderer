@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugLib_Liquid|Win32">
+      <Configuration>DebugLib_Liquid</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\src\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeSystem.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCCompiler.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeRCCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\UtilMacros.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\AqsisTesting.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FirstCMakeRun.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\XslTransform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindTIFF.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindZLIB.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFLTK.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOpenEXR.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXsltproc.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFlexBison.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindNSIS.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOsacompile.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXcodebuild.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindResource.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\platform\windows.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\info.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\icon.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\aqsisrc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeSystem.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCCompiler.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeRCCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\UtilMacros.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\AqsisTesting.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FirstCMakeRun.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\XslTransform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindTIFF.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindZLIB.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFLTK.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOpenEXR.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXsltproc.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFlexBison.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindNSIS.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOsacompile.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXcodebuild.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindResource.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\platform\windows.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\info.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\icon.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\aqsisrc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeSystem.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCCompiler.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeRCCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\UtilMacros.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\AqsisTesting.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FirstCMakeRun.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\XslTransform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindTIFF.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindZLIB.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFLTK.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOpenEXR.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXsltproc.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFlexBison.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindNSIS.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOsacompile.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXcodebuild.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindResource.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\platform\windows.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\info.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\icon.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\aqsisrc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeSystem.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCCompiler.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeRCCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\UtilMacros.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\AqsisTesting.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FirstCMakeRun.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\XslTransform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindTIFF.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindZLIB.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFLTK.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOpenEXR.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXsltproc.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFlexBison.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindNSIS.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOsacompile.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXcodebuild.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindResource.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\platform\windows.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\info.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\icon.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\aqsisrc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeSystem.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCCompiler.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeRCCompiler.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCPlatform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\CMakeCXXPlatform.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\UtilMacros.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\AqsisTesting.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FirstCMakeRun.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\XslTransform.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindTIFF.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindZLIB.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;D:\Program Files\CMake 2.8\share\cmake-2.8\Modules\FindBoost.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFLTK.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOpenEXR.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXsltproc.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindFlexBison.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindNSIS.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindOsacompile.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindXcodebuild.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\modules\FindResource.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\cmake\platform\windows.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\info.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\distribution\win\icon.rc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\aqsisrc.in.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\ALL_BUILD.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build all projects</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\ALL_BUILD</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/CMakeFiles/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\ALL_BUILD</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\CMakeFiles\ALL_BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/ZERO_CHECK.vcxproj">
+      <Project>DA442667-4C7B-4E97-B747-5C63896D9B1A</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/aqsis.vcxproj">
+      <Project>65D5F5A1-7989-4B32-94D5-CED617A35486</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/core/aqsis_core.vcxproj">
+      <Project>C7152568-05A8-47D1-A4FF-69B989AB5157</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/math/aqsis_math.vcxproj">
+      <Project>8AA1BEDE-4E82-4026-ACFD-11C07395BD1B</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/ri2rib/aqsis_ri2rib.vcxproj">
+      <Project>D19E97CD-208C-4F68-89AC-816896127AE7</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/ribparse/aqsis_ribparse.vcxproj">
+      <Project>7953CCDE-6957-4AC7-861A-C4AD159DBB12</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/riutil/aqsis_riutil.vcxproj">
+      <Project>1D1ABEBC-B78D-4431-B67D-12FE0B7CB584</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/shadervm/aqsis_shadervm.vcxproj">
+      <Project>AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/slcomp/aqsis_slcomp.vcxproj">
+      <Project>2C8E8168-8E00-487E-B4CC-86B575739FDA</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/slxargs/aqsis_slxargs.vcxproj">
+      <Project>BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/tex/aqsis_tex.vcxproj">
+      <Project>FCB32810-123C-4639-9A04-D51024226737</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/util/aqsis_util.vcxproj">
+      <Project>B3A065F3-F111-4165-BCE1-5789AEB277A2</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsl/aqsl.vcxproj">
+      <Project>C137E61B-0936-49AA-9BF9-00B20DD9479D</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsltell/aqsltell.vcxproj">
+      <Project>E7503019-BDF4-45D7-9D3D-D9DEE211293A</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/bmp_dspy.vcxproj">
+      <Project>35A64CC0-38E0-4224-8803-A7F02F148DDD</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/file/file_dspy.vcxproj">
+      <Project>B8A83B4C-36F7-494B-BCFC-52FAFB0FD299</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/procedurals/hairgen/hairgen.vcxproj">
+      <Project>15952154-3A45-483D-A8B6-5F0E63EE4FA8</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/miqser.vcxproj">
+      <Project>F0299328-9744-4A5E-B343-ED4C19EAE64E</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/piqsl/piqsl_dspy.vcxproj">
+      <Project>E66F1CC4-683C-42C2-97B9-A624495BE15A</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include/aqsis/ri/ri_inl.vcxproj">
+      <Project>008E6A51-D57C-49BA-B2BA-68A658DF3938</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/teqser/teqser.vcxproj">
+      <Project>EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/xpm/xpm_dspy.vcxproj">
+      <Project>8512F463-D016-46BC-A35F-C7B05DC80FD7</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

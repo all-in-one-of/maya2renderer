@@ -44,12 +44,26 @@ RenderMan (R) is a registered trademark of Pixar
                           Build/Install/Test/AutomationTest
  ---------------------------------------------------------------------
 - Development environment
-   - msvc 2008(sp1)
-   - Boost(1.46.1 or later), set BOOST_ROOT in system environment variables, e.g. BOOST_ROOT=E:/dev/boost/1_46_1
+   - msvc 2010(sp1)
+   - Boost(1.47 or later), set BOOST_ROOT in system environment variables, e.g. BOOST_ROOT=E:/dev/boost/1_47
    - Maya2009 x32, set MAYA_PATH2009 in system environment variables, e.g. MAYA_PATH2009=D:\Program Files\Autodesk\Maya2009
    - (For renderman renderer only) Renderman Pro Server.
+- Build Dependence
+   - aqsis
+     - open liquid_\dependence\aqsis\1.6.0\build\aqsis_all.sln, set 'Win32','DebugLib_liquid' in Configuration Manager,
+     - build the following projects:
+        aqsis_core.lib,
+	aqsis_math.lib,
+	aqsis_ri2rib.lib,
+	aqsis_ribparse.lib,
+        aqsis_tex.lib,
+	aqsis_util.lib,
+	aqsis_riutil.lib,
+	aqsis_shadervm.lib,
+     - copy these libs from $(LiquidRoot)\dependence\aqsis\1.6.0\build\DebugLib_liquid\ to 
+       $(LiquidRoot)\dependence\aqsis\1.6.0\build\DebugLib\
 - Build
-  - access https://github.com/yaoyansi/maya2renderer, check out the code to your local directory, say it $(LiquidRoot).
+  - access https://github.com/maya2renderer/maya2renderer, check out the code to your local directory, say it $(LiquidRoot).
     The directory structure should be£º
        $(LiquidRoot)\
                  +---2.3.3\

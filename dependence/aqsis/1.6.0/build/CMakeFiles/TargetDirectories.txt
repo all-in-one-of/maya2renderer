@@ -1,6 +1,5 @@
 E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/util/CMakeFiles/ALL_BUILD.dir
 E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/CMakeFiles/ZERO_CHECK.dir
-E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/shaders/CMakeFiles/all_shaders.dir
 E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/CMakeFiles/aqsis.dir
 E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/core/CMakeFiles/aqsis_core.dir
 E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/math/CMakeFiles/aqsis_math.dir

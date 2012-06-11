@@ -28,7 +28,7 @@ void tRibCameraMgr::gatherDataForJob(
 	const bool m_outputHeroPass_
 	)
 {
-	CM_TRACE_FUNC("tRibCameraMgr::gatherDataForJob(liqglo___, "<<thisJob___.name<<",jobList__,"<<m_outputShadowPass_<<","<<m_outputHeroPass_<<")");
+	CM_TRACE_FUNC("tRibCameraMgr::gatherDataForJob(liqglo___, "<<thisJob___.name.asChar()<<",jobList__,"<<m_outputShadowPass_<<","<<m_outputHeroPass_<<")");
 
 	// Determine which cameras to render
 	// it will either traverse the dag and find all the renderable cameras or

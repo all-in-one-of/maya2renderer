@@ -53,8 +53,6 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/cmake_install.cmake")
   INCLUDE("E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/procedurals/hairgen/cmake_install.cmake")
   INCLUDE("E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/neqsus/cmake_install.cmake")
-  INCLUDE("E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/shaders/cmake_install.cmake")
-  INCLUDE("E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/examples/cmake_install.cmake")
   INCLUDE("E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/distribution/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
