@@ -68,7 +68,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
     cvColor(),
     cvOpacity()
 {
-	CM_TRACE_FUNC("liqRibPfxHairData::liqRibPfxHairData("<<MFnDagNode(pfxHair).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibPfxHairData::liqRibPfxHairData("<<MFnDagNode(pfxHair).fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating pfxHair curve\n" );
   MStatus status( MS::kSuccess );
@@ -298,7 +298,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
 //
 void liqRibPfxHairData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibPfxHairData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibPfxHairData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	liquid::RendererMgr::getInstancePtr()->
 		getRenderer()->write(this, ribFileName, currentJob, bReference);

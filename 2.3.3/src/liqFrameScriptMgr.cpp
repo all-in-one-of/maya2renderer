@@ -145,7 +145,7 @@ void tFrameScriptJobMgr::makeShadowPass(
 										)
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::makeShadowPass(shadowList__,shadowJob__,"<<alf_textures__<<","<<alf_shadows__<<","<<alf_refmaps__<<","
-		<<framePreCommand__<<", "<<frameRenderCommand__<<", "<<currentBlock__<<")");
+		<<framePreCommand__.asChar()<<", "<<frameRenderCommand__.asChar()<<", "<<currentBlock__<<")");
 
 	std::vector< structJob >::iterator iter = shadowList__.begin();
 
@@ -305,7 +305,7 @@ void tFrameScriptJobMgr::makeReflectionPass(
 
 void tFrameScriptJobMgr::try_addPreFrameCommand(const MString &framePreFrameCommand__)
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::try_addPreFrameCommand("<<framePreFrameCommand__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::try_addPreFrameCommand("<<framePreFrameCommand__.asChar()<<")");
 
 	if( framePreFrameCommand__ != MString("") ) 
 	{
@@ -318,7 +318,7 @@ void tFrameScriptJobMgr::try_addPreFrameCommand(const MString &framePreFrameComm
 //
 void tFrameScriptJobMgr::try_addPostFrameCommand(const MString &framePostFrameCommand__)
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::try_addPostFrameCommand("<<framePostFrameCommand__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::try_addPostFrameCommand("<<framePostFrameCommand__.asChar()<<")");
 
 	if( framePostFrameCommand__ != MString("") ) 
 	{
@@ -333,7 +333,7 @@ void tFrameScriptJobMgr::addHeroPass(
 	const MString &frameRenderCommand__
 )
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::addHeroPass("<<ribFileName__t<<","<<framePreCommand__<<","<<frameRenderCommand__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::addHeroPass("<<ribFileName__t.asChar()<<","<<framePreCommand__.asChar()<<","<<frameRenderCommand__.asChar()<<")");
 
 	std::stringstream ss;
 	MString ribFileName__ = ribFileName__t;
@@ -373,7 +373,7 @@ void tFrameScriptJobMgr::addShadowPass(
 				   const MString &frameRenderCommand__
 				   )
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::addShadowPass("<<ribFileName__<<","<<framePreCommand__<<","<<frameRenderCommand__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::addShadowPass("<<ribFileName__.asChar()<<","<<framePreCommand__.asChar()<<","<<frameRenderCommand__.asChar()<<")");
 
 	std::stringstream ss;
 	if( liqglo.useNetRman ) 
@@ -403,7 +403,7 @@ void tFrameScriptJobMgr::cleanHeroPass(const MString &framePreCommand__,
 									   const MString &ribFileName__
 									   )
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanHeroPass("<<framePreCommand__<<","<<ribFileName__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanHeroPass("<<framePreCommand__.asChar()<<","<<ribFileName__.asChar()<<")");
 
 	std::stringstream ss;
 #ifdef _WIN32
@@ -418,7 +418,7 @@ void tFrameScriptJobMgr::cleanHeroPass(const MString &framePreCommand__,
 void tFrameScriptJobMgr::cleanShadowPass(const MString &framePreCommand__,
 										 const MString &ribFileName__)
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanShadowPass("<<framePreCommand__<<","<<ribFileName__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanShadowPass("<<framePreCommand__.asChar()<<","<<ribFileName__.asChar()<<")");
 
 	std::stringstream ss;
 #ifdef _WIN32
@@ -433,7 +433,7 @@ void tFrameScriptJobMgr::cleanShadowPass(const MString &framePreCommand__,
 void tFrameScriptJobMgr::cleanShadowRibGen(const MString &framePreCommand__,
 										   const MString &ribFileName__)
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanShadowRibGen("<<framePreCommand__<<","<<ribFileName__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanShadowRibGen("<<framePreCommand__.asChar()<<","<<ribFileName__.asChar()<<")");
 
 	std::stringstream ss;
 #ifdef _WIN32
@@ -447,14 +447,14 @@ void tFrameScriptJobMgr::cleanShadowRibGen(const MString &framePreCommand__,
 //
 void tFrameScriptJobMgr::viewHeroPassImage(const MString &imageName__)
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::viewHeroPassImage("<<imageName__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::viewHeroPassImage("<<imageName__.asChar()<<")");
 
 	m_frameScriptJob.chaserCommand = (std::string( "sho \"" ) + imageName__.asChar() + "\"" );
 }
 //
 void tFrameScriptJobMgr::viewShadowPassImage(const MString &imageName__)
 {
-	CM_TRACE_FUNC("tFrameScriptJobMgr::viewShadowPassImage("<<imageName__<<")");
+	CM_TRACE_FUNC("tFrameScriptJobMgr::viewShadowPassImage("<<imageName__.asChar()<<")");
 
 	m_frameScriptJob.chaserCommand = (std::string( "sho \"" ) + imageName__.asChar() + "\"" );
 }

@@ -59,7 +59,7 @@ liqRibNuCurveData::liqRibNuCurveData( MObject curve )
   CVs(),
   NuCurveWidth()
 {
-	CM_TRACE_FUNC("liqRibNuCurveData::liqRibNuCurveData("<<MFnDagNode(curve).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibNuCurveData::liqRibNuCurveData("<<MFnDagNode(curve).fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating nurbs curve\n" );
   MStatus status( MS::kSuccess );
@@ -168,7 +168,7 @@ liqRibNuCurveData::liqRibNuCurveData( MObject curve )
 //
 void liqRibNuCurveData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibNuCurveData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibNuCurveData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibNuCurveData.cpp");
 
@@ -191,7 +191,7 @@ void liqRibNuCurveData::write(const MString &ribFileName, const structJob &curre
  */
 void liqRibNuCurveData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibNuCurveData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibNuCurveData::_write(job="<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing nurbs curve\n" );
 

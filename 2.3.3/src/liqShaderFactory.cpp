@@ -72,7 +72,7 @@ void liqShaderFactory::clearShaders()
 
 liqShader &liqShaderFactory::getShader( MObject shaderObj )
 {
-	CM_TRACE_FUNC("liqShaderFactory::getShader("<<MFnDependencyNode(shaderObj).name()<<")");
+	CM_TRACE_FUNC("liqShaderFactory::getShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
 
 	MString rmShaderStr;
 	MFnDependencyNode shaderNode( shaderObj );
@@ -102,7 +102,7 @@ liqShader &liqShaderFactory::getShader( MObject shaderObj )
 
 MString liqShaderFactory::getShaderId( MObject shaderObj )
 {
-	CM_TRACE_FUNC("liqShaderFactory::getShader("<<MFnDependencyNode(shaderObj).name()<<")");
+	CM_TRACE_FUNC("liqShaderFactory::getShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
 
 	liqShader &shader = liqShaderFactory::getShader( shaderObj );
 	return shader.shaderHandler;

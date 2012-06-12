@@ -68,38 +68,38 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 			valStr[1].set(val[1]);
 			valStr[2].set(val[2]);
 			rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
-			file<<"ei_shader_param_vector(\""<< rslName<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
+			file<<"ei_shader_param_vector(\""<< rslName.asChar()<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
 		}else if(rslType=="string"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
-			file<<"ei_shader_param_string(\""<<rslName<<"\", \""<<val<<"\");"<<endl;
+			file<<"ei_shader_param_string(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
 		}else if(rslType=="texture"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
-			file<<"ei_shader_param_texture(\""<<rslName<<"\", \""<<val<<"\");"<<endl;
+			file<<"ei_shader_param_texture(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
 		}
 		else if(rslType=="int"){
 			int val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
-			file<<"ei_shader_param_int(\""<<rslName<<"\", "<<val<<");"<<endl;
+			file<<"ei_shader_param_int(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 		}
 		else if(rslType=="index"){
 			int val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
-			file<<"ei_shader_param_index(\""<<rslName<<"\", "<<val<<");"<<endl;
+			file<<"ei_shader_param_index(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 		}
 		else if(rslType=="bool"){
 			int val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
-			file<<"ei_shader_param_bool(\""<<rslName<<"\", "<<val<<");"<<endl;
+			file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 		}
 		else if(rslType=="tag"){
 			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
@@ -118,7 +118,7 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 				MString valStr;
 				valStr.set(val);
 				rslShaderBody += valStr;
-				file<<"ei_shader_param_scalar(\""<<rslName<<"\", "<<val<<");"<<endl;
+				file<<"ei_shader_param_scalar(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 			}else{
 				rslShaderBody += "{ ";
 				MDoubleArray val; val.setLength(rslTypeSize);
@@ -158,7 +158,7 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 				valStr[1].set(val[1]);
 				valStr[2].set(val[2]);
 				rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
-				file<<"ei_shader_param_vector(\""<< rslName<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
+				file<<"ei_shader_param_vector(\""<< rslName.asChar()<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
 			}
 		}
 
@@ -195,7 +195,7 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 			//}
 			//else//the srcNode is NOT a texture
 			{
-				file<<"ei_shader_link_param(\""<<rslName<<"\", \""<<srcNode<<"\", \""<<srcAttr<<"\");"<<std::endl;
+				file<<"ei_shader_link_param(\""<<rslName.asChar()<<"\", \""<<srcNode.asChar()<<"\", \""<<srcAttr.asChar()<<"\");"<<std::endl;
 			}
 		}
 
@@ -204,14 +204,14 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 //
 void OutputHelper::addTo(const MString& code)
 {
-	file<<code<<std::endl;
+	file<<code.asChar()<<std::endl;
 }
 //
 void OutputHelper::begin (const MString& name)
 {
-	CM_TRACE_FUNC("OutputHelper::begin("<<name<<")");
+	CM_TRACE_FUNC("OutputHelper::begin("<<name.asChar()<<")");
 
-	file<< "ei_shader(\""<<name<<"\");"<<std::endl;
+	file<< "ei_shader(\""<<name.asChar()<<"\");"<<std::endl;
 }
 //
 void OutputHelper::end ()
@@ -234,7 +234,7 @@ Visitor::~Visitor()
 //
 void Visitor::initShaderData(const MString& startingNode, const MString &mayaplug)
 {
-	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode<<","<<mayaplug<<")");
+	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
 
 }
 void Visitor::preOutput(const char* shaderNodeName)
@@ -269,14 +269,14 @@ void  Visitor::addShaderMethodBody(const MString &currentNode,
 								   const MStringArray& inputVars,
 								   const MStringArray& outputVars)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode<<","<<inputVars<<","<<outputVars<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputVars)<<","<<liqM(outputVars)<<")");
 
 }
 void Visitor::addShaderMethodVariavles(
 									  const MString &typeSize,
 									  const MString &varName)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<typeSize<<","<<varName<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<typeSize.asChar()<<","<<varName.asChar()<<")");
 
 }
 void Visitor::outputEnd()

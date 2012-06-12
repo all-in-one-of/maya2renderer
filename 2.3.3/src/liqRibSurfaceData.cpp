@@ -75,7 +75,7 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
     w()
 
 {
-	CM_TRACE_FUNC("liqRibSurfaceData::liqRibSurfaceData("<<MFnDependencyNode(surface).name()<<")");
+	CM_TRACE_FUNC("liqRibSurfaceData::liqRibSurfaceData("<<MFnDependencyNode(surface).name().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating nurbs surface\n" );
   if ( debugMode ) {
@@ -394,7 +394,7 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 //
 void liqRibSurfaceData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibSurfaceData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibSurfaceData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibSurfaceData");
 
@@ -417,7 +417,7 @@ void liqRibSurfaceData::write(const MString &ribFileName, const structJob &curre
  */
 void liqRibSurfaceData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibSurfaceData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibSurfaceData::_write(job="<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing nurbs surface\n" );
 

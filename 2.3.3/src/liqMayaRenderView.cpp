@@ -592,7 +592,7 @@ int liqMayaRenderCmd::createSocket(const char *hostname,const unsigned int port)
 
 
 MObject getNode(MString name,MStatus *returnStatus){
-	CM_TRACE_FUNC("getNode("<<name<<")");
+	CM_TRACE_FUNC("getNode("<<name.asChar()<<")");
 	MObject node;
 	MSelectionList list;
 

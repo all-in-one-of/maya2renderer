@@ -4914,7 +4914,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 */
 void liqRibTranslator::doAttributeBlocking( const MDagPath& newPath, const MDagPath& previousPath )
 {
-	CM_TRACE_FUNC("liqRibTranslator::doAttributeBlocking("<<MFnDagNode(newPath).fullPathName()<<","<<previousPath.fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibTranslator::doAttributeBlocking("<<MFnDagNode(newPath).fullPathName().asChar()<<","<<previousPath.fullPathName().asChar()<<")");
 
 	int newDepth = newPath.length();
 	int prevDepth = 0;
@@ -7240,7 +7240,7 @@ void liqRibTranslator::setSearchPaths()
 
 bool liqRibTranslator::renderFrameSort( const structJob& a, const structJob& b )
 {
-	CM_TRACE_FUNC("liqRibTranslator::renderFrameSort("<<a.name<<","<<b.name<<")");
+	CM_TRACE_FUNC("liqRibTranslator::renderFrameSort("<<a.name.asChar()<<","<<b.name.asChar()<<")");
 
 	long v1 = ( a.isShadow )? a.renderFrame : 100000000;
 	long v2 = ( b.isShadow )? b.renderFrame : 100000000;
@@ -7254,7 +7254,7 @@ void liqRibTranslator::_writeObject(
 	const unsigned int msampleOn
 	)
 {
-	CM_TRACE_FUNC("liqRibTranslator::_writeObject("<<ribNode->name<<","<<currentJob.name<<","<<bGeometryMotionBlur<<","<<msampleOn<<")");
+	CM_TRACE_FUNC("liqRibTranslator::_writeObject("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<","<<bGeometryMotionBlur<<","<<msampleOn<<")");
 
 // 	MString frame; 
 // 	frame.set(liqglo.liqglo_lframe);

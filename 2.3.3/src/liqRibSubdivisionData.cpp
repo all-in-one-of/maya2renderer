@@ -71,7 +71,7 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
     uvDetail( rFaceVarying ),
     trueFacevarying( false )
 {
-	CM_TRACE_FUNC("liqRibSubdivisionData::liqRibSubdivisionData("<<MFnDagNode(mesh).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibSubdivisionData::liqRibSubdivisionData("<<MFnDagNode(mesh).fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating subdivision surface\n" );
   MFnMesh fnMesh( mesh );
@@ -219,7 +219,7 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
 //
 void liqRibSubdivisionData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibSubdivisionData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibSubdivisionData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	if( !bReference ){//write data at first time
 		assert(m_ribFileFullPath.length()==0);
@@ -240,7 +240,7 @@ void liqRibSubdivisionData::write(const MString &ribFileName, const structJob &c
  */
 void liqRibSubdivisionData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibSubdivisionData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibSubdivisionData::_write(job="<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing subdivision surface\n" );
 
@@ -317,7 +317,7 @@ ObjectType liqRibSubdivisionData::type() const
 //
 void liqRibSubdivisionData::checkExtraTags( MObject &mesh )
 {
-	CM_TRACE_FUNC("liqRibSubdivisionData::checkExtraTags("<<MFnDependencyNode(mesh).name()<<")");
+	CM_TRACE_FUNC("liqRibSubdivisionData::checkExtraTags("<<MFnDependencyNode(mesh).name().asChar()<<")");
 
 	MStatus status = MS::kSuccess;
 	MPlugArray array;
@@ -447,7 +447,7 @@ void liqRibSubdivisionData::checkExtraTags( MObject &mesh )
 
 void liqRibSubdivisionData::addExtraTags( MObject &mesh, SBD_EXTRA_TAG extraTag )
 {
-	CM_TRACE_FUNC("liqRibSubdivisionData::addExtraTags("<<MFnDagNode(mesh).fullPathName()<<","<<extraTag<<")");
+	CM_TRACE_FUNC("liqRibSubdivisionData::addExtraTags("<<MFnDagNode(mesh).fullPathName().asChar()<<","<<extraTag<<")");
 
 	MStatus status;
 	MFnMesh fnMesh( mesh );
@@ -493,7 +493,7 @@ void liqRibSubdivisionData::addExtraTags( MObject &mesh, SBD_EXTRA_TAG extraTag 
 
 void liqRibSubdivisionData::addExtraTags( MObject &dstNode, float extraTagValue, SBD_EXTRA_TAG extraTag )
 {
-	CM_TRACE_FUNC("liqRibSubdivisionData::addExtraTags("<<MFnDependencyNode(dstNode).name()<<","<<extraTagValue<<","<<extraTag<<")");
+	CM_TRACE_FUNC("liqRibSubdivisionData::addExtraTags("<<MFnDependencyNode(dstNode).name().asChar()<<","<<extraTagValue<<","<<extraTag<<")");
 
 	if( TAG_BOUNDARY == extraTag )
 	{

@@ -10,7 +10,7 @@ namespace elvishray
 	//
 	void addLightGroupForLight(const MString& lightTransformNode)
 	{
-		CM_TRACE_FUNC("addLightGroupForLight("<<lightTransformNode<<")");
+		CM_TRACE_FUNC("addLightGroupForLight("<<lightTransformNode.asChar()<<")");
 
 		MStringArray meshNodes;
 #ifdef TRANSFORM_SHAPE_PAIR
@@ -39,7 +39,7 @@ namespace elvishray
 	bool Renderer::writeLight_pre(const liqRibNodePtr& ribNode, const structJob &currentJob)
 	{
 
-		CM_TRACE_FUNC("Renderer::writeLight_pre("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::writeLight_pre("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		RtString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
 		_s("\n// Renderer::exportLight(\""+std::string(RibNodeName)+"\");");
@@ -49,7 +49,7 @@ namespace elvishray
 	//
 	void Renderer::writeLight_post(const liqRibNodePtr& ribNode, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::writeLight_post("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::writeLight_post("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 	}
 	//
 	liqLightHandle Renderer::exportAmbientLight(

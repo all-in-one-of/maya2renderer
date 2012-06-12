@@ -70,7 +70,7 @@ namespace elvishray
 	//
 	MStatus Renderer::worldPrologue(const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::worldPrologue("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::worldPrologue("<<currentJob.name.asChar()<<")");
 
 		_s("\n//worldPrologue");
 
@@ -142,7 +142,7 @@ namespace elvishray
 	}
 	MStatus Renderer::liqRibLightData_write(const liqRibLightData *lightdata, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::liqRibLightData_write("<<lightdata->getFullPathName()<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::liqRibLightData_write("<<lightdata->getFullPathName()<<","<<currentJob.name.asChar()<<")");
 		return MS::kSuccess;
 	}
 
@@ -152,7 +152,7 @@ namespace elvishray
 		const structJob &currentJob__
 		)
 	{
-		CM_TRACE_FUNC("Renderer::exportOneObject_data("<<ribNode__->name<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("Renderer::exportOneObject_data("<<ribNode__->name.asChar()<<","<<currentJob__.name.asChar()<<")");
 
 		unsigned int sample_first = 0;
 		unsigned int sample_last = liqglo.liqglo_motionSamples -1;
@@ -182,7 +182,7 @@ namespace elvishray
 		const structJob &currentJob__
 		)
 	{
-		CM_TRACE_FUNC("Renderer::exportOneObject_reference("<<ribNode__->name<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("Renderer::exportOneObject_reference("<<ribNode__->name.asChar()<<","<<currentJob__.name.asChar()<<")");
 		MStatus status;
 
 		unsigned int sample_first = 0;
@@ -203,7 +203,7 @@ namespace elvishray
 
 		_s("//--------------------------");
 		{
-			_s("//ribNode->name="<<ribNode__->name);
+			_s("//ribNode->name="<<ribNode__->name.asChar());
 			_s("//ribNode's transform node="<<ribNode__->getTransformNodeFullPath());
 			//print children
 			MStringArray childrenMsg(ribNode__->getChildrenMsgOfTransformNode());
@@ -212,7 +212,7 @@ namespace elvishray
 			{
 				_s("//childCount="<<childCount);
 				for(int i=0; i<childCount; ++i){
-					_s( "//child("<<i<<"):"<<childrenMsg[i] );
+					_s( "//child("<<i<<"):"<<childrenMsg[i].asChar() );
 				}
 			}
 			_s("//ribNode->object("<<sample_first<<")->getDataPtr()->getFullPathName()="<<ribNode__->object(sample_first)->getDataPtr()->getFullPathName());
@@ -306,7 +306,7 @@ namespace elvishray
 	//
 	MStatus Renderer::ribPrologue_begin(const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::ribPrologue_begin("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::ribPrologue_begin("<<currentJob.name.asChar()<<")");
 
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
@@ -343,7 +343,7 @@ namespace elvishray
 	}
 	MStatus Renderer::ribPrologue_end(const structJob& currentJob)
 	{ 
-		CM_TRACE_FUNC("Renderer::ribPrologue_end("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::ribPrologue_end("<<currentJob.name.asChar()<<")");
 
 		cookInstanceGroup();
 
@@ -389,7 +389,7 @@ namespace elvishray
 	//
 	MStatus Renderer::ribPrologue_options(const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::ribPrologue_options("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::ribPrologue_options("<<currentJob.name.asChar()<<")");
 
 		_s("\n//############################### option #");
 		std::string tmp( currentJob.path.fullPathName().asChar() );//_s( (MString("// current job path = ")+).asChar() );
@@ -528,7 +528,7 @@ namespace elvishray
 	//
 	MStatus Renderer::framePrologue(long lframe, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::framePrologue("<<lframe<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::framePrologue("<<lframe<<","<<currentJob.name.asChar()<<")");
 
 		framePrologue_camera(lframe, currentJob);
 
@@ -536,7 +536,7 @@ namespace elvishray
 	}
 	MStatus Renderer::framePrologue_camera(long lframe, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::framePrologue_camera("<<lframe<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::framePrologue_camera("<<lframe<<","<<currentJob.name.asChar()<<")");
 
 		MStatus status;
 		MFnCamera fnCamera(currentJob.path, &status);
@@ -577,7 +577,7 @@ namespace elvishray
 
 		bool bDepthOfField;//enable DOF on this camera?
 		liquidGetPlugValue(fnCamera,"depthOfField", bDepthOfField, status);
-		_s("//Depth of Field on camera \""<<currentJob.camera[0].name<<"\" is turned "<< (bDepthOfField?"on":"off")<<" in Maya");
+		_s("//Depth of Field on camera \""<<currentJob.camera[0].name.asChar()<<"\" is turned "<< (bDepthOfField?"on":"off")<<" in Maya");
 		bDepthOfField = bDepthOfField && liqglo.doDof && !currentJob.isShadow;
 
 		MStringArray LensShaders, EnvironmentShaders;
@@ -662,12 +662,12 @@ namespace elvishray
 	}
 	MStatus Renderer::renderAll_local(const MString& ribFileName)
 	{
-		CM_TRACE_FUNC("Renderer::renderAll_local("<<ribFileName<<")");
+		CM_TRACE_FUNC("Renderer::renderAll_local("<<ribFileName.asChar()<<")");
 		return MStatus::kSuccess;
 	}
 	MStatus Renderer::renderAll_remote(const MString& ribFileName)
 	{
-		CM_TRACE_FUNC("Renderer::renderAll_remote("<<ribFileName<<")");
+		CM_TRACE_FUNC("Renderer::renderAll_remote("<<ribFileName.asChar()<<")");
 		return MStatus::kSuccess;
 	}
 	void Renderer::cookInstanceGroup()
@@ -717,10 +717,10 @@ namespace elvishray
 		const liqRibNodePtr ribNode__, 
 		const MStringArray& lightedByWhichLightShapes)
 	{
-		CM_TRACE_FUNC("Renderer::exportLightLinks("<<currentJob__.name<<","<<ribNode__->name<<",lightedByWhichLightShapes.size="<<lightedByWhichLightShapes.length()<<")");
+		CM_TRACE_FUNC("Renderer::exportLightLinks("<<currentJob__.name.asChar()<<","<<ribNode__->name.asChar()<<",lightedByWhichLightShapes.size="<<lightedByWhichLightShapes.length()<<")");
 
 		if(lightedByWhichLightShapes.length() == 0){
-			_s("//"<< ribNode__->name << " is not lighted." );
+			_s("//"<< ribNode__->name.asChar() << " is not lighted." );
 			return;
 		}
 
@@ -749,7 +749,7 @@ namespace elvishray
 		const std::string& plug_
 		)
 	{
-		CM_TRACE_FUNC("Renderer::gatherCameraShaders(cameraShaders.size="<<cameraShaders.length()<<","<<node<<","<<plug_<<")");
+		CM_TRACE_FUNC("Renderer::gatherCameraShaders(cameraShaders.size="<<cameraShaders.length()<<","<<node.asChar()<<","<<plug_<<")");
 
 		const MString plug(plug_.c_str());
 		MString cmd;
@@ -794,7 +794,7 @@ namespace elvishray
 		const bool bReference
 		)
 	{
-		CM_TRACE_FUNC("Renderer::_writeObject("<<ribNode->name<<","<<currentJob.name<<","<<bGeometryMotion<<","<<msampleOn<<","<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::_writeObject("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<","<<bGeometryMotion<<","<<msampleOn<<","<<bReference<<")");
 
 		MString MotionPostfix;
 		unsigned int sample;
@@ -827,39 +827,39 @@ namespace elvishray
 	//
 	bool Renderer::isHeroPassReady(const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::isHeroPassReady("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::isHeroPassReady("<<currentJob.name.asChar()<<")");
 
 		return true;
 	}
 	void Renderer::HeroPassBegin(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::HeroPassBegin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::HeroPassBegin("<<currentJob___.name.asChar()<<")");
 
 		//m_log.open() is moved to ribPrologue_begin()
 	}
 	void Renderer::HeroPassEnd(const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::HeroPassEnd("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::HeroPassEnd("<<currentJob.name.asChar()<<")");
 
 		//m_log.close() is moved to ribPrologue_end()
 	}
 	//
 	bool Renderer::isBaseShadowReady(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::isBaseShadowReady("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::isBaseShadowReady("<<currentJob___.name.asChar()<<")");
 
 		return !currentJob___.shadowArchiveRibDone;
 	}
 	void Renderer::BaseShadowBegin(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::BaseShadowBegin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::BaseShadowBegin("<<currentJob___.name.asChar()<<")");
 
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
 		liquidMessage2(messageInfo, "open base shadow file %s\n", baseShadowName__.asChar());
 	}
 	void Renderer::BaseShadowEnd(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::BaseShadowEnd("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::BaseShadowEnd("<<currentJob___.name.asChar()<<")");
 	
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
 		liquidMessage2(messageInfo, "close base shadow file %s\n", baseShadowName__.asChar());
@@ -868,24 +868,24 @@ namespace elvishray
 
 	bool Renderer::isShadowPassReady(const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::isShadowPassReady("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::isShadowPassReady("<<currentJob.name.asChar()<<")");
 		return true;
 	}
 	void Renderer::ShadowPassBegin(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::ShadowPassBegin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::ShadowPassBegin("<<currentJob___.name.asChar()<<")");
 	
 		liquidMessage2(messageInfo, "open shadow pass file %s\n", currentJob___.ribFileName.asChar() );
 	}
 	void Renderer::ShadowPassEnd(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::ShadowPassEnd("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::ShadowPassEnd("<<currentJob___.name.asChar()<<")");
 
 		liquidMessage2(messageInfo, "close shadow pass file %s\n", currentJob___.ribFileName.asChar() );
 	}
 	void Renderer::readBaseShadow(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::readBaseShadow("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::readBaseShadow("<<currentJob___.name.asChar()<<")");
 
 	}
 	//
@@ -893,25 +893,25 @@ namespace elvishray
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_begin("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_begin("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 	}
 	void Renderer::oneObjectBlock_reference_attribute_end(
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_end("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_end("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 	}
 	void Renderer::oneObjectBlock_reference_attribute_block0(
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block0("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block0("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 	}
 	void Renderer::oneObjectBlock_reference_attribute_block1(
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block1("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block1("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 	}
 	void Renderer::logFrame(const char* msg)
 	{
@@ -932,7 +932,7 @@ namespace elvishray
 		const liqRibNodePtr &ribNode__,
 		const structJob &currentJob )
 	{	
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RegularShader("<<ribNode__->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RegularShader("<<ribNode__->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		assert( m_log.get().is_open() );
 
@@ -942,7 +942,7 @@ namespace elvishray
 		)
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface("
-			<<ribNode__->name<<","<<path__.fullPathName()<<","<<m_shaderDebug<<")");
+			<<ribNode__->name.asChar()<<","<<path__.fullPathName().asChar()<<","<<m_shaderDebug<<")");
 
 		assert( m_log.get().is_open() );
 
@@ -954,7 +954,7 @@ namespace elvishray
 		const MString& meshname
 		)
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup("<<meshname<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup("<<meshname.asChar()<<")");
 	}
 	//
 	bool Renderer::canExport()

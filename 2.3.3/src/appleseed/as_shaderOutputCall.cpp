@@ -225,7 +225,7 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 //
 void OutputHelper::begin (const MString& name)
 {
-	CM_TRACE_FUNC("OutputHelper::begin("<<name<<")");
+	CM_TRACE_FUNC("OutputHelper::begin("<<name.asChar()<<")");
 }
 //
 void OutputHelper::end ()
@@ -247,7 +247,7 @@ Visitor::~Visitor()
 //
 void Visitor::initShaderData(const MString& startingNode, const MString &mayaplug)
 {
-	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode<<","<<mayaplug<<")");
+	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
 
 }
 void Visitor::preOutput(const char* shaderNodeName)
@@ -275,14 +275,14 @@ void  Visitor::addShaderMethodBody(const MString &currentNode,
 								   const MStringArray& inputVars,
 								   const MStringArray& outputVars)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode<<","<<inputVars<<","<<outputVars<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputVars)<<","<<liqM(outputVars)<<")");
 
 }
 void Visitor::addShaderMethodVariavles(
 									   const MString &typeSize,
 									   const MString &varName)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<typeSize<<","<<varName<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<typeSize.asChar()<<","<<varName.asChar()<<")");
 
 }
 void Visitor::outputEnd()

@@ -13,7 +13,7 @@ namespace renderman
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<ribFileName<<","<<currentJob.name<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		assert(liqglo.m_ribFileOpen &&"rm_writeLocatorData.cpp");
 
@@ -46,7 +46,7 @@ namespace renderman
 	//
 	static void _write(liqRibLocatorData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("write("<<pData->getFullPathName()<<","<<currentJob__.name<<",...)");
+		CM_TRACE_FUNC("write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
 		RiTranslate( 0., 0., 0. );
 		LIQDEBUGPRINTF( "-> writing locator" );

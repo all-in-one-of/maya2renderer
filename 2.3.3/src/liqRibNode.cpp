@@ -86,7 +86,7 @@ liqRibNode::liqRibNode( liqRibNodePtr instanceOfNode,
       instanceStr( instanceOfNodeStr ),
       overrideColor( false )
 {
-	CM_TRACE_FUNC("liqRibNode::liqRibNode(instanceOfNode,"<<instanceOfNodeStr<<")");
+	CM_TRACE_FUNC("liqRibNode::liqRibNode(instanceOfNode,"<<instanceOfNodeStr.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating rib node\n");
   objects.resize( LIQMAXMOTIONSAMPLES );
@@ -231,7 +231,7 @@ liqRibObjPtr liqRibNode::object( unsigned interval )
  */
 void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int particleId )
 {
-	CM_TRACE_FUNC("liqRibNode::set("<<path.fullPathName()<<","<<sample<<","<<objType<<","<<particleId<<")");
+	CM_TRACE_FUNC("liqRibNode::set("<<path.fullPathName().asChar()<<","<<sample<<","<<objType<<","<<particleId<<")");
 
   LIQDEBUGPRINTF( "-> setting rib node\n");
   DagPath = path;
@@ -1054,7 +1054,7 @@ MStringArray liqRibNode::getChildrenMsgOfTransformNode() const
  */
 MObject liqRibNode::findShadingGroup( const MDagPath& path, ObjectType type )
 {
-	CM_TRACE_FUNC("liqRibNode::findShadingGroup("<<path.fullPathName()<<","<<type<<")");
+	CM_TRACE_FUNC("liqRibNode::findShadingGroup("<<path.fullPathName().asChar()<<","<<type<<")");
 
 	LIQDEBUGPRINTF( "-> finding rib node shading group\n");
 
@@ -1120,7 +1120,7 @@ MObject liqRibNode::findShadingGroup( const MDagPath& path, ObjectType type )
  */
 MObject liqRibNode::findShader( MObject& group )
 {
-	CM_TRACE_FUNC("liqRibNode::findShader("<<MFnDependencyNode(group).name()<<")");
+	CM_TRACE_FUNC("liqRibNode::findShader("<<MFnDependencyNode(group).name().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> finding shader for rib node shading group\n");
   MFnDependencyNode fnNode( group );
@@ -1149,7 +1149,7 @@ MObject liqRibNode::findShader( MObject& group )
  */
 MObject liqRibNode::findDisp( MObject& group )
 {
-	CM_TRACE_FUNC("liqRibNode::findDisp("<<MFnDependencyNode(group).name()<<")");
+	CM_TRACE_FUNC("liqRibNode::findDisp("<<MFnDependencyNode(group).name().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> finding shader for rib node shading group\n");
   MFnDependencyNode fnNode( group );
@@ -1178,7 +1178,7 @@ MObject liqRibNode::findDisp( MObject& group )
  */
 MObject liqRibNode::findVolume( MObject& group )
 {
-	CM_TRACE_FUNC("liqRibNode::findVolume("<<MFnDependencyNode(group).name()<<")");
+	CM_TRACE_FUNC("liqRibNode::findVolume("<<MFnDependencyNode(group).name().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> finding shader for rib node shading group\n");
   MFnDependencyNode fnNode( group );
@@ -1488,7 +1488,7 @@ bool liqRibNode::hasNObjects( unsigned n )
 }
 
 void liqRibNode::parseVectorAttributes( const MFnDependencyNode& nodeFn, const MStringArray& strArray, const ParameterType& pType ) {
-	CM_TRACE_FUNC("liqRibNode::parseVectorAttributes("<<nodeFn.name()<<","<<strArray<<","<<pType<<")");
+	CM_TRACE_FUNC("liqRibNode::parseVectorAttributes("<<nodeFn.name().asChar()<<","<<liqM(strArray)<<","<<pType<<")");
 
   MStatus status;
   if( strArray.length() > 0 ) {

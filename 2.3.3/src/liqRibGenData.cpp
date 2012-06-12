@@ -73,7 +73,7 @@ using namespace std;
  */
 liqRibGenData::liqRibGenData( MObject obj, MDagPath path )
 {
-	CM_TRACE_FUNC("liqRibGenData::liqRibGenData(obj, "<<path.fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibGenData::liqRibGenData(obj, "<<path.fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating ribgen\n" );
   MFnDependencyNode fnNode( obj );
@@ -111,7 +111,7 @@ liqRibGenData::liqRibGenData( MObject obj, MDagPath path )
 
 void liqRibGenData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibGenData::_write(job.title= "<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibGenData::_write(job.title= "<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing ribgen\n" ); // || defined( GENERIC_RIBLIB )
 #if defined( PRMAN ) || defined( DELIGHT ) || defined( GENERIC_RIBLIB )
@@ -239,7 +239,7 @@ void liqRibGenData::_write(const structJob &currentJob)
 
 void liqRibGenData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibGenData::write("<<ribFileName<<","<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibGenData::write("<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibGenData.cpp");
 

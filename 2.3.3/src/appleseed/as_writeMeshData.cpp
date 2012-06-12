@@ -16,7 +16,7 @@ namespace appleseed
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName<<","<<currentJob.name<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -71,7 +71,7 @@ namespace appleseed
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 
  		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
  			pData->objDagPath.fullPathName(), 

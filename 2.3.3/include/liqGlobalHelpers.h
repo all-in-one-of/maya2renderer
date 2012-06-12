@@ -161,4 +161,8 @@ bool liqAssert(const MString &title, const MString & msg, const MString &bYes);
 bool liqAssert(const MString &title, const MString & msg, const MString &bYes, const MString &bNo);
 //
 MString getFileNodeImageName(const MString &node);
+
+MString liqMerge(const MStringArray& sa, const char split);
+#define liqM(msa) liqMerge(msa,'|').asChar()
+//
 #endif

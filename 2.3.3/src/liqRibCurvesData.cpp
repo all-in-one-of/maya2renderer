@@ -222,7 +222,7 @@ liqRibCurvesData::liqRibCurvesData( MObject curveGroup )
 
 void liqRibCurvesData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibCurvesData::write("<<ribFileName<<","<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibCurvesData::write("<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibCurvesData.cpp");
 
@@ -245,7 +245,7 @@ void liqRibCurvesData::write(const MString &ribFileName, const structJob &curren
 //  Write the RIB for this curve.
 void liqRibCurvesData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibCurvesData::_write("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibCurvesData::_write("<<currentJob.name.asChar()<<")");
 
 	LIQDEBUGPRINTF( "-> writing nurbs curve group\n" );
 

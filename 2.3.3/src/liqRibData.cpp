@@ -135,7 +135,7 @@ void liqRibData::parseVectorAttributes( MFnDependencyNode & nodeFn, MStringArray
 
 void liqRibData::addAdditionalSurfaceParameters( MObject node )
 {
-	CM_TRACE_FUNC("liqRibData::addAdditionalSurfaceParameters("<<MFnDependencyNode(node).name()<<")");
+	CM_TRACE_FUNC("liqRibData::addAdditionalSurfaceParameters("<<MFnDependencyNode(node).name().asChar()<<")");
 
   LIQDEBUGPRINTF("-> scanning for additional rman surface attributes \n");
   MStatus status( MS::kSuccess );

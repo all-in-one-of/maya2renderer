@@ -17,7 +17,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName<<","<<currentJob.name<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -37,7 +37,7 @@ namespace elvishray
 	//
 	static void _write(liqRibLocatorData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("write("<<pData->getFullPathName()<<","<<currentJob__.name<<",...)");
+		CM_TRACE_FUNC("write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
 		_s("//locator "<<pData->getFullPathName());
 	}

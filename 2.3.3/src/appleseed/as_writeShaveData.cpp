@@ -18,7 +18,7 @@ namespace appleseed
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName<<","<<currentJob.name<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -38,7 +38,7 @@ namespace appleseed
 	//
 	void Renderer::_write_shavehair(liqRibShaveData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write_shavehair("<<pData->getFullPathName()<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("_write_shavehair("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 		//
 
 		//
@@ -88,7 +88,7 @@ namespace appleseed
 	//
 	void Renderer::generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree)
 	{
-		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath()<<")");
+		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
 
 		MStatus status;
 

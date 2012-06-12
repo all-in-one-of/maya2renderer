@@ -17,7 +17,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName<<","<<currentJob.name<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -39,7 +39,7 @@ namespace elvishray
 		const liqRibNodePtr &ribNode__,
 		unsigned int sample)
 	{	
-		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name<<","<<sample<<")");
+		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<")");
 
 		MStatus status;
 
@@ -72,7 +72,7 @@ namespace elvishray
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 
  		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
  			pData->objDagPath.fullPathName(), 
@@ -186,7 +186,7 @@ namespace elvishray
 			MFloatArray v_coords;
 
 			IfMErrorWarn( fnMesh.getUVs(u_coords,v_coords,&currentUVsetName) );
-			_s("//### UV("<<currentUVsetName<<"), size="<< fnMesh.numUVs(currentUVsetName) );
+			_s("//### UV("<<currentUVsetName.asChar()<<"), size="<< fnMesh.numUVs(currentUVsetName) );
 			// u
 			_d( tag = eiNULL_TAG );
 			_S( ei_declare("u", eiVARYING, EI_DATA_TYPE_TAG, &tag) );

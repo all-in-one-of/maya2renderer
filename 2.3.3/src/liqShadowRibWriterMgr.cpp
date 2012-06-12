@@ -25,7 +25,7 @@ TempControlBreak tShadowRibWriterMgr::write(
 	std::vector<structJob>  jobList__
 	)
 {
-	CM_TRACE_FUNC("tShadowRibWriterMgr::write(liqglo___,"<<currentJob___.name<<","<<scanTime__<<","<<m_outputLightsInDeepShadows__<<",jobList__.size="<<jobList__.size()<<")");
+	CM_TRACE_FUNC("tShadowRibWriterMgr::write(liqglo___,"<<currentJob___.name.asChar()<<","<<scanTime__<<","<<m_outputLightsInDeepShadows__<<",jobList__.size="<<jobList__.size()<<")");
 
 	// BaseShadow------------------------------------------------------------
 	if( liquid::RendererMgr::getInstancePtr()->
@@ -176,7 +176,7 @@ void tShadowRibWriterMgr::ribPrologue_pass(RtString pass)
 //
 void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("tShadowRibWriterMgr::framePrologue_display(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("tShadowRibWriterMgr::framePrologue_display(job="<<currentJob.name.asChar()<<")");
 
 			if( !/*liqglo.liqglo_*/currentJob.deepShadows || /*liqglo.liqglo_*/currentJob.shadowPixelSamples == 1)
 			{

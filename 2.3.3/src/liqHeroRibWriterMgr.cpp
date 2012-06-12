@@ -25,7 +25,7 @@ struct liqGlobalVariable &liqglo___,
 	//,std::vector<structJob>  jobList__
 	)
 {
-	CM_TRACE_FUNC("tHeroRibWriterMgr::write(liqglo___,"<<currentJob___.name<<","<<scanTime__<<","<<m_outputLightsInDeepShadows__<<")");
+	CM_TRACE_FUNC("tHeroRibWriterMgr::write(liqglo___,"<<currentJob___.name.asChar()<<","<<scanTime__<<","<<m_outputLightsInDeepShadows__<<")");
 	
 	//RiBegin() is moved to RM::Renderer::ribPrologue_begin()
 	// full beauty/shadow rib generation
@@ -169,7 +169,7 @@ void tHeroRibWriterMgr::ribPrologue_pass(RtString pass)
 //
 void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("tHeroRibWriterMgr::framePrologue_display("<<currentJob.name<<")");
+	CM_TRACE_FUNC("tHeroRibWriterMgr::framePrologue_display("<<currentJob.name.asChar()<<")");
 
 			// Smooth Shading
 			RiShadingInterpolation( "smooth" );

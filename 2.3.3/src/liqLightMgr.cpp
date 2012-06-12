@@ -369,7 +369,7 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 	const bool m_lazyCompute__
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_SpotAndDirectionLight(thisJob___, shadowCamPath, "<<fnLightNode.name()<<","<<lightPath__.fullPathName()<<","<<m_lazyCompute__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_SpotAndDirectionLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
 
 	MStatus status__;
 
@@ -456,7 +456,7 @@ void tLightMgr::buildShadowJob_PointLight(
 	const bool m_lazyCompute__
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_PointLight(thisJob___, shadowCamPath, "<<fnLightNode.name()<<","<<lightPath__.fullPathName()<<","<<m_lazyCompute__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_PointLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
 
 	MStatus status__;
 

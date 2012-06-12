@@ -15,7 +15,7 @@ namespace appleseed
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName<<","<<currentJob.name<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -35,7 +35,7 @@ namespace appleseed
 	//
 	void Renderer::_write_pfxhair(liqRibPfxHairData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write_pfxhair("<<pData->getFullPathName()<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("_write_pfxhair("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 		//
 		if( pData->isEmpty() ) 
 		{
@@ -112,7 +112,7 @@ namespace appleseed
 	}
 	void Renderer::generate_pfxhair(liqRibNodePtr &ribNode__, liqRibPfxHairData* phair, const int degree)
 	{
-		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath()<<")");
+		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
 
 		MStatus status;
 		MFnPfxGeometry pfxhair(phair->objDagPath, &status);

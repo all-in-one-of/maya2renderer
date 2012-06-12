@@ -54,7 +54,7 @@ liqRibCoordData::liqRibCoordData( MObject coord )
 
 void liqRibCoordData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibCoordData::write("<<ribFileName<<","<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibCoordData::write("<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibCoordData.cpp");
 
@@ -78,7 +78,7 @@ void liqRibCoordData::write(const MString &ribFileName, const structJob &current
  */
 void liqRibCoordData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibCoordData::_write("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibCoordData::_write("<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF("-> writing coord"); 
   RiCoordinateSystem( const_cast<char *> ( name.asChar() ) );

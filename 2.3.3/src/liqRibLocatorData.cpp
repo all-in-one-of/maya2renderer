@@ -58,7 +58,7 @@ liqRibLocatorData::liqRibLocatorData( MObject /*locator*/ )
 }
 void liqRibLocatorData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibLocatorData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibLocatorData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	liquid::RendererMgr::getInstancePtr()->
 		getRenderer()->write(this, ribFileName, currentJob, bReference);

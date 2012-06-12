@@ -177,7 +177,7 @@ namespace elvishray
 
 	void shader_surface_lambert(MString const& mayaShaderName)
 	{
-		CM_TRACE_FUNC("shader_surface_lambert("<<mayaShaderName<<")");
+		CM_TRACE_FUNC("shader_surface_lambert("<<mayaShaderName.asChar()<<")");
 
 // 		MDoubleArray color;
 // 		IfMErrorWarn( MGlobal::executeCommand( ("getAttr \""+mayaShaderName+".color\""), color) );

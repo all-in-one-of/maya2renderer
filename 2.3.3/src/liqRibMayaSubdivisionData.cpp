@@ -77,7 +77,7 @@ liqRibMayaSubdivisionData::liqRibMayaSubdivisionData( MObject subd )
 	uvDetail( rFaceVarying ),
 	trueFacevarying( false )
 {
-	CM_TRACE_FUNC("liqRibMayaSubdivisionData::liqRibMayaSubdivisionData("<<MFnDagNode(subd).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibMayaSubdivisionData::liqRibMayaSubdivisionData("<<MFnDagNode(subd).fullPathName().asChar()<<")");
 
 	LIQDEBUGPRINTF( "-> creating subdivision surface\n" );
 	MFnSubd fnSubd( subd );
@@ -195,7 +195,7 @@ liqRibMayaSubdivisionData::liqRibMayaSubdivisionData( MObject subd )
 
 void liqRibMayaSubdivisionData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibMayaSubdivisionData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibMayaSubdivisionData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibMayaSubdivisionData.cpp");
 
@@ -218,7 +218,7 @@ void liqRibMayaSubdivisionData::write(const MString &ribFileName, const structJo
  */
 void liqRibMayaSubdivisionData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibMayaSubdivisionData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibMayaSubdivisionData::_write(job="<<currentJob.name.asChar()<<")");
 
 	LIQDEBUGPRINTF( "-> writing subdivision surface\n" );
 
@@ -285,7 +285,7 @@ ObjectType liqRibMayaSubdivisionData::type() const
 
 void liqRibMayaSubdivisionData::checkExtraTags( MObject &subd )
 {
-	CM_TRACE_FUNC("liqRibMayaSubdivisionData::checkExtraTags("<<MFnDagNode(subd).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibMayaSubdivisionData::checkExtraTags("<<MFnDagNode(subd).fullPathName().asChar()<<")");
 
 	MStatus status = MS::kSuccess;
 	MFnSubd fnSubd( subd );
@@ -339,7 +339,7 @@ void liqRibMayaSubdivisionData::checkExtraTags( MObject &subd )
 
 void liqRibMayaSubdivisionData::addExtraTags( MObject &subd, int extraTagValue, SBD_EXTRA_TAG extraTag )
 {
-	CM_TRACE_FUNC("liqRibMayaSubdivisionData::addExtraTags("<<MFnDagNode(subd).fullPathName()<<","<<extraTagValue<<","<<extraTag<<")");
+	CM_TRACE_FUNC("liqRibMayaSubdivisionData::addExtraTags("<<MFnDagNode(subd).fullPathName().asChar()<<","<<extraTagValue<<","<<extraTag<<")");
 
 	MStatus status;
 	MFnSubd fnSubd( subd );

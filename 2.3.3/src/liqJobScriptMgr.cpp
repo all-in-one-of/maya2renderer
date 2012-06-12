@@ -25,7 +25,7 @@ void tJobScriptMgr::setCommonParameters(
 	const MString &m_dirmaps__
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::setCommonParameters("<<renderJobName__<<","<<useNetRman__<<","<<m_minCPU__<<","<<m_maxCPU__<<","<<m_dirmaps__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::setCommonParameters("<<renderJobName__<<","<<useNetRman__<<","<<m_minCPU__<<","<<m_maxCPU__<<","<<m_dirmaps__.asChar()<<")");
 
 	m_jobScript.title = renderJobName__;
 
@@ -60,7 +60,7 @@ void tJobScriptMgr::addDefferedJob(const int currentBlock__,
 								   const MString &framePreCommand__,
 								   const MString &frameRibgenCommand__)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::addDefferedJob("<<currentBlock__<<","<<frameIndex__<<","<<framePreCommand__<<","<<frameRibgenCommand__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::addDefferedJob("<<currentBlock__<<","<<frameIndex__<<","<<framePreCommand__.asChar()<<","<<frameRibgenCommand__.asChar()<<")");
 
 	liqRenderScript::Job deferredJob;
 	addDefferedJob(deferredJob, currentBlock__, frameIndex__,
@@ -77,7 +77,7 @@ void tJobScriptMgr::addDefferedJob(
 									  const MString &frameRibgenCommand__
 									  )
 {
-	CM_TRACE_FUNC("tJobScriptMgr::addDefferedJob("<<deferredJob__.title<<","<<currentBlock__<<","<<frameIndex__<<","<<framePreCommand__<<","<<frameRibgenCommand__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::addDefferedJob("<<deferredJob__.title<<","<<currentBlock__<<","<<frameIndex__<<","<<framePreCommand__.asChar()<<","<<frameRibgenCommand__.asChar()<<")");
 
 	std::stringstream ribGenExtras;
 	//Note:  -ribName is set to liqglo.liqglo_sceneName originally. 
@@ -125,7 +125,7 @@ void tJobScriptMgr::cleanupDefferedJob()
 }
 void tJobScriptMgr::cleanupRenderScript(const MString &renderScriptName__)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::cleanupRenderScript("<<renderScriptName__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::cleanupRenderScript("<<renderScriptName__.asChar()<<")");
 
 	std::stringstream ss;
 	ss << RM_CMD << " " << renderScriptName__.asChar();
@@ -134,14 +134,14 @@ void tJobScriptMgr::cleanupRenderScript(const MString &renderScriptName__)
 }
 void tJobScriptMgr::cleanupPostJob(const MString &m_postJobCommand__)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::cleanupPostJob("<<m_postJobCommand__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::cleanupPostJob("<<m_postJobCommand__.asChar()<<")");
 	m_jobScript.cleanupCommands.push_back( liqRenderScript::Cmd(m_postJobCommand__.asChar(), (liqglo.remoteRender && !liqglo.useNetRman) ) );
 
 }
 //
 void tJobScriptMgr::writeRenderScript(const renderScriptFormat format, const MString &renderScriptName__)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::writeRenderScript("<<format<<","<<renderScriptName__<<")");
+	CM_TRACE_FUNC("tJobScriptMgr::writeRenderScript("<<format<<","<<renderScriptName__.asChar()<<")");
 
 	if( format == ALFRED ) 
 		m_jobScript.writeALF( liquidGetRelativePath( liqglo.liqglo_relativeFileNames, renderScriptName__, liqglo.liqglo_projectDir ).asChar() );

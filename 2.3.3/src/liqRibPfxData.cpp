@@ -76,7 +76,7 @@ liqRibPfxData::liqRibPfxData( MObject pfxGeo, ObjectType type )
     nverts(),
     CVs()
 {
-	CM_TRACE_FUNC("liqRibPfxData::e("<<MFnDagNode(pfxGeo).fullPathName()<<","<<type<<")");
+	CM_TRACE_FUNC("liqRibPfxData::e("<<MFnDagNode(pfxGeo).fullPathName().asChar()<<","<<type<<")");
 
 	LIQDEBUGPRINTF( "-> creating painteffects curves\n" );
 	MStatus status( MS::kSuccess );
@@ -450,7 +450,7 @@ liqRibPfxData::liqRibPfxData( MObject pfxGeo, ObjectType type )
 
 void liqRibPfxData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibPfxData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibPfxData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	liquid::RendererMgr::getInstancePtr()->
 		getRenderer()->write(this, ribFileName, currentJob, bReference);

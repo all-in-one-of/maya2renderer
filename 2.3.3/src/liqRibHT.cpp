@@ -116,8 +116,8 @@ int liqRibHT::insert( MDagPath &path, double /*lframe*/, int sample,
                       const MString instanceStr,
                       int particleId )
 {
-	CM_TRACE_FUNC("liqRibClipPlaneData::insert("<<path.fullPathName()<<",lframe,"
-		<<sample<<","<<objType<<","<<CountID<<",matrix,"<<instanceStr<<","<<particleId<<")");
+	CM_TRACE_FUNC("liqRibClipPlaneData::insert("<<path.fullPathName().asChar()<<",lframe,"
+		<<sample<<","<<objType<<","<<CountID<<",matrix,"<<instanceStr.asChar()<<","<<particleId<<")");
 
   LIQDEBUGPRINTF( "-> inserting node into hash table\n" );
   MFnDagNode  fnDagNode( path );
@@ -243,7 +243,7 @@ int liqRibHT::insert( MDagPath &path, double /*lframe*/, int sample,
 liqRibNodePtr liqRibHT::find( MString nodeName, MDagPath path, ObjectType objType
                             /*objType = MRT_Unknown*/ )
 {
-	CM_TRACE_FUNC("liqRibClipPlaneData::find("<<nodeName<<","<<path.fullPathName()<<","<<objType<<")");
+	CM_TRACE_FUNC("liqRibClipPlaneData::find("<<nodeName.asChar()<<","<<path.fullPathName().asChar()<<","<<objType<<")");
 
   LIQDEBUGPRINTF( "-> finding node in hash table using object, %s\n", nodeName.asChar() );
 

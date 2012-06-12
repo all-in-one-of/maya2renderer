@@ -74,7 +74,7 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
   vertexParam(NULL),
   normalParam(NULL)
 {
-	CM_TRACE_FUNC("liqRibMeshData::liqRibMeshData("<<MFnDagNode(mesh).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibMeshData::liqRibMeshData("<<MFnDagNode(mesh).fullPathName().asChar()<<")");
 
   areaLight = false;
   LIQDEBUGPRINTF( "-> creating mesh\n" );
@@ -304,7 +304,7 @@ void liqRibMeshData::printMesh()
 
 void liqRibMeshData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibMeshData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibMeshData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	liquid::RendererMgr::getInstancePtr()->
 		getRenderer()->write(this, ribFileName, currentJob, bReference);

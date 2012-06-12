@@ -129,7 +129,7 @@ namespace renderman
 	//
 	MStatus Renderer::worldPrologue(const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::worldPrologue("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::worldPrologue("<<currentJob.name.asChar()<<")");
 
 		MStatus returnStatus = MS::kSuccess;
 		LIQDEBUGPRINTF( "-> Writing world prologue.\n" );
@@ -297,7 +297,7 @@ namespace renderman
 	MStatus Renderer::liqRibLightData_write(
 		const liqRibLightData *lightdata, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::liqRibLightData_write("<<lightdata->getFullPathName()<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::liqRibLightData_write("<<lightdata->getFullPathName()<<","<<currentJob.name.asChar()<<")");
 		return MS::kSuccess;
 	}
 
@@ -307,7 +307,7 @@ namespace renderman
 		const structJob &currentJob__
 		)
 	{
-		CM_TRACE_FUNC("Renderer::exportOneObject_data("<<ribNode__->name<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("Renderer::exportOneObject_data("<<ribNode__->name.asChar()<<","<<currentJob__.name.asChar()<<")");
 
 		// transform ////////////////////////////////////////////////////////////////////////
 		//{// transform motion blur
@@ -407,7 +407,7 @@ namespace renderman
 		const structJob &currentJob__
 		)
 	{
-		CM_TRACE_FUNC("Renderer::exportOneObject_reference("<<ribNode__->name<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("Renderer::exportOneObject_reference("<<ribNode__->name.asChar()<<","<<currentJob__.name.asChar()<<")");
 
 		// transform ////////////////////////////////////////////////////////////////////////
 		//{// transform motion blur
@@ -602,7 +602,7 @@ namespace renderman
 	//
 	MStatus Renderer::ribPrologue_begin(const structJob& currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::ribPrologue_begin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::ribPrologue_begin("<<currentJob___.name.asChar()<<")");
 
 #ifndef RENDER_PIPE
 		liquidMessage( "Beginning RIB output to '" + std::string( currentJob___.ribFileName.asChar() ) + "'", messageInfo );
@@ -627,7 +627,7 @@ namespace renderman
 	}
 	MStatus Renderer::ribPrologue_end(const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::ribPrologue_end("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::ribPrologue_end("<<currentJob.name.asChar()<<")");
 		
 		RiEnd();
 		liqglo.m_ribFileOpen = false;
@@ -637,7 +637,7 @@ namespace renderman
 	//
 	MStatus Renderer::ribPrologue_options(const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::ribPrologue_options("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::ribPrologue_options("<<currentJob.name.asChar()<<")");
 
 		LIQDEBUGPRINTF( "-> beginning to write prologue\n" );
 
@@ -786,7 +786,7 @@ namespace renderman
 	//
 	MStatus Renderer::framePrologue(long lframe, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::framePrologue("<<lframe<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::framePrologue("<<lframe<<","<<currentJob.name.asChar()<<")");
 
 		RiFrameBegin( lframe );
 
@@ -805,7 +805,7 @@ namespace renderman
 	}
 	MStatus Renderer::framePrologue_camera(long lframe, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::framePrologue_camera("<<lframe<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::framePrologue_camera("<<lframe<<","<<currentJob.name.asChar()<<")");
 
 		tRibCameraMgr::framePrologue_camera(lframe, currentJob);
 
@@ -919,7 +919,7 @@ namespace renderman
 	}
 	MStatus Renderer::renderAll_remote(const MString& ribFileName)
 	{
-		CM_TRACE_FUNC("Renderer::renderAll_remote("<<ribFileName<<")");
+		CM_TRACE_FUNC("Renderer::renderAll_remote("<<ribFileName.asChar()<<")");
 
 		return MStatus::kSuccess;
 	}
@@ -929,7 +929,7 @@ namespace renderman
 		const liqRibNodePtr mesh, 
 		const MStringArray& lightedByWhichLightShapes)
 	{
-		CM_TRACE_FUNC("Renderer::exportLightLinks("<<currentJob__.name<<","<<mesh->name<<",lightedByWhichLightShapes.size="<<lightedByWhichLightShapes.length()<<")");
+		CM_TRACE_FUNC("Renderer::exportLightLinks("<<currentJob__.name.asChar()<<","<<mesh->name.asChar()<<",lightedByWhichLightShapes.size="<<lightedByWhichLightShapes.length()<<")");
 
 		if(lightedByWhichLightShapes.length() == 0){
 			_liqRIBMsg((mesh->name+" is not lighted.").asChar());
@@ -960,7 +960,7 @@ namespace renderman
 		const bool bReference
 		)
 	{
-		CM_TRACE_FUNC("Renderer::_writeObject("<<ribNode->name<<","<<currentJob.name<<","<<bGeometryMotion<<","<<msampleOn<<","<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::_writeObject("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<","<<bGeometryMotion<<","<<msampleOn<<","<<bReference<<")");
 
 		MStatus status;
 
@@ -994,19 +994,19 @@ namespace renderman
 	//
 	bool Renderer::isHeroPassReady(const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::isHeroPassReady("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::isHeroPassReady("<<currentJob.name.asChar()<<")");
 
 		return true;
 	}
 	void Renderer::HeroPassBegin(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::HeroPassBegin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::HeroPassBegin("<<currentJob___.name.asChar()<<")");
 
 
 	}
 	void Renderer::HeroPassEnd(const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::HeroPassEnd("<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::HeroPassEnd("<<currentJob.name.asChar()<<")");
 
 
 
@@ -1023,13 +1023,13 @@ namespace renderman
 
 	bool Renderer::isBaseShadowReady(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::isBaseShadowReady("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::isBaseShadowReady("<<currentJob___.name.asChar()<<")");
 
 		return !currentJob___.shadowArchiveRibDone;
 	}
 	void Renderer::BaseShadowBegin(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::BaseShadowBegin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::BaseShadowBegin("<<currentJob___.name.asChar()<<")");
 
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
 		//
@@ -1056,7 +1056,7 @@ namespace renderman
 	}
 	void Renderer::BaseShadowEnd(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::BaseShadowEnd("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::BaseShadowEnd("<<currentJob___.name.asChar()<<")");
 
 		RiEnd();
 		liqglo.m_ribFileOpen = false;
@@ -1068,19 +1068,19 @@ namespace renderman
 
 	bool Renderer::isShadowPassReady(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::isShadowPassReady("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::isShadowPassReady("<<currentJob___.name.asChar()<<")");
 
 		return true;
 	}
 	void Renderer::ShadowPassBegin(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::ShadowPassBegin("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::ShadowPassBegin("<<currentJob___.name.asChar()<<")");
 
 		//move RiBegin() to ribPrologue_begin()
 	}
 	void Renderer::ShadowPassEnd(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::ShadowPassEnd("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::ShadowPassEnd("<<currentJob___.name.asChar()<<")");
 		
 		//move RiEnd() to ribPrologue_end()
 
@@ -1091,7 +1091,7 @@ namespace renderman
 	}
 	void Renderer::readBaseShadow(const structJob &currentJob___)
 	{
-		CM_TRACE_FUNC("Renderer::readBaseShadow("<<currentJob___.name<<")");
+		CM_TRACE_FUNC("Renderer::readBaseShadow("<<currentJob___.name.asChar()<<")");
 		
 		//MString realShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, baseShadowName, liqglo_projectDir ) ) );
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
@@ -1105,7 +1105,7 @@ namespace renderman
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_begin("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_begin("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		if( liqglo.m_outputComments ) 
 			RiArchiveRecord( RI_COMMENT, "Name: %s", ribNode->name.asChar(), RI_NULL );
@@ -1116,7 +1116,7 @@ namespace renderman
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_end("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_end("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		RiAttributeEnd();
 	}
@@ -1124,7 +1124,7 @@ namespace renderman
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block0("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block0("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
 
@@ -1148,7 +1148,7 @@ namespace renderman
 		const liqRibNodePtr &ribNode,
 		const structJob &currentJob )
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block1("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block1("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		// displacement bounds
 		liqRibTranslator::getInstancePtr()->displacementBounds(ribNode);
@@ -1185,7 +1185,7 @@ namespace renderman
 		const structJob &currentJob 
 		)
 	{
-		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RegularShader("<<ribNode__->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RegularShader("<<ribNode__->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		//liqShader& currentShader( liqGetShader( ribNode__->assignedShader.object() ) );
 		liqShader& currentShader = liqShaderFactory::instance().getShader( ribNode__->assignedShader.object() );
@@ -1227,7 +1227,7 @@ namespace renderman
 		)
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface("
-			<<ribNode__->name<<","<<path__.fullPathName()<<","<<m_shaderDebug<<")");
+			<<ribNode__->name.asChar()<<","<<path__.fullPathName().asChar()<<","<<m_shaderDebug<<")");
 
 		liqRibTranslator::getInstancePtr()->F2(m_shaderDebug, ribNode__);
 

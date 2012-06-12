@@ -62,7 +62,7 @@ using namespace boost;
  */
 liqRibImplicitSphereData::liqRibImplicitSphereData( MObject daSphere )
 {
-	CM_TRACE_FUNC("liqRibImplicitSphereData::liqRibImplicitSphereData("<<MFnDagNode(daSphere).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibImplicitSphereData::liqRibImplicitSphereData("<<MFnDagNode(daSphere).fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating implicit sphere\n" );
   MStatus status( MS::kSuccess );
@@ -79,7 +79,7 @@ liqRibImplicitSphereData::liqRibImplicitSphereData( MObject daSphere )
 }
 void liqRibImplicitSphereData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibImplicitSphereData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibImplicitSphereData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibImplicitSphereData.cpp");
 
@@ -102,7 +102,7 @@ void liqRibImplicitSphereData::write(const MString &ribFileName, const structJob
  */
 void liqRibImplicitSphereData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibImplicitSphereData::_write("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibImplicitSphereData::_write("<<currentJob.name.asChar()<<")");
 
   unsigned numTokens( tokenPointerArray.size() );
   scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );

@@ -73,7 +73,7 @@ void displayHairInfo(shaveAPI::HairInfo* hairInfo, bool instances);
  */
 liqRibShaveData::liqRibShaveData( MObject obj )
 {
-	CM_TRACE_FUNC("liqRibShaveData::liqRibShaveData("<<MFnDagNode(obj).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibShaveData::liqRibShaveData("<<MFnDagNode(obj).fullPathName().asChar()<<")");
 
 	LIQDEBUGPRINTF( "-> creating shave hair\n" );
 	MStatus status;
@@ -89,7 +89,7 @@ liqRibShaveData::liqRibShaveData( MObject obj )
 
 void liqRibShaveData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibShaveData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibShaveData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 	
 	liquid::RendererMgr::getInstancePtr()->
 		getRenderer()->write(this, ribFileName, currentJob, bReference);

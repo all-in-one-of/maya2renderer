@@ -1576,3 +1576,12 @@ MString getFileNodeImageName(const MString &node)
 
 	return fileImageName;
 }
+MString liqMerge(const MStringArray& sa, const char split)
+{
+	MString ret;
+	for(std::size_t i=0; i<sa.length();++i)
+	{
+		ret += sa[i] + split;
+	}
+	return ret;
+}

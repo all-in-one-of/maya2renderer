@@ -71,7 +71,7 @@ using namespace std;
  */
 liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
 {
-	CM_TRACE_FUNC("liqRibLightData::liqRibLightData("<<light.fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibLightData::liqRibLightData("<<light.fullPathName().asChar()<<")");
 
 	// Init
 	lightType = MRLT_Unknown;
@@ -989,7 +989,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
  */
 void liqRibLightData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibLightData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibLightData::_write(job="<<currentJob.name.asChar()<<")");
 
   if ( !excludeFromRib ) 
   {
@@ -1489,7 +1489,7 @@ void liqRibLightData::_write(const structJob &currentJob)
 //
 void liqRibLightData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibLightData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibLightData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	//assert(liqglo.m_ribFileOpen&&"liqRibLightData.cpp");//er also goes here , refactoring is needed.
 
@@ -1606,7 +1606,7 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
 
 MString liqRibLightData::extraShadowName( const MFnDependencyNode & lightShaderNode, const int & index ) const
 {
-	CM_TRACE_FUNC("liqRibLightData::extraShadowName("<<lightShaderNode.name()<<","<<index<<")");
+	CM_TRACE_FUNC("liqRibLightData::extraShadowName("<<lightShaderNode.name().asChar()<<","<<index<<")");
 
   MString frame;
   MString shadowName        = "";

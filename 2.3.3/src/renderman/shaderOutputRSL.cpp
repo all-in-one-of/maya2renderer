@@ -156,7 +156,7 @@ void OutputHelper::addToRSL(const MString& code)
 //
 void OutputHelper::beginRSL (const MString& name)
 {
-	CM_TRACE_FUNC("OutputHelper::beginRSL("<<name<<")");
+	CM_TRACE_FUNC("OutputHelper::beginRSL("<<name.asChar()<<")");
 
 	// "Open" the header and body.
 	//
@@ -181,16 +181,16 @@ void OutputHelper::endRSL ()
 		RSLfileRef << "#include <"<< *i<<">\n";
 	}
 	//
-	RSLfileRef << rslShaderHeader + rslShaderBody + "\n" ;
+	RSLfileRef << (rslShaderHeader + rslShaderBody + "\n").asChar() ;
 }
 void OutputHelper::addInclude(const MString& file)
 {
-	CM_TRACE_FUNC("OutputHelper::addInclude("<<file<<")");
+	CM_TRACE_FUNC("OutputHelper::addInclude("<<file.asChar()<<")");
 	includedFiles.insert(file.asChar());
 }
 bool OutputHelper::isOutput(const MString& plugName)
 {
-	CM_TRACE_FUNC("OutputHelper::isOutput("<<plugName<<")");
+	CM_TRACE_FUNC("OutputHelper::isOutput("<<plugName.asChar()<<")");
 	
 	return 	(2 == liquidmaya::ShaderMgr::getSingletonPtr()
 		->convertibleConnection(plugName.asChar()));
@@ -208,7 +208,7 @@ Visitor::~Visitor()
 //
 void Visitor::initShaderData(const MString& startingNode, const MString &mayaplug)
 {
-	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode<<","<<mayaplug<<")");
+	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
 
 	shaderType = getRSLShaderType(mayaplug);
 
@@ -230,7 +230,7 @@ void Visitor::outputBegin(const char* shaderNodeName)
 	RSLfile.open( renderman::getShaderFilePath_SRC(shaderNodeName).asChar() );
 
 	RSLfile << "//surface shader name: " << shaderNodeName << "\n";
-	RSLfile << shaderType<<" " << renderman::getShaderName(shaderNodeName) << "()\n{\n";
+	RSLfile << shaderType.asChar()<<" " << renderman::getShaderName(shaderNodeName).asChar() << "()\n{\n";
 
 	defineAOVVariables();
 
@@ -250,9 +250,9 @@ void Visitor::outputShaderMethod()
 	CM_TRACE_FUNC("Visitor::outputShaderMethod()");
 	
 	RSLfile << "\n\n\n// call the shaders ----------------------------------------------------------------------------\n";
-	RSLfile << shaderData[SHADER_METHOD_VARIAVLES_I];
+	RSLfile << shaderData[SHADER_METHOD_VARIAVLES_I].asChar();
 	RSLfile << "\n";
-	RSLfile << shaderData[SHADER_METHOD_BODY_I];
+	RSLfile << shaderData[SHADER_METHOD_BODY_I].asChar();
 	RSLfile << "}\n";
 }
 void  Visitor::addShaderMethodBody(
@@ -260,7 +260,7 @@ void  Visitor::addShaderMethodBody(
 						 const MStringArray& inputVars,
 						 const MStringArray& outputVars)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode<<","<<inputVars<<","<<outputVars<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputVars)<<","<<liqM(outputVars)<<")");
 
 	MString varString;
 	{
@@ -294,7 +294,7 @@ void  Visitor::addShaderMethodBody(
 void Visitor::addShaderMethodVariavles(const MString &typeSize,
 									   const MString &varName)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles(&shaderMethodVariavles,"<<typeSize<<","<<varName<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles(&shaderMethodVariavles,"<<typeSize.asChar()<<","<<varName.asChar()<<")");
 	if(typeSize=="")
 	{
 		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(varName)+";\n";

@@ -55,7 +55,7 @@ liqRibClipPlaneData::liqRibClipPlaneData( MObject coord )
 
 void liqRibClipPlaneData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibClipPlaneData::write("<<ribFileName<<","<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibClipPlaneData::write("<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibClipPlaneData.cpp");
 
@@ -79,7 +79,7 @@ void liqRibClipPlaneData::write(const MString &ribFileName, const structJob &cur
 */
 void liqRibClipPlaneData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibClipPlaneData::_write("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibClipPlaneData::_write("<<currentJob.name.asChar()<<")");
 
 	LIQDEBUGPRINTF("-> writing clipPlane");
 	RiArchiveRecord( RI_VERBATIM, "ClippingPlane 0 0 -1 0 0 0\n" );

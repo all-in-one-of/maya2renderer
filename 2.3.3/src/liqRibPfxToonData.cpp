@@ -75,7 +75,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
     cvColor(),
     cvOpacity()
 {
-	CM_TRACE_FUNC("liqRibPfxToonData::liqRibPfxToonData("<<MFnDagNode(pfxToon).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibPfxToonData::liqRibPfxToonData("<<MFnDagNode(pfxToon).fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating pfxToon curves\n" );
   MStatus status( MS::kSuccess );
@@ -297,7 +297,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
 //
 void liqRibPfxToonData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibPfxToonData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibPfxToonData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibPfxToonData");
 
@@ -320,7 +320,7 @@ void liqRibPfxToonData::write(const MString &ribFileName, const structJob &curre
  */
 void liqRibPfxToonData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibPfxToonData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibPfxToonData::_write(job="<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing pfxToon curve\n" );
 

@@ -274,13 +274,13 @@ std::ostream& liqRenderer::Print(std::ostream& o) const
 {
 	o <<"\n";
 	o <<"liqRenderer ---------------------------------"<<endl;
-	o <<"  renderName : "<<renderName<<endl;
-	o <<"  renderCommand   : "<<renderCommand<<endl;
-	o <<"  renderPreview   : "<<renderPreview<<endl;
-	o <<"  renderCmdFlags  : "<<renderCmdFlags<<endl;
-	o <<"  shaderExtension : "<<shaderExtension<<endl;
-	o <<"  shaderInfo      : "<<shaderInfo<<endl;
-	o <<"  shaderCompiler  : "<<shaderCompiler<<endl;
+	o <<"  renderName : "<<renderName.asChar()<<endl;
+	o <<"  renderCommand   : "<<renderCommand.asChar()<<endl;
+	o <<"  renderPreview   : "<<renderPreview.asChar()<<endl;
+	o <<"  renderCmdFlags  : "<<renderCmdFlags.asChar()<<endl;
+	o <<"  shaderExtension : "<<shaderExtension.asChar()<<endl;
+	o <<"  shaderInfo      : "<<shaderInfo.asChar()<<endl;
+	o <<"  shaderCompiler  : "<<shaderCompiler.asChar()<<endl;
 	o <<"  supports_BLOBBIES            : "<<supports_BLOBBIES<<endl;
 	o <<"  supports_POINTS              : "<<supports_POINTS<<endl;
 	o <<"  supports_EYESPLITS           : "<<supports_EYESPLITS<<endl;
@@ -308,8 +308,8 @@ std::ostream& liqRenderer::Print(std::ostream& o) const
 	o <<"  requires_SWAPPED_UVS : "<<requires_SWAPPED_UVS<<endl;
 	o <<"  requires__PREF       : "<<requires__PREF<<endl;
 	o <<"  requires_MAKESHADOW  : "<<requires_MAKESHADOW<<endl;
-	o <<"  dshDisplayName : "<<dshDisplayName<<endl;
-	o <<"  dshImageMode   : "<<dshImageMode<<endl; 
+	o <<"  dshDisplayName : "<<dshDisplayName.asChar()<<endl;
+	o <<"  dshImageMode   : "<<dshImageMode.asChar()<<endl; 
 
 	return o;
 }

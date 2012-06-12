@@ -57,32 +57,32 @@ namespace renderman
 	//-------------------------------------------------------
 	MString getShadingGroupFilePath(const MString &shadingGroupNodeName)
 	{
-		CM_TRACE_FUNC("getShadingGroupFilePath("<<shadingGroupNodeName<<")");
+		CM_TRACE_FUNC("getShadingGroupFilePath("<<shadingGroupNodeName.asChar()<<")");
 		return getShaderDirectory()+sanitizeNodeName(shadingGroupNodeName+".rmsg");
 	}
 	MString getShaderFilePath_NoExt(const MString &shaderNodeName)
 	{
-		CM_TRACE_FUNC("getShaderFilePath_NoExt("<<shaderNodeName<<")");
+		CM_TRACE_FUNC("getShaderFilePath_NoExt("<<shaderNodeName.asChar()<<")");
 		return getShaderDirectory()+sanitizeNodeName(shaderNodeName);
 	}
 	MString getShaderFilePath_SRC(const MString &shaderNodeName)
 	{
-		CM_TRACE_FUNC("getShaderFilePath_SRC("<<shaderNodeName<<")");
+		CM_TRACE_FUNC("getShaderFilePath_SRC("<<shaderNodeName.asChar()<<")");
 		return getShaderFilePath_NoExt(shaderNodeName)+".sl_my";
 	}
 	MString getShaderFilePath_SLO(const MString &shaderNodeName)
 	{
-		CM_TRACE_FUNC("getShaderFilePath_SLO("<<shaderNodeName<<")");
+		CM_TRACE_FUNC("getShaderFilePath_SLO("<<shaderNodeName.asChar()<<")");
 		return getShaderFilePath_NoExt(shaderNodeName)+".slo";
 	}
 	MString getShaderName(const MString &shaderName)
 	{
-		CM_TRACE_FUNC("getShaderName("<<shaderName<<")");
+		CM_TRACE_FUNC("getShaderName("<<shaderName.asChar()<<")");
 		return sanitizeNodeName(shaderName);
 	}
 	MString getVariableName(const MString &varName)
 	{
-		CM_TRACE_FUNC("getVariableName("<<varName<<")");
+		CM_TRACE_FUNC("getVariableName("<<varName.asChar()<<")");
 		return sanitizeNodeName(varName);
 	}
 }

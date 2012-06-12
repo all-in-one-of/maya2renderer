@@ -136,7 +136,7 @@ liqShader & liqShader::operator=( const liqShader & src )
 
 liqShader::liqShader( MObject shaderObj )
 {
-	CM_TRACE_FUNC("liqShader::liqShader("<<MFnDependencyNode(shaderObj).name()<<")");
+	CM_TRACE_FUNC("liqShader::liqShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
 
 	MString rmShaderStr;
 	MStatus status;
@@ -624,7 +624,7 @@ liqShader::~liqShader()
 
 void liqShader::appendCoShader(MObject coshader, MPlug plug)
 {
-	CM_TRACE_FUNC("liqShader::appendCoShader("<<MFnDependencyNode(coshader).name()<<","<<plug.name()<<")");
+	CM_TRACE_FUNC("liqShader::appendCoShader("<<MFnDependencyNode(coshader).name().asChar()<<","<<plug.name().asChar()<<")");
 
 	// test if it's really a co-shader
 	int isLiquidShader = 0;
@@ -653,7 +653,7 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 
 MStatus liqShader::liqShaderParseVectorAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType )
 {
-	CM_TRACE_FUNC("liqShader::liqShaderParseVectorAttr("<<shaderNode.name()<<","<<argName<<","<<pType<<")");
+	CM_TRACE_FUNC("liqShader::liqShaderParseVectorAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<")");
 
 	MStatus status( MS::kSuccess );
 
@@ -675,7 +675,7 @@ MStatus liqShader::liqShaderParseVectorAttr ( const MFnDependencyNode& shaderNod
 // philippe : multi attr support
 MStatus liqShader::liqShaderParseVectorArrayAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType, unsigned int arraySize )
 {
-	CM_TRACE_FUNC("liqShader::liqShaderParseVectorArrayAttr("<<shaderNode.name()<<","<<argName<<","<<pType<<","<<arraySize<<")");
+	CM_TRACE_FUNC("liqShader::liqShaderParseVectorArrayAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<","<<arraySize<<")");
 
   MStatus status( MS::kSuccess );
 
@@ -730,7 +730,7 @@ void liqShader::write(/*, */)
 
 MStatus liqShader::liqShaderParseMatrixAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType )
 {
-	CM_TRACE_FUNC("liqShader::liqShaderParseMatrixAttr("<<shaderNode.name()<<","<<argName<<","<<pType<<")");
+	CM_TRACE_FUNC("liqShader::liqShaderParseMatrixAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<")");
 	MStatus status( MS::kSuccess );
 
 	MPlug matrixPlug( shaderNode.findPlug( argName.c_str(), &status ) );

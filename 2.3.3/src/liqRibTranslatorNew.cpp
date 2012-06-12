@@ -559,7 +559,7 @@ void liqRibTranslator::doShadows(const std::vector<structJob> &shadowList_)
 //
 void liqRibTranslator::postActions(const MString& originalLayer__)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::postActions("<<originalLayer__<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::postActions("<<originalLayer__.asChar()<<")");
 	// return to the frame we were at before we ran the animation
 	LIQDEBUGPRINTF( "-> setting frame to current frame.\n" );
 	MGlobal::viewFrame (originalTime);
@@ -1089,7 +1089,7 @@ liqRibTranslator* liqRibTranslator::getInstancePtr()
 //
 MStatus liqRibTranslator::ribPrologue__(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::ribPrologue__("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::ribPrologue__("<<currentJob.name.asChar()<<")");
 	if( liqglo.m_exportReadArchive ) 
 	{
 		ribStatus = kRibBegin;
@@ -1128,7 +1128,7 @@ MStatus liqRibTranslator::ribPrologue__(const structJob &currentJob)
 //
 MStatus liqRibTranslator::ribEpilogue__(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::ribEpilogue__("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::ribEpilogue__("<<currentJob.name.asChar()<<")");
 	liquid::RendererMgr::getInstancePtr()->getRenderer()->ribPrologue_end(currentJob);
 
 	if(ribStatus == kRibBegin) 
@@ -1138,7 +1138,7 @@ MStatus liqRibTranslator::ribEpilogue__(const structJob &currentJob)
 //
 MStatus liqRibTranslator::framePrologue__( long lframe, const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::framePrologue__("<<lframe<<","<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::framePrologue__("<<lframe<<","<<currentJob.name.asChar()<<")");
 	LIQDEBUGPRINTF( "-> Beginning Frame Prologue__\n" );
 	ribStatus = kRibFrame;
 
@@ -1155,14 +1155,14 @@ MStatus liqRibTranslator::framePrologue__( long lframe, const structJob &current
 //
 MStatus liqRibTranslator::worldPrologue__(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::worldPrologue__("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::worldPrologue__("<<currentJob.name.asChar()<<")");
 	return liquid::RendererMgr::getInstancePtr()->getRenderer()->worldPrologue(currentJob);
 }
 
 //
 MStatus liqRibTranslator::lightBlock__(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::lightBlock__("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::lightBlock__("<<currentJob.name.asChar()<<")");
 	MStatus returnStatus = MS::kSuccess;
 	LIQDEBUGPRINTF( "-> Writing lights.\n" );
 	// If this is a readArchive that we are exporting then ignore this header information
@@ -1197,7 +1197,7 @@ MStatus liqRibTranslator::lightBlock__(const structJob &currentJob)
 //
 MStatus liqRibTranslator::coordSysBlock__(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::coordSysBlock__("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::coordSysBlock__("<<currentJob.name.asChar()<<")");
 	MStatus returnStatus = MS::kSuccess;
 	LIQDEBUGPRINTF( "-> Writing coordinate systems.\n" );
 	RNMAP::iterator rniter;
@@ -1257,7 +1257,7 @@ MStatus liqRibTranslator::postGeometryMel()
 // retrieve the shadow set object
 MObject liqRibTranslator::getShadowSetObject(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::getShadowSetObject("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::getShadowSetObject("<<currentJob.name.asChar()<<")");
 	MStatus status;
 	MObject shadowSetObj;
 	if( currentJob.isShadow && currentJob.shadowObjectSet != "" ) 
@@ -1304,7 +1304,7 @@ MStatus liqRibTranslator::postTransformMel(const MObject &transform__)
 //
 MStatus liqRibTranslator::tRiIlluminate(const structJob &currentJob__, const liqRibNodePtr ribNode__)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::tRiIlluminate("<<currentJob__.name<<","<<ribNode__->name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::tRiIlluminate("<<currentJob__.name.asChar()<<","<<ribNode__->name.asChar()<<")");
 	// Moritz: only write out light linking if we're not in a shadow pass
 #if 0
 // 		MObjectArray linkLights;
@@ -1353,7 +1353,7 @@ MStatus liqRibTranslator::tRiIlluminate(const structJob &currentJob__, const liq
 //
 MStatus liqRibTranslator::MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagPath &path__, const bool bMotionBlur)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::MaxtrixMotionBlur("<<ribNode__->name<<","<<path__.fullPathName()<<","<<bMotionBlur<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::MaxtrixMotionBlur("<<ribNode__->name.asChar()<<","<<path__.fullPathName().asChar()<<","<<bMotionBlur<<")");
 	MMatrix matrix;
 
 	if( bMotionBlur)
@@ -1420,7 +1420,7 @@ MStatus liqRibTranslator::checkSurfaceShader(
 	liqDetailShaderKind &hasCustomSurfaceShader__,
 	 MString &shaderRibBox__)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::checkSurfaceShader("<<path__.fullPathName()<<","<<ribNode__->name<<",,,"<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::checkSurfaceShader("<<path__.fullPathName().asChar()<<","<<ribNode__->name.asChar()<<",,,"<<")");
 	MStatus status;
 
 	MPlug rmanShaderPlug;
@@ -1509,7 +1509,7 @@ MStatus liqRibTranslator::checkDisplacementShader(
 								//MString &shaderRibBox__
 								)
 {	
-	CM_TRACE_FUNC("liqRibTranslatorNew::checkDisplacementShader("<<path__.fullPathName()<<","<<ribNode__->name<<",,,"<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::checkDisplacementShader("<<path__.fullPathName().asChar()<<","<<ribNode__->name.asChar()<<",,,"<<")");
 	MStatus status;
 	MPlug rmanShaderPlug;
 	MFnDagNode fnDagNode( path__ );
@@ -1559,7 +1559,7 @@ MStatus liqRibTranslator::checkVolumeShader(
 						  //MString &shaderRibBox__
 						  )
 {	
-	CM_TRACE_FUNC("liqRibTranslatorNew::checkVolumeShader("<<path__.fullPathName()<<","<<ribNode__->name<<",,,"<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::checkVolumeShader("<<path__.fullPathName().asChar()<<","<<ribNode__->name.asChar()<<",,,"<<")");
 	MStatus status;
 	MPlug rmanShaderPlug;
 	MFnDagNode fnDagNode( path__ );
@@ -1603,7 +1603,7 @@ MStatus liqRibTranslator::checkVolumeShader(
 //
 MStatus liqRibTranslator::displacementBounds(const liqRibNodePtr &ribNode__)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::displacementBounds("<<ribNode__->name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::displacementBounds("<<ribNode__->name.asChar()<<")");
 	MStatus status;
 
 	float surfaceDisplacementBounds = 0.0;
@@ -1651,14 +1651,14 @@ MStatus liqRibTranslator::displacementBounds(const liqRibNodePtr &ribNode__)
 //
 MStatus liqRibTranslator::objectShadowAttribute(const liqRibNodePtr &ribNode__)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::objectShadowAttribute("<<ribNode__->name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::objectShadowAttribute("<<ribNode__->name.asChar()<<")");
 
 	return MS::kSuccess;
 }
 
 MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode__)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::objectNonShadowAttribute("<<ribNode__->name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::objectNonShadowAttribute("<<ribNode__->name.asChar()<<")");
 	RtInt off( 0 );
 	RtInt on( 1 );
 	if( !ribNode__->shading.diceRasterOrient ) 
@@ -2284,7 +2284,7 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 //
 MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::objectBlock_reference("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::objectBlock_reference("<<currentJob.name.asChar()<<")");
 	MStatus returnStatus = MS::kSuccess;
 	MStatus status;
 	attributeDepth = 0;
@@ -2341,7 +2341,7 @@ MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 
 MStatus liqRibTranslator::objectBlock_data(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::objectBlock_data("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::objectBlock_data("<<currentJob.name.asChar()<<")");
 	MStatus returnStatus = MS::kSuccess;
 	MStatus status;
 	attributeDepth = 0;
@@ -2385,7 +2385,7 @@ MStatus liqRibTranslator::objectBlock_data(const structJob &currentJob)
 }
 MStatus liqRibTranslator::objectBlock__(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::objectBlock__("<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::objectBlock__("<<currentJob.name.asChar()<<")");
 
 	objectBlock_data(currentJob);
 
@@ -2673,7 +2673,7 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 MStatus liqRibTranslator::_doItNewWithRenderScript(
 	const MArgList& args , const MString& originalLayer )
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::_doItNewWithRenderScript(args,"<<originalLayer<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::_doItNewWithRenderScript(args,"<<originalLayer.asChar()<<")");
 
 	MStatus status;
 #if (Refactoring == 0)
@@ -3068,7 +3068,7 @@ void liqRibTranslator::F1(
 						  const liqRibNodePtr &ribNode__,  liqShader &currentShader
 						  )
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::F1("<<ribNode__->name<<","<<currentShader.getName()<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::F1("<<ribNode__->name.asChar()<<","<<currentShader.getName()<<")");
 	// Output color overrides or color
 	if(ribNode__->shading.color.r != -1.0)
 	{
@@ -3098,7 +3098,7 @@ void liqRibTranslator::F2(
 						  const bool m_shaderDebug, const liqRibNodePtr &ribNode__
 						  )
 { 
-	CM_TRACE_FUNC("liqRibTranslatorNew::F2("<<m_shaderDebug<<","<<ribNode__->name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::F2("<<m_shaderDebug<<","<<ribNode__->name.asChar()<<")");
 	if( m_shaderDebug ) 
 	{
 		RtColor rColor,rOpacity;
@@ -3155,7 +3155,7 @@ void liqRibTranslator::getPfxHairData(const MDagPath &path__,
 	RtFloat &translucence, RtFloat &specularPower, RtColor &specularColor
 )
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::getPfxHairData("<<path__.fullPathName()<<",,,)");
+	CM_TRACE_FUNC("liqRibTranslatorNew::getPfxHairData("<<path__.fullPathName().asChar()<<",,,)");
 	MStatus status;
 
 	//cout <<"getting pfxHair shading params..."<<endl;
@@ -3196,7 +3196,7 @@ void liqRibTranslator::oneObjectBlock_reference(
 	const structJob &currentJob
 	)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::oneObjectBlock_reference("<<ribNode->name<<","<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::oneObjectBlock_reference("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 	MDagPath path = ribNode->path();
 	MFnDagNode dagFn;
 
@@ -3362,7 +3362,7 @@ void liqRibTranslator::oneObjectBlock_data(
 	const structJob &currentJob
 	)
 {
-	CM_TRACE_FUNC("liqRibTranslatorNew::oneObjectBlock_data("<<ribNode->name<<","<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibTranslatorNew::oneObjectBlock_data("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 	liquid::RendererMgr::getInstancePtr()->getRenderer()->exportOneObject_data(ribNode, currentJob);
 }
@@ -3382,13 +3382,13 @@ MStatus liqRibTranslator::writeShader_(
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::writeShader_("
 		<<writeShaders__<<","
-		<<ribNode__->name
+		<<ribNode__->name.asChar()
 		<<",v="<<hasVolumeShader__
 		<<",s="<<hasSurfaceShader__
 		<<",c="<<hasCustomSurfaceShader__<<","
-		<<shaderRibBox__<<","
-		<<path__.fullPathName()<<","
-		<<currentJob.name<<")");
+		<<shaderRibBox__.asChar()<<","
+		<<path__.fullPathName().asChar()<<","
+		<<currentJob.name.asChar()<<")");
 	const bool isShadowJob = currentJob.isShadow;//false 
 	const bool isDeepShadowJob = currentJob.deepShadows;//false
 
@@ -3464,13 +3464,13 @@ MStatus liqRibTranslator::writeShader_forShadow(
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::writeShader_forShadow("
 		<<writeShaders__<<","
-		<<ribNode__->name
+		<<ribNode__->name.asChar()
 		<<",v="<<hasVolumeShader__
 		<<",s="<<hasSurfaceShader__
 		<<",c="<<hasCustomSurfaceShader__<<","
-		<<shaderRibBox__<<","
-		<<path__.fullPathName()<<","
-		<<currentJob.name<<")");
+		<<shaderRibBox__.asChar()<<","
+		<<path__.fullPathName().asChar()<<","
+		<<currentJob.name.asChar()<<")");
 	assert(currentJob.isShadow == true);
 
 	//const bool isDeepShadowJob = ;

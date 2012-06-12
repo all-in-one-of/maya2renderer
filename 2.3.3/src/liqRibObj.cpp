@@ -78,7 +78,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
   referenceCount( 0 ),
   data()
 {
-	CM_TRACE_FUNC("liqRibObj::liqRibObj("<<path.fullPathName()<<","<<objType<<")");
+	CM_TRACE_FUNC("liqRibObj::liqRibObj("<<path.fullPathName().asChar()<<","<<objType<<")");
 
   LIQDEBUGPRINTF( "-> creating dag node handle rep\n");
   MString pathName(path.fullPathName()); //debug
@@ -424,7 +424,7 @@ AnimType liqRibObj::compareBody( const liqRibObjPtr o ) const
  */
 void liqRibObj::writeObject(const MString& ribFileFullPath, const structJob &currentJob, const bool bReference) const
 {
-	CM_TRACE_FUNC("liqRibObj::writeObject("<<ribFileFullPath<<","<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibObj::writeObject("<<ribFileFullPath.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	if( data ==NULL)
 		return;

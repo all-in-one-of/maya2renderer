@@ -6,7 +6,7 @@ namespace renderman
 {
 	bool Renderer::writeLight_pre(const liqRibNodePtr& ribNode, const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::writeLight_pre("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::writeLight_pre("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		RtInt on( 1 );
 		// We need to enclose lights in attribute blocks because of the
@@ -42,7 +42,7 @@ namespace renderman
 	//
 	void Renderer::writeLight_post(const liqRibNodePtr& ribNode, const structJob& currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::writeLight_post("<<ribNode->name<<","<<currentJob.name<<")");
+		CM_TRACE_FUNC("Renderer::writeLight_post("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		// The next line pops the light...
 		RiAttributeEnd();

@@ -110,7 +110,7 @@ public:
 liqRibParticleData::liqRibParticleData( MObject partobj )
   : grain( 0 )
 {
-	CM_TRACE_FUNC("liqRibParticleData::liqRibParticleData("<<MFnDagNode(partobj).fullPathName()<<")");
+	CM_TRACE_FUNC("liqRibParticleData::liqRibParticleData("<<MFnDagNode(partobj).fullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> creating particles\n");
   MStatus status( MS::kSuccess );
@@ -1081,7 +1081,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
 //
 void liqRibParticleData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-	CM_TRACE_FUNC("liqRibParticleData::write("<<ribFileName<<",job="<<currentJob.name<<","<<bReference<<")");
+	CM_TRACE_FUNC("liqRibParticleData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
 	assert(liqglo.m_ribFileOpen&&"liqRibParticleData.cpp");
 
@@ -1104,7 +1104,7 @@ void liqRibParticleData::write(const MString &ribFileName, const structJob &curr
  */
 void liqRibParticleData::_write(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibParticleData::_write(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibParticleData::_write(job="<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing particles\n");
 
@@ -1365,7 +1365,7 @@ unsigned liqRibParticleData::granularity() const
  */
 bool liqRibParticleData::writeNextGrain(const structJob &currentJob)
 {
-	CM_TRACE_FUNC("liqRibParticleData::writeNextGrain(job="<<currentJob.name<<")");
+	CM_TRACE_FUNC("liqRibParticleData::writeNextGrain(job="<<currentJob.name.asChar()<<")");
 
   LIQDEBUGPRINTF( "-> writing particles\n");
 
@@ -1616,7 +1616,7 @@ ObjectType liqRibParticleData::type() const
  */
 void liqRibParticleData::addAdditionalParticleParameters( MObject node )
 {
-	CM_TRACE_FUNC("liqRibParticleData::addAdditionalParticleParameters("<<MFnDependencyNode(node).name()<<")");
+	CM_TRACE_FUNC("liqRibParticleData::addAdditionalParticleParameters("<<MFnDependencyNode(node).name().asChar()<<")");
 
   LIQDEBUGPRINTF("-> scanning for additional rman surface attributes \n");
 
@@ -1631,7 +1631,7 @@ void liqRibParticleData::addAdditionalParticleParameters( MObject node )
 
 void liqRibParticleData::addAdditionalFloatParameters( MFnDependencyNode nodeFn )
 {
-	CM_TRACE_FUNC("liqRibParticleData::addAdditionalFloatParameters("<<nodeFn.name()<<")");
+	CM_TRACE_FUNC("liqRibParticleData::addAdditionalFloatParameters("<<nodeFn.name().asChar()<<")");
 
   MStringArray foundAttributes = findAttributesByPrefix( "rmanF", nodeFn );
   MStatus  status;
@@ -1675,7 +1675,7 @@ void liqRibParticleData::addAdditionalFloatParameters( MFnDependencyNode nodeFn 
 
 void liqRibParticleData::addAdditionalVectorParameters( MFnDependencyNode nodeFn, const string& prefix, ParameterType type )
 {
-	CM_TRACE_FUNC("liqRibParticleData::addAdditionalVectorParameters("<<nodeFn.name()<<","<<prefix<<","<<type<<")");
+	CM_TRACE_FUNC("liqRibParticleData::addAdditionalVectorParameters("<<nodeFn.name().asChar()<<","<<prefix<<","<<type<<")");
 
   MStringArray foundAttributes = findAttributesByPrefix( prefix.c_str(), nodeFn );
   MStatus  status;

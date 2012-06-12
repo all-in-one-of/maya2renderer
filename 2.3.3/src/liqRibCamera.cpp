@@ -74,7 +74,7 @@ void tRibCameraMgr::gatherDataForJob(
 //
 void tRibCameraMgr::framePrologue_camera(long lframe, const structJob &currentJob)
 {
-	CM_TRACE_FUNC("tRibCameraMgr::framePrologue_camera("<<lframe<<",job.title="<<currentJob.name<<")");
+	CM_TRACE_FUNC("tRibCameraMgr::framePrologue_camera("<<lframe<<",job.title="<<currentJob.name.asChar()<<")");
 
 	LIQDEBUGPRINTF( "-> Setting Resolution\n" );
 	// philippe : Rotated Camera Case
