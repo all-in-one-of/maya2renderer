@@ -1,0 +1,2456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="3Delight Generic ribLib Release|Win32">
+      <Configuration>3Delight Generic ribLib Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="3Delight Generic ribLib Release|x64">
+      <Configuration>3Delight Generic ribLib Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="3Delight Release|Win32">
+      <Configuration>3Delight Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="3Delight Release|x64">
+      <Configuration>3Delight Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Air Generic ribLib Release|Win32">
+      <Configuration>Air Generic ribLib Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Air Generic ribLib Release|x64">
+      <Configuration>Air Generic ribLib Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Aqsis Generic ribLib Release|Win32">
+      <Configuration>Aqsis Generic ribLib Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Aqsis Generic ribLib Release|x64">
+      <Configuration>Aqsis Generic ribLib Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Aqsis Release|Win32">
+      <Configuration>Aqsis Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Aqsis Release|x64">
+      <Configuration>Aqsis Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Generic RibLib Release|Win32">
+      <Configuration>Generic RibLib Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Generic RibLib Release|x64">
+      <Configuration>Generic RibLib Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Pixie Generic ribLib Release|Win32">
+      <Configuration>Pixie Generic ribLib Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Pixie Generic ribLib Release|x64">
+      <Configuration>Pixie Generic ribLib Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Pixie Release|Win32">
+      <Configuration>Pixie Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Pixie Release|x64">
+      <Configuration>Pixie Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Debug2008|Win32">
+      <Configuration>Prman Debug2008</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Debug2008|x64">
+      <Configuration>Prman Debug2008</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Debug|Win32">
+      <Configuration>Prman Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Debug|x64">
+      <Configuration>Prman Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Release2008|Win32">
+      <Configuration>Prman Release2008</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Release2008|x64">
+      <Configuration>Prman Release2008</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Release|Win32">
+      <Configuration>Prman Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman Release|x64">
+      <Configuration>Prman Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman2008Debug|Win32">
+      <Configuration>Prman2008Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman2008Debug|x64">
+      <Configuration>Prman2008Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman2009Debug|Win32">
+      <Configuration>Prman2009Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Prman2009Debug|x64">
+      <Configuration>Prman2009Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PrmanDebug2008|Win32">
+      <Configuration>PrmanDebug2008</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PrmanDebug2008|x64">
+      <Configuration>PrmanDebug2008</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}</ProjectGuid>
+    <RootNamespace>liquid</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'">.\../../bin/Aqsis/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'">.\../../bin/Aqsis/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'">.\../../bin/Pixie/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'">.\../../bin/Pixie/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'">.\../../bin/3Delight/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'">.\../../bin/3Delight/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'">.\../../bin/3Delight/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'">.\../../bin/3Delight/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'">.\../../bin/Pixie/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'">.\../../bin/Pixie/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'">.\../../bin/Aqsis/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'">.\../../bin/Aqsis/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'">.\../../bin/Air/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'">.\../../bin/Air/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'">.\../../bin/Generic/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'">.\../../bin/Generic/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'">.\../../bin/3Delight/win32/Release/Objects\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'">.\../../bin/3Delight/win32/Release/Objects\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Aqsis/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;AQSIS;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Aqsis/win32/Release/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Aqsis/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Generic ribLib Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Aqsis/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;AQSIS;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Aqsis/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;../../bin/win64lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Aqsis/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;PIXIE;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Pixie/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Pixie/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Pixie/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Pixie/win32/Release/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Generic ribLib Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;PIXIE;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Pixie/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Pixie/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Pixie/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Pixie/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;../../bin/win64lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;$(DELIGHT)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;DELIGHT;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>3delight.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/3delight/win32/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;$(DELIGHT)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(DELIGHT_X64)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;DELIGHT;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>3delight.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/3delight/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(DELIGHT_X64)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;DELIGHT;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;RILIB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/3delight/win32/Release/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;DELIGHT;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;RILIB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/3delight/win32/Release/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PIXIE;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Pixie/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Pixie/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Pixie/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ri.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Pixie/win32/Release/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;$(PIXIEHOME)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Pixie Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;$(PIXIEHOME)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PIXIE;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Pixie/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Pixie/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Pixie/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ri.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Pixie/win32/Release/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;$(PIXIEHOME)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Aqsis/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;$(AQSISHOME)/include/aqsis/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;AQSIS;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ri2rib.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Aqsis/win32/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;$(AQSISHOME)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Aqsis/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Aqsis Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Aqsis/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(AQSISHOME)/include/aqsis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;AQSIS;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>ri2rib.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Aqsis/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(AQSISHOME)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Aqsis/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Aqsis/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;AIR;GENERIC_RIBLIB;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Air/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Air/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Air/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Air/win32/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Air Generic ribLib Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;AIR;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Air/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Air/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Air/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Air/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;../../bin/win64lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Generic/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Generic/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Generic/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Generic/win32/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION)/lib;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Pixie/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Pixie/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Generic RibLib Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/Pixie/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;../../ribLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;GENERIC_RIBLIB;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/Generic/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Generic/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Generic/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Generic/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>RILIB.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/Generic/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;../../bin/win64lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\../../bin/Generic/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/Generic/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/Pixie/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2009)/include;$(RMANTREE)/include;../../riblib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;rilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2009x32.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2009)/lib;$(RMANTREE)/lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(RMANTREE_X64)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libprman.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(RMANTREE_X64)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(RMANTREE)/include;../../riblib;E:\dev\tools\zlib\1.2.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;rilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x32.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(RMANTREE)/lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\win32lib－;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Release/Objects/liquid2008x32.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Release2008|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(RMANTREE_X64)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libprman.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(RMANTREE_X64)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(RMANTREE)/include;../../riblib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>
+      </AssemblerListingLocation>
+      <ObjectFileName>
+      </ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;rilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x32d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(RMANTREE)/lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid_2008x32d.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug2008|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(RMANTREE_X64)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libprman.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(RMANTREE_X64)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(RMANTREE)/include;../../riblib;E:\dev\tools\zlib\1.2.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>
+      </AssemblerListingLocation>
+      <ObjectFileName>
+      </ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;RILIB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x32d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(RMANTREE)/lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\win32lib－;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2008x32.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(RMANTREE_X64)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libprman.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(RMANTREE_X64)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(RMANTREE)/include;../../riblib;E:\dev\tools\zlib\1.2.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>
+      </AssemblerListingLocation>
+      <ObjectFileName>
+      </ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;RILIB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x32d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(RMANTREE)/lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\win32lib－;../../bin/win32lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2008x32.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_LOCATION_X64)/include;$(RMANTREE_X64)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/3Delight/win32/Release/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/3Delight/win32/Release/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/3Delight/win32/Release/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>libprman.lib;zdll.lib;image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win64/liquid.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_LOCATION_X64)/lib;$(RMANTREE_X64)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/3Delight/win32/Release/Objects/liquid.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>.\../../bin/3Delight/win32/Release/Objects/liquid.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(BOOST_ROOT);E:\dev\tools\zlib\1.2.5;..\..\..\dependence\aqsis\1.6.0\src\include;..\..\..\dependence\aqsis\1.6.0\build\include;..\..\..\dependence\aqsis\1.6.0\src\libs\core\api;..\..\..\dependence\aqsis\1.6.0\build\libs\core\api;..\..\..\dependence\aqsis\1.6.0\src\libs\core\ddmanager;..\..\..\dependence\aqsis\1.6.0\src\libs\core\geometry;..\..\..\dependence\aqsis\1.6.0\src\libs\core\raytrace;..\..\..\dependence\aqsis\1.6.0\src\libs\core\texturing_old;..\..\..\dependence\aqsis\1.6.0\src\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\build\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\src\libs\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Debug/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Debug/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x32d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(BOOST_ROOT)/stage/lib;$(AQSIS_LIB_X32);$(LIBTIFF);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2008x32d.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(BOOST_ROOT);E:\dev\tools\zlib\1.2.5;..\..\..\dependence\aqsis\1.6.0\src\include;..\..\..\dependence\aqsis\1.6.0\build\include;..\..\..\dependence\aqsis\1.6.0\src\libs\core\api;..\..\..\dependence\aqsis\1.6.0\build\libs\core\api;..\..\..\dependence\aqsis\1.6.0\src\libs\core\ddmanager;..\..\..\dependence\aqsis\1.6.0\src\libs\core\geometry;..\..\..\dependence\aqsis\1.6.0\src\libs\core\raytrace;..\..\..\dependence\aqsis\1.6.0\src\libs\core\texturing_old;..\..\..\dependence\aqsis\1.6.0\src\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\build\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\src\libs\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Debug/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Debug/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x64d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(BOOST_ROOT)/stage/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win64/Debug/Objects/liquid_2008x64.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">
+    <PreBuildEvent>
+      <Message>Print build time to LiquidRoot\2.3.3\buildtime.txt</Message>
+      <Command>echo " (buildtime=%time%)" &gt; ..\..\buildtime.txt </Command>
+    </PreBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2009)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/xercesc/include;../../../dependence/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Debug/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Debug/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\zlib\lib\vc9_sp1/zlibstat.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;xerces-c_static_3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2009x32d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2009)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;../../../dependence/xercesc/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2009x32d.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(BOOST_ROOT);E:\dev\tools\zlib\1.2.5;..\..\..\dependence\aqsis\1.6.0\src\include;..\..\..\dependence\aqsis\1.6.0\build\include;..\..\..\dependence\aqsis\1.6.0\src\libs\core\api;..\..\..\dependence\aqsis\1.6.0\build\libs\core\api;..\..\..\dependence\aqsis\1.6.0\src\libs\core\ddmanager;..\..\..\dependence\aqsis\1.6.0\src\libs\core\geometry;..\..\..\dependence\aqsis\1.6.0\src\libs\core\raytrace;..\..\..\dependence\aqsis\1.6.0\src\libs\core\texturing_old;..\..\..\dependence\aqsis\1.6.0\src\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\build\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\src\libs\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Debug/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Debug/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x64d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(BOOST_ROOT)/stage/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win64/Debug/Objects/liquid_2008x64.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\liqAttachPrefAttribute.cpp" />
+    <ClCompile Include="..\liqBoundingBoxLocator.cpp" />
+    <ClCompile Include="..\liqBucket.cpp" />
+    <ClCompile Include="..\liqCoordSysNode.cpp" />
+    <ClCompile Include="..\liqCoShaderNode.cpp" />
+    <ClCompile Include="..\liqDisplacementNode.cpp" />
+    <ClCompile Include="..\liqExpression.cpp" />
+    <ClCompile Include="..\liqFrameScriptMgr.cpp" />
+    <ClCompile Include="..\liqGetAttr.cpp" />
+    <ClCompile Include="..\liqGetSloInfo.cpp" />
+    <ClCompile Include="..\liqGlobalHelpers.cpp" />
+    <ClCompile Include="..\liqGlobalNodeRenderer.cpp" />
+    <ClCompile Include="..\liqGlobalsNode.cpp" />
+    <ClCompile Include="..\liqGlobalVariable.cpp" />
+    <ClCompile Include="..\liqHeroRibWriterMgr.cpp" />
+    <ClCompile Include="..\liqJobList.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\liqJobScriptMgr.cpp" />
+    <ClCompile Include="..\liqLightMgr.cpp" />
+    <ClCompile Include="..\liqLightNode.cpp" />
+    <ClCompile Include="..\liqLightNodeBehavior.cpp" />
+    <ClCompile Include="..\liqLocatorMgr.cpp" />
+    <ClCompile Include="..\liqlog.cpp" />
+    <ClCompile Include="..\liqMayaRenderView.cpp" />
+    <ClCompile Include="..\liqMemory.cpp" />
+    <ClCompile Include="..\liqNodeSwatch.cpp" />
+    <ClCompile Include="..\liqPreviewShader.cpp" />
+    <ClCompile Include="..\liqProcessLauncher.cpp" />
+    <ClCompile Include="..\liqRenderer.cpp" />
+    <ClCompile Include="..\liqRenderScript.cpp" />
+    <ClCompile Include="..\liqRibboxNode.cpp" />
+    <ClCompile Include="..\liqRibCamera.cpp" />
+    <ClCompile Include="..\liqRibClipPlaneData.cpp" />
+    <ClCompile Include="..\liqRibCoordData.cpp" />
+    <ClCompile Include="..\liqRibCurvesData.cpp" />
+    <ClCompile Include="..\liqRibData.cpp" />
+    <ClCompile Include="..\liqRibGenData.cpp" />
+    <ClCompile Include="..\liqRibHT.cpp" />
+    <ClCompile Include="..\liqRibImplicitSphereData.cpp" />
+    <ClCompile Include="..\liqRibLightData.cpp" />
+    <ClCompile Include="..\liqRibLocatorData.cpp" />
+    <ClCompile Include="..\liqRibMayaSubdivisionData.cpp" />
+    <ClCompile Include="..\liqRibMeshData.cpp" />
+    <ClCompile Include="..\liqRibNode.cpp" />
+    <ClCompile Include="..\liqRibNuCurveData.cpp" />
+    <ClCompile Include="..\liqRibObj.cpp" />
+    <ClCompile Include="..\liqRibParticleData.cpp" />
+    <ClCompile Include="..\liqRibPfxData.cpp" />
+    <ClCompile Include="..\liqRibPfxHairData.cpp" />
+    <ClCompile Include="..\liqRibPfxToonData.cpp" />
+    <ClCompile Include="..\liqRibRequestNode.cpp" />
+    <ClCompile Include="..\liqRibShaveData.cpp" />
+    <ClCompile Include="..\liqRibSubdivisionData.cpp" />
+    <ClCompile Include="..\liqRibSurfaceData.cpp" />
+    <ClCompile Include="..\liqRibTranslator.cpp" />
+    <ClCompile Include="..\liqRibTranslatorNew.cpp" />
+    <ClCompile Include="..\liqRiCommands.cpp" />
+    <ClCompile Include="..\liqShader.cpp" />
+    <ClCompile Include="..\liqShaderFactory.cpp" />
+    <ClCompile Include="..\liqShadowRibWriterMgr.cpp" />
+    <ClCompile Include="..\liqSurfaceNode.cpp" />
+    <ClCompile Include="..\liqTokenPointer.cpp" />
+    <ClCompile Include="..\liquidPlug.cpp" />
+    <ClCompile Include="..\liqVolumeNode.cpp" />
+    <ClCompile Include="..\ri_interface.cpp" />
+    <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp" />
+    <ClCompile Include="..\shadergraph\shadermgr.cpp" />
+    <ClCompile Include="..\shadergraph\shaderOutput.cpp" />
+    <ClCompile Include="..\shadergraph\shaderOutputMgr.cpp" />
+    <ClCompile Include="..\shadergraph\shaderValidConnection.cpp" />
+    <ClCompile Include="..\shadergraph\shaderValidConnection_mi.cpp" />
+    <ClCompile Include="..\liqGlobalNodeHelper.cpp" />
+    <ClCompile Include="..\liqtypes.cpp" />
+    <ClCompile Include="..\renderermgr.cpp" />
+    <ClCompile Include="..\renderman\rm_factory.cpp" />
+    <ClCompile Include="..\renderman\rm_helper.cpp" />
+    <ClCompile Include="..\renderman\rm_renderer.cpp" />
+    <ClCompile Include="..\renderman\rm_shader.cpp" />
+    <ClCompile Include="..\renderman\rm_writeLightData.cpp" />
+    <ClCompile Include="..\renderman\rm_writeLocatorData.cpp" />
+    <ClCompile Include="..\renderman\rm_writeMeshData.cpp" />
+    <ClCompile Include="..\renderman\rm_writePfxData.cpp" />
+    <ClCompile Include="..\renderman\rm_writePfxHairData.cpp" />
+    <ClCompile Include="..\renderman\rm_writeShaveData.cpp" />
+    <ClCompile Include="..\renderman\shaderOutputRSL.cpp" />
+    <ClCompile Include="..\renderman\shaderOutputRSL_materials.cpp" />
+    <ClCompile Include="..\renderman\shaderOutputRSL_mi.cpp" />
+    <ClCompile Include="..\renderman\shaderOutputRSL_textures.cpp" />
+    <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp" />
+    <ClCompile Include="..\elvishray\er_factory.cpp" />
+    <ClCompile Include="..\elvishray\er_GlobalNodeHelper.cpp" />
+    <ClCompile Include="..\elvishray\er_group.cpp" />
+    <ClCompile Include="..\elvishray\er_groupmgr.cpp" />
+    <ClCompile Include="..\elvishray\er_renderer.cpp" />
+    <ClCompile Include="..\elvishray\er_shader.cpp" />
+    <ClCompile Include="..\elvishray\er_writeLightData.cpp" />
+    <ClCompile Include="..\elvishray\er_writeLocatorData.cpp" />
+    <ClCompile Include="..\elvishray\er_writeMeshData.cpp" />
+    <ClCompile Include="..\elvishray\er_writePfxData.cpp" />
+    <ClCompile Include="..\elvishray\er_writePfxHairData.cpp" />
+    <ClCompile Include="..\elvishray\er_writeShaveData.cpp" />
+    <ClCompile Include="..\elvishray\ercall.cpp" />
+    <ClCompile Include="..\elvishray\MayaConnection.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputER.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputER_materials.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputERCall.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputERCall_materials.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputERCall_mi.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputERCall_textures.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputERCall_utilities.cpp" />
+    <ClCompile Include="..\appleseed\as_factory.cpp" />
+    <ClCompile Include="..\appleseed\as_GlobalNodeHelper.cpp" />
+    <ClCompile Include="..\appleseed\as_renderer.cpp" />
+    <ClCompile Include="..\appleseed\as_shader.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutput.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutput_materials.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutput_mi.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutput_textures.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutput_utilities.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutputCall.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutputCall_materials.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutputCall_mi.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutputCall_textures.cpp" />
+    <ClCompile Include="..\appleseed\as_shaderOutputCall_utilities.cpp" />
+    <ClCompile Include="..\appleseed\as_writeLightData.cpp" />
+    <ClCompile Include="..\appleseed\as_writeLocatorData.cpp" />
+    <ClCompile Include="..\appleseed\as_writeMeshData.cpp" />
+    <ClCompile Include="..\appleseed\as_writePfxData.cpp" />
+    <ClCompile Include="..\appleseed\as_writePfxHairData.cpp" />
+    <ClCompile Include="..\appleseed\as_writeShaveData.cpp" />
+    <ClCompile Include="..\appleseed\xmlhelper.cpp" />
+    <ClCompile Include="..\common\logmgr.cpp" />
+    <ClCompile Include="..\common\mayacheck.cpp" />
+    <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\liqGlobalNodeRenderer.h" />
+    <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
+    <ClInclude Include="..\shadergraph\shadermgr.h" />
+    <ClInclude Include="..\shadergraph\shaderOutput.h" />
+    <ClInclude Include="..\shadergraph\shaderOutputMgr.h" />
+    <ClInclude Include="..\shadergraph\shaderValidConnection.h" />
+    <ClInclude Include="..\..\include\liqAqsisRenderer.h" />
+    <ClInclude Include="..\..\include\liqAttachPrefAttribute.h" />
+    <ClInclude Include="..\..\include\liqBoundingBoxLocator.h" />
+    <ClInclude Include="..\..\include\liqBucket.h" />
+    <ClInclude Include="..\..\include\liqConfig.h" />
+    <ClInclude Include="..\..\include\liqCoordSysNode.h" />
+    <ClInclude Include="..\..\include\liqCoShaderNode.h" />
+    <ClInclude Include="..\..\include\liqCustomNode.h" />
+    <ClInclude Include="..\..\include\liqDelightRenderer.h" />
+    <ClInclude Include="..\..\include\liqDisplacementNode.h" />
+    <ClInclude Include="..\..\include\liqEntropyRenderer.h" />
+    <ClInclude Include="..\..\include\liqExpression.h" />
+    <ClInclude Include="..\..\include\liqFrameScriptMgr.h" />
+    <ClInclude Include="..\..\include\liqGetAttr.h" />
+    <ClInclude Include="..\..\include\liqGetSloInfo.h" />
+    <ClInclude Include="..\..\include\liqGlobalHelpers.h" />
+    <ClInclude Include="..\..\include\liqGlobals.h" />
+    <ClInclude Include="..\..\include\liqGlobalsNode.h" />
+    <ClInclude Include="..\..\include\liqGlobalVariable.h" />
+    <ClInclude Include="..\..\include\liqHeroRibWriterMgr.h" />
+    <ClInclude Include="..\..\include\liqIOStream.h" />
+    <ClCompile Include="..\..\include\liqJobList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClInclude Include="..\..\include\liqJobScriptMgr.h" />
+    <ClInclude Include="..\..\include\liqLightMgr.h" />
+    <ClInclude Include="..\..\include\liqLightNode.h" />
+    <ClInclude Include="..\..\include\liqLightNodeBehavior.h" />
+    <ClInclude Include="..\..\include\liqLocatorMgr.h" />
+    <ClInclude Include="..\..\include\liqlog.h" />
+    <ClInclude Include="..\..\include\liqMayaNodeIds.h" />
+    <ClInclude Include="..\..\include\liqMayaRenderView.h" />
+    <ClInclude Include="..\..\include\liqMemory.h" />
+    <ClInclude Include="..\..\include\liqNodeSwatch.h" />
+    <ClInclude Include="..\..\include\liqPixieRenderer.h" />
+    <ClInclude Include="..\..\include\liqPreviewShader.h" />
+    <ClInclude Include="..\..\include\liqPrmanRenderer.h" />
+    <ClInclude Include="..\..\include\liqProcessLauncher.h" />
+    <ClInclude Include="..\..\include\liqRenderer.h" />
+    <ClInclude Include="..\..\include\liqRenderScript.h" />
+    <ClInclude Include="..\..\include\liqRibBakeSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRibboxNode.h" />
+    <ClInclude Include="..\..\include\liqRibClipPlaneData.h" />
+    <ClInclude Include="..\..\include\liqRibCoordData.h" />
+    <ClInclude Include="..\..\include\liqRibCurvesData.h" />
+    <ClInclude Include="..\..\include\liqRibCustomNode.h" />
+    <ClInclude Include="..\..\include\liqRibData.h" />
+    <ClInclude Include="..\..\include\liqRibGen.h" />
+    <ClInclude Include="..\..\include\liqRibGenData.h" />
+    <ClInclude Include="..\..\include\liqRibHT.h" />
+    <ClInclude Include="..\..\include\liqRibImplicitSphereData.h" />
+    <ClInclude Include="..\..\include\liqRibLightData.h" />
+    <ClInclude Include="..\..\include\liqRibLocatorData.h" />
+    <ClInclude Include="..\..\include\liqRibMayaSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRibMeshData.h" />
+    <ClInclude Include="..\..\include\liqRibNode.h" />
+    <ClInclude Include="..\..\include\liqRibNuCurveData.h" />
+    <ClInclude Include="..\..\include\liqRibObj.h" />
+    <ClInclude Include="..\..\include\liqRibParticleData.h" />
+    <ClInclude Include="..\..\include\liqRibPfxData.h" />
+    <ClInclude Include="..\..\include\liqRibPfxHairData.h" />
+    <ClInclude Include="..\..\include\liqRibPfxToonData.h" />
+    <ClInclude Include="..\..\include\liqRibRequestNode.h" />
+    <ClInclude Include="..\..\include\liqRibShaveData.h" />
+    <ClInclude Include="..\..\include\liqRibStatus.h" />
+    <ClInclude Include="..\..\include\liqRibSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRibSurfaceData.h" />
+    <ClInclude Include="..\..\include\liqRibTranslator.h" />
+    <ClInclude Include="..\..\include\liqRiCommands.h" />
+    <ClInclude Include="..\..\include\liqShader.h" />
+    <ClInclude Include="..\..\include\liqShaderFactory.h" />
+    <ClInclude Include="..\..\include\liqShaderParameterType.h" />
+    <ClInclude Include="..\..\include\liqShadowRibWriterMgr.h" />
+    <ClInclude Include="..\..\include\liqSurfaceNode.h" />
+    <ClInclude Include="..\..\include\liqTokenParameterType.h" />
+    <ClInclude Include="..\..\include\liqTokenPointer.h" />
+    <ClInclude Include="..\..\include\liquid.h" />
+    <ClInclude Include="..\..\include\liqVolumeNode.h" />
+    <ClInclude Include="..\..\include\ri_interface.h" />
+    <ClInclude Include="..\liqAbstractFactory.h" />
+    <ClInclude Include="..\liqGlobalNodeHelper.h" />
+    <ClInclude Include="..\liqtypes.h" />
+    <ClInclude Include="..\rendererinterface.h" />
+    <ClInclude Include="..\renderermgr.h" />
+    <ClInclude Include="..\renderman\rm_factory.h" />
+    <ClInclude Include="..\renderman\rm_helper.h" />
+    <ClInclude Include="..\renderman\rm_renderer.h" />
+    <ClInclude Include="..\renderman\shaderOutputRSL.h" />
+    <ClInclude Include="..\elvishray\er_factory.h" />
+    <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
+    <ClInclude Include="..\elvishray\er_group.h" />
+    <ClInclude Include="..\elvishray\er_groupmgr.h" />
+    <ClInclude Include="..\elvishray\er_renderer.h" />
+    <ClInclude Include="..\elvishray\ercall.h" />
+    <ClInclude Include="..\elvishray\log_helper.h" />
+    <ClInclude Include="..\elvishray\MayaConnection.h" />
+    <ClInclude Include="..\elvishray\shaderOutputER.h" />
+    <ClInclude Include="..\elvishray\shaderOutputERCall.h" />
+    <ClInclude Include="..\appleseed\as_factory.h" />
+    <ClInclude Include="..\appleseed\as_GlobalNodeHelper.h" />
+    <ClInclude Include="..\appleseed\as_renderer.h" />
+    <ClInclude Include="..\appleseed\as_shaderOutput.h" />
+    <ClInclude Include="..\appleseed\as_shaderOutputCall.h" />
+    <ClInclude Include="..\appleseed\log_helper.h" />
+    <ClInclude Include="..\appleseed\prerequest_xml.h" />
+    <ClInclude Include="..\appleseed\xmlhelper.h" />
+    <ClInclude Include="..\common\logmgr.h" />
+    <ClInclude Include="..\common\mayacheck.h" />
+    <ClInclude Include="..\common\prerequest_maya.h" />
+    <ClInclude Include="..\common\prerequest_std.h" />
+    <ClInclude Include="..\..\..\dependence\trace\trace.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\mel\AEdagNodeInclude.mel" />
+    <None Include="..\..\mel\AEdependNodeTemplate.mel" />
+    <None Include="..\..\mel\AEliquidCamera.mel" />
+    <None Include="..\..\mel\AEliquidCoordSysTemplate.mel" />
+    <None Include="..\..\mel\AEliquidCoShaderTemplate.mel" />
+    <None Include="..\..\mel\AEliquidDisplacementTemplate.mel" />
+    <None Include="..\..\mel\AEliquidFGGIOverrideFlags.mel" />
+    <None Include="..\..\mel\AEliquidInstanceFlags.mel" />
+    <None Include="..\..\mel\AEliquidLightTemplate.mel" />
+    <None Include="..\..\mel\AEliquidNurbsCurveShape.mel" />
+    <None Include="..\..\mel\AEliquidPaintEffects.mel" />
+    <None Include="..\..\mel\AEliquidRibBoxTemplate.mel" />
+    <None Include="..\..\mel\AEliquidRibRequestTemplate.mel" />
+    <None Include="..\..\mel\AEliquidSetFlags.mel" />
+    <None Include="..\..\mel\AEliquidShadowControls.mel" />
+    <None Include="..\..\mel\AEliquidSubdivisionSurfaceShape.mel" />
+    <None Include="..\..\mel\AEliquidSurfaceTemplate.mel" />
+    <None Include="..\..\mel\AEliquidVolumeTemplate.mel" />
+    <None Include="..\..\mel\AEobjectSetTemplate.mel" />
+    <None Include="..\..\mel\AEoldBlindDataBaseTemplate.mel" />
+    <None Include="..\..\mel\getMultiListerSelection.mel" />
+    <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
+    <None Include="..\..\mel\liquid_FE.mel" />
+    <None Include="..\..\mel\liquidAttachParams.mel" />
+    <None Include="..\..\mel\liquidAttributes.mel" />
+    <None Include="..\..\mel\liquidAttrWindow.mel" />
+    <None Include="..\..\mel\liquidBuildHypergraphNodePopupMenuItems.mel" />
+    <None Include="..\..\mel\liquidCommon.mel" />
+    <None Include="..\..\mel\liquidContainers.mel" />
+    <None Include="..\..\mel\liquidConvertMtor.mel" />
+    <None Include="..\..\mel\liquidConvertShadingNetworkToRSL.mel" />
+    <None Include="..\..\mel\liquidConvMTOR.mel" />
+    <None Include="..\..\mel\liquidCreateGlobalsTab.mel" />
+    <None Include="..\..\mel\liquidDelayedReadArchive.mel" />
+    <None Include="..\..\mel\liquidFileBrowser.mel" />
+    <None Include="..\..\mel\liquidFluid.mel" />
+    <None Include="..\..\mel\liquidFluidOutliner.mel" />
+    <None Include="..\..\mel\liquidGlobals.mel" />
+    <None Include="..\..\mel\liquidGlobalsEx.mel" />
+    <None Include="..\..\mel\liquidHelpers.mel" />
+    <None Include="..\..\mel\liquidIni.mel" />
+    <None Include="..\..\mel\liquidLifWidgets.mel" />
+    <None Include="..\..\mel\liquidLightLinker.mel" />
+    <None Include="..\..\mel\liquidMenuHelp.mel" />
+    <None Include="..\..\mel\liquidNugget.mel" />
+    <None Include="..\..\mel\liquidPaintEffects.mel" />
+    <None Include="..\..\mel\liquidParamDialogWindow.mel" />
+    <None Include="..\..\mel\liquidParseSlShader.mel" />
+    <None Include="..\..\mel\liquidPrefAttribute.mel" />
+    <None Include="..\..\mel\liquidReadArchive.mel" />
+    <None Include="..\..\mel\liquidReAttachParams.mel" />
+    <None Include="..\..\mel\liquidRenderCurve.mel" />
+    <None Include="..\..\mel\liquidRenderView.mel" />
+    <None Include="..\..\mel\liquidRibBox.mel" />
+    <None Include="..\..\mel\liquidRibGen.mel" />
+    <None Include="..\..\mel\liquidShaderNodes.mel" />
+    <None Include="..\..\mel\liquidShaders.mel" />
+    <None Include="..\..\mel\liquidShutdown.mel" />
+    <None Include="..\..\mel\liquidSlInfo.mel" />
+    <None Include="..\..\mel\liquidSLManager.mel" />
+    <None Include="..\..\mel\liquidSlParseLif.mel" />
+    <None Include="..\..\mel\liquidSlParsePL.mel" />
+    <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <None Include="..\..\mel\liquidSlParseSdr.mel" />
+    <None Include="..\..\mel\liquidSlParseSlb.mel" />
+    <None Include="..\..\mel\liquidSlParseSlo.mel" />
+    <None Include="..\..\mel\liquidSlParseSlx.mel" />
+    <None Include="..\..\mel\liquidStartup.mel" />
+    <None Include="..\..\mel\liquidSubdiv.mel" />
+    <None Include="..\..\mel\liquidSubdivInspector.mel" />
+    <None Include="..\..\mel\liquidVertexPrimvars.mel" />
+    <None Include="..\..\mel\liquidWriteRSL_materials.mel" />
+    <None Include="..\..\mel\liquidWriteRSL_textures.mel" />
+    <None Include="..\..\mel\liquidWriteRSL_utilities.mel" />
+    <None Include="..\..\mel\mmm.liquidMenu.mel" />
+    <None Include="..\..\mel\registerLiquidRenderer.mel" />
+    <None Include="..\..\rendererDesc\liquidRenderer.xml" />
+    <None Include="..\..\mel\liquidCheck.mel" />
+    <None Include="..\..\mel\xxliquidmayaBatchRenderProcedure.mel" />
+    <None Include="..\..\mel\xxliquidutility.mel" />
+    <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel" />
+    <None Include="..\renderman\mel\userSetup.mel" />
+    <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
+    <None Include="..\elvishray\mel\er_CreateMenus.mel" />
+    <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel" />
+    <None Include="..\elvishray\mel\userSetup.mel" />
+    <None Include="..\luxrenderer\mel\liqGlobalsNodeluxrenderer.mel" />
+    <None Include="..\luxrenderer\mel\lux_AEliquidInstanceFlags.mel" />
+    <None Include="..\luxrenderer\mel\lux_CreateMenus.mel" />
+    <None Include="..\luxrenderer\mel\userSetup.mel" />
+    <None Include="..\appleseed\mel\as_AEliquidInstanceFlags.mel" />
+    <None Include="..\appleseed\mel\as_CreateMenus.mel" />
+    <None Include="..\appleseed\mel\liqGlobalsNodeappleseed.mel" />
+    <None Include="..\appleseed\mel\userSetup.mel" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="displayDriverAqsis\displayDriverAqsis.vcxproj">
+      <Project>{74e7c4b8-b607-43a9-8ce3-21209cf2da67}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
