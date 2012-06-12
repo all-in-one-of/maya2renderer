@@ -186,7 +186,7 @@ namespace appleseed
 		_s("//--------------------------");
 		{
 			_s("//ribNode->name="<<ribNode__->name.asChar());
-			_s("//ribNode's transform node="<<ribNode__->getTransformNodeFullPath());
+			_s("//ribNode's transform node="<<ribNode__->getTransformNodeFullPath().asChar());
 			//print children
 			MStringArray childrenMsg(ribNode__->getChildrenMsgOfTransformNode());
 			unsigned int childCount = ribNode__->getChildrenCountOfTransformNode();

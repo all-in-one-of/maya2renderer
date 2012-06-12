@@ -156,7 +156,7 @@ void liqTokenPointer::reset()
 	m_tokenSize    = 0;
 	m_stringSize   = 0;
 	m_pType        = rFloat;
-	m_tokenName[0] = '\0';
+	m_tokenName.clear();
 	m_dType        = rUndefined;
 }
 

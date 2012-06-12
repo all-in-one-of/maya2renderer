@@ -209,7 +209,7 @@ namespace elvishray
 			_S( ei_end_tab() );
 		}
 
-		_s("//### triangles, size="<< triangleCounts);
+		_s("//### triangles, size="<< triangleCounts.length());
 		_d( tag = ei_tab(EI_DATA_TYPE_INDEX, 1024) )
 		_S( ei_triangle_list( tag ) );
 		for(size_t i=0; i<triangleVertices.length(); i=i+3)
