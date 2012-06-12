@@ -1993,7 +1993,7 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2009)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/xercesc/include;../../../dependence/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2009)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/xercesc/include;../../../dependence/;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/appleseed;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/appleseed.shared;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/openexr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -2013,10 +2013,10 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\zlib\lib\vc9_sp1/zlibstat.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;xerces-c_static_3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\zlib\lib\vc9_sp1/zlibstat.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;appleseed.lib;appleseed.shared.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/prman/win32/liquid_2009x32d.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2009)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;../../../dependence/xercesc/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2009)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/lib/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -2087,6 +2087,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\appleseed\build_project.cpp" />
     <ClCompile Include="..\liqAttachPrefAttribute.cpp" />
     <ClCompile Include="..\liqBoundingBoxLocator.cpp" />
     <ClCompile Include="..\liqBucket.cpp" />
@@ -2221,7 +2222,6 @@
     <ClCompile Include="..\appleseed\as_writePfxData.cpp" />
     <ClCompile Include="..\appleseed\as_writePfxHairData.cpp" />
     <ClCompile Include="..\appleseed\as_writeShaveData.cpp" />
-    <ClCompile Include="..\appleseed\xmlhelper.cpp" />
     <ClCompile Include="..\common\logmgr.cpp" />
     <ClCompile Include="..\common\mayacheck.cpp" />
     <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
@@ -2338,8 +2338,7 @@
     <ClInclude Include="..\appleseed\as_shaderOutput.h" />
     <ClInclude Include="..\appleseed\as_shaderOutputCall.h" />
     <ClInclude Include="..\appleseed\log_helper.h" />
-    <ClInclude Include="..\appleseed\prerequest_xml.h" />
-    <ClInclude Include="..\appleseed\xmlhelper.h" />
+    <ClInclude Include="..\appleseed\prerequest_as.h" />
     <ClInclude Include="..\common\logmgr.h" />
     <ClInclude Include="..\common\mayacheck.h" />
     <ClInclude Include="..\common\prerequest_maya.h" />

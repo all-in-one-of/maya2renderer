@@ -1,16 +1,13 @@
 #pragma once
 //#ifndef NR_Renderer_H//macro guard for your newrenderer
 //#define NR_Renderer_H
-
+#include "prerequest_as.h"
 #include "../rendererinterface.h"
 #include "../common/logmgr.h"
-#include "prerequest_xml.h"
+
 
 namespace liquid{
 	class LogMgr;
-}
-namespace XERCES_CPP_NAMESPACE{
-	class DOMDocument;
 }
 
 class liqGlobalNodeHelper;
@@ -274,7 +271,7 @@ namespace appleseed
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
-		XERCES_CPP_NAMESPACE::DOMDocument *m_doc;
+		asf::auto_release_ptr<asr::Project> project;
 
 	protected:
 		Renderer(const Renderer&);

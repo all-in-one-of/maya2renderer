@@ -460,9 +460,6 @@
     <ClCompile Include="..\appleseed\as_writeShaveData.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
-    <ClCompile Include="..\appleseed\xmlhelper.cpp">
-      <Filter>renderer\appleseed</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\logmgr.cpp">
       <Filter>common</Filter>
     </ClCompile>
@@ -474,6 +471,9 @@
     </ClCompile>
     <ClCompile Include="..\..\include\liqJobList.h">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\build_project.cpp">
+      <Filter>renderer\appleseed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -801,12 +801,6 @@
     <ClInclude Include="..\appleseed\log_helper.h">
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
-    <ClInclude Include="..\appleseed\prerequest_xml.h">
-      <Filter>renderer\appleseed</Filter>
-    </ClInclude>
-    <ClInclude Include="..\appleseed\xmlhelper.h">
-      <Filter>renderer\appleseed</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\logmgr.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -821,6 +815,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\trace\trace.hpp">
       <Filter>dependence\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\prerequest_as.h">
+      <Filter>renderer\appleseed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
