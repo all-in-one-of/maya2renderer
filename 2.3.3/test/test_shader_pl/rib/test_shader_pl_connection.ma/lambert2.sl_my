@@ -1,3 +1,14 @@
+//surface shader name: lambert2
+surface lambert2()
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+
+
+// define the shaders --------------------------------------------------------------------------
 #include <place2dTexture.h>
 //shader name: place2dTexture2
 void place2dTexture2 (
@@ -142,9 +153,10 @@ void lambert2 (
  Ci = Cs * Oi * color outColor;
 }
 
-//surface shader name: lambert2
-surface lambert2()
-{
+
+
+
+// call the shaders ----------------------------------------------------------------------------
  float place2dTexture2_outUV[2];
  vector checker1_outColor;
 

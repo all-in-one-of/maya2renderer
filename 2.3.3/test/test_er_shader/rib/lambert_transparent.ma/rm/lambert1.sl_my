@@ -1,3 +1,14 @@
+//surface shader name: lambert1
+surface lambert1()
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+
+
+// define the shaders --------------------------------------------------------------------------
 //shader name: lambert1
 void lambert1 (
 )
@@ -20,9 +31,10 @@ void lambert1 (
  Ci = Cs * Oi * color outColor;
 }
 
-//surface shader name: lambert1
-surface lambert1()
-{
+
+
+
+// call the shaders ----------------------------------------------------------------------------
 
  //lambert1
  lambert1();

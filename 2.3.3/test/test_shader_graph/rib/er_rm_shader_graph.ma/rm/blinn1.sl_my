@@ -1,3 +1,14 @@
+//surface shader name: blinn1
+surface blinn1()
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+
+
+// define the shaders --------------------------------------------------------------------------
 //shader name: blinn1
 void blinn1 (
 )
@@ -42,9 +53,10 @@ void blinn1 (
  Ci = Cs * Oi * color outColor;
 }
 
-//surface shader name: blinn1
-surface blinn1()
-{
+
+
+
+// call the shaders ----------------------------------------------------------------------------
 
  //blinn1
  blinn1();

@@ -195,7 +195,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			//}
 			//else//the srcNode is NOT a texture
 			{
-				file<<"ei_shader_link_param(\""<<rslName<<"\", \""<<srcNode<<"\", \""<<srcAttr<<"\");"<<std::endl;
+				file<<"ei_shader_link_param(\""<<rslName.asChar()<<"\", \""<<srcNode.asChar()<<"\", \""<<srcAttr.asChar()<<"\");"<<std::endl;
 			}
 		}
 
