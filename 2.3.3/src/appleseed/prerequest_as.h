@@ -24,6 +24,8 @@
 #include "appleseed/foundation/utility/log/consolelogtarget.h"
 #include "appleseed/foundation/utility/autoreleaseptr.h"
 #include "appleseed/foundation/utility/searchpaths.h"
+#include "appleseed/foundation/image/image.h"
+#include "appleseed/foundation/image/tile.h"
 
 namespace asf = foundation;
 namespace asr = renderer;

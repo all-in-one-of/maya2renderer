@@ -475,6 +475,12 @@
     <ClCompile Include="..\appleseed\build_project.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_connection.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -817,6 +823,12 @@
       <Filter>dependence\trace</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\prerequest_as.h">
+      <Filter>renderer\appleseed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\as_connection.h">
+      <Filter>renderer\appleseed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\qttilecallbackfactory.h">
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
   </ItemGroup>

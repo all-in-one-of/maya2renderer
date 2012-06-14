@@ -2087,7 +2087,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\appleseed\as_connection.cpp" />
     <ClCompile Include="..\appleseed\build_project.cpp" />
+    <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp" />
     <ClCompile Include="..\liqAttachPrefAttribute.cpp" />
     <ClCompile Include="..\liqBoundingBoxLocator.cpp" />
     <ClCompile Include="..\liqBucket.cpp" />
@@ -2227,6 +2229,8 @@
     <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\appleseed\as_connection.h" />
+    <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />

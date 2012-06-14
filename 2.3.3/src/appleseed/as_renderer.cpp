@@ -27,7 +27,7 @@
 
 #include "../renderermgr.h"
 #include "../common/mayacheck.h"
-//#include "MayaConnection.h"
+#include "as_connection.h"
 #include "log_helper.h"
 #include "as_GlobalNodeHelper.h"
 
@@ -308,26 +308,41 @@ namespace appleseed
 		if( isBatchMode() )
 		{
 			_s("// in batch render mode");
-			//todo
+			Connection::getInstance()->render(
+				project,
+				project->configurations().get_by_name("final")->get_inherited_parameters(),
+				false
+				);
+			Connection::delInstance();
 		}else{
 			// start render
-			// Create the master renderer.
-			asr::DefaultRendererController renderer_controller;
-			asr::MasterRenderer renderer(
-				project.ref(),
-				project->configurations().get_by_name("final")->get_inherited_parameters(),
-				&renderer_controller);
-
-			// Render the frame.
-			renderer.render();
-
-			// Save the frame to disk.
-			MString imageName(
-				liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
+			if (Connection::getInstance()->startRender( currentJob.width, currentJob.height, false, true) != MS::kSuccess)
+			{
+				_s( "//MayaConnection: error occured in startRender." );
+				Connection::delInstance();				
+				return MS::kFailure;
+			}
+			// render
+			Connection::getInstance()->render(
+				project,
+				project->configurations().get_by_name("interactive")->get_inherited_parameters(),
+				true
 				);
-			project->get_frame()->write(imageName.asChar());
 
+			// end render
+			if (Connection::getInstance()->endRender() != MS::kSuccess)
+			{
+				_s( "//MayaConnection: error occured in endRender." );
+				Connection::delInstance();
+				return MS::kFailure;
+			}
+			Connection::delInstance();
 		}
+		// Save the frame to disk.
+		MString imageName(
+			liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
+			);
+		project->get_frame()->write(imageName.asChar());
 		//////////////////////////////////////////////////////////////////////////
 		// Save the project to disk.
 		asr::ProjectFileWriter::write(project.ref());
