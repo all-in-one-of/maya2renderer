@@ -1,5 +1,8 @@
 #include "as_connection.h"
 #include "../common/mayacheck.h"
+#include <trace/trace.hpp>
+#include "as_renderer.h"
+#include "log_helper.h"
 
 namespace appleseed
 {
@@ -70,13 +73,14 @@ namespace appleseed
 		bool doNotClearBackground ,
 		bool immediateFeedback)
 	{
-		//_logFunctionCall("Connection::startRender()");
+		CM_TRACE_FUNC("Connection::startRender("<<width<<","<<height<<")");
+
 		return MRenderView::startRender( width, height, doNotClearBackground, immediateFeedback);
 	}
 	//
 	MStatus Connection::endRender()
 	{
-		//_logFunctionCall("Connection::endRender()");
+		CM_TRACE_FUNC("Connection::endRender()");
 		return MRenderView::endRender();
 	}
 	//
@@ -86,15 +90,17 @@ namespace appleseed
 		const bool       highlight_tiles
 		)
 	{
-		QtTileCallbackFactory m_tile_callback_factory( /*m_render_widget,*/ highlight_tiles );
+		CM_TRACE_FUNC("Renderer::render(...)");
+
+		//QtTileCallbackFactory m_tile_callback_factory( /*m_render_widget,*/ highlight_tiles );
 
 		asr::DefaultRendererController renderer_controller;
 		// Create the master renderer.
 		asr::MasterRenderer renderer(
-			project.ref(),
-			params,
-			&renderer_controller,
-			&m_tile_callback_factory
+			project.ref()
+			,params
+			,&renderer_controller
+			//,&m_tile_callback_factory
 			);
 
 		// Render the frame.
@@ -110,7 +116,7 @@ namespace appleseed
 		asf::uint8*          uint8_tile_storage
 		)
 	{
-		//_logFunctionCall("MayaConnection::UpdateTile(...)");
+		CM_TRACE_FUNC("UpdateTile(frame, "<<tile_x<<","<<tile_y<<",...)");
 		MStatus status;
 
 		const asf::Tile& tile = frame.image().tile(tile_x, tile_y);
@@ -155,27 +161,31 @@ namespace appleseed
 		// 	_LogDebug("frame buffer<"<<colorFrameBuffer->get_width()<<","<<colorFrameBuffer->get_height()<<">" );
 		// 	_LogDebug("width*height = "<<colorFrameBuffer->get_width() * colorFrameBuffer->get_height() );
 		// 	_LogDebug("index = "<< index);
+		const std::size_t image_width  = frame.image().properties().m_canvas_width;
+		const std::size_t image_height = frame.image().properties().m_canvas_height;
+		_s( "//image width/height="<<image_width<<","<< image_height);
 
 		std::size_t min_x, min_y, max_x, max_y;
-		min_x = tile_x;
-		min_y = tile_y;
+		min_x = tile_x*tile_width;
+		min_y = tile_y*tile_height;
 		max_x = min_x + tile_width;
 		max_y = min_y + tile_height;
-
+		_s( "//min["<<min_x<<","<<min_y<<"], max["<<max_x<<","<<max_y<<"]");
+		_s( "//updatePixels["<<min_x<<","<<max_x-1<<", "<<image_height - min_y<<","<<image_height -(max_y-1)<<"]");
 		// Send the data to the render view.
-		if ( (status = MRenderView::updatePixels(min_x, max_x-1, min_y, max_y-1, pixels)) != MS::kSuccess)
+		if ( (status = MRenderView::updatePixels(min_x, max_x-1, image_height-max_y, image_height-min_y-1, pixels)) != MS::kSuccess)
 		{
 			IfErrorWarn(status);
-			//_LogError( "MayaConnection: error occured in updatePixels." );
+			CM_TRACE_FUNC( "MayaConnection: error occured in updatePixels." );
 			delete [] pixels;
 			return ;
 		}
 		delete [] pixels;
 		// Force the Render View to refresh the display of the affected region.
-		if ( (status = MRenderView::refresh(min_x, max_x-1, min_y, max_y-1)) != MS::kSuccess)
+		if ( (status = MRenderView::refresh(min_x, max_x-1, image_height-max_y, image_height-min_y-1)) != MS::kSuccess)
 		{
 			IfErrorWarn(status);
-			//_LogError( "MayaConnection: error occured in refresh." );
+			CM_TRACE_FUNC( "MayaConnection: error occured in refresh." );
 			return ;
 		}
 

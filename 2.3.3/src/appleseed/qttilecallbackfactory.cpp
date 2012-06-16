@@ -35,6 +35,7 @@
 // Standard headers.
 #include <cassert>
 #include <cstddef>
+#include <trace/trace.hpp>
 
 // Forward declarations.
 namespace renderer  { class Frame; }
@@ -79,6 +80,7 @@ namespace
             const size_t    width,
             const size_t    height)
         {
+			CM_TRACE_FUNC("QtTileCallback::pre_render()");
             //assert(m_render_widget);
 
             //if (m_highlight_tiles)
@@ -91,7 +93,7 @@ namespace
             const size_t    tile_x,
             const size_t    tile_y)
         {
-            //assert(m_render_widget);
+			CM_TRACE_FUNC("QtTileCallback::post_render(frame, tile_x, tile_y)");
 
             UpdateTile(frame, tile_x, tile_y);
         }
@@ -100,7 +102,7 @@ namespace
         virtual void post_render(
             const Frame&    frame)
         {
-            //assert(m_render_widget);
+			CM_TRACE_FUNC("QtTileCallback::post_render(frame)");
 
             ///*m_render_widget->*/blit_frame(frame);
         }
@@ -122,15 +124,18 @@ QtTileCallbackFactory::QtTileCallbackFactory(
   : //m_render_widget(render_widget), 
   m_highlight_tiles(highlight_tiles)
 {
+	CM_TRACE_FUNC("QtTileCallbackFactory::QtTileCallbackFactory()");
 }
 
 void QtTileCallbackFactory::release()
 {
+	CM_TRACE_FUNC("QtTileCallbackFactory::release()");
     delete this;
 }
 
 ITileCallback* QtTileCallbackFactory::create()
 {
+	CM_TRACE_FUNC("QtTileCallbackFactory::create()");
     return new QtTileCallback(/*m_render_widget,*/ m_highlight_tiles);
 }
 

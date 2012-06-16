@@ -2087,6 +2087,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\half.cpp" />
     <ClCompile Include="..\appleseed\as_connection.cpp" />
     <ClCompile Include="..\appleseed\build_project.cpp" />
     <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp" />
@@ -2229,6 +2230,9 @@
     <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\eLut.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\half.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\toFloat.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />

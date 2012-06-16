@@ -323,11 +323,22 @@ namespace appleseed
 				return MS::kFailure;
 			}
 			// render
-			Connection::getInstance()->render(
-				project,
-				project->configurations().get_by_name("interactive")->get_inherited_parameters(),
-				true
+			QtTileCallbackFactory m_tile_callback_factory(true/*highlight_tiles*/);
+			// Create the master renderer.
+			asr::DefaultRendererController renderer_controller;
+			asr::MasterRenderer renderer(
+				project.ref()
+				,project->configurations().get_by_name("final")->get_inherited_parameters()
+				,&renderer_controller
+				,&m_tile_callback_factory);
+
+			// Render the frame.
+			renderer.render();
+			// Save the frame to disk.
+			MString imageName(
+				liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
 				);
+			project->get_frame()->write(imageName.asChar());
 
 			// end render
 			if (Connection::getInstance()->endRender() != MS::kSuccess)
@@ -338,11 +349,8 @@ namespace appleseed
 			}
 			Connection::delInstance();
 		}
-		// Save the frame to disk.
-		MString imageName(
-			liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
-			);
-		project->get_frame()->write(imageName.asChar());
+
+
 		//////////////////////////////////////////////////////////////////////////
 		// Save the project to disk.
 		asr::ProjectFileWriter::write(project.ref());

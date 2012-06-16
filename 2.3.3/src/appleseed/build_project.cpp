@@ -1,9 +1,12 @@
 #include "prerequest_as.h"
+#include <trace/trace.hpp>
 
 static const std::string root_path = "E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/sample";
 
 void build_project(asf::auto_release_ptr<asr::Project> &project)
 {
+	CM_TRACE_FUNC("build_project()");
+
 	// Add default configurations to the project.
 	project->add_default_configurations();
 
