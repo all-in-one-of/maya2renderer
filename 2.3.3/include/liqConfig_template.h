@@ -10,6 +10,6 @@
 
 #define _USE_APPLESEED_
 
-#define _USE_NEW_RENDERER_
+#define _USE_NEWRENDERER_//for your new renderer
 
 #endif//_LIQ_CONFIG_H_
