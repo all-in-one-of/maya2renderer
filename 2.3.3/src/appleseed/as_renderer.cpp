@@ -429,6 +429,38 @@ namespace appleseed
 		_s("//----------------------------------camera instance: currentJob.camera[0].name");
 		//todo		
 		//m_groupMgr->addObjectInstance(currentJob.name.asChar(), currentJob.camera[0].name.asChar(), GIT_Camera);//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
+		float res0 = 0.0f, res1 = 0.0f;
+		if( currentJob.isShadow == false && liqglo.liqglo_rotateCamera == true ) {
+			res0 = height; res1 = width;
+		}else{ 
+			res0 = width;  res1 = height;
+		}
+		// Create a camera with film
+		asf::auto_release_ptr<asr::Camera> _camera(
+			asr::PinholeCameraFactory().create(
+			currentJob.camera[0].name.asChar(),//camera instance name
+			asr::ParamArray()
+			//.insert("film_dimensions", boost::format("%f %f") %(res0/1000.0f) %(res1/1000.0f))//""
+			.insert("focal_length", boost::format("%f") %(focal/1000.0f))));
+		// Bind the camera to the scene.
+		project->get_scene()->set_camera(_camera);
+
+		// Place and orient the camera. By default cameras are located in (0.0, 0.0, 0.0)
+		// and are looking toward Z- (0.0, 0.0, -1.0).
+		project->get_scene()->get_camera()->transform_sequence().set_transform(
+			0.0,
+			asf::Transformd(
+			asf::Matrix4d::rotation(asf::Vector3d(1.0, 0.0, 0.0), asf::deg_to_rad(-20.0)) *
+			asf::Matrix4d::translation(asf::Vector3d(0.0, 0.8, 11.0))));
+
+		// Create a frame and bind it to the project.
+		project->set_frame(
+			asr::FrameFactory::create(
+			"beauty",
+			asr::ParamArray()
+			.insert("camera", project->get_scene()->get_camera()->get_name())
+			.insert("resolution", boost::format("%f %f") %res0 %res1)
+			.insert("color_space", "srgb")));
 
 		return MStatus::kSuccess;
 	}

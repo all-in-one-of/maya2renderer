@@ -1,4 +1,5 @@
 #include "prerequest_as.h"
+#include "../common//prerequest_std.h"
 #include <trace/trace.hpp>
 
 static const std::string root_path = "E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/sample";
@@ -17,8 +18,13 @@ void build_project(asf::auto_release_ptr<asr::Project> &project)
 		.insert_path("generic_tile_renderer.min_samples", "25")
 		.insert_path("generic_tile_renderer.max_samples", "25");
 
-	// Create a scene.
-	asf::auto_release_ptr<asr::Scene> scene(asr::SceneFactory::create());
+	{
+		// Create a scene.
+		asf::auto_release_ptr<asr::Scene> _scene(asr::SceneFactory::create());
+		// Bind the scene to the project.
+		project->set_scene(_scene);
+	}
+
 
 	// Create an assembly.
 	asf::auto_release_ptr<asr::Assembly> assembly(
@@ -109,7 +115,7 @@ void build_project(asf::auto_release_ptr<asr::Project> &project)
 	assembly->lights().insert(light);
 
 	// Create an instance of the assembly and insert it into the scene.
-	scene->assembly_instances().insert(
+	project->get_scene()->assembly_instances().insert(
 		asr::AssemblyInstanceFactory::create(
 		"assembly_inst",
 		asr::ParamArray(),
@@ -117,43 +123,44 @@ void build_project(asf::auto_release_ptr<asr::Project> &project)
 		asf::Transformd(asf::Matrix4d::identity())));
 
 	// Insert the assembly into the scene.
-	scene->assemblies().insert(assembly);
+	project->get_scene()->assemblies().insert(assembly);
 
 	// Create a pinhole camera with film dimensions 0.980 x 0.735 in (24.892 x 18.669 mm).
-	asf::auto_release_ptr<asr::Camera> camera(
-		asr::PinholeCameraFactory().create(
-		"camera",
-		asr::ParamArray()
-		.insert("film_dimensions", "0.024892 0.018669")
-		.insert("focal_length", "0.035")));
+// 	asf::auto_release_ptr<asr::Camera> _camera(
+// 		asr::PinholeCameraFactory().create(
+// 		"camera",
+// 		asr::ParamArray()
+// 		.insert("film_dimensions", boost::format("%f %f") %0.024892 %0.018669)//""
+// 		.insert("focal_length", "0.035")));
+// 	// Bind the camera to the scene.
+// 	project->get_scene()->set_camera(_camera);
+// 
+// 	// Place and orient the camera. By default cameras are located in (0.0, 0.0, 0.0)
+// 	// and are looking toward Z- (0.0, 0.0, -1.0).
+// 	project->get_scene()->get_camera()->transform_sequence().set_transform(
+// 		0.0,
+// 		asf::Transformd(
+// 		asf::Matrix4d::rotation(asf::Vector3d(1.0, 0.0, 0.0), asf::deg_to_rad(-20.0)) *
+// 		asf::Matrix4d::translation(asf::Vector3d(0.0, 0.8, 11.0))));
 
-	// Place and orient the camera. By default cameras are located in (0.0, 0.0, 0.0)
-	// and are looking toward Z- (0.0, 0.0, -1.0).
-	camera->transform_sequence().set_transform(
-		0.0,
-		asf::Transformd(
-		asf::Matrix4d::rotation(asf::Vector3d(1.0, 0.0, 0.0), asf::deg_to_rad(-20.0)) *
-		asf::Matrix4d::translation(asf::Vector3d(0.0, 0.8, 11.0))));
 
-	// Bind the camera to the scene.
-	scene->set_camera(camera);
 
-	// Create a frame and bind it to the project.
-	project->set_frame(
-		asr::FrameFactory::create(
-		"beauty",
-		asr::ParamArray()
-		.insert("camera", scene->get_camera()->get_name())
-		.insert("resolution", "640 480")
-		.insert("color_space", "srgb")));
+// 	// Create a frame and bind it to the project.
+// 	project->set_frame(
+// 		asr::FrameFactory::create(
+// 		"beauty",
+// 		asr::ParamArray()
+// 		.insert("camera", project->get_scene()->get_camera()->get_name())
+// 		.insert("resolution", "640 480")
+// 		.insert("color_space", "srgb")));
 
 	// Create an environment and bind it to the scene.
-	scene->set_environment(
+	project->get_scene()->set_environment(
 		asr::EnvironmentFactory::create(
 		"environment",
 		asr::ParamArray()));
 
-	// Bind the scene to the project.
-	project->set_scene(scene);
+// 	// Bind the scene to the project.
+// 	project->set_scene(scene);
 
 }
