@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "shaderOutputERCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -343,3 +346,4 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 }
 //
 }//namespace ERCall
+#endif//_USE_ELVISHRAY_

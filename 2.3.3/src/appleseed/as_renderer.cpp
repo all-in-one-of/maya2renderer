@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 #include "as_renderer.h"
 
 #include "boost/format.hpp"
@@ -284,6 +287,10 @@ namespace appleseed
 		//appleseed
 		project = asr::ProjectFactory::create("test project");
 		project->set_path((currentJob.ribFileName+".appleseed").asChar());
+		// Create a scene.
+		asf::auto_release_ptr<asr::Scene> _scene(asr::SceneFactory::create());
+		// Bind the scene to the project.
+		project->set_scene(_scene);
 		build_project(project);
 		//////////////////////////////////////////////////////////////////////////
 
@@ -754,3 +761,5 @@ namespace appleseed
 		return true;
 	}
 }//namespace appleseed
+
+#endif//_USE_APPLESEED_

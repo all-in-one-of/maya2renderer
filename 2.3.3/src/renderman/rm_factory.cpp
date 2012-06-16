@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_RENDERMAN_
+
 #include "rm_factory.h"
 #include "shaderOutputRSL.h"
 #include "rm_renderer.h"
@@ -43,3 +46,5 @@ namespace renderman
 
 
 }
+
+#endif

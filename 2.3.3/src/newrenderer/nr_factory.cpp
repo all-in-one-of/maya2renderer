@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_factory.h"
 #include "nr_shaderOutput.h"
 #include "nr_shaderOutputCall.h"
@@ -44,4 +47,5 @@ namespace newrenderer
 	}
 
 
-}
+}//namespace newrenderer
+#endif//_USE_NEWRENDERER_

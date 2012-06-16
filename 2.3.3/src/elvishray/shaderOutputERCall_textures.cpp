@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "shaderOutputERCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -269,3 +272,4 @@ void Visitor::visitLayeredTexture(const char* node)
 	CM_TRACE_FUNC("Visitor::visitLayeredTexture("<<node<<")");
 }
 }//namespace ERCall
+#endif//_USE_ELVISHRAY_

@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 #include "as_renderer.h"
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -217,3 +220,4 @@ namespace appleseed
 		return (liqLightHandle)(0);
 	}
 }//namespace appleseed
+#endif//_USE_APPLESEED_

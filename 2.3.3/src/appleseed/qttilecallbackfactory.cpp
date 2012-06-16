@@ -25,6 +25,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 
 // Interface header.
 #include "qttilecallbackfactory.h"
@@ -141,3 +144,5 @@ ITileCallback* QtTileCallbackFactory::create()
 
 //}   // namespace studio
 }   // namespace appleseed
+
+#endif//_USE_APPLESEED_

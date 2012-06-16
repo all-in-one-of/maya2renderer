@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_RENDERMAN_
+
 #include "shaderOutputRSL.h"
 #include "../common/mayacheck.h"
 #include "ri_interface.h"
@@ -624,3 +627,5 @@ void Visitor::visitVolumeLight(const char* node)
 }
 
 }//namespace RSL
+
+#endif//_USE_RENDERMAN_

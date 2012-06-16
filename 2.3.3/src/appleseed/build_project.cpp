@@ -18,12 +18,6 @@ void build_project(asf::auto_release_ptr<asr::Project> &project)
 		.insert_path("generic_tile_renderer.min_samples", "25")
 		.insert_path("generic_tile_renderer.max_samples", "25");
 
-	{
-		// Create a scene.
-		asf::auto_release_ptr<asr::Scene> _scene(asr::SceneFactory::create());
-		// Bind the scene to the project.
-		project->set_scene(_scene);
-	}
 
 
 	// Create an assembly.

@@ -15,6 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------------*/
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 /*---------------------------------------------------------------------------------------------
 
 File		:	MayaConnection.cpp
@@ -424,3 +427,5 @@ void MayaConnection::setConnection()
 	connection.base.update_sub_window = maya_connection_update_sub_window;
 
 }
+
+#endif//_USE_ELVISHRAY_

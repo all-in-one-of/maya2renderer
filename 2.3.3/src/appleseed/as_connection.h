@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 #pragma once
 
 #include "../common/prerequest_std.h"
@@ -39,3 +42,5 @@ private:
 };
 
 }
+
+#endif//_USE_APPLESEED_

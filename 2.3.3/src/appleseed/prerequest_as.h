@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 #pragma once
 
 // appleseed.renderer headers. Only include header files from renderer/api/.
@@ -29,3 +32,5 @@
 
 namespace asf = foundation;
 namespace asr = renderer;
+
+#endif//_USE_APPLESEED_

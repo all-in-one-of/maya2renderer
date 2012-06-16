@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_renderer.h"
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -217,3 +220,4 @@ namespace newrenderer
 		return (liqLightHandle)(0);
 	}
 }//namespace newrenderer
+#endif//_USE_NEWRENDERER_

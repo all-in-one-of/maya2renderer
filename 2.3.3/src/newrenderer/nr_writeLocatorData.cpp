@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_renderer.h"
 #include <liqRibLocatorData.h>
 #include "../common/prerequest_maya.h"
@@ -41,3 +44,5 @@ namespace newrenderer
 		//_s("//locator "<<pData->getFullPathName());
 	}
 }//namespace newrenderer
+
+#endif//_USE_NEWRENDERER_

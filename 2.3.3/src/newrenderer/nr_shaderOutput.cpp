@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_shaderOutput.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -341,4 +344,5 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 	
 }
 //
-}//namespace ER
+}//namespace newrenderer
+#endif//_USE_NEWRENDERER_

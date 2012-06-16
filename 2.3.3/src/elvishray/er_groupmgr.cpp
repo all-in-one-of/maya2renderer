@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "er_groupmgr.h"
 #include "liqlog.h"
 
@@ -79,4 +82,5 @@ namespace elvishray
 		assert(i != groups.end());
 		i->second.addLightLink( objInst, lightInst);
 	}
-}
+}//namespace elvishray
+#endif//_USE_ELVISHRAY_

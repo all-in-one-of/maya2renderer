@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 
 #include"nr_GlobalNodeHelper.h"
 #include "../common/prerequest_std.h"
@@ -124,4 +127,5 @@ MStringArray GlobalNodeHelper::getStringArray(const MString& attrName )
 	return value;
 }
 
-}
+}//namespace newrenderer
+#endif//_USE_NEWRENDERER_

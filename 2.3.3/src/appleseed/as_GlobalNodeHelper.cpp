@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 
 #include"as_GlobalNodeHelper.h"
 #include "../common/prerequest_std.h"
@@ -125,3 +128,4 @@ MStringArray GlobalNodeHelper::getStringArray(const MString& attrName )
 }
 
 }//namespace appleseed
+#endif//_USE_APPLESEED_

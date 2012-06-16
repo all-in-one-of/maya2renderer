@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_RENDERMAN_
+
 #ifndef _RM_FACTORY_H_
 #define _RM_FACTORY_H_
 
@@ -28,3 +31,5 @@ namespace renderman
 }
 
 #endif//_RM_FACTORY_H_
+
+#endif//_USE_RENDERMAN_

@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #pragma once
 //#ifndef _SHADER_OUTPUT_NR_CALL_H_
 //#define _SHADER_OUTPUT_NR_CALL_H_
@@ -297,3 +300,4 @@ private:
 }//namespace call
 }//namespace newrenderer
 //#endif//_SHADER_OUTPUT_NR_CALL_H_
+#endif//_USE_NEWRENDERER_

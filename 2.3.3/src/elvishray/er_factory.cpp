@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "er_factory.h"
 #include "shaderOutputER.h"
 #include "shaderOutputERCall.h"
@@ -44,4 +47,5 @@ namespace elvishray
 	}
 
 
-}
+}//namespace elvishray
+#endif//_USE_ELVISHRAY_

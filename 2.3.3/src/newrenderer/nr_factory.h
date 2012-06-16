@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #pragma once
 //#ifndef _NR_FACTORY_H_
 //#define _NR_FACTORY_H_
@@ -29,3 +32,4 @@ namespace newrenderer
 }
 
 //#endif//_NR_FACTORY_H_
+#endif//_USE_NEWRENDERER_

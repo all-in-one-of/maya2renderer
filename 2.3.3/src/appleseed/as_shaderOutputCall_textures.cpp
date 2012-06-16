@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 #include "as_shaderOutputCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -267,3 +270,4 @@ void Visitor::visitLayeredTexture(const char* node)
 }
 }//namespace call
 }//namespace appleseed
+#endif//_USE_APPLESEED_

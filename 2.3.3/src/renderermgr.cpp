@@ -57,16 +57,23 @@ namespace liquid
 	void RendererMgr::createFactory(const std::string& renderername)
 	{
 		CM_TRACE_FUNC("RendererMgr::createFactory("<<renderername<<")");
-
-		if(renderername=="renderman"){
+		
+		if(false){}
+#ifdef _USE_RENDERMAN_
+		else if(renderername=="renderman"){
 			m_factory = new renderman::Factory();
 		}
+#endif
+#ifdef _USE_ELVISHRAY_
 		else if(renderername=="elvishray"){
 			m_factory = new elvishray::Factory();
 		}
+#endif 
+#ifdef _USE_APPLESEED_
 		else if(renderername=="appleseed"){
 			m_factory = new appleseed::Factory();
 		}
+#endif 
 		else {
 			liquidMessage2(messageError, "Unkown renderer:%s.",renderername.c_str() );
 		}

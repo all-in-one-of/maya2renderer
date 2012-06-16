@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 
 #ifndef _ER_CALL_
 #define _ER_CALL_
@@ -319,3 +322,4 @@ void my_set_eiVector4(const char* vname, eiVector4 &v, const eiScalar x, const e
 
 }
 #endif
+#endif//_USE_ELVISHRAY_

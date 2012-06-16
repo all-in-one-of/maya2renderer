@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "er_renderer.h"
 #include <liqRibMeshData.h>
 #include "../common/prerequest_maya.h"
@@ -223,3 +226,5 @@ namespace elvishray
 		_S( ei_end_object() );
 	}
 }//namespace elvishray
+
+#endif//_USE_ELVISHRAY_

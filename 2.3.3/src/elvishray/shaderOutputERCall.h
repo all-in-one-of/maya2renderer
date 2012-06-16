@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #ifndef _SHADER_OUTPUT_ER_CALL_H_
 #define _SHADER_OUTPUT_ER_CALL_H_
 
@@ -295,3 +298,4 @@ private:
 
 }//namespace ERCall
 #endif//_SHADER_OUTPUT_ER_CALL_H_
+#endif//_USE_ELVISHRAY_

@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "shaderOutputER.h"
 //#include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -326,3 +329,4 @@ void Visitor::visitVolumeLight(const char* node)
 	o.endRSL();
 }
 }//namespace ER
+#endif//_USE_ELVISHRAY_

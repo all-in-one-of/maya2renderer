@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #ifndef _ER_GROUP_H_
 #define _ER_GROUP_H_
 
@@ -74,3 +77,4 @@ namespace elvishray
 }
 
 #endif//_ER_GROUP_H_
+#endif//_USE_ELVISHRAY_

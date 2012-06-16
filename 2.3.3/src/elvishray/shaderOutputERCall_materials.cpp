@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "shaderOutputERCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -213,3 +216,4 @@ void Visitor::visitVolumeLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitVolumeLight("<<node<<")");
 }
 }//namespace ERCall
+#endif//_USE_ELVISHRAY_

@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_shaderOutputCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -265,3 +268,4 @@ void Visitor::visitOpticalFX(const char* node)
 }
 }//namespace call
 }//namespace newrenderer
+#endif//_USE_NEWRENDERER_

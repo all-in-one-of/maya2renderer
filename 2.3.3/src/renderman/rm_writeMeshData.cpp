@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_RENDERMAN_
+
 #include "rm_renderer.h"
 #include <liqRibMeshData.h>
 #include <liqGlobalVariable.h>
@@ -124,3 +127,5 @@ namespace renderman
 		}
 	}
 }//namespace renderman
+
+#endif//_USE_RENDERMAN_

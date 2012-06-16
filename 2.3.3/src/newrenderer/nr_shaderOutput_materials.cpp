@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_shaderOutput.h"
 //#include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -325,4 +328,5 @@ void Visitor::visitVolumeLight(const char* node)
 	o.addTo("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.end();
 }
-}//namespace ER
+}//namespace newrenderer
+#endif//_USE_NEWRENDERER_

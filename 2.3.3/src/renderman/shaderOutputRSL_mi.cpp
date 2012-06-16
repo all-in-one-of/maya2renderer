@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_RENDERMAN_
+
 #include "shaderOutputRSL.h"
 #include "../common/mayacheck.h"
 #include "ri_interface.h"
@@ -87,3 +90,5 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 }
 
 }//namespace RSL
+
+#endif//_USE_RENDERMAN_

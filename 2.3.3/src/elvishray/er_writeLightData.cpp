@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
+
 #include "er_renderer.h"
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
@@ -313,3 +316,4 @@ namespace elvishray
 		return (liqLightHandle)(0);
 	}
 }//namespace elvishray
+#endif//_USE_ELVISHRAY_

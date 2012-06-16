@@ -1,3 +1,5 @@
+#include <liqConfig.h>
+#ifdef _USE_ELVISHRAY_
 
 #ifndef _ER_GlobalNodeHelper_H
 #define _ER_GlobalNodeHelper_H
@@ -39,3 +41,4 @@ private:
 
 }
 #endif//_ER_GlobalNodeHelper_H
+#endif//_USE_ELVISHRAY_

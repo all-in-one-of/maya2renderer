@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_shaderOutput.h"
 //#include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -28,4 +31,5 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	o.end();
 }
 
-}//namespace ER
+}//namespace newrenderer
+#endif//_USE_NEWRENDERER_

@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_APPLESEED_
+
 #include "as_factory.h"
 #include "as_shaderOutput.h"
 #include "as_shaderOutputCall.h"
@@ -45,3 +48,4 @@ namespace appleseed
 
 
 }//namespace appleseed
+#endif//_USE_APPLESEED_

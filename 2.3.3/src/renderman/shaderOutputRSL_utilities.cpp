@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_RENDERMAN_
+
 #include "shaderOutputRSL.h"
 //#include <liqlog.h>
 //#include <liqShader.h>
@@ -513,3 +516,5 @@ void Visitor::visitOpticalFX(const char* node)
 
 
 }//namespace RSL
+
+#endif//_USE_RENDERMAN_

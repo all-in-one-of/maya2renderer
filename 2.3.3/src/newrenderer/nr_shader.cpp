@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 
 #include "nr_renderer.h"
 // Maya headers
@@ -259,3 +262,4 @@ namespace newrenderer
 	}
 
 }//namespace newrenderer
+#endif//_USE_NEWRENDERER_

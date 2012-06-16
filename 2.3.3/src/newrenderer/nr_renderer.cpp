@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #include "nr_renderer.h"
 
 #include "boost/format.hpp"
@@ -674,4 +677,6 @@ namespace newrenderer
 
 		return true;
 	}
-}//namespace
+}//namespace newrenderer
+
+#endif//_USE_NEWRENDERER_

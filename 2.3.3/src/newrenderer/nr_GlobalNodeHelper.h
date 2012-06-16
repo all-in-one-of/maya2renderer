@@ -1,3 +1,6 @@
+#include <liqConfig.h>
+#ifdef _USE_NEWRENDERER_
+
 #pragma once
 //#ifndef _NR_GlobalNodeHelper_H
 //#define _NR_GlobalNodeHelper_H
@@ -39,3 +42,4 @@ private:
 
 }
 //#endif//_ER_GlobalNodeHelper_H
+#endif//_USE_NEWRENDERER_
