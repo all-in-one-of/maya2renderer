@@ -376,6 +376,15 @@ namespace appleseed
 
 		m_option = std::string(currentJob.name.asChar()) + "_option";
 
+		// Add default configurations to the project.
+		project->add_default_configurations();
+
+		// Set the number of samples. This is basically the quality parameter: the higher the number
+		// of samples, the smoother the image but the longer the rendering time.
+		project->configurations()
+			.get_by_name("final")->get_parameters()
+			.insert_path("generic_tile_renderer.min_samples", "25")
+			.insert_path("generic_tile_renderer.max_samples", "25");
 
 		return MStatus::kSuccess;
 	}
