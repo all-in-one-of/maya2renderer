@@ -4,15 +4,13 @@
 
 static const std::string root_path = "E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/sample";
 
-void build_project(asf::auto_release_ptr<asr::Project> &project)
+void build_project(
+	asf::auto_release_ptr<asr::Project> &project,
+	asf::auto_release_ptr<asr::Assembly> &assembly
+)
 {
 	CM_TRACE_FUNC("build_project()");
 
-	// Create an assembly.
-	asf::auto_release_ptr<asr::Assembly> assembly(
-		asr::AssemblyFactory::create(
-		"assembly",
-		asr::ParamArray()));
 
 	// Create a color called "gray" and insert it into the assembly.
 	static const float GrayReflectance[] = { 0.5f, 0.5f, 0.5f };
@@ -96,16 +94,16 @@ void build_project(asf::auto_release_ptr<asr::Project> &project)
 		asf::Matrix4d::translation(asf::Vector3d(0.6, 2.0, 1.0))));
 	assembly->lights().insert(light);
 
-	// Create an instance of the assembly and insert it into the scene.
-	project->get_scene()->assembly_instances().insert(
-		asr::AssemblyInstanceFactory::create(
-		"assembly_inst",
-		asr::ParamArray(),
-		*assembly,
-		asf::Transformd(asf::Matrix4d::identity())));
+// 	// Create an instance of the assembly and insert it into the scene.
+// 	project->get_scene()->assembly_instances().insert(
+// 		asr::AssemblyInstanceFactory::create(
+// 		"assembly_inst",
+// 		asr::ParamArray(),
+// 		*assembly,
+// 		asf::Transformd(asf::Matrix4d::identity())));
 
-	// Insert the assembly into the scene.
-	project->get_scene()->assemblies().insert(assembly);
+// 	// Insert the assembly into the scene.
+// 	project->get_scene()->assemblies().insert(assembly);
 
 	// Create a pinhole camera with film dimensions 0.980 x 0.735 in (24.892 x 18.669 mm).
 // 	asf::auto_release_ptr<asr::Camera> _camera(

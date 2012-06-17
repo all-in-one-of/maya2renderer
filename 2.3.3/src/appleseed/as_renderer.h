@@ -275,6 +275,7 @@ namespace appleseed
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
 		asf::auto_release_ptr<asr::Project> project;
+		asf::auto_release_ptr<asr::Assembly> current_assembly;
 
 	protected:
 		Renderer(const Renderer&);

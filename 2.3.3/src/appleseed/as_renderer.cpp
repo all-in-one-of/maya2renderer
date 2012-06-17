@@ -34,7 +34,10 @@
 #include "log_helper.h"
 #include "as_GlobalNodeHelper.h"
 
-extern void build_project(asf::auto_release_ptr<asr::Project>&);
+extern void build_project(
+	asf::auto_release_ptr<asr::Project> &project,
+	asf::auto_release_ptr<asr::Assembly> &assembly
+);
 
 namespace appleseed
 {
@@ -291,7 +294,12 @@ namespace appleseed
 		asf::auto_release_ptr<asr::Scene> _scene(asr::SceneFactory::create());
 		// Bind the scene to the project.
 		project->set_scene(_scene);
-		build_project(project);
+		// Create an assembly.
+		current_assembly = asr::AssemblyFactory::create(
+			"assembly",
+			asr::ParamArray());
+
+		build_project(project, current_assembly);
 		//////////////////////////////////////////////////////////////////////////
 
 		_s("//### SCENE BEGIN ###");
@@ -516,7 +524,16 @@ namespace appleseed
 	void Renderer::cookInstanceGroup()
 	{
 		CM_TRACE_FUNC("Renderer::cookInstanceGroup()");
-		//todo
+
+		// Create an instance of the assembly and insert it into the scene.
+		project->get_scene()->assembly_instances().insert(
+			asr::AssemblyInstanceFactory::create(
+			"assembly_inst",
+			asr::ParamArray(),
+			*current_assembly,
+			asf::Transformd(asf::Matrix4d::identity())));
+		// Insert the assembly into the scene.
+		project->get_scene()->assemblies().insert(current_assembly);
 	}
 
 	void Renderer::exportLightLinks(
