@@ -42,37 +42,37 @@ void build_project(
 		.insert("surface_shader", "physical_surface_shader")
 		.insert("bsdf", "diffuse_gray_brdf")));
 
-	// Load the scene geometry from disk.
-	asf::SearchPaths search_paths;
-	search_paths.push_back(root_path + "/data");
-	asr::MeshObjectArray objects =
-		asr::MeshObjectReader::read(
-		search_paths,
-		"cube",
-		asr::ParamArray()
-		.insert("filename", "scene.obj"));
-
-	// Insert all the objects into the assembly.
-	for (size_t i = 0; i < objects.size(); ++i)
-	{
-		// Insert this object into the scene.
-		asr::MeshObject* object = objects[i];
-		assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
-
-		// Create the array of material names.
-		asf::StringArray material_names;
-		material_names.push_back("gray_material");
-
-		// Create an instance of this object and insert it into the assembly.
-		const std::string instance_name = std::string(object->get_name()) + "_inst";
-		assembly->object_instances().insert(
-			asr::ObjectInstanceFactory::create(
-			instance_name.c_str(),
-			asr::ParamArray(),
-			*object,
-			asf::Transformd(asf::Matrix4d::identity()),
-			material_names));
-	}
+// 	// Load the scene geometry from disk.
+// 	asf::SearchPaths search_paths;
+// 	search_paths.push_back(root_path + "/data");
+// 	asr::MeshObjectArray objects =
+// 		asr::MeshObjectReader::read(
+// 		search_paths,
+// 		"cube",
+// 		asr::ParamArray()
+// 		.insert("filename", "scene.obj"));
+// 
+// 	// Insert all the objects into the assembly.
+// 	for (size_t i = 0; i < objects.size(); ++i)
+// 	{
+// 		// Insert this object into the scene.
+// 		asr::MeshObject* object = objects[i];
+// 		assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
+// 
+// 		// Create the array of material names.
+// 		asf::StringArray material_names;
+// 		material_names.push_back("gray_material");
+// 
+// 		// Create an instance of this object and insert it into the assembly.
+// 		const std::string instance_name = std::string(object->get_name()) + "_inst";
+// 		assembly->object_instances().insert(
+// 			asr::ObjectInstanceFactory::create(
+// 			instance_name.c_str(),
+// 			asr::ParamArray(),
+// 			*object,
+// 			asf::Transformd(asf::Matrix4d::identity()),
+// 			material_names));
+// 	}
 
 	// Create a color called "light_exitance" and insert it into the assembly.
 	static const float LightExitance[] = { 1.0f, 1.0f, 1.0f };
