@@ -8,6 +8,7 @@
 #include <liqTokenPointer.h>
 #include "liqtypes.h"
 #include "./common/prerequest_std.h"
+#include <liqConfig.h>
 
 struct structJob;
 class liqRibLightData;
@@ -235,12 +236,13 @@ public:
 		const MString &fileName, 
 		const structJob &currentJob,
 		const bool bReference) = 0;
+#ifdef _USE_SHAVE_
 	virtual void write(
 		/*const*/ liqRibShaveData* data,
 		const MString &fileName, 
 		const structJob &currentJob,
 		const bool bReference) = 0;
-
+#endif
 	virtual bool isHeroPassReady(const structJob &currentJob) = 0;
 	virtual void HeroPassBegin(const structJob &currentJob) = 0;
 	virtual void HeroPassEnd(const structJob &currentJob) = 0;

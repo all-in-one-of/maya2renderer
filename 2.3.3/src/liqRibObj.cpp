@@ -60,7 +60,7 @@
 #include <liqRibPfxToonData.h>
 #include <liqRibPfxHairData.h>
 #include <liqRibImplicitSphereData.h>
-#if _USE_SHAVE_
+#ifdef _USE_SHAVE_
 #include <liqRibShaveData.h>
 #endif
 #include <liqRibData.h>
@@ -228,11 +228,11 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
 				
 				if(nodeType=="shaveHair")
 				{
-#if _USE_SHAVE_
+#ifdef _USE_SHAVE_
 					type = MRT_Shave;
 					data = liqRibDataPtr( new liqRibShaveData( ignoreShapes? skip : obj ) );
 #else
-					assert(0 &&"_USE_SHAVE_ is 0 (in liqConfig.h)");
+					assert(0 &&"_USE_SHAVE_ is not defined (in liqConfig.h)");
 #endif
 				}else{
 					type = MRT_Weirdo; // lets use this at least once :)

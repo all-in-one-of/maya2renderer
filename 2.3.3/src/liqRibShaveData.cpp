@@ -33,7 +33,7 @@
 */
 #include <liqRibShaveData.h>
 
-#if _USE_SHAVE_
+#ifdef _USE_SHAVE_
 
 // Boost headers
 #include <boost/scoped_array.hpp>

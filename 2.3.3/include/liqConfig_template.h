@@ -3,7 +3,7 @@
 #define _LIQ_CONFIG_H_
 
 
-#define _USE_SHAVE_ 1
+#define _USE_SHAVE_
 
 //macros for renderers, if you use a renderer, define a macro for that renderer.
 //#define _USE_RENDERMAN_

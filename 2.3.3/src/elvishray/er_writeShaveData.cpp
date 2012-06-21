@@ -1,6 +1,6 @@
 #include <liqConfig.h>
 #ifdef _USE_ELVISHRAY_
-
+#ifdef _USE_SHAVE_
 #include "er_renderer.h"
 #include <liqRibPfxData.h>
 #include "../common/prerequest_maya.h"
@@ -158,5 +158,5 @@ namespace elvishray
 	}
 
 }//namespace elvishray
-
+#endif//_USE_SHAVE_
 #endif//_USE_ELVISHRAY_

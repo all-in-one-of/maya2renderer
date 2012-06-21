@@ -30,7 +30,7 @@
 #define liqRibShaveData_H
 
 #include "liqConfig.h"
-#if _USE_SHAVE_
+#ifdef _USE_SHAVE_
 /* ______________________________________________________________________
 **
 ** Liquid Rib Surface Data Header File

@@ -226,11 +226,13 @@ namespace appleseed
 			const MString &fileName, 
 			const structJob &currentJob,
 			const bool bReference);
+#ifdef _USE_SHAVE_
 		virtual void write(
 			/*const*/ liqRibShaveData* data,
 			const MString &fileName, 
 			const structJob &currentJob,
 			const bool bReference);
+#endif
 		//
 		virtual bool isHeroPassReady(const structJob &currentJob);
 		virtual void HeroPassBegin(const structJob &currentJob);
