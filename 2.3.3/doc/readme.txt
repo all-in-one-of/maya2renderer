@@ -46,7 +46,8 @@ RenderMan (R) is a registered trademark of Pixar
 - Development environment
    - msvc 2010(sp1)
    - Boost(1.47 or later), set BOOST_ROOT in system environment variables, e.g. BOOST_ROOT=E:/dev/boost/1_47
-   - Maya2009 x32, set MAYA_PATH2009 in system environment variables, e.g. MAYA_PATH2009=D:\Program Files\Autodesk\Maya2009
+   - Maya2012 x32, set MAYA_PATH2012 in system environment variables, e.g. MAYA_PATH2012=D:\Program Files\Autodesk\Maya2012,
+   and add D:\Program Files\Autodesk\Maya2012\bin to PATH.
    - (For renderman renderer only) Renderman Pro Server.
 - Build Dependence
    - aqsis
@@ -87,7 +88,7 @@ RenderMan (R) is a registered trademark of Pixar
   - copy $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)\*.* to $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)\*.*
     e.g. you can choose Release as the ConfigurationName.
   - open $(LiquidRoot)\2.3.3\include\liqConfig.h, set _USE_SHAVE_ to 1 if shave(v61 or later) is installed, or set _USE_SHAVE_ to 0 if shave isn't installed.
-  - open $(LiquidRoot)\2.3.3\src\MSVC2005\liquid.sln, choose ¡°Win32¡± and ¡°Prman2009Debug¡± in Configuration Manager£¬
+  - open $(LiquidRoot)\2.3.3\src\MSVC2005\liquid.sln, choose ¡°Win32¡± and ¡°M2R2012Debug¡± in Configuration Manager£¬
     - (For renderman renderer only)
       - make sure Prman is installed, and $(RMANTREE) is set(e.g. RMANTREE=D:\Program Files\Pixar\RenderManProServer-13.5.2),
         $(RMANTREE) contains 3 sub-directories, bin\, etc\ and lib\.
