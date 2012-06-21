@@ -965,21 +965,22 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::canExport()");
 
 		//whether manager.ini exist---------------------------------------
-		MString MAYA_PATH2009;
-		IfMErrorWarn(MGlobal::executeCommand( "getenv(\"MAYA_PATH2009\")", MAYA_PATH2009));
-		MString manager_ini_path(MAYA_PATH2009+"/bin/manager.ini");
+		MString MAYA_PATH;
+		IfMErrorWarn(MGlobal::executeCommand( "getenv(\"MAYA_LOCATION\")", MAYA_PATH));
+		MString manager_ini_path(MAYA_PATH+"/bin/manager.ini");
 
 		FILE *manager_ini = NULL;
 		if( !(manager_ini = fopen(manager_ini_path.asChar(),"r")) )
 		{
 			liquidMessage2(messageError,
-				"$(MAYA_PATH2009)/bin/manager.ini is not found. Please copy manager.ini of Elvishray to $(MAYA_PATH2009)/bin/\n"
+				"%s/bin/manager.ini is not found. Please copy manager.ini of Elvishray to %s/bin/\n"
 				"Make sure searchpath is set to the directory which contains eiIMG.dll and eiSHADER.dll.\n"
 				"e.g. :\n"
-				"searchpath <LiquidRoot>/dependence/elvishray/bin\n"
+				"searchpath <LiquidRoot>/dependence/elvishray/bin\n",
+				MAYA_PATH.asChar()
 				);
 
-			assert(0&&"[ERROR] $(MAYA_PATH2009)/bin/manager.ini is not found. Please copy manager.ini of Elvishray to $(MAYA_PATH2009)/bin/\n" 
+			assert(0&&"[ERROR] $(MAYA_LOCATION)/bin/manager.ini is not found. Please copy manager.ini of Elvishray to $(MAYA_LOCATION)/bin/\n" 
 				"Please see Maya Script Editor Window for more details.");
 			return false;
 		}

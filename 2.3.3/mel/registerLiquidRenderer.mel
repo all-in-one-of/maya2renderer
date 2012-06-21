@@ -248,6 +248,7 @@ global proc registerLiquidRenderer()
 				  "liquid;");
 		break;
 	case 2009.0:
+	case 2012.0:
 		eval  (
 		"renderer  -rendererUIName                        \"Liquid\" "                    +
 				  "-addGlobalsNode                        \"liquidGlobals\" "             +

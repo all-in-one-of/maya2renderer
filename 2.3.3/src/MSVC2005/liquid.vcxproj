@@ -49,6 +49,14 @@
       <Configuration>Generic RibLib Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="M2R2012Debug|Win32">
+      <Configuration>M2R2012Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="M2R2012Debug|x64">
+      <Configuration>M2R2012Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Pixie Generic ribLib Release|Win32">
       <Configuration>Pixie Generic ribLib Release</Configuration>
       <Platform>Win32</Platform>
@@ -132,6 +140,11 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -203,6 +216,11 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
@@ -284,6 +302,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
@@ -341,6 +363,10 @@
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
   </ImportGroup>
@@ -488,11 +514,17 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'">false</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='3Delight Generic ribLib Release|Win32'" />
@@ -572,11 +604,17 @@
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PrmanDebug2008|Win32'" />
@@ -2033,7 +2071,118 @@
       <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">
+    <PreBuildEvent>
+      <Message>Print build time to LiquidRoot\2.3.3\buildtime.txt</Message>
+      <Command>echo " (buildtime=%time%)" &gt; ..\..\buildtime.txt </Command>
+    </PreBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/appleseed;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/appleseed.shared;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/openexr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Debug/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Debug/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\zlib\lib\vc9_sp1/zlibstat.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;appleseed.lib;appleseed.shared.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2012x32d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/lib/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2012x32d.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/3Delight/win32/Release/Objects/liquid.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2008)/include;$(BOOST_ROOT);E:\dev\tools\zlib\1.2.5;..\..\..\dependence\aqsis\1.6.0\src\include;..\..\..\dependence\aqsis\1.6.0\build\include;..\..\..\dependence\aqsis\1.6.0\src\libs\core\api;..\..\..\dependence\aqsis\1.6.0\build\libs\core\api;..\..\..\dependence\aqsis\1.6.0\src\libs\core\ddmanager;..\..\..\dependence\aqsis\1.6.0\src\libs\core\geometry;..\..\..\dependence\aqsis\1.6.0\src\libs\core\raytrace;..\..\..\dependence\aqsis\1.6.0\src\libs\core\texturing_old;..\..\..\dependence\aqsis\1.6.0\src\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\build\libs\rib2ri;..\..\..\dependence\aqsis\1.6.0\src\libs\core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;ulong=unsigned long;uint=unsigned int;_WIN32;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../bin/Prman/win32/Debug/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/Prman/win32/Debug/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/Prman/win32/Debug/Objects/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>image.lib;OpenMayaFX.lib;Foundation.lib;OpenMaya.lib;OpenMayaRender.lib;OpenMayaUI.lib;OpenMayaAnim.lib;glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquid_2008x64d.mll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2008)/lib;$(BOOST_ROOT)/stage/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <ProgramDatabaseFile>.\../../bin/Prman/win64/Debug/Objects/liquid_2008x64.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|x64'">
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MkTypLibCompatible>true</MkTypLibCompatible>
@@ -2108,6 +2257,7 @@
     <ClCompile Include="..\liqHeroRibWriterMgr.cpp" />
     <ClCompile Include="..\liqJobList.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\liqJobScriptMgr.cpp" />
     <ClCompile Include="..\liqLightMgr.cpp" />
@@ -2265,6 +2415,7 @@
     <ClInclude Include="..\..\include\liqIOStream.h" />
     <ClCompile Include="..\..\include\liqJobList.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClInclude Include="..\..\include\liqJobScriptMgr.h" />
     <ClInclude Include="..\..\include\liqLightMgr.h" />
