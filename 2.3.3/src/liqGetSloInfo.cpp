@@ -180,7 +180,7 @@ int liqGetSloInfo::getNumParam()
 
 MString liqGetSloInfo::getTypeStr2() const
 {
-	return shaderTypeEx;
+	return shaderTypeEx;// get shaderTypeEx which comes from PL file
 }
 MString liqGetSloInfo::getArgName( int num )
 {
@@ -435,10 +435,7 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
   // strcpy( sloFileName, shaderFileName.asChar() );
   
   // get absolute path, if relative was used
-  MString MELCommand = "workspace -expandName \"" + shaderName + "\"";
-  MString MELReturn;
-  MGlobal::executeCommand( MELCommand, MELReturn );
-  shaderName = MELReturn;
+  shaderName = getFullPathFromRelative( shaderName );
   // string sloFileName( shaderFileName.asChar() );
   // cout << "checking on " << shaderName << endl;
   if ( !fileExists( shaderName ) ) 
@@ -491,7 +488,8 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
     shaderPlug.getValue( arrayObject );
     stringArrayData.setObject( arrayObject );
     stringArrayData.copyTo( shaderDetails );
-    if ( shaderDetails.length() != numParam ) {
+    if ( shaderDetails.length() != numParam ) 
+	{
       MString error;
       error = "Liquid -> error reading " + shaderNode.name() + ".rmanDetails ... Please run \"liquidShaderUpdater(1)\" to fix your scene !";
       throw error;
@@ -528,7 +526,8 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
     shaderPlug.getValue( arrayObject );
     stringArrayData.setObject( arrayObject );
     stringArrayData.copyTo( shaderTypes );
-    if ( shaderTypes.length() != numParam ) {
+    if ( shaderTypes.length() != numParam ) 
+	{
       MString error;
       error = "Liquid -> error reading " + shaderNode.name() + ".rmanTypes ... Please run \"liquidShaderUpdater(1)\" to fix your scene !";
       throw error;
@@ -540,7 +539,8 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
     stringArrayData.setObject( arrayObject );
     stringArrayData.copyTo( shaderDefaults );
 //	cout <<"shaderDefaults=" << shaderDefaults<<endl;
-    if ( shaderDefaults.length() != numParam ) {
+    if ( shaderDefaults.length() != numParam ) 
+	{
       MString error;
       error = "Liquid -> error reading " + shaderNode.name() + ".rmanDefaults ... Please run \"liquidShaderUpdater(1)\" to fix your scene !";
       throw error;
@@ -554,14 +554,15 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 // 	for(int i=0; i<shaderArraySizes.length(); ++i){
 // 		liquidMessage2(messageWarning,"[liqGetloInfo] shaderArraySizes[%d]=%d",i, shaderArraySizes[i]);
 // 	}
-    if ( shaderArraySizes.length() != numParam ) {
+    if ( shaderArraySizes.length() != numParam ) 
+	{
       MString error;
       error = "Liquid -> error reading " + shaderNode.name() + ".rmanArraySizes ... Please run \"liquidShaderUpdater(1)\" to fix your scene !";
       throw error;
     }
 
-    for ( unsigned k = 0; k < numParam; k++ ) {
-
+    for ( unsigned k = 0; k < numParam; k++ ) 
+	{
       //cout <<"setShaderNode:     + shaderParams["<<k<<"] = "<<shaderParams[k]<<endl;
       argName.push_back( shaderParams[k] );
 
@@ -581,8 +582,8 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 		  argIsOutput.push_back( shaderOutputs[k] );
 	  }
 
-      switch ( shaderTypeMap[ shaderTypes[k] ] ) {
-
+      switch ( shaderTypeMap[ shaderTypes[k] ] ) 
+	  {
         case SHADER_TYPE_STRING: {
           char *strings = ( char * )lmalloc( sizeof( char ) * strlen( shaderDefaults[k].asChar() ) + 1 );
           strcpy( strings, shaderDefaults[k].asChar() );

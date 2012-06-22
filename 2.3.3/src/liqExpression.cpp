@@ -116,17 +116,18 @@ MString	liqExpression::CalcValue( )
       break;
 
     case exp_ReflectMap:
+		liquidMessage2(messageError,"liquidMaya r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name, make sure it is rright for reflect map. ");
       object_name = tokens[1];
       if ( object_name.length() ) 
       {
-        if ( ( liqglo.m_displays[0].name == "" ) ) 
+        if ( ( liqglo.m_displays[0].name == "" ) ) //liquidMaya r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name
         {
           value += liquidTransGetSceneName();
         } 
         else 
         {
-          int pointIndex = liqglo.m_displays[0].name.index( '.' );
-          value += liqglo.m_displays[0].name.substring(0, pointIndex-1).asChar();
+          int pointIndex = liqglo.m_displays[0].name.index( '.' );//liquidMaya r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name
+          value += liqglo.m_displays[0].name.substring(0, pointIndex-1).asChar();//liquidMaya r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name
         }
         value += "_";
         value += object_name;
@@ -139,16 +140,17 @@ MString	liqExpression::CalcValue( )
 
     case exp_Shadow:
     case exp_PointShadow:
-      if ( object_name.length() ) 
+		liquidMessage2(messageError,"liquidMaya r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name, make sure it is rright for shadow/point_shadow map. ");
+		if ( object_name.length() ) 
       {
-        if ( ( liqglo.m_displays[0].name == "" ) ) 
+        if ( ( liqglo.m_displays[0].name == "" ) ) //liquidMaya r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name
         {
           value += liquidTransGetSceneName();
         } 
         else 
         {
-          int pointIndex = liqglo.m_displays[0].name.index( '.' );
-          value += liqglo.m_displays[0].name.substring(0, pointIndex-1).asChar();
+          int pointIndex = liqglo.m_displays[0].name.index( '.' );//r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name
+          value += liqglo.m_displays[0].name.substring(0, pointIndex-1).asChar();//r772 use liqglo_DDimageName instead of liqglo.m_displays[0].name
         }
         value += "_";
         value += object_name;
@@ -165,14 +167,14 @@ MString	liqExpression::CalcValue( )
       break;
 
     case exp_EnvMap:
-      printf("Liquid -> EnvMap is not implemented yet\n");
+      liquidMessage2(messageError,"Liquid -> EnvMap is not implemented yet\n");
       break;
     case exp_CubeEnvMap:
-      printf("Liquid -> CubeEnvMap is not implemented yet\n");
+      liquidMessage2(messageError,"Liquid -> CubeEnvMap is not implemented yet\n");
       break;
     case exp_None:
     default:
-      printf("Liquid -> non valid expression token\n");
+      liquidMessage2(messageError,"Liquid -> non valid expression token\n");
       break;
   }
   return value;

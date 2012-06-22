@@ -216,6 +216,7 @@ RtToken		RI_CULL					=	"cull";
 RtToken		RI_COMPRESSION			=	"compression";
 RtToken		RI_RIB					=	"rib";
 RtToken		RI_BRICKMEMORY			=	"brickmemory";
+RtToken		RI_GROUPING				=	"grouping";
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -297,6 +298,9 @@ RtToken		RI_DIFFUSEHITMODE	      =	"diffusehitmode";
 RtToken		RI_SPECULARHITMODE	    =	"specularhitmode";
 RtToken		RI_TRANSMISSIONHITMODE	=	"transmissionhitmode";
 RtToken		RI_CAMERAHITMODE	      =	"camerahitmode";
+
+// Grouping attributes
+RtToken		RI_MEMBERSHIP	      =	"membership";
 
 //side attributes
 RtToken		RI_SIDE					= "sides";

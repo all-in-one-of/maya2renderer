@@ -354,16 +354,29 @@ bool fileFullyAccessible( const MString& path )
  */
 MString getFullPathFromRelative( const MString& filename ) 
 {
-	MString ret;
+	MString ret = filename;
 
 #if defined(_WIN32)||defined(_WIN64)
-	if( filename.index( 0 ) == '/' ){ // relative path, add prefix project folder
+	if( filename.index( '/' ) == 0 ) // relative path, add prefix project folder
 #else//LINUX
-	if( filename.index( 0 ) != '/' ){ // relative path, add prefix project folder
+	if( filename.index( '/' ) != 0 ) // relative path, add prefix project folder
 #endif
-		ret = liqglo.liqglo_projectDir + "/" + filename;
-	}else{
-		ret = filename;
+	{
+		MString projectDir;
+		if ( liqglo.liquidBin )
+		{
+			projectDir = liqglo.liqglo_projectDir; //  + "/";
+			// string info_str = "(getFullPathFromRelative) liqglo_projectDir = " + string( projectDir.asChar() ) ;
+			// liquidMessage( info_str, messageInfo );
+		}
+		else
+		{
+			MString MELCommand = "workspace -q -rd";
+			MString MELReturn;
+			MGlobal::executeCommand( MELCommand, MELReturn );
+			projectDir = MELReturn; 
+		}
+		ret = projectDir + filename;
 	}
 	return ret;
 }
@@ -380,7 +393,9 @@ MString getFileName( const MString& fullpath )
  */
 MString parseString( const MString& inString, bool doEscaped )
 {
-  MString constructedString;
+  using namespace std;
+  stringstream ss;
+
   MString tokenString;
   bool inToken = false;
   std::string prep_str ( inString.asChar() );
@@ -396,7 +411,7 @@ MString parseString( const MString& inString, bool doEscaped )
     MString str_dec = inputString.substring(i-1, i-1);
     if( str == "\n" || str == "\t" )  // replace delimiters with space
     { 
-      constructedString += " ";
+      ss << " ";
       continue;
     }
     if( str == "$" ) 
@@ -409,67 +424,67 @@ MString parseString( const MString& inString, bool doEscaped )
       tokenString += str;
       if( tokenString == "F" ) 
       {
-        constructedString += (int)liqglo.liqglo_lframe;
+        ss << (int)liqglo.liqglo_lframe;
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "SCN" ) 
       {
-        constructedString += liquidTransGetSceneName();
+        ss << liquidTransGetSceneName().asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "IMG" ) 
       {
-        constructedString += liqglo.m_displays[0].name;
+        ss << liqglo.m_displays[0].name.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "PDIR" || tokenString == "PROJDIR" ) 
       {
-        constructedString += liqglo.liqglo_projectDir;
+        ss << liqglo.liqglo_projectDir.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "RDIR" || tokenString == "RIBDIR" ) 
       {
-        constructedString += liqglo.liqglo_ribDir;
+        ss << liqglo.liqglo_ribDir.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "TDIR" || tokenString == "TEXDIR" ) 
       {
-        constructedString += liqglo.liqglo_textureDir;
+        ss << liqglo.liqglo_textureDir.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "OBJ" && inputString.substring(i+1, i+4) != "PATH" ) 
       {
-        constructedString += liqglo.liqglo_currentNodeShortName;
+        ss << liqglo.liqglo_currentNodeShortName.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "OBJPATH" ) 
       {
-        constructedString += liqglo.liqglo_currentNodeName;
+        ss << liqglo.liqglo_currentNodeName.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "SHOT" ) 
       {
-        constructedString += liqglo.liqglo_shotName;
+        ss << liqglo.liqglo_shotName.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "VER" ) 
       {
-        constructedString += liqglo.liqglo_shotVersion;
+        ss << liqglo.liqglo_shotVersion.asChar();
         inToken = false;
         tokenString.clear();
       } 
       else if( tokenString == "LYR" || tokenString == "LAYER" ) 
       {
-        constructedString += liqglo.liqglo_layer;
+        ss << liqglo.liqglo_layer.asChar();
         inToken = false;
         tokenString.clear();
       }
@@ -480,20 +495,26 @@ MString parseString( const MString& inString, bool doEscaped )
 		  MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 		  IfMErrorWarn(liquidGetPlugValue( rGlobalNode, "renderer", renderer, status ));
 
-		  constructedString += renderer;
+		  ss << renderer.asChar();
 		  inToken = false;
 		  tokenString.clear();
 	  } 
 	  else if( tokenString == "CAM" ) 
 	  {
-		  constructedString += liqglo.renderCamera;
+		  ss << liqglo.renderCamera.asChar();
 		  inToken = false;
 		  tokenString.clear();
 	  } 
+	  else if( tokenString == "TEX" ) // texture file extension
+	  {
+		  ss << liqglo.liquidRenderer.textureExtension.asChar();
+		  inToken = false;
+		  tokenString.clear();
+	  }
     } 
     else if( str == "@" && str_dec != "\\" ) 
     {
-      constructedString += (int)liqglo.liqglo_lframe;
+      ss << (int)liqglo.liqglo_lframe;
     } 
     else if( str == "#" && str_dec != "\\" ) 
     {
@@ -510,20 +531,21 @@ MString parseString( const MString& inString, bool doEscaped )
       if( paddingSize > 20 ) 
         paddingSize = 20;
       
-      char paddedFrame[20];
-      sprintf( paddedFrame, "%0*ld", paddingSize, liqglo.liqglo_lframe );
-      constructedString += paddedFrame;
+      //char paddedFrame[20];
+      //sprintf( paddedFrame, "%0*ld", paddingSize, liqglo.liqglo_lframe );
+      //constructedString += paddedFrame;
+	  ss << setfill('0') << setw( paddingSize ) <<  (int)liqglo.liqglo_lframe;
     } 
     else if( str_inc == "%" ) 
     {
       if( str == "\\" ) 
       {
-        constructedString += "%";
+        ss << "%";
         i++;
       } 
       else 
       {
-        constructedString += inputString.substring( i, i );
+        ss << inputString.substring( i, i ).asChar();
         i += 2; // move to 1st character after the '%'
 
         MString envString;
@@ -539,7 +561,7 @@ MString parseString( const MString& inString, bool doEscaped )
           }
           envVal = getenv( envString.asChar() );
           if( envVal != NULL ) 
-            constructedString += envVal;
+            ss << envVal;
           // else environment variable doesn't exist.. do nothing
         }
       }
@@ -551,18 +573,19 @@ MString parseString( const MString& inString, bool doEscaped )
     } 
     else if( doEscaped && str_inc == "n" && str == "\\" ) 
     {
-      constructedString += "\n";
+      ss << "\n";
       i++;
     } 
     else if( doEscaped && str_inc == "t" && str == "\\" ) 
     {
-      constructedString += "\t";
+      ss << "\t";
       i++;
     } 
     else 
-      constructedString += str;
+      ss << str.asChar();
   }
   // Moritz: now parse for MEL command sequences
+  MString constructedString(  ss.str().c_str() );  
   constructedString = parseCommandString( constructedString );
   return constructedString;
 }
@@ -630,7 +653,8 @@ MString parseCommandString( const MString& inputString )
               {
                 MDoubleArray tmpDblArray;
                 melCmdResult.getResult( tmpDblArray );
-                for( unsigned j = 0; j < tmpDblArray.length(); j++ ) {
+                for( unsigned j = 0; j < tmpDblArray.length(); j++ ) 
+				{
                   if( j > 0 )
                     tmpStr += " ";
                   tmpStr += tmpDblArray[ j ];
@@ -656,7 +680,8 @@ MString parseCommandString( const MString& inputString )
               {
                 MVector tmpVec;
                 melCmdResult.getResult( tmpVec );
-                for( int j = 0; j < tmpVec.length(); j++ ) {
+                for( int j = 0; j < tmpVec.length(); j++ ) 
+				{
                   if( i > 0 )
                     tmpStr += " ";
                   tmpStr += tmpVec[ i ];
@@ -667,10 +692,12 @@ MString parseCommandString( const MString& inputString )
               {
                 MVectorArray tmpVecArray;
                 melCmdResult.getResult( tmpVecArray );
-                for( unsigned j = 0; j < tmpVecArray.length(); j++ ) {
+                for( unsigned j = 0; j < tmpVecArray.length(); j++ ) 
+				{
                   if( j > 0 )
                     tmpStr += " ";
-                  for( unsigned k = 0; tmpVecArray[ j ].length(); k++ ) {
+                  for( unsigned k = 0; tmpVecArray[ j ].length(); k++ ) 
+				  {
                     if( k > 0 )
                       tmpStr += " ";
                     tmpStr += tmpVecArray[ j ] [ k ];
@@ -683,7 +710,8 @@ MString parseCommandString( const MString& inputString )
                 MDoubleArray tmpMtx;
                 int rows, cols;
                 melCmdResult.getResult( tmpMtx, rows, cols );
-                for( int j = 0; j < rows * cols; j++ ) {
+                for( int j = 0; j < rows * cols; j++ ) 
+				{
                   if( j > 0 )
                     tmpStr += " ";
                   tmpStr += tmpMtx[ j ];
@@ -696,7 +724,7 @@ MString parseCommandString( const MString& inputString )
               // do nothing
               // should we return some error string here?
               }
-               break;
+              break;
           }
           constructedString += tmpStr;
         }
@@ -1097,7 +1125,8 @@ MString sanitizeNodeName( const MString& name )
   return MString( newName.c_str() );
 }
 
-RtString& getLiquidRibName( const std::string& name ) {
+RtString& getLiquidRibName( const std::string& name ) 
+{
   static std::string ribName;
   static RtString tmp;
   ribName = sanitizeNodeName( name );
@@ -1110,9 +1139,9 @@ RtString& getLiquidRibName( const std::string& name ) {
  */
 void liquidMessage( const std::string& msg, liquidVerbosityType type ) 
 {
-  if( liqglo_verbosity >= type || liqglo.liquidBin ) 
+  if ( liqglo_verbosity >= type || liqglo.liquidBin ) 
   {
-    if( !liqglo.liquidBin ) 
+    if ( !liqglo.liquidBin ) 
     {
       MString infoOutput( "[Liquid] " );
       infoOutput += msg.c_str();
@@ -1209,7 +1238,7 @@ MString parseLiquidRibRequest( MStringArray requestArray, MString attr )
 */	
   return combinedRequest;
 }
-
+// liquidGetPlugValue bool
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &value, MStatus &status )
 {
   status.clear();
@@ -1218,7 +1247,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &valu
     plug.getValue( value );
   return status;
 }
-
+// liquidGetPlugValue int
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status )
 {
   status.clear();
@@ -1227,7 +1256,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value
     plug.getValue( value );
   return status;
 }
-
+// liquidGetPlugValue RtFloat
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, RtFloat &value, MStatus &status )
 {
   status.clear();
@@ -1236,7 +1265,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, RtFloat &v
     plug.getValue( value );
   return status;
 }
-
+// liquidGetPlugValue double
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status )
 {
   status.clear();
@@ -1245,17 +1274,20 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &va
     plug.getValue( value );
   return status;
 }
-
-
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status )
+// liquidGetPlugValue MString
+MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
   if( status == MS::kSuccess ) 
-    plug.getValue( value );
+  {  
+	  MString varVal;
+	  plug.getValue( varVal );
+	  value = ( parsed )? parseString( varVal ) : varVal;
+  }
   return status;
 }
-
+// liquidGetPlugValue MVector
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status )
 {
   status.clear();
@@ -1268,7 +1300,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &v
   }
    return status;
 }
-
+// liquidGetPlugNumElements
 unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name, MStatus *status )
 {
   unsigned int num = 0;
@@ -1280,6 +1312,100 @@ unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name,
     num = plug.numElements( status );
   }
   return num;
+}
+// liquidGetPlugElementValue MString
+MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MString &value, MStatus &status )
+{
+	status.clear();
+	MPlug plug = node.findPlug( name, &status );
+	if( status == MS::kSuccess )
+	{  
+		status.clear();
+		MPlug elementPlug = plug.elementByLogicalIndex( ind, &status );
+		if( status == MS::kSuccess ) 
+			elementPlug.getValue( value );
+	}
+	return status;
+}
+// liquidGetPlugElementValue int
+MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, int &value, MStatus &status )
+{
+	status.clear();
+	MPlug plug = node.findPlug( name, &status );
+	if( status == MS::kSuccess )
+	{  
+		status.clear();
+		MPlug elementPlug = plug.elementByLogicalIndex( ind, &status );
+		if( status == MS::kSuccess ) 
+			elementPlug.getValue( value );
+	}
+	return status;
+}
+// liquidGetPlugElementValue bool
+MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, bool &value, MStatus &status )
+{
+	status.clear();
+	MPlug plug = node.findPlug( name, &status );
+	if( status == MS::kSuccess )
+	{  
+		status.clear();
+		MPlug elementPlug = plug.elementByLogicalIndex( ind, &status );
+		if( status == MS::kSuccess ) 
+			elementPlug.getValue( value );
+	}
+	return status;
+}
+// liquidGetPlugElementValue float
+MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, float &value, MStatus &status )
+{
+	status.clear();
+	MPlug plug = node.findPlug( name, &status );
+	if( status == MS::kSuccess )
+	{  
+		status.clear();
+		MPlug elementPlug = plug.elementByLogicalIndex( ind, &status );
+		if( status == MS::kSuccess ) 
+			elementPlug.getValue( value );
+	}
+	return status;
+}
+// liquidGetPlugElementValue MStringArray
+MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MStringArray &array, MStatus &status )
+{
+	status.clear();
+	MPlug plug = node.findPlug( name, &status );
+	if( status == MS::kSuccess )
+	{  
+		status.clear();
+		MPlug elementPlug = plug.elementByLogicalIndex( ind, &status );
+		if( status == MS::kSuccess )
+		{
+			MObject arrayDataObj;
+			elementPlug.getValue( arrayDataObj );
+			MFnStringArrayData arrayData( arrayDataObj, &status );
+			arrayData.copyTo( array );
+		}
+	}
+	return status;
+}
+// liquidGetPlugElementValue MIntArray
+MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MIntArray &array, MStatus &status )
+{
+	status.clear();
+	MPlug plug = node.findPlug( name, &status );
+	if( status == MS::kSuccess )
+	{  
+		status.clear();
+		MPlug elementPlug = plug.elementByLogicalIndex( ind, &status );
+		if( status == MS::kSuccess )
+		{
+			MObject arrayDataObj;
+			elementPlug.getValue( arrayDataObj );
+			MFnIntArrayData arrayData( arrayDataObj, &status );
+			arrayData.copyTo( array );
+		}
+	}
+	return status;
 }
 
 const MString replaceAll(const MString& str, const char from, const char to)

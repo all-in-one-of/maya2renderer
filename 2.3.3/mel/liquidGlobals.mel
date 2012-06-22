@@ -722,7 +722,8 @@ global proc liquidInitGlobalVals()
     ,"shaderInfo",                  "string",       "shaderinfo"    // shader info utility
     ,"shaderComp",                  "string",       "shader"        // shader compiler
     ,"shaderExt",                   "string",       "sdl"           // shader extension
-    ,"makeTexture",                 "string",       "tdlmake"       // texture make utility
+    ,"textureExt",                  "string",       "tdl"           // texture extension
+	,"makeTexture",                 "string",       "tdlmake"       // texture make utility
     ,"viewTexture",                 "string",       "i-display"     // default texture viewer
 
     ,"viewTextureCommand",          "stringArray",  "i-display"     // texture viewer Command
@@ -3399,6 +3400,7 @@ global proc liquidGlobalsJobTab_buildIt( string $prefix )
     frameLayout -l "Job Script Options" -cl false;
       columnLayout -adj true LG_JobScriptOptionsColumn;
         liquidShowStringGlobal "renderJobName" "Job Name" $prefix;
+        liquidShowStringGlobal "renderScriptFileName" "Script File Name" $prefix;
 
         separator;
         liquidShowBoolGlobal   "deferredGen"   "Deferred RIB Generation" $prefix;
@@ -3509,6 +3511,7 @@ global proc liquidGlobalsRendererTab_buildIt( string $prefix )
 
         separator;
         liquidShowStringGlobal "shaderExt" "Shader Extension" $prefix;
+		liquidShowStringGlobal "textureExt" "Texture Extension" $prefix;
       setParent..;
     setParent..;
 

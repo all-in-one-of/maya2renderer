@@ -78,7 +78,7 @@ void getHinderParameters(const MFnDependencyNode& rGlobalNode)
 	liquidGetPlugValue( rGlobalNode, "photonEmit", liqglo.m_photonEmit, gStatus );   
 	liquidGetPlugValue( rGlobalNode, "photonSampleSpectrum", liqglo.m_photonSampleSpectrum, gStatus );  
 	if ( liquidGetPlugValue( rGlobalNode, "depthMaskZFile", varVal, gStatus ) == MS::kSuccess )   
-		liqglo.m_depthMaskZFile = parseString( varVal, false );  
+		liqglo.m_depthMaskZFile = parseString( varVal, false );   //  doEscaped = false
 	liquidGetPlugValue( rGlobalNode, "depthMaskReverseSign", liqglo.m_depthMaskReverseSign, gStatus ); 
 	liquidGetPlugValue( rGlobalNode, "depthMaskDepthBias", liqglo.m_depthMaskDepthBias, gStatus ); 
 	// RENDER OPTIONS:END
@@ -86,111 +86,65 @@ void getHinderParameters(const MFnDependencyNode& rGlobalNode)
 
 MString getHiderOptions( MString rendername, MString hidername )
 {
-	MString options;
+  stringstream ss;
 	// PRMAN
 	if( rendername == "PRMan" ) 
 	{
 		if( hidername == "hidden" ) 
 		{
-			{
-				std::stringstream tmp;
-				tmp << "\"int jitter\" [" << liqglo.m_hiddenJitter << "] " /*<< ends*/;
-				options += tmp.str().c_str();
-			}
+			ss << "\"int jitter\" [" << liqglo.m_hiddenJitter << "] ";
+
 			// PRMAN 13 BEGIN
 			if( liqglo.m_hiddenAperture[0] != 0.0 ||
 				liqglo.m_hiddenAperture[1] != 0.0 ||
 				liqglo.m_hiddenAperture[2] != 0.0 ||
 				liqglo.m_hiddenAperture[3] != 0.0 ) 
-			{
-				char tmp[255];
-				sprintf( tmp, "\"float aperture[4]\" [%f %f %f %f] ", 
-					liqglo.m_hiddenAperture[0], 
-					liqglo.m_hiddenAperture[1], 
-					liqglo.m_hiddenAperture[2], 
-					liqglo.m_hiddenAperture[3] );
-				options += tmp;
-			}
-			if( liqglo.m_hiddenShutterOpening[0] != 0.0 && liqglo.m_hiddenShutterOpening[1] != 1.0) 
-			{
-				char tmp[255];
-				sprintf( tmp, "\"float[2] shutteropening\" [%f %f] ", 
-					liqglo.m_hiddenShutterOpening[0], liqglo.m_hiddenShutterOpening[1] );
-				options += tmp;
-			}
+				ss << "\"float aperture[4]\" [" << liqglo.m_hiddenAperture[0] << " " << liqglo.m_hiddenAperture[1] << " " << liqglo.m_hiddenAperture[2] << " " << liqglo.m_hiddenAperture[3] << "] ";
+
+			if ( liqglo.m_hiddenShutterOpening[0] != 0.0 && liqglo.m_hiddenShutterOpening[1] != 1.0 ) 
+				ss << "\"float[2] shutteropening\" ["<< liqglo.m_hiddenShutterOpening[0] << " " << liqglo.m_hiddenShutterOpening[1] << "] ";
 			// PRMAN 13 END
+
 			if( liqglo.m_hiddenOcclusionBound != 0.0 ) 
-			{
-				char tmp[128];
-				sprintf( tmp, "\"occlusionbound\" [%f] ", liqglo.m_hiddenOcclusionBound );
-				options += tmp;
-			}
+				ss << "\"occlusionbound\" [" << liqglo.m_hiddenOcclusionBound << "] ";
+
 			if( liqglo.m_hiddenMpCache != true ) 
-				options += "\"int mpcache\" [0] ";
+				ss << "\"int mpcache\" [0] ";
+
 			if( liqglo.m_hiddenMpMemory != 6144 ) 
-			{
-				char tmp[128];
-				sprintf( tmp, "\"mpcache\" [%d] ", liqglo.m_hiddenMpMemory );
-				options += tmp;
-			}
+				ss << "\"mpcache\" [" << liqglo.m_hiddenMpMemory << "] ";
+
 			if( liqglo.m_hiddenMpCacheDir != "" ) 
-			{
-				char tmp[1024];
-				sprintf( tmp, "\"mpcachedir\" [\"%s\"] ", liqglo.m_hiddenMpCacheDir.asChar() );
-				options += tmp;
-			}
+				ss << "\"mpcachedir\" [\"" << liqglo.m_hiddenMpCacheDir.asChar() << "\"] ";
+
 			if( liqglo.m_hiddenSampleMotion != true ) 
-				options += "\"int samplemotion\" [0] ";
+				ss << "\"int samplemotion\" [0] ";
+
 			if( liqglo.m_hiddenSubPixel != 1 ) 
-			{
-				char tmp[128];
-				sprintf( tmp, "\"subpixel\" [%d] ", liqglo.m_hiddenSubPixel );
-				options += tmp;
-			}
+				ss << "\"subpixel\" [" << liqglo.m_hiddenSubPixel << "] ";
+
 			if( liqglo.m_hiddenExtremeMotionDof != false ) 
-				options += "\"extrememotiondof\" [1] ";
+				ss << "\"extrememotiondof\" [1] ";
+
 			if( liqglo.m_hiddenMaxVPDepth != -1 ) 
-			{
-				char tmp[128];
-				sprintf( tmp, "\"maxvpdepth\" [%d] ", liqglo.m_hiddenMaxVPDepth );
-				options += tmp;
-			}
+				ss << "\"maxvpdepth\" [" << liqglo.m_hiddenMaxVPDepth << "] ";
+
 			// PRMAN 13 BEGIN
 			if( liqglo.m_hiddenSigma != false ) 
-			{
-				options += "\"int sigma\" [1] ";
-				char tmp[128];
-				sprintf( tmp, "\"sigmablur\" [%f] ", liqglo.m_hiddenSigmaBlur );
-				options += tmp;
-			}
+				ss << "\"int sigma\" [1] " << "\"sigmablur\" [" << liqglo.m_hiddenSigmaBlur << "] ";
 			// PRMAN 13 END
 		} 
 		else if( hidername == "photon" ) 
 		{
 			if( liqglo.m_photonEmit != 0 ) 
-			{
-				char tmp[128];
-				sprintf( tmp, " \"int emit\" [%d] ", liqglo.m_photonEmit );
-				options += tmp;
-			}
+				ss << " \"int emit\" [" << liqglo.m_photonEmit << "] ";
 		} 
 		else if( hidername == "depthmask" ) 
 		{
-			{
-				char tmp[1024];
-				sprintf( tmp, "\"zfile\" [\"%s\"] ", liqglo.m_depthMaskZFile.asChar() );
-				options += tmp;
-			}
-			{
-				char tmp[128];
-				sprintf( tmp, "\"reversesign\" [\"%d\"] ", liqglo.m_depthMaskReverseSign );
-				options += tmp;
-			}
-			{
-				char tmp[128];
-				sprintf( tmp, "\"depthbias\" [%f] ", liqglo.m_depthMaskDepthBias );
-				options += tmp;
-			}
+			ss << "\"zfile\" [\"" << liqglo.m_depthMaskZFile.asChar() << "\"] ";
+			ss << "\"reversesign\" [\"" << liqglo.m_depthMaskReverseSign << "\"] ";
+			ss << "\"depthbias\" [" << liqglo.m_depthMaskDepthBias << "] ";
+
 		}
 	}
 	// 3DELIGHT
@@ -198,15 +152,13 @@ MString getHiderOptions( MString rendername, MString hidername )
 	{
 		if( hidername == "hidden" ) 
 		{
-			{
-				char tmp[128];
-				sprintf( tmp, "\"jitter\" [%d] ", liqglo.m_hiddenJitter );
-				options += tmp;
-			}
-			if( liqglo.m_hiddenSampleMotion != true ) 
-				options += "\"int samplemotion\" [0] ";
-			if( liqglo.m_hiddenExtremeMotionDof != false ) 
-				options += "\"int extrememotiondof\" [1] ";
+			ss << "\"jitter\" [" << liqglo.m_hiddenJitter << "] ";
+
+			if ( liqglo.m_hiddenSampleMotion != true ) 
+				ss << "\"int samplemotion\" [0] ";
+
+			if ( liqglo.m_hiddenExtremeMotionDof != false ) 
+				ss << "\"int extrememotiondof\" [1] ";
 		}
 	}
 	// PIXIE
@@ -214,28 +166,19 @@ MString getHiderOptions( MString rendername, MString hidername )
 	{
 		if( hidername == "hidden" ) 
 		{
-			char tmp[128];
-			sprintf( tmp, "\"float jitter\" [%d] ", liqglo.m_hiddenJitter );
-			options += tmp;
+			ss << "\"float jitter\" [" << liqglo.m_hiddenJitter << "] ";
 		} 
-		else if( hidername == "raytrace" ) 
-			if( liqglo.m_raytraceFalseColor != 0 ) 
-				options += "\"int falsecolor\" [1] ";
+		else if( hidername == "raytrace" ) {
+			if ( liqglo.m_raytraceFalseColor != 0 ) 
+				ss << "\"int falsecolor\" [1] ";
 			else if( hidername == "photon" ) 
 			{
 				if( liqglo.m_photonEmit != 0 ) 
-				{
-					char tmp[128];
-					sprintf( tmp, " \"int emit\" [%d] ", liqglo.m_photonEmit );
-					options += tmp;
-				}
+					ss << " \"int emit\" [" << liqglo.m_photonEmit << "] ";
 				if( liqglo.m_photonSampleSpectrum ) 
-				{
-					char tmp[128];
-					sprintf( tmp, " \"int samplespectrum\" [1] ");
-					options += tmp;
-				}
+					ss << " \"int samplespectrum\" [1] ";
 			}
+		}
 	}
 
 	// AQSIS
@@ -249,6 +192,7 @@ MString getHiderOptions( MString rendername, MString hidername )
 	{
 		// no known options
 	}
+	MString options( ss.str().c_str() );
 	return options;
 }
 

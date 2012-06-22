@@ -58,10 +58,10 @@ liqRibData::liqRibData()
 liqRibData::~liqRibData()
 {
   // clean up and additional data
-  LIQDEBUGPRINTF("-> freeing additional ribdata: %s\n", objDagPath.fullPathName().asChar() );
+  LIQDEBUGPRINTF("[liqRibData] freeing additional ribdata: %s\n", objDagPath.fullPathName().asChar() );
   // Class destructor should be called
   tokenPointerArray.clear();
-  LIQDEBUGPRINTF("-> finished freeing additional ribdata: %s\n", objDagPath.fullPathName().asChar() );
+  LIQDEBUGPRINTF("[liqRibData] finished freeing additional ribdata: %s\n", objDagPath.fullPathName().asChar() );
 }
 
 inline unsigned liqRibData::granularity() const 

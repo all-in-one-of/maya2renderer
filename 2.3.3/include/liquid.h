@@ -84,7 +84,7 @@
 extern int  debugMode;
 #if !defined(LINUX) && !defined(OSX)
 #  ifndef LIQDEBUGPRINTF
-#    define LIQDEBUGPRINTF(msg,...) if( debugMode ) printf((msg),__VA_ARGS__); 
+#    define LIQDEBUGPRINTF(msg,...)  if( debugMode ) fprintf(STDERR,(msg),__VA_ARGS__); fflush(STDERR); 
 #  endif
 #else
 // gcc compatible variable args macro version of LIQDEBUGPRINTF
@@ -255,6 +255,8 @@ enum TransmissionType { // shadow cast attribute
 enum fileGenMode {
   fgm_shadow_tex,
   fgm_shadow_rib,
+  fgm_shadow_archive,
+  fgm_scene_archive,
   fgm_beauty_rib,
   fgm_image
 };
@@ -336,7 +338,7 @@ struct structJob {
   bool                  skip;
 };
 
-typedef enum {
+typedef enum SBD_EXTRA_TAG {
   TAG_CREASE,
   TAG_HOLE,
   TAG_CORNER,

@@ -57,6 +57,7 @@ public:
   MString shaderCompiler;
   MString textureMaker;
   MString textureViewer;
+  MString textureExtension;
 
   // optional capabilities
   bool supports_BLOBBIES;

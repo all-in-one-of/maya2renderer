@@ -475,7 +475,8 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
     MString tmphome( tmphomeChar );
     sourceLine += "\"" + liquidSanitizePath( tmphome ) + "/mel/" + "liquidStartup.mel\"";
 #else
-	for (unsigned k( 0 );k<strlen(tmphomeChar); k++ ) {
+	for (unsigned k( 0 ); k < strlen(tmphomeChar); k++ ) 
+	{
 		if ( tmphomeChar[ k ] == '\\' ) tmphomeChar[ k ] = '/';
 	}
 

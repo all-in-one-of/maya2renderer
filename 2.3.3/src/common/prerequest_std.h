@@ -42,7 +42,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-
+#include <iomanip>
 
 #include <boost/bind.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>

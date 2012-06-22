@@ -32,7 +32,9 @@
 //
 //
 source xxliquidutility.mel;
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc string liquidGetHome()
 {
   liqPushIdent();
@@ -40,7 +42,16 @@ global proc string liquidGetHome()
   if( !size( $home ) ) {
 	liqlog("liquidGetHome(...)");
     warning("Environment variable LIQUIDHOME is not set - please set to the base Liquid directory (containing /mel, etc)");
-    string $res = `promptDialog -ma "center" -m "The LIQUIDHOME environment variable is not currently set.\nThe Liquid plugin needs this to find various files.\n\nYou should set this environment variable before using Liquid,\nbut for the moment you can temporarily set it below:" -title "LIQUIDHOME" -text "/usr/local/liquid" -b "Set" -b "Cancel" -cb "Cancel" -ds "Cancel"`;
+    string $promptStr = "The LIQUIDHOME environment variable is not currently set.\n\
+                         The Liquid plugin needs this to find various files.\n\n\
+                         You should set this environment variable before using Liquid,\n\
+                         but for the moment you can temporarily set it below:";
+    
+    string $res = `promptDialog -ma "center" 
+                                -m $promptStr 
+                                -title "LIQUIDHOME" 
+                                -text "/usr/local/liquid" 
+                                -b "Set" -b "Cancel" -cb "Cancel" -ds "Cancel"`;
     if ($res == "Set") {
       $home = `promptDialog -q -text`;
       putenv "LIQUIDHOME" $home;
@@ -52,8 +63,9 @@ global proc string liquidGetHome()
   return $home;
 
 }
-
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc string liquidGetPluginName()
 {
   liqPushIdent();
@@ -65,8 +77,9 @@ global proc string liquidGetPluginName()
   liqPopIdent();
   return "";
 }
-
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidLoadScripts()
 {
   liqPushIdent();
@@ -103,8 +116,8 @@ global proc liquidLoadScripts()
     "liquidSlParseLif.mel",
     "liquidSlInfo.mel",
     "liquidAttachParams.mel",
-    "liquidAttrWindow.mel",
-    "liquidAttributes.mel",
+    //"liquidAttrWindow.mel",
+    //"liquidAttributes.mel",
 	"liquidCheck.mel",
     "liquidCommon.mel",
     "liquidConvMTOR.mel",
@@ -112,7 +125,7 @@ global proc liquidLoadScripts()
     "liquidDelayedReadArchive.mel",
     "liquidFileBrowser.mel",
     "liquidFluid.mel",
-    "liquidFluidOutliner.mel",
+    //"liquidFluidOutliner.mel",
     "liquidGlobals.mel",
     "liquidGlobalsEx.mel",
     "liquidHelpers.mel",
@@ -139,8 +152,9 @@ global proc liquidLoadScripts()
     "liquidCreateGlobalsTab.mel",
     "liquidRenderView.mel",
     "liquidLightLinker.mel",
+	"liquidAttributeManager.mel",
 	"liqGlobalsNodeRenderer.mel",
-	"GetPossibleTextures.mel"
+	"GetPossibleTextures.mel",
   };
 
   string $liquidHome = liquidGetHome();
@@ -167,7 +181,9 @@ global proc liquidLoadScripts()
 
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidMayaVersionOverwrite()
 {
   liqPushIdent();
@@ -186,7 +202,9 @@ global proc liquidMayaVersionOverwrite()
   
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidAETemplateOverwrite()
 {
   liqPushIdent();
@@ -196,8 +214,9 @@ global proc liquidAETemplateOverwrite()
   // eval( "source \"" + liquidGetHome() + "/mel/AEtransformTemplate.mel\"" );
   liqPopIdent();
 }
-
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidShowAbout()
 {
   liqPushIdent();
@@ -245,7 +264,9 @@ global proc liquidShowAbout()
   showWindow liquidAbout;
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidMenuPostVisibilityAttributes( string $prefix )
 {
   liqPushIdent();
@@ -499,10 +520,9 @@ global proc liquidCreateSetsAttributesMenu( string $prefix )
   setParent -menu ..;
   liqPopIdent();
 }
-
-/**
- * create the liquid menu interface
- */
+//===========================================================================================
+// create the liquid menu interface
+//===========================================================================================
 global proc liquidCreateMenus()
 {
   liqPushIdent();
@@ -522,9 +542,10 @@ global proc liquidCreateMenus()
       menuItem -label "Render" -ann "Render" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
       menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
       menuItem -d true;
-      liquidCreateObjectsAttributesMenu( "main" );
-      liquidCreateLightsAttributesMenu( "main" );
-      liquidCreateSetsAttributesMenu( "main" );
+      menuItem -label "Attribute Manager..."   -command liquidAttributeManager -ann "Liquid attributes manager";
+      //liquidCreateObjectsAttributesMenu( "main" );
+      //liquidCreateLightsAttributesMenu( "main" );
+      //liquidCreateSetsAttributesMenu( "main" );
       menuItem -d true;
       menuItem -label "Subdivision Surfaces" -subMenu true -tearOff true -aob true;
         if ( !`optionVar -exists liqSubivMesh` ) optionVar -iv liqSubdiv true;
@@ -549,9 +570,9 @@ global proc liquidCreateMenus()
         menuItem -d true;
         menuItem -label "Subdivison Surface Inspector..." -command liquidSubdivInspector;
       setParent -menu ..;
-      menuItem -label "Nurbs" -subMenu true -tearOff true;
-      	menuItem -label "Add noNormalizeNurbs attribute" -command liquidAddNoNormalizeNurbs -ann "Tag NURBS as NOT normalized";
-      setParent -menu ..;
+      //menuItem -label "Nurbs" -subMenu true -tearOff true;
+      //	menuItem -label "Add noNormalizeNurbs attribute" -command liquidAddNoNormalizeNurbs -ann "Tag NURBS as NOT normalized";
+      //setParent -menu ..;
       menuItem -label "Curves" -subMenu true -tearOff true;
         menuItem -label "Tag as Render Curve" -command liquidMakeRenderCurve -ann "Tag selected NURBS curve(s) as renderable";
         menuItem -label "Untag as Render Curve" -command liquidUnMakeRenderCurve -ann "Untag renderable tag from selected NURBS curve(s)";
@@ -632,10 +653,9 @@ global proc liquidCreateMenus()
   }
   liqPopIdent();
 }
-
-/**
- * Destroy the liquid menu interface
- */
+//===========================================================================================
+// Destroy the liquid menu interface
+//===========================================================================================
 global proc liquidRemoveMenus()
 {
   liqPushIdent();
@@ -643,10 +663,9 @@ global proc liquidRemoveMenus()
   deleteUI liquidMainWindowMenu;
   liqPopIdent();
 }
-
-/**
- * Command called when the preview menu item is picked
- */
+//===========================================================================================
+// Command called when the preview menu item is picked
+//===========================================================================================
 global proc liquidRender()
 { 
 	liqPushIdent();
@@ -657,7 +676,9 @@ global proc liquidRender()
   liquid -GL;
   liqPushIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc int[] liquidPreview_getRenderViewResolution()
 {
   liqPushIdent();
@@ -705,7 +726,9 @@ global proc int[] liquidPreview_getRenderViewResolution()
   liqPopIdent();
   return {$width, $heigth};
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc float[] liquidPreview_getRenderViewCropWindow()
 {
   liqPushIdent();
@@ -724,7 +747,9 @@ global proc float[] liquidPreview_getRenderViewCropWindow()
   liqPopIdent();
   return {$x1, $x2, $y1, $y2};
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidmayaCmdlineRender( string $options )
 {
   liqPushIdent();
@@ -733,7 +758,9 @@ global proc liquidmayaCmdlineRender( string $options )
   eval $cmd;
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidmayaBatchRender( string $options )
 {
   liqPushIdent();
@@ -744,7 +771,9 @@ global proc liquidmayaBatchRender( string $options )
   eval $cmd;
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidPreview()
 {
   liqPushIdent();
@@ -764,7 +793,9 @@ global proc liquidPreview()
 
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidCropPreview()
 {
   liqPushIdent();
@@ -779,8 +810,9 @@ global proc liquidCropPreview()
   liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -cw $crop[0] $crop[1] $crop[2] $crop[3];
   liqPopIdent();
 }
-
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidRenderSelected()
 {
   liqPushIdent();
@@ -792,7 +824,9 @@ global proc liquidRenderSelected()
   liquid -GL -sel;
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidPreviewSelected()
 {
   liqPushIdent();
@@ -806,10 +840,9 @@ global proc liquidPreviewSelected()
   liqPopIdent();
 }
 
-
-/**
- * Returns the name of the Maya Scene
- */
+//===========================================================================================
+//Returns the name of the Maya Scene
+//===========================================================================================
 global proc string liquidGetSceneName()
 {
   liqPushIdent();
@@ -825,10 +858,9 @@ global proc string liquidGetSceneName()
   return $shortName;
 
 }
-
-/**
- *  register the available functions in the sl lib
- */
+//===========================================================================================
+//register the available functions in the sl lib
+//===========================================================================================
 global proc liquidRegisterSlLib()
 {
   liqPushIdent();
@@ -858,10 +890,9 @@ global proc liquidRegisterSlLib()
 
   liqPopIdent();
 }
-
-/**
- * Removes all liquid interface windows from the scene.
- */
+//===========================================================================================
+//Removes all liquid interface windows from the scene.
+//===========================================================================================
 global proc liquidCleanUp()
 {
   liqPushIdent();
@@ -869,12 +900,11 @@ global proc liquidCleanUp()
   // nothing to do
   liqPopIdent();
 }
-
-/**
- * Create a script node in charge of closing gui elements before loading a new scene.
- * This script node is NOT active in batch mode.
- * \see liquidCleanUp()
- */
+//===========================================================================================
+// Create a script node in charge of closing gui elements before loading a new scene.
+// This script node is NOT active in batch mode.
+// \see liquidCleanUp()
+//===========================================================================================
 global proc liquidCreateScriptNode()
 {
   liqPushIdent();
@@ -886,7 +916,9 @@ global proc liquidCreateScriptNode()
                 -name           liquidCleanUpNode;
   liqPopIdent();
 }
-
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidCreateScriptJobs()
 {
   liqPushIdent();
@@ -907,10 +939,9 @@ global proc liquidCreateScriptJobs()
 
   liqPopIdent();
 }
-
-/**
- * Initializes the Liquid User Interface.
- */
+//===========================================================================================
+//Initializes the Liquid User Interface.
+//===========================================================================================
 global proc liquidStartup()
 {
   liqPushIdent();

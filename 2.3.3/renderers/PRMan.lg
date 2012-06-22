@@ -30,7 +30,15 @@ proc setAttribute7() {
 	setAttr ".viewTexture" -type "string" "sho";
 }
 
-proc setAttribute8() {
+//proc setAttribute8() {
+//	setAttr ".viewTextureCommand" -type "stringArray" 4 "dsview" "ptviewer" "brickviewer" "sho"  ;
+//}
+
+//proc setAttribute9() {
+//	setAttr ".viewTextureFilter" -type "stringArray" 4 "*DSH*.tex" "*.ptc" "*.bkm" "*.tex"  ;
+//}
+
+proc setAttribute10() {
 	setAttr ".Hidden" yes;
 	setAttr ".Photon" yes;
 	setAttr ".ZBuffer" no;
@@ -39,7 +47,7 @@ proc setAttribute8() {
 	setAttr ".DepthMask" yes;
 }
 
-proc setAttribute9() {
+proc setAttribute11() {
 	setAttr ".Box" yes;
 	setAttr ".Triangle" yes;
 	setAttr ".Catmull_Rom" yes;
@@ -48,37 +56,37 @@ proc setAttribute9() {
 	setAttr ".Blackman_Harris" yes;
 	setAttr ".Mitchell" yes;
 	setAttr ".SeparableCatmull_Rom" yes;
-	setAttr ".Lanczos" no;
-	setAttr ".Bessel" no;
-	setAttr ".Disk" no;
+	setAttr ".Lanczos" yes;
+	setAttr ".Bessel" yes;
+	setAttr ".Disk" yes;
 }
 
-proc setAttribute10() {
+proc setAttribute12() {
 	setAttr ".Blobbies" yes;
 	setAttr ".Points" yes;
 	setAttr ".Eyesplits" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".DepthOfField" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".DisplayChannels" no;
-}
-
-proc setAttribute11() {
-	setAttr ".Swap_UV" no;
-	setAttr ".__Pref" no;
-	setAttr ".MakeShadow" no;
-}
-
-proc setAttribute12() {
-	setAttr ".dshDisplayName" -type "string" "deepshad";
+	setAttr ".DisplayChannels" yes;
 }
 
 proc setAttribute13() {
-	setAttr ".dshImageMode" -type "string" "deepopacity";
+	setAttr ".Swap_UV" no;
+	setAttr ".__Pref" yes;
+	setAttr ".MakeShadow" no;
 }
 
 proc setAttribute14() {
-	setAttr ".ddImageType[0]" -type "string" "it";
+	setAttr ".dshDisplayName" -type "string" "deepshad";
+}
+
+proc setAttribute15() {
+	setAttr ".dshImageMode" -type "string" "deepopacity";
+}
+
+proc setAttribute16() {
+	setAttr ".textureExt" -type "string" "tex";
 }
 
 // The following code will be executed by sourcing this file
@@ -90,10 +98,12 @@ catch(setAttribute4());
 catch(setAttribute5());
 catch(setAttribute6());
 catch(setAttribute7());
-catch(setAttribute8());
-catch(setAttribute9());
+//catch(setAttribute8());
+//catch(setAttribute9());
 catch(setAttribute10());
 catch(setAttribute11());
 catch(setAttribute12());
 catch(setAttribute13());
 catch(setAttribute14());
+catch(setAttribute15());
+catch(setAttribute16());

@@ -186,10 +186,10 @@ global proc shadowCameraReplace( string $nodeDotAttr )
   int $sizeAttr = `getAttr -size $nodeDotAttr`;
 
   // created or update existing attributes
-  for ( $i=0; $i<$sizeAttr; $i++ ) {
-
-    if ( !`attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) {
-
+  for ( $i=0; $i<$sizeAttr; $i++ ) 
+  {
+    if ( !`attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) 
+	{
       setParent $gLiquidShadowCameraParentLayout;
       setParent AEliquidLightShadowCamerasColumnL;
 
@@ -203,8 +203,9 @@ global proc shadowCameraReplace( string $nodeDotAttr )
                                 -ignore             ("ignoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                 -unignore           ("unIgnoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                 ("shadowCameraNavGrp_"+$i);
-    } else {
-
+    } 
+	else 
+	{
       attrNavigationControlGrp  -e
                                 -at ($nodeDotAttr+"["+$i+"]")
                                 -createNew          ("addShadowCamera "+$nodeDotAttr+"["+$i+"]")
@@ -220,12 +221,13 @@ global proc shadowCameraReplace( string $nodeDotAttr )
 
 
   // add either the default navigation grp or add an extra one
-  if ( $sizeAttr == 0 ) {
-
+  if ( $sizeAttr == 0 ) 
+  {
     setParent $gLiquidShadowCameraParentLayout;
     setParent AEliquidLightShadowCamerasColumnL;
 
-    if ( !`attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) {
+    if ( !`attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) 
+	{
       attrNavigationControlGrp  -l ("Shadow Camera "+$i)
                                 -ann "click here to add a shadow camera or drop a shadow camera on the field"
                                 -at ($nodeDotAttr+"["+$i+"]")
@@ -236,7 +238,9 @@ global proc shadowCameraReplace( string $nodeDotAttr )
                                 -ignore             ("ignoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                 -unignore           ("unIgnoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                 ("shadowCameraNavGrp_"+$i);
-    } else {
+    } 
+	else
+	{
       attrNavigationControlGrp  -e
                                 -at ($nodeDotAttr+"["+$i+"]")
                                 -createNew          ("addShadowCamera "+$nodeDotAttr+"["+$i+"]")
@@ -247,13 +251,14 @@ global proc shadowCameraReplace( string $nodeDotAttr )
                                 -unignore           ("unIgnoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                 ("shadowCameraNavGrp_"+$i);
     }
+  } 
+  else
+  {
 
-  } else {
-
-    if ( size( `connectionInfo -sfd ($nodeDotAttr+"["+($i-1)+"]")` ) ) {
-
-      if ( !`attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) {
-
+    if ( size( `connectionInfo -sfd ($nodeDotAttr+"["+($i-1)+"]")` ) ) 
+	{
+      if ( !`attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) 
+	  {
         setParent $gLiquidShadowCameraParentLayout;
         setParent AEliquidLightShadowCamerasColumnL;
 
@@ -267,7 +272,9 @@ global proc shadowCameraReplace( string $nodeDotAttr )
                                   -ignore             ("ignoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                   -unignore           ("unIgnoreShadowCamera "+$nodeDotAttr+"["+$i+"]")
                                   ("shadowCameraNavGrp_"+$i);
-      } else {
+      } 
+	  else
+	  {
         attrNavigationControlGrp  -e
                                 -at ($nodeDotAttr+"["+$i+"]")
                                 -createNew          ("addShadowCamera "+$nodeDotAttr+"["+$i+"]")
@@ -282,8 +289,8 @@ global proc shadowCameraReplace( string $nodeDotAttr )
   }
 
 
-  while( `attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) {
-
+  while( `attrNavigationControlGrp -q -ex ("shadowCameraNavGrp_"+$i)` ) 
+  {
     deleteUI ("shadowCameraNavGrp_"+$i);
     $i++;
   }
@@ -388,6 +395,7 @@ global proc AEliquidLightTemplate( string $nodeDotAttr )
       editorTemplate -addSeparator;
       editorTemplate -addControl "nearClipPlane";
       editorTemplate -addControl "farClipPlane";
+	  editorTemplate -addControl "shadowMainCamera";
       editorTemplate -ccu "mainShadowStatusNew" "mainShadowStatusReplace" "generateMainShadow";
     editorTemplate -endLayout;
     editorTemplate -beginLayout "Extra Shadows";

@@ -39,18 +39,21 @@
 #include "error.h"
 #include <assert.h>
 
+#define MAX_ITEMS_PER_LINE  16
+const int maxItemsPerLine = MAX_ITEMS_PER_LINE;
+
 // This is the size of the temporary buffer we use before going to the file
-const	int	ribOutScratchSize	=	1000;
+const	int	ribOutScratchSize = 1000;
 
 // Options for rib
-int	preferCompressedRibOut		=	FALSE;
-int	preferBinaryRibOut			=	FALSE;
+int preferCompressedRibOut    = FALSE;
 
-//extern int useAdvancedVisibilityAttributes;
-//int	useAdvancedVisibilityAttributes		=	FALSE;
+extern int useAdvancedVisibilityAttributes;
+int	useAdvancedVisibilityAttributes		= FALSE;
 
 
-static	char	*getFilter(float (*function)(float,float,float,float)) {
+static	char  *getFilter(float (*function)(float,float,float,float)) 
+{
 	if (function == RiGaussianFilter) {
 		return	RI_GAUSSIANFILTER;
 	} else if (function == RiBoxFilter) {
@@ -76,18 +79,21 @@ static	char	*getFilter(float (*function)(float,float,float,float)) {
 	}
 }
 
-CRibOut::CRibAttributes::CRibAttributes() {
+CRibOut::CRibAttributes::CRibAttributes() 
+{
 	uStep	=	3;
 	vStep	=	3;
 	next	=	NULL;
 }
 
-CRibOut::CRibAttributes::CRibAttributes(CRibAttributes *a) {
-	this[0]		=	a[0];
-	this->next	=	a;
+CRibOut::CRibAttributes::CRibAttributes(CRibAttributes *a) 
+{
+	this[0]   = a[0];
+	this->next  = a;
 }
 
-CRibOut::CRibAttributes::~CRibAttributes() {
+CRibOut::CRibAttributes::~CRibAttributes() 
+{
 }
 
 CRibOut::CRibOut(const char *n) : CRiInterface() {
@@ -95,13 +101,12 @@ CRibOut::CRibOut(const char *n) : CRiInterface() {
 	time_t		aclock;
 
 	time( &aclock );
-	newtime				=	localtime( &aclock );
+	newtime = localtime( &aclock );
 
-	outName				=	strdup(n);
+	outName = strdup(n);
 	if (*outName == '|') {
 		outFile				=	popen(outName+1,"w");
 		outputCompressed	=	FALSE;
-		outputBinary		=	FALSE;
 		outputIsPipe		=	TRUE;
 	} else {
 
@@ -113,29 +118,15 @@ CRibOut::CRibOut(const char *n) : CRiInterface() {
 				(preferCompressedRibOut == TRUE) ) {
 			outFile				=	(FILE *) gzopen(outName,"wb");
 			outputCompressed	=	TRUE;
-			outputBinary		=	FALSE;
-		} else {
-			if(preferBinaryRibOut==TRUE){
-				outFile			=	fopen(outName,"wb");
-			}else{
-				outFile			=	fopen(outName,"w");
-			}
-			outputBinary		=	preferBinaryRibOut;
-			outputCompressed	=	FALSE;
+		} else 
+		{
+			outFile = fopen(outName,"w");
+			outputCompressed =  FALSE;
 		}
 #else
-		if(preferBinaryRibOut==TRUE){
-			outFile			=	fopen(outName,"wb");
-		}else{
-			outFile			=	fopen(outName,"w");
-		}
-		outputBinary		=	preferBinaryRibOut;
-		outputCompressed	=	FALSE;
+		outFile = fopen(outName,"w");
+		outputCompressed = FALSE;
 #endif
-		if(outFile==NULL){
-			printf("[liquid]ERROR: open file fail: %s\n", outName);
-		}
-		//printf("[liquid Debug] file=%s, mode=%d\n", outName, preferBinaryRibOut);
 
 		outputIsPipe		=	FALSE;
 	}
@@ -163,7 +154,6 @@ CRibOut::CRibOut(FILE *o) : CRiInterface() {
 	outName				=	NULL;
 	outFile				=	o;
 	outputCompressed	=	FALSE;
-	outputBinary		=	FALSE;
 	outputIsPipe		=	FALSE;
 	declaredVariables	=	new map<string,CVariable *>;
 	numLightSources		=	1;
@@ -275,7 +265,8 @@ void		CRibOut::RiPixelSamples(float xsamples,float ysamples) {
 	out("PixelSamples %g %g\n",xsamples,ysamples);
 }
 
-void		CRibOut::RiPixelFilter(float (*function)(float,float,float,float),float xwidth,float ywidth) {
+void		CRibOut::RiPixelFilter(float (*function)(float,float,float,float),float xwidth,float ywidth)
+{
 	if (function == RiGaussianFilter) {
 		out("PixelFilter \"%s\" %g %g\n",RI_GAUSSIANFILTER,xwidth,ywidth);
 	} else if (function == RiBoxFilter) {
@@ -404,42 +395,47 @@ void		CRibOut::RiRelativeDetail(float relativedetail) {
 
 
 
-void		CRibOut::RiOptionV(char *name,int n,char *tokens[],void *params[]) {
+void		CRibOut::RiOptionV(char *name,int n,char *tokens[],void *params[]) 
+{
 	int	i;
 
 	// Check the searchpath options
 	if (strcmp(name,RI_SEARCHPATH) == 0) {
 		for (i=0;i<n;i++) {
-			if (FALSE) {
-			optionCheckString(RI_ARCHIVE)
-			optionCheckString(RI_PROCEDURAL)
-			optionCheckString(RI_TEXTURE)
-			optionCheckString(RI_SHADER)
-			optionCheckString(RI_DISPLAY)
-			optionCheckString(RI_RESOURCE)
-      optionCheckString(RI_DIRMAP)
-			optionEndCheck
-		}
+			if (FALSE) 
+			{
+				optionCheckString(RI_ARCHIVE)
+				optionCheckString(RI_PROCEDURAL)
+				optionCheckString(RI_TEXTURE)
+				optionCheckString(RI_SHADER)
+				optionCheckString(RI_DISPLAY)
+				optionCheckString(RI_RESOURCE)
+				optionCheckString(RI_DIRMAP)
+				optionEndCheck
+			//} if
+		}//for
 
 	// Check the limit options
 	} else if (strcmp(name,RI_LIMITS) == 0) {
 		for (i=0;i<n;i++) {
-			if (FALSE) {
-			optionCheckInt(RI_BUCKETSIZE,2)
-			optionCheckInt(RI_METABUCKETS,2)
-			optionCheckInt(RI_INHERITATTRIBUTES,1)
-			optionCheckInt(RI_GRIDSIZE,1)
-			optionCheckInt(RI_HIERARCHYDEPTH,1)
-			optionCheckInt(RI_HIERARCHYOBJECTS,1)
-			optionCheckInt(RI_EYESPLITS,1)
-			optionCheckInt(RI_TEXTUREMEMORY,1)
-			optionCheckInt(RI_BRICKMEMORY,1)
-			optionCheckInt(RI_SHADERCACHE,1)
-			optionCheckColor(RI_OTHRESHOLD,3) 
-      optionCheckColor(RI_ZTHRESHOLD,3) 
-			optionCheckInt(RI_GEOCACHEMEMORY,1)
-			optionEndCheck
-		}
+			if (FALSE) 
+			{
+				optionCheckInt(RI_BUCKETSIZE,2)
+				optionCheckInt(RI_METABUCKETS,2)
+				optionCheckInt(RI_INHERITATTRIBUTES,1)
+				optionCheckInt(RI_GRIDSIZE,1)
+				optionCheckInt(RI_HIERARCHYDEPTH,1)
+				optionCheckInt(RI_HIERARCHYOBJECTS,1)
+				optionCheckInt(RI_EYESPLITS,1)
+				optionCheckInt(RI_TEXTUREMEMORY,1)
+				optionCheckInt(RI_BRICKMEMORY,1)
+				optionCheckInt(RI_SHADERCACHE,1)
+				optionCheckColor(RI_OTHRESHOLD,3) 
+				optionCheckColor(RI_ZTHRESHOLD,3) 
+				optionCheckInt(RI_GEOCACHEMEMORY,1)
+				optionEndCheck
+			//}//if
+		}//for
 	// Check the hider options
 	} else if (strcmp(name,RI_HIDER) == 0) {
 		for (i=0;i<n;i++) {
@@ -527,13 +523,15 @@ void		CRibOut::RiOptionV(char *name,int n,char *tokens[],void *params[]) {
 #undef optionEnd
 
 
-void		CRibOut::RiAttributeBegin(void) {
+void		CRibOut::RiAttributeBegin(void) 
+{
 	out("AttributeBegin\n");
 
 	attributes	=	new CRibAttributes(attributes);
 }
 
-void		CRibOut::RiAttributeEnd(void) {
+void		CRibOut::RiAttributeEnd(void) 
+{
 	CRibAttributes	*old	=	attributes;
 
 	out("AttributeEnd\n");
@@ -697,7 +695,8 @@ void		CRibOut::RiCoordSysTransform(char * space) {
 	out("CoordSysTransform \"%s\"\n",space);
 }
 
-void		CRibOut::RiTransformPoints(char * /*fromspace*/,char * /*tospace*/,int /*npoints*/,float /*points*/ [][3]) {
+void		CRibOut::RiTransformPoints(char * /*fromspace*/,char * /*tospace*/,int /*npoints*/,float /*points*/ [][3])
+{
 	errorHandler(RIE_SYSTEM,RIE_ERROR,"Unable to output TransformPoints\n");
 }
 
@@ -787,15 +786,20 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 			attributeCheckFloat(RI_BOUNDEXPAND,1)
 			attributeCheckInt(RI_BINARY,1)
 			attributeCheckInt(RI_RASTERORIENT,1)
+			//add by yaoyansi-begin
 			attributeCheckInt(RI_HAIR,1);
 			attributeCheckString(RI_DICE_STRATEGY);
-			attributeCheckString(RI_REF_CAMERA);	
+			attributeCheckString(RI_REF_CAMERA);
+			//add by yaoyansi-end
 			attributeEndCheck
 		}
 	} else if (strcmp(name,RI_DISPLACEMENTBOUND) == 0) {
 		out("Attribute \"%s\" ", name);
 		for (i=0;i<n;i++) {
 			if (FALSE) {
+			//attributeCheckFloat(RI_SPHERE,1)
+			//attributeCheckString(RI_COORDINATESYSYTEM)
+			//modified by yaoyansi
 			attributeCheckFloat_2(RI_SPHERE,1)
 			attributeCheckString_2(RI_COORDINATESYSYTEM)
 			attributeEndCheck
@@ -817,7 +821,9 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 			attributeCheckString(RI_HANDLE)
 			attributeCheckString(RI_FILEMODE)
 			attributeCheckFloat(RI_MAXERROR,1)
+			//add by yaoyansi - begin
 			attributeCheckFloat(RI_MAXPIXELDIST,1)
+			//add by yaoyansi - end
 			attributeEndCheck
 		}
 	} else if (strcmp(name,RI_PHOTON) == 0) {
@@ -840,7 +846,9 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 					attributeCheckInt(RI_CAMERA,1)
 					attributeCheckInt(RI_TRACE,1)
 					attributeCheckInt(RI_PHOTON,1)
+					//add by yaoyansi - begin
 					attributeCheckInt(RI_MIDPOINT,1)
+					//add by yaoyansi - end
 					attributeCheckInt(RI_SPECULAR,1)
 					attributeCheckInt(RI_DIFFUSE,1)
 					attributeCheckString(RI_SUBSURFACE)
@@ -855,7 +863,9 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 				  attributeCheckInt(RI_CAMERA,1)
 				  attributeCheckInt(RI_TRACE,1)
 				  attributeCheckInt(RI_PHOTON,1)
+				  //add by yaoyansi - begin
 				  attributeCheckInt(RI_MIDPOINT,1)
+				  //add by yaoyansi - end
 				  attributeEndCheck
 		  }
         }
@@ -875,26 +885,28 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 	} else if (strcmp(name,RI_SHADE) == 0) {
 		for (i=0;i<n;i++) {
 			if (FALSE) {
+				//add by yaoyansi - begin
 				attributeCheckString(RI_STRATEGY)
 				attributeCheckString(RI_VOLUMEINTERSECTIONSTRAGETY)
 				attributeCheckFloat(RI_VOLUMEINTERSECTIONPRIORITY, 1)
-			attributeCheckString(RI_DIFFUSEHITMODE)
-			attributeCheckString(RI_SPECULARHITMODE)
-      attributeCheckString(RI_TRANSMISSIONHITMODE)
-      attributeCheckString(RI_CAMERAHITMODE)
-			attributeEndCheck
+				//add by yaoyansi - end
+				attributeCheckString(RI_DIFFUSEHITMODE)
+				attributeCheckString(RI_SPECULARHITMODE)
+				attributeCheckString(RI_TRANSMISSIONHITMODE)
+				attributeCheckString(RI_CAMERAHITMODE)
+				attributeEndCheck
 		}
 	} else if (strcmp(name,RI_SUBSURFACE) == 0) {
 		for (i=0;i<n;i++) {
 			if (FALSE) {
 			attributeCheckColor(RI_SS_SCATTERING,3)
 			attributeCheckColor(RI_SS_ABSORPTION,3)
-      attributeCheckColor(RI_SS_MEANFREEPATH,3)
+			attributeCheckColor(RI_SS_MEANFREEPATH,3)
 			attributeCheckColor(RI_SS_REFLECTANCE,3)
-      attributeCheckFloat(RI_SS_IOR,1)
-      attributeCheckFloat(RI_SS_SHADINGRATE,1)
-      attributeCheckFloat(RI_SS_SCALE,1)
-      attributeCheckString(RI_SS_REFERENCECAMERA)
+			attributeCheckFloat(RI_SS_IOR,1)
+			attributeCheckFloat(RI_SS_SHADINGRATE,1)
+			attributeCheckFloat(RI_SS_SCALE,1)
+			attributeCheckString(RI_SS_REFERENCECAMERA)
 			attributeEndCheck
 		}
 	}else if (strcmp(name,RI_SIDE) == 0) {
@@ -939,6 +951,16 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 				attributeEndCheck
 		}
 	}
+	else if ( strcmp( name, RI_GROUPING ) == 0 ) 
+	{
+		for ( i = 0 ; i < n ; i++ ) 
+		{
+			if ( FALSE ) 
+			{
+				attributeCheckString(RI_MEMBERSHIP)
+				attributeEndCheck
+		}
+	}
 
 }
 
@@ -949,42 +971,50 @@ void		CRibOut::RiAttributeV(char *name,int n,char *tokens[],void *params[]) {
 #undef	attributeEndCheck
 
 
-void		CRibOut::RiPolygonV(int nvertices,int n,char *tokens[],void *params[]) {
+void		CRibOut::RiPolygonV(int nvertices,int n,char *tokens[],void *params[]) 
+{
 	out("Polygon ");
 	writePL(nvertices,nvertices,nvertices,1,n,tokens,params);
 }
 
-void		CRibOut::RiGeneralPolygonV(int nloops,int *nverts,int n,char *tokens[],void *params[]) {
-	int	i;
-	int	nvertices=0;
+void		CRibOut::RiGeneralPolygonV(int nloops,int *nverts,int n,char *tokens[],void *params[])
+{
+	int i;
+	int nvertices=0;
+	unsigned int itemsPerLine = 0;
 
 	out("GeneralPolygon [");
-	for (i=0;i<nloops;i++) {
-		nvertices	+=	nverts[i];
+	for (i=0;i<nloops;i++) 
+	{
+		nvertices +=  nverts[i];
 		out("%d ",nverts[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 	out("] ");
 
-	writePL(nvertices,nvertices,nvertices,1,n,tokens,params);
+	writePL( nvertices,nvertices,nvertices,1,n,tokens,params );
 }
 
-void		CRibOut::RiPointsPolygonsV(int npolys,int *nverts,int *verts,int n,char *tokens[],void *params[]) {
-	int	i;
-	int	nvertices		=	0;
-	int	mvertex			=	0;
+void		CRibOut::RiPointsPolygonsV(int npolys,int *nverts,int *verts,int n,char *tokens[],void *params[]) 
+{
+	int i;
+	int nvertices   = 0;
+	int mvertex     = 0;
+	unsigned int itemsPerLine = 0;
 
 	out("PointsPolygons [");
 
 	for (i=0;i<npolys;i++) {
-		nvertices	+=	nverts[i];
+		nvertices +=  nverts[i];
 		out("%d ",nverts[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
-	out("] ");
+	out("] [");
 
-	out("[");
 	for (i=0;i<nvertices;i++) {
-		mvertex		=	max(mvertex,verts[i]);
+		mvertex   = max(mvertex,verts[i]);
 		out("%d ",verts[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 	out("] ");
 	mvertex++;
@@ -992,42 +1022,48 @@ void		CRibOut::RiPointsPolygonsV(int npolys,int *nverts,int *verts,int n,char *t
 	writePL(mvertex,mvertex,nvertices,npolys,n,tokens,params);
 }
 
-void		CRibOut::RiPointsGeneralPolygonsV(int npolys,int *nloops,int *nverts,int *verts,int n,char *tokens[],void *params[]) {
-	int	i,j;
-	int	snverts		=	0;
-	int	sverts		=	0;
-	int	nvertices	=	0;
-	int	k			=	0;
+void		CRibOut::RiPointsGeneralPolygonsV(int npolys,int *nloops,int *nverts,int *verts,int n,char *tokens[],void *params[]) 
+{
+	int i,j;
+	int snverts   = 0;
+	int sverts    = 0;
+	int nvertices = 0;
+	int k         = 0;
+	unsigned int itemsPerLine = 0;
 
 	out("PointsGeneralPolygons [");
-	for (i=0;i<npolys;i++) {
-		snverts	+=	nloops[i];
+	for (i=0;i<npolys;i++) 
+	{
+		snverts +=  nloops[i];
 		out("%d ",nloops[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 		for (j=0;j<nloops[i];j++,k++) {
-			sverts	+=	nverts[k];
+			sverts  +=  nverts[k];
 		}
 	}
-	out("] ");
+	out("] [");
 
-	out("[");
 	for (k=0,i=0;i<npolys;i++) {
-		for (j=0;j<nloops[i];j++,k++) {
+		for (j=0;j<nloops[i];j++,k++) 
+		{
 			out("%d ",nverts[k]);
+			if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 		}
 	}
-	out("] ");
+	out("] [");
 
-	out("[");
 	for (i=0;i<sverts;i++) {
-		nvertices	=	max(nvertices,verts[i]+1);
+		nvertices = max(nvertices,verts[i]+1);
 		out("%d ",verts[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 	out("] ");
 
 	writePL(nvertices,nvertices,sverts,npolys,n,tokens,params);
 }
 
-void		CRibOut::RiBasis(float ubasis[][4],int ustep,float vbasis[][4],int vstep) {
+void		CRibOut::RiBasis(float ubasis[][4],int ustep,float vbasis[][4],int vstep) 
+{
 	out("Basis [%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g %g] %d [%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g %g] %d\n"
 		,ubasis[0][0],ubasis[0][1],ubasis[0][2],ubasis[0][3]
 		,ubasis[1][0],ubasis[1][1],ubasis[1][2],ubasis[1][3]
@@ -1041,7 +1077,8 @@ void		CRibOut::RiBasis(float ubasis[][4],int ustep,float vbasis[][4],int vstep) 
 	attributes->vStep	=	vstep;
 }
 
-void		CRibOut::RiPatchV(char * type,int n,char *tokens[],void *params[]) {
+void		CRibOut::RiPatchV(char * type,int n,char *tokens[],void *params[])
+{
 	int	uver,vver;
 
 	if (strcmp(type,RI_BILINEAR) == 0)		{	uver	=	2;	vver	=	2;	}
@@ -1058,7 +1095,8 @@ void		CRibOut::RiPatchV(char * type,int n,char *tokens[],void *params[]) {
 	writePL(uver*vver,4,4,1,n,tokens,params);
 }
 
-void		CRibOut::RiPatchMeshV(char *type,int nu,char * uwrap,int nv,char * vwrap,int n,char *tokens[],void *params[]) {
+void		CRibOut::RiPatchMeshV(char *type,int nu,char * uwrap,int nv,char * vwrap,int n,char *tokens[],void *params[]) 
+{
 	int	uw,vw;
 	int	uver,vver;
 	int	upatches,vpatches;
@@ -1084,7 +1122,8 @@ void		CRibOut::RiPatchMeshV(char *type,int nu,char * uwrap,int nv,char * vwrap,i
 	uver	=	nu;
 	vver	=	nv;
 
-	if (strcmp(type,RI_BICUBIC) == 0) {
+	if (strcmp(type,RI_BICUBIC) == 0) 
+	{
 		if (uw)		{
 			if ((uver % attributes->uStep) != 0) {
 				errorHandler(RIE_CONSISTENCY,RIE_ERROR,"Unexpected number of u vertices \n");
@@ -1132,106 +1171,170 @@ void		CRibOut::RiPatchMeshV(char *type,int nu,char * uwrap,int nv,char * vwrap,i
 	writePL(uver*vver,uver*vver,uver*vver,upatches*vpatches,n,tokens,params);
 }
 
-void		CRibOut::RiNuPatchV(int nu,int uorder,float *uknot,float umin,float umax,int nv,int vorder,float *vknot,float vmin,float vmax,int n,char *tokens[],void *params[]) {
-	int	upatches		=	nu - uorder + 1;
-	int	vpatches		=	nv - vorder + 1;
-	int	i,uk,vk;
+void		CRibOut::RiNuPatchV(int nu,
+								int uorder,
+								float *uknot,
+								float umin,
+								float umax,
+								int nv,
+								int vorder,
+								float *vknot,
+								float vmin,
+								float vmax,
+								int n,
+								char *tokens[],
+								void *params[]) 
+{
+	int upatches    = nu - uorder + 1;
+	int vpatches    = nv - vorder + 1;
+	int i,uk,vk;
+	unsigned int itemsPerLine = 0;
 
 	out("NuPatch ");
 
 	// Print the knot sequence
 	uk = nu + uorder;
 	vk = nv + vorder;
-	out("%i %i [%g",nu,uorder,uknot[0]);
-	for (i=1;i<uk;i++) out(" %g",uknot[i]);
+	out( "%i %i [%g", nu, uorder, uknot[0] );
+	for ( i = 1 ; i < uk ; i++ ) 
+	{  
+		out(" %g",uknot[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
+	}
 	out("] %g %g ",umin,umax);
-
 	out("%i %i [%g",nv,vorder,vknot[0]);
-	for (i=1;i<vk;i++) out(" %g",vknot[i]);
-	out("] %g %g ",vmin,vmax);
 
-	writePL(nu*nv,(nu-uorder+2)*(nv-vorder+2),(nu-uorder+2)*(nv-vorder+2),upatches*vpatches,n,tokens,params);
+	for (i=1;i<vk;i++)
+	{
+		out(" %g",vknot[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
+	}
+	out("] %g %g ",vmin,vmax);
 }
 
-void		CRibOut::RiTrimCurve(int nloops,int *ncurves,int *order,float *knot,float *amin,float *amax,int *n,float *u,float *v,float *w) {
-	int	i,j,k,numCurves;
+void		CRibOut::RiTrimCurve(
+	int nloops,
+	int *ncurves,
+	int *order,
+	float *knot,
+	float *amin,
+	float *amax,
+	int *n,
+	float *u,
+	float *v,
+	float *w) 
+{
+	int i,j,k,numCurves;
+	unsigned int itemsPerLine = 0;
 
 	// Write the ncurves
 	out("TrimCurve [%d",ncurves[0]);
-	numCurves	=	ncurves[0];
-	for (i=1;i<nloops;i++) {
+	numCurves = ncurves[0];
+	for ( i = 1 ; i < nloops ; i++ ) 
+	{
 		out(" %d",ncurves[i]);
-		numCurves	+=	ncurves[i];
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
+		numCurves +=  ncurves[i];
 	}
 
 	// Print the order for each curve
 	out("] [%d",order[0]);
-	for (i=1;i<numCurves;i++) out(" %d",order[i]);
+	for ( i = 1 ; i < numCurves ; i++ ) 
+	{
+		out(" %d",order[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
+	}
 
 	// Print the knot vector for each curve
 	out("] [");
-	for (k=0,i=0;i<numCurves;i++) {
-
-		for (j=n[i]+order[i];j>0;j--,k++) {
-			if (k == 0) {
-				out("%g",knot[k]);
-			} else {
-				out(" %g",knot[k]);
+	for ( k = 0, i = 0 ; i < numCurves ; i++ ) 
+	{
+		for ( j = n[i] + order[i] ; j > 0 ; j--, k++ ) 
+		{
+			if ( k == 0 ) 
+			{
+				out( "%g", knot[k] );
+			} 
+			else 
+			{
+				out(" %g",knot[k] );
 			}
+			if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 		}
 	}
 
 	// Print the parametric range for each curve
 	out("] [%g",amin[0]);
-	for (i=1;i<numCurves;i++) {
+	for ( i = 1 ; i < numCurves ; i++ ) 
+	{
 		out(" %g",amin[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	out("] [%g",amax[0]);
-	for (i=1;i<numCurves;i++) {
+	for ( i = 1 ; i < numCurves ; i++ ) 
+	{
 		out(" %g",amax[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	// Print the number of vertices for each curve
 	out("] [%d",n[0]);
-	for (i=1;i<numCurves;i++) {
+	for ( i = 1 ; i < numCurves ; i++ ) 
+	{
 		out(" %d",n[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	// Print the vertices for each curve
 	out("] [");
-	for (k=0,i=0;i<numCurves;i++) {
-
-		for (j=n[i];j>0;j--,k++) {
-			if (k == 0) {
+	for ( k = 0, i = 0 ; i < numCurves ; i++ ) 
+	{
+		for ( j = n[i] ; j > 0 ; j--, k++ ) 
+		{
+			if ( k == 0 ) 
+			{
 				out("%g",u[k]);
-			} else {
+			} 
+			else 
+			{
 				out(" %g",u[k]);
 			}
+			if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 		}
 	}
 
 	out("] [");
-	for (k=0,i=0;i<numCurves;i++) {
-
-		for (j=n[i];j>0;j--,k++) {
-			if (k == 0) {
+	for ( k = 0, i = 0 ; i < numCurves ; i++ ) 
+	{
+		for ( j = n[i] ; j > 0 ; j--, k++ ) 
+		{
+			if ( k == 0 ) 
+			{
 				out("%g",v[k]);
-			} else {
+			} 
+			else 
+			{
 				out(" %g",v[k]);
 			}
+			if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 		}
 	}
 
 	out("] [");
-	for (k=0,i=0;i<numCurves;i++) {
-
-		for (j=n[i];j>0;j--,k++) {
-			if (k == 0) {
-				out("%g",w[k]);
-			} else {
-				out(" %g",w[k]);
+	for ( k = 0, i = 0 ; i < numCurves ; i++ ) 
+	{
+		for ( j = n[i] ; j > 0 ; j--, k++ ) 
+		{
+			if ( k == 0 ) 
+			{
+				out( "%g", w[k] );
+			} 
+			else 
+			{
+				out(" %g", w[k] );
 			}
+			if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 		}
 	}
 
@@ -1281,7 +1384,8 @@ void		CRibOut::RiGeometryV(char * /*type*/,int /*n*/,char * /*tokens*/ [],void *
 	errorHandler(RIE_UNIMPLEMENT,RIE_ERROR,"Unable to output optional geometry\n");
 }
 
-void		CRibOut::RiCurvesV(char * degree,int ncurves,int nverts[],char * wrap,int n,char *tokens[],void *params[]) {
+void		CRibOut::RiCurvesV(char * degree,int ncurves,int nverts[],char * wrap,int n,char *tokens[],void *params[])
+{
 	int	i;
 	int	nvertices	=	0;
 	int	nvaryings	=	0;
@@ -1321,53 +1425,70 @@ void		CRibOut::RiPointsV(int npts,int n,char *tokens[],void *params[]) {
 	writePL(npts,npts,npts,1,n,tokens,params);
 }
 
-void		CRibOut::RiSubdivisionMeshV(char * scheme,int nfaces,int nvertices[],int vertices[],int ntags,char * tags[],int nargs[],int intargs[],float floatargs[],int n,char *tokens[],void *params[]) {
-	int	numVertices;
-	int	i,j;
-	int	numInt,numFloat;
-	int	numFacevaryings;
+void		CRibOut::RiSubdivisionMeshV(char * scheme,int nfaces,int nvertices[],int vertices[],int ntags,char * tags[],int nargs[],int intargs[],float floatargs[],int n,char *tokens[],void *params[]) 
+{
+	int numVertices;
+	int i,j;
+	int numInt,numFloat;
+	int numFacevaryings;
+	unsigned int itemsPerLine = 0;
 
 	for (i=0,j=0;i<nfaces;j+=nvertices[i],i++);
-	numFacevaryings	=	j;
+	numFacevaryings = j;
 
-	for (numVertices=-1,i=0;i<j;i++) {
-		if (vertices[i] > numVertices)	numVertices	=	vertices[i];
+	for (numVertices=-1,i=0;i<j;i++) 
+	{
+		if (vertices[i] > numVertices)  
+			numVertices = vertices[i];
 	}
 	numVertices++;
 
 	out("SubdivisionMesh \"%s\" [ ",scheme);
-	for (i=0;i<nfaces;i++) {
+	for (i=0;i<nfaces;i++) 
+	{
 		out("%d ",nvertices[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	out("] [ ");
-	for (i=0;i<j;i++) {
+	for (i=0;i<j;i++) 
+	{
 		out("%d ",vertices[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	out("] [");
-	for (i=0;i<ntags;i++) {
+	for (i=0;i<ntags;i++) 
+	{
 		out(" \"%s\" ",tags[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	out("] [");
-	numInt		=	0;
-	numFloat	=	0;
-	for (i=0;i<ntags;i++) {
+	numInt    = 0;
+	numFloat  = 0;
+	for (i=0;i<ntags;i++) 
+	{
 		out(" %d %d ",nargs[0],nargs[1]);
-		numInt		+=	nargs[0];
-		numFloat	+=	nargs[1];
-		nargs		+=	2;
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
+
+		numInt    +=  nargs[0];
+		numFloat  +=  nargs[1];
+		nargs   +=  2;
 	}
 
 	out("] [ ");
-	for (i=0;i<numInt;i++) {
+	for (i=0;i<numInt;i++) 
+	{
 		out("%d ",intargs[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 
 	out("] [ ");
-	for (i=0;i<numFloat;i++) {
+	for (i=0;i<numFloat;i++) 
+	{
 		out("%g ",floatargs[i]);
+		if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 	}
 	out("] ");
 
@@ -1454,7 +1575,8 @@ void		CRibOut::RiErrorHandler(void (*handler)(int,int,char *)) {
 	errorHandler	=	handler;
 }
 
-void		CRibOut::RiArchiveRecord(char * type,char *format,va_list args) {
+void		CRibOut::RiArchiveRecord(char * type,char *format,va_list args)
+{
 	if (strcmp(type,RI_COMMENT) == 0) {
 		out("#");
 		vout(format,args);
@@ -1471,7 +1593,8 @@ void		CRibOut::RiArchiveRecord(char * type,char *format,va_list args) {
 	}
 }
 
-void		CRibOut::RiReadArchiveV(char *filename,void (* /*callback*/)(const char *),int /*n*/,char * /*tokens*/ [],void * /*params*/ []) {
+void		CRibOut::RiReadArchiveV(char *filename,void (* /*callback*/)(const char *),int /*n*/,char * /*tokens*/ [],void * /*params*/ []) 
+{
 	out("ReadArchive \"%s\"\n",filename);
 }
 
@@ -1484,13 +1607,16 @@ void		CRibOut::RiTrace(int,float [][3],float [][3],float [][3],float []) {
 void		CRibOut::RiVisibility(int,float [][3],float [][3],float [][3]) {
 }
 
-void		CRibOut::writePL(int numParameters,char *tokens[],void *vals[]) {
+void		CRibOut::writePL(int numParameters,char *tokens[],void *vals[]) 
+{
 	int		i,j;
 	float	*f;
 	int		*iv;
 	char	**s;
+	unsigned int itemsPerLine = 0;
 
-	for (i=0;i<numParameters;i++) {
+	for (i=0;i<numParameters;i++) 
+	{
 		CVariable	tmpVar;
 		CVariable	*variable;
 
@@ -1501,57 +1627,63 @@ retry:;
 
 			out(" \"%s\" [",tokens[i]);
 
-			switch(variable->type) {
+			switch(variable->type) 
+			{
 			case TYPE_FLOAT:
-
 				f	=	(float *) vals[i];
 				for (j=variable->numItems;j>0;j--,f++) {
 					out("%g ",f[0]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
+
 			case TYPE_COLOR:
 			case TYPE_VECTOR:
 			case TYPE_NORMAL:
 			case TYPE_POINT:
-
 				f	=	(float *) vals[i];
 				for (j=variable->numItems;j>0;j--,f+=3) {
 					out("%g %g %g ",f[0],f[1],f[2]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
-			case TYPE_MATRIX:
 
+			case TYPE_MATRIX:
 				f	=	(float *) vals[i];
 				for (j=variable->numItems;j>0;j--,f+=16) {
-					out("%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g %g ",f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],f[11],f[12],f[13],f[14],f[15]);
+					out("%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g %g \n",f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],f[11],f[12],f[13],f[14],f[15]);
 				}
 				break;
-			case TYPE_QUAD:
 
+			case TYPE_QUAD:
 				f	=	(float *) vals[i];
 				for (j=variable->numItems;j>0;j--,f+=4) {
 					out("%g %g %g %g ",f[0],f[1],f[2],f[3]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
-			case TYPE_DOUBLE:
 
+			case TYPE_DOUBLE:
 				f	=	(float *) vals[i];
 				for (j=variable->numItems;j>0;j--,f+=2) {
 					out("%g %g ",f[0],f[1]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
-			case TYPE_STRING:
 
+			case TYPE_STRING:
 				s	=	(char **) vals[i];
 				for (j=variable->numItems;j>0;j--,s++) {
 					out("\"%s\" ",s[0]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
-
 				break;
+
 			case TYPE_INTEGER:
 				iv	=	(int *) vals[i];
 				for (j=variable->numItems;j>0;j--,iv++) {
 					out("%d ",iv[0]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
 			case TYPE_BOOLEAN:
@@ -1577,10 +1709,12 @@ retry:;
 	out("\n");
 }
 
-void		CRibOut::writePL(int numVertex,int numVarying,int numFaceVarying,int numUniform,int numParameters,char *tokens[],void *vals[]) {
+void		CRibOut::writePL(int numVertex,int numVarying,int numFaceVarying,int numUniform,int numParameters,char *tokens[],void *vals[]) 
+{
 	int		i,j;
 	float	*f;
 	char	**s;
+  unsigned int itemsPerLine = 0;
 
 #define	numItems(__dest,__var)						\
 	switch(variable->container) {					\
@@ -1606,67 +1740,75 @@ void		CRibOut::writePL(int numVertex,int numVarying,int numFaceVarying,int numUn
 
 
 
-	for (i=0;i<numParameters;i++) {
+	for (i=0;i<numParameters;i++) 
+	{
 		CVariable	tmpVar;
 		CVariable	*variable;
 
 		map<string,CVariable*>::iterator it;
-		if ((it = declaredVariables->find(tokens[i])) != declaredVariables->end()) {
+		if ((it = declaredVariables->find(tokens[i])) != declaredVariables->end()) 
+		{
 			variable = it->second;
 retry:;
 			out(" \"%s\" [",tokens[i]);
 
-			switch(variable->type) {
+			switch(variable->type) 
+			{
 			case TYPE_FLOAT:
-
 				f	=	(float *) vals[i];
 				numItems(j,variable);
 				for (;j>0;j--,f++) {
 					out("%g ",f[0]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
+
 			case TYPE_COLOR:
 			case TYPE_VECTOR:
 			case TYPE_NORMAL:
 			case TYPE_POINT:
-
 				f	=	(float *) vals[i];
 				numItems(j,variable);
 				for (;j>0;j--,f+=3) {
 					out("%g %g %g ",f[0],f[1],f[2]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
-			case TYPE_MATRIX:
 
+			case TYPE_MATRIX:
 				f	=	(float *) vals[i];
 				numItems(j,variable);
 				for (;j>0;j--,f+=16) {
-					out("%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g %g ",f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],f[11],f[12],f[13],f[14],f[15]);
+					out("%g %g %g %g %g %g %g %g %g %g %g %g %g %g %g %g \n",f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],f[11],f[12],f[13],f[14],f[15]);
 				}
 				break;
-			case TYPE_QUAD:
 
+			case TYPE_QUAD:
 				f	=	(float *) vals[i];
 				numItems(j,variable);
 				for (;j>0;j--,f+=4) {
 					out("%g %g %g %g ",f[0],f[1],f[2],f[3]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
-			case TYPE_DOUBLE:
 
+			case TYPE_DOUBLE:
 				f	=	(float *) vals[i];
 				numItems(j,variable);
 				for (;j>0;j--,f+=2) {
 					out("%g %g ",f[0],f[1]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
-			case TYPE_STRING:
 
+			case TYPE_STRING:
 				s	=	(char **) vals[i];
 				for (j=variable->numItems;j>0;j--,s++) {
 					out("\"%s\" ",s[0]);
+					if ( !( itemsPerLine++ % maxItemsPerLine) ) out( "\n" );
 				}
 				break;
+
 			case TYPE_INTEGER:
 				break;
 			case TYPE_BOOLEAN:
@@ -1677,7 +1819,8 @@ retry:;
 
 			out("] ");
 		} else {
-			if (parseVariable(&tmpVar,NULL,tokens[i])) {
+			if (parseVariable(&tmpVar,NULL,tokens[i])) 
+			{
 				variable	=	&tmpVar;
 				goto retry;
 			} else {
@@ -1694,12 +1837,14 @@ retry:;
 #undef numItems
 }
 
-void		CRibOut::declareVariable(char *name,char *decl) {
+void		CRibOut::declareVariable(char *name,char *decl) 
+{
 	CVariable	cVariable,*nVariable;
 
 	assert(declaredVariables	!=	NULL);
 
-	if (parseVariable(&cVariable,name,decl) == TRUE) {
+	if (parseVariable(&cVariable,name,decl) == TRUE) 
+	{
 		// Parse successful, insert the variable into the dictionary
 		
 		map<string,CVariable*>::iterator it;
@@ -1783,7 +1928,7 @@ void		CRibOut::declareDefaultVariables() {
 	declareVariable(RI_CAMERA,				"int");
 	declareVariable(RI_TRACE,				"int");
 	declareVariable(RI_PHOTON,				"int");
-	declareVariable(RI_MIDPOINT,			"int");
+	declareVariable(RI_MIDPOINT,			"int");//added by yaoyansi
 
 	declareVariable(RI_NAME,				"string");
 

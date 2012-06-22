@@ -69,7 +69,7 @@ using namespace std;
 
 /** Create a RIB compatible representation of a Maya light.
  */
-liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
+liqRibLightData::liqRibLightData( const MDagPath & light )
 {
 	CM_TRACE_FUNC("liqRibLightData::liqRibLightData("<<light.fullPathName().asChar()<<")");
 
@@ -144,8 +144,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
 	lightID = 0;
 	hitmode = 0;
 	
-
-
+	rmanLightShader = NULL;
 
   MStatus status;
   LIQDEBUGPRINTF( "[liqRibLightData] creating light\n" );
@@ -227,13 +226,16 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
       LIQDEBUGPRINTF( "[liqRibLightData] Using Renderman Shader %s\n", assignedRManShader.asChar() );
       
       rmanLight = true;
-      rmanLightShader = liqShaderFactory::instance().getShader( liquidShaderNodeDep );
+      rmanLightShader = &(liqShaderFactory::instance().getShader( liquidShaderNodeDep ));
       
-      if ( rmanLightShader.hasErrors )
+      if ( rmanLightShader->hasErrors )
       {
         rmanLight = false; 
       }
-      
+	  else 
+	  {
+		  LIQDEBUGPRINTF( "[liqRibLightData] created shader %s\n", rmanLightShader->getName().c_str() );      
+	  }
 /*
       liqGetSloInfo shaderInfo;
       int success = shaderInfo.setShaderNode( lightDepNode );
@@ -676,11 +678,9 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
 
 
   if ( rmanLight ) 
-    lightType  = MRLT_Rman;
-  else 
   {
-    // DIRECT MAYA LIGHTS SUPPORT
-    if ( light.hasFn( MFn::kAmbientLight ) )
+	  lightType  = MRLT_Rman;
+  }else if ( light.hasFn( MFn::kAmbientLight ) )// DIRECT MAYA LIGHTS SUPPORT
     {
         lightType = MRLT_Ambient;
     }
@@ -691,56 +691,30 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
         
         if ( liqglo.liqglo_doShadows && usingShadow )
         {
+			shadowSamples = fnDistantLight.numShadowSamples( &status );
             if ( !rayTraced )
             {
                 if ( ( shadowName == "" ) || ( shadowName.substring( 0, 9 ).toLowerCase() == "autoshadow" ))
                 {
                     shadowName = autoShadowName();
                 }
-                MPlug samplePlug( lightDepNode.findPlug( "liqShadowMapSamples", &status ) );
-                if( MS::kSuccess == status )
-                {
-                    samplePlug.getValue(shadowSamples);
-                }
-                else
-                {
-                    shadowSamples = fnDistantLight.numShadowSamples( &status );
-                }
+				liquidGetPlugValue(lightDepNode, "liqShadowMapSamples", shadowSamples, status);
             }
             else
             {
                 shadowName = "raytrace";
-                shadowSamples = fnDistantLight.numShadowSamples( &status );
             }
-            MPlug blurPlug( lightDepNode.findPlug( "liqShadowBlur", &status ) );
-            if( MS::kSuccess == status )
-            {
-                blurPlug.getValue(shadowBlur);
-            }
+            
+			liquidGetPlugValue(lightDepNode, "liqShadowBlur", shadowBlur, status);
             shadowFilterSize = fnDistantLight.depthMapFilterSize( &status );
             shadowBias       = fnDistantLight.depthMapBias( &status );
             // Philippe : on a distant light, it seems that shadow radius always returns 0.
             shadowRadius     = fnDistantLight.shadowRadius( &status );
         }
-        
-        MPlug catPlug = lightDepNode.findPlug( "__category", &status );
-        if( MS::kSuccess == status )
-        {
-            catPlug.getValue(lightCategory);
-        }
-        else
-        {
-            lightCategory = "";
-        }
-        MPlug idPlug = lightDepNode.findPlug( "lightID", &status );
-        if( MS::kSuccess == status )
-        {
-            idPlug.getValue(lightID);
-        }
-        else
-        {
-            lightID = 0;
-        }
+		if ( liquidGetPlugValue(lightDepNode, "__category", lightCategory, status) != MS::kSuccess )
+			lightCategory = "";
+		if ( liquidGetPlugValue(lightDepNode, "lightID", lightID, status) != MS::kSuccess )
+			lightID = 0;
     }
 	else if ( light.hasFn( MFn::kPointLight ) )
 	{
@@ -753,47 +727,17 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
             shadowFilterSize = fnPointLight.depthMapFilterSize( &status );
             shadowBias       = fnPointLight.depthMapBias( &status );
             shadowRadius     = fnPointLight.shadowRadius( &status );
+			shadowSamples    = fnPointLight.numShadowSamples( &status );
             if ( !rayTraced )
             {
-                MPlug samplePlug = lightDepNode.findPlug( "liqShadowMapSamples", &status );
-                if ( MS::kSuccess == status )
-                {
-                    samplePlug.getValue(shadowSamples);
-                }
-                else
-                {
-                    shadowSamples = fnPointLight.numShadowSamples( &status );
-                }
+				liquidGetPlugValue(lightDepNode, "liqShadowMapSamples", shadowSamples, status);
             }
-            else
-            {
-                shadowSamples = fnPointLight.numShadowSamples( &status );
-            }
-            MPlug blurPlug( lightDepNode.findPlug( "liqShadowBlur", &status ) );
-            if( MS::kSuccess == status )
-            {
-                blurPlug.getValue(shadowBlur);
-            }
+            liquidGetPlugValue(lightDepNode, "liqShadowBlur", shadowBlur, status);
         }
-        
-        MPlug catPlug = lightDepNode.findPlug( "__category", &status );
-        if( MS::kSuccess == status )
-        {
-            catPlug.getValue(lightCategory);
-        }
-        else
-        {
-            lightCategory = "";
-        }
-        MPlug idPlug = lightDepNode.findPlug( "lightID", &status );
-        if( MS::kSuccess == status )
-        {
-            idPlug.getValue(lightID);
-        }
-        else
-        {
-            lightID = 0;
-        }
+		if ( liquidGetPlugValue(lightDepNode, "__category", lightCategory, status) != MS::kSuccess )
+			lightCategory = "";
+		if ( liquidGetPlugValue(lightDepNode, "lightID", lightID, status) != MS::kSuccess )
+			lightID = 0;
     }
     else if( light.hasFn( MFn::kSpotLight ) )
     {
@@ -815,112 +759,46 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
         endDistance2      = fnSpotLight.endDistance(   MFnSpotLight::kSecond );
         startDistance3    = fnSpotLight.startDistance( MFnSpotLight::kThird  );
         endDistance3      = fnSpotLight.endDistance(   MFnSpotLight::kThird  );
-        MPlug intensityPlug = lightDepNode.findPlug( "startDistanceIntensity1", &status );
-        if( MS::kSuccess == status )
-        {
-            intensityPlug.getValue( startDistanceIntensity1 );
-        }
-        else
-        {
-            startDistanceIntensity1 = 1.0;
-        }
-        intensityPlug = lightDepNode.findPlug( "endDistanceIntensity1", &status );
-        if( MS::kSuccess == status )
-        {
-            intensityPlug.getValue( endDistanceIntensity1 );
-        }
-        else
-        {
-            endDistanceIntensity1 = 1.0;
-        }
-        intensityPlug = lightDepNode.findPlug( "startDistanceIntensity2", &status );
-        if( MS::kSuccess == status )
-        {
-            intensityPlug.getValue( startDistanceIntensity2 );
-        }
-        else
-        {
-            startDistanceIntensity2 = 1.0;
-        }
-        intensityPlug = lightDepNode.findPlug( "endDistanceIntensity2", &status );
-        if( MS::kSuccess == status )
-        {
-            intensityPlug.getValue( endDistanceIntensity2 );
-        }
-        else
-        {
-            endDistanceIntensity2 = 1.0;
-        }
-        intensityPlug = lightDepNode.findPlug( "startDistanceIntensity3", &status );
-        if( MS::kSuccess == status )
-        {
-            intensityPlug.getValue( startDistanceIntensity3 );
-        }
-        else
-        {
-            startDistanceIntensity3 = 1.0;
-        }
-        intensityPlug = lightDepNode.findPlug( "endDistanceIntensity3", &status );
-        if( MS::kSuccess == status )
-        {
-            intensityPlug.getValue( endDistanceIntensity3 );
-        }
-        else
-        {
-            endDistanceIntensity3 = 1.0;
-        }
+
+		if ( liquidGetPlugValue(lightDepNode,"startDistanceIntensity1",startDistanceIntensity1, status) != MS::kSuccess )
+			startDistanceIntensity1 = 1.0;
+		if ( liquidGetPlugValue(lightDepNode,"endDistanceIntensity1",endDistanceIntensity1, status) != MS::kSuccess )
+			endDistanceIntensity1 = 1.0;
+		if ( liquidGetPlugValue(lightDepNode,"startDistanceIntensity2",startDistanceIntensity2, status) != MS::kSuccess )
+			startDistanceIntensity2 = 1.0;
+		if ( liquidGetPlugValue(lightDepNode,"endDistanceIntensity2",endDistanceIntensity2, status) != MS::kSuccess )
+			endDistanceIntensity2 = 1.0;
+		if ( liquidGetPlugValue(lightDepNode,"startDistanceIntensity3",startDistanceIntensity3, status) != MS::kSuccess )
+			startDistanceIntensity3 = 1.0;
+		if ( liquidGetPlugValue(lightDepNode,"endDistanceIntensity3",endDistanceIntensity3, status) != MS::kSuccess )
+			endDistanceIntensity3 = 1.0;
 
         if ( liqglo.liqglo_doShadows && usingShadow )
         {
+			shadowSamples = fnSpotLight.numShadowSamples( &status );
             if ( !rayTraced )
             {
                 if ( ( shadowName == "" ) || ( shadowName.substring( 0, 9 ).toLowerCase() == "autoshadow" ) )
                 {
                     shadowName = autoShadowName();
                 }
-                MPlug samplePlug = lightDepNode.findPlug( "liqShadowMapSamples", &status );
-                if ( MS::kSuccess == status )
-                {
-                    samplePlug.getValue(shadowSamples);
-                }
-                else
-                {
-                    shadowSamples = fnSpotLight.numShadowSamples( &status );
-                }
+                liquidGetPlugValue(lightDepNode, "liqShadowMapSamples", shadowSamples, status);
             }
             else
             {
                 shadowName = "raytrace";
-                shadowSamples    = fnSpotLight.numShadowSamples( &status );
             }
-            MPlug blurPlug( lightDepNode.findPlug( "liqShadowBlur", &status ) );
-            if( MS::kSuccess == status )
-            {
-                blurPlug.getValue(shadowBlur);
-            }
+            
+			liquidGetPlugValue(lightDepNode, "liqShadowBlur", shadowBlur, status);
             shadowFilterSize = fnSpotLight.depthMapFilterSize( &status );
             shadowBias       = fnSpotLight.depthMapBias( &status );
             shadowRadius     = fnSpotLight.shadowRadius( &status );
         }
             
-        MPlug catPlug = lightDepNode.findPlug( "__category", &status );
-        if ( MS::kSuccess == status )
-        {
-            catPlug.getValue(lightCategory);
-        }
-        else
-        {
-            lightCategory = "";
-        }
-        MPlug idPlug = lightDepNode.findPlug( "lightID", &status );
-        if( MS::kSuccess == status )
-        {
-            idPlug.getValue(lightID);
-        }
-        else
-        {
-            lightID = 0;
-        }
+		if ( liquidGetPlugValue(lightDepNode, "__category", lightCategory, status) != MS::kSuccess )
+			lightCategory = "";
+		if ( liquidGetPlugValue(lightDepNode, "lightID", lightID, status) != MS::kSuccess )
+			lightID = 0;
     }
     else if ( light.hasFn( MFn::kAreaLight ) )
     {
@@ -928,61 +806,42 @@ liqRibLightData::liqRibLightData( const MDagPath & light ) : rmanLightShader()
       lightType      = MRLT_Area;
       decay          = fnAreaLight.decayRate();
       shadowSamples  = 64.0f;
-      if ( liqglo.liqglo_doShadows && usingShadow ) {
-        if ( !rayTraced ) {
+      if ( liqglo.liqglo_doShadows && usingShadow ) 
+	  {
+        if ( !rayTraced ) 
+		{
           if ( ( shadowName == "" ) || ( shadowName.substring( 0, 9 ).toLowerCase() == "autoshadow" ) ) {
             shadowName   = autoShadowName();
           }
         } else {
           shadowName = "raytrace";
         }
+
         shadowFilterSize = fnAreaLight.depthMapFilterSize( &status );
         shadowBias       = fnAreaLight.depthMapBias( &status );
         shadowSamples    = fnAreaLight.numShadowSamples( &status );
         shadowRadius     = fnAreaLight.shadowRadius( &status );
       }
-      MPlug xtraPlug = lightDepNode.findPlug( "liqBothSidesEmit", &status );
-      bool bothsides = false;
-      if ( MS::kSuccess == status ) {
-        xtraPlug.getValue( bothsides );
-      }
-      bothSidesEmit = ( bothsides == true) ? 1.0 : 0.0;
-      MPlug catPlug( lightDepNode.findPlug( "__category", &status ) );
-      if ( MS::kSuccess == status ) {
-        catPlug.getValue( lightCategory );
-      } else {
-        lightCategory = "";
-      }
+	  bool bothsides = false;
+	  liquidGetPlugValue(lightDepNode, "liqBothSidesEmit", bothsides, status);
+	  bothSidesEmit = ( bothsides == true ) ? 1.0 : 0.0;
 
-      MPlug idPlug( lightDepNode.findPlug( "lightID", &status ) );
-      if ( MS::kSuccess == status ) {
-        idPlug.getValue( lightID );
-      } else {
-        lightID = 0;
-      }
+	  if ( liquidGetPlugValue(lightDepNode, "__category", lightCategory, status) != MS::kSuccess )
+		  lightCategory = "";
+	  if ( liquidGetPlugValue(lightDepNode, "lightID", lightID, status) != MS::kSuccess )
+		  lightID = 0;
+	  if ( liquidGetPlugValue(lightDepNode, "liqAreaHitmode", hitmode, status) != MS::kSuccess )
+		  hitmode = 1;
 
-      MPlug hitmodePlug( lightDepNode.findPlug( "liqAreaHitmode", &status ) );
-      if ( MS::kSuccess == status ) {
-        hitmodePlug.getValue( hitmode );
-      } else {
-        hitmode = 1;
-      }
+	  if ( liquidGetPlugValue(lightDepNode, "liqLightMap", lightMap, status) == MS::kSuccess )
+		  lightMap = parseString( lightMap, false );  
+	  else 
+		  lightMap = "";
 
-      MPlug lightmapPlug( lightDepNode.findPlug( "liqLightMap", &status ) );
-      if ( MS::kSuccess == status ) {
-        lightmapPlug.getValue( lightMap );
-        lightMap = parseString( lightMap, false );
-      } else {
-        lightMap = "";
-      }
-      MPlug lightmapsatPlug( lightDepNode.findPlug( "liqLightMapSaturation", &status ) );
-      if ( MS::kSuccess == status ) {
-        lightmapsatPlug.getValue( lightMapSaturation );
-      } else {
-        lightMapSaturation = 1.0;
-      }
+	  if ( liquidGetPlugValue(lightDepNode, "liqLightMapSaturation", lightMapSaturation, status) != MS::kSuccess )
+		  lightMapSaturation = 1.0;
     }
-  }
+  //}//if ( rmanLight ) else
 }
 
 /** Write the RIB for this light.
@@ -1375,11 +1234,14 @@ void liqRibLightData::_write(const structJob &currentJob)
 				transformationMatrixScaledZ, transformationMatrix
 				);
 			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
-          rmanLightShader.write();
+          rmanLightShader->write();
  		  #ifdef RIBLIB_AQSIS
- 		  handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(rmanLightShader.shaderHandler.asInt()));
+ 		  handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(rmanLightShader->shaderHandler.asInt()));
  		  #else
-          handle = rmanLightShader.shaderHandler.asInt();
+		  /* !!!! In Generic libRib light handle is unsigned int */
+		  LIQDEBUGPRINTF( "-> assigning light handle: " );
+		  handle = (const RtLightHandle)(const void *)( rmanLightShader->shaderHandler.asUnsigned() );
+		  LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
           #endif
           break;
         }
@@ -1451,7 +1313,7 @@ void liqRibLightData::_write(const structJob &currentJob)
 
 		  handle = liquid::RendererMgr::getInstancePtr()->
 			  getRenderer()->exportAreaLight(
-			  "spotlight", 
+			  "arealight", 
 			  lightName.asChar(),
 			  i_intensity,
 			  i_lightcolor,
@@ -1530,6 +1392,8 @@ ObjectType liqRibLightData::type() const
 
 RtLightHandle liqRibLightData::lightHandle() const
 {
+	LIQDEBUGPRINTF( "-> returning light handle: " );
+	LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
   return handle;
 }
 
@@ -1598,6 +1462,7 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
     shadowName += ".tex";
   }
   //cout <<"liqRibLightData::autoShadowName : "<<shadowName.asChar()<<"  ( "<<liquidTransGetSceneName().asChar()<<" )"<<endl;
+  LIQDEBUGPRINTF( "[liqRibLightData::autoShadowName] : %s scene = %s\n", shadowName.asChar(), liquidTransGetSceneName().asChar() );// we replace liqglo.liqglo_sceneName with liquidTransGetSceneName()
 
   return shadowName;
 
@@ -1672,6 +1537,7 @@ MString liqRibLightData::extraShadowName( const MFnDependencyNode & lightShaderN
   }
 
   //cout <<"liqRibLightData::extraShadowName : "<<shadowName.asChar()<<"  ( "<<liquidTransGetSceneName().asChar()<<" )"<<endl;
+  LIQDEBUGPRINTF( "[liqRibLightData::extraShadowName] : %s scene = %s\n", shadowName.asChar(), liquidTransGetSceneName().asChar() );// we replace liqglo.liqglo_sceneName with liquidTransGetSceneName()
 
   return shadowName;
 }

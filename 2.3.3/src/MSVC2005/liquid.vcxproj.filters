@@ -923,16 +923,10 @@
     <None Include="..\..\mel\liquidAttributes.mel">
       <Filter>MEL Scripts</Filter>
     </None>
-    <None Include="..\..\mel\liquidAttrWindow.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
     <None Include="..\..\mel\liquidBuildHypergraphNodePopupMenuItems.mel">
       <Filter>MEL Scripts</Filter>
     </None>
     <None Include="..\..\mel\liquidCommon.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
-    <None Include="..\..\mel\liquidContainers.mel">
       <Filter>MEL Scripts</Filter>
     </None>
     <None Include="..\..\mel\liquidConvertMtor.mel">
@@ -956,9 +950,6 @@
     <None Include="..\..\mel\liquidFluid.mel">
       <Filter>MEL Scripts</Filter>
     </None>
-    <None Include="..\..\mel\liquidFluidOutliner.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
     <None Include="..\..\mel\liquidGlobals.mel">
       <Filter>MEL Scripts</Filter>
     </None>
@@ -978,9 +969,6 @@
       <Filter>MEL Scripts</Filter>
     </None>
     <None Include="..\..\mel\liquidMenuHelp.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
-    <None Include="..\..\mel\liquidNugget.mel">
       <Filter>MEL Scripts</Filter>
     </None>
     <None Include="..\..\mel\liquidPaintEffects.mel">
@@ -1023,9 +1011,6 @@
       <Filter>MEL Scripts</Filter>
     </None>
     <None Include="..\..\mel\liquidSlInfo.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
-    <None Include="..\..\mel\liquidSLManager.mel">
       <Filter>MEL Scripts</Filter>
     </None>
     <None Include="..\..\mel\liquidSlParseLif.mel">
@@ -1126,6 +1111,9 @@
     </None>
     <None Include="..\appleseed\mel\userSetup.mel">
       <Filter>renderer\appleseed\mel</Filter>
+    </None>
+    <None Include="..\..\mel\liquidAttributeManager.mel">
+      <Filter>MEL Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

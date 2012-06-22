@@ -235,6 +235,7 @@ MObject liqGlobalsNode::aPreGeom;
 
 MObject liqGlobalsNode::aRenderScriptFormat;
 MObject liqGlobalsNode::aRenderScriptCommand;
+MObject liqGlobalsNode::aRenderScriptFileName;
 
 MObject liqGlobalsNode::aFluidShaderBrowserDefaultPath;
 MObject liqGlobalsNode::aPreviewType;
@@ -304,6 +305,7 @@ MObject liqGlobalsNode::aShaderComp;
 MObject liqGlobalsNode::aShaderExt;
 MObject liqGlobalsNode::aMakeTexture;
 MObject liqGlobalsNode::aViewTexture;
+MObject liqGlobalsNode::aTextureExt;
 
 MObject liqGlobalsNode::aBits_hiders;
 MObject liqGlobalsNode::aBits_hiders_0;
@@ -440,6 +442,8 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
     CHECK_MSTATUS(attr.setHidden(true));      \
+	CHECK_MSTATUS(attr.setDefault( stringData.create( MString( default ), &sstat ) ) ); \
+	CHECK_MSTATUS( sstat );					  \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_STRING(attr, obj, name, shortName, default)    \
@@ -509,7 +513,9 @@ MStatus liqGlobalsNode::initialize()
 	MFnTypedAttribute     tAttr;
 	MFnNumericAttribute   nAttr;
 	MFnCompoundAttribute  cAttr;
-	MStatus status;
+	MStatus status, sstat;
+
+	MFnStringData stringData;
 
 	// Create input attributes
 	CREATE_BOOL( nAttr,  aLaunchRender,             "launchRender",                 "lr",     true  );
@@ -648,7 +654,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_STRING( tAttr,  aAlfredServices,            "alfredServices",               "alfs",   "pixarRender"    );
   CREATE_STRING( tAttr,  aDirMaps,                   "dirmaps",                      "dmps",   ""    );
 	CREATE_STRING( tAttr,  aRenderCommand,             "renderCommand",                "rdc",    ""    );
-	CREATE_STRING( tAttr,  aRibgenCommand,             "ribgenCommand",                "rgc",    ""    );
+	CREATE_STRING( tAttr,  aRibgenCommand,             "ribgenCommand",                "rgc",    "liquid"    );
 
 	CREATE_STRING( tAttr,  aPreviewer,                 "previewer",                    "prv",    ""    );
 	CREATE_STRING( tAttr,  aPreCommand,                "preCommand",                   "prc",    ""    );
@@ -656,8 +662,8 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_STRING( tAttr,  aPreFrameCommand,           "preFrameCommand",              "prfc",   ""    );
 	CREATE_STRING( tAttr,  aPreJobCommand,             "preJobCommand",                "prjc",   ""    );
 	CREATE_STRING( tAttr,  aPostJobCommand,            "postJobCommand",               "pojc",   ""    );
-	CREATE_STRING( tAttr,  aKey,                       "key",                          "k",      "maya"    );
-	CREATE_STRING( tAttr,  aService,                   "service",                      "srv",    "liquid"    );
+	CREATE_STRING( tAttr,  aKey,                       "key",                          "k",      "liquid"    );
+	CREATE_STRING( tAttr,  aService,                   "service",                      "srv",    "pixarMTOR"    );
 	CREATE_STRING( tAttr,  aLastRenderScript,          "lastRenderScript",             "lrs",    ""    );
 	CREATE_STRING( tAttr,  aLastRibFile,               "lastRibFile",                  "lrf",    ""    );
 
@@ -686,6 +692,7 @@ MStatus liqGlobalsNode::initialize()
 
 	CREATE_INT( nAttr,  aRenderScriptFormat,         "renderScriptFormat",           "rsf",    2     );
 	CREATE_STRING( tAttr,  aRenderScriptCommand,        "renderScriptCommand",          "rsc",    ""    );
+	CREATE_STRING( tAttr,  aRenderScriptFileName,       "renderScriptFileName",          "rsn",    ""    );
 
 	CREATE_STRING( tAttr,  aFluidShaderBrowserDefaultPath,  "fluidShaderBrowserDefaultPath",  "fsbdp",  "" );
 
@@ -758,6 +765,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_STRING( tAttr,  aShaderExt,                  "shaderExt",                    "she",    ""    );
 	CREATE_STRING( tAttr,  aMakeTexture,                "makeTexture",                  "mtx",    ""    );
 	CREATE_STRING( tAttr,  aViewTexture,                "viewTexture",                  "vtx",    ""    );
+	CREATE_STRING( tAttr,  aTextureExt,                 "textureExt",                   "txe",    ""    );
 
 	CREATE_STRING( tAttr,  aDshDisplayName,             "dshDisplayName",               "dsdn",   ""    );
 	CREATE_STRING( tAttr,  aDshImageMode,               "dshImageMode",                 "dsim",   ""    );

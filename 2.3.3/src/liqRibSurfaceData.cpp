@@ -230,9 +230,9 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 				while( !cvs.isRowDone() ) 
 				{
 					MPoint pt( cvs.position( MSpace::kObject ) );
-					*cvPtr++ = ( RtFloat )pt.x;
-					*cvPtr++ = ( RtFloat )pt.y; 
-					*cvPtr++ = ( RtFloat )pt.z;
+					*cvPtr++ = ( RtFloat )(pt.x * pt.w);
+					*cvPtr++ = ( RtFloat )(pt.y * pt.w); 
+					*cvPtr++ = ( RtFloat )(pt.z * pt.w);
 					*cvPtr++ = ( RtFloat )pt.w;
 					cvs.next();
 				}
@@ -253,11 +253,12 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 				while( !cvs.isRowDone() ) 
 				{
 					MPoint pt( cvs.position( MSpace::kObject ) );
-					*cvPtr++ = ( RtFloat )pt.x;
-					*cvPtr++ = ( RtFloat )pt.y; 
-					*cvPtr++ = ( RtFloat )pt.z;
+					*cvPtr++ = ( RtFloat )(pt.x * pt.w);
+					*cvPtr++ = ( RtFloat )(pt.y * pt.w); 
+					*cvPtr++ = ( RtFloat )(pt.z * pt.w);
 					*cvPtr++ = ( RtFloat )pt.w;
 					cvs.next();
+					// LIQDEBUGPRINTF( "-> %f %f %f %f\n", pt.x, pt.y, pt.z, pt.w  );
 				}
 				cvs.nextRow();
 				cvPtr -= (nu * 4 * 2); // skip two rows

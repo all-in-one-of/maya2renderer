@@ -80,7 +80,7 @@ public:
 
 private: // Methods
 //	MObject rGlobalObj;
-
+	MStatus setRenderLayer( const MArgList & );
 	MStatus scanSceneNodes( MObject&, MDagPath &, float, int, int &, MStatus& ); 
 	MStatus scanScene(float, int );
 
@@ -89,14 +89,19 @@ private: // Methods
 	void getCameraInfo( MFnCamera &cam );
 	void setSearchPaths();
 	void setOutDirs();
+	MString verifyResourceDir( const char *resourceName, MString resourceDir, bool &problem );
+	bool verifyOutputDirectories();
 
 	// rib output functions
 	MStatus liquidDoArgs( MArgList args );
 	bool liquidInitGlobals();
 	void liquidReadGlobals();
-	bool verifyOutputDirectories();
 
 	MStatus buildJobs();
+
+	// rib output functions
+	MStatus ribOutput( long scanTime, MString ribName, bool world_only, bool out_lightBlock, MString archiveName );
+
 #ifdef Refactoring 
 public: 
 #endif
@@ -116,6 +121,8 @@ public:
 	MString generateRenderScriptName()  const;
 	MString generateTempMayaSceneName() const;
 	MString generateFileName( fileGenMode mode, const structJob& job );
+	std::string  generateImageName( MString aovName, const structJob& job );
+	// MString generateShadowArchiveName( bool renderAllFrames, long renderAtframe, MString geometrySet );
 	static bool renderFrameSort( const structJob& a, const structJob& b );
 
 private: // Data
@@ -179,7 +186,8 @@ public:
 	bool        ignoreFilmGate;
 
 
-	MString     baseShadowName;
+	MString     baseShadowName;// shadow rib archive name
+	 MString     baseSceneName;  // scene rib archive name
 	bool        createOutputDirectories;
 
 	static MString magic;
@@ -359,7 +367,7 @@ public:
 
 
 	MString m_preGeomRIB;
-
+	MString originalLayer;
 
 
 

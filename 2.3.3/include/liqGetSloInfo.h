@@ -56,7 +56,7 @@ public:
   int           getNumParam();
 //  MString       getTypeStr();
 //  static MString getTypeStr(SHADER_TYPE shaderType);
-  MString       getTypeStr2()const;
+  MString       getTypeStr2()const;// get shaderTypeEx which comes from PL file
   MString       getArgName( int num );
   SHADER_TYPE   getArgType( int num );
   MString       getArgTypeStr( int num );

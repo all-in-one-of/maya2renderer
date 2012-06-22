@@ -121,7 +121,7 @@ MStatus liqJobList::doIt(const MArgList& args)
 MStatus liqJobList::redoIt()
 {
 	CM_TRACE_FUNC("liqJobList::redoIt()");
-  if ( debug ) printf("redoIt\n");
+  LIQDEBUGPRINTF("redoIt");
   clearResult();
   MStatus status;
   MObject cameraNode;
@@ -154,13 +154,13 @@ MStatus liqJobList::redoIt()
 
     // read the globals
     //
-    if ( debug ) printf("  read globals...");
+    LIQDEBUGPRINTF("  read globals...");
     if ( ribTranslator.liquidInitGlobals() ) ribTranslator.liquidReadGlobals();
     else {
       MString err("no liquidGlobals node in the scene");
       throw err;
     }
-    if ( debug ) printf("done !\n");
+    LIQDEBUGPRINTF("done !\n");
 
 
     // verify the output directories
@@ -173,12 +173,12 @@ MStatus liqJobList::redoIt()
 
     // build the job list
     //
-    if ( debug ) printf("  build jobs...");
+    LIQDEBUGPRINTF("  build jobs...");
     if ( ribTranslator.buildJobs() != MS::kSuccess ) {
       MString err("buildJob() Failed");
       throw err;
     }
-    if ( debug ) printf("done !\n");
+    LIQDEBUGPRINTF("done !\n");
 
 
     std::vector<structJob>::iterator iterShad = ribTranslator.jobList.begin();
@@ -186,28 +186,29 @@ MStatus liqJobList::redoIt()
     // get the shadows
     //
     if ( doShadows || doSingleShadows ) {
-      if ( debug ) printf("  do shadows...");
+      LIQDEBUGPRINTF("  do shadows...");
 
       while ( iterShad != ribTranslator.jobList.end() ) {
-        if ( doShadows && iterShad->isShadow && iterShad->everyFrame ) result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
+        if ( doShadows && iterShad->isShadow && iterShad->everyFrame ) 
+			result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
         if ( doSingleShadows && iterShad->isShadow && !iterShad->everyFrame ) {
           result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
         }
         ++iterShad;
       }
 
-      if ( debug ) printf("done !\n");
+      LIQDEBUGPRINTF("done !\n");
     }
 
 
     // get the camera
     //
     if ( doCamera ) {
-      if ( debug ) printf("  do camera...");
+      LIQDEBUGPRINTF("  do camera...");
       iterShad = ribTranslator.jobList.end();
       --iterShad;
       result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
-      if ( debug ) printf("done !\n");
+      LIQDEBUGPRINTF("done !\n");
     }
 
     ribTranslator.m_escHandler.endComputation();

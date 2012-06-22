@@ -845,7 +845,9 @@ global proc liquidShaderNodesMakeInstance( string $node )
   liqPushIdent();
 	liqlog("liquidShaderNodesMakeInstance(...)");
   // globals
-  global string $gLiquidInheritedStandardShaderParams[] = {
+  global string $gLiquidInheritedStandardShaderParams[];
+  clear($gLiquidInheritedStandardShaderParams); // prevent warning: Global variable is already initialized
+  $gLiquidInheritedStandardShaderParams = {
 	"color",
 	"opacity",
 	"Ci",

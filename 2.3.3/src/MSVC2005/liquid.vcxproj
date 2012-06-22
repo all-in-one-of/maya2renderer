@@ -2527,13 +2527,12 @@
     <None Include="..\..\mel\AEoldBlindDataBaseTemplate.mel" />
     <None Include="..\..\mel\getMultiListerSelection.mel" />
     <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
+    <None Include="..\..\mel\liquidAttributeManager.mel" />
     <None Include="..\..\mel\liquid_FE.mel" />
     <None Include="..\..\mel\liquidAttachParams.mel" />
     <None Include="..\..\mel\liquidAttributes.mel" />
-    <None Include="..\..\mel\liquidAttrWindow.mel" />
     <None Include="..\..\mel\liquidBuildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\..\mel\liquidCommon.mel" />
-    <None Include="..\..\mel\liquidContainers.mel" />
     <None Include="..\..\mel\liquidConvertMtor.mel" />
     <None Include="..\..\mel\liquidConvertShadingNetworkToRSL.mel" />
     <None Include="..\..\mel\liquidConvMTOR.mel" />
@@ -2541,7 +2540,6 @@
     <None Include="..\..\mel\liquidDelayedReadArchive.mel" />
     <None Include="..\..\mel\liquidFileBrowser.mel" />
     <None Include="..\..\mel\liquidFluid.mel" />
-    <None Include="..\..\mel\liquidFluidOutliner.mel" />
     <None Include="..\..\mel\liquidGlobals.mel" />
     <None Include="..\..\mel\liquidGlobalsEx.mel" />
     <None Include="..\..\mel\liquidHelpers.mel" />
@@ -2549,7 +2547,6 @@
     <None Include="..\..\mel\liquidLifWidgets.mel" />
     <None Include="..\..\mel\liquidLightLinker.mel" />
     <None Include="..\..\mel\liquidMenuHelp.mel" />
-    <None Include="..\..\mel\liquidNugget.mel" />
     <None Include="..\..\mel\liquidPaintEffects.mel" />
     <None Include="..\..\mel\liquidParamDialogWindow.mel" />
     <None Include="..\..\mel\liquidParseSlShader.mel" />
@@ -2564,7 +2561,6 @@
     <None Include="..\..\mel\liquidShaders.mel" />
     <None Include="..\..\mel\liquidShutdown.mel" />
     <None Include="..\..\mel\liquidSlInfo.mel" />
-    <None Include="..\..\mel\liquidSLManager.mel" />
     <None Include="..\..\mel\liquidSlParseLif.mel" />
     <None Include="..\..\mel\liquidSlParsePL.mel" />
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">

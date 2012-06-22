@@ -135,13 +135,17 @@ global proc liquidMakeSubdiv()
       setAttr ( $current + ".mtorSubdiv" ) true;
     }
     if ( !`attributeQuery -node $current -ex "liqSubdivUVInterpolation"`) {
-      addAttr -ln liqSubdivUVInterpolation -at short $current;
+		//liquidMaya r772 :addAttr -ln liqSubdivUVInterpolation -at "enum" -enumName "True Facevarying:New Facevarying:Facevertex" $current;
+		//but r776 change back to this:
+		addAttr -ln liqSubdivUVInterpolation -at short $current;
     }
     if ( `attributeQuery -node $current -ex "liqSubdivUVInterpolation"`) {
       setAttr ( $current + ".liqSubdivUVInterpolation" ) $fv;
     }
     if ( !`attributeQuery -node $current -ex "liqSubdivInterpolateBoundary"`) {
-      addAttr -ln liqSubdivInterpolateBoundary -at short $current;
+        //liquidMaya r772 :addAttr -ln liqSubdivInterpolateBoundary -at "enum" -enumName "Off:Sharp:Smooth" $current;
+		//but r776 change back to this:
+		addAttr -ln liqSubdivInterpolateBoundary -at short $current;
     }
     if ( `attributeQuery -node $current -ex "liqSubdivInterpolateBoundary"`) {
       setAttr ( $current + ".liqSubdivInterpolateBoundary" ) $interp;

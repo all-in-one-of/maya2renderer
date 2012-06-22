@@ -72,10 +72,15 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
 #include <process.h>
 #include <windows.h>
 #include <liqlog.h>
+#include<iostream>
 
 bool liqProcessLauncher::_execute( const MString &command, const MString &arguments, const MString &path, const bool wait )
 {
 	CM_TRACE_FUNC(boost::format("liqProcessLauncher::_execute(%s,%s,%s, wait=%d)")%command.asChar()%arguments.asChar()%path.asChar()%wait);
+	
+	std::stringstream err;
+	err << "Render (" << ( (!wait)? "no " : "" ) << "wait) "<< command.asChar() << " "<< arguments.asChar()<<" "<< path.asChar() << std::endl << std::ends;
+	liquidMessage( err.str(), messageInfo );
 
   if ( !wait ) {
     printf( "::=> Render (no wait) %s %s %s\n", command.asChar(), arguments.asChar(), path.asChar() );
@@ -85,22 +90,24 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
     printf( "::=> return value = %d GetLastError = %d\n", returnCode, dw );
     return true;
     */
-    _chdir( path.asChar() );
+    //_chdir( path.asChar() );
     /*
     MString cmd = command + " " + arguments;
+	_flushall();
     int returnCode = system( cmd.asChar() );
-    return ( returnCode != -1 );
+	cout << "out:Return value = " << returnCode << endl << flush;
+	return ( returnCode != -1 );
     */
     //  _P_DETACH -- good for MayaRenderView and it, bad for framebuffer and alfred
     
-    int returnCode =  _spawnlp( _P_NOWAITO, command.asChar(), arguments.asChar(), NULL );
+	int returnCode =  _spawnlp( _P_NOWAITO, command.asChar(), command.asChar(), arguments.asChar(), NULL );
     DWORD dw = GetLastError();
-    printf( "::=> return value = %d GetLastError = %d\n", returnCode, dw );
+	err << "err:Return value = " << returnCode << " GetLastError = " << dw << std::endl << std::ends;
+	liquidMessage( err.str(), messageInfo );
+	// cout << "out:Return value = " << returnCode << " GetLastError = " << dw << endl << flush;
     return ( returnCode != -1 );
     
   } else {
-    printf( "::=> Render (wait) %s %s %s\n", command.asChar(), arguments.asChar(), path.asChar() );
-    
     PROCESS_INFORMATION pinfo;
     STARTUPINFO sinfo;
     HANDLE hErrReadPipe, hErrReadPipeDup;
@@ -153,8 +160,8 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
             &sinfo,                   // startup information
             &pinfo                    // process information
           );
-    if ( ret ) {
-
+    if ( ret ) 
+	{
       SetStdHandle( STD_ERROR_HANDLE, hSaveStderr ); // restore saved Stderr
       SetStdHandle( STD_OUTPUT_HANDLE, hSaveStdout ); // restore saved Stderr
 

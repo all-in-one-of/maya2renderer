@@ -15,9 +15,13 @@ proc AEliquidCreateMenu()
   if ( `menu -q -ex liquidAEMenu` ){  liqPopIdent(); return ;}
 
   menu -label "Liquid" liquidAEMenu;
-      liquidCreateObjectsAttributesMenu( "attrEd" );
-      liquidCreateLightsAttributesMenu( "attrEd" );
-      liquidCreateSetsAttributesMenu( "attrEd" );
+      menuItem  -label "Attribute Manager..."   
+                -command liquidAttributeManager 
+                -ann "Liquid attributes manager";
+      //liquidCreateObjectsAttributesMenu( "attrEd" );
+      //liquidCreateLightsAttributesMenu( "attrEd" );
+      //liquidCreateSetsAttributesMenu( "attrEd" );
+
 	  menuItem -d true;
 	  er_CreateMenu("attrEd");
 	  menuItem -d true;
