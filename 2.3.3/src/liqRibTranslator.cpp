@@ -1548,7 +1548,7 @@ MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& j
  */
 MStatus liqRibTranslator::setRenderLayer( const MArgList& args )
 {
-	CM_TRACE_FUNC(boost::format("liqRibTranslator::setRenderLayer(arg)") );
+//	CM_TRACE_FUNC(boost::format("liqRibTranslator::setRenderLayer(arg)") );
 
   MStatus status = MS::kSuccess;
   // check if we need to switch to a specific render layer
@@ -1625,7 +1625,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 #endif // PRMAN || DELIGHT || GENERIC_RIBLIB
 	liquidMessage( "Beginning RIB output to " + string( ribName.asChar() ), messageInfo );
 #ifndef RENDER_PIPE
-	RiBegin( const_cast< RtToken >( ribName.asChar() ) );
+	RiBegin_liq( const_cast< RtToken >( ribName.asChar() ) );
 #else
 	liqglo_ribFP = fopen( ribName.asChar(), "w" );
 	if ( liqglo_ribFP ) 
@@ -1639,7 +1639,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 
 	liquidMessage( "Beginning RI output directly to renderer", messageInfo );
 
-	RiBegin( RI_NULL );
+	RiBegin_liq( RI_NULL );
 #endif
 	//cerr << ">> writng RIB " << ribName.asChar() << endl;
 	if ( !world_only )
