@@ -51,6 +51,7 @@
 #include <maya/MSwatchRenderRegister.h>
 #include <maya/MImage.h>
 #include <maya/MFnDependencyNode.h>
+#include <maya/MFnStringData.h>
 
 #include <liquid.h>
 #include <liqMayaNodeIds.h>

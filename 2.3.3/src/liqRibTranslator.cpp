@@ -832,13 +832,13 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 		else if ((arg == "-es") || (arg == "-eyeSplits")) 
 		{
 			argValue = args.asString( ++i, &status );
-			eyeSplits = argValue.asInt();
+			liqglo.eyeSplits = argValue.asInt();
 			LIQCHECKSTATUS(status, err);
 		} 
 		else if ((arg == "-ar") || (arg == "-aspect")) 
 		{
 			argValue = args.asString( ++i, &status );
-			aspectRatio = argValue.asDouble();
+			liqglo.aspectRatio = argValue.asDouble();
 			LIQCHECKSTATUS(status, err);
 		} 
 		else if ((arg == "-x") || (arg == "-width")) 
@@ -868,28 +868,28 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 		else if ((arg == "-cw") || (arg == "-cropWindow")) 
 		{
 			argValue = args.asString( ++i, &status );
-			m_cropX1 = argValue.asDouble();
+			liqglo.m_cropX1 = argValue.asDouble();
 			LIQCHECKSTATUS(status, err);
 			argValue = args.asString( ++i, &status );
-			m_cropX2 = argValue.asDouble();
+			liqglo.m_cropX2 = argValue.asDouble();
 			LIQCHECKSTATUS(status, err);
 			argValue = args.asString( ++i, &status );
-			m_cropY1 = argValue.asDouble();
+			liqglo.m_cropY1 = argValue.asDouble();
 			LIQCHECKSTATUS(status, err);
 			argValue = args.asString( ++i, &status );
-			m_cropY2 = argValue.asDouble();
+			liqglo.m_cropY2 = argValue.asDouble();
 			LIQCHECKSTATUS(status, err);
-			if( m_renderView ) 
-				m_renderViewCrop = true;
+			if( liqglo.m_renderView ) 
+				liqglo.m_renderViewCrop = true;
 		}
 		else if ((arg == "-shn") || (arg == "-shotName")) 
 		{
-			liqglo_shotName = args.asString( ++i, &status );
+			liqglo.liqglo_shotName = args.asString( ++i, &status );
 			LIQCHECKSTATUS(status, err);
 		} 
 		else if ((arg == "-shv") || (arg == "-shotVersion")) 
 		{
-			liqglo_shotVersion = args.asString( ++i, &status );
+			liqglo.liqglo_shotVersion = args.asString( ++i, &status );
 			LIQCHECKSTATUS(status, err);
 		}
 	}
@@ -991,7 +991,7 @@ void liqRibTranslator::liquidReadGlobals()
 				liqglo.m_rFilterX = theDisplay.filterX;
 				liqglo.m_rFilterY = theDisplay.filterY;
 				liqglo.quantValue = theDisplay.bitDepth;
-				liqglo.m_displays[0].name = theDisplay.name; // save primary display name (r772 use liqglo_DDimageName)
+				//liqglo_DDimageName = theDisplay.name; //we don't use liqglo_DDimageName, so we omit this line in r772
 			}
 			StructDDParam xtraDDParams;
 			xtraDDParams.num   = xtraParamsNames.length();
@@ -1005,7 +1005,7 @@ void liqRibTranslator::liquidReadGlobals()
 	}
 	liquidGetPlugValue( rGlobalNode, "shotName", liqglo.liqglo_shotName, gStatus ); // no substitution here
 	liquidGetPlugValue( rGlobalNode, "shotVersion", liqglo.liqglo_shotVersion, gStatus ); // no substitution here
-	liquidGetPlugValue( rGlobalNode, "rotateCamera", liqglo_rotateCamera, gStatus );
+	liquidGetPlugValue( rGlobalNode, "rotateCamera",  liqglo.liqglo_rotateCamera, gStatus );
 	liquidGetPlugValue( rGlobalNode, "relativeFileNames", liqglo.liqglo_relativeFileNames, gStatus );
 	
 	liquidGetPlugValue( rGlobalNode, "renderScriptFileName", m_userRenderScriptFileName, gStatus );
@@ -1017,7 +1017,7 @@ void liqRibTranslator::liquidReadGlobals()
 	liquidGetPlugValue( rGlobalNode, "postFrameCommand", m_postFrameCommand, gStatus );
 	liquidGetPlugValue( rGlobalNode, "preFrameCommand", m_preFrameCommand, gStatus );
 	liquidGetPlugValue( rGlobalNode, "preCommand", liqglo.m_preCommand, gStatus );
-	liquidGetPlugValue( rGlobalNode, "launchRender", launchRender, gStatus );
+	liquidGetPlugValue( rGlobalNode, "launchRender",  liqglo.launchRender, gStatus );
 
 
 	liquidGetPlugValue( rGlobalNode, "renderCamera", liqglo.renderCamera, gStatus, true );
@@ -1045,10 +1045,10 @@ void liqRibTranslator::liquidReadGlobals()
 
 	getHinderParameters(rGlobalNode);
 
-	liquidGetPlugValue( rGlobalNode, "cropX1", m_cropX1, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cropX2", m_cropX2, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cropY1", m_cropY1, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cropY2", m_cropY2, gStatus );
+	liquidGetPlugValue( rGlobalNode, "cropX1", liqglo.m_cropX1, gStatus );
+	liquidGetPlugValue( rGlobalNode, "cropX2", liqglo.m_cropX2, gStatus );
+	liquidGetPlugValue( rGlobalNode, "cropY1", liqglo.m_cropY1, gStatus );
+	liquidGetPlugValue( rGlobalNode, "cropY2", liqglo.m_cropY2, gStatus );
 
 	// RAYTRACING OPTIONS:BEGIN
 
@@ -1221,7 +1221,7 @@ MString liqRibTranslator::verifyResourceDir( const char *resourceName, MString r
 #ifdef _WIN32
 	int dirMode = 6; // dummy arg
 	int mkdirMode = 0;
-	_chdir( liqglo_projectDir.asChar() );
+	_chdir( liqglo.liqglo_projectDir.asChar() );
 #else
 	mode_t dirMode,mkdirMode;
 	dirMode = R_OK|W_OK|X_OK|F_OK;
@@ -1239,7 +1239,7 @@ MString liqRibTranslator::verifyResourceDir( const char *resourceName, MString r
 #endif  
 
 	LIQ_ADD_SLASH_IF_NEEDED( resourceDir );
-	MString tmp_path( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, resourceDir, liqglo_projectDir ) ) );
+	MString tmp_path( liquidSanitizePath( liquidGetRelativePath( liqglo.liqglo_relativeFileNames, resourceDir, liqglo.liqglo_projectDir ) ) );
 	if ( !fileFullyAccessible( tmp_path ) ) 
 	{
 		if ( createOutputDirectories ) 
@@ -1377,11 +1377,13 @@ MString liqRibTranslator::generateTempMayaSceneName() const
  //}
 string liqRibTranslator::generateImageName( MString aovName, const structJob& job )
 {
+	CM_TRACE_FUNC(boost::format("liqRibTranslator::generateImageName(%s, job(%s))")%aovName.asChar() %job.name.asChar());
+
 	std::stringstream ss;
 	ss << liqglo.m_pixDir.asChar(); 
 
 	if ( liqglo.m_displays[0].name == "" )//r772 uses liqglo_DDimageName
-		ss << parseString( liquidTransGetSceneName();, false ).asChar();//r772 uses liqglo_sceneName
+		ss << parseString( liquidTransGetSceneName(), false ).asChar();//r772 uses liqglo_sceneName
 	else
 		ss << parseString( liqglo.m_displays[0].name, false ).asChar();//r772 uses liqglo_DDimageName
 
@@ -1400,7 +1402,7 @@ string liqRibTranslator::generateImageName( MString aovName, const structJob& jo
 }
 MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& job )
 {
-	CM_TRACE_FUNC(boost::format("liqRibTranslator::generateFileName(%d,%s)")%mode%job.name.asChar());
+	CM_TRACE_FUNC(boost::format("liqRibTranslator::generateFileName(%d,%s)")%mode %job.name.asChar());
 	MString filename;
 	std::stringstream ss;
 
@@ -1522,7 +1524,7 @@ MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& j
 			ss << parseString( liquidTransGetSceneName(), false ).asChar();//liqglo_sceneName
 		else
 			ss << parseString( liqglo.m_displays[0].name, false ).asChar();//r772 use liqglo_DDimageName
-		fileExt = outExt;
+		fileExt = liqglo.outExt;
 		break;
 
 	default:
@@ -1546,6 +1548,8 @@ MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& j
  */
 MStatus liqRibTranslator::setRenderLayer( const MArgList& args )
 {
+	CM_TRACE_FUNC(boost::format("liqRibTranslator::setRenderLayer(arg)") );
+
   MStatus status = MS::kSuccess;
   // check if we need to switch to a specific render layer
   // we do that here because we need to switch to the chosen layer first
@@ -1587,6 +1591,8 @@ MStatus liqRibTranslator::setRenderLayer( const MArgList& args )
 //
 MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_only, bool out_lightBlock, MString archiveName )
 {
+	CM_TRACE_FUNC(boost::format("liqRibTranslator::ribOutput(%d, %s, %d, %d, %s)")%scanTime %ribName.asChar() %world_only %out_lightBlock %archiveName.asChar());
+
 	MStatus status = MS::kSuccess;
 
 	// Rib client file creation options MUST be set before RiBegin
@@ -1596,7 +1602,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 	/* THERE IS A RIBLIB BUG WHICH PREVENTS THIS WORKING */
 
 	RtString format[ 2 ] = { "ascii", "binary" };
-	if ( liqglo_doBinary )
+	if ( liqglo.liqglo_doBinary )
 	{
 		LIQDEBUGPRINTF( "-> setting binary option\n" );
 		RiOption( "rib", "format", ( RtPointer )&format[1], RI_NULL );
@@ -1611,7 +1617,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 #endif // PRMAN || DELIGHT
 #if defined(PRMAN) || defined(DELIGHT) || defined(GENERIC_RIBLIB)
 	LIQDEBUGPRINTF( "-> setting compression option\n" );
-	if ( liqglo_doCompression ) 
+	if ( liqglo.liqglo_doCompression ) 
 	{
 		RtString comp[ 1 ] = { "gzip" };
 		RiOption( "rib", "compression", ( RtPointer )comp, RI_NULL );
@@ -1688,9 +1694,9 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 	liquidMessage( "Finished RIB generation " + string( ribName.asChar()), messageInfo ); 
 
 #ifdef RENDER_PIPE  
-	fclose( liqglo_ribFP );
+	fclose( liqglo.liqglo_ribFP );
 #endif
-	liqglo_ribFP = NULL;
+	liqglo.liqglo_ribFP = NULL;
 	return status;
 }
 /**
@@ -1751,12 +1757,9 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 //
 MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalLayer )
 {
-	//
-	liqAssert("test liqAssert");
-	liqAssert("tile", "msg", "yes");
-	liqAssert("tile", "msg", "yes","no");
-	//
-
+	//liqAssert("test liqAssert");
+	//liqAssert("tile", "msg", "yes");
+	//liqAssert("tile", "msg", "yes","no");
 	CM_TRACE_FUNC(boost::format("liqRibTranslator::_doIt(args,%s)")%originalLayer.asChar());
 	MStatus status;
 	MString lastRibName;
@@ -1822,13 +1825,13 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 	if( liqglo.remoteRender || liqglo.useNetRman ) 
 	{
 		alfredRemoteTagsAndServices  = MString( "-service { " );
-		alfredRemoteTagsAndServices += m_alfredServices.asChar();
+		alfredRemoteTagsAndServices += liqglo.m_alfredServices.asChar();
 		alfredRemoteTagsAndServices += MString( " } -tags { " );
-		alfredRemoteTagsAndServices += m_alfredTags.asChar();
+		alfredRemoteTagsAndServices += liqglo.m_alfredTags.asChar();
 		alfredRemoteTagsAndServices += MString( " } " );
 
 		alfredCleanupRemoteTagsAndServices  = MString( "-service { " );
-		alfredCleanupRemoteTagsAndServices += m_alfredServices.asChar();
+		alfredCleanupRemoteTagsAndServices += liqglo.m_alfredServices.asChar();
 		alfredCleanupRemoteTagsAndServices += MString( " } " );
 	}
 
@@ -1891,8 +1894,8 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				liqRenderScript::Job preJob;
 				preJob.title = "liquid pre-job";
 				liqRenderScript::Cmd jobCommand( m_preJobCommand.asChar(), ( liqglo.remoteRender && !liqglo.useNetRman ) );
-				jobCommand.alfredServices = m_alfredServices.asChar();
-				jobCommand.alfredTags = m_alfredTags.asChar();  
+				jobCommand.alfredServices = liqglo.m_alfredServices.asChar();
+				jobCommand.alfredTags = liqglo.m_alfredTags.asChar();  
 				preJob.commands.push_back( jobCommand );
 				jobScript.addJob( preJob );
 			}
@@ -2255,7 +2258,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 								shadowSubtask.childJobs.push_back(instanceJob);
 							}
 							stringstream ss;
-							if ( useNetRman ) 
+							if ( liqglo.useNetRman ) 
 								ss << framePreCommand.asChar() << " netrender %H ";
 							else
 								ss << framePreCommand.asChar() << " " << frameRenderCommand.asChar() << " ";
@@ -2385,8 +2388,8 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 
 				if( m_outputHeroPass || m_outputShadowPass ) 
 				{
-					stringstream ss;
-					MString ribFileName;
+					std::stringstream ss;
+					std::string ribFileName;
 					if( m_outputHeroPass )
 						ribFileName = std::string( frameJob->ribFileName.asChar() );
 					else
@@ -2446,7 +2449,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #endif
 				if( liqglo.cleanRib || ( framePostFrameCommand != MString( "" ) ) ) 
 				{
-					if( liqglo.cleanRib & ( m_outputHeroPass ||  m_outputShadowPass ||  m_alfShadowRibGen )) 
+					if( liqglo.cleanRib & ( m_outputHeroPass ||  m_outputShadowPass || liqglo.m_alfShadowRibGen )) 
 					{
 						std::stringstream ss;
 						std::string  ribFileName;
@@ -2469,18 +2472,18 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #endif
 
 						// frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), remoteRender));
-						liqRenderScript::Cmd jobCleanCommand( ss.str(), remoteRender );
-						jobCleanCommand.alfredServices = m_alfredServices.asChar();
-						jobCleanCommand.alfredTags = m_alfredTags.asChar();
+						liqRenderScript::Cmd jobCleanCommand( ss.str(),  liqglo.remoteRender );
+						jobCleanCommand.alfredServices =  liqglo.m_alfredServices.asChar();
+						jobCleanCommand.alfredTags =  liqglo.m_alfredTags.asChar();
 						frameScriptJob.cleanupCommands.push_back( jobCleanCommand );
 					}
 
 					if( framePostFrameCommand != MString("") ) 
 					{
 						// liqRenderScript::Cmd cmd(framePostFrameCommand.asChar(), (remoteRender && !useNetRman));
-						liqRenderScript::Cmd cmd( framePostFrameCommand.asChar(), (remoteRender && !useNetRman) );
-						cmd.alfredServices = m_alfredServices.asChar();
-						cmd.alfredTags = m_alfredTags.asChar();
+						liqRenderScript::Cmd cmd( framePostFrameCommand.asChar(), ( liqglo.remoteRender && ! liqglo.useNetRman) );
+						cmd.alfredServices =  liqglo.m_alfredServices.asChar();
+						cmd.alfredTags =  liqglo.m_alfredTags.asChar();
 						frameScriptJob.cleanupCommands.push_back(cmd);
 					}
 				}//if( cleanRib || ( framePostFrameCommand != MString( "" ) ) ) 
@@ -2512,16 +2515,16 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				{
 					string cmd = RM_CMD  + string( MString( " \""  + tempDefname + "\"" ).asChar() );
 					liqRenderScript::Cmd jobCleanCmd( cmd, 0 );
-					jobCleanCmd.alfredServices = m_alfredServices.asChar();
-					jobCleanCmd.alfredTags = m_alfredTags.asChar();
+					jobCleanCmd.alfredServices =  liqglo.m_alfredServices.asChar();
+					jobCleanCmd.alfredTags =  liqglo.m_alfredTags.asChar();
 					jobScript.cleanupCommands.push_back( jobCleanCmd );
 				}
 				if( cleanRenderScript ) 
 				{
 					string cmd = RM_CMD  + string( MString( " \""  + renderScriptName + "\"" ).asChar() );
 					liqRenderScript::Cmd jobCleanCmd( cmd, 0 );
-					jobCleanCmd.alfredServices = m_alfredServices.asChar();
-					jobCleanCmd.alfredTags = m_alfredTags.asChar();
+					jobCleanCmd.alfredServices =  liqglo.m_alfredServices.asChar();
+					jobCleanCmd.alfredTags =  liqglo.m_alfredTags.asChar();
 					jobScript.cleanupCommands.push_back( jobCleanCmd );
 				}
 				if( m_postJobCommand != MString("") ) 
@@ -2529,8 +2532,8 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					string cmd = m_postJobCommand.asChar();
 
 					liqRenderScript::Cmd jobCleanCmd( cmd, 0 );
-					jobCleanCmd.alfredServices = m_alfredServices.asChar();
-					jobCleanCmd.alfredTags = m_alfredTags.asChar();
+					jobCleanCmd.alfredServices =  liqglo.m_alfredServices.asChar();
+					jobCleanCmd.alfredTags =  liqglo.m_alfredTags.asChar();
 					jobScript.cleanupCommands.push_back( jobCleanCmd );
 				}
 			}
@@ -2626,13 +2629,13 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						}
 						liquidMessage( "    + '" + string( iter->ribFileName.asChar() ) + "'", messageInfo );
 						if ( 
-							!liqProcessLauncher::execute( liquidRenderer.renderCommand, liquidRenderer.renderCmdFlags + " " +
+							!liqProcessLauncher::execute(  liqglo.liquidRenderer.renderCommand,  liqglo.liquidRenderer.renderCmdFlags + " " +
 #ifdef _WIN32
 							"\"" + iter->ribFileName + "\"", 
 #else
 							iter->ribFileName, 
 #endif
-							liqglo_projectDir, true 
+							 liqglo.liqglo_projectDir, true 
 							) 
 						) break;
 						++iter;
@@ -2643,7 +2646,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				//
 				{
 					liquidMessage( "Rendering hero pass... ", messageInfo );
-					cerr << "liquidBin = " << liquidBin << endl << flush; 
+					cerr << "liquidBin = " <<  liqglo.liquidBin << endl << flush; 
 					if( liqglo_currentJob.skip ) 
 					{
 						liquidMessage( "    - skipping '" + string( liqglo_currentJob.ribFileName.asChar() ) + "'", messageInfo );
@@ -3403,10 +3406,8 @@ MStatus liqRibTranslator::buildJobs()
 		thisJob = *iter;
 
 		MString frameFileName;
-		if( thisJob.isShadow )
-			frameFileName = generateFileName( ( fileGenMode )fgm_shadow_rib, thisJob );
-		else
-			frameFileName = generateFileName( ( fileGenMode )fgm_beauty_rib, thisJob );
+		frameFileName = generateFileName( ( thisJob.isShadow )? fgm_shadow_rib : fgm_beauty_rib, thisJob );
+
 		iter->ribFileName = frameFileName;
 
 		// set the skip flag for the job
@@ -3453,11 +3454,8 @@ MStatus liqRibTranslator::buildJobs()
 				userShadowName = parseString( varVal, false );
 			//outFileFmtString = liqglo_textureDir;
 
-			MString outName;
-			if( userShadowName.length() ) 
-				outName = userShadowName;
-			else 
-				outName = generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob );
+			MString outName = ( userShadowName.length() ) ? userShadowName 
+				: generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob );
 
 			iter->imageName = outName;
 			thisJob = *iter;
@@ -4680,13 +4678,13 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 			{
 				RiArchiveRecord( RI_COMMENT, "Display Channels:" );
 				// philippe -> to do : move this to higher scope ?
-				MStringArray channeltype;
+				//MStringArray channeltype;
 				//channeltype.append( "float" );
 				//channeltype.append( "color" );
 				//channeltype.append( "point" );
 				//channeltype.append( "normal" );
 				//channeltype.append( "vector" );
-				string  channeltype[] = { "float", "color", "point", "normal", "vector" };
+				std::string  channeltype[] = { "float", "color", "point", "normal", "vector" };
 
 				std::vector<StructChannel>::iterator m_channels_iterator;
 				m_channels_iterator = liqglo.m_channels.begin();
@@ -4763,12 +4761,12 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 
 #if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
 					//if( liquidRenderer.renderName == MString("PRMan") )
-					RiDisplayChannelV( ( RtToken )channel.asChar(), numTokens, tokens, values );
+					RiDisplayChannelV( ( RtToken )channel.str().c_str(), numTokens, tokens, values );
 #else
 					// || defined( GENERIC_RIBLIB )
 
 					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s\" %s %s %s",
-						const_cast< char* >( channel.asChar() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
+						const_cast< char* >( channel.str().c_str() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
 
 #endif
 					m_channels_iterator++;
@@ -4810,7 +4808,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 
 					liqRIBMsg("Display 7");
 					RiArchiveRecord( RI_COMMENT, "Render To Maya renderView :" );
-					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%s] \"string host\" [\"%s\"]\n", 
+					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%d] \"string host\" [\"%s\"]\n", 
 						const_cast< char* >( imageName.str().c_str() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
 
 					// in this case, override the launch render settings
@@ -4828,9 +4826,9 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
 					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
 					if ( m_displays_iterator == liqglo.m_displays.begin() ) 
-						imageName << generateImageName( "", liqglo.liqglo_currentJob );  
+						imageName << generateImageName( "", liqglo_currentJob );  
 					else
-						imageName << "+" << generateImageName( (*m_displays_iterator).name, liqglo.liqglo_currentJob ) ;
+						imageName << "+" << generateImageName( (*m_displays_iterator).name, liqglo_currentJob ) ;
 
 					// get display type ( tiff, openexr, etc )
 					if( !isBatchMode() ){
@@ -4866,7 +4864,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 					// get filter params
 					if( (*m_displays_iterator).doFilter && m_displays_iterator > liqglo.m_displays.begin() )
 					{
-						filter << "\"string filter\" [\"" << liquidRenderer.pixelFilterNames[(*m_displays_iterator).filter].asChar() << "\"] ";
+						filter << "\"string filter\" [\"" <<  liqglo.liquidRenderer.pixelFilterNames[(*m_displays_iterator).filter].asChar() << "\"] ";
 						filter << "\"float filterwidth[2]\" ";
 						filter << "[" << (*m_displays_iterator).filterX << " " << (*m_displays_iterator).filterY << "]";
 					} 
@@ -4889,7 +4887,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 					liqRIBMsg("Display 8");
 					// output call
 					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" %s %s %s %s\n", 
-						const_cast< char* >( imageName.asChar() ), 
+						const_cast< char* >( imageName.str().c_str() ), 
 						imageType.c_str(), 
 						imageMode.c_str(), 
 						quantizer.str().c_str(), 

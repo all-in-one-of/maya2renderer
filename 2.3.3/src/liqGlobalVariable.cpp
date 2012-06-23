@@ -86,7 +86,7 @@ void getHinderParameters(const MFnDependencyNode& rGlobalNode)
 
 MString getHiderOptions( MString rendername, MString hidername )
 {
-  stringstream ss;
+  std::stringstream ss;
 	// PRMAN
 	if( rendername == "PRMan" ) 
 	{

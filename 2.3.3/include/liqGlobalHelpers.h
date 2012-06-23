@@ -114,7 +114,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &valu
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, RtFloat &value, MStatus &status );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed/* = false*/ );
+MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed = false );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status );
 unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name, MStatus *status );
 MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MString &value, MStatus &status );
