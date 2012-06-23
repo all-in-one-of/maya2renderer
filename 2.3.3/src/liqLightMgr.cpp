@@ -29,7 +29,7 @@ void tLightMgr::scanScene(const float lframe__, const int sample__,
 						  MStatus &returnStatus__)
 {
 	CM_TRACE_FUNC("tJobScriptMgr::scanScene("<<lframe__<<","<<sample__<<", htable__, count, returnStatus__)");
-
+	//[refactor 9] begin from scanScene()
 	MItDag dagLightIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus__);
 
 	for (; !dagLightIterator.isDone(); dagLightIterator.next()) 
@@ -104,6 +104,7 @@ void tLightMgr::scanScene(const float lframe__, const int sample__,
 			continue;
 		}
 	}
+	//[refactor 9] end to scanScene()
 }
 //
 MStatus tLightMgr::buildShadowJob( 
@@ -115,7 +116,7 @@ MStatus tLightMgr::buildShadowJob(
 	MStatus returnStatus__;
 	MStatus status__;
 	MDagPath lightPath__;
-
+	//[refactor 2.1] begin
 	MItDag dagIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus__ );
 	for (; !dagIterator.isDone(); dagIterator.next()) 
 	{
@@ -216,7 +217,7 @@ MStatus tLightMgr::buildShadowJob(
 
 
 			// this will store the shadow camera path and the test's result
-			//bool lightHasShadowCam = false;
+			//bool lightHasShadowCam = false;//1
 			MDagPathArray shadowCamPath;
 
 			if( lightPath__.hasFn( MFn::kSpotLight ) || lightPath__.hasFn( MFn::kDirectionalLight ) ) 
@@ -235,6 +236,7 @@ MStatus tLightMgr::buildShadowJob(
 			}//else if( lightPath__.hasFn(MFn::kPointLight) )  
 
 			//================= jobs for shadow cameras ==================
+			//[refactor][2.1.3 begin] from buildJobs()
 			// if the job has shadow cameras, we will store them here
 			//
 			int isAggregate = thisJob___.shadowAggregation;
@@ -282,7 +284,7 @@ MStatus tLightMgr::buildShadowJob(
 				}
 				liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
 			}//for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
-
+			//[refactor][2.1.3 end] from buildJobs()
 		} // if( usesDepthMap && areObjectAndParentsVisible( lightPath__ ) ) 
 		//cout <<thisJob.name.asChar()<<" -> shd:"<<thisJob.isShadow<<" ef:"<<thisJob.everyFrame<<" raf:"<<thisJob.renderFrame<<" set:"<<thisJob.shadowObjectSet.asChar()<<endl;
 	} // light dagIterator
@@ -298,7 +300,7 @@ MStatus tLightMgr::buildShadowCameraJob(
 
 	MStatus returnStatus__ = MS::kSuccess;
 	MStatus status__;
-
+	//[refactor][2.1.4 begin] from buildJob()
 	MDagPath cameraPath;
 	MItDag dagCameraIterator( MItDag::kDepthFirst, MFn::kCamera, &returnStatus__ );
 	for ( ; !dagCameraIterator.isDone(); dagCameraIterator.next() ) 
@@ -358,6 +360,7 @@ MStatus tLightMgr::buildShadowCameraJob(
 			if( computeShadow ) 
 				liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
 		}
+		//[refactor][2.1.4 end] from buildJob()
 	} // camera dagIterator
 
 	return returnStatus__;
@@ -372,7 +375,7 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_SpotAndDirectionLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
 
 	MStatus status__;
-
+	//[refactor 2.1.1] begin
 	bool computeShadow = true;
 	thisJob___.hasShadowCam = false;
 	MPlug liquidLightShaderNodeConnection;
@@ -391,6 +394,35 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 
 		// look for shadow cameras...
 		MStatus stat;
+		//[refactor 2.1.1.1] begin//added in liquidMaya r772   begin
+		// at first, check if shadow main camera is specified
+		// cerr << ">> at first, check if shadow main camera is specified for "  << lightPath.fullPathName().asChar() << endl;
+
+		MString camName;
+		liquidGetPlugValue( fnLightShaderNode, "shadowMainCamera", camName, status ); 
+		if ( status == MS::kSuccess && camName != "" )
+		{
+			// cerr << ">> Light node has main shadow camera : " << camName.asChar() << endl;
+			MDagPath cameraPath;
+			MSelectionList camList;
+			camList.add( camName );
+			camList.getDagPath( 0, cameraPath );
+			if ( cameraPath.hasFn( MFn::kCamera ) )
+			{
+				// cerr << ">> cameraPath : "<< cameraPath.fullPathName().asChar() << endl;
+				thisJob.hasShadowCam = true;
+				thisJob.shadowCamPath = cameraPath;
+			}
+			else
+			{
+				// cerr << ">> Invalid camera name " << endl;
+				string err = "Invalid main shadow camera name " + string( camName.asChar() ) + " for light " + string( lightPath.fullPathName().asChar() );
+				liquidMessage( err, messageError );
+			}
+		}
+		// now we're looking for extra cameras 
+		//[refactor 2.1.1.1] end//added in liquidMaya r772   end
+
 		MPlug shadowCamPlug = fnLightShaderNode.findPlug( "shadowCameras", &stat );
 		// find the multi message attribute...
 		if( stat == MS::kSuccess ) 
@@ -416,7 +448,7 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 					cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
 					//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
 					shadowCamPath.append( cameraPath );
-					//lightHasShadowCam = true;
+					//lightHasShadowCam = true;//2
 				}
 			}
 		}
@@ -447,6 +479,8 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 	if( computeShadow )
 		liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
 	// We have to handle point lights differently as they need 6 shadow maps!
+
+	//[refactor 2.1.1] end
 }
 //
 void tLightMgr::buildShadowJob_PointLight(
@@ -460,6 +494,7 @@ void tLightMgr::buildShadowJob_PointLight(
 
 	MStatus status__;
 
+	//[refactor 2.1.2] begin
 	for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ ) 
 	{
 		thisJob___.hasShadowCam = false;
@@ -516,16 +551,20 @@ void tLightMgr::buildShadowJob_PointLight(
 						cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
 						//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
 						shadowCamPath.append( cameraPath );
-						//lightHasShadowCam = true;
+						//lightHasShadowCam = true;//3
 					}
 				}
 			}
 		}
-		MString fileName( liqRibTranslator::getInstancePtr()->generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob___ ) );
-		if( m_lazyCompute__ ) 
+		if( m_lazyCompute__ ) {
+			MString fileName( liqRibTranslator::getInstancePtr()->generateFileName( 
+				( fileGenMode )fgm_shadow_tex, thisJob___ ) 
+			);
 			if( fileExists( fileName ) ) 
 				computeShadow = false;
+		}
 		if( computeShadow ) 
 			liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
 	}//for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ )  
+	//[refactor 2.1.2] end
 }

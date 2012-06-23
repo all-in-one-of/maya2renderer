@@ -1597,7 +1597,10 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 
 	// Rib client file creation options MUST be set before RiBegin
 	LIQDEBUGPRINTF( "-> setting RiOptions\n" );
-
+	//[refactor][1.9.2.3 begin] to setRenderScriptFormatAndCompress() --> rm::_RiOption_format_compress()
+	//NOTE: this has already been set before, see:
+	//liqRibTranslator::_doIt()    --> getRenderer()->setRenderScriptFormatAndCompress(liqglo.liqglo_doBinary, liqglo.liqglo_doCompression)
+	//liqRibTranslator::_doItNew() --> getRenderer()->setRenderScriptFormatAndCompress(liqglo.liqglo_doBinary, liqglo.liqglo_doCompression)
 #if defined(PRMAN) || defined(DELIGHT)
 	/* THERE IS A RIBLIB BUG WHICH PREVENTS THIS WORKING */
 
@@ -1623,7 +1626,13 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 		RiOption( "rib", "compression", ( RtPointer )comp, RI_NULL );
 	}
 #endif // PRMAN || DELIGHT || GENERIC_RIBLIB
+	//[refactor][1.9.2.3 end] to getRenderer()::setRenderScriptFormatAndCompress() --> rm::_RiOption_format_compress()
+
+
+
+
 	liquidMessage( "Beginning RIB output to " + string( ribName.asChar() ), messageInfo );
+	//[refactor][1.9.2.4 begin] to rm::renderer::BaseShadowBegin(ribName)
 #ifndef RENDER_PIPE
 	RiBegin_liq( const_cast< RtToken >( ribName.asChar() ) );
 #else
@@ -1641,28 +1650,33 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 
 	RiBegin_liq( RI_NULL );
 #endif
+	//[refactor][1.9.2.4 end] to rm::renderer::BaseShadowBegin()
+
 	//cerr << ">> writng RIB " << ribName.asChar() << endl;
 	if ( !world_only )
 	{
+		//[refactor][1.9.2.5 begin] to tHeroRibWriterMgr::write()/tShadowRibWriterMgr.write()
 		//cerr << "writng ribPrologue()" << endl;
 		if ( ribPrologue() != MS::kSuccess ) 
 			return MS::kFailure;
 		//cerr << "writng framePrologue()" << endl;
 		if ( framePrologue( scanTime ) != MS::kSuccess ) 
 			return MS::kFailure;
+		//[refactor][1.9.2.5 end] to tHeroRibWriterMgr::write()/tShadowRibWriterMgr.write()
 	}    
 	if ( archiveName != "" )
 	{
 		// reference the correct shadow/scene archive
-		//
+		//[refactor][1.9.2.8 begin] to rm::Renderer::readBaseShadow()
 		liquidMessage( "Writng archiveName " + string( archiveName.asChar() ), messageInfo ); 
 		RiArchiveRecord( RI_COMMENT, "Read Archive Data:\n" );
 		RiReadArchive( const_cast< RtToken >( archiveName.asChar() ), NULL, RI_NULL );
+		//[refactor][1.9.2.8 end] to rm::Renderer::readBaseShadow()
 	}
 	else
 	{
 		// full beauty/shadow rib generation
-		//
+		//[refactor][1.9.2.6 begin] to tHeroRibWriterMgr::write()/tShadowRibWriterMgr.write()
 		//cerr << "writng worldPrologue()" << endl;
 		if ( worldPrologue() != MS::kSuccess ) 
 			return MS::kFailure;
@@ -1678,16 +1692,19 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 		//cerr << "writng worldEpilogue()" << endl;      
 		if ( worldEpilogue() != MS::kSuccess ) 
 			return MS::kFailure;
+		//[refactor][1.9.2.6 end] to tHeroRibWriterMgr::write()/tShadowRibWriterMgr.write()
 	}
 
 	if ( !world_only )
 	{
+		//[refactor][1.9.2.7 begin] to tHeroRibWriterMgr::write()/tShadowRibWriterMgr.write()
 		//cerr << "writng frameEpilogue()" << endl;
 		if ( frameEpilogue( scanTime ) != MS::kSuccess ) 
 			return MS::kFailure;  
 		//cerr << "writng ribEpilogue()" << endl;
 		if ( ribEpilogue() != MS::kSuccess )
 			return MS::kFailure;
+		//[refactor][1.9.2.7 end] to tHeroRibWriterMgr::write()/tShadowRibWriterMgr.write()
 	}
 	RiEnd();
 	// output info when done with the rib - Alf
@@ -1761,6 +1778,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 	//liqAssert("tile", "msg", "yes");
 	//liqAssert("tile", "msg", "yes","no");
 	CM_TRACE_FUNC(boost::format("liqRibTranslator::_doIt(args,%s)")%originalLayer.asChar());
+	//[refactor][1 begin] to _doItNewWithoutRenderScript()/_doItNewWithRenderScript()
 	MStatus status;
 	MString lastRibName;
 	bool hashTableInited = false;
@@ -1778,9 +1796,11 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 	liqglo.liqglo_FPS = oneSecond.as( MTime::uiUnit() );
 
 	// append the progress flag for render job feedback
+	//[refactor][1.1 begin] to _doItNew()
 // 	if( useRenderScript ) // ommited in liquidMaya r772
 // 		if( ( m_renderCommand == MString( "render" ) ) || ( m_renderCommand == MString( "prman" ) ) || ( m_renderCommand == MString( "renderdl" ) ) ) 
 // 			m_renderCommand = m_renderCommand + " -Progress";
+	//[refactor][1.1 end] to _doItNew()
 
 	// check to see if the output camera, if specified, is available
 	if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
@@ -1818,6 +1838,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #else
 	if( m_errorMode ) RiErrorHandler( liqRibTranslatorErrorHandler );
 #endif
+	//[refactor][1.2 begin] to _doItNewWithRenderScript()
 	// Setup helper variables for alfred
 	MString alfredCleanUpCommand = ( liqglo.remoteRender ) ? MString( "RemoteCmd" ) : MString( "Cmd" );
  	MString alfredRemoteTagsAndServices;
@@ -1834,6 +1855,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 		alfredCleanupRemoteTagsAndServices += liqglo.m_alfredServices.asChar();
 		alfredCleanupRemoteTagsAndServices += MString( " } " );
 	}
+	//[refactor][1.2 end] to _doItNewWithRenderScript()
 
 	// exception handling block, this tracks liquid for any possible errors and tries to catch them
 	// to avoid crashing
@@ -1864,15 +1886,18 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 			useRenderScript = false;
 
 		liqRenderScript jobScript;
+		//[refactor][1.3 begin] to _doItNewWithRenderScript(), before "jobScript.addLeafDependency( preJobInstance );"
  		liqRenderScript::Job preJobInstance;
  		preJobInstance.title = "liquid pre-job";
  		preJobInstance.isInstance = true;
+		//[refactor][1.3 end] to _doItNewWithRenderScript(),
 
 		if( useRenderScript ) 
 		{
 			if( renderJobName == "" ) 
 				renderJobName = liquidTransGetSceneName();
 
+			//[refactor][1.4 begin] to tJobScriptMgr::setCommonParameters()
 			jobScript.title = renderJobName.asChar();
 
 			if( liqglo.useNetRman ) 
@@ -1888,9 +1913,11 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 
 			if ( liqglo.m_dirmaps.length() )
 				jobScript.dirmaps = liqglo.m_dirmaps.asChar();
+			//[refactor][1.4 end] to tJobScriptMgr::setCommonParameters()
 
 			if( m_preJobCommand != MString( "" ) ) 
 			{
+				//[refactor][1.5 begin] to tJobScriptMgr::addJob()
 				liqRenderScript::Job preJob;
 				preJob.title = "liquid pre-job";
 				liqRenderScript::Cmd jobCommand( m_preJobCommand.asChar(), ( liqglo.remoteRender && !liqglo.useNetRman ) );
@@ -1898,6 +1925,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				jobCommand.alfredTags = liqglo.m_alfredTags.asChar();  
 				preJob.commands.push_back( jobCommand );
 				jobScript.addJob( preJob );
+				//[refactor][1.5 end] to tJobScriptMgr::addJob()
 			}
 		}
 		// build the frame array
@@ -1919,6 +1947,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 		unsigned frameIndex( 0 );
 		for ( ; frameIndex < liqglo.frameNumbers.size(); frameIndex++ ) 
 		{
+			//[refactor][1.6 begin] to processOneFrame()
 			liqShaderFactory::instance().clearShaders();
 
 			liqglo.liqglo_lframe = liqglo.frameNumbers[ frameIndex ];
@@ -1933,20 +1962,34 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 			liqglo.liqglo_preRibBox.clear();
 			liqglo.liqglo_preReadArchiveShadow.clear();
 			liqglo.liqglo_preRibBoxShadow.clear();
+			//[refactor][1.6 end] to processOneFrame()
 
+			//[refactor][1.7 begin] to _doItNewWithRenderScript()/_doItNewWithoutRenderScript()/processOneFrame()
 			// make sure all the global strings are parsed for this frame
-
+			
+			//[refactor][1.7.1 begin] +to tFrameScriptJobMgr::makeShadow
 			MString frameRenderCommand    = parseString( m_renderCommand + " " + liqglo.liquidRenderer.renderCmdFlags, false );
+			//[refactor][1.7.1 end]  +to tFrameScriptJobMgr::makeShadow
+
 			MString frameRibgenCommand    = parseString( m_ribgenCommand, false );
+
+			//[refactor][1.7.2 begin] +to tFrameScriptJobMgr::makeShadow
 			MString framePreCommand       = parseString( liqglo.m_preCommand, false );
+			//[refactor][1.7.2 end] +to tFrameScriptJobMgr::makeShadow
+
 			MString framePreFrameCommand  = parseString( m_preFrameCommand, false );
 			MString framePostFrameCommand = parseString( m_postFrameCommand, false );
+			//[refactor][1.7 end] to _doItNewWithRenderScript()/_doItNewWithoutRenderScript()/processOneFrame()	
 			
+			//[refactor][1.8 begin] to _doItNewWithRenderScript()
 			if( useRenderScript ) 
 			{
 				if( liqglo.m_deferredGen ) 
 				{
+					//[refactor] [1.8.1 begin] to _doItNewWithRenderScript()
 					liqRenderScript::Job deferredJob;
+					//[refactor] [1.8.1 end] to _doItNewWithRenderScript()
+
 					if( ( frameIndex % liqglo.m_deferredBlockSize ) == 0 ) 
 					{
 						if( liqglo.m_deferredBlockSize == 1 ) 
@@ -1954,6 +1997,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						else 
 							currentBlock++;
 
+						//[refactor] [1.8.2 begin] to tJobScriptMgr::addDefferedJob()
 						stringstream ribGenExtras;
 						//Note:  -ribName is set to liqglo.liqglo_sceneName originally. 
 						//       Because we replace liqglo.liqglo_sceneName with liquidTransGetSceneName(), and delete liqglo.liqglo_sceneName,
@@ -1986,15 +2030,22 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 							cmd.alfredExpand = true;
 
 						deferredJob.commands.push_back(cmd);
+						//[refactor] [1.8.2 end] to tJobScriptMgr::addDefferedJob()
+
 						jobScript.addJob(deferredJob);
 					}
 				}//if( m_deferredGen )
+				
+				//[refactor] [1.8.3 begin] to _doItNewWithRenderScript()
 				if( !m_justRib ) 
 				{
+					//[refactor] [1.8.3.1 begin] to _doItNewWithRenderScript()/_doItNewWithoutRenderScript()
 					stringstream titleStream;
 					titleStream << liquidTransGetSceneName().asChar() << "Frame" << liqglo.liqglo_lframe;
 					frameScriptJob.title = titleStream.str();
+					//[refactor] [1.8.3.1 end] to _doItNewWithRenderScript()/_doItNewWithoutRenderScript()
 
+					//[refactor] [1.8.3.2 begin] to _doItNewWithRenderScript()
 					if( liqglo.m_deferredGen ) 
 					{
 						stringstream ss;
@@ -2004,9 +2055,14 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						instanceJob.title = ss.str();
 						frameScriptJob.childJobs.push_back(instanceJob);
 					}
+					//[refactor] [1.8.3.2 end] to _doItNewWithRenderScript()
 				}
-			}//if( useRenderScript ) 
+				//[refactor] [1.8.3 end] to _doItNewWithRenderScript()
 
+			}//if( useRenderScript ) 
+			//[refactor][1.8 begin] to _doItNewWithRenderScript()
+
+			//[refactor][1.9 begin] to processOneFrame()
 			LIQDEBUGPRINTF( "-> building jobs\n" );
 			if( buildJobs() != MS::kSuccess ) // Hmmmmmm not really clean ....
 				break;
@@ -2033,6 +2089,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				for (; iter != jobList.end(); ++iter ) 
 				{
 					m_currentMatteMode = false;
+					//[refactor] [1.9.1 begin] to processOneFrame()
 					liqglo_currentJob = *iter;
 
 					if( liqglo_currentJob.skip ) 
@@ -2062,7 +2119,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						LIQDEBUGPRINTF( "Created hash table...\n" );
 
 						//  calculate sampling time
-						//
+						//[refactor][1.9.1.1 begin] to calaculateSamplingTime()
 						float sampleinc( ( liqglo.liqglo_shutterTime * m_blurTime ) / ( liqglo.liqglo_motionSamples - 1 ) );
 						for ( unsigned msampleOn( 0 ); msampleOn < liqglo.liqglo_motionSamples; msampleOn++ ) 
 						{
@@ -2086,6 +2143,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 							liqglo.liqglo_sampleTimes[ msampleOn ] = subframe;
 							liqglo.liqglo_sampleTimesOffsets[ msampleOn ] = msampleOn * sampleinc;
 						}
+						//[refactor][1.9.1.1 end] to calaculateSamplingTime()
 						//cout <<"about to scan... "<<endl;
 						// scan the scene
 						//
@@ -2130,32 +2188,43 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 
 
 					// world RiReadArchives and Rib Boxes ************************************************
-					//
-					if( liqglo_currentJob.isShadow && !liqglo_currentJob.shadowArchiveRibDone && !liqglo.fullShadowRib ) 
+					//!liqglo_currentJob.shadowArchiveRibDone is refactored to isBaseShadowReady()
+					if( liqglo_currentJob.isShadow && !liqglo.fullShadowRib ) 
 					{
-						//
-						//  create the read-archive shadow files
-						//  world_only = true
-						//  out_lightBlock = (liqglo_currentJob.deepShadows && m_outputLightsInDeepShadows )
-						//  archiveName = ""
-						out_lightBlock = (liqglo_currentJob.deepShadows && m_outputLightsInDeepShadows );
-						if ( ribOutput( scanTime, baseShadowName, true, out_lightBlock, MString("") ) != MS::kSuccess )
-							break;
-
-						// mark all other jobs with the same set as done
-						vector<structJob>::iterator iterCheck = jobList.begin();
-						while ( iterCheck != jobList.end() ) 
+						//[refactor][1.9.2 begin] to tShadowRibWriterMgr::write()
+						//[refactor][1.9.2.1 begin] to isBaseShadowReady()
+						if( !liqglo_currentJob.shadowArchiveRibDone )
+						//[refactor][1.9.2.1 end] to isBaseShadowReady()
 						{
-							if( iterCheck->shadowObjectSet == liqglo_currentJob.shadowObjectSet &&
-								iterCheck->everyFrame == liqglo_currentJob.everyFrame &&
-								iterCheck->renderFrame == liqglo_currentJob.renderFrame
-								)
-								iterCheck->shadowArchiveRibDone = true;
-							++iterCheck;
-						}
+							//
+							//  create the read-archive shadow files
+							//  world_only = true
+							//  out_lightBlock = (liqglo_currentJob.deepShadows && m_outputLightsInDeepShadows )
+							//  archiveName = ""
+							//[refactor][1.9.2.2 begin] to isBaseShadowReady()
+							out_lightBlock = (liqglo_currentJob.deepShadows && m_outputLightsInDeepShadows );
+							//[refactor][1.9.2.2 end] to isBaseShadowReady()
+							if ( ribOutput( scanTime, baseShadowName, true, out_lightBlock, MString("") ) != MS::kSuccess )
+								break;
 
-						liqglo.m_alfShadowRibGen = true;
-					}//if( liqglo_currentJob.isShadow && !liqglo_currentJob.shadowArchiveRibDone && !fullShadowRib ) 
+							//[refactor][1.9.2.3 begin] to isBaseShadowReady()
+							// mark all other jobs with the same set as done
+							vector<structJob>::iterator iterCheck = jobList.begin();
+							while ( iterCheck != jobList.end() ) 
+							{
+								if( iterCheck->shadowObjectSet == liqglo_currentJob.shadowObjectSet &&
+									iterCheck->everyFrame == liqglo_currentJob.everyFrame &&
+									iterCheck->renderFrame == liqglo_currentJob.renderFrame
+									)
+									iterCheck->shadowArchiveRibDone = true;
+								++iterCheck;
+							}
+							liqglo.m_alfShadowRibGen = true;
+							//[refactor][1.9.2.3 end] to isBaseShadowReady()
+						}
+						//[refactor][1.9.2 end] to tShadowRibWriterMgr::write()
+
+					}//if( liqglo_currentJob.isShadow && !fullShadowRib ) 
 
 					//  create beauty/shadow rib files
 					//  world_only = false
@@ -2172,29 +2241,41 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					if ( m_showProgress ) 
 						printProgress( 3, liqglo.frameNumbers.size(), frameIndex );
 				}//for (; iter != jobList.end(); ++iter ) 
-
+				
+				//[refactor][1.9.3 begin] to processOneFrame()
 				// set the rib file for the 'view last rib' menu command
 				// NOTE: this may be overridden later on in certain code paths
 				lastRibName = liqglo_currentJob.ribFileName;
+				//[refactor][1.9.3 end] to processOneFrame()
+
 			}//if( !m_deferredGen ) 
-			
+			//[refactor][1.9 end] to processOneFrame()
+
+			//[refactor][1.10 begin] to _doItNewWithRenderScript()
 			// now we re-iterate through the job list to write out the alfred file if we are using it
 			if( useRenderScript && !m_justRib ) 
 			{
+				//[refactor][1.10.1 begin] to _doItNewWithRenderScript()
 				bool alf_textures = false;
 				bool alf_shadows = false;
 				bool alf_refmaps = false;
 				bool use_dirmaps = ( liqglo.m_dirmaps.length() )? 1 : 0;
+				//[refactor][1.10.1 end] to _doItNewWithRenderScript()
+
 				// write out make texture pass
 				LIQDEBUGPRINTF( "-> Generating job for MakeTexture pass\n");
+				
+				//[refactor][1.10.2 begin] to tFrameScriptJobMgr::makeTexturePass()
 				vector<structJob>::iterator iter = txtList.begin();
 				if( txtList.size() ) 
 				{
+					//[refactor][1.10.2.1 begin]
 					alf_textures = true;
 					liqRenderScript::Job textureJob;
 					stringstream ts;
 					ts << "Textures." << liqglo.liqglo_lframe;
 					textureJob.title = ts.str();
+					//[refactor][1.10.2.1 end]
 
 					while ( iter != txtList.end() ) 
 					{
@@ -2219,14 +2300,18 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						++iter;
 						textureJob.childJobs.push_back( textureSubtask );
 					}
+					//[refactor][1.10.2.2 begin] to tFrameScriptJobMgr::makeTexture(
 					frameScriptJob.childJobs.push_back( textureJob );
+					//[refactor][1.10.2.2 end] to tFrameScriptJobMgr::makeTexture(
 				}//if( txtList.size() )
+				//[refactor][1.10.2 end] to tFrameScriptJobMgr::makeTexturePass()
 
 				// write out shadows
 				if( liqglo.liqglo_doShadows ) 
 				{
 					LIQDEBUGPRINTF( "-> writing out shadow information to alfred file.\n" );
 					vector< structJob >::iterator iter = shadowList.begin();
+					//[refactor][1.10.3 begin]
 					if( shadowList.size() ) 
 					{
 						alf_shadows = true;
@@ -2303,9 +2388,11 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						frameScriptJob.childJobs.push_back( shadowJob );
 					}
 				}//if( liqglo.liqglo_doShadows ) 
+				//[refactor][1.10.3 end]
 				LIQDEBUGPRINTF( "-> finished writing out shadow information to render script file.\n" );
 
 				// write out make reflection pass
+				//[refactor][1.10.4 begin]
 				if( refList.size() ) 
 				{
 					LIQDEBUGPRINTF( "-> Generating job for ReflectionMap pass\n" );
@@ -2361,6 +2448,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					}
 					frameScriptJob.childJobs.push_back( reflectJob );
 				}
+				//[refactor][1.10.4 end]
 
 				LIQDEBUGPRINTF( "-> initiating hero pass information.\n" );
 				structJob *frameJob = NULL;
@@ -2378,6 +2466,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 
 				LIQDEBUGPRINTF( "-> hero pass set.\n" );
 				LIQDEBUGPRINTF( "-> writing out pre frame command information to render script file.\n" );
+				//[refactor][1.10.4 begin] to tFrameScriptJobMgr::try_addPreFrameCommand(
 				if( framePreFrameCommand != MString("") ) 
 				{
 					liqRenderScript::Cmd cmd(framePreFrameCommand.asChar(), (liqglo.remoteRender && !liqglo.useNetRman));
@@ -2385,16 +2474,23 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					cmd.alfredTags     = liqglo.m_alfredTags.asChar();
 					frameScriptJob.commands.push_back(cmd);
 				}
+				//[refactor][1.10.4 end] to tFrameScriptJobMgr::try_addPreFrameCommand(
 
 				if( m_outputHeroPass || m_outputShadowPass ) 
 				{
 					std::stringstream ss;
 					std::string ribFileName;
-					if( m_outputHeroPass )
+					if( m_outputHeroPass ){
+						//[refactor][1.10.5 begin] to
 						ribFileName = std::string( frameJob->ribFileName.asChar() );
-					else
+						//[refactor][1.10.5 end]to
+					}else{
+						//[refactor][1.10.6 begin]to
 						ribFileName = std::string( shadowPassJob->ribFileName.asChar() );
-
+						//[refactor][1.10.6 end]to
+					}
+						
+					//[refactor][1.10.7 begin]to tFrameScriptJobMgr::addHeroPass()/tFrameScriptJobMgr::addShadowPass()
 					if ( liqglo.useNetRman ) 
 						ss << framePreCommand.asChar() << " netrender %H ";
 					else
@@ -2409,6 +2505,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #else           
 						ss << ribFileName;
 #endif
+					//[refactor][1.10.7 end]to tFrameScriptJobMgr::addHeroPass()/tFrameScriptJobMgr::addShadowPass()
 
 					liqRenderScript::Cmd cmd(ss.str(), (liqglo.remoteRender && !liqglo.useNetRman));
 					if( liqglo.m_alfredExpand ) 
@@ -2423,6 +2520,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #if 0
 				if( m_outputShadowPass ) 
 				{
+					//[refactor][1.10.8 begin] to tFrameScriptJobMgr::addShadowPass(
 					stringstream ss;
 					if( liqglo.useNetRman ) 
 					{
@@ -2445,6 +2543,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					cmd.alfredServices = liqglo.m_alfredServices.asChar();
 					cmd.alfredTags     = liqglo.m_alfredTags.asChar();
 					frameScriptJob.commands.push_back(cmd);
+					//[refactor][1.10.8 end] to tFrameScriptJobMgr::addShadowPass(
 				}//if( m_outputShadowPass )
 #endif
 				if( liqglo.cleanRib || ( framePostFrameCommand != MString( "" ) ) ) 
@@ -2455,12 +2554,13 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						std::string  ribFileName;
 
 						if( m_outputHeroPass )
-							ribFileName = string( frameJob->ribFileName.asChar() );
+							ribFileName = string( frameJob->ribFileName.asChar() );//[refactor][1.10.9]
 						else if ( m_outputShadowPass) 
-							ribFileName = string( shadowPassJob->ribFileName.asChar() );
+							ribFileName = string( shadowPassJob->ribFileName.asChar() );//[refactor][1.10.10]
 						else
-							ribFileName = string( baseShadowName.asChar() );
-
+							ribFileName = string( baseShadowName.asChar() );//[refactor][1.10.11]
+						
+						//[refactor][1.10.12 begin]to
 						ss << framePreCommand.asChar() << " " << RM_CMD << " ";
 						if ( use_dirmaps ) 
 							ss << "%D(" << ribFileName << ")";
@@ -2476,8 +2576,10 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						jobCleanCommand.alfredServices =  liqglo.m_alfredServices.asChar();
 						jobCleanCommand.alfredTags =  liqglo.m_alfredTags.asChar();
 						frameScriptJob.cleanupCommands.push_back( jobCleanCommand );
+						//[refactor][1.10.12 end]to
 					}
 
+					//[refactor][1.10.13 begin]to
 					if( framePostFrameCommand != MString("") ) 
 					{
 						// liqRenderScript::Cmd cmd(framePostFrameCommand.asChar(), (remoteRender && !useNetRman));
@@ -2486,11 +2588,14 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						cmd.alfredTags =  liqglo.m_alfredTags.asChar();
 						frameScriptJob.cleanupCommands.push_back(cmd);
 					}
+					//[refactor][1.10.13 end]to
+
 				}//if( cleanRib || ( framePostFrameCommand != MString( "" ) ) ) 
 				if( m_outputHeroPass ) 
 					frameScriptJob.chaserCommand = (string( "sho \"" ) + frameJob->imageName.asChar() + "\"" );
 				if( m_outputShadowPass ) 
 					frameScriptJob.chaserCommand = (string( "sho \"" ) + shadowPassJob->imageName.asChar() + "\"" );
+				
 				if( m_outputShadowPass && !m_outputHeroPass ) 
 					lastRibName = liquidGetRelativePath( liqglo.liqglo_relativeFileNames, shadowPassJob->ribFileName, liqglo.liqglo_projectDir );
 				else 
@@ -2506,35 +2611,43 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 		{
 			if( m_preJobCommand != MString( "" ) ) 
 			{
+				//[refactor][1.11 begin]to
 				jobScript.addLeafDependency( preJobInstance );
+				//[refactor][1.11 end]to
 			}
 			// clean up the alfred file in the future
 			if( !m_justRib ) 
 			{
 				if( liqglo.m_deferredGen ) 
 				{
+					//[refactor][1.12 begin]to
 					string cmd = RM_CMD  + string( MString( " \""  + tempDefname + "\"" ).asChar() );
 					liqRenderScript::Cmd jobCleanCmd( cmd, 0 );
 					jobCleanCmd.alfredServices =  liqglo.m_alfredServices.asChar();
 					jobCleanCmd.alfredTags =  liqglo.m_alfredTags.asChar();
 					jobScript.cleanupCommands.push_back( jobCleanCmd );
+					//[refactor][1.12 end]to
 				}
 				if( cleanRenderScript ) 
 				{
+					//[refactor][1.13 ]
 					string cmd = RM_CMD  + string( MString( " \""  + renderScriptName + "\"" ).asChar() );
 					liqRenderScript::Cmd jobCleanCmd( cmd, 0 );
 					jobCleanCmd.alfredServices =  liqglo.m_alfredServices.asChar();
 					jobCleanCmd.alfredTags =  liqglo.m_alfredTags.asChar();
 					jobScript.cleanupCommands.push_back( jobCleanCmd );
+					//[refactor][1.13 ]
 				}
 				if( m_postJobCommand != MString("") ) 
 				{
+					//[refactor][1.14 ]
 					string cmd = m_postJobCommand.asChar();
 
 					liqRenderScript::Cmd jobCleanCmd( cmd, 0 );
 					jobCleanCmd.alfredServices =  liqglo.m_alfredServices.asChar();
 					jobCleanCmd.alfredTags =  liqglo.m_alfredTags.asChar();
 					jobScript.cleanupCommands.push_back( jobCleanCmd );
+					//[refactor][1.14 ]
 				}
 			}
 			if( m_renderScriptFormat == ALFRED ) 
@@ -2563,6 +2676,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 		LIQDEBUGPRINTF( "-> spawning command.\n" );
 		if( liqglo.launchRender ) 
 		{
+			//[refactor][1.15 ]
 			if( useRenderScript ) 
 			{
 				// mesh: This already cheched while reading globals
@@ -2581,13 +2695,17 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #else
 				liqProcessLauncher::execute( m_renderScriptCommand, renderScriptName, liqglo.liqglo_projectDir, false );
 #endif
+
 			} 
+			//[refactor][1.15 ]
 			else 
 			{
+				//[refactor][1.16 ]
 				// launch renders directly
 				liquidMessage( string(), messageInfo ); // emit a '\n'
         		// int exitstat = 0; ???
-
+				
+				//[refactor][1.17 ]
 				// write out make texture pass
 				vector<structJob>::iterator iter = txtList.begin();
 				while ( iter != txtList.end() ) 
@@ -2612,11 +2730,13 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					);
 					++iter;
 				}
+				//[refactor][1.17 ]
 				//
 				// write out shadows
 				//
 				if( liqglo.liqglo_doShadows ) 
 				{
+					//[refactor][1.18 ]
 					liquidMessage( "Rendering shadow maps... ", messageInfo );
 					vector<structJob>::iterator iter = shadowList.begin();
 					while ( iter != shadowList.end() ) 
@@ -2640,6 +2760,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 						) break;
 						++iter;
 					} // while ( iter != shadowList.end() )
+					//[refactor][1.18 ]
 				}
 				//
 				// write out hero pass
@@ -2649,10 +2770,13 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					cerr << "liquidBin = " <<  liqglo.liquidBin << endl << flush; 
 					if( liqglo_currentJob.skip ) 
 					{
+						//[refactor][1.19 ]
 						liquidMessage( "    - skipping '" + string( liqglo_currentJob.ribFileName.asChar() ) + "'", messageInfo );
+						//[refactor][1.19 ]
 					} 
 					else 
 					{
+						//[refactor][1.20 ]
 						liquidMessage( "    + '" + string( liqglo_currentJob.ribFileName.asChar() ) + "'", messageInfo );
 						liqProcessLauncher::execute( 
 							liqglo.liquidRenderer.renderCommand, 
@@ -2665,6 +2789,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 #endif
 							false
 						);
+						//[refactor][1.20 ]
 					}
 				}//if( !exitstat ) 
 			}//if( useRenderScript ) else
@@ -2673,6 +2798,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 			//  to display buckets in the renderview.
 			if ( liqglo.m_renderView ) 
 			{
+				//[refactor][1.21 ]
 				stringstream displayCmd;
 				displayCmd << "liquidRenderView -c " << liqglo.renderCamera.asChar();
 				displayCmd << " -l " << ( ( liqglo.m_renderViewLocal )? "1":"0" );
@@ -2682,9 +2808,11 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					displayCmd << " -doRegion";
 				displayCmd << ";liquidSaveRenderViewImage();";
 				MGlobal::executeCommand( MString( displayCmd.str().c_str() ) );
+				//[refactor][1.21 ]
 			} 
 		} // if( launchRender )
-
+		
+		//[refactor][1.22 ]
 		// return to the frame we were at before we ran the animation
 		LIQDEBUGPRINTF( "-> setting frame to current frame.\n" );
 		MGlobal::viewFrame (originalTime);
@@ -2700,6 +2828,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				throw err;
 			}
 		}
+		//[refactor][1.22 ]
 
 		return ( (ribStatus == kRibOK || liqglo.m_deferredGen) ? MS::kSuccess : MS::kFailure);
 
@@ -2720,6 +2849,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 		m_escHandler.endComputation();
 		return MS::kFailure;
 	}
+	//[refactor][1 end] _doItNewWithoutRenderScript()/_doItNewWithRenderScript()
 }
 
 /**
@@ -2957,6 +3087,8 @@ MStatus liqRibTranslator::buildJobs()
 
 	if( liqglo.liqglo_doShadows ) 
 	{
+		//[refactor 2] begin
+		//[refactor 2.1] begin
 		MItDag dagIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus );
 		for (; !dagIterator.isDone(); dagIterator.next()) 
 		{
@@ -3055,11 +3187,12 @@ MStatus liqRibTranslator::buildJobs()
 					liquidGetPlugValue( fnLightNode, "shadingRateFactor", thisJob.shadingRateFactor, status ); 
 				}
 				// this will store the shadow camera path and the test's result
-				bool lightHasShadowCam = false;
+				bool lightHasShadowCam = false;//1
 				MDagPathArray shadowCamPath;
 
 				if( lightPath.hasFn( MFn::kSpotLight ) || lightPath.hasFn( MFn::kDirectionalLight ) ) 
 				{
+					//[refactor 2.1.1] begin
 					bool computeShadow = true;
 					thisJob.hasShadowCam = false;
 					MPlug liquidLightShaderNodeConnection;
@@ -3078,7 +3211,7 @@ MStatus liqRibTranslator::buildJobs()
 
 						// look for shadow cameras...
 						MStatus stat;
-						//added in liquidMaya r772   begin
+						//[refactor 2.1.1.1] begin//added in liquidMaya r772   begin
 						// at first, check if shadow main camera is specified
 						// cerr << ">> at first, check if shadow main camera is specified for "  << lightPath.fullPathName().asChar() << endl;
 
@@ -3105,7 +3238,7 @@ MStatus liqRibTranslator::buildJobs()
 							}
 						}
 						// now we're looking for extra cameras 
-						//added in liquidMaya r772   end
+						//[refactor 2.1.1.1] end//added in liquidMaya r772   end
 
 						MPlug shadowCamPlug = fnLightShaderNode.findPlug( "shadowCameras", &stat );
 						// find the multi message attribute...
@@ -3132,7 +3265,7 @@ MStatus liqRibTranslator::buildJobs()
 									cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
 									//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
 									shadowCamPath.append( cameraPath );
-									lightHasShadowCam = true;
+									lightHasShadowCam = true;//2
 								}
 							}
 						}
@@ -3163,9 +3296,11 @@ MStatus liqRibTranslator::buildJobs()
 					if( computeShadow )
 						jobList.push_back( thisJob );
 					// We have to handle point lights differently as they need 6 shadow maps!
+					//[refactor 2.1.1] end
 				} 
 				else if( lightPath.hasFn(MFn::kPointLight) ) 
 				{
+					//[refactor 2.1.2] begin
 					for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ ) 
 					{
 						thisJob.hasShadowCam = false;
@@ -3222,7 +3357,7 @@ MStatus liqRibTranslator::buildJobs()
 										cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
 										//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
 										shadowCamPath.append( cameraPath );
-										lightHasShadowCam = true;
+										lightHasShadowCam = true;//3
 									}
 								}
 							}
@@ -3236,6 +3371,9 @@ MStatus liqRibTranslator::buildJobs()
 							jobList.push_back( thisJob );
 					}
 				}
+				//[refactor 2.1.2] end
+
+				//[refactor][2.1.3 begin] to buildShadowJob()
 				// if the job has shadow cameras, we will store them here
 				//
 				if( lightHasShadowCam )
@@ -3285,11 +3423,13 @@ MStatus liqRibTranslator::buildJobs()
 						}
 						jobList.push_back( thisJob );
 					}
+					//[refactor][2.1.3 end] to buildShadowJob()
 				}
 			} // useDepthMap
 			//cout <<thisJob.name.asChar()<<" -> shd:"<<thisJob.isShadow<<" ef:"<<thisJob.everyFrame<<" raf:"<<thisJob.renderFrame<<" set:"<<thisJob.shadowObjectSet.asChar()<<endl;
 		} // light dagIterator
 
+		//[refactor][2.1.4 begin] to buildShadowCameraJob()
 		MDagPath cameraPath;
 		MItDag dagCameraIterator( MItDag::kDepthFirst, MFn::kCamera, &returnStatus );
 		for ( ; !dagCameraIterator.isDone(); dagCameraIterator.next() ) 
@@ -3349,9 +3489,12 @@ MStatus liqRibTranslator::buildJobs()
 				if( computeShadow ) 
 					jobList.push_back( thisJob );
 			}
+			//[refactor][2.1.4 end] to buildShadowCameraJob()
 		} // camera dagIterator
+		//[refactor 2] end
 	} // liqglo_doShadows
 
+	//[refactor 3] begin to tRibCameraMgr::gatherDataForJob()
 	// Determine which cameras to render
 	// it will either traverse the dag and find all the renderable cameras or
 	// grab the current view and render that as a camera - both get added to the
@@ -3388,8 +3531,10 @@ MStatus liqRibTranslator::buildJobs()
 		jobList.push_back( thisJob );
 
 	liqglo.liqglo_shutterTime    = fnCameraNode.shutterAngle() * 0.5 / M_PI;
+	//[refactor 3] end to tRibCameraMgr::gatherDataForJob()
 
-
+	
+	//[refactor 4] begin to buildJobs__()
 	// If we didn't find a renderable camera then give up
 	if( jobList.size() == 0 ) 
 	{
@@ -3483,6 +3628,7 @@ MStatus liqRibTranslator::buildJobs()
 #endif
 	ribStatus = kRibBegin;
 	return MS::kSuccess;
+	//[refactor 4] end to buildJobs__()
 }
 
 /**
@@ -3496,6 +3642,8 @@ MStatus liqRibTranslator::ribPrologue()
 	if( !liqglo.m_exportReadArchive ) 
 	{
 		LIQDEBUGPRINTF( "-> beginning to write prologue\n" );
+
+		//[refactor 5] begin 
 		// general info for traceability
 		//
 		RiArchiveRecord( RI_COMMENT, "    Generated by Liquid v%s", LIQUIDVERSION );
@@ -3513,6 +3661,8 @@ MStatus liqRibTranslator::ribPrologue()
 		time( &now );
 		char* theTime = ctime(&now);
 		RiArchiveRecord( RI_COMMENT, "    Time  : %s", theTime );
+		//[refactor 5] end
+
 		// set any rib options
 		//
 		writeStatisticsOptions();
@@ -3522,6 +3672,7 @@ MStatus liqRibTranslator::ribPrologue()
 
 		// set search paths
 		//
+		//[refactor 6] begin to rm::Renderer::ribPrologue_writeSearthPath ()
 		if ( liqglo.m_dirmaps.length() )
 		{
 			using namespace std;
@@ -3575,9 +3726,12 @@ MStatus liqRibTranslator::ribPrologue()
 			list = const_cast< char* > ( displaySearchPath.asChar() );
 			RiArchiveRecord( RI_VERBATIM, "Option \"searchpath\" \"display\" [\"%s\"]\n", list );
 		}
+		//[refactor 6] end to rm::Renderer::ribPrologue_writeSearthPath ()
+
 		//RiOrientation( RI_RH ); // Right-hand coordinates
 		if( liqglo_currentJob.isShadow ) 
 		{
+			//[refactor 7] 
 			RiPixelSamples( liqglo_currentJob.shadowPixelSamples, liqglo_currentJob.shadowPixelSamples );
 			RiShadingRate( liqglo_currentJob.shadingRateFactor );
 			// Need to use Box filter for deep shadows.
@@ -3588,9 +3742,11 @@ MStatus liqRibTranslator::ribPrologue()
 			else 
 				option = "shadow";
 			RiOption( "user", "string pass", ( RtPointer )&option, RI_NULL );
+			//[refactor 7] 
 		} 
 		else 
 		{
+						//[refactor 8] 
 			RtString hiderName;
 			switch( liqglo.liqglo_hider ) 
 			{
@@ -3615,8 +3771,12 @@ MStatus liqRibTranslator::ribPrologue()
 			}
 			MString hiderOptions = getHiderOptions( liqglo.liquidRenderer.renderName, hiderName );
 			RiArchiveRecord( RI_VERBATIM, "Hider \"%s\" %s\n", hiderName, ( char* )hiderOptions.asChar() );
+			//[refactor 8]
+
 			RiPixelSamples( liqglo.pixelSamples, liqglo.pixelSamples );
+
 			RiShadingRate( liqglo.shadingRate );
+
 			if( liqglo.m_rFilterX > 1 || liqglo.m_rFilterY > 1 ) 
 			{
 				switch (liqglo.m_rFilter) 
@@ -3663,6 +3823,7 @@ MStatus liqRibTranslator::ribPrologue()
 					break;
 				}
 			}
+			//
 			RtString option( "beauty" );
 			RiOption( "user", "string pass", ( RtPointer )&option, RI_NULL );
 		}
@@ -3928,6 +4089,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 		MStatus returnStatus;
 		// scanScene: Scan the scene for lights
 		{
+			//[refactor 9] begin to tLightMgr::scanScene()
 			MItDag dagLightIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus);
 
 			for (; !dagLightIterator.isDone(); dagLightIterator.next()) 
@@ -4001,6 +4163,9 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				}
 			}
 		}
+		//[refactor 9] end to tLightMgr::scanScene()
+
+		//[refactor 10] beg to tLocatorMgr::scanScene()
 		{
 			MItDag dagCoordSysIterator( MItDag::kDepthFirst, MFn::kLocator, &returnStatus);
 
@@ -4045,8 +4210,9 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					continue;
 				}
 			}
-		}
-
+		}	//[refactor 10] end to tLocatorMgr::scanScene()
+	
+		//[refactor 11] 
 		if( !m_renderSelected )
 		{
 			MItDag dagIterator( MItDag::kDepthFirst, MFn::kInvalid, &returnStatus);
@@ -4061,6 +4227,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				if( MS::kSuccess != returnStatus )
 					continue;
 			}
+			//[refactor 11.1] 
 			// scanScene: Now deal with all the particle-instanced objects (where a
 			// particle is replaced by an object or group of objects).
 			//
@@ -4079,6 +4246,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					htable->insert( path, lframe, 0, MRT_Unknown,count++, &instanceMatrix, instanceStr, instancerIter.particleId() );
 				instancerIter.next();
 			}
+			//[refactor 11.1] 
 
 		}
 		else
@@ -4105,6 +4273,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 						continue;
 				}
 			}
+			//[refactor 11.1] 
 			// scanScene: Now deal with all the particle-instanced objects (where a
 			// particle is replaced by an object or group of objects).
 			//
@@ -4125,6 +4294,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					htable->insert( path, lframe, 0, MRT_Unknown,count++, &instanceMatrix, instanceStr, instancerIter.particleId() );
 				instancerIter.next();
 			}
+			//[refactor 11.1] 
 		}
 
 		vector<structJob>::iterator iter = jobList.begin();
@@ -4136,6 +4306,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 
 			if( !iter->isShadow ) 
 			{
+				//[refactor 12] 
 				MDagPath path;
 				MFnCamera   fnCamera( iter->path );
 				iter->gotJobOptions = false;
@@ -4296,9 +4467,11 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					iter->imageMode = "z";
 					iter->format = "zfile";
 				}
+				//[refactor 12] 
 			} 
 			else 
 			{
+				//[refactor 13] 
 				// scanScene: doing shadow render
 				//
 				MDagPath path;
@@ -4446,6 +4619,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					iter->imageMode += "z";
 					iter->format = "shadow";
 				}
+				//[refactor 13] 
 			}
 			++iter;
 		}
@@ -4551,6 +4725,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 
 		if( !liqglo_currentJob.isShadow )
 		{
+			//refactor 14
 			// Smooth Shading
 			RiShadingInterpolation( "smooth" );
 			// Quantization
@@ -4568,11 +4743,13 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 			{
 				RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
 			}
+			//refactor 14
 		}
 		if( liqglo_currentJob.isShadow &&
 			( !liqglo_currentJob.deepShadows ||
 			liqglo_currentJob.shadowPixelSamples == 1 ) )
 		{
+			//refactor 15
 			if( liqglo.liquidRenderer.renderName == MString("Pixie") )
 			{
 				RtFloat zero = 0;
@@ -4583,9 +4760,10 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 				RtInt zero = 0;
 				RiHider( "hidden", "int jitter", &zero, RI_NULL );
 			}
+			//refactor 15
 		}
 		if( liqglo_currentJob.isShadow && liqglo_currentJob.isMidPointShadow && !liqglo_currentJob.deepShadows )
-		{
+		{//refactor 16
 			RtString midPoint = "midpoint";
 			RtFloat midRatio = liqglo_currentJob.midPointRatio;
 
@@ -4593,12 +4771,14 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 
 			if ( liqglo_currentJob.midPointRatio != 0 )
 				RiHider( "hidden", "midpointratio", &midRatio, RI_NULL ); // Output to rib jami
+		//refactor 16
 		}
 
 		LIQDEBUGPRINTF( "-> Setting Display Options\n" );
 		if( liqglo_currentJob.isShadow )
 		{
 			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
+			//refactor 17
 			if( !liqglo_currentJob.isMinMaxShadow )
 			{
 				if( liqglo_currentJob.deepShadows )
@@ -4650,7 +4830,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 						"int aggregate", &aggregate,
 						RI_NULL );
 				}
-			}
+			}//if( !liqglo.liqglo_currentJob.isMinMaxShadow )
 			else
 			{
 				liqRIBMsg("Display 5");
@@ -4662,9 +4842,11 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 					"minmax", &minmax,
 					RI_NULL );
 			}
+			//refactor 17
 		}
 		else
 		{
+			//refactor 18
 			if( ( liqglo.m_cropX1 != 0.0 ) || ( liqglo.m_cropY1 != 0.0 ) || ( liqglo.m_cropX2 != 1.0 ) || ( liqglo.m_cropY2 != 1.0 ) ) 
 			{
 				// philippe : handle the rotated camera case
@@ -4781,6 +4963,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 
 			string paramType[] = { "string ", "float ",  "int " };
 
+			//refactor 19
 			while ( m_displays_iterator != liqglo.m_displays.end() ) 
 			{
 				stringstream parameterString;
@@ -4894,11 +5077,14 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 						dither.str().c_str(), 
 						filter.str().c_str(), 
 						parameterString.str().c_str() );
-				}
+				}//while ( m_displays_iterator != m_displays.end() )
 				m_displays_iterator++;
 			}
+			//refactor 19
+			//refactor 18
 		}
 
+		//refactor 20
 		LIQDEBUGPRINTF( "-> Setting Resolution\n" );
 		// philippe : Rotated Camera Case
 		if( liqglo_currentJob.isShadow == false && liqglo.liqglo_rotateCamera  == true ) 
@@ -5059,8 +5245,9 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 			}
 			RiMotionEnd();
 		}
-
+		//refactor 20
 	}
+	
 	return MS::kSuccess;
 }
 

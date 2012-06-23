@@ -26,6 +26,7 @@ void tLocatorMgr::scanScene(const float lframe__, const int sample__,
 {
 	CM_TRACE_FUNC("tLocatorMgr::scanScene("<<lframe__<<","<<sample__<<",htable__,count__,returnStatus__)");
 
+	//[refactor 10] beg from scanScene()
 	MItDag dagCoordSysIterator( MItDag::kDepthFirst, MFn::kLocator, &returnStatus__);
 
 	for (; !dagCoordSysIterator.isDone(); dagCoordSysIterator.next()) 
@@ -71,4 +72,5 @@ void tLocatorMgr::scanScene(const float lframe__, const int sample__,
 			continue;
 		}
 	}
+	//[refactor 10] end from scanScene()
 }

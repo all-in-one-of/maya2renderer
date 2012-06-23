@@ -31,15 +31,19 @@ struct liqGlobalVariable &liqglo___,
 	// full beauty/shadow rib generation
 	//
 	/* cout <<"  * build full rib"<<endl; */
+
+//[refactor][1.9.2.5 begin] from ribOutput()
 	if( liqRibTranslator::getInstancePtr()->ribPrologue__(currentJob___) == MS::kSuccess ) 
 	{
 		if( liqRibTranslator::getInstancePtr()->framePrologue__( scanTime__, currentJob___ ) != MS::kSuccess ) 
 			return TCB_Break;//break;
+//[refactor][1.9.2.5 end] from ribOutput()
 
 		if (liqRibTranslator::getInstancePtr()->m_OutputShaderGraph){
 			liquidmaya::ShaderMgr::getSingletonPtr()->exportShaderGraph();
 		}
-		
+
+		//[refactor][1.9.2.6 begin] from ribOutput()
 		if( liqRibTranslator::getInstancePtr()->worldPrologue__(currentJob___) != MS::kSuccess ) 
 			return TCB_Break;//break;
 		if( !currentJob___.isShadow || ( currentJob___.isShadow && currentJob___.deepShadows && m_outputLightsInDeepShadows__) ) 
@@ -51,9 +55,14 @@ struct liqGlobalVariable &liqglo___,
 			return TCB_Break;//break;
 		if( liqRibTranslator::getInstancePtr()->worldEpilogue__() != MS::kSuccess ) 
 			return TCB_Break;//break;
+		//[refactor][1.9.2.6 end] from ribOutput()
+
+		//[refactor][1.9.2.7 begin] from ribOutput()
 		if( liqRibTranslator::getInstancePtr()->frameEpilogue__( scanTime__ ) != MS::kSuccess ) 
 			return TCB_Break;//break;
 		liqRibTranslator::getInstancePtr()->ribEpilogue__(currentJob___);
+		//[refactor][1.9.2.7 end]  ribOutput()
+
 		// output info when done with the rib - Alf
 		printf("Finished RIB generation %s\n", currentJob___.ribFileName.asChar());
 	}
@@ -132,7 +141,8 @@ void tHeroRibWriterMgr::ribPrologue_filter(
 void tHeroRibWriterMgr::ribPrologue_hider(HiderType hidertype)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::ribPrologue_hider("<<hidertype<<")");
-
+				
+	//[refactor 8] 
 	RtString hiderName;
 	switch( hidertype ) 
 	{
@@ -157,7 +167,7 @@ void tHeroRibWriterMgr::ribPrologue_hider(HiderType hidertype)
 	}
 	MString hiderOptions = getHiderOptions( liqglo.liquidRenderer.renderName, hiderName );
 	RiArchiveRecord( RI_VERBATIM, "Hider \"%s\" %s\n", hiderName, ( char* )hiderOptions.asChar() );
-
+	//[refactor 8]
 }
 //
 void tHeroRibWriterMgr::ribPrologue_pass(RtString pass)
@@ -170,7 +180,8 @@ void tHeroRibWriterMgr::ribPrologue_pass(RtString pass)
 void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::framePrologue_display("<<currentJob.name.asChar()<<")");
-
+	
+			//refactor 14
 			// Smooth Shading
 			RiShadingInterpolation( "smooth" );
 			// Quantization
@@ -188,8 +199,9 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			{
 				RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
 			}
-
+			//refactor 14
 			LIQDEBUGPRINTF( "-> Setting Display Options\n" );
+			//refactor 18
 			if( ( liqglo.m_cropX1 != 0.0 ) || ( liqglo.m_cropY1 != 0.0 ) || ( liqglo.m_cropX2 != 1.0 ) || ( liqglo.m_cropY2 != 1.0 ) ) 
 			{
 				// philippe : handle the rotated camera case
@@ -203,12 +215,13 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			{
 				RiArchiveRecord( RI_COMMENT, "Display Channels:" );
 				// philippe -> to do : move this to higher scope ?
-				MStringArray channeltype;
-				channeltype.append( "float" );
-				channeltype.append( "color" );
-				channeltype.append( "point" );
-				channeltype.append( "normal" );
-				channeltype.append( "vector" );
+				//MStringArray channeltype;
+				//channeltype.append( "float" );
+				//channeltype.append( "color" );
+				//channeltype.append( "point" );
+				//channeltype.append( "normal" );
+				//channeltype.append( "vector" );
+				std::string  channeltype[] = { "float", "color", "point", "normal", "vector" };
 
 				std::vector<StructChannel>::iterator m_channels_iterator;
 				m_channels_iterator = liqglo.m_channels.begin();
@@ -219,23 +232,21 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					RtToken   tokens[5];
 					RtPointer values[5];
 
-					MString channel;
+					std::stringstream channel;
 					char* filter;
 					int quantize[4];
 					float filterwidth[2];
 					float dither;
 
-					// #if defined( GENERIC_RIBLIB )          
-					MString quantize_str;
-					MString dither_str;
-					MString filter_str;
-					// #endif
-					channel = channeltype[m_channels_iterator->type];
-					char theArraySize[8];
-					sprintf( theArraySize, "%d", m_channels_iterator->arraySize );
-					if( m_channels_iterator->arraySize > 0 ) 
-						channel += "[" + (MString)theArraySize + "]";
-					channel += " " + m_channels_iterator->name ;
+// #if defined( GENERIC_RIBLIB )          
+					std::stringstream quantize_str;
+					std::stringstream dither_str;
+					std::stringstream filter_str;
+// #endif
+					channel << channeltype[m_channels_iterator->type];
+					if ( m_channels_iterator->arraySize > 0 ) 
+						channel << "[" << m_channels_iterator->arraySize << "]";
+					channel << " " << m_channels_iterator->name.asChar();
 
 					if( m_channels_iterator->quantize ) 
 					{
@@ -249,16 +260,12 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 #if !defined( GENERIC_RIBLIB )               
 					}
 #else
-						MString maxStr, dStr;
-						maxStr.set( max );
-						quantize_str = "\"int[4] quantize\" [ 0 " + maxStr + " 0 " + maxStr + " ]";
-
-						dStr.set( dither, 4 );
-						dither_str = "\"float dither\" ["+ dStr +"]";
+						quantize_str << "\"int[4] quantize\" [ 0 " << max << " 0 " << max << " ]";
+						dither_str << "\"float dither\" [" << dither << "]";
 					}
 					else
 					{
-						quantize_str = "\"int[4] quantize\" [ 0 0 0 0 ]"; 
+						quantize_str << "\"int[4] quantize\" [ 0 0 0 0 ]"; 
 						dither_str.clear();
 					}
 #endif
@@ -283,10 +290,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 #if !defined( GENERIC_RIBLIB )               
 					}
 #else
-						MString pixFilterX, pixFilterY;
-						pixFilterX.set( filterwidth[0], 4 );
-						pixFilterY.set( filterwidth[1], 4 );
-						filter_str = "\"string filter\" [\"" + pixFilter +"\"] \"float filterwidth[2]\" [" + pixFilterX + " " + pixFilterY +"]";
+						filter_str << "\"string filter\" [\"" << pixFilter.asChar() << "\"] \"float filterwidth[2]\" [" << filterwidth[0] << " " << filterwidth[1] << "]";
 					} 
 					else
 						filter_str.clear();
@@ -294,11 +298,12 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 
 #if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
 					//if( liquidRenderer.renderName == MString("PRMan") )
-					RiDisplayChannelV( ( RtToken )channel.asChar(), numTokens, tokens, values );
+					RiDisplayChannelV( ( RtToken )channel.str().c_str(), numTokens, tokens, values );
 #else
 					// || defined( GENERIC_RIBLIB )
 
-					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s\" %s %s %s", const_cast< char* >( channel.asChar() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
+					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s\" %s %s %s",
+						const_cast< char* >( channel.str().c_str() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
 
 #endif
 					m_channels_iterator++;
@@ -313,20 +318,18 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			std::vector<StructDisplay>::iterator m_displays_iterator;
 			m_displays_iterator = liqglo.m_displays.begin();
 
-			MString parameterString;
-			MString imageName;
-			MString imageType;
-			MString imageMode;
-			MString quantizer;
-			MString dither;
-			MString filter;
-			MStringArray paramType;
-			paramType.append( "string " );
-			paramType.append( "float " );
-			paramType.append( "int " );
-
+			std::string paramType[] = { "string ", "float ",  "int " };
+			
+			//refactor 19
 			while ( m_displays_iterator != liqglo.m_displays.end() ) 
-			{
+			{	
+				std::stringstream parameterString;
+				std::stringstream imageName;
+				std::string imageType;
+				std::string imageMode;
+				std::stringstream quantizer;
+				std::stringstream dither;
+				std::stringstream filter;
 				// check if additionnal displays are enabled
 				// if not, call it off after the 1st iteration.
 				if( liqglo.m_ignoreAOVDisplays && m_displays_iterator > liqglo.m_displays.begin() ) 
@@ -336,28 +339,19 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				// when you render to maya's renderview.
 				if( m_displays_iterator == liqglo.m_displays.begin() && liqglo.m_renderView ) 
 				{
-					MString imageName( liqglo.m_pixDir );
-					imageName += parseString( liqglo.m_displays[ 0 ].name, false );
-					//imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
+					//MString imageName( liqglo.m_pixDir );
+					//imageName += parseString( liqglo.m_displays[ 0 ].name, false );
+					imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );
 
-					MString formatType = "liqmaya";
-					MString imageMode = "rgba";
-
-					// char tmp[20];
-					// sprintf( tmp, "%i", m_renderViewPort);
-					// MString port = ( char* )tmp;
-					MString port;
-					port.set( liqglo.m_renderViewPort );
-
-					MString host = "localhost";
-					if( !liqglo.m_renderViewLocal ) 
-						MGlobal::executeCommand( "strip(system(\"echo $HOST\"));", host );
+					// TODO: It doesn't work on windoze...
+					//MString host = "localhost";
+					//if( !m_renderViewLocal ) 
+					//  MGlobal::executeCommand( "strip(system(\"echo $HOST\"));", host );
 
 					liqRIBMsg("Display 7");
 					RiArchiveRecord( RI_COMMENT, "Render To Maya renderView :" );
-					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%s] \"string host\" [\"%s\"]\n", 
-						const_cast< char* >( imageName.asChar() ), 
-						formatType.asChar(), imageMode.asChar(), port.asChar(), host.asChar() );
+					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%d] \"string host\" [\"%s\"]\n", 
+						const_cast< char* >( imageName.str().c_str() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
 
 					// in this case, override the launch render settings
 					if( liqglo.launchRender == false ) 
@@ -371,48 +365,36 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						m_displays_iterator++;
 						continue;
 					}
-					// get display name
-					// defaults to scenename.0001.tif if left empty
-					imageName = (*m_displays_iterator).name;
-					if( imageName == "" ) 
-						imageName = liquidTransGetSceneName() + ".#." + liqglo.outExt;
-					imageName = liqglo.m_pixDir + parseString( imageName, false );
 					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
 					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
-					if( m_displays_iterator > liqglo.m_displays.begin() ) 
-						imageName = "+" + imageName;
+					if ( m_displays_iterator == liqglo.m_displays.begin() ) 
+						imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );  
+					else
+						imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob ) ;
+
 					// get display type ( tiff, openexr, etc )
-					imageType = (*m_displays_iterator).type;
 					if( !isBatchMode() ){
-						if( imageType == "" )
-							imageType = "framebuffer";
+						imageType = ((*m_displays_iterator).type == "")? 
+							"framebuffer" : (*m_displays_iterator).type.asChar();
 					}else {// if in batch mode, we always use "file"
 						imageType = "file";
 					}
 					// get display mode ( rgb, z or defined display channel )
-					imageMode = (*m_displays_iterator).mode;
-					if( imageMode == "" ) 
-						imageMode = "rgba";
+					imageMode = ( (*m_displays_iterator).mode == "")? "rgba" : (*m_displays_iterator).mode.asChar();
+
 					// get quantization params
 					if( (*m_displays_iterator).doQuantize && m_displays_iterator > liqglo.m_displays.begin() ) 
 					{
 						if( (*m_displays_iterator).bitDepth != 0 ) 
 						{
-							MString maxStr;
 							int max = (int) pow( 2.0, (*m_displays_iterator).bitDepth ) - 1;
-
-							maxStr.set( (double)max );
-							quantizer = "\"float quantize[4]\" [ 0 " + maxStr + " 0 " + maxStr + " ]";
-
+							quantizer << "\"float quantize[4]\" [ 0 " << max << " 0 " << max << " ]";
 						} 
-						else 
-							quantizer = "\"float quantize[4]\" [ 0 0 0 0 ]";
-						// char tmp[20];
-						//sprintf( tmp, "%.1f", (*m_displays_iterator).dither );
-						//  MString dStr = ( char* )tmp;
-						MString dStr; 
-						dStr.set( (*m_displays_iterator).dither, 3 );
-						dither = "\"float dither\" ["+ dStr +"]";
+						else{
+							quantizer << "\"float quantize[4]\" [ 0 0 0 0 ]";
+						}
+
+						dither << "\"float dither\" [" << (*m_displays_iterator).dither <<"]";
 
 					} 
 					else 
@@ -424,15 +406,9 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					// get filter params
 					if( (*m_displays_iterator).doFilter && m_displays_iterator > liqglo.m_displays.begin() )
 					{
-
-						MString pixFilter( liqglo.liquidRenderer.pixelFilterNames[(*m_displays_iterator).filter] );
-
-						MString pixFilterX;  
-						MString pixFilterY;
-						pixFilterX.set( (*m_displays_iterator).filterX, 4 );
-						pixFilterY.set( (*m_displays_iterator).filterY, 4 );
-
-						filter = "\"string filter\" [\"" + pixFilter +"\"] \"float filterwidth[2]\" [" + pixFilterX + " " + pixFilterY +"]";
+						filter << "\"string filter\" [\"" <<  liqglo.liquidRenderer.pixelFilterNames[(*m_displays_iterator).filter].asChar() << "\"] ";
+						filter << "\"float filterwidth[2]\" ";
+						filter << "[" << (*m_displays_iterator).filterX << " " << (*m_displays_iterator).filterY << "]";
 					} 
 					else 
 						filter.clear();
@@ -441,26 +417,28 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					parameterString.clear();
 					for ( int p = 0; p < (*m_displays_iterator).xtraParams.num; p++ ) 
 					{
-						parameterString += "\"";
-						parameterString += paramType[ (*m_displays_iterator).xtraParams.type[p] ];
-						parameterString += (*m_displays_iterator).xtraParams.names[p].asChar();
-						parameterString += "\" [";
-						parameterString += ((*m_displays_iterator).xtraParams.type[p] > 0)? "":"\"";
-						parameterString += (*m_displays_iterator).xtraParams.data[p].asChar();
-						parameterString += ((*m_displays_iterator).xtraParams.type[p] > 0)? "] ":"\"] ";
+						parameterString << "\"";
+						parameterString << paramType[ (*m_displays_iterator).xtraParams.type[p] ];
+						parameterString << (*m_displays_iterator).xtraParams.names[p].asChar();
+						parameterString << "\" [";
+						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "":"\"";
+						parameterString << (*m_displays_iterator).xtraParams.data[p].asChar();
+						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "] ":"\"] ";
 					}
 
 					liqRIBMsg("Display 8");
 					// output call
 					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" %s %s %s %s\n", 
-						const_cast< char* >( imageName.asChar() ), 
-						imageType.asChar(), 
-						imageMode.asChar(), 
-						( quantizer.length() )? quantizer.asChar() : "", 
-						( dither.length() )? dither.asChar() : "", 
-						( filter.length() )? filter.asChar() : "", 
-						( parameterString.length() )? parameterString.asChar() : "" );
+						const_cast< char* >( imageName.str().c_str() ), 
+						imageType.c_str(), 
+						imageMode.c_str(), 
+						quantizer.str().c_str(), 
+						dither.str().c_str(), 
+						filter.str().c_str(), 
+						parameterString.str().c_str() );
 				}
 				m_displays_iterator++;
 			}//while ( m_displays_iterator != m_displays.end() )
+			//refactor 19
+			//refactor 18
 }

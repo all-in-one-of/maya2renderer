@@ -61,7 +61,9 @@ void tFrameScriptJobMgr::makeTexture(
 		makeTexturePass(txtList___, textureJob, 
 			alf_textures__, alf_shadows__, alf_refmaps__ 
 			);
+		//[refactor][1.10.2.2 begin] from _doIt()
 		m_frameScriptJob.childJobs.push_back( textureJob );
+		//[refactor][1.10.2.2 end] from _doIt()
 	}//if( txtList.size() )
 }
 //
@@ -74,14 +76,15 @@ void tFrameScriptJobMgr::makeTexturePass(
 									   )
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::makeTexturePass(txtList___,textureJob__,"<<alf_textures__<<","<<alf_shadows__<<","<<alf_refmaps__<<")");
-
+	//[refactor][1.10.2 begin] from _doIt()
 	std::vector<structJob>::iterator iter = txtList__.begin();
-
+	
+	//[refactor][1.10.2.1 begin]from _doIt()
 	alf_textures__ = true;
-
 	std::stringstream ts;
 	ts << "Textures." << liqglo.liqglo_lframe;
 	textureJob__.title = ts.str();
+	//[refactor][1.10.2.1 end]from _doIt()
 
 	while ( iter != txtList__.end() ) 
 	{
@@ -106,6 +109,8 @@ void tFrameScriptJobMgr::makeTexturePass(
 		++iter;
 		textureJob__.childJobs.push_back( textureSubtask );
 	}
+	//[refactor][1.10.2 end] from _doIt()
+
 }
 //
 void tFrameScriptJobMgr::makeShadow(
@@ -117,10 +122,14 @@ void tFrameScriptJobMgr::makeShadow(
 				)
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::makeShadow(shadowList__,"<<alf_textures__<<","<<alf_shadows__<<","<<alf_refmaps__<<","<<currentBlock__<<")");
-
+	//[refactor][1.7.2 begin] from _doIt()
 	const MString framePreCommand(parseString( liqglo.m_preCommand, false));
-	const MString frameRenderCommand( parseString( liqglo.liquidRenderer.renderCommand + " " + liqglo.liquidRenderer.renderCmdFlags, false ));
+	//[refactor][1.7.2 end] from _doIt()
+	//[refactor][1.7.1 begin] from _doIt()
+	const MString frameRenderCommand( parseString( m_renderCommand + " " + liqglo.liquidRenderer.renderCmdFlags, false ));
+	//[refactor][1.7.1 end] from _doIt()
 
+	//[refactor][1.10.3 begin]
 	if( shadowList__.size() ) 
 	{
 		liqRenderScript::Job shadowJob;
@@ -131,6 +140,7 @@ void tFrameScriptJobMgr::makeShadow(
 			);
 		m_frameScriptJob.childJobs.push_back( shadowJob );
 	}//if( shadowList.size() )
+	//[refactor][1.10.3 end]
 }
 //
 void tFrameScriptJobMgr::makeShadowPass(
@@ -150,7 +160,6 @@ void tFrameScriptJobMgr::makeShadowPass(
 	std::vector< structJob >::iterator iter = shadowList__.begin();
 
 	alf_shadows__ = true;
-
 	std::stringstream ts;
 	ts << "Shadows." << liqglo.liqglo_lframe;
 	shadowJob__.title = ts.str();
@@ -180,16 +189,19 @@ void tFrameScriptJobMgr::makeShadowPass(
 		std::stringstream ss;
 		if( liqglo.useNetRman ) 
 		{
+			if ( liqglo.useNetRman ) 
+				ss << framePreCommand.asChar() << " netrender %H ";
+			else
+				ss << framePreCommand.asChar() << " " << frameRenderCommand.asChar() << " ";
+			ss << "-Progress ";
+
+			if ( use_dirmaps ) 
+				ss << "%D(" << iter->ribFileName.asChar() << ")";
+			else
 #ifdef _WIN32
-			ss << framePreCommand__.asChar() << " netrender %H -Progress \"" << iter->ribFileName.asChar() << "\"";
+				ss << "\"" << iter->ribFileName.asChar() << "\"";
 #else
-			ss << framePreCommand__.asChar() << " netrender %H -Progress " << iter->ribFileName.asChar();
-#endif
-		} else {
-#ifdef _WIN32
-			ss << framePreCommand__.asChar() << " " << frameRenderCommand__.asChar() << " \"" << iter->ribFileName.asChar() << "\"";
-#else
-			ss << framePreCommand__.asChar() << " " << frameRenderCommand__.asChar() << " " << iter->ribFileName.asChar();
+				ss << iter->ribFileName.asChar();
 #endif
 		}
 		liqRenderScript::Cmd cmd(ss.str(), (liqglo.remoteRender && !liqglo.useNetRman));
@@ -203,14 +215,17 @@ void tFrameScriptJobMgr::makeShadowPass(
  		if(liqglo.cleanRib)  
  		{
  			std::stringstream ss;
- #ifdef _WIN32
- 			ss << framePreCommand__.asChar() << " " << RM_CMD << " \"" << iter->ribFileName.asChar() << "\"";
- #else
- 			ss << framePreCommand__.asChar() << " " << RM_CMD << " " << iter->ribFileName.asChar();
- #endif
- 
- 			shadowSubtask.cleanupCommands.push_back( liqRenderScript::Cmd( ss.str(), liqglo.remoteRender ) );
- 		}
+			ss << framePreCommand.asChar() << " " << RM_CMD << " ";
+#ifdef _WIN32
+			ss << "\"" << iter->ribFileName.asChar() << "\"";
+#else
+			ss << iter->ribFileName.asChar();
+#endif
+			liqRenderScript::Cmd jobShdCommand( ss.str(), liqglo.remoteRender );
+			jobShdCommand.alfredServices = liqglo.m_alfredServices.asChar();
+			jobShdCommand.alfredTags     = liqglo.m_alfredTags.asChar();
+			shadowSubtask.cleanupCommands.push_back( jobShdCommand );
+		}
 		shadowSubtask.chaserCommand = ( std::string( "sho \"" ) + iter->imageName.asChar() + "\"" );
 		++iter;
 		if( !liqglo.m_alfShadowRibGen && !liqglo.fullShadowRib ) 
@@ -227,7 +242,7 @@ void tFrameScriptJobMgr::makeReflection(
 					)
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::makeReflection(refList__,"<<alf_textures__<<","<<alf_shadows__<<","<<alf_refmaps__<<")");
-
+	//[refactor][1.10.4 begin] from _doIt()
 	if( refList__.size() ) 
 	{	
 		liqRenderScript::Job reflectJob;
@@ -235,7 +250,8 @@ void tFrameScriptJobMgr::makeReflection(
 			alf_textures__, alf_shadows__, alf_refmaps__
 			);
 		m_frameScriptJob.childJobs.push_back( reflectJob );
-	}
+	}	
+	//[refactor][1.10.4 end] from _doIt()
 }
 //
 void tFrameScriptJobMgr::makeReflectionPass(
@@ -306,7 +322,7 @@ void tFrameScriptJobMgr::makeReflectionPass(
 void tFrameScriptJobMgr::try_addPreFrameCommand(const MString &framePreFrameCommand__)
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::try_addPreFrameCommand("<<framePreFrameCommand__.asChar()<<")");
-
+	//[refactor][1.10.4 begin] from _doIt()
 	if( framePreFrameCommand__ != MString("") ) 
 	{
 		liqRenderScript::Cmd cmd(framePreFrameCommand__.asChar(), (liqglo.remoteRender && !liqglo.useNetRman));
@@ -314,17 +330,21 @@ void tFrameScriptJobMgr::try_addPreFrameCommand(const MString &framePreFrameComm
 		cmd.alfredTags     = liqglo.m_alfredTags.asChar();
 		m_frameScriptJob.commands.push_back(cmd);
 	}
+	//[refactor][1.10.4 end] from _doIt()
 }
 //
 void tFrameScriptJobMgr::try_addPostFrameCommand(const MString &framePostFrameCommand__)
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::try_addPostFrameCommand("<<framePostFrameCommand__.asChar()<<")");
-
+	//[refactor][1.10.13 begin]from
 	if( framePostFrameCommand__ != MString("") ) 
 	{
-		liqRenderScript::Cmd cmd(framePostFrameCommand__.asChar(), (liqglo.remoteRender && !liqglo.useNetRman));
+		liqRenderScript::Cmd cmd( framePostFrameCommand.asChar(), ( liqglo.remoteRender && !liqglo.useNetRman) );
+		cmd.alfredServices =  liqglo.m_alfredServices.asChar();
+		cmd.alfredTags =  liqglo.m_alfredTags.asChar();	
 		m_frameScriptJob.cleanupCommands.push_back(cmd);// why cleanupCommand? not command or childJob? Is it a bug?
-	}
+
+	}//[refactor][1.10.13 end]from
 }
 //
 void tFrameScriptJobMgr::addHeroPass(
@@ -336,28 +356,27 @@ void tFrameScriptJobMgr::addHeroPass(
 	CM_TRACE_FUNC("tFrameScriptJobMgr::addHeroPass("<<ribFileName__t.asChar()<<","<<framePreCommand__.asChar()<<","<<frameRenderCommand__.asChar()<<")");
 
 	std::stringstream ss;
+	//[refactor][1.10.5 begin]
 	MString ribFileName__ = ribFileName__t;
-	if ( liqglo.m_dirmaps.length() )
-	{  
-		ribFileName__ = "\\\"%D(" + ribFileName__t + ")\\\"";      
-		LIQDEBUGPRINTF( "==> Set DirMaps : %s.\n", liqglo.m_dirmaps.asChar() );
-	}
-	if( liqglo.useNetRman ) 
-	{
-#ifdef _WIN32
-		ss << framePreCommand__.asChar() << " netrender %H -Progress \"" << ribFileName__.asChar() << "\"";
-#else
-		ss << framePreCommand__.asChar() << " netrender %H -Progress " << ribFileName__.asChar();
+	//[refactor][1.10.5 end]
+
+	//[refactor][1.10.7 begin]
+	if ( liqglo.useNetRman ) 
+		ss << framePreCommand__.asChar() << " netrender %H ";
+	else
+		ss << framePreCommand__.asChar() << " " << frameRenderCommand__.asChar();
+	ss << " -Progress ";
+
+	if ( liqglo.m_dirmaps.length() ) 
+		ss << "%D("  << ribFileName__.asChar()  << ")";
+	else
+#ifdef _WIN32            
+		ss << "\"" << ribFileName__.asChar()  << "\"";
+#else           
+		ss << ribFileName__.asChar() ;
 #endif
-	} 
-	else 
-	{
-#ifdef _WIN32
-		ss << framePreCommand__.asChar() << " " << frameRenderCommand__.asChar() << " -Progress \"" << ribFileName__.asChar() << "\"";
-#else
-		ss << framePreCommand__.asChar() << " " << frameRenderCommand__.asChar() << " -Progress " << ribFileName__.asChar();
-#endif
-	}
+	//[refactor][1.10.7 end]
+
 	liqRenderScript::Cmd cmd(ss.str(), (liqglo.remoteRender && !liqglo.useNetRman));
 	if( liqglo.m_alfredExpand ) 
 		cmd.alfredExpand = true;
@@ -375,6 +394,9 @@ void tFrameScriptJobMgr::addShadowPass(
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::addShadowPass("<<ribFileName__.asChar()<<","<<framePreCommand__.asChar()<<","<<frameRenderCommand__.asChar()<<")");
 
+	this->addHeroPass(ribFileName__, framePreCommand__, frameRenderCommand__);
+	
+	//[refactor][1.10.8 begin] from _doIt()
 	std::stringstream ss;
 	if( liqglo.useNetRman ) 
 	{
@@ -397,6 +419,7 @@ void tFrameScriptJobMgr::addShadowPass(
 	cmd.alfredServices = liqglo.m_alfredServices.asChar();
 	cmd.alfredTags     = liqglo.m_alfredTags.asChar();
 	m_frameScriptJob.commands.push_back(cmd);
+	//[refactor][1.10.8 end] from _doIt()
 }
 //
 void tFrameScriptJobMgr::cleanHeroPass(const MString &framePreCommand__,
@@ -404,15 +427,26 @@ void tFrameScriptJobMgr::cleanHeroPass(const MString &framePreCommand__,
 									   )
 {
 	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanHeroPass("<<framePreCommand__.asChar()<<","<<ribFileName__.asChar()<<")");
-
+	
 	std::stringstream ss;
-#ifdef _WIN32
-	ss << framePreCommand__.asChar() << " " << RM_CMD << " \"" << ribFileName__.asChar() << "\"";
-#else
-	ss << framePreCommand__.asChar() << " " << RM_CMD << " " << ribFileName__.asChar();
-#endif
-	m_frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), liqglo.remoteRender));
 
+	//[refactor][1.10.12 begin]from
+	ss << framePreCommand__.asChar() << " " << RM_CMD << " ";
+	if (  liqglo.m_dirmaps.length() ) 
+		ss << "%D(" << ribFileName__.asChar() << ")";
+	else
+#ifdef _WIN32
+		ss << "\"" << ribFileName__.asChar() << "\"";
+#else
+		ss << ribFileName__.asChar();
+#endif
+
+	// frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), remoteRender));
+	liqRenderScript::Cmd jobCleanCommand( ss.str(),  liqglo.remoteRender );
+	jobCleanCommand.alfredServices =  liqglo.m_alfredServices.asChar();
+	jobCleanCommand.alfredTags =  liqglo.m_alfredTags.asChar();
+	m_frameScriptJob.cleanupCommands.push_back( jobCleanCommand );
+	//[refactor][1.10.12 end] from
 }
 //
 void tFrameScriptJobMgr::cleanShadowPass(const MString &framePreCommand__,
@@ -421,13 +455,24 @@ void tFrameScriptJobMgr::cleanShadowPass(const MString &framePreCommand__,
 	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanShadowPass("<<framePreCommand__.asChar()<<","<<ribFileName__.asChar()<<")");
 
 	std::stringstream ss;
-#ifdef _WIN32
-	ss << framePreCommand__.asChar() << " " << RM_CMD << " \"" << ribFileName__.asChar() << "\"";
-#else
-	ss << framePreCommand__.asChar() << " " << RM_CMD << " " << ribFileName__.asChar();
-#endif
-	m_frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), liqglo.remoteRender));
 
+	//[refactor][1.10.12 begin]from
+	ss << framePreCommand__.asChar() << " " << RM_CMD << " ";
+	if (  liqglo.m_dirmaps.length() ) 
+		ss << "%D(" << ribFileName__.asChar() << ")";
+	else
+#ifdef _WIN32
+		ss << "\"" << ribFileName__.asChar() << "\"";
+#else
+		ss << ribFileName__.asChar();
+#endif
+
+	// frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), remoteRender));
+	liqRenderScript::Cmd jobCleanCommand( ss.str(),  liqglo.remoteRender );
+	jobCleanCommand.alfredServices =  liqglo.m_alfredServices.asChar();
+	jobCleanCommand.alfredTags =  liqglo.m_alfredTags.asChar();
+	m_frameScriptJob.cleanupCommands.push_back( jobCleanCommand );
+	//[refactor][1.10.12 end] from
 }
 //
 void tFrameScriptJobMgr::cleanShadowRibGen(const MString &framePreCommand__,
@@ -436,13 +481,24 @@ void tFrameScriptJobMgr::cleanShadowRibGen(const MString &framePreCommand__,
 	CM_TRACE_FUNC("tFrameScriptJobMgr::cleanShadowRibGen("<<framePreCommand__.asChar()<<","<<ribFileName__.asChar()<<")");
 
 	std::stringstream ss;
-#ifdef _WIN32
-	ss << framePreCommand__.asChar() << " " << RM_CMD << " \"" << ribFileName__.asChar() << "\"";
-#else
-	ss << framePreCommand__.asChar() << " " << RM_CMD << " " << ribFileName__.asChar();
-#endif
-	m_frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), liqglo.remoteRender));
 
+	//[refactor][1.10.12 begin]from
+	ss << framePreCommand__.asChar() << " " << RM_CMD << " ";
+	if (  liqglo.m_dirmaps.length() ) 
+		ss << "%D(" << ribFileName__.asChar() << ")";
+	else
+#ifdef _WIN32
+		ss << "\"" << ribFileName__.asChar() << "\"";
+#else
+		ss << ribFileName__.asChar();
+#endif
+
+	// frameScriptJob.cleanupCommands.push_back(liqRenderScript::Cmd(ss.str(), remoteRender));
+	liqRenderScript::Cmd jobCleanCommand( ss.str(),  liqglo.remoteRender );
+	jobCleanCommand.alfredServices =  liqglo.m_alfredServices.asChar();
+	jobCleanCommand.alfredTags =  liqglo.m_alfredTags.asChar();
+	m_frameScriptJob.cleanupCommands.push_back( jobCleanCommand );
+	//[refactor][1.10.12 end] from
 }
 //
 void tFrameScriptJobMgr::viewHeroPassImage(const MString &imageName__)

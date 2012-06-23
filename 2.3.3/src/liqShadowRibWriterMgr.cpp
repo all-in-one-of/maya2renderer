@@ -34,23 +34,33 @@ TempControlBreak tShadowRibWriterMgr::write(
 		//begin
 		liquid::RendererMgr::getInstancePtr()->
 			getRenderer()->BaseShadowBegin(currentJob___);
-		//
+
+		//[refactor][1.9.2.6 begin] from ribOutput()
 		if( liqRibTranslator::getInstancePtr()->worldPrologue__(currentJob___) != MS::kSuccess )
 			return TCB_Break;//break;
-		if( currentJob___.isShadow && currentJob___.deepShadows && m_outputLightsInDeepShadows__ ) 
+
+		if( currentJob___.isShadow 
+			//[refactor][1.9.2.2 begin] from _doIt()
+			&& currentJob___.deepShadows && m_outputLightsInDeepShadows__ 
+			//[refactor][1.9.2.2 end] from _doIt()			
+			) {
 			if( liqRibTranslator::getInstancePtr()->lightBlock__(currentJob___) != MS::kSuccess ) 
 				return TCB_Break;//break;
+		}
+
 		if( liqRibTranslator::getInstancePtr()->coordSysBlock__(currentJob___) != MS::kSuccess ) 
 			return TCB_Break;//break;
 		if( liqRibTranslator::getInstancePtr()->objectBlock__(currentJob___) != MS::kSuccess ) 
 			return TCB_Break;//break;
 		if( liqRibTranslator::getInstancePtr()->worldEpilogue__() != MS::kSuccess ) 
 			return TCB_Break;//break;
+		//[refactor][1.9.2.6 end] from ribOutput()
 		//end
 		liquid::RendererMgr::getInstancePtr()->
 			getRenderer()->BaseShadowEnd(currentJob___);
 
 		//------------------------------------------------------------
+		//[refactor][1.9.2.3 begin] from _doIt()
 		// mark all other jobs with the same set as done
 		std::vector<structJob>::iterator iterCheck = jobList__.begin();
 		while ( iterCheck != jobList__.end() ) 
@@ -63,6 +73,7 @@ TempControlBreak tShadowRibWriterMgr::write(
 			++iterCheck;
 		}
 		liqglo.m_alfShadowRibGen = true;
+		//[refactor][1.9.2.3 end] from _doIt()
 		//------------------------------------------------------------
 	}
 	else{
@@ -76,19 +87,21 @@ TempControlBreak tShadowRibWriterMgr::write(
 		//begin
 		liquid::RendererMgr::getInstancePtr()->
 			getRenderer()->ShadowPassBegin(currentJob___);
-
+//[refactor][1.9.2.5 begin] from ribOutput()
 		if( liqRibTranslator::getInstancePtr()->ribPrologue__(currentJob___) == MS::kSuccess ) 
 		{
 			if( liqRibTranslator::getInstancePtr()->framePrologue__( scanTime__, currentJob___) != MS::kSuccess ) 
 				return TCB_Break;//break;
-			
+//[refactor][1.9.2.5 end] from ribOutput()			
 			// reference the correct shadow archive
 			liquid::RendererMgr::getInstancePtr()->
 				getRenderer()->readBaseShadow(currentJob___);
 
+			//[refactor][1.9.2.7 begin] from ribOutput()	
 			if( liqRibTranslator::getInstancePtr()->frameEpilogue__( scanTime__ ) != MS::kSuccess ) 
 				return TCB_Break;//break;
 			liqRibTranslator::getInstancePtr()->ribEpilogue__(currentJob___);
+			//[refactor][1.9.2.7 end]  from ribOutput()
 		}
 
 		//end
@@ -179,7 +192,8 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 	CM_TRACE_FUNC("tShadowRibWriterMgr::framePrologue_display(job="<<currentJob.name.asChar()<<")");
 
 			if( !/*liqglo.liqglo_*/currentJob.deepShadows || /*liqglo.liqglo_*/currentJob.shadowPixelSamples == 1)
-			{
+			{	
+				//refactor 15
 				if( liqglo.liquidRenderer.renderName == MString("Pixie") )
 				{
 					RtFloat zero = 0;
@@ -190,9 +204,11 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					RtInt zero = 0;
 					RiHider( "hidden", "int jitter", &zero, RI_NULL );
 				}
+				//refactor 15
 			}
 			if( /*liqglo.liqglo_*/currentJob.isMidPointShadow && !/*liqglo.liqglo_*/currentJob.deepShadows )
 			{
+							//refactor 16
 				RtString midPoint = "midpoint";
 				RtFloat midRatio = /*liqglo.liqglo_*/currentJob.midPointRatio;
 
@@ -200,10 +216,12 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 
 				if ( /*liqglo.liqglo_*/currentJob.midPointRatio != 0 )
 					RiHider( "hidden", "midpointratio", &midRatio, RI_NULL ); // Output to rib jami
+							//refactor 16
 			}
 			//-----------------------------------------------------
 			LIQDEBUGPRINTF( "-> Setting Display Options\n" );
 			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
+			//refactor 17
 			if( !/*liqglo.liqglo_*/currentJob.isMinMaxShadow )
 			{
 				if( /*liqglo.liqglo_*/currentJob.deepShadows )
@@ -267,5 +285,6 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					"minmax", &minmax,
 					RI_NULL );
 			}
+			//refactor 17
 }
 //
