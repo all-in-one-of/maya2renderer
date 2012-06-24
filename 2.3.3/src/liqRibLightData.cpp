@@ -1416,7 +1416,8 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
       shadowName += "_";
     }
     shadowName += sanitizeNodeName( lightName );
-
+	//[refactor][shadowname] begin 
+	shadowName += "_";
     shadowName += ( shadowType == stDeep )? "DSH": "SHD";
 
     if ( PointLightDir != -1 ) 
@@ -1443,6 +1444,7 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
           break;
       }
     }
+	//[refactor][shadowname] end 
     shadowName += ".";
 
     if ( geometrySet != "" ) 

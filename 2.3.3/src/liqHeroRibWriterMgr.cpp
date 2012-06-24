@@ -313,7 +313,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			
 			// output display drivers
 			RiArchiveRecord( RI_COMMENT, "Display Drivers:" );
-			liqRIBMsg("Display 6");
+			RiArchiveRecord( RI_COMMENT, "Display 6");
 
 			std::vector<StructDisplay>::iterator m_displays_iterator;
 			m_displays_iterator = liqglo.m_displays.begin();
@@ -339,9 +339,8 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				// when you render to maya's renderview.
 				if( m_displays_iterator == liqglo.m_displays.begin() && liqglo.m_renderView ) 
 				{
-					MString imageName;
-					//I use this format for maya2renderer - yaoyansi
-					imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false );
+					//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+					imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();
 					//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );
 
 					// TODO: It doesn't work on windoze...
@@ -349,10 +348,10 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					//if( !m_renderViewLocal ) 
 					//  MGlobal::executeCommand( "strip(system(\"echo $HOST\"));", host );
 
-					liqRIBMsg("Display 7");
+					RiArchiveRecord( RI_COMMENT, "Display 7");
 					RiArchiveRecord( RI_COMMENT, "Render To Maya renderView :" );
 					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%d] \"string host\" [\"%s\"]\n", 
-						const_cast< char* >( imageName.asChar() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
+						const_cast< char* >( imageName.str().c_str() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
 
 					// in this case, override the launch render settings
 					if( liqglo.launchRender == false ) 
@@ -368,10 +367,13 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					}
 					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
 					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
-					if ( m_displays_iterator == liqglo.m_displays.begin() ) 
-						imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );  
-					else
+					if ( m_displays_iterator == liqglo.m_displays.begin() ) {
+						//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );  
+						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+						imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();					
+					}else{
 						imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob ) ;
+					}
 
 					// get display type ( tiff, openexr, etc )
 					if( !isBatchMode() ){
@@ -427,7 +429,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "] ":"\"] ";
 					}
 
-					liqRIBMsg("Display 8");
+					RiArchiveRecord( RI_COMMENT, "Display 8");
 					// output call
 					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" %s %s %s %s\n", 
 						const_cast< char* >( imageName.str().c_str() ), 

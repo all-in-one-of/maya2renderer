@@ -232,7 +232,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 
 					if( liqglo.liquidRenderer.renderName == MString("3Delight") )
 					{
-						liqRIBMsg("Display 1");
+						RiArchiveRecord( RI_COMMENT, "Display 1");
 						RiDisplay( const_cast< char* >( /*liqglo.liqglo_*/currentJob.imageName.asChar()),
 							const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
 							(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
@@ -248,13 +248,13 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						//
 						if( liqglo.liquidRenderer.renderName != MString("Pixie") )
 						{
-							liqRIBMsg("Display 2");
+							RiArchiveRecord( RI_COMMENT, "Display 2");
 							RiDisplay( "null", "null", "z", RI_NULL );
 						}
 
 						MString deepFileImageName = "+" + /*liqglo.liqglo_*/currentJob.imageName;
 
-						liqRIBMsg("Display 3");
+						RiArchiveRecord( RI_COMMENT, "Display 3");
 						RiDisplay( const_cast< char* >( deepFileImageName.asChar() ),
 							const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
 							(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
@@ -265,7 +265,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				}//if( liqglo.liqglo_currentJob.deepShadows )
 				else
 				{
-					liqRIBMsg("Display 4");
+					RiArchiveRecord( RI_COMMENT, "Display 4");
 					RtInt aggregate( /*liqglo.liqglo_*/currentJob.shadowAggregation );
 					RiDisplay( const_cast< char* >( /*liqglo.liqglo_*/currentJob.imageName.asChar() ),
 						const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
@@ -276,7 +276,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			}//if( !liqglo.liqglo_currentJob.isMinMaxShadow )
 			else
 			{
-				liqRIBMsg("Display 5");
+				RiArchiveRecord( RI_COMMENT, "Display 5");
 				RiArchiveRecord( RI_COMMENT, "Display Driver:" );
 				RtInt minmax = 1;
 				RiDisplay( const_cast< char* >( (/*liqglo.liqglo_*/currentJob.imageName+(int)liqglo.liqglo_lframe).asChar() ),//const_cast< char* >( parseString(liqglo_currentJob.imageName).asChar() ),
