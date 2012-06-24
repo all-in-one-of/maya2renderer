@@ -4982,7 +4982,10 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 				// when you render to maya's renderview.
 				if( m_displays_iterator == liqglo.m_displays.begin() && liqglo.m_renderView ) 
 				{
-					imageName << generateImageName( "", liqglo_currentJob );
+					MString imageName;
+					//I use this format for maya2renderer - yaoyansi
+					imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false );
+					//imageName << generateImageName( "", liqglo_currentJob );
 
 					// TODO: It doesn't work on windoze...
 					//MString host = "localhost";
@@ -4992,7 +4995,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 					liqRIBMsg("Display 7");
 					RiArchiveRecord( RI_COMMENT, "Render To Maya renderView :" );
 					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%d] \"string host\" [\"%s\"]\n", 
-						const_cast< char* >( imageName.str().c_str() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
+						const_cast< char* >( imageName.asChar() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
 
 					// in this case, override the launch render settings
 					if( liqglo.launchRender == false ) 
