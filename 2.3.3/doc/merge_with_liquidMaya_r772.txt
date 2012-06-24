@@ -1,0 +1,83 @@
+- liqGlobalHelpers.cpp , parseString():
+  liqglo_DDimageName[0]; is changed to liqglo_DDimageName.asChar();
+
+- add textureExtension into liqRenderer
+
+- add fgm_shadow_archive, fgm_scene_archive in liquid.h 
+
+
+
+- liquidShaderNodesMakeInstance() is added into liquidShaderNodes.mel, but this function disappear in r776
+
+
+- r772 liquidSubdiv.mel, liquidMakeSubdiv() has this code segement
+
+    if ( !`attributeQuery -node $current -ex "liqSubdivUVInterpolation"`) 
+      addAttr -ln liqSubdivUVInterpolation -at "enum" -enumName "True Facevarying:New Facevarying:Facevertex" $current;
+    
+    if ( !`attributeQuery -node $current -ex "liqSubdivInterpolateBoundary"`) 
+      addAttr -ln liqSubdivInterpolateBoundary -at "enum" -enumName "Off:Sharp:Smooth" $current;
+
+but in r776 this segment is restored to r771:
+    if ( !`attributeQuery -node $current -ex "liqSubdivUVInterpolation"`) {
+      addAttr -ln liqSubdivUVInterpolation -at short $current;
+    }
+
+    if ( !`attributeQuery -node $current -ex "liqSubdivInterpolateBoundary"`) {
+      addAttr -ln liqSubdivInterpolateBoundary -at short $current;
+    }
+
+- add this code in *.lg
+proc setAttribute14() {
+	setAttr ".textureExt" -type "string" "tdl";//tex for prman and ER
+}
+catch(setAttribute14());
+
+
+- in ribOut.cpp, r776 RiAttributeV()
+  else if ( strcmp( name, RI_LIGHT ) == 0) 
+  {
+    for ( i = 0 ; i < n ; i++ ) 
+    {
+      if ( FALSE ) 
+      {
+        attributeCheckString(RI_LIGHT_EMITPHOTONS)
+        attributeCheckString(RI_LIGHT_SHADOWS)
+        attributeCheckInt(RI_LIGHT_SAMPLES,1)
+        attributeCheckString(RI_LIGHT_SAMPLINGSTRATEGY)
+        attributeEndCheck
+    }
+  } 
+
+- add generateFileName() and generateImageName() 
+
+- add "shadowMainCamera" in buildJobs()
+
+- generateFileName( fgm_shadow_archive, liqglo_currentJob); 
+
+
+- ribOutput()  is refactored in r772,
+in maya2renderer, ribOutput() can be done with tShadowRibWriterMgr::write() and tHeroRibWriterMgr::write()
+
+
+- In r772, liquidMaya uses generateFileName( fgm_shadow_archive, ...) to get the shadow file name, 
+in maya2renderer I use getBaseShadowName() to get the shadow file name,
+
+
+
+
+
+for maya2renderer
+- whether liqglo.renderCamera and liqglo.liqglo_renderCamera should be merged into one variable?
+
+- AEliquidCoShaderTemplate.mel editorTemplate -suppress rmanShaderType is add by yaoyansi for maya2renderer
+
+- I mark the refactoring code with [refactor] 
+
+
+
+- Commit:6a4a0d47db1f69d7fadc9a80ad78a8324197ec42 to  a5a28908c51ca2d59b965b6ce637e319c18acec8 
+These commit messages are a little weird, these commits just upload the test case result data.
+
+- Commit:40968468145c54dfff499610e8a6a643be7a982c 
+This commit can be ignored. In fact no file data is modified
