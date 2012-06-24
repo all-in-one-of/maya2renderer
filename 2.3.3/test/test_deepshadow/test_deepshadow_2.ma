@@ -5,7 +5,6 @@
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=21:30:51.28)";
 requires "stereoCamera" "10.0";
-requires "liquid_2009x32d" "2.3.5 (buildtime=23:24:50.31)";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
