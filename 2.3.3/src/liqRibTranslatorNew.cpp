@@ -628,10 +628,11 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 				MGlobal::sourceFile( preFrameMel );
 			else 
 			{
-				if( MS::kSuccess == MGlobal::executeCommand( preFrameMel, false, false ) ) 
-					liquidMessage("Liquid -> pre-frame script executed successfully.\n");
-				else 
-					liquidMessage("Liquid -> ERROR :pre-frame script failed.\n");
+				if( MS::kSuccess == MGlobal::executeCommand( preFrameMel, false, false ) ) {
+					liquidMessage2(messageInfo,"Liquid -> pre-frame script executed successfully.");
+				}else {
+					liquidMessage2(messageError,"Liquid -> ERROR :pre-frame script failed.");
+				}
 			}
 		}
 
@@ -938,8 +939,8 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 	status.clear();
 
 	iter__->gotJobOptions = false;
-	if ( liquidGetPlugValue( fnLight, "ribOptions", iter->jobOptions, status ) ==  MS::kSuccess )
-		iter->gotJobOptions = true;
+	if ( liquidGetPlugValue( fnLight, "ribOptions", iter__->jobOptions, status ) ==  MS::kSuccess )
+		iter__->gotJobOptions = true;
 
 	// philippe: this block is obsolete as we now get the resolution when building the job list
 	//
@@ -1061,10 +1062,10 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 			liquidGetPlugValue( fnLight, "penumbraAngle", penumbra, status );
 			if ( penumbra > 0 ) 
 				angle += penumbra * 2;
-			iter->camera[sample].hFOV = angle;
+			iter__->camera[sample__].hFOV = angle;
 		} 
 		else 
-			iter->camera[sample].hFOV = 95;
+			iter__->camera[sample__].hFOV = 95;
 	}
 
 	// Determine what information to write out ( depth map or deep shadow )
@@ -2895,7 +2896,7 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 				{
 					LIQDEBUGPRINTF( "-> writing out shadow information to alfred file.\n" );
 					frameScriptJobMgr.makeShadow(shadowList, 
-						alf_textures, alf_shadows, alf_refmaps, currentBlock);
+						alf_textures, alf_shadows, alf_refmaps, currentBlock, m_renderCommand);
 
 				}//if( liqglo__.liqglo_doShadows ) 
 				LIQDEBUGPRINTF( "-> finished writing out shadow information to render script file.\n" );

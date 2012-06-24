@@ -899,7 +899,7 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::doRenderView()");
 
 		//[refactor][1.21 ]
-		stringstream displayCmd;
+		std::stringstream displayCmd;
 		displayCmd << "liquidRenderView -c " << liqglo.renderCamera.asChar();
 		displayCmd << " -l " << ( ( liqglo.m_renderViewLocal )? "1":"0" );
 		displayCmd << " -port " << liqglo.m_renderViewPort;
@@ -921,10 +921,10 @@ namespace renderman
 		liqProcessLauncher::execute( 
 			liqglo.liquidRenderer.renderCommand, 
 #ifdef _WIN32
-			" "+liqglo.liqglo_rifParams+" "+ liqglo.liquidRenderer.renderCmdFlags + " \"" + liqglo_currentJob.ribFileName + "\"", 
+			" "+liqglo.liqglo_rifParams+" "+ liqglo.liquidRenderer.renderCmdFlags + " \"" + ribFileName + "\"", 
 			"\"" + liqglo.liqglo_projectDir + "\"", 
 #else
-			" "+liqglo.liqglo_rifParams+" "+ liqglo.liquidRenderer.renderCmdFlags + " " + liqglo_currentJob.ribFileName, 
+			" "+liqglo.liqglo_rifParams+" "+ liqglo.liquidRenderer.renderCmdFlags + " " + ribFileName, 
 			liqglo.liqglo_projectDir,
 #endif
 			false

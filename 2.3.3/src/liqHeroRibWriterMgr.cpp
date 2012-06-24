@@ -339,9 +339,9 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				// when you render to maya's renderview.
 				if( m_displays_iterator == liqglo.m_displays.begin() && liqglo.m_renderView ) 
 				{
-					//MString imageName( liqglo.m_pixDir );
-					//imageName += parseString( liqglo.m_displays[ 0 ].name, false );
-					imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );
+					MString imageName;
+					imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false );
+					//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );
 
 					// TODO: It doesn't work on windoze...
 					//MString host = "localhost";

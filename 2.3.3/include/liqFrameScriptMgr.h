@@ -32,7 +32,8 @@ public:
 		bool &alf_textures__,
 		bool &alf_shadows__,
 		bool &alf_refmaps__,
-		const int currentBlock__
+		const int currentBlock__,
+		const MString& m_renderCommand__
 		);
 	void makeShadowPass(
 		std::vector<structJob> &shadowList__, 

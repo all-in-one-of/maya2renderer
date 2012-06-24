@@ -7,7 +7,7 @@
 #include <maya/MPlug.h>
 #include <maya/MPlugArray.h>
 #include <maya/MDagPathArray.h>
-
+#include <maya/MSelectionList.h>
 
 #include <liqRibHT.h>
 #include <liqRibTranslator.h>
@@ -399,8 +399,8 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 		// cerr << ">> at first, check if shadow main camera is specified for "  << lightPath.fullPathName().asChar() << endl;
 
 		MString camName;
-		liquidGetPlugValue( fnLightShaderNode, "shadowMainCamera", camName, status ); 
-		if ( status == MS::kSuccess && camName != "" )
+		liquidGetPlugValue( fnLightShaderNode, "shadowMainCamera", camName, stat ); 
+		if ( stat == MS::kSuccess && camName != "" )
 		{
 			// cerr << ">> Light node has main shadow camera : " << camName.asChar() << endl;
 			MDagPath cameraPath;
@@ -410,13 +410,13 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 			if ( cameraPath.hasFn( MFn::kCamera ) )
 			{
 				// cerr << ">> cameraPath : "<< cameraPath.fullPathName().asChar() << endl;
-				thisJob.hasShadowCam = true;
-				thisJob.shadowCamPath = cameraPath;
+				thisJob___.hasShadowCam = true;
+				thisJob___.shadowCamPath = cameraPath;
 			}
 			else
 			{
 				// cerr << ">> Invalid camera name " << endl;
-				string err = "Invalid main shadow camera name " + string( camName.asChar() ) + " for light " + string( lightPath.fullPathName().asChar() );
+				std::string err = "Invalid main shadow camera name " + std::string( camName.asChar() ) + " for light " + std::string( lightPath__.fullPathName().asChar() );
 				liquidMessage( err, messageError );
 			}
 		}
