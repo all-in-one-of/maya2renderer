@@ -4,3 +4,4 @@ print "This is appleseed /2.3.3/src/appleseed/mel/usersetup.mel.\n";
 source as_AEliquidInstanceFlags.mel;
 source as_CreateMenus.mel;
 source liqGlobalsNodeappleseed.mel;
+source as_util.mel;

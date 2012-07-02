@@ -6,7 +6,7 @@ global string $gGlobalNode_appleseed="liqGlobalsNodeRenderer_appleseed";
 global string $gGlobalValue_appleseed[]=
 {
 	"verbose",          "long",	"6"
-	,"link",			"string",		""//,
+	,"export_mesh_to",	"string",	""//,
 	//options
 	,"contrast",		"string",		"0.05|0.05|0.05|0.05"//,
 	,"samples",			"string",		"0|2"//,
@@ -27,6 +27,8 @@ global string $gGlobalValue_appleseed[]=
 	,"approx_max_subdiv",		"long",		"5"//,
 	,"approx_max_grid_size",	"long",		"4096"//,
 	,"approx_motion_factor",	"float",	"16.0"//,
+
+
 	//,"testBool1",            "bool",			false
 	//,"testString0",            "string",		"string_test_value0"
 	//,"testString1",            "string",		"string_test_value1"
@@ -86,7 +88,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 		"EI_VERBOSE_INFO",
 		"EI_VERBOSE_DEBUG",
 		"EI_VERBOSE_ALL"}, $prefix);
-        liquidShowStringGlobal2($n, "link",		"link",		$prefix);
+        liquidShowStringGlobal2($n, "export_mesh_to",		"export_mesh_to",		$prefix);
         //liquidShowBoolGlobal2($n, "testBool0", "testBool0L", $prefix);
         //liquidShowStringGlobal2($n, "testString0", "testString0L", $prefix);
         //liquidShowIntGlobal2($n, "testInt0", "testInt0L");

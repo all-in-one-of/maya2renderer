@@ -2581,8 +2581,8 @@
     <None Include="..\..\mel\registerLiquidRenderer.mel" />
     <None Include="..\..\rendererDesc\liquidRenderer.xml" />
     <None Include="..\..\mel\liquidCheck.mel" />
-    <None Include="..\..\mel\xxliquidmayaBatchRenderProcedure.mel" />
     <None Include="..\..\mel\xxliquidutility.mel" />
+    <None Include="..\appleseed\mel\as_util.mel" />
     <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel" />
     <None Include="..\renderman\mel\userSetup.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />

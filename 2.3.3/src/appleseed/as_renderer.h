@@ -348,6 +348,9 @@ namespace appleseed
 
 		liqGlobalNodeHelper *m_gnode;
 
+		//
+		void _writeRef(liqRibMeshData* pData, const structJob &currentJob__);
+
 	};
 
 

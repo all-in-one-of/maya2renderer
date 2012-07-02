@@ -262,39 +262,40 @@ namespace appleseed
 		//m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Geometry );//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
 	
 		// Appleseed stuff
-		const std::string root_path = "E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/sample";
+		this->_writeObject(ribNode__, currentJob__, bGeometryMotion, 0/*unused*/, true);
+//		const std::string root_path = "E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/sample";
 
-		// Load the scene geometry from disk.
-		asf::SearchPaths search_paths;
-		search_paths.push_back(root_path + "/data");
-		asr::MeshObjectArray objects =
-			asr::MeshObjectReader::read(
-			search_paths,
-			"cube",
-			asr::ParamArray()
-			.insert("filename", "scene.obj"));
-
-		// Insert all the objects into the assembly.
-		for (size_t i = 0; i < objects.size(); ++i)
-		{
-			// Insert this object into the scene.
-			asr::MeshObject* object = objects[i];
-			current_assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
-
-			// Create the array of material names.
-			asf::StringArray material_names;
-			material_names.push_back("gray_material");
-
-			// Create an instance of this object and insert it into the assembly.
-			const std::string instance_name = std::string(object->get_name()) + "_inst";
-			current_assembly->object_instances().insert(
-				asr::ObjectInstanceFactory::create(
-				instance_name.c_str(),
-				asr::ParamArray(),
-				*object,
-				asf::Transformd(asf::Matrix4d::identity()),
-				material_names));
-		}
+//		// Load the scene geometry from disk.
+// 		asf::SearchPaths search_paths;
+// 		search_paths.push_back(root_path + "/data");
+// 		asr::MeshObjectArray objects =
+// 			asr::MeshObjectReader::read(
+// 			search_paths,
+// 			"cube",
+// 			asr::ParamArray()
+// 			.insert("filename", "maya_obj_export.obj"));
+// 
+// 		// Insert all the objects into the assembly.
+// 		for (size_t i = 0; i < objects.size(); ++i)
+// 		{
+// 			// Insert this object into the scene.
+// 			asr::MeshObject* object = objects[i];
+// 			current_assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
+// 
+// 			// Create the array of material names.
+// 			asf::StringArray material_names;
+// 			material_names.push_back("gray_material");
+// 
+// 			// Create an instance of this object and insert it into the assembly.
+// 			const std::string instance_name = std::string(object->get_name()) + "_inst";
+// 			current_assembly->object_instances().insert(
+// 				asr::ObjectInstanceFactory::create(
+// 				instance_name.c_str(),
+// 				asr::ParamArray(),
+// 				*object,
+// 				asf::Transformd(asf::Matrix4d::identity()),
+// 				material_names));
+// 		}
 	}
 	//
 	void Renderer::ribPrologue_comment(const char* liqversion, 
@@ -817,6 +818,18 @@ namespace appleseed
 	bool Renderer::canExport()
 	{
 		CM_TRACE_FUNC("Renderer::canExport()");
+		
+		//load objexport plugin
+		MString MAYA_PATH;
+		IfMErrorWarn(MGlobal::executeCommand( "getenv(\"MAYA_LOCATION\")", MAYA_PATH));
+		MString objExport(MAYA_PATH+"/bin/plug-ins/objExport.so");
+
+		int loadObjExportSucess;
+		IfMErrorWarn(MGlobal::executeCommand( "catch(`loadPlugin \""+objExport+"\"`)", loadObjExportSucess));
+		if( loadObjExportSucess != 0 ){
+			liquidMessage2(messageError,"load plugin fail: %s ",objExport.asChar());
+			return false;
+		}
 		//todo
 
 		return true;

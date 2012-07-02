@@ -1064,9 +1064,6 @@
     <None Include="..\..\mel\liquidCheck.mel">
       <Filter>xx</Filter>
     </None>
-    <None Include="..\..\mel\xxliquidmayaBatchRenderProcedure.mel">
-      <Filter>xx</Filter>
-    </None>
     <None Include="..\..\mel\xxliquidutility.mel">
       <Filter>xx</Filter>
     </None>
@@ -1114,6 +1111,9 @@
     </None>
     <None Include="..\..\mel\liquidAttributeManager.mel">
       <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\appleseed\mel\as_util.mel">
+      <Filter>renderer\appleseed\mel</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
