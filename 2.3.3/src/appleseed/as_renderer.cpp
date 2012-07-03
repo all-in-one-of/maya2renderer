@@ -489,29 +489,49 @@ namespace appleseed
 		_s("//----------------------------------camera instance: currentJob.camera[0].name");
 		//todo		
 		//m_groupMgr->addObjectInstance(currentJob.name.asChar(), currentJob.camera[0].name.asChar(), GIT_Camera);//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
-		float res0 = 0.0f, res1 = 0.0f;
-		if( currentJob.isShadow == false && liqglo.liqglo_rotateCamera == true ) {
-			res0 = height; res1 = width;
-		}else{ 
-			res0 = width;  res1 = height;
+		float film_width = 0.0f, film_height = 0.0f;
+// 		if( currentJob.isShadow == false && liqglo.liqglo_rotateCamera == true ) {
+// 			res0 = height; res1 = width;
+// 		}else{ 
+// 			res0 = width;  res1 = height;
+// 		}
+		const float inch_to_meter = 0.02539999983236f;
+		float maya_resolution_aspect = currentJob.width/currentJob.height;
+		float maya_film_aspect = fnCamera.horizontalFilmAperture(&status) / fnCamera.verticalFilmAperture(&status);
+
+		if (maya_resolution_aspect > maya_film_aspect){
+			film_width = fnCamera.horizontalFilmAperture(&status) * inch_to_meter;
+			film_height = film_width / maya_resolution_aspect; 
+		}else{
+			film_height = fnCamera.verticalFilmAperture(&status) * inch_to_meter;
+			film_width = film_height * maya_resolution_aspect;
 		}
+
 		// Create a camera with film
 		asf::auto_release_ptr<asr::Camera> _camera(
 			asr::PinholeCameraFactory().create(
 			currentJob.camera[0].name.asChar(),//camera instance name
 			asr::ParamArray()
-			//.insert("film_dimensions", boost::format("%f %f") %(res0/1000.0f) %(res1/1000.0f))//""
+			//.insert("film_dimensions", boost::format("%f %f") %(film_width) %(film_height))//""
 			.insert("focal_length", boost::format("%f") %(focal/1000.0f))));
 		// Bind the camera to the scene.
 		project->get_scene()->set_camera(_camera);
 
 		// Place and orient the camera. By default cameras are located in (0.0, 0.0, 0.0)
 		// and are looking toward Z- (0.0, 0.0, -1.0).
-		project->get_scene()->get_camera()->transform_sequence().set_transform(
-			0.0,
-			asf::Transformd(
-			asf::Matrix4d::rotation(asf::Vector3d(1.0, 0.0, 0.0), asf::deg_to_rad(-20.0)) *
-			asf::Matrix4d::translation(asf::Vector3d(0.0, 0.8, 11.0))));
+		asf::Matrix4d a;
+		a[0] = m[0][0]; a[4] = m[0][1]; a[8]  = m[0][2]; a[12] = m[0][3]; 
+		a[1] = m[1][0]; a[5] = m[1][1]; a[9]  = m[1][2]; a[13] = m[1][3]; 
+		a[2] = m[2][0]; a[6] = m[2][1]; a[10] = m[2][2]; a[14] = m[2][3]; 
+		a[3] = m[3][0]; a[7] = m[3][1]; a[11] = m[3][2]; a[15] = m[3][3]; 		
+		project->get_scene()->get_camera()->transform_sequence().clear();
+		project->get_scene()->get_camera()->transform_sequence().set_transform( lframe, asf::Transformd( a ) );
+
+// 		project->get_scene()->get_camera()->transform_sequence().set_transform(
+// 			0.0,
+// 			asf::Transformd(
+// 			asf::Matrix4d::rotation(asf::Vector3d(1.0, 0.0, 0.0), asf::deg_to_rad(-20.0)) *
+// 			asf::Matrix4d::translation(asf::Vector3d(0.0, 0.8, 11.0))));
 
 		// Create a frame and bind it to the project.
 		project->set_frame(
@@ -519,7 +539,7 @@ namespace appleseed
 			"beauty",
 			asr::ParamArray()
 			.insert("camera", project->get_scene()->get_camera()->get_name())
-			.insert("resolution", boost::format("%f %f") %res0 %res1)
+			.insert("resolution", boost::format("%f %f") %currentJob.width %currentJob.height)
 			.insert("color_space", "srgb")));
 
 		return MStatus::kSuccess;
