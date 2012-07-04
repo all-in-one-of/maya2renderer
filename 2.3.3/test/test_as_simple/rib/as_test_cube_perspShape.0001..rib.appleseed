@@ -3,12 +3,13 @@
 <project>
     <scene>
         <camera name="|persp|perspShape" model="pinhole_camera">
+            <parameter name="film_dimensions" value="0.036000 0.027000" />
             <parameter name="focal_length" value="0.035000" />
-            <transform time="0">
+            <transform time="1">
                 <matrix>
                     1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
-                    0.000000000000000 0.939692620785908 0.342020143325669 4.513975673211083
-                    0.000000000000000 -0.342020143325669 0.939692620785908 10.063002713984456
+                    0.000000000000000 1.000000000000000 0.000000000000000 3.000000000000000
+                    0.000000000000000 0.000000000000000 1.000000000000000 9.000000000000000
                     0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                 </matrix>
             </transform>
@@ -97,7 +98,7 @@
         <frame name="beauty">
             <parameter name="camera" value="|persp|perspShape" />
             <parameter name="color_space" value="srgb" />
-            <parameter name="resolution" value="768.000000 576.000000" />
+            <parameter name="resolution" value="640 480" />
         </frame>
     </output>
     <configurations>

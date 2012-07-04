@@ -495,16 +495,31 @@ namespace appleseed
 // 		}else{ 
 // 			res0 = width;  res1 = height;
 // 		}
-		const float inch_to_meter = 0.02539999983236f;
-		float maya_resolution_aspect = currentJob.width/currentJob.height;
-		float maya_film_aspect = fnCamera.horizontalFilmAperture(&status) / fnCamera.verticalFilmAperture(&status);
+		float hFA = fnCamera.horizontalFilmAperture(&status);
+		IfMErrorWarn(status);
+		float vFA = fnCamera.verticalFilmAperture(&status);
+		IfMErrorWarn(status);
 
-		if (maya_resolution_aspect > maya_film_aspect){
-			film_width = fnCamera.horizontalFilmAperture(&status) * inch_to_meter;
+		const float inch_to_meter = 0.02539999983236f;
+		float maya_resolution_aspect = float(currentJob.width)/float(currentJob.height);
+		float maya_film_aspect = hFA /vFA;
+
+		MFnCamera::FilmFit filmFit = fnCamera.filmFit(&status);
+		IfMErrorWarn(status);
+
+		if ( MFnCamera::kHorizontalFilmFit == filmFit ){
+			film_width  = hFA * inch_to_meter;
 			film_height = film_width / maya_resolution_aspect; 
-		}else{
-			film_height = fnCamera.verticalFilmAperture(&status) * inch_to_meter;
-			film_width = film_height * maya_resolution_aspect;
+		}
+		else if( MFnCamera::kVerticalFilmFit == filmFit ){
+			film_height = vFA * inch_to_meter;
+			film_width  = film_height * maya_resolution_aspect;
+		}
+		else{
+			liquidMessage2(messageError,"filmFit=%d is not implement for AS.", filmFit );
+			//dummy film_width/film_height
+			film_width  = hFA * inch_to_meter;
+			film_height = film_width / maya_resolution_aspect; 
 		}
 
 		// Create a camera with film
@@ -512,7 +527,7 @@ namespace appleseed
 			asr::PinholeCameraFactory().create(
 			currentJob.camera[0].name.asChar(),//camera instance name
 			asr::ParamArray()
-			//.insert("film_dimensions", boost::format("%f %f") %(film_width) %(film_height))//""
+			.insert("film_dimensions", boost::format("%f %f") %(film_width) %(film_height))//""
 			.insert("focal_length", boost::format("%f") %(focal/1000.0f))));
 		// Bind the camera to the scene.
 		project->get_scene()->set_camera(_camera);
