@@ -389,7 +389,9 @@ namespace appleseed
 			MString imageName(
 				liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
 				);
-			project->get_frame()->write(imageName.asChar());
+			int i = imageName.rindex('.');
+			MString pngName(imageName.substring(0,i)+"png");
+			project->get_frame()->write(pngName.asChar());
 
 			// end render
 			if (Connection::getInstance()->endRender() != MS::kSuccess)
