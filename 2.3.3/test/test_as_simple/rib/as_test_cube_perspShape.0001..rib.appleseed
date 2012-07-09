@@ -25,11 +25,11 @@
                     1.000000
                 </alpha>
             </color>
-            <color name="light_exitance">
+            <color name="|pointLight1|pointLightShape1_exitance">
                 <parameter name="color_space" value="srgb" />
                 <parameter name="multiplier" value="30.0" />
                 <values>
-                    1.000000 1.000000 1.000000
+                    1.000000 0.000000 0.000000
                 </values>
                 <alpha>
                     1.000000
@@ -43,13 +43,13 @@
                 <parameter name="bsdf" value="diffuse_gray_brdf" />
                 <parameter name="surface_shader" value="physical_surface_shader" />
             </material>
-            <light name="light" model="point_light">
-                <parameter name="exitance" value="light_exitance" />
+            <light name="|pointLight1|pointLightShape1" model="point_light">
+                <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
                 <transform>
                     <matrix>
-                        1.000000000000000 0.000000000000000 0.000000000000000 0.600000000000000
-                        0.000000000000000 1.000000000000000 0.000000000000000 2.000000000000000
-                        0.000000000000000 0.000000000000000 1.000000000000000 1.000000000000000
+                        1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
+                        0.000000000000000 1.000000000000000 0.000000000000000 3.108292579650879
+                        0.000000000000000 0.000000000000000 1.000000000000000 0.000000000000000
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>

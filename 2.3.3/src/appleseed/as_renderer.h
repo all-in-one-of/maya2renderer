@@ -5,6 +5,7 @@
 //#ifndef NR_Renderer_H//macro guard for your newrenderer
 //#define NR_Renderer_H
 #include "prerequest_as.h"
+#include "as_helper.h"
 #include "../rendererinterface.h"
 #include "../common/logmgr.h"
 

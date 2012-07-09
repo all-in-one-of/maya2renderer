@@ -75,24 +75,24 @@ void build_project(
 // 	}
 
 	// Create a color called "light_exitance" and insert it into the assembly.
-	static const float LightExitance[] = { 1.0f, 1.0f, 1.0f };
-	assembly->colors().insert(
-		asr::ColorEntityFactory::create(
-		"light_exitance",
-		asr::ParamArray()
-		.insert("color_space", "srgb")
-		.insert("multiplier", "30.0"),
-		asr::ColorValueArray(3, LightExitance)));
+	//static const float LightExitance[] = { 1.0f, 1.0f, 1.0f };
+	//assembly->colors().insert(
+	//	asr::ColorEntityFactory::create(
+	//	"light_exitance",
+	//	asr::ParamArray()
+	//	.insert("color_space", "srgb")
+	//	.insert("multiplier", "30.0"),
+	//	asr::ColorValueArray(3, LightExitance)));
 
-	// Create a point light called "light" and insert it into the assembly.
-	asf::auto_release_ptr<asr::Light> light(
-		asr::PointLightFactory().create(
-		"light",
-		asr::ParamArray()
-		.insert("exitance", "light_exitance")));
-	light->set_transform(asf::Transformd(
-		asf::Matrix4d::translation(asf::Vector3d(0.6, 2.0, 1.0))));
-	assembly->lights().insert(light);
+	//// Create a point light called "light" and insert it into the assembly.
+	//asf::auto_release_ptr<asr::Light> light(
+	//	asr::PointLightFactory().create(
+	//	"light",
+	//	asr::ParamArray()
+	//	.insert("exitance", "light_exitance")));
+	//light->set_transform(asf::Transformd(
+	//	asf::Matrix4d::translation(asf::Vector3d(0.6, 2.0, 1.0))));
+	//assembly->lights().insert(light);
 
 // 	// Create an instance of the assembly and insert it into the scene.
 // 	project->get_scene()->assembly_instances().insert(

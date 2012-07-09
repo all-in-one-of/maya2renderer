@@ -120,7 +120,37 @@ namespace appleseed
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		//todo
+		std::string sLightObjectName(shaderinstanceFullPath+"_object");
+
+		// AS stuff
+		std::string sLightExitance(shaderinstanceFullPath+"_exitance");
+		//
+		current_assembly->colors().insert(
+			asr::ColorEntityFactory::create(
+				sLightExitance.c_str(),
+				asr::ParamArray()
+				.insert("color_space", "srgb")
+				.insert("multiplier", "30.0"),
+				asr::ColorValueArray(3, i_lightcolor)
+			)
+		);
+
+		// Create a point light called "light" and insert it into the assembly.
+		asf::auto_release_ptr<asr::Light> light(
+			asr::PointLightFactory().create(
+			shaderinstanceFullPath.c_str(),//instance name
+			asr::ParamArray()
+			.insert("exitance", sLightExitance)
+			)
+		);
+
+		// transform matrix
+		asf::Matrix4d as_mtx;
+		convertMatrix<double>(as_mtx, t);
+		light->set_transform( asf::Transformd( as_mtx ) );
+
+		//
+		current_assembly->lights().insert(light);
 
 		return (liqLightHandle)(0);
 	}
