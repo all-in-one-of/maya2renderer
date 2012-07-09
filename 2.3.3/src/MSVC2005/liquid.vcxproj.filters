@@ -487,6 +487,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\half.cpp">
       <Filter>renderer\appleseed\openexr</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_helper.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -846,6 +849,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\toFloat.h">
       <Filter>renderer\appleseed\openexr</Filter>
     </ClInclude>
+    <ClInclude Include="..\appleseed\as_helper.h">
+      <Filter>renderer\appleseed</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">
@@ -1114,6 +1120,9 @@
     </None>
     <None Include="..\appleseed\mel\as_util.mel">
       <Filter>renderer\appleseed\mel</Filter>
+    </None>
+    <None Include="..\appleseed\as_helper.inl">
+      <Filter>renderer\appleseed</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

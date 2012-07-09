@@ -33,6 +33,7 @@
 #include "as_connection.h"
 #include "log_helper.h"
 #include "as_GlobalNodeHelper.h"
+#include "as_helper.h"
 
 extern void build_project(
 	asf::auto_release_ptr<asr::Project> &project,
@@ -537,10 +538,7 @@ namespace appleseed
 		// Place and orient the camera. By default cameras are located in (0.0, 0.0, 0.0)
 		// and are looking toward Z- (0.0, 0.0, -1.0).
 		asf::Matrix4d a;
-		a[0] = m[0][0]; a[4] = m[0][1]; a[8]  = m[0][2]; a[12] = m[0][3]; 
-		a[1] = m[1][0]; a[5] = m[1][1]; a[9]  = m[1][2]; a[13] = m[1][3]; 
-		a[2] = m[2][0]; a[6] = m[2][1]; a[10] = m[2][2]; a[14] = m[2][3]; 
-		a[3] = m[3][0]; a[7] = m[3][1]; a[11] = m[3][2]; a[15] = m[3][3]; 		
+		convertMatrix<double>(a, m);
 		project->get_scene()->get_camera()->transform_sequence().clear();
 		project->get_scene()->get_camera()->transform_sequence().set_transform( lframe, asf::Transformd( a ) );
 
