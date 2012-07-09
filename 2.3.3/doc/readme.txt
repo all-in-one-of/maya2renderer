@@ -7,6 +7,7 @@
 - Others
 - NOTES
 - F.A.Q.
+- How to join this project?
 
 
  ---------------------------------------------------------------------
@@ -374,3 +375,12 @@ RenderMan (R) is a registered trademark of Pixar
   
   Q:Aqsis和prman在我们项目里起的作用是什么
   A:liquid里用到aqsis的ribout模块，以输出rib文件
+
+
+
+  ---------------------------------------------------------------------
+                     How to join this project ?
+  ---------------------------------------------------------------------
+  If you want to join this project, please let me know. 
+  You can email to:
+  yaoyansi2(at)yahoo.com.cn

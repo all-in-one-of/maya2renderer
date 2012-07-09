@@ -34,3 +34,7 @@ https://github.com/maya2renderer/maya2renderer/wiki/Gallary
 
 Animation
 https://github.com/maya2renderer/maya2renderer/wiki/Animation
+
+If you want to join this project, please let me know. 
+You can email to:
+yaoyansi2(at)yahoo.com.cn
