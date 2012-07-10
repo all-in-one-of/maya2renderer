@@ -1,9 +1,9 @@
 //Maya ASCII 2012 scene
 //Name: as_test_cube.ma
-//Last modified: Tue, Jul 10, 2012 12:19:45 AM
+//Last modified: Wed, Jul 11, 2012 12:41:50 AM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime= 0:13:20.51)";
+requires "liquid_2012x32d" "2.3.5 (buildtime= 0:38:59.95)";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -90,7 +90,6 @@ createNode transform -n "pointLight1";
 	setAttr ".t" -type "double3" 0 3.1082925345196033 0 ;
 createNode pointLight -n "pointLightShape1" -p "pointLight1";
 	setAttr -k off ".v";
-	setAttr ".cl" -type "float3" 1 0 0 ;
 	setAttr ".us" no;
 createNode lightLinker -s -n "lightLinker1";
 	setAttr -s 2 ".lnk";
@@ -181,7 +180,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 480;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/as_test_cube1178.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/as_test_cube32398.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -241,6 +240,8 @@ select -ne :initialParticleSE;
 select -ne :defaultShaderList1;
 	setAttr -s 2 ".s";
 select -ne :lightList1;
+select -ne :lambert1;
+	setAttr ".c" -type "float3" 1 1 0 ;
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderingList1;

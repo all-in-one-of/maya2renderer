@@ -221,6 +221,8 @@ namespace appleseed
 #else// SHAPE SHAPE_object PAIR
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
+
+		MString materialName;
 		{//material
 			MStringArray shadingGroupNodes;
 			{
@@ -228,8 +230,10 @@ namespace appleseed
 				cmd = "listConnections -type \"shadingEngine\" -destination on (\""+MString(ribNode__->name.asChar())+"\" + \".instObjGroups\")";
 				IfMErrorWarn(MGlobal::executeCommand( cmd, shadingGroupNodes));
 			}
-			MString materialName(shadingGroupNodes[0]);
-			//todo
+			
+			MStringArray surfaceShaders;
+			getlistConnections(shadingGroupNodes[0], "surfaceShader", surfaceShaders);
+			materialName = surfaceShaders[0];
 		}
 		
 		//element
@@ -263,40 +267,48 @@ namespace appleseed
 		//m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Geometry );//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
 	
 		// Appleseed stuff
-		this->_writeObject(ribNode__, currentJob__, bGeometryMotion, 0/*unused*/, true);
-//		const std::string root_path = "E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/sample";
+		{
+			MString dirname;
+			IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_dirname(\""+MString(mesh->getFullPathName())+"\")", dirname));
+			MString basename;
+			IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_basename(\""+MString(mesh->getFullPathName())+"\")", basename));
 
-//		// Load the scene geometry from disk.
-// 		asf::SearchPaths search_paths;
-// 		search_paths.push_back(root_path + "/data");
-// 		asr::MeshObjectArray objects =
-// 			asr::MeshObjectReader::read(
-// 			search_paths,
-// 			"cube",
-// 			asr::ParamArray()
-// 			.insert("filename", "maya_obj_export.obj"));
-// 
-// 		// Insert all the objects into the assembly.
-// 		for (size_t i = 0; i < objects.size(); ++i)
-// 		{
-// 			// Insert this object into the scene.
-// 			asr::MeshObject* object = objects[i];
-// 			current_assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
-// 
-// 			// Create the array of material names.
-// 			asf::StringArray material_names;
-// 			material_names.push_back("gray_material");
-// 
-// 			// Create an instance of this object and insert it into the assembly.
-// 			const std::string instance_name = std::string(object->get_name()) + "_inst";
-// 			current_assembly->object_instances().insert(
-// 				asr::ObjectInstanceFactory::create(
-// 				instance_name.c_str(),
-// 				asr::ParamArray(),
-// 				*object,
-// 				asf::Transformd(asf::Matrix4d::identity()),
-// 				material_names));
-// 		}
+			asf::SearchPaths search_paths;
+			search_paths.push_back( dirname.asChar() );
+
+			asr::MeshObjectArray objects =
+				asr::MeshObjectReader::read(
+				search_paths,
+				mesh->getFullPathName(),
+				asr::ParamArray()
+				.insert( "filename", basename.asChar() )
+				);
+			//
+			// Insert all the objects into the assembly.
+			for (size_t i = 0; i < objects.size(); ++i)
+			{
+				// Insert this object into the scene.
+				asr::MeshObject* object = objects[i];
+				current_assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
+
+				// Create the array of material names.
+				asf::StringArray material_names;
+				material_names.push_back( materialName.asChar() );
+
+				// Create an instance of this object and insert it into the assembly.
+				const std::string instance_name = std::string(object->get_name()) + "_inst";
+				current_assembly->object_instances().insert(
+					asr::ObjectInstanceFactory::create(
+					instance_name.c_str(),
+					asr::ParamArray(),
+					*object,
+					asf::Transformd(asf::Matrix4d::identity()),
+					material_names
+					)
+					);
+			}
+		}
+
 	}
 	//
 	void Renderer::ribPrologue_comment(const char* liqversion, 
@@ -540,7 +552,7 @@ namespace appleseed
 		asf::Matrix4d a;
 		convertMatrix<double>(a, m);
 		project->get_scene()->get_camera()->transform_sequence().clear();
-		project->get_scene()->get_camera()->transform_sequence().set_transform( lframe, asf::Transformd( a ) );
+		project->get_scene()->get_camera()->transform_sequence().set_transform( 0/*lframe*/, asf::Transformd( a ) );
 
 // 		project->get_scene()->get_camera()->transform_sequence().set_transform(
 // 			0.0,

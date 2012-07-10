@@ -277,8 +277,14 @@ namespace appleseed
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
+
+		// AS stuff
+	protected:
 		asf::auto_release_ptr<asr::Project> project;
 		asf::auto_release_ptr<asr::Assembly> current_assembly;
+	public:
+		asf::auto_release_ptr<asr::Assembly>& getAssembly() { return current_assembly; }
+		const asf::auto_release_ptr<asr::Assembly>& getAssembly() const { return current_assembly; }
 
 	protected:
 		Renderer(const Renderer&);
@@ -348,9 +354,6 @@ namespace appleseed
 		void generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree);
 
 		liqGlobalNodeHelper *m_gnode;
-
-		//
-		void _writeRef(liqRibMeshData* pData, const structJob &currentJob__);
 
 	};
 

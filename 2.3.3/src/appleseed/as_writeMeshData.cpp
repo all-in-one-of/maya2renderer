@@ -33,7 +33,6 @@ namespace appleseed
 		}else{
 			//write the reference
 			assert(pData->getRibFileFullPath() == fileName);
-			_writeRef(pData, currentJob);
 		}
 	}
 	//
@@ -132,51 +131,7 @@ namespace appleseed
 
 		//todo
 	}
-	//
-	void Renderer::_writeRef(liqRibMeshData* pData, const structJob &currentJob__)
-	{
-		CM_TRACE_FUNC("Renderer::_writeRef("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
-		
-		MString dirname;
-		IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_dirname(\""+MString(pData->getFullPathName())+"\")", dirname));
-		MString basename;
-		IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_basename(\""+MString(pData->getFullPathName())+"\")", basename));
 
-		asf::SearchPaths search_paths;
-		search_paths.push_back( dirname.asChar() );
-
-		asr::MeshObjectArray objects =
-			asr::MeshObjectReader::read(
-			search_paths,
-			pData->getFullPathName(),
-			asr::ParamArray()
-			.insert( "filename", basename.asChar() )
-			);
-		//
-		// Insert all the objects into the assembly.
-		for (size_t i = 0; i < objects.size(); ++i)
-		{
-			// Insert this object into the scene.
-			asr::MeshObject* object = objects[i];
-			current_assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
-
-			// Create the array of material names.
-			asf::StringArray material_names;
-			material_names.push_back("gray_material");
-
-			// Create an instance of this object and insert it into the assembly.
-			const std::string instance_name = std::string(object->get_name()) + "_inst";
-			current_assembly->object_instances().insert(
-				asr::ObjectInstanceFactory::create(
-				instance_name.c_str(),
-				asr::ParamArray(),
-				*object,
-				asf::Transformd(asf::Matrix4d::identity()),
-				material_names
-				)
-			);
-		}
-	}
 
 }//namespace appleseed
 

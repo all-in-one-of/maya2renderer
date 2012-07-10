@@ -13,34 +13,34 @@ void build_project(
 
 
 	// Create a color called "gray" and insert it into the assembly.
-	static const float GrayReflectance[] = { 0.5f, 0.5f, 0.5f };
-	assembly->colors().insert(
-		asr::ColorEntityFactory::create(
-		"gray",
-		asr::ParamArray()
-		.insert("color_space", "srgb"),
-		asr::ColorValueArray(3, GrayReflectance)));
-
-	// Create a BRDF called "diffuse_gray_brdf" and insert it into the assembly.
-	assembly->bsdfs().insert(
-		asr::LambertianBRDFFactory().create(
-		"diffuse_gray_brdf",
-		asr::ParamArray()
-		.insert("reflectance", "gray")));
-
-	// Create a physical surface shader and insert it into the assembly.
-	assembly->surface_shaders().insert(
-		asr::PhysicalSurfaceShaderFactory().create(
-		"physical_surface_shader",
-		asr::ParamArray()));
-
-	// Create a material called "gray_material" and insert it into the assembly.
-	assembly->materials().insert(
-		asr::MaterialFactory::create(
-		"gray_material",
-		asr::ParamArray()
-		.insert("surface_shader", "physical_surface_shader")
-		.insert("bsdf", "diffuse_gray_brdf")));
+// 	static const float GrayReflectance[] = { 0.5f, 0.5f, 0.5f };
+// 	assembly->colors().insert(
+// 		asr::ColorEntityFactory::create(
+// 		"gray",
+// 		asr::ParamArray()
+// 		.insert("color_space", "srgb"),
+// 		asr::ColorValueArray(3, GrayReflectance)));
+// 
+// 	// Create a BRDF called "diffuse_gray_brdf" and insert it into the assembly.
+// 	assembly->bsdfs().insert(
+// 		asr::LambertianBRDFFactory().create(
+// 		"diffuse_gray_brdf",
+// 		asr::ParamArray()
+// 		.insert("reflectance", "gray")));
+// 
+// 	// Create a physical surface shader and insert it into the assembly.
+// 	assembly->surface_shaders().insert(
+// 		asr::PhysicalSurfaceShaderFactory().create(
+// 		"physical_surface_shader",
+// 		asr::ParamArray()));
+// 
+// 	// Create a material called "gray_material" and insert it into the assembly.
+// 	assembly->materials().insert(
+// 		asr::MaterialFactory::create(
+// 		"gray_material",
+// 		asr::ParamArray()
+// 		.insert("surface_shader", "physical_surface_shader")
+// 		.insert("bsdf", "diffuse_gray_brdf")));
 
 // 	// Load the scene geometry from disk.
 // 	asf::SearchPaths search_paths;
