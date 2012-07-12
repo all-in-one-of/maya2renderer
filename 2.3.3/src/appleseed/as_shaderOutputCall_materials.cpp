@@ -69,40 +69,65 @@ void Visitor::visitLambert(const char* node)
 	asf::auto_release_ptr<asr::Assembly> &assembly = m_renderer->getAssembly();
 	//asf::auto_release_ptr<asr::Assembly> &assembly = m_renderer->current_assembly;
 
-	MDoubleArray val; 
-	val.setLength(3);
-	IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".color\"", val));
 
-	float color[] = { val[0], val[1], val[2] };
-	assembly->colors().insert(
-		asr::ColorEntityFactory::create(
-			(MString(node)+"_color").asChar(),
-			asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-		)
-	);
-	// Create a BRDF called "diffuse_gray_brdf" and insert it into the assembly.
-	assembly->bsdfs().insert(
-		asr::LambertianBRDFFactory().create(
-			(MString(node)+"_lambert_brdf").asChar(),
-			asr::ParamArray().insert("reflectance", (MString(node)+"_color").asChar())
-		)
-	);
 
-	// Create a physical surface shader and insert it into the assembly.
-	assembly->surface_shaders().insert(
-		asr::PhysicalSurfaceShaderFactory().create(
-			(MString(node)+"_physical_surface_shader").asChar(),
-			asr::ParamArray()
-		)
-	);
+	//material parameters
+	asr::ParamArray material_params;
 
-	// Create a material called "gray_material" and insert it into the assembly.
+	// bsdf
+	{
+		asr::ParamArray bsdf_params;
+
+		{
+			//reflectance color
+			MDoubleArray val; 
+			val.setLength(3);
+			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".color\"", val));
+
+			float color[] = { val[0], val[1], val[2] };
+			assembly->colors().insert(
+				asr::ColorEntityFactory::create(
+				(MString(node)+"_color").asChar(),
+				asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+				)
+			);
+			//
+			bsdf_params.insert("reflectance", (MString(node)+"_color").asChar());
+		}
+
+		//
+		assembly->bsdfs().insert(
+			asr::LambertianBRDFFactory().create(
+				(MString(node)+"_lambert_brdf").asChar(),
+				bsdf_params
+			)
+		);
+		//
+		material_params.insert("bsdf", (MString(node)+"_lambert_brdf").asChar());
+	}//bsdf
+
+
+
+	// surface shader
+	{
+		assembly->surface_shaders().insert(
+			asr::PhysicalSurfaceShaderFactory().create(
+				(MString(node)+"_physical_surface_shader").asChar(),
+				asr::ParamArray()
+			)
+		);
+		//
+		material_params.insert("surface_shader", (MString(node)+"_physical_surface_shader").asChar());
+	}//surface shader
+
+	// edf
+	{
+
+	}
+
+	// material
 	assembly->materials().insert(
-		asr::MaterialFactory::create(
-		node,
-		asr::ParamArray().insert("surface_shader", (MString(node)+"_physical_surface_shader").asChar())
-						 .insert("bsdf", (MString(node)+"_lambert_brdf").asChar())
-		)
+		asr::MaterialFactory::create( node, material_params )
 	);
 
 }
