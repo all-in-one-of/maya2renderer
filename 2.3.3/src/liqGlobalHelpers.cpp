@@ -1717,3 +1717,11 @@ MString liqMerge(const MStringArray& sa, const char split)
 	}
 	return ret;
 }
+//
+bool isZero(const float r, const float g, const float b)
+{
+	if ( equiv(r, 0.0f) && equiv(g, 0.0f) && equiv(b, 0.0f) )
+		return true;
+	else 
+		return false;
+}

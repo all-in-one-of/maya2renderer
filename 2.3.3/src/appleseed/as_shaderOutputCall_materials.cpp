@@ -77,7 +77,6 @@ void Visitor::visitLambert(const char* node)
 	// bsdf
 	{
 		asr::ParamArray bsdf_params;
-
 		{
 			//reflectance color
 			MDoubleArray val; 
@@ -94,7 +93,6 @@ void Visitor::visitLambert(const char* node)
 			//
 			bsdf_params.insert("reflectance", (MString(node)+"_color").asChar());
 		}
-
 		//
 		assembly->bsdfs().insert(
 			asr::LambertianBRDFFactory().create(
@@ -102,7 +100,6 @@ void Visitor::visitLambert(const char* node)
 				bsdf_params
 			)
 		);
-		//
 		material_params.insert("bsdf", (MString(node)+"_lambert_brdf").asChar());
 	}//bsdf
 
@@ -122,7 +119,37 @@ void Visitor::visitLambert(const char* node)
 
 	// edf
 	{
+		asr::ParamArray edf_params;
+		{
+			MDoubleArray val; 
+			val.setLength(3);
+			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".incandescence\"", val));
 
+			if( !isZero(val[0], val[1], val[2]) )
+			{
+				float incandescence[] = { val[0], val[1], val[2] };
+				assembly->colors().insert(
+					asr::ColorEntityFactory::create(
+					(MString(node)+"_incandescence").asChar(),
+					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, incandescence)
+					)
+					);
+				//
+				edf_params.insert("exitance", (MString(node)+"_incandescence").asChar());
+			}
+		}
+		//
+		if( !edf_params.empty() )
+		{
+			assembly->edfs().insert(
+				asr::DiffuseEDFFactory().create(
+				(MString(node)+"_edf").asChar(),
+				edf_params
+				)
+			);
+			//
+			material_params.insert("edf", (MString(node)+"_edf").asChar());
+		}
 	}
 
 	// material

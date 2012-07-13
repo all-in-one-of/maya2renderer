@@ -172,4 +172,7 @@ MString getFileNodeImageName(const MString &node);
 MString liqMerge(const MStringArray& sa, const char split);
 #define liqM(msa) liqMerge(msa,'|').asChar()
 //
+bool isZero(const float r, const float g, const float b);
+
+
 #endif

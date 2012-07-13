@@ -4,6 +4,7 @@
 #pragma once
 
 // appleseed.renderer headers. Only include header files from renderer/api/.
+#include "appleseed/renderer/api/edf.h"
 #include "appleseed/renderer/api/bsdf.h"
 #include "appleseed/renderer/api/camera.h"
 #include "appleseed/renderer/api/color.h"
