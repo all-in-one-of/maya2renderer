@@ -9,7 +9,6 @@
 #include "../shadergraph/shaderOutput.h"
 
 namespace appleseed{
-	class Renderer;
 namespace call{
 
 class OutputHelper
@@ -294,7 +293,7 @@ public:
 
 protected:
 	//std::ofstream file;
-	Renderer* m_renderer;
+
 
 private:
 	Visitor(const Visitor&);

@@ -6,8 +6,7 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-#include "../renderermgr.h"
-#include "as_renderer.h"
+
 
 namespace appleseed{
 namespace call{
@@ -238,15 +237,11 @@ void OutputHelper::end ()
 }
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
-	:m_renderer(NULL)
 {
-	m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
-	assert(m_renderer != NULL );
 }
 //
 Visitor::~Visitor()
 {
-	m_renderer = NULL;
 }
 //
 

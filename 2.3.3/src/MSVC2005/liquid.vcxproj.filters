@@ -490,6 +490,9 @@
     <ClCompile Include="..\appleseed\as_helper.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_material.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -850,6 +853,9 @@
       <Filter>renderer\appleseed\openexr</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_helper.h">
+      <Filter>renderer\appleseed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\as_material.h">
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
   </ItemGroup>

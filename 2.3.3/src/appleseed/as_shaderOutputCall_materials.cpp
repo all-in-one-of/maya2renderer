@@ -6,7 +6,7 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-#include "as_renderer.h"
+#include "as_material.h"
 
 namespace appleseed{
 namespace call{
@@ -52,110 +52,13 @@ void Visitor::visitLambert(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLambert("<<node<<")");
 
-// 	OutputHelper o;
-// 
-// 	o.begin(node);
-// 
-// 	o.addVariable("vector", "Cs",		"color",		node);
-// 	o.addVariable("vector", "transparency", "transparency", node);
-// 	o.addVariable("vector", "ambientColor",	"ambientColor", node);
-// 	o.addVariable("vector", "incandescence","incandescence",node);
-// 	o.addVariable("float",  "diffusion",	"diffuse",		node);
-// 	o.addVariable("vector", "outColor",		"outColor",		node);
-// 	o.addVariable("vector", "outTransparency","outTransparency",node);
+	MaterialFactory mf;
 
-//	o.end();
-
-	asf::auto_release_ptr<asr::Assembly> &assembly = m_renderer->getAssembly();
-	//asf::auto_release_ptr<asr::Assembly> &assembly = m_renderer->current_assembly;
-
-
-
-	//material parameters
-	asr::ParamArray material_params;
-
-	// bsdf
-	{
-		asr::ParamArray bsdf_params;
-		{
-			//reflectance color
-			MDoubleArray val; 
-			val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".color\"", val));
-
-			float color[] = { val[0], val[1], val[2] };
-			assembly->colors().insert(
-				asr::ColorEntityFactory::create(
-				(MString(node)+"_color").asChar(),
-				asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-				)
-			);
-			//
-			bsdf_params.insert("reflectance", (MString(node)+"_color").asChar());
-		}
-		//
-		assembly->bsdfs().insert(
-			asr::LambertianBRDFFactory().create(
-				(MString(node)+"_lambert_brdf").asChar(),
-				bsdf_params
-			)
-		);
-		material_params.insert("bsdf", (MString(node)+"_lambert_brdf").asChar());
-	}//bsdf
-
-
-
-	// surface shader
-	{
-		assembly->surface_shaders().insert(
-			asr::PhysicalSurfaceShaderFactory().create(
-				(MString(node)+"_physical_surface_shader").asChar(),
-				asr::ParamArray()
-			)
-		);
-		//
-		material_params.insert("surface_shader", (MString(node)+"_physical_surface_shader").asChar());
-	}//surface shader
-
-	// edf
-	{
-		asr::ParamArray edf_params;
-		{
-			MDoubleArray val; 
-			val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".incandescence\"", val));
-
-			if( !isZero(val[0], val[1], val[2]) )
-			{
-				float incandescence[] = { val[0], val[1], val[2] };
-				assembly->colors().insert(
-					asr::ColorEntityFactory::create(
-					(MString(node)+"_incandescence").asChar(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, incandescence)
-					)
-					);
-				//
-				edf_params.insert("exitance", (MString(node)+"_incandescence").asChar());
-			}
-		}
-		//
-		if( !edf_params.empty() )
-		{
-			assembly->edfs().insert(
-				asr::DiffuseEDFFactory().create(
-				(MString(node)+"_edf").asChar(),
-				edf_params
-				)
-			);
-			//
-			material_params.insert("edf", (MString(node)+"_edf").asChar());
-		}
-	}
-
-	// material
-	assembly->materials().insert(
-		asr::MaterialFactory::create( node, material_params )
-	);
+	mf.begin(node);
+	mf.createBSDF(lambertian_brdf);
+	mf.createEDF(diffuse_edf);
+	mf.createSurfaceShader(physical_surface_shader);
+	mf.end();
 
 }
 // @node	maya shader node name
