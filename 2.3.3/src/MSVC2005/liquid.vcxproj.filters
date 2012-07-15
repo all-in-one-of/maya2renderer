@@ -62,9 +62,6 @@
     <Filter Include="dependence\trace">
       <UniqueIdentifier>{f62a9a44-8fec-4a40-bb7b-76d2657a46ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="renderer\appleseed\openexr">
-      <UniqueIdentifier>{1f36fb72-a97f-4071-87d3-c0bcaf1a109d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\liqAttachPrefAttribute.cpp">
@@ -484,9 +481,6 @@
     <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\half.cpp">
-      <Filter>renderer\appleseed\openexr</Filter>
-    </ClCompile>
     <ClCompile Include="..\appleseed\as_helper.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
@@ -842,15 +836,6 @@
     </ClInclude>
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h">
       <Filter>renderer\appleseed</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\eLut.h">
-      <Filter>renderer\appleseed\openexr</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\half.h">
-      <Filter>renderer\appleseed\openexr</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\toFloat.h">
-      <Filter>renderer\appleseed\openexr</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_helper.h">
       <Filter>renderer\appleseed</Filter>

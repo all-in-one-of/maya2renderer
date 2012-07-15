@@ -6,7 +6,7 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-
+#include "as_helper.h"
 
 namespace appleseed{
 namespace call{
@@ -63,7 +63,7 @@ void Visitor::visitFile(const char* node)
 			assert(0&&"image not exist.");
 		}
 
-		bool isERTex;//whether fileImageName is ER texture
+		bool needToConvert;//whether fileImageName is exr texture
 		{
 			std::string fileImageName_(fileImageName.asChar());
 			std::size_t i_last_dot = fileImageName_.find_last_of('.');
@@ -71,19 +71,18 @@ void Visitor::visitFile(const char* node)
 				liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
 				assert(0&&"warrning: texture name has not extention.");
 			}
-			std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=tex
+			std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr
 			std::transform(imgext.begin(),imgext.end(),imgext.begin(),tolower);
 		
-			isERTex = (imgext == "tex");
+			needToConvert = (imgext != "exr");
 		}
 
-		MString fileTextureName = (isERTex)? fileImageName : (fileImageName+".tex");
+		MString fileTextureName = (needToConvert)? (fileImageName+".exr") : fileImageName;
 
 		//generate texture
 		if ( access(fileTextureName.asChar(), 0) != 0 )//not exist
 		{
-			//ei_make_texture(fileImageName.asChar(), fileTextureName.asChar(),
-			//	EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f);
+			makeTexture( fileImageName.asChar(), fileTextureName.asChar() );
 		}
 		//construct texture node
 		//if (ei_file_exists(fileTextureName))
