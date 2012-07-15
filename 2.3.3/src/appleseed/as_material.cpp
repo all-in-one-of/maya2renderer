@@ -3,6 +3,7 @@
 #include "../common/prerequest_maya.h"
 #include "as_renderer.h"
 #include "../renderermgr.h"
+#include "../shadergraph/shadermgr.h"
 
 namespace appleseed
 {
@@ -103,19 +104,35 @@ namespace appleseed
 
 		asr::ParamArray bsdf_params;
 		{
-			std::string color_name(m_nodename+"_color");
-			//reflectance color
-			MDoubleArray val; 
-			val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(m_nodename.c_str())+".color\"", val));
+			std::string color_name;
 
-			float color[] = { val[0], val[1], val[2] };
-			m_assembly->colors().insert(
-				asr::ColorEntityFactory::create(
-				color_name.c_str(),
-				asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-				)
-			);
+			MString plug(MString(m_nodename.c_str())+".color");
+			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(plug.asChar());
+			if(connected != 1)
+			{
+				color_name = m_nodename+"_color";
+				//reflectance color
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(m_nodename.c_str())+".color\"", val));
+
+				float color[] = { val[0], val[1], val[2] };
+				m_assembly->colors().insert(
+					asr::ColorEntityFactory::create(
+					color_name.c_str(),
+					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+					)
+				);
+			}else{//the color plug is linked in.
+				MStringArray srcPlug;
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+plug+"\"", srcPlug));
+				assert(srcPlug.length()==1);
+				MStringArray src;
+				srcPlug[0].split('.',src);
+				MString srcNode(src[0]);
+				//
+				color_name = getTextureInstanceName(srcNode.asChar());
+			}
 			//
 			bsdf_params.insert("reflectance", color_name.c_str());
 		}

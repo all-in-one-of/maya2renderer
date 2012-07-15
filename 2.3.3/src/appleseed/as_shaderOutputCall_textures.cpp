@@ -6,7 +6,9 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
+#include "as_renderer.h"
 #include "as_helper.h"
+#include "../renderermgr.h"
 
 namespace appleseed{
 namespace call{
@@ -56,6 +58,7 @@ void Visitor::visitFile(const char* node)
 
 	//generate texture and construct texture node
 	MString fileImageName(getFileNodeImageName(node));
+	MString fileTextureName;
 	{
 		//test "fileImageName" exist or not.
 		if( access(fileImageName.asChar(), 0) != 0){
@@ -77,7 +80,7 @@ void Visitor::visitFile(const char* node)
 			needToConvert = (imgext != "exr");
 		}
 
-		MString fileTextureName = (needToConvert)? (fileImageName+".exr") : fileImageName;
+		fileTextureName = (needToConvert)? (fileImageName+".exr") : fileImageName;
 
 		//generate texture
 		if ( access(fileTextureName.asChar(), 0) != 0 )//not exist
@@ -93,29 +96,45 @@ void Visitor::visitFile(const char* node)
 		}
 	}
 
+	// AS stuff
+	Renderer* m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+	assert(m_renderer != NULL );
+	asr::Assembly* m_assembly = m_renderer->getAssembly().get();
+	assert(m_assembly != nullptr);
 
-	o.begin(node);
+	//texture
+	std::size_t texture_index;
+	{
+		asr::ParamArray texture_params;
+		texture_params.insert("filename", fileTextureName.asChar());
+		texture_params.insert("color_space", "srgb");
 
-	//input
-	o.addVariable("float",  "alphaGain",	"alphaGain",	node);
-	o.addVariable("bool",  "alphaIsLuminance",	"alphaIsLuminance",	node);
-	o.addVariable("float",  "alphaOffset",	"alphaOffset",	node);
-	o.addVariable("color",  "colorGain",	"colorGain",	node);
-	o.addVariable("color",  "colorOffset",	"colorOffset",	node);
-	o.addVariable("color",  "defaultColor",	"defaultColor",	node);
-	o.addVariable("vector",  "uvCoord",	"uvCoord",	node);
-	//ei_shader_param_texture("fileTextureName", fileImageName.asChar());
-	o.addVariable("index", "filterType",	"filterType",	node);
-	o.addVariable("float",  "filter",	"filter",	node);
-	o.addVariable("float",  "filterOffset",	"filterOffset",	node);
-	o.addVariable("bool",  "invert",	"invert",	node);
-	o.addVariable("bool",  "fileHasAlpha",	"fileHasAlpha",	node);
-	//o.addVariable("index", "num_channels",	"num_channels",	node);
-	//output
-	o.addVariable("float", "outAlpha",	"outAlpha",	node);
-	o.addVariable("color", "outColor",	"outColor",	node);
-	o.addVariable("color", "outTransparency",	"outTransparency",	node);
-	o.end();
+		asf::SearchPaths search_paths;
+		asf::auto_release_ptr<asr::Texture> texture = 
+			asr::DiskTexture2dFactory().create(node, texture_params, search_paths);
+
+		texture_index = m_assembly->textures().insert(texture);
+	}
+
+	
+	//instance
+	{
+		const std::string texture_instance_name = getTextureInstanceName(node);
+
+		asr::ParamArray texture_instance_params;
+		texture_instance_params.insert("addressing_mode", "clamp");
+		texture_instance_params.insert("filtering_mode", "bilinear");
+
+		asf::auto_release_ptr<asr::TextureInstance> texture_instance =
+			asr::TextureInstanceFactory::create(
+				texture_instance_name.c_str(),
+				texture_instance_params,
+				texture_index
+			);
+
+		m_assembly->texture_instances().insert(texture_instance);
+	}
+
 }
 //
 //

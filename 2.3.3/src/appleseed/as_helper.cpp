@@ -80,6 +80,11 @@ namespace appleseed
 			"convertTexToExr2("+MString(srcImagePath)+", "+MString(desImagePath)+")");
 #endif
 	}
+	//
+	std::string getTextureInstanceName(const std::string& texturename)
+	{
+		return texturename + "_inst";
+	}
 
 }//namespace appleseed
 #endif//_USE_APPLESEED_

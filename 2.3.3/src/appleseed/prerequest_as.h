@@ -19,6 +19,7 @@
 #include "appleseed/renderer/api/scene.h"
 #include "appleseed/renderer/api/surfaceshader.h"
 #include "appleseed/renderer/api/utility.h"
+#include "appleseed/renderer/api/texture.h"
 
 // appleseed.foundation headers.
 #include "appleseed/foundation/math/matrix.h"

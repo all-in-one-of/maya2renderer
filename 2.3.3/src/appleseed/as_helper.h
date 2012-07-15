@@ -16,6 +16,8 @@ namespace appleseed
 	template<typename T>
 	void convertMatrix(asf::Matrix<T, 4, 4> &des, const liqFloat src[4][4]);
 	void makeTexture(const char* srcImagePath, const char* desImagePath);
+
+	std::string getTextureInstanceName(const std::string& texturename);
 }//namespace appleseed
 //#endif//_AS_Helper_H
 
