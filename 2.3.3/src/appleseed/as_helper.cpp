@@ -7,11 +7,11 @@
 #include "../common/prerequest_std.h"
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
-//#undef min
-//#undef max
+#if USE_OPENEXR_CPP_INTERFACE
 #include <openexr/ImfRgbaFile.h>
 #include <openexr/ImfArray.h>
 #include <openexr/half.h>
+#endif
 #include <liqGlobalHelpers.h>
 #include <liqlog.h>
 
@@ -20,7 +20,7 @@ namespace appleseed
 	void makeTexture(const char* srcImagePath, const char* desImagePath)
 	{
 		CM_TRACE_FUNC("makeTexture("<<srcImagePath<<","<<desImagePath<<")");
-#if 0
+#if USE_OPENEXR_CPP_INTERFACE
 		MImage srcImage;
 		
 		float* src = NULL;	

@@ -487,6 +487,12 @@
     <ClCompile Include="..\appleseed\as_material.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\prerequest_as.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\prerequest_maya.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
