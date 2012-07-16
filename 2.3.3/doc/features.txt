@@ -38,3 +38,7 @@ elvishray
 - pfxHair(not complete yet)
 - uv set
 
+appleseed
+- the following shader graph nodes are supported now:
+  lambert, file
+- point light,

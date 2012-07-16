@@ -85,6 +85,12 @@ elvishray
 - (done)由于使用progressive rendering， tile更新不明显。应该把正在更新的tile用红框标出来。
 - (done)physicalsky需要修改为maya可用的
 
+
+appleseed
+------------
+
+
+
 ===================================  TODO LIST  =============================================
 liquid
 ------------
@@ -224,3 +230,8 @@ elvishray
 - checker node(test\test_rm_texture\check12_bmp.ma)效果不正确
 - er渲染MoxMotionMeetsFBIK\scenes\texture_anim1.ma崩溃
 - 参考RenderMan-Studio-1.0.1-Maya2008\devkit\examples\ribgen\mtorHairProcedural.h,修改pfxhair的bug
+
+
+appleseed
+-------------
+- camera motion, deform motion, 
