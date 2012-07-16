@@ -9,10 +9,142 @@
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
 
+
+
 namespace appleseed
 {
+	//
+	void _exportVertexFromNodePlug(	const liqRibNodePtr &ribNode__,	
+		unsigned int sample,std::vector<asf::Vector3d>& v);
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__);
+	/////////////////////// mesh stuffs for outpu /////////////////////////////
+	struct Mesh
+	{
+		//std::string              m_name;
+		std::vector<asf::Vector3d>			m_vertices;
+		std::vector<asf::IMeshWalker::Face> m_faces;
+	};
+	//
+	struct MeshWalker : public asf::IMeshWalker
+	{
+		MFnMesh fnMesh;
 
+		Mesh m_mesh;
+		const liqRibNodePtr &ribNode__;
+		
+		MIntArray triangleCounts,triangleVertices;
+		MString currentUVsetName;
+
+		explicit MeshWalker(const liqRibNodePtr &ribNode)
+			: ribNode__(ribNode)
+		{
+		}
+
+		virtual std::string get_name() const
+		{
+			return ribNode__->name.asChar();
+		}
+
+		virtual std::size_t get_vertex_count() const
+		{
+			MStatus status;
+			int num = fnMesh.numVertices(&status);
+			IfMErrorWarn(status);
+			return num;
+		}
+
+		virtual asf::Vector3d get_vertex(const std::size_t i) const
+		{
+			return m_mesh.m_vertices[i];
+		}
+
+		virtual std::size_t get_vertex_normal_count() const
+		{
+			if(fnMesh.numVertices() == fnMesh.numNormals())//smooth normal, like a sphere
+			{
+				MStatus status;
+				int num = fnMesh.numVertices(&status);
+				IfMErrorWarn(status);
+				return num;
+			}else{
+				return 0;
+			}
+		}
+
+		virtual asf::Vector3d get_vertex_normal(const std::size_t i) const
+		{
+			if(fnMesh.numVertices() == fnMesh.numNormals())//smooth normal, like a sphere
+			{
+				MVector nml;
+				IfMErrorWarn(fnMesh.getVertexNormal(i, false, nml, MSpace::kObject));
+
+				return asf::Vector3d(nml.x, nml.y, nml.z);
+			}else{
+				return asf::Vector3d();
+			}
+		}
+
+		virtual std::size_t get_tex_coords_count() const
+		{
+// 			MFloatArray uArray, vArray;
+// 			fnMesh.getUVs( uArray, vArray );
+// 			std::size_t num = uArray.length();
+// 			return num;
+			return 0;
+		}
+
+		virtual asf::Vector2d get_tex_coords(const std::size_t i) const
+		{
+			float u,v;
+			IfMErrorWarn( fnMesh.getUV(i, u, v, &currentUVsetName) );
+			return asf::Vector2d(u,v);
+		}
+
+		virtual std::size_t get_face_count() const
+		{
+			std::size_t sum = 0;
+			for(std::size_t i=0; i<triangleCounts.length(); ++i){
+				sum += triangleCounts[ i ];
+			}
+			return sum;
+		}
+
+		virtual asf::IMeshWalker::Face get_face(const std::size_t i) const
+		{
+			asf::IMeshWalker::Face face;
+			//pos index
+			face.m_v0 = triangleVertices[i];
+			face.m_v1 = triangleVertices[i+1];
+			face.m_v2 = triangleVertices[i+2];
+			//normal index
+// 			if(fnMesh.numVertices() == fnMesh.numNormals())//smooth normal, like a sphere
+// 			{
+// 				face.m_n0 = triangleVertices[i];
+// 				face.m_n1 = triangleVertices[i+1];
+// 				face.m_n2 = triangleVertices[i+2];
+// 			}
+			//
+			//face.m_t0 = ;
+			//face.m_t1 = ;
+			//face.m_t2 = ;
+			//face.m_material = ;
+			return face;
+		}
+		//
+		void set(std::size_t sample)
+		{
+			const liqRibDataPtr mesh = ribNode__->object(sample)->getDataPtr();
+
+			IfMErrorWarn(fnMesh.setObject(mesh->objDagPath));
+
+			IfMErrorWarn(fnMesh.getTriangles(triangleCounts, triangleVertices));
+			IfMErrorWarn(fnMesh.getCurrentUVSetName(currentUVsetName));
+			_exportVertexFromNodePlug( ribNode__, sample, m_mesh.m_vertices );
+
+		}
+	};
+	//////////////////////////////////////////////////////////////////////////
+	//
 	void Renderer::write(
 		/*const*/ liqRibMeshData* pData,
 		const MString &fileName, 
@@ -38,9 +170,10 @@ namespace appleseed
 	//
 	void _exportVertexFromNodePlug(
 		const liqRibNodePtr &ribNode__,
-		unsigned int sample)
+		unsigned int sample,
+		std::vector<asf::Vector3d>& v)
 	{	
-		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name<<","<<sample<<")");
+		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<")");
 
 		MStatus status;
 
@@ -64,11 +197,11 @@ namespace appleseed
 		IfMErrorWarn(status);
 
 		// add vertex position
+		v.clear();
 		for(size_t i=0; i<fnMesh.numVertices(); ++i)
 		{
-			//_S( ei_tab_add_vector( vertex_buf[3*i+0],vertex_buf[3*i+1],vertex_buf[3*i+2] ) );
+			v.push_back( asf::Vector3d(vertex_buf[3*i+0],vertex_buf[3*i+1],vertex_buf[3*i+2]) );
 		}
-
 	}
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
@@ -125,10 +258,36 @@ namespace appleseed
 #endif
 
 		// AS stuff
-		IfMErrorWarn(MGlobal::executeCommand( "as_export(\""+MString(mesh->getFullPathName())+"\")"));
+		// use objExport.dso to export obj mesh
+		//IfMErrorWarn(MGlobal::executeCommand( "as_export(\""+MString(mesh->getFullPathName())+"\")"));
+		
+		// use appleseed interfaces to export obj mesh.
+		MString objFilePath;
+		IfMErrorWarn(MGlobal::executeCommand(
+			"as_get_filesys_fullPathName(\""+MString(mesh->getFullPathName())+"\")",
+			objFilePath)
+		);
+		//try to makedir
+		IfMErrorWarn(MGlobal::executeCommand(
+			"string $dir = `dirname \""+objFilePath+"\"`;" 
+			"if( `filetest -d $dir` == 0) sysFile -makeDir $dir;"
+			,true, false)
+		);
+		//
+		MeshWalker walker(ribNode__);
 
+		walker.set(sample_first);
+		asf::OBJMeshFileWriter writer(objFilePath.asChar());
+		writer.write(walker);
+		writer.close();
 
-
+		if( sample_first != sample_last )// motion blur stuff
+		{
+			walker.set(sample_last);
+			asf::OBJMeshFileWriter writer((objFilePath+"_mb.obj").asChar());
+			writer.write(walker);
+			writer.close();
+		}
 		//todo
 	}
 

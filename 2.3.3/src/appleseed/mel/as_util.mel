@@ -15,7 +15,7 @@ proc string as_get_export_mesh_to()
 }
 // \p $meshFullPathName   e.g. |pCube1|pCubeShape1
 // \r                     e.g. %root%/pCube1/pCubeShape1.obj
-proc string as_get_filesys_fullPathName(string $meshFullPathName)
+global proc string as_get_filesys_fullPathName(string $meshFullPathName)
 {
 	liqPushIdent();
 	liqlog("as_get_filesys_fullPathName("+$meshFullPathName+")");

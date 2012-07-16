@@ -2236,6 +2236,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\trunk\src\appleseed\foundation\mesh\objmeshfilewriter.cpp" />
     <ClCompile Include="..\appleseed\as_connection.cpp" />
     <ClCompile Include="..\appleseed\as_helper.cpp" />
     <ClCompile Include="..\appleseed\as_material.cpp" />

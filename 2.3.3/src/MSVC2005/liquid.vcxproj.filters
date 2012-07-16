@@ -62,6 +62,9 @@
     <Filter Include="dependence\trace">
       <UniqueIdentifier>{f62a9a44-8fec-4a40-bb7b-76d2657a46ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="renderer\appleseed\dependences">
+      <UniqueIdentifier>{622c7975-f0b0-4a48-88cd-2bcfbc909231}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\liqAttachPrefAttribute.cpp">
@@ -492,6 +495,9 @@
     </ClCompile>
     <ClCompile Include="..\common\prerequest_maya.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\trunk\src\appleseed\foundation\mesh\objmeshfilewriter.cpp">
+      <Filter>renderer\appleseed\dependences</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

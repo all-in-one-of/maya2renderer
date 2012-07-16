@@ -22,6 +22,7 @@
 #include "appleseed/renderer/api/texture.h"
 
 // appleseed.foundation headers.
+#include "appleseed/foundation/math/vector.h"
 #include "appleseed/foundation/math/matrix.h"
 #include "appleseed/foundation/math/scalar.h"
 #include "appleseed/foundation/math/transform.h"
@@ -31,6 +32,11 @@
 #include "appleseed/foundation/utility/searchpaths.h"
 #include "appleseed/foundation/image/image.h"
 #include "appleseed/foundation/image/tile.h"
+
+// mesh
+#include "appleseed/foundation/mesh/imeshwalker.h"
+#include "appleseed/foundation/mesh/meshbuilderbase.h"
+#include "appleseed/foundation/mesh/objmeshfilewriter.h"
 
 namespace asf = foundation;
 namespace asr = renderer;

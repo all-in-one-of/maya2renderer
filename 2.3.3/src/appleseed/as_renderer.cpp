@@ -174,9 +174,6 @@ namespace appleseed
 		CM_TRACE_FUNC("Renderer::exportOneObject_reference("<<ribNode__->name.asChar()<<","<<currentJob__.name.asChar()<<")");
 		MStatus status;
 
-		unsigned int sample_first = 0;
-		unsigned int sample_last = liqglo.liqglo_motionSamples -1;
-
 		const bool bMotionBlur =
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
@@ -187,6 +184,9 @@ namespace appleseed
 			liqglo.liqglo_doDef 
 			&& bMotionBlur
 			&& ( ribNode__->object(0)->type != MRT_RibGen );
+
+		unsigned int sample_first = 0;
+		unsigned int sample_last = bGeometryMotion? (liqglo.liqglo_motionSamples - 1):sample_first;
 
 		//exportOneGeometry_Mesh(ribNode__, currentJob__ , sample_first, bGeometryMotion?sample_last:sample_first);
 
@@ -251,7 +251,7 @@ namespace appleseed
 			&& bMotionBlur;
  		if( bMatrixMotionBlur )
  		{
-			matrix = ribNode__->object( sample_last )->matrix( ribNode__->path().instanceNumber() );
+			matrix = ribNode__->object( liqglo.liqglo_motionSamples -1/*sample_last*/ )->matrix( ribNode__->path().instanceNumber() );
 			IfMErrorWarn(matrix.get(m));
  		}
 
@@ -275,13 +275,33 @@ namespace appleseed
 
 			asf::SearchPaths search_paths;
 			search_paths.push_back( dirname.asChar() );
+			
+			asr::ParamArray objFileNameParam;
+			if( sample_first == sample_last )
+			{
+				//no motion blur
+				objFileNameParam.insert( "filename", basename.asChar() );
+			}else{
+				// for motion blur, there will be several obj files
+				asr::ParamArray motionblurParam;
+				motionblurParam.insert( "0", basename.asChar() );
+				motionblurParam.insert( "1", (basename+"_mb.obj").asChar() );
+				//motionblurParam.insert( "0", "square.0.obj" );
+				//motionblurParam.insert( "1", "square.1.obj_mb.obj" );
+				
+				objFileNameParam.insert("filename", motionblurParam);
+
+				// Workaround for issue #160 (https://github.com/jupiter-jazz/appleseed/issues/160).
+				// try to remove this line with the next release of appleseed devkit.
+				objFileNameParam.insert("__base_object_name", basename.asChar());
+			}
+
 
 			asr::MeshObjectArray objects =
 				asr::MeshObjectReader::read(
-				search_paths,
-				mesh->getFullPathName(),
-				asr::ParamArray()
-				.insert( "filename", basename.asChar() )
+					search_paths,
+					mesh->getFullPathName(),
+					objFileNameParam
 				);
 			//
 			// Insert all the objects into the assembly.
@@ -298,15 +318,19 @@ namespace appleseed
 				// Create an instance of this object and insert it into the assembly.
 				const std::string instance_name = std::string(object->get_name()) + "_inst";
 				current_assembly->object_instances().insert(
-					asr::ObjectInstanceFactory::create(
-					instance_name.c_str(),
-					asr::ParamArray(),
-					*object,
-					asf::Transformd(asf::Matrix4d::identity()),
-					material_names
-					)
+						asr::ObjectInstanceFactory::create(
+							instance_name.c_str(),
+							asr::ParamArray(),
+							*object,
+							asf::Transformd(asf::Matrix4d::identity()),
+							material_names
+						)
 					);
 			}
+			
+
+
+
 		}
 
 	}
