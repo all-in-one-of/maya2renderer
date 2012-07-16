@@ -8,7 +8,7 @@
 #include "log_helper.h"
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
-
+#include "objExport.h"
 
 
 namespace appleseed
@@ -171,7 +171,7 @@ namespace appleseed
 	void _exportVertexFromNodePlug(
 		const liqRibNodePtr &ribNode__,
 		unsigned int sample,
-		std::vector<asf::Vector3d>& v)
+		std::vector<float>& v)
 	{	
 		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<")");
 
@@ -196,11 +196,19 @@ namespace appleseed
 		MFnMesh fnMesh(mesh->objDagPath, &status);
 		IfMErrorWarn(status);
 
+
+		MMatrix obj2world;
+		obj2world = ribNode__->object( sample )->matrix( ribNode__->path().instanceNumber() );
+
 		// add vertex position
 		v.clear();
 		for(size_t i=0; i<fnMesh.numVertices(); ++i)
 		{
-			v.push_back( asf::Vector3d(vertex_buf[3*i+0],vertex_buf[3*i+1],vertex_buf[3*i+2]) );
+			MPoint p(vertex_buf[3*i+0], vertex_buf[3*i+1], vertex_buf[3*i+2]);
+			p *= obj2world;
+			v.push_back( p.x );
+			v.push_back( p.y );
+			v.push_back( p.z );
 		}
 	}
 	//
@@ -274,6 +282,7 @@ namespace appleseed
 			,true, false)
 		);
 		//
+#ifdef _USE_APPLESEED_MESH_EXPORTER_
 		MeshWalker walker(ribNode__);
 
 		walker.set(sample_first);
@@ -288,6 +297,18 @@ namespace appleseed
 			writer.write(walker);
 			writer.close();
 		}
+#else
+		ObjTranslator writer;
+		_exportVertexFromNodePlug(ribNode__, sample_first, writer.position);
+		writer.write(objFilePath, mesh->getFullPathName() );
+		
+		if( sample_first != sample_last )// motion blur stuff
+		{
+			ObjTranslator writer;
+			_exportVertexFromNodePlug(ribNode__, sample_last, writer.position);
+			writer.write(objFilePath+"_mb.obj", mesh->getFullPathName() );
+		}
+#endif
 		//todo
 	}
 

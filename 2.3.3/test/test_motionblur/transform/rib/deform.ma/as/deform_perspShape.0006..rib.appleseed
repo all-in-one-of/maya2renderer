@@ -7,9 +7,9 @@
             <parameter name="focal_length" value="0.035000" />
             <transform time="0">
                 <matrix>
-                    1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
-                    0.000000000000000 1.000000000000000 0.000000000000000 3.000000000000000
-                    0.000000000000000 0.000000000000000 1.000000000000000 9.000000000000000
+                    0.925870597362518 -0.257389336824417 0.276612341403961 0.994092643260956
+                    0.000000000000000 0.732087075710297 0.681211054325104 2.448143959045410
+                    -0.377840787172318 -0.630713284015656 0.677817881107330 2.435949563980103
                     0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                 </matrix>
             </transform>
@@ -19,7 +19,7 @@
             <color name="lambert1_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    1.000000 1.000000 0.000000
+                    0.500000 0.500000 0.500000
                 </values>
                 <alpha>
                     1.000000
@@ -48,30 +48,19 @@
                 <transform>
                     <matrix>
                         1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 1.000000000000000 0.000000000000000 3.108292579650879
+                        0.000000000000000 1.000000000000000 0.000000000000000 0.506906032562256
                         0.000000000000000 0.000000000000000 1.000000000000000 0.000000000000000
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
             </light>
-            <object name="|pCube1|pCubeShape1" model="mesh_object">
-                <parameter name="filename" value="pCubeShape1.obj" />
+            <object name="|pPlane1|pPlaneShape1" model="mesh_object">
+                <parameters name="filename">
+                    <parameter name="0" value="pPlaneShape1.obj" />
+                    <parameter name="1" value="pPlaneShape1.obj_mb.obj" />
+                </parameters>
             </object>
-            <object name="|pSphere1|pSphereShape1" model="mesh_object">
-                <parameter name="filename" value="pSphereShape1.obj" />
-            </object>
-            <object_instance name="|pCube1|pCubeShape1.0_inst" object="|pCube1|pCubeShape1.0">
-                <transform>
-                    <matrix>
-                        1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 1.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 0.000000000000000 1.000000000000000 0.000000000000000
-                        0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
-                    </matrix>
-                </transform>
-                <assign_material slot="0" side="front" material="lambert1" />
-            </object_instance>
-            <object_instance name="|pSphere1|pSphereShape1.0_inst" object="|pSphere1|pSphereShape1.0">
+            <object_instance name="|pPlane1|pPlaneShape1.0_inst" object="|pPlane1|pPlaneShape1.0">
                 <transform>
                     <matrix>
                         1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
@@ -98,7 +87,7 @@
         <frame name="beauty">
             <parameter name="camera" value="|persp|perspShape" />
             <parameter name="color_space" value="srgb" />
-            <parameter name="resolution" value="640 480" />
+            <parameter name="resolution" value="768 576" />
         </frame>
     </output>
     <configurations>
