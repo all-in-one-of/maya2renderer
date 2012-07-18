@@ -5,29 +5,39 @@ global string $gWindow_appleseed="liqGlobalWindow_appleseed";
 global string $gGlobalNode_appleseed="liqGlobalsNodeRenderer_appleseed";
 global string $gGlobalValue_appleseed[]=
 {
-	"verbose",          "long",	"6"
+	//frame
+	"framename",          "string",	"beauty"
+	//,"resolution",   "string",	"640|480"
+	,"tile_size",		"string",	"32|32"
+	,"pixel_format",	"long",		"4"//default is float
+	,"color_space",		"long",		"0"//default is linear_rgb
+	,"clamping",		"bool",		"0"//default is false
+	,"gamma_correction","float",	"1"//default is 1.0
+
+	//configurations
+	//final
+	,"final_frame_renderer",		"long",	"0"//0:generic, 1:progressive
+	,"final_tile_renderer",			"long",	"0"//0:generic, 1:progressive
+	,"final_sample_renderer",		"long",	"0"//0:generic, 1:progressive
+	,"final_lighting_engine",		"long",	"0"//0:pt
+	//final:generic_tile_renderer
+	,"final_min_samples",			"long",	"1"
+	,"final_max_samples",			"long",	"1"
+	,"final_sample_filter_size",	"long",	"4"
+	,"final_sample_filter_type",	"long",	"0"//0:mitchell,1:box
+	//interactive
+	,"interactive_frame_renderer",		"long",	"1"//0:generic, 1:progressive
+	,"interactive_tile_renderer",		"long",	"0"//0:generic, 1:progressive
+	,"interactive_sample_renderer",		"long",	"0"//0:generic, 1:progressive
+	,"interactive_lighting_engine",		"long",	"0"//0:pt
+	//interactive:generic_tile_renderer
+	,"interactive_min_samples",			"long",	"1"
+	,"interactive_max_samples",			"long",	"1"
+	,"interactive_sample_filter_size",	"long",	"1"
+	,"interactive_sample_filter_type",	"long",	"1"//0:mitchell,1:box
+
+	//other
 	,"export_mesh_to",	"string",	""//,
-	//options
-	,"contrast",		"string",		"0.05|0.05|0.05|0.05"//,
-	,"samples",			"string",		"0|2"//,
-	,"filterType",			"long",		"4"//,
-	,"filterSize",			"float",	"3.0"//,
-	//,"motion",			"bool",			"0"
-	,"trace_depth",			"string",		"4|4|4"//,
-	,"displace",            "bool",			false
-	,"max_displace",        "float",		false
-	,"face",				"long",		"3"//,
-
-	,"approx_method",			"long",		"1"//,
-	,"approx_any",				"long",		"0"//,
-	,"approx_view_dep",			"long",		"0"//,
-	,"approx_args",				"string",	"0|0|0|0"//,
-	,"approx_sharp",			"float",	"0.0"//,
-	,"approx_min_subdiv",		"long",		"0"//,
-	,"approx_max_subdiv",		"long",		"5"//,
-	,"approx_max_grid_size",	"long",		"4096"//,
-	,"approx_motion_factor",	"float",	"16.0"//,
-
 
 	//,"testBool1",            "bool",			false
 	//,"testString0",            "string",		"string_test_value0"
@@ -78,66 +88,107 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
   string $previousParent = `setParent -q`;
 
   columnLayout -adj true -vis false ($prefix + "liquidGlobalsFrameSet"+liqGetRendererName());
-    frameLayout -bs "etchedIn" -l "verbose & link" -cll true -cl false;
+    frameLayout -bs "etchedIn" -l "frame" -cll true -cl false;
       columnLayout -adj true ;
-        liquidShowIntGlobalMenu2($n, "verbose", "verbose", 
-		{"EI_VERBOSE_NONE",
-		"EI_VERBOSE_FATAL",
-		"EI_VERBOSE_ERROR",
-		"EI_VERBOSE_WARNING",
-		"EI_VERBOSE_INFO",
-		"EI_VERBOSE_DEBUG",
-		"EI_VERBOSE_ALL"}, $prefix);
-        liquidShowStringGlobal2($n, "export_mesh_to",		"export_mesh_to",		$prefix);
+        liquidShowStringGlobal2($n, "framename",		"framename",		$prefix);
+        liquidShowTextGlobal2($n, "resolution", "see RenderSettings->liquid->Frame->Resolution");
+        liquidShowStringGlobal2($n, "tile_size",		"tile_size",		$prefix);
+        liquidShowIntGlobalMenu2($n, "pixel_format", "pixel_format", 
+		{"uint8",
+		"uint16",
+		"uint32",
+		"half",
+		"float",
+		"double"}, $prefix);
+        liquidShowIntGlobalMenu2($n, "color_space", "color_space", 
+		{"linear_rgb",
+		"srgb",
+		"ciexyz"}, $prefix);
+        liquidShowBoolGlobal2($n, "clamping", "clamping", $prefix);
+        liquidShowFloatGlobal2($n, "gamma_correction", "gamma_correction");
+        //liquidShowFloatGlobal2($n, "testFloat0", "testFloat0L");
         //liquidShowBoolGlobal2($n, "testBool0", "testBool0L", $prefix);
         //liquidShowStringGlobal2($n, "testString0", "testString0L", $prefix);
         //liquidShowIntGlobal2($n, "testInt0", "testInt0L");
-        //liquidShowFloatGlobal2($n, "testFloat0", "testFloat0L");
+
         //liquidShowColorGlobal2($n, "testColor0", "testColor0L");
         //liquidShowIntGlobalMenu2($n, "testIntMenu0", "Preview Type", {"A", "B C", "DE"}, $prefix);
 
       setParent ..;
     setParent ..;
 
-    frameLayout -bs "etchedIn" -l "options" -cll true -cl false;
-      columnLayout -adj true ;
-        liquidShowStringGlobal2($n, "contrast",	"contrast",			$prefix);
-        liquidShowStringGlobal2($n, "samples",	"samples(min,max)",	$prefix);
-        liquidShowIntGlobalMenu2($n, "filterType", "filterType", 
-		{"EI_FILTER_NONE",
-		"EI_FILTER_BOX",
-		"EI_FILTER_TRIANGLE",
-		"EI_FILTER_CATMULLROM",
-		"EI_FILTER_GAUSSIAN",
-		"EI_FILTER_SINC"}, $prefix);
-        liquidShowFloatGlobal2($n, "filterSize", "filterSize");
-		//liquidShowBoolGlobal2($n, "motion", "motion", $prefix);
-        liquidShowTextGlobal2($n, "motion", "see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
-        liquidShowStringGlobal2($n, "trace_depth",	"trace_depth",	$prefix);
-		liquidShowBoolGlobal2($n,	"displace",		"displace",		$prefix);
-		liquidShowFloatGlobal2($n,	"max_displace", "max_displace");
-        liquidShowIntGlobalMenu2($n, "face", "face",
-		{"EI_FACE_NONE",
-		"EI_FACE_FRONT",
-		"EI_FACE_BACK",
-		"EI_FACE_BOTH"}, $prefix);
-	  setParent ..;
-    setParent ..;
+	frameLayout -bs "etchedIn" -l "configurations" -cll true -cl false;
+		//final
+		frameLayout -bs "etchedIn" -l "final" -cll true -cl false;
+		  columnLayout -adj true ;
+			liquidShowIntGlobalMenu2($n, "final_frame_renderer", "final_frame_renderer",	
+			{"generic",
+			"progressive"},$prefix);
+			liquidShowIntGlobalMenu2($n, "final_tile_renderer",	"tile_renderer",
+			{"generic"},	$prefix);
+			liquidShowIntGlobalMenu2($n, "final_sample_renderer","sample_renderer",	
+			{"generic"},$prefix);
+			liquidShowIntGlobalMenu2($n, "final_lighting_engine","lighting_engine",	
+			{"pt"},$prefix);
+			
+			//frameLayout -bs "etchedIn" -l "generic_tile_renderer" -cll true -cl false;
+			//	columnLayout -adj true ;
+				liquidShowIntGlobal2($n, "final_min_samples",	"min_samples");
+				liquidShowIntGlobal2($n, "final_max_samples",	"max_samples");
+				liquidShowIntGlobal2($n, "final_sample_filter_size","sample_filter_size");
+				liquidShowIntGlobalMenu2($n, "final_sample_filter_type","sample_filter_type",
+				{"mitchell",
+				"box"},$prefix);
+			//	setParent ..;
+			//setParent ..;
 
-    frameLayout -bs "etchedIn" -l "approx" -cll true -cl false;
+		  setParent ..;
+		setParent ..;
+
+		//interactive
+		frameLayout -bs "etchedIn" -l "interactive" -cll true -cl false;
+		  columnLayout -adj true ;
+			liquidShowIntGlobalMenu2($n, "interactive_frame_renderer", "frame_renderer",	
+			{"generic",
+			"progressive"},$prefix);
+			liquidShowIntGlobalMenu2($n, "interactive_tile_renderer",	"tile_renderer",
+			{"generic"},	$prefix);
+			liquidShowIntGlobalMenu2($n, "interactive_sample_renderer","sample_renderer",	
+			{"generic"},$prefix);
+			liquidShowIntGlobalMenu2($n, "interactive_lighting_engine","lighting_engine",	
+			{"pt"},$prefix);
+			
+			//frameLayout -bs "etchedIn" -l "generic_tile_renderer" -cll true -cl false;
+			//	columnLayout -adj true ;
+				liquidShowIntGlobal2($n, "interactive_min_samples",	"min_samples");
+				liquidShowIntGlobal2($n, "interactive_max_samples",	"max_samples");
+				liquidShowIntGlobal2($n, "interactive_sample_filter_size","sample_filter_size");
+				liquidShowIntGlobalMenu2($n, "interactive_sample_filter_type","sample_filter_type",
+				{"mitchell",
+				"box"},$prefix);
+			//	setParent ..;
+			//setParent ..;
+
+		  setParent ..;
+		setParent ..;
+		//
+	setParent ..;
+
+    frameLayout -bs "etchedIn" -l "others" -cll true -cl false;
       columnLayout -adj true ;
-        liquidShowIntGlobalMenu2($n, "approx_method", "method",
-		{"EI_APPROX_METHOD_NONE",
-		"EI_APPROX_METHOD_REGULAR",
-		"EI_APPROX_METHOD_LENGTH"}, $prefix);
-		liquidShowIntGlobal2($n,	"approx_any",		"any");
-		liquidShowIntGlobal2($n,	"approx_view_dep",	"view_dep");
-        liquidShowStringGlobal2($n, "approx_args",		"args[0~4]",	$prefix);
-        liquidShowFloatGlobal2($n,	"approx_sharp",		"sharp");
-		liquidShowIntGlobal2($n,	"approx_min_subdiv",	"min_subdiv");
-		liquidShowIntGlobal2($n,	"approx_max_subdiv",	"max_subdiv");
-		liquidShowIntGlobal2($n,	"approx_max_grid_size",	"max_grid_size");
-        liquidShowFloatGlobal2($n,	"approx_motion_factor", "motion_factor");
+	    liquidShowStringGlobal2($n, "export_mesh_to",		"export_mesh_to",		$prefix);
+//         liquidShowIntGlobalMenu2($n, "approx_method", "method",
+// 		{"EI_APPROX_METHOD_NONE",
+// 		"EI_APPROX_METHOD_REGULAR",
+// 		"EI_APPROX_METHOD_LENGTH"}, $prefix);
+// 		liquidShowIntGlobal2($n,	"approx_any",		"any");
+// 		liquidShowIntGlobal2($n,	"approx_view_dep",	"view_dep");
+//         liquidShowStringGlobal2($n, "approx_args",		"args[0~4]",	$prefix);
+//         liquidShowFloatGlobal2($n,	"approx_sharp",		"sharp");
+// 		liquidShowIntGlobal2($n,	"approx_min_subdiv",	"min_subdiv");
+// 		liquidShowIntGlobal2($n,	"approx_max_subdiv",	"max_subdiv");
+// 		liquidShowIntGlobal2($n,	"approx_max_grid_size",	"max_grid_size");
+//         liquidShowFloatGlobal2($n,	"approx_motion_factor", "motion_factor");
         //liquidShowBoolGlobal2($n, "testBool1", "testBool1", $prefix);
         //liquidShowStringGlobal2($n, "testString1", "testString1L", $prefix);
 
