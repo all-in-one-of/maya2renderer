@@ -437,7 +437,7 @@ global proc liquidShowIntGlobalMenu2(string $node, string $name, string $label, 
     string $menu = `optionMenuGrp -cal 1 "right" -label $label`;
     int $i;
     for( $i = 0; $i < size( $items ); ++$i ) {
-      menuItem -data $i -label $items[ $i ] ( $name + "_" + `liquidSubstituteAll "[^a-zA-Z]" $items[ $i ] ""` );
+      menuItem -data $i -label $items[ $i ] ( $name + "_" + $items[ $i ] );
     }
     connectControl -index 2 $menu ($node+"." + $name);
     popupMenu -pmc ("liquidGlobalsRenderLayerOverrideUpdateMenu \""+$name+"\" \""+$prefix+"\"");

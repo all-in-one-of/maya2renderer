@@ -319,7 +319,7 @@ global proc liquidAddEnvironment()
 global proc string liquidSubstituteAll( string $pattern, string $source, string $replace )
 {
   liqPushIdent();
-	liqlog("liquidSubstituteAll(...)");
+	liqlog("liquidSubstituteAll("+$pattern+","+$source+","+$replace+")");
   string $result, $oldResult;
   $result = $source;
   do {
