@@ -27,9 +27,9 @@
 #include "appleseed/foundation/math/scalar.h"
 #include "appleseed/foundation/math/transform.h"
 #include "appleseed/foundation/utility/containers/specializedarrays.h"
-#include "appleseed/foundation/utility/log/consolelogtarget.h"
 #include "appleseed/foundation/utility/autoreleaseptr.h"
 #include "appleseed/foundation/utility/searchpaths.h"
+#include "appleseed/foundation/utility/log.h"
 #include "appleseed/foundation/image/image.h"
 #include "appleseed/foundation/image/tile.h"
 

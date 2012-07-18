@@ -361,6 +361,10 @@ namespace appleseed
 		m_log.open((currentJob.ribFileName+".as").asChar());
 
 		//appleseed
+		m_log_target.reset(asf::create_file_log_target());
+		m_log_target->open((currentJob.ribFileName+"_asglobal.as").asChar());
+		asr::global_logger().add_target(m_log_target.get());
+
 		project = asr::ProjectFactory::create("test project");
 		project->set_path((currentJob.ribFileName+".appleseed").asChar());
 		// Create a scene.
@@ -444,6 +448,8 @@ namespace appleseed
 		//////////////////////////////////////////////////////////////////////////
 		// Save the project to disk.
 		asr::ProjectFileWriter::write(project.ref());
+		asr::global_logger().remove_target(m_log_target.get());
+		m_log_target->close();
 		//close script log file
 		m_log.close();
 		//////////////////////////////////////////////////////////////////////////

@@ -282,6 +282,7 @@ namespace appleseed
 	protected:
 		asf::auto_release_ptr<asr::Project> project;
 		asf::auto_release_ptr<asr::Assembly> current_assembly;
+		asf::auto_release_ptr<asf::FileLogTarget> m_log_target;
 	public:
 		asf::auto_release_ptr<asr::Assembly>& getAssembly() { return current_assembly; }
 		const asf::auto_release_ptr<asr::Assembly>& getAssembly() const { return current_assembly; }
