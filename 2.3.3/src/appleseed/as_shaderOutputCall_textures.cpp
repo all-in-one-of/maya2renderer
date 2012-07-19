@@ -76,7 +76,7 @@ void Visitor::visitFile(const char* node)
 			}
 			std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr
 			std::transform(imgext.begin(),imgext.end(),imgext.begin(),tolower);
-		
+
 			needToConvert = (imgext != "exr");
 		}
 
@@ -103,20 +103,24 @@ void Visitor::visitFile(const char* node)
 	assert(m_assembly != nullptr);
 
 	//texture
-	std::size_t texture_index;
 	{
 		asr::ParamArray texture_params;
 		texture_params.insert("filename", fileTextureName.asChar());
 		texture_params.insert("color_space", "srgb");
 
 		asf::SearchPaths search_paths;
+		{
+			MString dirname;
+			MGlobal::executeCommand("dirname \""+fileTextureName+"\"", dirname, false, true);
+			search_paths.push_back(dirname.asChar());
+		}
 		asf::auto_release_ptr<asr::Texture> texture = 
 			asr::DiskTexture2dFactory().create(node, texture_params, search_paths);
 
-		texture_index = m_assembly->textures().insert(texture);
+		std::size_t texture_index = m_assembly->textures().insert(texture);
 	}
 
-	
+
 	//instance
 	{
 		const std::string texture_instance_name = getTextureInstanceName(node);
@@ -129,7 +133,7 @@ void Visitor::visitFile(const char* node)
 			asr::TextureInstanceFactory::create(
 				texture_instance_name.c_str(),
 				texture_instance_params,
-				texture_index
+				node
 			);
 
 		m_assembly->texture_instances().insert(texture_instance);

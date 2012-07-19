@@ -2089,7 +2089,7 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/appleseed;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/appleseed.shared;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/openexr/;../../../dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/include/openexr/openexr;E:\dev\render\renderer\appleseed\trunk\src\openexr\IlmImf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/elvishray/trunk;../../../dependence/;../../../dependence/appleseed/appleseed-1.1.0-alpha-13-0-gc745e2c-win32-vs100-devkit/include;../../../dependence/appleseed/appleseed-1.1.0-alpha-13-0-gc745e2c-win32-vs100-devkit/include/appleseed;../../../dependence/appleseed/appleseed-1.1.0-alpha-13-0-gc745e2c-win32-vs100-devkit/include/appleseed.shared;../../../dependence/appleseed/appleseed-1.1.0-alpha-13-0-gc745e2c-win32-vs100-devkit/include/openexr/;../../../dependence/appleseed/appleseed-1.1.0-alpha-13-0-gc745e2c-win32-vs100-devkit/include/openexr/openexr;E:\dev\render\renderer\appleseed\trunk\src\openexr\IlmImf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -2237,6 +2237,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\trunk\src\appleseed\foundation\mesh\objmeshfilewriter.cpp" />
+    <ClCompile Include="..\..\..\dependence\appleseed\half.cpp" />
     <ClCompile Include="..\appleseed\as_connection.cpp" />
     <ClCompile Include="..\appleseed\as_helper.cpp" />
     <ClCompile Include="..\appleseed\as_material.cpp" />
@@ -2385,6 +2386,9 @@
     <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\dependence\appleseed\eLut.h" />
+    <ClInclude Include="..\..\..\dependence\appleseed\half.h" />
+    <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />
     <ClInclude Include="..\appleseed\as_material.h" />

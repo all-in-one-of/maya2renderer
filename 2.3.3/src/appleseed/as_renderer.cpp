@@ -290,10 +290,6 @@ namespace appleseed
 				//motionblurParam.insert( "1", "square.1.obj_mb.obj" );
 				
 				objFileNameParam.insert("filename", motionblurParam);
-
-				// Workaround for issue #160 (https://github.com/jupiter-jazz/appleseed/issues/160).
-				// try to remove this line with the next release of appleseed devkit.
-				objFileNameParam.insert("__base_object_name", basename.asChar());
 			}
 
 
@@ -366,7 +362,6 @@ namespace appleseed
 		asr::global_logger().add_target(m_log_target.get());
 
 		project = asr::ProjectFactory::create("test project");
-		project->set_path((currentJob.ribFileName+".appleseed").asChar());
 		// Create a scene.
 		asf::auto_release_ptr<asr::Scene> _scene(asr::SceneFactory::create());
 		// Bind the scene to the project.
@@ -447,7 +442,7 @@ namespace appleseed
 
 		//////////////////////////////////////////////////////////////////////////
 		// Save the project to disk.
-		asr::ProjectFileWriter::write(project.ref());
+		asr::ProjectFileWriter::write(project.ref(), (currentJob.ribFileName+".appleseed").asChar());
 		asr::global_logger().remove_target(m_log_target.get());
 		m_log_target->close();
 		//close script log file

@@ -502,6 +502,9 @@
     <ClCompile Include="..\appleseed\objExport.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\dependence\appleseed\half.cpp">
+      <Filter>renderer\appleseed\dependences</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -860,6 +863,15 @@
     </ClInclude>
     <ClInclude Include="..\appleseed\objExport.h">
       <Filter>renderer\appleseed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dependence\appleseed\eLut.h">
+      <Filter>renderer\appleseed\dependences</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dependence\appleseed\half.h">
+      <Filter>renderer\appleseed\dependences</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h">
+      <Filter>renderer\appleseed\dependences</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
