@@ -372,6 +372,7 @@ namespace appleseed
 			asr::ParamArray());
 
 		build_project(project, current_assembly);
+		createConfigurations();
 		//////////////////////////////////////////////////////////////////////////
 
 		_s("//### SCENE BEGIN ###");
@@ -391,6 +392,11 @@ namespace appleseed
 		assert(currentJob.camera[0].name.length());
 		assert(!m_option.empty());
 
+
+		//////////////////////////////////////////////////////////////////////////
+		// Save the project to disk.
+		asr::ProjectFileWriter::write(project.ref(), (currentJob.ribFileName+".appleseed").asChar());
+		//////////////////////////////////////////////////////////////////////////
 
 		if( isBatchMode() )
 		{
@@ -415,7 +421,9 @@ namespace appleseed
 			asr::DefaultRendererController renderer_controller;
 			asr::MasterRenderer renderer(
 				project.ref()
-				,project->configurations().get_by_name("final")->get_inherited_parameters()
+				,project->configurations().get_by_name( 
+					m_gnode->getBool("useFinal")?"liqFinal":"liqInteractive" 
+				)->get_inherited_parameters()
 				,&renderer_controller
 				,&m_tile_callback_factory);
 
@@ -441,9 +449,8 @@ namespace appleseed
 
 
 		//////////////////////////////////////////////////////////////////////////
-		// Save the project to disk.
-		asr::ProjectFileWriter::write(project.ref(), (currentJob.ribFileName+".appleseed").asChar());
 		asr::global_logger().remove_target(m_log_target.get());
+
 		m_log_target->close();
 		//close script log file
 		m_log.close();
@@ -905,6 +912,56 @@ namespace appleseed
 		//todo
 
 		return true;
+	}
+	void Renderer::createConfigurations()
+	{
+		CM_TRACE_FUNC("Renderer::createConfigurations()");
+
+		{
+			asf::auto_release_ptr<asr::Configuration> configuration;
+			
+			configuration = asr::ConfigurationFactory::create("liqFinal");
+
+			asr::ParamArray& parameters = configuration->get_parameters();
+
+			parameters.insert("frame_renderer", "generic");
+			parameters.insert("tile_renderer", "generic");
+			parameters.insert("sample_renderer", "generic");
+			parameters.insert("lighting_engine", "pt");
+			parameters.insert("aaa", "111");
+
+			asr::ParamArray generic_tile_renderer_params;
+			generic_tile_renderer_params.insert("min_samples", "25");
+			generic_tile_renderer_params.insert("max_samples", "25");
+			generic_tile_renderer_params.insert("sample_filter_size", "4");
+			generic_tile_renderer_params.insert("sample_filter_type", "mitchell");
+			parameters.dictionaries().insert("generic_tile_renderer", generic_tile_renderer_params);
+		
+			project->configurations().insert( configuration );
+		}
+		{
+			asf::auto_release_ptr<asr::Configuration> configuration;
+			
+			configuration = asr::ConfigurationFactory::create("liqInteractive");
+
+			asr::ParamArray& parameters = configuration->get_parameters();
+
+			parameters.insert("frame_renderer", "progressive");
+			parameters.insert("sample_renderer", "generic");
+			parameters.insert("lighting_engine", "pt");
+			parameters.insert("tile_renderer", "generic");
+			parameters.insert("bbb", "222");
+
+			asr::ParamArray generic_tile_renderer_params;
+			generic_tile_renderer_params.insert("min_samples", "64");
+			generic_tile_renderer_params.insert("max_samples", "256");
+			generic_tile_renderer_params.insert("sample_filter_size", "1");
+			generic_tile_renderer_params.insert("sample_filter_type", "box");
+			parameters.dictionaries().insert("generic_tile_renderer", generic_tile_renderer_params);
+		
+			project->configurations().insert( configuration );		
+		}
+
 	}
 }//namespace appleseed
 
