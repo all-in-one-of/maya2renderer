@@ -14,11 +14,12 @@ namespace liquid{
 	class LogMgr;
 }
 
-class liqGlobalNodeHelper;
+
 
 namespace appleseed
 {
 	class GroupMgr;
+	class GlobalNodeHelper;
 
 	class Renderer : public liquid::RendererInterface
 	{
@@ -356,7 +357,7 @@ namespace appleseed
 		void _write_shavehair(liqRibShaveData* pData, const structJob &currentJob__);
 		void generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree);
 
-		liqGlobalNodeHelper *m_gnode;
+		GlobalNodeHelper *m_gnode;
 
 		void createConfigurations();
 

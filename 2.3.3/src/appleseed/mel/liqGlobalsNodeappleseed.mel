@@ -18,9 +18,10 @@ global string $gGlobalValue_appleseed[]=
 	,"useFinal",					"bool",	false
 	//final
 	,"final_frame_renderer",		"long",	"0"//0:generic, 1:progressive
-	,"final_tile_renderer",			"long",	"0"//0:generic, 1:progressive
-	,"final_sample_renderer",		"long",	"0"//0:generic, 1:progressive
-	,"final_lighting_engine",		"long",	"0"//0:pt
+	,"final_tile_renderer",			"long",	"0"//0:generic, 1:blank, 2:debug, 3:ewatest
+	,"final_sample_renderer",		"long",	"0"//0:generic
+	,"final_sample_generator",		"long",	"0"//0:generic, 1:lighttracing
+	,"final_lighting_engine",		"long",	"1"//0:dr, 1:tpt
 	//final:generic_tile_renderer
 	,"final_min_samples",			"long",	"1"
 	,"final_max_samples",			"long",	"1"
@@ -28,9 +29,10 @@ global string $gGlobalValue_appleseed[]=
 	,"final_sample_filter_type",	"long",	"0"//0:mitchell,1:box
 	//interactive
 	,"interactive_frame_renderer",		"long",	"1"//0:generic, 1:progressive
-	,"interactive_tile_renderer",		"long",	"0"//0:generic, 1:progressive
-	,"interactive_sample_renderer",		"long",	"0"//0:generic, 1:progressive
-	,"interactive_lighting_engine",		"long",	"0"//0:pt
+	,"interactive_tile_renderer",		"long",	"0"//0:generic, 1:blank, 2:debug, 3:ewatest
+	,"interactive_sample_renderer",		"long",	"0"//0:generic 
+	,"interactive_sample_generator",	"long",	"0"//0:generic, 1:lighttracing
+	,"interactive_lighting_engine",		"long",	"1"//0:dr, 1:tpt
 	//interactive:generic_tile_renderer
 	,"interactive_min_samples",			"long",	"1"
 	,"interactive_max_samples",			"long",	"1"
@@ -127,22 +129,29 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 			{"generic",
 			"progressive"},$prefix);
 			liquidShowIntGlobalMenu2($n, "final_tile_renderer",	"tile_renderer",
-			{"generic"},	$prefix);
+			{"generic",
+			"blank",
+			"debug",
+			"ewatest"},	$prefix);
 			liquidShowIntGlobalMenu2($n, "final_sample_renderer","sample_renderer",	
 			{"generic"},$prefix);
+			liquidShowIntGlobalMenu2($n, "final_sample_generator","sample_generator",	
+			{"generic",
+			"lighttracing"},$prefix);
 			liquidShowIntGlobalMenu2($n, "final_lighting_engine","lighting_engine",	
-			{"pt"},$prefix);
+			{"dr",
+			"pt"},$prefix);
 			
-			//frameLayout -bs "etchedIn" -l "generic_tile_renderer" -cll true -cl false;
-			//	columnLayout -adj true ;
+			frameLayout -bs "etchedIn" -l "generic_tile_renderer" -cll true -cl false;
+				columnLayout -adj true ;
 				liquidShowIntGlobal2($n, "final_min_samples",	"min_samples");
 				liquidShowIntGlobal2($n, "final_max_samples",	"max_samples");
 				liquidShowIntGlobal2($n, "final_sample_filter_size","sample_filter_size");
 				liquidShowIntGlobalMenu2($n, "final_sample_filter_type","sample_filter_type",
 				{"mitchell",
 				"box"},$prefix);
-			//	setParent ..;
-			//setParent ..;
+				setParent ..;
+			setParent ..;
 
 		  setParent ..;
 		setParent ..;
@@ -154,22 +163,29 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 			{"generic",
 			"progressive"},$prefix);
 			liquidShowIntGlobalMenu2($n, "interactive_tile_renderer",	"tile_renderer",
-			{"generic"},	$prefix);
+			{"generic",
+			"blank",
+			"debug",
+			"ewatest"},	$prefix);
 			liquidShowIntGlobalMenu2($n, "interactive_sample_renderer","sample_renderer",	
 			{"generic"},$prefix);
+			liquidShowIntGlobalMenu2($n, "interactive_sample_generator","sample_generator",	
+			{"generic",
+			"lighttracing"},$prefix);
 			liquidShowIntGlobalMenu2($n, "interactive_lighting_engine","lighting_engine",	
-			{"pt"},$prefix);
+			{"dr",
+			"pt"},$prefix);
 			
-			//frameLayout -bs "etchedIn" -l "generic_tile_renderer" -cll true -cl false;
-			//	columnLayout -adj true ;
+			frameLayout -bs "etchedIn" -l "generic_tile_renderer" -cll true -cl false;
+				columnLayout -adj true ;
 				liquidShowIntGlobal2($n, "interactive_min_samples",	"min_samples");
 				liquidShowIntGlobal2($n, "interactive_max_samples",	"max_samples");
 				liquidShowIntGlobal2($n, "interactive_sample_filter_size","sample_filter_size");
 				liquidShowIntGlobalMenu2($n, "interactive_sample_filter_type","sample_filter_type",
 				{"mitchell",
 				"box"},$prefix);
-			//	setParent ..;
-			//setParent ..;
+				setParent ..;
+			setParent ..;
 
 		  setParent ..;
 		setParent ..;

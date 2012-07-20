@@ -18,6 +18,10 @@ namespace appleseed
 	void makeTexture(const char* srcImagePath, const char* desImagePath);
 
 	std::string getTextureInstanceName(const std::string& texturename);
+
+	class GlobalNodeHelper;
+	std::string getConfiguration(GlobalNodeHelper *node, const std::string &category, const std::string &name);
+
 }//namespace appleseed
 //#endif//_AS_Helper_H
 

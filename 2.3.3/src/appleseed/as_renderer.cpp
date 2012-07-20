@@ -913,6 +913,7 @@ namespace appleseed
 
 		return true;
 	}
+	
 	void Renderer::createConfigurations()
 	{
 		CM_TRACE_FUNC("Renderer::createConfigurations()");
@@ -924,17 +925,19 @@ namespace appleseed
 
 			asr::ParamArray& parameters = configuration->get_parameters();
 
-			parameters.insert("frame_renderer", "generic");
-			parameters.insert("tile_renderer", "generic");
-			parameters.insert("sample_renderer", "generic");
-			parameters.insert("lighting_engine", "pt");
+			const std::string category("final");
+			parameters.insert("frame_renderer", getConfiguration(m_gnode,category,"frame_renderer"));//generic,progressive,
+			parameters.insert("tile_renderer", getConfiguration(m_gnode, category,"tile_renderer"));//generic,blank,debug,ewatest
+			parameters.insert("sample_renderer", getConfiguration(m_gnode, category,"sample_renderer"));//generic
+			parameters.insert("sample_generator", getConfiguration(m_gnode, category,"sample_generator"));//generic,lighttracing
+			parameters.insert("lighting_engine", getConfiguration(m_gnode, category,"lighting_engine"));//dr,pt
 			parameters.insert("aaa", "111");
 
 			asr::ParamArray generic_tile_renderer_params;
-			generic_tile_renderer_params.insert("min_samples", "25");
-			generic_tile_renderer_params.insert("max_samples", "25");
-			generic_tile_renderer_params.insert("sample_filter_size", "4");
-			generic_tile_renderer_params.insert("sample_filter_type", "mitchell");
+			generic_tile_renderer_params.insert("min_samples", getConfiguration(m_gnode, category,"min_samples"));
+			generic_tile_renderer_params.insert("max_samples", getConfiguration(m_gnode, category,"max_samples"));
+			generic_tile_renderer_params.insert("sample_filter_size", getConfiguration(m_gnode, category,"sample_filter_size"));
+			generic_tile_renderer_params.insert("sample_filter_type", getConfiguration(m_gnode, category,"sample_filter_type"));
 			parameters.dictionaries().insert("generic_tile_renderer", generic_tile_renderer_params);
 		
 			project->configurations().insert( configuration );
@@ -946,17 +949,19 @@ namespace appleseed
 
 			asr::ParamArray& parameters = configuration->get_parameters();
 
-			parameters.insert("frame_renderer", "progressive");
-			parameters.insert("sample_renderer", "generic");
-			parameters.insert("lighting_engine", "pt");
-			parameters.insert("tile_renderer", "generic");
+			const std::string category("interactive");
+			parameters.insert("frame_renderer", getConfiguration(m_gnode,category,"frame_renderer"));//generic,progressive,
+			parameters.insert("tile_renderer", getConfiguration(m_gnode, category,"tile_renderer"));//generic,blank,debug,ewatest
+			parameters.insert("sample_renderer", getConfiguration(m_gnode, category,"sample_renderer"));//generic
+			parameters.insert("sample_generator", getConfiguration(m_gnode, category,"sample_generator"));//generic,lighttracing
+			parameters.insert("lighting_engine", getConfiguration(m_gnode, category,"lighting_engine"));//dr,pt
 			parameters.insert("bbb", "222");
 
 			asr::ParamArray generic_tile_renderer_params;
-			generic_tile_renderer_params.insert("min_samples", "64");
-			generic_tile_renderer_params.insert("max_samples", "256");
-			generic_tile_renderer_params.insert("sample_filter_size", "1");
-			generic_tile_renderer_params.insert("sample_filter_type", "box");
+			generic_tile_renderer_params.insert("min_samples", getConfiguration(m_gnode, category,"min_samples"));
+			generic_tile_renderer_params.insert("max_samples", getConfiguration(m_gnode, category,"max_samples"));
+			generic_tile_renderer_params.insert("sample_filter_size", getConfiguration(m_gnode, category,"sample_filter_size"));
+			generic_tile_renderer_params.insert("sample_filter_type", getConfiguration(m_gnode, category,"sample_filter_type"));
 			parameters.dictionaries().insert("generic_tile_renderer", generic_tile_renderer_params);
 		
 			project->configurations().insert( configuration );		

@@ -14,6 +14,7 @@
 #endif
 #include <liqGlobalHelpers.h>
 #include <liqlog.h>
+#include "as_GlobalNodeHelper.h"
 
 namespace appleseed
 {
@@ -84,6 +85,55 @@ namespace appleseed
 	std::string getTextureInstanceName(const std::string& texturename)
 	{
 		return texturename + "_inst";
+	}
+	//
+	const char const* frame_renderer[]={"generic", "progressive"};
+	const char const* tile_renderer[] ={"generic", "blank", "debug", "ewatest"};
+	const char const* sample_renderer[] ={"generic"};
+	const char const* sample_generator[] ={"generic", "lighttracing"};
+	const char const* lighting_engine[] ={"dr", "pt"};
+	const char const* sample_filter_type[] ={"mitchell", "box"};
+	std::string getConfiguration(GlobalNodeHelper *node, const std::string &category, const std::string &name)
+	{
+		assert( node != NULL );
+		MString plugname((category+"_"+name).c_str());
+
+		std::string ret(("unknown name:"+plugname).asChar());
+
+		if(name == "frame_renderer"){
+			ret = frame_renderer[ node->getInt(plugname) ];
+		}	
+		else if(name == "tile_renderer"){
+			ret = tile_renderer[ node->getInt(plugname) ];
+		}	
+		else if(name == "sample_renderer"){
+			ret = sample_renderer[ node->getInt(plugname) ];
+		}	
+		else if(name == "sample_generator"){
+			ret = sample_generator[ node->getInt(plugname) ];
+		}	
+		else if(name == "lighting_engine"){
+			ret = lighting_engine[ node->getInt(plugname) ];
+		}	
+		else if(name == "min_samples"){
+			MString str;
+			str.set( node->getInt(plugname) );
+			ret = str.asChar();
+		}
+		else if(name == "max_samples"){
+			MString str;
+			str.set( node->getInt(plugname) );
+			ret = str.asChar();
+		}
+		else if(name == "sample_filter_size"){
+			MString str;
+			str.set( node->getInt(plugname) );
+			ret = str.asChar();
+		}
+		else if(name == "sample_filter_type"){
+			ret = sample_filter_type[ node->getInt(plugname) ];
+		}
+		return ret;
 	}
 
 }//namespace appleseed
