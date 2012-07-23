@@ -5,8 +5,18 @@ global string $gWindow_appleseed="liqGlobalWindow_appleseed";
 global string $gGlobalNode_appleseed="liqGlobalsNodeRenderer_appleseed";
 global string $gGlobalValue_appleseed[]=
 {
+	//environment
+	"env_model",				"long","0"// 0:generic_environment
+	,"env_edf_model",			"long","0"//0:constant_environment_edf, 1:constant_hemisphere_environment_edf, 2:gradient_environment_edf, 3:latlong_map_environment_edf, 4:mirrorball_map_environment_edf
+	,"constant_exitance",				"color",""
+	,"gradient_horizon_exitance",		"color",""
+	,"gradient_zenith_exitance",		"color",""
+	,"latitude_longitude_exitance",		"color",""
+	,"mirror_ball_exitance",			"color",""
+	,"env_shader_model",		"long","0"// 0:edf_environment_shader
+
 	//frame
-	"framename",          "string",	"beauty"
+	,"framename",          "string",	"beauty"
 	//,"resolution",   "string",	"640|480"
 	,"tile_size",		"string",	"32|32"
 	,"pixel_format",	"long",		"4"//default is float
@@ -91,6 +101,39 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
   string $previousParent = `setParent -q`;
 
   columnLayout -adj true -vis false ($prefix + "liquidGlobalsFrameSet"+liqGetRendererName());
+    
+	//evironment
+    frameLayout -bs "etchedIn" -l "environment" -cll true -cl false;
+	  liquidShowIntGlobalMenu2($n, "env_model", "model", {"generic_environment"}, $prefix);
+      columnLayout -adj true ;
+	    //edf
+	    frameLayout -bs "etchedIn" -l "edf" -cll true -cl false;
+		  columnLayout -adj true ;
+				liquidShowIntGlobalMenu2($n, "env_edf_model", "model", 
+				{"constant_environment_edf",
+				"constant_hemisphere_environment_edf",
+				"gradient_environment_edf",
+				"latlong_map_environment_edf",
+				"mirrorball_map_environment_edf"}, $prefix);
+				liquidShowColorGlobal2Button($n, "constant_exitance",			"constant_exitance");
+				liquidShowColorGlobal2Button($n, "gradient_horizon_exitance",	"gradient_horizon_exitance");
+				liquidShowColorGlobal2Button($n, "gradient_zenith_exitance",	"gradient_zenith_exitance");
+				liquidShowColorGlobal2Button($n, "latitude_longitude_exitance", "latitude_longitude_exitance");
+				liquidShowColorGlobal2Button($n, "mirror_ball_exitance",		"mirror_ball_exitance");
+          setParent ..;
+        setParent ..;
+		//shader
+	    frameLayout -bs "etchedIn" -l "shader" -cll true -cl false;
+		  columnLayout -adj true ;
+		  		liquidShowIntGlobalMenu2($n, "env_shader_model", "model", 
+				{"edf_environment_shader"}, $prefix);
+          setParent ..;
+        setParent ..;
+
+      setParent ..;
+    setParent ..;
+
+    //frame
     frameLayout -bs "etchedIn" -l "frame" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowStringGlobal2($n, "framename",		"framename",		$prefix);
@@ -120,6 +163,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
       setParent ..;
     setParent ..;
 
+	//configuration
 	frameLayout -bs "etchedIn" -l "configurations" -cll true -cl false;
         liquidShowBoolGlobal2($n, "useFinal", "useFinal", $prefix);
 		//final

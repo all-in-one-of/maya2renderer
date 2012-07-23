@@ -372,6 +372,8 @@ namespace appleseed
 			asr::ParamArray());
 
 		build_project(project, current_assembly);
+		createEnvironment();
+		createOutput();
 		createConfigurations();
 		//////////////////////////////////////////////////////////////////////////
 
@@ -914,6 +916,11 @@ namespace appleseed
 		return true;
 	}
 	
+	void Renderer::createOutput()
+	{
+		CM_TRACE_FUNC("Renderer::createOutput()");
+
+	}
 	void Renderer::createConfigurations()
 	{
 		CM_TRACE_FUNC("Renderer::createConfigurations()");

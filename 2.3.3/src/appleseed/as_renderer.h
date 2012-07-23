@@ -360,6 +360,8 @@ namespace appleseed
 		GlobalNodeHelper *m_gnode;
 
 		void createConfigurations();
+		void createEnvironment();
+		void createOutput();
 
 	};
 

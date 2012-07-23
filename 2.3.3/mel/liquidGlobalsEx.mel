@@ -395,16 +395,16 @@ global proc liquidShowFloatGlobal2( string $node, string $name, string $label )
   liqPopIdent();
 }
 //
-proc liquidShowColorGlobalPlus2( string $node, string $name, string $label, string $info )
+proc liquidShowColorGlobalPlus2( string $node, string $name, string $label, string $info, int $showButton )
 {
   liqPushIdent();
-	liqlog("liquidShowColorGlobalPlus2("+$node+","+$name+","+$label+","+$info+")");
+	liqlog("liquidShowColorGlobalPlus2("+$node+","+$name+","+$label+","+$info+","+$showButton+")");
   if ( objExists( ($node+"."+$name) ) ) {
     //setUITemplate -pst attributeEditorTemplate;
     $spacedlabel = $label + " ";
     attrColorSliderGrp 
 		-label $spacedlabel 
-		-sb false 
+		-showButton $showButton 
 		-ann $info 
 		-attribute ( $node+"." + $name ) 
 		( $node + $name + "Field" );
@@ -419,7 +419,14 @@ global proc liquidShowColorGlobal2( string $node, string $name, string $label )
 {
   liqPushIdent();
 	liqlog("liquidShowColorGlobal2(...)");
-  liquidShowColorGlobalPlus2( $node, $name, $label, "" );
+  liquidShowColorGlobalPlus2( $node, $name, $label, "", false );
+  liqPopIdent();
+}
+global proc liquidShowColorGlobal2Button( string $node, string $name, string $label )
+{
+  liqPushIdent();
+	liqlog("liquidShowColorGlobal2Button(...)");
+  liquidShowColorGlobalPlus2( $node, $name, $label, "", true );
   liqPopIdent();
 }
 //

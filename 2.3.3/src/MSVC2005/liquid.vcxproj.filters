@@ -505,6 +505,9 @@
     <ClCompile Include="..\..\..\dependence\appleseed\half.cpp">
       <Filter>renderer\appleseed\dependences</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_environment.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">

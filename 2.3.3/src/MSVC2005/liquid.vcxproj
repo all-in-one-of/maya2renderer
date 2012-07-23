@@ -2239,6 +2239,7 @@
     <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\trunk\src\appleseed\foundation\mesh\objmeshfilewriter.cpp" />
     <ClCompile Include="..\..\..\dependence\appleseed\half.cpp" />
     <ClCompile Include="..\appleseed\as_connection.cpp" />
+    <ClCompile Include="..\appleseed\as_environment.cpp" />
     <ClCompile Include="..\appleseed\as_helper.cpp" />
     <ClCompile Include="..\appleseed\as_material.cpp" />
     <ClCompile Include="..\appleseed\build_project.cpp" />
