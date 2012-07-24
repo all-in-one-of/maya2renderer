@@ -424,6 +424,8 @@ global proc liquidFileBrowserWindow_wrapCallback(string $callback, string $arg1,
 }
 
 /*
+  mesh: Things looks easer on 2011 ; )
+
   liquid file browser to load stuff
   the callback should be : callback string selectedfile string filetype
 */
@@ -431,112 +433,114 @@ global proc liquidFileBrowserWindow( string $path, string $filemask, string $cal
 {  
 	liqPushIdent();
 	liqlog("liquidFileBrowserWindow("+$path+","+$filemask+","+$callback+")");
-	if (`about -nt` || `about -mac`) {
+//	if (`about -nt` || `about -mac`) {
 		string $workspace = `workspace -q -fn`;
 		// note globals do NOT get set
 
-		//	On Windows, fileBrowserDialog will return
-		//	false if a system dialog cannot be created
-		//	due to lack of sufficient resources.  In
-		//	that case, we will go through the standard
-		//	MEL-based code.
+
 		//
 		string $cb = ("liquidFileBrowserWindow_wrapCallback \"" + $callback + "\"");
 
-		int $dialogSuccess = `fileBrowserDialog
-									-fc $cb
-									-m 0
-									-fl $filemask
-									-an "Choose File"
-									`;
-
-		if( $dialogSuccess )
+// 		int $dialogSuccess = `fileBrowserDialog
+// 									-fc $cb
+// 									-m 0
+// 									-fl $filemask
+// 									-an "Choose File"
+//									`;
+		string $filename[] = `fileDialog2 -fileMode 1 -fileFilter "*.*" -caption "Choose"`;
+		if (1 == `size($filename)`)
 		{
-			// previous call blocks
-			liqPopIdent();
-			return;
+			eval ( "liquidFileBrowserWindow_wrapCallback(\""+$callback+"\", \""+$filename[0]+"\", \"Best Guess\");" );
+		}else{
+			liqError("size($filename)!=1");
 		}
-	}
-
-  if ( `window -q -ex liquidFileBrowserWindow` ) deleteUI liquidFileBrowserWindow;
-  window -title "Liquid Browser" -menuBar true -width 400 -height 300 liquidFileBrowserWindow;
-
-  global string $gLiquidFileBrowserWindowDirectory;
-  global string $gLiquidFileBrowserWindowFileMask;
-  if( $gLiquidFileBrowserWindowDirectory == "" )
-  {
-	  $gLiquidFileBrowserWindowDirectory = substitute("/$", $path, "");
-  }
-  $gLiquidFileBrowserWindowFileMask = $filemask;
-
-  // add the bookmarks menu
-  menu -p liquidFileBrowserWindow -l "Bookmarks" -pmc ("liquidFileBrowserBuildBookmarkMenu \"liquidFileBrowserWindowBookmarkMenu\" \"lfb_finder\" \"liquidFileBrowserWindow_updateList \\\""+$filemask+"\\\"\"") liquidFileBrowserWindowBookmarkMenu;
-
-  // create the widgets
-  formLayout -nd 100 lfb_mainLayout;
-    textFieldGrp -label "file type" -text  $filemask -cw2 120 60
-                 -cc ("$gLiquidFileBrowserWindowFileMask = `textFieldGrp -q -tx lfb_fileMask`;liquidFileBrowserWindow_updateList $gLiquidFileBrowserWindowFileMask") lfb_fileMask;
-    textScrollList -numberOfRows 8 -allowMultiSelection false
-                   -sc ("liquidFileBrowserWindow_updateFinder(0, $gLiquidFileBrowserWindowFileMask, \""+$callback+"\");")
-                   -dcc ("liquidFileBrowserWindow_updateFinder(1, $gLiquidFileBrowserWindowFileMask, \""+$callback+"\");liquidFileBrowserWindow_updateList($gLiquidFileBrowserWindowFileMask);")
-                   lfb_fileListC;
-    formLayout -nd 100 lfb_previewLayout;
-      image -w 128 -h 128 -i (liquidGetHome()+"/icons/noPreview.iff") lfb_preview;
-      button -l "Create Preview" -c "liquidFileBrowserWindow_makePreview();" lfb_makePreview;
-      text -l "Type:" -align "left" -font "tinyBoldLabelFont" lfb_infoTypeLabel;
-      text -l "" -align "left" -font "smallPlainLabelFont" lfb_infoType;
-      formLayout  -e
-                  -af lfb_preview       top   0
-                  -af lfb_preview       left  4
-                  -af lfb_preview       right 4
-                  -af lfb_makePreview   left  0
-                  -ac lfb_makePreview   top   0   lfb_preview
-                  -af lfb_makePreview   right 0
-                  -af lfb_infoTypeLabel left  0
-                  -ac lfb_infoTypeLabel top   5   lfb_makePreview
-                  -ac lfb_infoType      left  0   lfb_infoTypeLabel
-                  -ac lfb_infoType      top   5   lfb_makePreview
-                  -af lfb_infoType      right 4
-                  lfb_previewLayout;
-    setParent ..;
-    finder -c ("liquidFileBrowserWindow_updateList($gLiquidFileBrowserWindowFileMask);") lfb_finder;
-    button -label "Load" -c ("liquidFileBrowserWindow_load $gLiquidFileBrowserWindowFileMask \""+$callback+"\";") lfb_ok;
-    button -label "Cancel" -c "deleteUI liquidFileBrowserWindow" lfb_cancel;
-    setParent ..;
-
-  // setup the layout
-  formLayout  -e
-              -af  lfb_fileMask       top     5
-              -af  lfb_fileMask       right   5
-
-              -ac  lfb_previewLayout  top     5   lfb_fileMask
-              -af  lfb_previewLayout  right   5
-
-              -ac  lfb_fileListC      top     5   lfb_fileMask
-              -af  lfb_fileListC      left    5
-              -ac  lfb_fileListC      right   5   lfb_previewLayout
-              -af  lfb_fileListC      bottom  75
-
-              -ac  lfb_finder         top     5   lfb_fileListC
-              -af  lfb_finder         bottom  35
-              -af  lfb_finder         left    5
-              -af  lfb_finder         right   5
-
-              -af  lfb_ok  left    5
-              -ap  lfb_ok  right   5  50
-              -af  lfb_ok  bottom  5
-
-              -af  lfb_cancel  right    5
-              -ap  lfb_cancel  left    5  50
-              -af  lfb_cancel  bottom  5
-
-              lfb_mainLayout;
-
-  // refresh the list
-  finder -e -fp $gLiquidFileBrowserWindowDirectory lfb_finder;
-  liquidFileBrowserWindow_updateList($gLiquidFileBrowserWindowFileMask);
-
-  showWindow liquidFileBrowserWindow;
+// 		if( $dialogSuccess )
+// 		{
+// 			// previous call blocks
+// 			liqPopIdent();
+// 			return;
+// 		}
+// 	}
+// 
+//   if ( `window -q -ex liquidFileBrowserWindow` ) deleteUI liquidFileBrowserWindow;
+//   window -title "Liquid Browser" -menuBar true -width 400 -height 300 liquidFileBrowserWindow;
+// 
+//   global string $gLiquidFileBrowserWindowDirectory;
+//   global string $gLiquidFileBrowserWindowFileMask;
+//   if( $gLiquidFileBrowserWindowDirectory == "" )
+//   {
+// 	  $gLiquidFileBrowserWindowDirectory = substitute("/$", $path, "");
+//   }
+//   $gLiquidFileBrowserWindowFileMask = $filemask;
+// 
+//   // add the bookmarks menu
+//   menu -p liquidFileBrowserWindow -l "Bookmarks" -pmc ("liquidFileBrowserBuildBookmarkMenu \"liquidFileBrowserWindowBookmarkMenu\" \"lfb_finder\" \"liquidFileBrowserWindow_updateList \\\""+$filemask+"\\\"\"") liquidFileBrowserWindowBookmarkMenu;
+// 
+//   // create the widgets
+//   formLayout -nd 100 lfb_mainLayout;
+//     textFieldGrp -label "file type" -text  $filemask -cw2 120 60
+//                  -cc ("$gLiquidFileBrowserWindowFileMask = `textFieldGrp -q -tx lfb_fileMask`;liquidFileBrowserWindow_updateList $gLiquidFileBrowserWindowFileMask") lfb_fileMask;
+//     textScrollList -numberOfRows 8 -allowMultiSelection false
+//                    -sc ("liquidFileBrowserWindow_updateFinder(0, $gLiquidFileBrowserWindowFileMask, \""+$callback+"\");")
+//                    -dcc ("liquidFileBrowserWindow_updateFinder(1, $gLiquidFileBrowserWindowFileMask, \""+$callback+"\");liquidFileBrowserWindow_updateList($gLiquidFileBrowserWindowFileMask);")
+//                    lfb_fileListC;
+//     formLayout -nd 100 lfb_previewLayout;
+//       image -w 128 -h 128 -i (liquidGetHome()+"/icons/noPreview.iff") lfb_preview;
+//       button -l "Create Preview" -c "liquidFileBrowserWindow_makePreview();" lfb_makePreview;
+//       text -l "Type:" -align "left" -font "tinyBoldLabelFont" lfb_infoTypeLabel;
+//       text -l "" -align "left" -font "smallPlainLabelFont" lfb_infoType;
+//       formLayout  -e
+//                   -af lfb_preview       top   0
+//                   -af lfb_preview       left  4
+//                   -af lfb_preview       right 4
+//                   -af lfb_makePreview   left  0
+//                   -ac lfb_makePreview   top   0   lfb_preview
+//                   -af lfb_makePreview   right 0
+//                   -af lfb_infoTypeLabel left  0
+//                   -ac lfb_infoTypeLabel top   5   lfb_makePreview
+//                   -ac lfb_infoType      left  0   lfb_infoTypeLabel
+//                   -ac lfb_infoType      top   5   lfb_makePreview
+//                   -af lfb_infoType      right 4
+//                   lfb_previewLayout;
+//     setParent ..;
+//     finder -c ("liquidFileBrowserWindow_updateList($gLiquidFileBrowserWindowFileMask);") lfb_finder;
+//     button -label "Load" -c ("liquidFileBrowserWindow_load $gLiquidFileBrowserWindowFileMask \""+$callback+"\";") lfb_ok;
+//     button -label "Cancel" -c "deleteUI liquidFileBrowserWindow" lfb_cancel;
+//     setParent ..;
+// 
+//   // setup the layout
+//   formLayout  -e
+//               -af  lfb_fileMask       top     5
+//               -af  lfb_fileMask       right   5
+// 
+//               -ac  lfb_previewLayout  top     5   lfb_fileMask
+//               -af  lfb_previewLayout  right   5
+// 
+//               -ac  lfb_fileListC      top     5   lfb_fileMask
+//               -af  lfb_fileListC      left    5
+//               -ac  lfb_fileListC      right   5   lfb_previewLayout
+//               -af  lfb_fileListC      bottom  75
+// 
+//               -ac  lfb_finder         top     5   lfb_fileListC
+//               -af  lfb_finder         bottom  35
+//               -af  lfb_finder         left    5
+//               -af  lfb_finder         right   5
+// 
+//               -af  lfb_ok  left    5
+//               -ap  lfb_ok  right   5  50
+//               -af  lfb_ok  bottom  5
+// 
+//               -af  lfb_cancel  right    5
+//               -ap  lfb_cancel  left    5  50
+//               -af  lfb_cancel  bottom  5
+// 
+//               lfb_mainLayout;
+// 
+//   // refresh the list
+//   finder -e -fp $gLiquidFileBrowserWindowDirectory lfb_finder;
+//   liquidFileBrowserWindow_updateList($gLiquidFileBrowserWindowFileMask);
+// 
+//   showWindow liquidFileBrowserWindow;
 
   liqPopIdent();
 }
