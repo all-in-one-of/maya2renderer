@@ -508,6 +508,9 @@
     <ClCompile Include="..\appleseed\as_environment.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_material2.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -875,6 +878,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h">
       <Filter>renderer\appleseed\dependences</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\as_material2.h">
+      <Filter>renderer\appleseed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

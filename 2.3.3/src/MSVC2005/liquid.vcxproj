@@ -2242,6 +2242,7 @@
     <ClCompile Include="..\appleseed\as_environment.cpp" />
     <ClCompile Include="..\appleseed\as_helper.cpp" />
     <ClCompile Include="..\appleseed\as_material.cpp" />
+    <ClCompile Include="..\appleseed\as_material2.cpp" />
     <ClCompile Include="..\appleseed\build_project.cpp" />
     <ClCompile Include="..\appleseed\objExport.cpp" />
     <ClCompile Include="..\appleseed\prerequest_as.cpp" />
@@ -2393,6 +2394,7 @@
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />
     <ClInclude Include="..\appleseed\as_material.h" />
+    <ClInclude Include="..\appleseed\as_material2.h" />
     <ClInclude Include="..\appleseed\objExport.h" />
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />

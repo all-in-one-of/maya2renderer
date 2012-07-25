@@ -3,6 +3,7 @@
 
 #pragma once
 #include "prerequest_as.h"
+#include "as_material.h"
 
 namespace renderer{
 	class Assembly;
@@ -12,39 +13,11 @@ namespace appleseed
 {
 	class Renderer;
 	//
-	enum BSDF_Model
-	{
-		ashikhmin_brdf,
-		bsdf_mix,
-		kelemen_brdf,
-		lambertian_brdf,
-		null_bsdf,
-		specular_brdf,
-		specular_btdf,
-		BSDF_Model_COUNT,
-	};
-	enum EDF_Model
-	{
-		diffuse_edf,
-		EDF_Model_COUNT,
-	};
-	enum SurfaceShader_Model
-	{
-		ao_surface_shader,
-		constant_surface_shader,
-		diagnostic_surface_shader,
-		fast_sss_surface_shader,
-		physical_surface_shader,
-		smoke_surface_shader,
-		voxel_ao_surface_shader,
-		SurfaceShader_Model_COUNT,
-	};
-	//
-	class MaterialFactory
+	class MaterialFactory2
 	{
 	public:
-		MaterialFactory();
-		~MaterialFactory();//this class trends not to be inherited.
+		MaterialFactory2();
+		~MaterialFactory2();//this class trends not to be inherited.
 		
 		void begin(const char* node);
 		void end();
@@ -54,8 +27,8 @@ namespace appleseed
 		void createSurfaceShader(const std::string &modelname);
 
 	protected:
-		MaterialFactory(const MaterialFactory& );
-		MaterialFactory& operator=(const MaterialFactory&);
+		MaterialFactory2(const MaterialFactory2& );
+		MaterialFactory2& operator=(const MaterialFactory2&);
 
 		void createBSDF(BSDF_Model model);
 		void createEDF(EDF_Model model);
@@ -84,6 +57,10 @@ namespace appleseed
 		asr::Assembly* m_assembly;
 		asr::ParamArray material_params;
 		std::string m_nodename;
+
+		std::string m_bsdf_model;
+		std::string m_edf_model;
+		std::string m_surface_shader_model;
 	};
 }//namespace appleseed
 

@@ -1,4 +1,4 @@
-#include "as_material.h"
+#include "as_material2.h"
 
 #include "../common/prerequest_maya.h"
 #include "as_renderer.h"
@@ -8,18 +8,18 @@
 namespace appleseed
 {
 	//////////////////////////////////////////////////////////////////////////
-	MaterialFactory::MaterialFactory()
+	MaterialFactory2::MaterialFactory2()
 		:m_renderer(nullptr),
 		m_assembly(nullptr)
 	{
 		m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
 		assert(m_renderer != NULL );
 	}
-	MaterialFactory::~MaterialFactory()
+	MaterialFactory2::~MaterialFactory2()
 	{
 
 	}
-	void MaterialFactory::begin(const char* node)
+	void MaterialFactory2::begin(const char* node)
 	{
 		CM_TRACE_FUNC("begin("<<node<<")");
 
@@ -28,15 +28,17 @@ namespace appleseed
 
 		m_nodename = node;
 	}
-	void MaterialFactory::end()
+	void MaterialFactory2::end()
 	{
 		m_assembly->materials().insert(
 			asr::MaterialFactory::create( m_nodename.c_str(), material_params )
 		);
 	}
 	//////////////////////////////////////////////////////////////////////////
-	void MaterialFactory::createBSDF(const std::string &modelname)
+	void MaterialFactory2::createBSDF(const std::string &modelname)
 	{
+		m_bsdf_model = modelname;
+
 		if("ashikhmin_brdf"==modelname){
 			createBSDF(ashikhmin_brdf);
 		}else if("bsdf_mix"==modelname){
@@ -55,16 +57,20 @@ namespace appleseed
 			liquidMessage2(messageError, "BSDF type %s is unknown.", modelname.c_str());
 		}
 	}
-	void MaterialFactory::createEDF(const std::string &modelname)
+	void MaterialFactory2::createEDF(const std::string &modelname)
 	{
+		m_edf_model = modelname;
+
 		if("diffuse_edf"==modelname){
 			createEDF(diffuse_edf);
 		}else{
 			liquidMessage2(messageError, "EDF type %s is unknown.", modelname.c_str());
 		}
 	}
-	void MaterialFactory::createSurfaceShader(const std::string &modelname)
+	void MaterialFactory2::createSurfaceShader(const std::string &modelname)
 	{
+		m_surface_shader_model = modelname;
+
 		if("ao_surface_shader"==modelname){
 			createSurfaceShader(ao_surface_shader);
 		}else if("constant_surface_shader"==modelname){
@@ -84,7 +90,7 @@ namespace appleseed
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
-	void MaterialFactory::createBSDF(BSDF_Model model)
+	void MaterialFactory2::createBSDF(BSDF_Model model)
 	{
 		switch(model)
 		{
@@ -99,7 +105,7 @@ namespace appleseed
 			liquidMessage2(messageError, "BSDF type %d is unknown.", model);
 		}
 	}
-	void MaterialFactory::createEDF(EDF_Model model)
+	void MaterialFactory2::createEDF(EDF_Model model)
 	{
 		switch(model)
 		{
@@ -108,7 +114,7 @@ namespace appleseed
 			liquidMessage2(messageError, "EDF type %d is unknown.", model);
 		}
 	}
-	void MaterialFactory::createSurfaceShader(SurfaceShader_Model model)
+	void MaterialFactory2::createSurfaceShader(SurfaceShader_Model model)
 	{
 		std::string ret;
 		switch(model)
@@ -126,65 +132,67 @@ namespace appleseed
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
-	void MaterialFactory::createBSDF_ashikhmin_brdf()
+	void MaterialFactory2::createBSDF_ashikhmin_brdf()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_ashikhmin_brdf()");
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_ashikhmin_brdf()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 	}
 
-	void MaterialFactory::createBSDF_bsdf_mix()
+	void MaterialFactory2::createBSDF_bsdf_mix()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_bsdf_mix()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
-
-	}
-
-	void MaterialFactory::createBSDF_kelemen_brdf()
-	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_kelemen_brdf()");
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_bsdf_mix()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createBSDF_lambertian_brdf()
+	void MaterialFactory2::createBSDF_kelemen_brdf()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_lambertian_brdf()");
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_kelemen_brdf()");
+		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
-		std::string bsdf_name(m_nodename+"_lambert_brdf");
+	}
+
+	void MaterialFactory2::createBSDF_lambertian_brdf()
+	{
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_lambertian_brdf()");
+
+		std::string bsdf_name(m_nodename+"_"+m_bsdf_model);//<nodename>_lambert_brdf
 
 		asr::ParamArray bsdf_params;
 		{
-			std::string color_name;
+			std::string param_node;
+			const std::string param("reflectance");
+			const std::string plugName(m_bsdf_model+"_"+param);//lambert_brdf_reflectance
 
-			MString plug(MString(m_nodename.c_str())+".color");
-			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(plug.asChar());
+			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.lambert_brdf_reflectance
+			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 			if(connected != 1)
 			{
-				color_name = m_nodename+"_color";
+				param_node = m_nodename+"_"+plugName;//<nodename>_lambert_brdf_reflectance
 				//reflectance color
 				MDoubleArray val; 
 				val.setLength(3);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(m_nodename.c_str())+".color\"", val));
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 
 				float color[] = { val[0], val[1], val[2] };
 				m_assembly->colors().insert(
 					asr::ColorEntityFactory::create(
-					color_name.c_str(),
+					param_node.c_str(),
 					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
 					)
 				);
 			}else{//the color plug is linked in.
 				MStringArray srcPlug;
-				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+plug+"\"", srcPlug));
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
 				assert(srcPlug.length()==1);
 				MStringArray src;
 				srcPlug[0].split('.',src);
 				MString srcNode(src[0]);
 				//
-				color_name = getTextureInstanceName(srcNode.asChar());
+				param_node = getTextureInstanceName(srcNode.asChar());
 			}
 			//
-			bsdf_params.insert("reflectance", color_name.c_str());
+			bsdf_params.insert(param.c_str(), param_node.c_str());
 		}
 		//
 		m_assembly->bsdfs().insert(
@@ -196,53 +204,59 @@ namespace appleseed
 		material_params.insert( "bsdf", bsdf_name.c_str() );
 	}
 
-	void MaterialFactory::createBSDF_null_bsdf()
+	void MaterialFactory2::createBSDF_null_bsdf()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_null_bsdf()");
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_null_bsdf()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createBSDF_specular_brdf()
+	void MaterialFactory2::createBSDF_specular_brdf()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_specular_brdf()");
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_specular_brdf()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createBSDF_specular_btdf()
+	void MaterialFactory2::createBSDF_specular_btdf()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createBSDF_specular_btdf()");
+		CM_TRACE_FUNC("MaterialFactory2::createBSDF_specular_btdf()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
 	//
-	void MaterialFactory::createEDF_diffuse_edf()
+	void MaterialFactory2::createEDF_diffuse_edf()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createEDF_diffuse_edf()");
+		CM_TRACE_FUNC("MaterialFactory2::createEDF_diffuse_edf()");
 
-		std::string edf_name(m_nodename+"_edf");
+		std::string edf_name(m_nodename+"_"+m_edf_model);//<nodename>_diffuse_edf
 		//
 		asr::ParamArray edf_params;
 		{
-			std::string incandescence_name(m_nodename+"_incandescence");
+			std::string param_node;
+			const std::string param("exitance");
+			const std::string plugName(m_edf_model+"_"+param);//diffuse_edf_exitance
+			
+			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.diffuse_edf_exitance
 			//
-			MDoubleArray val; 
-			val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(m_nodename.c_str())+".incandescence\"", val));
+			MDoubleArray v; 
+			v.setLength(3);
+			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", v));
 
-			if( !isZero(val[0], val[1], val[2]) )
+			if( !isZero(v[0], v[1], v[2]) )
 			{
-				float incandescence[] = { val[0], val[1], val[2] };
+				param_node = m_nodename+"_"+plugName;//<nodename>_diffuse_edf_exitance
+
+				float val[] = { v[0], v[1], v[2] };
 				m_assembly->colors().insert(
 					asr::ColorEntityFactory::create(
-					incandescence_name.c_str(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, incandescence)
+					param_node.c_str(),
+					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, val)
 					)
 					);
 				//
-				edf_params.insert("exitance", incandescence_name.c_str());
+				edf_params.insert(param.c_str(), param_node.c_str());
 			}
 		}
 		//
@@ -261,39 +275,84 @@ namespace appleseed
 	}
 
 	//
-	void MaterialFactory::createSurfaceShader_ao()
+	void MaterialFactory2::createSurfaceShader_ao()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_ao()");
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_ao()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createSurfaceShader_constant()
+	void MaterialFactory2::createSurfaceShader_constant()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_constant()");
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_constant()");
+
+		std::string surfaceshader_name(m_nodename+"_"+m_surface_shader_model);//<nodename>_constant_surface_shader
+
+		asr::ParamArray surfaceshader_params;
+		{
+			std::string param_node;
+			const std::string param("color");
+			const std::string plugName(m_surface_shader_model+"_"+param);//constant_surface_shader_color
+
+			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.constant_surface_shader_color
+			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+			if(connected != 1)
+			{
+				param_node = m_nodename+"_"+plugName;//<nodename>_constant_surface_shader_color
+
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
+				float color[] = { val[0], val[1], val[2] };
+				m_assembly->colors().insert(
+					asr::ColorEntityFactory::create(
+					param_node.c_str(),
+					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+					)
+					);
+			}else{//the color plug is linked in.
+				MStringArray srcPlug;
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+				assert(srcPlug.length()==1);
+				MStringArray src;
+				srcPlug[0].split('.',src);
+				MString srcNode(src[0]);
+				//
+				param_node = getTextureInstanceName(srcNode.asChar());
+			}
+			//
+			surfaceshader_params.insert(param.c_str(), param_node.c_str());
+		}
+		//
+		m_assembly->surface_shaders().insert(
+			asr::ConstantSurfaceShaderFactory().create(
+			surfaceshader_name.c_str(),
+			surfaceshader_params
+			)
+			);
+		material_params.insert( "surface_shader", surfaceshader_name.c_str() );
+	}
+
+	void MaterialFactory2::createSurfaceShader_diagnostic()
+	{
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_diagnostic()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createSurfaceShader_diagnostic()
+	void MaterialFactory2::createSurfaceShader_fast_sss()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_diagnostic()");
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_fast_sss()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createSurfaceShader_fast_sss()
+	void MaterialFactory2::createSurfaceShader_physical()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_fast_sss()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_physical()");
 
-	}
-
-	void MaterialFactory::createSurfaceShader_physical()
-	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_physical()");
-
-		std::string surfaceshader_name(m_nodename+"_physical_surface_shader");
+		std::string surfaceshader_name(m_nodename+"_"+m_surface_shader_model);
 
 		m_assembly->surface_shaders().insert(
 			asr::PhysicalSurfaceShaderFactory().create(
@@ -305,16 +364,16 @@ namespace appleseed
 
 	}
 
-	void MaterialFactory::createSurfaceShader_smoke()
+	void MaterialFactory2::createSurfaceShader_smoke()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_smoke()");
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_smoke()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
 
-	void MaterialFactory::createSurfaceShader_voxel_ao()
+	void MaterialFactory2::createSurfaceShader_voxel_ao()
 	{
-		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_voxel_ao()");
+		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_voxel_ao()");
 		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
 	}
