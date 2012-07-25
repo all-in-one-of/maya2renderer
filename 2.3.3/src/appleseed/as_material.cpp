@@ -35,6 +35,53 @@ namespace appleseed
 		);
 	}
 	//////////////////////////////////////////////////////////////////////////
+	void MaterialFactory::createBSDF(const std::string &modelname)
+	{
+		if("ashikhmin_brdf"==modelname){
+			createBSDF(ashikhmin_brdf);
+		}else if("bsdf_mix"==modelname){
+			createBSDF(bsdf_mix);
+		}else if("kelemen_brdf"==modelname){
+			createBSDF(kelemen_brdf);
+		}else if("lambertian_brdf"==modelname){
+			createBSDF(lambertian_brdf);
+		}else if("null_bsdf"==modelname){
+			createBSDF(null_bsdf);
+		}else if("specular_brdf"==modelname){
+			createBSDF(specular_brdf);
+		}else if("specular_btdf"==modelname){
+			createBSDF(specular_btdf);
+		}else{
+			liquidMessage2(messageError, "BSDF type %s is unknown.", modelname.c_str());
+		}
+	}
+	void MaterialFactory::createEDF(const std::string &modelname)
+	{
+		if("diffuse_edf"==modelname){
+			createEDF(diffuse_edf);
+		}else{
+			liquidMessage2(messageError, "EDF type %s is unknown.", modelname.c_str());
+		}
+	}
+	void MaterialFactory::createSurfaceShader(const std::string &modelname)
+	{
+		if("ao_surface_shader"==modelname){
+			createSurfaceShader(ao_surface_shader);
+		}else if("diagnostic_surface_shader"==modelname){
+			createSurfaceShader(diagnostic_surface_shader);
+		}else if("fast_sss_surface_shader"==modelname){
+			createSurfaceShader(fast_sss_surface_shader);
+		}else if("physical_surface_shader"==modelname){
+			createSurfaceShader(physical_surface_shader);
+		}else if("smoke_surface_shader"==modelname){
+			createSurfaceShader(smoke_surface_shader);
+		}else if("voxel_ao_surface_shader"==modelname){
+			createSurfaceShader(voxel_ao_surface_shader);
+		}else{
+			liquidMessage2(messageError, "SurfaceShader type %s is unknown.", modelname.c_str());
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////
 	void MaterialFactory::createBSDF(BSDF_Model model)
 	{
 		switch(model)

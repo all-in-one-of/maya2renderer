@@ -48,13 +48,17 @@ namespace appleseed
 		void begin(const char* node);
 		void end();
 
-		void createBSDF(BSDF_Model model);
-		void createEDF(EDF_Model model);
-		void createSurfaceShader(SurfaceShader_Model model);
+		void createBSDF(const std::string &modelname);
+		void createEDF(const std::string &modelname);
+		void createSurfaceShader(const std::string &modelname);
 
 	protected:
 		MaterialFactory(const MaterialFactory& );
 		MaterialFactory& operator=(const MaterialFactory&);
+
+		void createBSDF(BSDF_Model model);
+		void createEDF(EDF_Model model);
+		void createSurfaceShader(SurfaceShader_Model model);
 
 		void createBSDF_ashikhmin_brdf();
 		void createBSDF_bsdf_mix();

@@ -45,15 +45,15 @@ namespace appleseed
 		size_t parameterNum =  tokenPointerArray.size() - 1;
 		for(size_t i=0; i<parameterNum; ++i)
 		{
- 			//_s("//- "
- 			//	<<const_cast<liqTokenPointer*>(&tokenPointerArray[i])->getDetailedTokenName()<<","//uniform float intensity
- 			//	<<tokenPointerArray[i].getDetailType()<<","
- 			//	<<"//tokenPointerArray[i].getTokenFloatArray()"<<","
- 			//	<<"//[error]tokenPointerArray[i].getTokenString()"<<","
- 			//	<<tokenPointerArray[i].getTokenName()<<","//intensity,
- 			//	<<tokenPointerArray[i].getParameterType()<<","//rFloat,
- 			//	<<tokenPointerArray[i].getRiDeclare()<<","//uniform float,
- 			//	);
+ 			_s("//- "
+ 				<<const_cast<liqTokenPointer*>(&tokenPointerArray[i])->getDetailedTokenName()<<","//uniform float intensity
+ 				<<tokenPointerArray[i].getDetailType()<<","
+ 				<<"//tokenPointerArray[i].getTokenFloatArray()"<<","
+ 				<<"//[error]tokenPointerArray[i].getTokenString()"<<","
+ 				<<tokenPointerArray[i].getTokenName()<<","//intensity,
+ 				<<tokenPointerArray[i].getParameterType()<<","//rFloat,
+ 				<<tokenPointerArray[i].getRiDeclare()<<","//uniform float,
+ 				);
 // 			_s("// "<<tokenPointerArray[i].getTokenName());
 
 			liqTokenPointer* vp = const_cast< liqTokenPointer* >( &tokenPointerArray[i] );

@@ -55,9 +55,9 @@ void Visitor::visitLambert(const char* node)
 	MaterialFactory mf;
 
 	mf.begin(node);
-	mf.createBSDF(lambertian_brdf);
-	mf.createEDF(diffuse_edf);
-	mf.createSurfaceShader(physical_surface_shader);
+	mf.createBSDF("lambertian_brdf");
+	mf.createEDF("diffuse_edf");
+	mf.createSurfaceShader("physical_surface_shader");
 	mf.end();
 
 }
