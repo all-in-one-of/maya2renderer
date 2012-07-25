@@ -56,7 +56,10 @@ namespace appleseed
 		delete m_gnode;
 		m_gnode = 0;
 
-		//delete m_groupMgr; 
+		current_assembly.release();
+		project.release();
+		m_log_target.release();
+		//delete m_groupMgr;
 		//m_groupMgr = 0;
 	}
 	//
@@ -411,7 +414,7 @@ namespace appleseed
 			Connection::delInstance();
 		}else{
 			// start render
-			if (Connection::getInstance()->startRender( currentJob.width, currentJob.height, false, true) != MS::kSuccess)
+			if (Connection::getInstance()->startRender( currentJob.width, currentJob.height, false, false) != MS::kSuccess)
 			{
 				_s( "//MayaConnection: error occured in startRender." );
 				Connection::delInstance();				
