@@ -290,6 +290,9 @@ namespace appleseed
 		asf::auto_release_ptr<asr::Assembly>& getAssembly() { return current_assembly; }
 		const asf::auto_release_ptr<asr::Assembly>& getAssembly() const { return current_assembly; }
 
+		asf::auto_release_ptr<asr::Project>& getProject() { return project; }
+		const asf::auto_release_ptr<asr::Project>& getProject() const { return project; }
+
 	protected:
 		Renderer(const Renderer&);
 		Renderer& operator=(const Renderer&);
@@ -357,6 +360,7 @@ namespace appleseed
 		void _write_shavehair(liqRibShaveData* pData, const structJob &currentJob__);
 		void generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree);
 
+		MString m_globalNodeName;
 		GlobalNodeHelper *m_gnode;
 
 		void createConfigurations();

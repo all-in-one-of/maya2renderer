@@ -94,13 +94,27 @@ namespace appleseed
 	{
 		switch(model)
 		{
-		case ashikhmin_brdf:	createBSDF_ashikhmin_brdf();break;
-		case bsdf_mix:			createBSDF_bsdf_mix();		break;
-		case kelemen_brdf:		createBSDF_kelemen_brdf();	break;
-		case lambertian_brdf:	createBSDF_lambertian_brdf(); break;
-		case null_bsdf:			createBSDF_null_bsdf();		break;
-		case specular_brdf:		createBSDF_specular_brdf();	break;
-		case specular_btdf:		createBSDF_specular_btdf();	break;
+		case ashikhmin_brdf:	
+			m_bsdf_model = "ashikhmin_brdf";
+			createBSDF_ashikhmin_brdf(); break;
+		case bsdf_mix:	
+			m_bsdf_model = "bsdf_mix";
+			createBSDF_bsdf_mix();		break;
+		case kelemen_brdf:	
+			m_bsdf_model = "kelemen_brdf";
+			createBSDF_kelemen_brdf();	break;
+		case lambertian_brdf:	
+			m_bsdf_model = "lambertian_brdf";
+			createBSDF_lambertian_brdf(); break;
+		case null_bsdf:	
+			m_bsdf_model = "null_bsdf";
+			createBSDF_null_bsdf();		break;
+		case specular_brdf:	
+			m_bsdf_model = "specular_brdf";
+			createBSDF_specular_brdf();	break;
+		case specular_btdf:	
+			m_bsdf_model = "specular_btdf";
+			createBSDF_specular_btdf();	break;
 		default:
 			liquidMessage2(messageError, "BSDF type %d is unknown.", model);
 		}
@@ -109,7 +123,9 @@ namespace appleseed
 	{
 		switch(model)
 		{
-		case diffuse_edf:	createEDF_diffuse_edf();	break;
+		case diffuse_edf:	
+			m_edf_model = "diffuse_edf";
+			createEDF_diffuse_edf();	break;
 		default:
 			liquidMessage2(messageError, "EDF type %d is unknown.", model);
 		}
@@ -119,13 +135,27 @@ namespace appleseed
 		std::string ret;
 		switch(model)
 		{
-		case ao_surface_shader:			createSurfaceShader_ao();		break;
-		case constant_surface_shader:	createSurfaceShader_constant(); break;
-		case diagnostic_surface_shader:	createSurfaceShader_diagnostic();break;
-		case fast_sss_surface_shader:	createSurfaceShader_fast_sss();	break;
-		case physical_surface_shader:	createSurfaceShader_physical();	break;
-		case smoke_surface_shader:		createSurfaceShader_smoke();	break;
-		case voxel_ao_surface_shader:	createSurfaceShader_voxel_ao();	break;
+		case ao_surface_shader:	
+			m_surface_shader_model = "ao_surface_shader";
+			createSurfaceShader_ao();		break;
+		case constant_surface_shader:	
+			m_surface_shader_model = "constant_surface_shader";
+			createSurfaceShader_constant(); break;
+		case diagnostic_surface_shader:	
+			m_surface_shader_model = "diagnostic_surface_shader";
+			createSurfaceShader_diagnostic();break;
+		case fast_sss_surface_shader:	
+			m_surface_shader_model = "fast_sss_surface_shader";
+			createSurfaceShader_fast_sss();	break;
+		case physical_surface_shader:	
+			m_surface_shader_model = "physical_surface_shader";
+			createSurfaceShader_physical();	break;
+		case smoke_surface_shader:		
+			m_surface_shader_model = "smoke_surface_shader";
+			createSurfaceShader_smoke();	break;
+		case voxel_ao_surface_shader:	
+			m_surface_shader_model = "voxel_ao_surface_shader";
+			createSurfaceShader_voxel_ao();	break;
 		default:
 			liquidMessage2(messageError, "SurfaceShader type %d is unknown.", model);
 			ret = "";
@@ -135,20 +165,20 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_ashikhmin_brdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_ashikhmin_brdf()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
 	}
 
 	void MaterialFactory2::createBSDF_bsdf_mix()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_bsdf_mix()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
 
 	}
 
 	void MaterialFactory2::createBSDF_kelemen_brdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_kelemen_brdf()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
 
 	}
 
@@ -207,7 +237,7 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_null_bsdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_null_bsdf()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
 
 	}
 
@@ -266,7 +296,7 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_specular_btdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_specular_btdf()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
 
 	}
 
@@ -323,7 +353,7 @@ namespace appleseed
 	void MaterialFactory2::createSurfaceShader_ao()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_ao()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
 	}
 
@@ -382,14 +412,14 @@ namespace appleseed
 	void MaterialFactory2::createSurfaceShader_diagnostic()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_diagnostic()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of  [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
 	}
 
 	void MaterialFactory2::createSurfaceShader_fast_sss()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_fast_sss()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of  [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
 	}
 
@@ -412,14 +442,14 @@ namespace appleseed
 	void MaterialFactory2::createSurfaceShader_smoke()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_smoke()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
 	}
 
 	void MaterialFactory2::createSurfaceShader_voxel_ao()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_voxel_ao()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
 	}
 

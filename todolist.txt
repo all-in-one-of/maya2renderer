@@ -237,8 +237,9 @@ appleseed
 -------------
 - camera motion, deform motion, 
 - ÷–∂œ‰÷»æ
--  deformation motion blur
+- deformation motion blur
 - some glossy materials
 - normal mapping
 - image-based lighting
 - area lights
+- liquidSurface ∏˜÷÷shader

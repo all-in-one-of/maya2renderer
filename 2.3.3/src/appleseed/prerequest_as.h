@@ -9,6 +9,8 @@
 #include "appleseed/renderer/api/camera.h"
 #include "appleseed/renderer/api/color.h"
 #include "appleseed/renderer/api/environment.h"
+#include "appleseed/renderer/api/environmentedf.h"
+#include "appleseed/renderer/api/environmentshader.h"
 #include "appleseed/renderer/api/frame.h"
 #include "appleseed/renderer/api/light.h"
 #include "appleseed/renderer/api/log.h"

@@ -47,8 +47,8 @@ namespace appleseed
 	Renderer::Renderer()
 	{
 		//m_groupMgr = new GroupMgr(this);
-
-		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_appleseed");
+		m_globalNodeName = "liqGlobalsNodeRenderer_appleseed";
+		m_gnode = new GlobalNodeHelper(m_globalNodeName.asChar());
 	}
 	//
 	Renderer::~Renderer()
