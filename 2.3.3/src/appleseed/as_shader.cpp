@@ -41,12 +41,25 @@ namespace appleseed
 		_s( "// shader("<<mayaShaderName<<","<<", ...)" );//Renderman slo file name, e.g."your_shader_dir/test_type2"
 		//_s( "// shader("<<liquidShaderName<<","<<", ...)" );//e.g."lambert1", or "liquidSurface1", NOTE: it is liquidShader, not maya shader.
 
+		MObject node;
+		MStatus status;
+		MString svalue;
+		getDependNodeByName(node, liquidShaderName.c_str());
+
+
 		MaterialFactory2 mf;
 
 		mf.begin(liquidShaderName.c_str());
-		mf.createBSDF("lambertian_brdf");
-		mf.createEDF("diffuse_edf");
-		mf.createSurfaceShader("constant_surface_shader");
+
+		liquidGetPlugValue(node, "bsdf_model", svalue, status); IfMErrorWarn(status);
+		mf.createBSDF(svalue.asChar());
+
+		liquidGetPlugValue(node, "edf_model", svalue, status); IfMErrorWarn(status);
+		mf.createEDF(svalue.asChar());
+
+		liquidGetPlugValue(node, "surface_shader_model", svalue, status); IfMErrorWarn(status);
+		mf.createSurfaceShader(svalue.asChar());
+
 		mf.end();
 		//tokenPointerArray only store parameters of user-defined shader
 //		size_t parameterNum =  tokenPointerArray.size() - 1;

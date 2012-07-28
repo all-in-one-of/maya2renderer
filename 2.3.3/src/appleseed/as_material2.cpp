@@ -214,8 +214,53 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_specular_brdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_specular_brdf()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
 
+		std::string bsdf_name(m_nodename+"_"+m_bsdf_model);//<nodename>_specular_brdf
+
+		asr::ParamArray bsdf_params;
+		{
+			std::string param_node;
+			const std::string param("reflectance");
+			const std::string plugName(m_bsdf_model+"_"+param);//specular_brdf_reflectance
+
+			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.specular_brdf_reflectance
+			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+			if(connected != 1)
+			{
+				param_node = m_nodename+"_"+plugName;//<nodename>_specular_brdf_reflectance
+				//reflectance color
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
+				float color[] = { val[0], val[1], val[2] };
+				m_assembly->colors().insert(
+					asr::ColorEntityFactory::create(
+					param_node.c_str(),
+					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+					)
+					);
+			}else{//the color plug is linked in.
+				MStringArray srcPlug;
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+				assert(srcPlug.length()==1);
+				MStringArray src;
+				srcPlug[0].split('.',src);
+				MString srcNode(src[0]);
+				//
+				param_node = getTextureInstanceName(srcNode.asChar());
+			}
+			//
+			bsdf_params.insert(param.c_str(), param_node.c_str());
+		}
+		//
+		m_assembly->bsdfs().insert(
+			asr::SpecularBRDFFactory().create(
+			bsdf_name.c_str(),
+			bsdf_params
+			)
+			);
+		material_params.insert( "bsdf", bsdf_name.c_str() );
 	}
 
 	void MaterialFactory2::createBSDF_specular_btdf()
