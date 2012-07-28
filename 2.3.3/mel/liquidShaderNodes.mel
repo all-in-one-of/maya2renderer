@@ -819,9 +819,12 @@ global proc liquidShaderNodesParamsReplace ( string $msg )
   {
     string $cmds[] = `getAttr ($theNode+".rmanLifCmds")`;
     string $c;
-    for ( $c in $cmds ) 
-      if ( $c != "" ) 
+    for ( $c in $cmds ) {
+      if ( $c != "" ) {
+		liqlog("rmanLifCmds: "+$c);
         eval $c;
+	  }
+	}
   } 
   else 
   {

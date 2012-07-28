@@ -483,7 +483,7 @@ global proc string liquidAE_LifArray(string $paramName, int $arraySize, string $
 global proc string liquidAE_Lif_selector( string $paramName, string $paramType, string $attr, string $label, string $range[], string  $description, int $state )
 {
   liqPushIdent();
-	liqlog("liquidAE_Lif_selector(...)");
+	liqlog("liquidAE_Lif_selector("+$paramName+","+$paramType+","+$attr+","+$label+",["+stringArrayToString($range, ",")+"],"+$description+","+$state+")");
     global string $gLiquid_currentAEParent;
     global string $gLiquid_currentAENode;
     global string $gLiquid_currentAEShader;
@@ -759,7 +759,7 @@ global proc string liquidAE_LifFloat_spline( string $paramName, string $label, s
 global proc liquidAE_LifFloat( string $paramName, int $arraySize, string $subtype, string $label, string $range[], string $description, int $state )
 {
   liqPushIdent();
-	liqlog("liquidAE_LifFloat(...)");
+	liqlog("liquidAE_LifFloat("+$paramName+","+$arraySize+","+$subtype+","+$label+",$range[],"+$description+","+$state+")");
 	global string	$gLiquid_currentAEParent;
 	global string	$gLiquid_currentAENode;
 	global string	$gLiquid_currentAEShader;
@@ -1136,7 +1136,7 @@ global proc liquidAE_LifVector( string $paramName, int $arraySize, string $subty
 global proc liquidAE_LifString( string $paramName, int $arraySize, string $subtype, string $label, string $range[], string $description, int $state )
 {
   liqPushIdent();
-	liqlog("liquidAE_LifString(...)");
+	liqlog("liquidAE_LifString("+$paramName+","+$arraySize+","+$subtype+","+$label+","+stringArrayToString($range," ")+","+$description+","+$state+")");
 	//[merge] used by xx
 	//if( $arraySize == -1 )
 	//{
@@ -1180,7 +1180,7 @@ global proc liquidAE_LifString( string $paramName, int $arraySize, string $subty
 		string $cplug			= $plug+$arrayNotation;
 		string $clabel			= $label+$arrayNotation;
 
-		//trace ("\t[liquidAE_LifString] on attribute "+$cattr+" of label "+$clabel);
+		liqlog("[liquidAE_LifString] on attribute "+$cattr+" of label "+$clabel);
 
 		string $currentValue  = `getAttr $cplug`;
     	string $ctlName       = controlName($gLiquid_currentAEShader, $cattr);
@@ -1464,7 +1464,7 @@ global proc liquidAE_LifStringOverride( string $nodeDotAttr, string $ctl )
 global proc liquidAE_LifStringOverrideDisplay( int $override, string $ctl )
 {
   liqPushIdent();
-	liqlog("liquidAE_LifStringOverrideDisplay(...)");
+	liqlog("liquidAE_LifStringOverrideDisplay("+$override+", "+$ctl+")");
   // remember the original parent
 	if ( !objExists( $ctl ) ) {liqPopIdent();return ;}
 

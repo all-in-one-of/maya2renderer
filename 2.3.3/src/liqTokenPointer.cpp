@@ -184,7 +184,7 @@ bool liqTokenPointer::set( const string& name, ParameterType ptype, bool asArray
 
 bool liqTokenPointer::set( const string& name, ParameterType ptype, unsigned int arraySize, unsigned int uArraySize )
 {
-	CM_TRACE_FUNC("liqTokenPointer:set("<<name<<","<<ptype<<","<<arraySize<<","<<uArraySize<<")");
+	//CM_TRACE_FUNC("liqTokenPointer:set("<<name<<","<<ptype<<","<<arraySize<<","<<uArraySize<<")");
 
 	setTokenName( name );
 	m_pType = ptype;
