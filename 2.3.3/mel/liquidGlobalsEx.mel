@@ -456,6 +456,32 @@ global proc liquidShowIntGlobalMenu2(string $node, string $name, string $label, 
   liqPopIdent();
 }
 //
+global proc liquidShowIntGlobalMenu2CB(string $node, string $name, string $label, string $items[], string $prefix, string $callback )
+{
+  liqPushIdent();
+	liqlog("liquidShowIntGlobalMenu2CB("+$node+","+$name+","+$label+",$item[],"+$prefix+","+$callback+")");
+  if (size($items) == 0) {
+    warning( "empty list specified in liquidShowIntGlobalMenu2() for attribute " + $name + "\n");
+    liqPopIdent();
+	return;
+  }
+  if ( objExists( ($node+"."+$name) ) ) {
+    //setUITemplate -pst attributeEditorTemplate;
+	  string $menu = `optionMenuGrp -cal 1 "right" -label $label -changeCommand ($callback+" #1")`;
+    int $i;
+    for( $i = 0; $i < size( $items ); ++$i ) {
+      menuItem -data $i -label $items[ $i ] ( $name + "_" + $items[ $i ] );
+    }
+    connectControl -index 2 $menu ($node+"." + $name);
+    popupMenu -pmc ("liquidGlobalsRenderLayerOverrideUpdateMenu \""+$name+"\" \""+$prefix+"\"");
+    menuItem -l "Create Layer Override" ($prefix+"liquidGlobalsOverride_"+$name);
+    //setUITemplate -ppt;
+  } else {
+    warning ( "global attribute " + $name + " does not exist\n" );
+  }
+  liqPopIdent();
+}
+//
 //// proc to update the enable state of menu items
 //// REVIEW : unused for the time being
 //
