@@ -12,6 +12,8 @@
 #include "log_helper.h"
 #include "as_material3.h"
 #include "as_GlobalNodeHelper.h"
+//#include "as_visitorMgrForEnv.h"
+#include "as_visitorForEnv.h"
 
 namespace appleseed
 {
@@ -19,7 +21,8 @@ namespace appleseed
 	void Renderer::createEnvironment()
 	{
 		CM_TRACE_FUNC("Renderer::createEnvironment()");
-
+		
+		//VisitorMgrForEnv::getSingletonPtr()->addReceiver( new VisitorForEnv() );
 
 		MaterialFactory3 mf;
 		mf.begin(m_globalNodeName.asChar());
@@ -28,6 +31,7 @@ namespace appleseed
 		mf.createEnvironment("generic_environment");
 		mf.end();
 
+		//VisitorMgrForEnv::getSingletonPtr()->deleteReceivers();
 	}
 }//namespace appleseed
 #endif//_USE_APPLESEED_

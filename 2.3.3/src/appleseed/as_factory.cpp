@@ -4,6 +4,7 @@
 #include "as_factory.h"
 #include "as_shaderOutput.h"
 #include "as_shaderOutputCall.h"
+#include "as_visitorForEnv.h"
 #include "as_renderer.h"
 #include "../shadergraph/shaderOutputMgr.h"
 
@@ -40,6 +41,7 @@ namespace appleseed
 	{
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new appleseed::Visitor());
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new appleseed::call::Visitor());
+		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new appleseed::env::Visitor());
 	}
 	void Factory::deleteOutputReceiver()
 	{

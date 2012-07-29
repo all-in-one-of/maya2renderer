@@ -243,3 +243,4 @@ appleseed
 - image-based lighting
 - area lights
 - liquidSurface 各种shader
+- VisitorForEnv::outputUpstreamShader()改名为visit();

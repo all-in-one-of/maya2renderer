@@ -210,7 +210,29 @@ void ShaderValidConnection::setValidConnection()
 
 	/// Env Textures ///
 	//envBall
-
+	validConnection.clear();
+	validConnection.append("normalCamera");
+	validConnection.append("rayDirection");
+	validConnection.append("filterSize");
+	validConnection.append("uvFilterSize");
+	validConnection.append("image");
+	validConnection.append("uvCoord");
+	validConnection.append("outAlpha");
+	validConnection.append("outColor");
+	validConnection.append("pointCamera");
+	validConnection.append("inclination");
+	validConnection.append("elevation");
+	validConnection.append("skyRadius");
+	validConnection.append("bottom");
+	validConnection.append("top");
+	validConnection.append("left");
+	validConnection.append("right");
+	validConnection.append("front");
+	validConnection.append("back");
+	validConnection.append("reflect");
+	validConnection.append("eyeSpace");
+	validConnection.append("infoBits");
+	validConnectionMap.insert(std::make_pair("envBall", validConnection));	
 	//envChrome
 
 	//envCube
