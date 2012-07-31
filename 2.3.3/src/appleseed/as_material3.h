@@ -66,6 +66,7 @@ namespace appleseed
 		void createEnvironmentShader_edf();
 
 		void visitEnvBall(const char* node);
+		void visitEnvSphere(const char* node);
 		void visitFile(const char* node);
 
 	private:

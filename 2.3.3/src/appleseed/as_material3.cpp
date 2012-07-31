@@ -247,8 +247,20 @@ namespace appleseed
 	void MaterialFactory3::createEnvironmentEDF_latlong_map()
 	{
 		CM_TRACE_FUNC("MaterialFactory3::createEnvironmentEDF_latlong_map()");
-		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_env_model.c_str() );
 
+		MString nodeName("envSphere1");
+		int bExist;
+		IfMErrorWarn(MGlobal::executeCommand("objExists "+nodeName, bExist, false, true));
+		if( !bExist )
+		{
+			liquidMessage2( messageError, "%s not exist.", nodeName.asChar() );
+			return;
+		}
+
+		visitEnvSphere(nodeName.asChar());
+
+		material_params.insert( "environment_edf", nodeName.asChar() );
+		m_env_edf_name = nodeName.asChar();
 	}
 
 	void MaterialFactory3::createEnvironmentEDF_mirrorball_map()
@@ -344,6 +356,32 @@ namespace appleseed
 		//create as node
 		m_project->get_scene()->environment_edfs().insert(
 			asr::MirrorBallMapEnvironmentEDFFactory().create(
+			node,
+			env_edf_params
+			)
+		);
+	}
+	void MaterialFactory3::visitEnvSphere(const char* node)
+	{
+		CM_TRACE_FUNC("MaterialFactory3::visitEnvSphere("<< node <<")");
+
+		//$node.image  <--  $srcNode.outColor
+		MStringArray srcPlug;
+		IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+MString(node)+".image\"", srcPlug));
+		assert(srcPlug.length()==1);
+		MStringArray src;
+		srcPlug[0].split('.',src);
+		MString srcNode(src[0]);
+
+		visitFile(srcNode.asChar());
+
+		//parameters
+		asr::ParamArray env_edf_params;
+		env_edf_params.insert("exitance", getTextureInstanceName(srcNode.asChar()).c_str());
+		env_edf_params.insert("exitance_multiplier", 0.5f);
+		//create as node
+		m_project->get_scene()->environment_edfs().insert(
+			asr::LatLongMapEnvironmentEDFFactory().create(
 			node,
 			env_edf_params
 			)
