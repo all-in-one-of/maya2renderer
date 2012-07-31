@@ -2244,11 +2244,6 @@
     <ClCompile Include="..\appleseed\as_material.cpp" />
     <ClCompile Include="..\appleseed\as_material2.cpp" />
     <ClCompile Include="..\appleseed\as_material3.cpp" />
-    <ClCompile Include="..\appleseed\as_visitorForEnv.cpp" />
-    <ClCompile Include="..\appleseed\as_visitorForEnv_materials.cpp" />
-    <ClCompile Include="..\appleseed\as_visitorForEnv_mi.cpp" />
-    <ClCompile Include="..\appleseed\as_visitorForEnv_textures.cpp" />
-    <ClCompile Include="..\appleseed\as_visitorForEnv_utilities.cpp" />
     <ClCompile Include="..\appleseed\build_project.cpp" />
     <ClCompile Include="..\appleseed\objExport.cpp" />
     <ClCompile Include="..\appleseed\prerequest_as.cpp" />
@@ -2402,7 +2397,6 @@
     <ClInclude Include="..\appleseed\as_material.h" />
     <ClInclude Include="..\appleseed\as_material2.h" />
     <ClInclude Include="..\appleseed\as_material3.h" />
-    <ClInclude Include="..\appleseed\as_visitorForEnv.h" />
     <ClInclude Include="..\appleseed\objExport.h" />
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />

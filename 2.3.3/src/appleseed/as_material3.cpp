@@ -34,7 +34,7 @@ namespace appleseed
 	{
 		m_project->get_scene()->set_environment(
 			asr::EnvironmentFactory::create( m_nodename.c_str(),	material_params )
-		);
+			);
 	}
 	//////////////////////////////////////////////////////////////////////////
 	void MaterialFactory3::createEnvironment(const std::string &modelname)
@@ -254,8 +254,20 @@ namespace appleseed
 	void MaterialFactory3::createEnvironmentEDF_mirrorball_map()
 	{
 		CM_TRACE_FUNC("MaterialFactory3::createEnvironmentEDF_mirrorball_map()");
-		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_env_model.c_str() );
+		
+		MString nodeName("envBall1");
+		int bExist;
+		IfMErrorWarn(MGlobal::executeCommand("objExists "+nodeName, bExist, false, true));
+		if( !bExist )
+		{
+			liquidMessage2( messageError, "%s not exist.", nodeName.asChar() );
+			return;
+		}
 
+		visitEnvBall(nodeName.asChar());
+
+		material_params.insert( "environment_edf", nodeName.asChar() );
+		m_env_edf_name = nodeName.asChar();
 	}
 
 	//
@@ -310,6 +322,114 @@ namespace appleseed
 		);
 		material_params.insert( "environment_shader", env_shader_name.c_str() );
 	}
+	//
+	void MaterialFactory3::visitEnvBall(const char* node)
+	{
+		CM_TRACE_FUNC("MaterialFactory3::visitEnvBall("<< node <<")");
+
+		//$node.image  <--  $srcNode.outColor
+		MStringArray srcPlug;
+		IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+MString(node)+".image\"", srcPlug));
+		assert(srcPlug.length()==1);
+		MStringArray src;
+		srcPlug[0].split('.',src);
+		MString srcNode(src[0]);
+
+		visitFile(srcNode.asChar());
+
+		//parameters
+		asr::ParamArray env_edf_params;
+		env_edf_params.insert("exitance", getTextureInstanceName(srcNode.asChar()).c_str());
+		env_edf_params.insert("exitance_multiplier", 0.5f);
+		//create as node
+		m_project->get_scene()->environment_edfs().insert(
+			asr::MirrorBallMapEnvironmentEDFFactory().create(
+			node,
+			env_edf_params
+			)
+		);
+	}
+	void MaterialFactory3::visitFile(const char* node)
+	{
+		CM_TRACE_FUNC("MaterialFactory3::visitFile("<<node<<")");
+
+		//generate texture and construct texture node
+		MString fileImageName(getFileNodeImageName(node));
+		MString fileTextureName;
+		{
+			//test "fileImageName" exist or not.
+			if( access(fileImageName.asChar(), 0) != 0){
+				liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
+				assert(0&&"image not exist.");
+			}
+
+			bool needToConvert;//whether fileImageName is exr texture
+			{
+				std::string fileImageName_(fileImageName.asChar());
+				std::size_t i_last_dot = fileImageName_.find_last_of('.');
+				if( i_last_dot == std::string::npos ){
+					liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
+					assert(0&&"warrning: texture name has not extention.");
+				}
+				std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr
+				std::transform(imgext.begin(),imgext.end(),imgext.begin(),tolower);
+
+				needToConvert = (imgext != "exr");
+			}
+
+			fileTextureName = (needToConvert)? (fileImageName+".exr") : fileImageName;
+
+			//generate texture
+			if ( access(fileTextureName.asChar(), 0) != 0 )//not exist
+			{
+				makeTexture( fileImageName.asChar(), fileTextureName.asChar() );
+			}
+			//construct texture node
+			//if (ei_file_exists(fileTextureName))
+			{
+				//ei_texture(fileImageName.asChar());
+				//	ei_file_texture(fileTextureName.asChar(), eiFALSE);
+				//ei_end_texture();
+			}
+		}
+
+		// AS stuff
+		//texture
+		{
+			asr::ParamArray texture_params;
+			texture_params.insert("filename", fileTextureName.asChar());
+			texture_params.insert("color_space", "srgb");
+
+			asf::SearchPaths search_paths;
+			{
+				MString dirname;
+				MGlobal::executeCommand("dirname \""+fileTextureName+"\"", dirname, false, true);
+				search_paths.push_back(dirname.asChar());
+			}
+			asf::auto_release_ptr<asr::Texture> texture = 
+				asr::DiskTexture2dFactory().create(node, texture_params, search_paths);
+
+			std::size_t texture_index = m_project->get_scene()->textures().insert(texture);
+		}
 
 
+		//instance
+		{
+			const std::string texture_instance_name = getTextureInstanceName(node);
+
+			asr::ParamArray texture_instance_params;
+			texture_instance_params.insert("addressing_mode", "clamp");
+			texture_instance_params.insert("filtering_mode", "bilinear");
+
+			asf::auto_release_ptr<asr::TextureInstance> texture_instance =
+				asr::TextureInstanceFactory::create(
+				texture_instance_name.c_str(),
+				texture_instance_params,
+				node
+				);
+
+			m_project->get_scene()->texture_instances().insert(texture_instance);
+		}
+
+	}
 }//namespace appleseed

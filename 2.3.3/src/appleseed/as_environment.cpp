@@ -13,7 +13,7 @@
 #include "as_material3.h"
 #include "as_GlobalNodeHelper.h"
 //#include "as_visitorMgrForEnv.h"
-#include "as_visitorForEnv.h"
+//#include "as_visitorForEnv.h"
 
 namespace appleseed
 {
@@ -24,12 +24,12 @@ namespace appleseed
 		
 		//VisitorMgrForEnv::getSingletonPtr()->addReceiver( new VisitorForEnv() );
 
-		MaterialFactory3 mf;
-		mf.begin(m_globalNodeName.asChar());
-		mf.createEnvironmentEDF( (EnvironmentEDFModel)m_gnode->getInt("env_edf_model") );
-		mf.createEnvironmentShader("edf_environment_shader");
-		mf.createEnvironment("generic_environment");
-		mf.end();
+ 		MaterialFactory3 mf;
+ 		mf.begin(m_globalNodeName.asChar());
+ 		mf.createEnvironmentEDF( (EnvironmentEDFModel)m_gnode->getInt("env_edf_model") );
+ 		mf.createEnvironmentShader("edf_environment_shader");
+ 		mf.createEnvironment("generic_environment");
+ 		mf.end();
 
 		//VisitorMgrForEnv::getSingletonPtr()->deleteReceivers();
 	}

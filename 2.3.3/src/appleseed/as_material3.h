@@ -65,6 +65,9 @@ namespace appleseed
 
 		void createEnvironmentShader_edf();
 
+		void visitEnvBall(const char* node);
+		void visitFile(const char* node);
+
 	private:
 		Renderer* m_renderer;
 		asr::Project *m_project;
