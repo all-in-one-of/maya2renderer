@@ -110,18 +110,18 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 	    //edf
 	    frameLayout -bs "etchedIn" -l "edf" -cll true -cl false;
 		  columnLayout -adj true ;
-				liquidShowIntGlobalMenu2CB($n, "env_edf_model", "model", 
+				liquidShowIntGlobalMenu2($n, "env_edf_model", "model", 
 				{"constant_environment_edf",
 				"constant_hemisphere_environment_edf",
 				"gradient_environment_edf",
 				"latlong_map_environment_edf",
-				"mirrorball_map_environment_edf"}, $prefix, "liq_appleseed_callback_env_edf_model");
+				"mirrorball_map_environment_edf"}, $prefix);
 				liquidShowColorGlobal2Button($n, "constant_environment_edf_exitance",			"constant_exitance");
 				liquidShowColorGlobal2Button($n, "constant_hemisphere_environment_edf_exitance","constant_hemisphere_exitance");			
 				liquidShowColorGlobal2Button($n, "gradient_environment_edf_horizon_exitance",	"gradient_horizon_exitance");
 				liquidShowColorGlobal2Button($n, "gradient_environment_edf_zenith_exitance",	"gradient_zenith_exitance");
-				liquidShowColorGlobal2Button($n, "latlong_map_environment_edf_exitance",		"latlong_map_exitance");
-				liquidShowColorGlobal2Button($n, "mirrorball_map_environment_edf_exitance",		"mirrorball_map_exitance");
+				liquidShowNaviColorGlobal2($n, "latlong_map_environment_edf_exitance",			"latlong_map_exitance");
+				liquidShowNaviColorGlobal2($n, "mirrorball_map_environment_edf_exitance",		"mirrorball_map_exitance");
           setParent ..;
         setParent ..;
 		//shader
@@ -441,43 +441,3 @@ global proc liqGlobalsNode_appleseed(string $cmd)
 	liqPopIdent();
 }
 //
-global proc liq_appleseed_callback_env_edf_model(string $item)
-{
-	liqPushIdent();
-	liqlog("liq_appleseed_callback_env_edf_model("+$item+")");
-	
-	global string $gGlobalNode_appleseed;
-	string $n = $gGlobalNode_appleseed;
-
-	attrColorSliderGrp -e -visible false ($n+ "constant_environment_edf_exitance" + "Field" );
-	attrColorSliderGrp -e -visible false ($n+ "constant_hemisphere_environment_edf_exitance" + "Field" );
-	attrColorSliderGrp -e -visible false ($n+ "gradient_environment_edf_horizon_exitance" + "Field" );
-	attrColorSliderGrp -e -visible false ($n+ "gradient_environment_edf_zenith_exitance" + "Field" );
-	attrColorSliderGrp -e -visible false ($n+ "latlong_map_environment_edf_exitance" + "Field" );
-	attrColorSliderGrp -e -visible false ($n+ "mirrorball_map_environment_edf_exitance" + "Field" );
-
-	switch($item)
-	{
-	case "constant_environment_edf":
-		attrColorSliderGrp -e -visible true ($n+ "constant_environment_edf_exitance" + "Field" );
-		break;
-	case "constant_hemisphere_environment_edf":
-		attrColorSliderGrp -e -visible true ($n+ "constant_hemisphere_environment_edf_exitance" + "Field" );
-		break;
-	case"gradient_environment_edf" :
-		attrColorSliderGrp -e -visible true ($n+ "gradient_environment_edf_horizon_exitance" + "Field" );
-		attrColorSliderGrp -e -visible true ($n+ "gradient_environment_edf_zenith_exitance" + "Field" );
-		break;
-	case "latlong_map_environment_edf":
-		attrColorSliderGrp -e -visible true ($n+ "latlong_map_environment_edf_exitance" + "Field" );
-		break;
-	case "mirrorball_map_environment_edf":
-		attrColorSliderGrp -e -visible true ($n+ "mirrorball_map_environment_edf_exitance" + "Field" );
-		break;
-	default:
-		liqError($item+" is unkown.");
-	}
-
-
-	liqPopIdent();
-}

@@ -430,6 +430,32 @@ global proc liquidShowColorGlobal2Button( string $node, string $name, string $la
   liqPopIdent();
 }
 //
+proc liquidShowNaviColorGlobalPlus2( string $node, string $name, string $label, string $info )
+{
+  liqPushIdent();
+	liqlog("liquidShowNaviColorGlobalPlus2("+$node+","+$name+","+$label+","+$info+")");
+  if ( objExists( ($node+"."+$name) ) ) {
+    //setUITemplate -pst attributeEditorTemplate;
+    $spacedlabel = $label + " ";
+	attrNavigationControlGrp 
+		-l $spacedlabel 
+		-ann $info 
+		-attribute ( $node+"." + $name ) 
+		( $node + $name + "Field" );
+    //setUITemplate -ppt;
+  } else {
+    warning( "global attribute " + $name + " does not exist\n" );
+  }
+  liqPopIdent();
+}
+global proc liquidShowNaviColorGlobal2( string $node, string $name, string $label )
+{
+  liqPushIdent();
+	liqlog("liquidShowNaviColorGlobal2(...)");
+  liquidShowNaviColorGlobalPlus2( $node, $name, $label, "" );
+  liqPopIdent();
+}
+//
 global proc liquidShowIntGlobalMenu2(string $node, string $name, string $label, string $items[], string $prefix )
 {
   liqPushIdent();
