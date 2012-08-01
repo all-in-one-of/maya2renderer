@@ -34,7 +34,7 @@ public:
 	void render(
 		const asf::auto_release_ptr<asr::Project> &project,
 		const renderer::ParamArray &params,
-		const bool       highlight_tiles
+		const bool bBatchMode
 		);
 private:
 	//std::auto_ptr<studio::QtTileCallbackFactory>m_tile_callback_factory;

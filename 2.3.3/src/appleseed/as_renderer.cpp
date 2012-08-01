@@ -404,12 +404,11 @@ namespace appleseed
 
 		if( isBatchMode() )
 		{
-			_s("// in batch render mode");
+			// render....
 			Connection::getInstance()->render(
-				project,
-				project->configurations().get_by_name("final")->get_inherited_parameters(),
-				false
-				);
+				project
+				,project->configurations().get_by_name( m_gnode->getBool("useFinal")?"liqFinal":"liqInteractive")->get_inherited_parameters()
+				,true);
 			Connection::delInstance();
 		}else{
 			// start render
@@ -419,27 +418,11 @@ namespace appleseed
 				Connection::delInstance();				
 				return MS::kFailure;
 			}
-			// render
-			QtTileCallbackFactory m_tile_callback_factory(true/*highlight_tiles*/);
-			// Create the master renderer.
-			asr::DefaultRendererController renderer_controller;
-			asr::MasterRenderer renderer(
-				project.ref()
-				,project->configurations().get_by_name( 
-					m_gnode->getBool("useFinal")?"liqFinal":"liqInteractive" 
-				)->get_inherited_parameters()
-				,&renderer_controller
-				,&m_tile_callback_factory);
-
-			// Render the frame.
-			renderer.render();
-			// Save the frame to disk.
-			MString imageName(
-				liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
-				);
-			int i = imageName.rindex('.');
-			MString pngName(imageName.substring(0,i)+"png");
-			project->get_frame()->write(pngName.asChar());
+			// render...
+			Connection::getInstance()->render(
+				project
+				,project->configurations().get_by_name( m_gnode->getBool("useFinal")?"liqFinal":"liqInteractive")->get_inherited_parameters()
+				,false);
 
 			// end render
 			if (Connection::getInstance()->endRender() != MS::kSuccess)
@@ -451,6 +434,13 @@ namespace appleseed
 			Connection::delInstance();
 		}
 
+		// save the image.
+		MString imageName(
+			liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
+			);
+		int i = imageName.rindex('.');
+		MString pngName(imageName.substring(0,i)+"png");
+		project->get_frame()->write(pngName.asChar());
 
 		//////////////////////////////////////////////////////////////////////////
 		asr::global_logger().remove_target(m_log_target.get());

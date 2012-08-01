@@ -103,6 +103,7 @@ def test_one_scene(mayaFile, liqRenderer):
     if liqRenderer == "":
         _test(mayaFile, "elvishray")
         _test(mayaFile, "renderman")
+        _test(mayaFile, "appleseed")
     else:
         _test(mayaFile, liqRenderer)
     mLiqlog.scene_end()

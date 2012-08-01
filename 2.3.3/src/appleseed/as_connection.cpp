@@ -89,26 +89,37 @@ namespace appleseed
 	//
 	void Connection::render(
 		const asf::auto_release_ptr<asr::Project> &project,
-		const asr::ParamArray &params,
-		const bool       highlight_tiles
+		const asr::ParamArray &configuration,
+		const bool bBatchMode
 		)
 	{
-		CM_TRACE_FUNC("Renderer::render(...)");
-
-		//QtTileCallbackFactory m_tile_callback_factory( /*m_render_widget,*/ highlight_tiles );
-
+		CM_TRACE_FUNC("Renderer::render(..., batch="<<bBatchMode<<")");
+		
 		asr::DefaultRendererController renderer_controller;
-		// Create the master renderer.
-		asr::MasterRenderer renderer(
-			project.ref()
-			,params
-			,&renderer_controller
-			//,&m_tile_callback_factory
-			);
 
-		// Render the frame.
-		renderer.render();
-		//m_master_renderer->render();
+		if(bBatchMode)
+		{
+			// Create the master renderer.
+			asr::MasterRenderer renderer(
+				project.ref()
+				,configuration
+				,&renderer_controller
+				);
+			// Render the frame.
+			renderer.render();
+		}else{
+
+			QtTileCallbackFactory m_tile_callback_factory(true/*highlight_tiles*/);
+			// Create the master renderer.
+			asr::MasterRenderer renderer(
+				project.ref()
+				,configuration
+				,&renderer_controller
+				,&m_tile_callback_factory);
+			// Render the frame.
+			renderer.render();
+		}
+
 	}
 	//
 	void UpdateTile(
