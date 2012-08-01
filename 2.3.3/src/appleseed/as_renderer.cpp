@@ -917,6 +917,18 @@ namespace appleseed
 			liquidMessage2(messageError,"load plugin fail: %s ",objExport.asChar());
 			return false;
 		}
+		// .export_mesh_to
+		MString export_mesh_to(m_gnode->getString("export_mesh_to"));
+		if( export_mesh_to.length() == 0 ){
+			liquidMessage2(messageError,".export_mesh_to is not set. See Appleseed Global Values --> others --> export_mesh_to.");
+			return false;
+		}
+		int bExist;
+		IfMErrorWarn(MGlobal::executeCommand( "filetest -d \""+export_mesh_to+"\"", bExist));
+		if(!bExist){
+			liquidMessage2(messageError,".export_mesh_to=[%s] does not exists.", export_mesh_to.asChar());
+			return false;
+		}
 		//todo
 
 		return true;
