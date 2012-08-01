@@ -374,7 +374,6 @@ namespace appleseed
 			"assembly",
 			asr::ParamArray());
 
-		build_project(project, current_assembly);
 		createEnvironment();
 		createOutput();
 		createConfigurations();

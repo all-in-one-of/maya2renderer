@@ -2244,7 +2244,6 @@
     <ClCompile Include="..\appleseed\as_material.cpp" />
     <ClCompile Include="..\appleseed\as_material2.cpp" />
     <ClCompile Include="..\appleseed\as_material3.cpp" />
-    <ClCompile Include="..\appleseed\build_project.cpp" />
     <ClCompile Include="..\appleseed\objExport.cpp" />
     <ClCompile Include="..\appleseed\prerequest_as.cpp" />
     <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp" />

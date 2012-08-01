@@ -475,9 +475,6 @@
     <ClCompile Include="..\..\include\liqJobList.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\appleseed\build_project.cpp">
-      <Filter>renderer\appleseed</Filter>
-    </ClCompile>
     <ClCompile Include="..\appleseed\as_connection.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
