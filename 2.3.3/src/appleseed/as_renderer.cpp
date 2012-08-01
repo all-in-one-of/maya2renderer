@@ -556,6 +556,20 @@ namespace appleseed
 			film_height = vFA * inch_to_meter;
 			film_width  = film_height * maya_resolution_aspect;
 		}
+		else if( MFnCamera::kFillFilmFit == filmFit ){//not correct
+			film_width  = hFA * inch_to_meter;
+			film_height = vFA * inch_to_meter;
+		}
+		else if( MFnCamera::kOverscanFilmFit == filmFit ){//not correct
+// 			double hSize, vSize, hOffset, vOffset;
+// 			IfMErrorWarn( fnCamera.getFilmFrustum( focal/1000.0f, hSize,vSize,hOffset,vOffset) );
+// 			film_width  = hSize * inch_to_meter;
+// 			film_height = vSize * inch_to_meter; 
+			double left, right, bottom, top;
+			IfMErrorWarn( fnCamera.getViewingFrustum( maya_resolution_aspect, left, right, bottom, top) );
+			film_width  = (right - left) * inch_to_meter;
+			film_height = (top - bottom) * inch_to_meter; 
+		}
 		else{
 			liquidMessage2(messageError,"filmFit=%d is not implement for AS.", filmFit );
 			//dummy film_width/film_height

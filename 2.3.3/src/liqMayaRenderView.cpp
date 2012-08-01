@@ -115,7 +115,7 @@ liqMayaRenderCmd::~liqMayaRenderCmd()
 
 MStatus liqMayaRenderCmd::doIt( const MArgList& args)
 {
-	CM_TRACE_FUNC("liqMayaRenderCmd::doIt(args)");
+	//CM_TRACE_FUNC("liqMayaRenderCmd::doIt(args)");
 
 	MStatus stat = MS::kSuccess;
 	MArgDatabase argData(syntax(), args);
@@ -162,7 +162,7 @@ MStatus liqMayaRenderCmd::doIt( const MArgList& args)
 
 MStatus liqMayaRenderCmd::redoIt()
 {
-	CM_TRACE_FUNC("liqMayaRenderCmd::redoIt()");
+	//CM_TRACE_FUNC("liqMayaRenderCmd::redoIt()");
 
 	MStatus retStatus;
 
