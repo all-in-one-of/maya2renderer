@@ -1119,10 +1119,7 @@ std::string sanitizeNodeName( const std::string& name )
 
 MString sanitizeNodeName( const MString& name ) 
 {
-  std::string newName( name.asChar() );
-  newName = boost::replace_all_copy( newName, "|", "_" );
-  newName = boost::replace_all_copy( newName, ":", "_" );
-  return MString( newName.c_str() );
+  return MString( sanitizeNodeName( std::string(name.asChar()) ).c_str() );
 }
 
 RtString& getLiquidRibName( const std::string& name ) 
