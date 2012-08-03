@@ -78,32 +78,15 @@ void Visitor::visitPhong(const char* node)
 
 	OutputHelper o;
 	o.begin(node);
-
-	//Common Material Attributes
-	o.addVariable("vector", "color_",		"color",		node);
-	o.addVariable("vector", "transparency",	"transparency", node);
 	o.addVariable("vector", "ambientColor",	"ambientColor", node);
-	o.addVariable("vector", "incandescence",	"incandescence",node);
-	o.addVariable("normal", "normalCamera",	"normalCamera",	node);
-	o.addVariable("float",  "diffuse",		"diffuse",		node);
-	o.addVariable("float",  "translucence",			"translucence",		node);
-	o.addVariable("float",  "translucenceDepth",		"translucenceDepth",node);
-	o.addVariable("float",  "translucenceFocus",		"translucenceFocus",node);
-	//Specular Shading
-	o.addVariable("float",	"cosinePower",			"cosinePower",		node);
-	o.addVariable("vector",	"specularColor",		"specularColor",	node);
-	o.addVariable("float",	"reflectivity",			"reflectivity",		node);
-	o.addVariable("vector",	"reflectedColor",		"reflectedColor",	node);
-	//Matte Opacity
-	o.addVariable("index",	"matteOpacityMode",		"matteOpacityMode",	node);
-	o.addVariable("float",	"matteOpacity",			"matteOpacity",		node);
-	//Raytrace Options
-	o.addVariable("index",	"reflectionLimit",		"reflectionLimit",	node);
-	//output
-	o.addVariable("vector", "outColor",		"outColor",		node);
-	o.addVariable("vector", "outTransparency","outTransparency",node);
+	
+	MaterialFactory mf;
 
-	o.end();
+	mf.begin(node);
+	mf.createBSDF("lambertian_brdf");
+	mf.createEDF("diffuse_edf");
+	mf.addSurfaceShader("mib_amb_occlusion1");
+	mf.end();
 }
 // @node	maya shader node name
 void Visitor::visitPhongE(const char* node)

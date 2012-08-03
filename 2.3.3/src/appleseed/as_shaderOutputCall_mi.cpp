@@ -6,6 +6,10 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
+#include "prerequest_as.h"
+#include "as_renderer.h"
+#include "../renderermgr.h"
+
 
 namespace appleseed{
 namespace call{
@@ -14,18 +18,31 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_mib_amb_occlusion("<<node<<")");
 	
-	OutputHelper o;
-	o.begin(node);
+	asr::ParamArray param;
+	param.insert("samples", 16);
+	param.insert("max_distance", 1);
+// 	OutputHelper o;
+// 	o.begin(param);
+// 	o.addVariable("index",	"samples",		"samples",		node);//add to param
+// 	o.addVariable("float",	"max_distance",	"max_distance",	node);//add to param
+// 	o.end();
+	Renderer* m_renderer;
+	asr::Assembly* m_assembly;
+	m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+	assert(m_renderer != NULL );
+	m_assembly = m_renderer->getAssembly().get();
+	assert(m_assembly != nullptr);
 
-	o.addVariable("index",	"samples",		"samples",		node);
-	o.addVariable("color",	"bright",		"bright",		node);
-	o.addVariable("color",	"dark",			"dark",			node);
-	o.addVariable("scalar",	"spread",		"spread",		node);
-	o.addVariable("scalar",	"max_distance",	"max_distance",	node);
-	o.addVariable("bool",	"reflective",	"reflective",	node);
-	//o.addVariable("color",	"outValue",		"outValue",		node);
+	if( m_assembly->surface_shaders().get_by_name(node) ){
+		return;//already exists.
+	}
 
-	o.end();
+	m_assembly->surface_shaders().insert(
+		asr::AOSurfaceShaderFactory().create(
+		node,
+		param
+		)
+	);
 }
 }//namespace call
 }//namespace appleseed

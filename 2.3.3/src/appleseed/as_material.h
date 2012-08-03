@@ -53,6 +53,8 @@ namespace appleseed
 		void createEDF(const std::string &modelname);
 		void createSurfaceShader(const std::string &modelname);
 
+		void addSurfaceShader(const std::string& nodeName);//e.g. nodeName is "mib_amb_occlusion1"
+
 	protected:
 		MaterialFactory(const MaterialFactory& );
 		MaterialFactory& operator=(const MaterialFactory&);

@@ -319,5 +319,10 @@ namespace appleseed
 
 	}
 
+	//
+	void MaterialFactory::addSurfaceShader(const std::string& nodeName)
+	{
+		material_params.insert( "surface_shader", nodeName.c_str() );
+	}
 
 }//namespace appleseed
