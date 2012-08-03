@@ -1,5 +1,10 @@
 #include "objExport.h"
 
+#include <trace/trace.hpp>
+#include <liqlog.h>
+//#define _POSIX_
+//#include <limits.h>
+#define _POSIX_PATH_MAX     255
 //////////////////////////////////////////////////////////////
 
 const char *const objOptionScript = "objExportOptions";
@@ -24,6 +29,8 @@ const char *const objDefaultOptions =
 static Boolean
 convertFileRepresentation (char *fileName, short inStyle, short outStyle)
 {
+	CM_TRACE_FUNC("convertFileRepresentation("<<fileName<<","<<inStyle<<","<<outStyle<<")");
+
 	if (fileName == NULL) {
 		return (false);
 	}
@@ -55,19 +62,30 @@ convertFileRepresentation (char *fileName, short inStyle, short outStyle)
 #endif
 
 void ObjTranslator::write(const MString& fileName)
-{
+{	
+	CM_TRACE_FUNC("ObjTranslator::write("<<fileName.asChar()<<")");
+
 	beforeExport(fileName);
 	exportAll();
 	afterExport();
 }
 void ObjTranslator::write(const MString& fileName, const MString& meshFullPathName)
 {
+	CM_TRACE_FUNC("ObjTranslator::write("<<fileName.asChar()<<","<<meshFullPathName.asChar()<<")");
+	
+	if(meshFullPathName.length()==0)
+	{
+		liquidMessage2(messageError, "meshFullPathName is empty.");
+		return;
+	}
 	beforeExport(fileName);
 	exportSelected(meshFullPathName);
 	afterExport();
 }
 MStatus ObjTranslator::beforeExport ( const MString& fileName )
 {
+	//CM_TRACE_FUNC("ObjTranslator::beforeExport("<<fileName.asChar()<<")");
+
     MStatus status;
     
     MString mname = fileName, unitName;
@@ -83,12 +101,20 @@ MStatus ObjTranslator::beforeExport ( const MString& fileName )
     fp = fopen(fname,"wb");//MAYAMACTODO
 #else
     const char *fname = mname.asChar();
+	// check the file name length
+	if( strlen(fname)>=_POSIX_PATH_MAX )//file name is too long
+	{
+		liquidMessage2( messageError, "file name is too long(>=%d(_POSIX_PATH_MAX)):%s", _POSIX_PATH_MAX, fname );
+		assert(0&&"FATAL ERROE: file name is too long!");
+	}
+
     fp = fopen(fname,"w");
 #endif
 
     if (fp == NULL)
     {
         cerr << "Error: The file " << fname << " could not be opened for writing." << endl;
+		assert(fp);
         return MS::kFailure;
     }
 
@@ -109,6 +135,8 @@ MStatus ObjTranslator::beforeExport ( const MString& fileName )
 }
 MStatus ObjTranslator::afterExport()
 {
+	//CM_TRACE_FUNC("ObjTranslator::afterExport()");
+
     fclose(fp);
 
     return MS::kSuccess;
@@ -117,6 +145,8 @@ MStatus ObjTranslator::afterExport()
 
 void ObjTranslator::setToLongUnitName(const MDistance::Unit &unit, MString& unitName)
 {
+	//CM_TRACE_FUNC("ObjTranslator::setToLongUnitName("<<unit<<","<<unitName.asChar()<<")");
+
     switch( unit ) 
 	{
 	case MDistance::kInches:
@@ -162,6 +192,8 @@ MStatus ObjTranslator::OutputPolygons(
         MObject&  mComponent
 )
 {
+	//CM_TRACE_FUNC("ObjTranslator::OutputPolygons("<<mdagPath.fullPathName().asChar()<<",mComponent)");
+
 	MStatus stat = MS::kSuccess;
 	MSpace::Space space = MSpace::kWorld;
 	int i;
@@ -326,6 +358,8 @@ void ObjTranslator::outputSetsAndGroups(
 	
 )
 {
+	//CM_TRACE_FUNC("ObjTranslator::OutputPolygons("<<mdagPath.fullPathName().asChar()<<","<<cid<<","<<isVertexIterator<<","<<objectIdx<<")");
+
     MStatus stat;
 	
     int i, length;
@@ -471,6 +505,8 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 //    determine which sets are referenced by the poly components.
 //
 {
+	//CM_TRACE_FUNC("ObjTranslator::initializeSetsAndLookupTables("<<exportAll<<")");
+
 	int i=0,j=0, length;
 	MStatus stat;
 	
@@ -920,6 +956,8 @@ void ObjTranslator::freeLookupTables()
 // Frees up all tables and arrays allocated by this plug-in.
 //
 {
+	//CM_TRACE_FUNC("ObjTranslator::freeLookupTables()");
+
 	for ( int i=0; i<objectCount; i++ ) {
 		if ( vertexTablePtr[i] != NULL ) {
 			free( vertexTablePtr[i] );
@@ -976,6 +1014,7 @@ bool ObjTranslator::lookup( MDagPath& dagPath,
 							int compIdx,
 							bool isVtxIter )
 {
+	//CM_TRACE_FUNC("ObjTranslator::lookup(...)");
 
 	if (isVtxIter) {
 		vertexTable = vertexTablePtr[objectId];
@@ -993,6 +1032,8 @@ bool ObjTranslator::lookup( MDagPath& dagPath,
 
 void ObjTranslator::buildEdgeTable( MDagPath& mesh )
 {
+	//CM_TRACE_FUNC("ObjTranslator::buildEdgeTable(...)");
+
     if ( !smoothing )
         return;
     
@@ -1069,6 +1110,8 @@ void ObjTranslator::buildEdgeTable( MDagPath& mesh )
 
 bool ObjTranslator::smoothingAlgorithm( int polyId, MFnMesh& fnMesh )
 {
+	//CM_TRACE_FUNC("ObjTranslator::smoothingAlgorithm(...)");
+
     MIntArray vertexList;
     fnMesh.getPolygonVertices( polyId, vertexList );
     int vcount = vertexList.length();
@@ -1144,6 +1187,8 @@ void ObjTranslator::addEdgeInfo( int v1, int v2, bool smooth )
 // Adds a new edge info element to the vertex table.
 //
 {
+	//CM_TRACE_FUNC("ObjTranslator::addEdgeInfo(...)");
+
     EdgeInfoPtr element = NULL;
 
     if ( NULL == edgeTable[v1] ) {
@@ -1179,6 +1224,8 @@ EdgeInfoPtr ObjTranslator::findEdgeInfo( int v1, int v2 )
 // Finds the info for the specified edge.
 //
 {
+	//CM_TRACE_FUNC("ObjTranslator::findEdgeInfo(...)");
+
     EdgeInfoPtr element = NULL;
     element = edgeTable[v1];
 
@@ -1210,6 +1257,8 @@ void ObjTranslator::destroyEdgeTable()
 // Free up all of the memory used by the edgeTable.
 //
 {
+	//CM_TRACE_FUNC("ObjTranslator::destroyEdgeTable()");
+
     if ( !smoothing )
         return;
     
@@ -1242,12 +1291,14 @@ void ObjTranslator::destroyEdgeTable()
 
 MStatus ObjTranslator::exportSelected(const MString& meshFullPathName)
 {
+	//CM_TRACE_FUNC("ObjTranslator::exportSelected("<<meshFullPathName.asChar()<<")");
+
 	MStatus status;
 	MString filename;
 
 	initializeSetsAndLookupTables( false );
 
-	IfMErrorWarn( MGlobal::selectByName(meshFullPathName, MGlobal::kReplaceList) );
+	IfMErrorMsgWarn( MGlobal::selectByName(meshFullPathName, MGlobal::kReplaceList) , meshFullPathName);
 	// Create an iterator for the active selection list
 	//
 	MSelectionList slist;
@@ -1347,6 +1398,8 @@ MStatus ObjTranslator::exportSelected(const MString& meshFullPathName)
 
 MStatus ObjTranslator::exportAll( )
 {
+	//CM_TRACE_FUNC("ObjTranslator::exportAll()");
+
 	MStatus status = MS::kSuccess;
 
 	initializeSetsAndLookupTables( true );
@@ -1428,6 +1481,8 @@ MStatus ObjTranslator::exportAll( )
 
 void ObjTranslator::recFindTransformDAGNodes( MString& nodeName, MIntArray& transformNodeIndicesArray )
 {
+	//CM_TRACE_FUNC("ObjTranslator::recFindTransformDAGNodes(...)");
+
 	// To handle Maya groups we traverse the hierarchy starting at
 	// each objectNames[i] going towards the root collecting transform
 	// nodes as we go.
