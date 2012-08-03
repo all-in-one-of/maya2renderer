@@ -247,3 +247,4 @@ appleseed
 - liquidSurface 各种shader
 - VisitorForEnv::outputUpstreamShader()改名为visit();
 - 重构，as_helper.h里的getTextureInstanceName（）能否重构后给其他渲染器使用
+- camera image plane for environment material.

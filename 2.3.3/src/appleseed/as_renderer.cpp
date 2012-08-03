@@ -305,12 +305,14 @@ namespace appleseed
 			}
 
 
-			asr::MeshObjectArray objects =
-				asr::MeshObjectReader::read(
-					search_paths,
-					mesh->getFullPathName(),
-					objFileNameParam
-				);
+			asr::MeshObjectArray objects;
+			if( ! asr::MeshObjectReader::read( search_paths, 
+				mesh->getFullPathName(), objFileNameParam, objects) )
+			{
+				liquidMessage2( messageError, "read mesh:%s",  );
+				return;
+			}
+			
 			//
 			// Insert all the objects into the assembly.
 			for (size_t i = 0; i < objects.size(); ++i)
@@ -334,12 +336,9 @@ namespace appleseed
 							material_names
 						)
 					);
-			}
+			}//for
 			
-
-
-
-		}
+		}// Appleseed stuff
 
 	}
 	//

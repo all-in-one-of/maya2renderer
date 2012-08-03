@@ -15,9 +15,11 @@ def configMayaEnv():
     os.environ["LIQUID_GLOBALS_OVERRIDE"] = os.environ["LIQUID_ROOT"]+"/2.3.3/renderers"
     #elvishray
     os.environ["ELVISHRAY_BIN"] = os.environ["LIQUID_ROOT"]+"/dependence/elvishray/bin"
+    #appleseed
+    os.environ["APPLESEED_BIN"] = os.environ["LIQUID_ROOT"]+"/dependence/appleseed/appleseed-1.1.0-alpha-14-0-g4e46ed9-win32-vs100-devkit/bin/Release" 
     
     # PATH
-    os.environ["PATH"] = os.environ["ELVISHRAY_BIN"]+";"+os.environ["PATH"]
+    os.environ["PATH"] = os.environ["APPLESEED_BIN"]+";"+os.environ["ELVISHRAY_BIN"]+";"+os.environ["PATH"]
     # MAYA_SCRIPT_PATH
     if os.environ.get('MAYA_SCRIPT_PATH') == None:
         os.environ["MAYA_SCRIPT_PATH"] =os.environ["LIQUID_AS_MEL"]+";"+os.environ["LIQUID_RM_MEL"]+";"+os.environ["LIQUID_ER_MEL"]+";"+os.environ["LIQUID_LUX_MEL"]+";"+os.environ["LIQUID_GEN"]+";"+os.environ["LIQUID_MEL"];
