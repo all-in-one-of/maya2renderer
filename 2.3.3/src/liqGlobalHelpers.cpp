@@ -1121,7 +1121,20 @@ MString sanitizeNodeName( const MString& name )
 {
   return MString( sanitizeNodeName( std::string(name.asChar()) ).c_str() );
 }
+std::string sanitizeNodeName2( const std::string& name )
+{
+	std::string newName( name );
+	newName = boost::replace_all_copy( newName, ":", "=" );
+	return newName;
+}
+std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name)
+{
+	std::string newName( name );
+	newName = sanitizeNodeName2(newName);
+	newName = boost::replace_all_copy( newName, "|", "/" );
 
+	return newName;
+}
 RtString& getLiquidRibName( const std::string& name ) 
 {
   static std::string ribName;
