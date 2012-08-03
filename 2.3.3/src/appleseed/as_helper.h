@@ -22,6 +22,15 @@ namespace appleseed
 	class GlobalNodeHelper;
 	std::string getConfiguration(GlobalNodeHelper *node, const std::string &category, const std::string &name);
 
+	// \p $meshFullPathName   e.g. |pCube1|pCubeShape1
+	// \r                     e.g. %root%/pCube1/pCubeShape1.obj
+	std::string get_filesys_fullPathName(const std::string &meshFullPathName);
+	// \p $meshFullPathName   e.g. |pCube1|pCubeShape1
+	// \r                     e.g. %root%/pCube1
+	std::string get_mesh_dirname(const std::string& meshFullPathName);
+	// \p $meshFullPathName   e.g. |pCube1|pCubeShape1
+	// \r                     e.g. pCubeShape1.obj
+	std::string get_mesh_basename(const std::string& meshFullPathName);
 }//namespace appleseed
 //#endif//_AS_Helper_H
 

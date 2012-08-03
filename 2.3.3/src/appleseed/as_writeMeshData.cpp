@@ -214,7 +214,7 @@ namespace appleseed
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
+		CM_TRACE_FUNC("as_writeMeshData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 
  		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
  			pData->objDagPath.fullPathName(), 
@@ -257,8 +257,9 @@ namespace appleseed
 		IfMErrorWarn(fnMesh.getCurrentUVSetName(currentUVsetName));
 
 		// geometry data (shape)
+		const std::string meshFullPathName(mesh->getFullPathName());
 		_s("\n//############################### mesh #");
-		_s("//shape full path name="<<mesh->getFullPathName());
+		_s("//shape full path name="<<meshFullPathName);
 #ifdef TRANSFORM_SHAPE_PAIR
 		const std::string objectName(ribNode__->name.asChar());//shape
 #else// SHAPE SHAPE_object PAIR
@@ -266,21 +267,23 @@ namespace appleseed
 #endif
 
 		// AS stuff
-		// use objExport.dso to export obj mesh
-		//IfMErrorWarn(MGlobal::executeCommand( "as_export(\""+MString(mesh->getFullPathName())+"\")"));
-		
+
 		// use appleseed interfaces to export obj mesh.
 		MString objFilePath;
-		IfMErrorWarn(MGlobal::executeCommand(
-			"as_get_filesys_fullPathName(\""+MString(mesh->getFullPathName())+"\")",
-			objFilePath)
-		);
+		objFilePath = get_filesys_fullPathName(meshFullPathName).c_str();
 		//try to makedir
-		IfMErrorWarn(MGlobal::executeCommand(
-			"string $dir = `dirname \""+objFilePath+"\"`;" 
-			"if( `filetest -d $dir` == 0) sysFile -makeDir $dir;"
-			,true, false)
-		);
+		try{
+			boost::filesystem::path p(get_mesh_dirname(meshFullPathName));
+			if( ! boost::filesystem::exists(p) )
+			{
+				boost::filesystem::create_directories( p );
+			}
+		}catch(...){
+			liquidMessage2(messageError, "fail to create dir: %s", get_mesh_dirname(meshFullPathName).c_str() );
+			liquidMessage2(messageInfo, "mesh: %s",meshFullPathName.c_str() );
+			return;
+		}
+
 		//
 #ifdef _USE_APPLESEED_MESH_EXPORTER_
 		MeshWalker walker(ribNode__);
@@ -300,13 +303,13 @@ namespace appleseed
 #else
 		ObjTranslator writer;
 		_exportVertexFromNodePlug(ribNode__, sample_first, writer.position);
-		writer.write(objFilePath, mesh->getFullPathName() );
+		writer.write(objFilePath, meshFullPathName.c_str() );
 		
 		if( sample_first != sample_last )// motion blur stuff
 		{
 			ObjTranslator writer;
 			_exportVertexFromNodePlug(ribNode__, sample_last, writer.position);
-			writer.write(objFilePath+"_mb.obj", mesh->getFullPathName() );
+			writer.write(objFilePath+"_mb.obj", meshFullPathName.c_str() );
 		}
 #endif
 		//todo

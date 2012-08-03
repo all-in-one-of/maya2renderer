@@ -271,10 +271,19 @@ namespace appleseed
 	
 		// Appleseed stuff
 		{
+			boost::filesystem::path objOSFullFileName(get_filesys_fullPathName(mesh->getFullPathName()));
+			if( ! boost::filesystem::exists( objOSFullFileName ) )
+			{
+				liquidMessage2(messageError, "mesh file not exist: %s", objOSFullFileName.string().c_str() );
+				return;
+			}
+			
 			MString dirname;
-			IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_dirname(\""+MString(mesh->getFullPathName())+"\")", dirname));
+			//IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_dirname(\""+MString(mesh->getFullPathName())+"\")", dirname));
+			dirname = get_mesh_dirname(mesh->getFullPathName()).c_str();
 			MString basename;
-			IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_basename(\""+MString(mesh->getFullPathName())+"\")", basename));
+			//IfMErrorWarn(MGlobal::executeCommand( "as_get_mesh_basename(\""+MString(mesh->getFullPathName())+"\")", basename));
+			basename = get_mesh_basename(mesh->getFullPathName()).c_str();
 
 			asf::SearchPaths search_paths;
 			search_paths.push_back( dirname.asChar() );

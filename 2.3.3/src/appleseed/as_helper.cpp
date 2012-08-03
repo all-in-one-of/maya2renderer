@@ -135,6 +135,27 @@ namespace appleseed
 		}
 		return ret;
 	}
+	//
+	std::string as_get_export_mesh_to()
+	{
+		return "E:/MyDocuments/maya/projects/default/as_mesh";
+	}
+	std::string get_filesys_fullPathName(const std::string &meshFullPathName)
+	{
+		return (as_get_export_mesh_to() + sanitizeNodeName2_ToFileSystemPath(meshFullPathName) +".obj");
+	}
+	std::string get_mesh_dirname(const std::string& meshFullPathName)
+	{
+		const std::string fullPathName(get_filesys_fullPathName(meshFullPathName));
+		std::size_t found = fullPathName.find_last_of('/');
+		return  fullPathName.substr(0,found);
+	}
+	std::string get_mesh_basename(const std::string& meshFullPathName)
+	{
+		const std::string fullPathName(get_filesys_fullPathName(meshFullPathName));
+		std::size_t found = fullPathName.find_last_of('/');
+		return  fullPathName.substr(found+1);
+	}
 
 }//namespace appleseed
 #endif//_USE_APPLESEED_
