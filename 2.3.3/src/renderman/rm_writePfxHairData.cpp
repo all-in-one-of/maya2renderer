@@ -49,7 +49,7 @@ namespace renderman
 	//
 	static void _write(liqRibPfxHairData* pData, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("rm_writePfxHairData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
 
 		//
 		if( pData->isEmpty() ) 

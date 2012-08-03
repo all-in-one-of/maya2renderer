@@ -50,7 +50,7 @@ namespace renderman
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("_write("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("rm_writeMeshData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
 
 		if( pData->isEmpty() )
 		{

@@ -39,7 +39,7 @@ namespace appleseed
 	//
 	static void _write(liqRibLocatorData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		CM_TRACE_FUNC("as_writeLocatorData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
 		//_s("//locator "<<pData->getFullPathName());
 	}

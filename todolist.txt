@@ -139,6 +139,8 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - 对于texture，只处理了make texture,其他几种情况还没有处理
 - 简化aqsis的编译过程
 - bug: merge with liquidMaya r772后，增加了AttributeManager，但是里面无法添加liqVolumeShader，liqEnvironmentShader，liqLensShader
+- 合并mel和c++的函数，比如sanitizeNodeName*()
+
 
 prman
 ------------

@@ -38,7 +38,7 @@ namespace appleseed
 	//
 	void Renderer::_write_pfx(liqRibPfxData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write_pfx("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
+		CM_TRACE_FUNC("Renderer::_write_pfx("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 		//
 
 		//
@@ -88,7 +88,7 @@ namespace appleseed
 	//
 	void Renderer::generate_pfx(liqRibNodePtr &ribNode__, liqRibPfxData* pData, const int degree)
 	{
-		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
+		CM_TRACE_FUNC("Renderer::generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
 
 		MStatus status;
 		MFnPfxGeometry pfx(pData->objDagPath, &status);
