@@ -67,14 +67,23 @@ typedef struct EdgeInfo {
 class ObjTranslator
 {
 public:
-                    ObjTranslator () {};
+                    ObjTranslator () 
+					{
+						groups = true;
+						ptgroups = true;
+						materials = true;
+						smoothing = true;
+						normals = true;
+					};
     virtual         ~ObjTranslator () {};
 
 	//write all meshes
 	void write(const MString& fileName);
 	//write specified mesh
 	void write(const MString& fileName, const MString& meshFullPathName);
-	
+	void set(const bool groups, const bool ptgroups, 
+		const bool materials,const bool smoothing, const bool normals );
+
 	std::vector<float> position;
 
 private:
@@ -107,7 +116,11 @@ private:
     // offsets
     int voff,vtoff,vnoff;
     // options
-    bool groups, ptgroups, materials, smoothing, normals;
+    bool groups;// write out facet groups
+	bool ptgroups;// write out vertex groups
+	bool materials; // write out shading groups
+	bool smoothing;// write out facet smoothing information
+	bool normals;// write out normal table and facet normals
 
     FILE *fp;
 	

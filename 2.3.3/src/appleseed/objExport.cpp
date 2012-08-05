@@ -120,11 +120,7 @@ MStatus ObjTranslator::beforeExport ( const MString& fileName )
 
     // Options
     //
-    groups      = true; // write out facet groups
-    ptgroups    = true; // write out vertex groups
-    materials   = true; // write out shading groups
-    smoothing   = true; // write out facet smoothing information
-    normals     = true; // write out normal table and facet normals
+    //set(true, true, true, true, true);
 
     /* print current linear units used as a comment in the obj file */
     setToLongUnitName(MDistance::uiUnit(), unitName);
@@ -1520,4 +1516,15 @@ void ObjTranslator::recFindTransformDAGNodes( MString& nodeName, MIntArray& tran
 			recFindTransformDAGNodes(result[j], transformNodeIndicesArray);
 		}
 	}
+}
+
+void ObjTranslator::set(const bool groups, const bool ptgroups, 
+	const bool materials,const bool smoothing, const bool normals )
+{
+	CM_TRACE_FUNC("ObjTranslator::set("<<groups<<","<<ptgroups<<","<<materials<<","<<smoothing<<","<<normals<<")");
+	this->groups      = groups; 
+	this->ptgroups    = ptgroups; 
+	this->materials   = materials;
+	this->smoothing   = smoothing; 
+	this->normals     = normals; 
 }

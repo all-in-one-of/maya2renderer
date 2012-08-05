@@ -52,7 +52,11 @@ global string $gGlobalValue_appleseed[]=
 
 	//other
 	,"export_mesh_to",	"string",	""//,
-
+	,"export_mesh_facet_groups",	"bool",	true
+	,"export_mesh_vertex_groups",	"bool",	true
+	,"export_mesh_materials",		"bool",	true
+	,"export_mesh_smoothing",		"bool",	true
+	,"export_mesh_normals",			"bool",	true
 	//,"testBool1",            "bool",			false
 	//,"testString0",            "string",		"string_test_value0"
 	//,"testString1",            "string",		"string_test_value1"
@@ -241,6 +245,12 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
     frameLayout -bs "etchedIn" -l "others" -cll true -cl false;
       columnLayout -adj true ;
 	    liquidShowStringGlobal2($n, "export_mesh_to",		"export_mesh_to",		$prefix);
+        liquidShowBoolGlobal2($n, "export_mesh_facet_groups",  "export_mesh_facet_groups", $prefix);
+        liquidShowBoolGlobal2($n, "export_mesh_vertex_groups", "export_mesh_vertex_groups", $prefix);
+        liquidShowBoolGlobal2($n, "export_mesh_materials",     "export_mesh_materials", $prefix);
+        liquidShowBoolGlobal2($n, "export_mesh_smoothing",     "export_mesh_smoothing", $prefix);
+        liquidShowBoolGlobal2($n, "export_mesh_normals",       "export_mesh_normals", $prefix);
+
 //         liquidShowIntGlobalMenu2($n, "approx_method", "method",
 // 		{"EI_APPROX_METHOD_NONE",
 // 		"EI_APPROX_METHOD_REGULAR",
@@ -253,7 +263,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 // 		liquidShowIntGlobal2($n,	"approx_max_subdiv",	"max_subdiv");
 // 		liquidShowIntGlobal2($n,	"approx_max_grid_size",	"max_grid_size");
 //         liquidShowFloatGlobal2($n,	"approx_motion_factor", "motion_factor");
-        //liquidShowBoolGlobal2($n, "testBool1", "testBool1", $prefix);
+
         //liquidShowStringGlobal2($n, "testString1", "testString1L", $prefix);
 
         //liquidShowFloatGlobal2($n, "testFloat1", "testFloat1L");

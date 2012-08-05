@@ -9,14 +9,14 @@
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
 #include "objExport.h"
-
+#include "as_GlobalNodeHelper.h"
 
 namespace appleseed
 {
 	//
 	void _exportVertexFromNodePlug(	const liqRibNodePtr &ribNode__,	
 		unsigned int sample,std::vector<asf::Vector3d>& v);
-	static void _write(liqRibMeshData* pData, const structJob &currentJob__);
+	static void _write(liqRibMeshData* pData, const structJob &currentJob__, GlobalNodeHelper* m_gnode);
 	/////////////////////// mesh stuffs for outpu /////////////////////////////
 	struct Mesh
 	{
@@ -159,7 +159,7 @@ namespace appleseed
 
 // 			renderman::Helper o;
 // 			o.RiBeginRef(pData->getRibFileFullPath().asChar());
-			_write(pData, currentJob);
+			_write(pData, currentJob, m_gnode);
 // 			o.RiEndRef();
 
 		}else{
@@ -212,7 +212,7 @@ namespace appleseed
 		}
 	}
 	//
-	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
+	static void _write(liqRibMeshData* pData, const structJob &currentJob__, GlobalNodeHelper *m_gnode)
 	{
 		CM_TRACE_FUNC("as_writeMeshData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 
@@ -301,13 +301,21 @@ namespace appleseed
 			writer.close();
 		}
 #else
+		bool groups      = m_gnode->getBool("export_mesh_facet_groups"); 
+		bool ptgroups    = m_gnode->getBool("export_mesh_vertex_groups");
+		bool materials   = m_gnode->getBool("export_mesh_materials");
+		bool smoothing   = m_gnode->getBool("export_mesh_smoothing");
+		bool normals     = m_gnode->getBool("export_mesh_normals"); 
+
 		ObjTranslator writer;
+		writer.set(groups, ptgroups, materials, smoothing, normals);
 		_exportVertexFromNodePlug(ribNode__, sample_first, writer.position);
 		writer.write(objFilePath, meshFullPathName.c_str() );
-		
+
 		if( sample_first != sample_last )// motion blur stuff
 		{
 			ObjTranslator writer;
+			writer.set(groups, ptgroups, materials, smoothing, normals);
 			_exportVertexFromNodePlug(ribNode__, sample_last, writer.position);
 			writer.write(objFilePath+"_mb.obj", meshFullPathName.c_str() );
 		}
