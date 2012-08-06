@@ -85,7 +85,30 @@ void Visitor::visitPhong(const char* node)
 	mf.begin(node);
 	mf.createBSDF("lambertian_brdf");
 	mf.createEDF("diffuse_edf");
-	mf.addSurfaceShader("mib_amb_occlusion1");
+
+	bool isSurfaceShaderCreated = false;
+	MString plug(MString(node) +".ambientColor");
+	MStringArray nodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+plug+"\"", nodes));
+	if( nodes.length() != 0 )
+	{
+		MString srcNode(nodes[0]);
+		MString srcNodeType;
+		IfMErrorWarn(MGlobal::executeCommand("nodeType \""+srcNode+"\"", srcNodeType));
+		if( srcNodeType == "mib_amb_occlusion" )
+		{
+			isSurfaceShaderCreated = true;
+			mf.addSurfaceShader(srcNode.asChar());
+		}else if( srcNodeType == "another node type" ){
+			isSurfaceShaderCreated = true;			
+			//todo...
+		}
+	}
+
+	if( ! isSurfaceShaderCreated ){
+		mf.createSurfaceShader("physical_surface_shader");
+	}
+
 	mf.end();
 }
 // @node	maya shader node name
