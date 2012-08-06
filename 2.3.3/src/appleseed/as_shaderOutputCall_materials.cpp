@@ -7,6 +7,7 @@
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 #include "as_material.h"
+#include <liqGlobalVariable.h>
 
 namespace appleseed{
 namespace call{
@@ -55,9 +56,38 @@ void Visitor::visitLambert(const char* node)
 	MaterialFactory mf;
 
 	mf.begin(node);
-	mf.createBSDF("lambertian_brdf");
+	//brdf
+	if( liqglo.rt_useRayTracing ){
+		mf.createBSDF("specular_brdf");
+	}else{
+		mf.createBSDF("lambertian_brdf");
+	}
+	//edf
 	mf.createEDF("diffuse_edf");
-	mf.createSurfaceShader("physical_surface_shader");
+	//surface shader
+	bool isSurfaceShaderCreated = false;
+	MString plug(MString(node) +".ambientColor");
+	MStringArray nodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+plug+"\"", nodes));
+	if( nodes.length() != 0 )
+	{
+		MString srcNode(nodes[0]);
+		MString srcNodeType;
+		IfMErrorWarn(MGlobal::executeCommand("nodeType \""+srcNode+"\"", srcNodeType));
+		if( srcNodeType == "mib_amb_occlusion" )
+		{
+			isSurfaceShaderCreated = true;
+			mf.addSurfaceShader(srcNode.asChar());
+		}else if( srcNodeType == "another node type" ){
+			isSurfaceShaderCreated = true;			
+			//todo...
+		}
+	}
+
+	if( ! isSurfaceShaderCreated ){
+		mf.createSurfaceShader("physical_surface_shader");
+	}
+
 	mf.end();
 
 }
@@ -75,17 +105,22 @@ void Visitor::visitOceanShader(const char* node)
 void Visitor::visitPhong(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPhong("<<node<<")");
-
-	OutputHelper o;
-	o.begin(node);
-	o.addVariable("vector", "ambientColor",	"ambientColor", node);
 	
 	MaterialFactory mf;
 
 	mf.begin(node);
-	mf.createBSDF("lambertian_brdf");
+
+	//brdf
+	if( liqglo.rt_useRayTracing ){
+		mf.createBSDF("specular_brdf");
+	}else{
+		mf.createBSDF("lambertian_brdf");
+	}
+
+	//edf
 	mf.createEDF("diffuse_edf");
 
+	//surface shader
 	bool isSurfaceShaderCreated = false;
 	MString plug(MString(node) +".ambientColor");
 	MStringArray nodes;

@@ -206,7 +206,51 @@ namespace appleseed
 	void MaterialFactory::createBSDF_specular_brdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory::createBSDF_specular_brdf()");
-		liquidMessage2( messageError, "the type of node [%s] is not implemented yet.", m_nodename.c_str() );
+
+		std::string bsdf_name(m_nodename+"_specular_brdf");
+
+		asr::ParamArray bsdf_params;
+		{
+			std::string color_name;
+
+			MString plug(MString(m_nodename.c_str())+".color");
+			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(plug.asChar());
+			if(connected != 1)
+			{
+				color_name = m_nodename+"_color";
+				//reflectance color
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(m_nodename.c_str())+".color\"", val));
+
+				float color[] = { val[0], val[1], val[2] };
+				m_assembly->colors().insert(
+					asr::ColorEntityFactory::create(
+					color_name.c_str(),
+					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+					)
+					);
+			}else{//the color plug is linked in.
+				MStringArray srcPlug;
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+plug+"\"", srcPlug));
+				assert(srcPlug.length()==1);
+				MStringArray src;
+				srcPlug[0].split('.',src);
+				MString srcNode(src[0]);
+				//
+				color_name = getTextureInstanceName(srcNode.asChar());
+			}
+			//
+			bsdf_params.insert("reflectance", color_name.c_str());
+		}
+		//
+		m_assembly->bsdfs().insert(
+			asr::SpecularBRDFFactory().create(
+			bsdf_name.c_str(),
+			bsdf_params
+			)
+			);
+		material_params.insert( "bsdf", bsdf_name.c_str() );
 
 	}
 
@@ -232,7 +276,7 @@ namespace appleseed
 			val.setLength(3);
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(m_nodename.c_str())+".incandescence\"", val));
 
-			if( !isZero(val[0], val[1], val[2]) )
+			//if( !isZero(val[0], val[1], val[2]) )
 			{
 				float incandescence[] = { val[0], val[1], val[2] };
 				m_assembly->colors().insert(
@@ -246,7 +290,7 @@ namespace appleseed
 			}
 		}
 		//
-		if( !edf_params.empty() )
+		//if( !edf_params.empty() )
 		{
 			m_assembly->edfs().insert(
 				asr::DiffuseEDFFactory().create(
