@@ -94,14 +94,13 @@ public:
 	//--------------------------------------------------------------------
 	// Convert a network of shading nodes to RSL.
 	//--------------------------------------------------------------------
-	void convertShadingNetworkToRSL(const MString& startingNode, const MString& node, const MString &mayaplug);
+	void convertShadingNetworkToRSL(const MString& startingNode, const MString &mayaplug);
 
 	void outputShadingGroup(const MString& shadingGroupNode);
 
 
 protected:
 	void exportShaderInShadingGroup(
-		const MString& node, //geometry node(can be removed in future)
 		const MString& sgNode, //shading group node
 		const std::string& plug_);//plug in shading group, e.g. surface, displacement, volume,...
 

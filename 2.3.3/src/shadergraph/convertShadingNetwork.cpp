@@ -455,9 +455,9 @@ void ConvertShadingNetwork::outputShaderMethod()
 
 }
 //
-void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString& node, const MString &mayaplug)
+void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString &mayaplug)
 {
-	CM_TRACE_FUNC("ConvertShadingNetwork::convertShadingNetworkToRSL("<<startingNode.asChar()<<","<<node.asChar()<<","<<mayaplug.asChar()<<")");
+	CM_TRACE_FUNC("ConvertShadingNetwork::convertShadingNetworkToRSL("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
 
 	MString cmd;
 
@@ -524,7 +524,7 @@ void ConvertShadingNetwork::__export()
 						getRenderer()->getValidShaderPlugsInShadingGroup(plugs);
 					//export the plugs
 					for_each(plugs.begin(), plugs.end(),
-						boost::bind( &ConvertShadingNetwork::exportShaderInShadingGroup, this, node, sgNodes[0], _1 )
+						boost::bind( &ConvertShadingNetwork::exportShaderInShadingGroup, this, sgNodes[0], _1 )
 					);
 				}
 				//2.begin
@@ -550,11 +550,10 @@ void ConvertShadingNetwork::outputShadingGroup(const MString& shadingGroupNode)
 }
 //
 void ConvertShadingNetwork::exportShaderInShadingGroup(
-	const MString& node, 
 	const MString& sgNode, 
 	const std::string& plug_)
 {
-	CM_TRACE_FUNC("ConvertShadingNetwork::exportShaderInShadingGroup("<<node.asChar()<<","<<sgNode.asChar()<<","<<plug_<<")");
+	CM_TRACE_FUNC("ConvertShadingNetwork::exportShaderInShadingGroup("<<sgNode.asChar()<<","<<plug_<<")");
 
 	const MString plug(plug_.c_str());
 	MString cmd;
@@ -589,7 +588,7 @@ void ConvertShadingNetwork::exportShaderInShadingGroup(
 					liqShader &currentShader = liqShaderFactory::instance().getShader( shaderObj );
 					currentShader.write();
 				}else{
-					convertShadingNetworkToRSL(startingNode, node, plug);
+					convertShadingNetworkToRSL(startingNode, plug);
 				}
 
 				//3.end
