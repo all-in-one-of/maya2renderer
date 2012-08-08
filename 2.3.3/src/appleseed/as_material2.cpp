@@ -190,39 +190,73 @@ namespace appleseed
 
 		asr::ParamArray bsdf_params;
 		{
-			std::string param_node;
-			const std::string param("reflectance");
-			const std::string plugName(m_bsdf_model+"_"+param);//lambert_brdf_reflectance
-
-			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.lambert_brdf_reflectance
-			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-			if(connected != 1)
+			std::string param;
+				
 			{
-				param_node = m_nodename+"_"+plugName;//<nodename>_lambert_brdf_reflectance
-				//reflectance color
-				MDoubleArray val; 
-				val.setLength(3);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+				param = "reflectance";//entity_types:color|texture_instance
+				std::string param_node;
 
-				float color[] = { val[0], val[1], val[2] };
-				m_assembly->colors().insert(
-					asr::ColorEntityFactory::create(
-					param_node.c_str(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-					)
-				);
-			}else{//the color plug is linked in.
-				MStringArray srcPlug;
-				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-				assert(srcPlug.length()==1);
-				MStringArray src;
-				srcPlug[0].split('.',src);
-				MString srcNode(src[0]);
+				const std::string plugName(m_bsdf_model+"_"+param);//lambert_brdf_reflectance
+
+				MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.lambert_brdf_reflectance
+				int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+				if(connected != 1)
+				{
+					param_node = m_nodename+"_"+plugName;//<nodename>_lambert_brdf_reflectance
+					//reflectance color
+					MDoubleArray val; 
+					val.setLength(3);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
+					float color[] = { val[0], val[1], val[2] };
+					m_assembly->colors().insert(
+						asr::ColorEntityFactory::create(
+						param_node.c_str(),
+						asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+						)
+					);
+				}else{//the color plug is linked in.
+					MStringArray srcPlug;
+					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+					assert(srcPlug.length()==1);
+					MStringArray src;
+					srcPlug[0].split('.',src);
+					MString srcNode(src[0]);
+
+					visitFile(srcNode.asChar());
+					//
+					param_node = getTextureInstanceName(srcNode.asChar());
+				}
 				//
-				param_node = getTextureInstanceName(srcNode.asChar());
+				bsdf_params.insert(param.c_str(), param_node.c_str());
 			}
-			//
-			bsdf_params.insert(param.c_str(), param_node.c_str());
+			//////////////////////////////////////////////////////////////////////////
+			{
+				param = "reflectance_multiplier";//entity_types:color|texture_instance
+				std::string param_node;
+
+				const std::string plugName(m_bsdf_model+"_"+param);//lambert_brdf_reflectance
+
+				MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.lambert_brdf_reflectance
+				int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+				if(connected != 1)
+				{
+				}else{//the color plug is linked in.
+					MStringArray srcPlug;
+					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+					assert(srcPlug.length()==1);
+					MStringArray src;
+					srcPlug[0].split('.',src);
+					MString srcNode(src[0]);
+
+					visitFile(srcNode.asChar());
+					//
+					param_node = getTextureInstanceName(srcNode.asChar());
+				}
+				//
+				bsdf_params.insert(param.c_str(), param_node.c_str());
+			}
+
 		}
 		//
 		m_assembly->bsdfs().insert(
@@ -249,39 +283,74 @@ namespace appleseed
 
 		asr::ParamArray bsdf_params;
 		{
-			std::string param_node;
-			const std::string param("reflectance");
-			const std::string plugName(m_bsdf_model+"_"+param);//specular_brdf_reflectance
+			std::string param;
 
-			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.specular_brdf_reflectance
-			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-			if(connected != 1)
 			{
-				param_node = m_nodename+"_"+plugName;//<nodename>_specular_brdf_reflectance
-				//reflectance color
-				MDoubleArray val; 
-				val.setLength(3);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+				param = "reflectance";//entity_types:color|texture_instance
+				std::string param_node;
 
-				float color[] = { val[0], val[1], val[2] };
-				m_assembly->colors().insert(
-					asr::ColorEntityFactory::create(
-					param_node.c_str(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-					)
-					);
-			}else{//the color plug is linked in.
-				MStringArray srcPlug;
-				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-				assert(srcPlug.length()==1);
-				MStringArray src;
-				srcPlug[0].split('.',src);
-				MString srcNode(src[0]);
+				const std::string plugName(m_bsdf_model+"_"+param);//specular_brdf_reflectance
+
+				MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.specular_brdf_reflectance
+				int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+				if(connected != 1)
+				{
+					param_node = m_nodename+"_"+plugName;//<nodename>_specular_brdf_reflectance
+					//reflectance color
+					MDoubleArray val; 
+					val.setLength(3);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
+					float color[] = { val[0], val[1], val[2] };
+					m_assembly->colors().insert(
+						asr::ColorEntityFactory::create(
+						param_node.c_str(),
+						asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
+						)
+						);
+				}else{//the color plug is linked in.
+					MStringArray srcPlug;
+					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+					assert(srcPlug.length()==1);
+					MStringArray src;
+					srcPlug[0].split('.',src);
+					MString srcNode(src[0]);
+
+					visitFile(srcNode.asChar());
+					//
+					param_node = getTextureInstanceName(srcNode.asChar());
+				}
 				//
-				param_node = getTextureInstanceName(srcNode.asChar());
+				bsdf_params.insert(param.c_str(), param_node.c_str());
 			}
-			//
-			bsdf_params.insert(param.c_str(), param_node.c_str());
+			//////////////////////////////////////////////////////////////////////////
+			{
+				param = "reflectance_multiplier";//entity_types:texture_instance
+				std::string param_node;
+
+				const std::string plugName(m_bsdf_model+"_"+param);//specular_brdf_reflectance_multiplier
+
+				MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.specular_brdf_reflectance_multiplier
+				int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+				if(connected != 1)
+				{
+				}else{//the color plug is linked in.
+					MStringArray srcPlug;
+					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+					assert(srcPlug.length()==1);
+					MStringArray src;
+					srcPlug[0].split('.',src);
+					MString srcNode(src[0]);
+
+					visitFile(srcNode.asChar());
+					//
+					param_node = getTextureInstanceName(srcNode.asChar());
+				}
+				//
+				bsdf_params.insert(param.c_str(), param_node.c_str());
+			}
+			//////////////////////////////////////////////////////////////////////////
+
 		}
 		//
 		m_assembly->bsdfs().insert(
@@ -452,6 +521,90 @@ namespace appleseed
 		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
 	}
+	void MaterialFactory2::visitFile(const char* node)
+	{
+		CM_TRACE_FUNC("MaterialFactory2::visitFile("<<node<<")");
 
+		//generate texture and construct texture node
+		MString fileImageName(getFileNodeImageName(node));
+		MString fileTextureName;
+		{
+			//test "fileImageName" exist or not.
+			if( access(fileImageName.asChar(), 0) != 0){
+				liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
+				assert(0&&"image not exist.");
+			}
+
+			bool needToConvert;//whether fileImageName is exr texture
+			{
+				std::string fileImageName_(fileImageName.asChar());
+				std::size_t i_last_dot = fileImageName_.find_last_of('.');
+				if( i_last_dot == std::string::npos ){
+					liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
+					assert(0&&"warrning: texture name has not extention.");
+				}
+				std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr
+				std::transform(imgext.begin(),imgext.end(),imgext.begin(),tolower);
+
+				needToConvert = (imgext != "exr");
+			}
+
+			fileTextureName = (needToConvert)? (fileImageName+".exr") : fileImageName;
+
+			//generate texture
+			if ( access(fileTextureName.asChar(), 0) != 0 )//not exist
+			{
+				makeTexture( fileImageName.asChar(), fileTextureName.asChar() );
+			}
+			//construct texture node
+			//if (ei_file_exists(fileTextureName))
+			{
+				//ei_texture(fileImageName.asChar());
+				//	ei_file_texture(fileTextureName.asChar(), eiFALSE);
+				//ei_end_texture();
+			}
+		}
+
+		// AS stuff
+		//texture
+		if( m_assembly->textures().get_by_name(node) == nullptr)
+		{
+			asr::ParamArray texture_params;
+			texture_params.insert("filename", fileTextureName.asChar());
+			texture_params.insert("color_space", "srgb");
+
+			asf::SearchPaths search_paths;
+			{
+				MString dirname;
+				MGlobal::executeCommand("dirname \""+fileTextureName+"\"", dirname, false, true);
+				search_paths.push_back(dirname.asChar());
+			}
+			asf::auto_release_ptr<asr::Texture> texture = 
+				asr::DiskTexture2dFactory().create(node, texture_params, search_paths);
+
+			std::size_t texture_index = m_assembly->textures().insert(texture);
+		}
+
+
+		//instance
+		if( m_assembly->texture_instances().get_by_name(getTextureInstanceName(node).c_str()) == nullptr)
+		{
+			const std::string texture_instance_name = getTextureInstanceName(node);
+
+			asr::ParamArray texture_instance_params;
+			texture_instance_params.insert("addressing_mode", "clamp");
+			texture_instance_params.insert("filtering_mode", "bilinear");
+
+			asf::auto_release_ptr<asr::TextureInstance> texture_instance =
+				asr::TextureInstanceFactory::create(
+				texture_instance_name.c_str(),
+				texture_instance_params,
+				node
+				);
+
+			m_assembly->texture_instances().insert(texture_instance);
+		}
+
+	}
 
 }//namespace appleseed

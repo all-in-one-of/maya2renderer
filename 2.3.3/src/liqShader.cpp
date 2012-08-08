@@ -47,6 +47,7 @@
 //#include <liqTokenPointer.h>
 #include <liqGetSloInfo.h>
 #include "renderermgr.h"
+#include "common/mayacheck.h"
 //using namespace std;
 //using namespace boost;
 
@@ -927,7 +928,7 @@ std::string liqShader::getShaderFileName() const
 		basename( file.c_str() ) : file.c_str();
 
 }
-void liqShader::getParams( MStringArray& params );
+void liqShader::getParams( MStringArray& params )
 {
 	IfMErrorWarn(MGlobal::executeCommand( ("getAttr "+MString(getName().c_str())+".rmanParams"), params));
 }

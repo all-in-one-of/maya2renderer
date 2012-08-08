@@ -52,6 +52,8 @@ namespace appleseed
 		void createSurfaceShader_smoke();
 		void createSurfaceShader_voxel_ao();
 
+		void visitFile(const char* node);
+
 	private:
 		Renderer* m_renderer;
 		asr::Assembly* m_assembly;
