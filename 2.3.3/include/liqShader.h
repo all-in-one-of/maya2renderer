@@ -71,7 +71,8 @@ public :
 	std::string getShaderFileName() const;
 
 	void setShaderFileName(const std::string &file_){ file = file_; }
-
+	
+	void getParams( MStringArray& params );
 protected:
 	std::string      name;
 	std::string      file;
