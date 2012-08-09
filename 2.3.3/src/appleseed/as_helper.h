@@ -31,6 +31,14 @@ namespace appleseed
 	// \p $meshFullPathName   e.g. |pCube1|pCubeShape1
 	// \r                     e.g. pCubeShape1.obj
 	std::string get_mesh_basename(const std::string& meshFullPathName);
+
+	//
+	std::string getBSDFName(const std::string& node, const std::string &bsdf_model);
+	std::string getEDFName(const std::string& node, const std::string &edf_model);
+	std::string getSurfaceShaderName(const std::string& node, const std::string & surface_shader_model);
+	
+
+
 }//namespace appleseed
 //#endif//_AS_Helper_H
 

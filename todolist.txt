@@ -251,4 +251,5 @@ appleseed
 - refactoring：ObjTranslator::beforeExport() contains this line:
     strlen(fname)>=_POSIX_PATH_MAX
   This code also exists in RiBegin_liq(), it is abandant.
-
+- refactor MaterialFactory2::createBSDF_specular_brdf()/createBSDF_lambertian_brdf()
+- lambertian_brdf的reflectance_multiplier的UI，究竟是用float还是color？

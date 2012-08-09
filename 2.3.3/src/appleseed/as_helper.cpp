@@ -157,5 +157,21 @@ namespace appleseed
 		return  fullPathName.substr(found+1);
 	}
 
+	//
+	static const std::string BSDF_NAME_SEPERATOR("_");
+	static const std::string EDF_NAME_SEPERATOR("_");
+	static const std::string SURFACE_SHADER_NAME_SEPERATOR("_");
+	std::string getBSDFName(const std::string& node, const std::string & bsdf_model)
+	{
+		return node + BSDF_NAME_SEPERATOR + bsdf_model;
+	}
+	std::string getEDFName(const std::string& node, const std::string & edf_model)
+	{
+		return node + EDF_NAME_SEPERATOR + edf_model;
+	}
+	std::string getSurfaceShaderName(const std::string& node, const std::string & surface_shader_model)
+	{
+		return node + SURFACE_SHADER_NAME_SEPERATOR + surface_shader_model;
+	}
 }//namespace appleseed
 #endif//_USE_APPLESEED_

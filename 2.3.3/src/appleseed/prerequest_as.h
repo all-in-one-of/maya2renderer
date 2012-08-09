@@ -22,6 +22,7 @@
 #include "appleseed/renderer/api/surfaceshader.h"
 #include "appleseed/renderer/api/utility.h"
 #include "appleseed/renderer/api/texture.h"
+#include "appleseed/renderer/modeling/bsdf/bsdfmix.h"
 
 // appleseed.foundation headers.
 #include "appleseed/foundation/math/vector.h"
