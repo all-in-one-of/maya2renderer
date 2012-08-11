@@ -25,7 +25,7 @@ namespace liquidmaya
 		int convertibleConnection(const char*plugname);
 
 		// @shadertype	e.g. "lambert","blinn",.... lowercase is prefered.
-		const MStringArray& getValidConnectionRef(const char* shadertype) const;
+		void getValidConnection(const char* shadertype, MStringArray& connections) const;
 		bool hasShaderType(const char* shadertype)const;
 
 	private:

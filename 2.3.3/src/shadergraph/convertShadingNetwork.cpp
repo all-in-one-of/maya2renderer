@@ -169,8 +169,8 @@ int ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentN
 	IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+currentNode+"\""), nodetype));
 
 	// Get the list of supported connections from the current node
-	const MStringArray& validConnections =
-		ShaderMgr::getSingletonPtr()->getValidConnectionRef(nodetype.asChar());
+	MStringArray validConnections;
+	ShaderMgr::getSingletonPtr()->getValidConnection(nodetype.asChar(), validConnections);
 	// Get the list of up stream nodes along supported connections
 	std::set<const std::string> upstreamNodes;
 	for(size_t i=0; i < validConnections.length(); ++i)
@@ -241,8 +241,8 @@ void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArr
 			MString nodetype;
 			IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+inputNode+"\""), nodetype));
 
-			const MStringArray& validConnections =
-				ShaderMgr::getSingletonPtr()->getValidConnectionRef(nodetype.asChar());
+			MStringArray validConnections;
+			ShaderMgr::getSingletonPtr()->getValidConnection(nodetype.asChar(), validConnections);
 			
 			for(size_t i=0; i < validConnections.length(); ++i)
 			{
@@ -416,8 +416,8 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 			ShaderOutputMgr::getSingletonPtr()->outputUpstreamShader(currentNode.asChar());//shader->writeRSL(currentNode.asChar());
 
 			// Get the list of supported connections from the current node			
-			const MStringArray& validConnections = 
-				ShaderMgr::getSingletonPtr()->getValidConnectionRef(nodetype.asChar());
+			MStringArray validConnections;
+			ShaderMgr::getSingletonPtr()->getValidConnection(nodetype.asChar(), validConnections);
 
 			decrementDownstreamConnections( currentNode,
 				nodes,

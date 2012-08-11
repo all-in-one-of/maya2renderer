@@ -72,7 +72,7 @@ public :
 
 	void setShaderFileName(const std::string &file_){ file = file_; }
 	
-	void getParams( MStringArray& params );
+	void getValidConnection( MStringArray& connections )const;
 protected:
 	std::string      name;
 	std::string      file;

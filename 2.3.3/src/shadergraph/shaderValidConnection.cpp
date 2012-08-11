@@ -398,21 +398,20 @@ bool ShaderValidConnection::hasShaderType(const char* shadertype)const
 	return (validConnectionMap.find(shadertype) != validConnectionMap.end());
 }
 //
-const MStringArray& 
-ShaderValidConnection::getValidConnectionRef(const char* shadertype) const
+void ShaderValidConnection::getValidConnection(const char* shadertype, MStringArray& connections) const
 {
 	if( hasShaderType(shadertype) ){
 		if(strcmp("liquidSurface",shadertype)==0)
 		{
-			liquidMessage2(messageError, "getValidConnectionRef() of shader type \"%s\" is not implemented.", shadertype);
-			return validConnectionMap.find(shadertype)->second;
+			liquidMessage2(messageError, "getValidConnection() of shader type \"%s\" is not implemented.", shadertype);
+			connections = validConnectionMap.find(shadertype)->second;
 		}else{
-			return validConnectionMap.find(shadertype)->second;
+			connections = validConnectionMap.find(shadertype)->second;
 		}
 	}else{
 		liquidMessage2(messageError, "shader type \"%s\" is not supported.", shadertype);
 		assert(0&&"shader type is not supported.");
-		return validConnectionMap.find("null")->second;
+		connections = validConnectionMap.find("null")->second;
 	}
 }
 
