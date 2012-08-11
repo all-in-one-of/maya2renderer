@@ -53,6 +53,7 @@ public:
 	virtual ~liqShaderFactory();
 
 	liqShader &getShader(MObject shaderObj);
+	liqShader &getShader(const char* shaderNodeName);
 	MString getShaderId( MObject shaderObj );
 
 	MString getUniqueShaderHandler();

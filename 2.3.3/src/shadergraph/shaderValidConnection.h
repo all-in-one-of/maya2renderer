@@ -14,8 +14,8 @@ public:
 	~ShaderValidConnection();
 
 
-	// @shadertype	e.g. "lambert","blinn",.... lowercase is prefered.
-	void getValidConnection(const char* shadertype,  MStringArray& connections)const;
+	// @nodename	e.g. "lambert1","blinn1",...
+	void getValidConnection(const char* nodename,  MStringArray& connections)const;
 	bool hasShaderType(const char* shadertype)const;
 
 protected:

@@ -121,5 +121,14 @@ MString liqShaderFactory::getUniqueShaderHandler()
 	shaderHandler = "CO_SHADER_" + shaderHandler;
 	return shaderHandler;
 }
+liqShader& liqShaderFactory::getShader(const char* shaderNodeName)
+{
+	CM_TRACE_FUNC("liqShaderFactory::getShader("<<shaderNodeName<<")");
+
+	MObject shaderObj;
+	getDependNodeByName( shaderObj, shaderNodeName);
+
+	return getShader( shaderObj );
+}
 
 

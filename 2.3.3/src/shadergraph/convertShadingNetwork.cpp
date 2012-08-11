@@ -165,12 +165,10 @@ int ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentN
 	}
 	numConnections[index] = 0;//numConnections.set(0, index);//
 	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
-	MString nodetype;
-	IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+currentNode+"\""), nodetype));
 
 	// Get the list of supported connections from the current node
 	MStringArray validConnections;
-	ShaderMgr::getSingletonPtr()->getValidConnection(nodetype.asChar(), validConnections);
+	ShaderMgr::getSingletonPtr()->getValidConnection(currentNode.asChar(), validConnections);
 	// Get the list of up stream nodes along supported connections
 	std::set<const std::string> upstreamNodes;
 	for(size_t i=0; i < validConnections.length(); ++i)
@@ -238,11 +236,8 @@ void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArr
 			MString inputAttribute = buffer[ 1 ];
 			bool notConnected = true;
 			
-			MString nodetype;
-			IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+inputNode+"\""), nodetype));
-
 			MStringArray validConnections;
-			ShaderMgr::getSingletonPtr()->getValidConnection(nodetype.asChar(), validConnections);
+			ShaderMgr::getSingletonPtr()->getValidConnection(inputNode.asChar(), validConnections);
 			
 			for(size_t i=0; i < validConnections.length(); ++i)
 			{
@@ -409,15 +404,12 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 		// the current node
 		if( numConnections[index] == 0 )
 		{
-			MString nodetype;
-			IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+currentNode+"\""), nodetype));
-
 			// write out the current node's function
 			ShaderOutputMgr::getSingletonPtr()->outputUpstreamShader(currentNode.asChar());//shader->writeRSL(currentNode.asChar());
 
 			// Get the list of supported connections from the current node			
 			MStringArray validConnections;
-			ShaderMgr::getSingletonPtr()->getValidConnection(nodetype.asChar(), validConnections);
+			ShaderMgr::getSingletonPtr()->getValidConnection(currentNode.asChar(), validConnections);
 
 			decrementDownstreamConnections( currentNode,
 				nodes,
@@ -583,9 +575,7 @@ void ConvertShadingNetwork::exportShaderInShadingGroup(
 
 				if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
 					//liquidMessage2(messageInfo, (startingNode+"'s type is "+nodetype+", no need to convert").asChar());
-					MObject shaderObj;
-					getDependNodeByName( shaderObj,startingNode.asChar());
-					liqShader &currentShader = liqShaderFactory::instance().getShader( shaderObj );
+					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
 					currentShader.write();
 				}else{
 					convertShadingNetworkToRSL(startingNode, plug);

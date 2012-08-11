@@ -1,5 +1,8 @@
 #include "shaderValidConnection.h"
 #include <liqlog.h>
+#include "../common/mayacheck.h"
+#include <liqShader.h>
+#include <liqShaderFactory.h>
 
 namespace liquidmaya
 {
@@ -398,18 +401,21 @@ bool ShaderValidConnection::hasShaderType(const char* shadertype)const
 	return (validConnectionMap.find(shadertype) != validConnectionMap.end());
 }
 //
-void ShaderValidConnection::getValidConnection(const char* shadertype, MStringArray& connections) const
+void ShaderValidConnection::getValidConnection(const char* nodename, MStringArray& connections) const
 {
-	if( hasShaderType(shadertype) ){
-		if(strcmp("liquidSurface",shadertype)==0)
+	MString shadertype;
+	IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+MString(nodename)+"\""), shadertype));
+
+	if( hasShaderType(shadertype.asChar()) ){
+		if(strcmp("liquidSurface",shadertype.asChar())==0)
 		{
-			liquidMessage2(messageError, "getValidConnection() of shader type \"%s\" is not implemented.", shadertype);
-			connections = validConnectionMap.find(shadertype)->second;
+			liqShader& liqshader = liqShaderFactory::instance().getShader( nodename );
+			liqshader.getValidConnection(connections);
 		}else{
-			connections = validConnectionMap.find(shadertype)->second;
+			connections = validConnectionMap.find(shadertype.asChar())->second;
 		}
 	}else{
-		liquidMessage2(messageError, "shader type \"%s\" is not supported.", shadertype);
+		liquidMessage2(messageError, "shader type \"%s\" is not supported.", shadertype.asChar());
 		assert(0&&"shader type is not supported.");
 		connections = validConnectionMap.find("null")->second;
 	}

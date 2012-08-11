@@ -14,16 +14,6 @@
 
 namespace RSL
 {
-	MObject getMObjectByName(const MString& name)
-	{
-		MSelectionList sList;
-		MGlobal::getSelectionListByName(name, sList);
-		assert(1==sList.length());
-		
-		MObject mobj;
-		sList.getDependNode(0, mobj);
-		return mobj;
-	}
 	void connectMStringArray(MString& des, const MStringArray& src)
 	{
 		des.clear();
@@ -387,7 +377,7 @@ void _outputShadingGroup(const char* shadingGroupNode)
 		getNodeType(nodetype, surfaceShaders[0]);
 		if( nodetype == "liquidSurface" ){
 			liqShader& currentShader = 
-				liqShaderFactory::instance().getShader( getMObjectByName(surfaceShaders[0]) );
+				liqShaderFactory::instance().getShader( surfaceShaders[0].asChar() );
 			currentShader.write();
 		}else{
 			RiSurface( const_cast<char *>(renderman::getShaderFilePath_NoExt(surfaceShaders[0]).asChar()), RI_NULL );
@@ -401,7 +391,7 @@ void _outputShadingGroup(const char* shadingGroupNode)
 		getNodeType(nodetype, volumeShaders[0]);
 		if( nodetype == "liquidVolume" ){
 			liqShader& currentShader = 
-				liqShaderFactory::instance().getShader( getMObjectByName(volumeShaders[0]) );
+				liqShaderFactory::instance().getShader( volumeShaders[0].asChar() );
 			currentShader.write();
 		}else{
 			RiArchiveRecord(RI_COMMENT, "I'm not sure which one should be used for the volume shader, RiAtmosphere(), RiInterior(), or RiExterior().");
@@ -416,7 +406,7 @@ void _outputShadingGroup(const char* shadingGroupNode)
 		getNodeType(nodetype, displacementShaders[0]);
 		if( nodetype == "liquidDisplacement" ){
 			liqShader& currentShader = 
-				liqShaderFactory::instance().getShader( getMObjectByName(displacementShaders[0]) );
+				liqShaderFactory::instance().getShader( displacementShaders[0].asChar() );
 			currentShader.write();
 		}else{
 			RiArchiveRecord(RI_COMMENT, "I'm not sure which one should be used for the displacement shader, RiDeformation(), or RiDisplacement().");

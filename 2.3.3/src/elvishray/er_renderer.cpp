@@ -776,9 +776,7 @@ namespace elvishray
 
 				if(nodetype=="liquidSurface"){
 					//liquidMessage2(messageInfo, (startingNode+"'s type is "+nodetype+", no need to convert").asChar());
-					MObject shaderObj;
-					getDependNodeByName( shaderObj,startingNode.asChar());
-					liqShader &currentShader = liqShaderFactory::instance().getShader( shaderObj );
+					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
 					currentShader.write();
 
 					IfMErrorWarn( cameraShaders.append(startingNode) );
