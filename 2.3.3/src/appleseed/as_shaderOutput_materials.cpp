@@ -328,5 +328,15 @@ void Visitor::visitVolumeLight(const char* node)
 	o.addTo("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.end();
 }
+// @node	maya shader node name
+void Visitor::visit_liquidSurface(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::visit_liquidSurface("<<node<<")");
+
+	OutputHelper o(file);
+	o.begin(node);
+	o.addTo("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	o.end();
+}
 }//namespace appleseed
 #endif//_USE_APPLESEED_

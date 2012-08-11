@@ -215,5 +215,10 @@ void Visitor::visitVolumeLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVolumeLight("<<node<<")");
 }
+// @node	maya shader node name
+void Visitor::visit_liquidSurface(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::visit_liquidSurface("<<node<<")");
+}
 }//namespace ERCall
 #endif//_USE_ELVISHRAY_

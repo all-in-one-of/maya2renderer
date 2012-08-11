@@ -291,6 +291,9 @@ public:
 	/// mib_amb_occlusion ///
 	virtual void visit_mib_amb_occlusion(const char* node);
 
+	///liquid shaders
+	/// liquidSurface ///
+	virtual void visit_liquidSurface(const char* node);
 protected:
 	//std::ofstream file;
 
