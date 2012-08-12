@@ -1482,6 +1482,7 @@ global proc liquidAssignShaderToSelected( string $node )
   string $nodetype = nodeType($node);
   if      ( $nodetype == "liquidLight" ) liquidAssignLightShaderToSelected( $node );
   else if ( $nodetype == "liquidSurface" ) liquidAssignSurfaceShaderToSelected( $node );
+  else if ( $nodetype == "liquidShader" )  liquidAssignSurfaceShaderToSelected( $node );
   else if ( $nodetype == "liquidDisplacement" ) liquidAssignDisplacementShaderToSelected( $node );
   else if ( $nodetype == "liquidVolume" ) liquidAssignVolumeShaderToSelected( $node );
 

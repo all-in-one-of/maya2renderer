@@ -65,6 +65,7 @@
 #include <liqDisplacementNode.h>
 #include <liqVolumeNode.h>
 #include <liqLightNode.h>
+#include <liqShaderNode.h>
 #include <liqLightNodeBehavior.h>
 #include <liqRibboxNode.h>
 #include <liqRibRequestNode.h>
@@ -465,6 +466,14 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
   LIQCHECKSTATUS( status, "Can't register liqGlobalsNodeRenderer node" );
   status.clear();
 
+  // register the liquidShader node
+  const MString UserClassifyShader( "shader/surface:swatch/liqShaderSwatch" );
+  status = plugin.registerNode( "liquidShader", liqShaderNode::id, liqShaderNode::creator, liqShaderNode::initialize, MPxNode::kDependNode, &UserClassifyShader );
+  LIQCHECKSTATUS( status, "Can't register liquidShader node" );
+  status.clear();
+  status = MSwatchRenderRegister::registerSwatchRender( "liqShaderSwatch", liqNodeSwatch::creator );
+  LIQCHECKSTATUS( status, "Can't register liquidShader swatch" );
+
   // setup all of the base liquid interface
   MString sourceLine("source ");
   char *tmphomeChar;
@@ -714,6 +723,10 @@ LIQUID_EXPORT MStatus uninitializePlugin(MObject obj)
   LIQCHECKSTATUS( status, "Can't deregister RIWorldEnd command" );
   
 #endif    
+  status = plugin.deregisterNode( liqShaderNode::id );
+  LIQCHECKSTATUS( status, "Can't deregister liquidShader node" );
+  status = MSwatchRenderRegister::unregisterSwatchRender( "liqShaderSwatch" );
+  LIQCHECKSTATUS( status, "Can't deregister liquidShader swatch generator" );
 
   status = plugin.deregisterNode( liqSurfaceNode::id );
   LIQCHECKSTATUS( status, "Can't deregister liquidSurface node" );

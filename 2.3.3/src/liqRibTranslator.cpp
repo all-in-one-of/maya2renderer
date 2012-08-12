@@ -3077,6 +3077,7 @@ MStatus liqRibTranslator::buildJobs()
 				|| dependencyNodeFn.typeName()=="liquidDisplacement"
 				|| dependencyNodeFn.typeName()=="liquidVolume"
 				|| dependencyNodeFn.typeName()=="liquidLight"
+				|| dependencyNodeFn.typeName()=="liquidShader"
 				)
 			{
 				MString name(dependencyNodeFn.name());
@@ -5505,7 +5506,7 @@ MStatus liqRibTranslator::objectBlock()
 				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
 				//std::cout <<"path="<<path.fullPathName()<<", shaderDepNode.typeName()="<<shaderDepNode.typeName()<<std::endl;
 				// philippe : we must check the node type to avoid checking in regular maya shaders
-				if( shaderDepNode.typeName() == "liquidSurface" || shaderDepNode.typeName() == "oldBlindDataBase" ) 
+				if( shaderDepNode.typeName() == "liquidSurface" || shaderDepNode.typeName() == "liquidShader" || shaderDepNode.typeName() == "oldBlindDataBase" ) 
 				{ //cout <<"setting shader"<<endl;
 					ribNode->assignedShader.setObject( rmShaderNodeObj );
 					hasSurfaceShader = true;

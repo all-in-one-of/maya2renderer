@@ -301,8 +301,8 @@ public:
 	virtual void visit_mib_amb_occlusion(const char* node);
 	
 	///liquid shaders
-	/// liquidSurface ///
-	virtual void visit_liquidSurface(const char* node);
+	/// liquidShader ///
+	virtual void visit_liquidShader(const char* node);
 protected:
 	std::ofstream RSLfile;
 private:

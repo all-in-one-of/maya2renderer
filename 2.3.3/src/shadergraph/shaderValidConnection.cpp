@@ -388,10 +388,10 @@ void ShaderValidConnection::setValidConnection()
 
 	setValidConnection_mi();
 
-	///  liquidSurface  ///
+	///  liquidShader  ///
 	validConnection.clear();
 	validConnection.append("");
-	validConnectionMap.insert(std::make_pair("liquidSurface", validConnection));	
+	validConnectionMap.insert(std::make_pair("liquidShader", validConnection));	
 
 
 }
@@ -407,7 +407,7 @@ void ShaderValidConnection::getValidConnection(const char* nodename, MStringArra
 	IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+MString(nodename)+"\""), shadertype));
 
 	if( hasShaderType(shadertype.asChar()) ){
-		if(strcmp("liquidSurface",shadertype.asChar())==0)
+		if(strcmp("liquidShader",shadertype.asChar())==0)
 		{
 			liqShader& liqshader = liqShaderFactory::instance().getShader( nodename );
 			liqshader.getValidConnection(connections);

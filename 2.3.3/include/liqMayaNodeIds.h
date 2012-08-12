@@ -48,6 +48,7 @@
 #define liqBoundingBoxLocatorId 0x0010F6D8
 #define liqCoShaderNodeId       0x0010F6D9
 #define liqGlobalsNodeRendererId       0x0010F6DA
+#define liqShaderNodeId			0x0010F6DB
 #endif
 
 #endif //liqMayaNodeIds_H

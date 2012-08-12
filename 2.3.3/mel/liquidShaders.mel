@@ -63,7 +63,7 @@ global proc string[] liquidGetShaderList(string $type)
 global proc string liquidGetShaderNodeType( string $node )
 {
   liqPushIdent();
-	liqlog("liquidGetShaderNodeType(...)");
+	liqlog("liquidGetShaderNodeType("+$node+")");
   string $returnValue;
   string $nodeType, $typeId, $type;
 
@@ -73,6 +73,10 @@ global proc string liquidGetShaderNodeType( string $node )
   $type = `substring $node 1 10`;
   if( ( $type == "liquidSurf" ) || ( $typeId == 303126790 ) || ( $nodeType == "liquidSurface" ) ) {
     $returnValue = "Surface";
+  }
+  if(  $nodeType == "liquidShader"  ) {
+	liqError("liquidGetShaderNodeType() for liquidShader is not implemented yet.");
+    $returnValue = "Shader";
   }
   if( ( $type == "liquidDisp" ) || ( $typeId == 303126791 ) || ( $nodeType == "liquidDisplacement" ) ) {
     $returnValue = "Disp";
@@ -639,6 +643,7 @@ global proc string liquidDuplicateShaderNode( string $nodename )
       case "liquidDisplacement":
       case "liquidVolume":
       case "liquidLight":
+      case "liquidShader":
         string $filename = `getAttr ($nodename+".rmanShaderLong")`;
         $newNodeName = liquidNewShaderNode( $filename );
         $newNodeName = `rename $newNodeName $nodename`;

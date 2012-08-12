@@ -626,9 +626,9 @@ void Visitor::visitVolumeLight(const char* node)
 	o.endRSL();
 }
 // @node	maya shader node name
-void Visitor::visit_liquidSurface(const char* node)
+void Visitor::visit_liquidShader(const char* node)
 {
-	CM_TRACE_FUNC("Visitor::visit_liquidSurface("<<node<<")");
+	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
 
 	OutputHelper o(RSLfile);
 	o.beginRSL(node);

@@ -2309,6 +2309,7 @@
     <ClCompile Include="..\liqRiCommands.cpp" />
     <ClCompile Include="..\liqShader.cpp" />
     <ClCompile Include="..\liqShaderFactory.cpp" />
+    <ClCompile Include="..\liqShaderNode.cpp" />
     <ClCompile Include="..\liqShadowRibWriterMgr.cpp" />
     <ClCompile Include="..\liqSurfaceNode.cpp" />
     <ClCompile Include="..\liqTokenPointer.cpp" />
@@ -2391,6 +2392,7 @@
     <ClInclude Include="..\..\..\dependence\appleseed\eLut.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\half.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h" />
+    <ClInclude Include="..\..\include\liqShaderNode.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />
     <ClInclude Include="..\appleseed\as_material.h" />
@@ -2532,6 +2534,7 @@
     <None Include="..\..\mel\AEliquidRibBoxTemplate.mel" />
     <None Include="..\..\mel\AEliquidRibRequestTemplate.mel" />
     <None Include="..\..\mel\AEliquidSetFlags.mel" />
+    <None Include="..\..\mel\AEliquidShaderTemplate.mel" />
     <None Include="..\..\mel\AEliquidShadowControls.mel" />
     <None Include="..\..\mel\AEliquidSubdivisionSurfaceShape.mel" />
     <None Include="..\..\mel\AEliquidSurfaceTemplate.mel" />

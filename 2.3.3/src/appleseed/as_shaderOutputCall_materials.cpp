@@ -246,9 +246,9 @@ void Visitor::visitVolumeLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitVolumeLight("<<node<<")");
 }
 // @node	maya shader node name
-void Visitor::visit_liquidSurface(const char* node)
+void Visitor::visit_liquidShader(const char* node)
 {
-	CM_TRACE_FUNC("Visitor::visit_liquidSurface("<<node<<")");
+	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
 }
 }//namespace call
 }//namespace appleseed

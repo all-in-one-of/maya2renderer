@@ -511,6 +511,9 @@
     <ClCompile Include="..\appleseed\as_material3.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqShaderNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -885,6 +888,9 @@
     <ClInclude Include="..\appleseed\as_material3.h">
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\liqShaderNode.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">
@@ -1156,6 +1162,9 @@
     </None>
     <None Include="..\appleseed\as_helper.inl">
       <Filter>renderer\appleseed</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidShaderTemplate.mel">
+      <Filter>MEL Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

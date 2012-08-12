@@ -341,8 +341,8 @@ namespace liquidmaya{
 		else if( strcmp("mib_amb_occlusion", nodetype) == 0 ){
 			visit_mib_amb_occlusion(shaderNodeName);
 		}
-		else if( strcmp("liquidSurface", nodetype) == 0 ){
-			visit_liquidSurface(shaderNodeName);
+		else if( strcmp("liquidShader", nodetype) == 0 ){
+			visit_liquidShader(shaderNodeName);
 		}
 		else{
 			liquidMessage2(messageError, ("shader type <"+std::string(nodetype)+"> is not supported.").c_str() );
