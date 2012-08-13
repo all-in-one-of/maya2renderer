@@ -30,7 +30,9 @@ Features:
 https://github.com/maya2renderer/maya2renderer/blob/master/2.3.3/doc/features.txt
 
 Gallary
-https://github.com/maya2renderer/maya2renderer/wiki/Gallary
+https://github.com/maya2renderer/maya2renderer/wiki/Gallary_Appleseed
+https://github.com/maya2renderer/maya2renderer/wiki/Gallary_Elvishray
+https://github.com/maya2renderer/maya2renderer/wiki/Gallary_Prman
 
 Animation
 https://github.com/maya2renderer/maya2renderer/wiki/Animation

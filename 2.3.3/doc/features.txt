@@ -39,6 +39,14 @@ elvishray
 - uv set
 
 appleseed
-- the following shader graph nodes are supported now:
-  lambert, file
+- the following maya shader graph nodes can be translated to appleseed material now:
+  lambert-->lambertian_brdf+diffuse_edf+(physical_surface_shader/mib_amb_occlusion),
+  phong  -->specular_brdf+diffuse_edf+(physical_surface_shader/mib_amb_occlusion)
+  file   -->disk_texture_2d, 
+  mib_amb_occlusion-->ao_surface_shader,
+- user-defined shader
+  user can use pl file to compose their own material, 
+  Here are several images(https://github.com/maya2renderer/maya2renderer/wiki/Gallary_Appleseed):
 - point light,
+- env mapping: mirrorball_map_environment, latlong_map_environment, constant_environment
+- transform/deform motion blur
