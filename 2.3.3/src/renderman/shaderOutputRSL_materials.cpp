@@ -5,7 +5,9 @@
 #include "../common/mayacheck.h"
 #include "ri_interface.h"
 #include <trace/trace.hpp>
-
+#include <liqShader.h>
+#include <liqShaderFactory.h>
+#include <liqTokenPointer.h>
 namespace RSL
 {
 //
@@ -630,9 +632,65 @@ void Visitor::visit_liquidShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
 
+
+	liqShader &shader = liqShaderFactory::instance().getShader( node );
+	std::string const& liquidShaderName = shader.getName();//e.g."lambert1", or "liquidSurface1", NOTE: it is liquidShader, not maya shader.
+	std::string const& rmSloFilePath=shader.getShaderFileName();
+	std::string const& mayaShaderName=rmSloFilePath.substr(rmSloFilePath.find_last_of('/')+1);//e.g."your_shader_dir/liquidchecker"
+
 	OutputHelper o(RSLfile);
+	//o.addInclude("lambert.h");
 	o.beginRSL(node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+
+	std::size_t parameterNum =  shader.tokenPointerArray.size() - 1;
+	for(size_t i=0; i<parameterNum; ++i)
+	{
+		//_s("//- "
+		//	<<const_cast<liqTokenPointer*>(&tokenPointerArray[i])->getDetailedTokenName()<<","//uniform float intensity
+		//	<<tokenPointerArray[i].getDetailType()<<","
+		//	<<"//tokenPointerArray[i].getTokenFloatArray()"<<","
+		//	<<"//[error]tokenPointerArray[i].getTokenString()"<<","
+		//	<<tokenPointerArray[i].getTokenName()<<","//intensity,
+		//	<<tokenPointerArray[i].getParameterType()<<","//rFloat,
+		//	<<tokenPointerArray[i].getRiDeclare()<<","//uniform float,
+		//	);
+		// 			_s("// "<<tokenPointerArray[i].getTokenName());
+		std::string paramType;
+
+		liqTokenPointer* vp = const_cast< liqTokenPointer* >( &shader.tokenPointerArray[i] );
+		switch( shader.tokenPointerArray[i].getParameterType() )
+		{
+		case rFloat:
+			{
+				paramType = "float";
+			}
+			break;
+		case rPoint: case rVector: case rNormal: case rColor:
+			{
+				paramType = "vector";
+			}
+			break;
+		case rString: case rShader:
+			{
+				paramType = "string";
+			}
+			break; 
+		case rHpoint:
+			{
+				paramType = "vector4";//not supported
+			}
+			break;
+		case rMatrix:
+			{
+				paramType = "matrix";
+			}
+			;break;
+		default :
+			assert(0);
+		}//switch
+		o.addRSLVariable("", paramType.c_str(),  vp->getTokenName().c_str(), vp->getTokenName().c_str(), node);
+	}//for
+		
 	o.endRSL();
 }
 }//namespace RSL

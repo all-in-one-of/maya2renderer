@@ -6,7 +6,9 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-
+#include <liqShader.h>
+#include <liqShaderFactory.h>
+#include <liqTokenPointer.h>
 #include <eiAPI/ei.h>
 
 namespace ERCall
@@ -219,6 +221,69 @@ void Visitor::visitVolumeLight(const char* node)
 void Visitor::visit_liquidShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
+
+	liqShader &shader = liqShaderFactory::instance().getShader( node );
+	std::string const& liquidShaderName=shader.getName();//e.g."lambert1", or "liquidSurface1", NOTE: it is liquidShader, not maya shader.
+	std::string const& rmSloFilePath=shader.getShaderFileName();
+	std::string const& mayaShaderName=rmSloFilePath.substr(rmSloFilePath.find_last_of('/')+1);//Renderman slo file name, e.g."your_shader_dir/liquidchecker"
+
+	OutputHelper o;
+
+	o.beginRSL(node);
+
+	ei_shader_param_string("desc", mayaShaderName.c_str()); // //"opaque"
+
+	//tokenPointerArray only store parameters of user-defined shader
+	size_t parameterNum =  shader.tokenPointerArray.size() - 1;
+	for(size_t i=0; i<parameterNum; ++i)
+	{
+		//_s("//- "
+		//	<<const_cast<liqTokenPointer*>(&tokenPointerArray[i])->getDetailedTokenName()<<","//uniform float intensity
+		//	<<tokenPointerArray[i].getDetailType()<<","
+		//	<<"//tokenPointerArray[i].getTokenFloatArray()"<<","
+		//	<<"//[error]tokenPointerArray[i].getTokenString()"<<","
+		//	<<tokenPointerArray[i].getTokenName()<<","//intensity,
+		//	<<tokenPointerArray[i].getParameterType()<<","//rFloat,
+		//	<<tokenPointerArray[i].getRiDeclare()<<","//uniform float,
+		//	);
+		// 			_s("// "<<tokenPointerArray[i].getTokenName());
+		std::string paramType;
+
+		liqTokenPointer* vp = const_cast< liqTokenPointer* >( &shader.tokenPointerArray[i] );
+		switch( shader.tokenPointerArray[i].getParameterType() )
+		{
+		case rFloat:
+			{
+				paramType = "float";
+			}
+			break;
+		case rPoint: case rVector: case rNormal: case rColor:
+			{
+				paramType = "vector";
+			}
+			break;
+		case rString: case rShader:
+			{
+				paramType = "string";
+			}
+			break; 
+		case rHpoint:
+			{
+				paramType = "vector4";//not supported
+			}
+			break;
+		case rMatrix:
+			{
+				paramType = "matrix";
+			}
+			;break;
+		default :
+			assert(0);
+		}//switch
+		o.addRSLVariable(paramType.c_str(),  vp->getTokenName().c_str(), vp->getTokenName().c_str(), node);
+	}//for
+
+	o.endRSL();
 }
 }//namespace ERCall
 #endif//_USE_ELVISHRAY_
