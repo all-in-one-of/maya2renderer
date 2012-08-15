@@ -70,7 +70,7 @@ global proc liquidLargeFieldUpdater()
 global proc liquidFieldUpdateMenu( string $msg )
 {
   liqPushIdent();
-  liqlog("liquidFieldUpdateMenu(...)");
+  liqlog("liquidFieldUpdateMenu("+$msg+")");
   string $attr[] = stringToStringArray( $msg, ".");
   int $en = (`editRenderLayerGlobals -q -crl` == "defaultRenderLayer")? 0 : 1;
 
@@ -87,7 +87,7 @@ global proc liquidFieldUpdateMenu( string $msg )
 global proc liquidLargeFieldReplace( string $nodeName, string $label, string $msg )
 {
 	liqPushIdent();
-	liqlog("liquidLargeFieldReplace(...)");
+	liqlog("liquidLargeFieldReplace("+$nodeName+","+$label+","+$msg+")");
   string $attr[] = stringToStringArray( $msg, ".");
   string $layout = ("liquidLargeFieldLayout"+$attr[1]);
 
@@ -111,7 +111,7 @@ global proc liquidLargeFieldReplace( string $nodeName, string $label, string $ms
 global proc liquidLargeFieldNew( string $nodeName, string $label, string $msg )
 {
   liqPushIdent();
-  liqlog("liquidLargeFieldNew(...)");
+  liqlog("liquidLargeFieldNew("+$nodeName+","+$label+","+$msg+")");
 
   string $attr[] = stringToStringArray( $msg, ".");
   setUITemplate -pst attributeEditorTemplate;
@@ -132,7 +132,7 @@ global proc liquidLargeFieldNew( string $nodeName, string $label, string $msg )
 global proc liquidSmallFieldReplace( string $nodeName, string $label, string $msg )
 {
   liqPushIdent();
-  liqlog("liquidSmallFieldReplace(...)");
+  liqlog("liquidSmallFieldReplace("+$nodeName+","+$label+","+$msg+")");
   string $attr[] = stringToStringArray( $msg, ".");
   string $ctl = ("liquidSmallFieldCtl"+$attr[1]);
 
@@ -149,7 +149,7 @@ global proc liquidSmallFieldReplace( string $nodeName, string $label, string $ms
 global proc liquidSmallFieldNew( string $nodeName, string $label, string $msg )
 {
   liqPushIdent();
-  liqlog("liquidSmallFieldNew(...)");
+  liqlog("liquidSmallFieldNew("+$nodeName+","+$label+","+$msg+")");
 
   string $attr[] = stringToStringArray( $msg, ".");
   setUITemplate -pst attributeEditorTemplate;
@@ -167,7 +167,7 @@ global proc liquidSmallFieldNew( string $nodeName, string $label, string $msg )
 global proc liquidSGCreateMenuItems( string $parent, string $name, string $msg )
 {
   liqPushIdent();
-	liqlog("liquidSGCreateMenuItems(...)");
+	liqlog("liquidSGCreateMenuItems("+$parent+","+$name+","+$msg+")");
 	string $sg[] = `ls -type shadingEngine`;
 	
 	menuItem -label "Create New Shading Group" 
@@ -186,7 +186,7 @@ global proc liquidSGCreateMenuItems( string $parent, string $name, string $msg )
 global proc liquidSGCreateMenuItemsNew( string $msg )
 {
   liqPushIdent();
-	liqlog("liquidSGCreateMenuItemsNew(...)");
+	liqlog("liquidSGCreateMenuItemsNew("+$msg+")");
 	string $parts[] = stringToStringArray( $msg, ".");
 	string $con[] = `listConnections -p 1 $msg`;
 	string $ctl = ( "liquidSGMessageGrp" + $parts[1] );
@@ -204,7 +204,7 @@ global proc liquidSGCreateMenuItemsNew( string $msg )
 global proc liquidSGCreateMenuItemsConnect( string $item, string $msg )
 {
   liqPushIdent();
-	liqlog("liquidSGCreateMenuItemsConnect(...)");
+	liqlog("liquidSGCreateMenuItemsConnect("+$item+","+$msg+")");
 	string $parts[] = stringToStringArray( $msg, ".");
 	string $con[] = `listConnections -p 1 $msg`;
 	string $ctl = ( "liquidSGMessageGrp" + $parts[1] );
@@ -221,7 +221,7 @@ global proc liquidSGCreateMenuItemsConnect( string $item, string $msg )
 global proc liquidSGSelect( string $msg )
 {
   liqPushIdent();
-	liqlog("liquidSGSelect(...)");
+	liqlog("liquidSGSelect("+$msg+")");
 	string $parts[] = stringToStringArray( $msg, ".");
 	string $SG = `textFieldButtonGrp -q -tx ( "liquidSGMessageGrp" + $parts[1] )`;
 	string $shader[] = `listConnections ( $SG + ".surfaceShader" )`;
@@ -239,7 +239,7 @@ global proc liquidSGSelect( string $msg )
 global proc liquidSGMessageNew( string $nodeName, string $label, string $msg )
 {
   liqPushIdent();
-	liqlog("liquidSGMessageNew(...)");
+	liqlog("liquidSGMessageNew("+$nodeName+","+$label+","+$msg+")");
 	string $parts[] = stringToStringArray( $msg, ".");
 	setUITemplate -pst attributeEditorTemplate;
 	columnLayout;
@@ -262,7 +262,7 @@ global proc liquidSGMessageNew( string $nodeName, string $label, string $msg )
 global proc liquidSGMessageReplace( string $nodeName, string $msg )
 {
   liqPushIdent();
-	liqlog("liquidSGMessageReplace(...)");
+	liqlog("liquidSGMessageReplace("+$nodeName+","+$msg+")");
 	string $parts[] = stringToStringArray( $msg, ".");
 	string $ctl = ( "liquidSGMessageGrp" + $parts[1] );
 	

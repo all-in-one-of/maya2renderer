@@ -327,7 +327,9 @@ global proc liquidShaderNodes_initParams_slo( string $nodeAttr, string $shaderPa
   $nodeType = tolower( $nodeType );
   //print("nodeType = " + $nodeType + "\n");
   //print("shadertype = " + $shadertype + "\n");
-  if( $nodeType != "liquidcoshader" )  // accept everything
+  if( $nodeType != "liquidcoshader"
+	  && $nodeType != "liquidshader"//skip the judgement for liquidshader
+	  )  // accept everything
   {
 	  if ( !gmatch( $nodeType,  ("*" + $shadertype + "*") ) ) {
 		string $short = basenameEx( $shaderPath );
@@ -1425,6 +1427,35 @@ global proc liquidAssignVolumeShaderToSelected( string $node )
   liqPopIdent();
 }
 
+global proc liquidAssignLiqShaderToSelected( string $node )
+{
+  liqPushIdent();
+	liqlog("liquidAssignLiqShaderToSelected("+$node+")");
+  // assign the shader to geometry
+  if ( size(`ls -geometry -dag -sl`) ) 
+    hyperShade -assign $node;
+
+  // special case for nodes not supported by the hypershade
+  string $selected[] = `ls  -type "stroke" // stroke = pfx
+							-type "pfxToon"
+                            -type "pfxHair"
+                            -type "locator"
+                            -type "nurbsCurve"
+                            -dag -sl`;
+  ////trace (stringArrayToString( $selected, ", "));
+
+  if ( !objExists( ($node+".liqAssignedObjects") ) )
+    addAttr -ln liqAssignedObjects -at message $node;
+
+  for ( $sel in $selected ) 
+  {
+    if ( !objExists( ($sel + ".liquidShaderNode") ) )
+      addAttr -ln liquidShaderNode -at message $sel;
+    if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidShaderNode" ) ) )
+      connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidShaderNode");
+  }
+  liqPopIdent();
+}
 /**
  *  proc to select the objects assigned to a material or shading group
  */
@@ -1437,7 +1468,7 @@ global proc liquidSelectShaderAssignedTo( string $obj )
   string $selectionList[];
   string $objList[];
   if ( $obj == "" ) 
-    $objList = `ls -sl -type liquidSurface -type liquidDisplacement -type liquidVolume -type shadingEngine`;
+    $objList = `ls -sl -type liquidSurface -type liquidDisplacement -type liquidVolume -type liquidShader -type shadingEngine`;
   else 
     $objList = stringToStringArray( $obj, " ");
   select -clear;
@@ -1482,7 +1513,7 @@ global proc liquidAssignShaderToSelected( string $node )
   string $nodetype = nodeType($node);
   if      ( $nodetype == "liquidLight" ) liquidAssignLightShaderToSelected( $node );
   else if ( $nodetype == "liquidSurface" ) liquidAssignSurfaceShaderToSelected( $node );
-  else if ( $nodetype == "liquidShader" )  liquidAssignSurfaceShaderToSelected( $node );
+  else if ( $nodetype == "liquidShader" )  liquidAssignLiqShaderToSelected( $node );
   else if ( $nodetype == "liquidDisplacement" ) liquidAssignDisplacementShaderToSelected( $node );
   else if ( $nodetype == "liquidVolume" ) liquidAssignVolumeShaderToSelected( $node );
 
