@@ -34,26 +34,7 @@
 
 
 
-#ifdef PRMAN
-normal shadingnormal(normal N) {
-  normal Ns = normalize(N);
-  uniform float sides = 2;
-  uniform float raydepth;
-  attribute("Sides", sides);
-  rayinfo("depth", raydepth);
-  if (sides == 2 || raydepth > 0) Ns = faceforward(Ns, I, Ns);
-  return Ns;
-}
-#else
-normal shadingnormal(normal Ne){
-	normal Ns;
-	uniform float sides = 2;
-	attribute("Sides",sides);
-	if(sides == 2)	Ns = faceforward(normalize(Ne),I,Ne);
-	else			Ns = normalize(Ne);
-	return Ns;
-}
-#endif
+#include "liquidarea.impl"
 
 /*
  * Simple implementation of a rectangular "pseudo area light".
@@ -94,116 +75,28 @@ liquidarea(
       output uniform color __arealightColor       = 0;
 )
 {
-  /* force non-specular */
-  __nonspecular = 1;
+    liquidarea(
+      intensity,
+      lightcolor,
+      decay,
+      coordsys,
+      lightsamples,
+      doublesided,
+      shadowname,
+      shadowcolor,
+      hitmode,
 
-  /* get the size of the coordinate system */
-  uniform float xsize = 1;
-  uniform float ysize = 1;
-  uniform point P1 = transform( coordsys, point "shader" (1, 1, 1) );
-  xsize = 2/xcomp( P1 );
-  ysize = 2/ycomp( P1 );
+      lightmap,
+      lightmapsaturation,
 
-  uniform float xsamples, ysamples, i, j;
-  color c, test;
-  normal Ns = shadingnormal(N);
-  vector len, lnorm, Nl;
-  float x, y, dist, dot;
-  varying float orient = 1;
-  point p;
+      lightID,
+      __category,
 
-  /*  stratified sampling approach
-   *  we will actually use more samples than the requested number.
-   */
-  uniform float aspectRatio = xsize / ysize;
-  uniform float sqr = sqrt(lightsamples);
-  xsamples = min(lightsamples, max( 2, ceil(sqr*aspectRatio) ) );
-  ysamples = min(lightsamples, max( 2, ceil(sqr/aspectRatio) ) );
-  if ( xsamples == 2 ) ysamples /= 2;
-  if ( ysamples == 2 ) xsamples /= 2;
-
-  uniform float totalNbrSamples = xsamples * ysamples;
-  varying color finalcolor = 0, unshadowedC = 0, shadowC = 0;
-
-  /* Compute illumination */
-  illuminate ( Ps + Ns ) {  /* force execution independent of light location */
-
-    for (j = 0; j < ysamples; j += 1)  {
-      for (i = 0; i < xsamples; i += 1)  {
-
-        /* Compute jittered point (x,y) on unit square */
-        x = (i + random()) / xsamples;
-        y = (j + random()) / ysamples;
-
-        /* Compute point p on rectangle */
-        p = point "shader" ((x - 0.5) * xsize, (y - 0.5) * ysize, 0);
-
-        /* Texture lookup for light color */
-        //if ( x < 0 || x > 1 ) printf("x = %f   ", x);
-        if ( lightmap != "" ) finalcolor = color texture( lightmap, 1-x, 1-y );
-        else finalcolor = 1.0;
-        finalcolor *= lightcolor;
-
-        /* Compute distance from light point p to surface point Ps */
-        len = p - Ps;
-        dist = length(len);
-        lnorm = len / dist;
-
-        /* luminaire sidedness */
-        if ( doublesided == 0 ) {
-          Nl = ( p - point "shader" ((x - 0.5) * xsize, (y - 0.5) * ysize, 1) ) ;
-          orient = clamp( (Nl.len)/dist, 0, 1);
-        }
-
-        /* Compute light from point p to surface point Ps */
-        dot = lnorm.Ns;
-        if ( orient > 0 ) {
-
-          c = intensity* orient;
-
-          /* distance falloff */
-          c *= pow(dist , -decay);
-
-          /* Lambert's cosine law at the surface */
-          c *= dot;
-
-          /* color the light */
-          c *= finalcolor;
-
-          /* accumulate unshadowed contribution */
-          __unshadowed_Cl += c;
-
-          /* raytraced occlusion - only if the point is reasonnably lit */
-          if ( shadowname == "raytrace" && (comp(c,0)+comp(c,1)+comp(c,2))>0.005  ) {
-            shadowC = transmission(Ps, p, "hitmode", hitmode, "label", "liqAreaLightShad");
-            __shadowC += shadowC;
-          } else {
-            /* No shadowing, so assume visibility for this sample is 1 */
-            __shadowC += finalcolor;
-          }
-
-        }
-      }
-    }
-
-    /* saturation control */
-    if ( lightmapsaturation != 1.0 ) {
-      varying color tmpc = ctransform( "rgb", "hsl", __unshadowed_Cl );
-      setcomp( tmpc, 1, comp(tmpc, 1) * lightmapsaturation );
-      __unshadowed_Cl = ctransform( "hsl", "rgb", tmpc );
-    }
-    __unshadowed_Cl /= totalNbrSamples;
-    __shadowC /= totalNbrSamples;
-#if defined ( AIR ) || defined ( AQSIS )
-    Cl = color(mix(comp(shadowcolor,0),comp(__unshadowed_Cl,0),comp(__shadowC,0)),
-               mix(comp(shadowcolor,1),comp(__unshadowed_Cl,1),comp(__shadowC,1)),
-               mix(comp(shadowcolor,2),comp(__unshadowed_Cl,2),comp(__shadowC,2)));
-#else
-    Cl = mix( shadowcolor, __unshadowed_Cl, __shadowC );
-#endif
-  }
-
-  __shadowF = 1 - ( comp(__shadowC, 0)*0.3 + comp(__shadowC, 1)*0.59 + comp(__shadowC, 2)*0.11);
-  __arealightIntensity = intensity;
-  __arealightColor     = lightcolor;
+      __nonspecular,
+      __shadowF,
+      __shadowC,
+      __unshadowed_Cl,
+      __arealightIntensity,
+      __arealightColor
+    );
 }

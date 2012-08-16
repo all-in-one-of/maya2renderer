@@ -1,0 +1,14 @@
+
+void
+test_maketexture (
+ string texName;
+ float ss ;
+ float tt ;
+)
+{
+ vector inColor = vector color texture( texName, ss, tt );
+
+ Oi = 1;
+
+ Ci = color inColor;
+}

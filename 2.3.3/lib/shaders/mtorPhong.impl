@@ -22,33 +22,35 @@
 **
 ** ______________________________________________________________________
 */
-#include "mtorBlinn.impl"
+#include <walias.h>
 
-surface
-mtorBlinn(  uniform color ambientColor = color(0);
-            color incandescence = color(0);
-            float diffuseCoeff = .8;
-            float translucenceCoeff = 0;
-            color specularColor = color(1);
-            uniform float eccentricity = .5;
-            uniform float specularRollOff = .1;
-            float reflectivity = 1;
-            float refractiveIndex = 1; /* unsupported */
-            color refractedColor = color(1); /* unsupported */
-            float glowIntensity = 0; /* unsupported */
+void
+mtorPhong(  uniform color ambientColor ;
+            float diffuseCoeff ;
+            float cosPower ;
+            color incandescence ;
+            float translucenceCoeff ;
+            color specularColor ;
+            float reflectivity ;
+            float refractiveIndex ; /* unsupported */
+            color refractedColor ; /* unsupported */
+            float glowIntensity ; /* unsupported */
             )
 {
-    mtorBlinn(
-            ambientColor,
-            incandescence,
-            diffuseCoeff ,
-            translucenceCoeff ,
-            specularColor ,
-            eccentricity ,
-            specularRollOff ,
-            reflectivity ,
-            refractiveIndex , /* unsupported */
-            refractedColor , /* unsupported */
-            glowIntensity /* unsupported */
-   );
+    normal Nf;
+    vector R;
+    color Ia, Id, Is, Ir, Itr, Isr;
+    normal Nn = normalize(N);
+    Nf = faceforward( Nn, I, Nn );
+    R = reflect(normalize(I), Nf);
+    Ia = waliasAmbient(Nf, ambientColor);
+    Id = diffuseCoeff * diffuse(Nf);
+    Itr = waliasTranslucence(Nf, translucenceCoeff);
+    Is = waliasPhong(R, Nf, cosPower, Ir);
+    Ir = reflectivity * Ir;
+    Isr = specularColor * ( Is + Ir );
+     
+    /* Ci = Ia + Id + Is + Ir + (It * (t - (Ia+Id))); */
+    Oi = Os;
+    Ci = Oi * Cs * (Ia + Id + Itr + incandescence + Isr);
 }

@@ -33,7 +33,7 @@
 */
 
 
-
+#include "liquiddistant.impl"
 
 light
 liquiddistant(
@@ -53,42 +53,29 @@ liquiddistant(
       output varying float __shadowF = 0;
       output varying color __shadowC = 0;
       output varying color __unshadowed_Cl = 0;
-      output float __nondiffuse = 0;  /* set to 1 to exclude from diffuse light */
-      output float __nonspecular = 0; /* set to 1 to exclude from highlights */
+      output varying float __nondiffuse = 0;  /* set to 1 to exclude from diffuse light */
+      output varying float __nonspecular = 0; /* set to 1 to exclude from highlights */
 )
 {
-  uniform float factor;
-  uniform float shadowsize[2];
-  if( shadowname != "" ) {
-    if ( shadowname == "raytrace" ) factor = 0.2;
-    else {
-      
-      textureinfo( shadowname, "resolution", shadowsize );
-      factor = 1/shadowsize[0];
-    }
-  }
+    liquiddistant(
+      intensity,
+      lightcolor,
 
-  solar( vector "shader" ( 0, 0, 1 ), 0 ) {
-    if( shadowname != "" ) {
-      textureinfo( shadowname, "resolution", shadowsize );
-      __shadowF = shadow( shadowname, Ps, "samples", shadowsamples, "blur", shadowfiltersize*factor+shadowblur, "bias", shadowbias, "width", 1 );
-    } else {
-      __shadowF = 0.0;
-      __shadowC = lightcolor;
-    }
+      shadowname,  /* shadow map name or "raytrace" for traced shadows */
+      shadowbias,
+      shadowblur,
+      shadowsamples, /* samples or rays */
+      shadowfiltersize,
+      shadowcolor,
 
-#if defined ( AIR ) || defined ( AQSIS )
-    __shadowC = color( mix( comp( lightcolor, 0 ), comp(shadowcolor,0), __shadowF ),
-                       mix( comp( lightcolor, 1 ), comp(shadowcolor,1), __shadowF ),
-                       mix( comp( lightcolor, 2 ), comp(shadowcolor,2), __shadowF )	);
-#else
-    __shadowC = mix( lightcolor, shadowcolor, __shadowF );
-#endif
+      lightID   ,
+      __category,
 
-
-    Cl = intensity;
-    __unshadowed_Cl = Cl;
-    Cl *= __shadowC;
-  }
+      __shadowF,
+      __shadowC,
+      __unshadowed_Cl,
+      __nondiffuse,  /* set to 1 to exclude from diffuse light */
+      __nonspecular /* set to 1 to exclude from highlights */
+    );
 
 }

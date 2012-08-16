@@ -22,10 +22,10 @@
 **
 ** ______________________________________________________________________
 */
-#include <walias.h>
+#include "mtorPhong.impl"
 
 surface
-mtorPhong(  color ambientColor = color(0);
+mtorPhong(  uniform color ambientColor = color(0);
             float diffuseCoeff = .8;
             float cosPower = 15;
             color incandescence = color(0);
@@ -37,20 +37,15 @@ mtorPhong(  color ambientColor = color(0);
             float glowIntensity = 0; /* unsupported */
             )
 {
-    normal Nf;
-    vector R;
-    color Ia, Id, Is, Ir, Itr, Isr;
-    normal Nn = normalize(N);
-    Nf = faceforward( Nn, I, Nn );
-    R = reflect(normalize(I), Nf);
-    Ia = waliasAmbient(Nf, ambientColor);
-    Id = diffuseCoeff * diffuse(Nf);
-    Itr = waliasTranslucence(Nf, translucenceCoeff);
-    Is = waliasPhong(R, Nf, cosPower, Ir);
-    Ir = reflectivity * Ir;
-    Isr = specularColor * ( Is + Ir );
-     
-    /* Ci = Ia + Id + Is + Ir + (It * (t - (Ia+Id))); */
-    Oi = Os;
-    Ci = Oi * Cs * (Ia + Id + Itr + incandescence + Isr);
+    mtorPhong(  ambientColor,
+            diffuseCoeff,
+            cosPower ,
+            incandescence ,
+            translucenceCoeff ,
+            specularColor ,
+            reflectivity ,
+            refractiveIndex , /* unsupported */
+            refractedColor , /* unsupported */
+            glowIntensity /* unsupported */
+            );
 }

@@ -32,7 +32,7 @@
 ** ______________________________________________________________________
 */
 
-
+#include "liquidpoint.impl"
 
 light
 liquidpoint(
@@ -59,72 +59,35 @@ liquidpoint(
       output varying float __shadowF        = 0;
       output varying color __shadowC        = 1.0;
       output varying color __unshadowed_Cl  = 0;
-      output float __nondiffuse             = 0;
-      output float __nonspecular            = 0;
+      output varying float __nondiffuse             = 0;
+      output varying float __nonspecular            = 0;
 )
 {
-  illuminate( point "shader" ( 0, 0, 0 ) ) {
+    liquidpoint(
+      intensity              ,
+      lightcolor             ,
+      decay                  ,
 
-    if ( shadownamepx == "raytrace" ) {
-      __shadowC = shadow( shadownamepx, Ps, "samples", shadowsamples, "blur", shadowfiltersize*0.2+shadowblur, "bias", shadowbias, "width", 1 );
-    } else {
-      vector Lworld = vtransform( "world", L );
+      shadownamepx           ,
+      shadownamenx           ,
+      shadownamepy           ,
+      shadownameny           ,
+      shadownamepz           ,
+      shadownamenz           ,
 
-      float Lx = xcomp( Lworld );
-      float LxAbs = abs( Lx );
-      float Ly = ycomp( Lworld );
-      float LyAbs = abs( Ly );
-      float Lz = zcomp( Lworld );
-      float LzAbs = abs( Lz );
+      shadowbias             ,
+      shadowblur             ,
+      shadowsamples          ,
+      shadowfiltersize       ,
+      shadowcolor            ,
 
-      uniform float shadowsize[2];
-      
-      if( ( LxAbs > LyAbs ) && ( LxAbs > LzAbs ) ) {
-	
-        if( ( Lx > 0 ) && ( shadownamepx != "" ) ) {
-          textureinfo( shadownamepx, "resolution", shadowsize );
-          __shadowF = shadow( shadownamepx, Ps, "samples", shadowsamples, "blur", shadowfiltersize*1/shadowsize[0]+shadowblur, "bias", shadowbias, "width", 1 );
-        } else if( shadownamenx != "" ) {
-          
-          textureinfo( shadownamenx, "resolution", shadowsize );
-          __shadowF = shadow( shadownamenx, Ps, "samples", shadowsamples, "blur", shadowfiltersize*1/shadowsize[0]+shadowblur, "bias", shadowbias, "width", 1 );
-        }
-      } else if( (LyAbs > LxAbs) && ( LyAbs > LzAbs ) ) {
-        if( ( Ly > 0 ) && ( shadownamepy != "" ) ) {
-          
-          textureinfo( shadownamepy, "resolution", shadowsize );
-          __shadowF = shadow( shadownamepy, Ps, "samples", shadowsamples, "blur", shadowfiltersize*1/shadowsize[0]+shadowblur, "bias", shadowbias, "width", 1 );
-        } else if( shadownameny != "" ) {
-          
-          textureinfo( shadownameny, "resolution", shadowsize );
-          __shadowF = shadow( shadownameny, Ps, "samples", shadowsamples, "blur", shadowfiltersize*1/shadowsize[0]+shadowblur, "bias", shadowbias, "width", 1 );
-        }
-      } else if( ( LzAbs > LyAbs ) && ( LzAbs > LxAbs ) ) {
-        if( ( Lz > 0 ) && ( shadownamepz != "" ) ) {
-          
-          textureinfo( shadownamepz, "resolution", shadowsize );
-          __shadowF = shadow( shadownamepz, Ps, "samples", shadowsamples, "blur", shadowfiltersize*1/shadowsize[0]+shadowblur, "bias", shadowbias, "width", 1 );
-        } else if( shadownamenz != "") {
-          
-          textureinfo( shadownamenz, "resolution", shadowsize );
-          __shadowF = shadow( shadownamenz, Ps, "samples", shadowsamples, "blur", shadowfiltersize*1/shadowsize[0]+shadowblur, "bias", shadowbias, "width", 1 );
-        }
-      } else
-        __shadowF = 0.0;
-    }
+      lightID                ,
+      __category             ,
 
-#if defined ( AIR ) || defined ( AQSIS )
-      __shadowC = color( mix( comp( lightcolor, 0 ), comp(shadowcolor,0), __shadowF ),
-                         mix( comp( lightcolor, 1 ), comp(shadowcolor,1), __shadowF ),
-                         mix( comp( lightcolor, 2 ), comp(shadowcolor,2), __shadowF )	);
-#else
-      __shadowC = mix( lightcolor, shadowcolor, __shadowF );
-#endif
-
-
-
-    Cl = intensity * pow( 1 / length( L ), decay );
-    __unshadowed_Cl = Cl;
-    Cl *= __shadowC;
-  }
+      __shadowF        ,
+      __shadowC        ,
+      __unshadowed_Cl  ,
+      __nondiffuse             ,
+      __nonspecular            
+    );
 }

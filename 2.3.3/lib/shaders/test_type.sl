@@ -1,3 +1,4 @@
+#include "test_type.impl"
 
 surface test_type(
 	float frequency = 7;
@@ -10,16 +11,14 @@ surface test_type(
 	matrix m1 = matrix (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 ) 
 {
-	varying float ss, tt, x, y;
-
-	ss = s * frequency;
-	tt = t * frequency;
-	x = mod( ss - 0.5, 1 );
-	y = mod( tt - 0.5, 1 );
-
-	x = filterstep( 0.5, x, x + du );
-	y = filterstep( 0.5, y, y + dv );
-
-	Oi = Os;
-	Ci = Oi * Cs * mix( 0.33 * x, ( 0.66 - x ), y );
+	test_type(
+		frequency,
+		s0,
+		c0,
+		p0,
+		v0,
+		n0,
+		m0,
+		m1
+        ) ;
 }

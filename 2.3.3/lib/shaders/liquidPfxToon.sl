@@ -32,12 +32,15 @@
 ** simple toon outline shader
 ** ______________________________________________________________________
 */
+#include "liquidPfxToon.impl"
 
 surface
 liquidPfxToon(  output varying color pfxToon_vtxColor   = 0.0;
                 output varying color pfxToon_vtxOpacity = 1.0;
              )
 {
-  Oi = pfxToon_vtxOpacity;
-  Ci = pfxToon_vtxColor * Oi;
+    liquidPfxToon(
+            pfxToon_vtxColor,
+            pfxToon_vtxOpacity
+    );
 }

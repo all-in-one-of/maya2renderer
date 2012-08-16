@@ -13,7 +13,7 @@
 ** The Initial Developer of the Original Code is Colin Doncaster. Portions created by
 ** Colin Doncaster are Copyright (C) 2002. All Rights Reserved.
 **
-** Contributor(s): Philippe Leprince.
+** Contributor(s): philippe leprince
 **
 **
 ** The RenderMan (R) Interface Procedures and Protocol are:
@@ -22,23 +22,22 @@
 **
 **
 ** RenderMan (R) is a registered trademark of Pixar
+**
 */
 
-#include "liquidPfxHair.impl"
+/* ______________________________________________________________________
+**
+** liquidPfxToon.sl Source
+**
+** simple toon outline shader
+** ______________________________________________________________________
+*/
 
-surface
-liquidPfxHair(  uniform float specularPower = 3.0;
-                uniform float translucence  = 0.0;
-                uniform color specularColor = 0.0;
-                output varying color pfxHair_vtxColor   = color(1.0, 0.0, 0.0);
-                output varying color pfxHair_vtxOpacity = 1.0;
-              )
+void
+liquidPfxToon(  output varying color pfxToon_vtxColor   ;
+                output varying color pfxToon_vtxOpacity ;
+             )
 {
-    liquidPfxHair(
-                specularPower,
-                translucence,
-                specularColor,
-                pfxHair_vtxColor,
-                pfxHair_vtxOpacity
-    );
+  Oi = pfxToon_vtxOpacity;
+  Ci = pfxToon_vtxColor * Oi;
 }

@@ -1,0 +1,22 @@
+/*
+    Empty shader with all kind of args to test liquid sl parsing capabilities
+*/
+void empty (  
+    	float basicFloat;
+		float arrayFloat[3];
+		color basicColor; 
+		color arrayColor[2];
+		point basicPoint;
+		point arrayPoint[3];
+		vector basicVector;
+		vector arrayVector[3];
+		normal basicNormal;
+		normal arrayNormal[3];
+		string basicString;
+		string arrayString[4];
+		matrix basicMatrix;
+		matrix arrayMatrix[2];						
+)
+{
+    Ci = 1;
+}

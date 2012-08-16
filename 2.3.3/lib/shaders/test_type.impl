@@ -1,0 +1,25 @@
+
+void test_type(
+	float frequency ;
+	string s0;
+	color c0 ;
+	point p0 ;
+	vector v0;
+	normal n0 ;
+	matrix m0 ;
+	matrix m1 ;
+) 
+{
+	varying float ss, tt, x, y;
+
+	ss = s * frequency;
+	tt = t * frequency;
+	x = mod( ss - 0.5, 1 );
+	y = mod( tt - 0.5, 1 );
+
+	x = filterstep( 0.5, x, x + du );
+	y = filterstep( 0.5, y, y + dv );
+
+	Oi = Os;
+	Ci = Oi * Cs * mix( 0.33 * x, ( 0.66 - x ), y );
+}

@@ -1,3 +1,4 @@
+#include "test_type_array.impl"
 
 surface test_type_array(
 	float a_f[4] = {3.14, 2.17, 0, -1.0};
@@ -15,17 +16,20 @@ surface test_type_array(
 	varying color a_vc__[2]= {(0,0,0), (1,0,1)};//NOTE: a_vc__ will cause a name collision
 ) 
 {
-	float frequency = 7;
-	varying float ss, tt, x, y;
+	test_type_array(
+	a_f ,
+	a_s,
+	a_v,
+	a_n,
+	a_p,
+	a_c,
+	
+	a_vf,
+	//a_vs, //NOTE: strings cannot be varying
+	a_vv,
+	a_vn,
+	a_vp,
+	a_vc__//NOTE: a_vc__ will cause a name collision
+       );
 
-	ss = s * frequency;
-	tt = t * frequency;
-	x = mod( ss - 0.5, 1 );
-	y = mod( tt - 0.5, 1 );
-
-	x = filterstep( 0.5, x, x + du );
-	y = filterstep( 0.5, y, y + dv );
-
-	Oi = Os;
-	Ci = Oi * Cs * mix( 0.33 * x, ( 0.66 - x ), y );
 }

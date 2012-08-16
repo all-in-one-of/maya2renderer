@@ -22,12 +22,12 @@
 **
 ** ______________________________________________________________________
 */
-#include <walias.h>
+#include "mtorLambert.impl"
 
 surface
 mtorLambert( 
             float diffuseCoeff = .8;
-            color ambientColor = color(0);
+            uniform color ambientColor = color(0);
             color incandescence = color(0);
             float translucenceCoeff = 0;
             float refractiveIndex = 1; /* unsupported */
@@ -35,15 +35,13 @@ mtorLambert(
             float glowIntensity = 0; /* unsupported */
             )
 {
-    normal Nf;
-    vector V;
-    color Ia, Id, Itr;
-    normal Nn = normalize(N);
-    Nf = faceforward( Nn, I, Nn );
-    V = -normalize(I);
-    Ia = waliasAmbient(Nf, ambientColor);
-    Id = diffuseCoeff * diffuse(Nf);
-    Itr = waliasTranslucence(Nf, translucenceCoeff);
-    Oi = Os;
-    Ci = Os * Cs * (Ia + Id + Itr + incandescence);
+    mtorLambert( 
+            diffuseCoeff,
+            ambientColor,
+            incandescence,
+            translucenceCoeff,
+            refractiveIndex, /* unsupported */
+            refractedColor, /* unsupported */
+            glowIntensity   /* unsupported */
+            );
 }

@@ -1,6 +1,8 @@
 /*
     Empty shader with all kind of args to test liquid sl parsing capabilities
 */
+#include "empty.impl"
+
 surface empty (  
     	float basicFloat    	=   0.123;
 		float arrayFloat[3] 	=   { 0.5, 1.5, 3.0 };
@@ -50,5 +52,20 @@ surface empty (
        	    	    	    	    };							
 )
 {
-    Ci = 1;
+    empty(
+        basicFloat,
+	arrayFloat,
+	basicColor,
+	arrayColor,
+	basicPoint,
+	arrayPoint, 
+	basicVector,
+	arrayVector,
+	basicNormal,
+	arrayNormal,
+	basicString,
+	arrayString,
+	basicMatrix,
+	arrayMatrix
+    );
 }

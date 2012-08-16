@@ -24,21 +24,40 @@
 ** RenderMan (R) is a registered trademark of Pixar
 */
 
-#include "liquidPfxHair.impl"
 
-surface
-liquidPfxHair(  uniform float specularPower = 3.0;
-                uniform float translucence  = 0.0;
-                uniform color specularColor = 0.0;
-                output varying color pfxHair_vtxColor   = color(1.0, 0.0, 0.0);
-                output varying color pfxHair_vtxOpacity = 1.0;
+
+void
+liquidPfxHair(  uniform float specularPower ;
+                uniform float translucence  ;
+                uniform color specularColor ;
+                output varying color pfxHair_vtxColor;
+                output varying color pfxHair_vtxOpacity;
               )
 {
-    liquidPfxHair(
-                specularPower,
-                translucence,
-                specularColor,
-                pfxHair_vtxColor,
-                pfxHair_vtxOpacity
-    );
+  varying vector T = normalize (dPdv);
+  varying vector V = -normalize(I);
+  varying color Diff = 0, Spec = 0;
+  uniform string pass = "";
+  option( "user:pass", pass );
+
+  if ( pass == "deepshadow" ) {
+    // skip illuminance computations
+  } else {
+
+    illuminance (P) {
+
+      // diffuse
+      float theta = acos (T.normalize(L));
+      Diff += Cl * sin(theta);
+
+      // specular
+      float cosang = cos (abs (theta - acos (-T.V)));
+      Spec += Cl * pow (cosang, specularPower);
+
+    }
+    Ci = Diff * pfxHair_vtxColor + Spec * specularColor + ambient();
+  }
+
+  Oi = pfxHair_vtxOpacity;
+  Ci *= Oi;
 }

@@ -1,3 +1,4 @@
+#include "test_type2.impl"
 
 surface test_type2(
 
@@ -165,16 +166,164 @@ surface test_type2(
 
 ) 
 {
-	varying float ss, tt, x, y;
+    test_type2(
 
-	ss = s * frequency;
-	tt = t * frequency;
-	x = mod( ss - 0.5, 1 );
-	y = mod( tt - 0.5, 1 );
+	//-------------------------------------------
+	 frequency,
 
-	x = filterstep( 0.5, x, x + du );
-	y = filterstep( 0.5, y, y + dv );
+	 c0 ,
+	 c1 ,
+	 c2 ,
+	 c3 ,
+	 c4 ,
+	 c5 ,
+	 c6 ,
 
-	Oi = Os;
-	Ci = Oi * Cs * mix( 0.33 * x, ( 0.66 - x ), y );
+	 p0 ,
+	 p1 ,
+	 p2 ,
+	 p3 ,
+	 p4 ,
+	 p5 ,
+	 p6 ,
+	 p7 ,
+	 p8 ,
+	 p9 ,
+
+	 v0 ,
+	 v1 ,
+	 v2 ,
+	 v3 ,
+	 v4 ,
+	 v5 ,
+	 v6 ,
+	 v7 ,
+	 v8 ,
+	 v9 ,
+
+	 n0,
+	 n1 ,
+	 n2 ,
+	 n3 ,
+	 n4 ,
+	 n5 ,
+	 n6 ,
+	 n7 ,
+	 n8 ,
+	 n9 ,
+
+	 m0 ,
+	 m1 ,
+	 m2 ,
+	 m3 ,
+	 m4 ,
+	 m5 ,
+
+	 s0 ,
+
+	//  ----------------------------------------------------------------------------------
+	  vfrequency,
+
+	  vc0 ,
+	  vc1 ,
+	  vc2 ,
+	  vc3 ,
+	  vc4 ,
+	  vc5 ,
+	  vc6 ,
+
+	  vp0 ,
+	  vp1 ,
+	  vp2 ,
+	  vp3,
+	  vp4 ,
+	  vp5 ,
+	  vp6 ,
+	  vp7 ,
+	  vp8 ,
+	  vp9 ,
+
+	  vv0 ,
+	  vv1 ,
+	  vv2 ,
+	  vv3 ,
+	  vv4 ,
+	  vv5 ,
+	  vv6 ,
+	  vv7 ,
+	  vv8 ,
+	  vv9 ,
+
+	  vn0 ,
+	  vn1 ,
+	  vn2 ,
+	  vn3 ,
+	  vn4 ,
+	  vn5 ,
+	  vn6 ,
+	  vn7 ,
+	  vn8 ,
+	  vn9 ,
+
+	  vm0 ,
+	  vm1 ,
+	  vm2 ,
+	  vm3 ,
+	  vm4 ,
+	  vm5 ,
+	//  vs0 , //NOTE:s cannot be : "vs0"
+
+	//  ---------------------------------------------------------------------
+	  ufrequency ,
+
+	  uc0 ,
+	  uc1 ,
+	  uc2 ,
+	  uc3 ,
+	  uc4 ,
+	  uc5 ,
+	  uc6 ,
+
+	  up0 ,
+	  up1 ,
+	  up2 ,
+	  up3 ,
+	  up4 ,
+	  up5 ,
+	  up6 ,
+	  up7 ,
+	  up8 ,
+	  up9 ,
+
+	  uv0 ,
+	  uv1 ,
+	  uv2 ,
+	  uv3 ,
+	  uv4 ,
+	  uv5 ,
+	  uv6 ,
+	  uv7 ,
+	  uv8 ,
+	  uv9 ,
+
+	  un0 ,
+	  un1 ,
+	  un2 ,
+	  un3 ,
+	  un4 ,
+	  un5 ,
+	  un6 ,
+	  un7 ,
+	  un8 ,
+	  un9 ,
+
+	  um0 ,
+	  um1 ,
+	  um2 ,
+	  um3 ,
+	  um4 ,
+	  um5 ,
+
+	  us0
+    );
 }

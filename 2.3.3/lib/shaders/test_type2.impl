@@ -1,0 +1,179 @@
+
+void test_type2(
+
+	//-------------------------------------------
+	float frequency;
+
+	color c0 ;
+	color c1 ;
+	color c2 ;
+	color c3 ;
+	color c4 ;
+	color c5 ;
+	color c6 ;
+
+	point p0 ;
+	point p1 ;
+	point p2 ;
+	point p3 ;
+	point p4 ;
+	point p5 ;
+	point p6 ;
+	point p7 ;
+	point p8 ;
+	point p9 ;
+
+	vector v0 ;
+	vector v1 ;
+	vector v2 ;
+	vector v3 ;
+	vector v4 ;
+	vector v5 ;
+	vector v6 ;
+	vector v7 ;
+	vector v8 ;
+	vector v9 ;
+
+	normal n0;
+	normal n1 ;
+	normal n2 ;
+	normal n3 ;
+	normal n4 ;
+	normal n5 ;
+	normal n6 ;
+	normal n7 ;
+	normal n8 ;
+	normal n9 ;
+
+	matrix m0 ;
+	matrix m1 ;
+	matrix m2 ;
+	matrix m3 ;
+	matrix m4 ;
+	matrix m5 ;
+
+	string s0 ;
+
+	// varying ----------------------------------------------------------------------------------
+	varying float vfrequency;
+
+	varying color vc0 ;
+	varying color vc1 ;
+	varying color vc2 ;
+	varying color vc3 ;
+	varying color vc4 ;
+	varying color vc5 ;
+	varying color vc6 ;
+
+	varying point vp0 ;
+	varying point vp1 ;
+	varying point vp2 ;
+	varying point vp3;
+	varying point vp4 ;
+	varying point vp5 ;
+	varying point vp6 ;
+	varying point vp7 ;
+	varying point vp8 ;
+	varying point vp9 ;
+
+	varying vector vv0 ;
+	varying vector vv1 ;
+	varying vector vv2 ;
+	varying vector vv3 ;
+	varying vector vv4 ;
+	varying vector vv5 ;
+	varying vector vv6 ;
+	varying vector vv7 ;
+	varying vector vv8 ;
+	varying vector vv9 ;
+
+	varying normal vn0 ;
+	varying normal vn1 ;
+	varying normal vn2 ;
+	varying normal vn3 ;
+	varying normal vn4 ;
+	varying normal vn5 ;
+	varying normal vn6 ;
+	varying normal vn7 ;
+	varying normal vn8 ;
+	varying normal vn9 ;
+
+	varying matrix vm0 ;
+	varying matrix vm1 ;
+	varying matrix vm2 ;
+	varying matrix vm3 ;
+	varying matrix vm4 ;
+	varying matrix vm5 ;
+	//varying string vs0 ; //NOTE:strings cannot be varying: "vs0"
+
+	// uniform ---------------------------------------------------------------------
+	uniform float ufrequency ;
+
+	uniform color uc0 ;
+	uniform color uc1 ;
+	uniform color uc2 ;
+	uniform color uc3 ;
+	uniform color uc4 ;
+	uniform color uc5 ;
+	uniform color uc6 ;
+
+	uniform point up0 ;
+	uniform point up1 ;
+	uniform point up2 ;
+	uniform point up3 ;
+	uniform point up4 ;
+	uniform point up5 ;
+	uniform point up6 ;
+	uniform point up7 ;
+	uniform point up8 ;
+	uniform point up9 ;
+
+	uniform vector uv0 ;
+	uniform vector uv1 ;
+	uniform vector uv2 ;
+	uniform vector uv3 ;
+	uniform vector uv4 ;
+	uniform vector uv5 ;
+	uniform vector uv6 ;
+	uniform vector uv7 ;
+	uniform vector uv8 ;
+	uniform vector uv9 ;
+
+	uniform normal un0 ;
+	uniform normal un1 ;
+	uniform normal un2 ;
+	uniform normal un3 ;
+	uniform normal un4 ;
+	uniform normal un5 ;
+	uniform normal un6 ;
+	uniform normal un7 ;
+	uniform normal un8 ;
+	uniform normal un9 ;
+
+	uniform matrix um0 ;
+	uniform matrix um1 ;
+	uniform matrix um2 ;
+	uniform matrix um3 ;
+	uniform matrix um4 ;
+	uniform matrix um5 ;
+
+	uniform string us0 ;
+
+	//===== array ===================================
+
+
+) 
+{
+	varying float ss, tt, x, y;
+
+	ss = s * frequency;
+	tt = t * frequency;
+	x = mod( ss - 0.5, 1 );
+	y = mod( tt - 0.5, 1 );
+
+	x = filterstep( 0.5, x, x + du );
+	y = filterstep( 0.5, y, y + dv );
+
+	Oi = Os;
+	Ci = Oi * Cs * mix( 0.33 * x, ( 0.66 - x ), y );
+}

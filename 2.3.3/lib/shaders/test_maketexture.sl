@@ -1,3 +1,4 @@
+ #include "test_maketexture.impl"
 
 surface
 test_maketexture (
@@ -6,9 +7,9 @@ test_maketexture (
  float tt = 1;
 )
 {
- vector inColor = vector color texture( texName, ss, tt );
-
- Oi = 1;
-
- Ci = color inColor;
+	test_maketexture (
+		texName,
+		ss ,
+		tt 
+	);
 }

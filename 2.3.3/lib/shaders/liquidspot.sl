@@ -32,7 +32,7 @@
 ** ______________________________________________________________________
 */
 
-
+#include "liquidspot.impl"
 
 light
 liquidspot(
@@ -79,131 +79,57 @@ liquidspot(
       output varying float __shadowF        = 0;
       output varying float __barn           = 0;
       output varying color __unshadowed_Cl  = 0;
-      output float         __nondiffuse     = 0;
-      output float         __nonspecular    = 0;
+      output varying float __nondiffuse     = 0;
+      output varying float __nonspecular    = 0;
 )
 {
-  varying float atten = 0, cosangle = 0;
-  uniform float cosoutside, cosinside, angle;
-  uniform float lbn, rbn, tbn, bbn, penumbraRatio;
-  varying point Pshad;
-  varying float Pz, Pz_width;
+    liquidspot(
+      intensity               ,
+      lightcolor              ,
+      coneangle               ,
+      penumbraangle           ,
+      dropoff                 ,
+      decay                   ,
 
-  if( penumbraangle < 0 ) {
-    angle = coneangle;
-    cosoutside = cos( coneangle );
-    cosinside = cos( coneangle + penumbraangle );
-    //printf("o: %f, i: %f \n", cosoutside, cosinside );
-  } else {
-    angle = coneangle + penumbraangle;
-    cosoutside = cos( angle );
-    cosinside = cos( coneangle );
-    //printf("o: %f, i: %f \n", cosoutside, cosinside );
-  }
+      barndoors               ,
+      leftbarndoor            ,
+      rightbarndoor           ,
+      topbarndoor             ,
+      bottombarndoor          ,
 
-  __barn = 1.0;
-  if( barndoors != 0 ) {
-    lbn = -leftbarndoor / angle;
-    rbn = rightbarndoor / angle;
-    tbn = topbarndoor / angle;
-    bbn = -bottombarndoor / angle;
-    penumbraRatio = penumbraangle / angle * 0.5;
-  }
+      decayRegions            ,
+      startDistance1          ,
+      endDistance1            ,
+      startDistance2          ,
+      endDistance2            ,
+      startDistance3          ,
+      endDistance3            ,
+      startDistanceIntensity1 ,
+      endDistanceIntensity1   ,
+      startDistanceIntensity2 ,
+      endDistanceIntensity2   ,
+      startDistanceIntensity3 ,
+      endDistanceIntensity3   ,
 
-  if ( decayRegions != 0 || barndoors != 0 ) {
-    Pshad = transform("shader", Ps);
-    Pz = zcomp(Pshad);
-    Pz_width = max (abs(Du(Pz)*du) + abs(Dv(Pz)*dv), 1.0e-6);
-  }
+      shadowname       ,
+      shadowbias       ,
+      shadowblur       ,
+      shadowsamples    ,
+      shadowfiltersize ,
+      shadowcolor      ,
+      shadowcolorSurf  ,
+      shadowcolorMix  ,
 
-  varying color finalShadowColor = shadowcolor;
-  if ( shadowcolorMix != -1 ) {
-    finalShadowColor = mix( shadowcolor, shadowcolorSurf, shadowcolorMix );
-  }
+      lightID          ,
+      __category       ,
 
-
-
-  illuminate( point "shader" ( 0, 0, 0 ), vector "shader" ( 0, 0, 1), angle ) {
-
-
-    float distance = length( L );
-    cosangle = ( L . vector "shader" ( 0, 0, 1) ) / distance;
-
-
-    varying float pwc = max (abs(Du(cosangle)*du) + abs(Dv(cosangle)*dv), 1.0e-6);
-
-    atten = 1 / pow( distance, decay );
-    atten *= pow( cosangle, dropoff );
-    atten *= smoothstep( cosoutside + pwc, cosinside + pwc*2, cosangle );
-
-    // decay regions support
-    if ( decayRegions != 0 ) {
-
-      varying float region = 0, mask = 0;
-
-      mask =  smoothstep( startDistance1 - Pz_width, startDistance1 + Pz_width, Pz ) - smoothstep( endDistance1 - Pz_width, endDistance1 + Pz_width, Pz );
-      if ( startDistanceIntensity1 != 1 || endDistanceIntensity1 != 1 )
-        mask *= mix( startDistanceIntensity1, endDistanceIntensity1, smoothstep( startDistance1, endDistance1, Pz ) );
-      region = mask;
-
-      mask = smoothstep( startDistance2 - Pz_width, startDistance2 + Pz_width, Pz ) - smoothstep( endDistance2 - Pz_width, endDistance2 + Pz_width, Pz );
-      if ( startDistanceIntensity2 != 1 || endDistanceIntensity2 != 1 )
-        mask *= mix( startDistanceIntensity2, endDistanceIntensity2, smoothstep( startDistance2, endDistance2, Pz ) );
-      region += mask;
-
-      mask = smoothstep( startDistance3 - Pz_width, startDistance3 + Pz_width, Pz ) - smoothstep( endDistance3 - Pz_width, endDistance3 + Pz_width, Pz );
-      if ( startDistanceIntensity3 != 1 || endDistanceIntensity3 != 1 )
-        mask *= mix( startDistanceIntensity3, endDistanceIntensity3, smoothstep( startDistance3, endDistance3, Pz ) );
-      region += mask;
-
-      atten *= region;
-
-    }
-
-    // barn doors
-    if( barndoors != 0 ) {
-
-      varying point PP = Pshad / Pz;
-      varying float x = xcomp( PP ) / tan(angle);
-      varying float y = ycomp( PP ) / tan(angle);
-
-      varying float pwx = max (abs(Du(x)*du) + abs(Dv(x)*dv), 1.0e-6);
-      varying float pwy = max (abs(Du(y)*du) + abs(Dv(y)*dv), 1.0e-6);
-
-      __barn = smoothstep( lbn - pwx - penumbraRatio, lbn + pwx + penumbraRatio, x ) *
-              ( 1- smoothstep( rbn - pwx - penumbraRatio, rbn + pwx + penumbraRatio, x ) ) *
-              ( 1 - smoothstep( tbn - pwy - penumbraRatio, tbn + pwy + penumbraRatio, y ) ) *
-              smoothstep( bbn - pwy - penumbraRatio, bbn + pwy + penumbraRatio, y );
-
-    }
-
-    // shadows
-    if( shadowname != "" ) {
-
-      uniform float shadowsize[2];
-      if ( shadowname == "raytrace" ) shadowsize[0] = 5;
-      else textureinfo( shadowname, "resolution", shadowsize );
-      __shadowF = shadow( shadowname, Ps, "samples", shadowsamples, "bias", shadowbias, "blur", shadowfiltersize*1/shadowsize[0] + shadowblur );
-#if defined ( AIR ) || defined ( AQSIS )
-      __shadowC = color( mix( comp( lightcolor, 0 ), comp(finalShadowColor,0), __shadowF ),
-                         mix( comp( lightcolor, 1 ), comp(finalShadowColor,1), __shadowF ),
-                         mix( comp( lightcolor, 2 ), comp(finalShadowColor,2), __shadowF )	);
-#else
-      __shadowC = mix( lightcolor, finalShadowColor, __shadowF );
-#endif
-    } else {
-
-      __shadowF = 0.0;
-      __shadowC = lightcolor;
-
-    }
-
-    // output
-    Cl = intensity * atten * __barn;
-    __unshadowed_Cl = Cl;
-    Cl *= __shadowC;
-
-  }
+      __shadowC        ,
+      __shadowF        ,
+      __barn           ,
+      __unshadowed_Cl  ,
+      __nondiffuse     ,
+      __nonspecular
+   );
 }
 
 
