@@ -171,7 +171,7 @@ void OutputHelper::endRSL ()
 	std::set<std::string>::iterator i = includedFiles.begin();
 	std::set<std::string>::iterator e = includedFiles.end();
 	for(; i!=e; ++i){
-		RSLfileRef << "#include <"<< *i<<">\n";
+		RSLfileRef << "#include \""<< *i<<"\"\n";//"" is better than <>
 	}
 	//
 	RSLfileRef << (rslShaderHeader + rslShaderBody + "\n").asChar() ;
