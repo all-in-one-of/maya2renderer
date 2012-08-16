@@ -639,7 +639,7 @@ void Visitor::visit_liquidShader(const char* node)
 	std::string const& mayaShaderName=rmSloFilePath.substr(rmSloFilePath.find_last_of('/')+1);//e.g."your_shader_dir/liquidchecker"
 
 	OutputHelper o(RSLfile);
-	//o.addInclude("lambert.h");
+	o.addInclude((rmSloFilePath+".impl").c_str());
 	o.beginRSL(node);
 
 	std::size_t parameterNum =  shader.tokenPointerArray.size() - 1;
@@ -660,37 +660,46 @@ void Visitor::visit_liquidShader(const char* node)
 		liqTokenPointer* vp = const_cast< liqTokenPointer* >( &shader.tokenPointerArray[i] );
 		switch( shader.tokenPointerArray[i].getParameterType() )
 		{
-		case rFloat:
-			{
-				paramType = "float";
-			}
+		case rFloat:	
+			paramType = "float";
 			break;
-		case rPoint: case rVector: case rNormal: case rColor:
-			{
-				paramType = "vector";
-			}
+		case rPoint: 
+		case rVector: 
+		case rNormal: 
+		case rColor:	
+			paramType = "vector";
 			break;
-		case rString: case rShader:
-			{
-				paramType = "string";
-			}
+		case rString: 
+		case rShader:	
+			paramType = "string";
 			break; 
-		case rHpoint:
-			{
-				paramType = "vector4";//not supported
-			}
+		case rHpoint:	
+			paramType = "vector4";//not supported	
 			break;
 		case rMatrix:
-			{
-				paramType = "matrix";
-			}
-			;break;
+			paramType = "matrix";	
+			break;
 		default :
 			assert(0);
 		}//switch
 		o.addRSLVariable("", paramType.c_str(),  vp->getTokenName().c_str(), vp->getTokenName().c_str(), node);
 	}//for
-		
+
+	//call shader function
+	//function name
+	o.addToRSL((mayaShaderName+"(").c_str());
+	//parameters
+	for(size_t i=0; i<parameterNum; ++i)
+	{
+		liqTokenPointer* vp = const_cast< liqTokenPointer* >( &shader.tokenPointerArray[i] );
+		if(i == 0)
+			o.addToRSL(vp->getTokenName().c_str());
+		else
+			o.addToRSL((","+vp->getTokenName()).c_str());
+	}
+	o.addToRSL(");");
+	//
+
 	o.endRSL();
 }
 }//namespace RSL
