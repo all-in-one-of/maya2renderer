@@ -280,6 +280,7 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 
 		boost::replace_all(strType, "bool",			"float");
 		boost::replace_all(strType, "doubleAngle",	"float");
+		boost::replace_all(strType, "double",		"float");
 		//TODO: other types which can be considered as float
 		//...
 
@@ -303,6 +304,8 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 			outputVars.setLength(outputIndex+1);
 		}
 		outputVars[outputIndex] = varName;
+	}else{
+		liquidMessage2(messageError, "cant handle plug[%s](type[%s])", plug.asChar(), type_.asChar());
 	}
 
 }
