@@ -1,0 +1,35 @@
+//surface shader name: liquidShader4
+surface liquidShader4()
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+
+
+// define the shaders --------------------------------------------------------------------------
+#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/lib/shaders/liquidchecker.impl"
+//shader name: liquidShader4
+void liquidShader4 (
+)
+{
+  float frequency = float 4.5;
+  float mode = float 0;
+ liquidchecker(
+ frequency
+ ,mode
+ );
+}
+
+
+
+
+// call the shaders ----------------------------------------------------------------------------
+
+ //liquidShader4
+ liquidShader4();
+//input: 
+//output:
+
+}

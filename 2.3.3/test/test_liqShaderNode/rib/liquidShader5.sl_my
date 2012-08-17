@@ -1,0 +1,35 @@
+//surface shader name: liquidShader5
+volume liquidShader5()
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+
+
+// define the shaders --------------------------------------------------------------------------
+#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/lib/shaders/fog.impl"
+//shader name: liquidShader5
+void liquidShader5 (
+)
+{
+  float distance = float 20;
+  color background = color (0,0.431815,0);
+ fog(
+ distance
+ ,background
+ );
+}
+
+
+
+
+// call the shaders ----------------------------------------------------------------------------
+
+ //liquidShader5
+ liquidShader5();
+//input: 
+//output:
+
+}

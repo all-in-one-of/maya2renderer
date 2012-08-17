@@ -19,10 +19,12 @@
 ** 1001 West Cutting Blvd.
 ** Richmond, CA  94804
 */
-#include "fog.impl"
-
-volume
-fog( float distance = 1; color background = 0 )
+void
+fog( float distance ; color background )
 {
-    fog( distance, background  );
+    float d;
+
+    d = 1 - exp( -length(I)/distance );
+    Ci = mix( Ci, background, d );
+    Oi = mix( Oi, color (1,1,1), d ); /* background is opaque. */
 }
