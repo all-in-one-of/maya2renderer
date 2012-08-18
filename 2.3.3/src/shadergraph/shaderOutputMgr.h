@@ -26,7 +26,8 @@ namespace liquidmaya{
 			const MStringArray& outputVars);
 		void addShaderMethodVariavles(
 			const MString &typeSize,
-			const MString &varName);
+			const MString &node,
+			const MString &validConnection);
 		void outputEnd();
 		void postOutput();
 
@@ -52,7 +53,8 @@ namespace liquidmaya{
 			);
 		void notify_addShaderMethodVariavles(
 			const MString &typeSize,
-			const MString &varName);
+			const MString &node,
+			const MString &validConnection);
 		void notify_outputEnd();
 		void notify_postOutput();
 		void notify_outputShadingGroup(const char* shadingGroupNode);

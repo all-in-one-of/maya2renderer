@@ -71,7 +71,8 @@ public:
 		const MStringArray& outputVars);
 	virtual void addShaderMethodVariavles(
 		const MString &typeSize,
-		const MString &varName);
+		const MString &node,
+		const MString &validConnection);
 	virtual void outputEnd();
 	virtual void postOutput();
 	virtual void outputShadingGroup(const char* shadingGroupNode);

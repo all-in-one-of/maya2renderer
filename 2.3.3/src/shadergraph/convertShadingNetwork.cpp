@@ -265,15 +265,15 @@ void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArr
 }
 //
 void ConvertShadingNetwork::addNodeOutputVariable(
-	const MString& node, const MString& validConnection, 
-	const MString& plug, MStringArray& outputVars)
+	const MString& node, const MString& plug, 
+	const MString& node_plug, MStringArray& outputVars)
 {
-	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeOutputVariable("<<node.asChar()<<","<<validConnection.asChar()<<","<<plug.asChar()<<", outputVars)");
+	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeOutputVariable("<<node.asChar()<<","<<plug.asChar()<<","<<node_plug.asChar()<<", outputVars)");
 	
 	MString cmd;
 
 	MString type_;
-	IfMErrorWarn(MGlobal::executeCommand( ("getAttr -type \""+plug+"\""), type_ ));
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr -type \""+node_plug+"\""), type_ ));
 
 	{
 		std::string strType(type_.asChar());
@@ -287,7 +287,6 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 		type_ = strType.c_str();
 	}
 
-	const MString varName(node+"_"+validConnection);
 	const int outputIndex = outputVars.length();
 
 	MString matchedStr;
@@ -298,14 +297,14 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 		IfMErrorWarn(MGlobal::executeCommand( ("match(\"[0-9]*$\", \""+type_+"\")"), typeSize));
 
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->
-			addShaderMethodVariavles(typeSize, varName);
+			addShaderMethodVariavles(typeSize, node, plug);
 
 		if( outputVars.length()<(outputIndex+1) ){
 			outputVars.setLength(outputIndex+1);
 		}
-		outputVars[outputIndex] = varName;
+		outputVars[outputIndex] = renderman::getVariableName(node, plug);
 	}else{
-		liquidMessage2(messageError, "cant handle plug[%s](type[%s])", plug.asChar(), type_.asChar());
+		liquidMessage2(messageError, "cant handle plug[%s](type[%s])", node_plug.asChar(), type_.asChar());
 	}
 
 }

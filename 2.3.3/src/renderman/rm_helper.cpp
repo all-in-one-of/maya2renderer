@@ -88,5 +88,10 @@ namespace renderman
 		CM_TRACE_FUNC("getVariableName("<<varName.asChar()<<")");
 		return sanitizeNodeName(varName);
 	}
+	MString getVariableName(const MString &node,const MString &plug)
+	{
+		CM_TRACE_FUNC("getVariableName("<<node.asChar()<<","<<plug.asChar()<<")");
+		return getVariableName(node+"_"+plug);
+	}
 }
 #endif//_USE_RENDERMAN_

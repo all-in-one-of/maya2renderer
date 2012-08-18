@@ -24,7 +24,8 @@ public:
 		) = 0;
 	virtual void addShaderMethodVariavles(
 		const MString &typeSize,
-		const MString &varName
+		const MString &node,
+		const MString &validConnection
 		) = 0;
 	virtual void outputEnd() = 0;
 	virtual void postOutput() = 0;

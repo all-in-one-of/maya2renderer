@@ -284,17 +284,20 @@ void  Visitor::addShaderMethodBody(
 		shaderData[ SHADER_METHOD_BODY_I ] += "//output:" + outputVarsStr +"\n\n";
 	}
 }
-void Visitor::addShaderMethodVariavles(const MString &typeSize,
-									   const MString &varName)
+void Visitor::addShaderMethodVariavles(
+	const MString &typeSize,
+	const MString &node,
+	const MString &plug)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles(&shaderMethodVariavles,"<<typeSize.asChar()<<","<<varName.asChar()<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles(&shaderMethodVariavles,"<<typeSize.asChar()<<","<<node.asChar()<<","<<plug.asChar()<<")");
+	
 	if(typeSize=="")
 	{
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(varName)+";\n";
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(node, plug)+";\n";
 	}else if(typeSize=="3"){
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " vector "+renderman::getVariableName(varName)+";\n";
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " vector "+renderman::getVariableName(node, plug)+";\n";
 	}else{
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(varName)+"["+typeSize+"];\n";
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(node, plug)+"["+typeSize+"];\n";
 	}
 }
 void Visitor::outputEnd()

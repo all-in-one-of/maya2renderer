@@ -47,6 +47,7 @@ namespace renderman
 	MString getShaderFilePath_SLO(const MString &shaderNodeName);
 	MString getShaderName(const MString &shaderName);
 	MString getVariableName(const MString &varName);
+	MString getVariableName(const MString &node,const MString &plug);
 }
 
 #endif//RM_HELPER_H

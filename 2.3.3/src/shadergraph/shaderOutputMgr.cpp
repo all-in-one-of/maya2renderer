@@ -105,7 +105,8 @@ void ShaderOutputMgr::notify_addShaderMethodBody(
 void ShaderOutputMgr::notify_addShaderMethodVariavles(
 //									 MString& shaderMethodVariavles,
 									 const MString &typeSize,
-									 const MString &varName)
+									 const MString &node,
+									 const MString &validConnection)
 {
 	std::vector<ShaderOutputVisitor*>::iterator i = receivers.begin();
 	std::vector<ShaderOutputVisitor*>::iterator e = receivers.end();
@@ -114,7 +115,8 @@ void ShaderOutputMgr::notify_addShaderMethodVariavles(
 		(*i)->addShaderMethodVariavles(
 //			shaderMethodVariavles, 
 			typeSize,
-			varName);
+			node,
+			validConnection);
 	}
 }
 void ShaderOutputMgr::notify_outputEnd()
@@ -178,11 +180,13 @@ void ShaderOutputMgr::addShaderMethodBody(
 }
 void ShaderOutputMgr::addShaderMethodVariavles(
 							  const MString &typeSize,
-							  const MString &varName)
+							  const MString &node,
+							  const MString &validConnection)
 {
 	notify_addShaderMethodVariavles(
 		typeSize,
-		varName
+		node,
+		validConnection
 	);
 }
 void ShaderOutputMgr::outputEnd()
