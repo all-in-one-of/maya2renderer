@@ -270,42 +270,47 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeOutputVariable("<<node.asChar()<<","<<plug.asChar()<<","<<node_plug.asChar()<<", outputVars)");
 	
-	MString cmd;
-
-	MString type_;
-	IfMErrorWarn(MGlobal::executeCommand( ("getAttr -type \""+node_plug+"\""), type_ ));
-
+	MStringArray rmanParams, rmanTypes, rmanDetails;
+	MIntArray rmanArraySizes;
+		
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanParams\""), rmanParams ));
+	
+	//find parameter index of $plug in $node.rmanParams
+	int paramIndex = -1;
+	for(int i = 0; i< rmanParams.length(); ++i)
 	{
-		std::string strType(type_.asChar());
-
-		boost::replace_all(strType, "bool",			"float");
-		boost::replace_all(strType, "doubleAngle",	"float");
-		boost::replace_all(strType, "double",		"float");
-		//TODO: other types which can be considered as float
-		//...
-
-		type_ = strType.c_str();
+		MString pi(rmanParams[i]);
+		if(rmanParams[i]==plug){
+			paramIndex = i;
+			break;
+		}
 	}
+	if(paramIndex==-1){
+		liquidMessage2(messageError, "can't find parameter %s in %s.rmanParams.", plug.asChar(), node.asChar());
+		return;
+	}
+
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanTypes\""),			rmanTypes ));
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanArraySizes\""),	rmanArraySizes ));
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanDetails\""),		rmanDetails ));
+
+
+
+	liquidmaya::ShaderOutputMgr::getSingletonPtr()->
+		addShaderMethodVariavles(
+			node, 
+			plug, 
+			rmanTypes[paramIndex], 
+			rmanArraySizes[paramIndex], 
+			rmanDetails[paramIndex]
+		);
 
 	const int outputIndex = outputVars.length();
-
-	MString matchedStr;
-	IfMErrorWarn(MGlobal::executeCommand( ("match(\"float[0-9]*$\", \""+type_+"\")"), matchedStr));
-	if( matchedStr != "" )
-	{
-		MString typeSize;
-		IfMErrorWarn(MGlobal::executeCommand( ("match(\"[0-9]*$\", \""+type_+"\")"), typeSize));
-
-		liquidmaya::ShaderOutputMgr::getSingletonPtr()->
-			addShaderMethodVariavles(typeSize, node, plug);
-
-		if( outputVars.length()<(outputIndex+1) ){
-			outputVars.setLength(outputIndex+1);
-		}
-		outputVars[outputIndex] = renderman::getVariableName(node, plug);
-	}else{
-		liquidMessage2(messageError, "cant handle plug[%s](type[%s])", node_plug.asChar(), type_.asChar());
+	if( outputVars.length()<(outputIndex+1) ){
+		outputVars.setLength(outputIndex+1);
 	}
+	outputVars[outputIndex] = renderman::getVariableName(node, plug);
+
 
 }
 //

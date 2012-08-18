@@ -287,11 +287,13 @@ void  Visitor::addShaderMethodBody(const MString &currentNode,
 
 }
 void Visitor::addShaderMethodVariavles(
-									   const MString &typeSize,
-									   const MString &node,
-									   const MString &validConnection)
+	const MString &node,
+	const MString &plug,
+	const MString &type_,
+	const int arraysize,
+	const MString &details)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<typeSize.asChar()<<","<<node.asChar()<<","<<validConnection.asChar()<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<node.asChar()<<","<<plug.asChar()<<","<<type_.asChar()<<","<<arraysize<<","<<details.asChar()<<")");
 
 }
 void Visitor::outputEnd()

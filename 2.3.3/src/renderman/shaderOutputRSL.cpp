@@ -285,19 +285,21 @@ void  Visitor::addShaderMethodBody(
 	}
 }
 void Visitor::addShaderMethodVariavles(
-	const MString &typeSize,
 	const MString &node,
-	const MString &plug)
+	const MString &plug,
+	const MString &type_,
+	const int arraysize,
+	const MString &details)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles(&shaderMethodVariavles,"<<typeSize.asChar()<<","<<node.asChar()<<","<<plug.asChar()<<")");
-	
-	if(typeSize=="")
+	CM_TRACE_FUNC("Visitor::addShaderMethodVariavles("<<node.asChar()<<","<<plug.asChar()<<","<<type_.asChar()<<","<<arraysize<<","<<details.asChar()<<")");
+
+	if(arraysize == -1)
 	{
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(node, plug)+";\n";
-	}else if(typeSize=="3"){
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " vector "+renderman::getVariableName(node, plug)+";\n";
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " "+type_+" "+renderman::getVariableName(node, plug)+";\n";
 	}else{
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " float "+renderman::getVariableName(node, plug)+"["+typeSize+"];\n";
+		MString strArraySize;
+		strArraySize.set(arraysize);
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " "+type_+" "+renderman::getVariableName(node, plug)+"["+strArraySize+"];\n";
 	}
 }
 void Visitor::outputEnd()

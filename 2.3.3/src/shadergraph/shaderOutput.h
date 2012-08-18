@@ -23,9 +23,11 @@ public:
 		const MStringArray& outputVars
 		) = 0;
 	virtual void addShaderMethodVariavles(
-		const MString &typeSize,
 		const MString &node,
-		const MString &validConnection
+		const MString &plug,
+		const MString &type_,
+		const int arraysize,
+		const MString &details
 		) = 0;
 	virtual void outputEnd() = 0;
 	virtual void postOutput() = 0;
