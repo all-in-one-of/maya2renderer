@@ -211,6 +211,7 @@ void tRibCameraMgr::framePrologue_camera(long lframe, const structJob &currentJo
 		for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchiveShadow.length(); ii++ ) 
 			RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchiveShadow[ii].asChar() );
 
+	RiArchiveRecord( RI_COMMENT, "camera %s's transform", currentJob.camera[0].name.asChar());
 	// if we motion-blur the cam, open the motion block
 	//
 	if( liqglo.doCameraMotion && ( !currentJob.isShadow || currentJob.deepShadows) ) 
