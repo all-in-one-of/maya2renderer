@@ -98,6 +98,7 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if (isClassified($node, "shader"))
 	{
+		liqlog("isClassified shader");
 		// mental ray material shaders fall into this category.
 
 		string $shadingGroupArray[] =
@@ -108,6 +109,7 @@ global proc buildHypergraphNodePopupMenuItems(
 			$node`;
 		int $isOceanShader = nodeType( $node ) == "oceanShader";
 		int $groupSize = size($shadingGroupArray);
+		liqlog("$isOceanShader="+$isOceanShader+",$groupSize="+$groupSize);
 		if( $groupSize == 2 && $isOceanShader){
 			// OceanShaders are assigned twice to the same group:
 			// once for displacement and once for surfaceShading.
@@ -117,8 +119,10 @@ global proc buildHypergraphNodePopupMenuItems(
 				$groupSize = 1; // force use of "assign material"
 			}
 		}
+		liqlog("$groupSize="+$groupSize);
 
 		string $layer = currentRenderLayerLabel();
+		liqlog("$layer="+$layer);
 		if ($layer != "" && $layer != "masterLayer") {
 			menuItem
 				-radialPosition "W"
@@ -128,15 +132,18 @@ global proc buildHypergraphNodePopupMenuItems(
 
 		if ( $groupSize <= 1)
 		{
+			liqlog("$groupSize <= 1,");
 			if( $isOceanShader )
 			{
+				liqlog("    $isOceanShader==true");
 				menuItem
 					-radialPosition "N"
 					-label "Assign Material To Selection"
 					-command ("assignOceanShader " + $node);
 			}
-			else if ( isClassified($node, "liq*Swatch" ) )
+			else if ( isClassified($node, "liq*Swatch" ) || (nodeType($node) == "liquidLight") )
 			{
+				liqlog("   isClassified($node, liq*Swatch )="+isClassified($node, "liq*Swatch" )+", (nodeType($node)==\"liquidLight\")="+(nodeType($node) == "liquidLight"));
 				menuItem
 					-radialPosition "N"
 					-label "Assign Shader To Selection"
@@ -144,13 +151,17 @@ global proc buildHypergraphNodePopupMenuItems(
 			}
 			else
 			{
+				liqlog("    else");
 				menuItem
 					-radialPosition "N"
 					-label "Assign Material To Selection"
 					-command ("hyperShade -assign " + $node);
 			}
+
+
 			if ( nodeType($node) == "liquidLight" )
 			{
+				liqlog("    nodeType("+$node+") == liquidLight");
 				menuItem
 					-radialPosition "E"
 					-label "Select Lights With Light Shader"
@@ -158,6 +169,7 @@ global proc buildHypergraphNodePopupMenuItems(
 			}
 			else
 			{
+				liqlog("    nodeType("+$node+") != liquidLight");
 				menuItem
 					-radialPosition "E"
 					-label "Select Objects With Material"
@@ -178,6 +190,7 @@ global proc buildHypergraphNodePopupMenuItems(
 		}
 		else
 		{
+			liqlog("$groupSize > 1,");
 			int $i;
 
 			for ($i = 0; $i < size($shadingGroupArray); $i++)
@@ -214,6 +227,7 @@ global proc buildHypergraphNodePopupMenuItems(
 	else if (isClassified($node, "rendernode/mentalray/light") &&
 		!isClassified($node, "rendernode/mentalray/lightmap") )
 	{
+		liqlog("isClassified($node,rendernode/mentalray/light) && isClassified($node, rendernode/mentalray/lightmap)");
 		// We can support "Select Objects Illuminated by Light" and
 		// "Frame Objects Illuminated by Light"
 		// by following a light connected to this shader node.
@@ -245,6 +259,7 @@ global proc buildHypergraphNodePopupMenuItems(
 	// because otherwise it's not clear what to do.
 	else if (isClassified($node, "rendernode/mentalray/texture") )
 	{
+		liqlog("isClassified($node,rendernode/mentalray/texture)");
 		string $tmp[] = `ls ($node + ".outValue")`;
 		if( size($tmp)>0 )
 		{
@@ -263,6 +278,8 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if (isClassified($node, "texture"))
 	{
+		liqlog("isClassified($node,texture)");
+
 		menuItem
 			-label "Assign Texture's Material to Selection"
 			-radialPosition "N"
@@ -331,6 +348,8 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if (isClassified($node, "utility"))
 	{
+		liqlog("isClassified($node,utility)");
+
 		// test to make sure the utility node has an output connection
 		// if it does not, convertSolidTx will fail
 		//
@@ -381,6 +400,7 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if (isClassified($node, "light"))
 	{
+		liqlog("isClassified($node,light)");
 		menuItem
 			-label "Make Links with Selected Objects"
 			-command ("lightlink -make -light "+$node+" -useActiveObjects");
@@ -404,6 +424,7 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if ($nodeType == "textureBakeSet" || $nodeType == "vertexBakeSet" )
 	{
+		liqlog("$nodeType == textureBakeSet || $nodeType == vertexBakeSet");
 		menuItem
 			-label "Assign Selection To Bake Set"
 			-radialPosition "N"
@@ -421,6 +442,7 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if ($nodeType == "animClip")
 	{
+		liqlog("$nodeType == animClip");
 		menuItem
 			-label "Copy"
 			-annotation "Copy Clip (to be pasted in TraX Window)"
