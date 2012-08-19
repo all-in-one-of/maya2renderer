@@ -1427,35 +1427,7 @@ global proc liquidAssignVolumeShaderToSelected( string $node )
   liqPopIdent();
 }
 
-global proc liquidAssignLiqShaderToSelected( string $node )
-{
-  liqPushIdent();
-	liqlog("liquidAssignLiqShaderToSelected("+$node+")");
-  // assign the shader to geometry
-  if ( size(`ls -geometry -dag -sl`) ) 
-    hyperShade -assign $node;
 
-  // special case for nodes not supported by the hypershade
-  string $selected[] = `ls  -type "stroke" // stroke = pfx
-							-type "pfxToon"
-                            -type "pfxHair"
-                            -type "locator"
-                            -type "nurbsCurve"
-                            -dag -sl`;
-  ////trace (stringArrayToString( $selected, ", "));
-
-  if ( !objExists( ($node+".liqAssignedObjects") ) )
-    addAttr -ln liqAssignedObjects -at message $node;
-
-  for ( $sel in $selected ) 
-  {
-    if ( !objExists( ($sel + ".liquidShaderNode") ) )
-      addAttr -ln liquidShaderNode -at message $sel;
-    if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidShaderNode" ) ) )
-      connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidShaderNode");
-  }
-  liqPopIdent();
-}
 /**
  *  proc to select the objects assigned to a material or shading group
  */
@@ -1513,7 +1485,6 @@ global proc liquidAssignShaderToSelected( string $node )
   string $nodetype = nodeType($node);
   if      ( $nodetype == "liquidLight" ) liquidAssignLightShaderToSelected( $node );
   else if ( $nodetype == "liquidSurface" ) liquidAssignSurfaceShaderToSelected( $node );
-  else if ( $nodetype == "liquidShader" )  liquidAssignLiqShaderToSelected( $node );
   else if ( $nodetype == "liquidDisplacement" ) liquidAssignDisplacementShaderToSelected( $node );
   else if ( $nodetype == "liquidVolume" ) liquidAssignVolumeShaderToSelected( $node );
 

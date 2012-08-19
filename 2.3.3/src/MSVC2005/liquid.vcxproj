@@ -2544,6 +2544,7 @@
     <None Include="..\..\mel\getMultiListerSelection.mel" />
     <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
     <None Include="..\..\mel\liquidAttributeManager.mel" />
+    <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
     <None Include="..\..\mel\liquid_FE.mel" />
     <None Include="..\..\mel\liquidAttachParams.mel" />
     <None Include="..\..\mel\liquidAttributes.mel" />

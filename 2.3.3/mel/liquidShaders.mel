@@ -249,7 +249,7 @@ global proc string[] liquidGetShadingGroup( string $node )
 global proc liquidAssignShaderNode( string $node, string $shaderNode )
 {
   liqPushIdent();
-	liqlog("liquidAssignShaderNode(...)");
+	liqlog("liquidAssignShaderNode("+$node+","+$shaderNode+")");
   float $version = liquidGetVersion();
   string $newNodeName;
 

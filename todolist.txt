@@ -161,6 +161,7 @@ prman
 - export shader graph as shader object
 - bug#2:When I use prman,liquidDisplacement is added to global frame scope, (see test\test_rm_light\rib\rm_spotlight.ma\rm\rm_spotlight.ma)
 - bug#3:fail to assign liquidLight shader node to light
+- lib/shaders/下面的slo文件如果不存在，提示用户编译之。
 
 elvishray
 ------------

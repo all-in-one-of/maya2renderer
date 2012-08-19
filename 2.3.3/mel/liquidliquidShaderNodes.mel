@@ -1,0 +1,32 @@
+
+source xxliquidutility.mel;
+
+global proc liquidAssignLiquidShaderToSelected( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidAssignLiquidShaderToSelected("+$node+")");
+
+	if ( !objExists( $node+".rmanShaderType" ) ) 
+	{
+		liqError($node+".rmanShaderType not exist.");
+		liqPopIdent();
+		return;
+	}
+
+	string $shaderType = `getAttr ($node+".rmanShaderType")`;
+	
+	if      ( $shaderType == "light" ) liquidAssignLightShaderToSelected( $node );
+	else if ( $shaderType == "surface" ) liquidAssignSurfaceShaderToSelected( $node );
+	else if ( $shaderType == "displacement" ) liquidAssignDisplacementShaderToSelected( $node );
+	else if ( $shaderType == "volume" ) liquidAssignVolumeShaderToSelected( $node );
+	else
+	{
+		liqError($node+".rmanShaderType \""+$shaderType+"\" is unknown.");
+		if($shaderType==""){
+			liqlog($node+".rmanShaderType is empty. Please assign shader to \""+$node+"\" first.");
+		}
+		liqPopIdent();
+		return;
+	}
+	liqPopIdent();
+}

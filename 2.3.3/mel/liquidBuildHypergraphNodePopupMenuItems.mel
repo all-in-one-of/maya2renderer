@@ -149,6 +149,14 @@ global proc buildHypergraphNodePopupMenuItems(
 					-label "Assign Shader To Selection"
 					-command ("liquidAssignShaderToSelected " + $node);
 			}
+			else if( nodeType($node) == "liquidShader" )
+			{
+				liqlog("   nodeType($node)==\"liquidShader\"");
+				menuItem
+					-radialPosition "N"
+					-label "Assign liquidShader To Selection"
+					-command ("liquidAssignLiquidShaderToSelected " + $node);
+			}
 			else
 			{
 				liqlog("    else");

@@ -39,7 +39,25 @@ proc log2(string $prefix, string $log)
 
 
 }
+proc _liqError(string $prefix, string $log)
+{
+	global int $g_IndentNum;
+	global int $g_LogFileId;
 
+	string $indent;
+	int $i=0;
+	for(; $i<$g_IndentNum; ++$i){
+		$indent +="    ";
+	}
+
+	if( $g_LogFileId == 0 ){// log file is not open.
+		error($indent + $prefix +">"+ $log +"\n");
+	}else{
+		fprint $g_LogFileId ($indent + $prefix +">"+ $log +"\n");
+	}
+
+
+}
 global proc liqlog(string $log)
 {
 	log2("", $log);
@@ -51,7 +69,7 @@ global proc liqDebug(string $log)
 }
 global proc liqError(string $log)
 {
-	log2("ERROR", $log);
+	_liqError("ERROR", $log);
 }
 global proc liqWarn(string $log)
 {
