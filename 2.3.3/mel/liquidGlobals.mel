@@ -1559,7 +1559,7 @@ global proc liquidBuildRendererMenu( string $prefix )
 
   for ( $i=0; $i<size($renderer); $i++ ) {
     menuItem -parent ($prefix+"LG_RendererMenuCtl") -label $renderer[$i] 
-	         -c ("{setAttr -type \"string\" liquidGlobals.renderer "+$renderer[$i]+";liqGlobalsNodeRendererMain(\"create\");}");
+	         -c ("{setAttr -type \"string\" liquidGlobals.renderer "+$renderer[$i]+";liqGlobalsNodeRendererMain(\"create\");refreshEditorTemplates;}");
   }
   liqPopIdent();
 }

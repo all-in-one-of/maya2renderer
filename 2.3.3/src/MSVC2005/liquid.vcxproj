@@ -2600,7 +2600,11 @@
     <None Include="..\..\mel\liquidCheck.mel" />
     <None Include="..\..\mel\xxliquidutility.mel" />
     <None Include="..\appleseed\as_helper.inl" />
+    <None Include="..\appleseed\mel\AEliquidShaderTemplate_appleseed.mel" />
     <None Include="..\appleseed\mel\as_util.mel" />
+    <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
+    <None Include="..\luxrenderer\mel\AEliquidShaderTemplate_luxrenderer.mel" />
+    <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel" />
     <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel" />
     <None Include="..\renderman\mel\userSetup.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />

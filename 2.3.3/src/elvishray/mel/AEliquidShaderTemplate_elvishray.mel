@@ -1,0 +1,20 @@
+source xxliquidutility.mel;
+
+global proc AEliquidShaderTemplate_elvishray( string $node, string $attr )
+{
+	liqPushIdent();
+	liqAElog("AEliquidShaderTemplate_elvishray("+$node+","+$attr+")");
+
+// 	editorTemplate -beginLayout "elvishray";
+// 		//--------------------------------------------------
+	 	editorTemplate -beginLayout "Maya Renderer" -collapse 1;
+ 		  editorTemplate -addControl "mayaIgnoreLights";
+ 		  editorTemplate -addControl "mayaKa";
+ 		  editorTemplate -addControl "mayaKd";
+ 		editorTemplate -endLayout;
+// 		//--------------------------------------------------
+// 		//--------------------------------------------------
+// 		//--------------------------------------------------
+// 	editorTemplate -endLayout;
+	liqPopIdent();
+}

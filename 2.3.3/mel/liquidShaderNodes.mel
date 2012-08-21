@@ -587,6 +587,9 @@ global proc liquidPreviewSwatchNew ( string $nodeName, string $msg )
     button -w 70 -h 28 -l "Edit LIF" liquidAEEditLif;
      button -w 70 -h 28 -l "Instance" liquidAEMakeInstance;
     button -w 70 -h 28 -l "Unnstance" liquidAEUninstance;
+    button -w 70 -h 28 -l "RefreshAE" 
+		-ann "run \"refreshEditorTemplates\""
+		liquidAERefresh;
 
     setParent ..;
   formLayout -e
@@ -601,6 +604,9 @@ global proc liquidPreviewSwatchNew ( string $nodeName, string $msg )
 
     -af  liquidAEswatchRefresh top     -2
     -ac  liquidAEswatchRefresh left    5   swatchDisplay
+
+	-af  liquidAERefresh		top     -2
+	-ac  liquidAERefresh		left     5  liquidAEswatchRefresh
 
     -af  liquidAEShaderReload  top     102
     -ac  liquidAEShaderReload  left    5   swatchDisplay
@@ -641,6 +647,7 @@ global proc liquidPreviewSwatchReplace ( string $nodeName, string $msg )
   button -e -c ("liquidShaderNodePreview "+$node[0])            liquidAEswatchRefresh;
   button -e -c ("liquidShaderNodes_reloadAndRefresh "+$node[0]) liquidAEShaderReload;
   button -e -c ("liquidFluidEditLifFile \""+$node[0]+"\";")     liquidAEEditLif;
+  button -e -c ("liquidShaderNodes_AERefresh")					liquidAERefresh;
 
   //duran unuse this section
   //2.3.3 and mesh use this section
@@ -1531,3 +1538,12 @@ global proc liquidShaderUpdater( int $force )
   scriptJob -event "SceneOpened" "evalDeferred(\"liquidShaderUpdater 1\")" -protected;
 }
 
+global proc liquidShaderNodes_AERefresh()
+{
+	liqPushIdent();
+	liqlog("liquidShaderNodes_AERefresh()");
+
+	refreshEditorTemplates;
+
+	liqPopIdent();
+}

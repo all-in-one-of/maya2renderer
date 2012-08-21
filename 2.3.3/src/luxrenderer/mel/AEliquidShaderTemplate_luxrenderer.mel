@@ -1,0 +1,16 @@
+source xxliquidutility.mel;
+
+global proc AEliquidShaderTemplate_luxrenderer( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEliquidShaderTemplate_luxrenderer("+$nodeName+")");
+
+	//editorTemplate -beginLayout "luxrenderer";
+		//--------------------------------------------------
+		//--------------------------------------------------
+		//--------------------------------------------------
+		//--------------------------------------------------
+	//editorTemplate -endLayout;
+
+	liqPopIdent();
+}
