@@ -1557,9 +1557,12 @@ global proc liquidBuildRendererMenu( string $prefix )
   popupMenu -e -deleteAllItems ($prefix + "LG_RendererMenuCtl");
   int $i;
 
-  for ( $i=0; $i<size($renderer); $i++ ) {
-    menuItem -parent ($prefix+"LG_RendererMenuCtl") -label $renderer[$i] 
-	         -c ("{setAttr -type \"string\" liquidGlobals.renderer "+$renderer[$i]+";liqGlobalsNodeRendererMain(\"create\");refreshEditorTemplates;}");
+  for ( $i=0; $i<size($renderer); $i++ ) 
+  {
+		menuItem	
+			-parent ($prefix+"LG_RendererMenuCtl") 
+			-label   $renderer[$i]
+			-c      ("liquidUpdateRenderer "+$renderer[$i]);
   }
   liqPopIdent();
 }
@@ -3674,4 +3677,18 @@ global proc liquidGlobalsAdvanceTab_buildIt( string $prefix )
   setUITemplate -ppt;
 
   liqPopIdent();
+}
+global proc liquidUpdateRenderer( string $renderer )
+{
+	liqPushIdent();
+	liqlog("liquidUpdateRenderer("+$renderer+")");
+
+	//set liquidGlobals.renderer
+	setAttr -type "string" liquidGlobals.renderer $renderer;
+	//create global node for this renderer
+	liqGlobalsNodeRendererMain("create");
+	//update AETemplate UI for this renderer
+	liquidShaderNodes_AERefresh();
+
+	liqPopIdent();
 }
