@@ -90,7 +90,14 @@ global proc AEliquidShaderTemplate( string $nodeName )
 	$fn = "AEliquidShaderTemplate_"+$rnd+"(\""+$names[0]+"\", \""+$names[1]+"\")";
 	
 	editorTemplate -beginLayout $rnd;
-		eval($fn);
+		if( catch( eval($fn) ) ) 
+		{
+			string $errmsg;
+			$errmsg +=($rnd=="")? "\nERROR>Please set liquidGlobals.renderer":"";
+			$errmsg +=("\nERROR>Please make sure AEliquidShaderTemplate_"+$rnd+"(,) exists.");
+			
+			error($errmsg);
+		} 
 	editorTemplate -endLayout;
 	//--------------------------------------------------
     editorTemplate -addExtraControls;
