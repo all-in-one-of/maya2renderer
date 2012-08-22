@@ -125,15 +125,8 @@ namespace appleseed
 		// AS stuff
 		std::string sLightExitance(shaderinstanceFullPath+"_exitance");
 		//
-		current_assembly->colors().insert(
-			asr::ColorEntityFactory::create(
-				sLightExitance.c_str(),
-				asr::ParamArray()
-				.insert("color_space", "srgb")
-				.insert("multiplier", "30.0"),
-				asr::ColorValueArray(3, i_lightcolor)
-			)
-		);
+		createColor3(current_assembly->colors(), sLightExitance.c_str(), 
+			30.0, i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
 
 		// Create a point light called "light" and insert it into the assembly.
 		asf::auto_release_ptr<asr::Light> light(

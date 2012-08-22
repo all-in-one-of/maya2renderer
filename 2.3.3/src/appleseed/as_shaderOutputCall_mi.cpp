@@ -37,12 +37,15 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 		return;//already exists.
 	}
 
-	m_assembly->surface_shaders().insert(
-		asr::AOSurfaceShaderFactory().create(
-		node,
-		param
-		)
-	);
+	if(m_assembly->surface_shaders().get_by_name(node) == nullptr)
+	{
+		m_assembly->surface_shaders().insert(
+			asr::AOSurfaceShaderFactory().create(
+			node,
+			param
+			)
+		);
+	}
 }
 }//namespace call
 }//namespace appleseed

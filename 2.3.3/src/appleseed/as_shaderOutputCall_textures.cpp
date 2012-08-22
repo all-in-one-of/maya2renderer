@@ -103,6 +103,7 @@ void Visitor::visitFile(const char* node)
 	assert(m_assembly != nullptr);
 
 	//texture
+	if( m_assembly->textures().get_by_name(node) == nullptr)
 	{
 		asr::ParamArray texture_params;
 		texture_params.insert("filename", fileTextureName.asChar());
@@ -122,6 +123,7 @@ void Visitor::visitFile(const char* node)
 
 
 	//instance
+	if( m_assembly->texture_instances().get_by_name(getTextureInstanceName(node).c_str()) == nullptr)
 	{
 		const std::string texture_instance_name = getTextureInstanceName(node);
 

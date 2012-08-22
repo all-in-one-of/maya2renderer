@@ -30,9 +30,12 @@ namespace appleseed
 	}
 	void MaterialFactory2::end()
 	{
-		m_assembly->materials().insert(
-			asr::MaterialFactory::create( m_nodename.c_str(), material_params )
-		);
+		if(m_assembly->materials().get_by_name(m_nodename.c_str()) == nullptr)
+		{
+			m_assembly->materials().insert(
+				asr::MaterialFactory::create( m_nodename.c_str(), material_params )
+				);
+		}
 	}
 	//////////////////////////////////////////////////////////////////////////
 	void MaterialFactory2::createBSDF(const std::string &modelname)
@@ -305,12 +308,15 @@ namespace appleseed
 			}
 		}
 		//
-		m_assembly->bsdfs().insert(
-			asr::BSDFMixFactory().create(
-			bsdf_name.c_str(),
-			bsdf_params
-			)
+		if(m_assembly->bsdfs().get_by_name(bsdf_name.c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::BSDFMixFactory().create(
+					bsdf_name.c_str(),
+					bsdf_params
+				)
 			);
+		}
 		material_params.insert( "bsdf", bsdf_name.c_str() );
 	}
 
@@ -347,13 +353,7 @@ namespace appleseed
 					val.setLength(3);
 					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 
-					float color[] = { val[0], val[1], val[2] };
-					m_assembly->colors().insert(
-						asr::ColorEntityFactory::create(
-						param_node.c_str(),
-						asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-						)
-					);
+					createColor3(m_assembly->colors(), param_node.c_str(), val[0], val[1], val[2]);
 				}else{//the color plug is linked in.
 					MStringArray srcPlug;
 					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -405,12 +405,15 @@ namespace appleseed
 
 		}
 		//
-		m_assembly->bsdfs().insert(
-			asr::LambertianBRDFFactory().create(
-				bsdf_name.c_str(),
-				bsdf_params
-			)
-		);
+		if(m_assembly->bsdfs().get_by_name(bsdf_name.c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::LambertianBRDFFactory().create(
+					bsdf_name.c_str(),
+					bsdf_params
+				)
+			);
+		}
 		material_params.insert( "bsdf", bsdf_name.c_str() );
 	}
 
@@ -447,13 +450,7 @@ namespace appleseed
 					val.setLength(3);
 					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 
-					float color[] = { val[0], val[1], val[2] };
-					m_assembly->colors().insert(
-						asr::ColorEntityFactory::create(
-						param_node.c_str(),
-						asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-						)
-						);
+					createColor3(m_assembly->colors(), param_node.c_str(), val[0], val[1], val[2]);
 				}else{//the color plug is linked in.
 					MStringArray srcPlug;
 					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -506,12 +503,15 @@ namespace appleseed
 
 		}
 		//
-		m_assembly->bsdfs().insert(
-			asr::SpecularBRDFFactory().create(
-			bsdf_name.c_str(),
-			bsdf_params
-			)
+		if(m_assembly->bsdfs().get_by_name(bsdf_name.c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::SpecularBRDFFactory().create(
+					bsdf_name.c_str(),
+					bsdf_params
+				)
 			);
+		}
 		material_params.insert( "bsdf", bsdf_name.c_str() );
 	}
 
@@ -545,13 +545,7 @@ namespace appleseed
 			{
 				param_node = m_nodename+"_"+plugName;//<nodename>_diffuse_edf_exitance
 
-				float val[] = { v[0], v[1], v[2] };
-				m_assembly->colors().insert(
-					asr::ColorEntityFactory::create(
-					param_node.c_str(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, val)
-					)
-					);
+				createColor3(m_assembly->colors(), param_node.c_str(), v[0], v[1], v[2]);
 				//
 				edf_params.insert(param.c_str(), param_node.c_str());
 			}
@@ -559,12 +553,15 @@ namespace appleseed
 		//
 		if( !edf_params.empty() )
 		{
-			m_assembly->edfs().insert(
-				asr::DiffuseEDFFactory().create(
-				edf_name.c_str(),
-				edf_params
-				)
-			);
+			if(m_assembly->edfs().get_by_name(edf_name.c_str()) == nullptr)
+			{
+				m_assembly->edfs().insert(
+					asr::DiffuseEDFFactory().create(
+					edf_name.c_str(),
+					edf_params
+					)
+				);
+			}
 			//
 			material_params.insert("edf", edf_name.c_str());
 		}
@@ -601,13 +598,7 @@ namespace appleseed
 				val.setLength(3);
 				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 
-				float color[] = { val[0], val[1], val[2] };
-				m_assembly->colors().insert(
-					asr::ColorEntityFactory::create(
-					param_node.c_str(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-					)
-					);
+				createColor3(m_assembly->colors(), param_node.c_str(), val[0], val[1], val[2]);
 			}else{//the color plug is linked in.
 				MStringArray srcPlug;
 				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -622,12 +613,15 @@ namespace appleseed
 			surfaceshader_params.insert(param.c_str(), param_node.c_str());
 		}
 		//
-		m_assembly->surface_shaders().insert(
-			asr::ConstantSurfaceShaderFactory().create(
-			surfaceshader_name.c_str(),
-			surfaceshader_params
-			)
+		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
+		{
+			m_assembly->surface_shaders().insert(
+				asr::ConstantSurfaceShaderFactory().create(
+					surfaceshader_name.c_str(),
+					surfaceshader_params
+				)
 			);
+		}
 		material_params.insert( "surface_shader", surfaceshader_name.c_str() );
 	}
 
@@ -651,12 +645,15 @@ namespace appleseed
 
 		std::string surfaceshader_name(getSurfaceShaderName(m_nodename,m_surface_shader_model));
 
-		m_assembly->surface_shaders().insert(
-			asr::PhysicalSurfaceShaderFactory().create(
-				surfaceshader_name.c_str(),
-				asr::ParamArray()
-			)
-		);
+		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
+		{
+			m_assembly->surface_shaders().insert(
+				asr::PhysicalSurfaceShaderFactory().create(
+					surfaceshader_name.c_str(),
+					asr::ParamArray()
+				)
+			);
+		}
 		material_params.insert( "surface_shader", surfaceshader_name.c_str() );
 
 	}

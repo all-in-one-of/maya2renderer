@@ -199,13 +199,7 @@ namespace appleseed
 				val.setLength(3);
 				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 
-				float color[] = { val[0], val[1], val[2] };
-				m_project->get_scene()->colors().insert(
-					asr::ColorEntityFactory::create(
-					param_node.c_str(),
-					asr::ParamArray().insert("color_space", "srgb"), asr::ColorValueArray(3, color)
-					)
-					);
+				createColor3(m_project->get_scene()->colors(), param_node.c_str(), val[0], val[1], val[2]);
 			}else{//the color plug is linked in.
 				MStringArray srcPlug;
 				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -220,12 +214,15 @@ namespace appleseed
 			env_edf_params.insert(param.c_str(), param_node.c_str());
 		}
 		//
-		m_project->get_scene()->environment_edfs().insert(
-			asr::ConstantEnvironmentEDFFactory().create(
-			env_edf_name.c_str(),
-			env_edf_params
-			)
-		);
+		if(m_project->get_scene()->environment_edfs().get_by_name(env_edf_name.c_str()) == nullptr)
+		{
+			m_project->get_scene()->environment_edfs().insert(
+				asr::ConstantEnvironmentEDFFactory().create(
+				env_edf_name.c_str(),
+				env_edf_params
+				)
+			);
+		}
 		material_params.insert( "environment_edf", env_edf_name.c_str() );
 		m_env_edf_name = env_edf_name;
 	}
@@ -326,12 +323,15 @@ namespace appleseed
 			env_shader_params.insert(param.c_str(), m_env_edf_name.c_str());
 		}
 		//
-		m_project->get_scene()->environment_shaders().insert(
-			asr::EDFEnvironmentShaderFactory().create(
-			env_shader_name.c_str(),
-			env_shader_params
-			)
-		);
+		if(m_project->get_scene()->environment_shaders().get_by_name(env_shader_name.c_str()) == nullptr)
+		{
+			m_project->get_scene()->environment_shaders().insert(
+				asr::EDFEnvironmentShaderFactory().create(
+				env_shader_name.c_str(),
+				env_shader_params
+				)
+			);
+		}
 		material_params.insert( "environment_shader", env_shader_name.c_str() );
 	}
 	//
@@ -354,12 +354,15 @@ namespace appleseed
 		env_edf_params.insert("exitance", getTextureInstanceName(srcNode.asChar()).c_str());
 		env_edf_params.insert("exitance_multiplier", 0.5f);
 		//create as node
-		m_project->get_scene()->environment_edfs().insert(
-			asr::MirrorBallMapEnvironmentEDFFactory().create(
-			node,
-			env_edf_params
-			)
-		);
+		if(m_project->get_scene()->environment_edfs().get_by_name(node) == nullptr)
+		{
+			m_project->get_scene()->environment_edfs().insert(
+				asr::MirrorBallMapEnvironmentEDFFactory().create(
+				node,
+				env_edf_params
+				)
+			);
+		}
 	}
 	void MaterialFactory3::visitEnvSphere(const char* node)
 	{
@@ -380,12 +383,15 @@ namespace appleseed
 		env_edf_params.insert("exitance", getTextureInstanceName(srcNode.asChar()).c_str());
 		env_edf_params.insert("exitance_multiplier", 0.5f);
 		//create as node
-		m_project->get_scene()->environment_edfs().insert(
-			asr::LatLongMapEnvironmentEDFFactory().create(
-			node,
-			env_edf_params
-			)
-		);
+		if(m_project->get_scene()->environment_edfs().get_by_name(node) == nullptr)
+		{
+			m_project->get_scene()->environment_edfs().insert(
+				asr::LatLongMapEnvironmentEDFFactory().create(
+				node,
+				env_edf_params
+				)
+			);
+		}
 	}
 	void MaterialFactory3::visitFile(const char* node)
 	{
@@ -433,6 +439,7 @@ namespace appleseed
 
 		// AS stuff
 		//texture
+		if( m_project->get_scene()->textures().get_by_name(node) == nullptr)
 		{
 			asr::ParamArray texture_params;
 			texture_params.insert("filename", fileTextureName.asChar());
@@ -452,6 +459,7 @@ namespace appleseed
 
 
 		//instance
+		if( m_project->get_scene()->texture_instances().get_by_name(getTextureInstanceName(node).c_str()) == nullptr)
 		{
 			const std::string texture_instance_name = getTextureInstanceName(node);
 

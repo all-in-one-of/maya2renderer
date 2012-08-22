@@ -8,6 +8,9 @@
 #include "../shadergraph/shadermgr.h"
 #include "as_material.h"
 #include <liqGlobalVariable.h>
+#include <liqShader.h>
+#include <liqShaderFactory.h>
+#include "as_material2.h"
 
 namespace appleseed{
 namespace call{
@@ -249,6 +252,28 @@ void Visitor::visitVolumeLight(const char* node)
 void Visitor::visit_liquidShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
+	liqShader &shader = liqShaderFactory::instance().getShader( node );
+	
+	MStatus status;
+	MString svalue;
+	
+	MObject mnode;
+	getDependNodeByName(mnode, shader.getName().c_str());
+
+	MaterialFactory2 mf;
+
+	mf.begin(shader.getName().c_str());
+
+	liquidGetPlugValue(mnode, "bsdf_model", svalue, status); IfMErrorWarn(status);
+	mf.createBSDF(svalue.asChar());
+
+	liquidGetPlugValue(mnode, "edf_model", svalue, status); IfMErrorWarn(status);
+	mf.createEDF(svalue.asChar());
+
+	liquidGetPlugValue(mnode, "surface_shader_model", svalue, status); IfMErrorWarn(status);
+	mf.createSurfaceShader(svalue.asChar());
+
+	mf.end();
 }
 }//namespace call
 }//namespace appleseed

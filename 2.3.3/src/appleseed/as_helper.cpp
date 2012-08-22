@@ -173,5 +173,85 @@ namespace appleseed
 	{
 		return node + SURFACE_SHADER_NAME_SEPERATOR + surface_shader_model;
 	}
+	//
+	bool createColor3(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b)
+	{
+		if( colors.get_by_name(name) == nullptr)//color not exist
+		{
+			const float color[] = { r, g, b };
+			colors.insert(
+				asr::ColorEntityFactory::create(
+				name,
+				asr::ParamArray().insert("color_space", "srgb"),
+				asr::ColorValueArray(3, color)
+				)
+			);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	bool createColor3(asr::ColorContainer& colors, const char* name, const float multiplier, const float r, const float g, const float b)
+	{
+		if( colors.get_by_name(name) == nullptr)//color not exist
+		{
+			MString strMultiplier;
+			strMultiplier.set(multiplier);
+
+			const float color[] = { r, g, b };
+			colors.insert(
+				asr::ColorEntityFactory::create(
+				name,
+				asr::ParamArray()
+				.insert("color_space", "srgb")
+				.insert("multiplier",  strMultiplier.asChar() ),
+				asr::ColorValueArray(3, color)
+				)
+			);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	bool createColor4(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b, const float a)
+	{
+		if( colors.get_by_name(name) == nullptr)//color not exist
+		{
+			const float color[] = { r, g, b, a };
+			colors.insert(
+				asr::ColorEntityFactory::create(
+				name,
+				asr::ParamArray().insert("color_space", "srgb"), 
+				asr::ColorValueArray(4, color)
+				)
+			);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	bool createColor4(asr::ColorContainer& colors, const char* name, const float multiplier, const float r, const float g, const float b, const float a)
+	{
+		if( colors.get_by_name(name) == nullptr)//color not exist
+		{		
+			MString strMultiplier;
+			strMultiplier.set(multiplier);
+
+			const float color[] = { r, g, b, a };
+			colors.insert(
+				asr::ColorEntityFactory::create(
+				name,
+				asr::ParamArray()
+					.insert("color_space", "srgb")
+					.insert("multiplier",  strMultiplier.asChar() ), 
+				asr::ColorValueArray(4, color)
+				)
+			);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }//namespace appleseed
 #endif//_USE_APPLESEED_
