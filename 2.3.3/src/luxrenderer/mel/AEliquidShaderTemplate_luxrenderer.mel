@@ -1,9 +1,9 @@
 source xxliquidutility.mel;
 
-global proc AEliquidShaderTemplate_luxrenderer( string $nodeName )
+global proc AEliquidShaderTemplate_luxrenderer(string $node, string $attr)
 {
 	liqPushIdent();
-	liqAElog("AEliquidShaderTemplate_luxrenderer("+$nodeName+")");
+	liqAElog("AEliquidShaderTemplate_luxrenderer("+$node+","+$attr+")");
 
 	//editorTemplate -beginLayout "luxrenderer";
 		//--------------------------------------------------

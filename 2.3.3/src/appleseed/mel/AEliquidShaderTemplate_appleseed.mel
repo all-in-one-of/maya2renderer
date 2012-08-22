@@ -1,9 +1,9 @@
 source xxliquidutility.mel;
 
-global proc AEliquidShaderTemplate_appleseed( string $nodeName )
+global proc AEliquidShaderTemplate_appleseed(string $node, string $attr)
 {
 	liqPushIdent();
-	liqAElog("AEliquidShaderTemplate_appleseed("+$nodeName+")");
+	liqAElog("AEliquidShaderTemplate_appleseed("+$node+","+$attr+")");
 
 	//editorTemplate -beginLayout "appleseed";
 		//--------------------------------------------------
