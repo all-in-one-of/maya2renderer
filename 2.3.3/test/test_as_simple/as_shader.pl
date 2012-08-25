@@ -10,3 +10,6 @@ diffuse_edf_exitance|uniform|color|0|<<1.0,1.0,1.0>>|-1
 
 surface_shader_model|uniform|string|0|"constant_surface_shader"|-1
 constant_surface_shader_color|uniform|color|0|<<1.0,1.0,1.0>>|-1
+#constant_surface_shader_alpha_source|uniform|color|0|<<1.0,1.0,1.0>>|-1
+constant_surface_shader_color_multiplier|uniform|float|0|1.0|-1
+constant_surface_shader_alpha_multiplier|uniform|float|0|1.0|-1

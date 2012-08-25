@@ -381,44 +381,52 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createEDF_diffuse_edf()");
 
-		std::string edf_name(getEDFName(m_nodename,m_edf_model));//<nodename>_diffuse_edf
-		//
-		asr::ParamArray edf_params;
-		{
-			std::string param_node;
-			const std::string param("exitance");
-			const std::string plugName(m_edf_model+"_"+param);//diffuse_edf_exitance
-			
-			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.diffuse_edf_exitance
-			//
-			MDoubleArray v; 
-			v.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", v));
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginEDF(m_edf_model);
+		o.addVariableEDF("exitance",			"color|texture_instance");
+		o.addVariableEDF("exitance_multiplier",	"scalar|texture_instance");
+		o.endEDF();
+		
+		material_params.insert("edf", getEDFName(m_nodename, m_edf_model).c_str() );
 
-			if( !isZero(v[0], v[1], v[2]) )
-			{
-				param_node = m_nodename+"_"+plugName;//<nodename>_diffuse_edf_exitance
+		//std::string edf_name(getEDFName(m_nodename,m_edf_model));//<nodename>_diffuse_edf
+		////
+		//asr::ParamArray edf_params;
+		//{
+		//	std::string param_node;
+		//	const std::string param("exitance");
+		//	const std::string plugName(m_edf_model+"_"+param);//diffuse_edf_exitance
+		//	
+		//	MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.diffuse_edf_exitance
+		//	//
+		//	MDoubleArray v; 
+		//	v.setLength(3);
+		//	IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", v));
 
-				createColor3(m_assembly->colors(), param_node.c_str(), v[0], v[1], v[2]);
-				//
-				edf_params.insert(param.c_str(), param_node.c_str());
-			}
-		}
-		//
-		if( !edf_params.empty() )
-		{
-			if(m_assembly->edfs().get_by_name(edf_name.c_str()) == nullptr)
-			{
-				m_assembly->edfs().insert(
-					asr::DiffuseEDFFactory().create(
-					edf_name.c_str(),
-					edf_params
-					)
-				);
-			}
-			//
-			material_params.insert("edf", edf_name.c_str());
-		}
+		//	if( !isZero(v[0], v[1], v[2]) )
+		//	{
+		//		param_node = m_nodename+"_"+plugName;//<nodename>_diffuse_edf_exitance
+
+		//		createColor3(m_assembly->colors(), param_node.c_str(), v[0], v[1], v[2]);
+		//		//
+		//		edf_params.insert(param.c_str(), param_node.c_str());
+		//	}
+		//}
+		////
+		//if( !edf_params.empty() )
+		//{
+		//	if(m_assembly->edfs().get_by_name(edf_name.c_str()) == nullptr)
+		//	{
+		//		m_assembly->edfs().insert(
+		//			asr::DiffuseEDFFactory().create(
+		//			edf_name.c_str(),
+		//			edf_params
+		//			)
+		//		);
+		//	}
+		//	//
+		//	material_params.insert("edf", edf_name.c_str());
+		//}
 
 	}
 
@@ -434,49 +442,58 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_constant()");
 
-		std::string surfaceshader_name(getSurfaceShaderName(m_nodename,m_surface_shader_model));//<nodename>_constant_surface_shader
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginSS(m_surface_shader_model);
+		o.addVariableSS("color",			"color|texture_instance");
+		//o.addVariableSS("alpha_source", "?|?");
+		o.addVariableSS("color_multiplier",	"scalar|texture_instance");
+		o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
+		o.endSS();
 
-		asr::ParamArray surfaceshader_params;
-		{
-			std::string param_node;
-			const std::string param("color");
-			const std::string plugName(m_surface_shader_model+"_"+param);//constant_surface_shader_color
 
-			MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.constant_surface_shader_color
-			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-			if(connected != 1)
-			{
-				param_node = m_nodename+"_"+plugName;//<nodename>_constant_surface_shader_color
+		//std::string surfaceshader_name(getSurfaceShaderName(m_nodename,m_surface_shader_model));//<nodename>_constant_surface_shader
 
-				MDoubleArray val; 
-				val.setLength(3);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+		//asr::ParamArray surfaceshader_params;
+		//{
+		//	std::string param_value;
+		//	const std::string param_name("color");
+		//	const std::string plugName(m_surface_shader_model+"_"+param_name);//constant_surface_shader_color
 
-				createColor3(m_assembly->colors(), param_node.c_str(), val[0], val[1], val[2]);
-			}else{//the color plug is linked in.
-				MStringArray srcPlug;
-				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-				assert(srcPlug.length()==1);
-				MStringArray src;
-				srcPlug[0].split('.',src);
-				MString srcNode(src[0]);
-				//
-				param_node = getTextureInstanceName(srcNode.asChar());
-			}
-			//
-			surfaceshader_params.insert(param.c_str(), param_node.c_str());
-		}
+		//	MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.constant_surface_shader_color
+		//	int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+		//	if(connected != 1)
+		//	{
+		//		param_value = m_nodename+"_"+plugName;//<nodename>_constant_surface_shader_color
+
+		//		MDoubleArray val; 
+		//		val.setLength(3);
+		//		IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
+		//		createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
+		//	}else{//the color plug is linked in.
+		//		MStringArray srcPlug;
+		//		IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+		//		assert(srcPlug.length()==1);
+		//		MStringArray src;
+		//		srcPlug[0].split('.',src);
+		//		MString srcNode(src[0]);
+		//		//
+		//		param_value = getTextureInstanceName(srcNode.asChar());
+		//	}
+		//	//
+		//	surfaceshader_params.insert(param_name.c_str(), param_value.c_str());
+		//}
 		//
-		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
-		{
-			m_assembly->surface_shaders().insert(
-				asr::ConstantSurfaceShaderFactory().create(
-					surfaceshader_name.c_str(),
-					surfaceshader_params
-				)
-			);
-		}
-		material_params.insert( "surface_shader", surfaceshader_name.c_str() );
+		//if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
+		//{
+		//	m_assembly->surface_shaders().insert(
+		//		asr::ConstantSurfaceShaderFactory().create(
+		//			surfaceshader_name.c_str(),
+		//			surfaceshader_params
+		//		)
+		//	);
+		//}
+		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
 	}
 
 	void MaterialFactory2::createSurfaceShader_diagnostic()
@@ -662,23 +679,17 @@ namespace appleseed
 	void Helper2::addVariableBSDF( const std::string& param_name, const std::string& entity_types )
 	{
 		std::string param_value;
+		const std::string plugName(m_bsdf_model+"_"+param_name);
 
-		const std::string plugName(m_bsdf_model+"_"+param_name);//lambertian_brdf_reflectance
-
-		MStringArray types;
-		MString _asTypes(entity_types.c_str());
-		_asTypes.split('|', types);
-
-		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.lambertian_brdf_reflectance
+		MString fullPlugName((m_nodename+"."+plugName).c_str());
 		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 		if(connected == 0)
 		{
-			//reflectance color
 			MDoubleArray val; 
 			val.setLength(3);
 			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 			if( isType("color", entity_types) ){
-				param_value = m_nodename+"_"+plugName;//<nodename>_lambertian_brdf_reflectance
+				param_value = m_nodename+"_"+plugName;
 				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 			}
 			else if( isType("scalar", entity_types) ){
@@ -730,6 +741,7 @@ namespace appleseed
 		}else{
 			liquidMessage2(messageWarning,"%s is linked out.", fullPlugName.asChar());
 		}
+		//
 		m_bsdf_params.insert(param_name.c_str(), param_value.c_str());
 	}
 	bool Helper2::isType(const std::string& type, const std::string& entity_types)const
@@ -821,5 +833,174 @@ namespace appleseed
 		}
 
 	}
+	void Helper2::beginEDF(const std::string& edf_model)
+	{
+		m_edf_model = edf_model;
+		m_edf_params.clear();
+	}
+	void Helper2::endEDF()
+	{
+		if(m_assembly->edfs().get_by_name(getEDFName(m_nodename, m_edf_model).c_str()) == nullptr)
+		{
+			if("diffuse_edf"==m_edf_model)
+			{
+				m_assembly->edfs().insert(
+					asr::DiffuseEDFFactory().create(
+					getEDFName(m_nodename, m_edf_model).c_str(),
+					m_edf_params
+					)
+				);
+			}else{
+				liquidMessage2(messageError,"appleseed only support diffuse_edf model");
+			}
+		}
+	}
+	void Helper2::addVariableEDF(const std::string& param_name, const std::string& entity_types )
+	{
+		std::string param_value;
+		const std::string plugName(m_edf_model+"_"+param_name);//diffuse_edf_exitance
+
+		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.diffuse_edf_exitance
+		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+		if(connected == 0)
+		{
+			MDoubleArray val; 
+			val.setLength(3);
+			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+			if( isType("color", entity_types) ){
+				param_value = m_nodename+"_"+plugName;//<nodename>_lambertian_brdf_reflectance
+				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
+			}
+			else if( isType("scalar", entity_types) ){
+				//val contains (r,b,g) value, but I only use val[0] for 'scalar'
+				MString strVal0;
+				strVal0.set(val[0]);
+				param_value = strVal0.asChar();
+			}
+		}
+		else if(connected == 1)//the color plug is linked in.
+		{
+			if( isType("texture_instance", entity_types) )
+			{
+				MStringArray srcPlug;
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+				assert(srcPlug.length()==1);
+				MStringArray src;
+				srcPlug[0].split('.',src);
+				MString srcNode(src[0]);
+				if( is2DTexture(srcNode) || is3DTexture(srcNode) )
+				{
+					visitFile(srcNode.asChar());
+					param_value = getTextureInstanceName(srcNode.asChar());
+				}else{
+					liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+					param_value = "unhandled";
+				}
+			}
+			else{
+				liquidMessage2(messageWarning,"source plug of %s is unhandled.", fullPlugName.asChar());
+				param_value = "unhandled";
+			}
+		}else{
+			liquidMessage2(messageWarning,"%s is linked out.", fullPlugName.asChar());
+		}
+		//
+		m_edf_params.insert(param_name.c_str(), param_value.c_str());
+	}
+	//
+	void Helper2::beginSS(const std::string& ss_model)
+	{
+		m_ss_model = ss_model;
+		m_ss_params.clear();
+	}
+	void Helper2::endSS()
+	{
+		if(m_assembly->surface_shaders().get_by_name(getSurfaceShaderName(m_nodename,m_ss_model).c_str()) == nullptr)
+		{
+			if("physical_surface_shader"==m_ss_model)
+			{
+				m_assembly->surface_shaders().insert(
+					asr::PhysicalSurfaceShaderFactory().create(
+					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
+					m_ss_params
+					)
+				);
+			}
+			else if("constant_surface_shader"==m_ss_model)
+			{
+				m_assembly->surface_shaders().insert(
+					asr::ConstantSurfaceShaderFactory().create(
+					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
+					m_ss_params
+					)
+				);
+			}
+			else 
+			{
+				liquidMessage2(messageError, "surface model \"%s\" is not supported.",m_ss_model.c_str() );
+			}
+		}
+	}
+	void Helper2::addVariableSS(const std::string& param_name, const std::string& entity_types )
+	{
+		std::string ss_name(getSurfaceShaderName(m_nodename,m_ss_model));
+
+		asr::ParamArray ss_params;
+		{
+			std::string param_value;
+			const std::string plugName(m_ss_model+"_"+param_name);
+
+			MString fullPlugName((m_nodename+"."+plugName).c_str());
+			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
+			if(connected ==0)
+			{
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+				if( isType("color", entity_types) )
+				{
+					param_value = m_nodename+"_"+plugName;
+					createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
+				}
+				else if( isType("scalar", entity_types) )
+				{
+					//val contains (r,b,g) value, but I only use val[0] for 'scalar'
+					MString strVal0;
+					strVal0.set(val[0]);
+					param_value = strVal0.asChar();
+				}
+			}
+			else if(connected == 1)//the plug is linked in.
+			{
+				if( isType("texture_instance", entity_types) )
+				{
+					MStringArray srcPlug;
+					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
+					assert(srcPlug.length()==1);
+					MStringArray src;
+					srcPlug[0].split('.',src);
+					MString srcNode(src[0]);
+
+					if( is2DTexture(srcNode) || is3DTexture(srcNode) )
+					{
+						visitFile(srcNode.asChar());
+						param_value = getTextureInstanceName(srcNode.asChar());
+					}else{
+						liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+						param_value = "unhandled";
+					}
+				}
+				else{
+					liquidMessage2(messageWarning,"source plug of %s is unhandled.", fullPlugName.asChar());
+					param_value = "unhandled";
+				}
+			}else{
+				liquidMessage2(messageError, "surface model \"%s\" is not supported.", m_ss_model.c_str());
+			}
+			//
+			m_ss_params.insert(param_name.c_str(), param_value.c_str());
+		}
+	}
+
 
 }//namespace appleseed

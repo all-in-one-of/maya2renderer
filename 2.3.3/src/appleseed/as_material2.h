@@ -71,12 +71,23 @@ namespace appleseed
 		Helper2(const char* nodename, asr::Assembly* assembly);
 		~Helper2();
 
+		//BSDF
 		void beginBSDF(const std::string& bsdf_model);
 		void endBSDF();
 		//\p model		lambertian_brdf, diffuse_edf, 
 		//\p asName		reflectance
 		//\p asTypes	color|texture_instance, scalar, 
 		void addVariableBSDF(const std::string& param_name, const std::string& entity_types );
+		//EDF
+		void beginEDF(const std::string& edf_model);
+		void endEDF();
+		void addVariableEDF(const std::string& param_name, const std::string& entity_types );
+		bool hasEDF(){ return !m_edf_params.empty(); }
+		// Surface Shader
+		void beginSS(const std::string& ss_model);
+		void endSS();
+		void addVariableSS(const std::string& param_name, const std::string& entity_types );
+
 
 	protected:
 		bool isType(const std::string& type, const std::string& entity_types)const;
@@ -85,8 +96,12 @@ namespace appleseed
 		const std::string m_nodename; 
 		//bsdf
 		asr::ParamArray m_bsdf_params;
+		asr::ParamArray m_edf_params;
+		asr::ParamArray m_ss_params;
 
 		std::string m_bsdf_model;
+		std::string m_edf_model;
+		std::string m_ss_model;
 
 		asr::Assembly* m_assembly;
 	};

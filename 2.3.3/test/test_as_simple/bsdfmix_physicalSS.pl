@@ -11,5 +11,6 @@ bsdf_mix_weight1|uniform|float|0|0.5|-1
 
 edf_model|uniform|string|0|"diffuse_edf"|-1
 diffuse_edf_exitance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+diffuse_edf_exitance_multiplier|uniform|color|0|<<1.0,1.0,1.0>>|-1
 
 surface_shader_model|uniform|string|0|"physical_surface_shader"|-1

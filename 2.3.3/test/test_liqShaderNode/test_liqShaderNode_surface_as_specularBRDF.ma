@@ -1,9 +1,9 @@
 //Maya ASCII 2012 scene
 //Name: test_liqShaderNode_surface_as_specularBRDF.ma
-//Last modified: Thu, Aug 23, 2012 01:28:32 AM
+//Last modified: Sat, Aug 25, 2012 08:10:28 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime= 1:22:01.20)";
+requires "liquid_2012x32d" "2.3.5 (buildtime=19:55:05.15)";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -89,6 +89,10 @@ createNode transform -n "pCube1";
 	setAttr ".t" -type "double3" -0.23395929315859432 1.6082196170148322 -0.10898758398514552 ;
 	setAttr ".s" -type "double3" 3.8894955415317409 3.8894955415317409 3.8894955415317409 ;
 createNode mesh -n "pCubeShape1" -p "pCube1";
+	addAttr -ci true -sn "mso" -ln "miShadingSamplesOverride" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "msh" -ln "miShadingSamples" -min 0 -smx 8 -at "float";
+	addAttr -ci true -sn "mdo" -ln "miMaxDisplaceOverride" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "mmd" -ln "miMaxDisplace" -min 0 -smx 1 -at "float";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -120,7 +124,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/specularBRDF_physicalSS126.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_specularBRDF113.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -187,8 +191,8 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n"
 		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperShadePanel\" -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"visorPanel\" -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"createNodePanel\" -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Texture Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"polyTexturePlacementPanel\" -l (localizedPanelLabel(\"UV Texture Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Texture Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"renderWindowPanel\" -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"blendShapePanel\" (localizedPanelLabel(\"Blend Shape\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\tblendShapePanel -unParent -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels ;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tblendShapePanel -edit -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n"
-		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynRelEdPanel\" -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"relationshipPanel\" -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
+		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"renderWindowPanel\" -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"blendShapePanel\" (localizedPanelLabel(\"Blend Shape\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\tblendShapePanel -unParent -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels ;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tblendShapePanel -edit -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels  $panelName;\n"
+		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynRelEdPanel\" -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"relationshipPanel\" -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"referenceEditorPanel\" -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"componentEditorPanel\" -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynPaintScriptedPanelType\" -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"scriptEditorPanel\" -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-defaultImage \"\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
@@ -241,23 +245,34 @@ createNode liquidSurface -n "liquidSurface3";
 		-at "float" -p "specular_brdf_reflectance_multiplier";
 	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierc" -ln "specular_brdf_reflectance_multiplierc" 
 		-at "float" -p "specular_brdf_reflectance_multiplier";
+	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multipliera" -ln "diffuse_edf_exitance_multipliera" 
+		-at "float" -p "diffuse_edf_exitance_multiplier";
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierb" -ln "diffuse_edf_exitance_multiplierb" 
+		-at "float" -p "diffuse_edf_exitance_multiplier";
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierc" -ln "diffuse_edf_exitance_multiplierc" 
+		-at "float" -p "diffuse_edf_exitance_multiplier";
 	setAttr ".rms" -type "string" "as_shader";
 	setAttr ".rst" -type "string" "surface";
 	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/specularBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 6 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "surface_shader_model"  ;
-	setAttr ".rdt" -type "stringArray" 6 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 6 "string" "color" "color" "string" "color" "string"  ;
-	setAttr ".rdf" -type "stringArray" 6 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "physical_surface_shader"  ;
-	setAttr ".ras" -type "Int32Array" 6 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 6 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rpr" -type "stringArray" 7 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model"  ;
+	setAttr ".rdt" -type "stringArray" 7 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
+	setAttr ".rty" -type "stringArray" 7 "string" "color" "color" "string" "color" "color" "string"  ;
+	setAttr ".rdf" -type "stringArray" 7 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader"  ;
+	setAttr ".ras" -type "Int32Array" 7 -1 -1 -1 -1 -1 -1
+		 -1 ;
+	setAttr ".rlc" -type "stringArray" 7 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 6 0 0 0 0 0 0 ;
+	setAttr ".rio" -type "Int32Array" 7 0 0 0 0 0 0
+		 0 ;
 	setAttr ".bsdf_model" -type "string" "specular_brdf";
 	setAttr -k on ".specular_brdf_reflectance" -type "float3" 0 0 1 ;
 	setAttr ".edf_model" -type "string" "diffuse_edf";
 	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.045456626 0.045456626 0 ;
 	setAttr ".surface_shader_model" -type "string" "physical_surface_shader";
 	setAttr -k on ".specular_brdf_reflectance_multiplier";
+	setAttr -k on ".diffuse_edf_exitance_multiplier" -type "float3" 1 1 1 ;
 createNode shadingEngine -n "liquidSurface3SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
@@ -292,23 +307,34 @@ createNode liquidSurface -n "liquidSurface4";
 		-at "float" -p "specular_brdf_reflectance_multiplier";
 	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierc" -ln "specular_brdf_reflectance_multiplierc" 
 		-at "float" -p "specular_brdf_reflectance_multiplier";
+	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multipliera" -ln "diffuse_edf_exitance_multipliera" 
+		-at "float" -p "diffuse_edf_exitance_multiplier";
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierb" -ln "diffuse_edf_exitance_multiplierb" 
+		-at "float" -p "diffuse_edf_exitance_multiplier";
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierc" -ln "diffuse_edf_exitance_multiplierc" 
+		-at "float" -p "diffuse_edf_exitance_multiplier";
 	setAttr ".rms" -type "string" "as_shader";
 	setAttr ".rst" -type "string" "surface";
 	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/specularBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 6 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "surface_shader_model"  ;
-	setAttr ".rdt" -type "stringArray" 6 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 6 "string" "color" "color" "string" "color" "string"  ;
-	setAttr ".rdf" -type "stringArray" 6 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "physical_surface_shader"  ;
-	setAttr ".ras" -type "Int32Array" 6 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 6 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rpr" -type "stringArray" 7 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model"  ;
+	setAttr ".rdt" -type "stringArray" 7 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
+	setAttr ".rty" -type "stringArray" 7 "string" "color" "color" "string" "color" "color" "string"  ;
+	setAttr ".rdf" -type "stringArray" 7 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader"  ;
+	setAttr ".ras" -type "Int32Array" 7 -1 -1 -1 -1 -1 -1
+		 -1 ;
+	setAttr ".rlc" -type "stringArray" 7 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 6 0 0 0 0 0 0 ;
+	setAttr ".rio" -type "Int32Array" 7 0 0 0 0 0 0
+		 0 ;
 	setAttr ".bsdf_model" -type "string" "specular_brdf";
 	setAttr -k on ".specular_brdf_reflectance" -type "float3" 1 1 1 ;
 	setAttr ".edf_model" -type "string" "diffuse_edf";
-	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.18181124 0.18181124 0.18181124 ;
+	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.040939957 0.040939957 0.040939957 ;
 	setAttr ".surface_shader_model" -type "string" "physical_surface_shader";
 	setAttr -k on ".specular_brdf_reflectance_multiplier";
+	setAttr -k on ".diffuse_edf_exitance_multiplier" -type "float3" 1 1 1 ;
 createNode shadingEngine -n "liquidSurface4SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
