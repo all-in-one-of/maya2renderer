@@ -1,15 +1,68 @@
 source xxliquidutility.mel;
 
-global proc AEliquidShaderTemplate_appleseed(string $node, string $attr)
+global proc AEliquidShaderTemplate_appleseed(string $node, string $callback_attr)
 {
 	liqPushIdent();
-	liqAElog("AEliquidShaderTemplate_appleseed("+$node+","+$attr+")");
+	liqAElog("AEliquidShaderTemplate_appleseed("+$node+","+$callback_attr+")");
 
 	//editorTemplate -beginLayout "appleseed";
-		//--------------------------------------------------
-		//--------------------------------------------------
-		//--------------------------------------------------
-		//--------------------------------------------------
+	//--------------------------------------------------
+	if (`attributeExists $node "use_edf"`) 
+	{
+		editorTemplate -addControl "use_edf";
+
+		int $edf = `getAttr ($node+".use_edf")`;
+		if($edf)
+		{
+			editorTemplate -addControl "edf_model";
+			editorTemplate -addControl "diffuse_edf_exitance";
+			editorTemplate -addControl "diffuse_edf_exitance_multiplier";
+		}
+	}
+	//--------------------------------------------------
+	string $attr;
+	//
+	$attr = "use_bsdf";
+	if ( !`attributeQuery -node $node -ex $attr` )//not exist?
+	{
+		addAttr -ln $attr -at bool $node;//create attribute
+	}
+	if (`attributeQuery -node $node -ex $attr`) //exist?
+	{
+		editorTemplate -addControl $attr;
+	}
+	//
+	$attr = "use_edf";
+	if ( !`attributeQuery -node $node -ex $attr` )//not exist?
+	{
+		addAttr -ln $attr -at bool $node;//create attribute
+	}
+	if (`attributeQuery -node $node -ex $attr`) //exist?
+	{
+		editorTemplate -addControl $attr;
+	}
+	//
+	$attr = "use_alpha_map";
+	if ( !`attributeQuery -node $node -ex $attr` )//not exist?
+	{
+		addAttr -ln $attr -at bool $node;//create attribute
+	}
+	if (`attributeQuery -node $node -ex $attr`) //exist?
+	{
+		editorTemplate -addControl $attr;
+	}
+	//
+	$attr = "use_normal_map";
+	if ( !`attributeQuery -node $node -ex $attr` )//not exist?
+	{
+		addAttr -ln $attr -at bool $node;//create attribute
+	}
+	if (`attributeQuery -node $node -ex $attr`) //exist?
+	{
+		editorTemplate -addControl $attr;
+	}
+	//--------------------------------------------------
+	//--------------------------------------------------
 	//editorTemplate -endLayout;
 
 	liqPopIdent();

@@ -32,7 +32,7 @@ namespace appleseed
 		const liqShader &shader,
 		const std::vector<liqTokenPointer> &tokenPointerArray
 	)
-	{	
+	{
 		CM_TRACE_FUNC("Renderer::_UserDefinedShader("<<shader.getName()<<", tokenPointerArray)");
 
 		std::string const& liquidShaderName=shader.getName();
@@ -45,20 +45,40 @@ namespace appleseed
 		MStatus status;
 		MString svalue;
 		getDependNodeByName(node, liquidShaderName.c_str());
+		
 
+		int use_bsdf = 0;
+		int use_edf = 0;
+		int use_alpha_map = 0;
+		int use_normal_map = 0;
+		liquidGetPlugValue(node, "use_bsdf", use_bsdf, status); 
+		IfMErrorWarn(status);
+		liquidGetPlugValue(node, "use_edf", use_edf, status); 
+		IfMErrorWarn(status);
+		liquidGetPlugValue(node, "use_alpha_map", use_alpha_map, status); 
+		IfMErrorWarn(status);
+		liquidGetPlugValue(node, "use_normal_map", use_normal_map, status); 
+		IfMErrorWarn(status);
 
 		MaterialFactory2 mf;
-
 		mf.begin(liquidShaderName.c_str());
 
-		liquidGetPlugValue(node, "bsdf_model", svalue, status); IfMErrorWarn(status);
-		mf.createBSDF(svalue.asChar());
-
-		liquidGetPlugValue(node, "edf_model", svalue, status); IfMErrorWarn(status);
-		mf.createEDF(svalue.asChar());
+		if(use_bsdf){
+			liquidGetPlugValue(node, "bsdf_model", svalue, status); IfMErrorWarn(status);
+			mf.createBSDF(svalue.asChar());
+		}
+		if(use_edf){
+			liquidGetPlugValue(node, "edf_model", svalue, status); IfMErrorWarn(status);
+			mf.createEDF(svalue.asChar());
+		}
 
 		liquidGetPlugValue(node, "surface_shader_model", svalue, status); IfMErrorWarn(status);
 		mf.createSurfaceShader(svalue.asChar());
+		
+		if(use_alpha_map){
+		}
+		if(use_normal_map){
+		}
 
 		mf.end();
 		//tokenPointerArray only store parameters of user-defined shader

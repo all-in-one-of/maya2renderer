@@ -260,18 +260,38 @@ void Visitor::visit_liquidShader(const char* node)
 	MObject mnode;
 	getDependNodeByName(mnode, shader.getName().c_str());
 
+	int use_bsdf = 0;
+	int use_edf = 0;
+	int use_alpha_map = 0;
+	int use_normal_map = 0;
+	liquidGetPlugValue(mnode, "use_bsdf", use_bsdf, status); 
+	IfMErrorWarn(status);
+	liquidGetPlugValue(mnode, "use_edf", use_edf, status); 
+	IfMErrorWarn(status);
+	liquidGetPlugValue(mnode, "use_alpha_map", use_alpha_map, status); 
+	IfMErrorWarn(status);
+	liquidGetPlugValue(mnode, "use_normal_map", use_normal_map, status); 
+	IfMErrorWarn(status);
+
 	MaterialFactory2 mf;
-
 	mf.begin(shader.getName().c_str());
-
-	liquidGetPlugValue(mnode, "bsdf_model", svalue, status); IfMErrorWarn(status);
-	mf.createBSDF(svalue.asChar());
-
-	liquidGetPlugValue(mnode, "edf_model", svalue, status); IfMErrorWarn(status);
-	mf.createEDF(svalue.asChar());
+	
+	if(use_bsdf){
+		liquidGetPlugValue(mnode, "bsdf_model", svalue, status); IfMErrorWarn(status);
+		mf.createBSDF(svalue.asChar());
+	}
+	if(use_edf){
+		liquidGetPlugValue(mnode, "edf_model", svalue, status); IfMErrorWarn(status);
+		mf.createEDF(svalue.asChar());
+	}
 
 	liquidGetPlugValue(mnode, "surface_shader_model", svalue, status); IfMErrorWarn(status);
 	mf.createSurfaceShader(svalue.asChar());
+	
+	if(use_alpha_map){
+	}
+	if(use_normal_map){
+	}
 
 	mf.end();
 }
