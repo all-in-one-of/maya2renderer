@@ -64,6 +64,32 @@ namespace appleseed
 		std::string m_edf_model;
 		std::string m_surface_shader_model;
 	};
+	//////////////////////////////////////////////////////////////////////////
+	class Helper2
+	{
+	public:
+		Helper2(const char* nodename, asr::Assembly* assembly);
+		~Helper2();
+
+		void beginBSDF(const std::string& bsdf_model);
+		void endBSDF();
+		//\p model		lambertian_brdf, diffuse_edf, 
+		//\p asName		reflectance
+		//\p asTypes	color|texture_instance, scalar, 
+		void addVariableBSDF(const std::string& param_name, const std::string& entity_types );
+
+	protected:
+		bool isType(const std::string& type, const std::string& entity_types)const;
+		void visitFile(const char* node);
+
+		const std::string m_nodename; 
+		//bsdf
+		asr::ParamArray m_bsdf_params;
+
+		std::string m_bsdf_model;
+
+		asr::Assembly* m_assembly;
+	};
 }//namespace appleseed
 
 

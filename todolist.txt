@@ -259,4 +259,4 @@ appleseed
 - test liquidShader for light(fail to assign liquidLight shader node to light, see test_liqShaderNode_light_rm.ma)
 - test liquidShader for displace(done)
 - liquidShaderNode AEliquidShaderNodeTemplate.mel里针对renderer/shadertype设置回调函数
-
+- alpha map, normal map
