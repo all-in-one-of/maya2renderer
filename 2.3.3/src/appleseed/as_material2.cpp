@@ -332,8 +332,21 @@ namespace appleseed
 	void MaterialFactory2::createSurfaceShader_fast_sss()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_fast_sss()");
-		liquidMessage2( messageError, "the type of  [%s] is not implemented yet.", m_surface_shader_model.c_str() );
 
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginSS(m_surface_shader_model);
+		o.addVariableSS("scale",			"scalar");
+		o.addVariableSS("ambient_sss",		"scalar");
+		o.addVariableSS("view_dep_sss",		"scalar");
+		o.addVariableSS("diffuse",			"scalar");
+		o.addVariableSS("power",			"scalar");
+		o.addVariableSS("distortion",		"scalar");
+		o.addVariableSS("albedo",			"color|texture_instance");
+		o.addVariableSS("light_samples",	"scalar");
+		o.addVariableSS("occlusion_samples","scalar");
+		o.endSS();
+
+		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
 	}
 
 	void MaterialFactory2::createSurfaceShader_physical()
@@ -785,7 +798,16 @@ namespace appleseed
 					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
 					m_ss_params
 					)
-				);
+					);
+			}
+			else if("fast_sss_surface_shader"==m_ss_model)
+			{
+				m_assembly->surface_shaders().insert(
+					asr::FastSubSurfaceScatteringSurfaceShaderFactory().create(
+					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
+					m_ss_params
+					)
+					);
 			}
 			else if("physical_surface_shader"==m_ss_model)
 			{
