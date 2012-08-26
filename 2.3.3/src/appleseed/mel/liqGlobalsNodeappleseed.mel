@@ -8,12 +8,12 @@ global string $gGlobalValue_appleseed[]=
 	//environment
 	"env_model",				"long","0"// 0:generic_environment
 	,"env_edf_model",			"long","0"//0:constant_environment_edf, 1:constant_hemisphere_environment_edf, 2:gradient_environment_edf, 3:latlong_map_environment_edf, 4:mirrorball_map_environment_edf
-	,"constant_environment_edf_exitance",				"color",""
-	,"constant_hemisphere_environment_edf_exitance",	"color",""
-	,"gradient_environment_edf_horizon_exitance",		"color",""
-	,"gradient_environment_edf_zenith_exitance",		"color",""
-	,"latlong_map_environment_edf_exitance",			"color",""
-	,"mirrorball_map_environment_edf_exitance",			"color",""
+	,"constant_environment_edf_exitance",				"color","0.0|0.0|0.0"
+	,"constant_hemisphere_environment_edf_exitance",	"color","0.0|0.0|0.0"
+	,"gradient_environment_edf_horizon_exitance",		"color","0.0|0.0|0.0"
+	,"gradient_environment_edf_zenith_exitance",		"color","0.0|0.0|0.0"
+	,"latlong_map_environment_edf_exitance",			"color","0.0|0.0|0.0"
+	,"mirrorball_map_environment_edf_exitance",			"color","0.0|0.0|0.0"
 	,"env_shader_model",		"long","0"// 0:edf_environment_shader
 
 	//frame
