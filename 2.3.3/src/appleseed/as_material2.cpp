@@ -175,7 +175,6 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_bsdf_mix()");
 
-
 		Helper2 o(m_nodename.c_str(), m_assembly);
 		o.beginBSDF(m_bsdf_model);
 		o.addVariableBSDF("bsdf0",		"bsdf");
@@ -184,148 +183,6 @@ namespace appleseed
 		o.addVariableBSDF("weight1",	"scalar|texture_instance");
 		o.endBSDF();
 
-		//std::string bsdf_name(getBSDFName(m_nodename,m_bsdf_model));//<nodename>_bsdf_mix
-
-		//asr::ParamArray bsdf_params;
-		//{
-		//	std::string param;
-
-		//	{
-		//		param = "bsdf0";//entity_types:bsdf
-		//		std::string param_node;
-
-		//		const std::string plugName(m_bsdf_model+"_"+param);//bsdf_mix_bsdf0
-
-		//		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.bsdf_mix_bsdf0
-		//		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-		//		if(connected != 1)
-		//		{
-		//			liquidMessage2(messageError, "[%s] is not linked in", fullPlugName.asChar());
-		//		}else{//the color plug is linked in.
-		//			param_node = m_nodename+"_"+plugName;//<nodename>_bsdf_mix_bsdf0
-		//			//bsdf0 value
-		//			MString srcBSDFModel; 
-		//			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", srcBSDFModel));
-
-		//			MStringArray srcPlug;
-		//			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-		//			assert(srcPlug.length()==1);
-		//			MStringArray src;
-		//			srcPlug[0].split('.',src);
-		//			MString srcNode(src[0]);
-
-		//			//
-		//			param_node = getBSDFName(srcNode.asChar(), srcBSDFModel.asChar());
-		//		}
-		//		//
-		//		bsdf_params.insert(param.c_str(), param_node.c_str());
-		//	}
-		//	//////////////////////////////////////////////////////////////////////////
-		//	{
-		//		param = "bsdf1";//entity_types:bsdf
-		//		std::string param_node;
-
-		//		const std::string plugName(m_bsdf_model+"_"+param);//bsdf_mix_bsdf1
-
-		//		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.bsdf_mix_bsdf1
-		//		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-		//		if(connected != 1)
-		//		{
-		//			liquidMessage2(messageError, "[%s] is not linked in", fullPlugName.asChar());
-		//		}else{//the color plug is linked in.
-		//			param_node = m_nodename+"_"+plugName;//<nodename>_bsdf_mix_bsdf1
-		//			//bsdf1 value
-		//			MString srcBSDFModel; 
-		//			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", srcBSDFModel));
-
-		//			MStringArray srcPlug;
-		//			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-		//			assert(srcPlug.length()==1);
-		//			MStringArray src;
-		//			srcPlug[0].split('.',src);
-		//			MString srcNode(src[0]);
-
-		//			//
-		//			param_node = getBSDFName(srcNode.asChar(), srcBSDFModel.asChar());
-		//		}
-		//		//
-		//		bsdf_params.insert(param.c_str(), param_node.c_str());
-		//	}
-		//	//////////////////////////////////////////////////////////////////////////
-		//	{
-		//		param = "weight0";//entity_types:(float)|texture_instance
-		//		std::string param_node;
-
-		//		const std::string plugName(m_bsdf_model+"_"+param);//bsdf_mix_weight0
-
-		//		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.bsdf_mix_weight0
-		//		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-		//		if(connected != 1)
-		//		{
-		//			double weight0; 
-		//			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", weight0));
-		//			MString strWeight;
-		//			strWeight.set(weight0);
-
-		//			param_node = strWeight.asChar();
-		//		}else{//the color plug is linked in.
-		//			MStringArray srcPlug;
-		//			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-		//			assert(srcPlug.length()==1);
-		//			MStringArray src;
-		//			srcPlug[0].split('.',src);
-		//			MString srcNode(src[0]);
-
-		//			visitFile(srcNode.asChar());
-		//			//
-		//			param_node = getTextureInstanceName(srcNode.asChar());
-		//		}
-		//		//
-		//		bsdf_params.insert(param.c_str(), param_node.c_str());
-		//	}
-		//	//////////////////////////////////////////////////////////////////////////
-		//	{
-		//		param = "weight1";//entity_types:(float)|texture_instance
-		//		std::string param_node;
-
-		//		const std::string plugName(m_bsdf_model+"_"+param);//bsdf_mix_weight1
-
-		//		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.bsdf_mix_weight1
-		//		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-		//		if(connected != 1)
-		//		{
-		//			double weight0;
-		//			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", weight0));
-		//			MString strWeight;
-		//			strWeight.set(weight0);
-
-		//			param_node = strWeight.asChar();
-		//		}else{//the color plug is linked in.
-		//			MStringArray srcPlug;
-		//			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-		//			assert(srcPlug.length()==1);
-		//			MStringArray src;
-		//			srcPlug[0].split('.',src);
-		//			MString srcNode(src[0]);
-
-		//			visitFile(srcNode.asChar());
-		//			//
-		//			param_node = getTextureInstanceName(srcNode.asChar());
-		//		}
-		//		//
-		//		bsdf_params.insert(param.c_str(), param_node.c_str());
-		//	}
-		//}
-		//
-// 		if(m_assembly->bsdfs().get_by_name(bsdf_name.c_str()) == nullptr)
-// 		{
-// 			m_assembly->bsdfs().insert(
-// 				asr::BSDFMixFactory().create(
-// 					bsdf_name.c_str(),
-// 					bsdf_params
-// 				)
-// 			);
-//		}
 		material_params.insert( "bsdf", getBSDFName(m_nodename, m_bsdf_model).c_str() );
 	}
 
@@ -514,18 +371,11 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_physical()");
 
-		std::string surfaceshader_name(getSurfaceShaderName(m_nodename,m_surface_shader_model));
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginSS(m_surface_shader_model);
+		o.endSS();
 
-		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
-		{
-			m_assembly->surface_shaders().insert(
-				asr::PhysicalSurfaceShaderFactory().create(
-					surfaceshader_name.c_str(),
-					asr::ParamArray()
-				)
-			);
-		}
-		material_params.insert( "surface_shader", surfaceshader_name.c_str() );
+		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
 
 	}
 
@@ -685,18 +535,30 @@ namespace appleseed
 		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 		if(connected == 0)
 		{
-			MDoubleArray val; 
-			val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
-			if( isType("color", entity_types) ){
+			if( isType("color", entity_types) )
+			{
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
 				param_value = m_nodename+"_"+plugName;
 				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 			}
-			else if( isType("scalar", entity_types) ){
+			else if( isType("scalar", entity_types) )
+			{
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
 				//val contains (r,b,g) value, but I only use val[0] for 'scalar'
 				MString strVal0;
 				strVal0.set(val[0]);
 				param_value = strVal0.asChar();
+			}
+			else {
+				liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in BSDF. "
+					"the plug of %s is unhandled.", fullPlugName.asChar());
+				param_value = "unhandled";
 			}
 		}
 		else if(connected == 1)//the color plug is linked in.
@@ -734,12 +596,13 @@ namespace appleseed
 				param_value = getBSDFName(srcNode.asChar(), srcBSDFModel.asChar());
 			}
 			else{
-				liquidMessage2(messageWarning,"source plug of %s is unhandled.", fullPlugName.asChar());
+				liquidMessage2(messageWarning,"only \"texture_instance\",\"bsdf\" are handled for a connected-in plug in BSDF."
+					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
 
 		}else{
-			liquidMessage2(messageWarning,"%s is linked out.", fullPlugName.asChar());
+			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 		}
 		//
 		m_bsdf_params.insert(param_name.c_str(), param_value.c_str());
@@ -864,18 +727,30 @@ namespace appleseed
 		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 		if(connected == 0)
 		{
-			MDoubleArray val; 
-			val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
-			if( isType("color", entity_types) ){
+			if( isType("color", entity_types) )
+			{
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
 				param_value = m_nodename+"_"+plugName;//<nodename>_lambertian_brdf_reflectance
 				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 			}
-			else if( isType("scalar", entity_types) ){
+			else if( isType("scalar", entity_types) )
+			{
+				MDoubleArray val; 
+				val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
 				//val contains (r,b,g) value, but I only use val[0] for 'scalar'
 				MString strVal0;
 				strVal0.set(val[0]);
 				param_value = strVal0.asChar();
+			}
+			else {
+				liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in EDF. "
+					"the plug of %s is unhandled.", fullPlugName.asChar());
+				param_value = "unhandled";
 			}
 		}
 		else if(connected == 1)//the color plug is linked in.
@@ -892,17 +767,19 @@ namespace appleseed
 				{
 					visitFile(srcNode.asChar());
 					param_value = getTextureInstanceName(srcNode.asChar());
-				}else{
+				}
+				else{
 					liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
 					param_value = "unhandled";
 				}
 			}
 			else{
-				liquidMessage2(messageWarning,"source plug of %s is unhandled.", fullPlugName.asChar());
+				liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in EDF."
+					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
 		}else{
-			liquidMessage2(messageWarning,"%s is linked out.", fullPlugName.asChar());
+			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 		}
 		//
 		m_edf_params.insert(param_name.c_str(), param_value.c_str());
@@ -954,20 +831,30 @@ namespace appleseed
 			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 			if(connected ==0)
 			{
-				MDoubleArray val; 
-				val.setLength(3);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 				if( isType("color", entity_types) )
 				{
+					MDoubleArray val; 
+					val.setLength(3);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
 					param_value = m_nodename+"_"+plugName;
 					createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 				}
 				else if( isType("scalar", entity_types) )
 				{
+					MDoubleArray val; 
+					val.setLength(3);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+
 					//val contains (r,b,g) value, but I only use val[0] for 'scalar'
 					MString strVal0;
 					strVal0.set(val[0]);
 					param_value = strVal0.asChar();
+				}
+				else {
+					liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in Surface Shader. "
+						"the plug of %s is unhandled.", fullPlugName.asChar());
+					param_value = "unhandled";
 				}
 			}
 			else if(connected == 1)//the plug is linked in.
@@ -986,7 +873,8 @@ namespace appleseed
 						visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+						liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in Surface Shader."
+							"the plug of %s is unhandled.", fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}
@@ -995,7 +883,7 @@ namespace appleseed
 					param_value = "unhandled";
 				}
 			}else{
-				liquidMessage2(messageError, "surface model \"%s\" is not supported.", m_ss_model.c_str());
+				liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 			}
 			//
 			m_ss_params.insert(param_name.c_str(), param_value.c_str());

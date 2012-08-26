@@ -97,11 +97,11 @@ namespace appleseed
 		//bsdf
 		asr::ParamArray m_bsdf_params;
 		asr::ParamArray m_edf_params;
-		asr::ParamArray m_ss_params;
+		asr::ParamArray m_ss_params;//surface shader params
 
 		std::string m_bsdf_model;
 		std::string m_edf_model;
-		std::string m_ss_model;
+		std::string m_ss_model;//surface shader model
 
 		asr::Assembly* m_assembly;
 	};
