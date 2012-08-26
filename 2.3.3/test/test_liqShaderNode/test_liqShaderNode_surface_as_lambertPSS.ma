@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
-//Name: test_liqShaderNode_surface_as_specularBRDF.ma
-//Last modified: Sun, Aug 26, 2012 09:39:26 PM
+//Name: test_liqShaderNode_surface_as_lambertPSS.ma
+//Last modified: Sun, Aug 26, 2012 09:29:02 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:11:47.20)";
@@ -13,14 +13,12 @@ fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows XP Professional Service Pack 3 (Build 2600)\n";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 9.6363060322317047 7.2272295241737599 9.6363060322316798 ;
-	setAttr ".r" -type "double3" -27.938352729602379 44.999999999999964 0 ;
-	setAttr ".rpt" -type "double3" -6.6785339198666994e-016 -4.3068159457871735e-015 
-		-5.1543682018299637e-015 ;
+	setAttr ".t" -type "double3" 28 21 28 ;
+	setAttr ".r" -type "double3" -27.938352729602379 44.999999999999972 -5.172681101354183e-014 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
-	setAttr ".fl" 34.999999999999986;
-	setAttr ".coi" 15.425616178575766;
+	setAttr ".fl" 34.999999999999993;
+	setAttr ".coi" 44.82186966202994;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -82,29 +80,13 @@ createNode mesh -n "pPlaneShape1" -p "pPlane1";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "pointLight1";
-	setAttr ".t" -type "double3" 0 5.8058997326862505 0 ;
+	setAttr ".t" -type "double3" 0 5.8058997326862505 9.4207127613451185 ;
 createNode pointLight -n "pointLightShape1" -p "pointLight1";
 	setAttr -k off ".v";
 	setAttr ".us" no;
-createNode transform -n "pCube1";
-	setAttr ".t" -type "double3" -0.23395929315859432 1.6082196170148322 -0.10898758398514552 ;
-	setAttr ".s" -type "double3" 3.8894955415317409 3.8894955415317409 3.8894955415317409 ;
-createNode mesh -n "pCubeShape1" -p "pCube1";
-	addAttr -ci true -sn "mso" -ln "miShadingSamplesOverride" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "msh" -ln "miShadingSamples" -min 0 -smx 8 -at "float";
-	addAttr -ci true -sn "mdo" -ln "miMaxDisplaceOverride" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "mmd" -ln "miMaxDisplace" -min 0 -smx 1 -at "float";
-	setAttr -k off ".v";
-	setAttr ".vir" yes;
-	setAttr ".vif" yes;
-	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr ".cuvs" -type "string" "map1";
-	setAttr ".dcc" -type "string" "Ambient+Diffuse";
-	setAttr ".covm[0]"  0 1 1;
-	setAttr ".cdvm[0]"  0 1 1;
 createNode lightLinker -s -n "lightLinker1";
-	setAttr -s 8 ".lnk";
-	setAttr -s 8 ".slnk";
+	setAttr -s 6 ".lnk";
+	setAttr -s 6 ".slnk";
 createNode displayLayerManager -n "layerManager";
 createNode displayLayer -n "defaultLayer";
 createNode renderLayerManager -n "renderLayerManager";
@@ -125,7 +107,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_specularBRDF90.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_lambertPSS58.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -173,7 +155,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            -shadows 0\n            $editorName;\nmodelEditor -e -viewSelected 0 $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `outlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels `;\n\t\t\t$editorName = $panelName;\n            outlinerEditor -e \n                -showShapes 1\n                -showAttributes 0\n                -showConnected 0\n                -showAnimCurvesOnly 0\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 1\n                -showPublishedAsConnected 0\n                -showContainerContents 1\n                -ignoreDagHierarchy 0\n                -expandConnections 0\n"
 		+ "                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 0\n                -highlightActive 1\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"defaultSetFilter\" \n                -showSetMembers 1\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n"
 		+ "                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -showShapes 1\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 0\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n"
-		+ "            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\toutlinerPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n"
+		+ "            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n"
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n"
 		+ "                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n"
 		+ "                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n"
@@ -190,9 +172,9 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperGraphPanel\" -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n"
 		+ "                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n"
 		+ "            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n"
-		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperShadePanel\" -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"visorPanel\" -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"createNodePanel\" -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Texture Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"polyTexturePlacementPanel\" -l (localizedPanelLabel(\"UV Texture Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Texture Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"renderWindowPanel\" -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"blendShapePanel\" (localizedPanelLabel(\"Blend Shape\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\tblendShapePanel -unParent -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels ;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tblendShapePanel -edit -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels  $panelName;\n"
+		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperShadePanel\" -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"visorPanel\" -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n"
+		+ "\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"createNodePanel\" -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Texture Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"polyTexturePlacementPanel\" -l (localizedPanelLabel(\"UV Texture Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Texture Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n"
+		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"renderWindowPanel\" -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"blendShapePanel\" (localizedPanelLabel(\"Blend Shape\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\tblendShapePanel -unParent -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels ;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tblendShapePanel -edit -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynRelEdPanel\" -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"relationshipPanel\" -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"referenceEditorPanel\" -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"componentEditorPanel\" -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynPaintScriptedPanelType\" -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"scriptEditorPanel\" -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
@@ -220,82 +202,83 @@ createNode shadingEngine -n "liquidSurface1SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo1";
+createNode liquidSurface -n "liquidSurface2";
+	addAttr -ci true -h true -sn "bsdf_model" -ln "bsdf_model" -dt "string";
+	addAttr -ci true -uac -h true -k true -sn "lambertian_brdf_reflectance" -ln "lambertian_brdf_reflectance" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectancea" -ln "lambertian_brdf_reflectancea" 
+		-at "float" -p "lambertian_brdf_reflectance";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectanceb" -ln "lambertian_brdf_reflectanceb" 
+		-at "float" -p "lambertian_brdf_reflectance";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectancec" -ln "lambertian_brdf_reflectancec" 
+		-at "float" -p "lambertian_brdf_reflectance";
+	addAttr -ci true -h true -sn "edf_model" -ln "edf_model" -dt "string";
+	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance" -ln "diffuse_edf_exitance" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancea" -ln "diffuse_edf_exitancea" 
+		-at "float" -p "diffuse_edf_exitance";
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitanceb" -ln "diffuse_edf_exitanceb" 
+		-at "float" -p "diffuse_edf_exitance";
+	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancec" -ln "diffuse_edf_exitancec" 
+		-at "float" -p "diffuse_edf_exitance";
+	addAttr -ci true -h true -sn "surface_shader_model" -ln "surface_shader_model" -dt "string";
+	addAttr -ci true -uac -h true -k true -sn "constant_surface_shader_color" -ln "constant_surface_shader_color" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "constant_surface_shader_colora" -ln "constant_surface_shader_colora" 
+		-at "float" -p "constant_surface_shader_color";
+	addAttr -ci true -h true -k true -sn "constant_surface_shader_colorb" -ln "constant_surface_shader_colorb" 
+		-at "float" -p "constant_surface_shader_color";
+	addAttr -ci true -h true -k true -sn "constant_surface_shader_colorc" -ln "constant_surface_shader_colorc" 
+		-at "float" -p "constant_surface_shader_color";
+	addAttr -ci true -h true -sn "constant_surface_shader_color_multiplier" -ln "constant_surface_shader_color_multiplier" 
+		-at "double";
+	addAttr -ci true -h true -sn "constant_surface_shader_alpha_multiplier" -ln "constant_surface_shader_alpha_multiplier" 
+		-at "double";
+	addAttr -ci true -h true -sn "use_edf" -ln "use_edf" -at "double";
+	addAttr -ci true -h true -sn "use_surface_shader" -ln "use_surface_shader" -at "double";
+	addAttr -ci true -h true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
+		-at "double";
+	setAttr ".rms" -type "string" "as_shader";
+	setAttr ".rst" -type "string" "surface";
+	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/as_shader.dll";
+	setAttr ".rpr" -type "stringArray" 11 "bsdf_model" "lambertian_brdf_reflectance" "use_edf" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "use_surface_shader" "surface_shader_model" "constant_surface_shader_color" "constant_surface_shader_color_multiplier" "constant_surface_shader_alpha_multiplier"  ;
+	setAttr ".rdt" -type "stringArray" 11 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
+	setAttr ".rty" -type "stringArray" 11 "string" "color" "float" "string" "color" "float" "float" "string" "color" "float" "float"  ;
+	setAttr ".rdf" -type "stringArray" 11 "lambertian_brdf" "1.01.01.0" "0" "diffuse_edf" "1.01.01.0" "1.0" "1" "constant_surface_shader" "1.01.01.0" "1.0" "1.0"  ;
+	setAttr ".ras" -type "Int32Array" 11 -1 -1 -1 -1 -1 -1
+		 -1 -1 -1 -1 -1 ;
+	setAttr ".rlc" -type "stringArray" 11 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"lambertian_brdf_reflectance\", -1, \"color\", \"lambertian_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"use_edf\", -1, \"float\", \"use_edf\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"diffuse_edf_exitance_multiplier\", -1, \"float\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"use_surface_shader\", -1, \"float\", \"use_surface_shader\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"constant_surface_shader_color\", -1, \"color\", \"constant_surface_shader_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"constant_surface_shader_color_multiplier\", -1, \"float\", \"constant_surface_shader_color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"constant_surface_shader_alpha_multiplier\", -1, \"float\", \"constant_surface_shader_alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rmt" -type "stringArray" 0  ;
+	setAttr ".rio" -type "Int32Array" 11 0 0 0 0 0 0
+		 0 0 0 0 0 ;
+	setAttr ".bsdf_model" -type "string" "lambertian_brdf";
+	setAttr -k on ".lambertian_brdf_reflectance" -type "float3" 1 1 0 ;
+	setAttr ".edf_model" -type "string" "diffuse_edf";
+	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0 1 0 ;
+	setAttr ".surface_shader_model" -type "string" "constant_surface_shader";
+	setAttr -k on ".constant_surface_shader_color" -type "float3" 0 1 0 ;
+	setAttr ".constant_surface_shader_color_multiplier" 0.46231155742390373;
+	setAttr ".constant_surface_shader_alpha_multiplier" 0.25125628197799676;
+	setAttr ".use_surface_shader" 1;
+	setAttr ".diffuse_edf_exitance_multiplier" 1;
 createNode shadingEngine -n "liquidSurface2SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo2";
-createNode liquidSurface -n "liquidSurface3";
-	addAttr -ci true -h true -sn "bsdf_model" -ln "bsdf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance" -ln "specular_brdf_reflectance" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancea" -ln "specular_brdf_reflectancea" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectanceb" -ln "specular_brdf_reflectanceb" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancec" -ln "specular_brdf_reflectancec" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -sn "edf_model" -ln "edf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance" -ln "diffuse_edf_exitance" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancea" -ln "diffuse_edf_exitancea" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitanceb" -ln "diffuse_edf_exitanceb" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancec" -ln "diffuse_edf_exitancec" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -sn "surface_shader_model" -ln "surface_shader_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance_multiplier" 
-		-ln "specular_brdf_reflectance_multiplier" -at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multipliera" -ln "specular_brdf_reflectance_multipliera" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierb" -ln "specular_brdf_reflectance_multiplierb" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierc" -ln "specular_brdf_reflectance_multiplierc" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multipliera" -ln "diffuse_edf_exitance_multipliera" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierb" -ln "diffuse_edf_exitance_multiplierb" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierc" -ln "diffuse_edf_exitance_multiplierc" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	setAttr ".rms" -type "string" "as_shader";
-	setAttr ".rst" -type "string" "surface";
-	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/specularBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 7 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model"  ;
-	setAttr ".rdt" -type "stringArray" 7 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 7 "string" "color" "color" "string" "color" "color" "string"  ;
-	setAttr ".rdf" -type "stringArray" 7 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader"  ;
-	setAttr ".ras" -type "Int32Array" 7 -1 -1 -1 -1 -1 -1
-		 -1 ;
-	setAttr ".rlc" -type "stringArray" 7 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );"  ;
-	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 7 0 0 0 0 0 0
-		 0 ;
-	setAttr ".bsdf_model" -type "string" "specular_brdf";
-	setAttr -k on ".specular_brdf_reflectance" -type "float3" 0 0 1 ;
-	setAttr ".edf_model" -type "string" "diffuse_edf";
-	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.045456626 0.045456626 0 ;
-	setAttr ".surface_shader_model" -type "string" "physical_surface_shader";
-	setAttr -k on ".specular_brdf_reflectance_multiplier";
-	setAttr -k on ".diffuse_edf_exitance_multiplier" -type "float3" 1 1 1 ;
-createNode shadingEngine -n "liquidSurface3SG";
+createNode shadingEngine -n "liquidShader1SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo3";
-createNode polyCube -n "polyCube1";
-	setAttr ".cuv" 4;
-createNode liquidSurface -n "liquidSurface4";
+createNode liquidShader -n "liquidShader2";
 	addAttr -ci true -h true -sn "bsdf_model" -ln "bsdf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance" -ln "specular_brdf_reflectance" 
+	addAttr -ci true -uac -h true -k true -sn "lambertian_brdf_reflectance" -ln "lambertian_brdf_reflectance" 
 		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancea" -ln "specular_brdf_reflectancea" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectanceb" -ln "specular_brdf_reflectanceb" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancec" -ln "specular_brdf_reflectancec" 
-		-at "float" -p "specular_brdf_reflectance";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectancea" -ln "lambertian_brdf_reflectancea" 
+		-at "float" -p "lambertian_brdf_reflectance";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectanceb" -ln "lambertian_brdf_reflectanceb" 
+		-at "float" -p "lambertian_brdf_reflectance";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectancec" -ln "lambertian_brdf_reflectancec" 
+		-at "float" -p "lambertian_brdf_reflectance";
 	addAttr -ci true -h true -sn "edf_model" -ln "edf_model" -dt "string";
 	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance" -ln "diffuse_edf_exitance" 
 		-at "float3" -nc 3;
@@ -306,14 +289,31 @@ createNode liquidSurface -n "liquidSurface4";
 	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancec" -ln "diffuse_edf_exitancec" 
 		-at "float" -p "diffuse_edf_exitance";
 	addAttr -ci true -h true -sn "surface_shader_model" -ln "surface_shader_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance_multiplier" 
-		-ln "specular_brdf_reflectance_multiplier" -at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multipliera" -ln "specular_brdf_reflectance_multipliera" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierb" -ln "specular_brdf_reflectance_multiplierb" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierc" -ln "specular_brdf_reflectance_multiplierc" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
+	addAttr -ci true -uac -h true -k true -sn "constant_surface_shader_color" -ln "constant_surface_shader_color" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "constant_surface_shader_colora" -ln "constant_surface_shader_colora" 
+		-at "float" -p "constant_surface_shader_color";
+	addAttr -ci true -h true -k true -sn "constant_surface_shader_colorb" -ln "constant_surface_shader_colorb" 
+		-at "float" -p "constant_surface_shader_color";
+	addAttr -ci true -h true -k true -sn "constant_surface_shader_colorc" -ln "constant_surface_shader_colorc" 
+		-at "float" -p "constant_surface_shader_color";
+	addAttr -ci true -h true -sn "constant_surface_shader_color_multiplier" -ln "constant_surface_shader_color_multiplier" 
+		-at "double";
+	addAttr -ci true -h true -sn "constant_surface_shader_alpha_multiplier" -ln "constant_surface_shader_alpha_multiplier" 
+		-at "double";
+	addAttr -ci true -sn "use_bsdf" -ln "use_bsdf" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "use_edf" -ln "use_edf" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "use_alpha_map" -ln "use_alpha_map" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "use_normal_map" -ln "use_normal_map" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "liqAssignedObjects" -ln "liqAssignedObjects" -at "message";
+	addAttr -ci true -uac -h true -k true -sn "lambertian_brdf_reflectance_multiplier" 
+		-ln "lambertian_brdf_reflectance_multiplier" -at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectance_multipliera" -ln "lambertian_brdf_reflectance_multipliera" 
+		-at "float" -p "lambertian_brdf_reflectance_multiplier";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectance_multiplierb" -ln "lambertian_brdf_reflectance_multiplierb" 
+		-at "float" -p "lambertian_brdf_reflectance_multiplier";
+	addAttr -ci true -h true -k true -sn "lambertian_brdf_reflectance_multiplierc" -ln "lambertian_brdf_reflectance_multiplierc" 
+		-at "float" -p "lambertian_brdf_reflectance_multiplier";
 	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
 		-at "float3" -nc 3;
 	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multipliera" -ln "diffuse_edf_exitance_multipliera" 
@@ -322,60 +322,86 @@ createNode liquidSurface -n "liquidSurface4";
 		-at "float" -p "diffuse_edf_exitance_multiplier";
 	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierc" -ln "diffuse_edf_exitance_multiplierc" 
 		-at "float" -p "diffuse_edf_exitance_multiplier";
+	addAttr -ci true -h true -sn "physical_surface_shader_color_multiplier" -ln "physical_surface_shader_color_multiplier" 
+		-at "double";
+	addAttr -ci true -h true -sn "physical_surface_shader_alpha_multiplier" -ln "physical_surface_shader_alpha_multiplier" 
+		-at "double";
+	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_mode" -ln "physical_surface_shader_aerial_persp_mode" 
+		-dt "string";
+	addAttr -ci true -uac -h true -k true -sn "physical_surface_shader_aerial_persp_sky_color" 
+		-ln "physical_surface_shader_aerial_persp_sky_color" -at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colora" 
+		-ln "physical_surface_shader_aerial_persp_sky_colora" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
+	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colorb" 
+		-ln "physical_surface_shader_aerial_persp_sky_colorb" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
+	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colorc" 
+		-ln "physical_surface_shader_aerial_persp_sky_colorc" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
+	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_distance" -ln "physical_surface_shader_aerial_persp_distance" 
+		-at "double";
+	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_intensity" -ln "physical_surface_shader_aerial_persp_intensity" 
+		-at "double";
 	setAttr ".rms" -type "string" "as_shader";
 	setAttr ".rst" -type "string" "surface";
-	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/specularBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 7 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model"  ;
-	setAttr ".rdt" -type "stringArray" 7 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 7 "string" "color" "color" "string" "color" "color" "string"  ;
-	setAttr ".rdf" -type "stringArray" 7 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader"  ;
-	setAttr ".ras" -type "Int32Array" 7 -1 -1 -1 -1 -1 -1
-		 -1 ;
-	setAttr ".rlc" -type "stringArray" 7 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/lambertianBRDF_physicalSS.dll";
+	setAttr ".rpr" -type "stringArray" 13 "bsdf_model" "lambertian_brdf_reflectance" "lambertian_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model" "physical_surface_shader_color_multiplier" "physical_surface_shader_alpha_multiplier" "physical_surface_shader_aerial_persp_mode" "physical_surface_shader_aerial_persp_sky_color" "physical_surface_shader_aerial_persp_distance" "physical_surface_shader_aerial_persp_intensity"  ;
+	setAttr ".rdt" -type "stringArray" 13 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
+	setAttr ".rty" -type "stringArray" 13 "string" "color" "color" "string" "color" "color" "string" "float" "float" "string" "color" "float" "float"  ;
+	setAttr ".rdf" -type "stringArray" 13 "lambertian_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader" "1.0" "1.0" "none" "1.01.01.0" "1000.0" "0.01"  ;
+	setAttr ".ras" -type "Int32Array" 13 -1 -1 -1 -1 -1 -1
+		 -1 -1 -1 -1 -1 -1 -1 ;
+	setAttr ".rlc" -type "stringArray" 13 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"lambertian_brdf_reflectance\", -1, \"color\", \"lambertian_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"lambertian_brdf_reflectance_multiplier\", -1, \"color\", \"lambertian_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_color_multiplier\", -1, \"float\", \"physical_surface_shader_color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_alpha_multiplier\", -1, \"float\", \"physical_surface_shader_alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"physical_surface_shader_aerial_persp_mode\", -1, \"string\", \"physical_surface_shader_aerial_persp_mode\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"physical_surface_shader_aerial_persp_sky_color\", -1, \"color\", \"physical_surface_shader_aerial_persp_sky_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_distance\", -1, \"float\", \"physical_surface_shader_aerial_persp_distance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_intensity\", -1, \"float\", \"physical_surface_shader_aerial_persp_intensity\", {\"0\", \"0\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 7 0 0 0 0 0 0
-		 0 ;
-	setAttr ".bsdf_model" -type "string" "specular_brdf";
-	setAttr -k on ".specular_brdf_reflectance" -type "float3" 1 1 1 ;
+	setAttr ".rio" -type "Int32Array" 13 0 0 0 0 0 0
+		 0 0 0 0 0 0 0 ;
+	setAttr ".bsdf_model" -type "string" "lambertian_brdf";
+	setAttr -k on ".lambertian_brdf_reflectance" -type "float3" 1 1 0 ;
 	setAttr ".edf_model" -type "string" "diffuse_edf";
-	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.040939957 0.040939957 0.040939957 ;
+	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.04510567 0.04510567 0.04510567 ;
 	setAttr ".surface_shader_model" -type "string" "physical_surface_shader";
-	setAttr -k on ".specular_brdf_reflectance_multiplier";
+	setAttr -k on ".constant_surface_shader_color" -type "float3" 1 1 0 ;
+	setAttr ".constant_surface_shader_color_multiplier" 1;
+	setAttr ".constant_surface_shader_alpha_multiplier" 1;
+	setAttr ".use_bsdf" yes;
+	setAttr ".use_edf" yes;
+	setAttr -k on ".lambertian_brdf_reflectance_multiplier" -type "float3" 1 1 1 ;
 	setAttr -k on ".diffuse_edf_exitance_multiplier" -type "float3" 1 1 1 ;
-createNode shadingEngine -n "liquidSurface4SG";
+	setAttr ".physical_surface_shader_color_multiplier" 1;
+	setAttr ".physical_surface_shader_alpha_multiplier" 1;
+	setAttr ".physical_surface_shader_aerial_persp_mode" -type "string" "environment_shader";
+	setAttr -k on ".physical_surface_shader_aerial_persp_sky_color" -type "float3" 1 
+		0 0 ;
+	setAttr ".physical_surface_shader_aerial_persp_distance" 1000;
+	setAttr ".physical_surface_shader_aerial_persp_intensity" 0.01;
+createNode shadingEngine -n "liquidShader2SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo4";
-createNode file -n "file1";
-	setAttr ".ftn" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/envBall1.jpg";
-createNode place2dTexture -n "place2dTexture1";
-createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
-	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
-	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
-	addAttr -ci true -h true -sn "contrast" -ln "contrast" -dt "string";
-	addAttr -ci true -h true -sn "samples" -ln "samples" -dt "string";
-	addAttr -ci true -h true -sn "filterType" -ln "filterType" -dv 4 -at "long";
-	addAttr -ci true -h true -sn "filterSize" -ln "filterSize" -dv 3 -at "float";
-	addAttr -ci true -h true -sn "trace_depth" -ln "trace_depth" -dt "string";
-	addAttr -ci true -h true -sn "displace" -ln "displace" -min 0 -max 1 -at "bool";
-	addAttr -ci true -h true -sn "max_displace" -ln "max_displace" -at "float";
-	addAttr -ci true -h true -sn "face" -ln "face" -dv 3 -at "long";
-	addAttr -ci true -h true -sn "approx_method" -ln "approx_method" -dv 1 -at "long";
-	addAttr -ci true -h true -sn "approx_any" -ln "approx_any" -at "long";
-	addAttr -ci true -h true -sn "approx_view_dep" -ln "approx_view_dep" -at "long";
-	addAttr -ci true -h true -sn "approx_args" -ln "approx_args" -dt "string";
-	addAttr -ci true -h true -sn "approx_sharp" -ln "approx_sharp" -at "float";
-	addAttr -ci true -h true -sn "approx_min_subdiv" -ln "approx_min_subdiv" -at "long";
-	addAttr -ci true -h true -sn "approx_max_subdiv" -ln "approx_max_subdiv" -dv 5 -at "long";
-	addAttr -ci true -h true -sn "approx_max_grid_size" -ln "approx_max_grid_size" -dv 
-		4096 -at "long";
-	addAttr -ci true -h true -sn "approx_motion_factor" -ln "approx_motion_factor" -dv 
-		16 -at "float";
-	setAttr ".link" -type "string" "eiIMG|eiSHADER|eiSHADER_maya";
-	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
-	setAttr ".samples" -type "string" "0|2";
-	setAttr ".trace_depth" -type "string" "4|4|4";
-	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_renderman";
+	addAttr -ci true -h true -sn "testBool0" -ln "testBool0" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "testBool1" -ln "testBool1" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "testString0" -ln "testString0" -dt "string";
+	addAttr -ci true -h true -sn "testString1" -ln "testString1" -dt "string";
+	addAttr -ci true -uac -h true -sn "testColor0" -ln "testColor0" -at "float3" -nc 
+		3;
+	addAttr -ci true -sn "testColor0R" -ln "testColor0R" -at "float" -p "testColor0";
+	addAttr -ci true -sn "testColor0G" -ln "testColor0G" -at "float" -p "testColor0";
+	addAttr -ci true -sn "testColor0B" -ln "testColor0B" -at "float" -p "testColor0";
+	addAttr -ci true -uac -h true -sn "testColor1" -ln "testColor1" -at "float3" -nc 
+		3;
+	addAttr -ci true -sn "testColor1R" -ln "testColor1R" -at "float" -p "testColor1";
+	addAttr -ci true -sn "testColor1G" -ln "testColor1G" -at "float" -p "testColor1";
+	addAttr -ci true -sn "testColor1B" -ln "testColor1B" -at "float" -p "testColor1";
+	addAttr -ci true -h true -sn "testInt0" -ln "testInt0" -at "long";
+	addAttr -ci true -h true -sn "testInt1" -ln "testInt1" -dv 10 -at "long";
+	addAttr -ci true -h true -sn "testFloat0" -ln "testFloat0" -at "float";
+	addAttr -ci true -h true -sn "testFloat1" -ln "testFloat1" -dv 10 -at "float";
+	addAttr -ci true -h true -sn "testIntMenu0" -ln "testIntMenu0" -at "long";
+	addAttr -ci true -h true -sn "testIntMenu1" -ln "testIntMenu1" -dv 1 -at "long";
+	setAttr ".testBool0" yes;
+	setAttr ".testString0" -type "string" "string_test_value0renderman";
+	setAttr ".testString1" -type "string" "string_test_value1renderman";
+	setAttr ".testColor0" -type "float3" 1 1 0 ;
+	setAttr ".testColor1" -type "float3" 1.9 9 2 ;
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 	addAttr -ci true -h true -sn "env_model" -ln "env_model" -at "long";
 	addAttr -ci true -h true -sn "env_edf_model" -ln "env_edf_model" -at "long";
@@ -488,190 +514,6 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 	setAttr ".export_mesh_materials" yes;
 	setAttr ".export_mesh_smoothing" yes;
 	setAttr ".export_mesh_normals" yes;
-createNode liquidShader -n "liquidShader3";
-	addAttr -ci true -h true -sn "bsdf_model" -ln "bsdf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance" -ln "specular_brdf_reflectance" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancea" -ln "specular_brdf_reflectancea" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectanceb" -ln "specular_brdf_reflectanceb" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancec" -ln "specular_brdf_reflectancec" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance_multiplier" 
-		-ln "specular_brdf_reflectance_multiplier" -at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multipliera" -ln "specular_brdf_reflectance_multipliera" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierb" -ln "specular_brdf_reflectance_multiplierb" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierc" -ln "specular_brdf_reflectance_multiplierc" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -sn "edf_model" -ln "edf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance" -ln "diffuse_edf_exitance" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancea" -ln "diffuse_edf_exitancea" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitanceb" -ln "diffuse_edf_exitanceb" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancec" -ln "diffuse_edf_exitancec" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -sn "surface_shader_model" -ln "surface_shader_model" -dt "string";
-	addAttr -ci true -sn "liqAssignedObjects" -ln "liqAssignedObjects" -at "message";
-	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multipliera" -ln "diffuse_edf_exitance_multipliera" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierb" -ln "diffuse_edf_exitance_multiplierb" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierc" -ln "diffuse_edf_exitance_multiplierc" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -sn "physical_surface_shader_color_multiplier" -ln "physical_surface_shader_color_multiplier" 
-		-at "double";
-	addAttr -ci true -h true -sn "physical_surface_shader_alpha_multiplier" -ln "physical_surface_shader_alpha_multiplier" 
-		-at "double";
-	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_mode" -ln "physical_surface_shader_aerial_persp_mode" 
-		-dt "string";
-	addAttr -ci true -uac -h true -k true -sn "physical_surface_shader_aerial_persp_sky_color" 
-		-ln "physical_surface_shader_aerial_persp_sky_color" -at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colora" 
-		-ln "physical_surface_shader_aerial_persp_sky_colora" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
-	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colorb" 
-		-ln "physical_surface_shader_aerial_persp_sky_colorb" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
-	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colorc" 
-		-ln "physical_surface_shader_aerial_persp_sky_colorc" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
-	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_distance" -ln "physical_surface_shader_aerial_persp_distance" 
-		-at "double";
-	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_intensity" -ln "physical_surface_shader_aerial_persp_intensity" 
-		-at "double";
-	addAttr -ci true -sn "use_bsdf" -ln "use_bsdf" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "use_edf" -ln "use_edf" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "use_alpha_map" -ln "use_alpha_map" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "use_normal_map" -ln "use_normal_map" -min 0 -max 1 -at "bool";
-	setAttr ".rms" -type "string" "as_shader";
-	setAttr ".rst" -type "string" "surface";
-	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/specularBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 13 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model" "physical_surface_shader_color_multiplier" "physical_surface_shader_alpha_multiplier" "physical_surface_shader_aerial_persp_mode" "physical_surface_shader_aerial_persp_sky_color" "physical_surface_shader_aerial_persp_distance" "physical_surface_shader_aerial_persp_intensity"  ;
-	setAttr ".rdt" -type "stringArray" 13 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 13 "string" "color" "color" "string" "color" "color" "string" "float" "float" "string" "color" "float" "float"  ;
-	setAttr ".rdf" -type "stringArray" 13 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader" "1.0" "1.0" "none" "1.01.01.0" "1000.0" "0.01"  ;
-	setAttr ".ras" -type "Int32Array" 13 -1 -1 -1 -1 -1 -1
-		 -1 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 13 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_color_multiplier\", -1, \"float\", \"physical_surface_shader_color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_alpha_multiplier\", -1, \"float\", \"physical_surface_shader_alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"physical_surface_shader_aerial_persp_mode\", -1, \"string\", \"physical_surface_shader_aerial_persp_mode\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"physical_surface_shader_aerial_persp_sky_color\", -1, \"color\", \"physical_surface_shader_aerial_persp_sky_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_distance\", -1, \"float\", \"physical_surface_shader_aerial_persp_distance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_intensity\", -1, \"float\", \"physical_surface_shader_aerial_persp_intensity\", {\"0\", \"0\"}, \"\", 14 );"  ;
-	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 13 0 0 0 0 0 0
-		 0 0 0 0 0 0 0 ;
-	setAttr ".bsdf_model" -type "string" "specular_brdf";
-	setAttr -k on ".specular_brdf_reflectance" -type "float3" 0 0 1 ;
-	setAttr -k on ".specular_brdf_reflectance_multiplier";
-	setAttr ".edf_model" -type "string" "diffuse_edf";
-	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.011688411 0.011688411 0.011688411 ;
-	setAttr ".surface_shader_model" -type "string" "physical_surface_shader";
-	setAttr -k on ".diffuse_edf_exitance_multiplier" -type "float3" 1 1 1 ;
-	setAttr ".physical_surface_shader_color_multiplier" 1;
-	setAttr ".physical_surface_shader_alpha_multiplier" 1;
-	setAttr ".physical_surface_shader_aerial_persp_mode" -type "string" "sky_color";
-	setAttr -k on ".physical_surface_shader_aerial_persp_sky_color" -type "float3" 1 
-		1 0 ;
-	setAttr ".physical_surface_shader_aerial_persp_distance" 1000;
-	setAttr ".physical_surface_shader_aerial_persp_intensity" 0.01;
-	setAttr ".use_bsdf" yes;
-	setAttr ".use_edf" yes;
-createNode shadingEngine -n "liquidShader1SG";
-	setAttr ".ihi" 0;
-	setAttr ".ro" yes;
-createNode materialInfo -n "materialInfo5";
-createNode liquidShader -n "liquidShader4";
-	addAttr -ci true -h true -sn "bsdf_model" -ln "bsdf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance" -ln "specular_brdf_reflectance" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancea" -ln "specular_brdf_reflectancea" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectanceb" -ln "specular_brdf_reflectanceb" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectancec" -ln "specular_brdf_reflectancec" 
-		-at "float" -p "specular_brdf_reflectance";
-	addAttr -ci true -uac -h true -k true -sn "specular_brdf_reflectance_multiplier" 
-		-ln "specular_brdf_reflectance_multiplier" -at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multipliera" -ln "specular_brdf_reflectance_multipliera" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierb" -ln "specular_brdf_reflectance_multiplierb" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -k true -sn "specular_brdf_reflectance_multiplierc" -ln "specular_brdf_reflectance_multiplierc" 
-		-at "float" -p "specular_brdf_reflectance_multiplier";
-	addAttr -ci true -h true -sn "edf_model" -ln "edf_model" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance" -ln "diffuse_edf_exitance" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancea" -ln "diffuse_edf_exitancea" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitanceb" -ln "diffuse_edf_exitanceb" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitancec" -ln "diffuse_edf_exitancec" 
-		-at "float" -p "diffuse_edf_exitance";
-	addAttr -ci true -h true -sn "surface_shader_model" -ln "surface_shader_model" -dt "string";
-	addAttr -ci true -sn "liqAssignedObjects" -ln "liqAssignedObjects" -at "message";
-	addAttr -ci true -uac -h true -k true -sn "diffuse_edf_exitance_multiplier" -ln "diffuse_edf_exitance_multiplier" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multipliera" -ln "diffuse_edf_exitance_multipliera" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierb" -ln "diffuse_edf_exitance_multiplierb" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -k true -sn "diffuse_edf_exitance_multiplierc" -ln "diffuse_edf_exitance_multiplierc" 
-		-at "float" -p "diffuse_edf_exitance_multiplier";
-	addAttr -ci true -h true -sn "physical_surface_shader_color_multiplier" -ln "physical_surface_shader_color_multiplier" 
-		-at "double";
-	addAttr -ci true -h true -sn "physical_surface_shader_alpha_multiplier" -ln "physical_surface_shader_alpha_multiplier" 
-		-at "double";
-	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_mode" -ln "physical_surface_shader_aerial_persp_mode" 
-		-dt "string";
-	addAttr -ci true -uac -h true -k true -sn "physical_surface_shader_aerial_persp_sky_color" 
-		-ln "physical_surface_shader_aerial_persp_sky_color" -at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colora" 
-		-ln "physical_surface_shader_aerial_persp_sky_colora" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
-	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colorb" 
-		-ln "physical_surface_shader_aerial_persp_sky_colorb" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
-	addAttr -ci true -h true -k true -sn "physical_surface_shader_aerial_persp_sky_colorc" 
-		-ln "physical_surface_shader_aerial_persp_sky_colorc" -at "float" -p "physical_surface_shader_aerial_persp_sky_color";
-	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_distance" -ln "physical_surface_shader_aerial_persp_distance" 
-		-at "double";
-	addAttr -ci true -h true -sn "physical_surface_shader_aerial_persp_intensity" -ln "physical_surface_shader_aerial_persp_intensity" 
-		-at "double";
-	addAttr -ci true -sn "use_bsdf" -ln "use_bsdf" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "use_edf" -ln "use_edf" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "use_alpha_map" -ln "use_alpha_map" -min 0 -max 1 -at "bool";
-	addAttr -ci true -sn "use_normal_map" -ln "use_normal_map" -min 0 -max 1 -at "bool";
-	setAttr ".rms" -type "string" "as_shader";
-	setAttr ".rst" -type "string" "surface";
-	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/specularBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 13 "bsdf_model" "specular_brdf_reflectance" "specular_brdf_reflectance_multiplier" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model" "physical_surface_shader_color_multiplier" "physical_surface_shader_alpha_multiplier" "physical_surface_shader_aerial_persp_mode" "physical_surface_shader_aerial_persp_sky_color" "physical_surface_shader_aerial_persp_distance" "physical_surface_shader_aerial_persp_intensity"  ;
-	setAttr ".rdt" -type "stringArray" 13 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 13 "string" "color" "color" "string" "color" "color" "string" "float" "float" "string" "color" "float" "float"  ;
-	setAttr ".rdf" -type "stringArray" 13 "specular_brdf" "1.01.01.0" "1.01.01.0" "diffuse_edf" "1.01.01.0" "1.01.01.0" "physical_surface_shader" "1.0" "1.0" "none" "1.01.01.0" "1000.0" "0.01"  ;
-	setAttr ".ras" -type "Int32Array" 13 -1 -1 -1 -1 -1 -1
-		 -1 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 13 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance\", -1, \"color\", \"specular_brdf_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_brdf_reflectance_multiplier\", -1, \"color\", \"specular_brdf_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance_multiplier\", -1, \"color\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_color_multiplier\", -1, \"float\", \"physical_surface_shader_color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_alpha_multiplier\", -1, \"float\", \"physical_surface_shader_alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"physical_surface_shader_aerial_persp_mode\", -1, \"string\", \"physical_surface_shader_aerial_persp_mode\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"physical_surface_shader_aerial_persp_sky_color\", -1, \"color\", \"physical_surface_shader_aerial_persp_sky_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_distance\", -1, \"float\", \"physical_surface_shader_aerial_persp_distance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_intensity\", -1, \"float\", \"physical_surface_shader_aerial_persp_intensity\", {\"0\", \"0\"}, \"\", 14 );"  ;
-	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 13 0 0 0 0 0 0
-		 0 0 0 0 0 0 0 ;
-	setAttr ".bsdf_model" -type "string" "specular_brdf";
-	setAttr -k on ".specular_brdf_reflectance" -type "float3" 1 1 1 ;
-	setAttr -k on ".specular_brdf_reflectance_multiplier";
-	setAttr ".edf_model" -type "string" "diffuse_edf";
-	setAttr -k on ".diffuse_edf_exitance" -type "float3" 0.10525674 0.10525674 0.10525674 ;
-	setAttr ".surface_shader_model" -type "string" "physical_surface_shader";
-	setAttr -k on ".diffuse_edf_exitance_multiplier" -type "float3" 1 1 1 ;
-	setAttr ".physical_surface_shader_color_multiplier" 1;
-	setAttr ".physical_surface_shader_alpha_multiplier" 1;
-	setAttr ".physical_surface_shader_aerial_persp_mode" -type "string" "environment_shader";
-	setAttr -k on ".physical_surface_shader_aerial_persp_sky_color" -type "float3" 1 
-		1 1 ;
-	setAttr ".physical_surface_shader_aerial_persp_distance" 1000;
-	setAttr ".physical_surface_shader_aerial_persp_intensity" 0.01;
-	setAttr ".use_bsdf" yes;
-	setAttr ".use_edf" yes;
-createNode shadingEngine -n "liquidShader4SG";
-	setAttr ".ihi" 0;
-	setAttr ".ro" yes;
-createNode materialInfo -n "materialInfo6";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
@@ -684,7 +526,7 @@ select -ne :renderPartition;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr -s 8 ".st";
+	setAttr -s 6 ".st";
 	setAttr -cb on ".an";
 	setAttr -cb on ".pt";
 select -ne :initialShadingGroup;
@@ -718,8 +560,7 @@ select -ne :defaultShaderList1;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr -s 6 ".s";
-select -ne :defaultTextureList1;
+	setAttr -s 4 ".s";
 select -ne :lightList1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
@@ -731,7 +572,6 @@ select -ne :postProcessList1;
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
 	setAttr -s 2 ".p";
-select -ne :defaultRenderUtilityList1;
 select -ne :defaultRenderingList1;
 select -ne :renderGlobalsList1;
 	setAttr -k on ".cch";
@@ -819,80 +659,38 @@ select -ne :defaultHardwareRenderGlobals;
 	setAttr -k on ".gh";
 	setAttr -cb on ".sd";
 connectAttr "polyPlane1.out" "pPlaneShape1.i";
-connectAttr "polyCube1.out" "pCubeShape1.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "liquidSurface1SG.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "liquidSurface2SG.message" ":defaultLightSet.message";
-relationship "link" ":lightLinker1" "liquidSurface3SG.message" ":defaultLightSet.message";
-relationship "link" ":lightLinker1" "liquidSurface4SG.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "liquidShader1SG.message" ":defaultLightSet.message";
-relationship "link" ":lightLinker1" "liquidShader4SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "liquidShader2SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "liquidSurface1SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "liquidSurface2SG.message" ":defaultLightSet.message";
-relationship "shadowLink" ":lightLinker1" "liquidSurface3SG.message" ":defaultLightSet.message";
-relationship "shadowLink" ":lightLinker1" "liquidSurface4SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "liquidShader1SG.message" ":defaultLightSet.message";
-relationship "shadowLink" ":lightLinker1" "liquidShader4SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "liquidShader2SG.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
 connectAttr "liquidSurface1SG.msg" "materialInfo1.sg";
+connectAttr "liquidSurface2.oc" "liquidSurface2SG.ss";
 connectAttr "liquidSurface2SG.msg" "materialInfo2.sg";
-connectAttr "file1.oc" "liquidSurface3.specular_brdf_reflectance_multiplier";
-connectAttr "liquidSurface3.oc" "liquidSurface3SG.ss";
-connectAttr "liquidSurface3SG.msg" "materialInfo3.sg";
-connectAttr "liquidSurface3.msg" "materialInfo3.m";
-connectAttr "liquidSurface3.msg" "materialInfo3.t" -na;
-connectAttr "file1.oc" "liquidSurface4.specular_brdf_reflectance_multiplier";
-connectAttr "liquidSurface4.oc" "liquidSurface4SG.ss";
-connectAttr "liquidSurface4SG.msg" "materialInfo4.sg";
-connectAttr "liquidSurface4.msg" "materialInfo4.m";
-connectAttr "liquidSurface4.msg" "materialInfo4.t" -na;
-connectAttr "place2dTexture1.c" "file1.c";
-connectAttr "place2dTexture1.tf" "file1.tf";
-connectAttr "place2dTexture1.rf" "file1.rf";
-connectAttr "place2dTexture1.mu" "file1.mu";
-connectAttr "place2dTexture1.mv" "file1.mv";
-connectAttr "place2dTexture1.s" "file1.s";
-connectAttr "place2dTexture1.wu" "file1.wu";
-connectAttr "place2dTexture1.wv" "file1.wv";
-connectAttr "place2dTexture1.re" "file1.re";
-connectAttr "place2dTexture1.of" "file1.of";
-connectAttr "place2dTexture1.r" "file1.ro";
-connectAttr "place2dTexture1.n" "file1.n";
-connectAttr "place2dTexture1.vt1" "file1.vt1";
-connectAttr "place2dTexture1.vt2" "file1.vt2";
-connectAttr "place2dTexture1.vt3" "file1.vt3";
-connectAttr "place2dTexture1.vc1" "file1.vc1";
-connectAttr "place2dTexture1.o" "file1.uv";
-connectAttr "place2dTexture1.ofs" "file1.fs";
-connectAttr "file1.oc" "liquidShader3.specular_brdf_reflectance_multiplier";
-connectAttr "liquidShader3.oc" "liquidShader1SG.ss";
-connectAttr "pPlaneShape1.iog" "liquidShader1SG.dsm" -na;
-connectAttr "liquidShader1SG.msg" "materialInfo5.sg";
-connectAttr "liquidShader3.msg" "materialInfo5.m";
-connectAttr "liquidShader3.msg" "materialInfo5.t" -na;
-connectAttr "file1.oc" "liquidShader4.specular_brdf_reflectance_multiplier";
-connectAttr "liquidShader4.oc" "liquidShader4SG.ss";
-connectAttr "pCubeShape1.iog" "liquidShader4SG.dsm" -na;
-connectAttr "liquidShader4SG.msg" "materialInfo6.sg";
-connectAttr "liquidShader4.msg" "materialInfo6.m";
-connectAttr "liquidShader4.msg" "materialInfo6.t" -na;
+connectAttr "liquidSurface2.msg" "materialInfo2.m";
+connectAttr "liquidSurface2.msg" "materialInfo2.t" -na;
+connectAttr "liquidShader1SG.msg" "materialInfo3.sg";
+connectAttr "liquidShader2.oc" "liquidShader2SG.ss";
+connectAttr "pPlaneShape1.iog" "liquidShader2SG.dsm" -na;
+connectAttr "liquidShader2SG.msg" "materialInfo4.sg";
+connectAttr "liquidShader2.msg" "materialInfo4.m";
+connectAttr "liquidShader2.msg" "materialInfo4.t" -na;
 connectAttr "liquidSurface1SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidSurface2SG.pa" ":renderPartition.st" -na;
-connectAttr "liquidSurface3SG.pa" ":renderPartition.st" -na;
-connectAttr "liquidSurface4SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidShader1SG.pa" ":renderPartition.st" -na;
-connectAttr "liquidShader4SG.pa" ":renderPartition.st" -na;
-connectAttr "liquidSurface3.msg" ":defaultShaderList1.s" -na;
-connectAttr "liquidSurface4.msg" ":defaultShaderList1.s" -na;
-connectAttr "liquidShader3.msg" ":defaultShaderList1.s" -na;
-connectAttr "liquidShader4.msg" ":defaultShaderList1.s" -na;
-connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
+connectAttr "liquidShader2SG.pa" ":renderPartition.st" -na;
+connectAttr "liquidSurface2.msg" ":defaultShaderList1.s" -na;
+connectAttr "liquidShader2.msg" ":defaultShaderList1.s" -na;
 connectAttr "pointLightShape1.ltd" ":lightList1.l" -na;
-connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "pointLight1.iog" ":defaultLightSet.dsm" -na;
-// End of test_liqShaderNode_surface_as_specularBRDF.ma
+// End of test_liqShaderNode_surface_as_lambertPSS.ma

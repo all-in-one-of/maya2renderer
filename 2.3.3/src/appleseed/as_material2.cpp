@@ -373,6 +373,12 @@ namespace appleseed
 
 		Helper2 o(m_nodename.c_str(), m_assembly);
 		o.beginSS(m_surface_shader_model);
+		o.addVariableSS("color_multiplier",	"scalar|texture_instance");
+		o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
+		o.addVariableSS("aerial_persp_mode",		"string");//none, environment_shader, sky_color
+		o.addVariableSS("aerial_persp_sky_color",	"color");
+		o.addVariableSS("aerial_persp_distance",	"scalar");
+		o.addVariableSS("aerial_persp_intensity",	"scalar");
 		o.endSS();
 
 		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
@@ -851,8 +857,14 @@ namespace appleseed
 					strVal0.set(val[0]);
 					param_value = strVal0.asChar();
 				}
+				else if( isType("string", entity_types))
+				{
+					MString val;
+					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
+					param_value = val.asChar();
+				}
 				else {
-					liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in Surface Shader. "
+					liquidMessage2(messageWarning,"only \"color\",\"scalar\",\"string\" are handled for an unconnected plug in Surface Shader. "
 						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
@@ -873,13 +885,14 @@ namespace appleseed
 						visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in Surface Shader."
+						liquidMessage2(messageWarning,"only \"texture2D\",\"texture3D\" are handled for a texture_instance connected-in plug in Surface Shader."
 							"the plug of %s is unhandled.", fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}
 				else{
-					liquidMessage2(messageWarning,"source plug of %s is unhandled.", fullPlugName.asChar());
+					liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in Surface Shader."
+						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}else{
