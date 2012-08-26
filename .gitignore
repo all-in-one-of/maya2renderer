@@ -13,7 +13,6 @@ er_library_mode_test/
 *.htm
 *.manifest
 *.idb
-*.obj
 *.exp
 *.lib
 *.pdb

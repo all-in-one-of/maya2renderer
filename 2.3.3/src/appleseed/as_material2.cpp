@@ -291,8 +291,15 @@ namespace appleseed
 	void MaterialFactory2::createSurfaceShader_ao()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_ao()");
-		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_surface_shader_model.c_str() );
+	
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginSS(m_surface_shader_model);
+		o.addVariableSS("sampling_method",	"string");//cosine, uniform
+		o.addVariableSS("samples",	"scalar");
+		o.addVariableSS("max_distance",	"scalar");
+		o.endSS();
 
+		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
 	}
 
 	void MaterialFactory2::createSurfaceShader_constant()
@@ -307,49 +314,6 @@ namespace appleseed
 		o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
 		o.endSS();
 
-
-		//std::string surfaceshader_name(getSurfaceShaderName(m_nodename,m_surface_shader_model));//<nodename>_constant_surface_shader
-
-		//asr::ParamArray surfaceshader_params;
-		//{
-		//	std::string param_value;
-		//	const std::string param_name("color");
-		//	const std::string plugName(m_surface_shader_model+"_"+param_name);//constant_surface_shader_color
-
-		//	MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.constant_surface_shader_color
-		//	int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
-		//	if(connected != 1)
-		//	{
-		//		param_value = m_nodename+"_"+plugName;//<nodename>_constant_surface_shader_color
-
-		//		MDoubleArray val; 
-		//		val.setLength(3);
-		//		IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
-
-		//		createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
-		//	}else{//the color plug is linked in.
-		//		MStringArray srcPlug;
-		//		IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
-		//		assert(srcPlug.length()==1);
-		//		MStringArray src;
-		//		srcPlug[0].split('.',src);
-		//		MString srcNode(src[0]);
-		//		//
-		//		param_value = getTextureInstanceName(srcNode.asChar());
-		//	}
-		//	//
-		//	surfaceshader_params.insert(param_name.c_str(), param_value.c_str());
-		//}
-		//
-		//if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
-		//{
-		//	m_assembly->surface_shaders().insert(
-		//		asr::ConstantSurfaceShaderFactory().create(
-		//			surfaceshader_name.c_str(),
-		//			surfaceshader_params
-		//		)
-		//	);
-		//}
 		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
 	}
 
@@ -800,7 +764,16 @@ namespace appleseed
 	{
 		if(m_assembly->surface_shaders().get_by_name(getSurfaceShaderName(m_nodename,m_ss_model).c_str()) == nullptr)
 		{
-			if("physical_surface_shader"==m_ss_model)
+			if("ao_surface_shader"==m_ss_model)
+			{
+				m_assembly->surface_shaders().insert(
+					asr::AOSurfaceShaderFactory().create(
+					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
+					m_ss_params
+					)
+					);
+			}
+			else if("physical_surface_shader"==m_ss_model)
 			{
 				m_assembly->surface_shaders().insert(
 					asr::PhysicalSurfaceShaderFactory().create(
@@ -818,6 +791,7 @@ namespace appleseed
 					)
 				);
 			}
+			//
 			else 
 			{
 				liquidMessage2(messageError, "surface model \"%s\" is not supported.",m_ss_model.c_str() );
