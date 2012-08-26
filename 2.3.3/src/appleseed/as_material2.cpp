@@ -320,8 +320,13 @@ namespace appleseed
 	void MaterialFactory2::createSurfaceShader_diagnostic()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createSurfaceShader_diagnostic()");
-		liquidMessage2( messageError, "the type of  [%s] is not implemented yet.", m_surface_shader_model.c_str() );
+		
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginSS(m_surface_shader_model);
+		o.addVariableSS("mode",	"string");
+		o.endSS();
 
+		material_params.insert( "surface_shader", getSurfaceShaderName(m_nodename,m_surface_shader_model).c_str() );
 	}
 
 	void MaterialFactory2::createSurfaceShader_fast_sss()
@@ -771,7 +776,16 @@ namespace appleseed
 					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
 					m_ss_params
 					)
-					);
+				);
+			}
+			else if("diagnostic_surface_shader"==m_ss_model)
+			{
+				m_assembly->surface_shaders().insert(
+					asr::DiagnosticSurfaceShaderFactory().create(
+					getSurfaceShaderName(m_nodename, m_ss_model).c_str(),
+					m_ss_params
+					)
+				);
 			}
 			else if("physical_surface_shader"==m_ss_model)
 			{
