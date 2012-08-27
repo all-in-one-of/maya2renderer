@@ -251,7 +251,18 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_specular_btdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_specular_btdf()");
-		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
+
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginBSDF(m_bsdf_model);
+		o.addVariableBSDF("reflectance",			"color|texture_instance");
+		o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
+		o.addVariableBSDF("transmittance",			"color|texture_instance");
+		o.addVariableBSDF("transmittance_multiplier",	"scalar|texture_instance");
+		o.addVariableBSDF("from_ior",					"scalar");
+		o.addVariableBSDF("to_ior",						"scalar");
+		o.endBSDF();
+
+		material_params.insert( "bsdf", getBSDFName(m_nodename,m_bsdf_model).c_str() );
 
 	}
 
@@ -551,7 +562,17 @@ namespace appleseed
 					m_bsdf_params
 					)
 				);
-			}else{
+			}
+			else if("specular_btdf"==m_bsdf_model)
+			{
+				m_assembly->bsdfs().insert(
+					asr::SpecularBTDFFactory().create(
+					getBSDFName(m_nodename,m_bsdf_model).c_str(),
+					m_bsdf_params
+					)
+				);
+			}	
+			else{
 				liquidMessage2( messageError, "\"%s\" is not implemented yet.", m_bsdf_model.c_str() );
 
 			}
