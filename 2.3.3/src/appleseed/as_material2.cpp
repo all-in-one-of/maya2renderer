@@ -200,7 +200,18 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_kelemen_brdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_kelemen_brdf()");
-		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
+
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginBSDF(m_bsdf_model);
+		o.addVariableBSDF("matte_reflectance",					"color|texture_instance");
+		o.addVariableBSDF("matte_reflectance_multiplier",		"scalar|texture_instance");
+		o.addVariableBSDF("specular_reflectance",				"color");
+		o.addVariableBSDF("specular_reflectance_multiplier",	"scalar");
+		o.addVariableBSDF("roughness",							"scalar");
+
+		o.endBSDF();
+
+		material_params.insert( "bsdf", getBSDFName(m_nodename, m_bsdf_model).c_str() );
 
 	}
 
@@ -505,6 +516,15 @@ namespace appleseed
 					)
 					);
 			}
+			else if("kelemen_brdf"==m_bsdf_model)
+			{
+				m_assembly->bsdfs().insert(
+					asr::KelemenBRDFFactory().create(
+					getBSDFName(m_nodename,m_bsdf_model).c_str(),
+					m_bsdf_params
+					)
+				);
+			}
 			else if("lambertian_brdf"==m_bsdf_model)
 			{
 				m_assembly->bsdfs().insert(
@@ -512,7 +532,7 @@ namespace appleseed
 					getBSDFName(m_nodename,m_bsdf_model).c_str(),
 					m_bsdf_params
 					)
-				);
+					);
 			}
 			else if("specular_brdf"==m_bsdf_model)
 			{
@@ -531,6 +551,9 @@ namespace appleseed
 					m_bsdf_params
 					)
 				);
+			}else{
+				liquidMessage2( messageError, "\"%s\" is not implemented yet.", m_bsdf_model.c_str() );
+
 			}
 		}
 	}
