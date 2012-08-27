@@ -168,7 +168,18 @@ namespace appleseed
 	void MaterialFactory2::createBSDF_ashikhmin_brdf()
 	{
 		CM_TRACE_FUNC("MaterialFactory2::createBSDF_ashikhmin_brdf()");
-		liquidMessage2( messageError, "the type of [%s] is not implemented yet.", m_bsdf_model.c_str() );
+		
+		Helper2 o(m_nodename.c_str(), m_assembly);
+		o.beginBSDF(m_bsdf_model);
+		o.addVariableBSDF("diffuse_reflectance",			"color|texture_instance");
+		o.addVariableBSDF("diffuse_reflectance_multiplier",	"scalar|texture_instance");
+		o.addVariableBSDF("glossy_reflectance",				"color|texture_instance");
+		o.addVariableBSDF("glossy_reflectance_multiplier",	"scalar|texture_instance");
+		o.addVariableBSDF("shininess_u",					"scalar|texture_instance");
+		o.addVariableBSDF("shininess_v",					"scalar|texture_instance");
+		o.endBSDF();
+
+		material_params.insert( "bsdf", getBSDFName(m_nodename, m_bsdf_model).c_str() );	
 	}
 
 	void MaterialFactory2::createBSDF_bsdf_mix()
@@ -485,7 +496,16 @@ namespace appleseed
 	{
 		if(m_assembly->bsdfs().get_by_name(getBSDFName(m_nodename,m_bsdf_model).c_str()) == nullptr)
 		{
-			if("lambertian_brdf"==m_bsdf_model)
+			if("ashikhmin_brdf"==m_bsdf_model)
+			{
+				m_assembly->bsdfs().insert(
+					asr::AshikhminBRDFFactory().create(
+					getBSDFName(m_nodename,m_bsdf_model).c_str(),
+					m_bsdf_params
+					)
+					);
+			}
+			else if("lambertian_brdf"==m_bsdf_model)
 			{
 				m_assembly->bsdfs().insert(
 					asr::LambertianBRDFFactory().create(
