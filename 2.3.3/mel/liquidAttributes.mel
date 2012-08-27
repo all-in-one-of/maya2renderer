@@ -2427,6 +2427,12 @@ global proc liquidCreateCustomShaderAttributes()
     liqlog("liquidCreateCustomShaderAttributes()");
 
   string $shapes[] = `ls -selection -dag -shapes`;
+  if( size($shapes) == 0)
+  {
+	  liqError("Please select shape(s).");
+	  liqPopIdent();
+	  return;
+  }
   for ( $currentShape in $shapes ) {
 		string $shadingGroup[] = `listConnections -type "shadingEngine" -destination on ($currentShape+".instObjGroups")`;
 		
@@ -2478,6 +2484,12 @@ global proc liquidDeleteCustomShaderAttributes()
     liqlog("liquidDeleteCustomShaderAttributes()");
 
   string $shapes[] = `ls -selection -dag -shapes`;
+  if( size($shapes) == 0)
+  {
+	  liqWarn("None shape(s) is selected.");
+	  liqPopIdent();
+	  return;
+  }
   string $attr[] = { 
 //	"liqSurfaceShader",
 //	"liqDisplacementShader",
@@ -2513,6 +2525,12 @@ global proc liquidCreateCustomShaderAttributesForERCamera()
     liqlog("liquidCreateCustomShaderAttributesForERCamera()");
 
   string $shapes[] = `ls -selection -dag -type "camera"`;
+  if( size($shapes) == 0)
+  {
+	  liqError("Please select camera(s).");
+	  liqPopIdent();
+	  return;
+  }
   for ( $currentShape in $shapes ) {
  	if ( !`attributeQuery -node $currentShape -ex "liqVolumeShader"` ) {
  	  addAttr -ln "liqVolumeShader" -usedAsColor -at "float3" -k true $currentShape;
@@ -2542,6 +2560,12 @@ global proc liquidDeleteCustomShaderAttributesForERCamera()
     liqlog("liquidDeleteCustomShaderAttributesForERCamera()");
 
   string $shapes[] = `ls -selection -dag -type "camera"`;
+  if( size($shapes) == 0)
+  {
+	  liqWarn("None camera(s) is selected.");
+	  liqPopIdent();
+	  return;
+  }
   string $attr[] = {
 	"liqVolumeShader",
 	"liqEnvironmentShader",
