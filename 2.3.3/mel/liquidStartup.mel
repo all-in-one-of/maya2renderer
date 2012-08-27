@@ -544,9 +544,9 @@ global proc liquidCreateMenus()
       menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
       menuItem -d true;
       menuItem -label "Attribute Manager..."   -command liquidAttributeManager -ann "Liquid attributes manager";
-      //liquidCreateObjectsAttributesMenu( "main" );
-      //liquidCreateLightsAttributesMenu( "main" );
-      //liquidCreateSetsAttributesMenu( "main" );
+      liquidCreateObjectsAttributesMenu( "main" );
+      liquidCreateLightsAttributesMenu( "main" );
+      liquidCreateSetsAttributesMenu( "main" );
       menuItem -d true;
       menuItem -label "Subdivision Surfaces" -subMenu true -tearOff true -aob true;
         if ( !`optionVar -exists liqSubivMesh` ) optionVar -iv liqSubdiv true;

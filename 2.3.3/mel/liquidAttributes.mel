@@ -2528,9 +2528,9 @@ global proc liquidCreateCustomShaderAttributesForERCamera()
 	}
 	if ( !`attributeQuery -node $currentShape -ex "liqLensShader"` ) {
 	  addAttr -ln "liqLensShader" -usedAsColor -at "float3" -k true $currentShape;
-	  addAttr -ln "liqPhotonShaderred"   -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
-	  addAttr -ln "liqPhotonShadergreen" -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
-	  addAttr -ln "liqPhotonShaderblue"  -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
+	  addAttr -ln "liqLensShaderred"   -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
+	  addAttr -ln "liqLensShadergreen" -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
+	  addAttr -ln "liqLensShaderblue"  -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
 	}
   }
 

@@ -18,9 +18,9 @@ proc AEliquidCreateMenu()
       menuItem  -label "Attribute Manager..."   
                 -command liquidAttributeManager 
                 -ann "Liquid attributes manager";
-      //liquidCreateObjectsAttributesMenu( "attrEd" );
-      //liquidCreateLightsAttributesMenu( "attrEd" );
-      //liquidCreateSetsAttributesMenu( "attrEd" );
+      liquidCreateObjectsAttributesMenu( "attrEd" );
+      liquidCreateLightsAttributesMenu( "attrEd" );
+      liquidCreateSetsAttributesMenu( "attrEd" );
 
 	  menuItem -d true;
 	  er_CreateMenu("attrEd");
