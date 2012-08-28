@@ -2587,3 +2587,78 @@ global proc liquidDeleteCustomShaderAttributesForERCamera()
   liqPopIdent();
 }
 
+//CustomShader-----------------------------------------------------
+global proc liquidCreateCustomShaderAttributesForAppleseed()
+{
+	liqPushIdent();
+    liqlog("liquidCreateCustomShaderAttributesForAppleseed()");
+
+  string $shapes[] = `ls -selection -dag -shapes`;
+  if( size($shapes) == 0)
+  {
+	  liqError("Please select shape(s).");
+	  liqPopIdent();
+	  return;
+  }
+  for ( $currentShape in $shapes ) 
+  {
+		string $shadingGroup[] = `listConnections -type "shadingEngine" -destination on ($currentShape+".instObjGroups")`;
+		
+		for( $sg in $shadingGroup)
+		{
+			if ( !`attributeQuery -node $sg -ex "liqBRDF"` ) 
+			{
+			  addAttr -ln "liqBRDF" -usedAsColor -at "float3" -k true $sg;
+			  addAttr -ln "liqBRDFr"   -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
+			  addAttr -ln "liqBRDFg" -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
+			  addAttr -ln "liqBRDFb"  -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
+			}
+			if ( !`attributeQuery -node $sg -ex "liqEDF"` ) 
+			{
+			  addAttr -ln "liqEDF" -usedAsColor -at "float3" -k true $sg;
+			  addAttr -ln "liqEDFr" -at "float" -dv 1 -k true -parent "liqEDF" $sg;
+			  addAttr -ln "liqEDFg" -at "float" -dv 1 -k true -parent "liqEDF" $sg;
+			  addAttr -ln "liqEDFb" -at "float" -dv 1 -k true -parent "liqEDF" $sg;
+			}
+		}
+  }
+
+  liqPopIdent();
+}
+global proc liquidDeleteCustomShaderAttributesForAppleseed()
+{
+	liqPushIdent();
+    liqlog("liquidDeleteCustomShaderAttributesForAppleseed()");
+
+  string $shapes[] = `ls -selection -dag -shapes`;
+  if( size($shapes) == 0)
+  {
+	  liqWarn("None shape(s) is selected.");
+	  liqPopIdent();
+	  return;
+  }
+  string $attr[] = 
+  {
+	"liqBRDF",
+	"liqEDF"
+  };
+
+  for ( $currentShape in $shapes ) 
+  {
+	string $shadingGroup[] = `listConnections -type "shadingEngine" -destination on ($currentShape+".instObjGroups")`;
+	for( $sg in $shadingGroup){
+		for ( $a in $attr ) 
+		{
+		  if ( `attributeQuery -node $sg -ex $a` ) 
+		  {
+			//deleteAttr ( $sg + "."+$a );
+			
+			// philippe: this is a fix to deal with a bug with compound attributes
+			renameAttr ( $sg + "."+$a ) "TO_BE_DELETED";
+			deleteAttr ( $sg + ".TO_BE_DELETED" );
+		  }
+		}
+	}
+  } 
+  liqPopIdent();
+}

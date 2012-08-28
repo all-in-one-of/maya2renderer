@@ -1,0 +1,13 @@
+#shaderType
+physical_surface_shader
+#shaderName
+physical_surface_shader0
+#Name|Details|Type|IsOutput|Defaults|ArraySizes
+color_multiplier|uniform|float|0|1.0|-1
+alpha_multiplier|uniform|float|0|1.0|-1
+aerial_persp_mode|uniform|string|0|"none"|-1
+#aerial_persp_mode|uniform|string|0|"environment_shader"|-1
+#aerial_persp_mode|uniform|string|0|"sky_color"|-1
+aerial_persp_sky_color|uniform|color|0|<<1.0,1.0,1.0>>|-1
+aerial_persp_distance|uniform|float|0|1000.0|-1
+aerial_persp_intensity|uniform|float|0|0.01|-1

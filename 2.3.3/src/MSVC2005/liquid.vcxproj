@@ -2244,6 +2244,7 @@
     <ClCompile Include="..\appleseed\as_material.cpp" />
     <ClCompile Include="..\appleseed\as_material2.cpp" />
     <ClCompile Include="..\appleseed\as_material3.cpp" />
+    <ClCompile Include="..\appleseed\as_material4.cpp" />
     <ClCompile Include="..\appleseed\objExport.cpp" />
     <ClCompile Include="..\appleseed\prerequest_as.cpp" />
     <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp" />
@@ -2398,6 +2399,7 @@
     <ClInclude Include="..\appleseed\as_material.h" />
     <ClInclude Include="..\appleseed\as_material2.h" />
     <ClInclude Include="..\appleseed\as_material3.h" />
+    <ClInclude Include="..\appleseed\as_material4.h" />
     <ClInclude Include="..\appleseed\objExport.h" />
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />

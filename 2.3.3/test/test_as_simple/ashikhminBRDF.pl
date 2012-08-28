@@ -1,0 +1,11 @@
+#shaderType
+ashikhmin_brdf
+#shaderName
+ashikhmin_brdf0
+#Name|Details|Type|IsOutput|Defaults|ArraySizes
+diffuse_reflectance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+diffuse_reflectance_multiplier|uniform|float|0|1.0|-1
+glossy_reflectance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+glossy_reflectance_multiplier|uniform|float|0|1.0|-1
+shininess_u|uniform|float|0|1000.0|-1
+shininess_v|uniform|float|0|1000.0|-1

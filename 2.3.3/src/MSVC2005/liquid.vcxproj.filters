@@ -514,6 +514,9 @@
     <ClCompile Include="..\liqShaderNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_material4.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -890,6 +893,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\liqShaderNode.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\as_material4.h">
+      <Filter>renderer\appleseed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,9 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-
+#include "prerequest_as.h"
+#include "as_renderer.h"
+#include "../renderermgr.h"
 
 namespace appleseed{
 namespace call{
@@ -304,40 +306,42 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 	MString cmd;
 
 	MStringArray surfaceShaders;
-	MStringArray volumeShaders;
-	MStringArray displacementShaders;
-	MStringArray shadowShaders;
-	MStringArray environmentShaders;
+	//MStringArray volumeShaders;
+	//MStringArray displacementShaders;
+	MStringArray liqBRDF;
+	MStringArray liqEDF;
 	{
 		getlistConnections(shadingGroupNode, "surfaceShader", surfaceShaders);
-
-		getlistConnections(shadingGroupNode, "volumeShader", volumeShaders);
-
-		getlistConnections(shadingGroupNode, "displacementShader", displacementShaders);
-
-		getlistConnections(shadingGroupNode, "liqShadowShader", shadowShaders);
-
-		getlistConnections(shadingGroupNode, "liqEnvironmentShader", environmentShaders);
+//		getlistConnections(shadingGroupNode, "volumeShader", volumeShaders);
+//		getlistConnections(shadingGroupNode, "displacementShader", displacementShaders);
+		getlistConnections(shadingGroupNode, "liqBRDF", liqBRDF);
+		getlistConnections(shadingGroupNode, "liqEDF", liqEDF);
 	}
 
+	asr::ParamArray material_params;
 	//ei_material( shadingGroupNode );
 	if( surfaceShaders[0].length() != 0 ){
-		//ei_add_surface( surfaceShaders[0].asChar() );
+		material_params.insert( "surface_shader", surfaceShaders[0].asChar() );
 	}
-	if( volumeShaders[0].length() != 0 ){
-		//ei_add_volume( volumeShaders[0].asChar() );
+	if( liqBRDF[0].length() != 0 ){
+		material_params.insert( "bsdf", liqBRDF[0].asChar() );
 	}
-	if( displacementShaders[0].length() != 0 ){
-		//ei_add_displace( displacementShaders[0].asChar() );
-	}
-	if( shadowShaders[0].length() != 0 ){
-		//ei_add_shadow( shadowShaders[0].asChar() );
-	}
-	if( environmentShaders[0].length() != 0 ){
-		//ei_add_environment( environmentShaders[0].asChar() );
+	if( liqEDF[0].length() != 0 ){
+		material_params.insert( "edf", liqEDF[0].asChar() );
 	}
 	//ei_end_material();
 
+	Renderer *m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+	assert(m_renderer != NULL );
+	asr::Assembly *m_assembly = m_renderer->getAssembly().get();
+	assert(m_assembly != nullptr);
+
+	if(m_assembly->materials().get_by_name(shadingGroupNode) == nullptr)
+	{
+		m_assembly->materials().insert(
+			asr::MaterialFactory::create(shadingGroupNode, material_params)
+		);
+	}
 	
 }
 //

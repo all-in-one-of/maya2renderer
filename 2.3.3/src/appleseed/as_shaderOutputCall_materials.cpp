@@ -10,7 +10,8 @@
 #include <liqGlobalVariable.h>
 #include <liqShader.h>
 #include <liqShaderFactory.h>
-#include "as_material2.h"
+//#include "as_material2.h"
+#include "as_material4.h"
 
 namespace appleseed{
 namespace call{
@@ -253,47 +254,82 @@ void Visitor::visit_liquidShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
 	liqShader &shader = liqShaderFactory::instance().getShader( node );
-	
-	MStatus status;
-	MString svalue;
-	
-	MObject mnode;
-	getDependNodeByName(mnode, shader.getName().c_str());
 
-	int use_bsdf = 0;
-	int use_edf = 0;
-	int use_alpha_map = 0;
-	int use_normal_map = 0;
-	liquidGetPlugValue(mnode, "use_bsdf", use_bsdf, status); 
-	IfMErrorWarn(status);
-	liquidGetPlugValue(mnode, "use_edf", use_edf, status); 
-	IfMErrorWarn(status);
-	liquidGetPlugValue(mnode, "use_alpha_map", use_alpha_map, status); 
-	IfMErrorWarn(status);
-	liquidGetPlugValue(mnode, "use_normal_map", use_normal_map, status); 
-	IfMErrorWarn(status);
+	//MStatus status;
+	//MString svalue;
+	//
+	//MObject mnode;
+	//getDependNodeByName(mnode, shader.getName().c_str());
 
-	MaterialFactory2 mf;
-	mf.begin(shader.getName().c_str());
-	
-	if(use_bsdf){
-		liquidGetPlugValue(mnode, "bsdf_model", svalue, status); IfMErrorWarn(status);
-		mf.createBSDF(svalue.asChar());
-	}
-	if(use_edf){
-		liquidGetPlugValue(mnode, "edf_model", svalue, status); IfMErrorWarn(status);
-		mf.createEDF(svalue.asChar());
-	}
+	//int use_bsdf = 0;
+	//int use_edf = 0;
+	//int use_alpha_map = 0;
+	//int use_normal_map = 0;
+	//liquidGetPlugValue(mnode, "use_bsdf", use_bsdf, status); 
+	//IfMErrorWarn(status);
+	//liquidGetPlugValue(mnode, "use_edf", use_edf, status); 
+	//IfMErrorWarn(status);
+	//liquidGetPlugValue(mnode, "use_alpha_map", use_alpha_map, status); 
+	//IfMErrorWarn(status);
+	//liquidGetPlugValue(mnode, "use_normal_map", use_normal_map, status); 
+	//IfMErrorWarn(status);
 
-	liquidGetPlugValue(mnode, "surface_shader_model", svalue, status); IfMErrorWarn(status);
-	mf.createSurfaceShader(svalue.asChar());
-	
-	if(use_alpha_map){
-	}
-	if(use_normal_map){
-	}
+	//MaterialFactory2 mf;
+	//mf.begin(shader.getName().c_str());
+	//
+	//if(use_bsdf){
+	//	liquidGetPlugValue(mnode, "bsdf_model", svalue, status); IfMErrorWarn(status);
+	//	mf.createBSDF(svalue.asChar());
+	//}
+	//if(use_edf){
+	//	liquidGetPlugValue(mnode, "edf_model", svalue, status); IfMErrorWarn(status);
+	//	mf.createEDF(svalue.asChar());
+	//}
 
-	mf.end();
+	//liquidGetPlugValue(mnode, "surface_shader_model", svalue, status); IfMErrorWarn(status);
+	//mf.createSurfaceShader(svalue.asChar());
+	//
+	//if(use_alpha_map){
+	//}
+	//if(use_normal_map){
+	//}
+
+	//mf.end();
+
+	if( shader.shader_type_ex == "ao_surface_shader"
+	 || shader.shader_type_ex == "constant_surface_shader"
+	 || shader.shader_type_ex == "diagnostic_surface_shader"
+	 || shader.shader_type_ex == "fast_sss_surface_shader"
+	 || shader.shader_type_ex == "physical_surface_shader"
+	 || shader.shader_type_ex == "smoke_surface_shader"
+	 || shader.shader_type_ex == "voxel_ao_surface_shader" )
+	{
+		MaterialFactory4 mf;
+		mf.begin(node);
+		mf.createSurfaceShader(shader.shader_type_ex.asChar());
+		mf.end();
+	}
+	else if( shader.shader_type_ex == "ashikhmin_brdf"
+		  || shader.shader_type_ex == "bsdf_mix"
+		  || shader.shader_type_ex == "kelemen_brdf"
+		  || shader.shader_type_ex == "lambertian_brdf"
+		  || shader.shader_type_ex == "null_bsdf"
+		  || shader.shader_type_ex == "smoke_surface_shader"
+		  || shader.shader_type_ex == "specular_brdf"
+		  || shader.shader_type_ex == "specular_btdf" )
+	{
+		MaterialFactory4 mf;
+		mf.begin(node);
+		mf.createBSDF(shader.shader_type_ex.asChar());
+		mf.end();
+	}
+	else if( shader.shader_type_ex == "diffuse_edf" )
+	{
+		MaterialFactory4 mf;
+		mf.begin(node);
+		mf.createEDF(shader.shader_type_ex.asChar());
+		mf.end();
+	}
 }
 }//namespace call
 }//namespace appleseed

@@ -472,6 +472,9 @@ global proc liquidCreateObjectsAttributesMenu( string $prefix )
     menuItem -d true;
     menuItem -label "Create CustomShaderForERCamera" -command liquidCreateCustomShaderAttributesForERCamera -ann "Add CustomShaderForERCamera to selected node";
 	menuItem -label "Remove CustomShaderForERCamera" -command liquidDeleteCustomShaderAttributesForERCamera -ann "Remove CustomShaderForERCamera from selected node";
+    menuItem -d true;
+    menuItem -label "Create CustomShaderForAS" -command liquidCreateCustomShaderAttributesForAppleseed -ann "Add Appleseed shader to selected node";
+	menuItem -label "Remove CustomShaderForAS" -command liquidDeleteCustomShaderAttributesForAppleseed -ann "Remove Appleseed shader from selected node";
 
   setParent -menu ..;
   liqPopIdent();

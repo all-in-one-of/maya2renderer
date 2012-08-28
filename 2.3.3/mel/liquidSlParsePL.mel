@@ -393,7 +393,29 @@ global proc int isValidShaderTypeForPL(string $shaderType)
 		 $shaderType == "shadow"        ||
 		 $shaderType == "environment"   ||
 		 $shaderType == "photon"		||
-		 $shaderType == "lens"
+		 $shaderType == "lens"			||
+		 // AS shader type
+		 //surface_shader
+		 $shaderType == "ao_surface_shader"			||
+		 $shaderType == "constant_surface_shader"   ||
+		 $shaderType == "diagnostic_surface_shader"	||
+		 $shaderType == "fast_sss_surface_shader"	||
+		 $shaderType == "physical_surface_shader"   ||
+		 $shaderType == "smoke_surface_shader"		||
+		 $shaderType == "voxel_ao_surface_shader"	||
+		 //BRDF
+		 $shaderType == "ashikhmin_brdf"			||
+		 $shaderType == "bsdf_mix"					||
+		 $shaderType == "kelemen_brdf"				||
+		 $shaderType == "lambertian_brdf"			||
+		 $shaderType == "null_bsdf"					||
+		 $shaderType == "smoke_surface_shader"		||
+		 $shaderType == "specular_brdf"				||
+		 $shaderType == "specular_btdf"				||
+		 //EDF
+		 $shaderType == "diffuse_edf"				||
+		 false
+
 	)
 	{
 		liqPopIdent();

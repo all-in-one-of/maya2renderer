@@ -294,10 +294,10 @@ namespace appleseed
 
 		plugs.clear();
 		plugs.push_back("surfaceShader");
-		plugs.push_back("displacementShader");
-		plugs.push_back("volumeShader");
-		plugs.push_back("liqShadowShader");
-		plugs.push_back("liqEnvironmentShader");
+//		plugs.push_back("displacementShader");
+//		plugs.push_back("volumeShader");
+		plugs.push_back("liqBRDF");
+		plugs.push_back("liqEDF");
 	}
 
 }//namespace appleseed

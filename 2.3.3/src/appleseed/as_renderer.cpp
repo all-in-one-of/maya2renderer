@@ -233,12 +233,10 @@ namespace appleseed
 				cmd = "listConnections -type \"shadingEngine\" -destination on (\""+MString(ribNode__->name.asChar())+"\" + \".instObjGroups\")";
 				IfMErrorWarn(MGlobal::executeCommand( cmd, shadingGroupNodes));
 			}
-			
-			MStringArray surfaceShaders;
-			getlistConnections(shadingGroupNodes[0], "surfaceShader", surfaceShaders);
-			materialName = surfaceShaders[0];
+
+			materialName = shadingGroupNodes[0];
 		}
-		
+
 		//element
 		_s("//shape name="<<mesh->getFullPathName());
 		_s("//shape full path name="<<mesh->getFullPathName());
