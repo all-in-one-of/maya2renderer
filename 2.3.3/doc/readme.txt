@@ -366,6 +366,13 @@ RenderMan (R) is a registered trademark of Pixar
     but repeatUV is set in maya directly. So repeateUV must be set manully. see RSL::Visitor::visitPlace2dTexture()
 
 
+- liquidShaderNode.color is renamed to liqcolor, and liquidShaderNode.opacity is renamed to liqopacity
+  see Commit:0dbd8cc6623433c546056b0b7e7c197a57b85f46
+  appleseed's constant surface shader has a "color" variable, which collides with liquidShaderNode.color.
+  And, liquidShaderNode.color has three sub-values: colorR,colorG,colorB;
+  But when liquid parse ConstantSurfaceShader.pl, it will create the attribute "color" which has sub-value : colora, colorb, colorc.
+
+
   ---------------------------------------------------------------------
                               F.A.Q.
   ---------------------------------------------------------------------

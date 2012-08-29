@@ -261,12 +261,12 @@ MStatus liqShaderNode::initialize()
   nAttr.setDisconnectBehavior( MFnAttribute::kReset );
   MAKE_INPUT(nAttr);
 
-  aColor = nAttr.createColor("color", "cs");
+  aColor = nAttr.createColor("liqcolor", "cs");
   nAttr.setDefault( 1.0, 1.0, 1.0 );
   nAttr.setDisconnectBehavior( MFnAttribute::kReset );
   MAKE_INPUT(nAttr);
 
-  aOpacity = nAttr.createColor("opacity", "os");
+  aOpacity = nAttr.createColor("liqopacity", "os");
   nAttr.setDefault( 1.0, 1.0, 1.0 );
   MAKE_INPUT(nAttr);
 
