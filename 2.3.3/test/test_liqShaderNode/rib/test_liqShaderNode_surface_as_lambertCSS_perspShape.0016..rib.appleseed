@@ -17,7 +17,7 @@
         <color name="liqGlobalsNodeRenderer_appleseed_constant_environment_edf_exitance">
             <parameter name="color_space" value="srgb" />
             <values>
-                0.000000 0.000000 0.000000
+                0.352941 0.666667 0.666667
             </values>
             <alpha>
                 1.000000
@@ -34,10 +34,19 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
-            <color name="liquidShader2_constant_surface_shader_color">
+            <color name="liquidShader2_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    1.000000 1.000000 0.000000
+                    1.000000 0.000000 0.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="liquidShader4_reflectance">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 0.000000 0.000000
                 </values>
                 <alpha>
                     1.000000
@@ -53,13 +62,18 @@
                     1.000000
                 </alpha>
             </color>
-            <surface_shader name="liquidShader2_constant_surface_shader" model="constant_surface_shader">
+            <bsdf name="liquidShader4" model="lambertian_brdf">
+                <parameter name="reflectance" value="liquidShader4_reflectance" />
+                <parameter name="reflectance_multiplier" value="1" />
+            </bsdf>
+            <surface_shader name="liquidShader2" model="constant_surface_shader">
                 <parameter name="alpha_multiplier" value="1" />
-                <parameter name="color" value="liquidShader2_constant_surface_shader_color" />
+                <parameter name="color" value="liquidShader2_color" />
                 <parameter name="color_multiplier" value="1" />
             </surface_shader>
-            <material name="liquidShader2" model="generic_material">
-                <parameter name="surface_shader" value="liquidShader2_constant_surface_shader" />
+            <material name="liquidShader2SG" model="generic_material">
+                <parameter name="bsdf" value="liquidShader4" />
+                <parameter name="surface_shader" value="liquidShader2" />
             </material>
             <light name="|pointLight1|pointLightShape1" model="point_light">
                 <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
@@ -84,7 +98,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader2" />
+                <assign_material slot="0" side="front" material="liquidShader2SG" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

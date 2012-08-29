@@ -34,7 +34,16 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
-            <color name="liquidShader_I0_lambertian_brdf_reflectance">
+            <color name="liquidShader_surface_aerial_persp_sky_color">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="liquidShader_I0_reflectance">
                 <parameter name="color_space" value="srgb" />
                 <values>
                     1.000000 0.000000 0.000000
@@ -43,37 +52,10 @@
                     1.000000
                 </alpha>
             </color>
-            <color name="liquidShader_I0_diffuse_edf_exitance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.029236 0.029236 0.029236
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader_I1_lambertian_brdf_reflectance">
+            <color name="liquidShader_I1_reflectance">
                 <parameter name="color_space" value="srgb" />
                 <values>
                     1.000000 1.000000 0.000000
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader_I1_diffuse_edf_exitance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.023392 0.023392 0.023392
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader4_diffuse_edf_exitance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.017548 0.017548 0.017548
                 </values>
                 <alpha>
                     1.000000
@@ -89,54 +71,31 @@
                     1.000000
                 </alpha>
             </color>
-            <texture name="file1" model="disk_texture_2d">
-                <parameter name="color_space" value="srgb" />
-                <parameter name="filename" value="envBall0.jpg.exr" />
-            </texture>
-            <texture_instance name="file1_inst" texture="file1">
-                <parameter name="addressing_mode" value="clamp" />
-                <parameter name="filtering_mode" value="bilinear" />
-            </texture_instance>
-            <bsdf name="liquidShader_I0_lambertian_brdf" model="lambertian_brdf">
-                <parameter name="reflectance" value="liquidShader_I0_lambertian_brdf_reflectance" />
+            <bsdf name="liquidShader_I0" model="lambertian_brdf">
+                <parameter name="reflectance" value="liquidShader_I0_reflectance" />
                 <parameter name="reflectance_multiplier" value="1" />
             </bsdf>
-            <bsdf name="liquidShader_I1_lambertian_brdf" model="lambertian_brdf">
-                <parameter name="reflectance" value="liquidShader_I1_lambertian_brdf_reflectance" />
+            <bsdf name="liquidShader_I1" model="lambertian_brdf">
+                <parameter name="reflectance" value="liquidShader_I1_reflectance" />
                 <parameter name="reflectance_multiplier" value="1" />
             </bsdf>
-            <bsdf name="liquidShader4_bsdf_mix" model="bsdf_mix">
-                <parameter name="bsdf0" value="liquidShader_I0_lambertian_brdf" />
-                <parameter name="bsdf1" value="liquidShader_I1_lambertian_brdf" />
-                <parameter name="weight0" value="file1_inst" />
+            <bsdf name="liquidShader_bsdfmix" model="bsdf_mix">
+                <parameter name="bsdf0" value="liquidShader_I0" />
+                <parameter name="bsdf1" value="liquidShader_I1" />
+                <parameter name="weight0" value="0.5" />
                 <parameter name="weight1" value="0.5" />
             </bsdf>
-            <edf name="liquidShader_I0_diffuse_edf" model="diffuse_edf">
-                <parameter name="exitance" value="liquidShader_I0_diffuse_edf_exitance" />
-            </edf>
-            <edf name="liquidShader_I1_diffuse_edf" model="diffuse_edf">
-                <parameter name="exitance" value="liquidShader_I1_diffuse_edf_exitance" />
-            </edf>
-            <edf name="liquidShader4_diffuse_edf" model="diffuse_edf">
-                <parameter name="exitance" value="liquidShader4_diffuse_edf_exitance" />
-            </edf>
-            <surface_shader name="liquidShader_I0_physical_surface_shader" model="physical_surface_shader" />
-            <surface_shader name="liquidShader_I1_physical_surface_shader" model="physical_surface_shader" />
-            <surface_shader name="liquidShader4_physical_surface_shader" model="physical_surface_shader" />
-            <material name="liquidShader_I0" model="generic_material">
-                <parameter name="bsdf" value="liquidShader_I0_lambertian_brdf" />
-                <parameter name="edf" value="liquidShader_I0_diffuse_edf" />
-                <parameter name="surface_shader" value="liquidShader_I0_physical_surface_shader" />
-            </material>
-            <material name="liquidShader_I1" model="generic_material">
-                <parameter name="bsdf" value="liquidShader_I1_lambertian_brdf" />
-                <parameter name="edf" value="liquidShader_I1_diffuse_edf" />
-                <parameter name="surface_shader" value="liquidShader_I1_physical_surface_shader" />
-            </material>
-            <material name="liquidShader4" model="generic_material">
-                <parameter name="bsdf" value="liquidShader4_bsdf_mix" />
-                <parameter name="edf" value="liquidShader4_diffuse_edf" />
-                <parameter name="surface_shader" value="liquidShader4_physical_surface_shader" />
+            <surface_shader name="liquidShader_surface" model="physical_surface_shader">
+                <parameter name="aerial_persp_distance" value="1000" />
+                <parameter name="aerial_persp_intensity" value="0.01" />
+                <parameter name="aerial_persp_mode" value="none" />
+                <parameter name="aerial_persp_sky_color" value="liquidShader_surface_aerial_persp_sky_color" />
+                <parameter name="alpha_multiplier" value="1" />
+                <parameter name="color_multiplier" value="1" />
+            </surface_shader>
+            <material name="lambert2SG" model="generic_material">
+                <parameter name="bsdf" value="liquidShader_bsdfmix" />
+                <parameter name="surface_shader" value="liquidShader_surface" />
             </material>
             <light name="|pointLight1|pointLightShape1" model="point_light">
                 <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
@@ -152,13 +111,7 @@
             <object name="|pPlane1|pPlaneShape1" model="mesh_object">
                 <parameter name="filename" value="pPlaneShape1.obj" />
             </object>
-            <object name="|pPlane2|pPlaneShape2" model="mesh_object">
-                <parameter name="filename" value="pPlaneShape2.obj" />
-            </object>
-            <object name="|pPlane3|pPlaneShape3" model="mesh_object">
-                <parameter name="filename" value="pPlaneShape3.obj" />
-            </object>
-            <object_instance name="|pPlane1|pPlaneShape1.pPlane1_inst" object="|pPlane1|pPlaneShape1.pPlane1">
+            <object_instance name="|pPlane1|pPlaneShape1.0_inst" object="|pPlane1|pPlaneShape1.0">
                 <transform>
                     <matrix>
                         1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
@@ -167,29 +120,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader4" />
-            </object_instance>
-            <object_instance name="|pPlane2|pPlaneShape2.0_inst" object="|pPlane2|pPlaneShape2.0">
-                <transform>
-                    <matrix>
-                        1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 1.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 0.000000000000000 1.000000000000000 0.000000000000000
-                        0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
-                    </matrix>
-                </transform>
-                <assign_material slot="0" side="front" material="liquidShader_I0" />
-            </object_instance>
-            <object_instance name="|pPlane3|pPlaneShape3.0_inst" object="|pPlane3|pPlaneShape3.0">
-                <transform>
-                    <matrix>
-                        1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 1.000000000000000 0.000000000000000 0.000000000000000
-                        0.000000000000000 0.000000000000000 1.000000000000000 0.000000000000000
-                        0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
-                    </matrix>
-                </transform>
-                <assign_material slot="0" side="front" material="liquidShader_I1" />
+                <assign_material slot="0" side="front" material="lambert2SG" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

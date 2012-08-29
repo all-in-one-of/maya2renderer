@@ -34,24 +34,6 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
-            <color name="liquidShader6_lambertian_brdf_reflectance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.000000 1.000000 0.000000
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader6_diffuse_edf_exitance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.015030 0.015030 0.015030
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
             <color name="|pointLight1|pointLightShape1_exitance">
                 <parameter name="color_space" value="srgb" />
                 <parameter name="multiplier" value="30" />
@@ -62,21 +44,11 @@
                     1.000000
                 </alpha>
             </color>
-            <bsdf name="liquidShader6_lambertian_brdf" model="lambertian_brdf">
-                <parameter name="reflectance" value="liquidShader6_lambertian_brdf_reflectance" />
-                <parameter name="reflectance_multiplier" value="1" />
-            </bsdf>
-            <edf name="liquidShader6_diffuse_edf" model="diffuse_edf">
-                <parameter name="exitance" value="liquidShader6_diffuse_edf_exitance" />
-                <parameter name="exitance_multiplier" value="1" />
-            </edf>
-            <surface_shader name="liquidShader6_diagnostic_surface_shader" model="diagnostic_surface_shader">
-                <parameter name="mode" value="wireframe" />
+            <surface_shader name="liquidShader6" model="diagnostic_surface_shader">
+                <parameter name="mode" value="barycentric" />
             </surface_shader>
-            <material name="liquidShader6" model="generic_material">
-                <parameter name="bsdf" value="liquidShader6_lambertian_brdf" />
-                <parameter name="edf" value="liquidShader6_diffuse_edf" />
-                <parameter name="surface_shader" value="liquidShader6_diagnostic_surface_shader" />
+            <material name="liquidShader6SG" model="generic_material">
+                <parameter name="surface_shader" value="liquidShader6" />
             </material>
             <light name="|pointLight1|pointLightShape1" model="point_light">
                 <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
@@ -104,7 +76,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader6" />
+                <assign_material slot="0" side="front" material="liquidShader6SG" />
             </object_instance>
             <object_instance name="|pCube1|pCubeShape1.0_inst" object="|pCube1|pCubeShape1.0">
                 <transform>
@@ -115,7 +87,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader6" />
+                <assign_material slot="0" side="front" material="liquidShader6SG" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

@@ -1,0 +1,10 @@
+#shaderType
+kelemen_brdf
+#shaderName
+kelemen_brdf0
+#Name|Details|Type|IsOutput|Defaults|ArraySizes
+matte_reflectance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+matte_reflectance_multiplier|uniform|float|0|1.0|-1
+specular_reflectance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+specular_reflectance_multiplier|uniform|float|0|1.0|-1
+roughness|uniform|float|0|0.5|-1

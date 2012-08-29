@@ -1,9 +1,9 @@
 //Maya ASCII 2012 scene
 //Name: test_liqShaderNode_surface_as_kelemenPSS.ma
-//Last modified: Mon, Aug 27, 2012 10:16:20 PM
+//Last modified: Wed, Aug 29, 2012 08:41:07 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=21:33:10.18)";
+requires "liquid_2012x32d" "2.3.5 (buildtime=19:58:56.71)";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -87,8 +87,8 @@ createNode pointLight -n "pointLightShape1" -p "pointLight1";
 	setAttr -k off ".v";
 	setAttr ".us" no;
 createNode lightLinker -s -n "lightLinker1";
-	setAttr -s 15 ".lnk";
-	setAttr -s 15 ".slnk";
+	setAttr -s 16 ".lnk";
+	setAttr -s 16 ".slnk";
 createNode displayLayerManager -n "layerManager";
 createNode displayLayer -n "defaultLayer";
 createNode renderLayerManager -n "renderLayerManager";
@@ -109,7 +109,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_kelemenPSS283.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_kelemenPSS548.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -157,7 +157,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            -shadows 0\n            $editorName;\nmodelEditor -e -viewSelected 0 $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `outlinerPanel -unParent -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels `;\n\t\t\t$editorName = $panelName;\n            outlinerEditor -e \n                -showShapes 1\n                -showAttributes 0\n                -showConnected 0\n                -showAnimCurvesOnly 0\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 1\n                -showPublishedAsConnected 0\n                -showContainerContents 1\n                -ignoreDagHierarchy 0\n                -expandConnections 0\n"
 		+ "                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 0\n                -highlightActive 1\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"defaultSetFilter\" \n                -showSetMembers 1\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n"
 		+ "                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -showShapes 1\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 0\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n"
-		+ "            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n"
+		+ "            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\toutlinerPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n"
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n"
 		+ "                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n"
 		+ "                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n"
@@ -180,10 +180,10 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynRelEdPanel\" -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"relationshipPanel\" -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"referenceEditorPanel\" -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"componentEditorPanel\" -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynPaintScriptedPanelType\" -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"scriptEditorPanel\" -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"Stereo\" -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels `;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n"
-		+ "                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 8192\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -maxConstantTransparency 1\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n"
-		+ "                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -shadows 0\n"
-		+ "                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                $editorName;\nstereoCameraView -e -viewSelected 0 $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n"
+		+ "\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"Stereo\" -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels `;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n"
+		+ "                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 8192\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -maxConstantTransparency 1\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n"
+		+ "                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n"
+		+ "                -shadows 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                $editorName;\nstereoCameraView -e -viewSelected 0 $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n"
 		+ "                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 8192\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -maxConstantTransparency 1\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n"
 		+ "                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -shadows 0\n                -displayMode \"centerEye\" \n"
 		+ "                -viewColor 0 0 0 1 \n                $editorName;\nstereoCameraView -e -viewSelected 0 $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-defaultImage \"\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"quad\\\" -ps 1 50 50 -ps 2 50 50 -ps 3 50 50 -ps 4 50 50 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Top View\")) \n\t\t\t\t\t\"modelPanel\"\n"
@@ -459,19 +459,32 @@ createNode liquidShader -n "liquidShader11";
 	addAttr -ci true -sn "use_alpha_map" -ln "use_alpha_map" -min 0 -max 1 -at "bool";
 	addAttr -ci true -sn "use_normal_map" -ln "use_normal_map" -min 0 -max 1 -at "bool";
 	addAttr -ci true -sn "liqAssignedObjects" -ln "liqAssignedObjects" -at "message";
-	setAttr ".rms" -type "string" "as_shader";
-	setAttr ".rst" -type "string" "surface";
-	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/kelemenBRDF_physicalSS.dll";
-	setAttr ".rpr" -type "stringArray" 16 "bsdf_model" "kelemen_brdf_matte_reflectance" "kelemen_brdf_matte_reflectance_multiplier" "kelemen_brdf_specular_reflectance" "kelemen_brdf_specular_reflectance_multiplier" "kelemen_brdf_roughness" "edf_model" "diffuse_edf_exitance" "diffuse_edf_exitance_multiplier" "surface_shader_model" "physical_surface_shader_color_multiplier" "physical_surface_shader_alpha_multiplier" "physical_surface_shader_aerial_persp_mode" "physical_surface_shader_aerial_persp_sky_color" "physical_surface_shader_aerial_persp_distance" "physical_surface_shader_aerial_persp_intensity"  ;
-	setAttr ".rdt" -type "stringArray" 16 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 16 "string" "color" "float" "color" "float" "float" "string" "color" "float" "string" "float" "float" "string" "color" "float" "float"  ;
-	setAttr ".rdf" -type "stringArray" 16 "kelemen_brdf" "1.01.01.0" "1.0" "1.01.01.0" "1.0" "0.5" "diffuse_edf" "1.01.01.0" "1.0" "physical_surface_shader" "1.0" "1.0" "none" "1.01.01.0" "1000.0" "0.01"  ;
-	setAttr ".ras" -type "Int32Array" 16 -1 -1 -1 -1 -1 -1
-		 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 16 "liquidAE_LifString( \"bsdf_model\", -1, \"string\", \"bsdf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"kelemen_brdf_matte_reflectance\", -1, \"color\", \"kelemen_brdf_matte_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"kelemen_brdf_matte_reflectance_multiplier\", -1, \"float\", \"kelemen_brdf_matte_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"kelemen_brdf_specular_reflectance\", -1, \"color\", \"kelemen_brdf_specular_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"kelemen_brdf_specular_reflectance_multiplier\", -1, \"float\", \"kelemen_brdf_specular_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"kelemen_brdf_roughness\", -1, \"float\", \"kelemen_brdf_roughness\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"edf_model\", -1, \"string\", \"edf_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"diffuse_edf_exitance\", -1, \"color\", \"diffuse_edf_exitance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"diffuse_edf_exitance_multiplier\", -1, \"float\", \"diffuse_edf_exitance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"surface_shader_model\", -1, \"string\", \"surface_shader_model\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_color_multiplier\", -1, \"float\", \"physical_surface_shader_color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_alpha_multiplier\", -1, \"float\", \"physical_surface_shader_alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"physical_surface_shader_aerial_persp_mode\", -1, \"string\", \"physical_surface_shader_aerial_persp_mode\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"physical_surface_shader_aerial_persp_sky_color\", -1, \"color\", \"physical_surface_shader_aerial_persp_sky_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_distance\", -1, \"float\", \"physical_surface_shader_aerial_persp_distance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"physical_surface_shader_aerial_persp_intensity\", -1, \"float\", \"physical_surface_shader_aerial_persp_intensity\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	addAttr -ci true -h true -sn "color_multiplier" -ln "color_multiplier" -at "double";
+	addAttr -ci true -h true -sn "alpha_multiplier" -ln "alpha_multiplier" -at "double";
+	addAttr -ci true -h true -sn "aerial_persp_mode" -ln "aerial_persp_mode" -dt "string";
+	addAttr -ci true -uac -h true -k true -sn "aerial_persp_sky_color" -ln "aerial_persp_sky_color" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "aerial_persp_sky_colora" -ln "aerial_persp_sky_colora" 
+		-at "float" -p "aerial_persp_sky_color";
+	addAttr -ci true -h true -k true -sn "aerial_persp_sky_colorb" -ln "aerial_persp_sky_colorb" 
+		-at "float" -p "aerial_persp_sky_color";
+	addAttr -ci true -h true -k true -sn "aerial_persp_sky_colorc" -ln "aerial_persp_sky_colorc" 
+		-at "float" -p "aerial_persp_sky_color";
+	addAttr -ci true -h true -sn "aerial_persp_distance" -ln "aerial_persp_distance" 
+		-at "double";
+	addAttr -ci true -h true -sn "aerial_persp_intensity" -ln "aerial_persp_intensity" 
+		-at "double";
+	setAttr ".rms" -type "string" "physical_surface_shader0";
+	setAttr ".rst" -type "string" "physical_surface_shader";
+	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/physicalSurfaceShader.dll";
+	setAttr ".rpr" -type "stringArray" 6 "color_multiplier" "alpha_multiplier" "aerial_persp_mode" "aerial_persp_sky_color" "aerial_persp_distance" "aerial_persp_intensity"  ;
+	setAttr ".rdt" -type "stringArray" 6 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
+	setAttr ".rty" -type "stringArray" 6 "float" "float" "string" "color" "float" "float"  ;
+	setAttr ".rdf" -type "stringArray" 6 "1.0" "1.0" "none" "1.01.01.0" "1000.0" "0.01"  ;
+	setAttr ".ras" -type "Int32Array" 6 -1 -1 -1 -1 -1 -1 ;
+	setAttr ".rlc" -type "stringArray" 6 "liquidAE_LifFloat( \"color_multiplier\", -1, \"float\", \"color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"alpha_multiplier\", -1, \"float\", \"alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"aerial_persp_mode\", -1, \"string\", \"aerial_persp_mode\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"aerial_persp_sky_color\", -1, \"color\", \"aerial_persp_sky_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"aerial_persp_distance\", -1, \"float\", \"aerial_persp_distance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"aerial_persp_intensity\", -1, \"float\", \"aerial_persp_intensity\", {\"0\", \"0\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
-	setAttr ".rio" -type "Int32Array" 16 0 0 0 0 0 0
-		 0 0 0 0 0 0 0 0 0 0 ;
+	setAttr ".rio" -type "Int32Array" 6 0 0 0 0 0 0 ;
 	setAttr ".bsdf_model" -type "string" "kelemen_brdf";
 	setAttr -k on ".kelemen_brdf_matte_reflectance" -type "float3" 1 0 0 ;
 	setAttr ".kelemen_brdf_matte_reflectance_multiplier" 1;
@@ -491,10 +504,67 @@ createNode liquidShader -n "liquidShader11";
 	setAttr ".physical_surface_shader_aerial_persp_intensity" 0.01;
 	setAttr ".use_bsdf" yes;
 	setAttr ".use_edf" yes;
+	setAttr ".color_multiplier" 1;
+	setAttr ".alpha_multiplier" 1;
+	setAttr ".aerial_persp_mode" -type "string" "none";
+	setAttr -k on ".aerial_persp_sky_color" -type "float3" 1 1 1 ;
+	setAttr ".aerial_persp_distance" 1000;
+	setAttr ".aerial_persp_intensity" 0.01;
 createNode shadingEngine -n "liquidShader11SG";
+	addAttr -ci true -uac -k true -sn "liqBRDF" -ln "liqBRDF" -at "float3" -nc 3;
+	addAttr -ci true -k true -sn "liqBRDFr" -ln "liqBRDFr" -dv 1 -at "float" -p "liqBRDF";
+	addAttr -ci true -k true -sn "liqBRDFg" -ln "liqBRDFg" -dv 1 -at "float" -p "liqBRDF";
+	addAttr -ci true -k true -sn "liqBRDFb" -ln "liqBRDFb" -dv 1 -at "float" -p "liqBRDF";
+	addAttr -ci true -uac -k true -sn "liqEDF" -ln "liqEDF" -at "float3" -nc 3;
+	addAttr -ci true -k true -sn "liqEDFr" -ln "liqEDFr" -dv 1 -at "float" -p "liqEDF";
+	addAttr -ci true -k true -sn "liqEDFg" -ln "liqEDFg" -dv 1 -at "float" -p "liqEDF";
+	addAttr -ci true -k true -sn "liqEDFb" -ln "liqEDFb" -dv 1 -at "float" -p "liqEDF";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -k on ".liqBRDF";
 createNode materialInfo -n "materialInfo13";
+createNode liquidShader -n "liquidShader12";
+	addAttr -ci true -uac -h true -k true -sn "matte_reflectance" -ln "matte_reflectance" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "matte_reflectancea" -ln "matte_reflectancea" 
+		-at "float" -p "matte_reflectance";
+	addAttr -ci true -h true -k true -sn "matte_reflectanceb" -ln "matte_reflectanceb" 
+		-at "float" -p "matte_reflectance";
+	addAttr -ci true -h true -k true -sn "matte_reflectancec" -ln "matte_reflectancec" 
+		-at "float" -p "matte_reflectance";
+	addAttr -ci true -h true -sn "matte_reflectance_multiplier" -ln "matte_reflectance_multiplier" 
+		-at "double";
+	addAttr -ci true -uac -h true -k true -sn "specular_reflectance" -ln "specular_reflectance" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -k true -sn "specular_reflectancea" -ln "specular_reflectancea" 
+		-at "float" -p "specular_reflectance";
+	addAttr -ci true -h true -k true -sn "specular_reflectanceb" -ln "specular_reflectanceb" 
+		-at "float" -p "specular_reflectance";
+	addAttr -ci true -h true -k true -sn "specular_reflectancec" -ln "specular_reflectancec" 
+		-at "float" -p "specular_reflectance";
+	addAttr -ci true -h true -sn "specular_reflectance_multiplier" -ln "specular_reflectance_multiplier" 
+		-at "double";
+	addAttr -ci true -h true -sn "roughness" -ln "roughness" -at "double";
+	setAttr ".rms" -type "string" "kelemen_brdf0";
+	setAttr ".rst" -type "string" "kelemen_brdf";
+	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/kelemenBRDF.dll";
+	setAttr ".rpr" -type "stringArray" 5 "matte_reflectance" "matte_reflectance_multiplier" "specular_reflectance" "specular_reflectance_multiplier" "roughness"  ;
+	setAttr ".rdt" -type "stringArray" 5 "uniform" "uniform" "uniform" "uniform" "uniform"  ;
+	setAttr ".rty" -type "stringArray" 5 "color" "float" "color" "float" "float"  ;
+	setAttr ".rdf" -type "stringArray" 5 "1.01.01.0" "1.0" "1.01.01.0" "1.0" "0.5"  ;
+	setAttr ".ras" -type "Int32Array" 5 -1 -1 -1 -1 -1 ;
+	setAttr ".rlc" -type "stringArray" 5 "liquidAE_LifColor( \"matte_reflectance\", -1, \"color\", \"matte_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"matte_reflectance_multiplier\", -1, \"float\", \"matte_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specular_reflectance\", -1, \"color\", \"specular_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"specular_reflectance_multiplier\", -1, \"float\", \"specular_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"roughness\", -1, \"float\", \"roughness\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rmt" -type "stringArray" 0  ;
+	setAttr ".rio" -type "Int32Array" 5 0 0 0 0 0 ;
+	setAttr -k on ".matte_reflectance" -type "float3" 1 1 0 ;
+	setAttr ".matte_reflectance_multiplier" 1;
+	setAttr -k on ".specular_reflectance" -type "float3" 0.45864043 0.45864043 0.45864043 ;
+	setAttr ".specular_reflectance_multiplier" 1;
+	setAttr ".roughness" 0.5;
+createNode shadingEngine -n "liquidShader12SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo14";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
@@ -507,7 +577,7 @@ select -ne :renderPartition;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr -s 15 ".st";
+	setAttr -s 16 ".st";
 	setAttr -cb on ".an";
 	setAttr -cb on ".pt";
 select -ne :initialShadingGroup;
@@ -541,7 +611,7 @@ select -ne :defaultShaderList1;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr -s 3 ".s";
+	setAttr -s 4 ".s";
 select -ne :defaultTextureList1;
 select -ne :lightList1;
 	setAttr -k on ".cch";
@@ -657,6 +727,7 @@ relationship "link" ":lightLinker1" "liquidShader8SG.message" ":defaultLightSet.
 relationship "link" ":lightLinker1" "liquidShader9SG.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "liquidShader10SG.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "liquidShader11SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "liquidShader12SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "liquidSurface1SG.message" ":defaultLightSet.message";
@@ -672,6 +743,7 @@ relationship "shadowLink" ":lightLinker1" "liquidShader8SG.message" ":defaultLig
 relationship "shadowLink" ":lightLinker1" "liquidShader9SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "liquidShader10SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "liquidShader11SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "liquidShader12SG.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
 connectAttr "liquidSurface1SG.msg" "materialInfo1.sg";
@@ -706,9 +778,14 @@ connectAttr "liquidShader9SG.msg" "materialInfo11.sg";
 connectAttr "liquidShader10SG.msg" "materialInfo12.sg";
 connectAttr "liquidShader11.oc" "liquidShader11SG.ss";
 connectAttr "pPlaneShape1.iog" "liquidShader11SG.dsm" -na;
+connectAttr "liquidShader12.oc" "liquidShader11SG.liqBRDF";
 connectAttr "liquidShader11SG.msg" "materialInfo13.sg";
 connectAttr "liquidShader11.msg" "materialInfo13.m";
 connectAttr "liquidShader11.msg" "materialInfo13.t" -na;
+connectAttr "liquidShader12.oc" "liquidShader12SG.ss";
+connectAttr "liquidShader12SG.msg" "materialInfo14.sg";
+connectAttr "liquidShader12.msg" "materialInfo14.m";
+connectAttr "liquidShader12.msg" "materialInfo14.t" -na;
 connectAttr "liquidSurface1SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidSurface2SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidSurface3SG.pa" ":renderPartition.st" -na;
@@ -722,7 +799,9 @@ connectAttr "liquidShader8SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidShader9SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidShader10SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidShader11SG.pa" ":renderPartition.st" -na;
+connectAttr "liquidShader12SG.pa" ":renderPartition.st" -na;
 connectAttr "liquidShader11.msg" ":defaultShaderList1.s" -na;
+connectAttr "liquidShader12.msg" ":defaultShaderList1.s" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "pointLightShape1.ltd" ":lightList1.l" -na;
 connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;

@@ -34,37 +34,28 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
-            <color name="liquidShader12_specular_btdf_reflectance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.000000 0.000000 1.000000
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader12_specular_btdf_transmittance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    1.000000 1.000000 0.000000
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader12_diffuse_edf_exitance">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    0.022553 0.022553 0.022553
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader12_physical_surface_shader_aerial_persp_sky_color">
+            <color name="liquidShader12_aerial_persp_sky_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
                     1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="liquidShader13_reflectance">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 0.000000 0.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="liquidShader13_transmittance">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 0.000000
                 </values>
                 <alpha>
                     1.000000
@@ -80,30 +71,25 @@
                     1.000000
                 </alpha>
             </color>
-            <bsdf name="liquidShader12_specular_btdf" model="specular_btdf">
+            <bsdf name="liquidShader13" model="specular_btdf">
                 <parameter name="from_ior" value="1" />
-                <parameter name="reflectance" value="liquidShader12_specular_btdf_reflectance" />
+                <parameter name="reflectance" value="liquidShader13_reflectance" />
                 <parameter name="reflectance_multiplier" value="1" />
                 <parameter name="to_ior" value="1.5" />
-                <parameter name="transmittance" value="liquidShader12_specular_btdf_transmittance" />
+                <parameter name="transmittance" value="liquidShader13_transmittance" />
                 <parameter name="transmittance_multiplier" value="1" />
             </bsdf>
-            <edf name="liquidShader12_diffuse_edf" model="diffuse_edf">
-                <parameter name="exitance" value="liquidShader12_diffuse_edf_exitance" />
-                <parameter name="exitance_multiplier" value="1" />
-            </edf>
-            <surface_shader name="liquidShader12_physical_surface_shader" model="physical_surface_shader">
+            <surface_shader name="liquidShader12" model="physical_surface_shader">
                 <parameter name="aerial_persp_distance" value="1000" />
                 <parameter name="aerial_persp_intensity" value="0.01" />
                 <parameter name="aerial_persp_mode" value="none" />
-                <parameter name="aerial_persp_sky_color" value="liquidShader12_physical_surface_shader_aerial_persp_sky_color" />
+                <parameter name="aerial_persp_sky_color" value="liquidShader12_aerial_persp_sky_color" />
                 <parameter name="alpha_multiplier" value="1" />
                 <parameter name="color_multiplier" value="1" />
             </surface_shader>
-            <material name="liquidShader12" model="generic_material">
-                <parameter name="bsdf" value="liquidShader12_specular_btdf" />
-                <parameter name="edf" value="liquidShader12_diffuse_edf" />
-                <parameter name="surface_shader" value="liquidShader12_physical_surface_shader" />
+            <material name="liquidShader12SG" model="generic_material">
+                <parameter name="bsdf" value="liquidShader13" />
+                <parameter name="surface_shader" value="liquidShader12" />
             </material>
             <light name="|pointLight1|pointLightShape1" model="point_light">
                 <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
@@ -131,7 +117,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader12" />
+                <assign_material slot="0" side="front" material="liquidShader12SG" />
             </object_instance>
             <object_instance name="|pCube1|pCubeShape1.0_inst" object="|pCube1|pCubeShape1.0">
                 <transform>
@@ -142,7 +128,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader12" />
+                <assign_material slot="0" side="front" material="liquidShader12SG" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

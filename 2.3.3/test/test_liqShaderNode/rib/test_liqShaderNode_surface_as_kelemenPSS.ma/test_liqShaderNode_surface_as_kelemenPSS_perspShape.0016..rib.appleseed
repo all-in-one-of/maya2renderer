@@ -34,16 +34,16 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
-            <color name="liquidShader11_kelemen_brdf_matte_reflectance">
+            <color name="liquidShader11_aerial_persp_sky_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    1.000000 0.000000 0.000000
+                    1.000000 1.000000 1.000000
                 </values>
                 <alpha>
                     1.000000
                 </alpha>
             </color>
-            <color name="liquidShader11_kelemen_brdf_specular_reflectance">
+            <color name="liquidShader12_matte_reflectance">
                 <parameter name="color_space" value="srgb" />
                 <values>
                     1.000000 1.000000 0.000000
@@ -52,19 +52,10 @@
                     1.000000
                 </alpha>
             </color>
-            <color name="liquidShader11_diffuse_edf_exitance">
+            <color name="liquidShader12_specular_reflectance">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    0.007523 0.007523 0.007523
-                </values>
-                <alpha>
-                    1.000000
-                </alpha>
-            </color>
-            <color name="liquidShader11_physical_surface_shader_aerial_persp_sky_color">
-                <parameter name="color_space" value="srgb" />
-                <values>
-                    1.000000 1.000000 1.000000
+                    0.458640 0.458640 0.458640
                 </values>
                 <alpha>
                     1.000000
@@ -80,29 +71,24 @@
                     1.000000
                 </alpha>
             </color>
-            <bsdf name="liquidShader11_kelemen_brdf" model="kelemen_brdf">
-                <parameter name="matte_reflectance" value="liquidShader11_kelemen_brdf_matte_reflectance" />
+            <bsdf name="liquidShader12" model="kelemen_brdf">
+                <parameter name="matte_reflectance" value="liquidShader12_matte_reflectance" />
                 <parameter name="matte_reflectance_multiplier" value="1" />
                 <parameter name="roughness" value="0.5" />
-                <parameter name="specular_reflectance" value="liquidShader11_kelemen_brdf_specular_reflectance" />
+                <parameter name="specular_reflectance" value="liquidShader12_specular_reflectance" />
                 <parameter name="specular_reflectance_multiplier" value="1" />
             </bsdf>
-            <edf name="liquidShader11_diffuse_edf" model="diffuse_edf">
-                <parameter name="exitance" value="liquidShader11_diffuse_edf_exitance" />
-                <parameter name="exitance_multiplier" value="1" />
-            </edf>
-            <surface_shader name="liquidShader11_physical_surface_shader" model="physical_surface_shader">
+            <surface_shader name="liquidShader11" model="physical_surface_shader">
                 <parameter name="aerial_persp_distance" value="1000" />
                 <parameter name="aerial_persp_intensity" value="0.01" />
                 <parameter name="aerial_persp_mode" value="none" />
-                <parameter name="aerial_persp_sky_color" value="liquidShader11_physical_surface_shader_aerial_persp_sky_color" />
+                <parameter name="aerial_persp_sky_color" value="liquidShader11_aerial_persp_sky_color" />
                 <parameter name="alpha_multiplier" value="1" />
                 <parameter name="color_multiplier" value="1" />
             </surface_shader>
-            <material name="liquidShader11" model="generic_material">
-                <parameter name="bsdf" value="liquidShader11_kelemen_brdf" />
-                <parameter name="edf" value="liquidShader11_diffuse_edf" />
-                <parameter name="surface_shader" value="liquidShader11_physical_surface_shader" />
+            <material name="liquidShader11SG" model="generic_material">
+                <parameter name="bsdf" value="liquidShader12" />
+                <parameter name="surface_shader" value="liquidShader11" />
             </material>
             <light name="|pointLight1|pointLightShape1" model="point_light">
                 <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
@@ -127,7 +113,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="liquidShader11" />
+                <assign_material slot="0" side="front" material="liquidShader11SG" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

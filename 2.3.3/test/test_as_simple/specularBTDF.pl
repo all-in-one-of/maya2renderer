@@ -1,0 +1,11 @@
+#shaderType
+specular_btdf
+#shaderName
+specular_btdf0
+#Name|Details|Type|IsOutput|Defaults|ArraySizes
+reflectance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+reflectance_multiplier|uniform|float|0|1.0|-1
+transmittance|uniform|color|0|<<1.0,1.0,1.0>>|-1
+transmittance_multiplier|uniform|float|0|1.0|-1
+from_ior|uniform|float|0|1.0|-1
+to_ior|uniform|float|0|1.5|-1
