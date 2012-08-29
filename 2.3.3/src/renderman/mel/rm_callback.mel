@@ -1,0 +1,21 @@
+
+source xxliquidutility.mel;
+
+global proc int isValidShaderTypeForPL_renderman(string $shaderType)
+{
+    liqPushIdent();
+    liqlog("isValidShaderTypeForPL_renderman("+$shaderType+")");
+
+	if ( $shaderType == "surface"		||
+		 $shaderType == "displacement"  ||
+		 $shaderType == "volume"        ||
+		 $shaderType == "light"         ||
+		 $shaderType == "shader"        )
+	{
+		liqPopIdent();
+		return 1;
+	}
+
+    liqPopIdent();
+	return 0;
+}

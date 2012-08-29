@@ -5,3 +5,4 @@ source er_AEliquidInstanceFlags.mel;
 source er_CreateMenus.mel;
 source liqGlobalsNodeelvishray.mel;
 source AEliquidShaderTemplate_elvishray.mel;
+source er_callback.mel;

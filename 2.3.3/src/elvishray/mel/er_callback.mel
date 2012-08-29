@@ -1,0 +1,23 @@
+
+source xxliquidutility.mel;
+
+global proc int isValidShaderTypeForPL_elvishray(string $shaderType)
+{
+    liqPushIdent();
+    liqlog("isValidShaderTypeForPL_elvishray("+$shaderType+")");
+
+	if ( $shaderType == "surface"		||
+		 $shaderType == "displace"      ||
+		 $shaderType == "volume"        ||
+		 $shaderType == "shadow"        ||
+		 $shaderType == "environment"   ||
+		 //$shaderType == "photon"		||
+		 $shaderType == "lens"			)
+	{
+		liqPopIdent();
+		return 1;
+	}
+
+    liqPopIdent();
+	return 0;
+}

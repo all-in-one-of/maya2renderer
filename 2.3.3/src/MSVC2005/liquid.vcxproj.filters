@@ -1187,6 +1187,18 @@
     <None Include="..\luxrenderer\mel\AEliquidShaderTemplate_luxrenderer.mel">
       <Filter>renderer\luxrenderer\mel</Filter>
     </None>
+    <None Include="..\appleseed\mel\as_callback.mel">
+      <Filter>renderer\appleseed\mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\er_callback.mel">
+      <Filter>renderer\elvishray\mel</Filter>
+    </None>
+    <None Include="..\renderman\mel\rm_callback.mel">
+      <Filter>renderer\renderman\mel</Filter>
+    </None>
+    <None Include="..\luxrenderer\mel\lux_callback.mel">
+      <Filter>renderer\luxrenderer\mel</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">

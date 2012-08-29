@@ -5,3 +5,4 @@ source lux_AEliquidInstanceFlags.mel;
 source lux_CreateMenus.mel;
 source liqGlobalsNodeluxrenderer.mel;
 source AEliquidShaderTemplate_luxrenderer.mel;
+source lux_callback.mel;

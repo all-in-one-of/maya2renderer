@@ -1,16 +1,20 @@
 
 source xxliquidutility.mel;
-source liquidAttributes.mel;
+source liquidAttributes.mel;
+
 global proc as_CreateMenu(string $prefix)
 {
 	liqPushIdent();
-	liqlog("as_CreateMenu("+$prefix+")");
-	menuItem -label "appleseed menu" -subMenu true -tearOff true;
+	liqlog("as_CreateMenu("+$prefix+")");
+
+	menuItem -label "appleseed menu" -subMenu true -tearOff true;
+
 		menuItem -label "add object attrs" -command as_AddObjectAttributes -ann "Add test attributes to selected Transform node(s)";
 		menuItem -label "test1 " -subMenu true -tearOff true -postMenuCommand ("as_MenuPost_test1 "+$prefix);
 		  menuItem -label "attr0" -command as_AddObjectAttribute_attr0;
 		  menuItem -label "attr1" -command as_AddObjectAttribute_attr1;
-		setParent -menu ..;
+		setParent -menu ..;
+
 		menuItem -label "Remove attrs" -command as_DelObjectAttributes -ann "Delete test attributes from selected Transform node(s)";
 		menuItem -d true;
 	setParent -menu ..;
@@ -28,7 +32,8 @@ global proc as_AddObjectAttributes()
 
   liqPopIdent();
 }
-//
+//
+
 global proc as_AddObjectAttribute_attr0()
 {
   liqPushIdent();

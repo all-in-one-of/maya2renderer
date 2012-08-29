@@ -1,0 +1,17 @@
+
+source xxliquidutility.mel;
+
+global proc int isValidShaderTypeForPL_luxrenderer(string $shaderType)
+{
+    liqPushIdent();
+    liqlog("isValidShaderTypeForPL_luxrenderer("+$shaderType+")");
+
+	if ( true )
+	{
+		liqPopIdent();
+		return 1;
+	}
+
+    liqPopIdent();
+	return 0;
+}

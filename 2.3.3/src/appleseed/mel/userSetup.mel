@@ -6,3 +6,4 @@ source as_CreateMenus.mel;
 source liqGlobalsNodeappleseed.mel;
 source as_util.mel;
 source AEliquidShaderTemplate_appleseed;
+source as_callback.mel;
