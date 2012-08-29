@@ -367,7 +367,7 @@ RenderMan (R) is a registered trademark of Pixar
 
 
 - liquidShaderNode.color is renamed to liqcolor, and liquidShaderNode.opacity is renamed to liqopacity
-  see Commit:0dbd8cc6623433c546056b0b7e7c197a57b85f46
+  see Commit:dd662068d3b2243090a2da1a2b094356b983ea6e
   appleseed's constant surface shader has a "color" variable, which collides with liquidShaderNode.color.
   And, liquidShaderNode.color has three sub-values: colorR,colorG,colorB;
   But when liquid parse ConstantSurfaceShader.pl, it will create the attribute "color" which has sub-value : colora, colorb, colorc.
