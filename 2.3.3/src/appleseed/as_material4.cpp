@@ -185,7 +185,10 @@ namespace appleseed
 	void MaterialFactory4::createBSDF_bsdf_mix()
 	{
 		CM_TRACE_FUNC("MaterialFactory4::createBSDF_bsdf_mix()");
-
+		
+		// The reason that I define "outPlugForLiquid" in bsdfmix.pl is to connect two bsdf_mix nodes, 
+		// then the source bsdf_mix node will be visited when liquidMaya traverse the Maya shading graph network.
+		// but I don't add "outPlugForLiquid" to bsdf_mix cause it is not defined in appleseed,
 		Helper4 o(m_nodename.c_str(), m_assembly);
 		o.beginBSDF(m_bsdf_model);
 		o.addVariableBSDF("bsdf0",		"bsdf");
@@ -528,26 +531,37 @@ namespace appleseed
 				param_value = "unhandled";
 			}
 
-		}else{//the plug(param_name) is connected out
-			// if the plug(param_name) plug is connected out to "bsdf0"/"bsdf1" of a "bsdf_mix" node,
+		}else{// $(fullPlugName) is connected out
+			// if $(fullPlugName) plug is connected out to "bsdf0"/"bsdf1" of a "bsdf_mix" node,
 			// we also need to create this plug for appleseed
 
-			// get destination node
+			// get destination node(s)
 			MStringArray desNodePlug;
 			IfMErrorWarn(MGlobal::executeCommand("listConnections -destination true -plugs true \""+fullPlugName+"\"", desNodePlug));
-			assert(desNodePlug.length()==1);
-			MStringArray des;
-			desNodePlug[0].split('.',des);
-			MString desNode(des[0]);
-			MString desPlug(des[1]);
+			
+			// check whether $(fullPlugName) is connected to a BSDF node
+			bool isConnectedToA_BSDFMixNode = false;
+			MString desPlug;
+			for(std::size_t i = 0; i< desNodePlug.length(); ++i)
+			{
+				MStringArray des;
+				desNodePlug[i].split('.',des);
+				MString desNode(des[0]);
 
-			//destination node BSDF type
-			MString desNodeBSDFType;
-			IfMErrorWarn(MGlobal::executeCommand( "getAttr \""+desNode+".rmanShaderType\"", desNodeBSDFType));
+				//destination node BSDF type
+				MString desNodeBSDFType;
+				IfMErrorWarn(MGlobal::executeCommand( "getAttr \""+desNode+".rmanShaderType\"", desNodeBSDFType));
 
-			// if the plug(param_name) is connected out to "bsdf0"/"bsdf1" of a "bsdf_mix" node
+				if(desNodeBSDFType == "bsdf_mix")
+				{
+					isConnectedToA_BSDFMixNode = true;
+					desPlug = des[1];
+				}
+			}
+
+			// if $(fullPlugName) is connected out to "bsdf0"/"bsdf1" of a "bsdf_mix" node
 			// we also need to create this plug for appleseed
-			if( desNodeBSDFType=="bsdf_mix" && (desPlug=="bsdf0" ||desPlug=="bsdf1") )
+			if( isConnectedToA_BSDFMixNode && (desPlug=="bsdf0" ||desPlug=="bsdf1") )
 			{
 				if( isType("color", entity_types) )
 				{
