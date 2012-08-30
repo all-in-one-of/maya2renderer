@@ -255,81 +255,222 @@ void Visitor::visit_liquidShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visit_liquidShader("<<node<<")");
 	liqShader &shader = liqShaderFactory::instance().getShader( node );
 
-	//MStatus status;
-	//MString svalue;
-	//
-	//MObject mnode;
-	//getDependNodeByName(mnode, shader.getName().c_str());
-
-	//int use_bsdf = 0;
-	//int use_edf = 0;
-	//int use_alpha_map = 0;
-	//int use_normal_map = 0;
-	//liquidGetPlugValue(mnode, "use_bsdf", use_bsdf, status); 
-	//IfMErrorWarn(status);
-	//liquidGetPlugValue(mnode, "use_edf", use_edf, status); 
-	//IfMErrorWarn(status);
-	//liquidGetPlugValue(mnode, "use_alpha_map", use_alpha_map, status); 
-	//IfMErrorWarn(status);
-	//liquidGetPlugValue(mnode, "use_normal_map", use_normal_map, status); 
-	//IfMErrorWarn(status);
-
-	//MaterialFactory2 mf;
-	//mf.begin(shader.getName().c_str());
-	//
-	//if(use_bsdf){
-	//	liquidGetPlugValue(mnode, "bsdf_model", svalue, status); IfMErrorWarn(status);
-	//	mf.createBSDF(svalue.asChar());
-	//}
-	//if(use_edf){
-	//	liquidGetPlugValue(mnode, "edf_model", svalue, status); IfMErrorWarn(status);
-	//	mf.createEDF(svalue.asChar());
-	//}
-
-	//liquidGetPlugValue(mnode, "surface_shader_model", svalue, status); IfMErrorWarn(status);
-	//mf.createSurfaceShader(svalue.asChar());
-	//
-	//if(use_alpha_map){
-	//}
-	//if(use_normal_map){
-	//}
-
-	//mf.end();
-
-	if( shader.shader_type_ex == "ao_surface_shader"
-	 || shader.shader_type_ex == "constant_surface_shader"
-	 || shader.shader_type_ex == "diagnostic_surface_shader"
-	 || shader.shader_type_ex == "fast_sss_surface_shader"
-	 || shader.shader_type_ex == "physical_surface_shader"
-	 || shader.shader_type_ex == "smoke_surface_shader"
-	 || shader.shader_type_ex == "voxel_ao_surface_shader" )
-	{
-		MaterialFactory4 mf;
-		mf.begin(node);
-		mf.createSurfaceShader(shader.shader_type_ex.asChar());
-		mf.end();
-	}
-	else if( shader.shader_type_ex == "ashikhmin_brdf"
-		  || shader.shader_type_ex == "bsdf_mix"
-		  || shader.shader_type_ex == "kelemen_brdf"
-		  || shader.shader_type_ex == "lambertian_brdf"
-		  || shader.shader_type_ex == "null_bsdf"
-		  || shader.shader_type_ex == "smoke_surface_shader"
-		  || shader.shader_type_ex == "specular_brdf"
-		  || shader.shader_type_ex == "specular_btdf" )
-	{
-		MaterialFactory4 mf;
-		mf.begin(node);
-		mf.createBSDF(shader.shader_type_ex.asChar());
-		mf.end();
-	}
+	//Surface Shader
+	if( shader.shader_type_ex == "ao_surface_shader")
+		createSurfaceShader_ao(node);
+	else if(shader.shader_type_ex == "constant_surface_shader")
+		createSurfaceShader_constant(node);
+	else if(shader.shader_type_ex == "diagnostic_surface_shader")
+		createSurfaceShader_diagnostic(node);
+	else if(shader.shader_type_ex == "fast_sss_surface_shader")
+		createSurfaceShader_fast_sss(node);
+	else if(shader.shader_type_ex == "physical_surface_shader")
+		createSurfaceShader_physical(node);
+	else if(shader.shader_type_ex == "smoke_surface_shader")
+		createSurfaceShader_smoke(node);
+	else if(shader.shader_type_ex == "voxel_ao_surface_shader")
+		createSurfaceShader_voxel_ao(node);
+	//BSDF
+	else if( shader.shader_type_ex == "ashikhmin_brdf" )
+		createBSDF_ashikhmin_brdf(node);
+	else if( shader.shader_type_ex == "bsdf_mix")
+		createBSDF_bsdf_mix(node);
+	else if( shader.shader_type_ex == "kelemen_brdf")
+		createBSDF_kelemen_brdf(node);
+	else if( shader.shader_type_ex == "lambertian_brdf")
+		createBSDF_lambertian_brdf(node);
+	else if( shader.shader_type_ex == "null_bsdf")
+		createBSDF_null_bsdf(node);
+	else if( shader.shader_type_ex ==  "specular_brdf")
+		createBSDF_specular_brdf(node);
+	else if( shader.shader_type_ex ==  "specular_btdf")
+		createBSDF_specular_btdf(node);
+	//EDF
 	else if( shader.shader_type_ex == "diffuse_edf" )
-	{
-		MaterialFactory4 mf;
-		mf.begin(node);
-		mf.createEDF(shader.shader_type_ex.asChar());
-		mf.end();
+		createEDF_diffuse_edf(node);
+	else {
+		liquidMessage2(messageError, "shader type %s is unknown.", shader.shader_type_ex.asChar() );
 	}
+}
+//
+void Visitor::createBSDF_ashikhmin_brdf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_ashikhmin_brdf("<<node<<")");
+
+	Helper4 o(node);
+	o.beginBSDF("ashikhmin_brdf");
+	o.addVariableBSDF("diffuse_reflectance",			"color|texture_instance");
+	o.addVariableBSDF("diffuse_reflectance_multiplier",	"scalar|texture_instance");
+	o.addVariableBSDF("glossy_reflectance",				"color|texture_instance");
+	o.addVariableBSDF("glossy_reflectance_multiplier",	"scalar|texture_instance");
+	o.addVariableBSDF("shininess_u",					"scalar|texture_instance");
+	o.addVariableBSDF("shininess_v",					"scalar|texture_instance");
+	o.endBSDF();
+}
+
+void Visitor::createBSDF_bsdf_mix(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_bsdf_mix("<<node<<")");
+
+	// The reason that I define "outPlugForLiquid" in bsdfmix.pl is to connect two bsdf_mix nodes, 
+	// then the source bsdf_mix node will be visited when liquidMaya traverse the Maya shading graph network.
+	// but I don't add "outPlugForLiquid" to bsdf_mix cause it is not defined in appleseed,
+	Helper4 o(node);
+	o.beginBSDF("bsdf_mix");
+	o.addVariableBSDF("bsdf0",		"bsdf");
+	o.addVariableBSDF("bsdf1",		"bsdf");
+	o.addVariableBSDF("weight0",	"scalar|texture_instance");
+	o.addVariableBSDF("weight1",	"scalar|texture_instance");
+	o.endBSDF();
+}
+
+void Visitor::createBSDF_kelemen_brdf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_kelemen_brdf("<<node<<")");
+
+	Helper4 o(node);
+	o.beginBSDF("kelemen_brdf");
+	o.addVariableBSDF("matte_reflectance",					"color|texture_instance");
+	o.addVariableBSDF("matte_reflectance_multiplier",		"scalar|texture_instance");
+	o.addVariableBSDF("specular_reflectance",				"color");
+	o.addVariableBSDF("specular_reflectance_multiplier",	"scalar");
+	o.addVariableBSDF("roughness",							"scalar");
+	o.endBSDF();
+}
+
+void Visitor::createBSDF_lambertian_brdf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_lambertian_brdf("<<node<<")");
+
+	Helper4 o(node);
+	o.beginBSDF("lambertian_brdf");
+	o.addVariableBSDF("reflectance",			"color|texture_instance");
+	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
+	o.endBSDF();
+}
+
+void Visitor::createBSDF_null_bsdf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_null_bsdf("<<node<<")");
+	liquidMessage2( messageError, "the type of null_bsdf is not implemented yet." );
+}
+
+void Visitor::createBSDF_specular_brdf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_specular_brdf("<<node<<")");
+
+	Helper4 o(node);
+	o.beginBSDF("specular_brdf");
+	o.addVariableBSDF("reflectance",			"color|texture_instance");
+	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
+	o.endBSDF();
+}
+
+void Visitor::createBSDF_specular_btdf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createBSDF_specular_btdf("<<node<<")");
+
+	Helper4 o(node);
+	o.beginBSDF("specular_btdf");
+	o.addVariableBSDF("reflectance",			"color|texture_instance");
+	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
+	o.addVariableBSDF("transmittance",			"color|texture_instance");
+	o.addVariableBSDF("transmittance_multiplier",	"scalar|texture_instance");
+	o.addVariableBSDF("from_ior",					"scalar");
+	o.addVariableBSDF("to_ior",						"scalar");
+	o.endBSDF();
+}
+
+//
+void Visitor::createEDF_diffuse_edf(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createEDF_diffuse_edf("<<node<<")");
+
+	Helper4 o(node);
+	o.beginEDF("diffuse_edf");
+	o.addVariableEDF("exitance",			"color|texture_instance");
+	o.addVariableEDF("exitance_multiplier",	"scalar|texture_instance");
+	o.endEDF();
+}
+//
+void Visitor::createSurfaceShader_ao(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_ao("<<node<<")");
+
+	Helper4 o(node);
+	o.beginSS("ao_surface_shader");
+	o.addVariableSS("sampling_method",	"string");//cosine, uniform
+	o.addVariableSS("samples",	"scalar");
+	o.addVariableSS("max_distance",	"scalar");
+	o.endSS();
+}
+
+void Visitor::createSurfaceShader_constant(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_constant("<<node<<")");
+
+	Helper4 o(node);
+	o.beginSS("constant_surface_shader");
+	o.addVariableSS("color",			"color|texture_instance");
+	//o.addVariableSS("alpha_source", "?|?");
+	o.addVariableSS("color_multiplier",	"scalar|texture_instance");
+	o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
+	o.endSS();
+}
+
+void Visitor::createSurfaceShader_diagnostic(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_diagnostic("<<node<<")");
+
+	Helper4 o(node);
+	o.beginSS("diagnostic_surface_shader");
+	o.addVariableSS("mode",	"string");
+	o.endSS();
+}
+
+void Visitor::createSurfaceShader_fast_sss(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_fast_sss("<<node<<")");
+
+	Helper4 o(node);
+	o.beginSS("fast_sss_surface_shader");
+	o.addVariableSS("scale",			"scalar");
+	o.addVariableSS("ambient_sss",		"scalar");
+	o.addVariableSS("view_dep_sss",		"scalar");
+	o.addVariableSS("diffuse",			"scalar");
+	o.addVariableSS("power",			"scalar");
+	o.addVariableSS("distortion",		"scalar");
+	o.addVariableSS("albedo",			"color|texture_instance");
+	o.addVariableSS("light_samples",	"scalar");
+	o.addVariableSS("occlusion_samples","scalar");
+	o.endSS();
+}
+
+void Visitor::createSurfaceShader_physical(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_physical("<<node<<")");
+
+	Helper4 o(node);
+	o.beginSS("physical_surface_shader");
+	o.addVariableSS("color_multiplier",	"scalar|texture_instance");
+	o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
+	o.addVariableSS("aerial_persp_mode",		"string");//none, environment_shader, sky_color
+	o.addVariableSS("aerial_persp_sky_color",	"color");
+	o.addVariableSS("aerial_persp_distance",	"scalar");
+	o.addVariableSS("aerial_persp_intensity",	"scalar");
+	o.endSS();
+}
+
+void Visitor::createSurfaceShader_smoke(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_smoke("<<node<<")");
+	liquidMessage2( messageError, "the type of smoke_surface_shader is not implemented yet." );
+}
+
+void Visitor::createSurfaceShader_voxel_ao(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::createSurfaceShader_voxel_ao("<<node<<")");
+	liquidMessage2( messageError, "the type of voxel_ao_surface_shader is not implemented yet." );
 }
 }//namespace call
 }//namespace appleseed

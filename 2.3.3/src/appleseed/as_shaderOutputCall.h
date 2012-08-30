@@ -298,8 +298,23 @@ public:
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
 protected:
-	//std::ofstream file;
+	void createBSDF_ashikhmin_brdf(const char* node);
+	void createBSDF_bsdf_mix(const char* node);
+	void createBSDF_kelemen_brdf(const char* node);
+	void createBSDF_lambertian_brdf(const char* node);
+	void createBSDF_null_bsdf(const char* node);
+	void createBSDF_specular_brdf(const char* node);
+	void createBSDF_specular_btdf(const char* node);
 
+	void createEDF_diffuse_edf(const char* node);
+
+	void createSurfaceShader_ao(const char* node);
+	void createSurfaceShader_constant(const char* node);
+	void createSurfaceShader_diagnostic(const char* node);
+	void createSurfaceShader_fast_sss(const char* node);
+	void createSurfaceShader_physical(const char* node);
+	void createSurfaceShader_smoke(const char* node);
+	void createSurfaceShader_voxel_ao(const char* node);
 
 private:
 	Visitor(const Visitor&);
