@@ -26,16 +26,16 @@ namespace appleseed
 		//\p model		lambertian_brdf, diffuse_edf, 
 		//\p asName		reflectance
 		//\p asTypes	color|texture_instance, scalar, 
-		void addVariableBSDF(const std::string& param_name, const std::string& entity_types );
+		void addVariableBSDF(const std::string& param_name_as, const std::string& entity_type_as, const std::string& param_name_maya );
 		//EDF
 		void beginEDF(const std::string& edf_model);
 		void endEDF();
-		void addVariableEDF(const std::string& param_name, const std::string& entity_types );
+		void addVariableEDF(const std::string& param_name_as, const std::string& entity_type_as, const std::string& param_name_maya );
 		bool hasEDF(){ return !m_edf_params.empty(); }
 		// Surface Shader
 		void beginSS(const std::string& ss_model);
 		void endSS();
-		void addVariableSS(const std::string& param_name, const std::string& entity_types );
+		void addVariableSS(const std::string& param_name_as, const std::string& entity_type_as, const std::string& param_name_maya );
 
 
 	protected:

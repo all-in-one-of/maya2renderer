@@ -92,16 +92,16 @@ namespace appleseed
 			}
 		}
 	}
-	void Helper4::addVariableBSDF( const std::string& param_name, const std::string& entity_types )
+	void Helper4::addVariableBSDF( const std::string& param_name_as, const std::string& param_type_as, const std::string& param_name_maya )
 	{
 		std::string param_value;
-		const std::string plugName(param_name);
+		const std::string plugName(param_name_maya);
 
 		MString fullPlugName((m_nodename+"."+plugName).c_str());
 		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 		if( connected == 0 )
 		{
-			if( isType("color", entity_types) )
+			if( isType("color", param_type_as) )
 			{
 				MDoubleArray val; 
 				val.setLength(3);
@@ -110,7 +110,7 @@ namespace appleseed
 				param_value = m_nodename+"_"+plugName;
 				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 			}
-			else if( isType("scalar", entity_types) )
+			else if( isType("scalar", param_type_as) )
 			{
 				MDoubleArray val; 
 				val.setLength(3);
@@ -129,7 +129,7 @@ namespace appleseed
 		}
 		else if(connected == 1)//the color plug is linked in.
 		{
-			if( isType("texture_instance", entity_types) )
+			if( isType("texture_instance", param_type_as) )
 			{
 				MStringArray srcPlug;
 				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -146,7 +146,7 @@ namespace appleseed
 					param_value = "unhandled";
 				}
 			}
-			else if( isType("bsdf", entity_types) )
+			else if( isType("bsdf", param_type_as) )
 			{
 				//bsdf0 value
 				MString srcBSDFModel; 
@@ -199,7 +199,7 @@ namespace appleseed
 			// we also need to create this plug for appleseed
 			if( isConnectedToA_BSDFMixNode && (desPlug=="bsdf0" ||desPlug=="bsdf1") )
 			{
-				if( isType("color", entity_types) )
+				if( isType("color", param_type_as) )
 				{
 					MDoubleArray val; 
 					val.setLength(3);
@@ -208,7 +208,7 @@ namespace appleseed
 					param_value = m_nodename+"_"+plugName;
 					createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 				}
-				else if( isType("scalar", entity_types) )
+				else if( isType("scalar", param_type_as) )
 				{
 					MDoubleArray val; 
 					val.setLength(3);
@@ -219,7 +219,7 @@ namespace appleseed
 					strVal0.set(val[0]);
 					param_value = strVal0.asChar();
 				}
-				else if( isType("texture_instance", entity_types) )
+				else if( isType("texture_instance", param_type_as) )
 				{
 					MStringArray srcPlug;
 					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -248,7 +248,7 @@ namespace appleseed
 			}
 		}
 		//
-		m_bsdf_params.insert(param_name.c_str(), param_value.c_str());
+		m_bsdf_params.insert(param_name_as.c_str(), param_value.c_str());
 	}
 	bool Helper4::isType(const std::string& type, const std::string& entity_types)const
 	{
@@ -277,16 +277,16 @@ namespace appleseed
 			}
 		}
 	}
-	void Helper4::addVariableEDF(const std::string& param_name, const std::string& entity_types )
+	void Helper4::addVariableEDF(const std::string& param_name_as, const std::string& param_type_as, const std::string& param_name_maya )
 	{
 		std::string param_value;
-		const std::string plugName(param_name);
+		const std::string plugName(param_name_maya);
 
 		MString fullPlugName((m_nodename+"."+plugName).c_str());//<nodename>.diffuse_edf_exitance
 		int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 		if(connected == 0)
 		{
-			if( isType("color", entity_types) )
+			if( isType("color", param_type_as) )
 			{
 				MDoubleArray val; 
 				val.setLength(3);
@@ -295,7 +295,7 @@ namespace appleseed
 				param_value = m_nodename+"_"+plugName;//<nodename>_lambertian_brdf_reflectance
 				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 			}
-			else if( isType("scalar", entity_types) )
+			else if( isType("scalar", param_type_as) )
 			{
 				MDoubleArray val; 
 				val.setLength(3);
@@ -314,7 +314,7 @@ namespace appleseed
 		}
 		else if(connected == 1)//the color plug is linked in.
 		{
-			if( isType("texture_instance", entity_types) )
+			if( isType("texture_instance", param_type_as) )
 			{
 				MStringArray srcPlug;
 				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -341,7 +341,7 @@ namespace appleseed
 			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 		}
 		//
-		m_edf_params.insert(param_name.c_str(), param_value.c_str());
+		m_edf_params.insert(param_name_as.c_str(), param_value.c_str());
 	}
 	//
 	void Helper4::beginSS(const std::string& ss_model)
@@ -405,20 +405,20 @@ namespace appleseed
 			}
 		}
 	}
-	void Helper4::addVariableSS(const std::string& param_name, const std::string& entity_types )
+	void Helper4::addVariableSS(const std::string& param_name_as, const std::string& param_type_as, const std::string& param_name_maya )
 	{
 		//std::string ss_name(getSurfaceShaderName(m_nodename,m_ss_model));
 
 		asr::ParamArray ss_params;
 		{
 			std::string param_value;
-			const std::string plugName(param_name);
+			const std::string plugName(param_name_maya);
 
 			MString fullPlugName((m_nodename+"."+plugName).c_str());
 			int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(fullPlugName.asChar());
 			if(connected ==0)
 			{
-				if( isType("color", entity_types) )
+				if( isType("color", param_type_as) )
 				{
 					MDoubleArray val; 
 					val.setLength(3);
@@ -427,7 +427,7 @@ namespace appleseed
 					param_value = m_nodename+"_"+plugName;
 					createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 				}
-				else if( isType("scalar", entity_types) )
+				else if( isType("scalar", param_type_as) )
 				{
 					MDoubleArray val; 
 					val.setLength(3);
@@ -438,7 +438,7 @@ namespace appleseed
 					strVal0.set(val[0]);
 					param_value = strVal0.asChar();
 				}
-				else if( isType("string", entity_types))
+				else if( isType("string", param_type_as))
 				{
 					MString val;
 					IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
@@ -452,7 +452,7 @@ namespace appleseed
 			}
 			else if(connected == 1)//the plug is linked in.
 			{
-				if( isType("texture_instance", entity_types) )
+				if( isType("texture_instance", param_type_as) )
 				{
 					MStringArray srcPlug;
 					IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+fullPlugName+"\"", srcPlug));
@@ -480,7 +480,7 @@ namespace appleseed
 				liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 			}
 			//
-			m_ss_params.insert(param_name.c_str(), param_value.c_str());
+			m_ss_params.insert(param_name_as.c_str(), param_value.c_str());
 		}
 	}
 

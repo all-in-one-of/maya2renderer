@@ -299,12 +299,12 @@ void Visitor::createBSDF_ashikhmin_brdf(const char* node)
 
 	Helper4 o(node);
 	o.beginBSDF("ashikhmin_brdf");
-	o.addVariableBSDF("diffuse_reflectance",			"color|texture_instance");
-	o.addVariableBSDF("diffuse_reflectance_multiplier",	"scalar|texture_instance");
-	o.addVariableBSDF("glossy_reflectance",				"color|texture_instance");
-	o.addVariableBSDF("glossy_reflectance_multiplier",	"scalar|texture_instance");
-	o.addVariableBSDF("shininess_u",					"scalar|texture_instance");
-	o.addVariableBSDF("shininess_v",					"scalar|texture_instance");
+	o.addVariableBSDF("diffuse_reflectance",			"color|texture_instance",	"diffuse_reflectance");
+	o.addVariableBSDF("diffuse_reflectance_multiplier",	"scalar|texture_instance",	"diffuse_reflectance_multiplier");
+	o.addVariableBSDF("glossy_reflectance",				"color|texture_instance",	"glossy_reflectance");
+	o.addVariableBSDF("glossy_reflectance_multiplier",	"scalar|texture_instance",	"glossy_reflectance_multiplier");
+	o.addVariableBSDF("shininess_u",					"scalar|texture_instance",	"shininess_u");
+	o.addVariableBSDF("shininess_v",					"scalar|texture_instance",	"shininess_v");
 	o.endBSDF();
 }
 
@@ -316,11 +316,11 @@ void Visitor::createBSDF_bsdf_mix(const char* node)
 	// then the source bsdf_mix node will be visited when liquidMaya traverse the Maya shading graph network.
 	// but I don't add "outPlugForLiquid" to bsdf_mix cause it is not defined in appleseed,
 	Helper4 o(node);
-	o.beginBSDF("bsdf_mix");
-	o.addVariableBSDF("bsdf0",		"bsdf");
-	o.addVariableBSDF("bsdf1",		"bsdf");
-	o.addVariableBSDF("weight0",	"scalar|texture_instance");
-	o.addVariableBSDF("weight1",	"scalar|texture_instance");
+	o.beginBSDF("bsdf_mix");	
+	o.addVariableBSDF("bsdf0",		"bsdf",						"bsdf0");
+	o.addVariableBSDF("bsdf1",		"bsdf",						"bsdf1");
+	o.addVariableBSDF("weight0",	"scalar|texture_instance",	"weight0");
+	o.addVariableBSDF("weight1",	"scalar|texture_instance",	"weight1");
 	o.endBSDF();
 }
 
@@ -330,11 +330,11 @@ void Visitor::createBSDF_kelemen_brdf(const char* node)
 
 	Helper4 o(node);
 	o.beginBSDF("kelemen_brdf");
-	o.addVariableBSDF("matte_reflectance",					"color|texture_instance");
-	o.addVariableBSDF("matte_reflectance_multiplier",		"scalar|texture_instance");
-	o.addVariableBSDF("specular_reflectance",				"color");
-	o.addVariableBSDF("specular_reflectance_multiplier",	"scalar");
-	o.addVariableBSDF("roughness",							"scalar");
+	o.addVariableBSDF("matte_reflectance",					"color|texture_instance",	"matte_reflectance");
+	o.addVariableBSDF("matte_reflectance_multiplier",		"scalar|texture_instance",	"matte_reflectance_multiplier");
+	o.addVariableBSDF("specular_reflectance",				"color",					"specular_reflectance");
+	o.addVariableBSDF("specular_reflectance_multiplier",	"scalar",					"specular_reflectance_multiplier");
+	o.addVariableBSDF("roughness",							"scalar",					"roughness");
 	o.endBSDF();
 }
 
@@ -344,8 +344,8 @@ void Visitor::createBSDF_lambertian_brdf(const char* node)
 
 	Helper4 o(node);
 	o.beginBSDF("lambertian_brdf");
-	o.addVariableBSDF("reflectance",			"color|texture_instance");
-	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
+	o.addVariableBSDF("reflectance",			"color|texture_instance",	"reflectance");
+	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance",	"reflectance_multiplier");
 	o.endBSDF();
 }
 
@@ -361,8 +361,8 @@ void Visitor::createBSDF_specular_brdf(const char* node)
 
 	Helper4 o(node);
 	o.beginBSDF("specular_brdf");
-	o.addVariableBSDF("reflectance",			"color|texture_instance");
-	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
+	o.addVariableBSDF("reflectance",			"color|texture_instance",	"reflectance");
+	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance",	"reflectance_multiplier");
 	o.endBSDF();
 }
 
@@ -372,12 +372,12 @@ void Visitor::createBSDF_specular_btdf(const char* node)
 
 	Helper4 o(node);
 	o.beginBSDF("specular_btdf");
-	o.addVariableBSDF("reflectance",			"color|texture_instance");
-	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance");
-	o.addVariableBSDF("transmittance",			"color|texture_instance");
-	o.addVariableBSDF("transmittance_multiplier",	"scalar|texture_instance");
-	o.addVariableBSDF("from_ior",					"scalar");
-	o.addVariableBSDF("to_ior",						"scalar");
+	o.addVariableBSDF("reflectance",			"color|texture_instance",	"reflectance");
+	o.addVariableBSDF("reflectance_multiplier", "scalar|texture_instance",	"reflectance_multiplier");
+	o.addVariableBSDF("transmittance",			"color|texture_instance",	"transmittance");
+	o.addVariableBSDF("transmittance_multiplier","scalar|texture_instance",	"transmittance_multiplier");
+	o.addVariableBSDF("from_ior",				"scalar",					"from_ior");
+	o.addVariableBSDF("to_ior",					"scalar",					"to_ior");
 	o.endBSDF();
 }
 
@@ -388,8 +388,8 @@ void Visitor::createEDF_diffuse_edf(const char* node)
 
 	Helper4 o(node);
 	o.beginEDF("diffuse_edf");
-	o.addVariableEDF("exitance",			"color|texture_instance");
-	o.addVariableEDF("exitance_multiplier",	"scalar|texture_instance");
+	o.addVariableEDF("exitance",			"color|texture_instance",	"exitance");
+	o.addVariableEDF("exitance_multiplier",	"scalar|texture_instance",	"exitance_multiplier");
 	o.endEDF();
 }
 //
@@ -399,9 +399,9 @@ void Visitor::createSurfaceShader_ao(const char* node)
 
 	Helper4 o(node);
 	o.beginSS("ao_surface_shader");
-	o.addVariableSS("sampling_method",	"string");//cosine, uniform
-	o.addVariableSS("samples",	"scalar");
-	o.addVariableSS("max_distance",	"scalar");
+	o.addVariableSS("sampling_method",	"string", "sampling_method");//cosine, uniform
+	o.addVariableSS("samples",			"scalar", "samples");
+	o.addVariableSS("max_distance",		"scalar", "max_distance");
 	o.endSS();
 }
 
@@ -411,10 +411,10 @@ void Visitor::createSurfaceShader_constant(const char* node)
 
 	Helper4 o(node);
 	o.beginSS("constant_surface_shader");
-	o.addVariableSS("color",			"color|texture_instance");
+	o.addVariableSS("color",			"color|texture_instance", "color");
 	//o.addVariableSS("alpha_source", "?|?");
-	o.addVariableSS("color_multiplier",	"scalar|texture_instance");
-	o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
+	o.addVariableSS("color_multiplier",	"scalar|texture_instance", "color_multiplier");
+	o.addVariableSS("alpha_multiplier",	"scalar|texture_instance", "alpha_multiplier");
 	o.endSS();
 }
 
@@ -424,7 +424,7 @@ void Visitor::createSurfaceShader_diagnostic(const char* node)
 
 	Helper4 o(node);
 	o.beginSS("diagnostic_surface_shader");
-	o.addVariableSS("mode",	"string");
+	o.addVariableSS("mode",	"string", "mode");
 	o.endSS();
 }
 
@@ -434,15 +434,15 @@ void Visitor::createSurfaceShader_fast_sss(const char* node)
 
 	Helper4 o(node);
 	o.beginSS("fast_sss_surface_shader");
-	o.addVariableSS("scale",			"scalar");
-	o.addVariableSS("ambient_sss",		"scalar");
-	o.addVariableSS("view_dep_sss",		"scalar");
-	o.addVariableSS("diffuse",			"scalar");
-	o.addVariableSS("power",			"scalar");
-	o.addVariableSS("distortion",		"scalar");
-	o.addVariableSS("albedo",			"color|texture_instance");
-	o.addVariableSS("light_samples",	"scalar");
-	o.addVariableSS("occlusion_samples","scalar");
+	o.addVariableSS("scale",			"scalar",					"scale");
+	o.addVariableSS("ambient_sss",		"scalar",					"ambient_sss");
+	o.addVariableSS("view_dep_sss",		"scalar",					"view_dep_sss");
+	o.addVariableSS("diffuse",			"scalar",					"diffuse");
+	o.addVariableSS("power",			"scalar",					"power");
+	o.addVariableSS("distortion",		"scalar",					"distortion");
+	o.addVariableSS("albedo",			"color|texture_instance",	"albedo");
+	o.addVariableSS("light_samples",	"scalar",					"light_samples");
+	o.addVariableSS("occlusion_samples","scalar",					"occlusion_samples");
 	o.endSS();
 }
 
@@ -452,12 +452,12 @@ void Visitor::createSurfaceShader_physical(const char* node)
 
 	Helper4 o(node);
 	o.beginSS("physical_surface_shader");
-	o.addVariableSS("color_multiplier",	"scalar|texture_instance");
-	o.addVariableSS("alpha_multiplier",	"scalar|texture_instance");
-	o.addVariableSS("aerial_persp_mode",		"string");//none, environment_shader, sky_color
-	o.addVariableSS("aerial_persp_sky_color",	"color");
-	o.addVariableSS("aerial_persp_distance",	"scalar");
-	o.addVariableSS("aerial_persp_intensity",	"scalar");
+	o.addVariableSS("color_multiplier",	"scalar|texture_instance", "color_multiplier");
+	o.addVariableSS("alpha_multiplier",	"scalar|texture_instance", "alpha_multiplier");
+	o.addVariableSS("aerial_persp_mode",		"string",			"aerial_persp_mode");//none, environment_shader, sky_color
+	o.addVariableSS("aerial_persp_sky_color",	"color",			"aerial_persp_sky_color");
+	o.addVariableSS("aerial_persp_distance",	"scalar",			"aerial_persp_distance");
+	o.addVariableSS("aerial_persp_intensity",	"scalar",			"aerial_persp_intensity");
 	o.endSS();
 }
 
