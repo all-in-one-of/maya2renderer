@@ -248,7 +248,11 @@ namespace appleseed
 			}
 		}
 		//
-		m_bsdf_params.insert(param_name_as.c_str(), param_value.c_str());
+		addVariableBSDF(param_name_as, param_value);
+	}
+	void Helper4::addVariableBSDF(const std::string& param_name_as, const std::string& param_value_as)
+	{
+		m_bsdf_params.insert(param_name_as.c_str(), param_value_as.c_str());
 	}
 	bool Helper4::isType(const std::string& type, const std::string& entity_types)const
 	{
@@ -341,7 +345,11 @@ namespace appleseed
 			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 		}
 		//
-		m_edf_params.insert(param_name_as.c_str(), param_value.c_str());
+		addVariableEDF(param_name_as, param_value);
+	}
+	void Helper4::addVariableEDF(const std::string& param_name_as, const std::string& param_value_as )
+	{
+		m_edf_params.insert(param_name_as.c_str(), param_value_as.c_str());
 	}
 	//
 	void Helper4::beginSS(const std::string& ss_model)
@@ -480,8 +488,12 @@ namespace appleseed
 				liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
 			}
 			//
-			m_ss_params.insert(param_name_as.c_str(), param_value.c_str());
+			addVariableSS(param_name_as, param_value);
 		}
+	}
+	void Helper4::addVariableSS(const std::string& param_name_as, const std::string& param_value_as )
+	{
+		m_ss_params.insert(param_name_as.c_str(), param_value_as.c_str());
 	}
 
 
