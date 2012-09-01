@@ -1765,7 +1765,8 @@ global proc liquidSlParseLif_pl( string $shaderFile )
 
 	int $k = 0;
     // start parsing
-    while (	($parseState != "abort") && ($gLifLineNumber <= $numLines) && ($k<200) ) {
+    while (	($parseState != "abort") && ($gLifLineNumber <= $numLines) && ($k<200) ) 
+	{
 		//trace ("[liquidSlParseLif_pl] in parse state "+$parseState+" parsing line: "+substitute("\n",$line,""));
 		$k += 1;
 
@@ -1797,15 +1798,12 @@ global proc liquidSlParseLif_pl( string $shaderFile )
         }
 		//trace ("[liquidSlParseLif_pl] keyword [["+$key+"]], arguments: "+stringArrayToString($args, " "));
 
-		switch ($parseState) {
+		switch ($parseState) 
+		{
 			// Top of file
         	case "start":
-				switch( $key ) {        	
-					case "shader":
-					case "surface":
-					case "displacement":
-					case "light":
-					case "volume":
+					if( isValidShaderTypeForPL($key) )
+					{
 						$vargs = getArgs( 1, "string", $args, {}, $lineErrors);
 						string $shader = $vargs[0];
 						//trace ("[liquidSlParseLif_pl] found shader name: "+$shader);
@@ -1816,12 +1814,10 @@ global proc liquidSlParseLif_pl( string $shaderFile )
 		                	$lineErrors[size($lineErrors)] = ("incorrect shader name \""+$shader+"\" doesn't match current parsed shader \""+$gLiquidSlShaderName+"\"");				
 							$parseState = "abort";
 						}
-	            		break;
-	            	default:
+					}else{
 	            		$lineErrors[size($lineErrors)] = "Lif file should start with shader description";
 	            		$parseState = "abort";
-	            		break;
-				}
+					}
 				// to next line
 				break;
 			// Once shader has been declared, optionnal shader description
@@ -1898,13 +1894,6 @@ global proc liquidSlParseLif_pl( string $shaderFile )
 			               $lineErrors[size($lineErrors)] = ("no parameter name provided, ignoring statement");
 			           	}
 		                break;
-					case "shader":
-					case "surface":
-					case "displacement":
-					case "light":
-					case "volume":
-                		$lineErrors[size($lineErrors)] = ("shader declaration should appear once and only once, at top of Lif file, ignored");
-	                	break;
 	                case "name":
 	                case "type":
 	                case "range":
@@ -1915,8 +1904,13 @@ global proc liquidSlParseLif_pl( string $shaderFile )
                 		$lineErrors[size($lineErrors)] = ("is only valid in a group or parameter description, after a group or parameter has been declared");
 	                	break;                	               						                                		
 					default :
-                		$lineErrors[size($lineErrors)] = ("is not a known Lif keyword in this context");
-	                	break;
+						if( isValidShaderTypeForPL( $key ) )
+						{
+							$lineErrors[size($lineErrors)] = ("shader declaration should appear once and only once, at top of Lif file, ignored"); 	                	
+						}else{
+                			$lineErrors[size($lineErrors)] = ("is not a known Lif keyword in this context");
+						}
+						break;
 				}
 				// to next line
 				break;
@@ -1965,17 +1959,15 @@ global proc liquidSlParseLif_pl( string $shaderFile )
 					case "type" :
 					case "range" :                		 
                 		$lineErrors[size($lineErrors)] = ("invalid in a group description, ignored");
-	                	break;     
-					case "shader":
-					case "surface":
-					case "displacement":
-					case "light":
-					case "volume":
-                		$lineErrors[size($lineErrors)] = ("shader declaration should appear once and only once, at top of Lif file, ignored");
-	                	break;                		                 	                	                                
+	                	break;                   		                 	                	                                
 					default :
-                		$lineErrors[size($lineErrors)] = ("is not a known Lif keyword in this context");
-	                	break;
+						if( isValidShaderTypeForPL( $key ) )
+						{
+							$lineErrors[size($lineErrors)] = ("shader declaration should appear once and only once, at top of Lif file, ignored"); 	                	
+						}else{
+                			$lineErrors[size($lineErrors)] = ("is not a known Lif keyword in this context");
+						}
+						break;
 				}	// End of keyword switch for state groupeDescription				
 			case "parameterDescription":
         		switch( $key ) {
@@ -2043,17 +2035,15 @@ global proc liquidSlParseLif_pl( string $shaderFile )
                 		} else {
                 			$lineErrors[size($lineErrors)] = ("need a list of UI states like \"visible\", \"hidden\", etc.");
                 		}
-                		break;
-					case "shader":
-					case "surface":
-					case "displacement":
-					case "light":
-					case "volume":
-                		$lineErrors[size($lineErrors)] = ("shader declaration should appear once and only once, at top of Lif file, ignored");
-	                	break;                		                 	                	                                
+                		break;              		                 	                	                                
 					default :
-                		$lineErrors[size($lineErrors)] = ("is not a known Lif keyword in this context");
-	                	break;
+						if( isValidShaderTypeForPL( $key ) )
+						{
+							$lineErrors[size($lineErrors)] = ("shader declaration should appear once and only once, at top of Lif file, ignored"); 	                	
+						}else{
+               				$lineErrors[size($lineErrors)] = ("is not a known Lif keyword in this context");
+						}
+						break;
 				}	// End of keyword switch for state parameterDescription
 				break;
 			default :

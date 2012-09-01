@@ -1,0 +1,20 @@
+constant_surface_shader "constant_surface_shader0";
+desc "Appleseed constant surface shader";
+
+param "color";
+name "Color";
+desc "Required parameter";
+
+#param "alpha_source";
+#name "Alpha Source";
+#desc "";
+
+param "color_multiplier";
+name "Color Multiplier";
+desc "";
+
+param "alpha_multiplier";
+name "Alpha Multiplier";
+desc "";
+type "slider";
+range [ 0 1 ];

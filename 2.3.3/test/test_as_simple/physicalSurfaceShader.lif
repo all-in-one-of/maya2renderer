@@ -1,0 +1,29 @@
+physical_surface_shader "physical_surface_shader0";
+desc "Appleseed physical surface shader";
+
+param "color_multiplier";
+name "Color Multiplier";
+desc "optional";
+
+param "alpha_multiplier";
+name "Alpha Multiplier";
+desc "optional";
+
+param "aerial_persp_mode";
+name "Aerial Perspective Mode";
+desc "optional";
+type "selector";
+range [ none none environment_shader environment_shader sky_color sky_color ];
+
+param "aerial_persp_sky_color";
+name "Aerial Perspective Sky Color";
+desc "optional";
+
+param "aerial_persp_distance";
+name "Aerial Perspective Distance";
+desc "optional";
+
+param "aerial_persp_intensity";
+name "Aerial Perspective Intensity";
+desc "optional";
+
