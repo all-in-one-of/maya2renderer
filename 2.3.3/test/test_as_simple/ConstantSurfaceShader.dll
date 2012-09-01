@@ -1,0 +1,9 @@
+#shaderType
+constant_surface_shader
+#shaderName
+constant_surface_shader0
+#Name|Details|Type|IsOutput|Defaults|ArraySizes
+color|uniform|color|0|<<1.0,1.0,1.0>>|-1
+#alpha_source|uniform|color|0|<<1.0,1.0,1.0>>|-1
+color_multiplier|uniform|float|0|1.0|-1
+alpha_multiplier|uniform|float|0|1.0|-1
