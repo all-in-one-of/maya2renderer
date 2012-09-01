@@ -1001,6 +1001,7 @@ global proc liquidAE_LifColor( string $paramName, int $arraySize, string $subtyp
 
     if ( !`control -q -ex $pnameCtl` ) attrColorSliderGrp -p $gLiquid_currentAEParent
                                                           -label $plabel
+														  -ann   $description
                                                           -at $attr
                                                           -sb false
                                                           $pnameCtl;
