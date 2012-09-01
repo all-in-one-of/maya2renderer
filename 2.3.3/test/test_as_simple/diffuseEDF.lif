@@ -1,0 +1,14 @@
+diffuse_edf "diffuse_edf0";
+desc "Appleseed Diffuse EDF";
+
+group "Exitance";
+	param "exitance";
+	name "Exitance";
+	desc "exitance\nRequired";
+	type "";
+
+	param "exitance_multiplier";
+	name "Multiplier";
+	desc "exitance_multiplier\nRequired";
+	type "";
+group "end";

@@ -1,0 +1,32 @@
+specular_btdf "specular_btdf0";
+desc "Appleseed Specular BTDF";
+
+group "Reflectance";
+	param "reflectance";
+	name "Reflectance";
+	desc "reflectance\nrequired";
+
+	param "reflectance_multiplier";
+	name "Multiplier";
+	desc "reflectance_multiplier\noptional";
+group "end";
+
+group "Transmittance";
+	param "transmittance";
+	name "Transmittance";
+	desc "transmittance\nrequired";
+
+	param "transmittance_multiplier";
+	name "Multiplier";
+	desc "transmittance_multiplier\nrequired";
+group "end";
+
+group "Index of Refraction";
+	param "from_ior";
+	name "From";
+	desc "from_ior\nrequired";
+
+	param "to_ior";
+	name "To";
+	desc "to_ior\nrequired";
+group "end";

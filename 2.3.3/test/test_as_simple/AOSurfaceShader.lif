@@ -1,0 +1,17 @@
+ao_surface_shader "ao_surface_shader0";
+desc "Appleseed AO surface shader";
+
+param "sampling_method";
+name "Sampling Method";
+desc "Required parameter";
+type "selector";
+range [ "Cosine-Weighted Sampling" cosine "Uniform Sampling" uniform];
+
+param "samples";
+name "Samples";
+desc "";
+
+param "max_distance";
+name "Maximum Occlusion Distance";
+desc "";
+

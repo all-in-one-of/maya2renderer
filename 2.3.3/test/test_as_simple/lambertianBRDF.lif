@@ -1,0 +1,10 @@
+lambertian_brdf "lambertian_brdf0";
+desc "Appleseed Lambertian BRDF";
+
+param "reflectance";
+name "Reflectance";
+desc "reflectance\nrequired";
+
+param "reflectance_multiplier";
+name "Reflectance Multiplier";
+desc "reflectance_multiplier\noptional";

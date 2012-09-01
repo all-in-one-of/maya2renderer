@@ -1,0 +1,25 @@
+diagnostic_surface_shader "diagnostic_surface_shader0";
+desc "Appleseed Diagnostic Surface Shader";
+
+param "mode";
+name "Mode";
+desc "mode\nRequired";
+type "selector";
+range [ "Ambient Occlusion"		"ambient_occlusion"
+	"Assembly Instances"		"assembly_instances" 
+	"Barycentric Coordinates"	"barycentric"
+	"Bitangents"			"bitangent"
+	"Coverage"			"coverage"
+	"Depth"				"depth"
+	"Geometric Normals"		"geometric_normal"
+	"Materials"			"materials"
+	"Object Instances"		"object_instances"
+	"Original Shading Normals"	"original_shading_normal"
+	"Regions"			"regions"
+	"Shading Normals"			"shading_normal"
+	"Sides"				"sides"
+	"Tangents"			"tangent"
+	"Triangles"			"triangles"
+	"UV Coordinates"		"uv"
+	"Wireframe"			"wireframe"
+	];

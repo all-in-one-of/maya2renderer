@@ -1,0 +1,31 @@
+kelemen_brdf "kelemen_brdf0";
+desc "Appleseed Kelemen BRDF";
+
+group "Matte Reflectance";
+	param "matte_reflectance";
+	name "Matte Reflectance";
+	desc "matte_reflectance\nRequired";
+	type "";
+
+	param "matte_reflectance_multiplier";
+	name "Multiplier";
+	desc "matte_reflectance_multiplier\nRequired";
+	type "";
+group "end";
+
+group "Specular Reflectance";
+	param "specular_reflectance";
+	name "Specular Reflectance";
+	desc "specular_reflectance\nRequired";
+	type "";
+
+	param "specular_reflectance_multiplier";
+	name "Multiplier";
+	desc "specular_reflectance_multiplier\nRequired";
+	type "";
+group "end";
+
+param "roughness";
+name "Roughness";
+desc "roughness\nRequired";
+type "";

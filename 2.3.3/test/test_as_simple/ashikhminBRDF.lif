@@ -1,0 +1,33 @@
+#shadertype "shader name"
+ashikhmin_brdf "ashikhmin_brdf0";
+desc "Appleseed ashikhmin BRDF";
+
+group "Diffuse";
+	param "diffuse_reflectance";
+	name "Reflectance";
+	desc "diffuse_reflectance\nRequired";
+
+	param "diffuse_reflectance_multiplier";
+	name "Multiplier";
+	desc "diffuse_reflectance_multiplier\nOptional";
+group "end";
+
+group "Glossy";
+	param "glossy_reflectance";
+	name "Reflectance";
+	desc "glossy_reflectance\nRequired";
+
+	param "glossy_reflectance_multiplier";
+	name "Multiplier";
+	desc "glossy_reflectance_multiplier\nOptional";
+group "end";
+
+group "Shininess";
+	param "shininess_u";
+	name "U";
+	desc "shininess_u\nRequired";
+
+	param "shininess_v";
+	name "V";
+	desc "shininess_v\nRequired";
+group "end";

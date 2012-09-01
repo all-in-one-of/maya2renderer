@@ -1,0 +1,23 @@
+bsdf_mix "bsdf_mix0";
+desc "Appleseed BSDF mix";
+
+param "bsdf0";
+name "BSDF 1";
+desc "bsdf0\nRequired";
+type "";
+
+param "weight0";
+name "Weight 1";
+desc "weight0\nRequired";
+type "";
+
+param "bsdf1";
+name "BSDF 2";
+desc "bsdf1\nRequired";
+type "";
+
+param "weight1";
+name "Weight 2";
+desc "weight1\nRequired";
+type "";
+

@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: test_liqShaderNode_surface_as_ashikhminPSS.ma
-//Last modified: Sat, Sep 01, 2012 05:38:50 PM
+//Last modified: Sat, Sep 01, 2012 08:10:31 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=21:14:05.51)";
@@ -608,7 +608,7 @@ createNode liquidShader -n "liquidShader12";
 	setAttr ".rty" -type "stringArray" 6 "color" "float" "color" "float" "float" "float"  ;
 	setAttr ".rdf" -type "stringArray" 6 "1.01.01.0" "1.0" "1.01.01.0" "1.0" "1000.0" "1000.0"  ;
 	setAttr ".ras" -type "Int32Array" 6 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 6 "liquidAE_LifColor( \"diffuse_reflectance\", -1, \"color\", \"diffuse_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"diffuse_reflectance_multiplier\", -1, \"float\", \"diffuse_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"glossy_reflectance\", -1, \"color\", \"glossy_reflectance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"glossy_reflectance_multiplier\", -1, \"float\", \"glossy_reflectance_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"shininess_u\", -1, \"float\", \"shininess_u\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"shininess_v\", -1, \"float\", \"shininess_v\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rlc" -type "stringArray" 12 "liquidAE_LifGrp( \"Diffuse\", 14 );" "liquidAE_LifColor( \"diffuse_reflectance\", -1, \"color\", \"Reflectance\", {\"0\", \"0\"}, \"diffuse_reflectance\\nRequired\", 14 );" "liquidAE_LifFloat( \"diffuse_reflectance_multiplier\", -1, \"float\", \"Multiplier\", {\"0\", \"0\"}, \"diffuse_reflectance_multiplier\\nOptional\", 14 );" "liquidAE_LifGrp( \"end\", 14 );" "liquidAE_LifGrp( \"Glossy\", 14 );" "liquidAE_LifColor( \"glossy_reflectance\", -1, \"color\", \"Reflectance\", {\"0\", \"0\"}, \"glossy_reflectance\\nRequired\", 14 );" "liquidAE_LifFloat( \"glossy_reflectance_multiplier\", -1, \"float\", \"Multiplier\", {\"0\", \"0\"}, \"glossy_reflectance_multiplier\\nOptional\", 14 );" "liquidAE_LifGrp( \"end\", 14 );" "liquidAE_LifGrp( \"Shininess\", 14 );" "liquidAE_LifFloat( \"shininess_u\", -1, \"float\", \"U\", {\"0\", \"0\"}, \"shininess_u\\nRequired\", 14 );" "liquidAE_LifFloat( \"shininess_v\", -1, \"float\", \"V\", {\"0\", \"0\"}, \"shininess_v\\nRequired\", 14 );" "liquidAE_LifGrp( \"end\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
 	setAttr ".rio" -type "Int32Array" 6 0 0 0 0 0 0 ;
 	setAttr -k on ".diffuse_reflectance" -type "float3" 1 0 0 ;
@@ -767,6 +767,8 @@ select -ne :defaultHardwareRenderGlobals;
 	setAttr -k on ".aap";
 	setAttr -k on ".gh";
 	setAttr -cb on ".sd";
+select -ne :ikSystem;
+	setAttr -s 4 ".sol";
 connectAttr "polyPlane1.out" "pPlaneShape1.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
