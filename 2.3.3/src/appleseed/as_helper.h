@@ -38,9 +38,13 @@ namespace appleseed
 	std::string getSurfaceShaderName(const std::string& node, const std::string & surface_shader_model);
 	
 	//\r    true: creat successfully,  false: not create.
+	//r g b
 	bool createColor3(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b);
-	bool createColor4(asr::ColorContainer& colors, const char* name, const float multiplier, const float r, const float g, const float b);
-	bool createColor3(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b, const float a);
+	//multiplier, r g b
+	bool createColor3(asr::ColorContainer& colors, const char* name, const float multiplier, const float r, const float g, const float b);
+	//r g b a
+	bool createColor4(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b, const float a);
+	//multiplier, r g b	a
 	bool createColor4(asr::ColorContainer& colors, const char* name, const float multiplier, const float r, const float g, const float b, const float a);
 
 
