@@ -1,5 +1,6 @@
+error  : parameter "sampling_method" not found, using default value "uniform".
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1\pCubeShape1.obj (1 object, 8 vertices, 12 triangles) in 0 ms.
-info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube2\pCubeShape2.obj (1 object, 8 vertices, 10 triangles) in 0 ms.
+info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube2\pCubeShape2.obj (1 object, 8 vertices, 10 triangles) in 16 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pPlane4\pPlaneShape1.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pPlane5\pPlaneShape2.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pPlane6\pPlaneShape3.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
@@ -40,49 +41,49 @@ info   : effective subpixel grid size: min: 1x1
 debug  : the scene does not rely on alpha mapping; using probe tracing.
 info   : effective subpixel grid size: min: 1x1
 info   : using 2 threads for rendering.
-info   : collecting geometry for triangle tree #103...
+info   : collecting geometry for triangle tree #117...
 debug  : triangle_keys: size 28 (336 bytes)  capacity 28 (336 bytes)  overhead 0 (0 byte)
 debug  : triangle_vertex_infos: size 28 (224 bytes)  capacity 28 (224 bytes)  overhead 0 (0 byte)
 debug  : triangle_bboxes: size 28 (672 bytes)  capacity 28 (672 bytes)  overhead 0 (0 byte)
-info   : building bvh triangle tree #103 (28 triangles)...
+info   : building bvh triangle tree #117 (28 triangles)...
 debug  : triangle_vertices: size 84 (1,008 bytes)  capacity 84 (1,008 bytes)  overhead 0 (0 byte)
-debug  : triangle tree #103 statistics:
+debug  : triangle tree #117 statistics:
 debug  :   build time       0 ms
 debug  :   size             3.5 KB
 debug  :   nodes            total 25  interior 12  leaves 13
-debug  :   leaf volume      3.3%
-debug  :   leaf depth       avg 5.6  min 3  max 8  dev 1.7
+debug  :   leaf volume      3.2%
+debug  :   leaf depth       avg 5.4  min 3  max 8  dev 1.5
 debug  :   leaf size        avg 2.2  min 2  max 4  dev 0.5
-debug  :   sibling overlap  avg 0.0%  min 0.0%  max 0.0%  dev 0.0%
+debug  :   sibling overlap  avg 1.6%  min 0.0%  max 19.7%  dev 5.5%
 debug  :   fat leaves       92.3%
 debug  :   inter. filters   0
-debug  :   nodes alignment  256 bytes
+debug  :   nodes alignment  64 bytes
 debug  : texture cache statistics:
 debug  :   performances     n/a
 debug  : intersection statistics:
-debug  :   total rays       1,490,053
-debug  :   shading rays     840,896 (56.4%)
-debug  :   probe rays       649,157 (43.6%)
+debug  :   total rays       2,426,370
+debug  :   shading rays     632,696 (26.1%)
+debug  :   probe rays       1,793,674 (73.9%)
 debug  : region tree access cache statistics:
 debug  :   combined         n/a
 debug  :   stage-0          n/a
 debug  :   stage-1          n/a
 debug  : triangle tree access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 1,490,053  hits 1,490,051  misses 2
-debug  :   stage-0          efficiency 100.0%  accesses 1,490,053  hits 1,490,051  misses 2
+debug  :   combined         efficiency 100.0%  accesses 2,426,370  hits 2,426,368  misses 2
+debug  :   stage-0          efficiency 100.0%  accesses 2,426,370  hits 2,426,368  misses 2
 debug  :   stage-1          efficiency 0.0%  accesses 2  hits 0  misses 2
 debug  : region kit access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 472,024  hits 472,014  misses 10
-debug  :   stage-0          efficiency 100.0%  accesses 472,024  hits 472,014  misses 10
+debug  :   combined         efficiency 100.0%  accesses 318,522  hits 318,512  misses 10
+debug  :   stage-0          efficiency 100.0%  accesses 318,522  hits 318,512  misses 10
 debug  :   stage-1          efficiency 0.0%  accesses 10  hits 0  misses 10
 debug  : tessellation access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 472,024  hits 472,014  misses 10
-debug  :   stage-0          efficiency 100.0%  accesses 472,024  hits 472,014  misses 10
+debug  :   combined         efficiency 100.0%  accesses 318,522  hits 318,512  misses 10
+debug  :   stage-0          efficiency 100.0%  accesses 318,522  hits 318,512  misses 10
 debug  :   stage-1          efficiency 0.0%  accesses 10  hits 0  misses 10
 debug  : path tracing statistics:
-debug  :   path count       223,476
-debug  :   path length      avg 2.8  min 2  max 4  dev 0.8
+debug  :   path count       124,168
+debug  :   path length      avg 2.5  min 2  max 8  dev 0.7
 debug  : texture store statistics:
 debug  :   performances     n/a
 debug  :   peak size        0 byte
-info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert.perspShape.16.appleseed.png in 531 ms.
+info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert.perspShape.16.appleseed.png in 579 ms.

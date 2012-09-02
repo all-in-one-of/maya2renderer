@@ -7,9 +7,9 @@
             <parameter name="focal_length" value="0.035000" />
             <transform time="0">
                 <matrix>
-                    0.692143201828003 -0.290552228689194 0.660694479942322 11.663647651672363
-                    0.000000000000000 0.915393352508545 0.402560621500015 7.522552013397217
-                    -0.721760213375092 -0.278629571199417 0.633583247661591 11.447148323059082
+                    0.712026059627533 -0.348296016454697 0.609679281711578 10.876706123352051
+                    -0.000000000000000 0.868299663066864 0.496040016412735 8.964529037475586
+                    -0.702153027057648 -0.353193402290344 0.618251979351044 11.210654258728027
                     0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                 </matrix>
             </transform>
@@ -34,6 +34,24 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
+            <color name="lambert3_reflectance">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    0.400000 0.400000 0.400000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert3_transmittance">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
             <color name="lambert2_reflectance">
                 <parameter name="color_space" value="srgb" />
                 <values>
@@ -62,6 +80,21 @@
                     1.000000
                 </alpha>
             </color>
+            <bsdf name="lambert3_BSDF_lambert" model="lambertian_brdf">
+                <parameter name="reflectance" value="lambert3_reflectance" />
+            </bsdf>
+            <bsdf name="lambert3_BSDF_trans" model="specular_btdf">
+                <parameter name="from_ior" value="1" />
+                <parameter name="reflectance" value="lambert3_reflectance" />
+                <parameter name="to_ior" value="1" />
+                <parameter name="transmittance" value="lambert3_transmittance" />
+            </bsdf>
+            <bsdf name="lambert3_BSDF" model="bsdf_mix">
+                <parameter name="bsdf0" value="lambert3_BSDF_lambert" />
+                <parameter name="bsdf1" value="lambert3_BSDF_trans" />
+                <parameter name="weight0" value="1" />
+                <parameter name="weight1" value="0" />
+            </bsdf>
             <bsdf name="lambert2_BSDF_lambert" model="lambertian_brdf">
                 <parameter name="reflectance" value="lambert2_reflectance" />
             </bsdf>
@@ -74,10 +107,18 @@
             <bsdf name="lambert2_BSDF" model="bsdf_mix">
                 <parameter name="bsdf0" value="lambert2_BSDF_lambert" />
                 <parameter name="bsdf1" value="lambert2_BSDF_trans" />
-                <parameter name="weight0" value="0.12195" />
-                <parameter name="weight1" value="0.87805" />
+                <parameter name="weight0" value="0.4878" />
+                <parameter name="weight1" value="0.5122" />
             </bsdf>
+            <surface_shader name="mib_amb_occlusion1_SurfaceShader" model="ao_surface_shader">
+                <parameter name="max_distance" value="1" />
+                <parameter name="samples" value="16" />
+            </surface_shader>
             <surface_shader name="lambert2_SurfaceShader" model="physical_surface_shader" />
+            <material name="lambert3SG" model="generic_material">
+                <parameter name="bsdf" value="lambert3_BSDF" />
+                <parameter name="surface_shader" value="mib_amb_occlusion1_SurfaceShader" />
+            </material>
             <material name="lambert2SG" model="generic_material">
                 <parameter name="bsdf" value="lambert2_BSDF" />
                 <parameter name="surface_shader" value="lambert2_SurfaceShader" />
@@ -86,8 +127,8 @@
                 <parameter name="exitance" value="|pointLight1|pointLightShape1_exitance" />
                 <transform>
                     <matrix>
-                        1.000000000000000 0.000000000000000 0.000000000000000 6.258281707763672
-                        0.000000000000000 1.000000000000000 0.000000000000000 5.805899620056152
+                        1.000000000000000 0.000000000000000 0.000000000000000 12.651048660278320
+                        0.000000000000000 1.000000000000000 0.000000000000000 8.515247344970703
                         0.000000000000000 0.000000000000000 1.000000000000000 5.463541030883789
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
@@ -117,7 +158,7 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="lambert2SG" />
+                <assign_material slot="0" side="front" material="lambert3SG" />
             </object_instance>
             <object_instance name="|pCube2|pCubeShape2.0_inst" object="|pCube2|pCubeShape2.0">
                 <transform>

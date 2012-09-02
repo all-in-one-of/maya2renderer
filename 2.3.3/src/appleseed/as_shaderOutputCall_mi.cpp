@@ -33,15 +33,16 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	m_assembly = m_renderer->getAssembly().get();
 	assert(m_assembly != nullptr);
 
-	if( m_assembly->surface_shaders().get_by_name(node) ){
+	std::string surfaceshader_name(getSurfaceShaderName(node));
+	if( m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) ){
 		return;//already exists.
 	}
 
-	if(m_assembly->surface_shaders().get_by_name(node) == nullptr)
+	if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
 	{
 		m_assembly->surface_shaders().insert(
 			asr::AOSurfaceShaderFactory().create(
-			node,
+			surfaceshader_name.c_str(),
 			param
 			)
 		);

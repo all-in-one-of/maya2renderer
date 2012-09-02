@@ -85,73 +85,62 @@ void Visitor::visitLambert(const char* node)
 	MVector reflectance;
 	reflectance = color * diffuse + ambientColor;
 
-	//MaterialFactory mf;
+	//colors
+	MString reflectanceColorName(MString(node)+"_reflectance");
+	createColor3(m_assembly->colors(), reflectanceColorName.asChar(), 
+		reflectance.x, reflectance.y, reflectance.z);
 
-	//mf.begin(node);
+	MString transmittanceColorName(MString(node)+"_transmittance");
+	createColor3(m_assembly->colors(), transmittanceColorName.asChar(), 
+		1.0f, 1.0f, 1.0f);
 
-	//brdf
-// 	if( liqglo.rt_useRayTracing ){
-// 		mf.createBSDF("specular_brdf");
-// 	}else{
+	//LambertianBRDF
+	std::vector<std::string> name;
+	name.push_back((getBSDFName(node)+"_lambert"));
+ 	if(m_assembly->bsdfs().get_by_name(name[0].c_str()) == nullptr)
+ 	{
+ 		m_assembly->bsdfs().insert(
+ 			asr::LambertianBRDFFactory().create(
+ 			name[0].c_str(),
+ 			asr::ParamArray()
+				.insert("reflectance", reflectanceColorName.asChar())
+ 			)
+ 		);
+ 	}
+	//SpecularBTDF
+	name.push_back((getBSDFName(node)+"_trans"));
+	if(m_assembly->bsdfs().get_by_name(name[1].c_str()) == nullptr)
+	{
+		m_assembly->bsdfs().insert(
+			asr::SpecularBTDFFactory().create(
+			name[1].c_str(),
+			asr::ParamArray()
+				.insert("reflectance",		reflectanceColorName.asChar())
+				.insert("transmittance",	transmittanceColorName.asChar())//transparent compeletely.
+				.insert("from_ior",			1.0f)
+				.insert("to_ior",			1.0f)
+			)
+		);
+	}
+	//
+	if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+	{
+		m_assembly->bsdfs().insert(
+			asr::BSDFMixFactory().create(
+			getBSDFName(node).c_str(),
+			asr::ParamArray()
+				.insert("bsdf0", name[0].c_str())
+				.insert("bsdf1", name[1].c_str())
+				.insert("weight0", (1.0f - opacity.x))
+				.insert("weight1", (opacity.x))
+			)
+		);
+	}
 
-		//colors
-		MString reflectanceColorName(MString(node)+"_reflectance");
-		createColor3(m_assembly->colors(), reflectanceColorName.asChar(), 
-			reflectance.x, reflectance.y, reflectance.z);
-
-		MString transmittanceColorName(MString(node)+"_transmittance");
-		createColor3(m_assembly->colors(), transmittanceColorName.asChar(), 
-			1.0f, 1.0f, 1.0f);
-
-		//LambertianBRDF
-		std::vector<std::string> name;
-		name.push_back((getBSDFName(node)+"_lambert"));
- 		if(m_assembly->bsdfs().get_by_name(name[0].c_str()) == nullptr)
- 		{
- 			m_assembly->bsdfs().insert(
- 				asr::LambertianBRDFFactory().create(
- 				name[0].c_str(),
- 				asr::ParamArray()
-					.insert("reflectance", reflectanceColorName.asChar())
- 				)
- 			);
- 		}
-		//SpecularBTDF
-		name.push_back((getBSDFName(node)+"_trans"));
-		if(m_assembly->bsdfs().get_by_name(name[1].c_str()) == nullptr)
-		{
-			m_assembly->bsdfs().insert(
-				asr::SpecularBTDFFactory().create(
-				name[1].c_str(),
-				asr::ParamArray()
-					.insert("reflectance",		reflectanceColorName.asChar())
-					.insert("transmittance",	transmittanceColorName.asChar())
-					.insert("from_ior",			1.0f)
-					.insert("to_ior",			1.0f)
-				)
-			);
-		}
-		//
-		if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
-		{
-			m_assembly->bsdfs().insert(
-				asr::BSDFMixFactory().create(
-				getBSDFName(node).c_str(),
-				asr::ParamArray()
-					.insert("bsdf0", name[0].c_str())
-					.insert("bsdf1", name[1].c_str())
-					.insert("weight0", (1.0f - opacity.x))
-					.insert("weight1", (opacity.x))
-				)
-			);
-		}
-//	}
-
-	//edf
-	//mf.createEDF("diffuse_edf");
 
 	//surface shader
-	if( hasAO(node) ){
+	std::string aoNode;
+	if( hasAO(node, aoNode) ){
 		//mf.createSurfaceShader("ao_surface_shader");
 	}else{
 		std::string surfaceshader_name(getSurfaceShaderName(node));

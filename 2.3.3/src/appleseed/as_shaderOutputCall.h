@@ -301,7 +301,7 @@ public:
 protected:
 
 	void buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode);
-	bool hasAO(const char* node);
+	bool hasAO(const char* node, std::string &aoNode);
 
 	void createBSDF_ashikhmin_brdf(const char* node);
 	void createBSDF_bsdf_mix(const char* node);

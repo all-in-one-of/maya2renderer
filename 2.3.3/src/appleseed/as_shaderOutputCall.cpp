@@ -362,7 +362,14 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode)
 {
 	//surface shader
-	material_params.insert( "surface_shader", getSurfaceShaderName(surfaceShaderNode.asChar()).c_str() );
+	std::string aoNode;
+	if( hasAO(surfaceShaderNode.asChar(), aoNode) )
+	{
+		material_params.insert( "surface_shader", getSurfaceShaderName(aoNode.c_str()).c_str() );
+	}else{
+		material_params.insert( "surface_shader", getSurfaceShaderName(surfaceShaderNode.asChar()).c_str() );
+	}
+	
 	//bsdf
 	material_params.insert( "bsdf", getBSDFName(surfaceShaderNode.asChar()).c_str() );
 
@@ -396,7 +403,7 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 		material_params.insert( "normal_map", getNormalMapName(surfaceShaderNode.asChar()).c_str() );
 	}
 }
-bool Visitor::hasAO(const char* node)
+bool Visitor::hasAO(const char* node, std::string &aoNode)
 {
 	bool isSurfaceShaderCreated = false;
 	MString plug(MString(node) +".ambientColor");
@@ -412,6 +419,7 @@ bool Visitor::hasAO(const char* node)
 	IfMErrorWarn(MGlobal::executeCommand("nodeType \""+srcNode+"\"", srcNodeType));
 	if( srcNodeType == "mib_amb_occlusion" )
 	{
+		aoNode = srcNode.asChar();
 		return true;
 	}else {
 		return false;
