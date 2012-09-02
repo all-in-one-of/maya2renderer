@@ -242,7 +242,7 @@ namespace appleseed
 				asr::ColorEntityFactory::create(
 				name,
 				asr::ParamArray().insert("color_space", "srgb"), 
-				asr::ColorValueArray(4, color),
+				asr::ColorValueArray(3, color),
 				asr::ColorValueArray(1, color+3)
 				)
 			);
@@ -265,7 +265,7 @@ namespace appleseed
 				asr::ParamArray()
 					.insert("color_space", "srgb")
 					.insert("multiplier",  strMultiplier.asChar() ), 
-				asr::ColorValueArray(4, color),
+				asr::ColorValueArray(3, color),
 				asr::ColorValueArray(1, color+3)
 				)
 			);
