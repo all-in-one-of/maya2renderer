@@ -173,6 +173,26 @@ namespace appleseed
 	{
 		return node + SURFACE_SHADER_NAME_SEPERATOR + surface_shader_model;
 	}
+	std::string getBSDFName(const std::string& node)
+	{
+		return node + BSDF_NAME_SEPERATOR + "BSDF";
+	}
+	std::string getEDFName(const std::string& node)
+	{
+		return node + EDF_NAME_SEPERATOR + "EDF";
+	}
+	std::string getSurfaceShaderName(const std::string& node)
+	{
+		return node + SURFACE_SHADER_NAME_SEPERATOR + "SurfaceShader";
+	}
+	std::string getAlphaMapName(const std::string& node)
+	{
+		return node + SURFACE_SHADER_NAME_SEPERATOR + "AlphaMap";
+	}
+	std::string getNormalMapName(const std::string& node)
+	{
+		return node + SURFACE_SHADER_NAME_SEPERATOR + "NormalMap";
+	}
 	//
 	bool createColor3(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b)
 	{
@@ -222,7 +242,8 @@ namespace appleseed
 				asr::ColorEntityFactory::create(
 				name,
 				asr::ParamArray().insert("color_space", "srgb"), 
-				asr::ColorValueArray(4, color)
+				asr::ColorValueArray(4, color),
+				asr::ColorValueArray(1, color+3)
 				)
 			);
 			return true;
@@ -233,7 +254,7 @@ namespace appleseed
 	bool createColor4(asr::ColorContainer& colors, const char* name, const float multiplier, const float r, const float g, const float b, const float a)
 	{
 		if( colors.get_by_name(name) == nullptr)//color not exist
-		{		
+		{
 			MString strMultiplier;
 			strMultiplier.set(multiplier);
 
@@ -244,7 +265,8 @@ namespace appleseed
 				asr::ParamArray()
 					.insert("color_space", "srgb")
 					.insert("multiplier",  strMultiplier.asChar() ), 
-				asr::ColorValueArray(4, color)
+				asr::ColorValueArray(4, color),
+				asr::ColorValueArray(1, color+3)
 				)
 			);
 			return true;
