@@ -240,6 +240,7 @@ void OutputHelper::end ()
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
 {
+	m_assembly = NULL;
 }
 //
 Visitor::~Visitor()
@@ -306,31 +307,44 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 	MString cmd;
 
 	MStringArray surfaceShaders;
-	//MStringArray volumeShaders;
-	//MStringArray displacementShaders;
 	MStringArray liqBRDF;
 	MStringArray liqEDF;
 	{
 		getlistConnections(shadingGroupNode, "surfaceShader", surfaceShaders);
-//		getlistConnections(shadingGroupNode, "volumeShader", volumeShaders);
-//		getlistConnections(shadingGroupNode, "displacementShader", displacementShaders);
 		getlistConnections(shadingGroupNode, "liqBRDF", liqBRDF);
 		getlistConnections(shadingGroupNode, "liqEDF", liqEDF);
 	}
+	if( surfaceShaders[0].length() == 0)
+	{
+		liquidMessage2(messageError,"surface shader not exist in \"%s\", return.", shadingGroupNode);
+		return;
+	}
 
+	//cook parameters of material 
 	asr::ParamArray material_params;
-	//ei_material( shadingGroupNode );
-	if( surfaceShaders[0].length() != 0 ){
-		material_params.insert( "surface_shader", surfaceShaders[0].asChar() );
-	}
-	if( liqBRDF[0].length() != 0 ){
-		material_params.insert( "bsdf", liqBRDF[0].asChar() );
-	}
-	if( liqEDF[0].length() != 0 ){
-		material_params.insert( "edf", liqEDF[0].asChar() );
-	}
-	//ei_end_material();
 
+	MString surfaceNodeType;
+	getNodeType(surfaceNodeType, surfaceShaders[0]);
+
+	//if the surface shader is liquidShader, we add the value of liqBSDF and liqEDF to the material parameter.
+	//else, the surface shader is a Maya node, and we cook the parameter differently in buildMaterialWithMayaShaderNode().
+	if( surfaceNodeType == "liquidShader")
+	{
+		//build material with appleseed shader nodes
+		material_params.insert( "surface_shader", surfaceShaders[0].asChar() );
+
+		if( liqBRDF[0].length() != 0 ){
+			material_params.insert( "bsdf", liqBRDF[0].asChar() );
+		}
+		if( liqEDF[0].length() != 0 ){
+			material_params.insert( "edf", liqEDF[0].asChar() );
+		}
+	}else{
+		//build material with maya shader nodes
+		buildMaterialWithMayaShaderNode(material_params, surfaceShaders[0]);
+	}
+
+	//create material
 	Renderer *m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
 	assert(m_renderer != NULL );
 	asr::Assembly *m_assembly = m_renderer->getAssembly().get();
@@ -343,6 +357,65 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 		);
 	}
 	
+}
+//
+void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode)
+{
+	//surface shader
+	material_params.insert( "surface_shader", getSurfaceShaderName(surfaceShaderNode.asChar()).c_str() );
+	//bsdf
+	material_params.insert( "bsdf", getBSDFName(surfaceShaderNode.asChar()).c_str() );
+
+	//EDF
+	bool hasEDF = false;
+	{
+		hasEDF = false;
+	}
+	if(hasEDF)
+	{
+		material_params.insert( "edf", getEDFName(surfaceShaderNode.asChar()).c_str() );
+	}
+
+	//alpha map
+	bool hasAlphaMap = false;
+	{
+		hasAlphaMap = false;
+	}
+	if(hasAlphaMap)
+	{
+		material_params.insert( "alpha_map", getAlphaMapName(surfaceShaderNode.asChar()).c_str() );
+	}
+
+	//normal map
+	bool hasNormalMap = false;
+	{
+		hasNormalMap = false;
+	}
+	if(hasNormalMap)
+	{
+		material_params.insert( "normal_map", getNormalMapName(surfaceShaderNode.asChar()).c_str() );
+	}
+}
+bool Visitor::hasAO(const char* node)
+{
+	bool isSurfaceShaderCreated = false;
+	MString plug(MString(node) +".ambientColor");
+
+	MStringArray nodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+plug+"\"", nodes));
+	
+	if( nodes.length() == 0 )
+		return false;
+
+	MString srcNode(nodes[0]);
+	MString srcNodeType;
+	IfMErrorWarn(MGlobal::executeCommand("nodeType \""+srcNode+"\"", srcNodeType));
+	if( srcNodeType == "mib_amb_occlusion" )
+	{
+		return true;
+	}else {
+		return false;
+	}
 }
 //
 }//namespace call

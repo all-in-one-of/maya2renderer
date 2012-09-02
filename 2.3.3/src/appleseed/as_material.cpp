@@ -188,10 +188,10 @@ namespace appleseed
 		{
 			m_assembly->bsdfs().insert(
 				asr::LambertianBRDFFactory().create(
-					bsdf_name.c_str(),
-					bsdf_params
+				bsdf_name.c_str(),
+				bsdf_params
 				)
-			);
+				);
 		}
 
 		material_params.insert( "bsdf", bsdf_name.c_str() );
@@ -333,7 +333,7 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("MaterialFactory::createSurfaceShader_physical()");
 
-		std::string surfaceshader_name(m_nodename+"_physical_surface_shader");
+		std::string surfaceshader_name(getSurfaceShaderName(m_nodename));
 
 		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
 		{

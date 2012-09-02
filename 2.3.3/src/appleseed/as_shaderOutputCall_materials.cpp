@@ -10,8 +10,10 @@
 #include <liqGlobalVariable.h>
 #include <liqShader.h>
 #include <liqShaderFactory.h>
-//#include "as_material2.h"
+#include "as_helper.h"
 #include "as_material4.h"
+#include "as_renderer.h"
+#include "../renderermgr.h"
 
 namespace appleseed{
 namespace call{
@@ -56,43 +58,116 @@ void Visitor::visitHairTubeShader(const char* node)
 void Visitor::visitLambert(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLambert("<<node<<")");
-
-	MaterialFactory mf;
-
-	mf.begin(node);
-	//brdf
-	if( liqglo.rt_useRayTracing ){
-		mf.createBSDF("specular_brdf");
-	}else{
-		mf.createBSDF("lambertian_brdf");
-	}
-	//edf
-	mf.createEDF("diffuse_edf");
-	//surface shader
-	bool isSurfaceShaderCreated = false;
-	MString plug(MString(node) +".ambientColor");
-	MStringArray nodes;
-	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+plug+"\"", nodes));
-	if( nodes.length() != 0 )
+	
+	if( m_assembly == NULL )
 	{
-		MString srcNode(nodes[0]);
-		MString srcNodeType;
-		IfMErrorWarn(MGlobal::executeCommand("nodeType \""+srcNode+"\"", srcNodeType));
-		if( srcNodeType == "mib_amb_occlusion" )
+		Renderer* m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+		assert(m_renderer != NULL );
+
+		m_assembly = m_renderer->getAssembly().get();
+		assert(m_assembly != nullptr);
+	}
+
+
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
+
+	MVector color;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "color", color, status));
+	double diffuse;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "diffuse", diffuse, status));
+	MVector ambientColor;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "ambientColor", ambientColor, status));
+	MVector opacity;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
+
+	MVector reflectance;
+	reflectance = color * diffuse + ambientColor;
+
+	//MaterialFactory mf;
+
+	//mf.begin(node);
+
+	//brdf
+// 	if( liqglo.rt_useRayTracing ){
+// 		mf.createBSDF("specular_brdf");
+// 	}else{
+
+		//colors
+		MString reflectanceColorName(MString(node)+"_reflectance");
+		createColor3(m_assembly->colors(), reflectanceColorName.asChar(), 
+			reflectance.x, reflectance.y, reflectance.z);
+
+		MString transmittanceColorName(MString(node)+"_transmittance");
+		createColor3(m_assembly->colors(), transmittanceColorName.asChar(), 
+			1.0f, 1.0f, 1.0f);
+
+		//LambertianBRDF
+		std::vector<std::string> name;
+		name.push_back((getBSDFName(node)+"_lambert"));
+ 		if(m_assembly->bsdfs().get_by_name(name[0].c_str()) == nullptr)
+ 		{
+ 			m_assembly->bsdfs().insert(
+ 				asr::LambertianBRDFFactory().create(
+ 				name[0].c_str(),
+ 				asr::ParamArray()
+					.insert("reflectance", reflectanceColorName.asChar())
+ 				)
+ 			);
+ 		}
+		//SpecularBTDF
+		name.push_back((getBSDFName(node)+"_trans"));
+		if(m_assembly->bsdfs().get_by_name(name[1].c_str()) == nullptr)
 		{
-			isSurfaceShaderCreated = true;
-			mf.addSurfaceShader(srcNode.asChar());
-		}else if( srcNodeType == "another node type" ){
-			isSurfaceShaderCreated = true;			
-			//todo...
+			m_assembly->bsdfs().insert(
+				asr::SpecularBTDFFactory().create(
+				name[1].c_str(),
+				asr::ParamArray()
+					.insert("reflectance",		reflectanceColorName.asChar())
+					.insert("transmittance",	transmittanceColorName.asChar())
+					.insert("from_ior",			1.0f)
+					.insert("to_ior",			1.0f)
+				)
+			);
+		}
+		//
+		if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::BSDFMixFactory().create(
+				getBSDFName(node).c_str(),
+				asr::ParamArray()
+					.insert("bsdf0", name[0].c_str())
+					.insert("bsdf1", name[1].c_str())
+					.insert("weight0", (1.0f - opacity.x))
+					.insert("weight1", (opacity.x))
+				)
+			);
+		}
+//	}
+
+	//edf
+	//mf.createEDF("diffuse_edf");
+
+	//surface shader
+	if( hasAO(node) ){
+		//mf.createSurfaceShader("ao_surface_shader");
+	}else{
+		std::string surfaceshader_name(getSurfaceShaderName(node));
+
+		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
+		{
+			m_assembly->surface_shaders().insert(
+				asr::PhysicalSurfaceShaderFactory().create(
+				surfaceshader_name.c_str(),
+				asr::ParamArray()
+				)
+				);
 		}
 	}
 
-	if( ! isSurfaceShaderCreated ){
-		mf.createSurfaceShader("physical_surface_shader");
-	}
-
-	mf.end();
+	//mf.end();
 
 }
 // @node	maya shader node name

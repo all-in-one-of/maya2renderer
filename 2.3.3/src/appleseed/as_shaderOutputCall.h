@@ -7,6 +7,7 @@
 
 #include "../common/prerequest_maya.h"
 #include "../shadergraph/shaderOutput.h"
+#include "prerequest_as.h"
 
 namespace appleseed{
 namespace call{
@@ -298,6 +299,10 @@ public:
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
 protected:
+
+	void buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode);
+	bool hasAO(const char* node);
+
 	void createBSDF_ashikhmin_brdf(const char* node);
 	void createBSDF_bsdf_mix(const char* node);
 	void createBSDF_kelemen_brdf(const char* node);
@@ -319,6 +324,8 @@ protected:
 private:
 	Visitor(const Visitor&);
 	Visitor& operator=(const Visitor&);
+
+	asr::Assembly* m_assembly;
 };
 }//namespace call
 }//namespace appleseed

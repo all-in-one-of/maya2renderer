@@ -5,6 +5,21 @@
 *.pyc
 er_library_mode_test/
 2.3.3/src/elvishray/test/Debug/*
+2.3.3/bin/Aqsis/win32/Release/Objects/*
+2.3.3/bin/Prman/win32/Debug/Objects/*
+2.3.3/bin/win32lib/objs/*
+2.3.3/src/MSVC2005/M2R2012Debug/*
+2.3.3/src/MSVC2005/Prman2009Debug/*
+2.3.3/src/MSVC2005/RILIB/Prman2009Debug/*
+2.3.3/src/MSVC2005/RILIB/x64/Prman2009Debug/*
+2.3.3/src/MSVC2005/displayDriverAqsis/M2R2012Debug/*
+2.3.3/src/MSVC2005/*
+2.3.3/displayDrivers/Aqsis/*
+dependence/_3delight/*.h
+dependence/appleseed/appleseed-1.1.0-alpha-12-24-g7ad29e2-win32-vs100-devkit/*
+dependence/appleseed/appleseed-1.1.0-alpha-13-0-gc745e2c-win32-vs100-devkit/*
+dependence/appleseed/appleseed-1.1.0-alpha-14-0-g4e46ed9-win32-vs100-devkit/*
+dependence/aqsis/1.6.0/build/*
 ############# MSVC
 *.user
 *.ncb
@@ -25,4 +40,7 @@ er_library_mode_test/
 dependence/elvishray/trunk/*
 dependence/elvishray/bin/*.*
 dependence/elvishray/trunk/trunk_r1185_build2/*
+dependence/elvishray/trunk_r1422_build/*
 trunk_r1185_build2/
+2.3.3/src/elvishray/eiSHADER_maya/build/eiSHADER_maya.dir/*
+2.3.3/src/elvishray/eiSHADER_maya/bin/*
