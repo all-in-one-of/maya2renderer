@@ -14,6 +14,7 @@
 #include "as_material4.h"
 #include "as_renderer.h"
 #include "../renderermgr.h"
+#include "as_bsdfBuilder.h"
 
 namespace appleseed{
 namespace call{
@@ -21,35 +22,44 @@ namespace call{
 void Visitor::visitAnisotropic(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitAnisotropic("<<node<<")");
+
 }
 void Visitor::visitBlinn(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBlinn("<<node<<")");
 
-	OutputHelper o;
+	if( m_assembly == NULL )
+	{
+		Renderer* m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+		assert(m_renderer != NULL );
 
-	o.begin(node);
+		m_assembly = m_renderer->getAssembly().get();
+		assert(m_assembly != nullptr);
+	}
 
-	o.addVariable("vector", "inColor",		"color",		node);
-	o.addVariable("vector", "transparency", "transparency", node);
-	o.addVariable("vector", "ambColor",		"ambientColor", node);
-	o.addVariable("vector", "incandescence","incandescence",node);
-	o.addVariable("float",  "diffusion",	"diffuse",		node);
-	o.addVariable("float",  "eccentricity", "eccentricity", node);
-	o.addVariable("float",  "specRollOff",	"specularRollOff",node);
-	o.addVariable("vector", "specColor",	"specularColor",node);
-	o.addVariable("vector", "outColor",		"outColor",		node);
+	BSDFBuilder b(node);
+	b.begin();
+	b.addBSDF("color");
+	b.addBSDF("ambientColor");
+	b.end();
 
-//	MStringArray con;
-//	IfMErrorWarn(MGlobal::executeCommand( ("listConnections(\""+MString(node)+"\" + \".reflectedColor\")"), con));
-//	if( con.length() != 0 )
-//	{
-//		o.addVariable( "float", "reflectivity", "reflectivity", node);
-//		o.addVariable( "vector", "refColor", "reflectedColor", node);
-//		o.addTo( "Cspecular += ( reflectivity * refColor );");
-//	}
+	//surface shader
+	std::string aoNode;
+	if( hasAO(node, aoNode) ){
+		//mf.createSurfaceShader("ao_surface_shader");
+	}else{
+		std::string surfaceshader_name(getSurfaceShaderName(node));
 
-	o.end();
+		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
+		{
+			m_assembly->surface_shaders().insert(
+				asr::PhysicalSurfaceShaderFactory().create(
+				surfaceshader_name.c_str(),
+				asr::ParamArray()
+				)
+				);
+		}
+	}
 }
 void Visitor::visitHairTubeShader(const char* node)
 {

@@ -2238,6 +2238,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\..\render\renderer\appleseed\trunk\src\appleseed\foundation\mesh\objmeshfilewriter.cpp" />
     <ClCompile Include="..\..\..\dependence\appleseed\half.cpp" />
+    <ClCompile Include="..\appleseed\as_bsdfBuilder.cpp" />
     <ClCompile Include="..\appleseed\as_connection.cpp" />
     <ClCompile Include="..\appleseed\as_environment.cpp" />
     <ClCompile Include="..\appleseed\as_helper.cpp" />
@@ -2394,6 +2395,7 @@
     <ClInclude Include="..\..\..\dependence\appleseed\half.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
+    <ClInclude Include="..\appleseed\as_bsdfBuilder.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />
     <ClInclude Include="..\appleseed\as_material.h" />
