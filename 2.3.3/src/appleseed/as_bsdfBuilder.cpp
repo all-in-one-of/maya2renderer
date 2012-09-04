@@ -55,12 +55,12 @@ namespace appleseed
 		return node+"_"+plug;
 	}
 	//
-	std::string BSDFBuilder::getPlugBSDF(const std::string &plug)
+	std::string BSDFBuilder::getPlugBSDF(const std::string &plug, const std::string &bsdfmodel)
 	{
 		CM_TRACE_FUNC("BSDFBuilder::getPlugBSDF("<<plug<<")");
 		if( ! isLinked(m_nodename, plug) )
 		{
-			return createPlugBRDF(plug);
+			return createPlugBRDF(plug, bsdfmodel);
 		}
 		else if( isLinkedIn(m_nodename, plug) )
 		{
@@ -101,7 +101,7 @@ namespace appleseed
 			if( isOutputPlug(m_nodename, plug) )
 				return getBSDFName(m_nodename);//just return BSDF name of this node
 			else
-				return createPlugBRDF(plug);//create the BSDF for this plug
+				return createPlugBRDF(plug, bsdfmodel);//create the BSDF for this plug
 		}else{
 			liquidMessage2(messageError,"\"%s.%s\"'s connection state is unhandled.", m_nodename.c_str(), plug.c_str());
 			return "";
@@ -129,7 +129,7 @@ namespace appleseed
 		return srcNodePlug.length() != 0;
 	}
 	//
-	std::string BSDFBuilder::createPlugBRDF(const std::string &plug)
+	std::string BSDFBuilder::createPlugBRDF(const std::string &plug, const std::string &bsdfmodel)
 	{
 		CM_TRACE_FUNC("BSDFBuilder::createPlugBRDF("<<plug<<")");
 		const std::string bsdfname(getPlugBSDFName(m_nodename, plug));
@@ -137,7 +137,7 @@ namespace appleseed
 		if(m_assembly->bsdfs().get_by_name(bsdfname.c_str()) == nullptr)
 		{
 			//create color
-			const std::string plugname(getPlugName(m_nodename, plug));
+			const std::string bsdfplugname(getPlugName(m_nodename, plug));
 
 			MStatus status;
 			MObject mnode;
@@ -146,17 +146,11 @@ namespace appleseed
 			MVector plugvalue;
 			IfMErrorWarn(liquidGetPlugValue(mnode, plug.c_str(), plugvalue, status));
 
-			createColor3(m_assembly->colors(), plugname.c_str(), 
+			createColor3(m_assembly->colors(), bsdfplugname.c_str(), 
 				plugvalue.x, plugvalue.y, plugvalue.z);
 
 			//create bsdf
-			m_assembly->bsdfs().insert(
-				asr::LambertianBRDFFactory().create(
-				bsdfname.c_str(),
-				asr::ParamArray()
-					.insert("reflectance", plugname.c_str())
-				)
-			);
+			_createBSDF(plug, bsdfname, bsdfmodel);
 		}
 		return bsdfname;
 	}
@@ -190,22 +184,38 @@ namespace appleseed
 	void BSDFBuilder::begin()
 	{
 		CM_TRACE_FUNC("BSDFBuilder::begin()");
-		m_bsdf.clear();
+		//m_bsdf.clear();
 		m_level = 0;
 	}
 	void BSDFBuilder::addBSDF(const std::string &plug)
 	{
 		CM_TRACE_FUNC("BSDFBuilder::addBSDF("<<plug<<")");
-		m_bsdf.push_back( getPlugBSDF(plug) );
+		//m_bsdf.push_back( getPlugBSDF(plug) );
 	}
-	void BSDFBuilder::end()
+	void BSDFBuilder::end(const std::string &lastBSDF)
 	{
 		CM_TRACE_FUNC("BSDFBuilder::end()");
-		createNodeBSDF();
+		//createNodeBSDF();
+		
+		// create the root BSDF for this node,
+		// and connect oldBSDF to it.
+		if(m_assembly->bsdfs().get_by_name( getBSDFName(m_nodename).c_str() ) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::BSDFMixFactory().create(
+				getBSDFName(m_nodename).c_str(),
+				asr::ParamArray()
+				.insert("bsdf0", lastBSDF.c_str())
+				.insert("bsdf1", DummyBSDFName.c_str() )
+				.insert("weight0", 1.0f)
+				.insert("weight1", 0.0f)
+				)
+				);
+		}
 	}
 	//
-	std::string BSDFBuilder::addBSDFToNode(const std::string &bsdf0, const float weight0, const std::string &bsdf1, 
-		const float weight1)
+	std::string BSDFBuilder::addBSDFToNode(const std::string &bsdf0, const float weight0,
+		const std::string &bsdf1, const float weight1)
 	{
 		CM_TRACE_FUNC("BSDFBuilder::addBSDFToNode("<<bsdf0<<","<<weight0<<","<<bsdf1<<","<<weight1<<")");
 		
@@ -233,31 +243,45 @@ namespace appleseed
 		}
 		return BSDFMixName;
 	}
-	void BSDFBuilder::createNodeBSDF()
+// 	void BSDFBuilder::createNodeBSDF()
+// 	{
+// 		CM_TRACE_FUNC("BSDFBuilder::createNodeBSDF()");
+// 		std::string oldBSDF;
+// 
+// 		oldBSDF = DummyBSDFName;
+// 		for(std::size_t i = 0; i<m_bsdf.size(); ++i)
+// 		{
+// 			oldBSDF = addBSDFToNode(oldBSDF, 1.0f - 1.0f/(i+1), m_bsdf[i], 1.0f/(i+1));
+// 		}
+// 	}
+	void BSDFBuilder::_createBSDF(const std::string& plug, const std::string& bsdfname, const std::string &model)
 	{
-		CM_TRACE_FUNC("BSDFBuilder::createNodeBSDF()");
-		std::string oldBSDF;
+		CM_TRACE_FUNC("BSDFBuilder::_createBSDF("<<plug<<","<<bsdfname<<","<<model<<")");
 
-		oldBSDF = DummyBSDFName;
-		for(std::size_t i = 0; i<m_bsdf.size(); ++i)
-		{
-			oldBSDF = addBSDFToNode(oldBSDF, 1.0f - 1.0f/(i+1), m_bsdf[i], 1.0f/(i+1));
-		}
+		const std::string bsdfplugname(getPlugName(m_nodename, plug));
 
-		// create the root BSDF for this node,
-		// and connect oldBSDF to it.
-		if(m_assembly->bsdfs().get_by_name( getBSDFName(m_nodename).c_str() ) == nullptr)
+		if("lambertian_brdf"==model)
 		{
 			m_assembly->bsdfs().insert(
-				asr::BSDFMixFactory().create(
-				getBSDFName(m_nodename).c_str(),
+				asr::LambertianBRDFFactory().create(
+				bsdfname.c_str(),
 				asr::ParamArray()
-					.insert("bsdf0", oldBSDF.c_str())
-					.insert("bsdf1", DummyBSDFName.c_str() )
-					.insert("weight0", 1.0f)
-					.insert("weight1", 0.0f)
+					.insert("reflectance", bsdfplugname.c_str())
 				)
 			);
+		}
+		else if("specular_brdf"==model)
+		{
+			m_assembly->bsdfs().insert(
+				asr::SpecularBRDFFactory().create(
+				bsdfname.c_str(),
+				asr::ParamArray()
+					.insert("reflectance", bsdfplugname.c_str())
+				)
+			);
+		}else{
+			liquidMessage2( messageError, "\"%s\" is not implemented yet.", model.c_str() );
+
 		}
 	}
 

@@ -36,12 +36,34 @@ void Visitor::visitBlinn(const char* node)
 		m_assembly = m_renderer->getAssembly().get();
 		assert(m_assembly != nullptr);
 	}
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
+
+	MVector color;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "color", color, status));
+	double diffuse;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "diffuse", diffuse, status));
+
 
 	BSDFBuilder b(node);
 	b.begin();
-	b.addBSDF("color");
-	b.addBSDF("ambientColor");
-	b.end();
+	std::string colorBSDFName( b.getPlugBSDF("color", "lambertian_brdf") );
+	std::string ambientColorBSDFName( b.getPlugBSDF("ambientColor", "lambertian_brdf") );
+	std::string incandescenceBSDFName( b.getPlugBSDF("incandescence", "lambertian_brdf") );
+	std::string specularColorBSDFName( b.getPlugBSDF("specularColor", "lambertian_brdf") );
+
+	//bsdfmix0 = color * diffuse + ambientColor
+	std::string bsdfmix0( b.addBSDFToNode(colorBSDFName, diffuse, 
+									ambientColorBSDFName, 1.0f) );
+	//bsdfmix1 = bsdfmix0 + incandescence
+	std::string bsdfmix1( b.addBSDFToNode(bsdfmix0, 1.0, 
+									incandescenceBSDFName, 1.0f) );
+	//bsdfmix2 = bsdfmix1 + specularColor
+	std::string bsdfmix2( b.addBSDFToNode(bsdfmix1, 1.0, 
+									specularColorBSDFName, 1.0f) );
+
+	b.end(bsdfmix2);
 
 	//surface shader
 	std::string aoNode;
