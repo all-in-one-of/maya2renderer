@@ -64,7 +64,7 @@
             <color name="blinn3_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    1.000000 1.000000 1.000000
+                    1.000000 1.000000 0.000000
                 </values>
                 <alpha>
                     1.000000
@@ -98,20 +98,20 @@
             <bsdf name="blinn2_ambientColor_BSDF" model="lambertian_brdf">
                 <parameter name="reflectance" value="blinn2_ambientColor" />
             </bsdf>
-            <bsdf name="blinn2_BSDF_L0" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn2_color_BSDF" />
-                <parameter name="bsdf1" value="liquidDummyBSDF" />
-                <parameter name="weight0" value="1" />
-                <parameter name="weight1" value="0" />
-            </bsdf>
             <bsdf name="blinn2_BSDF_L1" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn2_ambientColor_BSDF" />
-                <parameter name="bsdf1" value="blinn2_BSDF_L0" />
+                <parameter name="bsdf0" value="liquidDummyBSDF" />
+                <parameter name="bsdf1" value="blinn2_color_BSDF" />
+                <parameter name="weight0" value="0" />
+                <parameter name="weight1" value="1" />
+            </bsdf>
+            <bsdf name="blinn2_BSDF_L2" model="bsdf_mix">
+                <parameter name="bsdf0" value="blinn2_BSDF_L1" />
+                <parameter name="bsdf1" value="blinn2_ambientColor_BSDF" />
                 <parameter name="weight0" value="0.5" />
                 <parameter name="weight1" value="0.5" />
             </bsdf>
             <bsdf name="blinn2_BSDF" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn2_BSDF_L1" />
+                <parameter name="bsdf0" value="blinn2_BSDF_L2" />
                 <parameter name="bsdf1" value="liquidDummyBSDF" />
                 <parameter name="weight0" value="1" />
                 <parameter name="weight1" value="0" />
@@ -122,20 +122,20 @@
             <bsdf name="blinn3_ambientColor_BSDF" model="lambertian_brdf">
                 <parameter name="reflectance" value="blinn3_ambientColor" />
             </bsdf>
-            <bsdf name="blinn3_BSDF_L0" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn3_color_BSDF" />
-                <parameter name="bsdf1" value="liquidDummyBSDF" />
-                <parameter name="weight0" value="1" />
-                <parameter name="weight1" value="0" />
-            </bsdf>
             <bsdf name="blinn3_BSDF_L1" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn3_ambientColor_BSDF" />
-                <parameter name="bsdf1" value="blinn3_BSDF_L0" />
+                <parameter name="bsdf0" value="liquidDummyBSDF" />
+                <parameter name="bsdf1" value="blinn3_color_BSDF" />
+                <parameter name="weight0" value="0" />
+                <parameter name="weight1" value="1" />
+            </bsdf>
+            <bsdf name="blinn3_BSDF_L2" model="bsdf_mix">
+                <parameter name="bsdf0" value="blinn3_BSDF_L1" />
+                <parameter name="bsdf1" value="blinn3_ambientColor_BSDF" />
                 <parameter name="weight0" value="0.5" />
                 <parameter name="weight1" value="0.5" />
             </bsdf>
             <bsdf name="blinn3_BSDF" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn3_BSDF_L1" />
+                <parameter name="bsdf0" value="blinn3_BSDF_L2" />
                 <parameter name="bsdf1" value="liquidDummyBSDF" />
                 <parameter name="weight0" value="1" />
                 <parameter name="weight1" value="0" />
@@ -152,20 +152,20 @@
                 <parameter name="weight0" value="1" />
                 <parameter name="weight1" value="0" />
             </bsdf>
-            <bsdf name="blinn1_BSDF_L0" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn1_color_BSDF" />
-                <parameter name="bsdf1" value="liquidDummyBSDF" />
-                <parameter name="weight0" value="1" />
-                <parameter name="weight1" value="0" />
-            </bsdf>
             <bsdf name="blinn1_BSDF_L1" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn1_ambientColor_BSDF" />
-                <parameter name="bsdf1" value="blinn1_BSDF_L0" />
+                <parameter name="bsdf0" value="liquidDummyBSDF" />
+                <parameter name="bsdf1" value="blinn1_color_BSDF" />
+                <parameter name="weight0" value="0" />
+                <parameter name="weight1" value="1" />
+            </bsdf>
+            <bsdf name="blinn1_BSDF_L2" model="bsdf_mix">
+                <parameter name="bsdf0" value="blinn1_BSDF_L1" />
+                <parameter name="bsdf1" value="blinn1_ambientColor_BSDF" />
                 <parameter name="weight0" value="0.5" />
                 <parameter name="weight1" value="0.5" />
             </bsdf>
             <bsdf name="blinn1_BSDF" model="bsdf_mix">
-                <parameter name="bsdf0" value="blinn1_BSDF_L1" />
+                <parameter name="bsdf0" value="blinn1_BSDF_L2" />
                 <parameter name="bsdf1" value="liquidDummyBSDF" />
                 <parameter name="weight0" value="1" />
                 <parameter name="weight1" value="0" />

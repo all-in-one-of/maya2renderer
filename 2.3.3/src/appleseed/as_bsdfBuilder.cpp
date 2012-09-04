@@ -13,6 +13,7 @@ namespace appleseed
 	BSDFBuilder::BSDFBuilder(const char* nodename)
 		:m_nodename(nodename),
 		m_assembly(nullptr),
+		m_level(0),
 		DummyBSDFName("liquidDummyBSDF"),
 		DummyBSDFColorName("liquidDummyBSDFColor")
 	{
@@ -190,6 +191,7 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("BSDFBuilder::begin()");
 		m_bsdf.clear();
+		m_level = 0;
 	}
 	void BSDFBuilder::addBSDF(const std::string &plug)
 	{
@@ -202,43 +204,44 @@ namespace appleseed
 		createNodeBSDF();
 	}
 	//
-	std::string BSDFBuilder::addBSDFToNode(const std::string &oldBSDF, const std::string &bsdf0, 
-		const int level)
+	std::string BSDFBuilder::addBSDFToNode(const std::string &bsdf0, const float weight0, const std::string &bsdf1, 
+		const float weight1)
 	{
-		CM_TRACE_FUNC("BSDFBuilder::addBSDFToNode("<<oldBSDF<<","<<bsdf0<<","<<level<<")");
+		CM_TRACE_FUNC("BSDFBuilder::addBSDFToNode("<<bsdf0<<","<<weight0<<","<<bsdf1<<","<<weight1<<")");
+		
+		m_level++;
 		MString strLevel;
-		strLevel.set(level);
+		strLevel.set(m_level);
 
-		const std::string newBSDF(getBSDFName(m_nodename)+"_L"+strLevel.asChar());
+		const std::string BSDFMixName(getBSDFName(m_nodename)+"_L"+strLevel.asChar());
 		
 		//            +--(bsdf0)-- bsdf0
 		// plugBSDF --|
-		//            +--(bsdf1)-- oldBSDF
-		if(m_assembly->bsdfs().get_by_name(newBSDF.c_str()) == nullptr)
+		//            +--(bsdf1)-- bsdf1
+		if(m_assembly->bsdfs().get_by_name(BSDFMixName.c_str()) == nullptr)
 		{
 			m_assembly->bsdfs().insert(
 				asr::BSDFMixFactory().create(
-				newBSDF.c_str(),
+				BSDFMixName.c_str(),
 				asr::ParamArray()
-					.insert("bsdf0", bsdf0.c_str())
-					.insert("bsdf1", oldBSDF.c_str() )
-					.insert("weight0",        1.0f/(level+1))
-					.insert("weight1", 1.0f - 1.0f/(level+1))
+					.insert("bsdf0",   bsdf0.c_str())
+					.insert("bsdf1",   bsdf1.c_str())
+					.insert("weight0", weight0)
+					.insert("weight1", weight1)//
 				)
 			);
 		}
-		return newBSDF;
+		return BSDFMixName;
 	}
 	void BSDFBuilder::createNodeBSDF()
 	{
 		CM_TRACE_FUNC("BSDFBuilder::createNodeBSDF()");
 		std::string oldBSDF;
 
-		int level = 0;
 		oldBSDF = DummyBSDFName;
-		for(; level<m_bsdf.size(); ++level)
+		for(std::size_t i = 0; i<m_bsdf.size(); ++i)
 		{
-			oldBSDF = addBSDFToNode(oldBSDF, m_bsdf[level], level);
+			oldBSDF = addBSDFToNode(oldBSDF, 1.0f - 1.0f/(i+1), m_bsdf[i], 1.0f/(i+1));
 		}
 
 		// create the root BSDF for this node,

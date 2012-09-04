@@ -35,8 +35,8 @@ namespace appleseed
 		void begin();
 		void addBSDF(const std::string &plug);
 		void end();
-		std::string addBSDFToNode(const std::string &oldBSDF, const std::string &brdf0, 
-			const int level);
+		std::string addBSDFToNode(const std::string &oldBSDF, const float weight0, 
+			const std::string &bsdf0, const float weight1);
 		void createNodeBSDF();
 
 	protected:
@@ -49,6 +49,7 @@ namespace appleseed
 		const std::string DummyBSDFColorName;
 
 		std::vector<std::string> m_bsdf;
+		std::size_t m_level;
 
 	};
 
