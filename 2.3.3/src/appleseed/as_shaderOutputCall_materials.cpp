@@ -186,6 +186,9 @@ void Visitor::visitLambert(const char* node)
 		}
 	}
 
+	//normal map
+	//nothing to do
+
 }
 // @node	maya shader node name
 void Visitor::visitLayeredShader(const char* node)

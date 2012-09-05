@@ -311,6 +311,7 @@ protected:
 	bool hasAO(const char* node, std::string &aoNode);
 	bool hasEDF(const char* node, double* outR, double* outG, double* outB);
 	Visitor::AlphaMapType getAlphaMap(const char* node, double* outR, double* outG, double* outB, std::string *textureNode);
+	bool hasNormalMap(const char* node, std::string *textureNode);
 
 	void createBSDF_ashikhmin_brdf(const char* node);
 	void createBSDF_bsdf_mix(const char* node);

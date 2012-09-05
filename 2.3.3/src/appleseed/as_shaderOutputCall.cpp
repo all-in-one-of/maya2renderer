@@ -379,30 +379,26 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 		material_params.insert( "edf", getEDFName(surfaceShaderNode.asChar()).c_str() );
 	}
 
+	std::string fileNode;
 	//alpha map
 	MVector transparency; 
-	std::string textureNode;
 	AlphaMapType amt = AMT_Null;
-	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &textureNode)) )
+	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &fileNode)) )
 	{
 		if(AMT_Color==amt)
 		{
 			material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
 		}else if(AMT_Texture==amt){
-			material_params.insert( "alpha_map", getTextureInstanceName(textureNode).c_str() );
+			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
 		}else{
 			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
 		}
 	}
 
 	//normal map
-	bool hasNormalMap = false;
+	if(hasNormalMap(surfaceShaderNode.asChar(), &fileNode))
 	{
-		hasNormalMap = false;
-	}
-	if(hasNormalMap)
-	{
-		material_params.insert( "normal_map", getNormalMapName(surfaceShaderNode.asChar()).c_str() );
+		material_params.insert( "normal_map", getTextureInstanceName(fileNode).c_str() );
 	}
 }
 bool Visitor::hasAO(const char* node, std::string &aoNode)
@@ -451,7 +447,7 @@ bool Visitor::hasEDF(const char* node, double* outR, double* outG, double* outB)
 Visitor::AlphaMapType Visitor::getAlphaMap(const char* node, 
 	double* outR, double* outG, double* outB, std::string *textureNode)
 {
-	CM_TRACE_FUNC("Visitor::hasAlphaMap("<<node<<")");
+	CM_TRACE_FUNC("Visitor::getAlphaMap("<<node<<")");
 
 	bool ret = false;
 
@@ -464,7 +460,6 @@ Visitor::AlphaMapType Visitor::getAlphaMap(const char* node,
 		return AMT_Texture;
 	}
 
-	
 	MStatus status;
 	MObject mnode;
 	getDependNodeByName(mnode, node);
@@ -480,7 +475,29 @@ Visitor::AlphaMapType Visitor::getAlphaMap(const char* node,
 		return AMT_Null;
 	else
 		return AMT_Color;
+}
+bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
+{
+	CM_TRACE_FUNC("Visitor::hasNormalMap("<<node<<")");
 
+	bool ret = false;
+
+	MStringArray bump2dNodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+MString(node)+".normalCamera\"", bump2dNodes));
+
+	if(bump2dNodes.length()==0)
+		return false;
+
+	MStringArray fileNodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+bump2dNodes[0]+".bumpValue\"", fileNodes));
+	
+	if(fileNodes.length()==0)
+		return false;
+	
+	if( textureNode != nullptr ) 
+		*textureNode = fileNodes[0].asChar();
+
+	return true;
 }
 //
 }//namespace call

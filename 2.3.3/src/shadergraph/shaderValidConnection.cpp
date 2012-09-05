@@ -37,7 +37,11 @@ void ShaderValidConnection::setValidConnection()
 	validConnection.append("transparency");
 	validConnection.append("ambientColor");
 	validConnection.append("incandescence");
+	validConnection.append("normalCamera");
 	validConnection.append("diffuse");
+	validConnection.append("translucence");
+	validConnection.append("translucenceDepth");
+	validConnection.append("translucenceFocus");
 	validConnection.append("outColor");
 	validConnection.append("outTransparency");
 	validConnectionMap.insert(std::make_pair("lambert", validConnection));	
@@ -50,13 +54,18 @@ void ShaderValidConnection::setValidConnection()
 	validConnection.append("transparency");
 	validConnection.append("ambientColor");
 	validConnection.append("incandescence");
+	validConnection.append("normalCamera");
 	validConnection.append("diffuse");
+	validConnection.append("translucence");
+	validConnection.append("translucenceDepth");
+	validConnection.append("translucenceFocus");
 	validConnection.append("eccentricity");
 	validConnection.append("specularRollOff");
 	validConnection.append("specularColor");
 	validConnection.append("reflectivity");
 	validConnection.append("reflectedColor");
 	validConnection.append("outColor");
+	validConnection.append("outTransparency");
 	validConnectionMap.insert(std::make_pair("blinn", validConnection));	
 
 	//oceanShader 
