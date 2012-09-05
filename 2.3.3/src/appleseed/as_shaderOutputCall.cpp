@@ -374,11 +374,7 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 	material_params.insert( "bsdf", getBSDFName(surfaceShaderNode.asChar()).c_str() );
 
 	//EDF
-	bool hasEDF = false;
-	{
-		hasEDF = false;
-	}
-	if(hasEDF)
+	if( hasEDF(surfaceShaderNode.asChar(), nullptr, nullptr, nullptr) )
 	{
 		material_params.insert( "edf", getEDFName(surfaceShaderNode.asChar()).c_str() );
 	}
@@ -424,6 +420,27 @@ bool Visitor::hasAO(const char* node, std::string &aoNode)
 	}else {
 		return false;
 	}
+}
+//
+bool Visitor::hasEDF(const char* node, double* outR, double* outG, double* outB)
+{
+	CM_TRACE_FUNC("Visitor::hasEDF("<<node<<")");
+
+	bool ret = false;
+
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
+
+	MVector incandescence;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "incandescence", incandescence, status));
+
+	if( outR != nullptr ) *outR = incandescence.x;
+	if( outG != nullptr ) *outG = incandescence.y;
+	if( outB != nullptr ) *outB = incandescence.z;
+
+	return !isZero(incandescence.x, incandescence.y, incandescence.z);
+
 }
 //
 }//namespace call

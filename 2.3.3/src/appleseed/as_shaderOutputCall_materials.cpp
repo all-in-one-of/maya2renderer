@@ -188,6 +188,25 @@ void Visitor::visitLambert(const char* node)
 		}
 	}
 
+	//EDF
+	MVector incandescence;
+	if( hasEDF(node, &incandescence.x, &incandescence.y, &incandescence.z) )
+	{
+		MString incandescenceColorName(MString(node)+"_incandescence");
+		createColor3(m_assembly->colors(), incandescenceColorName.asChar(), 
+			incandescence.x, incandescence.y, incandescence.z);
+
+		if(m_assembly->edfs().get_by_name(getEDFName(node).c_str()) == nullptr)
+		{
+			m_assembly->edfs().insert(
+				asr::DiffuseEDFFactory().create(
+				getEDFName(node).c_str(),
+				asr::ParamArray()
+					.insert("exitance", incandescenceColorName.asChar())
+				)
+			);
+		}
+	}
 	//mf.end();
 
 }
