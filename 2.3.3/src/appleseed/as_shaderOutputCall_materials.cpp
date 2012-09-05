@@ -111,8 +111,6 @@ void Visitor::visitLambert(const char* node)
 	IfMErrorWarn(liquidGetPlugValue(mnode, "diffuse", diffuse, status));
 	MVector ambientColor;
 	IfMErrorWarn(liquidGetPlugValue(mnode, "ambientColor", ambientColor, status));
-	MVector opacity;
-	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
 
 	MVector reflectance;
 	reflectance = color * diffuse + ambientColor;
@@ -122,53 +120,17 @@ void Visitor::visitLambert(const char* node)
 	createColor3(m_assembly->colors(), reflectanceColorName.asChar(), 
 		reflectance.x, reflectance.y, reflectance.z);
 
-	MString transmittanceColorName(MString(node)+"_transmittance");
-	createColor3(m_assembly->colors(), transmittanceColorName.asChar(), 
-		1.0f, 1.0f, 1.0f);
-
 	//LambertianBRDF
-	std::vector<std::string> name;
-	name.push_back((getBSDFName(node)+"_lambert"));
- 	if(m_assembly->bsdfs().get_by_name(name[0].c_str()) == nullptr)
+ 	if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
  	{
  		m_assembly->bsdfs().insert(
  			asr::LambertianBRDFFactory().create(
- 			name[0].c_str(),
+ 			getBSDFName(node).c_str(),
  			asr::ParamArray()
 				.insert("reflectance", reflectanceColorName.asChar())
  			)
  		);
  	}
-	//SpecularBTDF
-	name.push_back((getBSDFName(node)+"_trans"));
-	if(m_assembly->bsdfs().get_by_name(name[1].c_str()) == nullptr)
-	{
-		m_assembly->bsdfs().insert(
-			asr::SpecularBTDFFactory().create(
-			name[1].c_str(),
-			asr::ParamArray()
-				.insert("reflectance",		reflectanceColorName.asChar())
-				.insert("transmittance",	transmittanceColorName.asChar())//transparent compeletely.
-				.insert("from_ior",			1.0f)
-				.insert("to_ior",			1.0f)
-			)
-		);
-	}
-	//
-	if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
-	{
-		m_assembly->bsdfs().insert(
-			asr::BSDFMixFactory().create(
-			getBSDFName(node).c_str(),
-			asr::ParamArray()
-				.insert("bsdf0", name[0].c_str())
-				.insert("bsdf1", name[1].c_str())
-				.insert("weight0", (1.0f - opacity.x))
-				.insert("weight1", (opacity.x))
-			)
-		);
-	}
-
 
 	//surface shader
 	std::string aoNode;
@@ -207,7 +169,22 @@ void Visitor::visitLambert(const char* node)
 			);
 		}
 	}
-	//mf.end();
+
+	//alpha map
+	AlphaMapType amt = AMT_Null;
+	MVector transparency;
+	if( AMT_Null != (amt=getAlphaMap(node, &transparency.x, &transparency.y, &transparency.z, nullptr)) )
+	{
+		if(AMT_Color==amt)
+		{
+			createColor3(m_assembly->colors(), getAlphaColorName(node).c_str(), 
+				transparency.x, transparency.y, transparency.z);
+		}else if(AMT_Texture==amt){
+			// the texture will be created somewhere else
+		}else{
+			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
+		}
+	}
 
 }
 // @node	maya shader node name

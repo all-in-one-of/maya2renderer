@@ -185,9 +185,9 @@ namespace appleseed
 	{
 		return node + SURFACE_SHADER_NAME_SEPERATOR + "SurfaceShader";
 	}
-	std::string getAlphaMapName(const std::string& node)
+	std::string getAlphaColorName(const std::string& node)
 	{
-		return node + SURFACE_SHADER_NAME_SEPERATOR + "AlphaMap";
+		return node + SURFACE_SHADER_NAME_SEPERATOR + "AlphaColor";
 	}
 	std::string getNormalMapName(const std::string& node)
 	{

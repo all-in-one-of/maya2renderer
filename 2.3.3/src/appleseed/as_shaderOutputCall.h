@@ -298,11 +298,19 @@ public:
 	///liquid shaders
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
+
+	enum AlphaMapType{
+		AMT_Null = 0,
+		AMT_Color = 1,
+		AMT_Texture = 2,
+		AMT_COUNT
+	};
 protected:
 
 	void buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode);
 	bool hasAO(const char* node, std::string &aoNode);
 	bool hasEDF(const char* node, double* outR, double* outG, double* outB);
+	Visitor::AlphaMapType getAlphaMap(const char* node, double* outR, double* outG, double* outB, std::string *textureNode);
 
 	void createBSDF_ashikhmin_brdf(const char* node);
 	void createBSDF_bsdf_mix(const char* node);

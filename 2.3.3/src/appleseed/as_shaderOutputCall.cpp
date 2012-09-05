@@ -380,13 +380,19 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 	}
 
 	//alpha map
-	bool hasAlphaMap = false;
+	MVector transparency; 
+	std::string textureNode;
+	AlphaMapType amt = AMT_Null;
+	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &textureNode)) )
 	{
-		hasAlphaMap = false;
-	}
-	if(hasAlphaMap)
-	{
-		material_params.insert( "alpha_map", getAlphaMapName(surfaceShaderNode.asChar()).c_str() );
+		if(AMT_Color==amt)
+		{
+			material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
+		}else if(AMT_Texture==amt){
+			material_params.insert( "alpha_map", getTextureInstanceName(textureNode).c_str() );
+		}else{
+			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
+		}
 	}
 
 	//normal map
@@ -440,6 +446,40 @@ bool Visitor::hasEDF(const char* node, double* outR, double* outG, double* outB)
 	if( outB != nullptr ) *outB = incandescence.z;
 
 	return !isZero(incandescence.x, incandescence.y, incandescence.z);
+
+}
+Visitor::AlphaMapType Visitor::getAlphaMap(const char* node, 
+	double* outR, double* outG, double* outB, std::string *textureNode)
+{
+	CM_TRACE_FUNC("Visitor::hasAlphaMap("<<node<<")");
+
+	bool ret = false;
+
+	MStringArray transparencyChannelSrcNodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+MString(node)+".transparency\"", transparencyChannelSrcNodes));
+	if(transparencyChannelSrcNodes.length()>0)
+	{
+		if( textureNode != nullptr ) 
+			*textureNode = transparencyChannelSrcNodes[0].asChar();
+		return AMT_Texture;
+	}
+
+	
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
+
+	MVector opacity;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
+
+	if( outR != nullptr ) *outR = 1.0 - opacity.x;
+	if( outG != nullptr ) *outG = 1.0 - opacity.y;
+	if( outB != nullptr ) *outB = 1.0 - opacity.z;
+
+	if( isZero(opacity.x, opacity.y, opacity.z) )
+		return AMT_Null;
+	else
+		return AMT_Color;
 
 }
 //

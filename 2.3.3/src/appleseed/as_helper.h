@@ -39,7 +39,7 @@ namespace appleseed
 	std::string getBSDFName(const std::string& node);
 	std::string getEDFName(const std::string& node);
 	std::string getSurfaceShaderName(const std::string& node);
-	std::string getAlphaMapName(const std::string& node);
+	std::string getAlphaColorName(const std::string& node);
 	std::string getNormalMapName(const std::string& node);
 
 	//\r    true: creat successfully,  false: not create.
