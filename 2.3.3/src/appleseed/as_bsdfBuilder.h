@@ -38,9 +38,9 @@ namespace appleseed
 		std::string addBSDFToNode(const std::string &bsdf0, const float weight0, 
 			const std::string &bsdf1, const float weight1);
 		//void createNodeBSDF();
+		std::string GetOrCreateDummyBSDF();
 
 	protected:
-		void createDummyBSDFName();
 		void _createBSDF(const std::string& plug, const std::string& bsdfname, const std::string &model);
 
 		asr::Assembly* m_assembly;

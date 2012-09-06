@@ -25,7 +25,7 @@ namespace appleseed
 		m_assembly = m_renderer->getAssembly().get();
 		assert(m_assembly != nullptr);
 
-		createDummyBSDFName();
+		//createDummyBSDFName();
 	}
 	//
 	BSDFBuilder::~BSDFBuilder()
@@ -87,10 +87,10 @@ namespace appleseed
 					asr::BSDFMixFactory().create(
 					plugBSDFName.c_str(),
 					asr::ParamArray()
-						.insert("bsdf0", srcBSDFName.c_str())
-						.insert("bsdf1", DummyBSDFName.c_str() )
-						.insert("weight0", 1.0f)
-						.insert("weight1", 0.0f)
+					.insert("bsdf0", srcBSDFName.c_str())
+					.insert("bsdf1", DummyBSDFName.c_str() )
+					.insert("weight0", 1.0f)
+					.insert("weight1", 0.0f)
 					)
 				);
 			}
@@ -163,9 +163,9 @@ namespace appleseed
 			|| "outGlowColor"    == plug 
 			|| "outMatteOpacity "== plug );
 	}
-	void BSDFBuilder::createDummyBSDFName()
+	std::string BSDFBuilder::GetOrCreateDummyBSDF()
 	{
-		CM_TRACE_FUNC("BSDFBuilder::createDummyBSDFName()");
+		CM_TRACE_FUNC("BSDFBuilder::GetOrCreateDummyBSDF()");
 		if(m_assembly->bsdfs().get_by_name(DummyBSDFName.c_str()) == nullptr)
 		{
 			createColor3(m_assembly->colors(), 
@@ -179,6 +179,7 @@ namespace appleseed
 				)
 			);
 		}
+		return DummyBSDFName;
 	}
 	//
 	void BSDFBuilder::begin()

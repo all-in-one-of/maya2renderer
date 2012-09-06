@@ -304,6 +304,15 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 {
 	CM_TRACE_FUNC("Visitor::outputShadingGroup("<<shadingGroupNode<<")");
 
+	if( m_assembly == NULL )
+	{
+		Renderer* m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+		assert(m_renderer != NULL );
+
+		m_assembly = m_renderer->getAssembly().get();
+		assert(m_assembly != nullptr);
+	}
+
 	MString cmd;
 
 	MStringArray surfaceShaders;
@@ -345,17 +354,14 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 	}
 
 	//create material
-	Renderer *m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
-	assert(m_renderer != NULL );
-	asr::Assembly *m_assembly = m_renderer->getAssembly().get();
-	assert(m_assembly != nullptr);
-
 	if(m_assembly->materials().get_by_name(shadingGroupNode) == nullptr)
 	{
 		m_assembly->materials().insert(
 			asr::MaterialFactory::create(shadingGroupNode, material_params)
 		);
 	}
+
+	TryToCreateBackfaceMaterial(shadingGroupNode);
 	
 }
 //
@@ -387,7 +393,8 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 	{
 		if(AMT_Color==amt)
 		{
-			material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
+			//It seems that the alpha color can't achieve the right effect, so I omit it.
+			//material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
 		}else if(AMT_Texture==amt){
 			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
 		}else{
@@ -499,6 +506,107 @@ bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
 
 	return true;
 }
+void Visitor::TryToCreateBackfaceMaterial(const char *shadingGroupNode)
+{
+	CM_TRACE_FUNC("Visitor::TryToCreateBackfaceMaterial("<<shadingGroupNode<<")");
+
+	if( !hasBackfaceMaterial(shadingGroupNode) )
+		return;
+
+	MString cmd;
+
+	MStringArray surfaceShaders;
+	MStringArray liqBRDF;
+	MStringArray liqEDF;
+	{
+		getlistConnections(shadingGroupNode, "surfaceShader", surfaceShaders);
+		getlistConnections(shadingGroupNode, "liqBRDF", liqBRDF);//liqBRDFBack
+		getlistConnections(shadingGroupNode, "liqEDF", liqEDF);
+	}
+	if( surfaceShaders[0].length() == 0)
+	{
+		liquidMessage2(messageError,"surface shader not exist in \"%s\", return.", shadingGroupNode);
+		return;
+	}
+
+	//cook parameters of material 
+	asr::ParamArray material_params;
+
+	MString surfaceNodeType;
+	getNodeType(surfaceNodeType, surfaceShaders[0]);
+
+	//if the surface shader is liquidShader, we add the value of liqBSDF and liqEDF to the material parameter.
+	//else, the surface shader is a Maya node, and we cook the parameter differently in buildMaterialWithMayaShaderNode().
+	if( surfaceNodeType == "liquidShader")
+	{
+		//build material with appleseed shader nodes
+		material_params.insert( "surface_shader", surfaceShaders[0].asChar() );
+
+		if( liqBRDF[0].length() != 0 ){
+			material_params.insert( "bsdf", liqBRDF[0].asChar() );//liqBRDFBack
+		}
+		if( liqEDF[0].length() != 0 ){
+			material_params.insert( "edf", liqEDF[0].asChar() );
+		}
+	}else{
+		//build material with maya shader nodes
+		buildBackfaceMaterialWithMayaShaderNode(material_params, surfaceShaders[0]);
+	}
+
+	//create material
+	if(m_assembly->materials().get_by_name(getBackfaceMaterial(shadingGroupNode).c_str()) == nullptr)
+	{
+		m_assembly->materials().insert(
+			asr::MaterialFactory::create(getBackfaceMaterial(shadingGroupNode).c_str(), material_params)
+			);
+	}
+}
+void Visitor::buildBackfaceMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode)
+{
+	CM_TRACE_FUNC("Visitor::buildBackfaceMaterialWithMayaShaderNode(..., "<<surfaceShaderNode.asChar()<<")");
+
+	//surface shader
+	std::string aoNode;
+	if( hasAO(surfaceShaderNode.asChar(), aoNode) )
+	{
+		material_params.insert( "surface_shader", getSurfaceShaderName(aoNode.c_str()).c_str() );
+	}else{
+		material_params.insert( "surface_shader", getSurfaceShaderName(surfaceShaderNode.asChar()).c_str() );
+	}
+
+	//bsdf_back
+	material_params.insert( "bsdf", getBSDFNameBack(surfaceShaderNode.asChar()).c_str() );
+
+	//EDF
+	if( hasEDF(surfaceShaderNode.asChar(), nullptr, nullptr, nullptr) )
+	{
+		material_params.insert( "edf", getEDFName(surfaceShaderNode.asChar()).c_str() );
+	}
+
+	std::string fileNode;
+	//alpha map
+	MVector transparency; 
+	AlphaMapType amt = AMT_Null;
+	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &fileNode)) )
+	{
+		if(AMT_Color==amt)
+		{
+			//It seems that the alpha color can't achieve the right effect, so I omit it.
+			//material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
+		}else if(AMT_Texture==amt){
+			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
+		}else{
+			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
+		}
+	}
+
+	//normal map
+	if(hasNormalMap(surfaceShaderNode.asChar(), &fileNode))
+	{
+		material_params.insert( "normal_map", getTextureInstanceName(fileNode).c_str() );
+	}
+}
+
 //
 }//namespace call
 }//namespace appleseed

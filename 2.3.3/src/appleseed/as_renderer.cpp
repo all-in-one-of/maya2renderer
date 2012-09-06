@@ -322,7 +322,14 @@ namespace appleseed
 				// Create the array of material names.
 				asf::StringArray material_names;
 				material_names.push_back( materialName.asChar() );
-
+				
+				// Create the array of backface material names.
+				asf::StringArray backface_material_names;
+				if( hasBackfaceMaterial(materialName.asChar()) )
+				{
+					backface_material_names.push_back( getBackfaceMaterial(materialName.asChar()).c_str() );
+				}
+				
 				// Create an instance of this object and insert it into the assembly.
 				const std::string instance_name = std::string(object->get_name()) + "_inst";
 				current_assembly->object_instances().insert(
@@ -331,7 +338,8 @@ namespace appleseed
 							asr::ParamArray(),
 							*object,
 							asf::Transformd(asf::Matrix4d::identity()),
-							material_names
+							material_names,
+							backface_material_names
 						)
 					);
 			}//for

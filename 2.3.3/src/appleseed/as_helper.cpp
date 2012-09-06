@@ -15,6 +15,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqlog.h>
 #include "as_GlobalNodeHelper.h"
+#include "as_shaderOutputCall.h"
 
 namespace appleseed
 {
@@ -165,6 +166,10 @@ namespace appleseed
 	{
 		return node + BSDF_NAME_SEPERATOR + bsdf_model;
 	}
+	std::string getBSDFNameBack(const std::string& node, const std::string & bsdf_model)
+	{
+		return getBSDFName(node, bsdf_model)+"_BACK";
+	}
 	std::string getEDFName(const std::string& node, const std::string & edf_model)
 	{
 		return node + EDF_NAME_SEPERATOR + edf_model;
@@ -176,6 +181,10 @@ namespace appleseed
 	std::string getBSDFName(const std::string& node)
 	{
 		return node + BSDF_NAME_SEPERATOR + "BSDF";
+	}
+	std::string getBSDFNameBack(const std::string& node)
+	{
+		return getBSDFName(node) + BSDF_NAME_SEPERATOR + "BACK";
 	}
 	std::string getEDFName(const std::string& node)
 	{
@@ -192,6 +201,34 @@ namespace appleseed
 	std::string getNormalMapName(const std::string& node)
 	{
 		return node + SURFACE_SHADER_NAME_SEPERATOR + "NormalMap";
+	}
+	std::string getBSDFBaseName(const std::string& node)
+	{
+		return node + SURFACE_SHADER_NAME_SEPERATOR + "Base";
+	}
+	bool hasBackfaceMaterial(const std::string& shadingGroupNode)
+	{
+		MStringArray surfaceShaders;
+		getlistConnections(shadingGroupNode.c_str(), "surfaceShader", surfaceShaders);
+	
+		if( surfaceShaders[0].length() == 0)
+			return false;//no surface shader
+
+		MString surfaceNodeType;
+		getNodeType(surfaceNodeType, surfaceShaders[0]);
+		if( surfaceNodeType == "liquidShader")
+		{
+			//todo...
+			//if liqBRDFBack is connected, return true;
+			//else return false;
+			return false;
+		}else{
+			return (call::Visitor::AMT_Null != call::Visitor::getAlphaMap(surfaceShaders[0].asChar(), nullptr, nullptr, nullptr, nullptr ) );
+		}
+	}
+	std::string getBackfaceMaterial(const std::string& shadingGroupNode)
+	{
+		return shadingGroupNode + "_BACK";
 	}
 	//
 	bool createColor3(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b)

@@ -34,13 +34,18 @@ namespace appleseed
 
 	//
 	std::string getBSDFName(const std::string& node, const std::string &bsdf_model);
+	std::string getBSDFNameBack(const std::string& node, const std::string &bsdf_model);
 	std::string getEDFName(const std::string& node, const std::string &edf_model);
 	std::string getSurfaceShaderName(const std::string& node, const std::string & surface_shader_model);
 	std::string getBSDFName(const std::string& node);
+	std::string getBSDFNameBack(const std::string& node);
 	std::string getEDFName(const std::string& node);
 	std::string getSurfaceShaderName(const std::string& node);
 	std::string getAlphaColorName(const std::string& node);
 	std::string getNormalMapName(const std::string& node);
+	std::string getBSDFBaseName(const std::string& node);
+	bool hasBackfaceMaterial(const std::string& shadingGroupNode);
+	std::string getBackfaceMaterial(const std::string& shadingGroupNode);
 
 	//\r    true: creat successfully,  false: not create.
 	//r g b
