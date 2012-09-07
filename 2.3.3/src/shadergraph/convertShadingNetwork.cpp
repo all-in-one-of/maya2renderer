@@ -270,39 +270,105 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeOutputVariable("<<node.asChar()<<","<<plug.asChar()<<","<<node_plug.asChar()<<", outputVars)");
 	
-	MStringArray rmanParams, rmanTypes, rmanDetails;
-	MIntArray rmanArraySizes;
-		
-	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanParams\""), rmanParams ));
-	
-	//find parameter index of $plug in $node.rmanParams
-	int paramIndex = -1;
-	for(int i = 0; i< rmanParams.length(); ++i)
+	MString plugtype, detail;
+	int arraysize = -1;
+
+	MString nodetype;
+	getNodeType(nodetype, node);
+
+	if(   nodetype == "liquidShader"
+		||nodetype == "liquidSurface"
+		||nodetype == "liquidDisplacement"
+		||nodetype == "liquidVolume")
 	{
-		MString pi(rmanParams[i]);
-		if(rmanParams[i]==plug){
-			paramIndex = i;
-			break;
+			MStringArray rmanParams, rmanTypes, rmanDetails;
+		MIntArray rmanArraySizes;
+		
+		IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanParams\""), rmanParams ));
+	
+		//find parameter index of $plug in $node.rmanParams
+		int paramIndex = -1;
+		for(int i = 0; i< rmanParams.length(); ++i)
+		{
+			MString pi(rmanParams[i]);
+			if(rmanParams[i]==plug){
+				paramIndex = i;
+				break;
+			}
 		}
-	}
-	if(paramIndex==-1){
-		liquidMessage2(messageError, "can't find parameter %s in %s.rmanParams.", plug.asChar(), node.asChar());
-		return;
-	}
+		if(paramIndex==-1){
+			liquidMessage2(messageError, "can't find parameter %s in %s.rmanParams.", plug.asChar(), node.asChar());
+			return;
+		}
 
-	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanTypes\""),			rmanTypes ));
-	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanArraySizes\""),	rmanArraySizes ));
-	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanDetails\""),		rmanDetails ));
+		IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanTypes\""),		rmanTypes ));
+		IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanArraySizes\""),	rmanArraySizes ));
+		IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanDetails\""),		rmanDetails ));
 
+		plugtype  = rmanTypes[paramIndex];
+		detail    = rmanArraySizes[paramIndex];
+		arraysize = rmanDetails[paramIndex].asInt();
+	}//if("liquidShader"...)
+	// for Maya Shaders(e.g. lambert, blinn, ...)
+	else{
+		//check if the plug is used as color
+		int isUsedAsColor = false;
+		IfMErrorWarn(MGlobal::executeCommand( ("attributeQuery -node "+node+" -usedAsColor \""+plug+"\""), isUsedAsColor ));
+
+		if( isUsedAsColor )//node_plug is used as color
+		{
+			plugtype = "color";
+			detail    = "";
+			arraysize = -1;
+		}
+		//node_plug is not color type
+		else{
+			MString mayaPlugType_formated;
+			{
+				MString mayaPlugType;
+				IfMErrorWarn(MGlobal::executeCommand( ("getAttr -type \""+node_plug+"\""), mayaPlugType ));
+
+				std::string strMayaPlugType(mayaPlugType.asChar());
+
+				boost::replace_all(strMayaPlugType, "bool",			"float");
+				boost::replace_all(strMayaPlugType, "doubleAngle",	"float");
+				boost::replace_all(strMayaPlugType, "double",		"float");
+				//TODO: other types which can be considered as float
+				//...
+				mayaPlugType_formated = strMayaPlugType.c_str();
+			}
+
+			MString matchedStr;
+			IfMErrorWarn(MGlobal::executeCommand( ("match(\"float[0-9]*$\", \""+mayaPlugType_formated+"\")"), matchedStr));
+			if( matchedStr != "" )
+			{
+				MString typeSize;
+				IfMErrorWarn(MGlobal::executeCommand( ("match(\"[0-9]*$\", \""+mayaPlugType_formated+"\")"), typeSize));
+
+				if(typeSize.asInt() == 3)//float3, take it as vector
+				{
+					plugtype  = "vector";
+					detail    = "";
+					arraysize = -1;
+				}else{// float array
+					plugtype  = "float";
+					detail    = "";
+					arraysize = typeSize.asInt();
+				}
+			}else{
+				liquidMessage2(messageError, "cant handle plug[%s](type[%s])", node_plug.asChar(), plugtype.asChar());
+			}
+		}//if( isUsedAsColor ) else
+	}//if("liquidShader"...) else
 
 
 	liquidmaya::ShaderOutputMgr::getSingletonPtr()->
 		addShaderMethodVariavles(
 			node, 
 			plug, 
-			rmanTypes[paramIndex], 
-			rmanArraySizes[paramIndex], 
-			rmanDetails[paramIndex]
+			plugtype,
+			arraysize,
+			detail
 		);
 
 	const int outputIndex = outputVars.length();
@@ -310,8 +376,6 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 		outputVars.setLength(outputIndex+1);
 	}
 	outputVars[outputIndex] = renderman::getVariableName(node, plug);
-
-
 }
 //
 void ConvertShadingNetwork::getNodeVariables(
