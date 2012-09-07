@@ -309,13 +309,11 @@ public:
 
 protected:
 
-	void buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode);
+	void buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode, bool front);
 	bool hasAO(const char* node, std::string &aoNode);
 	bool hasEDF(const char* node, double* outR, double* outG, double* outB);
 	bool hasNormalMap(const char* node, std::string *textureNode);
-	void createFrontfaceMaterial(const char* shadingGroupNode);
-	void createBackfaceMaterial(const char *shadingGroupNode);
-	void buildBackfaceMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode);
+	void createMaterial(const char* shadingGroupNode, bool front);
 
 	void createBSDF_ashikhmin_brdf(const char* node);
 	void createBSDF_bsdf_mix(const char* node);

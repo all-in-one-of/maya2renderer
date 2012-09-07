@@ -313,27 +313,29 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 		assert(m_assembly != nullptr);
 	}
 
-	createFrontfaceMaterial(shadingGroupNode);
+	createMaterial(shadingGroupNode, true);
 
 	if( hasBackfaceMaterial(shadingGroupNode) )
 	{
-		createBackfaceMaterial(shadingGroupNode);
+		createMaterial(shadingGroupNode, false);
 	}
 
 }
-void Visitor::createFrontfaceMaterial(const char* shadingGroupNode)
+void Visitor::createMaterial(const char* shadingGroupNode, bool front)
 {
-	CM_TRACE_FUNC("Visitor::createFrontfaceMaterial("<<shadingGroupNode<<")");
+	CM_TRACE_FUNC("Visitor::createFrontfaceMaterial("<<shadingGroupNode<<","<<front<<")");
 
 	MString cmd;
+
+	const char *brdf_plug = front ? "liqBRDF" : "liqBRDF_back";
 
 	MStringArray surfaceShaders;
 	MStringArray liqBRDF;
 	MStringArray liqEDF;
 	{
-		getlistConnections(shadingGroupNode, "surfaceShader", surfaceShaders);
-		getlistConnections(shadingGroupNode, "liqBRDF", liqBRDF);
-		getlistConnections(shadingGroupNode, "liqEDF", liqEDF);
+		getlistConnections(shadingGroupNode, "surfaceShader",	surfaceShaders);
+		getlistConnections(shadingGroupNode, brdf_plug,			liqBRDF);
+		getlistConnections(shadingGroupNode, "liqEDF",			liqEDF);
 	}
 	if( surfaceShaders[0].length() == 0)
 	{
@@ -362,20 +364,24 @@ void Visitor::createFrontfaceMaterial(const char* shadingGroupNode)
 		}
 	}else{
 		//build material with maya shader nodes
-		buildMaterialWithMayaShaderNode(material_params, surfaceShaders[0]);
+		buildMaterialWithMayaShaderNode(material_params, surfaceShaders[0], front);
 	}
-
+	
 	//create material
-	if(m_assembly->materials().get_by_name(shadingGroupNode) == nullptr)
+	const std::string material_name = front? shadingGroupNode 
+									 : getBackfaceMaterial(shadingGroupNode).c_str();
+	if(m_assembly->materials().get_by_name(material_name.c_str()) == nullptr)
 	{
 		m_assembly->materials().insert(
-			asr::MaterialFactory::create(shadingGroupNode, material_params)
+			asr::MaterialFactory::create(material_name.c_str(), material_params)
 		);
 	}
 }
 //
-void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode)
+void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode, bool front)
 {
+	CM_TRACE_FUNC("Visitor::buildMaterialWithMayaShaderNode(...,"<<surfaceShaderNode.asChar()<<","<<front<<")");
+
 	//surface shader
 	std::string aoNode;
 	if( hasAO(surfaceShaderNode.asChar(), aoNode) )
@@ -386,7 +392,9 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 	}
 	
 	//bsdf
-	material_params.insert( "bsdf", getBSDFName(surfaceShaderNode.asChar()).c_str() );
+	const std::string bsdf_name = front? getBSDFName(surfaceShaderNode.asChar())    //front brdf
+								  :getBSDFNameBack(surfaceShaderNode.asChar());//back brdf
+	material_params.insert( "bsdf", bsdf_name.c_str());
 
 	//EDF
 	if( hasEDF(surfaceShaderNode.asChar(), nullptr, nullptr, nullptr) )
@@ -418,7 +426,9 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 	}
 }
 bool Visitor::hasAO(const char* node, std::string &aoNode)
-{
+{	
+	CM_TRACE_FUNC("Visitor::hasAO(...,"<<node<<","<<aoNode.c_str()<<")");
+
 	bool isSurfaceShaderCreated = false;
 	MString plug(MString(node) +".ambientColor");
 
@@ -515,104 +525,6 @@ bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
 
 	return true;
 }
-void Visitor::createBackfaceMaterial(const char *shadingGroupNode)
-{
-	CM_TRACE_FUNC("Visitor::createBackfaceMaterial("<<shadingGroupNode<<")");
-
-	MString cmd;
-
-	MStringArray surfaceShaders;
-	MStringArray liqBRDF;
-	MStringArray liqEDF;
-	{
-		getlistConnections(shadingGroupNode, "surfaceShader", surfaceShaders);
-		getlistConnections(shadingGroupNode, "liqBRDF_back", liqBRDF);//liqBRDF_back
-		getlistConnections(shadingGroupNode, "liqEDF", liqEDF);
-	}
-	if( surfaceShaders[0].length() == 0)
-	{
-		liquidMessage2(messageError,"surface shader not exist in \"%s\", return.", shadingGroupNode);
-		return;
-	}
-
-	//cook parameters of material 
-	asr::ParamArray material_params;
-
-	MString surfaceNodeType;
-	getNodeType(surfaceNodeType, surfaceShaders[0]);
-
-	//if the surface shader is liquidShader, we add the value of liqBSDF and liqEDF to the material parameter.
-	//else, the surface shader is a Maya node, and we cook the parameter differently in buildMaterialWithMayaShaderNode().
-	if( surfaceNodeType == "liquidShader")
-	{
-		//build material with appleseed shader nodes
-		material_params.insert( "surface_shader", surfaceShaders[0].asChar() );
-
-		if( liqBRDF[0].length() != 0 ){
-			material_params.insert( "bsdf", liqBRDF[0].asChar() );
-		}
-		if( liqEDF[0].length() != 0 ){
-			material_params.insert( "edf", liqEDF[0].asChar() );
-		}
-	}else{
-		//build material with maya shader nodes
-		buildBackfaceMaterialWithMayaShaderNode(material_params, surfaceShaders[0]);
-	}
-
-	//create material
-	if(m_assembly->materials().get_by_name(getBackfaceMaterial(shadingGroupNode).c_str()) == nullptr)
-	{
-		m_assembly->materials().insert(
-			asr::MaterialFactory::create(getBackfaceMaterial(shadingGroupNode).c_str(), material_params)
-			);
-	}
-}
-void Visitor::buildBackfaceMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode)
-{
-	CM_TRACE_FUNC("Visitor::buildBackfaceMaterialWithMayaShaderNode(..., "<<surfaceShaderNode.asChar()<<")");
-
-	//surface shader
-	std::string aoNode;
-	if( hasAO(surfaceShaderNode.asChar(), aoNode) )
-	{
-		material_params.insert( "surface_shader", getSurfaceShaderName(aoNode.c_str()).c_str() );
-	}else{
-		material_params.insert( "surface_shader", getSurfaceShaderName(surfaceShaderNode.asChar()).c_str() );
-	}
-
-	//bsdf_back
-	material_params.insert( "bsdf", getBSDFNameBack(surfaceShaderNode.asChar()).c_str() );
-
-	//EDF
-	if( hasEDF(surfaceShaderNode.asChar(), nullptr, nullptr, nullptr) )
-	{
-		material_params.insert( "edf", getEDFName(surfaceShaderNode.asChar()).c_str() );
-	}
-
-	std::string fileNode;
-	//alpha map
-	MVector transparency; 
-	AlphaMapType amt = AMT_Null;
-	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &fileNode)) )
-	{
-		if(AMT_Color==amt)
-		{
-			//It seems that the alpha color can't achieve the right effect, so I omit it.
-			//material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
-		}else if(AMT_Texture==amt){
-			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
-		}else{
-			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
-		}
-	}
-
-	//normal map
-	if(hasNormalMap(surfaceShaderNode.asChar(), &fileNode))
-	{
-		material_params.insert( "normal_map", getTextureInstanceName(fileNode).c_str() );
-	}
-}
-
 //
 }//namespace call
 }//namespace appleseed
