@@ -218,10 +218,11 @@ namespace appleseed
 		getNodeType(surfaceNodeType, surfaceShaders[0]);
 		if( surfaceNodeType == "liquidShader")
 		{
-			//todo...
 			//if liqBRDFBack is connected, return true;
 			//else return false;
-			return false;
+			MStringArray liqBRDF;
+			getlistConnections(shadingGroupNode.c_str(), "liqBRDF_back", liqBRDF);
+			return ( liqBRDF.length() != 0);
 		}else{
 			return (call::Visitor::AMT_Null != call::Visitor::getAlphaMap(surfaceShaders[0].asChar(), nullptr, nullptr, nullptr, nullptr ) );
 		}

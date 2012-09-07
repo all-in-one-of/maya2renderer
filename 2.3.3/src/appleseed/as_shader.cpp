@@ -297,6 +297,7 @@ namespace appleseed
 //		plugs.push_back("displacementShader");
 //		plugs.push_back("volumeShader");
 		plugs.push_back("liqBRDF");
+		plugs.push_back("liqBRDF_back");
 		plugs.push_back("liqEDF");
 	}
 

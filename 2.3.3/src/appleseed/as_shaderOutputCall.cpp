@@ -526,7 +526,7 @@ void Visitor::createBackfaceMaterial(const char *shadingGroupNode)
 	MStringArray liqEDF;
 	{
 		getlistConnections(shadingGroupNode, "surfaceShader", surfaceShaders);
-		getlistConnections(shadingGroupNode, "liqBRDF", liqBRDF);//liqBRDFBack
+		getlistConnections(shadingGroupNode, "liqBRDF_back", liqBRDF);//liqBRDF_back
 		getlistConnections(shadingGroupNode, "liqEDF", liqEDF);
 	}
 	if( surfaceShaders[0].length() == 0)
@@ -549,7 +549,7 @@ void Visitor::createBackfaceMaterial(const char *shadingGroupNode)
 		material_params.insert( "surface_shader", surfaceShaders[0].asChar() );
 
 		if( liqBRDF[0].length() != 0 ){
-			material_params.insert( "bsdf", liqBRDF[0].asChar() );//liqBRDFBack
+			material_params.insert( "bsdf", liqBRDF[0].asChar() );
 		}
 		if( liqEDF[0].length() != 0 ){
 			material_params.insert( "edf", liqEDF[0].asChar() );

@@ -2609,9 +2609,16 @@ global proc liquidCreateCustomShaderAttributesForAppleseed()
 			if ( !`attributeQuery -node $sg -ex "liqBRDF"` ) 
 			{
 			  addAttr -ln "liqBRDF" -usedAsColor -at "float3" -k true $sg;
-			  addAttr -ln "liqBRDFr"   -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
+			  addAttr -ln "liqBRDFr" -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
 			  addAttr -ln "liqBRDFg" -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
-			  addAttr -ln "liqBRDFb"  -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
+			  addAttr -ln "liqBRDFb" -at "float" -dv 1 -k true -parent "liqBRDF" $sg;
+			}
+			if ( !`attributeQuery -node $sg -ex "liqBRDF_back"` ) 
+			{
+			  addAttr -ln "liqBRDF_back" -usedAsColor -at "float3" -k true $sg;
+			  addAttr -ln "liqBRDF_backr" -at "float" -dv 1 -k true -parent "liqBRDF_back" $sg;
+			  addAttr -ln "liqBRDF_backg" -at "float" -dv 1 -k true -parent "liqBRDF_back" $sg;
+			  addAttr -ln "liqBRDF_backb" -at "float" -dv 1 -k true -parent "liqBRDF_back" $sg;
 			}
 			if ( !`attributeQuery -node $sg -ex "liqEDF"` ) 
 			{
@@ -2640,6 +2647,7 @@ global proc liquidDeleteCustomShaderAttributesForAppleseed()
   string $attr[] = 
   {
 	"liqBRDF",
+	"liqBRDF_back",
 	"liqEDF"
   };
 
