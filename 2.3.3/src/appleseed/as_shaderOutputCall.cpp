@@ -313,6 +313,18 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 		assert(m_assembly != nullptr);
 	}
 
+	createFrontfaceMaterial(shadingGroupNode);
+
+	if( hasBackfaceMaterial(shadingGroupNode) )
+	{
+		createBackfaceMaterial(shadingGroupNode);
+	}
+
+}
+void Visitor::createFrontfaceMaterial(const char* shadingGroupNode)
+{
+	CM_TRACE_FUNC("Visitor::createFrontfaceMaterial("<<shadingGroupNode<<")");
+
 	MString cmd;
 
 	MStringArray surfaceShaders;
@@ -360,9 +372,6 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 			asr::MaterialFactory::create(shadingGroupNode, material_params)
 		);
 	}
-
-	TryToCreateBackfaceMaterial(shadingGroupNode);
-	
 }
 //
 void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, const MString& surfaceShaderNode)
@@ -506,12 +515,9 @@ bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
 
 	return true;
 }
-void Visitor::TryToCreateBackfaceMaterial(const char *shadingGroupNode)
+void Visitor::createBackfaceMaterial(const char *shadingGroupNode)
 {
-	CM_TRACE_FUNC("Visitor::TryToCreateBackfaceMaterial("<<shadingGroupNode<<")");
-
-	if( !hasBackfaceMaterial(shadingGroupNode) )
-		return;
+	CM_TRACE_FUNC("Visitor::createBackfaceMaterial("<<shadingGroupNode<<")");
 
 	MString cmd;
 
