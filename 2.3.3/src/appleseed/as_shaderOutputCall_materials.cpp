@@ -109,16 +109,11 @@ void Visitor::visitLambert(const char* node)
 	IfMErrorWarn(liquidGetPlugValue(mnode, "color", color, status));
 	double diffuse;
 	IfMErrorWarn(liquidGetPlugValue(mnode, "diffuse", diffuse, status));
-	MVector ambientColor;
-	IfMErrorWarn(liquidGetPlugValue(mnode, "ambientColor", ambientColor, status));
-
-	MVector reflectance;
-	reflectance = color * diffuse + ambientColor;
 
 	//colors
-	MString reflectanceColorName(MString(node)+"_reflectance");
-	createColor3(m_assembly->colors(), reflectanceColorName.asChar(), 
-		reflectance.x, reflectance.y, reflectance.z);
+	MString colorName(MString(node)+"_color");
+	createColor3(m_assembly->colors(), colorName.asChar(), 
+		color.x, color.y, color.z);
 
 	//LambertianBRDF
 	if(m_assembly->bsdfs().get_by_name(getBSDFBaseName(node).c_str()) == nullptr)
@@ -127,16 +122,26 @@ void Visitor::visitLambert(const char* node)
 			asr::LambertianBRDFFactory().create(
 			getBSDFBaseName(node).c_str(),
 			asr::ParamArray()
-			.insert("reflectance", reflectanceColorName.asChar())
+				.insert("reflectance",				colorName.asChar())
+				.insert("reflectance_multiplier",	diffuse)
 			)
-			);
+		);
 	}
 
 	//surface shader
 	std::string aoNode;
 	if( hasAO(node, aoNode) ){
-		//mf.createSurfaceShader("ao_surface_shader");
+		//AO shader will be created in Visitor::visit_mib_amb_occlusion()
 	}else{
+		//ambientColor
+		MVector ambientColor;
+		IfMErrorWarn(liquidGetPlugValue(mnode, "ambientColor", ambientColor, status));
+
+		MString ambientColorName(MString(node)+"_ambientColor");
+		createColor3(m_assembly->colors(), ambientColorName.asChar(), 
+			ambientColor.x, ambientColor.y, ambientColor.z);
+
+		//physical surface shader
 		std::string surfaceshader_name(getSurfaceShaderName(node));
 
 		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
@@ -145,8 +150,10 @@ void Visitor::visitLambert(const char* node)
 				asr::PhysicalSurfaceShaderFactory().create(
 				surfaceshader_name.c_str(),
 				asr::ParamArray()
+					.insert("aerial_persp_mode",		"sky_color")
+					.insert("aerial_persp_sky_color",	ambientColorName.asChar() )
 				)
-				);
+			);
 		}
 	}
 
@@ -192,7 +199,7 @@ void Visitor::visitLambert(const char* node)
 				createColor3(m_assembly->colors(), transmittanceColorName.asChar(), 
 					transmittance.x, transmittance.y, transmittance.z);
 			}else{
-				transmittanceColorName = reflectanceColorName;
+				transmittanceColorName = colorName;
 			}
 
 
@@ -205,7 +212,7 @@ void Visitor::visitLambert(const char* node)
 					asr::SpecularBTDFFactory().create(
 					BTDF.asChar(),
 					asr::ParamArray()
-						.insert("reflectance",		reflectanceColorName.asChar())
+						.insert("reflectance",		colorName.asChar())
 						.insert("transmittance",	transmittanceColorName.asChar())
 						.insert("from_ior",			1.0f)
 						.insert("to_ior",			1.1f)
@@ -237,7 +244,7 @@ void Visitor::visitLambert(const char* node)
 						asr::SpecularBTDFFactory().create(
 						BTDF_BACK.asChar(),
 						asr::ParamArray()
-							.insert("reflectance",		reflectanceColorName.asChar())
+							.insert("reflectance",		colorName.asChar())
 							.insert("transmittance",	transmittanceColorName.asChar())
 							.insert("from_ior",			1.1f)
 							.insert("to_ior",			1.0f)
