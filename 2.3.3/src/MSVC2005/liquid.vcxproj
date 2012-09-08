@@ -2242,6 +2242,7 @@
     <ClCompile Include="..\appleseed\as_connection.cpp" />
     <ClCompile Include="..\appleseed\as_environment.cpp" />
     <ClCompile Include="..\appleseed\as_helper.cpp" />
+    <ClCompile Include="..\appleseed\as_helper5.cpp" />
     <ClCompile Include="..\appleseed\as_material.cpp" />
     <ClCompile Include="..\appleseed\as_material2.cpp" />
     <ClCompile Include="..\appleseed\as_material3.cpp" />
@@ -2398,6 +2399,7 @@
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />
+    <ClInclude Include="..\appleseed\as_helper5.h" />
     <ClInclude Include="..\appleseed\as_material.h" />
     <ClInclude Include="..\appleseed\as_material2.h" />
     <ClInclude Include="..\appleseed\as_material3.h" />

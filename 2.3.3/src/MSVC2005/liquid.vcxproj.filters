@@ -520,6 +520,9 @@
     <ClCompile Include="..\appleseed\as_bsdfBuilder.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\appleseed\as_helper5.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -901,6 +904,9 @@
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h">
+      <Filter>renderer\appleseed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\as_helper5.h">
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
   </ItemGroup>
