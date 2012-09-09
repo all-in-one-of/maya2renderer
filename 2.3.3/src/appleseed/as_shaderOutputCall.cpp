@@ -411,7 +411,7 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 		if(AMT_Color==amt)
 		{
 			//It seems that the alpha color can't achieve the right effect, so I omit it.
-			//material_params.insert( "alpha_map", getAlphaColorName(surfaceShaderNode.asChar()).c_str() );
+			material_params.insert( "alpha_map", getTransparencyName(surfaceShaderNode.asChar()).c_str() );
 		}else if(AMT_Texture==amt){
 			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
 		}else{

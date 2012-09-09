@@ -46,6 +46,7 @@ namespace appleseed
 	std::string getBSDFBaseName(const std::string& node);
 	bool hasBackfaceMaterial(const std::string& shadingGroupNode);
 	std::string getBackfaceMaterial(const std::string& shadingGroupNode);
+	std::string getTransparencyName(const std::string& node);
 
 	//\r    true: creat successfully,  false: not create.
 	//r g b

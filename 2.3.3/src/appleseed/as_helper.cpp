@@ -231,6 +231,10 @@ namespace appleseed
 	{
 		return shadingGroupNode + "_BACK";
 	}
+	std::string getTransparencyName(const std::string& node)
+	{
+		return node + SURFACE_SHADER_NAME_SEPERATOR + "transparency";
+	}
 	//
 	bool createColor3(asr::ColorContainer& colors, const char* name, const float r, const float g, const float b)
 	{
