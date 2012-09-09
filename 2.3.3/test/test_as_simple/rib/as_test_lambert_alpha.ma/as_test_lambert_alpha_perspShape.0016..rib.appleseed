@@ -34,31 +34,58 @@
             <parameter name="environment_shader" value="liqGlobalsNodeRenderer_appleseed_edf_environment_shader" />
         </environment>
         <assembly name="assembly">
-            <color name="lambert2_reflectance">
+            <color name="lambert2_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    0.800000 0.800000 0.000000
+                    1.000000 1.000000 0.000000
                 </values>
                 <alpha>
                     1.000000
                 </alpha>
             </color>
-            <color name="lambert4_reflectance">
+            <color name="lambert2_ambientColor">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    0.800000 0.000000 0.000000
+                    0.000000 0.000000 0.000000
                 </values>
                 <alpha>
                     1.000000
                 </alpha>
             </color>
-            <color name="lambert4_AlphaColor">
+            <color name="liqFullTransparent">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert4_color">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 0.000000 0.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert4_ambientColor">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    0.000000 0.000000 0.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert4_transparency">
                 <parameter name="color_space" value="srgb" />
                 <values>
                     0.065034 0.065034 0.065034
                 </values>
                 <alpha>
-                    1.000000
+                    0.065034
                 </alpha>
             </color>
             <color name="|pointLight1|pointLightShape1_exitance">
@@ -80,21 +107,47 @@
                 <parameter name="filtering_mode" value="bilinear" />
             </texture_instance>
             <bsdf name="lambert2_BSDF" model="lambertian_brdf">
-                <parameter name="reflectance" value="lambert2_reflectance" />
+                <parameter name="reflectance" value="lambert2_color" />
+                <parameter name="reflectance_multiplier" value="0.8" />
+            </bsdf>
+            <bsdf name="lambert2_BSDF_BACK" model="lambertian_brdf">
+                <parameter name="reflectance" value="lambert2_color" />
+                <parameter name="reflectance_multiplier" value="0.8" />
             </bsdf>
             <bsdf name="lambert4_BSDF" model="lambertian_brdf">
-                <parameter name="reflectance" value="lambert4_reflectance" />
+                <parameter name="reflectance" value="lambert4_color" />
+                <parameter name="reflectance_multiplier" value="0.8" />
             </bsdf>
-            <surface_shader name="lambert2_SurfaceShader" model="physical_surface_shader" />
-            <surface_shader name="lambert4_SurfaceShader" model="physical_surface_shader" />
+            <bsdf name="lambert4_BSDF_BACK" model="lambertian_brdf">
+                <parameter name="reflectance" value="lambert4_color" />
+                <parameter name="reflectance_multiplier" value="0.8" />
+            </bsdf>
+            <surface_shader name="lambert2_SurfaceShader" model="physical_surface_shader">
+                <parameter name="aerial_persp_mode" value="sky_color" />
+                <parameter name="aerial_persp_sky_color" value="lambert2_ambientColor" />
+            </surface_shader>
+            <surface_shader name="lambert4_SurfaceShader" model="physical_surface_shader">
+                <parameter name="aerial_persp_mode" value="sky_color" />
+                <parameter name="aerial_persp_sky_color" value="lambert4_ambientColor" />
+            </surface_shader>
             <material name="lambert2SG" model="generic_material">
                 <parameter name="alpha_map" value="file2_inst" />
                 <parameter name="bsdf" value="lambert2_BSDF" />
                 <parameter name="surface_shader" value="lambert2_SurfaceShader" />
             </material>
+            <material name="lambert2SG_BACK" model="generic_material">
+                <parameter name="alpha_map" value="file2_inst" />
+                <parameter name="bsdf" value="lambert2_BSDF_BACK" />
+                <parameter name="surface_shader" value="lambert2_SurfaceShader" />
+            </material>
             <material name="lambert4SG" model="generic_material">
-                <parameter name="alpha_map" value="lambert4_AlphaColor" />
+                <parameter name="alpha_map" value="lambert4_transparency" />
                 <parameter name="bsdf" value="lambert4_BSDF" />
+                <parameter name="surface_shader" value="lambert4_SurfaceShader" />
+            </material>
+            <material name="lambert4SG_BACK" model="generic_material">
+                <parameter name="alpha_map" value="lambert4_transparency" />
+                <parameter name="bsdf" value="lambert4_BSDF_BACK" />
                 <parameter name="surface_shader" value="lambert4_SurfaceShader" />
             </material>
             <light name="|pointLight1|pointLightShape1" model="point_light">
@@ -124,6 +177,7 @@
                     </matrix>
                 </transform>
                 <assign_material slot="0" side="front" material="lambert2SG" />
+                <assign_material slot="0" side="back" material="lambert2SG_BACK" />
             </object_instance>
             <object_instance name="|pPlane7|pPlaneShape4.0_inst" object="|pPlane7|pPlaneShape4.0">
                 <transform>
@@ -135,6 +189,7 @@
                     </matrix>
                 </transform>
                 <assign_material slot="0" side="front" material="lambert4SG" />
+                <assign_material slot="0" side="back" material="lambert4SG_BACK" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

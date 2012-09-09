@@ -202,10 +202,6 @@ namespace appleseed
 	{
 		return node + SURFACE_SHADER_NAME_SEPERATOR + "NormalMap";
 	}
-	std::string getBSDFBaseName(const std::string& node)
-	{
-		return node + SURFACE_SHADER_NAME_SEPERATOR + "Base";
-	}
 	bool hasBackfaceMaterial(const std::string& shadingGroupNode)
 	{
 		MStringArray surfaceShaders;

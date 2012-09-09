@@ -1,4 +1,4 @@
-info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pPlane7\pPlaneShape4.obj (1 object, 4 vertices, 2 triangles) in 31 ms.
+info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pPlane7\pPlaneShape4.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1\pCubeShape1.obj (1 object, 8 vertices, 12 triangles) in 0 ms.
 info   : writing project file E:/MyDocuments/maya/projects/default/rib/as_test_lambert_alpha_texture_perspShape.0016..rib.appleseed...
 error  : failed to copy pPlaneShape4.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape4.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape4.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape4.obj".
@@ -56,31 +56,31 @@ debug  :   fat leaves       100.0%
 debug  :   inter. filters   2
 debug  :   nodes alignment  128 bytes
 debug  : texture cache statistics:
-debug  :   performances     efficiency 100.0%  accesses 530,831  hits 530,808  misses 23
+debug  :   performances     efficiency 100.0%  accesses 353,413  hits 353,389  misses 24
 debug  : intersection statistics:
-debug  :   total rays       1,171,556
-debug  :   shading rays     1,171,556 (100.0%)
+debug  :   total rays       1,395,729
+debug  :   shading rays     1,395,729 (100.0%)
 debug  :   probe rays       0 (0.0%)
 debug  : region tree access cache statistics:
 debug  :   combined         n/a
 debug  :   stage-0          n/a
 debug  :   stage-1          n/a
 debug  : triangle tree access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 1,171,556  hits 1,171,554  misses 2
-debug  :   stage-0          efficiency 100.0%  accesses 1,171,556  hits 1,171,554  misses 2
+debug  :   combined         efficiency 100.0%  accesses 1,395,729  hits 1,395,727  misses 2
+debug  :   stage-0          efficiency 100.0%  accesses 1,395,729  hits 1,395,727  misses 2
 debug  :   stage-1          efficiency 0.0%  accesses 2  hits 0  misses 2
 debug  : region kit access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 278,967  hits 278,963  misses 4
-debug  :   stage-0          efficiency 100.0%  accesses 278,967  hits 278,963  misses 4
+debug  :   combined         efficiency 100.0%  accesses 321,814  hits 321,810  misses 4
+debug  :   stage-0          efficiency 100.0%  accesses 321,814  hits 321,810  misses 4
 debug  :   stage-1          efficiency 0.0%  accesses 4  hits 0  misses 4
 debug  : tessellation access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 278,967  hits 278,963  misses 4
-debug  :   stage-0          efficiency 100.0%  accesses 278,967  hits 278,963  misses 4
+debug  :   combined         efficiency 100.0%  accesses 321,814  hits 321,810  misses 4
+debug  :   stage-0          efficiency 100.0%  accesses 321,814  hits 321,810  misses 4
 debug  :   stage-1          efficiency 0.0%  accesses 4  hits 0  misses 4
 debug  : path tracing statistics:
 debug  :   path count       175,530
-debug  :   path length      avg 2.1  min 2  max 4  dev 0.3
+debug  :   path length      avg 2.1  min 2  max 6  dev 0.3
 debug  : texture store statistics:
-debug  :   performances     efficiency 47.8%  accesses 23  hits 11  misses 12
+debug  :   performances     efficiency 50.0%  accesses 24  hits 12  misses 12
 debug  :   peak size        96.5 KB
-info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert_alpha_texture.perspShape.16.appleseed.png in 110 ms.
+info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert_alpha_texture.perspShape.16.appleseed.png in 93 ms.

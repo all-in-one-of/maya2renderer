@@ -38,13 +38,13 @@ info   : effective subpixel grid size: min: 1x1
 debug  : the scene uses alpha mapping; using standard tracing.
 info   : effective subpixel grid size: min: 1x1
 info   : using 2 threads for rendering.
-info   : collecting geometry for triangle tree #197...
+info   : collecting geometry for triangle tree #90...
 debug  : triangle_keys: size 4 (48 bytes)  capacity 4 (48 bytes)  overhead 0 (0 byte)
 debug  : triangle_vertex_infos: size 4 (32 bytes)  capacity 4 (32 bytes)  overhead 0 (0 byte)
 debug  : triangle_bboxes: size 4 (96 bytes)  capacity 4 (96 bytes)  overhead 0 (0 byte)
-info   : building bvh triangle tree #197 (4 triangles)...
+info   : building bvh triangle tree #90 (4 triangles)...
 debug  : triangle_vertices: size 12 (144 bytes)  capacity 12 (144 bytes)  overhead 0 (0 byte)
-debug  : triangle tree #197 statistics:
+debug  : triangle tree #90 statistics:
 debug  :   build time       0 ms
 debug  :   size             480 bytes
 debug  :   nodes            total 3  interior 1  leaves 2
@@ -54,33 +54,33 @@ debug  :   leaf size        avg 2.0  min 2  max 2  dev 0.0
 debug  :   sibling overlap  avg 0.0%  min 0.0%  max 0.0%  dev 0.0%
 debug  :   fat leaves       100.0%
 debug  :   inter. filters   1
-debug  :   nodes alignment  64 bytes
+debug  :   nodes alignment  128 bytes
 debug  : texture cache statistics:
-debug  :   performances     efficiency 100.0%  accesses 64,233  hits 64,210  misses 23
+debug  :   performances     efficiency 99.9%  accesses 27,132  hits 27,117  misses 15
 debug  : intersection statistics:
-debug  :   total rays       925,085
-debug  :   shading rays     925,085 (100.0%)
+debug  :   total rays       882,621
+debug  :   shading rays     882,621 (100.0%)
 debug  :   probe rays       0 (0.0%)
 debug  : region tree access cache statistics:
 debug  :   combined         n/a
 debug  :   stage-0          n/a
 debug  :   stage-1          n/a
 debug  : triangle tree access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 925,085  hits 925,083  misses 2
-debug  :   stage-0          efficiency 100.0%  accesses 925,085  hits 925,083  misses 2
+debug  :   combined         efficiency 100.0%  accesses 882,621  hits 882,619  misses 2
+debug  :   stage-0          efficiency 100.0%  accesses 882,621  hits 882,619  misses 2
 debug  :   stage-1          efficiency 0.0%  accesses 2  hits 0  misses 2
 debug  : region kit access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 129,918  hits 129,914  misses 4
-debug  :   stage-0          efficiency 100.0%  accesses 129,918  hits 129,914  misses 4
+debug  :   combined         efficiency 100.0%  accesses 99,096  hits 99,092  misses 4
+debug  :   stage-0          efficiency 100.0%  accesses 99,096  hits 99,092  misses 4
 debug  :   stage-1          efficiency 0.0%  accesses 4  hits 0  misses 4
 debug  : tessellation access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 129,918  hits 129,914  misses 4
-debug  :   stage-0          efficiency 100.0%  accesses 129,918  hits 129,914  misses 4
+debug  :   combined         efficiency 100.0%  accesses 99,096  hits 99,092  misses 4
+debug  :   stage-0          efficiency 100.0%  accesses 99,096  hits 99,092  misses 4
 debug  :   stage-1          efficiency 0.0%  accesses 4  hits 0  misses 4
 debug  : path tracing statistics:
-debug  :   path count       129,756
-debug  :   path length      avg 2.0  min 2  max 2  dev 0.0
+debug  :   path count       98,981
+debug  :   path length      avg 2.0  min 2  max 3  dev 0.0
 debug  : texture store statistics:
-debug  :   performances     efficiency 47.8%  accesses 23  hits 11  misses 12
-debug  :   peak size        96.5 KB
-info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert_alpha.perspShape.16.appleseed.png in 187 ms.
+debug  :   performances     efficiency 46.7%  accesses 15  hits 7  misses 8
+debug  :   peak size        64.3 KB
+info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert_alpha.perspShape.16.appleseed.png in 141 ms.

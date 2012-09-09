@@ -119,11 +119,11 @@ void Visitor::visitLambert(const char* node)
 	h.end();
 
 	//LambertianBRDF
-	if(m_assembly->bsdfs().get_by_name(getBSDFBaseName(node).c_str()) == nullptr)
+	if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
 	{
 		m_assembly->bsdfs().insert(
 			asr::LambertianBRDFFactory().create(
-			getBSDFBaseName(node).c_str(),
+			getBSDFName(node).c_str(),
 			asr::ParamArray()
 				.insert("reflectance",				colorChannel.c_str())
 				.insert("reflectance_multiplier",	diffuseChannel.c_str())
@@ -179,189 +179,41 @@ void Visitor::visitLambert(const char* node)
 	{
 		if(AMT_Color==amt)
 		{
-// 			//It seems that the alpha color can't achieve the right effect, so I omit it.
-// 			//createColor3(m_assembly->colors(), getAlphaColorName(node).c_str(), 
-// 			//	transparency.x, transparency.y, transparency.z);
-// 
-// 			//SpecularBTDF
-// 			const MString BTDF(MString(node)+"_transparent");
-// 
-// 			if(m_assembly->bsdfs().get_by_name(BTDF.asChar()) == nullptr)
-// 			{
-// 				m_assembly->bsdfs().insert(
-// 					asr::SpecularBTDFFactory().create(
-// 					BTDF.asChar(),
-// 					asr::ParamArray()
-// 						.insert("reflectance",				colorChannel.c_str())
-// 						.insert("reflectance_multiplier",	diffuseChannel.c_str())
-// 						.insert("transmittance",			fullTransparent.c_str())
-// 						.insert("from_ior",					1.0f)
-// 						.insert("to_ior",					1.1f)
-// 					)
-// 				);
-// 			}
-// 			//compose final BSDF
-// 			if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
-// 			{
-// 				m_assembly->bsdfs().insert(
-// 					asr::BSDFMixFactory().create(
-// 					getBSDFName(node).c_str(),
-// 					asr::ParamArray()
-// 						.insert("bsdf0", getBSDFBaseName(node).c_str())//lambert base
-// 						.insert("bsdf1", BTDF.asChar())//transparency
-// 						.insert("weight0", transparency.x)
-// 						.insert("weight1", 1.0f - transparency.x)
-// 					)
-// 				);
-// 			}
-// 			//-------------------------------------------------------------
-// 			//create the back face BSDF
-// 			{
-// 				//create back face SpecularBTDF
-// 				const MString BTDF_BACK(BTDF+"_back");
-// 				if(m_assembly->bsdfs().get_by_name(BTDF_BACK.asChar()) == nullptr)
-// 				{
-// 					m_assembly->bsdfs().insert(
-// 						asr::SpecularBTDFFactory().create(
-// 						BTDF_BACK.asChar(),
-// 						asr::ParamArray()
-// 							.insert("reflectance",				colorChannel.c_str())
-// 							.insert("reflectance_multiplier",	diffuseChannel.c_str())
-// 							.insert("transmittance",			fullTransparent.c_str())
-// 							.insert("from_ior",					1.1f)
-// 							.insert("to_ior",					1.0f)
-// 						)
-// 					);
-// 				}
-// 				//compose final BSDF_BACK
-// 				if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
-// 				{
-// 					m_assembly->bsdfs().insert(
-// 						asr::BSDFMixFactory().create(
-// 						getBSDFNameBack(node).c_str(),
-// 						asr::ParamArray()
-// 							.insert("bsdf0",   getBSDFBaseName(node).c_str())//lambert base
-// 							.insert("bsdf1",   BTDF_BACK.asChar())//transparency
-// 							.insert("weight0", transparency.x)
-// 							.insert("weight1", 1.0f - transparency.x)
-// 						)
-// 					);
-// 				}
-// 			}
+			//create the transparency color
 			MStatus status;
 			MObject mnode;
 			getDependNodeByName(mnode, node);
 			MVector opacity;
 			IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
 
-			createColor4(m_assembly->colors(), getTransparencyName(node).c_str(),
-				1.0f - opacity.x, 1.0f - opacity.y, 1.0f - opacity.z,
-				1.0f - opacity.x);
-
-			//compose final BSDF
-			if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+			if( !isZero(opacity.x, opacity.y, opacity.z) )
 			{
-				BSDFBuilder b(node);
-				std::string dummyBSDF(b.GetOrCreateDummyBSDF());
-
-				m_assembly->bsdfs().insert(
-					asr::BSDFMixFactory().create(
-					getBSDFName(node).c_str(),
-					asr::ParamArray()
-					.insert("bsdf0", getBSDFBaseName(node).c_str())
-					.insert("bsdf1", dummyBSDF.c_str())
-					.insert("weight0", 1.0)
-					.insert("weight1", 0.0)
-					)
-					);
-			}
-			//-------------------------------------------------------------
-			//create the back face BSDF
-			{
-				//compose final BSDF_BACK
-				if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
-				{
-					BSDFBuilder b(node);
-					std::string dummyBSDF(b.GetOrCreateDummyBSDF());
-
-					m_assembly->bsdfs().insert(
-						asr::BSDFMixFactory().create(
-						getBSDFNameBack(node).c_str(),
-						asr::ParamArray()
-						.insert("bsdf0",   getBSDFBaseName(node).c_str())
-						.insert("bsdf1",   dummyBSDF.c_str())
-						.insert("weight0", 1.0)
-						.insert("weight1", 0.0)
-						)
-						);
-				}
+				createColor4(m_assembly->colors(), getTransparencyName(node).c_str(),
+					1.0f - opacity.x, 1.0f - opacity.y, 1.0f - opacity.z,
+					1.0f - opacity.x);
 			}
 		}
 		//////////////////////////////////////////////////////////////////////////
 		else if(AMT_Texture==amt){
 			// the texture will be created somewhere else
-			//compose final BSDF
-			if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
-			{
-				BSDFBuilder b(node);
-				std::string dummyBSDF(b.GetOrCreateDummyBSDF());
-
-				m_assembly->bsdfs().insert(
-					asr::BSDFMixFactory().create(
-					getBSDFName(node).c_str(),
-					asr::ParamArray()
-						.insert("bsdf0", getBSDFBaseName(node).c_str())
-						.insert("bsdf1", dummyBSDF.c_str())
-						.insert("weight0", 1.0)
-						.insert("weight1", 0.0)
-					)
-				);
-			}
-			//-------------------------------------------------------------
-			//create the back face BSDF
-			{
-				//compose final BSDF_BACK
-				if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
-				{
-					BSDFBuilder b(node);
-					std::string dummyBSDF(b.GetOrCreateDummyBSDF());
-
-					m_assembly->bsdfs().insert(
-						asr::BSDFMixFactory().create(
-						getBSDFNameBack(node).c_str(),
-						asr::ParamArray()
-							.insert("bsdf0",   getBSDFBaseName(node).c_str())
-							.insert("bsdf1",   dummyBSDF.c_str())
-							.insert("weight0", 1.0)
-							.insert("weight1", 0.0)
-						)
-					);
-				}
-			}
 		}else{
 			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
 		}
-	}
-	//this material is opacity
-	else{
-		if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+
+		//LambertianBRDF back
+		if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
 		{
-			BSDFBuilder b(node);
-			std::string dummyBSDF(b.GetOrCreateDummyBSDF());
-			
-			//compose finally BSDF
 			m_assembly->bsdfs().insert(
-				asr::BSDFMixFactory().create(
-				getBSDFName(node).c_str(),
+				asr::LambertianBRDFFactory().create(
+				getBSDFNameBack(node).c_str(),
 				asr::ParamArray()
-					.insert("bsdf0", getBSDFBaseName(node).c_str())
-					.insert("bsdf1", dummyBSDF.c_str() )
-					.insert("weight0", 1.0f)
-					.insert("weight1", 0.0f)
+					.insert("reflectance",				colorChannel.c_str())
+					.insert("reflectance_multiplier",	diffuseChannel.c_str())
 				)
 			);
 		}
 	}
+
 
 	//normal map
 	//nothing to do
