@@ -104,8 +104,6 @@ void Visitor::visitLambert(const char* node)
 	std::string colorChannel;
 	std::string diffuseChannel;
 	std::string ambientColorChannel;
-	std::string fullTransparent;
-	//std::string transparencyChannel;
 	std::string translucenceChannel;
 
 	Helper5 h;
@@ -113,8 +111,6 @@ void Visitor::visitLambert(const char* node)
 	colorChannel		= h.addChannel("color",			"color|texture_instance");
 	diffuseChannel		= h.addChannel("diffuse",		"scalar|texture_instance");
 	ambientColorChannel = h.addChannel("ambientColor",	"color|texture_instance");
-	fullTransparent     = h.fullTransparentColor();
-	//transparencyChannel = h.addChannel("transparency",	"color|texture_instance");
 	translucenceChannel = h.addChannel("translucence",  "scalar|texture_instance");
 	h.end();
 
