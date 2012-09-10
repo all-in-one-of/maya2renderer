@@ -123,17 +123,17 @@ namespace appleseed
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 
 		// AS stuff
-		std::string sLightExitance(shaderinstanceFullPath+"_exitance");
+		std::string sLightExitance(shaderinstanceFullPath+"_color");
 		//
 		createColor3(current_assembly->colors(), sLightExitance.c_str(), 
-			30.0, i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
+			i_intensity, i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
 
-		// Create a point light called "light" and insert it into the assembly.
+		// Create a point light and insert it into the assembly.
 		asf::auto_release_ptr<asr::Light> light(
 			asr::PointLightFactory().create(
 			shaderinstanceFullPath.c_str(),//instance name
 			asr::ParamArray()
-			.insert("exitance", sLightExitance)
+				.insert("exitance", sLightExitance)
 			)
 		);
 
@@ -201,9 +201,32 @@ namespace appleseed
 
 		_s("\n// Renderer::exportSpotLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
-
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		//todo
+		std::string sLightObjectName(shaderinstanceFullPath+"_object");
+
+		// AS stuff
+		std::string sLightExitance(shaderinstanceFullPath+"_color");
+		//
+		createColor3(current_assembly->colors(), sLightExitance.c_str(), 
+			i_intensity, i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
+
+		// Create a spot light and insert it into the assembly.
+		asf::auto_release_ptr<asr::Light> light(
+			asr::SpotLightFactory().create(
+			shaderinstanceFullPath.c_str(),//instance name
+			asr::ParamArray()
+				.insert("exitance", sLightExitance)
+				.insert("inner_angle", i_coneangle*(180.0f/M_PI))
+				.insert("outer_angle", (i_coneangle + i_penumbraangle)*(180.0f/M_PI))
+			)
+		);
+		// transform matrix
+		asf::Matrix4d as_mtx;
+		convertMatrix<double>(as_mtx, t);
+		light->set_transform( asf::Transformd( as_mtx ) );
+
+		//
+		current_assembly->lights().insert(light);
 
 		return (liqLightHandle)(0);
 	}
