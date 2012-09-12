@@ -43,9 +43,12 @@ namespace appleseed
 	std::string getSurfaceShaderName(const std::string& node);
 	std::string getAlphaColorName(const std::string& node);
 	std::string getNormalMapName(const std::string& node);
-	bool hasBackfaceMaterial(const std::string& shadingGroupNode);
+	//bool hasBackfaceMaterial(const std::string& shadingGroupNode);
+	bool needToCreateBackfaceMaterial(const std::string& shadingGroupNode);
+	bool isRefractionsOpen(const std::string& node);
 	std::string getBackfaceMaterial(const std::string& shadingGroupNode);
 	std::string getTransparencyName(const std::string& node);
+
 
 	//\r    true: creat successfully,  false: not create.
 	//r g b

@@ -202,13 +202,38 @@ namespace appleseed
 	{
 		return node + SURFACE_SHADER_NAME_SEPERATOR + "NormalMap";
 	}
-	bool hasBackfaceMaterial(const std::string& shadingGroupNode)
+// 	bool hasBackfaceMaterial(const std::string& shadingGroupNode)
+// 	{
+// 		MStringArray surfaceShaders;
+// 		getlistConnections(shadingGroupNode.c_str(), "surfaceShader", surfaceShaders);
+// 	
+// 		if( surfaceShaders[0].length() == 0){
+// 			liquidMessage2(messageError,"\"%s\" has no surface shader", shadingGroupNode.c_str());
+// 			return false;
+// 		}
+// 
+// 		MString surfaceNodeType;
+// 		getNodeType(surfaceNodeType, surfaceShaders[0]);
+// 		if( surfaceNodeType == "liquidShader")
+// 		{
+// 			//if liqBRDFBack is connected, return true;
+// 			//else return false;
+// 			MStringArray liqBRDF;
+// 			getlistConnections(shadingGroupNode.c_str(), "liqBRDF_back", liqBRDF);
+// 			return ( liqBRDF.length() != 0);//liqBRDF is not empty.
+// 		}else{
+// 			return true;
+// 		}
+// 	}
+	bool needToCreateBackfaceMaterial(const std::string& shadingGroupNode)
 	{
 		MStringArray surfaceShaders;
 		getlistConnections(shadingGroupNode.c_str(), "surfaceShader", surfaceShaders);
-	
-		if( surfaceShaders[0].length() == 0)
-			return false;//no surface shader
+
+		if( surfaceShaders[0].length() == 0){
+			liquidMessage2(messageError,"\"%s\" has no surface shader", shadingGroupNode.c_str());
+			return false;
+		}
 
 		MString surfaceNodeType;
 		getNodeType(surfaceNodeType, surfaceShaders[0]);
@@ -218,10 +243,25 @@ namespace appleseed
 			//else return false;
 			MStringArray liqBRDF;
 			getlistConnections(shadingGroupNode.c_str(), "liqBRDF_back", liqBRDF);
-			return ( liqBRDF.length() != 0);
+			return ( liqBRDF.length() != 0);//liqBRDF is not empty.
 		}else{
-			return (call::Visitor::AMT_Null != call::Visitor::getAlphaMap(surfaceShaders[0].asChar(), nullptr, nullptr, nullptr, nullptr ) );
+			//for maya hypershader node
+			//if "refractions" is turned on, we need to create the back-face material
+			return isRefractionsOpen(surfaceShaders[0].asChar());
 		}
+	}
+	bool isRefractionsOpen(const std::string& node)
+	{
+		//todo...
+		//if "refractions" not exist, return false;
+
+		MStatus status;
+		MObject mnode;
+		getDependNodeByName(mnode, node.c_str());
+
+		bool refractions;
+		IfMErrorWarn(liquidGetPlugValue(mnode, "refractions", refractions, status));
+		return refractions;
 	}
 	std::string getBackfaceMaterial(const std::string& shadingGroupNode)
 	{

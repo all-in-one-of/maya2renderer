@@ -315,7 +315,7 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 
 	createMaterial(shadingGroupNode, true);
 
-	if( hasBackfaceMaterial(shadingGroupNode) )
+	if( needToCreateBackfaceMaterial(shadingGroupNode) )
 	{
 		createMaterial(shadingGroupNode, false);
 	}

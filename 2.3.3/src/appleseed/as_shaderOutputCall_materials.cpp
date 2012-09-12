@@ -100,11 +100,15 @@ void Visitor::visitLambert(const char* node)
 		m_assembly = m_renderer->getAssembly().get();
 		assert(m_assembly != nullptr);
 	}
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
 
 	std::string colorChannel;
 	std::string diffuseChannel;
 	std::string ambientColorChannel;
 	std::string translucenceChannel;
+	std::string transparencyChannel;
 
 	Helper5 h;
 	h.begin(node);
@@ -112,20 +116,58 @@ void Visitor::visitLambert(const char* node)
 	diffuseChannel		= h.addChannel("diffuse",		"scalar|texture_instance");
 	ambientColorChannel = h.addChannel("ambientColor",	"color|texture_instance");
 	translucenceChannel = h.addChannel("translucence",  "scalar|texture_instance");
+	transparencyChannel = h.addChannel("transparency",  "color|texture_instance");
 	h.end();
 
-	//LambertianBRDF
-	if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+	//BSDF
+	if( !isRefractionsOpen(node) )
 	{
-		m_assembly->bsdfs().insert(
-			asr::LambertianBRDFFactory().create(
-			getBSDFName(node).c_str(),
-			asr::ParamArray()
-				.insert("reflectance",				colorChannel.c_str())
-				.insert("reflectance_multiplier",	diffuseChannel.c_str())
-			)
-		);
+		//LambertianBRDF
+		if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::LambertianBRDFFactory().create(
+				getBSDFName(node).c_str(),
+				asr::ParamArray()
+					.insert("reflectance",				colorChannel.c_str())
+					.insert("reflectance_multiplier",	diffuseChannel.c_str())
+				)
+			);
+		}
+	}else{
+		double refractiveIndex;
+		IfMErrorWarn(liquidGetPlugValue(mnode, "refractiveIndex", refractiveIndex, status));
+		//front
+		if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::SpecularBTDFFactory().create(
+				getBSDFName(node).c_str(),
+				asr::ParamArray()
+					.insert("reflectance",		colorChannel.c_str())
+					.insert("transmittance",	transparencyChannel.c_str())
+					.insert("from_ior",			1.0f)
+					.insert("to_ior",			refractiveIndex)
+				)
+			);
+		}
+		//back
+		if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::SpecularBTDFFactory().create(
+				getBSDFNameBack(node).c_str(),
+				asr::ParamArray()
+					.insert("reflectance",		colorChannel.c_str())
+					.insert("transmittance",	transparencyChannel.c_str())
+					.insert("from_ior",			refractiveIndex)
+					.insert("to_ior",			1.0f)
+				)
+			);
+		}
+
 	}
+
 
 	//surface shader
 	std::string aoNode;
@@ -175,19 +217,20 @@ void Visitor::visitLambert(const char* node)
 	{
 		if(AMT_Color==amt)
 		{
-			//create the transparency color
-			MStatus status;
-			MObject mnode;
-			getDependNodeByName(mnode, node);
-			MVector opacity;
-			IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
-
-			if( !isZero(opacity.x, opacity.y, opacity.z) )
-			{
-				createColor4(m_assembly->colors(), getTransparencyName(node).c_str(),
-					1.0f - opacity.x, 1.0f - opacity.y, 1.0f - opacity.z,
-					1.0f - opacity.x);
-			}
+			//may be replaced by: transparencyChannel = h.addChannel("transparency",  "color|texture_instance");
+// 			//create the transparency color
+// 			MStatus status;
+// 			MObject mnode;
+// 			getDependNodeByName(mnode, node);
+// 			MVector opacity;
+// 			IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
+// 
+// 			if( !isZero(opacity.x, opacity.y, opacity.z) )
+// 			{
+// 				createColor4(m_assembly->colors(), getTransparencyName(node).c_str(),
+// 					1.0f - opacity.x, 1.0f - opacity.y, 1.0f - opacity.z,
+// 					1.0f - opacity.x);
+// 			}
 		}
 		//////////////////////////////////////////////////////////////////////////
 		else if(AMT_Texture==amt){
@@ -195,19 +238,18 @@ void Visitor::visitLambert(const char* node)
 		}else{
 			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
 		}
-
-		//LambertianBRDF back
-		if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
-		{
-			m_assembly->bsdfs().insert(
-				asr::LambertianBRDFFactory().create(
-				getBSDFNameBack(node).c_str(),
-				asr::ParamArray()
-					.insert("reflectance",				colorChannel.c_str())
-					.insert("reflectance_multiplier",	diffuseChannel.c_str())
-				)
-			);
-		}
+// 		//LambertianBRDF back
+// 		if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
+// 		{
+// 			m_assembly->bsdfs().insert(
+// 				asr::LambertianBRDFFactory().create(
+// 				getBSDFNameBack(node).c_str(),
+// 				asr::ParamArray()
+// 					.insert("reflectance",				colorChannel.c_str())
+// 					.insert("reflectance_multiplier",	diffuseChannel.c_str())
+// 				)
+// 			);
+// 		}
 	}
 
 

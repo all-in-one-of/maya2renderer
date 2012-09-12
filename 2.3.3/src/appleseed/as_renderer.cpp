@@ -325,9 +325,12 @@ namespace appleseed
 				
 				// Create the array of backface material names.
 				asf::StringArray backface_material_names;
-				if( hasBackfaceMaterial(materialName.asChar()) )
+				if( needToCreateBackfaceMaterial(materialName.asChar()) )
 				{
 					backface_material_names.push_back( getBackfaceMaterial(materialName.asChar()).c_str() );
+				}else{
+					//backe-face material equals to front-face material
+					backface_material_names.push_back( materialName.asChar() );
 				}
 				
 				// Create an instance of this object and insert it into the assembly.
