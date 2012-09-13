@@ -299,13 +299,13 @@ public:
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
 
-	enum AlphaMapType{
-		AMT_Null = 0,
-		AMT_Color = 1,
-		AMT_Texture = 2,
-		AMT_COUNT
-	};
-	static Visitor::AlphaMapType getAlphaMap(const char* node, double* outR, double* outG, double* outB, std::string *textureNode);
+// 	enum AlphaMapType{
+// 		AMT_Null = 0,
+// 		AMT_Color = 1,
+// 		AMT_Texture = 2,
+// 		AMT_COUNT
+// 	};
+// 	static Visitor::AlphaMapType getAlphaMap(const char* node, double* outR, double* outG, double* outB, std::string *textureNode);
 
 protected:
 

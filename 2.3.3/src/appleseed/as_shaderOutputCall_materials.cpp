@@ -210,47 +210,47 @@ void Visitor::visitLambert(const char* node)
 		}
 	}
 
-	//alpha map
-	AlphaMapType amt = AMT_Null;
-	MVector transparency;
-	if( AMT_Null != (amt=getAlphaMap(node, &transparency.x, &transparency.y, &transparency.z, nullptr)) )
-	{
-		if(AMT_Color==amt)
-		{
-			//may be replaced by: transparencyChannel = h.addChannel("transparency",  "color|texture_instance");
-// 			//create the transparency color
-// 			MStatus status;
-// 			MObject mnode;
-// 			getDependNodeByName(mnode, node);
-// 			MVector opacity;
-// 			IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
-// 
-// 			if( !isZero(opacity.x, opacity.y, opacity.z) )
-// 			{
-// 				createColor4(m_assembly->colors(), getTransparencyName(node).c_str(),
-// 					1.0f - opacity.x, 1.0f - opacity.y, 1.0f - opacity.z,
-// 					1.0f - opacity.x);
-// 			}
-		}
-		//////////////////////////////////////////////////////////////////////////
-		else if(AMT_Texture==amt){
-			// the texture will be created somewhere else
-		}else{
-			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
-		}
-// 		//LambertianBRDF back
-// 		if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
+// 	//alpha map
+// 	AlphaMapType amt = AMT_Null;
+// 	MVector transparency;
+// 	if( AMT_Null != (amt=getAlphaMap(node, &transparency.x, &transparency.y, &transparency.z, nullptr)) )
+// 	{
+// 		if(AMT_Color==amt)
 // 		{
-// 			m_assembly->bsdfs().insert(
-// 				asr::LambertianBRDFFactory().create(
-// 				getBSDFNameBack(node).c_str(),
-// 				asr::ParamArray()
-// 					.insert("reflectance",				colorChannel.c_str())
-// 					.insert("reflectance_multiplier",	diffuseChannel.c_str())
-// 				)
-// 			);
+// 			//may be replaced by: transparencyChannel = h.addChannel("transparency",  "color|texture_instance");
+// // 			//create the transparency color
+// // 			MStatus status;
+// // 			MObject mnode;
+// // 			getDependNodeByName(mnode, node);
+// // 			MVector opacity;
+// // 			IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
+// // 
+// // 			if( !isZero(opacity.x, opacity.y, opacity.z) )
+// // 			{
+// // 				createColor4(m_assembly->colors(), getTransparencyName(node).c_str(),
+// // 					1.0f - opacity.x, 1.0f - opacity.y, 1.0f - opacity.z,
+// // 					1.0f - opacity.x);
+// // 			}
 // 		}
-	}
+// 		//////////////////////////////////////////////////////////////////////////
+// 		else if(AMT_Texture==amt){
+// 			// the texture will be created somewhere else
+// 		}else{
+// 			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
+// 		}
+// // 		//LambertianBRDF back
+// // 		if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
+// // 		{
+// // 			m_assembly->bsdfs().insert(
+// // 				asr::LambertianBRDFFactory().create(
+// // 				getBSDFNameBack(node).c_str(),
+// // 				asr::ParamArray()
+// // 					.insert("reflectance",				colorChannel.c_str())
+// // 					.insert("reflectance_multiplier",	diffuseChannel.c_str())
+// // 				)
+// // 			);
+// // 		}
+// 	}
 
 
 	//normal map

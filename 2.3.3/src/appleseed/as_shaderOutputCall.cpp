@@ -403,21 +403,21 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 	}
 
 	std::string fileNode;
-	//alpha map
-	MVector transparency; 
-	AlphaMapType amt = AMT_Null;
-	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &fileNode)) )
-	{
-		if(AMT_Color==amt)
-		{
-			//It seems that the alpha color can't achieve the right effect, so I omit it.
-			material_params.insert( "alpha_map", getTransparencyName(surfaceShaderNode.asChar()).c_str() );
-		}else if(AMT_Texture==amt){
-			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
-		}else{
-			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
-		}
-	}
+// 	//alpha map
+// 	MVector transparency; 
+// 	AlphaMapType amt = AMT_Null;
+// 	if(AMT_Null != (amt=getAlphaMap(surfaceShaderNode.asChar(), &transparency.x, &transparency.y, &transparency.z, &fileNode)) )
+// 	{
+// 		if(AMT_Color==amt)
+// 		{
+// 			//It seems that the alpha color can't achieve the right effect, so I omit it.
+// 			material_params.insert( "alpha_map", getTransparencyName(surfaceShaderNode.asChar()).c_str() );
+// 		}else if(AMT_Texture==amt){
+// 			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
+// 		}else{
+// 			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
+// 		}
+// 	}
 
 	//normal map
 	if(hasNormalMap(surfaceShaderNode.asChar(), &fileNode))
@@ -470,38 +470,38 @@ bool Visitor::hasEDF(const char* node, double* outR, double* outG, double* outB)
 	return !isZero(incandescence.x, incandescence.y, incandescence.z);
 
 }
-Visitor::AlphaMapType Visitor::getAlphaMap(const char* node, 
-	double* outR, double* outG, double* outB, std::string *textureNode)
-{
-	CM_TRACE_FUNC("Visitor::getAlphaMap("<<node<<")");
-
-	bool ret = false;
-
-	MStringArray transparencyChannelSrcNodes;
-	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+MString(node)+".transparency\"", transparencyChannelSrcNodes));
-	if(transparencyChannelSrcNodes.length()>0)
-	{
-		if( textureNode != nullptr ) 
-			*textureNode = transparencyChannelSrcNodes[0].asChar();
-		return AMT_Texture;
-	}
-
-	MStatus status;
-	MObject mnode;
-	getDependNodeByName(mnode, node);
-
-	MVector opacity;
-	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
-
-	if( outR != nullptr ) *outR = 1.0 - opacity.x;
-	if( outG != nullptr ) *outG = 1.0 - opacity.y;
-	if( outB != nullptr ) *outB = 1.0 - opacity.z;
-
-	if( isZero(opacity.x, opacity.y, opacity.z) )
-		return AMT_Null;
-	else
-		return AMT_Color;
-}
+//Visitor::AlphaMapType Visitor::getAlphaMap(const char* node, 
+//	double* outR, double* outG, double* outB, std::string *textureNode)
+//{
+//	CM_TRACE_FUNC("Visitor::getAlphaMap("<<node<<")");
+//
+//	bool ret = false;
+//
+//	MStringArray transparencyChannelSrcNodes;
+//	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+MString(node)+".transparency\"", transparencyChannelSrcNodes));
+//	if(transparencyChannelSrcNodes.length()>0)
+//	{
+//		if( textureNode != nullptr ) 
+//			*textureNode = transparencyChannelSrcNodes[0].asChar();
+//		return AMT_Texture;
+//	}
+//
+//	MStatus status;
+//	MObject mnode;
+//	getDependNodeByName(mnode, node);
+//
+//	MVector opacity;
+//	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
+//
+//	if( outR != nullptr ) *outR = 1.0 - opacity.x;
+//	if( outG != nullptr ) *outG = 1.0 - opacity.y;
+//	if( outB != nullptr ) *outB = 1.0 - opacity.z;
+//
+//	if( isZero(opacity.x, opacity.y, opacity.z) )
+//		return AMT_Null;
+//	else
+//		return AMT_Color;
+//}
 bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
 {
 	CM_TRACE_FUNC("Visitor::hasNormalMap("<<node<<")");
