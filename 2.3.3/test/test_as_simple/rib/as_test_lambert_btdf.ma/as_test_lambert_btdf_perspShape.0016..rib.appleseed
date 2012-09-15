@@ -7,9 +7,9 @@
             <parameter name="focal_length" value="0.035000" />
             <transform time="0">
                 <matrix>
-                    -0.094108313322067 0.151248231530190 -0.984005868434906 -10.795648574829102
-                    0.000000000000000 0.988392412662506 0.151922464370728 3.963286876678467
-                    0.995561957359314 0.014297166839242 -0.093015946447849 -2.413954019546509
+                    -0.101056300103664 0.120182931423187 -0.987594902515411 -10.831731796264648
+                    -0.000000000000000 0.992676675319672 0.120801344513893 3.650399208068848
+                    0.994880735874176 0.012207736261189 -0.100316233932972 -2.487350225448608
                     0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                 </matrix>
             </transform>
@@ -17,7 +17,7 @@
         <color name="liqGlobalsNodeRenderer_appleseed_constant_environment_edf_exitance">
             <parameter name="color_space" value="srgb" />
             <values>
-                0.221453 0.340427 0.352941
+                0.033555 0.033555 0.033555
             </values>
             <alpha>
                 1.000000
@@ -37,7 +37,7 @@
             <color name="lambert4_color">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    1.000000 0.000000 0.000000
+                    0.784314 0.445982 0.445982
                 </values>
                 <alpha>
                     1.000000
@@ -55,10 +55,37 @@
             <color name="lambert4_transparency">
                 <parameter name="color_space" value="srgb" />
                 <values>
-                    0.356832 0.356832 0.356832
+                    0.016266 0.016266 0.016266
                 </values>
                 <alpha>
-                    0.356832
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert4_pss_alpha_multiplier">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    0.983734 0.983734 0.983734
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert4">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="liqFullTransparent">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    0.000000
                 </alpha>
             </color>
             <color name="lambert1_color">
@@ -82,6 +109,24 @@
             <color name="lambert1_transparency">
                 <parameter name="color_space" value="srgb" />
                 <values>
+                    0.000000 0.000000 0.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert1_pss_alpha_multiplier">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    1.000000 1.000000 1.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="lambert1">
+                <parameter name="color_space" value="srgb" />
+                <values>
                     1.000000 1.000000 1.000000
                 </values>
                 <alpha>
@@ -98,37 +143,57 @@
                     1.000000
                 </alpha>
             </color>
-            <bsdf name="lambert4_BSDF" model="specular_btdf">
+            <bsdf name="lambert4_TRANS_FRONT" model="specular_btdf">
                 <parameter name="from_ior" value="1" />
                 <parameter name="reflectance" value="lambert4_color" />
-                <parameter name="to_ior" value="1.1" />
+                <parameter name="reflectance_multiplier" value="0.8" />
+                <parameter name="to_ior" value="1.5" />
                 <parameter name="transmittance" value="lambert4_transparency" />
+                <parameter name="transmittance_multiplier" value="1" />
             </bsdf>
-            <bsdf name="lambert4_BSDF_BACK" model="specular_btdf">
-                <parameter name="from_ior" value="1.1" />
+            <bsdf name="lambert4_TRANS_BACK" model="specular_btdf">
+                <parameter name="from_ior" value="1.5" />
                 <parameter name="reflectance" value="lambert4_color" />
+                <parameter name="reflectance_multiplier" value="0.8" />
                 <parameter name="to_ior" value="1" />
                 <parameter name="transmittance" value="lambert4_transparency" />
+                <parameter name="transmittance_multiplier" value="1" />
+            </bsdf>
+            <bsdf name="lambert4_BASE" model="lambertian_brdf">
+                <parameter name="reflectance" value="lambert4_color" />
+                <parameter name="reflectance_multiplier" value="0.8" />
+            </bsdf>
+            <bsdf name="lambert4_BSDF" model="bsdf_mix">
+                <parameter name="bsdf0" value="lambert4_BASE" />
+                <parameter name="bsdf1" value="lambert4_TRANS_FRONT" />
+                <parameter name="weight0" value="0.983734" />
+                <parameter name="weight1" value="0.0162661" />
+            </bsdf>
+            <bsdf name="lambert4_BSDF_BACK" model="bsdf_mix">
+                <parameter name="bsdf0" value="lambert4_BASE" />
+                <parameter name="bsdf1" value="lambert4_TRANS_BACK" />
+                <parameter name="weight0" value="0.983734" />
+                <parameter name="weight1" value="0.0162661" />
             </bsdf>
             <bsdf name="lambert1_BSDF" model="lambertian_brdf">
                 <parameter name="reflectance" value="lambert1_color" />
                 <parameter name="reflectance_multiplier" value="0.8" />
             </bsdf>
             <surface_shader name="lambert4_SurfaceShader" model="physical_surface_shader">
-                <parameter name="aerial_persp_mode" value="sky_color" />
-                <parameter name="aerial_persp_sky_color" value="lambert4_ambientColor" />
+                <parameter name="aerial_persp_mode" value="environment_shader" />
+                <parameter name="alpha_multiplier" value="1" />
+                <parameter name="color_multiplier" value="lambert4" />
             </surface_shader>
             <surface_shader name="lambert1_SurfaceShader" model="physical_surface_shader">
-                <parameter name="aerial_persp_mode" value="sky_color" />
-                <parameter name="aerial_persp_sky_color" value="lambert1_ambientColor" />
+                <parameter name="aerial_persp_mode" value="environment_shader" />
+                <parameter name="alpha_multiplier" value="1" />
+                <parameter name="color_multiplier" value="lambert1" />
             </surface_shader>
             <material name="lambert4SG" model="generic_material">
-                <parameter name="alpha_map" value="lambert4_transparency" />
                 <parameter name="bsdf" value="lambert4_BSDF" />
                 <parameter name="surface_shader" value="lambert4_SurfaceShader" />
             </material>
             <material name="lambert4SG_BACK" model="generic_material">
-                <parameter name="alpha_map" value="lambert4_transparency" />
                 <parameter name="bsdf" value="lambert4_BSDF_BACK" />
                 <parameter name="surface_shader" value="lambert4_SurfaceShader" />
             </material>
@@ -156,7 +221,7 @@
             <object name="|pCube2|pCubeShape2" model="mesh_object">
                 <parameter name="filename" value="pCubeShape2.obj" />
             </object>
-            <object_instance name="|pPlane7|pPlaneShape4.0_inst" object="|pPlane7|pPlaneShape4.0">
+            <object_instance name="|pPlane7|pPlaneShape4.pPlane7_inst" object="|pPlane7|pPlaneShape4.pPlane7">
                 <transform>
                     <matrix>
                         1.000000000000000 0.000000000000000 0.000000000000000 0.000000000000000

@@ -43,14 +43,7 @@ namespace appleseed
 				IfMErrorWarn(MGlobal::executeCommand("getAttr (\""+fullPlugName+"\")", val));
 
 				param_value = m_nodename+"_"+plugName;
-
-				if("transparency"==param_name_maya)
-				{
-					createColor4(m_assembly->colors(), param_value.c_str(),
-						1.0f - val[0], 1.0f - val[1], 1.0f - val[2], 1.0f - val[0]);
-				}else{
-					createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
-				}
+				createColor3(m_assembly->colors(), param_value.c_str(), val[0], val[1], val[2]);
 			}
 			else if( isType("scalar", param_type_as) )
 			{
@@ -84,7 +77,7 @@ namespace appleseed
 					//visitFile(srcNode.asChar());
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
@@ -174,7 +167,7 @@ namespace appleseed
 						//visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+						liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}

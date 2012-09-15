@@ -140,12 +140,14 @@ MString getBaseShadowName(const structJob &job__);
 
 void getDagPathByName(MDagPath& dagPath, char const* name);
 void getDependNodeByName(MObject& depNode, char const* name);
-void getNodeType(MString& type,  MString const& name);
+void getNodeType(MString& type,  MString const& node);
+MString getNodeType(MString const& node);
 MString getWorkspaceDirectory();
 MString getShaderDirectory();
-bool is2DFileTexture(const MString& name);
-bool is2DTexture(const MString& name);
-bool is3DTexture(const MString& name);
+bool is2DFileTexture(const MString& node);
+bool is2DTexture(const MString& node);
+bool is3DTexture(const MString& node);
+bool isMiTexture(const MString& node);
 bool isBatchMode();
 
 int find_first_of(const MString& search, const MStringArray& array);

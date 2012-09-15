@@ -1477,9 +1477,15 @@ void getDependNodeByName(MObject& depNode, char const* name)
 	IfMErrorMsgWarn(MGlobal::getSelectionListByName( name, selList ), "getDependNodeByName(,\""+MString(name)+"\")");
 	IfMErrorWarn(selList.getDependNode( 0, depNode ));
 }
-void getNodeType(MString& type, MString const& name)
+void getNodeType(MString& type, MString const& node)
 {
-	IfMErrorWarn( MGlobal::executeCommand( ("nodeType \""+name+"\""), type) );
+	type = getNodeType(node);
+}
+MString getNodeType(MString const& node)
+{
+	MString type;
+	IfMErrorWarn( MGlobal::executeCommand( ("nodeType \""+node+"\""), type) );
+	return type;
 }
 MString getWorkspaceDirectory()
 {
@@ -1501,20 +1507,20 @@ MString getShaderDirectory()
 	}
     return shaderdir;
 }
-bool is2DFileTexture(const MString& name)
+bool is2DFileTexture(const MString& node)
 {
 	MString type;
-	getNodeType(type, name);
+	getNodeType(type, node);
 
 	bool ret =	type=="file"
 			  ||type=="psdFileTex"
 		;
 	return ret;
 }
-bool is2DTexture(const MString& name)
+bool is2DTexture(const MString& node)
 {
 	MString type;
-	getNodeType(type, name);
+	getNodeType(type, node);
 
 	bool ret =	type=="bulge"
 		||type=="checker"
@@ -1529,12 +1535,12 @@ bool is2DTexture(const MString& name)
 		||type=="ramp"
 		||type=="water"
 		;
-	return ret || is2DFileTexture(name);
+	return ret || is2DFileTexture(node);
 }
-bool is3DTexture(const MString& name)
+bool is3DTexture(const MString& node)
 {
 	MString type;
-	getNodeType(type, name);
+	getNodeType(type, node);
 
 	bool ret =	type=="brownian"
 		||type=="cloud"
@@ -1550,6 +1556,14 @@ bool is3DTexture(const MString& name)
 		||type=="volumeNoise"
 		||type=="wood"
 		;
+	return ret;
+}
+
+bool isMiTexture(const MString& node)
+{
+	MString type(getNodeType(node));
+
+	bool ret =	type=="mib_amb_occlusion";
 	return ret;
 }
 

@@ -470,38 +470,38 @@ bool Visitor::hasEDF(const char* node, double* outR, double* outG, double* outB)
 	return !isZero(incandescence.x, incandescence.y, incandescence.z);
 
 }
-//Visitor::AlphaMapType Visitor::getAlphaMap(const char* node, 
-//	double* outR, double* outG, double* outB, std::string *textureNode)
-//{
-//	CM_TRACE_FUNC("Visitor::getAlphaMap("<<node<<")");
-//
-//	bool ret = false;
-//
-//	MStringArray transparencyChannelSrcNodes;
-//	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+MString(node)+".transparency\"", transparencyChannelSrcNodes));
-//	if(transparencyChannelSrcNodes.length()>0)
-//	{
-//		if( textureNode != nullptr ) 
-//			*textureNode = transparencyChannelSrcNodes[0].asChar();
-//		return AMT_Texture;
-//	}
-//
-//	MStatus status;
-//	MObject mnode;
-//	getDependNodeByName(mnode, node);
-//
-//	MVector opacity;
-//	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
-//
-//	if( outR != nullptr ) *outR = 1.0 - opacity.x;
-//	if( outG != nullptr ) *outG = 1.0 - opacity.y;
-//	if( outB != nullptr ) *outB = 1.0 - opacity.z;
-//
-//	if( isZero(opacity.x, opacity.y, opacity.z) )
-//		return AMT_Null;
-//	else
-//		return AMT_Color;
-//}
+Visitor::AlphaMapType Visitor::getAlphaMap(const char* node, 
+	double* outR, double* outG, double* outB, std::string *textureNode)
+{
+	CM_TRACE_FUNC("Visitor::getAlphaMap("<<node<<")");
+
+	bool ret = false;
+
+	MStringArray transparencyChannelSrcNodes;
+	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+MString(node)+".transparency\"", transparencyChannelSrcNodes));
+	if(transparencyChannelSrcNodes.length()>0)
+	{
+		if( textureNode != nullptr ) 
+			*textureNode = transparencyChannelSrcNodes[0].asChar();
+		return AMT_Texture;
+	}
+
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
+
+	MVector opacity;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", opacity, status));
+
+	if( outR != nullptr ) *outR = opacity.x;
+	if( outG != nullptr ) *outG = opacity.y;
+	if( outB != nullptr ) *outB = opacity.z;
+
+	if( isZero(opacity.x, opacity.y, opacity.z) )
+		return AMT_Null;
+	else
+		return AMT_Color;
+}
 bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
 {
 	CM_TRACE_FUNC("Visitor::hasNormalMap("<<node<<")");

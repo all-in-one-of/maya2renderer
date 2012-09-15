@@ -34,18 +34,18 @@ debug  :   RegionInfo       32 bytes
 debug  :   ShadingPoint     792 bytes
 debug  :   ShadingRay       80 bytes
 debug  :   TriangleKey      12 bytes
-debug  : the scene uses alpha mapping; using standard tracing.
+debug  : the scene does not rely on alpha mapping; using probe tracing.
 info   : effective subpixel grid size: min: 2x2
-debug  : the scene uses alpha mapping; using standard tracing.
+debug  : the scene does not rely on alpha mapping; using probe tracing.
 info   : effective subpixel grid size: min: 2x2
 info   : using 2 threads for rendering.
-info   : collecting geometry for triangle tree #414...
+info   : collecting geometry for triangle tree #366...
 debug  : triangle_keys: size 26 (312 bytes)  capacity 26 (312 bytes)  overhead 0 (0 byte)
 debug  : triangle_vertex_infos: size 26 (208 bytes)  capacity 26 (208 bytes)  overhead 0 (0 byte)
 debug  : triangle_bboxes: size 26 (624 bytes)  capacity 26 (624 bytes)  overhead 0 (0 byte)
-info   : building bvh triangle tree #414 (26 triangles)...
+info   : building bvh triangle tree #366 (26 triangles)...
 debug  : triangle_vertices: size 78 (936 bytes)  capacity 78 (936 bytes)  overhead 0 (0 byte)
-debug  : triangle tree #414 statistics:
+debug  : triangle tree #366 statistics:
 debug  :   build time       0 ms
 debug  :   size             3.2 KB
 debug  :   nodes            total 25  interior 12  leaves 13
@@ -55,33 +55,33 @@ debug  :   leaf size        avg 2.0  min 2  max 2  dev 0.0
 debug  :   sibling overlap  avg 8.3%  min 0.0%  max 100.0%  dev 27.6%
 debug  :   fat leaves       100.0%
 debug  :   inter. filters   0
-debug  :   nodes alignment  64 bytes
+debug  :   nodes alignment  128 bytes
 debug  : texture cache statistics:
 debug  :   performances     n/a
 debug  : intersection statistics:
-debug  :   total rays       1,656,363
-debug  :   shading rays     1,656,363 (100.0%)
-debug  :   probe rays       0 (0.0%)
+debug  :   total rays       1,164,851
+debug  :   shading rays     673,568 (57.8%)
+debug  :   probe rays       491,283 (42.2%)
 debug  : region tree access cache statistics:
 debug  :   combined         n/a
 debug  :   stage-0          n/a
 debug  :   stage-1          n/a
 debug  : triangle tree access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 1,656,363  hits 1,656,361  misses 2
-debug  :   stage-0          efficiency 100.0%  accesses 1,656,363  hits 1,656,361  misses 2
+debug  :   combined         efficiency 100.0%  accesses 1,164,851  hits 1,164,849  misses 2
+debug  :   stage-0          efficiency 100.0%  accesses 1,164,851  hits 1,164,849  misses 2
 debug  :   stage-1          efficiency 0.0%  accesses 2  hits 0  misses 2
 debug  : region kit access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 665,749  hits 665,743  misses 6
-debug  :   stage-0          efficiency 100.0%  accesses 665,749  hits 665,743  misses 6
+debug  :   combined         efficiency 100.0%  accesses 201,387  hits 201,381  misses 6
+debug  :   stage-0          efficiency 100.0%  accesses 201,387  hits 201,381  misses 6
 debug  :   stage-1          efficiency 0.0%  accesses 6  hits 0  misses 6
 debug  : tessellation access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 665,749  hits 665,743  misses 6
-debug  :   stage-0          efficiency 100.0%  accesses 665,749  hits 665,743  misses 6
+debug  :   combined         efficiency 100.0%  accesses 201,387  hits 201,381  misses 6
+debug  :   stage-0          efficiency 100.0%  accesses 201,387  hits 201,381  misses 6
 debug  :   stage-1          efficiency 0.0%  accesses 6  hits 0  misses 6
 debug  : path tracing statistics:
-debug  :   path count       284,508
-debug  :   path length      avg 2.2  min 2  max 6  dev 0.4
+debug  :   path count       158,702
+debug  :   path length      avg 2.2  min 2  max 10  dev 0.5
 debug  : texture store statistics:
 debug  :   performances     n/a
 debug  :   peak size        0 byte
-info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert_btdf.perspShape.16.appleseed.png in 62 ms.
+info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/as_test_lambert_btdf.perspShape.16.appleseed.png in 188 ms.

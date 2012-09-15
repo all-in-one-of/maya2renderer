@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: as_test_lambert_btdf.ma
-//Last modified: Wed, Sep 12, 2012 11:11:47 PM
+//Last modified: Sat, Sep 15, 2012 03:38:00 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime= 0:29:12.04)";
@@ -14,8 +14,8 @@ fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows XP Professional Service Pack 3 (Build 2600)\n";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -10.795648211273981 3.9632867729208101 -2.4139540823145413 ;
-	setAttr ".r" -type "double3" -8.7383527296047543 -95.399999999993 0 ;
+	setAttr ".t" -type "double3" -10.831731610546594 3.6503992006279349 -2.4873502070705378 ;
+	setAttr ".r" -type "double3" -6.9383527295853247 -95.799999999992721 0 ;
 	setAttr ".rp" -type "double3" 2.3015874266497015e-016 -2.8149260184584231e-016 -1.7763568394002505e-015 ;
 	setAttr ".rpt" -type "double3" -1.7267730976418878e-015 -5.1655152070740877e-015 
 		-4.5185255158151242e-015 ;
@@ -110,9 +110,13 @@ createNode mesh -n "pCubeShape1" -p "pCube1";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "pCube2";
-	setAttr ".t" -type "double3" 3.0853955990789341 0.8342227579336422 0.33035539657998481 ;
-	setAttr ".s" -type "double3" 1 1 2.8656031166834128 ;
+	setAttr ".t" -type "double3" 3.0853955990789341 0.8342227579336422 -2.53992620949237 ;
+	setAttr ".s" -type "double3" 1 1 4.431023851288737 ;
 createNode mesh -n "pCubeShape2" -p "pCube2";
+	addAttr -ci true -sn "mso" -ln "miShadingSamplesOverride" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "msh" -ln "miShadingSamples" -min 0 -smx 8 -at "float";
+	addAttr -ci true -sn "mdo" -ln "miMaxDisplaceOverride" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "mmd" -ln "miMaxDisplace" -min 0 -smx 1 -at "float";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -146,7 +150,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 300;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/as_test_lambert_btdf1090.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/as_test_lambert_btdf828.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -387,8 +391,8 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 		-min 0 -max 1 -at "bool";
 	addAttr -ci true -h true -sn "export_mesh_normals" -ln "export_mesh_normals" -min 
 		0 -max 1 -at "bool";
-	setAttr ".constant_environment_edf_exitance" -type "float3" 0.22145329 0.34042659 
-		0.35294119 ;
+	setAttr ".constant_environment_edf_exitance" -type "float3" 0.93289083 0.93289083 
+		0.93289083 ;
 	setAttr ".framename" -type "string" "beauty";
 	setAttr ".tile_size" -type "string" "32|32";
 	setAttr ".useFinal" yes;
@@ -481,8 +485,8 @@ createNode lambert -n "lambert4";
 	addAttr -ci true -sn "miibx" -ln "miScatterCache" -at "short";
 	setAttr ".rfi" 1.5;
 	setAttr ".rfc" yes;
-	setAttr ".c" -type "float3" 1 0 0 ;
-	setAttr ".it" -type "float3" 0.64316779 0.64316779 0.64316779 ;
+	setAttr ".c" -type "float3" 0.78431374 0.44598231 0.44598231 ;
+	setAttr ".it" -type "float3" 0 0 0.75609982 ;
 createNode shadingEngine -n "lambert4SG";
 	setAttr ".ihi" 0;
 	setAttr -s 2 ".dsm";

@@ -131,6 +131,15 @@ void Visitor::visitFile(const char* node)
 		texture_instance_params.insert("addressing_mode", "clamp");
 		texture_instance_params.insert("filtering_mode", "bilinear");
 
+		bool isOutTransparncyConnected = false;
+		{
+			MStringArray srcNodePlug;
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -destination true -plugs true \""+MString(node)+".outTransparency\"", srcNodePlug));
+			isOutTransparncyConnected = srcNodePlug.length()>0;
+		}
+		texture_instance_params.insert("alpha_mode",	
+			isOutTransparncyConnected ? "alpha_channel" : "luminance");
+
 		asf::auto_release_ptr<asr::TextureInstance> texture_instance =
 			asr::TextureInstanceFactory::create(
 				texture_instance_name.c_str(),
