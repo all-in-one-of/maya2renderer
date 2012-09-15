@@ -360,46 +360,272 @@ void Visitor::visitOceanShader(const char* node)
 void Visitor::visitPhong(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPhong("<<node<<")");
-	
-	MaterialFactory mf;
+	if( m_assembly == NULL )
+	{
+		Renderer* m_renderer = dynamic_cast<appleseed::Renderer*>( liquid::RendererMgr::getInstancePtr()->getRenderer() );
+		assert(m_renderer != NULL );
 
-	mf.begin(node);
-
-	//brdf
-	if( liqglo.rt_useRayTracing ){
-		mf.createBSDF("specular_brdf");
-	}else{
-		mf.createBSDF("lambertian_brdf");
+		m_assembly = m_renderer->getAssembly().get();
+		assert(m_assembly != nullptr);
 	}
+	MStatus status;
+	MObject mnode;
+	getDependNodeByName(mnode, node);
 
-	//edf
-	mf.createEDF("diffuse_edf");
+	std::string colorChannel;
+	std::string diffuseChannel;
+	std::string ambientColorChannel;
+	std::string transparencyChannel;
+	std::string specularColorChannel;
+
+	Helper5 o;
+	o.begin(node);
+	colorChannel		= o.addChannel("color",			"color|texture_instance");
+	diffuseChannel		= o.addChannel("diffuse",		"scalar|texture_instance");
+	ambientColorChannel = o.addChannel("ambientColor",	"color|texture_instance");
+	transparencyChannel = o.addChannel("transparency",  "color|texture_instance");
+	specularColorChannel= o.addChannel("specularColor",  "color|texture_instance");
+	o.end();
+
+	MVector transparency;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "transparency", transparency, status));
+	MColor rgb(MColor::kRGB, transparency.x, transparency.y, transparency.z);
+	float transparencyH, transparencyS, transparencyV;
+	rgb.get(MColor::kHSV, transparencyH, transparencyS, transparencyV);
+
+	MVector ambientColor;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "ambientColor", ambientColor, status));
+
+	float cosinePower;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "cosinePower", cosinePower, status));
+	//spread
+	float spread = 10.0f * cosinePower;
+
+	float reflectivity = 1.0f;
+	IfMErrorWarn(liquidGetPlugValue(mnode, "reflectivity", reflectivity, status));
+
 
 	//surface shader
-	bool isSurfaceShaderCreated = false;
-	MString plug(MString(node) +".ambientColor");
-	MStringArray nodes;
-	IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs false \""+plug+"\"", nodes));
-	if( nodes.length() != 0 )
-	{
-		MString srcNode(nodes[0]);
-		MString srcNodeType;
-		IfMErrorWarn(MGlobal::executeCommand("nodeType \""+srcNode+"\"", srcNodeType));
-		if( srcNodeType == "mib_amb_occlusion" )
+	std::string aoNode;
+	if( hasAO(node, aoNode) ){
+		//AO shader will be created in Visitor::visit_mib_amb_occlusion()
+	}else{
+		//physical surface shader
+		std::string surfaceshader_name(getSurfaceShaderName(node));
+
+		if(m_assembly->surface_shaders().get_by_name(surfaceshader_name.c_str()) == nullptr)
 		{
-			isSurfaceShaderCreated = true;
-			mf.addSurfaceShader(srcNode.asChar());
-		}else if( srcNodeType == "another node type" ){
-			isSurfaceShaderCreated = true;			
-			//todo...
+			std::string pss_alpha_multiplier(node);
+			pss_alpha_multiplier += "_pss_alpha_multiplier";
+			createColor3(m_assembly->colors(), pss_alpha_multiplier.c_str(),
+				1.0f-transparency.x, 1.0f-transparency.y, 1.0f-transparency.z);
+
+			std::string pss_color_multiplier(node);
+			pss_alpha_multiplier += "_pss_color_multiplier";
+			createColor3(m_assembly->colors(), pss_color_multiplier.c_str(),
+				1.0f+ambientColor.x, 1.0f+ambientColor.y, 1.0f+ambientColor.z);
+			//
+			m_assembly->surface_shaders().insert(
+				asr::PhysicalSurfaceShaderFactory().create(
+				surfaceshader_name.c_str(),
+				asr::ParamArray()
+					.insert("aerial_persp_mode",		"sky_color")
+					.insert("aerial_persp_sky_color",	ambientColorChannel.c_str() )
+					
+					//.insert("aerial_persp_mode",		"environment_shader")
+					//.insert("color_multiplier",			pss_color_multiplier.c_str())//.insert("alpha_multiplier",		pss_alpha_multiplier.c_str())
+					//.insert("alpha_multiplier",			1.0)
+				)
+			);
 		}
 	}
 
-	if( ! isSurfaceShaderCreated ){
-		mf.createSurfaceShader("physical_surface_shader");
+	//EDF
+	MVector incandescence;
+	if( hasEDF(node, &incandescence.x, &incandescence.y, &incandescence.z) )
+	{
+		MString incandescenceColorName(MString(node)+"_incandescence");
+		createColor3(m_assembly->colors(), incandescenceColorName.asChar(), 
+			incandescence.x, incandescence.y, incandescence.z);
+
+		if(m_assembly->edfs().get_by_name(getEDFName(node).c_str()) == nullptr)
+		{
+			m_assembly->edfs().insert(
+				asr::DiffuseEDFFactory().create(
+				getEDFName(node).c_str(),
+				asr::ParamArray()
+					.insert("exitance", incandescenceColorName.asChar())
+				)
+			);
+		}
 	}
 
-	mf.end();
+	//BSDF
+	AlphaMapType amt = AMT_Null;
+	if( AMT_Null != (amt=getAlphaMap(node, &transparency.x, &transparency.y, &transparency.z, nullptr)) )
+	{
+		if(AMT_Color==amt)
+		{
+			//------------------------------
+			// specular_btdf
+
+			//refractiveIndex
+			double refractiveIndex;
+			IfMErrorWarn(liquidGetPlugValue(mnode, "refractiveIndex", refractiveIndex, status));
+
+			const std::string fullTransparent(getFullTransparentColorName(m_assembly->colors()));
+			//specular_btdf front
+			std::string TRANS_FRONT(node);
+			TRANS_FRONT+="_TRANS_FRONT";
+			if(m_assembly->bsdfs().get_by_name(TRANS_FRONT.c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::SpecularBTDFFactory().create(
+					TRANS_FRONT.c_str(),
+					asr::ParamArray()
+						.insert("reflectance",				colorChannel.c_str())
+						.insert("reflectance_multiplier",	diffuseChannel.c_str())
+						.insert("transmittance",			transparencyChannel.c_str())//colorChannel, fullTransparent, transparencyChannel
+						.insert("transmittance_multiplier",	1.0f)
+						.insert("from_ior",					1.0f)
+						.insert("to_ior",					refractiveIndex)
+					)
+				);
+			}
+			//specular_btdf back
+			std::string TRANS_BACK(node);
+			TRANS_BACK+="_TRANS_BACK";
+			if(m_assembly->bsdfs().get_by_name(TRANS_BACK.c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::SpecularBTDFFactory().create(
+					TRANS_BACK.c_str(),
+					asr::ParamArray()
+						.insert("reflectance",				colorChannel.c_str())
+						.insert("reflectance_multiplier",	diffuseChannel.c_str())
+						.insert("transmittance",			transparencyChannel.c_str())//colorChannel, fullTransparent, transparencyChannel
+						.insert("transmittance_multiplier",	1.0f)
+						.insert("from_ior",					refractiveIndex)
+						.insert("to_ior",					1.0f)
+					)
+				);
+			}
+			//-------------------------------------------------------------
+			//BASE
+			std::string BASE(node);
+			BASE+="_BASE";
+			if(m_assembly->bsdfs().get_by_name(BASE.c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::AshikhminBRDFFactory().create(
+					BASE.c_str(),
+					asr::ParamArray()
+						.insert("diffuse_reflectance",				colorChannel.c_str())
+						.insert("diffuse_reflectance_multiplier",	diffuseChannel.c_str())
+						.insert("glossy_reflectance",				specularColorChannel.c_str())
+						.insert("glossy_reflectance_multiplier",	reflectivity)
+						.insert("shininess_u",	spread)
+						.insert("shininess_v",	spread)
+					)
+				);
+			}
+			//--------------------
+			//blender BASE and specular_btdf
+			float transparencyV1 = sqrtf(sqrtf(sqrtf(transparencyV)));
+			//BSDF
+			if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::BSDFMixFactory().create(
+					getBSDFName(node).c_str(),
+					asr::ParamArray()
+						.insert("bsdf0",	BASE.c_str())
+						.insert("bsdf1",	TRANS_FRONT.c_str())
+						.insert("weight0",	1.0f - transparencyV1)
+						.insert("weight1",	transparencyV1)
+					)
+				);
+			}
+			//BSDF_BACK
+			if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::BSDFMixFactory().create(
+					getBSDFNameBack(node).c_str(),
+					asr::ParamArray()
+						.insert("bsdf0",	BASE.c_str())
+						.insert("bsdf1",	TRANS_BACK.c_str())
+						.insert("weight0",	1.0f - transparencyV1)
+						.insert("weight1",	transparencyV1)
+					)
+				);
+			}
+		}
+		//////////////////////////////////////////////////////////////////////////
+		else if(AMT_Texture==amt)
+		{	
+			//------------------------------
+			// specular_btdf
+
+			//refractiveIndex
+			double refractiveIndex;
+			IfMErrorWarn(liquidGetPlugValue(mnode, "refractiveIndex", refractiveIndex, status));
+
+			const std::string fullTransparent(getFullTransparentColorName(m_assembly->colors()));
+			//BSDF front
+			if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::SpecularBTDFFactory().create(
+					getBSDFName(node).c_str(),
+					asr::ParamArray()
+						.insert("reflectance",				colorChannel.c_str())
+						.insert("reflectance_multiplier",	diffuseChannel.c_str())
+						.insert("transmittance",			transparencyChannel.c_str())//colorChannel, fullTransparent, transparencyChannel
+						.insert("transmittance_multiplier",	1.0f)
+						.insert("from_ior",					1.0f)
+						.insert("to_ior",					refractiveIndex)
+					)
+				);
+			}
+			//BSDF back
+			if(m_assembly->bsdfs().get_by_name(getBSDFNameBack(node).c_str()) == nullptr)
+			{
+				m_assembly->bsdfs().insert(
+					asr::SpecularBTDFFactory().create(
+					getBSDFNameBack(node).c_str(),
+					asr::ParamArray()
+						.insert("reflectance",				colorChannel.c_str())
+						.insert("reflectance_multiplier",	diffuseChannel.c_str())
+						.insert("transmittance",			transparencyChannel.c_str())//colorChannel, fullTransparent, transparencyChannel
+						.insert("transmittance_multiplier",	1.0f)
+						.insert("from_ior",					refractiveIndex)
+						.insert("to_ior",					1.0f)
+					)
+				);
+			}
+		}else{
+			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
+		}
+	}else{// this material is opacity
+		//BRDF
+		if(m_assembly->bsdfs().get_by_name(getBSDFName(node).c_str()) == nullptr)
+		{
+			m_assembly->bsdfs().insert(
+				asr::AshikhminBRDFFactory().create(
+				getBSDFName(node).c_str(),
+				asr::ParamArray()
+					.insert("diffuse_reflectance",				colorChannel.c_str())
+					.insert("diffuse_reflectance_multiplier",	diffuseChannel.c_str())
+					.insert("glossy_reflectance",				specularColorChannel.c_str())
+					.insert("glossy_reflectance_multiplier",	reflectivity)
+					.insert("shininess_u",	spread)
+					.insert("shininess_v",	spread)
+				)
+			);
+		}
+	}
+
 }
 // @node	maya shader node name
 void Visitor::visitPhongE(const char* node)
