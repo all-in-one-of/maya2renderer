@@ -57,6 +57,7 @@ global string $gGlobalValue_appleseed[]=
 	,"export_mesh_materials",		"bool",	true
 	,"export_mesh_smoothing",		"bool",	true
 	,"export_mesh_normals",			"bool",	true
+	,"light_intensity_factor",		"float","30"
 	//,"testBool1",            "bool",			false
 	//,"testString0",            "string",		"string_test_value0"
 	//,"testString1",            "string",		"string_test_value1"
@@ -250,7 +251,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
         liquidShowBoolGlobal2($n, "export_mesh_materials",     "export_mesh_materials", $prefix);
         liquidShowBoolGlobal2($n, "export_mesh_smoothing",     "export_mesh_smoothing", $prefix);
         liquidShowBoolGlobal2($n, "export_mesh_normals",       "export_mesh_normals", $prefix);
-
+		liquidShowFloatGlobal2($n, "light_intensity_factor", "light_intensity_factor");
 //         liquidShowIntGlobalMenu2($n, "approx_method", "method",
 // 		{"EI_APPROX_METHOD_NONE",
 // 		"EI_APPROX_METHOD_REGULAR",

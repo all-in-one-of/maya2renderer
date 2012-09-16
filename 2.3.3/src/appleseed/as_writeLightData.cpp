@@ -6,6 +6,7 @@
 #include "../common/mayacheck.h"
 #include <liqRibLightData.h>
 #include "log_helper.h"
+#include "as_GlobalNodeHelper.h"
 
 namespace appleseed
 {
@@ -126,7 +127,8 @@ namespace appleseed
 		std::string sLightExitance(shaderinstanceFullPath+"_color");
 		//
 		createColor3(current_assembly->colors(), sLightExitance.c_str(), 
-			i_intensity, i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
+			i_intensity * m_gnode->getFloat("light_intensity_factor"), 
+			i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
 
 		// Create a point light and insert it into the assembly.
 		asf::auto_release_ptr<asr::Light> light(
@@ -208,7 +210,8 @@ namespace appleseed
 		std::string sLightExitance(shaderinstanceFullPath+"_color");
 		//
 		createColor3(current_assembly->colors(), sLightExitance.c_str(), 
-			i_intensity, i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
+			i_intensity * m_gnode->getFloat("light_intensity_factor"), 
+			i_lightcolor[0], i_lightcolor[1], i_lightcolor[2]);
 
 		// Create a spot light and insert it into the assembly.
 		asf::auto_release_ptr<asr::Light> light(
