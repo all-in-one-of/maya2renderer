@@ -493,7 +493,7 @@ void ObjTranslator::outputSetsAndGroups(
 
 //////////////////////////////////////////////////////////////
 
-void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
+void ObjTranslator::initializeSetsAndLookupTables( bool exportAll, const MString& meshFullPathName)
 //
 // Description :
 //    Creates a list of all sets in Maya, a list of mesh objects,
@@ -502,6 +502,9 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 //
 {
 	//CM_TRACE_FUNC("ObjTranslator::initializeSetsAndLookupTables("<<exportAll<<")");
+	
+	///DEBUG
+	//const MString __DebugMeshFullPath("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:lS|Man:lA|Man:lFa|Man:lFAR|Man:lH|Man:joint13|Man:lHP1|Man:lHP2|Man:lHP3|Man:pCube11|Man:pCubeShape11");
 
 	int i=0,j=0, length;
 	MStatus stat;
@@ -632,9 +635,13 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 					// we do not need this call anymore, we have the shape.
 					// dagPath.extendToShape();
 					MString name = dagPath.fullPathName();
+					///DEBUG
+					//if(name==__DebugMeshFullPath){
+					//	liquidMessage2(messageInfo,"__DebugMeshFullPath");
+					//}
 					objectNames->append( name );
-					objectNodeNamesArray.append( fnMesh.name() );
-
+					objectNodeNamesArray.append( name );// use fullPathName instead of fnMesh.name()
+					
 					vertexCounts.append( vtxCount );
 					polygonCounts.append( polygonCount );
 
@@ -642,7 +649,7 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 				}
 			}
 		}	
-	}
+	}//if ( exportAll )
 	else 
 	{
 		MSelectionList slist;
@@ -706,8 +713,12 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 					// we do not need this call anymore, we have the shape.
 					// dagPath.extendToShape();
 					MString name = dagPath.fullPathName();
+					///DEBUG
+					//if(name==__DebugMeshFullPath){
+					//	liquidMessage2(messageInfo,"__DebugMeshFullPath");
+					//}
 					objectNames->append( name );
-					objectNodeNamesArray.append( fnMesh.name() );
+					objectNodeNamesArray.append( name );//use fullPathName instead of fnMesh.name()
 									
 					vertexCounts.append( vtxCount );
 					polygonCounts.append( polygonCount );
@@ -735,6 +746,11 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 
 		if( transformNodeNameArray.length() > 0 ) {
 			objectGroupsTablePtr = (bool**) malloc( sizeof(bool*)*objectCount );
+			if(objectGroupsTablePtr==NULL){
+				///DEBUG
+				//std::cerr <<       "ERROR> ObjTranslator::initializeSetsAndLookupTables(), malloc(sizeof(bool*)*"<<objectCount<<") return NULL."<<std::endl;
+				liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), malloc(sizeof(bool*)*%d) return NULL.", objectCount);
+			}
 			length = transformNodeNameArray.length();
 			for ( i=0; i<objectCount; i++ )
 			{
@@ -742,10 +758,16 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll )
 					(bool*)calloc( length, sizeof(bool) );	
 				
 				if ( objectGroupsTablePtr[i] == NULL ) {
-					cerr << "Error: calloc returned NULL (objectGroupsTablePtr)\n";
+					///DEBUG
+					//std::cerr <<       "ERROR> ObjTranslator::initializeSetsAndLookupTables(), calloc("<<length<<",sizeof(bool*)) return NULL."<<std::endl;
+					liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), calloc(%d,sizeof(bool*)) return NULL.",length);
 					return;
 				}
 			}
+		}else{
+			///DEBUG
+			//std::cerr <<       "ERROR> ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is not malloc-ed, "<< meshFullPathName.asChar()<<std::endl;
+			liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is not malloc-ed, %s", meshFullPathName.asChar() );
 		}
 	}
 
@@ -929,6 +951,15 @@ if ( compIdx >= polygonCounts[o] ) {
 		} // end of memberList loop
 	} // end of for-loop for sets
 
+	if(objectGroupsTablePtr==NULL){
+		///DEBUG
+		//std::cerr        <<"ERROR> ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is NULL, return.  "<< meshFullPathName.asChar()<<std::endl;
+		liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is NULL, return.  %s",meshFullPathName.asChar());
+		return;
+	}else{
+		///DEBUG
+		//std::cout<<"ObjTranslator::initializeSetsAndLookupTables("<<exportAll<<","<< meshFullPathName.asChar()<<")"<<std::endl;
+	}
 	// Go through all of the group members and mark in the
 	// lookup-table, the group that each shape belongs to.
 	length = objectNodeNamesArray.length();
@@ -1292,7 +1323,7 @@ MStatus ObjTranslator::exportSelected(const MString& meshFullPathName)
 	MStatus status;
 	MString filename;
 
-	initializeSetsAndLookupTables( false );
+	initializeSetsAndLookupTables( false, meshFullPathName);
 
 	IfMErrorMsgWarn( MGlobal::selectByName(meshFullPathName, MGlobal::kReplaceList) , meshFullPathName);
 	// Create an iterator for the active selection list
@@ -1398,7 +1429,7 @@ MStatus ObjTranslator::exportAll( )
 
 	MStatus status = MS::kSuccess;
 
-	initializeSetsAndLookupTables( true );
+	initializeSetsAndLookupTables( true, "" );
 
 	MItDag dagIterator( MItDag::kBreadthFirst, MFn::kInvalid, &status);
 
@@ -1483,7 +1514,7 @@ void ObjTranslator::recFindTransformDAGNodes( MString& nodeName, MIntArray& tran
 	// each objectNames[i] going towards the root collecting transform
 	// nodes as we go.
 	MStringArray result;
-	MString cmdStr = "listRelatives -ap " + nodeName;
+	MString cmdStr = "listRelatives -ap -fullPath " + nodeName;
 	MGlobal::executeCommand( cmdStr, result );
 	
 	if( result.length() == 0 )
@@ -1496,7 +1527,7 @@ void ObjTranslator::recFindTransformDAGNodes( MString& nodeName, MIntArray& tran
 		MGlobal::executeCommand( "nodeType " + result[j], result2 );
 		
 		if( result2.length() == 1 && result2[0] == "transform" ) {
-			// check if result[j] is already in result[j]
+			// check if result[j] is already in transformNodeNameArray[]
 			bool found=false;
 			unsigned int i;
 			for( i=0; i<transformNodeNameArray.length(); i++) {
@@ -1507,6 +1538,8 @@ void ObjTranslator::recFindTransformDAGNodes( MString& nodeName, MIntArray& tran
 			}
 
 			if( !found ) {
+				//push result[j] to transformNodeNameArray[]
+				//and be recorded in transformNodeIndicesArray[]
 				transformNodeIndicesArray.append(transformNodeNameArray.length());
 				transformNodeNameArray.append(result[j]);
 			}

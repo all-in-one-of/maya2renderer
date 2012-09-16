@@ -95,7 +95,7 @@ private:
     MStatus         exportAll();
     MStatus         exportSelected(const MString& meshFullPathName);
 
-	void		    initializeSetsAndLookupTables( bool exportAll );
+	void		    initializeSetsAndLookupTables( bool exportAll, const MString& meshFullPathName);
 	void		    freeLookupTables();
 	bool 		    lookup( MDagPath&, int, int, bool );
 	void            setToLongUnitName( const MDistance::Unit&, MString& );
