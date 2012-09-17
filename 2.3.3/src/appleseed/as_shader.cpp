@@ -299,6 +299,8 @@ namespace appleseed
 		plugs.push_back("liqBRDF");
 		plugs.push_back("liqBRDF_back");
 		plugs.push_back("liqEDF");
+		plugs.push_back("liqAlphaMap");
+		plugs.push_back("liqNormalMap");
 	}
 
 }//namespace appleseed

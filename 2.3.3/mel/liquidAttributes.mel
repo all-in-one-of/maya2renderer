@@ -2627,6 +2627,20 @@ global proc liquidCreateCustomShaderAttributesForAppleseed()
 			  addAttr -ln "liqEDFg" -at "float" -dv 1 -k true -parent "liqEDF" $sg;
 			  addAttr -ln "liqEDFb" -at "float" -dv 1 -k true -parent "liqEDF" $sg;
 			}
+			if ( !`attributeQuery -node $sg -ex "liqAlphaMap"` ) 
+			{
+			  addAttr -ln "liqAlphaMap" -usedAsColor -at "float3" -k true $sg;
+			  addAttr -ln "liqAlphaMapr" -at "float" -dv 1 -k true -parent "liqAlphaMap" $sg;
+			  addAttr -ln "liqAlphaMapg" -at "float" -dv 1 -k true -parent "liqAlphaMap" $sg;
+			  addAttr -ln "liqAlphaMapb" -at "float" -dv 1 -k true -parent "liqAlphaMap" $sg;
+			}
+			if ( !`attributeQuery -node $sg -ex "liqNormalMap"` ) 
+			{
+			  addAttr -ln "liqNormalMap" -usedAsColor -at "float3" -k true $sg;
+			  addAttr -ln "liqNormalMapr" -at "float" -dv 1 -k true -parent "liqNormalMap" $sg;
+			  addAttr -ln "liqNormalMapg" -at "float" -dv 1 -k true -parent "liqNormalMap" $sg;
+			  addAttr -ln "liqNormalMapb" -at "float" -dv 1 -k true -parent "liqNormalMap" $sg;
+			}
 		}
   }
 
@@ -2648,7 +2662,10 @@ global proc liquidDeleteCustomShaderAttributesForAppleseed()
   {
 	"liqBRDF",
 	"liqBRDF_back",
-	"liqEDF"
+	"liqEDF",
+	"liqAlphaMap",
+	"liqNormalMap"
+
   };
 
   for ( $currentShape in $shapes ) 

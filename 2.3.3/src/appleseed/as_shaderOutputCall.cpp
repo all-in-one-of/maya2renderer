@@ -332,10 +332,14 @@ void Visitor::createMaterial(const char* shadingGroupNode, bool front)
 	MStringArray surfaceShaders;
 	MStringArray liqBRDF;
 	MStringArray liqEDF;
+	MStringArray liqAlphaMap;
+	MStringArray liqNormalMap;
 	{
 		getlistConnections(shadingGroupNode, "surfaceShader",	surfaceShaders);
 		getlistConnections(shadingGroupNode, brdf_plug,			liqBRDF);
 		getlistConnections(shadingGroupNode, "liqEDF",			liqEDF);
+		getlistConnections(shadingGroupNode, "liqAlphaMap",		liqAlphaMap);
+		getlistConnections(shadingGroupNode, "liqNormalMap",	liqNormalMap);
 	}
 	if( surfaceShaders[0].length() == 0)
 	{
@@ -361,6 +365,12 @@ void Visitor::createMaterial(const char* shadingGroupNode, bool front)
 		}
 		if( liqEDF[0].length() != 0 ){
 			material_params.insert( "edf", liqEDF[0].asChar() );
+		}
+		if( liqAlphaMap[0].length() != 0 ){
+			material_params.insert( "alpha_map", getTextureInstanceName(liqAlphaMap[0].asChar()) );
+		}
+		if( liqNormalMap[0].length() != 0 ){
+			material_params.insert( "normal_map", getTextureInstanceName(liqNormalMap[0].asChar()) );
 		}
 	}else{
 		//build material with maya shader nodes
