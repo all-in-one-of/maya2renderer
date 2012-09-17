@@ -171,6 +171,7 @@ namespace appleseed
 	void _exportVertexFromNodePlug(
 		const liqRibNodePtr &ribNode__,
 		unsigned int sample,
+		bool useWorldSpace,
 		std::vector<float>& v)
 	{	
 		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<")");
@@ -202,14 +203,25 @@ namespace appleseed
 
 		// add vertex position
 		v.clear();
-		for(size_t i=0; i<fnMesh.numVertices(); ++i)
+		if(useWorldSpace)
 		{
-			MPoint p(vertex_buf[3*i+0], vertex_buf[3*i+1], vertex_buf[3*i+2]);
-			p *= obj2world;
-			v.push_back( p.x );
-			v.push_back( p.y );
-			v.push_back( p.z );
+			for(size_t i=0; i<fnMesh.numVertices(); ++i)
+			{
+				MPoint p(vertex_buf[3*i+0], vertex_buf[3*i+1], vertex_buf[3*i+2]);
+				p *= obj2world;
+				v.push_back( p.x );
+				v.push_back( p.y );
+				v.push_back( p.z );
+			}
+		}else{
+			for(size_t i=0; i<fnMesh.numVertices(); ++i)
+			{
+				v.push_back( vertex_buf[3*i+0] );
+				v.push_back( vertex_buf[3*i+1] );
+				v.push_back( vertex_buf[3*i+2] );
+			}
 		}
+
 	}
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__, GlobalNodeHelper *m_gnode)
@@ -309,14 +321,14 @@ namespace appleseed
 
 		ObjTranslator writer;
 		writer.set(groups, ptgroups, materials, smoothing, normals);
-		_exportVertexFromNodePlug(ribNode__, sample_first, writer.position);
+		_exportVertexFromNodePlug(ribNode__, sample_first, true, writer.position);
 		writer.write(objFilePath, meshFullPathName.c_str() );
 
 		if( sample_first != sample_last )// motion blur stuff
 		{
 			ObjTranslator writer;
 			writer.set(groups, ptgroups, materials, smoothing, normals);
-			_exportVertexFromNodePlug(ribNode__, sample_last, writer.position);
+			_exportVertexFromNodePlug(ribNode__, sample_last, true, writer.position);
 			writer.write(objFilePath+"_mb.obj", meshFullPathName.c_str() );
 		}
 #endif
