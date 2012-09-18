@@ -142,7 +142,7 @@ namespace appleseed
 					//visitFile(srcNode.asChar());
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
@@ -232,7 +232,7 @@ namespace appleseed
 						//visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+						liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}
@@ -332,7 +332,7 @@ namespace appleseed
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}
 				else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.", srcNode.asChar());
+					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
