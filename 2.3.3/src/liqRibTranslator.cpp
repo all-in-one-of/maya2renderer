@@ -131,26 +131,27 @@ void *liqRibTranslator::creator()
 //  return m_shaders.back();
 //}
 
-MStatus liqRibTranslator::liqShaderParseVectorAttr ( liqShader & currentShader, MFnDependencyNode & shaderNode, const char * argName, ParameterType pType )
-{
-	CM_TRACE_FUNC("liqRibTranslator::liqShaderParseVectorAttr(&currentShader,&shaderNode,"<<argName<<","<<pType<<")");
-
-	MStatus status = MS::kSuccess;
-	MPlug triplePlug = shaderNode.findPlug( argName, &status );
-	if( status == MS::kSuccess ) 
-	{
-		float x, y, z;
-		currentShader.tokenPointerArray.rbegin()->set( argName, pType, false, false, 0 );
-		triplePlug.child( 0 ).getValue( x );
-		triplePlug.child( 1 ).getValue( y );
-		triplePlug.child( 2 ).getValue( z );
-		currentShader.tokenPointerArray.rbegin()->setTokenFloat( 0, x, y, z );
-		currentShader.tokenPointerArray.push_back( liqTokenPointer() );
-		//currentShader.numTPV++;
-	}
-	return status;
-}
-
+//r773  Don't seem to be called
+//
+// MStatus liqRibTranslator::liqShaderParseVectorAttr ( liqShader & currentShader, MFnDependencyNode & shaderNode, const char * argName, ParameterType pType )
+// {
+// 	CM_TRACE_FUNC("liqRibTranslator::liqShaderParseVectorAttr(&currentShader,&shaderNode,"<<argName<<","<<pType<<")");
+// 
+// 	MStatus status = MS::kSuccess;
+// 	MPlug triplePlug = shaderNode.findPlug( argName, &status );
+// 	if( status == MS::kSuccess ) 
+// 	{
+// 		float x, y, z;
+// 		currentShader.tokenPointerArray.rbegin()->set( argName, pType, false, false, 0 );
+// 		triplePlug.child( 0 ).getValue( x );
+// 		triplePlug.child( 1 ).getValue( y );
+// 		triplePlug.child( 2 ).getValue( z );
+// 		currentShader.tokenPointerArray.rbegin()->setTokenFloat( 0, x, y, z );
+// 		currentShader.tokenPointerArray.push_back( liqTokenPointer() );
+// 		//currentShader.numTPV++;
+// 	}
+// 	return status;
+// }
 void liqRibTranslator::printProgress( unsigned stat, unsigned numFrames, unsigned where )
 // for printing the progress to the Maya Console or stdout. If alfred is being used it
 // will print it in a format that causes the correct formatting for the progress meters
