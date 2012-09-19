@@ -86,9 +86,12 @@ private: // Methods
 
 	void portFieldOfView( int width, int height, double& horizontal, double& vertical, MFnCamera& fnCamera );
 	void computeViewingFrustum( double window_aspect, double& left, double& right, double& bottom, double& top, MFnCamera& cam );
-	void getCameraInfo( MFnCamera &cam );
+	void getCameraInfo( MFnCamera &cam, structCamera &camStruct );//r773
+	MStatus getCameraTransform( MFnCamera& cam, structCamera &camStruct );//r773
+	void getCameraFilmOffset( MFnCamera& cam, structCamera &camStruct );//r773
 	void setSearchPaths();
 	void setOutDirs();
+	void exportJobCamera(const structJob &job, const structCamera camera[]);//r773
 	MString verifyResourceDir( const char *resourceName, MString resourceDir, bool &problem );
 	bool verifyOutputDirectories();
 
@@ -135,6 +138,8 @@ private: // Data
 	};
 	MRibStatus ribStatus;
 
+	MDagPath m_camDagPath;//r773
+	bool m_isStereoCamera;//r773
 	// Render Globals and RIB Export Options
 #ifdef Refactoring 
 public: 
@@ -230,7 +235,7 @@ private :
 
 	// Old global values
 	int           m_errorMode;
-//	M3dView       m_activeView;
+	M3dView       m_activeView;
 
 	MString       m_tmpDir;
 	bool          m_noDirCheck;
@@ -555,6 +560,7 @@ private:
 public:
 	static liqRibTranslator* getInstancePtr();
 
+	bool m_exportOnlyObjectBlock;
 };
 
 

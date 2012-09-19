@@ -278,6 +278,11 @@ struct structCamera {
   double  focalLength;
   double  horizontalFilmOffset;
   double  verticalFilmOffset;
+  int width;
+  int height;
+  double fov_ratio;
+  structCamera *rightCam;
+  structCamera *leftCam;
 };
 
 enum RenderPass {
@@ -318,12 +323,15 @@ struct structJob {
 
   bool                  hasShadowCam;
   bool                  isShadowPass;
+  bool                  isStereoPass;//r773
   int                   shadowPixelSamples;
   int                   shadowVolumeInterpretation;
   bool                  shadowAggregation;
   bool                  isPoint;
   PointLightDirection   pointDir;
   structCamera          camera[ LIQMAXMOTIONSAMPLES ];
+  structCamera          leftCamera[ LIQMAXMOTIONSAMPLES ];    // stereo cam
+  structCamera          rightCamera[ LIQMAXMOTIONSAMPLES ];   // stereo cam
   MDagPath              path;
   MDagPath              shadowCamPath;
   MString               jobOptions;

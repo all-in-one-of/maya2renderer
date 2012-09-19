@@ -232,9 +232,9 @@ struct liqGlobalVariable
 	bool doCameraMotion;        // Motion blur for moving cameras
 	bool liqglo_rotateCamera;   // rotates the camera for sideways renderings
 	enum ShutterConfig shutterConfig;
-	double      fov_ratio;
-	int         cam_width;
-	int			cam_height;
+//	double      fov_ratio;=> mv in cam struct //r773
+//	int         cam_width;=> mv in cam struct //r773
+//	int			cam_height;=> mv in cam struct //r773
 	float       aspectRatio;
 	liquidlong  quantValue;
 	float		m_rgain;
