@@ -663,7 +663,7 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 				if( MS::kSuccess != returnStatus )
 					continue;
 			}
-			dealwithParticleInstancedObjects(sample, lframe, count);//[refactor 11.1] 
+			dealwithParticleInstancedObjects(sample, lframe, count);//[refactor 11.1] begin/end
 		}
 		else
 		{
@@ -690,7 +690,7 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 						continue;
 				}
 			}
-			dealwithParticleInstancedObjects(sample, lframe, count);//[refactor 11.1] 
+			dealwithParticleInstancedObjects(sample, lframe, count);//[refactor 11.1] begin/end
 		}
 
 
@@ -705,7 +705,8 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 
 			if( !iter->isShadow ) 
 			{
-				getCameraData( iter , sample);
+				if ( MS::kSuccess != getCameraData( iter , sample) )
+					return MS::kFailure;
 			} //if( !iter->isShadow )  
 			else 
 			{
@@ -760,11 +761,11 @@ void liqRibTranslator::dealwithParticleInstancedObjects(
 	}
 }
 //
-void liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , const int sample__)
+MStatus liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , const int sample__)
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::getCameraData(iter__,"<<sample__<<")");
 	MStatus status;
-	//[refactor 12] 
+	//[refactor 12] begin from  liqRibTranslator::scanScene()
 				MDagPath path;
 				MFnCamera   fnCamera( iter__->path );
 				iter__->gotJobOptions = false;
@@ -775,9 +776,9 @@ void liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , cons
 					cPlug.getValue( iter__->jobOptions );
 					iter__->gotJobOptions = true;
 				}
-				getCameraInfo( fnCamera );
-				iter__->width = liqglo.cam_width;
-				iter__->height = liqglo.cam_height;
+				getCameraInfo( fnCamera, iter__->camera[sample__] );
+				iter__->width = iter__->camera[sample__].width;
+				iter__->height = iter__->camera[sample__].height;
 				// scanScene: Renderman specifies shutter by time open
 				// so we need to convert shutterAngle to time.
 				// To do this convert shutterAngle to degrees and
@@ -785,112 +786,202 @@ void liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , cons
 				//
 				iter__->camera[sample__].shutter = fnCamera.shutterAngle() * 0.5 / M_PI;
 				liqglo.liqglo_shutterTime = iter__->camera[sample__].shutter;
-				iter__->camera[sample__].orthoWidth     = fnCamera.orthoWidth();
-				iter__->camera[sample__].orthoHeight    = fnCamera.orthoWidth() * ((float)liqglo.cam_height / (float)liqglo.cam_width);
-				iter__->camera[sample__].motionBlur     = fnCamera.isMotionBlur();
-				iter__->camera[sample__].focalLength    = fnCamera.focalLength();
-				iter__->camera[sample__].focalDistance  = fnCamera.focusDistance();
-				iter__->camera[sample__].fStop          = fnCamera.fStop();
-				iter__->camera[sample__].name           = fnCamera.fullPathName();
-
-				// film back offsets
-				double hSize, vSize, hOffset, vOffset;
-				fnCamera.getFilmFrustum( fnCamera.focalLength(), hSize, vSize, hOffset, vOffset );
-
-				double imr = ((float)liqglo.cam_width / (float)liqglo.cam_height);
-				double fbr = hSize / vSize;
-				double ho, vo;
-
-				if( imr >= 1 ) 
-				{
-					switch ( fnCamera.filmFit() ) 
-					{
-					case MFnCamera::kVerticalFilmFit:
-					case MFnCamera::kOverscanFilmFit:
-						ho = hOffset / vSize * 2.0;
-						vo = vOffset / vSize * 2.0;
-						break;
-
-					case MFnCamera::kHorizontalFilmFit:
-					case MFnCamera::kFillFilmFit:
-						ho = hOffset / ( vSize * fbr / imr ) * 2.0;
-						vo = vOffset / ( vSize * fbr / imr ) * 2.0;
-						break;
-
-					default:
-						ho = 0;
-						vo = 0;
-						break;
-					}
-				} 
-				else 
-				{
-					switch ( fnCamera.filmFit() ) 
-					{
-					case MFnCamera::kFillFilmFit:
-					case MFnCamera::kVerticalFilmFit:
-						ho = hOffset / vSize * 2.0;
-						vo = vOffset / vSize * 2.0;
-						break;
-
-					case MFnCamera::kHorizontalFilmFit:
-					case MFnCamera::kOverscanFilmFit:
-						ho = hOffset / ( vSize * fbr / imr ) * 2.0;
-						vo = vOffset / ( vSize * fbr / imr ) * 2.0;
-						break;
-
-					default:
-						ho = 0;
-						vo = 0;
-						break;
-					}
-				}
-				iter__->camera[sample__].horizontalFilmOffset = ho;
-				iter__->camera[sample__].verticalFilmOffset   = vo;
-
-				// convert focal length to scene units
-				MDistance flenDist(iter__->camera[sample__].focalLength,MDistance::kMillimeters);
-				iter__->camera[sample__].focalLength = flenDist.as(MDistance::uiUnit());
-
-				fnCamera.getPath(path);
-				MTransformationMatrix xform( path.inclusiveMatrix() );
-
-				// the camera is pointing toward negative Z
-				double scale[] = { 1, 1, -1 };
-				xform.setScale( scale, MSpace::kTransform );
-
-				// scanScene:
-				// philippe : rotate the main camera 90 degrees around Z-axis if necessary
-				// ( only in main camera )
-				MMatrix camRotMatrix;
-				if( liqglo.liqglo_rotateCamera == true ) 
-				{
-					float crm[4][4] = {  {  0.0,  1.0,  0.0,  0.0 },
-					{ -1.0,  0.0,  0.0,  0.0 },
-					{  0.0,  0.0,  1.0,  0.0 },
-					{  0.0,  0.0,  0.0,  1.0 }};
-					camRotMatrix = crm;
-				}
-				iter__->camera[sample__].mat = xform.asMatrixInverse() * camRotMatrix;
-
-				if( fnCamera.isClippingPlanes() ) 
-				{
-					iter__->camera[sample__].neardb    = fnCamera.nearClippingPlane();
-					iter__->camera[sample__].fardb    = fnCamera.farClippingPlane();
-				} 
-				else 
-				{
-					iter__->camera[sample__].neardb    = 0.001;    // TODO: these values are duplicated elsewhere in this file
-					iter__->camera[sample__].fardb    = 250000.0; // TODO: these values are duplicated elsewhere in this file
-				}
-				iter__->camera[sample__].isOrtho = fnCamera.isOrtho();
-
+				iter__->camera[sample__].motionBlur     = fnCamera.isMotionBlur();				
+				
 				// scanScene: The camera's fov may not match the rendered image in Maya
 				// if a film-fit is used. 'fov_ratio' is used to account for
 				// this.
 				//
-				iter__->camera[sample__].hFOV = fnCamera.horizontalFieldOfView()/liqglo.fov_ratio;
-				iter__->aspectRatio = liqglo.aspectRatio;
+				iter__->camera[sample__].hFOV = fnCamera.horizontalFieldOfView()/iter__->camera[sample__].fov_ratio;
+
+				if ( fnCamera.isClippingPlanes() )
+				{
+					iter__->camera[sample__].neardb   = fnCamera.nearClippingPlane();
+					iter__->camera[sample__].fardb    = fnCamera.farClippingPlane();
+				}
+				else
+				{
+					iter__->camera[sample__].neardb    = 0.001;    // TODO: these values are duplicated elsewhere in this file
+					iter__->camera[sample__].fardb    = 250000.0; // TODO: these values are duplicated elsewhere in this file
+				}
+
+				iter__->camera[sample__].orthoWidth     = fnCamera.orthoWidth();
+				iter__->camera[sample__].orthoHeight    = fnCamera.orthoWidth() * ((float)iter__->camera[sample__].height / (float)iter__->camera[sample__].width);
+
+				iter__->camera[sample__].focalLength    = fnCamera.focalLength();
+				iter__->camera[sample__].focalDistance  = fnCamera.focusDistance();
+				iter__->camera[sample__].fStop          = fnCamera.fStop();
+				iter__->camera[sample__].isOrtho		= fnCamera.isOrtho();
+				//iter->camera[sample].name           = fnCamera.fullPathName();//r773 ommit this?
+				getCameraFilmOffset( fnCamera, iter__->camera[sample__] );
+
+				// convert focal length to scene units
+				MDistance flenDist(iter__->camera[sample__].focalLength,MDistance::kMillimeters);
+				iter__->camera[sample__].focalLength = flenDist.as(MDistance::uiUnit());
+				getCameraTransform( fnCamera, iter__->camera[sample__] );
+				//////////////////////////////////////////////////////////////////////////
+				//[refactor 12.1] begin from liqRibTranslator::scanScene()
+				// check stereo
+				MString camType = fnCamera.typeName();
+				bool isStereoCamera = false;
+				if( camType == "stereoRigCamera" )
+				{
+					isStereoCamera = true;
+					structCamera centralCameraPath = iter__->camera[sample__];
+					// look for right and left cams
+					MObject camTransform = fnCamera.parent(0, &status);
+					if(status!=MS::kSuccess)
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "Cannot find transform for camera %s.", fnCamera.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					MFnDagNode fnCamTransform(camTransform, &status);
+					if(status!=MS::kSuccess)
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "Cannot init MFnDagNode for camera %s's transform.", fnCamera.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					// get left one
+					cPlug = fnCamTransform.findPlug( MString( "leftCam" ), &status );
+					if(status!=MS::kSuccess)
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "Cannot find plug 'leftCam' on %s", fnCamTransform.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					MPlugArray plugArray;
+					cPlug.connectedTo(plugArray, 1, 0, &status);
+					if( plugArray.length() == 0 )
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "Nothing connected in %s.leftCam \n", fnCamTransform.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					MPlug leftCamPlug = plugArray[0];
+					MObject leftCamTransformNode = leftCamPlug.node();
+					MFnTransform fnLeftTrCam(leftCamTransformNode, &status);
+					if( status != MS::kSuccess )
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "cannot init MFnTransfrom for left camera '%s' ...\n", leftCamPlug.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					MObject leftCamNode = fnLeftTrCam.child(0);
+					MFnCamera fnLeftCam(leftCamNode, &status);
+					if( status != MS::kSuccess )
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "cannot init MFnCamera for left camera '%s' ...\n", fnLeftTrCam.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+
+					// get right one
+					cPlug = fnCamTransform.findPlug( MString( "rightCam" ), &status );
+					if(status!=MS::kSuccess)
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "Cannot find plug 'rightCam' on %s", fnCamTransform.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					cPlug.connectedTo(plugArray, 1, 0, &status);
+					if( plugArray.length() == 0 )
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "Nothing connected in %s.rightCam \n", fnCamTransform.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					MPlug rightCamPlug = plugArray[0];
+					MObject rightCamTransformNode = rightCamPlug.node();
+
+					MFnTransform fnRightTrCam(rightCamTransformNode, &status);
+					if( status != MS::kSuccess )
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "cannot init MFnTransfrom for right camera '%s' ...\n", rightCamPlug.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+					MObject rightCamNode = fnRightTrCam.child(0);
+					MFnCamera fnRightCam(rightCamNode, &status);
+					if( status != MS::kSuccess )
+					{
+						char errorMsg[512];
+						sprintf(errorMsg, "cannot init MFnCamera for right camera '%s' ...\n", fnRightTrCam.name().asChar());
+						//liquidMessage(errorMsg, messageError );
+						printf(errorMsg);
+						return MS::kFailure;
+					}
+
+					getCameraInfo( fnLeftCam, iter__->leftCamera[sample__] );
+					iter__->leftCamera[sample__].orthoWidth     = fnLeftCam.orthoWidth();
+					iter__->leftCamera[sample__].orthoHeight    = fnLeftCam.orthoWidth() * ((float)iter__->camera[sample__].height / (float)iter__->camera[sample__].width);
+					iter__->leftCamera[sample__].focalLength    = fnLeftCam.focalLength();
+					iter__->leftCamera[sample__].focalDistance  = fnLeftCam.focusDistance();
+					iter__->leftCamera[sample__].fStop          = fnLeftCam.fStop();
+					iter__->leftCamera[sample__].isOrtho		= fnLeftCam.isOrtho();
+					iter__->leftCamera[sample__].name			= fnLeftCam.name();
+					getCameraFilmOffset( fnLeftCam, iter__->leftCamera[sample__] );
+					// convert focal length to scene units
+					MDistance flenLDist(iter__->leftCamera[sample__].focalLength, MDistance::kMillimeters);
+					iter__->leftCamera[sample__].focalLength = flenLDist.as(MDistance::uiUnit());
+					getCameraTransform( fnLeftCam, iter__->leftCamera[sample__] );
+					// scanScene: The camera's fov may not match the rendered image in Maya
+					// if a film-fit is used. 'fov_ratio' is used to account for
+					// this.
+					//
+					//iter->leftCamera[sample].hFOV = fnLeftCam.horizontalFieldOfView()/iter->leftCamera[sample].fov_ratio;
+					iter__->leftCamera[sample__].hFOV   = iter__->camera[sample__].hFOV;
+					iter__->leftCamera[sample__].neardb = iter__->camera[sample__].neardb;
+					iter__->leftCamera[sample__].fardb  = iter__->camera[sample__].fardb;
+
+					getCameraInfo( fnRightCam, iter__->rightCamera[sample__] );
+					iter__->rightCamera[sample__].orthoWidth	= fnRightCam.orthoWidth();
+					iter__->rightCamera[sample__].orthoHeight	= fnRightCam.orthoWidth() * ((float)iter__->camera[sample__].height / (float)iter__->camera[sample__].width);
+					iter__->rightCamera[sample__].focalLength	= fnRightCam.focalLength();
+					iter__->rightCamera[sample__].focalDistance	= fnRightCam.focusDistance();
+					iter__->rightCamera[sample__].fStop			= fnRightCam.fStop();
+					iter__->rightCamera[sample__].isOrtho		= fnRightCam.isOrtho();
+					iter__->rightCamera[sample__].name			= fnRightCam.name();
+					getCameraFilmOffset( fnRightCam, iter__->rightCamera[sample__] );
+					// convert focal length to scene units
+					MDistance flenRDist(iter__->rightCamera[sample__].focalLength, MDistance::kMillimeters);
+					iter__->rightCamera[sample__].focalLength = flenRDist.as(MDistance::uiUnit());
+					getCameraTransform( fnRightCam, iter__->rightCamera[sample__] );
+					// scanScene: The camera's fov may not match the rendered image in Maya
+					// if a film-fit is used. 'fov_ratio' is used to account for
+					// this.
+					//
+					//iter->rightCamera[sample].hFOV = fnRightCam.horizontalFieldOfView()/iter->rightCamera[sample].fov_ratio;
+					iter__->rightCamera[sample__].hFOV   = iter__->camera[sample__].hFOV;
+					iter__->rightCamera[sample__].neardb = iter__->camera[sample__].neardb;
+					iter__->rightCamera[sample__].fardb  = iter__->camera[sample__].fardb;
+
+					iter__->camera[sample__].rightCam = &(iter__->rightCamera[sample__]);
+					iter__->camera[sample__].leftCam  = &(iter__->leftCamera[sample__]);
+				}
+				iter__->isStereoPass = isStereoCamera;
+				iter__->aspectRatio  = liqglo.aspectRatio;
+				//[refactor 12.1] end 
+				//////////////////////////////////////////////////////////////////////////
 
 				// scanScene: Determine what information to write out (RGB, alpha, zbuffer)
 				//
@@ -919,30 +1010,36 @@ void liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , cons
 				}
 				boolPlug = fnCamera.findPlug( "depth" );
 				boolPlug.getValue( isOn );
-				if( isOn ) {
-					// We are writing z-buffer info
-					//
-					iter__->imageMode = "z";
-					iter__->format = "zfile";
-				}
-	//[refactor 12] 
+				if( isOn ) 
+				{
+					if ( !isStereoCamera  )
+					{
+						// We are writing z-buffer info
+						//
+						iter__->imageMode = "z";
+						iter__->format = "zfile";
+					}else
+						liquidMessage( "Cannot render depth for stereo camera.", messageWarning );
+				}// isOn && !isStereoCamera
+	//[refactor 12] end
+	return MS::kSuccess;
 }
 //
 void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const int sample__)
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::getLightData(iter__,"<<sample__<<")");
 	MStatus status;
-	//[refactor 13] 
+	//[refactor 13] begin from liqRibTranslator::scanScene()
 	// scanScene: doing shadow render
 	//
-	MDagPath path;
+	MDagPath lightPath;
 	MFnLight   fnLight( iter__->path );
 	status.clear();
 
 	iter__->gotJobOptions = false;
 	if ( liquidGetPlugValue( fnLight, "ribOptions", iter__->jobOptions, status ) ==  MS::kSuccess )
 		iter__->gotJobOptions = true;
-
+	iter__->isStereoPass = false;
 	// philippe: this block is obsolete as we now get the resolution when building the job list
 	//
 	/* MPlug lightPlug = fnLight.findPlug( "dmapResolution" );
@@ -955,8 +1052,8 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 		// scanScene: the light uses a shadow cam
 		//
 		MFnCamera fnCamera( iter__->shadowCamPath );
-		fnCamera.getPath(path);
-		MTransformationMatrix xform( path.inclusiveMatrix() );
+		fnCamera.getPath(lightPath);
+		MTransformationMatrix xform( lightPath.inclusiveMatrix() );
 
 		// the camera is pointing toward negative Z
 		double scale[] = { 1, 1, -1 };
@@ -977,8 +1074,8 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 		//
 
 		// get the camera world matrix
-		fnLight.getPath(path);
-		MTransformationMatrix xform( path.inclusiveMatrix() );
+		fnLight.getPath(lightPath);
+		MTransformationMatrix xform( lightPath.inclusiveMatrix() );
 
 		// the camera is pointing toward negative Z
 		double scale[] = { 1, 1, -1 };
@@ -1082,7 +1179,7 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 		iter__->imageMode += "z";
 		iter__->format = "shadow";
 	}
-	//[refactor 13] 
+	//[refactor 13] end
 }
 //
 // MString liqRibTranslator::getBaseShadowName(const structJob &job__)
@@ -1373,6 +1470,7 @@ MStatus liqRibTranslator::MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagP
 	CM_TRACE_FUNC("liqRibTranslatorNew::MaxtrixMotionBlur("<<ribNode__->name.asChar()<<","<<path__.fullPathName().asChar()<<","<<bMotionBlur<<")");
 	MMatrix matrix;
 
+	//refactor 30 from liqRibTranslator::objectBlock()
 	if( bMotionBlur)
 	{
 		LIQDEBUGPRINTF( "-> writing matrix motion blur data\n" );
@@ -1382,13 +1480,52 @@ MStatus liqRibTranslator::MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagP
 		else
 			RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
 	}
+#if 1
 	RtMatrix ribMatrix;
 	matrix = ribNode__->object( 0 )->matrix( path__.instanceNumber() );
 	matrix.get( ribMatrix );
 
 	if( liqglo.liqglo_relativeTransforms ) 
-		RiConcatTransform( ribMatrix ); else RiTransform( ribMatrix );
+		RiConcatTransform( ribMatrix );
+	else 
+		RiTransform( ribMatrix );
+#elif 0  // Bat : a way to have double transforms :
+	double doubleTransformMatrix[4][4];
+	matrix = ribNode->object( 0 )->matrix( path.instanceNumber() );
+	matrix.get( doubleTransformMatrix );
 
+	int txIntPart = (int)(doubleTransformMatrix[3][0]);
+	float txFloatPart = doubleTransformMatrix[3][0] - txIntPart;
+
+	int tyIntPart = (int)(doubleTransformMatrix[3][1]);
+	float tyFloatPart = doubleTransformMatrix[3][1] - tyIntPart;
+
+	int tzIntPart = (int)(doubleTransformMatrix[3][2]);
+	float tzFloatPart = doubleTransformMatrix[3][2] - tzIntPart;
+
+	RtFloat floatTransformMatrixWithIntegerTranslatePart[4][4];
+	matrix.get( floatTransformMatrixWithIntegerTranslatePart );
+	RtFloat floatIdentityMatrixWithFloatingTranslatePart[4][4] = { {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1} };
+
+	floatTransformMatrixWithIntegerTranslatePart[3][0] = txIntPart;
+	floatTransformMatrixWithIntegerTranslatePart[3][1] = tyIntPart;
+	floatTransformMatrixWithIntegerTranslatePart[3][2] = tzIntPart;
+
+	floatIdentityMatrixWithFloatingTranslatePart[3][0] = txFloatPart;
+	floatIdentityMatrixWithFloatingTranslatePart[3][1] = tyFloatPart;
+	floatIdentityMatrixWithFloatingTranslatePart[3][2] = tzFloatPart;
+
+	if( liqglo_relativeTransforms )
+	{
+		RiConcatTransform( floatIdentityMatrixWithFloatingTranslatePart );
+		RiConcatTransform( floatTransformMatrixWithIntegerTranslatePart );
+	}
+	else
+	{
+		RiTransform( floatIdentityMatrixWithFloatingTranslatePart );
+		RiConcatTransform( floatTransformMatrixWithIntegerTranslatePart );
+	}
+#endif
 	// Output the world matrices for the motionblur
 	// This will override the current transformation setting
 	if( bMotionBlur)
@@ -1405,6 +1542,7 @@ MStatus liqRibTranslator::MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagP
 		}
 		RiMotionEnd();
 	}
+	//refactor 30 end
 	return MS::kSuccess;
 }
 MStatus liqRibTranslator::preShapeMel(const MObject &transform__)
@@ -1474,7 +1612,9 @@ MStatus liqRibTranslator::checkSurfaceShader(
 			MFnDependencyNode shaderDepNode( rmShaderNodeObj );
 			//std::cout <<"path="<<path.fullPathName()<<", shaderDepNode.typeName()="<<shaderDepNode.typeName()<<std::endl;
 			// philippe : we must check the node type to avoid checking in regular maya shaders
-			if( shaderDepNode.typeName() == "liquidSurface" || shaderDepNode.typeName() == "liquidShader" || shaderDepNode.typeName() == "oldBlindDataBase" ) 
+			if( shaderDepNode.typeName() == "liquidSurface" 
+				|| shaderDepNode.typeName() == "liquidShader" 
+				|| shaderDepNode.typeName() == "oldBlindDataBase" ) 
 			{ //cout <<"setting shader"<<endl;
 				ribNode__->assignedShader.setObject( rmShaderNodeObj );
 				hasSurfaceShader__ = true;
@@ -1558,7 +1698,9 @@ MStatus liqRibTranslator::checkDisplacementShader(
 			rmShaderNodeObj = rmShaderNodeArray[0].node();
 			MFnDependencyNode shaderDepNode( rmShaderNodeObj );
 			// philippe : we must check the node type to avoid checking in regular maya shaders
-			if( shaderDepNode.typeName() == "liquidDisplacement" || shaderDepNode.typeName() == "oldBlindDataBase" ) 
+			if( shaderDepNode.typeName() == "liquidDisplacement" 
+//added in r773 || shaderDepNode.typeName() == "liquidDisplacementSwitcher"
+				|| shaderDepNode.typeName() == "oldBlindDataBase" ) 
 			{
 				ribNode__->assignedDisp.setObject( rmShaderNodeObj );
 				hasDisplacementShader__ = true;
@@ -1622,47 +1764,47 @@ MStatus liqRibTranslator::displacementBounds(const liqRibNodePtr &ribNode__)
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::displacementBounds("<<ribNode__->name.asChar()<<")");
 	MStatus status;
-
-	float surfaceDisplacementBounds = 0.0;
-	MString surfaceDisplacementBoundsSpace = "shader";
-	MString tmpSpace = "";
-	status.clear();
-	if( !ribNode__->assignedShader.object().isNull() ) 
-	{
-		MPlug sDBPlug = ribNode__->assignedShader.findPlug( MString( "displacementBound" ), &status );
-		if( status == MS::kSuccess ) 
-			sDBPlug.getValue( surfaceDisplacementBounds );
-		MPlug sDBSPlug = ribNode__->assignedShader.findPlug( MString( "displacementBoundSpace" ), &status );
-		if( status == MS::kSuccess ) 
-			sDBSPlug.getValue( tmpSpace );
-		if( tmpSpace != "" ) 
-			surfaceDisplacementBoundsSpace = tmpSpace;
-	}
-	float dispDisplacementBounds = 0.0;
-	MString dispDisplacementBoundsSpace = "shader";
-	tmpSpace = "";
-	status.clear();
-	if( !ribNode__->assignedDisp.object().isNull() ) 
-	{
-		MPlug dDBPlug = ribNode__->assignedDisp.findPlug( MString( "displacementBound" ), &status );
-		if( status == MS::kSuccess ) 
-			dDBPlug.getValue( dispDisplacementBounds );
-		MPlug sDBSPlug = ribNode__->assignedDisp.findPlug( MString( "displacementBoundSpace" ), &status );
-		if( status == MS::kSuccess ) 
-			sDBSPlug.getValue( tmpSpace );
-		if( tmpSpace != "" ) 
-			dispDisplacementBoundsSpace = tmpSpace;
-	}
-	if( ( dispDisplacementBounds != 0.0 ) && ( dispDisplacementBounds > surfaceDisplacementBounds ) ) 
-	{
-		RtString coordsys( const_cast< char* >( dispDisplacementBoundsSpace.asChar() ) );
-		RiAttribute( "displacementbound", (RtToken) "sphere", &dispDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
-	} 
-	else if( ( surfaceDisplacementBounds != 0.0 ) ) 
-	{
-		RtString coordsys( const_cast< char* >( surfaceDisplacementBoundsSpace.asChar() ) );
-		RiAttribute( "displacementbound", (RtToken) "sphere", &surfaceDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
-	}
+// 	displacement bounds
+// 		float surfaceDisplacementBounds = 0.0;
+// 		MString surfaceDisplacementBoundsSpace = "shader";
+// 		MString tmpSpace = "";
+// 		status.clear();
+// 		if( !ribNode__->assignedShader.object().isNull() ) 
+// 		{
+// 			MPlug sDBPlug = ribNode__->assignedShader.findPlug( MString( "displacementBound" ), &status );
+// 			if( status == MS::kSuccess ) 
+// 				sDBPlug.getValue( surfaceDisplacementBounds );
+// 			MPlug sDBSPlug = ribNode__->assignedShader.findPlug( MString( "displacementBoundSpace" ), &status );
+// 			if( status == MS::kSuccess ) 
+// 				sDBSPlug.getValue( tmpSpace );
+// 			if( tmpSpace != "" ) 
+// 				surfaceDisplacementBoundsSpace = tmpSpace;
+// 		}
+// 		float dispDisplacementBounds = 0.0;
+// 		MString dispDisplacementBoundsSpace = "shader";
+// 		tmpSpace = "";
+// 		status.clear();
+// 		if( !ribNode__->assignedDisp.object().isNull() ) 
+// 		{
+// 			MPlug dDBPlug = ribNode__->assignedDisp.findPlug( MString( "displacementBound" ), &status );
+// 			if( status == MS::kSuccess ) 
+// 				dDBPlug.getValue( dispDisplacementBounds );
+// 			MPlug sDBSPlug = ribNode__->assignedDisp.findPlug( MString( "displacementBoundSpace" ), &status );
+// 			if( status == MS::kSuccess ) 
+// 				sDBSPlug.getValue( tmpSpace );
+// 			if( tmpSpace != "" ) 
+// 				dispDisplacementBoundsSpace = tmpSpace;
+// 		}
+// 		if( ( dispDisplacementBounds != 0.0 ) && ( dispDisplacementBounds > surfaceDisplacementBounds ) ) 
+// 		{
+// 			RtString coordsys( const_cast< char* >( dispDisplacementBoundsSpace.asChar() ) );
+// 			RiAttribute( "displacementbound", (RtToken) "sphere", &dispDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+// 		} 
+// 		else if( ( surfaceDisplacementBounds != 0.0 ) ) 
+// 		{
+// 			RtString coordsys( const_cast< char* >( surfaceDisplacementBoundsSpace.asChar() ) );
+// 			RiAttribute( "displacementbound", (RtToken) "sphere", &surfaceDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+// 		}
 	return MS::kSuccess;
 }
 //
@@ -2428,23 +2570,49 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 	MTime oneSecond( 1, MTime::kSeconds );
 	liqglo.liqglo_FPS = oneSecond.as( MTime::uiUnit() );
 
-	// check to see if the output camera, if specified, is available
-	if( liqglo.liquidBin && ( liqglo.renderCamera == "" ) ) 
+	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
+	//[refactor][1.1.1 begin] from _doIt()
+	if ( !m_exportOnlyObjectBlock )
 	{
-		liquidMessage( "No render camera specified!", messageError );
-		return MS::kFailure;
-	}
-	if( liqglo.renderCamera != MString("") ) 
-	{
-		MStatus selectionStatus;
-		MSelectionList camList;
-		selectionStatus = camList.add( liqglo.renderCamera );
-		if( selectionStatus != MS::kSuccess ) 
+		MStatus camStatus;
+		// check to see if the output camera, if specified, is available
+		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
 		{
-			liquidMessage( "Invalid render camera!", messageError );
+			liquidMessage( "No render camera specified!", messageError );
 			return MS::kFailure;
 		}
+		if( liqglo.renderCamera != MString("") ) 
+		{
+			MStatus selectionStatus;
+			MSelectionList camList;
+			selectionStatus = camList.add( liqglo.renderCamera );
+			if( selectionStatus != MS::kSuccess ) 
+			{
+				liquidMessage( "Invalid render camera!", messageError );
+				return MS::kFailure;
+			}
+			camList.getDagPath(0, m_camDagPath);
+		}
+		else{
+			m_activeView.getCamera( m_camDagPath );
+		}
+		// check stereo camera
+		MFnCamera fnCamera( m_camDagPath, &camStatus );
+		if ( camStatus != MS::kSuccess )
+		{
+			liquidMessage( "Cannot create FN for render camera!", messageError );
+			return MS::kFailure;
+		}
+		MString camType = fnCamera.typeName();
+		if ( camType == "stereoRigCamera" )
+			m_isStereoCamera = true;
 	}
+	else
+	{
+		liqglo.liqglo_renderCamera = "";
+		liqglo.liqglo_beautyRibHasCameraName = 0;
+	}
+	//[refactor][1.1.1 end] from _doIt()
 
 	// check to see if all the directories we are working with actually exist.
 	/*if( verifyOutputDirectories() ) {
@@ -2693,23 +2861,49 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 	MTime oneSecond( 1, MTime::kSeconds );
 	liqglo.liqglo_FPS = oneSecond.as( MTime::uiUnit() );
 
-	// check to see if the output camera, if specified, is available
-	if( liqglo.liquidBin && ( liqglo.renderCamera == "" ) ) 
+	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
+	//[refactor][1.1.1 begin] from _doIt()
+	if ( !m_exportOnlyObjectBlock )
 	{
-		liquidMessage( "No render camera specified!", messageError );
-		return MS::kFailure;
-	}
-	if( liqglo.renderCamera != MString("") ) 
-	{
-		MStatus selectionStatus;
-		MSelectionList camList;
-		selectionStatus = camList.add( liqglo.renderCamera );
-		if( selectionStatus != MS::kSuccess ) 
+		MStatus camStatus;
+		// check to see if the output camera, if specified, is available
+		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
 		{
-			liquidMessage( "Invalid render camera!", messageError );
+			liquidMessage( "No render camera specified!", messageError );
 			return MS::kFailure;
 		}
+		if( liqglo.renderCamera != MString("") ) 
+		{
+			MStatus selectionStatus;
+			MSelectionList camList;
+			selectionStatus = camList.add( liqglo.renderCamera );
+			if( selectionStatus != MS::kSuccess ) 
+			{
+				liquidMessage( "Invalid render camera!", messageError );
+				return MS::kFailure;
+			}
+			camList.getDagPath(0, m_camDagPath);
+		}
+		else{
+			m_activeView.getCamera( m_camDagPath );
+		}
+		// check stereo camera
+		MFnCamera fnCamera( m_camDagPath, &camStatus );
+		if ( camStatus != MS::kSuccess )
+		{
+			liquidMessage( "Cannot create FN for render camera!", messageError );
+			return MS::kFailure;
+		}
+		MString camType = fnCamera.typeName();
+		if ( camType == "stereoRigCamera" )
+			m_isStereoCamera = true;
 	}
+	else
+	{
+		liqglo.liqglo_renderCamera = "";
+		liqglo.liqglo_beautyRibHasCameraName = 0;
+	}
+	//[refactor][1.1.1 end] from _doIt()
 
 	// check to see if all the directories we are working with actually exist.
 	/*if( verifyOutputDirectories() ) {
@@ -3100,7 +3294,7 @@ void liqRibTranslator::F1(
 						  )
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::F1("<<ribNode__->name.asChar()<<","<<currentShader.getName()<<")");
-	// Output color overrides or color
+	// Output color overrides or color ====>>>>>  WILL BE DONE IN liqShader::write -begin //r773 going to omit in r773
 	if(ribNode__->shading.color.r != -1.0)
 	{
 		RtColor rColor;
@@ -3122,6 +3316,7 @@ void liqRibTranslator::F1(
 	}
 	else
 		RiOpacity( currentShader.rmOpacity );
+	//====>>>>>  WILL BE DONE IN liqShader::write  -end
 }
 
 ////////////////////////////////////////

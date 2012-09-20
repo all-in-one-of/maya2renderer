@@ -191,6 +191,16 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 {
 	CM_TRACE_FUNC("tShadowRibWriterMgr::framePrologue_display(job="<<currentJob.name.asChar()<<")");
 
+	//refactor 14-1 begin from liqRibTranslator::framePrologue()
+	if( true == false && liqglo.liqglo_rotateCamera  == true )
+	{
+		// philippe : Rotated Camera Case
+		RiFormat( currentJob.height, currentJob.width, currentJob.aspectRatio );
+	}else{
+		RiFormat( currentJob.width, currentJob.height, currentJob.aspectRatio );
+	}
+	//refactor 14-1 end
+
 			if( !/*liqglo.liqglo_*/currentJob.deepShadows || /*liqglo.liqglo_*/currentJob.shadowPixelSamples == 1)
 			{	
 				//refactor 15
@@ -221,7 +231,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			//-----------------------------------------------------
 			LIQDEBUGPRINTF( "-> Setting Display Options\n" );
 			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
-			//refactor 17
+			//refactor 17 begin
 			if( !/*liqglo.liqglo_*/currentJob.isMinMaxShadow )
 			{
 				if( /*liqglo.liqglo_*/currentJob.deepShadows )
@@ -285,6 +295,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					"minmax", &minmax,
 					RI_NULL );
 			}
-			//refactor 17
+			//r775 exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
+			//refactor 17 end
 }
 //

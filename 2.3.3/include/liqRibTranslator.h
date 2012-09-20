@@ -91,6 +91,9 @@ private: // Methods
 	void getCameraFilmOffset( MFnCamera& cam, structCamera &camStruct );//r773
 	void setSearchPaths();
 	void setOutDirs();
+#ifdef Refactoring 
+public: 
+#endif
 	void exportJobCamera(const structJob &job, const structCamera camera[]);//r773
 	MString verifyResourceDir( const char *resourceName, MString resourceDir, bool &problem );
 	bool verifyOutputDirectories();
@@ -138,12 +141,13 @@ private: // Data
 	};
 	MRibStatus ribStatus;
 
-	MDagPath m_camDagPath;//r773
-	bool m_isStereoCamera;//r773
-	// Render Globals and RIB Export Options
 #ifdef Refactoring 
 public: 
 #endif
+	MDagPath m_camDagPath;//r773
+	bool m_isStereoCamera;//r773
+	// Render Globals and RIB Export Options
+
 	std::vector<structJob>  jobList;
 	std::vector<structJob>  shadowList;
 
@@ -437,7 +441,7 @@ public:
 	void dealwithParticleInstancedObjects(
 		const float lframe__, const int sample__,
 		int &count__ );
-	void getCameraData( std::vector<structJob>::iterator &iter__ , const int sample__);
+	MStatus getCameraData( std::vector<structJob>::iterator &iter__ , const int sample__);
 	void getLightData( std::vector<structJob>::iterator &iter__ , const int sample__);
 
 

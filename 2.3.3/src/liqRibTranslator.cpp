@@ -1808,10 +1808,12 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 // 			m_renderCommand = m_renderCommand + " -Progress";
 	//[refactor][1.1 end] to _doItNew()
 
-	// check to see if the output camera, if specified, is available
+	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
+	//[refactor][1.1.1 begin] to _doItNewWithRenderScript()/_doItNewWithoutRenderScript()
 	if ( !m_exportOnlyObjectBlock )
 	{
 		MStatus camStatus;
+		// check to see if the output camera, if specified, is available
 		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
 		{
 			liquidMessage( "No render camera specified!", messageError );
@@ -1848,6 +1850,8 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 		liqglo.liqglo_renderCamera = "";
 		liqglo.liqglo_beautyRibHasCameraName = 0;
 	}
+	//[refactor][1.1.1 end] to _doItNewWithRenderScript()/_doItNewWithoutRenderScript()
+
 	// check to see if all the directories we are working with actually exist.
 	/*if( verifyOutputDirectories() ) {
 	MString err( "The output directories are not properly setup in the globals" );
@@ -4418,7 +4422,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				if( MS::kSuccess != returnStatus )
 					continue;
 			}
-			//[refactor 11.1] 
+			//[refactor 11.1] begin
 			// scanScene: Now deal with all the particle-instanced objects (where a
 			// particle is replaced by an object or group of objects).
 			//
@@ -4437,7 +4441,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					htable->insert( path, lframe, 0, MRT_Unknown,count++, &instanceMatrix, instanceStr, instancerIter.particleId() );
 				instancerIter.next();
 			}
-			//[refactor 11.1] 
+			//[refactor 11.1] end
 
 		}
 		else
@@ -4464,7 +4468,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 						continue;
 				}
 			}
-			//[refactor 11.1] 
+			//[refactor 11.1] begin
 			// scanScene: Now deal with all the particle-instanced objects (where a
 			// particle is replaced by an object or group of objects).
 			//
@@ -4485,7 +4489,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					htable->insert( path, lframe, 0, MRT_Unknown,count++, &instanceMatrix, instanceStr, instancerIter.particleId() );
 				instancerIter.next();
 			}
-			//[refactor 11.1] 
+			//[refactor 11.1] end
 		}
 
 		vector<structJob>::iterator iter = jobList.begin();
@@ -4497,7 +4501,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 
 			if( !iter->isShadow ) 
 			{
-				//[refactor 12] 
+				//[refactor 12] begin to liqRibTranslator::getCameraData()
 				MDagPath path;
 				MFnCamera   fnCamera( iter->path );
 				iter->gotJobOptions = false;
@@ -4552,6 +4556,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				iter->camera[sample].focalLength = flenDist.as(MDistance::uiUnit());
 				getCameraTransform( fnCamera, iter->camera[sample] );
 				//////////////////////////////////////////////////////////////////////////
+				//[refactor 12.1] begin to liqRibTranslator::getCameraData()
 				// check stereo
 				MString camType = fnCamera.typeName();
 				bool isStereoCamera = false;
@@ -4711,6 +4716,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				}
 				iter->isStereoPass = isStereoCamera;
 				iter->aspectRatio = liqglo.aspectRatio;
+				//[refactor 12.1] end
 				//////////////////////////////////////////////////////////////////////////
 				
 				// scanScene: Determine what information to write out (RGB, alpha, zbuffer)
@@ -4751,11 +4757,11 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					}else
 						liquidMessage( "Cannot render depth for stereo camera.", messageWarning );
 				} // isOn && !isStereoCamera
-				//[refactor 12] 
+				//[refactor 12] end
 			} 
 			else 
 			{
-				//[refactor 13] 
+				//[refactor 13] begin to liqRibTranslator::getLightData()
 				// scanScene: doing shadow render
 				//
 				MDagPath lightPath;
@@ -4905,7 +4911,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					iter->imageMode += "z";
 					iter->format = "shadow";
 				}
-				//[refactor 13] 
+				//[refactor 13] end
 			}
 			++iter;
 		}
@@ -5009,6 +5015,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 	{
 		RiFrameBegin( lframe );
 
+		//refactor 14-1 begin to tShadowRibWriterMgr::framePrologue_display()/tHeroRibWriterMgr::framePrologue_display()
 		if( liqglo_currentJob.isShadow == false && liqglo.liqglo_rotateCamera  == true )
 		{
 			// philippe : Rotated Camera Case
@@ -5018,10 +5025,11 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 		{
 			RiFormat( liqglo_currentJob.width, liqglo_currentJob.height, liqglo_currentJob.aspectRatio );
 		}
+		//refactor 14-1 end
 
 		if( !liqglo_currentJob.isShadow )
 		{
-			//refactor 14
+			//refactor 14 begin to tHeroRibWriterMgr::framePrologue_display()
 			// Smooth Shading
 			RiShadingInterpolation( "smooth" );
 			// Quantization
@@ -5039,7 +5047,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 			{
 				RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
 			}
-			//refactor 14
+			//refactor 14 end
 		}
 		if( liqglo_currentJob.isShadow &&
 			( !liqglo_currentJob.deepShadows ||
@@ -5074,7 +5082,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 		if( liqglo_currentJob.isShadow )
 		{
 			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
-			//refactor 17
+			//refactor 17 begin
 			if( !liqglo_currentJob.isMinMaxShadow )
 			{
 				if( liqglo_currentJob.deepShadows )
@@ -5139,11 +5147,11 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 					RI_NULL );
 			}
 			//r775 exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
-			//refactor 17
+			//refactor 17 end
 		}
 		else
 		{
-			//refactor 18
+			//refactor 18 begin
 			if( ( liqglo.m_cropX1 != 0.0 ) || ( liqglo.m_cropY1 != 0.0 ) || ( liqglo.m_cropX2 != 1.0 ) || ( liqglo.m_cropY2 != 1.0 ) ) 
 			{
 				// philippe : handle the rotated camera case
@@ -5471,10 +5479,10 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 				m_displays_iterator++;
 			}
 			//refactor 19
-			//refactor 18
+			//refactor 18 end
 		}
 
-		//refactor 20
+		//refactor 20 begin to tRibCameraMgr::framePrologue_camera()
 		LIQDEBUGPRINTF( "-> Setting Resolution\n" );
 //moved to above
 // 		// philippe : Rotated Camera Case
@@ -5637,7 +5645,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 // 			}
 // 			RiMotionEnd();
 // 		}
-		//refactor 20
+		//refactor 20 end
 	}
 	
 	return MS::kSuccess;
@@ -5801,7 +5809,7 @@ MStatus liqRibTranslator::objectBlock()
 				}
 			}
 		}
-
+		//refactor 30 to liqRibTranslator::MaxtrixMotionBlur()
 		if( liqglo.liqglo_doMotion &&
 			ribNode->motion.transformationBlur &&
 			( ribNode->object( 1 ) ) &&
@@ -5881,6 +5889,7 @@ MStatus liqRibTranslator::objectBlock()
 			}
 			RiMotionEnd();
 		}
+		//refactor 30 end
 
 		// Alf: postTransformMel
 		prePostPlug = fnTransform.findPlug( "liqPostTransformMel" );
@@ -6911,13 +6920,16 @@ MStatus liqRibTranslator::objectBlock()
 		m_preShapeMel = prePostPlug.asString();
 		if( m_preShapeMel != "" )
 			MGlobal::executeCommand( m_preShapeMel );
-//added in r773
-// 		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
-// 		//if( !ribNode->object(0)->receiveShadow )
+
+		//refactor 31 begin to renderman::Renderer::exportOneObject_reference()
+//added in r773, but I omitted this section temperately 		
+		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
+ 		//if( !ribNode->object(0)->receiveShadow )
 // 		{
 // 			int receiveShadows = ribNode->object(0)->receiveShadow;
 // 			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
 // 		}
+		//refactor 31 end
 
 		if( !ribNode->ignoreShapes ) 
 		{

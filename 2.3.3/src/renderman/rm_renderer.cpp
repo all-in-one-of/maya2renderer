@@ -480,6 +480,15 @@ namespace renderman
 		// Geometry ////////////////////////////////////////////////////////////////////////
 		// Alf: preShapeMel
 		liqRibTranslator::getInstancePtr()->preShapeMel(transform);
+		//refactor 31 begin from liqRibTranslator::objectBlock()
+//added in r773, but I omitted this section temperately 
+		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
+		//if( !ribNode->object(0)->receiveShadow )
+// 		{
+// 			int receiveShadows = ribNode__->object(0)->receiveShadow;
+// 			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
+// 		}
+		//refactor 31 end
 
 		if( !ribNode__->ignoreShapes ) 
 		{
@@ -1175,8 +1184,8 @@ namespace renderman
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block1("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
-		// displacement bounds
-		liqRibTranslator::getInstancePtr()->displacementBounds(ribNode);
+		// displacement bounds £¨ommited in r773£©
+		//liqRibTranslator::getInstancePtr()->displacementBounds(ribNode);
 
 		LIQDEBUGPRINTF( "-> writing node attributes\n" );
 		// if the node's shading rate == -1,

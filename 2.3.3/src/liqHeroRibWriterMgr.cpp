@@ -181,7 +181,17 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::framePrologue_display("<<currentJob.name.asChar()<<")");
 	
-			//refactor 14
+	//refactor 14-1 begin from liqRibTranslator.framePrologue()
+	if( false == false && liqglo.liqglo_rotateCamera  == true )
+	{
+		// philippe : Rotated Camera Case
+		RiFormat( currentJob.height, currentJob.width, currentJob.aspectRatio );
+	}else{
+		RiFormat( currentJob.width, currentJob.height, currentJob.aspectRatio );
+	}
+	//refactor 14-1 end
+
+			//refactor 14 begin from liqRibTranslator::framePrologue()
 			// Smooth Shading
 			RiShadingInterpolation( "smooth" );
 			// Quantization
@@ -199,9 +209,9 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			{
 				RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
 			}
-			//refactor 14
+			//refactor 14 end
 			LIQDEBUGPRINTF( "-> Setting Display Options\n" );
-			//refactor 18
+			//refactor 18 begin
 			if( ( liqglo.m_cropX1 != 0.0 ) || ( liqglo.m_cropY1 != 0.0 ) || ( liqglo.m_cropX2 != 1.0 ) || ( liqglo.m_cropY2 != 1.0 ) ) 
 			{
 				// philippe : handle the rotated camera case
@@ -210,6 +220,20 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				else 
 					RiCropWindow( liqglo.m_cropX1, liqglo.m_cropX2, liqglo.m_cropY1, liqglo.m_cropY2 );
 			}
+
+			if ( !currentJob.isStereoPass ) 
+				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.camera );
+			else
+			{
+				// export right camera
+				RiTransformBegin();
+				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.rightCamera );
+				RiArchiveRecord( RI_VERBATIM, "Camera \"%s\"", "right" );//RiCameraV( "right", 0, (char**)RI_NULL, (void**)RI_NULL );
+				RiTransformEnd();
+				// export left camera
+				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.leftCamera );
+			}
+
 			// display channels
 			if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 
 			{
@@ -225,7 +249,9 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 
 				std::vector<StructChannel>::iterator m_channels_iterator;
 				m_channels_iterator = liqglo.m_channels.begin();
-
+				
+				bool isCiDeclared = 0;
+				bool isADeclared = 0;
 				while ( m_channels_iterator != liqglo.m_channels.end() ) 
 				{
 					int       numTokens = 0;
@@ -299,15 +325,32 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 #if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
 					//if( liquidRenderer.renderName == MString("PRMan") )
 					RiDisplayChannelV( ( RtToken )channel.str().c_str(), numTokens, tokens, values );
+					if( channel == "color Ci" )
+					{
+						isCiDeclared = 1;
+					}
+					else if( channel == "float a" )
+					{
+						isADeclared = 1;
+					}
 #else
 					// || defined( GENERIC_RIBLIB )
-
 					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s\" %s %s %s",
 						const_cast< char* >( channel.str().c_str() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
-
 #endif
 					m_channels_iterator++;
 				}//while ( m_channels_iterator != m_channels.end() ) 
+#if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
+				if ( liqRibTranslator::getInstancePtr()->m_isStereoCamera && !currentJob.isShadow )
+				{
+					RtToken   *emptyTokens = NULL;
+					RtPointer *emptyValues = NULL;
+					if ( !isCiDeclared ) 
+						RiDisplayChannelV( ( RtToken )"color Ci", 0, emptyTokens, emptyValues );
+					if ( !isADeclared ) 
+						RiDisplayChannelV( ( RtToken )"float a", 0, emptyTokens, emptyValues );
+				}
+#endif
 			}//if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 
 			
 			
@@ -318,11 +361,45 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			std::vector<StructDisplay>::iterator m_displays_iterator;
 			m_displays_iterator = liqglo.m_displays.begin();
 
+			// create right display for stereo
+			if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )
+			{
+				StructDisplay rightStereoAov;
+				rightStereoAov.name = m_displays_iterator->name;
+				rightStereoAov.name = m_displays_iterator->name;
+				rightStereoAov.mode = "Ci,a";
+				if( m_displays_iterator->type == "it" )
+				{
+					rightStereoAov.type = "tiff"; // should be optionnal ?....
+				}
+				else
+				{
+					rightStereoAov.type = m_displays_iterator->type;
+				}
+				rightStereoAov.enabled = m_displays_iterator->enabled;
+				rightStereoAov.doQuantize = m_displays_iterator->doQuantize;
+				rightStereoAov.bitDepth = m_displays_iterator->bitDepth;
+				rightStereoAov.dither = m_displays_iterator->dither;
+				rightStereoAov.doFilter = m_displays_iterator->doFilter;
+				rightStereoAov.filter = m_displays_iterator->filter;
+				rightStereoAov.filterX = m_displays_iterator->filterX;
+				rightStereoAov.filterY = m_displays_iterator->filterY;
+				rightStereoAov.xtraParams = m_displays_iterator->xtraParams;
+				rightStereoAov.xtraParams.num = rightStereoAov.xtraParams.num + 1;
+				rightStereoAov.xtraParams.names.append("camera");
+				rightStereoAov.xtraParams.data.append("right");
+				rightStereoAov.xtraParams.type.append(0);  // string
+				m_displays_iterator ++;
+				liqglo.m_displays.insert( m_displays_iterator, rightStereoAov );
+				// replace iter at beginning
+				m_displays_iterator = liqglo.m_displays.begin();
+			}
+
 			std::string paramType[] = { "string ", "float ",  "int " };
 			
 			//refactor 19
 			while ( m_displays_iterator != liqglo.m_displays.end() ) 
-			{	
+			{
 				std::stringstream parameterString;
 				std::stringstream imageName;
 				std::string imageType;
@@ -365,6 +442,27 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						m_displays_iterator++;
 						continue;
 					}
+//added in r773, but omited in r775
+// 					// get display name
+// 					// defaults to scenename.0001.tif if left empty
+// 					imageName = (*m_displays_iterator).name;
+// 					if( imageName == "" )
+// 					{
+// 						if( m_isStereoCamera && m_displays_iterator == m_displays.begin() )
+// 						{
+// 							imageName = liqglo_sceneName + ".left.#." + outExt;
+// 						}
+// 						else if( m_isStereoCamera )
+// 						{
+// 							imageName = liqglo_sceneName + ".right.#." + outExt;
+// 						}
+// 						else
+// 						{
+// 							imageName = liqglo_sceneName + ".#." + outExt;
+// 						}
+// 					}
+// 					imageName = m_pixDir + parseString( imageName, false );
+
 					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
 					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
 					if ( m_displays_iterator == liqglo.m_displays.begin() ) {
@@ -379,7 +477,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					if( !isBatchMode() ){
 						imageType = ((*m_displays_iterator).type == "")? 
 							"framebuffer" : (*m_displays_iterator).type.asChar();
-					}else {// if in batch mode, we always use "file"
+					}else {// if in batch mode, we always use "file" -by yaoyansi
 						imageType = "file";
 					}
 					// get display mode ( rgb, z or defined display channel )
@@ -443,5 +541,5 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				m_displays_iterator++;
 			}//while ( m_displays_iterator != m_displays.end() )
 			//refactor 19
-			//refactor 18
+			//refactor 18 end
 }
