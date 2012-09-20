@@ -228,7 +228,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				// export right camera
 				RiTransformBegin();
 				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.rightCamera );
-				RiArchiveRecord( RI_VERBATIM, "Camera \"%s\"", "right" );//RiCameraV( "right", 0, (char**)RI_NULL, (void**)RI_NULL );
+				RiArchiveRecord( RI_VERBATIM, "Camera \"%s\"\n", "right" );//RiCameraV( "right", 0, (char**)RI_NULL, (void**)RI_NULL );
 				RiTransformEnd();
 				// export left camera
 				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.leftCamera );
@@ -325,11 +325,11 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 #if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
 					//if( liquidRenderer.renderName == MString("PRMan") )
 					RiDisplayChannelV( ( RtToken )channel.str().c_str(), numTokens, tokens, values );
-					if( channel == "color Ci" )
+					if( channel.str() == "color Ci" )
 					{
 						isCiDeclared = 1;
 					}
-					else if( channel == "float a" )
+					else if( channel.str() == "float a" )
 					{
 						isADeclared = 1;
 					}
@@ -341,7 +341,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					m_channels_iterator++;
 				}//while ( m_channels_iterator != m_channels.end() ) 
 #if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
-				if ( liqRibTranslator::getInstancePtr()->m_isStereoCamera && !currentJob.isShadow )
+				if ( liqRibTranslator::getInstancePtr()->m_isStereoCamera /*&& !currentJob.isShadow*/ )
 				{
 					RtToken   *emptyTokens = NULL;
 					RtPointer *emptyValues = NULL;
@@ -469,8 +469,14 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );  
 						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
 						imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();					
+						if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )
+							imageName<<".left.tif";
 					}else{
-						imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob ) ;
+						//imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob ) ;
+						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+						imageName <<"+"<<liqglo.m_pixDir.asChar() << parseString( (*m_displays_iterator).name, false ).asChar();
+						if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )
+							imageName<<".right.tif";
 					}
 
 					// get display type ( tiff, openexr, etc )
@@ -521,10 +527,13 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						parameterString << "\"";
 						parameterString << paramType[ (*m_displays_iterator).xtraParams.type[p] ];
 						parameterString << (*m_displays_iterator).xtraParams.names[p].asChar();
-						parameterString << "\" [";
-						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "":"\"";
-						parameterString << (*m_displays_iterator).xtraParams.data[p].asChar();
-						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "] ":"\"] ";
+						parameterString << "\" [";//value begin
+						if((*m_displays_iterator).xtraParams.type[p] == 0)//add "\"" for string value
+							parameterString << "\"";
+						parameterString << (*m_displays_iterator).xtraParams.data[p].asChar();//value
+						if((*m_displays_iterator).xtraParams.type[p] == 0)//add "\"" for string value
+							parameterString << "\"";
+						parameterString << "] ";//value end
 					}
 
 					RiArchiveRecord( RI_COMMENT, "Display 8");
