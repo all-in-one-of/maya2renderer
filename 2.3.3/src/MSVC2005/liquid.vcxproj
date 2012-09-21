@@ -2290,6 +2290,7 @@
     <ClCompile Include="..\liqRibCurvesData.cpp" />
     <ClCompile Include="..\liqRibData.cpp" />
     <ClCompile Include="..\liqRibGenData.cpp" />
+    <ClCompile Include="..\liqRibHierarchicalSubdivisionData.cpp" />
     <ClCompile Include="..\liqRibHT.cpp" />
     <ClCompile Include="..\liqRibImplicitSphereData.cpp" />
     <ClCompile Include="..\liqRibLightData.cpp" />
@@ -2395,6 +2396,7 @@
     <ClInclude Include="..\..\..\dependence\appleseed\eLut.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\half.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h" />
+    <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />

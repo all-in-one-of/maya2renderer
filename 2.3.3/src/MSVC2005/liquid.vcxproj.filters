@@ -523,6 +523,9 @@
     <ClCompile Include="..\appleseed\as_helper5.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqRibHierarchicalSubdivisionData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -908,6 +911,9 @@
     </ClInclude>
     <ClInclude Include="..\appleseed\as_helper5.h">
       <Filter>renderer\appleseed</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
