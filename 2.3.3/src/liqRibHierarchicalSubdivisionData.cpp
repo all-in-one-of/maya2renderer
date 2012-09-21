@@ -32,12 +32,14 @@
 ** Liquid Rib Subdivision Mesh Data Source
 ** ______________________________________________________________________
 */
-
-
+#include <liqRibHierarchicalSubdivisionData.h>
+// Standard/Boost headers
+#include <boost/scoped_array.hpp>
+#include <boost/shared_array.hpp>
 // Renderman headers
-extern "C" {
-#include <ri.h>
-}
+//extern "C" {
+#include "ri_interface.h"
+//}
 
 // Maya headers
 #include <maya/MPlug.h>
@@ -52,21 +54,12 @@ extern "C" {
 #include <maya/MUintArray.h>
 
 // Liquid headers
-#include <liquid.h>
+
 #include <liqGlobalHelpers.h>
-#include <liqRibHierarchicalSubdivisionData.h>
-
-// Standard/Boost headers
-#include <boost/scoped_array.hpp>
-#include <boost/shared_array.hpp>
-
+#include <liqGlobalVariable.h>
 
 using namespace boost;
 
-extern int debugMode;
-extern bool liqglo_outputMeshUVs;
-extern bool liqglo_outputMayaPolyCreases;  // use maya poly creases instead of liquid crease sets
-extern bool liqglo_useMtorSubdiv;  // interpret mtor subdiv attributes
 extern bool liqglo_outputMeshAsRMSArrays;
 
 
@@ -82,15 +75,17 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
     trueFacevarying( false ),
     interpolateBoundary( 0 )
 {
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData("<<MFnDagNode(mesh).fullPathName().asChar()<<")");
 	initializeSubdivParameters();
 
 	unsigned int i;
 	unsigned int j;
 	LIQDEBUGPRINTF( "-> creating subdivision surface\n" );
 	MFnMesh fnMesh( mesh );
+	objDagPath = fnMesh.dagPath();
 
 	name = fnMesh.name();
-	longName = fnMesh.fullPathName();
+	//longName = fnMesh.fullPathName();
 
 	checkExtraTags( mesh );
 
@@ -186,7 +181,7 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 				UVSetsArray.push_back( pFaceVertexPointerPair );
 			}
 
-			if( liqglo_outputMeshUVs )
+			if( liqglo.liqglo_outputMeshUVs )
 			{
 				// Match MTOR, which also outputs face-varying STs as well for some reason - Paul
 				// not anymore - Philippe
@@ -269,7 +264,7 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 						UVSetsArray[j].setTokenFloat( faceVertex, 1, 1-T );
 						//printf("V%d  %s : %f %f  =>  %f %f \n", i, uvSetName.asChar(), S, T, S, 1-T);
 
-						if( liqglo_outputMeshUVs && j==0)
+						if( liqglo.liqglo_outputMeshUVs && j==0)
 						{
 							// Match MTOR, which always outputs face-varying STs as well for some reason - Paul
 							pFaceVertexSPointer.setTokenFloat( faceVertex, S );
@@ -304,7 +299,7 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 		{
 			tokenPointerArray.insert( tokenPointerArray.end(), UVSetsArray.begin(), UVSetsArray.end() );
 		}
-		if( liqglo_outputMeshUVs )
+		if( liqglo.liqglo_outputMeshUVs )
 		{
 			tokenPointerArray.push_back( pFaceVertexSPointer );
 			tokenPointerArray.push_back( pFaceVertexTPointer );
@@ -341,6 +336,8 @@ liqRibHierarchicalSubdivisionData::~liqRibHierarchicalSubdivisionData()
 
 void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 {
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::initializeSubdivParameters()");
+
 	m_subdivScheme = "catmull-clark";
 	m_subdivNTags = 3;
 	m_subdivsNInts = 0;
@@ -388,9 +385,9 @@ void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 
 /** Write the RIB for this mesh.
  */
-void liqRibHierarchicalSubdivisionData::write()
+void liqRibHierarchicalSubdivisionData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
-  LIQDEBUGPRINTF( "-> writing hierarchical subdivision surface\n" );
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
   unsigned numTokens( tokenPointerArray.size() );
   scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
@@ -416,6 +413,8 @@ void liqRibHierarchicalSubdivisionData::write()
  */
 bool liqRibHierarchicalSubdivisionData::compare( const liqRibData & otherObj ) const
 {
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::compare("<<otherObj.getFullPathName()<<")");
+
   unsigned i;
   unsigned numFaceVertices = 0;
 
@@ -466,7 +465,10 @@ ObjectType liqRibHierarchicalSubdivisionData::type() const
 // If global flag liqglo_useMtorSubdiv is set, then procedure looks also
 // for analog mtor attributes
 //
-void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
+void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) 
+{
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::checkExtraTags("<<MFnDagNode(mesh).fullPathName().asChar()<<")");
+
 	MStatus status = MS::kSuccess;
 	MPlugArray array;
 	MFnMesh    fnMesh( mesh );
@@ -476,7 +478,7 @@ void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
 	// this is a temporary solution - the maya2008 polycreases are a bit crap in
 	// that they cannot be removed and there is no way at the moment to tag
 	// faces as holes in Maya to we keep the "set" way of doing it - Alf
-	if( liqglo_outputMayaPolyCreases )
+	if( liqglo.liqglo_outputMayaPolyCreases )
 	{
 		// this looks redundant but there is no other way to determine
 		// if the object has creases at all
@@ -518,7 +520,7 @@ void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
 					extraTagPlug.getValue( extraTagValue );
 					if( extraTagValue )// skip zero values
 					{
-						if( !liqglo_outputMayaPolyCreases )
+						if( !liqglo.liqglo_outputMayaPolyCreases )
 							addExtraTags( dstNode, extraTagValue, TAG_CREASE );
 					}
 				}
@@ -530,7 +532,7 @@ void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
 						extraTagPlug.getValue( extraTagValue );
 						if( extraTagValue ) // skip zero values
 						{
-							if( !liqglo_outputMayaPolyCreases )
+							if( !liqglo.liqglo_outputMayaPolyCreases )
 								addExtraTags( dstNode, extraTagValue, TAG_CORNER );
 						}
 					}
@@ -555,7 +557,7 @@ void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
 						}
 					}
 				}
-				if( liqglo_useMtorSubdiv )
+				if( liqglo.liqglo_useMtorSubdiv )
 				{
 					// check mtor subdivisions extra tag
 					MPlug extraTagPlug = setNode.findPlug( "mtorSubdivCrease", &status );
@@ -601,7 +603,7 @@ void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
 		interpolateBoundaryPlug.getValue( interpolateBoundaryOld );
 
 	bool mtor_interpolateBoundary = false;
-	if( liqglo_useMtorSubdiv )
+	if( liqglo.liqglo_useMtorSubdiv )
 	{
 		MPlug mtor_interpolateBoundaryPlug = fnMesh.findPlug( "mtorSubdivInterp", &status );
 		if( status == MS::kSuccess )
@@ -638,6 +640,8 @@ void liqRibHierarchicalSubdivisionData::checkExtraTags( MObject &mesh ) {
 
 void liqRibHierarchicalSubdivisionData::addExtraTags( MObject &mesh, SBD_EXTRA_TAG extraTag )
 {
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::addExtraTags("<<MFnDagNode(mesh).fullPathName().asChar()<<","<<extraTag<<")");
+
 	MStatus status;
 	MFnMesh fnMesh( mesh );
 	MUintArray ids;
@@ -682,6 +686,8 @@ void liqRibHierarchicalSubdivisionData::addExtraTags( MObject &mesh, SBD_EXTRA_T
 
 void liqRibHierarchicalSubdivisionData::addExtraTags( MObject &dstNode, float extraTagValue, SBD_EXTRA_TAG extraTag )
 {
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::addExtraTags("<<MFnDagNode(dstNode).fullPathName().asChar()<<","<<extraTagValue<<","<<extraTag<<")");
+
 	if( TAG_BOUNDARY == extraTag )
 	{
 		v_tags.push_back( "interpolateboundary" );
@@ -715,7 +721,7 @@ void liqRibHierarchicalSubdivisionData::addExtraTags( MObject &dstNode, float ex
 
 				// since the crease set could contain more that one mesh
 				// we only want the current one - Alf
-				if( dagPath.fullPathName() != longName )
+				if( dagPath.fullPathName() != MString(getFullPathName()) )
 					continue;
 
 				switch ( extraTag )

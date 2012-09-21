@@ -41,6 +41,9 @@
 #include <liquid.h>
 #include <liqRibData.h>
 
+#ifndef liqSubdivStructs_H
+#define liqSubdivStructs_H
+
 typedef struct tagPolyEdgeIndx {
     RtInt	vtx0;
     RtInt	vtx1;
@@ -58,6 +61,8 @@ typedef struct tagSbdExtraTag {
         PolyFaceIndx	*faces;
     } ExtraData;
 } SbdExtraTag;
+
+#endif
 
 class liqRibSubdivisionData : public liqRibData {
 public: // Methods

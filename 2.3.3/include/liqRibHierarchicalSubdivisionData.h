@@ -36,7 +36,7 @@
 ** ______________________________________________________________________
 */
 #include <vector>
-//#include <liqSubdivStructs.h>
+#include <liquid.h>
 #include <liqRibData.h>
 #include <boost/shared_array.hpp>
 
@@ -72,13 +72,17 @@ typedef struct tagSbdExtraTag
 class liqRibHierarchicalSubdivisionData : public liqRibData
 {
 public: // Methods
-	liqRibHierarchicalSubdivisionData( MObject mesh );
+	explicit liqRibHierarchicalSubdivisionData( MObject mesh );
 	virtual ~liqRibHierarchicalSubdivisionData();
 
-	virtual void       write();
+	virtual void       write(const MString &ribFileFullPath, const structJob &currentJob, const bool bReference);
 	virtual bool       compare( const liqRibData & other ) const;
 	virtual ObjectType type() const;
 	virtual void initializeSubdivParameters();
+	
+	bool isEmpty()const { return (numPoints<=1); }
+	MString getName()const { return name; }
+	const RtFloat* getTransformationMatrixPtr() const {return &transformationMatrix[0][0]; }
 
 private: // Data
 	RtInt     numFaces;
@@ -91,7 +95,7 @@ private: // Data
 	bool trueFacevarying;
 
 	MString   name;
-	MString   longName;
+	//MString   longName;//use liqRibData::getFullPathName()
 	RtMatrix  transformationMatrix;
 
 	int interpolateBoundary; // Now an integer from PRMan 12/3Delight 6
@@ -116,6 +120,10 @@ private: // Data
 	RtInt *m_subdivIntArgs;
 	RtFloat *m_subdivFloatArgs;
 	RtString *m_subdivStringArgs;
+
+private:
+	liqRibHierarchicalSubdivisionData(const liqRibHierarchicalSubdivisionData&);
+	liqRibHierarchicalSubdivisionData& operator=(const liqRibHierarchicalSubdivisionData&);
 };
 
 #endif
