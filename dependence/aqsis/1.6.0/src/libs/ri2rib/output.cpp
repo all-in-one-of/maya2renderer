@@ -2095,6 +2095,59 @@ RtVoid CqOutput::RiDisplayChannelV( RtToken channel, RtInt count, RtToken tokens
 	S;
 	printPL( count, tokens, values );
 }
+RtVoid CqOutput::RiHierarchicalSubdivisionMeshV(
+	RtToken mask, RtInt nf, RtInt nverts[],
+	RtInt verts[],
+	RtInt ntags, RtToken tags[], RtInt numargs[],
+	RtInt intargs[], RtFloat floatargs[], RtToken stringargs[],
+	RtInt n, RtToken tokens[], RtPointer parms[] )
+{
+	PR( "HierarchicalSubdivisionMesh", HierarchicalSubdivisionMesh );
+	S;
+	printToken( mask );
+	S;
+	printArray( nf, nverts );
+	S;
+
+	RtInt i;
+	RtInt vsize = 0;
+	for ( i = 0; i < nf; i++ )
+	{
+		vsize += nverts[ i ];
+	}
+	printArray( vsize, verts );
+	S;
+
+	printArray( ntags, tags );
+	S;
+	printArray( ntags * 3, numargs );
+	S;
+
+	RtInt isize = 0, fsize = 0, ssize = 0;
+	for ( i = 0; i < ntags*3; i++ )
+	{
+		if ( i % 3 == 0 )
+			isize += numargs[ i ];
+		else if(  i % 3 == 1  )
+			fsize += numargs[ i ];
+		else 
+			ssize += numargs[ i ];
+	}
+	printArray( isize, intargs );
+	S;
+	printArray( fsize, floatargs );
+	S;
+	printArray( ssize, stringargs );
+	S;
+
+	RtInt psize = 0;
+	for ( i = 0; i < vsize; i++ )
+	{
+		if ( psize < verts[ i ] )
+			psize = verts[ i ];
+	}
+	printPL( n, tokens, parms, psize + 1, psize + 1, nf, vsize, vsize );
+}
 #endif
 
 } // namespace libri2rib

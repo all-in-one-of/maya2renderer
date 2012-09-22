@@ -1518,4 +1518,20 @@ RtVoid RiDisplayChannelV(RtToken channel, RtInt count, RtToken tokens[], RtPoint
 		context.current().RiDisplayChannelV( channel, count, tokens, values );
 	RI2RIB_EXCEPTION_CATCH_GUARD("RiDisplayChannelV", )
 }
+RtVoid RiHierarchicalSubdivisionMeshV(
+	RtToken mask, RtInt nf, RtInt nverts[],
+	RtInt verts[],
+	RtInt ntags, RtToken tags[], RtInt numargs[],
+	RtInt intargs[], RtFloat floatargs[], RtToken stringargs[],
+	RtInt n, RtToken tokens[], RtPointer parms[] )
+{
+	RI2RIB_EXCEPTION_TRY_GUARD
+		context.current().RiHierarchicalSubdivisionMeshV( 
+		mask, nf, nverts,
+		verts,
+		ntags, tags, numargs,
+		intargs, floatargs, stringargs,
+		n, tokens, parms );
+	RI2RIB_EXCEPTION_CATCH_GUARD("RiHierarchicalSubdivisionMeshV", )
+}
 #endif

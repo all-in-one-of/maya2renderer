@@ -71,7 +71,8 @@ class CqOutput
 		                  ArchiveRecord, ReadArchive, ErrorHandler, IfBegin, IfEnd, Else, ElseIf,
 		                  ShaderLayer, ConnectShaderLayers,
 #ifdef __LIQUID__
-						  Shader,DisplayChannel,
+						  Shader,DisplayChannel,HierarchicalSubdivisionMesh,
+
 #endif
 		                  LAST_Function,
 		};
@@ -379,6 +380,12 @@ class CqOutput
 #ifdef __LIQUID__
 		RtVoid RiShaderV( RtToken type, RtToken name, RtInt count, RtToken tokens[], RtPointer values[] );
 		RtVoid RiDisplayChannelV( RtToken channel, RtInt count, RtToken tokens[], RtPointer values[] );
+		RtVoid RiHierarchicalSubdivisionMeshV(
+			RtToken mask, RtInt nf, RtInt nverts[],
+			RtInt verts[],
+			RtInt ntags, RtToken tags[], RtInt numargs[],
+			RtInt intargs[], RtFloat floatargs[], RtToken stringargs[],
+			RtInt n, RtToken tokens[], RtPointer parms[] );
 #endif
 };
 
