@@ -134,6 +134,7 @@ MObject liqGlobalsNode::aCompressedOutput;
 MObject liqGlobalsNode::aOutputMayaPolyCreases;
 MObject liqGlobalsNode::aRenderAllCurves;
 MObject liqGlobalsNode::aOutputMeshUVs;
+MObject liqGlobalsNode::aOutputMeshAsRMSArrays;
 MObject liqGlobalsNode::aIlluminateByDefault;
 MObject liqGlobalsNode::aLiquidSetLightLinking;
 MObject liqGlobalsNode::aIgnoreSurfaces;
@@ -590,7 +591,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_BOOL( nAttr,  aOutputMayaPolyCreases,            "outputMayaPolyCreases",              "ompc",    true );
 	CREATE_BOOL( nAttr,  aRenderAllCurves,            "renderAllCurves",              "rac",    true );
 	CREATE_BOOL( nAttr,  aOutputMeshUVs,              "outputMeshUVs",                "muv",    false );
-
+	CREATE_BOOL( nAttr,  aOutputMeshAsRMSArrays,      "outputMeshAsRMSArrays",        "rmsuv",  false );
 	CREATE_BOOL( nAttr,  aIlluminateByDefault,      "illuminateByDefault",        "ilbd",   true );
 	CREATE_BOOL( nAttr,  aLiquidSetLightLinking,      "liquidSetLightLinking",        "setll",   false );
 	CREATE_BOOL( nAttr,  aIgnoreSurfaces,             "ignoreSurfaces",               "isrf",   false );

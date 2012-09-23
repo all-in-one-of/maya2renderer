@@ -1115,6 +1115,7 @@ void liqRibTranslator::liquidReadGlobals()
 	liquidGetPlugValue( rGlobalNode, "outputLightsInDeepShadows", m_outputLightsInDeepShadows, gStatus );
 
 	liquidGetPlugValue( rGlobalNode, "outputMeshUVs", liqglo.liqglo_outputMeshUVs, gStatus );
+	liquidGetPlugValue( rGlobalNode, "outputMeshAsRMSArrays", liqglo.liqglo_outputMeshAsRMSArrays, gStatus );
 	liquidGetPlugValue( rGlobalNode, "compressedOutput", liqglo.liqglo_doCompression, gStatus );
 	liquidGetPlugValue( rGlobalNode, "exportReadArchive", liqglo.m_exportReadArchive, gStatus );
 	liquidGetPlugValue( rGlobalNode, "renderJobName", renderJobName, gStatus );

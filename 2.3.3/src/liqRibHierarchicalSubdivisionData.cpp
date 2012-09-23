@@ -61,7 +61,6 @@
 
 using namespace boost;
 
-extern bool liqglo_outputMeshAsRMSArrays;
 
 
 /** Create a RIB compatible subdivision surface representation using a Maya polygon mesh.
@@ -138,7 +137,7 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 	liqTokenPointer extraUVSetsUPtr;
 	liqTokenPointer extraUVSetsVPtr;
 	liqTokenPointer extraUVSetsNamePtr;
-	if( liqglo_outputMeshAsRMSArrays )
+	if( liqglo.liqglo_outputMeshAsRMSArrays )
 	{
 		currentUVSetUPtr.set( "s", rFloat, numFaceVertices );
 		currentUVSetUPtr.setDetailType( rFaceVarying );
@@ -210,7 +209,7 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 			point = polyIt.point( i, MSpace::kObject );
 			pointsPointerPair.setTokenFloat( vertex, point.x, point.y, point.z );
 			
-			if( liqglo_outputMeshAsRMSArrays )
+			if( liqglo.liqglo_outputMeshAsRMSArrays )
 			{
 				for( j=0; j<numUVSets; j++ )
 				{
@@ -282,7 +281,7 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 	// Add tokens to array and clean up after
 	tokenPointerArray.push_back( pointsPointerPair );
 
-	if(liqglo_outputMeshAsRMSArrays)
+	if(liqglo.liqglo_outputMeshAsRMSArrays)
 	{
 		tokenPointerArray.push_back( currentUVSetNamePtr );
 		tokenPointerArray.push_back( currentUVSetUPtr );

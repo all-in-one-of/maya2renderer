@@ -118,37 +118,68 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
 
   std::vector<liqTokenPointer> UVSetsArray;
   UVSetsArray.reserve( 1 + extraUVSetNames.length() );
-
-  if( numSTs > 0 ) 
+  liqTokenPointer currentUVSetUPtr;
+  liqTokenPointer currentUVSetVPtr;
+  liqTokenPointer currentUVSetNamePtr;
+  liqTokenPointer extraUVSetsUPtr;
+  liqTokenPointer extraUVSetsVPtr;
+  liqTokenPointer extraUVSetsNamePtr;
+  if(liqglo.liqglo_outputMeshAsRMSArrays )
   {
-    liqTokenPointer pFaceVertexPointerPair;
+	  currentUVSetUPtr.set( "s", rFloat, numFaceVertices );
+	  currentUVSetUPtr.setDetailType( rFaceVarying );
 
-    pFaceVertexPointerPair.set( "st", rFloat, numFaceVertices, 2 );
-    pFaceVertexPointerPair.setDetailType( uvDetail );
+	  currentUVSetVPtr.set( "t", rFloat, numFaceVertices );
+	  currentUVSetVPtr.setDetailType( rFaceVarying );
 
-    UVSetsArray.push_back( pFaceVertexPointerPair );
+	  currentUVSetNamePtr.set( "currentUVSet", rString, 1 );
+	  currentUVSetNamePtr.setDetailType( rConstant );
 
-    for ( unsigned j( 0 ); j<extraUVSetNames.length(); j++) 
-    {
-      liqTokenPointer pFaceVertexPointerPair;
+	  if( numUVSets > 1 )
+	  {
+		  extraUVSetsUPtr.set( "u_uvSet", rFloat, numFaceVertices, numUVSets-1 );
+		  extraUVSetsUPtr.setDetailType( rFaceVarying );
 
-      pFaceVertexPointerPair.set( extraUVSetNames[j].asChar(), rFloat, numFaceVertices, 2 );
-      pFaceVertexPointerPair.setDetailType( uvDetail );
+		  extraUVSetsVPtr.set( "v_uvSet", rFloat, numFaceVertices, numUVSets-1 );
+		  extraUVSetsVPtr.setDetailType( rFaceVarying );
 
-      UVSetsArray.push_back( pFaceVertexPointerPair );
-    }
-
-    if( liqglo.liqglo_outputMeshUVs ) 
-    {
-      // Match MTOR, which also outputs face-varying STs as well for some reason - Paul
-      // not anymore - Philippe
-      pFaceVertexSPointer.set( "u", rFloat, numFaceVertices );
-      pFaceVertexSPointer.setDetailType( uvDetail );
-
-      pFaceVertexTPointer.set( "v", rFloat, numFaceVertices );
-      pFaceVertexTPointer.setDetailType( uvDetail );
-    }
+		  extraUVSetsNamePtr.set( "extraUVSets", rString, numUVSets-1 );
+		  extraUVSetsNamePtr.setDetailType( rConstant );
+	  }
   }
+  else
+  {
+	  if( numSTs > 0 ) 
+	  {
+		liqTokenPointer pFaceVertexPointerPair;
+
+		pFaceVertexPointerPair.set( "st", rFloat, numFaceVertices, 2 );
+		pFaceVertexPointerPair.setDetailType( uvDetail );
+
+		UVSetsArray.push_back( pFaceVertexPointerPair );
+
+		for ( unsigned j( 0 ); j<extraUVSetNames.length(); j++) 
+		{
+		  liqTokenPointer pFaceVertexPointerPair;
+
+		  pFaceVertexPointerPair.set( extraUVSetNames[j].asChar(), rFloat, numFaceVertices, 2 );
+		  pFaceVertexPointerPair.setDetailType( uvDetail );
+
+		  UVSetsArray.push_back( pFaceVertexPointerPair );
+		}
+
+		if( liqglo.liqglo_outputMeshUVs ) 
+		{
+		  // Match MTOR, which also outputs face-varying STs as well for some reason - Paul
+		  // not anymore - Philippe
+		  pFaceVertexSPointer.set( "u", rFloat, numFaceVertices );
+		  pFaceVertexSPointer.setDetailType( uvDetail );
+
+		  pFaceVertexTPointer.set( "v", rFloat, numFaceVertices );
+		  pFaceVertexTPointer.setDetailType( uvDetail );
+		}
+	  }
+	}
 
   vertexParam = pointsPointerPair.getTokenFloatArray();
 
@@ -157,7 +188,7 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
   {
     count = polyIt.polygonVertexCount();
     nverts[face] = count;
-    unsigned i = count;
+    unsigned j, i = count;
     
     while( i )
     {
@@ -167,28 +198,61 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
       point = polyIt.point( i, MSpace::kObject );
       pointsPointerPair.setTokenFloat( vertex, point.x, point.y, point.z );
 
-      if( UVSetsArray.size() ) 
-      {
-        fnMesh.getPolygonUV( face, i, S, T );
+	  if ( liqglo.liqglo_outputMeshAsRMSArrays )
+	  {
+		  for ( j = 0 ; j < numUVSets ; j++ )
+		  {
+			  if ( j == 0 )
+			  {
+				  MString uvSetName = currentUVSetName;
+				  // set uvSet name
+				  currentUVSetNamePtr.setTokenString( 0, currentUVSetName.asChar() );
+				  // set uv values
+				  fnMesh.getPolygonUV( face, i, S, T, &uvSetName );
+				  currentUVSetUPtr.setTokenFloat( faceVertex, S );
+				  currentUVSetVPtr.setTokenFloat( faceVertex, 1 - T );
+			  }
+			  else
+			  {
+				  MString uvSetName = extraUVSetNames[ j - 1 ];
+				  // set uvSet name
+				  extraUVSetsNamePtr.setTokenString( j - 1, extraUVSetNames[ j - 1 ].asChar() );
+				  // set uv values
+				  fnMesh.getPolygonUV( face, i, S, T, &uvSetName );
+				  extraUVSetsUPtr.setTokenFloat( ( numFaceVertices * ( j - 1 ) ) + faceVertex, S );
+				  extraUVSetsVPtr.setTokenFloat( ( numFaceVertices * ( j - 1 ) ) + faceVertex, 1 - T );
+			  }
+		  }
+	  }
+	  else
+	  {
+		  if( numUVSets )
+		  {
+			  for( j=0; j<numUVSets; j++ )
+			  {
+				  MString uvSetName;
+				  if(j==0)
+				  {
+					  uvSetName = currentUVSetName;
+				  }
+				  else
+				  {
+					  uvSetName = extraUVSetNames[j-1];
+				  }
+				  fnMesh.getPolygonUV( face, i, S, T, &uvSetName );
+				  UVSetsArray[j].setTokenFloat( faceVertex, 0, S );
+				  UVSetsArray[j].setTokenFloat( faceVertex, 1, 1-T );
+				  //printf("V%d  %s : %f %f  =>  %f %f \n", i, uvSetName.asChar(), S, T, S, 1-T);
 
-        UVSetsArray[0].setTokenFloat( faceVertex, 0, S );
-        UVSetsArray[0].setTokenFloat( faceVertex, 1, 1 - T );
-
-        for ( unsigned j( 1 ); j<=extraUVSetNames.length(); j++ ) 
-        {
-          fnMesh.getPolygonUV( face, i, S, T, &extraUVSetNames[j] );
-
-          UVSetsArray[j].setTokenFloat( faceVertex, 0, S );
-          UVSetsArray[j].setTokenFloat( faceVertex, 1, 1 - T );
-        }
-
-        if( liqglo.liqglo_outputMeshUVs ) 
-        {
-          // Match MTOR, which always outputs face-varying STs as well for some reason - Paul
-          pFaceVertexSPointer.setTokenFloat( faceVertex, S );
-          pFaceVertexTPointer.setTokenFloat( faceVertex, 1 - T );
-        }
-      }
+				  if( liqglo.liqglo_outputMeshUVs && j==0)
+				  {
+					  // Match MTOR, which always outputs face-varying STs as well for some reason - Paul
+					  pFaceVertexSPointer.setTokenFloat( faceVertex, S );
+					  pFaceVertexTPointer.setTokenFloat( faceVertex, 1-T );
+				  }
+			  }
+		  }
+	  }
 
       ++faceVertex;
     }

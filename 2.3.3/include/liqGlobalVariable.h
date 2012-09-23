@@ -88,6 +88,7 @@ struct liqGlobalVariable
 	//MStringArray liqglo_DDimageName;//change to MString liqglo_DDimageName in liquidMaya r772;
 	double       liqglo_FPS;                              // Frame-rate (for particle streak length)
 	bool         liqglo_outputMeshUVs;                    // true if we are writing uvs for subdivs/polys (in addition to "st")
+	bool         liqglo_outputMeshAsRMSArrays;            // true => write uvs as arrays
 	bool         liqglo_noSingleFrameShadows;             // allows you to skip single-frame shadows when you chunk a render
 	bool         liqglo_singleFrameShadowsOnly;           // allows you to skip single-frame shadows when you chunk a render
 	MString      liqglo_renderCamera;                     // a global copy for liqRibPfxToonData

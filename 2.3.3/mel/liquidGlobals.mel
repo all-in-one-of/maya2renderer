@@ -582,6 +582,7 @@ global proc liquidInitGlobalVals()
     ,"illuminateByDefault",			"bool",   false
     ,"liquidSetLightLinking",       "bool",   false
     ,"outputMeshUVs",               "bool",   false
+    ,"outputMeshAsRMSArrays",       "bool",   false
     ,"ignoreSurfaces",              "bool",   false
     ,"ignoreDisplacements",         "bool",   false
     ,"ignoreLights",                "bool",   false
@@ -3283,6 +3284,7 @@ global proc liquidGlobalsOptionsTab_buildIt( string $prefix )
         liquidShowBoolGlobal "outputMayaPolyCreases" "Use Maya Poly Creases" $prefix;
         liquidShowBoolGlobal "renderAllCurves"   "Render All Curves" $prefix;
         liquidShowBoolGlobal "outputMeshUVs"     "Extra MtoR Mesh UVs" $prefix;
+        liquidShowBoolGlobal "outputMeshAsRMSArrays"     "Write Mesh UVs as RMS arrays" $prefix;
         liquidShowBoolGlobal "ribRelativeTransforms" "Relative Transforms" $prefix;
         liquidShowBoolGlobal "outputComments"    "Detailed Comments" $prefix;
         frameLayout -bs "etchedIn" -l "Light Linking" -cll true -cl false;
