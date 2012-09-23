@@ -263,18 +263,31 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
   // Add tokens to array and clean up after
   tokenPointerArray.push_back( pointsPointerPair );
 
-  if( UVSetsArray.size() ) 
-    tokenPointerArray.insert( tokenPointerArray.end(), UVSetsArray.begin(), UVSetsArray.end() );
-  
+	if(liqglo.liqglo_outputMeshAsRMSArrays)
+	{
+		tokenPointerArray.push_back( currentUVSetNamePtr );
+		tokenPointerArray.push_back( currentUVSetUPtr );
+		tokenPointerArray.push_back( currentUVSetVPtr );
+		if( numUVSets > 1 )
+		{
+			tokenPointerArray.push_back( extraUVSetsNamePtr );
+			tokenPointerArray.push_back( extraUVSetsUPtr );
+			tokenPointerArray.push_back( extraUVSetsVPtr );
+		}
+	}
+	else
+	{
+		if( UVSetsArray.size() ) 
+			tokenPointerArray.insert( tokenPointerArray.end(), UVSetsArray.begin(), UVSetsArray.end() );
 
-  if( liqglo.liqglo_outputMeshUVs ) 
-  {
-    assert( !pFaceVertexSPointer );
-    tokenPointerArray.push_back( pFaceVertexSPointer );
-    assert( !pFaceVertexTPointer );
-    tokenPointerArray.push_back( pFaceVertexTPointer );
-  }
-
+		if( liqglo.liqglo_outputMeshUVs ) 
+		{
+			assert( !pFaceVertexSPointer );
+			tokenPointerArray.push_back( pFaceVertexSPointer );
+			assert( !pFaceVertexTPointer );
+			tokenPointerArray.push_back( pFaceVertexTPointer );
+		}
+	}
   addAdditionalSurfaceParameters( mesh );
 }
 
