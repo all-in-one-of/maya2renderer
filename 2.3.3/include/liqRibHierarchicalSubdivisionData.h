@@ -96,7 +96,7 @@ private: // Data
 	bool trueFacevarying;
 
 	MString   name;
-	//MString   longName;//use liqRibData::getFullPathName()
+	MString   longName;//use liqRibData::getFullPathName()
 	RtMatrix  transformationMatrix;
 
 	int interpolateBoundary; // Now an integer from PRMan 12/3Delight 6

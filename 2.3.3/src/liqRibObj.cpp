@@ -287,8 +287,8 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
 				data = liqRibDataPtr( new liqRibSubdivisionData( obj ) );
 				else 
 				data = liqRibDataPtr( new liqRibSubdivisionData( skip ) );
-				type = data->type();
 			}
+			type = data->type();
         } 
         else 
         {
