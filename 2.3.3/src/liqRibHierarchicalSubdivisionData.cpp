@@ -201,9 +201,11 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 	{
 		count = polyIt.polygonVertexCount();
 		nverts[face] = count;
+		unsigned i = count;
 
-		for( unsigned i( 0 ); i < count; i++ )
+		while( i )//for( unsigned i( 0 ); i < count; i++ )
 		{
+			--i;
 			vertex = polyIt.vertexIndex( i );
 			verts[faceVertex] = vertex;
 			point = polyIt.point( i, MSpace::kObject );
