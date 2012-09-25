@@ -3,8 +3,10 @@ info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1/pC
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1/group1/pCube2\pCubeShape2.obj (1 object, 8 vertices, 12 triangles) in 0 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1/group1/pPlane1\pPlaneShape1.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : writing project file E:/MyDocuments/maya/projects/default/rib/test_multiple_shapes_simple_perspShape.0001..rib.appleseed...
+error  : failed to copy pCubeShape1.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj".
 error  : failed to copy pConeShape1.obj to E:/MyDocuments/maya/projects/default/rib\pConeShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pConeShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pConeShape1.obj".
 error  : failed to copy pCubeShape2.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape2.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape2.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape2.obj".
+error  : failed to copy pPlaneShape1.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj".
 info   : wrote project file E:/MyDocuments/maya/projects/default/rib/test_multiple_shapes_simple_perspShape.0001..rib.appleseed.
 info   : collecting light emitters...
 info   : found 2 lights, 0 emitting triangle.
@@ -40,13 +42,13 @@ info   : effective subpixel grid size: min: 1x1
 debug  : the scene does not rely on alpha mapping; using probe tracing.
 info   : effective subpixel grid size: min: 1x1
 info   : using 2 threads for rendering.
-info   : collecting geometry for triangle tree #478...
+info   : collecting geometry for triangle tree #23...
 debug  : triangle_keys: size 30 (360 bytes)  capacity 30 (360 bytes)  overhead 0 (0 byte)
 debug  : triangle_vertex_infos: size 30 (240 bytes)  capacity 30 (240 bytes)  overhead 0 (0 byte)
 debug  : triangle_bboxes: size 30 (720 bytes)  capacity 30 (720 bytes)  overhead 0 (0 byte)
-info   : building bvh triangle tree #478 (30 triangles)...
+info   : building bvh triangle tree #23 (30 triangles)...
 debug  : triangle_vertices: size 90 (1.1 KB)  capacity 90 (1.1 KB)  overhead 0 (0 byte)
-debug  : triangle tree #478 statistics:
+debug  : triangle tree #23 statistics:
 debug  :   build time       0 ms
 debug  :   size             3.7 KB
 debug  :   nodes            total 21  interior 10  leaves 11
@@ -72,17 +74,17 @@ debug  :   combined         efficiency 100.0%  accesses 129,570  hits 129,568  m
 debug  :   stage-0          efficiency 100.0%  accesses 129,570  hits 129,568  misses 2
 debug  :   stage-1          efficiency 0.0%  accesses 2  hits 0  misses 2
 debug  : region kit access cache statistics:
-debug  :   combined         efficiency 99.6%  accesses 2,249  hits 2,241  misses 8
-debug  :   stage-0          efficiency 99.6%  accesses 2,249  hits 2,241  misses 8
-debug  :   stage-1          efficiency 0.0%  accesses 8  hits 0  misses 8
+debug  :   combined         efficiency 99.7%  accesses 2,249  hits 2,242  misses 7
+debug  :   stage-0          efficiency 99.7%  accesses 2,249  hits 2,242  misses 7
+debug  :   stage-1          efficiency 0.0%  accesses 7  hits 0  misses 7
 debug  : tessellation access cache statistics:
-debug  :   combined         efficiency 99.6%  accesses 2,249  hits 2,241  misses 8
-debug  :   stage-0          efficiency 99.6%  accesses 2,249  hits 2,241  misses 8
-debug  :   stage-1          efficiency 0.0%  accesses 8  hits 0  misses 8
+debug  :   combined         efficiency 99.7%  accesses 2,249  hits 2,242  misses 7
+debug  :   stage-0          efficiency 99.7%  accesses 2,249  hits 2,242  misses 7
+debug  :   stage-1          efficiency 0.0%  accesses 7  hits 0  misses 7
 debug  : path tracing statistics:
 debug  :   path count       2,238
 debug  :   path length      avg 2.0  min 2  max 3  dev 0.1
 debug  : texture store statistics:
 debug  :   performances     n/a
 debug  :   peak size        0 byte
-info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/test_multiple_shapes_simple.perspShape.1.appleseed.png in 31 ms.
+info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/test_multiple_shapes_simple.perspShape.1.appleseed.png in 47 ms.

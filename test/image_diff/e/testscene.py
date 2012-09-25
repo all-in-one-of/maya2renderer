@@ -81,6 +81,12 @@ def test_all_scene():
     #MyTestOne.test_one_scene(testFile, "elvishray")
     #MyTestOne.test_one_scene(testFile, "renderman")
 
+    #testFile=LIQUID_ROOT+"/2.3.3/test/test_subd/test_subdiv.ma"
+    #MyTestOne.test_one_scene(testFile, "renderman")
+
+    #testFile=LIQUID_ROOT+"/2.3.3/test/test_subd/test_subdiv_tex.ma"
+    #MyTestOne.test_one_scene(testFile, "renderman")
+
     #MyTestOne.test_one_scene("D:/tmp/maya_test/Trex/scenes/TrexAnimation_er.ma", "elvishray")
    
     #testFile=LIQUID_ROOT+"/2.3.3/test/test_er_vertex_normal/er_vertex_normal.ma"

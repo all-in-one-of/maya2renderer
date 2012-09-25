@@ -43,16 +43,40 @@
                     1.000000
                 </alpha>
             </color>
-            <bsdf name="phong1_lambert_brdf" model="lambertian_brdf">
-                <parameter name="reflectance" value="phong1_color" />
+            <color name="phong1_transparency">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    0.000000 0.000000 0.000000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <color name="phong1_specularColor">
+                <parameter name="color_space" value="srgb" />
+                <values>
+                    0.500000 0.500000 0.500000
+                </values>
+                <alpha>
+                    1.000000
+                </alpha>
+            </color>
+            <bsdf name="phong1_BSDF" model="ashikhmin_brdf">
+                <parameter name="diffuse_reflectance" value="phong1_color" />
+                <parameter name="diffuse_reflectance_multiplier" value="0.8" />
+                <parameter name="glossy_reflectance" value="phong1_specularColor" />
+                <parameter name="glossy_reflectance_multiplier" value="0.5" />
+                <parameter name="shininess_u" value="200" />
+                <parameter name="shininess_v" value="200" />
             </bsdf>
-            <surface_shader name="mib_amb_occlusion1" model="ao_surface_shader">
-                <parameter name="max_distance" value="1" />
-                <parameter name="samples" value="16" />
+            <surface_shader name="mib_amb_occlusion1_SurfaceShader" model="ao_surface_shader">
+                <parameter name="max_distance" value="3.40282e+038" />
+                <parameter name="samples" value="4" />
+                <parameter name="sampling_method" value="uniform" />
             </surface_shader>
-            <material name="phong1" model="generic_material">
-                <parameter name="bsdf" value="phong1_lambert_brdf" />
-                <parameter name="surface_shader" value="mib_amb_occlusion1" />
+            <material name="phong1SG" model="generic_material">
+                <parameter name="bsdf" value="phong1_BSDF" />
+                <parameter name="surface_shader" value="mib_amb_occlusion1_SurfaceShader" />
             </material>
             <object name="|pCube1|pCubeShape1" model="mesh_object">
                 <parameter name="filename" value="pCubeShape1.obj" />
@@ -69,7 +93,8 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="phong1" />
+                <assign_material slot="0" side="front" material="phong1SG" />
+                <assign_material slot="0" side="back" material="phong1SG" />
             </object_instance>
             <object_instance name="|pPlane1|pPlaneShape1.0_inst" object="|pPlane1|pPlaneShape1.0">
                 <transform>
@@ -80,7 +105,8 @@
                         0.000000000000000 0.000000000000000 0.000000000000000 1.000000000000000
                     </matrix>
                 </transform>
-                <assign_material slot="0" side="front" material="phong1" />
+                <assign_material slot="0" side="front" material="phong1SG" />
+                <assign_material slot="0" side="back" material="phong1SG" />
             </object_instance>
         </assembly>
         <assembly_instance name="assembly_inst" assembly="assembly">

@@ -1,8 +1,8 @@
-error  : parameter "sampling_method" not found, using default value "uniform".
-info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1\pCubeShape1.obj (1 object, 8 vertices, 12 triangles) in 0 ms.
+info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1\pCubeShape1.obj (1 object, 8 vertices, 12 triangles) in 31 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pPlane1\pPlaneShape1.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : writing project file E:/MyDocuments/maya/projects/default/rib/mib_amb_occlusion_perspShape.0010..rib.appleseed...
 error  : failed to copy pCubeShape1.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj".
+error  : failed to copy pPlaneShape1.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj".
 info   : wrote project file E:/MyDocuments/maya/projects/default/rib/mib_amb_occlusion_perspShape.0010..rib.appleseed.
 info   : collecting light emitters...
 info   : found 0 light, 0 emitting triangle.
@@ -38,13 +38,13 @@ info   : effective subpixel grid size: min: 2x2
 debug  : the scene does not rely on alpha mapping; using probe tracing.
 info   : effective subpixel grid size: min: 2x2
 info   : using 2 threads for rendering.
-info   : collecting geometry for triangle tree #339...
+info   : collecting geometry for triangle tree #23...
 debug  : triangle_keys: size 14 (168 bytes)  capacity 14 (168 bytes)  overhead 0 (0 byte)
 debug  : triangle_vertex_infos: size 14 (112 bytes)  capacity 14 (112 bytes)  overhead 0 (0 byte)
 debug  : triangle_bboxes: size 14 (336 bytes)  capacity 14 (336 bytes)  overhead 0 (0 byte)
-info   : building bvh triangle tree #339 (14 triangles)...
+info   : building bvh triangle tree #23 (14 triangles)...
 debug  : triangle_vertices: size 42 (504 bytes)  capacity 42 (504 bytes)  overhead 0 (0 byte)
-debug  : triangle tree #339 statistics:
+debug  : triangle tree #23 statistics:
 debug  :   build time       0 ms
 debug  :   size             1.7 KB
 debug  :   nodes            total 13  interior 6  leaves 7
@@ -54,20 +54,20 @@ debug  :   leaf size        avg 2.0  min 2  max 2  dev 0.0
 debug  :   sibling overlap  avg 0.0%  min 0.0%  max 0.0%  dev 0.0%
 debug  :   fat leaves       100.0%
 debug  :   inter. filters   0
-debug  :   nodes alignment  64 bytes
+debug  :   nodes alignment  128 bytes
 debug  : texture cache statistics:
 debug  :   performances     n/a
 debug  : intersection statistics:
-debug  :   total rays       17,731,632
-debug  :   shading rays     1,769,472 (10.0%)
-debug  :   probe rays       15,962,160 (90.0%)
+debug  :   total rays       5,760,012
+debug  :   shading rays     1,769,472 (30.7%)
+debug  :   probe rays       3,990,540 (69.3%)
 debug  : region tree access cache statistics:
 debug  :   combined         n/a
 debug  :   stage-0          n/a
 debug  :   stage-1          n/a
 debug  : triangle tree access cache statistics:
-debug  :   combined         efficiency 100.0%  accesses 17,731,632  hits 17,731,630  misses 2
-debug  :   stage-0          efficiency 100.0%  accesses 17,731,632  hits 17,731,630  misses 2
+debug  :   combined         efficiency 100.0%  accesses 5,760,012  hits 5,760,010  misses 2
+debug  :   stage-0          efficiency 100.0%  accesses 5,760,012  hits 5,760,010  misses 2
 debug  :   stage-1          efficiency 0.0%  accesses 2  hits 0  misses 2
 debug  : region kit access cache statistics:
 debug  :   combined         efficiency 100.0%  accesses 997,635  hits 997,631  misses 4
@@ -83,4 +83,4 @@ debug  :   path length      avg 0.0  min 0  max 0  dev 0.0
 debug  : texture store statistics:
 debug  :   performances     n/a
 debug  :   peak size        0 byte
-info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/mib_amb_occlusion.perspShape.10.appleseed.png in 110 ms.
+info   : wrote image file E:/MyDocuments/maya/projects/default/rmanpix/mib_amb_occlusion.perspShape.10.appleseed.png in 187 ms.

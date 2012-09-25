@@ -21,17 +21,22 @@ info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1/gr
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1/group2/group3/pPlane8\pPlaneShape8.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : loaded mesh file E:/MyDocuments/maya/projects/default/as_mesh/pCube1/group2/group3/pPlane8\pPlaneShape8.obj_mb.obj (1 object, 4 vertices, 2 triangles) in 0 ms.
 info   : writing project file E:/MyDocuments/maya/projects/default/rib/test_multiple_shapes_mb_perspShape.0008..rib.appleseed...
+error  : failed to copy pCubeShape1.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj".
 error  : failed to copy pCubeShape1.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape1.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape1.obj_mb.obj".
 error  : failed to copy pConeShape1.obj to E:/MyDocuments/maya/projects/default/rib\pConeShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pConeShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pConeShape1.obj".
 error  : failed to copy pConeShape1.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pConeShape1.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pConeShape1.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pConeShape1.obj_mb.obj".
+error  : failed to copy pPlaneShape2.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape2.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape2.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape2.obj".
 error  : failed to copy pPlaneShape2.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape2.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape2.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape2.obj_mb.obj".
 error  : failed to copy pPlaneShape5.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape5.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape5.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape5.obj".
 error  : failed to copy pPlaneShape5.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape5.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape5.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape5.obj_mb.obj".
+error  : failed to copy pPlaneShape3.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape3.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape3.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape3.obj".
 error  : failed to copy pPlaneShape3.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape3.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape3.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape3.obj_mb.obj".
 error  : failed to copy pPlaneShape4.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape4.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape4.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape4.obj".
 error  : failed to copy pPlaneShape4.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape4.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape4.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape4.obj_mb.obj".
 error  : failed to copy pCubeShape2.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape2.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape2.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape2.obj".
 error  : failed to copy pCubeShape2.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pCubeShape2.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pCubeShape2.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pCubeShape2.obj_mb.obj".
+error  : failed to copy pPlaneShape1.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape1.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj".
+error  : failed to copy pPlaneShape1.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape1.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape1.obj_mb.obj".
 error  : failed to copy pPlaneShape6.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape6.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape6.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape6.obj".
 error  : failed to copy pPlaneShape6.obj_mb.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape6.obj_mb.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape6.obj_mb.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape6.obj_mb.obj".
 error  : failed to copy pPlaneShape7.obj to E:/MyDocuments/maya/projects/default/rib\pPlaneShape7.obj: boost::filesystem::copy_file: 系统找不到指定的文件。: "pPlaneShape7.obj", "E:/MyDocuments/maya/projects/default/rib\pPlaneShape7.obj".
@@ -73,13 +78,13 @@ info   : effective subpixel grid size: min: 3x3
 debug  : the scene does not rely on alpha mapping; using probe tracing.
 info   : effective subpixel grid size: min: 3x3
 info   : using 2 threads for rendering.
-info   : collecting geometry for triangle tree #518...
+info   : collecting geometry for triangle tree #63...
 debug  : triangle_keys: size 44 (528 bytes)  capacity 44 (528 bytes)  overhead 0 (0 byte)
 debug  : triangle_vertex_infos: size 44 (352 bytes)  capacity 44 (352 bytes)  overhead 0 (0 byte)
 debug  : triangle_bboxes: size 44 (1.0 KB)  capacity 44 (1.0 KB)  overhead 0 (0 byte)
-info   : building bvh triangle tree #518 (44 triangles)...
+info   : building bvh triangle tree #63 (44 triangles)...
 debug  : triangle_vertices: size 264 (3.1 KB)  capacity 264 (3.1 KB)  overhead 0 (0 byte)
-debug  : triangle tree #518 statistics:
+debug  : triangle tree #63 statistics:
 debug  :   build time       0 ms
 debug  :   size             5.5 KB
 debug  :   nodes            total 29  interior 14  leaves 15
@@ -89,7 +94,7 @@ debug  :   leaf size        avg 2.9  min 2  max 8  dev 1.7
 debug  :   sibling overlap  avg 21.4%  min 0.0%  max 100.0%  dev 41.0%
 debug  :   fat leaves       0.0%
 debug  :   inter. filters   0
-debug  :   nodes alignment  128 bytes
+debug  :   nodes alignment  64 bytes
 debug  : texture cache statistics:
 debug  :   performances     n/a
 debug  : intersection statistics:
