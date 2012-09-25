@@ -84,11 +84,11 @@ private: // Methods
 	MStatus scanSceneNodes( MObject&, MDagPath &, float, int, int &, MStatus& ); 
 	MStatus scanScene(float, int );
 
-	void portFieldOfView( int width, int height, double& horizontal, double& vertical, MFnCamera& fnCamera );
-	void computeViewingFrustum( double window_aspect, double& left, double& right, double& bottom, double& top, MFnCamera& cam );
-	void getCameraInfo( MFnCamera &cam, structCamera &camStruct );//r773
-	MStatus getCameraTransform( MFnCamera& cam, structCamera &camStruct );//r773
-	void getCameraFilmOffset( MFnCamera& cam, structCamera &camStruct );//r773
+	void portFieldOfView( int width, int height, double& horizontal, double& vertical, const MFnCamera& fnCamera );
+	void computeViewingFrustum( double window_aspect, double& left, double& right, double& bottom, double& top, const MFnCamera& cam );
+	void getCameraInfo( const MFnCamera &cam, structCamera &camStruct );//r773
+	MStatus getCameraTransform( const MFnCamera& cam, structCamera &camStruct );//r773
+	void getCameraFilmOffset( const MFnCamera& cam, structCamera &camStruct );//r773
 	void setSearchPaths();
 	void setOutDirs();
 #ifdef Refactoring 

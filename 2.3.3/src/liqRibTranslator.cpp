@@ -2893,7 +2893,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 void liqRibTranslator::portFieldOfView( int port_width, int port_height,
 									   double& horizontal,
 									   double& vertical,
-									   MFnCamera& fnCamera )
+									   const MFnCamera& fnCamera )
 {
 	CM_TRACE_FUNC("liqRibTranslator::portFieldOfView("<<port_width<<","<<port_height<<",&horizontal,&vertical,&fnCamera)");
 	// note : works well - api tested
@@ -2914,9 +2914,9 @@ void liqRibTranslator::computeViewingFrustum ( double     window_aspect,
 											  double&    right,
 											  double&    bottom,
 											  double&    top,
-											  MFnCamera& cam )
+											  const MFnCamera& cam )
 {
-	CM_TRACE_FUNC("liqRibTranslator::computeViewingFrustum("<<window_aspect<<","<<",&left,&right,&bottom,&top,&cam)");
+	CM_TRACE_FUNC("liqRibTranslator::computeViewingFrustum("<<window_aspect<<","<<",&left,&right,&bottom,&top,"<<cam.fullPathName().asChar()<<")");
 
 	double film_aspect   = cam.aspectRatio();
 	double aperture_x    = cam.horizontalFilmAperture();
@@ -2974,6 +2974,8 @@ void liqRibTranslator::computeViewingFrustum ( double     window_aspect,
 }
 void liqRibTranslator::exportJobCamera(const structJob &job, const structCamera camera[])
 {
+	CM_TRACE_FUNC("liqRibTranslator::exportJobCamera("<<job.name.asChar()<<","<<",)");
+
 	if ( camera[0].isOrtho )
 	{
 		RtFloat frameWidth, frameHeight;
@@ -3058,8 +3060,9 @@ void liqRibTranslator::exportJobCamera(const structJob &job, const structCamera 
 /**
  * getCameraTransform
  */
-MStatus liqRibTranslator::getCameraTransform( MFnCamera& cam, structCamera &camStruct )
+MStatus liqRibTranslator::getCameraTransform(const MFnCamera& cam, structCamera &camStruct )
 {
+	CM_TRACE_FUNC("liqRibTranslator::getCameraTransform("<<cam.fullPathName().asChar()<<",)");
 	MStatus status;
 	MDagPath cameraPath;
 	cam.getPath(cameraPath);
@@ -3103,8 +3106,9 @@ MStatus liqRibTranslator::getCameraTransform( MFnCamera& cam, structCamera &camS
 /**
  * getCameraFilmOffset
  */
-void liqRibTranslator::getCameraFilmOffset( MFnCamera& cam, structCamera &camStruct )
+void liqRibTranslator::getCameraFilmOffset(const MFnCamera& cam, structCamera &camStruct )
 {
+	CM_TRACE_FUNC("liqRibTranslator::getCameraFilmOffset("<<cam.fullPathName().asChar()<<",)");
 	// film back offsets
 	double hSize, vSize, hOffset, vOffset;
 	cam.getFilmFrustum( cam.focalLength(), hSize, vSize, hOffset, vOffset );
@@ -3145,9 +3149,9 @@ void liqRibTranslator::getCameraFilmOffset( MFnCamera& cam, structCamera &camStr
 /**
 * Get information about the given camera.
 */
-void liqRibTranslator::getCameraInfo( MFnCamera& cam, structCamera &camStruct )
+void liqRibTranslator::getCameraInfo(const MFnCamera& cam, structCamera &camStruct )
 {
-	CM_TRACE_FUNC("liqRibTranslator::getCameraInfo("<<",&cam)");
+	CM_TRACE_FUNC("liqRibTranslator::getCameraInfo("<<cam.fullPathName().asChar()<<",)");
 
 	// Resolution can change if camera film-gate clips image
 	// so we must keep camera width/height separate from render
