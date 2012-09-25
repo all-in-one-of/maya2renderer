@@ -32,25 +32,25 @@ void Visitor::visitBlinn(const char* node)
 
 	o.beginRSL(node);
 
-	o.addRSLVariable(       "", "vector", "inColor",		"color",		node);
-	o.addRSLVariable(       "", "vector", "transparency", "transparency", node);
-	o.addRSLVariable(       "", "vector", "ambColor",		"ambientColor", node);
-	o.addRSLVariable(       "", "vector", "incandescence","incandescence",node);
-	o.addRSLVariable(       "", "float",  "diffusion",	"diffuse",		node);
-	o.addRSLVariable(       "", "float",  "eccentricity", "eccentricity", node);
-	o.addRSLVariable(       "", "float",  "specRollOff",	"specularRollOff",node);
-	o.addRSLVariable(       "", "vector", "specColor",	"specularColor",node);
-	o.addRSLVariable(       "", "vector", "outColor",		"outColor",		node);
+	o.addRSLVariable(       "", "color", "inColor",			"color",		node);
+	o.addRSLVariable(       "", "color", "transparency",	"transparency", node);
+	o.addRSLVariable(       "", "color", "ambColor",		"ambientColor", node);
+	o.addRSLVariable(       "", "color", "incandescence",	"incandescence",node);
+	o.addRSLVariable(       "", "float", "diffusion",		"diffuse",		node);
+	o.addRSLVariable(       "", "float", "eccentricity",	"eccentricity", node);
+	o.addRSLVariable(       "", "float", "specRollOff",		"specularRollOff",node);
+	o.addRSLVariable(       "", "color", "specColor",		"specularColor",node);
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);
 
 	o.addToRSL( "extern normal N;");
 	o.addToRSL( "normal Nn = normalize( N );");
 	o.addToRSL( "Oi = Os * color ( 1 - transparency );");
-	o.addToRSL( "vector Cdiffuse;");
+	o.addToRSL( "color Cdiffuse;");
 	o.addToRSL( "Cdiffuse = incandescence +");
 	o.addToRSL( "           ( inColor * ( diffusion * ");
-	o.addToRSL( "                         vector diffuse( Nn ) +");
+	o.addToRSL( "                         diffuse( Nn ) +");
 	o.addToRSL( "                         ambColor ) );");
-	o.addToRSL( "vector Cspecular = 0;");
+	o.addToRSL( "color Cspecular = 0;");
 	o.addToRSL( "float eccSq = pow( eccentricity, 2 );");
 	o.addToRSL( "vector V = normalize( -I );");
 	o.addToRSL( "float NV = Nn . V;");
@@ -74,7 +74,7 @@ void Visitor::visitBlinn(const char* node)
 	if( con.length() != 0 )
 	{
 		o.addRSLVariable(       "", "float", "reflectivity", "reflectivity", node);
-		o.addRSLVariable(       "", "vector", "refColor", "reflectedColor", node);
+		o.addRSLVariable(       "", "color", "refColor", "reflectedColor", node);
 		o.addToRSL( "Cspecular += ( reflectivity * refColor );");
 	}
 	o.addToRSL( "Cspecular *= specColor;");
@@ -193,13 +193,13 @@ void Visitor::visitLambert(const char* node)
 
 	o.beginRSL(node);
 
-	o.addRSLVariable(       "", "vector", "inColor",		"color",		node);
-	o.addRSLVariable(       "", "vector", "transparency", "transparency", node);
-	o.addRSLVariable(       "", "vector", "ambientColor",	"ambientColor", node);
-	o.addRSLVariable(       "", "vector", "incandescence","incandescence",node);
-	o.addRSLVariable(       "", "float",  "diffusion",	"diffuse",		node);
-	o.addRSLVariable(       "", "vector", "outColor",		"outColor",		node);
-	o.addRSLVariable(       "", "vector", "outTransparency","outTransparency",node);
+	o.addRSLVariable(       "", "color", "inColor",			"color",		node);
+	o.addRSLVariable(       "", "color", "transparency",	"transparency", node);
+	o.addRSLVariable(       "", "color", "ambientColor",	"ambientColor", node);
+	o.addRSLVariable(       "", "color", "incandescence",	"incandescence",node);
+	o.addRSLVariable(       "", "float", "diffusion",		"diffuse",		node);
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);
+	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",node);
 
 	o.addToRSL( "extern normal N;");
 	o.addToRSL( "normal Nn = normalize( N );");
@@ -207,7 +207,7 @@ void Visitor::visitLambert(const char* node)
 	o.addToRSL( "Oi = Os * color ( 1 - outTransparency );");
 	o.addToRSL( "outColor = incandescence +");
 	o.addToRSL( "           ( inColor * ( diffusion * ");
-	o.addToRSL( "                         vector diffuse( Nn ) +");
+	o.addToRSL( "                         diffuse( Nn ) +");
 	o.addToRSL( "                         ambientColor ) );");
 	o.addToRSL( "Ci = Cs * Oi * color outColor;");
 
@@ -305,27 +305,27 @@ void Visitor::visitPhong(const char* node)
 	OutputHelper o(RSLfile);
 	o.beginRSL(node);
 
-	o.addRSLVariable(       "", "vector", "inColor",			"color",		node);
-	o.addRSLVariable(       "", "vector", "transparency",		"transparency", node);
-	o.addRSLVariable(       "", "vector", "ambColor",			"ambientColor", node);
-	o.addRSLVariable(       "", "vector", "incandescence",	"incandescence",node);
-	o.addRSLVariable(       "", "float",  "diffusion",		"diffuse",		node);
-	o.addRSLVariable(       "", "float",  "cosinePower",		"cosinePower",	node);
-	o.addRSLVariable(       "", "vector", "specColor",		"specularColor",node);
-	o.addRSLVariable(       "", "vector", "outColor",			"outColor",		node);
-	o.addRSLVariable(       "", "vector", "outTransparency",	"outTransparency", node);
+	o.addRSLVariable(       "", "color", "inColor",			"color",		node);
+	o.addRSLVariable(       "", "color", "transparency",	"transparency", node);
+	o.addRSLVariable(       "", "color", "ambColor",		"ambientColor", node);
+	o.addRSLVariable(       "", "color", "incandescence",	"incandescence",node);
+	o.addRSLVariable(       "", "float", "diffusion",		"diffuse",		node);
+	o.addRSLVariable(       "", "float", "cosinePower",		"cosinePower",	node);
+	o.addRSLVariable(       "", "color", "specColor",		"specularColor",node);
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);
+	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency", node);
 
 	o.addToRSL("extern normal N;");
 	o.addToRSL("normal Nn = normalize( N );");
 	o.addToRSL("outTransparency = transparency;");
 	o.addToRSL("Oi = Os * color ( 1 - outTransparency );");
-	o.addToRSL("vector Cdiffuse;");
+	o.addToRSL("color Cdiffuse;");
 	o.addToRSL("Cdiffuse = incandescence +");
 	o.addToRSL("           ( inColor * ( diffusion * ");
-	o.addToRSL("                         vector diffuse( Nn ) +");
+	o.addToRSL("                         diffuse( Nn ) +");
 	o.addToRSL("                         ambColor ) );");
-	o.addToRSL("vector Cspecular;");
-	o.addToRSL("Cspecular = vector phong( Nn,");
+	o.addToRSL("color Cspecular;");
+	o.addToRSL("Cspecular = phong( Nn,");
 	o.addToRSL("                          normalize( -I ),");
 	o.addToRSL("                          cosinePower );");
 
@@ -333,8 +333,8 @@ void Visitor::visitPhong(const char* node)
 	IfMErrorWarn(MGlobal::executeCommand( ("listConnections(\""+MString(node)+"\" + \".reflectedColor\")"), con));
 	if( con.length() != 0 )
 	{
-		o.addRSLVariable(       "", "float", "reflectivity", "reflectivity", node);
-		o.addRSLVariable(       "", "vector", "refColor", "reflectedColor", node);
+		o.addRSLVariable(       "", "float", "reflectivity",	"reflectivity",		node);
+		o.addRSLVariable(       "", "color", "refColor",		"reflectedColor",	node);
 		o.addToRSL("Cspecular += ( reflectivity * refColor );");
 	}
 	o.addToRSL("Cspecular *= specColor;");

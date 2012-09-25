@@ -25,7 +25,7 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	o.addRSLVariable(       "", "float",	"i_spread",		"spread",		node);
 	o.addRSLVariable(       "", "float",	"i_max_distance","max_distance",node);
 	o.addRSLVariable(       "", "float",	"i_reflective",	"reflective",	node);
-	o.addRSLVariable(       "", "vector",	"o_outValue",	"outValue",		node);
+	o.addRSLVariable(       "", "color",	"o_outValue",	"outValue",		node);
 
 	o.addToRSL( 
 		"extern point P;\n"
@@ -45,7 +45,7 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 		"                        \"maxdist\", i_max_distance,		\n"
 		"                        \"coneangle\", i_spread * PI / 2);	\n"
 		"\n"
-		"o_outValue = vector mix( i_dark, i_bright, occ );				\n"
+		"o_outValue = mix( i_dark, i_bright, occ );				\n"
 	);
 
 	o.endRSL();
@@ -61,10 +61,9 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	o.addRSLVariable(       "", "float",	"i_spread",		"spread",		node);
 	o.addRSLVariable(       "", "float",	"i_max_distance","max_distance",node);
 	o.addRSLVariable(       "", "float",	"i_reflective",	"reflective",	node);
-	o.addRSLVariable(       "", "vector",	"o_outValue",	"outValue",		node);
+	o.addRSLVariable(       "", "color",	"o_outValue",	"outValue",		node);
 
 	o.addToRSL("{");
-	o.addToRSL("  color _o_outValue;");
 
 	o.addToRSL(
 		"if(i_max_distance < 0.0001){//If it is zero, the entire scene is sampled\n"
@@ -80,9 +79,8 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 					"i_max_distance,\n\t"
 					"i_reflective,	\n\t"
 					//Outputs
-					"_o_outValue		\n"
+					"o_outValue		\n"
 			"   );");
-	o.addToRSL("  o_outValue        = vector _o_outValue;");
 	o.addToRSL("}");
 	o.endRSL();
 
