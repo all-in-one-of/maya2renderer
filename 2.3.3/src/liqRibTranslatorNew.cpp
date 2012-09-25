@@ -812,7 +812,7 @@ MStatus liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , c
 				iter__->camera[sample__].focalDistance  = fnCamera.focusDistance();
 				iter__->camera[sample__].fStop          = fnCamera.fStop();
 				iter__->camera[sample__].isOrtho		= fnCamera.isOrtho();
-				//iter->camera[sample].name           = fnCamera.fullPathName();//r773 ommit this?
+				iter__->camera[sample__].name           = fnCamera.fullPathName();
 				getCameraFilmOffset( fnCamera, iter__->camera[sample__] );
 
 				// convert focal length to scene units
