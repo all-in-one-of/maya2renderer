@@ -481,13 +481,12 @@ namespace renderman
 		// Alf: preShapeMel
 		liqRibTranslator::getInstancePtr()->preShapeMel(transform);
 		//refactor 31 begin from liqRibTranslator::objectBlock()
-//added in r773, but I omitted this section temperately 
 		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
 		//if( !ribNode->object(0)->receiveShadow )
-// 		{
-// 			int receiveShadows = ribNode__->object(0)->receiveShadow;
-// 			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
-// 		}
+		{
+			int receiveShadows = ribNode__->object(0)->receiveShadow;
+			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
+		}
 		//refactor 31 end
 
 		if( !ribNode__->ignoreShapes ) 

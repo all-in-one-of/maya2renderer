@@ -6927,13 +6927,13 @@ MStatus liqRibTranslator::objectBlock()
 			MGlobal::executeCommand( m_preShapeMel );
 
 		//refactor 31 begin to renderman::Renderer::exportOneObject_reference()
-//added in r773, but I omitted this section temperately 		
+
 		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
  		//if( !ribNode->object(0)->receiveShadow )
-// 		{
-// 			int receiveShadows = ribNode->object(0)->receiveShadow;
-// 			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
-// 		}
+		{
+			int receiveShadows = ribNode->object(0)->receiveShadow;
+			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
+		}
 		//refactor 31 end
 
 		if( !ribNode->ignoreShapes ) 

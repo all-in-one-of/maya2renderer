@@ -68,7 +68,8 @@ public:
     ObjectType      type;
     int      written;
     bool     ignore;
-    bool     ignoreShadow;
+	bool     ignoreShadow;
+	bool     receiveShadow;
     bool     ignoreShapes;
 
     MMatrix  matrix( int instance ) const;
