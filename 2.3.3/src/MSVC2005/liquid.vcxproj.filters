@@ -526,6 +526,9 @@
     <ClCompile Include="..\liqRibHierarchicalSubdivisionData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqParseString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -913,6 +916,9 @@
       <Filter>renderer\appleseed</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqParseString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

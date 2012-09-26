@@ -2279,6 +2279,7 @@
     <ClCompile Include="..\liqMayaRenderView.cpp" />
     <ClCompile Include="..\liqMemory.cpp" />
     <ClCompile Include="..\liqNodeSwatch.cpp" />
+    <ClCompile Include="..\liqParseString.cpp" />
     <ClCompile Include="..\liqPreviewShader.cpp" />
     <ClCompile Include="..\liqProcessLauncher.cpp" />
     <ClCompile Include="..\liqRenderer.cpp" />
@@ -2396,6 +2397,7 @@
     <ClInclude Include="..\..\..\dependence\appleseed\eLut.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\half.h" />
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h" />
+    <ClInclude Include="..\..\include\liqParseString.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h" />

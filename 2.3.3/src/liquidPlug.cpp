@@ -81,6 +81,7 @@
 #include <liqShaderFactory.h>
 #include <liqGlobalVariable.h>
 #include <liqGetSloInfo.h>
+#include <liqParseString.h>
 
 #define LIQVENDOR "http://liquidmaya.sourceforge.net/"
 
@@ -474,6 +475,8 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
   status = MSwatchRenderRegister::registerSwatchRender( "liqShaderSwatch", liqNodeSwatch::creator );
   LIQCHECKSTATUS( status, "Can't register liquidShader swatch" );
 
+  status = plugin.registerCommand("liqParseString", liqParseString::creator );
+  LIQCHECKSTATUS( status, "Can't register liquid parseString command" );
   // setup all of the base liquid interface
   MString sourceLine("source ");
   char *tmphomeChar;
@@ -774,6 +777,9 @@ LIQUID_EXPORT MStatus uninitializePlugin(MObject obj)
   LIQCHECKSTATUS( status, "Can't deregister liquidCoShader node" );
   status = MSwatchRenderRegister::unregisterSwatchRender( "liqCoShaderSwatch" );
   LIQCHECKSTATUS( status, "Can't deregister liquidCoShader swatch generator" );
+
+  status = plugin.deregisterCommand("liqParseString");
+  LIQCHECKSTATUS( status, "Can't deregister liqParseString command" );
 
   printf("Liquid %s unregistered\n\n", LIQUIDVERSION );
 

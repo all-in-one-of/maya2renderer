@@ -397,6 +397,7 @@ MString parseString( const MString& inString, bool doEscaped )
   stringstream ss;
 
   MString tokenString;
+  int escapedDollar = 0;
   bool inToken = false;
   std::string prep_str ( inString.asChar() );
   boost::trim( prep_str );
@@ -414,10 +415,22 @@ MString parseString( const MString& inString, bool doEscaped )
       ss << " ";
       continue;
     }
-    if( str == "$" ) 
+	if( str == "\\" && str_inc == "$" )
+	{
+		escapedDollar = 1;
+	}
+    else if( str == "$" ) 
     {
-      tokenString.clear();
-      inToken = true;
+		if(escapedDollar)
+		{
+			ss << "$";
+		}
+		else
+		{
+			tokenString.clear();
+			inToken = true;
+		}
+		escapedDollar = 0;
     } 
     else if( inToken ) 
     {

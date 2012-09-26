@@ -43,22 +43,48 @@ global proc string liquidFluidGetPreviewDir()
 	liqlog("liquidFluidGetPreviewDir()");
   // retrieve the current project path
   string $projectPath = `workspace -q -rootDirectory`;
-
-  // check the existence of the preview directory
-  string $previewTopDir = ($projectPath+"liquidPreviews");
-  if ( !`filetest -d $previewTopDir` ) {
-    string $current = `pwd`;
-    chdir $projectPath;
-    sysFile -makeDir liquidPreviews;
-    chdir $current;
-  }
+	if( `substring $projectPath (size($projectPath)) (size($projectPath))` != "/" )
+	{
+		$projectPath += "/";
+	}
+	// get the temp dir
+	string $fullTmpDir;
+	string $tmpDir = `getAttr liquidGlobals.tempDirectory`;
+	$tmpDir = `liqParseString -s $tmpDir`;
+	if( $tmpDir == "" )
+	{
+		// check the existence of the preview directory
+		$fullTmpDir = ($projectPath+"liquidPreviews");
+		if ( !`filetest -d $fullTmpDir` ) {
+			string $current = `pwd`;
+			chdir $projectPath;
+			sysFile -makeDir liquidPreviews;
+			chdir $current;
+		}
+	}
+	else if( `substring $tmpDir 1 1` == "/" )
+	{
+		if( `substring $tmpDir (size($tmpDir)) (size($tmpDir))` != "/" )
+		{
+			$tmpDir += "/";
+		}
+		$fullTmpDir = $tmpDir + "liquidPreviews";
+	}
+	else
+	{
+		if( `substring $tmpDir (size($tmpDir)) (size($tmpDir))` != "/" )
+		{
+			$tmpDir += "/";
+		}
+		$fullTmpDir = $projectPath + $tmpDir + "liquidPreviews";
+	}
 
   // check the existence of the scene directory
   string $scene = basenameEx(`file -q -sceneName`);
   if ( !size( $scene ) ) {
     $scene = "Untitled";
   }
-  string $previewSceneDir = ($previewTopDir+"/"+$scene);
+  string $previewSceneDir = ($fullTmpDir+"/"+$scene);
   if ( !`filetest -d $previewSceneDir` ) {
     sysFile -makeDir $previewSceneDir;
     // if dir creation failed
