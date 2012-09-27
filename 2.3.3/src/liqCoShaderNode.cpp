@@ -72,6 +72,7 @@ MObject liqCoShaderNode::aRmanArraySizes;
 MObject liqCoShaderNode::aRmanLifCmds;
 MObject liqCoShaderNode::aRmanMethods;
 MObject liqCoShaderNode::aRmanIsOutput;
+MObject liqCoShaderNode::aRmanAccept;
 
 MObject liqCoShaderNode::aPreviewPrimitive;
 MObject liqCoShaderNode::aPreviewCustomPrimitive;
@@ -182,6 +183,9 @@ MStatus liqCoShaderNode::initialize()
 	aRmanIsOutput = tAttr.create(  MString("rmanIsOutput"),  MString("rio"), MFnData::kIntArray, aRmanIsOutput, &status );
 	MAKE_INPUT(tAttr);
 
+	aRmanAccept = tAttr.create(  MString("rmanAccept"),  MString("rma"), MFnData::kStringArray, aRmanAccept, &status );
+	MAKE_INPUT(tAttr);
+
 	aPreviewPrimitive = eAttr.create( "previewPrimitive", "pvp", 7, &status );
 	eAttr.addField( "Sphere",   0 );
 	eAttr.addField( "Cube",     1 );
@@ -236,6 +240,7 @@ MStatus liqCoShaderNode::initialize()
 	CHECK_MSTATUS(addAttribute(aRmanLifCmds));
 	CHECK_MSTATUS(addAttribute(aRmanMethods));
 	CHECK_MSTATUS(addAttribute(aRmanIsOutput));
+	CHECK_MSTATUS(addAttribute(aRmanAccept));
 
 	CHECK_MSTATUS(addAttribute(aPreviewPrimitive));
 	CHECK_MSTATUS(addAttribute(aPreviewCustomPrimitive));

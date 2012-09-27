@@ -33,6 +33,7 @@
 //      liquidSlParamType
 //      liquidSlParamArraySize
 //      liquidSlParamDefault
+//      liquidSlParamAccept
 //      liquidSlDefaultToString
 //      liquidSlDefaultToStringArray
 //      liquidSlDefaultToFloat
@@ -581,6 +582,7 @@ global proc liquidSlSetShaderNode( string $node )
     global string	$gLiquidSlParamTypes[];
     global string	$gLiquidSlParamDefaults[];
     global int		$gLiquidSlParamArraySizes[];
+	global string	$gLiquidSlParamAccept[];
 
     global string	$gLiquidSLifFile[];
     global int		$gLiquidSlParamGuiOrder[];
@@ -601,6 +603,7 @@ global proc liquidSlSetShaderNode( string $node )
     $gLiquidSlParamTypes      = `getAttr ($node+".rmanTypes")`;
     $gLiquidSlParamDefaults   = `getAttr ($node+".rmanDefaults")`;
     $gLiquidSlParamArraySizes = `getAttr ($node+".rmanArraySizes")`;
+	$gLiquidSlParamAccept	  = `getAttr ($node+".rmanAccept")`;
 
   liqPopIdent();
 }
@@ -620,6 +623,7 @@ global proc liquidSlInfoReset()
  	global string	$gLiquidSlParamTypes[];
  	global string	$gLiquidSlParamDefaults[];
  	global int		$gLiquidSlParamArraySizes[];
+	global string	$gLiquidSlParamAccept[];
 
  	global string	$gLiquidSLifFile[];
  	global int		$gLiquidSlParamGuiOrder[];
@@ -797,6 +801,43 @@ global proc  string liquidSlParamType( int $index )
 	string $ret = $gLiquidSlParamTypes[$index];
   liqPopIdent();
     return $ret;
+}
+
+global proc  string liquidSlParamAccept( int $index )
+{
+  liqPushIdent();
+	liqlog("liquidSlParamAccept("+$index+")");
+    global int $gLiquidSlNumParams;
+
+    if ( $gLiquidSlNumParams == -1 )
+        error( "[liquidSlParamAccept] no shader set" );
+
+    if ( $index < 0 || $index >= $gLiquidSlNumParams )
+        error( "[liquidSlParamAccept] parameter index "+$index+" out of range" );
+
+    global string $gLiquidSlParamAccept[];
+	 
+	liqPopIdent();
+    return $gLiquidSlParamAccept[$index];
+}
+
+// For the only case where lif parsing can modify Sl parsed info
+// See liquidLifSetParamAccept in liquidSlParseLif
+global proc liquidSlSetParamAccept( int $index, string $accept )
+{
+  liqPushIdent();
+	liqlog("liquidSlSetParamAccept("+$index+","+$accept+")");
+    global int $gLiquidSlNumParams;
+	
+    if ( $gLiquidSlNumParams == -1 )
+        error( "[liquidSlSetParamAccept] no shader set" );
+
+    if ( $index < 0 || $index >= $gLiquidSlNumParams )
+        error( "[liquidSlSetParamAccept] parameter index "+$index+" out of range" );
+
+	global string $gLiquidSlParamAccept[];
+    $gLiquidSlParamAccept[$index]	= $accept;
+	liqPopIdent();
 }
 
 // Convention, -1 means not an array, so as not

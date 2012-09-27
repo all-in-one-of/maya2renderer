@@ -236,6 +236,17 @@ int liqGetSloInfo::isOutputParameter( unsigned int num )
 	}
 }
 
+MString liqGetSloInfo::getArgAccept( unsigned int num )
+{
+	if(num<argAccept.size())
+	{
+		return argAccept[num];
+	}
+	else
+	{
+		return "";  // must only append with old scenes...
+	}
+}
 
 void liqGetSloInfo::resetIt()
 {
@@ -466,7 +477,7 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 	IfMErrorMsgWarn(stat, shaderNode.name()+".findPlug(\"rmanShaderType\")");
 	IfMErrorMsgWarn(shaderPlug.getValue( shaderTypeEx ), shaderPlug.name() );
 #endif
-    MStringArray shaderParams, shaderDetails, shaderTypes, shaderDefaults, shaderMethods;
+    MStringArray shaderParams, shaderDetails, shaderTypes, shaderDefaults, shaderMethods, shaderAccept;
     MIntArray shaderArraySizes, shaderOutputs;
 
 	// commented out for it causes unjustified errors
@@ -494,6 +505,27 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
       error = "Liquid -> error reading " + shaderNode.name() + ".rmanDetails ... Please run \"liquidShaderUpdater(1)\" to fix your scene !";
       throw error;
     }
+
+	// get the parameter access
+	shaderPlug = shaderNode.findPlug( "rmanAccept", &stat );
+	if( stat==MS::kSuccess )
+	{
+		shaderPlug.getValue( arrayObject );
+		stringArrayData.setObject( arrayObject );
+		stringArrayData.copyTo( shaderAccept );
+		if( shaderAccept.length()==0 && numParam!=0 )
+		{
+			printf("[liqGetSloInfo::setShaderNode] warning reading %s.rmanAccept, array is empty ...\n", shaderNode.name().asChar() );
+		}
+		else if( shaderAccept.length() != numParam )
+		{
+			printf("[liqGetSloInfo::setShaderNode] error reading %s.rmanAccept, bad array size %d, should be %d ...\n", shaderNode.name().asChar(), shaderAccept.length(), numParam );
+		}
+	}
+	else
+	{
+		printf("[liqGetSloInfo::setShaderNode] error plug %s.rmanAccept doesn't exist\n", shaderNode.name().asChar());
+	}
 
 	// get the parameter output on/off
 	shaderPlug = shaderNode.findPlug( "rmanIsOutput", &stat );
@@ -577,6 +609,10 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
       //cout <<"setShaderNode:       - shaderDetails["<<k<<"] = "<<shaderDetails[k]<<" -> "<<theParamDetail<<endl;
       argDetail.push_back( theParamDetail );
 
+	  if( shaderAccept.length() == numParam )
+	  {
+		  argAccept.push_back( shaderAccept[k] );
+	  }
       if( shaderOutputs.length() == numParam )
       {
 		  argIsOutput.push_back( shaderOutputs[k] );

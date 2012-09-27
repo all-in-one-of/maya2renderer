@@ -71,6 +71,7 @@ class liqDisplacementNode : public MPxNode
     static MObject aRmanLifCmds;
 	static MObject aRmanMethods;
 	static MObject aRmanIsOutput;
+	static MObject aRmanAccept;
 
     static MObject aPreviewPrimitive;
     static MObject aPreviewCustomPrimitive;

@@ -32,9 +32,17 @@ global proc AEliquidCoShaderTemplate( string $nodeName )
 		editorTemplate -suppress rmanShaderType;
 		editorTemplate -suppress rmanShaderLong;
 		editorTemplate -suppress rmanShaderLif;
+		editorTemplate -suppress rmanMethods;
 		editorTemplate -suppress rmanParams;
+		editorTemplate -suppress rmanDetails;
+		editorTemplate -suppress rmanTypes;
+		editorTemplate -suppress rmanIsOutput;
+		editorTemplate -suppress rmanAccept;
+		editorTemplate -suppress rmanDefaults;
 		editorTemplate -suppress rmanArraySizes;
 		editorTemplate -suppress rmanLifCmds;
+		editorTemplate -suppress rmanLifCtrls;	
+
 		editorTemplate -addExtraControls;
 	editorTemplate -endScrollLayout;
 	layout -e -vis true "AEcontrolFormLayout";

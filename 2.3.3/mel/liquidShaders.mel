@@ -46,7 +46,7 @@ global proc string[] liquidGetShaderList(string $type)
 	liqlog("liquidGetShaderList(...)");
   string $out_shaderlist[];
   if($type == "all") {
-    string $types[] = {"Surface","Light","Displacement","Volume","RibBox"};
+    string $types[] = {"Surface","Light","Disp","Volume","RibBox","Shader"};
     for($shader_type in $types) {
       $out_shaderlist = stringArrayCatenate($out_shaderlist, `ls -type ("liquid"+$shader_type)`);
     }
@@ -69,7 +69,9 @@ global proc string liquidGetShaderNodeType( string $node )
 
   $nodeType = nodeType( $node );
   if ( objExists( ( $node + ".typeId" ) ) ) 
+  {
 	  $typeId = `getAttr ( $node + ".typeId" ) `;
+  }
   $type = `substring $node 1 10`;
   if( ( $type == "liquidSurf" ) || ( $typeId == 303126790 ) || ( $nodeType == "liquidSurface" ) ) {
     $returnValue = "Surface";
@@ -87,14 +89,36 @@ global proc string liquidGetShaderNodeType( string $node )
   if( ( $type == "liquidVolu" ) || ( $typeId == 303126793 ) || ( $nodeType == "liquidVolume" ) ) {
     $returnValue = "Volume";
   }
+  if( ( $type == "liquidCoSh" ) || ( $typeId == 303126796) || ( $nodeType == "liquidCoShader" ) ) {
+    $returnValue = "Shader";
+  }  
   if( ( $type == "liquidRibb" ) || ( $typeId == 303126794 ) || ( $nodeType == "liquidRibBox" ) ) {
     $returnValue = "Ribbox";
   }
   if( ( $type == "liquidCont" ) || ( $typeId == 303126795 ) ) {
     $returnValue = "Container";
   }
+  if( $nodeType == "liquidSurfaceSwitcher" ) {
+    $returnValue = "SurfaceSwitch";
+  }
+  if( $nodeType == "liquidDisplacementSwitcher" ) {
+    $returnValue = "DispSwitch";
+  }
   liqPopIdent();
   return $returnValue;
+}
+
+ // Find it a bit messed up to return fill type name, but for displacement where it's Disp
+ // and why not return it in lowercase anyway ?
+global proc string liquidGetShaderNodeExpectedType( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGetShaderNodeExpectedType(" + $node + ")");
+
+	string $shaderNodeLiquidType = liquidGetShaderNodeType( $node );
+	
+	liqPopIdent();
+	return (($shaderNodeLiquidType == "Disp") ? "displacement" : tolower($shaderNodeLiquidType));
 }
 
 /**

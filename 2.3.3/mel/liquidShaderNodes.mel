@@ -54,85 +54,137 @@ proc rmanParams_create( string $node, int $reReadShaderParams )
   //trace ("[rmanParams_create] for "+$node+", reread: "+$reReadShaderParams);
 
   global string $gLifCmdList[];
+  global int $gLifCmdForParamIdList[];
+  global int $gLifCmdForGroupIdList[];
+  global string	$gLifGroups[];
 
   setAttr -type "string" ( $node + ".rmanShader" ) (liquidSlShaderName());
 
   setAttr -type "string" ( $node + ".rmanShaderType" ) (liquidSlShaderType());
 
+  string $plug, $cmd;
+
   // store the output values
   //
-  string $cmd = ( "setAttr -type Int32Array " + $node + ".rmanIsOutput " + liquidSlNumParams() + " " );
-  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
-      $cmd += ( "" + liquidSlParamIsOutput($i) + " " );
+  $plug = ($node + ".rmanIsOutput");
+  if (objExists($plug)) {
+	string $cmd = ( "setAttr -type Int32Array " + $plug +  " " + liquidSlNumParams() + " " );
+	for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		$cmd += ( "" + liquidSlParamIsOutput($i) + " " );
+	}
+	liqlog($cmd);
+	eval $cmd;
   }
-  liqlog($cmd);
-  eval $cmd;
 
   // store the method names 
   //
-   string $cmd = ( "setAttr -type stringArray " + $node + ".rmanMethods " + liquidSlNumMethods() + " " );
-   for ( $i = 0; $i < liquidSlNumMethods(); $i++ ) {
-       $cmd += ( "\"" + liquidSlMethodName($i) + "\" " );
-   }
-   liqlog($cmd);
-   eval $cmd;
+  $plug = ($node + ".rmanMethods");
+	if (objExists($plug)) { 
+		string $cmd = ( "setAttr -type stringArray " + $plug + " " + liquidSlNumMethods() + " " );
+		for ( $i = 0; $i < liquidSlNumMethods(); $i++ ) {
+			$cmd += ( "\"" + liquidSlMethodName($i) + "\" " );
+		}
+		liqlog($cmd);
+		eval $cmd;
+	}
 
   // store the param names
-  //
-  string $cmd = ( "setAttr -type stringArray " + $node + ".rmanParams " + liquidSlNumParams() + " " );
-  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
-      $cmd += ( "\"" + liquidSlParamName($i) + "\" " );
+  // 
+  $plug = ($node + ".rmanParams");
+  if (objExists($plug)) {  
+	  string $cmd = ( "setAttr -type stringArray " + $plug + " " + liquidSlNumParams() + " " );
+	  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		  $cmd += ( "\"" + liquidSlParamName($i) + "\" " );
+	  }
+	  liqlog($cmd);
+	  eval $cmd;
   }
-  liqlog($cmd);
-  eval $cmd;
-
   // store the param details
   //
-  string $cmd = ( "setAttr -type stringArray " + $node + ".rmanDetails " + liquidSlNumParams() + " " );
-  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
-      $cmd += ( liquidSlParamDetail($i) + " " );
+  $plug = ($node + ".rmanDetails"); 
+  if (objExists($plug)) {  
+	  string $cmd = ( "setAttr -type stringArray " + $plug + " " + liquidSlNumParams() + " " );
+	  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		  $cmd += ( liquidSlParamDetail($i) + " " );
+	  }
+	  liqlog($cmd);
+	  eval $cmd;
   }
-  liqlog($cmd);
-  eval $cmd;
-
   // store the param types
   //
-  string $cmd = ( "setAttr -type stringArray " + $node + ".rmanTypes " + liquidSlNumParams() + " " );
-  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
-      $cmd += ( "\"" + liquidSlParamType($i) + "\" " );
+  $plug = ($node + ".rmanTypes");
+  if (objExists($plug)) {  
+	  string $cmd = ( "setAttr -type stringArray " + $plug + " " + liquidSlNumParams() + " " );
+	  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		  $cmd += ( "\"" + liquidSlParamType($i) + "\" " );
+	  }
+	  liqlog($cmd);
+	  eval $cmd;
   }
-  liqlog($cmd);
-  eval $cmd;
-
   // store the defaults
   //
-  string $cmd = ( "setAttr -type stringArray " + $node + ".rmanDefaults " + liquidSlNumParams() + " " );
-  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
-      if ( liquidSlParamType($i) == "string" ) $cmd += ( "\"" + liquidSlParamDefaultRaw($i) + "\" " );
-      else $cmd += ( "\"" + liquidSlParamDefaultRaw($i) + "\" " );
+  $plug = ($node + ".rmanDefaults");
+  if (objExists($plug)) {  
+	  string $cmd = ( "setAttr -type stringArray " + $plug + " " + liquidSlNumParams() + " " );
+	  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		  if ( liquidSlParamType($i) == "string" ) $cmd += ( "\"" + liquidSlParamDefaultRaw($i) + "\" " );
+		  else $cmd += ( "\"" + liquidSlParamDefaultRaw($i) + "\" " );
+	  }
+	  liqlog($cmd);
+	  eval $cmd;
   }
-  liqlog($cmd);
-  eval $cmd;
-
   // store the array sizes
   //
-  string $cmd = ( "setAttr -type Int32Array " + $node + ".rmanArraySizes " + liquidSlNumParams() + " " );
-  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
-      $cmd += ( liquidSlParamArraySize($i) + " " );
+  $plug = ($node + ".rmanArraySizes");
+  if (objExists($plug)) {   
+	  string $cmd = ( "setAttr -type Int32Array " + $plug + " " + liquidSlNumParams() + " " );
+	  for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		  $cmd += ( liquidSlParamArraySize($i) + " " );
+	  }
+	  liqlog($cmd);
+	  eval $cmd;
   }
-  liqlog($cmd);
-  eval $cmd;
+  // store the accept
+  //
+  $plug = ($node + ".rmanAccept");
+  if (!objExists($plug)) {
+  	liqlog ("[rmanParams_create] adding attribute "+$plug);
+  	addAttr -dt "stringArray" -ln "rmanAccept" $node;
+  }
+  if (objExists($plug)) {
+  	string $cmd = ( "setAttr -type stringArray " + $plug + " " + liquidSlNumParams() + " " );
+	for ( $i = 0; $i < liquidSlNumParams(); $i++ ) {
+		$cmd += ( "\"" + liquidSlParamAccept($i) + "\" " );
+	}
+	liqlog ("[rmanParams_create] "+$cmd);
+	eval $cmd;
+  }
 
   // store the lif command sequence
   //
   int $guiSize = ( liquidLifGuiSize() )? liquidLifGuiSize() : liquidSlNumParams();
-  if ( !objExists( ($node + ".rmanLifCmds") ) ) addAttr -dt "stringArray" -ln rmanLifCmds $node;
-  string $cmd = ( "setAttr -type stringArray " + $node + ".rmanLifCmds " + $guiSize + " " );
-  for ( $i = 0; $i < $guiSize; $i++ ) {
-      $cmd += ( "\"" + encodeString($gLifCmdList[$i]) + "\" " );
+  $plug	= ($node + ".rmanLifCmds");
+  if ( !objExists( $plug ) ) {
+	  liqlog ("[rmanParams_create] adding attribute "+$plug);
+	  addAttr -dt "stringArray" -ln "rmanLifCmds" $node;
   }
-  liqlog($cmd);
-  eval $cmd;
+  if (objExists($plug)) {  
+	  string $cmd = ( "setAttr -type stringArray " + $plug + " " + $guiSize + " " );
+	  for ( $i = 0; $i < $guiSize; $i++ ) {
+		  $cmd += ( "\"" + encodeString($gLifCmdList[$i]) + "\" " );
+	  }
+	  liqlog($cmd);
+	  eval $cmd;
+  }
+
+
+
+  // prepare storage for the control names that result from the lif Cmd 
+  if ( !objExists( ($node + ".rmanLifCtrls") ) ) {
+  	liqlog ("[rmanParams_create] adding attribute "+$node + ".rmanLifCtrls");
+  	addAttr -dt "stringArray" -ln "rmanLifCtrls" $node;
+  }  
+
   liqPopIdent();
 }
 
@@ -159,11 +211,18 @@ global proc removeObsoleteParams( string $node )
             $at == "rmanParams"     ||
             $at == "rmanDetails"    ||
             $at == "rmanTypes"      ||
+            $at == "rmanAccept"     || 
             $at == "rmanDefaults"   ||
             $at == "rmanArraySizes" ||
             $at == "rmanLifCmds"    ||
-          gmatch( $at, "liquid*ShaderNode")  ||
-          gmatch( $at, "*Lif") ) continue;
+            $at == "rmanLifCtrls"   ||
+            gmatch( $at, "liquidAE*")  ||
+            gmatch( $at, "liquid*Callback")  ||
+            gmatch( $at, "liquid*ShaderNode")  ||
+            gmatch( $at, "*Lif")  ||
+            gmatch( $at, "du*")		// do not delete our attributes please
+		  )
+		  continue;
 
     if ( objExists( $fullattr ) ) 
     {
@@ -238,7 +297,7 @@ proc checkParamsDefinition( string $node )
 			int $definedSize = ($argArrayLen >= 0) ? $argArrayLen : 1;
 	
 			if ( !$resizable && ($definedSize != $attrSize) ) {
-				//trace ("size : we must delete "+ $plug + " ( "+$argArrayLen+" != "+$attrSize+" )");
+				liqlog ("[liquidShaderNodes.checkParamsDefinition] must delete "+ $plug + " ( "+$argArrayLen+" != "+$attrSize+") (wrong size)");
 				$deleteAttr = 1;
 			}
 
@@ -256,13 +315,13 @@ proc checkParamsDefinition( string $node )
 				}	
 			}
 			if ( $mayaType != $attrType ) {
-				//trace ("type : we must delete "+ $plug + " ( "+$mayaType+" != "+$attrType+" )");
+				liqlog ("[liquidShaderNodes.checkParamsDefinition] must delete "+ $plug + " ( "+$argArrayLen+" != "+$attrSize+" ) (wrong type)");
 				$deleteAttr = 1;
 			}
 	
 			if ( $deleteAttr == 1 ) {
-				//trace ("   >> deleted : "+ $plug);
-				catch(`deleteAttr ($plug)`);
+				liglog ("[liquidShaderNodes.checkParamsDefinition] deleted : "+ $plug);
+				catch(`deleteAttr -at $argName $node`);
 			}
 		}
 	}
@@ -369,9 +428,13 @@ global proc liquidShaderNodes_initParams_slo( string $nodeAttr, string $shaderPa
 		  $at == "rmanParams"     ||
           $at == "rmanDetails"    ||
           $at == "rmanTypes"      ||
+          $at == "rmanAccept"     || 
           $at == "rmanDefaults"   ||
           $at == "rmanArraySizes" ||
-          $at == "rmanLifCmds" ||
+          $at == "rmanLifCmds"    ||
+          $at == "rmanLifCtrls"		 ||
+          gmatch( $at, "liquidAE*")  ||
+          gmatch( $at, "liquid*Callback")    ||
           gmatch( $at, "liquid*ShaderNode")  ||
           gmatch( $at, "*Lif") ) continue;
 
@@ -420,7 +483,7 @@ global proc liquidShaderNodes_initParams_pl( string $nodeAttr,  string $shaderPa
   print("shadertype = " + $shadertype + "\n");
   if( $nodeType != "liquidcoshader" )  // accept everything
   {
-	  if ( !gmatch( $nodeType,  ("*" + $shadertype + "*") ) ) 
+	  if ( !gmatch( $nodeType,  ("*" + $shadertype + "*") ) )//r773 将要被替换为if ( $gLiquidSlShaderNodeExpectedType != $shaderType ) ) 
 	  {
 		if ( ! isValidShaderTypeForPL($shadertype) )
 		{
@@ -455,13 +518,19 @@ global proc liquidShaderNodePreview( string $node )
   liqPushIdent();
 	liqlog("liquidShaderNodePreview("+$node+")");
   if ( !liquidGlobalsExists() ) 
+  {
     eval("liquidCreateGlobals();select "+$node+";");
+  }
 
   string $nodetype = nodeType($node);
-  if ( $nodetype == "liquidLight" || $nodetype == "liquidVolume" ) 
+  if (	$nodetype == "liquidLight" ||
+		$nodetype == "liquidVolume" ||
+		$nodetype == "liquidSurfaceSwitcher" ||
+		$nodetype == "liquidDisplacementSwitcher"
+	  ) 
   {
-    warning "[liquidShaderNodePreview] Preview is not yet supported for Liquid Light and Volume Shader.";
-    liqPopIdent(); 
+    warning("[liquidShaderNodePreview] node " + $node + " is a " + $nodetype + ", Preview is not yet supported for Liquid Light, Volume and Switchers Shader.");
+   	liqPopIdent(); 
     return;
   }
 
@@ -1546,4 +1615,65 @@ global proc liquidShaderNodes_AERefresh()
 	refreshEditorTemplates;
 
 	liqPopIdent();
+}
+
+
+// Find out what methods a specific named parameter accepts
+// NOTE : we don't use the liquidSl methods because we might have to query this
+// without having a liquidSlSetShader() done beforehand
+global proc string[] liquidShaderNodesAttrAccept( string $node, string $attr )
+{
+	string	$rmanParams[]	= `getAttr ($node+".rmanParams")`;
+	int		$np				= size($rmanParams);
+	string	$rmanAccept[]	= `getAttr ($node+".rmanAccept")`;
+	int		$index			= -1;
+	for ($i = 0; $i < $np; $i++) {
+		if ($attr == $rmanParams[$i]) {
+			$index = $i;
+			break;
+		}
+	}
+	if ($index == -1) {
+		error ($attr+" is not in the parameters list (rmanParam) of "+$node);
+	} else {
+		return (stringToStringArray($rmanAccept[$index], " "));
+	}
+}
+
+// Get the first attribute available for connection for given parameter name
+global proc string liquidShaderNodesFirstAvailableAttr ( string $node, string $param )
+{
+	ltrace ("[liquidShaderNodesFirstAvailableAttr] for "+$node+" "+$param);
+
+	string	$result		= "";
+	string	$plug		= ($node+"."+$param);
+	
+	if ( objExists($plug) ) {
+		int		$indices[]	= `getAttr -mi $plug`;
+		int		$ni			= size($indices);
+		int		$size		= `getAttr -size $plug`;
+		if ( $ni != $size ) {
+			// Not a multi
+			if ( !size(`listConnections -s true -d false $plug`) ) {
+				$result			= $param;
+			}
+		} else {
+			int		$last	= 0;
+			int		$index	= -1;
+			for ($i in $indices) {
+				if ( $i > $last ) {
+					$index			= $last;
+					break;
+				} else {
+					$last			= $i + 1;
+				}
+			}
+			if ($index == -1) {
+				$index			= $last;
+			}
+			$result			= ($param+"["+$index+"]");
+		}
+	}
+	
+	return $result;
 }

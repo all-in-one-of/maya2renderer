@@ -1525,15 +1525,17 @@ global proc liquidAE_LifStringOverrideDisplayAll()
 		string $a;
 	
  		for ( $a in $userAttr ) {
-			// print ("[liquidAE_LifStringOverrideDisplayAll] for attribute "+$a+"\n");
- 			if ( !objExists( ($gLiquid_currentAENode+"."+$a) ) ) continue;
- 			// early exit if we have a message or string attr.
-			if ( $version >= 8.0 && `attributeQuery -node $gLiquid_currentAENode -message $a` ) continue;
-			if ( `getAttr -type ($gLiquid_currentAENode+"."+$a)` != "string" ) continue;
+			if ( ($a != "rmanLifCmds") && ($a != "rmanLifCtrls") ) {
+				// print ("[liquidAE_LifStringOverrideDisplayAll] for attribute "+$a+"\n");
+ 				if ( !objExists( ($gLiquid_currentAENode+"."+$a) ) ) continue;
+ 				// early exit if we have a message or string attr.
+				if ( $version >= 8.0 && `attributeQuery -node $gLiquid_currentAENode -message $a` ) continue;
+				if ( `getAttr -type ($gLiquid_currentAENode+"."+$a)` != "string" ) continue;
 
-			string $ctlName = ( $gLiquid_currentAEShader + "_" + match("[A-Za-z0-9_]+$", $a) + "_0_LIF" );
-			int $overrideState = ( $isRenderLayer && gmatch( $nodeOverrides, ("* "+$gLiquid_currentAENode+"."+$a+" *")) )? 1:0;
-			liquidAE_LifStringOverrideDisplay( $overrideState, $ctlName );
+				string $ctlName = ( $gLiquid_currentAEShader + "_" + match("[A-Za-z0-9_]+$", $a) + "_0_LIF" );
+				int $overrideState = ( $isRenderLayer && gmatch( $nodeOverrides, ("* "+$gLiquid_currentAENode+"."+$a+" *")) )? 1:0;
+				liquidAE_LifStringOverrideDisplay( $overrideState, $ctlName );
+			}
 		}
 		setParent $originalParent;
     }

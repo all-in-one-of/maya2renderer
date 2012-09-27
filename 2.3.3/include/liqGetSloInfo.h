@@ -66,7 +66,7 @@ public:
   float         getArgFloatDefault( int num, int entry );
   int           getArgArraySize( int num );
   int           isOutputParameter( unsigned int num );
-
+  MString       getArgAccept( unsigned int num );
   // TODO :
   //int           getNumMethods( );
   //int           getMethodName( int num );
@@ -94,6 +94,7 @@ private:
   std::map<const MString, SHADER_TYPE, mstrcomp> shaderTypeMap;
   std::map<const MString, SHADER_DETAIL, mstrcomp> shaderDetailMap;
   std::vector<int> argIsOutput;
+  std::vector<MString> argAccept;
 
 private:
 	liqGetSloInfo(const liqGetSloInfo&);

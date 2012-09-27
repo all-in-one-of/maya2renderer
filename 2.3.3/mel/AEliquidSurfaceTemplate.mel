@@ -69,8 +69,8 @@ global proc AEliquidSurfaceTemplate( string $nodeName )
     editorTemplate -endLayout;
 
     editorTemplate -beginLayout "RIB";
-      editorTemplate -addControl "color";
-      editorTemplate -addControl "opacity";
+      editorTemplate -label "Color (Ci)" -addControl "color";
+      editorTemplate -label "Opacity (Oi)" -addControl "opacity";
       editorTemplate -addControl "displacementBound";
       editorTemplate -label "Disp. Bound Space" -addControl "displacementBoundSpace";
       editorTemplate -addControl "shaderSpace";
@@ -92,12 +92,18 @@ global proc AEliquidSurfaceTemplate( string $nodeName )
 	editorTemplate -suppress rmanShaderType;
     editorTemplate -suppress rmanShaderLong;
     editorTemplate -suppress rmanShaderLif;
+    editorTemplate -suppress rmanMethods;
     editorTemplate -suppress rmanParams;
     editorTemplate -suppress rmanDetails;
     editorTemplate -suppress rmanTypes;
+	editorTemplate -suppress rmanIsOutput;
+    editorTemplate -suppress rmanAccept;
     editorTemplate -suppress rmanDefaults;
     editorTemplate -suppress rmanArraySizes;
     editorTemplate -suppress rmanLifCmds;
+	editorTemplate -suppress rmanLifCtrls;
+	editorTemplate -suppress nodeState;
+	editorTemplate -suppress caching;
 
     editorTemplate -addExtraControls;
 
