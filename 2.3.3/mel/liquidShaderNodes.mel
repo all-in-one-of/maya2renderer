@@ -1623,6 +1623,8 @@ global proc liquidShaderNodes_AERefresh()
 // without having a liquidSlSetShader() done beforehand
 global proc string[] liquidShaderNodesAttrAccept( string $node, string $attr )
 {
+  liqPushIdent();
+	liqlog("liquidShaderNodesAttrAccept("+$node+","+$attr+")");
 	string	$rmanParams[]	= `getAttr ($node+".rmanParams")`;
 	int		$np				= size($rmanParams);
 	string	$rmanAccept[]	= `getAttr ($node+".rmanAccept")`;
@@ -1636,13 +1638,17 @@ global proc string[] liquidShaderNodesAttrAccept( string $node, string $attr )
 	if ($index == -1) {
 		error ($attr+" is not in the parameters list (rmanParam) of "+$node);
 	} else {
+		liqPopIdent();
 		return (stringToStringArray($rmanAccept[$index], " "));
 	}
+	liqPopIdent();
 }
 
 // Get the first attribute available for connection for given parameter name
 global proc string liquidShaderNodesFirstAvailableAttr ( string $node, string $param )
 {
+  liqPushIdent();
+	liqlog("liquidShaderNodesFirstAvailableAttr("+$node+","+$param+")");
 	ltrace ("[liquidShaderNodesFirstAvailableAttr] for "+$node+" "+$param);
 
 	string	$result		= "";
@@ -1675,5 +1681,6 @@ global proc string liquidShaderNodesFirstAvailableAttr ( string $node, string $p
 		}
 	}
 	
+	liqPopIdent();
 	return $result;
 }
