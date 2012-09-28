@@ -84,6 +84,7 @@ MObject liqCoShaderNode::aShaderSpace;
 MObject liqCoShaderNode::aOutputInShadow;
 MObject liqCoShaderNode::aRefreshPreview;
 
+MObject liqCoShaderNode::aPreviewGamma;
 MObject liqCoShaderNode::aOutColor;
 
 #define MAKE_INPUT(attr)		\
@@ -224,6 +225,13 @@ MStatus liqCoShaderNode::initialize()
 	MAKE_NONKEYABLE_INPUT(nAttr);
 	CHECK_MSTATUS(nAttr.setHidden(true));
 
+	aPreviewGamma = nAttr.create( "previewGamma", "pg", MFnNumericData::kFloat, 1, &status );
+	CHECK_MSTATUS( status );
+	CHECK_MSTATUS( nAttr.setStorable( true ) );
+	CHECK_MSTATUS( nAttr.setHidden( true ) );
+	CHECK_MSTATUS( nAttr.setReadable( true ) );
+	CHECK_MSTATUS( nAttr.setDefault( 1.0f ) );
+
 	// Create output attributes
 	aOutColor = nAttr.createColor("outColor", "oc");
 	MAKE_OUTPUT(nAttr);
@@ -251,6 +259,7 @@ MStatus liqCoShaderNode::initialize()
 	CHECK_MSTATUS(addAttribute(aOutputInShadow));
 	CHECK_MSTATUS(addAttribute(aRefreshPreview));
 
+	CHECK_MSTATUS(addAttribute(aPreviewGamma));
 	CHECK_MSTATUS(addAttribute(aOutColor));
 
 	return MS::kSuccess;

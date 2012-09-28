@@ -86,6 +86,7 @@ class liqDisplacementNode : public MPxNode
     static MObject aShaderSpace;
     static MObject aRefreshPreview;
 
+	static MObject aPreviewGamma;
     // Output attributes
     static MObject aDisplacement;
     static MObject aOutColor;

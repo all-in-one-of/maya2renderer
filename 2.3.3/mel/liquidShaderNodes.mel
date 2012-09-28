@@ -510,6 +510,19 @@ global proc liquidShaderNodes_initParams_pl( string $nodeAttr,  string $shaderPa
 
   liqPopIdent();
 }
+
+global proc liquidShaderSetPreviewGamma(string $node)
+{
+  liqPushIdent();
+	liqlog("liquidShaderSetPreviewGamma("+$node+")");
+
+	string $label = nodeType($node);
+	float $v = `floatField -q -v ("liquidAEswatchGamma_"+$label)`;
+	setAttr ($node+".previewGamma") $v;
+	//print("SET GAMMA ON " + $node + " TO " + $v + "\n");
+	
+	liqPopIdent();
+}
 /**
  *  Preview function for the shader node
  */
@@ -642,6 +655,15 @@ global proc liquidPreviewSwatchNew ( string $nodeName, string $msg )
   tokenize($msg, ".", $node);
 
   string $label = nodeType($node[0]);
+  
+    int $gammaExists       = 0;
+	float $previewGamma    = 0;
+	if( attributeExists("previewGamma", $node[0]) )
+	{
+		$previewGamma = `getAttr ($node[0]+".previewGamma")`;
+		$gammaExists = 1;
+	}
+
   if ( gmatch( $label, "*Surface*") )           $label = "Surface";
   else if ( gmatch( $label, "*Displacement*") ) $label = "Displacement";
   else if ( gmatch( $label, "*Volume*") )       $label = "Volume";
@@ -651,11 +673,13 @@ global proc liquidPreviewSwatchNew ( string $nodeName, string $msg )
     text -l $label swatchLabel;
 
     swatchDisplayPort -wh 128 128 -sn $node[0] swatchDisplay;
-    button -w 70 -h 64 -l "Preview"  liquidAEswatchRefresh;
+    button -w 70 -h 45 -l "Preview"  liquidAEswatchRefresh;
+	text -l "Preview gamma" liquidAEswatchGammaText;
+	floatField -pre 2 -width 60 -v $previewGamma liquidAEswatchGamma;
     button -w 70 -h 28 -l "Reload"   liquidAEShaderReload;
     button -w 70 -h 28 -l "Edit LIF" liquidAEEditLif;
-     button -w 70 -h 28 -l "Instance" liquidAEMakeInstance;
-    button -w 70 -h 28 -l "Unnstance" liquidAEUninstance;
+    //button -w 70 -h 28 -l "Instance" liquidAEMakeInstance;
+    //button -w 70 -h 28 -l "Unnstance" liquidAEUninstance;
     button -w 70 -h 28 -l "RefreshAE" 
 		-ann "run \"refreshEditorTemplates\""
 		liquidAERefresh;
@@ -665,15 +689,22 @@ global proc liquidPreviewSwatchNew ( string $nodeName, string $msg )
     -af  swatchLabel           top     0
     -af  swatchLabel           bottom  0
     -an  swatchLabel           left
-    -aof swatchLabel           right   (-$gTextColumnWidthIndex)
+    //-aof swatchLabel           right   (-$gTextColumnWidthIndex)
 
-    -ac  swatchDisplay         left    5   swatchLabel
+    -ac  swatchDisplay         left    50   swatchLabel
     -af  swatchDisplay         top     0
     -an  swatchDisplay         right
 
     -af  liquidAEswatchRefresh top     -2
     -ac  liquidAEswatchRefresh left    5   swatchDisplay
 
+	-ac  liquidAEswatchGammaText top     5 liquidAEswatchRefresh
+	-ac  liquidAEswatchGammaText left    5   swatchDisplay
+
+	-ac  liquidAEswatchGamma top     5   liquidAEswatchRefresh
+	-ac  liquidAEswatchGamma left    5   liquidAEswatchGammaText
+
+	//refreshEditorTemplates
 	-af  liquidAERefresh		top     -2
 	-ac  liquidAERefresh		left     5  liquidAEswatchRefresh
 
@@ -683,13 +714,16 @@ global proc liquidPreviewSwatchNew ( string $nodeName, string $msg )
     -af  liquidAEEditLif       top     76
     -ac  liquidAEEditLif       left    5   swatchDisplay
     
-    -aoc liquidAEMakeInstance    top     0   liquidAEEditLif 
-    -aoc liquidAEMakeInstance    left    74  liquidAEEditLif
+    //-aoc liquidAEMakeInstance    top     0   liquidAEEditLif 
+    //-aoc liquidAEMakeInstance    left    74  liquidAEEditLif
     
-    -aoc liquidAEUninstance     top     0    liquidAEShaderReload
-    -aoc liquidAEUninstance     left    74   liquidAEShaderReload
+    //-aoc liquidAEUninstance     top     0    liquidAEShaderReload
+    //-aoc liquidAEUninstance     left    74   liquidAEShaderReload
     
-    swatchDisplayForm;
+  swatchDisplayForm;
+
+  text -e -vis $gammaExists liquidAEswatchGammaText;
+  floatField -e -vis $gammaExists liquidAEswatchGamma;
 
   liquidPreviewSwatchReplace $nodeName $msg;
   liqPopIdent();
@@ -706,6 +740,15 @@ global proc liquidPreviewSwatchReplace ( string $nodeName, string $msg )
   tokenize($msg, ".", $node);
 
   string $label = nodeType($node[0]);
+
+  	int $gammaExists       = 0;
+	float $previewGamma    = 0;
+	if( attributeExists("previewGamma", $node[0]) )
+	{
+		$previewGamma = `getAttr ($node[0]+".previewGamma")`;
+		$gammaExists = 1;
+	}
+
   if ( gmatch( $label, "*Surface*") )           $label = "surface";
   else if ( gmatch( $label, "*Displacement*") ) $label = "displacement";
   else if ( gmatch( $label, "*Volume*") )       $label = "volume";
@@ -714,6 +757,8 @@ global proc liquidPreviewSwatchReplace ( string $nodeName, string $msg )
   text -e -l $label swatchLabel;
   swatchDisplayPort -edit -sn $node[0] -wh 128 128 swatchDisplay;
   button -e -c ("liquidShaderNodePreview "+$node[0])            liquidAEswatchRefresh;
+  floatField -e -cc ("liquidShaderSetPreviewGamma "+$node[0])   liquidAEswatchGamma;
+  floatField -e -v $previewGamma liquidAEswatchGamma;
   button -e -c ("liquidShaderNodes_reloadAndRefresh "+$node[0]) liquidAEShaderReload;
   button -e -c ("liquidFluidEditLifFile \""+$node[0]+"\";")     liquidAEEditLif;
   button -e -c ("liquidShaderNodes_AERefresh")					liquidAERefresh;

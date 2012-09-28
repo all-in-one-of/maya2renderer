@@ -89,6 +89,7 @@ MObject liqDisplacementNode::aDisplacementBoundSpace;
 MObject liqDisplacementNode::aOutputInShadow;
 MObject liqDisplacementNode::aRefreshPreview;
 
+MObject liqDisplacementNode::aPreviewGamma;
 MObject liqDisplacementNode::aDisplacement;
 MObject liqDisplacementNode::aOutColor;
 
@@ -234,6 +235,13 @@ MStatus liqDisplacementNode::initialize()
   MAKE_NONKEYABLE_INPUT(nAttr);
   CHECK_MSTATUS(nAttr.setHidden(true));
 
+  aPreviewGamma = nAttr.create( "previewGamma", "pg", MFnNumericData::kFloat, 1, &status );
+  CHECK_MSTATUS( status );
+  CHECK_MSTATUS( nAttr.setStorable( true ) );
+  CHECK_MSTATUS( nAttr.setHidden( true ) );
+  CHECK_MSTATUS( nAttr.setReadable( true ) );
+  CHECK_MSTATUS( nAttr.setDefault( 1.0f ) );
+
   // Create output attributes
   aDisplacement = nAttr.create("displacement", "d", MFnNumericData::kFloat, 0.0, &status);
   MAKE_OUTPUT(nAttr);
@@ -265,6 +273,7 @@ MStatus liqDisplacementNode::initialize()
   CHECK_MSTATUS(addAttribute(aOutputInShadow));
   CHECK_MSTATUS(addAttribute(aRefreshPreview));
 
+  CHECK_MSTATUS(addAttribute(aRefreshPreview));
   CHECK_MSTATUS(addAttribute(aDisplacement));
   CHECK_MSTATUS(addAttribute(aOutColor));
 

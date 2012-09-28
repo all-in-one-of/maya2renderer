@@ -121,7 +121,8 @@ MObject liqSurfaceNode::aLightBlindData;
 MObject liqSurfaceNode::aLightData;
 
 MObject liqSurfaceNode::aEvaluateAtEveryFrame;
-  
+MObject liqSurfaceNode::aPreviewGamma;
+
 MObject liqSurfaceNode::aOutColor;
 MObject liqSurfaceNode::aOutTransparency;
 
@@ -452,6 +453,13 @@ MStatus liqSurfaceNode::initialize()
   aEvaluateAtEveryFrame = nAttr.create("evaluateAtEveryFrame", "def",  MFnNumericData::kBoolean, 0.0, &status);
   MAKE_NONKEYABLE_INPUT(nAttr);
   
+  aPreviewGamma = nAttr.create( "previewGamma", "pg", MFnNumericData::kFloat, 1, &status );
+  CHECK_MSTATUS( status );
+  CHECK_MSTATUS( nAttr.setStorable( true ) );
+  CHECK_MSTATUS( nAttr.setHidden( true ) );
+  CHECK_MSTATUS( nAttr.setReadable( true ) );
+  CHECK_MSTATUS( nAttr.setDefault( 1.0f ) );
+
   // Create output attributes
   aOutColor = nAttr.createColor("outColor", "oc");
   MAKE_OUTPUT(nAttr);
@@ -500,7 +508,8 @@ MStatus liqSurfaceNode::initialize()
   CHECK_MSTATUS( addAttribute( aLightData ) );
   
   CHECK_MSTATUS( addAttribute( aEvaluateAtEveryFrame ) );
-  
+  CHECK_MSTATUS( addAttribute( aPreviewGamma ) );
+
   CHECK_MSTATUS( addAttribute( aOutColor ) );
   CHECK_MSTATUS( addAttribute( aOutTransparency ) );
   CHECK_MSTATUS(attributeAffects( aGLPreviewTexture,    aOutColor ));

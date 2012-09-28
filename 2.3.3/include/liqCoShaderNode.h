@@ -77,6 +77,8 @@ private:
 	static MObject aOutputInShadow;
 	static MObject aShaderSpace;
 	static MObject aRefreshPreview;
+
+	static MObject aPreviewGamma;
 	// Output attributes
 	static MObject aOutColor;
 	static MObject aAssignedObjects;
