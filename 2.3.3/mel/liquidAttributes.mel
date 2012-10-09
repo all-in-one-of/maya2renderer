@@ -1387,7 +1387,12 @@ global proc liquidCreateSetAttributes()
   liqlog("liquidCreateSetAttributes()");
 
   string $currentNode, $nodes[] = liquidGetSelection( "-typ objectSet");
-
+  if( size($nodes) == 0 )
+  {
+	  warning("[liquidCreateSetAttributes] no sets selected !");
+	  liqPopIdent();
+	  return;
+  }
   for ( $currentNode in $nodes ) 
     if ( !`attributeQuery -node $currentNode -ex "liqTraceSet"` ) 
       addAttr -ln "liqTraceSet" -at bool -dv true $currentNode;
