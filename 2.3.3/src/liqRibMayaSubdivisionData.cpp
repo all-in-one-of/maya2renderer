@@ -146,11 +146,11 @@ liqRibMayaSubdivisionData::liqRibMayaSubdivisionData( MObject subd )
 		count = vertIds.length();
 		nverts[face] = count;
 		fnSubd.polygonGetVertexUVs( id, S, T );
-		unsigned i = count;
+		//unsigned i = count;
 
-		while( i )//for( unsigned i( 0 ); i < count; i++ )
+		for( unsigned i( 0 ); i < count; i++ )//while( i )//
 		{
-			--i;
+			//--i;
 			vertex = fnSubd.vertexBaseIndexFromVertexId( vertIds[i] );
 			verts[faceVertex] = vertex;
 			fnSubd.vertexPositionGet( vertIds[i], point, MSpace::kObject );

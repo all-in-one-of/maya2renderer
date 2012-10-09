@@ -188,11 +188,12 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
   {
     count = polyIt.polygonVertexCount();
     nverts[face] = count;
-    unsigned j, i = count;
+    unsigned j;
+	//unsigned i = count;
     
-    while( i )
+    for( unsigned i( 0 ); i < count; i++ )//while( i )//
     {
-      --i;
+      //--i;
       vertex = polyIt.vertexIndex( i );
       verts[faceVertex] = vertex;
       point = polyIt.point( i, MSpace::kObject );

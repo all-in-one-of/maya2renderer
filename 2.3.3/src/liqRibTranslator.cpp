@@ -7106,7 +7106,7 @@ MStatus liqRibTranslator::worldPrologue()
 		RiCoordinateSystem( "_environment" );
 		RiTransformEnd();
 	}
-	RiReverseOrientation();
+	//RiReverseOrientation();//???
 	return returnStatus;
 }
 

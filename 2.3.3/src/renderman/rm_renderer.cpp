@@ -218,7 +218,7 @@ namespace renderman
 			RiCoordinateSystem( "_environment" );
 			RiTransformEnd();
 		}//if( !m_exportReadArchive )
-		RiReverseOrientation();
+		//RiReverseOrientation();//???
 		return returnStatus;
 	}
 	//
