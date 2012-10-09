@@ -273,7 +273,6 @@ MStatus liqDisplacementNode::initialize()
   CHECK_MSTATUS(addAttribute(aOutputInShadow));
   CHECK_MSTATUS(addAttribute(aRefreshPreview));
 
-  CHECK_MSTATUS(addAttribute(aRefreshPreview));
   CHECK_MSTATUS(addAttribute(aDisplacement));
   CHECK_MSTATUS(addAttribute(aOutColor));
 
