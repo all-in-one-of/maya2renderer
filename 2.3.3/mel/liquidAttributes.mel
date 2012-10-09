@@ -1948,6 +1948,52 @@ global proc liquidDeleteDecayRegionAttributes()
 
   liqPopIdent(); 
 }
+// Particle attributes -------------------------------------------------
+
+global proc liquidAddCloudAttributes( )
+{
+  liqPushIdent();
+  liqlog("liquidAddCloudAttributes()");
+
+  string $nodes[] = `ls -l -type "particle" -type "nParticle" -dag -sl`;
+  string $trf;
+  for ( $currentNode in $nodes ) {
+	// Crappy way to retrieve the transform, much faster than listRelatives
+	// $currentNode = `substitute "|[^|]+$" $currentNode ""`;
+    if ( !objExists( ($currentNode+".liqCloudyCodes") ) ) {
+      addAttr -ln "liqCloudyCodes" -dt "Int32Array" $currentNode;
+    }
+    if ( !objExists( ($currentNode+".liqCloudyFloats") ) ) {
+      addAttr -ln "liqCloudyFloats" -dt "doubleArray" $currentNode;
+    }
+    if ( !objExists( ($currentNode+".liqCloudyStrings") ) ) {
+      addAttr -ln "liqCloudyStrings" -dt "stringArray" $currentNode;
+    }
+  }
+  liqPopIdent(); 
+}
+global proc liquidDeleteCloudAttributes( )
+{
+  liqPushIdent();
+  liqlog("liquidDeleteCloudAttributes()");
+
+  string $nodes[] = `ls -l -type "particle" -type "nParticle" -dag -sl`;
+  string $trf;
+  for ( $currentNode in $nodes ) {
+	// Crappy way to retrieve the transform, much faster than listRelatives
+	// $currentNode = `substitute "|[^|]+$" $currentNode ""`;
+    if ( objExists( ($currentNode+".liqCloudyCodes") ) ) {
+      deleteAttr ($currentNode+".liqCloudyCodes");
+    }
+    if ( objExists( ($currentNode+".liqCloudyFloats") ) ) {
+      deleteAttr ($currentNode+".liqCloudyFloats");
+    }
+    if ( objExists( ($currentNode+".liqCloudyStrings") ) ) {
+      deleteAttr ($currentNode+".liqCloudyStrings");
+    }
+  }
+  liqPopIdent(); 
+}
 
 global proc liquidAddNoNormalizeNurbs()
 {

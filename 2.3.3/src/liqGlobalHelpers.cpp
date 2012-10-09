@@ -289,6 +289,15 @@ void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, 
   }
 }
 
+void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[], unsigned int primi )
+{
+	unsigned i( 0 );
+	for( std::vector< liqTokenPointer >::const_iterator iter( tokenPointerArray.begin() ); iter != tokenPointerArray.end(); iter++, i++ ) {
+		tokens[ i ] = const_cast< RtString >( const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName().c_str() );
+		pointers[ i ] = const_cast< liqTokenPointer* >( &( *iter ) )->getIthRtPointer( primi );
+	}
+}
+
 MObject findFacetShader( MObject mesh, int polygonIndex )
 {
   MFnMesh     fnMesh( mesh );

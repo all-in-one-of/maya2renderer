@@ -213,7 +213,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
         else 
           data = liqRibDataPtr( new liqRibPfxHairData( skip ) );
       } 
-      else if( obj.hasFn( MFn::kParticle ) /*|| obj.hasFn( MFn::kNParticle) //r773 */ ) 
+      else if( obj.hasFn( MFn::kParticle ) || obj.hasFn( MFn::kNParticle) ) 
       {
         type = MRT_Particles;
         if( !ignoreShapes ) 

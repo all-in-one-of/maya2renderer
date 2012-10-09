@@ -79,6 +79,7 @@ bool areObjectAndParentsVisible( const MDagPath & path );
 bool areObjectAndParentsTemplated( const MDagPath & path );
 void assignTokenArrays( unsigned numTokens, const liqTokenPointer tokenPointerArray[], RtToken tokens[], RtPointer pointers[] );
 void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[] );
+void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[], unsigned int primi );
 MObject findFacetShader( MObject mesh, int polygonIndex );
 bool fileExists( const MString & filename );
 bool fileIsNewer( const MString & file1, const MString & file2 );

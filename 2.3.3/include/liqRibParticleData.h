@@ -82,9 +82,9 @@ private:
   unsigned grain;
 
   // Data storage for blobby particles
-  std::vector< RtInt > codeArray;
-  std::vector< RtFloat > floatArray;
-  std::vector< RtString > stringArray;
+  std::vector< RtInt > m_codeArray;
+  std::vector< RtFloat > m_floatArray;
+  std::vector< std::string > m_stringArray;
 
   MIntArray m_validParticles;
 

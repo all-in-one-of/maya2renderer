@@ -55,6 +55,7 @@ class liqTokenPointer
     void           setTokenFloat( unsigned int i, unsigned int uIndex, RtFloat val );
     void           setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFloat z );
     void           setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFloat z, RtFloat w );
+	void           setTokenFloat( unsigned int i, RtFloat x1, RtFloat y1 , RtFloat z1, RtFloat w1, RtFloat x2, RtFloat y2 , RtFloat z2, RtFloat w2, RtFloat x3, RtFloat y3 , RtFloat z3, RtFloat w3, RtFloat x4, RtFloat y4 , RtFloat z4, RtFloat w4 );
 	void           setTokenFloats( const boost::shared_array< RtFloat > floatVals ); // Warning! This method assumes ownership of the pointer is transferred to the TokenPointer!!!
     void           setTokenFloats( const RtFloat* floatVals ); // Use this one to copy the data
     void           setTokenString( unsigned int i, const std::string& str );
@@ -70,6 +71,7 @@ class liqTokenPointer
     ParameterType							getParameterType() const;
 
     const RtPointer							getRtPointer();
+	const RtPointer							getIthRtPointer( unsigned int i );
     std::string								getRiDeclare() const;
 
     bool           empty() const;

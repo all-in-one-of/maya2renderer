@@ -509,6 +509,10 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
       {
         MString ribBoxValue;
         
+		// added in r773
+		//bool disableRibBoxParsing = 0;
+		//liquidGetPlugValue( nodePeeker, "liqDisableRibBoxParsing", disableRibBoxParsing, status );
+
         if( liquidGetPlugValue( nodePeeker, "liqRIBBox", ribBoxValue, status ) == MS::kSuccess ) 
         {
           if( ribBoxValue.substring(0,2) == "*H*" ) 
@@ -522,7 +526,15 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
             liqglo.liqglo_preRibBoxShadow.append( parseString( parseThis ) );
           }
         }
-        rib.box = (ribBoxValue == "")? "-" : parseString(ribBoxValue);
+		// added in r773
+		//if( disableRibBoxParsing )
+		//{
+		//	rib.box = (ribBoxValue == "")? "-" : ribBoxValue; // => don't parse make it faster ...
+		//}
+		//else
+		//{
+			rib.box = (ribBoxValue == "")? "-" : parseString(ribBoxValue);
+		//}
       }
 
 	  if( rib.generator == "" ) 
@@ -747,6 +759,7 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
           tokenPointerPair.set( cutString.asChar(), rString );
           MString stringVal;
           sPlug.getValue( stringVal );
+		  //stringVal = parseString(stringVal);// added in r773
           tokenPointerPair.setTokenString( 0, stringVal.asChar() );
           if( tokenPointerMap.end() == tokenPointerMap.find( tokenPointerPair.getDetailedTokenName() ) ) 
             tokenPointerMap[ tokenPointerPair.getDetailedTokenName() ] = tokenPointerPair;
@@ -903,7 +916,7 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
             // Another sanity check: make sure the source is
             // actually a particle system.
             //
-            if( sourceObject.hasFn( MFn::kParticle ) )
+            if( sourceObject.hasFn( MFn::kParticle )  || sourceObject.hasFn( MFn::kNParticle) )
             {
               MFnParticleSystem particles( sourceObject );
 
@@ -925,7 +938,7 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 
                   // Look for an id that matches.
                   //
-                  for ( int i = 0; i < idArray.length(); i++ )
+                  for ( unsigned int i = 0; i < idArray.length(); i++ )
                   {
                     // If a match is found, grab the color.
                     //
@@ -1479,7 +1492,7 @@ bool liqRibNode::getMatteMode( MObject& shader )
  */
 bool liqRibNode::hasNObjects( unsigned n )
 {
-  for( int i = 0; i < n; i++ ) {
+  for( unsigned int i = 0; i < n; i++ ) {
     if( !objects[ i ] ) {
       return false;
     }

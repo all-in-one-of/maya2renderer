@@ -55,6 +55,8 @@ using namespace __gnu_cxx;
 // Maya's Headers
 #include <maya/MFnVectorArrayData.h>
 #include <maya/MFnDoubleArrayData.h>
+#include <maya/MFnStringArrayData.h>
+#include <maya/MFnIntArrayData.h>
 #include <maya/MPlug.h>
 #include <maya/MVectorArray.h>
 #include <maya/MFloatArray.h>
@@ -91,7 +93,7 @@ private:
 };
 
 typedef boost::shared_ptr< liq_particleInfo > liq_particleInfoPtr;
-typedef vector< liq_particleInfoPtr > liq_particleInfoVector ;
+typedef std::vector< liq_particleInfoPtr > liq_particleInfoVector ;
 
 class liq_particleIdSort
 {
@@ -348,7 +350,24 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
       }
     }
   }
+  status.clear();
 
+  MVectorArray rotationArray;
+  MPlug rotationPPPlug( fnNode.findPlug( "rotationPP", &status ) );
+  bool haveRotationArray = false;
+
+  // check if there's a per-particle radius attribute
+  if ( MS::kSuccess == status ) {
+	  MObject rotationPPObject;
+
+	  rotationPPPlug.getValue( rotationPPObject );
+
+	  MFnVectorArrayData rotationArrayData( rotationPPObject, &status );
+
+	  rotationArray = rotationArrayData.array();
+
+	  haveRotationArray = true;
+  }
   status.clear();
 
   // then we get the particle color info
@@ -395,9 +414,9 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
 
       // setup the arrays to store the data to pass the correct codes to the
       // implicit surface command
-      codeArray.clear();
-      floatArray.clear();
-      stringArray.clear();
+      m_codeArray.clear();
+      m_floatArray.clear();
+      m_stringArray.clear();
 
       LIQDEBUGPRINTF( "-> Reading Particle Data\n");
 
@@ -407,47 +426,47 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
       {
 
         // add the particle to the list
-        codeArray.push_back( 1001 );
-        codeArray.push_back( floatOn );
+        m_codeArray.push_back( 1001 );
+        m_codeArray.push_back( floatOn );
 
         if ( haveRadiusArray )
           radius = ( float )radiusArray[ m_validParticles[ part_num ] ];
         // else radius was set to either a scalar attribute or 1.0
         // above
 
-        floatArray.push_back( radius * 2.0f );
-        floatArray.push_back( 0.0f );
-        floatArray.push_back( 0.0f );
-        floatArray.push_back( 0.0f );
+        m_floatArray.push_back( radius * 2.0f );
+        m_floatArray.push_back( 0.0f );
+        m_floatArray.push_back( 0.0f );
+        m_floatArray.push_back( 0.0f );
 
-        floatArray.push_back( 0.0f );
-        floatArray.push_back( radius * 2.0f );
-        floatArray.push_back( 0.0 );
-        floatArray.push_back( 0.0 );
+        m_floatArray.push_back( 0.0f );
+        m_floatArray.push_back( radius * 2.0f );
+        m_floatArray.push_back( 0.0 );
+        m_floatArray.push_back( 0.0 );
 
-        floatArray.push_back( 0.0f );
-        floatArray.push_back( 0.0f );
-        floatArray.push_back( radius * 2.0f );
-        floatArray.push_back( 0.0f );
+        m_floatArray.push_back( 0.0f );
+        m_floatArray.push_back( 0.0f );
+        m_floatArray.push_back( radius * 2.0f );
+        m_floatArray.push_back( 0.0f );
 
-        floatArray.push_back( posArray[ m_validParticles[ part_num ] ].x );
-        floatArray.push_back( posArray[ m_validParticles[ part_num ] ].y );
-        floatArray.push_back( posArray[ m_validParticles[ part_num ] ].z );
-        floatArray.push_back( 1.0f );
+        m_floatArray.push_back( posArray[ m_validParticles[ part_num ] ].x );
+        m_floatArray.push_back( posArray[ m_validParticles[ part_num ] ].y );
+        m_floatArray.push_back( posArray[ m_validParticles[ part_num ] ].z );
+        m_floatArray.push_back( 1.0f );
 
         floatOn += 16;
       }
 
       if ( m_numValidParticles > 0 ) 
       {
-        codeArray.push_back( 0 );
-        codeArray.push_back( m_numValidParticles );
+        m_codeArray.push_back( 0 );
+        m_codeArray.push_back( m_numValidParticles );
 
         for ( unsigned k( 0 ); k < m_numValidParticles; k++ ) 
-          codeArray.push_back( k );
+          m_codeArray.push_back( k );
       }
       LIQDEBUGPRINTF( "-> Setting up implicit data\n");
-      stringArray.push_back( "" );
+      m_stringArray.push_back( "" );
     }
     break;
 
@@ -487,7 +506,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
       tokenPointerArray.push_back( Pparameter );
       tokenPointerArray.push_back( radiusParameter );
       break;
-  #endif // #ifdef DELIGHT
+#endif // #ifdef DELIGHT
 
     }
 
@@ -992,11 +1011,86 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
     } // case MPTSprites
     break;
 
-    case MPTNumeric:
     case MPTCloudy:
+		{
+			LIQDEBUGPRINTF( "-> Reading Cloudy Particles\n");
+
+			// setup the arrays to store the data to pass the correct codes to the
+			// implicit surface command
+			m_codeArray.clear();
+			m_floatArray.clear();
+			m_stringArray.clear();
+
+			LIQDEBUGPRINTF( "-> Reading Particle Data\n");
+
+			// Assume same DSO call for all blobbies
+			MPlug blobbyCodePlug = fnNode.findPlug( "liqCloudyCodes", &status );
+			if( status == MS::kSuccess ) {
+				MObject blobbyCodeObject;
+				blobbyCodePlug.getValue( blobbyCodeObject );
+				const MFnIntArrayData  blobbyCodeArrayData( blobbyCodeObject, &status );
+				for ( unsigned i( 0 ); i < blobbyCodeArrayData.length(); i++ ) {
+					m_codeArray.push_back( blobbyCodeArrayData[ i ] );
+				}
+
+				MPlug blobbyFloatsPlug = fnNode.findPlug( "liqCloudyFloats", &status );
+				MObject blobbyFloatsObject;
+				blobbyFloatsPlug.getValue( blobbyFloatsObject );
+				const MFnDoubleArrayData  blobbyFloatsArrayData( blobbyFloatsObject, &status );
+				for ( unsigned i( 0 ); i < blobbyFloatsArrayData.length(); i++ ) {
+					m_floatArray.push_back( blobbyFloatsArrayData[ i ] );
+				}
+
+				MPlug blobbyStringsPlug = fnNode.findPlug( "liqCloudyStrings", &status );
+				MObject blobbyStringsObject;
+				blobbyStringsPlug.getValue( blobbyStringsObject );
+				const MFnStringArrayData  blobbyStringsArrayData( blobbyStringsObject, &status );
+				for ( unsigned i( 0 ); i < blobbyStringsArrayData.length(); i++ ) {
+					m_stringArray.push_back( blobbyStringsArrayData[ i ].asChar() );
+				}
+			} else {
+				// Default to plain spheres
+				m_codeArray.push_back( 1005 );
+				m_codeArray.push_back( 0 );
+				m_floatArray.push_back( 1.0 );
+				m_floatArray.push_back( 0.0 );
+				m_floatArray.push_back( 0.0 );
+				m_floatArray.push_back( 0.0 );
+			}
+
+			liqTokenPointer Pparameter;
+			liqTokenPointer radiusParameter;
+
+			Pparameter.set( "P", rPoint, true, false, m_numValidParticles );
+			Pparameter.setDetailType( rVertex );
+
+			radiusParameter.set( "radius", rFloat, true, false, m_numValidParticles );
+			radiusParameter.setDetailType( rVertex );
+
+			for ( unsigned part_num( 0 ); part_num < m_numValidParticles; part_num++ ) {
+
+				Pparameter.setTokenFloat( part_num,
+					posArray[m_validParticles[part_num]].x,
+					posArray[m_validParticles[part_num]].y,
+					posArray[m_validParticles[part_num]].z );
+				if( haveRadiusArray ) {
+					radiusParameter.setTokenFloat( part_num,
+						radiusArray[m_validParticles[part_num]] );
+				}
+				else {
+					radiusParameter.setTokenFloat(part_num, radius);
+				}
+			}
+
+			tokenPointerArray.push_back( Pparameter );
+			tokenPointerArray.push_back( radiusParameter );
+		}
+		break;
+
+    case MPTNumeric:
     case MPTTube:
       // do nothing. These are not supported
-      liquidMessage( "Numeric, Cloudy and Tube particle rendering types are not supported!", messageWarning );
+      liquidMessage( "Numeric and Tube particle rendering types are not supported!", messageWarning );
       break;
   } // switch ( particleType )
 
@@ -1023,6 +1117,30 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
     }
     tokenPointerArray.push_back( CsParameter );
   }
+
+  // Handle per particle rotation if any
+  if( haveRotationArray ) {
+	  liqTokenPointer rotationParameter;
+
+	  rotationParameter.set( "rotation", rColor, m_numValidParticles * m_multiCount );
+	  rotationParameter.setDetailType( rVertex );
+
+	  for ( unsigned part_num( 0 ); part_num < m_numValidParticles * m_multiCount; part_num++ ) {
+
+		  // For most of our parameters, we only have values for each "chunk"
+		  // (where a "chunk" is all the particles in a multi block)
+		  //
+		  unsigned part_chunk( part_num / m_multiCount );
+
+		  rotationParameter.setTokenFloat( part_num,
+			  rotationArray[ m_validParticles[ part_chunk ] ].x,
+			  rotationArray[ m_validParticles[ part_chunk ] ].y,
+			  rotationArray[ m_validParticles[ part_chunk ] ].z );
+	  }
+
+	  tokenPointerArray.push_back( rotationParameter );
+  }
+
   // And we add the Os Parameter (if needed).
   //
   if( haveOpacityArray ) 
@@ -1071,9 +1189,27 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
     // (where a "chunk" is all the particles in a multi block)
     //
     unsigned part_chunk( part_num / m_multiCount );
-    idParameter.setTokenFloat( part_num, part_chunk );
+	idParameter.setTokenFloat( part_num, particlesForSorting[ part_chunk ]->m_particleId );
   }
   tokenPointerArray.push_back( idParameter );
+
+  liqTokenPointer velocityParameter;
+  velocityParameter.set( "velocity", rVector, m_numValidParticles * m_multiCount );
+  velocityParameter.setDetailType( rVertex );
+  for ( unsigned part_num( 0 ); part_num < m_numValidParticles * m_multiCount; part_num++ ) 
+  {
+	  // For most of our parameters, we only have values for each "chunk"
+	  // (where a "chunk" is all the particles in a multi block)
+	  //
+	  unsigned part_chunk( part_num / m_multiCount );
+
+	  velocityParameter.setTokenFloat( part_num, 
+		  velArray[ m_validParticles[ part_chunk ] ].x,
+		  velArray[ m_validParticles[ part_chunk ] ].y,
+		  velArray[ m_validParticles[ part_chunk ] ].z );
+  }
+  tokenPointerArray.push_back( velocityParameter );
+
   addAdditionalParticleParameters( partobj );
 }
 
@@ -1122,9 +1258,15 @@ void liqRibParticleData::_write(const structJob &currentJob)
   {
     case MPTBlobbies: 
       {
+		// Build an array that can be given to RiBlobby
+		vector< RtString > stringArray;
+		for( int i(0); i < m_stringArray.size(); i++ ) 
+		{
+			stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str()) );
+		}
         RiBlobbyV( m_numValidParticles,
-                 codeArray.size(), const_cast< RtInt* >( &codeArray[0] ),
-                 floatArray.size(), const_cast< RtFloat* >( &floatArray[0] ),
+                 m_codeArray.size(), const_cast< RtInt* >( &m_codeArray[0] ),
+                 m_floatArray.size(), const_cast< RtFloat* >( &m_floatArray[0] ),
                  stringArray.size(), const_cast< RtString* >( &stringArray[0] ),
                  numTokens,
                  tokenArray.get(),
@@ -1189,6 +1331,7 @@ void liqRibParticleData::_write(const structJob &currentJob)
 
         for ( unsigned i = 0; i < m_numValidParticles; i++)
         {
+		  RiAttributeBegin();
           if ( colAttr != -1 )
           {
             RiColor( &((RtFloat*)pointerArray[colAttr])[i*3] );
@@ -1204,7 +1347,8 @@ void liqRibParticleData::_write(const structJob &currentJob)
 
           RtFloat radius = ((RtFloat*)pointerArray[radAttr])[i];
           RiSphere(radius, -radius, radius, 360, RI_NULL);
-          RiTransformEnd();
+		  RiTransformEnd();
+		  RiAttributeEnd();
         }
       }
       break;
@@ -1262,36 +1406,40 @@ void liqRibParticleData::_write(const structJob &currentJob)
 
         for( unsigned ui( 0 ); ui < m_numValidParticles; ui++ ) 
         {
+			//unsigned index = grain;//grain is used in r772
+			unsigned index = ui;//ui is used in r773
+
           MVector up( camUp );
           MVector right( camRight );
 
           float spriteRadiusX( 0.5 );
           float spriteRadiusY( 0.5 );
+		  RiAttributeBegin();
 
           if ( -1 != colAttr ) 
-            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ grain * 3 ] );
+            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ index * 3 ] );
 
           if ( -1 != opacAttr ) 
-            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ grain * 3 ] );
+            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ index * 3 ] );
 
           if ( -1 != twistAttr ) 
           {
-            float twist( -( ( RtFloat* )pointerArray[ twistAttr ] )[ grain ] * M_PI / 180 );
+            float twist( -( ( RtFloat* )pointerArray[ twistAttr ] )[ index ] * M_PI / 180 );
             MQuaternion twistQ( twist, camEye );
             right = camRight.rotateBy( twistQ );
             up    = camUp.rotateBy( twistQ );
           }
 
           if ( scaleXAttr != -1 ) 
-            spriteRadiusX *= ( ( RtFloat* )pointerArray[ scaleXAttr ] )[ grain ];
+            spriteRadiusX *= ( ( RtFloat* )pointerArray[ scaleXAttr ] )[ index ];
 
           if ( scaleYAttr != -1 ) 
-            spriteRadiusY *= ( ( RtFloat* )pointerArray[ scaleYAttr ] )[ grain ];
+            spriteRadiusY *= ( ( RtFloat* )pointerArray[ scaleYAttr ] )[ index ];
 
           if ( posAttr != -1 ) 
           {
-            float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ grain * 3 ] );
-            float spriteNum( numAttr == -1 ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ grain ] );
+            float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ index * 3 ] );
+            float spriteNum( numAttr == -1 ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ index ] );
 
             float x0 = P[ 0 ] - spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
             float y0 = P[ 1 ] - spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
@@ -1312,18 +1460,107 @@ void liqRibParticleData::_write(const structJob &currentJob)
                                   x3, y3, z3 };
             RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );
           } 
-          else 
+          else {
             RiIdentity();
-        }
+		  }
+		  RiAttributeEnd();
+		}//for
       }
       break;
 
 #endif // #ifndef DELIGHT
 
-    case MPTNumeric:
+
     case MPTCloudy:
+		{
+			int posAttr  = -1,
+				radAttr  = -1,
+				colAttr  = -1,
+				opacAttr = -1,
+				rotAttr  = -1;
+
+			for ( unsigned i = 0; i < tokenPointerArray.size(); i++ )
+			{
+				const string tokenName( tokenPointerArray[i].getTokenName() );
+				if ( "P" == tokenName )
+				{
+					posAttr = i;
+				}
+				else if ( "radius" == tokenName )
+				{
+					radAttr = i;
+				}
+				else if ( "Cs" == tokenName )
+				{
+					colAttr = i;
+				}
+				else if ( "Os" == tokenName )
+				{
+					opacAttr = i;
+				}
+				else if ( "rotation" == tokenName )
+				{
+					rotAttr = i;
+				}
+			}
+			// Build an array that can be given to RiBlobby
+			vector< RtString > stringArray;
+			for( unsigned int i(0); i < m_stringArray.size(); i++ ) {
+				stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str()) );
+			}
+			scoped_array< RtToken > ithTokenArray( new RtToken[ numTokens ] );
+			scoped_array< RtPointer > ithPointerArray( new RtPointer[ numTokens ] );
+
+			for ( unsigned i = 0; i < m_numValidParticles; i++)
+			{
+				assignIthTokenArraysV( tokenPointerArray, ithTokenArray.get(), ithPointerArray.get(), i );
+				RiAttributeBegin();
+				if ( colAttr != -1 )
+				{
+					RiColor( &((RtFloat*)pointerArray[colAttr])[i*3] );
+				}
+				if ( opacAttr != -1 )
+				{
+					RiOpacity( &((RtFloat*)pointerArray[opacAttr])[i*3] );
+				}
+				RiTransformBegin();
+				RiTranslate(((RtFloat*)pointerArray[posAttr])[i*3+0],
+					((RtFloat*)pointerArray[posAttr])[i*3+1],
+					((RtFloat*)pointerArray[posAttr])[i*3+2]);
+
+				if ( rotAttr != -1 )
+				{
+					RiRotate( (( RtFloat *) pointerArray[rotAttr])[i*3] * 360.0, 1.0, 0.0, 0.0 );
+					RiRotate( (( RtFloat *) pointerArray[rotAttr])[i*3+1] * 360.0, 0.0, 1.0, 0.0 );
+					RiRotate( (( RtFloat *) pointerArray[rotAttr])[i*3+2] * 360.0, 0.0, 0.0, 1.0 );
+				}
+
+				RtFloat radius = ((RtFloat*)pointerArray[radAttr])[i];
+				RiScale( radius, radius, radius );
+				//RiSphere(radius, -radius, radius, 360, RI_NULL);
+				float dummy[] = { 0.0, 0.0, 0.0 }; // Worst case : three floats are needed
+				RiBlobbyV( 1,
+					m_codeArray.size(), const_cast< RtInt* >( &m_codeArray[0] ),
+					m_floatArray.size(), const_cast< RtFloat* >( &m_floatArray[0] ),
+					stringArray.size(), const_cast< RtString* >( &stringArray[0] ),
+					numTokens, ithTokenArray.get(), ithPointerArray.get() );
+//					"vertex color incandescence", (RtPointer *)( dummy ),
+//					"vertex color Cs", (RtPointer *)( dummy ),
+//					"vertex float selfshadow", (RtPointer *)( dummy ),
+//					RI_NULL );
+				RiTransformEnd();
+				RiAttributeEnd();
+
+			}
+			break;
+		}
+    case MPTNumeric:
+		RiArchiveRecord( RI_COMMENT, "Numeric Particles are not supported" );
+		break;
     case MPTTube:
-      // do nothing. These are not supported
+		RiArchiveRecord( RI_COMMENT, "Tube Particles are not supported" );
+		break;
+
       break;
   }
 }
@@ -1383,9 +1620,15 @@ bool liqRibParticleData::writeNextGrain(const structJob &currentJob)
   {
     case MPTBlobbies: 
       {
+		// Build an array that can be given to RiBlobby
+		vector< RtString > stringArray;
+		for( int i(0); i < m_stringArray.size(); i++ ) {
+			stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str() ) );
+		}
+
         RiBlobbyV( m_numValidParticles,
-                   codeArray.size(), const_cast< RtInt* >( &codeArray[0] ),
-                   floatArray.size(), const_cast< RtFloat* >( &floatArray[0] ),
+                   m_codeArray.size(), const_cast< RtInt* >( &m_codeArray[0] ),
+                   m_floatArray.size(), const_cast< RtFloat* >( &m_floatArray[0] ),
                    stringArray.size(), const_cast< RtString* >( &stringArray[0] ),
                    numTokens,
                    tokenArray.get(),
