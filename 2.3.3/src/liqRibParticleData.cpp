@@ -1277,6 +1277,7 @@ void liqRibParticleData::_write(const structJob &currentJob)
 
     case MPTMultiPoint:
     case MPTPoints:
+		RiArchiveRecord( RI_COMMENT, "normal has to be reversed to show the MultiPoint/Points particles. //  [10/9/2012 yaoyansi]" );
 		RiReverseOrientation();
 #ifdef DELIGHT
     case MPTSpheres:
@@ -1415,7 +1416,10 @@ void liqRibParticleData::_write(const structJob &currentJob)
           float spriteRadiusX( 0.5 );
           float spriteRadiusY( 0.5 );
 		  RiAttributeBegin();
+
+		  RiArchiveRecord( RI_COMMENT, "normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]" );
 		  RiReverseOrientation();
+
           if ( -1 != colAttr ) 
             RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ index * 3 ] );
 
@@ -1508,6 +1512,9 @@ void liqRibParticleData::_write(const structJob &currentJob)
 			for( unsigned int i(0); i < m_stringArray.size(); i++ ) {
 				stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str()) );
 			}
+			if(stringArray.size()==0)
+				stringArray.push_back( "" );
+
 			scoped_array< RtToken > ithTokenArray( new RtToken[ numTokens ] );
 			scoped_array< RtPointer > ithPointerArray( new RtPointer[ numTokens ] );
 
