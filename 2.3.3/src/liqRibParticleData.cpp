@@ -1277,7 +1277,7 @@ void liqRibParticleData::_write(const structJob &currentJob)
 
     case MPTMultiPoint:
     case MPTPoints:
-
+		RiReverseOrientation();
 #ifdef DELIGHT
     case MPTSpheres:
     case MPTSprites:
@@ -1415,7 +1415,7 @@ void liqRibParticleData::_write(const structJob &currentJob)
           float spriteRadiusX( 0.5 );
           float spriteRadiusY( 0.5 );
 		  RiAttributeBegin();
-
+		  RiReverseOrientation();
           if ( -1 != colAttr ) 
             RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ index * 3 ] );
 
