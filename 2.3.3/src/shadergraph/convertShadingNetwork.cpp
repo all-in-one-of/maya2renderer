@@ -269,7 +269,11 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 	const MString& node_plug, MStringArray& outputVars)
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeOutputVariable("<<node.asChar()<<","<<plug.asChar()<<","<<node_plug.asChar()<<", outputVars)");
-	
+	//DEBUG
+	//if(node_plug=="file1.outColor"){
+	//	int i = 0;
+	//}
+
 	MString plugtype, detail;
 	int arraysize = -1;
 
@@ -313,7 +317,27 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 	else{
 		//check if the plug is used as color
 		int isUsedAsColor = false;
-		IfMErrorWarn(MGlobal::executeCommand( ("attributeQuery -node "+node+" -usedAsColor \""+plug+"\""), isUsedAsColor ));
+		{
+			//step 1
+			IfMErrorWarn(MGlobal::executeCommand( ("attributeQuery -node "+node+" -usedAsColor \""+plug+"\""), isUsedAsColor ));
+
+			//step 2
+			if( isUsedAsColor == false )
+			{
+				int doesChildRExist = false;
+				int doesChildGExist = false;
+				int doesChildBExist = false;
+
+				IfMErrorWarn(MGlobal::executeCommand( "attributeExists(\""+plug+"R\", \""+node+"\")",doesChildRExist ) );
+				IfMErrorWarn(MGlobal::executeCommand( "attributeExists(\""+plug+"G\", \""+node+"\")",doesChildGExist ) );
+				IfMErrorWarn(MGlobal::executeCommand( "attributeExists(\""+plug+"B\", \""+node+"\")",doesChildBExist ) );
+				
+				if( doesChildRExist && doesChildGExist && doesChildBExist )
+				{
+					isUsedAsColor = true;
+				}
+			}
+		}
 
 		if( isUsedAsColor )//node_plug is used as color
 		{
