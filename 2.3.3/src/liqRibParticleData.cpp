@@ -336,10 +336,10 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
       // no radius attribute.. try pointSize
       MPlug pointSizePlug = fnNode.findPlug( "pointSize", &status );
 
-      if ( MS::kSuccess == status )
+      if ( MS::kSuccess == status ){
         pointSizePlug.getValue( radius );
-      else
-      {
+		//radius /= 30.48f; // 1 foot = 30.48 cm
+	  }else{
         // Try lineWidth (used by streak and multi-streak).
         //
         MPlug lineWidthPlug = fnNode.findPlug( "lineWidth", &status );
@@ -585,7 +585,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
                                     false,
                                     0);
         constantwidthParameter.setDetailType( rConstant );
-        constantwidthParameter.setTokenFloat( 0, radius * 2 );
+		constantwidthParameter.setTokenFloat( 0, radius /30.48f * 2.0f );// 1 foot = 30.48 cm
 
         tokenPointerArray.push_back( constantwidthParameter );
       }
