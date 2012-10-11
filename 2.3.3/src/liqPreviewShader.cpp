@@ -48,6 +48,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqShader.h>
 #include <liqGlobalVariable.h>
+#include <liqShaderFactory.h>
 // Standard/Boost headers
 #include <boost/scoped_array.hpp>
 
@@ -110,6 +111,7 @@ MSyntax liqPreviewShader::syntax()
   syn.addFlag( "cst",  "custom",           MSyntax::kString );
 
   syn.addFlag( "cbk",  "customBackPlane",  MSyntax::kString );
+  syn.addFlag( "clr",  "cleanRibs",  MSyntax::kString );
 
   return syn;
 }
@@ -133,6 +135,7 @@ typedef struct liqPreviewShaderOptions
   string  type;
   float   previewIntensity;
   string  customBackplane;
+  bool    cleanRibs;
 } liqPreviewShaderOptions;
 
 int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOptions& options );
@@ -211,6 +214,7 @@ MStatus	liqPreviewShader::doIt( const MArgList& args )
   preview.type.clear();
   preview.previewIntensity = 1.;
   preview.customBackplane.clear();
+  preview.cleanRibs = 1;
 
   string displayDriver( "framebuffer" );
   string displayName( "liqPreviewShader" );
@@ -279,6 +283,9 @@ MStatus	liqPreviewShader::doIt( const MArgList& args )
     } else if ( arg == "-cbk" || arg == "-customBackPlane" )  {
       i++;
       preview.customBackplane = args.asString( i, &status ).asChar();
+    } else if ( arg == "-clr" || arg == "-cleanRibs" )  {
+      i++;
+      preview.cleanRibs = args.asInt( i, &status );
     }
   }
 
@@ -318,7 +325,7 @@ MStatus	liqPreviewShader::doIt( const MArgList& args )
 #endif
 
 #ifndef DELIGHT
-	#ifndef _WIN32 // Pipes don't work right under bloody Windoze
+#ifndef _WIN32 // Pipes don't work right under bloody Windoze
   if( preview.usePipe ) 
 	{
     LIQDEBUGPRINTF( "-> Creating thread preview.\n" );
@@ -334,9 +341,9 @@ MStatus	liqPreviewShader::doIt( const MArgList& args )
     LIQDEBUGPRINTF( "-> End of thread preview.\n" );
   } 
 	else
-	#endif
+#endif
   {
-	#ifdef _WIN32
+#ifdef _WIN32
     // Bad, better use global from liqRibTranslator
     tempString = getEnvironment( "TEMP" );
     if( tempString.empty() ) 
@@ -349,24 +356,33 @@ MStatus	liqPreviewShader::doIt( const MArgList& args )
       }
     }
     string tempRibName( tempString + "/liqPreviev.rib" ); // We just add a slash. No need to have nice looking paths here
-	#endif
-	#ifndef _WIN32
+#endif
+#ifndef _WIN32
     string tempRibName;
     char name[ L_tmpnam ];
     tmpnam( name );
     tempRibName += string( name ) + ".liqTmp.rib";
-	#endif
+#endif
     liquidOutputPreviewShader( tempRibName, preview );
-	#ifdef _WIN32
-  liqProcessLauncher::execute( renderCommand.c_str(), tempRibName.c_str(), "", true );
-  //  _spawnlp( _P_WAIT, preview.renderCommand.c_str(), preview.renderCommand.c_str(), tempRibName.c_str(), NULL );
+#ifdef _WIN32
+    //liqProcessLauncher::execute( renderCommand.c_str(), tempRibName.c_str(), "", true );
+     _spawnlp( _P_WAIT, preview.renderCommand.c_str(), preview.renderCommand.c_str(), tempRibName.c_str(), NULL );
 	FILE* fid( fopen( string( displayName + ".done" ).c_str(), "w" ) );
 	if( fid ) 
 		fclose(fid);
-	#endif
-	#ifndef _WIN32
+#endif
+#ifndef _WIN32
     system( string( preview.renderCommand + " " + tempRibName + ";touch " + displayName + ".done&" ).c_str() );
-	#endif
+	if( preview.cleanRibs )
+	{
+		//printf("DELETE %s \n", tempRibName.c_str());
+		int delRez = unlink( tempRibName.c_str() );
+		//printf("DELETE %s.done \n", displayName.c_str());
+		//delRez += unlink( displayName + ".done" );
+	}
+    fflush(stdout);
+    fflush(stderr);
+#endif
   }
 #else // #ifndef DELIGHT
 	#ifdef _WIN32
@@ -385,7 +401,58 @@ MStatus	liqPreviewShader::doIt( const MArgList& args )
  */
 int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOptions& options )
 {
+	const std::string previewLog(fileName+".log");
+	CM_TRACE_OPEN(previewLog.c_str());
 	CM_TRACE_FUNC("liquidOutputPreviewShader("<<fileName<<", options)");
+
+	// clear shaders
+	liqShaderFactory::instance().clearShaders();
+
+  string shaderFileName;
+  liqShader currentShader;
+  MObject	shaderObj;
+  MString shader_type_TempForRefactoring;//  [2/14/2012 yaoyansi]
+
+  if ( options.fullShaderPath ) 
+  {
+	  // a full shader path was specified
+	  //cout <<"[liquid] got full path for preview !"<<endl;
+	  //shaderFileName = const_cast<char*>(options.shaderNodeName);
+
+	  string tmp( options.shaderNodeName );
+	  currentShader.setShaderFileName(tmp.substr( 0, tmp.length() -  4 ) );
+
+	  if ( options.type == "surface" ){
+		  assert(0&&"we should use currentShader.shader_type_ex = \"surface\"");
+		  //currentShader.shader_type = SHADER_TYPE_SURFACE;//  [2/14/2012 yaoyansi]
+		  shader_type_TempForRefactoring = "surface";
+	  }else if ( options.type == "displacement" ){
+		  assert(0&&"we should use currentShader.shader_type_ex = \"displacement\"");
+		  //currentShader.shader_type = SHADER_TYPE_DISPLACEMENT;//  [2/14/2012 yaoyansi]
+		  shader_type_TempForRefactoring = "displacement";
+	  }
+	  //cout <<"[liquid]   options.shaderNodeName = " << options.shaderNodeName << endl;
+	  //cout <<"[liquid]   options.type = "<<options.type<<endl;
+  } 
+  else 
+  {
+	  // a shader node was specified
+	  MSelectionList shaderNameList;
+	  shaderNameList.add( options.shaderNodeName.c_str() );
+	  shaderNameList.getDependNode( 0, shaderObj );
+	  if( shaderObj == MObject::kNullObj )
+	  {
+		  MGlobal::displayError( string( "Can't find node for " + options.shaderNodeName ).c_str() );
+		  RiEnd();
+		  return 0;
+	  }
+	  currentShader = liqShader( shaderObj );
+	  shader_type_TempForRefactoring = currentShader.shader_type_ex;
+	  shaderFileName = currentShader.getShaderFileName();
+  }
+  MFnDependencyNode assignedShader( shaderObj );
+
+
   // Get the Pathes in globals node
   MObject globalObjNode;
   MString liquidShaderPath = "",liquidTexturePath = "",liquidProceduralPath = "";
@@ -470,6 +537,8 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RtFloat fov( 22.5 );
   RiProjection( "perspective", "fov", &fov, RI_NULL );
   RiTranslate( 0, 0, 2.75 );
+  //added in r773
+  //RiExposure(1, currentShader.m_previewGamma);
   RiWorldBegin();
   RiReverseOrientation();
   RiTransformBegin();
@@ -500,47 +569,6 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 
   RiAttributeBegin();
 
-  char* shaderFileName;
-  liqShader currentShader;
-  MObject	shaderObj;
-  MString shader_type_TempForRefactoring;//  [2/14/2012 yaoyansi]
-
-  if ( options.fullShaderPath ) 
-	{
-    // a full shader path was specified
-    //cout <<"[liquid] got full path for preview !"<<endl;
-    //shaderFileName = const_cast<char*>(options.shaderNodeName);
-
-    string tmp( options.shaderNodeName );
-    currentShader.setShaderFileName(tmp.substr( 0, tmp.length() -  4 ) );
-
-	if ( options.type == "surface" ){
-		assert(0&&"we should use currentShader.shader_type_ex = \"surface\"");
-		//currentShader.shader_type = SHADER_TYPE_SURFACE;//  [2/14/2012 yaoyansi]
-		shader_type_TempForRefactoring = "surface";
-	}else if ( options.type == "displacement" ){
-		assert(0&&"we should use currentShader.shader_type_ex = \"displacement\"");
-		//currentShader.shader_type = SHADER_TYPE_DISPLACEMENT;//  [2/14/2012 yaoyansi]
-		shader_type_TempForRefactoring = "displacement";
-	}
-    //cout <<"[liquid]   options.shaderNodeName = " << options.shaderNodeName << endl;
-    //cout <<"[liquid]   options.type = "<<options.type<<endl;
-	} 
-	else 
-	{
-    // a shader node was specified
-    MSelectionList shaderNameList;
-    shaderNameList.add( options.shaderNodeName.c_str() );
-    shaderNameList.getDependNode( 0, shaderObj );
-    if( shaderObj == MObject::kNullObj )
-    {
-      MGlobal::displayError( string( "Can't find node for " + options.shaderNodeName ).c_str() );
-      RiEnd();
-      return 0;
-    }
-    currentShader = liqShader( shaderObj );
-  }
-  MFnDependencyNode assignedShader( shaderObj );
 
   scoped_array< RtToken > tokenArray( new RtToken[ currentShader.tokenPointerArray.size()] );
   scoped_array< RtPointer > pointerArray( new RtPointer[ currentShader.tokenPointerArray.size() ] );
@@ -555,7 +583,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
     RiAttribute( "displacementbound", "sphere", &displacementBounds, "coordinatesystem", &coordsys, RI_NULL );
   }
 
-  LIQ_GET_SHADER_FILE_NAME( shaderFileName, options.shortShaderName, currentShader );
+  //LIQ_GET_SHADER_FILE_NAME( shaderFileName, options.shortShaderName, currentShader );
 
   MString shadingSpace;
 	liquidGetPlugValue( assignedShader, "shaderSpace", shadingSpace, status);
@@ -579,12 +607,17 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
     RiOpacity( currentShader.rmOpacity );
 		//cout << "Shader: " << shaderFileName << endl;
 		if ( options.fullShaderPath ) 
-				RiSurface( shaderFileName, RI_NULL );
+				RiSurface( (RtToken)shaderFileName.c_str(), RI_NULL );
 		else
 		{
+			//r772
 			// its one less as the tokenPointerArray has a preset size of 1 not 0
 			int shaderParamCount = currentShader.tokenPointerArray.size() - 1;
-			RiSurfaceV( shaderFileName, shaderParamCount, tokenArray.get(), pointerArray.get() );
+			RiSurfaceV( (RtToken)shaderFileName.c_str(), shaderParamCount, tokenArray.get(), pointerArray.get() );
+			// r773
+			//liqShader liqAssignedShader( shaderObj );
+			//liqAssignedShader.write( options.shortShaderName, 0, SHADER_TYPE_SURFACE);
+		
 		}
   } 
 	else if ( shader_type_TempForRefactoring=="displacement"/*currentShader.shader_type == SHADER_TYPE_DISPLACEMENT*/ ) //  [2/14/2012 yaoyansi]
@@ -593,11 +626,16 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
     RtFloat KdValue( 1. );
     RiSurface( "plastic", &Kd, &KdValue, RI_NULL );
 		if ( options.fullShaderPath ) 
-			RiDisplacement( shaderFileName, RI_NULL );
+			RiDisplacement( (RtToken)shaderFileName.c_str(), RI_NULL );
 		else 
 		{
+			//r772
 			int shaderParamCount = currentShader.tokenPointerArray.size() - 1;
-			RiDisplacementV( shaderFileName, shaderParamCount, tokenArray.get(), pointerArray.get() );
+			RiDisplacementV( (RtToken)shaderFileName.c_str(), shaderParamCount, tokenArray.get(), pointerArray.get() );
+			// r773
+			//liqShader liqAssignedShader( shaderObj );
+			//liqAssignedShader.write( (bool)options.shortShaderName, (unsigned int)0 );
+		
 		}
   }
   RiTransformEnd();
@@ -901,6 +939,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 
   LIQDEBUGPRINTF("-> Shader Preview RIB output done.\n" );
 
+  CM_TRACE_CLOSE();
   return 1;
 }
 

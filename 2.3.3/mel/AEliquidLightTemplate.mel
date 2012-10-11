@@ -363,13 +363,15 @@ global proc AEliquidLightTemplate( string $nodeDotAttr )
   liqPushIdent();
   liqAElog("AEliquidLightTemplate("+$nodeDotAttr+")");
 
+  string $nodeName = plugNode($nodeDotAttr);
+
   layout -e -vis false "AEcontrolFormLayout";
 
-  editorTemplate -callCustom ("liquidPreviewSwatchNew "+$nodeDotAttr) ("liquidPreviewSwatchReplace "+$nodeDotAttr) "message";
+  editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
 
   editorTemplate -beginScrollLayout;
 
-    editorTemplate -ccu ("liquidShaderPickerNew "+$nodeDotAttr) ("liquidShaderPickerReplace "+$nodeDotAttr) "rmanShaderLong";
+    editorTemplate -ccu "liquidShaderPickerNew" "liquidShaderPickerReplace" "rmanShaderLong";
 
     editorTemplate -beginLayout "Preview";
       editorTemplate -addControl "previewPrimitive";
@@ -404,6 +406,7 @@ global proc AEliquidLightTemplate( string $nodeDotAttr )
 
     editorTemplate -beginLayout "RIB";
       editorTemplate -addControl "outputInShadow";
+	  //added in r773 editorTemplate -ccu ("liquidLargeFieldNew "+$nodeName+" \"RIB Box\"") ("liquidLargeFieldReplace "+$nodeName+" \"RIB Box\"") "liqRIBBox";
     editorTemplate -endLayout;
 
     editorTemplate -beginLayout "Parameters" -collapse 0;

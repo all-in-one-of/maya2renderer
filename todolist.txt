@@ -260,3 +260,14 @@ appleseed
 - test liquidShader for displace(done)
 - liquidShaderNode AEliquidShaderNodeTemplate.mel里针对renderer/shadertype设置回调函数
 - alpha map, normal map
+- particle:
+  (done)unit convert
+  multistreak/steak/numeric not displayed.
+  nparticle
+  per particle radius
+- preview shader 生产的rib里
+Surface "liquidchecker" 
+Attribute "visibility" #ERROR: undeclared token "camera" encountered
+#ERROR: undeclared token "trace" encountered
+#ERROR: undeclared token "transmission" encountered
+

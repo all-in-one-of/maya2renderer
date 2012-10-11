@@ -41,6 +41,11 @@ global proc string liquidFluidGetPreviewDir()
 { 
 	liqPushIdent();
 	liqlog("liquidFluidGetPreviewDir()");
+
+	if ( !liquidGlobalsExists() )
+	{
+		eval("liquidCreateGlobals();");
+	}
   // retrieve the current project path
   string $projectPath = `workspace -q -rootDirectory`;
 	if( `substring $projectPath (size($projectPath)) (size($projectPath))` != "/" )

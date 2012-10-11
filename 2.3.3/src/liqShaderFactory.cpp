@@ -54,7 +54,7 @@ liqShaderFactory::~liqShaderFactory()
 
 void liqShaderFactory::clearShaders()
 {
-	CM_TRACE_FUNC("liqShaderFactory::clearShaders()");
+	//CM_TRACE_FUNC("liqShaderFactory::clearShaders()");
 
 	vector<liqShader*>::iterator iter;
 	vector<liqShader*>::iterator end = m_shaders.end();
