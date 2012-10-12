@@ -92,7 +92,8 @@ public:
     MString     shaderHandler;
     int         evaluateAtEveryFrame;
     MObject     m_mObject;
-    
+    float		m_previewGamma;
+
     std::vector< liqTokenPointer	> tokenPointerArray;
     std::vector< MObject > m_coShaderArray;
 };

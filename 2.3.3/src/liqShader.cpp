@@ -77,6 +77,7 @@ liqShader::liqShader()
   evaluateAtEveryFrame  = 0;
   tokenPointerArray.push_back( liqTokenPointer() ); // ENsure we have a 0 element
   shaderHandler         = liqShaderFactory::instance().getUniqueShaderHandler();
+  m_previewGamma		= 1.0f;
 }
 
 liqShader::liqShader( const liqShader& src )
@@ -104,6 +105,7 @@ liqShader::liqShader( const liqShader& src )
   evaluateAtEveryFrame = src.evaluateAtEveryFrame;
   shaderHandler        = src.shaderHandler;
   m_mObject            = src.m_mObject;
+  m_previewGamma       = src.m_previewGamma;
 }
 
 liqShader & liqShader::operator=( const liqShader & src )
@@ -131,6 +133,7 @@ liqShader & liqShader::operator=( const liqShader & src )
   evaluateAtEveryFrame = src.evaluateAtEveryFrame;
   shaderHandler        = src.shaderHandler;
   m_mObject            = src.m_mObject;
+  m_previewGamma       = src.m_previewGamma;
   return *this;
 }
 
@@ -234,6 +237,13 @@ liqShader::liqShader( MObject shaderObj )
 			evaluateAtEveryFramePlug.getValue( evaluateAtEveryFrame );
 		}
 
+		status.clear();
+		MPlug previewGammaPlug( shaderNode.findPlug( "previewGamma" ) );
+		if ( MS::kSuccess == status )
+		{
+			previewGammaPlug.getValue( m_previewGamma );
+		}
+
 		// find the parameter details and declare them in the rib stream
 		numArgs = shaderInfo.getNumParam();
 		for (unsigned int i( 0 ); i < numArgs; i++ )
@@ -244,8 +254,18 @@ liqShader::liqShader( MObject shaderObj )
 			}
 			MString paramName = shaderInfo.getArgName(i);
 			int arraySize = shaderInfo.getArgArraySize(i);
-			SHADER_TYPE shaderType = shaderInfo.getArgType(i);
+			SHADER_TYPE shaderType = shaderInfo.getArgType(i);//r773 SHADER_TYPE shaderParameterType = shaderInfo.getArgType(i);
 			SHADER_DETAIL shaderDetail = shaderInfo.getArgDetail(i);
+// added in r773
+// 			MString shaderAccept = shaderInfo.getArgAccept(i);
+// 			if( shaderParameterType == SHADER_TYPE_STRING )
+// 			{
+// 				// check if a string must be used as a shader
+// 				if( shaderAccept != "" )
+// 				{
+// 					shaderParameterType = SHADER_TYPE_SHADER;
+// 				}
+// 			}
 
 			bool skipToken = false;
 			if ( paramName == "liquidShadingRate" )

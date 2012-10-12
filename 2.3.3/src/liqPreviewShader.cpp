@@ -538,8 +538,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RtFloat fov( 22.5 );
   RiProjection( "perspective", "fov", &fov, RI_NULL );
   RiTranslate( 0, 0, 2.75 );
-  //added in r773
-  //RiExposure(1, currentShader.m_previewGamma);
+  RiExposure(1, currentShader.m_previewGamma);
   RiWorldBegin();
   RiReverseOrientation();
   RiTransformBegin();
