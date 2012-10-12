@@ -484,6 +484,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 #endif
   } 
 	else {
+	liquidMessage2(messageInfo,"preview rib file: %s", fileName.c_str());
     RiBegin_liq( (RtToken)fileName.c_str() );
   }
 
