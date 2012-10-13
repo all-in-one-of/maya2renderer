@@ -193,8 +193,8 @@ global proc int liquidSlValidFloat3String (string $theString)
 {
   liqPushIdent();
 	liqlog("liquidSlValidFloat3String("+$theString+")");
-	string $tmp = substitute("^<<", $theString, "");
-	$tmp = substitute(">>$", $tmp, "");
+	string $tmp = substitute("^[(<]*", strip($theString), "");
+	$tmp = strip(substitute("[>)]*$", $tmp, ""));
 	string $v[];
 	if (tokenize($tmp,", \t",$v) == 3) {
 		if (	liquidSlValidFloatString(strip($v[0]))
@@ -212,9 +212,8 @@ global proc int liquidSlValidMatrixString (string $theString)
 {
   liqPushIdent();
 	liqlog("liquidSlValidMatrixString("+$theString+")");
-	// string $tmp = substitute("^<<", $theString, "");
-	// $tmp = substitute(">>$", $tmp, "");
-	string $tmp = $theString;
+	string $tmp = substitute("^[(<]*", strip($theString), "");
+	$tmp = strip(substitute("[>)]*$", $tmp, ""));
 	int $success = false;
 	string $v[];
 	if (`tokenize $theString ", \t" $v` == 16) {
@@ -237,10 +236,12 @@ global proc vector liquidSlStringToVector (string $theString)
   liqPushIdent();
 	liqlog("liquidSlStringToVector("+$theString+")");
 	vector $theVector = <<0.0, 0.0, 0.0>>;
+	string $tmp = substitute("^[(<]*", strip($theString), "");
+	$tmp = strip(substitute("[>)]*$", $tmp, ""));
 	int $success = false;
 	
 	string $v[];
-	if (`tokenize $theString ", \t" $v` == 3)
+	if (`tokenize $tmp ", \t" $v` == 3)
 	{
 		if (`liquidSlValidFloatString $v[0]` && `liquidSlValidFloatString $v[1]` && `liquidSlValidFloatString $v[2]`)
 		{
@@ -264,9 +265,8 @@ global proc float[] liquidSlStringToFloatMatrix (string $theString)
 	float $fMatrix[16];
 	int $success = false;
 
-	// string $tmp = substitute("^<<", $theString, "");
-	// $tmp = substitute(">>$", $tmp, "");
-	string $tmp = $theString;
+	string $tmp = substitute("^[(<]*", strip($theString), "");
+	$tmp = strip(substitute("[>)]*$", $tmp, ""));
 	string $v[];
 	if (`tokenize $theString ", \t" $v` == 16) {	
 		$success = true;
