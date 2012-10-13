@@ -282,20 +282,33 @@ liqShader::liqShader( MObject shaderObj )
 				continue;
 			}
 
+			if( shaderInfo.isOutputParameter(i) && !outputAllParameters )   // throw output parameters
+			{
+				continue;		
+			}
+			else if( shaderInfo.isOutputParameter(i) && outputAllParameters )
+			{
+				//...added in r773
+			}
+			else//shaderInfo.isOutputParameter(i) is false
 			{
 			switch ( shaderParameterType )
 			{
+				//case SHADER_TYPE_SHADER:
+				//{
+				//		coshader stuff will be moved here in r773
+				//}
 				case SHADER_TYPE_STRING:
 				{
 					MPlug stringPlug = shaderNode.findPlug( paramName, &status );
 					if ( MS::kSuccess == status )
 					{
-						if( arraySize == 0 ) 
+						if( arraySize == 0 )     // dynamic array
 						{
 							skipToken = true;
 							liquidMessage2(messageWarning, "[liqShader] warning undefined string array size, not yet implemented...\n");
-						}
-						else if( arraySize > 0 ) 
+						}//if( arraySize == 0 )
+						else if( arraySize > 0 )     // static array
 						{
 							bool isArrayAttr( stringPlug.isArray( &status ) );
 							if ( isArrayAttr )
@@ -322,8 +335,8 @@ liqShader::liqShader( MObject shaderObj )
 							{
 								liquidMessage2(messageError, "[liqShader] error while building string param %s assumed as an array but wasn't...\n", stringPlug.name().asChar() );
 							}
-						}
-						else if( arraySize == -1 )
+						}//if( arraySize > 0 )
+						else if( arraySize == -1 )    // single value
 						{
 							MString stringPlugVal;
 							stringPlug.getValue( stringPlugVal );
@@ -367,12 +380,17 @@ liqShader::liqShader( MObject shaderObj )
 								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
 								tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
 							}
-						}
+						}//if( arraySize == -1 )
+						//else    // unknown type     added in r773
+						//{
+						//	skipToken = true;
+						//	printf("[liqShader] error while building string param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						//}
 					}
-					else
-					{
-						skipToken = true;
-					}
+					//else//( MS::kSuccess != status ) 
+					//{
+					//	skipToken = true;
+					//}
 					break;
 				}
 				case SHADER_TYPE_SCALAR:
@@ -380,12 +398,12 @@ liqShader::liqShader( MObject shaderObj )
 					MPlug floatPlug( shaderNode.findPlug( paramName, &status ) );
 					if ( MS::kSuccess == status )
 					{
-						if( arraySize == 0 )
+						if( arraySize == 0 )    // dynamic array
 						{
 							skipToken = true;
 							liquidMessage2(messageWarning, "[liqShader] warning undefined float array size, not yet implemented ....\n");
-						}
-						else if( arraySize > 0 )
+						}//if( arraySize == 0 ) 
+						else if( arraySize > 0 )    // static array
 						{
 							bool isArrayAttr( floatPlug.isArray( &status ) );
 							if ( isArrayAttr )
@@ -405,16 +423,21 @@ liqShader::liqShader( MObject shaderObj )
 									}
 								}
 							}
-						}
-						else if( arraySize == -1 )
+						}//if( arraySize > 0 )
+						else if( arraySize == -1 )    // single value
 						{
 							float floatPlugVal;
 							floatPlug.getValue( floatPlugVal );
 							tokenPointerArray.rbegin()->set( paramName.asChar(), rFloat );
 							tokenPointerArray.rbegin()->setTokenFloat( 0, floatPlugVal );
-						}
+						}//if( arraySize == -1 ) 
+						//else    // unknown type      added in r773
+						//{
+						//	skipToken = true;
+						//	printf("[liqShader] error while building float param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						//}
 					}
-					else
+					else//( status != MS::kSuccess )
 					{
 						skipToken = true;
 					}
@@ -443,12 +466,20 @@ liqShader::liqShader( MObject shaderObj )
 						parameterType = rNormal;
 					}
 
-					if( arraySize==0 )
+					//MPlug triplePlug( shaderNode.findPlug( paramName, true, &status ) );
+					//if( status != MS::kSuccess )
+					//{
+					//	skipToken = true;
+					//	printf("[liqShader] error while building float[3] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+					//}
+					//else
+					//{
+					if( arraySize==0 )    // dynamic array
 					{
 						liquidMessage2(messageWarning, "[liqShader] warning undefined float[3] array size, not yet implemented ....\n");
 						skipToken = true;
-					}
-					else if ( arraySize > 0 )
+					}//if( arraySize == 0 )
+					else if ( arraySize > 0 )    // static array
 					{
 						status = liqShaderParseVectorArrayAttr( shaderNode, paramName.asChar(), parameterType, arraySize );
 						if( status != MS::kSuccess )
@@ -456,8 +487,8 @@ liqShader::liqShader( MObject shaderObj )
 							skipToken = true;
 							liquidMessage2(messageError, "[liqShader] error while building float[3] array param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 						}
-					}
-					else
+					}//if ( arraySize > 0 )
+					else //if ( arraySize == -1 )     // single value
 					{
 						status = liqShaderParseVectorAttr( shaderNode, paramName.asChar(), parameterType );
 						if( status != MS::kSuccess )
@@ -466,15 +497,37 @@ liqShader::liqShader( MObject shaderObj )
 							liquidMessage2(messageError, "[liqShader] error while building float[3] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 						}
 					}
+					////if ( arraySize == -1 )
+					//else    // unknown type//arraySize
+					//{
+					//	skipToken = true;
+					//	printf("[liqShader] error while building float[3] param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+					//}
+					//}//if( status
 					break;
 				}
 				case SHADER_TYPE_MATRIX:
 				{
 					//liquidMessage2(messageInfo,  "[liqShader]  %s.%s arraySize=%d", shaderNode.name().asChar(), paramName.asChar(), arraySize );
-					if ( arraySize > 0 )
+					//MPlug matrixPlug( shaderNode.findPlug( paramName, &status ) );
+					//if ( MS::kSuccess != status )
+					//{
+					//	skipToken = true;
+					//	printf("[liqShader] error while building float[16] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+					//}
+					//else
+					//{
+					//if( arraySize == 0 )    // dynamic array
+					//{
+					//}else 
+					if ( arraySize > 0 )    // static array
 					{
  						liquidMessage2(messageError, "[liqShader] matrix array is not supported. %s.%s ...\n", shaderNode.name().asChar(), paramName.asChar() );
-					} else {
+					} 
+					//else if( arraySize == -1 )    // single value
+					//{
+					//}
+					else {
 						status = liqShaderParseMatrixAttr( shaderNode, paramName.asChar(), rMatrix );
 						if( status != MS::kSuccess )
 						{
@@ -482,15 +535,16 @@ liqShader::liqShader( MObject shaderObj )
 							liquidMessage2(messageError, "[liqShader] error while building matrix. %s.%s ...\n", shaderNode.name().asChar() , paramName.asChar());
 						}
 					}
+				    //}
 					break;
 				}
-				case SHADER_TYPE_SHADER:
+				case SHADER_TYPE_SHADER: // coshader stuff will be moved above
 				{
 					MPlug coShaderPlug = shaderNode.findPlug( paramName, &status );
 					if ( MS::kSuccess == status )
 					{
 						// undefined array size : set array size to nbConnections
-						if( arraySize==0 )
+						if( arraySize==0 )    // dynamic array
 						{
 							MPlug plugObj;
 							unsigned int numConnectedElements = coShaderPlug.numConnectedElements();
@@ -502,8 +556,8 @@ liqShader::liqShader( MObject shaderObj )
 							{
 								arraySize = numConnectedElements;
 							}
-						}
-						if ( arraySize > 0 )
+						}//if( arraySize==0 )
+						if ( arraySize > 0 )    // static array
 						{
 							unsigned int i;
 							// Gestion en mode shader (message connection) 
@@ -553,8 +607,8 @@ liqShader::liqShader( MObject shaderObj )
 							//{
 							//	printf("[liqShader] error while building param %s assumed as an array but wasn't...\n", coShaderPlug.name().asChar() );
 							//}
-						}
-						else if ( arraySize == -1 )
+						}//if ( arraySize > 0 )
+						else if ( arraySize == -1 )    // single value
 						{
 							// Gestion en mode shader (message connection) 
 							MPlugArray connectionArray;
@@ -594,7 +648,12 @@ liqShader::liqShader( MObject shaderObj )
 							//	printf("          value : %s \n", stringVal.asChar());
 							//}
 							
-						}
+						}//if ( arraySize == -1 )
+						//else    // unknown type
+						//{
+						//	skipToken = true;
+						//	printf("[liqShader] error while building shader param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						//}
 					}
 					break;
 				}
@@ -604,7 +663,7 @@ liqShader::liqShader( MObject shaderObj )
 					skipToken = true;
 					break;
 			}//switch ( shaderParameterType )
-			}
+			}//else//shaderInfo.isOutputParameter(i) is false
 
 
 			if( !skipToken )
@@ -632,9 +691,16 @@ liqShader::liqShader( MObject shaderObj )
 			else
 			{
 				// skip parameter : parameter will not be written inside rib
+				// added in r773
+				//if( outputAllParameters )
+				//{
+				//	char tmp[512];
+				//	sprintf(tmp, "[liqShader] skipping shader parameter %s on %s (probably an empty dynamic array)\n", paramName.asChar(), shaderNode.name().asChar() );
+				//	liquidMessage( tmp, messageWarning );
+				//}
 			}
-		}
-	}
+		}//for
+	}//else//success is true;
 	shaderInfo.resetIt();
 }
 
