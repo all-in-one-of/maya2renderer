@@ -1026,7 +1026,12 @@ global proc vector[] liquidSlDefaultToVectorArray( string $default )
   liqPopIdent();
 	return $val;
 }
-
+//added in r773
+//global proc vector[] liquidSlDefaultToFloatVectorArray( string $default )
+//{
+//	float $val[] = eval("float $foo_FVarray[] =" + $default );
+//	return $val;
+//}
 global proc matrix liquidSlDefaultToMatrix( string $default )
 {
   liqPushIdent();
@@ -1064,7 +1069,7 @@ global proc string liquidSlDefaultToType( string $type, int $array, string $defa
 		case "string":
 			if ($array) {
 				string $s[] = liquidSlDefaultToStringArray( $default );
-				$result = stringArrayToString ($s, " ");
+				$result = stringArrayToString ($s, ", ");
 			} else {
 				$result = liquidSlDefaultToString( $default );
 			}
@@ -1077,7 +1082,7 @@ global proc string liquidSlDefaultToType( string $type, int $array, string $defa
 				for ($i=0; $i<$nf; $i++) {
 					$s[$i] = $f[$i];
 				}
-				$result = stringArrayToString ($s, " ");
+				$result = stringArrayToString ($s, ", ");
 			} else {
 				$result = liquidSlDefaultToFloat( $default );
 			}		
@@ -1093,7 +1098,7 @@ global proc string liquidSlDefaultToType( string $type, int $array, string $defa
 				for ($i=0; $i<$nf; $i++) {
 					$s[$i] = $v[$i];
 				}				
-				$result = stringArrayToString ($s, " ");			
+				$result = stringArrayToString ($s, ", ");			
 			} else {		
 				vector $v = liquidSlDefaultToVector( $default );
 				$result = $v;

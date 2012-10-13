@@ -331,7 +331,7 @@ proc string[] liquidSl_getParamDefault( string $line, string $paramType )
                 error( "[liquidSl_getParamDefault] unknown parameter type \"" + $paramType + "\"" );
         }
     }
-    trace ("[liquidSlParseSdl] parsed Default values: "+stringArrayToString($values, " ")); 
+    trace ("[liquidSlParseSdl] parsed Default values: "+stringArrayToString($values, ", ")); 
   liqPopIdent();
     return $values;
 }
