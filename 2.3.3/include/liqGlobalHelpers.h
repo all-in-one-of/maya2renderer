@@ -105,7 +105,9 @@ std::vector< int > generateFrameNumbers( const std::string& mayaSeq );
 bool makeFullPath( const std::string& name, int mode );
 std::string sanitizeNodeName( const std::string& name );
 MString sanitizeNodeName( const MString& name );
+//replace ':' with '='
 std::string sanitizeNodeName2( const std::string& name );
+//replace ':' with '=', and '|' with '/'
 std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name);
 RtString& getLiquidRibName( const std::string& name );
 void liquidMessage( const std::string& msg, liquidVerbosityType type );
