@@ -142,6 +142,8 @@ liqShader::liqShader( MObject shaderObj )
 {
 	CM_TRACE_FUNC("liqShader::liqShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
 
+    bool outputAllParameters = false;
+	
 	MString rmShaderStr;
 	MStatus status;
 	MFnDependencyNode shaderNode( shaderObj );
@@ -248,24 +250,19 @@ liqShader::liqShader( MObject shaderObj )
 		numArgs = shaderInfo.getNumParam();
 		for (unsigned int i( 0 ); i < numArgs; i++ )
 		{
-			if( shaderInfo.isOutputParameter(i) )   // throw output parameters
-			{
-				continue;				
-			}
 			MString paramName = shaderInfo.getArgName(i);
 			int arraySize = shaderInfo.getArgArraySize(i);
-			SHADER_TYPE shaderType = shaderInfo.getArgType(i);//r773 SHADER_TYPE shaderParameterType = shaderInfo.getArgType(i);
+			SHADER_TYPE shaderParameterType = shaderInfo.getArgType(i);
 			SHADER_DETAIL shaderDetail = shaderInfo.getArgDetail(i);
-// added in r773
-// 			MString shaderAccept = shaderInfo.getArgAccept(i);
-// 			if( shaderParameterType == SHADER_TYPE_STRING )
-// 			{
-// 				// check if a string must be used as a shader
-// 				if( shaderAccept != "" )
-// 				{
-// 					shaderParameterType = SHADER_TYPE_SHADER;
-// 				}
-// 			}
+			MString shaderAccept = shaderInfo.getArgAccept(i);
+			if( shaderParameterType == SHADER_TYPE_STRING )
+			{
+				// check if a string must be used as a shader
+				if( shaderAccept != "" )
+				{
+					shaderParameterType = SHADER_TYPE_SHADER;
+				}
+			}
 
 			bool skipToken = false;
 			if ( paramName == "liquidShadingRate" )
@@ -284,8 +281,9 @@ liqShader::liqShader( MObject shaderObj )
 				hasShadingRate = true;
 				continue;
 			}
-			
-			switch ( shaderType )
+
+			{
+			switch ( shaderParameterType )
 			{
 				case SHADER_TYPE_STRING:
 				{
@@ -428,22 +426,23 @@ liqShader::liqShader( MObject shaderObj )
 				case SHADER_TYPE_NORMAL:
 				{
 					ParameterType parameterType;
-					if( shaderType==SHADER_TYPE_COLOR )
+					if( shaderParameterType==SHADER_TYPE_COLOR )
 					{
 						parameterType = rColor;
 					}
-					else if(shaderType==SHADER_TYPE_POINT)
+					else if(shaderParameterType==SHADER_TYPE_POINT)
 					{
 						parameterType = rPoint;
 					}
-					else if(shaderType==SHADER_TYPE_VECTOR)
+					else if(shaderParameterType==SHADER_TYPE_VECTOR)
 					{
 						parameterType = rVector;
 					}
-					else if(shaderType==SHADER_TYPE_NORMAL)
+					else if(shaderParameterType==SHADER_TYPE_NORMAL)
 					{
 						parameterType = rNormal;
 					}
+
 					if( arraySize==0 )
 					{
 						liquidMessage2(messageWarning, "[liqShader] warning undefined float[3] array size, not yet implemented ....\n");
@@ -604,7 +603,10 @@ liqShader::liqShader( MObject shaderObj )
 					liquidMessage( "Unknown shader type", messageError );
 					skipToken = true;
 					break;
+			}//switch ( shaderParameterType )
 			}
+
+
 			if( !skipToken )
 			{
 				// set token type
