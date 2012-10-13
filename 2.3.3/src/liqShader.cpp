@@ -301,7 +301,12 @@ liqShader::liqShader( MObject shaderObj )
 				case SHADER_TYPE_STRING:
 				{
 					MPlug stringPlug = shaderNode.findPlug( paramName, &status );
-					if ( MS::kSuccess == status )
+					if ( MS::kSuccess != status )
+					{
+						skipToken = true;
+						printf("[liqShader] error while building string param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+					}
+					else
 					{
 						if( arraySize == 0 )     // dynamic array
 						{
@@ -387,16 +392,16 @@ liqShader::liqShader( MObject shaderObj )
 						//	printf("[liqShader] error while building string param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						//}
 					}
-					//else//( MS::kSuccess != status ) 
-					//{
-					//	skipToken = true;
-					//}
 					break;
 				}
 				case SHADER_TYPE_SCALAR:
 				{
 					MPlug floatPlug( shaderNode.findPlug( paramName, &status ) );
-					if ( MS::kSuccess == status )
+					if ( MS::kSuccess != status )
+					{
+						skipToken = true;
+					}
+					else
 					{
 						if( arraySize == 0 )    // dynamic array
 						{
@@ -436,10 +441,6 @@ liqShader::liqShader( MObject shaderObj )
 						//	skipToken = true;
 						//	printf("[liqShader] error while building float param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						//}
-					}
-					else//( status != MS::kSuccess )
-					{
-						skipToken = true;
 					}
 					break;
 				}
