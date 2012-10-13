@@ -331,38 +331,6 @@ liqShader::liqShader( MObject shaderObj )
 								MString coShaderId = liqShaderFactory::instance().getShaderId(coshader);
 								tokenPointerArray.rbegin()->setTokenString( i, coShaderId.asChar() );
 							}
-
-							// Gestion en mode string
-							//bool isArrayAttr( coShaderPlug.isArray( &status ) );
-							//if ( isArrayAttr )
-							//{
-							//	MPlug plugObj;
-							//	tokenPointerArray.rbegin()->set( paramName.asChar(), rShader, arraySize );
-							//	for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
-							//	{
-							//		plugObj = coShaderPlug.elementByLogicalIndex( kk, &status );
-							//		printf("          value %d : ", kk);
-
-							//		if ( MS::kSuccess == status )
-							//		{
-							//			MString stringPlugVal;
-							//			plugObj.getValue( stringPlugVal );
-							//			MString stringVal = parseString( stringPlugVal );
-							//			tokenPointerArray.rbegin()->setTokenString( kk, stringVal.asChar() );
-							//			printf(" %s ", stringVal.asChar());
-							//		}
-							//		else
-							//		{
-							//			printf("[liqShader] error while building shader param %d : %s \n", kk, coShaderPlug.name().asChar() );
-							//		}
-							//		printf("\n");
-							//	}
-							//	//tokenPointerArray.push_back( liqTokenPointer() );
-							//}
-							//else
-							//{
-							//	printf("[liqShader] error while building param %s assumed as an array but wasn't...\n", coShaderPlug.name().asChar() );
-							//}
 						}//if ( arraySize > 0 )
 						else if ( arraySize == -1 )    // single value
 						{
@@ -384,25 +352,6 @@ liqShader::liqShader( MObject shaderObj )
 								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
 								tokenPointerArray.rbegin()->setTokenString( 0, coShaderId.asChar() );
 							}
-
-							// Gestion en mode string
-
-							//MString stringPlugVal;
-							//coShaderPlug.getValue( stringPlugVal );
-							//MString stringDefault( shaderInfo.getArgStringDefault( i, 0 ) );
-							//if ( stringPlugVal == stringDefault )
-							//{
-							//	skipToken = true;
-							//	printf("          value : default => skipping \n");
-							//}
-							//else
-							//{
-							//	MString stringVal( parseString( stringPlugVal ) );
-							//	LIQDEBUGPRINTF("[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
-							//	tokenPointerArray.rbegin()->set( shaderInfo.getArgName( i ).asChar(), rString );
-							//	tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
-							//	printf("          value : %s \n", stringVal.asChar());
-							//}
 
 						}//if ( arraySize == -1 )
 						//else    // unknown type
