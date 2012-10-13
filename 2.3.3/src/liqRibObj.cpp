@@ -129,7 +129,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
   if( !ignoreShadow ) 
     ignoreShadow = !areObjectAndParentsTemplated( path );
 
-  receiveShadow = isObjectReceivesShadows( path );
+  receiveShadow = isObjectReceiveShadows( path );
 
   // don't bother storing it if it's not going to be visible!
   LIQDEBUGPRINTF( "-> about to create rep\n");
