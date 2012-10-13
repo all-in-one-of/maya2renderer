@@ -294,10 +294,125 @@ liqShader::liqShader( MObject shaderObj )
 			{
 			switch ( shaderParameterType )
 			{
-				//case SHADER_TYPE_SHADER:
-				//{
-				//		coshader stuff will be moved here in r773
-				//}
+				case SHADER_TYPE_SHADER:
+				{
+					MPlug coShaderPlug = shaderNode.findPlug( paramName, &status );
+					if ( MS::kSuccess == status )
+					{
+						// undefined array size : set array size to nbConnections
+						if( arraySize==0 )    // dynamic array
+						{
+							MPlug plugObj;
+							unsigned int numConnectedElements = coShaderPlug.numConnectedElements();
+							if( numConnectedElements == 0 )
+							{
+								skipToken = true;
+							}
+							else
+							{
+								arraySize = numConnectedElements;
+							}
+						}//if( arraySize==0 )
+						if ( arraySize > 0 )    // static array
+						{
+							unsigned int i;
+							// Gestion en mode shader (message connection) 
+							unsigned int numConnectedElements = coShaderPlug.numConnectedElements();
+							tokenPointerArray.rbegin()->set( paramName.asChar(), rString, numConnectedElements );
+							for(i=0; i<numConnectedElements; i++)
+							{
+								MPlug connectedPlug = coShaderPlug.connectionByPhysicalIndex(i);
+								bool asSrc = 0;
+								bool asDst = 1;
+								MPlugArray connectedPlugArray;
+								connectedPlug.connectedTo( connectedPlugArray, asDst, asSrc );
+								MObject coshader = connectedPlugArray[0].node();
+								appendCoShader(coshader, connectedPlugArray[0]);
+								MString coShaderId = liqShaderFactory::instance().getShaderId(coshader);
+								tokenPointerArray.rbegin()->setTokenString( i, coShaderId.asChar() );
+							}
+
+							// Gestion en mode string
+							//bool isArrayAttr( coShaderPlug.isArray( &status ) );
+							//if ( isArrayAttr )
+							//{
+							//	MPlug plugObj;
+							//	tokenPointerArray.rbegin()->set( paramName.asChar(), rShader, arraySize );
+							//	for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+							//	{
+							//		plugObj = coShaderPlug.elementByLogicalIndex( kk, &status );
+							//		printf("          value %d : ", kk);
+
+							//		if ( MS::kSuccess == status )
+							//		{
+							//			MString stringPlugVal;
+							//			plugObj.getValue( stringPlugVal );
+							//			MString stringVal = parseString( stringPlugVal );
+							//			tokenPointerArray.rbegin()->setTokenString( kk, stringVal.asChar() );
+							//			printf(" %s ", stringVal.asChar());
+							//		}
+							//		else
+							//		{
+							//			printf("[liqShader] error while building shader param %d : %s \n", kk, coShaderPlug.name().asChar() );
+							//		}
+							//		printf("\n");
+							//	}
+							//	//tokenPointerArray.push_back( liqTokenPointer() );
+							//}
+							//else
+							//{
+							//	printf("[liqShader] error while building param %s assumed as an array but wasn't...\n", coShaderPlug.name().asChar() );
+							//}
+						}//if ( arraySize > 0 )
+						else if ( arraySize == -1 )    // single value
+						{
+							// Gestion en mode shader (message connection) 
+							MPlugArray connectionArray;
+							bool asSrc = 0;
+							bool asDst = 1;
+							coShaderPlug.connectedTo(connectionArray, asDst, asSrc);
+							if( connectionArray.length() == 0 )
+							{
+								skipToken = true;
+							}
+							else
+							{
+								MPlug connectedPlug = connectionArray[0];
+								MObject coshader = connectedPlug.node();
+								appendCoShader(coshader, coShaderPlug);
+								MString coShaderId = liqShaderFactory::instance().getShaderId(coshader);
+								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
+								tokenPointerArray.rbegin()->setTokenString( 0, coShaderId.asChar() );
+							}
+
+							// Gestion en mode string
+
+							//MString stringPlugVal;
+							//coShaderPlug.getValue( stringPlugVal );
+							//MString stringDefault( shaderInfo.getArgStringDefault( i, 0 ) );
+							//if ( stringPlugVal == stringDefault )
+							//{
+							//	skipToken = true;
+							//	printf("          value : default => skipping \n");
+							//}
+							//else
+							//{
+							//	MString stringVal( parseString( stringPlugVal ) );
+							//	LIQDEBUGPRINTF("[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
+							//	tokenPointerArray.rbegin()->set( shaderInfo.getArgName( i ).asChar(), rString );
+							//	tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
+							//	printf("          value : %s \n", stringVal.asChar());
+							//}
+
+						}//if ( arraySize == -1 )
+						//else    // unknown type
+						//{
+						//	skipToken = true;
+						//	printf("[liqShader] error while building shader param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						//}
+					}
+					break;				
+				}
 				case SHADER_TYPE_STRING:
 				{
 					MPlug stringPlug = shaderNode.findPlug( paramName, &status );
@@ -537,125 +652,6 @@ liqShader::liqShader( MObject shaderObj )
 						}
 					}
 				    //}
-					break;
-				}
-				case SHADER_TYPE_SHADER: // coshader stuff will be moved above
-				{
-					MPlug coShaderPlug = shaderNode.findPlug( paramName, &status );
-					if ( MS::kSuccess == status )
-					{
-						// undefined array size : set array size to nbConnections
-						if( arraySize==0 )    // dynamic array
-						{
-							MPlug plugObj;
-							unsigned int numConnectedElements = coShaderPlug.numConnectedElements();
-							if( numConnectedElements == 0 )
-							{
-								skipToken = true;
-							}
-							else
-							{
-								arraySize = numConnectedElements;
-							}
-						}//if( arraySize==0 )
-						if ( arraySize > 0 )    // static array
-						{
-							unsigned int i;
-							// Gestion en mode shader (message connection) 
-							unsigned int numConnectedElements = coShaderPlug.numConnectedElements();
-							tokenPointerArray.rbegin()->set( paramName.asChar(), rString, numConnectedElements );
-							for(i=0; i<numConnectedElements; i++)
-							{
-								MPlug connectedPlug = coShaderPlug.connectionByPhysicalIndex(i);
-								bool asSrc = 0;
-								bool asDst = 1;
-								MPlugArray connectedPlugArray;
-								connectedPlug.connectedTo( connectedPlugArray, asDst, asSrc );
-								MObject coshader = connectedPlugArray[0].node();
-								appendCoShader(coshader, connectedPlugArray[0]);
-								MString coShaderId = liqShaderFactory::instance().getShaderId(coshader);
-								tokenPointerArray.rbegin()->setTokenString( i, coShaderId.asChar() );
-							}
-
-							// Gestion en mode string
-							//bool isArrayAttr( coShaderPlug.isArray( &status ) );
-							//if ( isArrayAttr )
-							//{
-							//	MPlug plugObj;
-							//	tokenPointerArray.rbegin()->set( paramName.asChar(), rShader, arraySize );
-							//	for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
-							//	{
-							//		plugObj = coShaderPlug.elementByLogicalIndex( kk, &status );
-							//		printf("          value %d : ", kk);
-
-							//		if ( MS::kSuccess == status )
-							//		{
-							//			MString stringPlugVal;
-							//			plugObj.getValue( stringPlugVal );
-							//			MString stringVal = parseString( stringPlugVal );
-							//			tokenPointerArray.rbegin()->setTokenString( kk, stringVal.asChar() );
-							//			printf(" %s ", stringVal.asChar());
-							//		}
-							//		else
-							//		{
-							//			printf("[liqShader] error while building shader param %d : %s \n", kk, coShaderPlug.name().asChar() );
-							//		}
-							//		printf("\n");
-							//	}
-							//	//tokenPointerArray.push_back( liqTokenPointer() );
-							//}
-							//else
-							//{
-							//	printf("[liqShader] error while building param %s assumed as an array but wasn't...\n", coShaderPlug.name().asChar() );
-							//}
-						}//if ( arraySize > 0 )
-						else if ( arraySize == -1 )    // single value
-						{
-							// Gestion en mode shader (message connection) 
-							MPlugArray connectionArray;
-							bool asSrc = 0;
-							bool asDst = 1;
-							coShaderPlug.connectedTo(connectionArray, asDst, asSrc);
-							if( connectionArray.length() == 0 )
-							{
-								skipToken = true;
-							}
-							else
-							{
-								MPlug connectedPlug = connectionArray[0];
-								MObject coshader = connectedPlug.node();
-								appendCoShader(coshader, coShaderPlug);
-								MString coShaderId = liqShaderFactory::instance().getShaderId(coshader);
-								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
-								tokenPointerArray.rbegin()->setTokenString( 0, coShaderId.asChar() );
-							}
-
-							// Gestion en mode string
-							
-							//MString stringPlugVal;
-							//coShaderPlug.getValue( stringPlugVal );
-							//MString stringDefault( shaderInfo.getArgStringDefault( i, 0 ) );
-							//if ( stringPlugVal == stringDefault )
-							//{
-							//	skipToken = true;
-							//	printf("          value : default => skipping \n");
-							//}
-							//else
-							//{
-							//	MString stringVal( parseString( stringPlugVal ) );
-							//	LIQDEBUGPRINTF("[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
-							//	tokenPointerArray.rbegin()->set( shaderInfo.getArgName( i ).asChar(), rString );
-							//	tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
-							//	printf("          value : %s \n", stringVal.asChar());
-							//}
-							
-						}//if ( arraySize == -1 )
-						//else    // unknown type
-						//{
-						//	skipToken = true;
-						//	printf("[liqShader] error while building shader param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
-						//}
-					}
 					break;
 				}
 				case SHADER_TYPE_UNKNOWN :
