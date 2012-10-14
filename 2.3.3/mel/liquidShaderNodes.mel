@@ -411,10 +411,9 @@ proc checkParamsDefinition( string $node )
 				case "normal":
 				case "vector":
 					$mayaType = "double3";
-					break;
-// added in r773					
-//				case "matrix":
-//					$mayaType = "matrix";					
+					break;					
+				case "matrix":
+					$mayaType = "matrix";					
 				default:
 					break;
 			}

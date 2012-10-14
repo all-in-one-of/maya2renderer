@@ -212,9 +212,12 @@ int liqGetSloInfo::getArgArraySize( int num )
   return argArraySize[ num ];
 }
 
-MString liqGetSloInfo::getArgStringDefault( int num, int /*entry*/ )
+MString liqGetSloInfo::getArgStringDefault( int num, int entry )
 {
-    return MString( ( char * )argDefault[ num ] );
+	MStringArray buffer;
+	MString defaultValues( ( char * )argDefault[ num ] );
+	defaultValues.split(':', buffer);
+    return buffer[entry];
 }
 
 float liqGetSloInfo::getArgFloatDefault( int num, int entry )
@@ -257,6 +260,7 @@ void liqGetSloInfo::resetIt()
     argDetail.clear();
     argArraySize.clear();
     argIsOutput.clear();
+    argAccept.clear();
     unsigned int k;
     for ( k = 0; k < argDefault.size(); k++ ) {
         lfree( argDefault[k] );
@@ -684,11 +688,31 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
         }
 
         case SHADER_TYPE_MATRIX: {
-//			liquidMessage2(messageWarning,"[liqGetloInfo] %s.%s[%s] is not supported. size %d",shaderNode.name().asChar(), shaderParams[k].asChar(), shaderTypes[k].asChar(), (int)shaderArraySizes[k] );
-
-			//argDefault.push_back( NULL );
 			if( shaderArraySizes[k] > 0  ) {
-				liquidMessage2(messageWarning,"[liqGetloInfo] %s.%s[%s] array is not supported.", shaderNode.name().asChar(), shaderParams[k].asChar(), shaderTypes[k].asChar() );
+              //cout<<"setShaderNode:         - array size : "<<shaderArraySizes[k]<<endl;
+              float *floats = ( float *)lmalloc( sizeof( float ) * 16 * shaderArraySizes[k] );
+              MStringArray tmp;
+              shaderDefaults[k].split( ':', tmp );
+              for (unsigned int kk = 0; kk < tmp.length()/16; kk++ ) {
+                //cout<<"setShaderNode:           [ "<<tmp[3*kk].asFloat()<<" "<<tmp[3*kk+1].asFloat()<<" "<<tmp[3*kk+2].asFloat()<<" ]   kk="<<kk<<endl;
+                floats[16*kk   ] = tmp[16*kk   ].asFloat();
+                floats[16*kk+1 ] = tmp[16*kk+1 ].asFloat();
+                floats[16*kk+2 ] = tmp[16*kk+2 ].asFloat();
+                floats[16*kk+3 ] = tmp[16*kk+3 ].asFloat();
+                floats[16*kk+4 ] = tmp[16*kk+4 ].asFloat();
+                floats[16*kk+5 ] = tmp[16*kk+5 ].asFloat();
+                floats[16*kk+6 ] = tmp[16*kk+6 ].asFloat();
+                floats[16*kk+7 ] = tmp[16*kk+7 ].asFloat();
+                floats[16*kk+8 ] = tmp[16*kk+8 ].asFloat();
+                floats[16*kk+9 ] = tmp[16*kk+9 ].asFloat();
+                floats[16*kk+10] = tmp[16*kk+10].asFloat();
+                floats[16*kk+11] = tmp[16*kk+11].asFloat();
+                floats[16*kk+12] = tmp[16*kk+12].asFloat();
+                floats[16*kk+13] = tmp[16*kk+13].asFloat();
+                floats[16*kk+14] = tmp[16*kk+14].asFloat();
+                floats[16*kk+15] = tmp[16*kk+15].asFloat();
+              }
+              argDefault.push_back( ( void * )floats );
 			} else {
 				const int LENGTH = 16;
 				float *floats = ( float *)lmalloc( sizeof( float ) * LENGTH );
@@ -701,10 +725,11 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 //				cout << "tmp=" << tmp<<endl;
 //				liquidMessage2(messageWarning,"[liqGetloInfo] %s.%s[%s] array's size: %d.", shaderNode.name().asChar(), shaderParams[k].asChar(), shaderTypes[k].asChar(), tmp.length() );
 				//tmp[] -> floats[]
-// 				for(int i =0; i<LENGTH; ++i){
-// 					floats[i] = tmp[i].asFloat();
-// 					liquidMessage2(messageWarning,"%f", floats[i]);
-// 				}
+ 				for(int i =0; i<LENGTH; ++i)
+				{
+ 					floats[i] = tmp[i].asFloat();
+ 					//liquidMessage2(messageWarning,"%f", floats[i]);
+ 				}
 
 				argDefault.push_back( ( void * )floats );
 			}

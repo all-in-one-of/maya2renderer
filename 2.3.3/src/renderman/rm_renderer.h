@@ -5,7 +5,7 @@
 #define RM_Renderer_H
 
 #include "../rendererinterface.h"
-
+#include <liqShaderParameterType.h>
 
 namespace renderman
 {
@@ -281,26 +281,31 @@ namespace renderman
 			const unsigned int msampleOn,
 			const bool bReference
 			);
-		virtual void shader_transformBegin(const liqString  shaderSpace);
-		virtual void shader_transformEnd(const liqString  shaderSpace);
-		virtual void shader_surface(
+		void shader_transformBegin(const liqString  shaderSpace);
+		void shader_transformEnd(const liqString  shaderSpace);
+		void shader_surface(
 			const liqShader &shader,
 			const std::vector<liqTokenPointer> &tokenPointerArray
 			);
-		virtual liqLightHandle shader_light(
+		liqLightHandle shader_light(
 			const liqShader &shader,
 			const std::vector<liqTokenPointer> &tokenPointerArray
 			);
-		virtual void shader_displacement(
+		void shader_displacement(
 			const liqShader &shader,
 			const std::vector<liqTokenPointer> &tokenPointerArray
 			);
-		virtual void shader_volume(
+		void shader_volume(
 			const liqShader &shader,
 			const std::vector<liqTokenPointer> &tokenPointerArray
 			);
-		void writeAsCoShader(const liqShader* liqshader);
-
+		void shader_shader(
+			const liqShader &shader, 
+			const std::vector<liqTokenPointer> &tokenPointerArray
+			);
+		//void writeAsCoShader(const liqShader* liqshader);
+		void writeRibAttributes(const liqShader* liqshader/*, SHADER_TYPE shaderType*/);
+		void shader_UserDefinedShader(const liqShader* liqshader, std::vector<MString> &yetExportedShaders/*, SHADER_TYPE forceAs*/);
 
 	private:
 

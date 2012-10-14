@@ -73,6 +73,9 @@ public :
 	void setShaderFileName(const std::string &file_){ file = file_; }
 	
 	void getValidConnection( MStringArray& connections )const;
+	
+	const MObject getMObject()const{ return m_mObject; }
+
 protected:
 	std::string      name;
 	std::string      file;
@@ -93,6 +96,7 @@ public:
     int         evaluateAtEveryFrame;
     MObject     m_mObject;
     float		m_previewGamma;
+	SHADER_TYPE forceAs;
 
     std::vector< liqTokenPointer	> tokenPointerArray;
     std::vector< MObject > m_coShaderArray;

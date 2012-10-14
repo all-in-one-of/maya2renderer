@@ -1044,18 +1044,25 @@ global proc matrix liquidSlDefaultToMatrix( string $default )
   liqPopIdent();
     return $_tmpMatrix;
 }
-global proc matrix liquidSlDefaultToMatrixArray( string $default )
+
+// float array notation of MEL matrices is more practical for setAttr
+global proc float[] liquidSlDefaultToFloatMatrix( string $default )
 {
-  liqPushIdent();
-	liqlog("liquidSlDefaultToMatrixArray("+$default+")");
-	liqError("matrix array is not supported yet.");
-//     // Hack since the assign-eval trick
-//     // doesn't work for matrices
-     global matrix $_tmpMatrix[4][4];
-     eval( "global matrix $_tmpMatrix[4][4];" +
-           "$_tmpMatrix = " + $default );
-  liqPopIdent();
-    return $_tmpMatrix;
+    liqPushIdent();
+    liqlog("liquidSlDefaultToFloatMatrix("+$default+")");
+    float $val[] = eval( "float $foo_FM[] = " + $default );
+    liqPopIdent(); 
+    return $val;
+}
+
+// stacked 16 indices by 16 indices
+global proc float[] liquidSlDefaultToFloatMatrixArray( string $default )
+{
+    liqPushIdent();
+    liqlog("liquidSlDefaultToFloatMatrixArray("+$default+")");
+    float $val[] = eval( "float $foo_FM[] = " + $default );
+    liqPopIdent(); 
+    return $val;
 }
 // Depending on type, so we can build setAttr commands
 global proc string liquidSlDefaultToType( string $type, int $array, string $default )
@@ -1106,7 +1113,13 @@ global proc string liquidSlDefaultToType( string $type, int $array, string $defa
 			break;
 		case "matrix":
 			if ($array) {
-				error ("[liquidSlDefaultToType] don't know how to convert to matrix array: "+$default);		
+				float $fm[] = liquidSlDefaultToFloatMatrixArray( $default );
+				string $s[];
+				int $nf = size($fm);		// 16 by 16
+				for ($i=0; $i<$nf; $i++) {
+					$s[$i] = $fm[$i];
+				}				
+				$result = stringArrayToString ($s, ", ");
 			} else {		
 				matrix $m[4][4] = liquidSlDefaultToMatrix( $default );
 				$result = liquidSlMatrixToString($m);

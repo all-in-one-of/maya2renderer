@@ -558,12 +558,8 @@ global proc liquidSlParsePL( string $shaderFile )
         }
 
         int $paramArraySize = liquidSl_getParamArraySize( $line );
-		int $isArrayParam;
-		if ($paramArraySize < 0) {
-			$isArrayParam = 0;
-		} else {
-			$isArrayParam = 1;
-		}
+		int $isArrayParam	= ($paramArraySize < 0) ? 0 : 1;
+		int $resizable		= ($paramArraySize == 0) ? 1 : 0;
 
 
 		// Format default values
