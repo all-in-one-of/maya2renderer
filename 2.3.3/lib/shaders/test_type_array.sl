@@ -14,6 +14,8 @@ surface test_type_array(
 	varying normal a_vn[2]= {(1,0,0), (3,2,3)};
 	varying point a_vp[2]= {(1,0,0), (4,2,3)};
 	varying color a_vc__[2]= {(0,0,0), (1,0,1)};//NOTE: a_vc__ will cause a name collision
+	varying matrix a_vm[2] = {matrix(31.1, 32.5, 33.9, 34.3, 35.2, 36.6, 37.0, 38.04, 39.3, 40.7, 41.01, 42.05, 43.4, 44.8, 45.02, 46.06),
+		    	    	  matrix(11.1, 12.5, 13.9, 14.03, 15.2, 16.6, 17.0, 18.04, 19.3, 20.7, 21.01, 22.05, 23.4, 24.8, 25.02, 26.06) };
 ) 
 {
 	test_type_array(
@@ -29,7 +31,8 @@ surface test_type_array(
 	a_vv,
 	a_vn,
 	a_vp,
-	a_vc__//NOTE: a_vc__ will cause a name collision
+	a_vc__,//NOTE: a_vc__ will cause a name collision
+	a_vm
        );
 
 }

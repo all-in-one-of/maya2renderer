@@ -1,5 +1,5 @@
-//surface shader name: lambert2
-surface lambert2()
+//surface shader name: lambert1
+surface lambert1()
 {
 
 
@@ -10,8 +10,20 @@ surface lambert2()
 
 // define the shaders --------------------------------------------------------------------------
 #include "place2dTexture.h"
-//shader name: place2dTexture2
-void place2dTexture2 (
+//shader name: place2dTexture1
+void place2dTexture1 (
+ output float coverage[];
+ output float mirrorU;
+ output float mirrorV;
+ output float noiseUV[];
+ output float offset[];
+ output float repeatUV[];
+ output float rotateFrame;
+ output float rotateUV;
+ output float stagger;
+ output float translateFrame[];
+ output float wrapU;
+ output float wrapV;
  output float outUV[];
 )
 {
@@ -19,18 +31,6 @@ void place2dTexture2 (
  float uvCoord[2];
  uvCoord[0] = s;
  uvCoord[1] = 1 - t;
- uniform float coverage[2] = { 1, 1 };
- uniform float mirrorU = float 0;
- uniform float mirrorV = float 0;
- uniform float noiseUV[2] = { 0, 0 };
-  float offset[2] = { 0, 0 };
- uniform float repeatUV[2] = { 5, 5 };
- uniform float rotateFrame = float 0;
- uniform float rotateUV = float 0;
- uniform float stagger = float 0;
- uniform float translateFrame[2] = { 0, 0 };
- uniform float wrapU = float 1;
- uniform float wrapV = float 1;
  {
  uniform float i_coverageU=1;
  uniform float i_coverageV=1;
@@ -38,8 +38,8 @@ void place2dTexture2 (
  uniform float i_mirrorV=0;
  uniform float i_noiseU=0;
  uniform float i_noiseV=0;
- uniform float i_repeatU=5;
- uniform float i_repeatV=5;
+ uniform float i_repeatU=1;
+ uniform float i_repeatV=1;
  uniform float i_rotateFrame=0;
  uniform float i_rotateUV=0;
  uniform float i_stagger=0;
@@ -76,8 +76,8 @@ void place2dTexture2 (
  noiseUV[1]=0;
  offset[0]=0;
  offset[1]=0;
- repeatUV[0]=5;
- repeatUV[1]=5;
+ repeatUV[0]=1;
+ repeatUV[1]=1;
  rotateFrame=0;
  rotateUV=0;
  stagger=0;
@@ -87,9 +87,9 @@ void place2dTexture2 (
  wrapV=1;
 }
 
-#include "checker.h"
-//shader name: checker1
-void checker1 (
+#include "file.h"
+//shader name: file1
+void file1 (
  float uvCoord[];
  output color outColor;
 )
@@ -97,41 +97,41 @@ void checker1 (
   float alphaGain = float 1;
  uniform float alphaIsLuminance = float 0;
   float alphaOffset = float 0;
-  color color1 = color (1,1,1);
-  color color2 = color (0,0,0);
   color colorGain = color (1,1,1);
   color colorOffset = color (0,0,0);
- uniform float contrast = float 1;
   color defaultColor = color (0.5,0.5,0.5);
-  float filter = float 1;
+//file1.uvCoord <-- place2dTexture1.outUV
+ uniform float filterType = float 3;
+ uniform float filter = float 1;
   float filterOffset = float 0;
  uniform float invert = float 0;
-//checker1.uvCoord <-- place2dTexture2.outUV
-  float outAlpha = float 0.5;
-   maya_checker(alphaGain,         
+ uniform float fileHasAlpha = float 0;
+  float outAlpha = float 1;
+  color outTransparency = color (0,0,0);
+   maya_file(alphaGain,         
 	alphaIsLuminance,  
 	alphaOffset,       
-	color1,            
-	color2,            
 	colorGain,         
 	colorOffset,       
-	contrast,          
 	defaultColor,      
+	"E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_rm_texture/textures/check11.bmp.tex",   
+	filterType,        
 	filter,            
 	filterOffset,      
 	invert,            
 	uvCoord,           
 	outAlpha,          
-	outColor           
-   );
+	outColor,          
+	outTransparency    
+  );
 }
 
-//shader name: lambert2
-void lambert2 (
+//shader name: lambert1
+void lambert1 (
  color inColor;
 )
 {
-//lambert2.color <-- checker1.outColor
+//lambert1.color <-- file1.outColor
   color transparency = color (0,0,0);
   color ambientColor = color (0,0,0);
   color incandescence = color (0,0,0);
@@ -153,22 +153,34 @@ void lambert2 (
 
 
 // call the shaders ----------------------------------------------------------------------------
- float place2dTexture2_outUV[2];
- color checker1_outColor;
+ float place2dTexture1_coverage[2];
+ float place2dTexture1_mirrorU[0];
+ float place2dTexture1_mirrorV[0];
+ float place2dTexture1_noiseUV[2];
+ float place2dTexture1_offset[2];
+ float place2dTexture1_repeatUV[2];
+ float place2dTexture1_rotateFrame[0];
+ float place2dTexture1_rotateUV[0];
+ float place2dTexture1_stagger[0];
+ float place2dTexture1_translateFrame[2];
+ float place2dTexture1_wrapU[0];
+ float place2dTexture1_wrapV[0];
+ float place2dTexture1_outUV[2];
+ color file1_outColor;
 
- //place2dTexture2
- place2dTexture2(place2dTexture2_outUV);
+ //place2dTexture1
+ place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
 //input: 
-//output:place2dTexture2_outUV,
+//output:place2dTexture1_coverage,place2dTexture1_mirrorU,place2dTexture1_mirrorV,place2dTexture1_noiseUV,place2dTexture1_offset,place2dTexture1_repeatUV,place2dTexture1_rotateFrame,place2dTexture1_rotateUV,place2dTexture1_stagger,place2dTexture1_translateFrame,place2dTexture1_wrapU,place2dTexture1_wrapV,place2dTexture1_outUV,
 
- //checker1
- checker1(place2dTexture2_outUV, checker1_outColor);
-//input: place2dTexture2_outUV,
-//output:checker1_outColor,
+ //file1
+ file1(place2dTexture1_outUV, file1_outColor);
+//input: place2dTexture1_outUV,
+//output:file1_outColor,
 
- //lambert2
- lambert2(checker1_outColor);
-//input: checker1_outColor,
+ //lambert1
+ lambert1(file1_outColor);
+//input: file1_outColor,
 //output:
 
 }

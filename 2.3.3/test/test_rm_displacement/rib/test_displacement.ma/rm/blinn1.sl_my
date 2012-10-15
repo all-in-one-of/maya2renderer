@@ -13,24 +13,24 @@ displacement blinn1()
 void blinn1 (
 )
 {
-  vector inColor = vector (0.5,0.5,0.5);
-  vector transparency = vector (0,0,0);
-  vector ambColor = vector (0,0,0);
-  vector incandescence = vector (0,0,0);
+  color inColor = color (0.5,0.5,0.5);
+  color transparency = color (0,0,0);
+  color ambColor = color (0,0,0);
+  color incandescence = color (0,0,0);
   float diffusion = float 0.8;
   float eccentricity = float 0.3;
   float specRollOff = float 0.7;
-  vector specColor = vector (0.5,0.5,0.5);
-  vector outColor = vector (0,0,0);
+  color specColor = color (0.5,0.5,0.5);
+  color outColor = color (0,0,0);
  extern normal N;
  normal Nn = normalize( N );
  Oi = Os * color ( 1 - transparency );
- vector Cdiffuse;
+ color Cdiffuse;
  Cdiffuse = incandescence +
             ( inColor * ( diffusion * 
-                          vector diffuse( Nn ) +
+                          diffuse( Nn ) +
                           ambColor ) );
- vector Cspecular = 0;
+ color Cspecular = 0;
  float eccSq = pow( eccentricity, 2 );
  vector V = normalize( -I );
  float NV = Nn . V;
@@ -46,7 +46,7 @@ void blinn1 (
                    ( eccSq - 1 ) + 1 ), 2 );
   float G = min( min( 1, 2 * NH * NV / VH ), 
                  2 * NH * NL / VH );
-  Cspecular += vector Cl * ( D * G / NV ) * mix( 1, specRollOff, pow(1-VH, 3) );
+  Cspecular += Cl * ( D * G / NV ) * mix( 1, specRollOff, pow(1-VH, 3) );
  }
  Cspecular *= specColor;
  outColor = Cdiffuse + Cspecular;

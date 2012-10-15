@@ -9,7 +9,7 @@ surface lambert1()
 
 
 // define the shaders --------------------------------------------------------------------------
-#include <place2dTexture.h>
+#include "place2dTexture.h"
 //shader name: place2dTexture1
 void place2dTexture1 (
  output float coverage[];
@@ -87,11 +87,11 @@ void place2dTexture1 (
  wrapV=1;
 }
 
-#include <file.h>
+#include "file.h"
 //shader name: file1
 void file1 (
  float uvCoord[];
- output vector outColor;
+ output color outColor;
 )
 {
   float alphaGain = float 1;
@@ -107,10 +107,7 @@ void file1 (
  uniform float invert = float 0;
  uniform float fileHasAlpha = float 0;
   float outAlpha = float 1;
-  vector outTransparency = vector (0,0,0);
- {
-   color _outColor;
-   color _outTransparency;
+  color outTransparency = color (0,0,0);
    maya_file(alphaGain,         
 	alphaIsLuminance,  
 	alphaOffset,       
@@ -124,33 +121,30 @@ void file1 (
 	invert,            
 	uvCoord,           
 	outAlpha,          
-	_outColor,         
-	_outTransparency   
-   );
-   outColor        = vector _outColor;
-   outTransparency = vector _outTransparency;
- }
+	outColor,          
+	outTransparency    
+  );
 }
 
 //shader name: lambert1
 void lambert1 (
- vector inColor;
+ color inColor;
 )
 {
 //lambert1.color <-- file1.outColor
-  vector transparency = vector (0,0,0);
-  vector ambientColor = vector (0,0,0);
-  vector incandescence = vector (0,0,0);
+  color transparency = color (0,0,0);
+  color ambientColor = color (0,0,0);
+  color incandescence = color (0,0,0);
   float diffusion = float 0.8;
-  vector outColor = vector (0,0,0);
-  vector outTransparency = vector (0,0,0);
+  color outColor = color (0,0,0);
+  color outTransparency = color (0,0,0);
  extern normal N;
  normal Nn = normalize( N );
  outTransparency = transparency;
  Oi = Os * color ( 1 - outTransparency );
  outColor = incandescence +
             ( inColor * ( diffusion * 
-                          vector diffuse( Nn ) +
+                          diffuse( Nn ) +
                           ambientColor ) );
  Ci = Cs * Oi * color outColor;
 }
@@ -160,19 +154,19 @@ void lambert1 (
 
 // call the shaders ----------------------------------------------------------------------------
  float place2dTexture1_coverage[2];
- float place2dTexture1_mirrorU;
- float place2dTexture1_mirrorV;
+ float place2dTexture1_mirrorU[0];
+ float place2dTexture1_mirrorV[0];
  float place2dTexture1_noiseUV[2];
  float place2dTexture1_offset[2];
  float place2dTexture1_repeatUV[2];
- float place2dTexture1_rotateFrame;
- float place2dTexture1_rotateUV;
- float place2dTexture1_stagger;
+ float place2dTexture1_rotateFrame[0];
+ float place2dTexture1_rotateUV[0];
+ float place2dTexture1_stagger[0];
  float place2dTexture1_translateFrame[2];
- float place2dTexture1_wrapU;
- float place2dTexture1_wrapV;
+ float place2dTexture1_wrapU[0];
+ float place2dTexture1_wrapV[0];
  float place2dTexture1_outUV[2];
- vector file1_outColor;
+ color file1_outColor;
 
  //place2dTexture1
  place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);

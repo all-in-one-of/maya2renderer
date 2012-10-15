@@ -13,6 +13,7 @@ void test_type_array(
 	varying normal a_vn[2];
 	varying point a_vp[2];
 	varying color a_vc__[2];//NOTE: a_vc__ will cause a name collision
+	varying matrix a_vm[2];
 )
 {
 	float frequency = 7;

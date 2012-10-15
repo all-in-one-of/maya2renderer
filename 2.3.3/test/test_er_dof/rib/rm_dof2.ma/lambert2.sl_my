@@ -9,7 +9,7 @@ surface lambert2()
 
 
 // define the shaders --------------------------------------------------------------------------
-#include <place2dTexture.h>
+#include "place2dTexture.h"
 //shader name: place2dTexture3
 void place2dTexture3 (
  output float outUV[];
@@ -87,11 +87,11 @@ void place2dTexture3 (
  wrapV=1;
 }
 
-#include <checker.h>
+#include "checker.h"
 //shader name: checker2
 void checker2 (
  float uvCoord[];
- output vector outColor;
+ output color outColor;
 )
 {
   float alphaGain = float 1;
@@ -108,8 +108,6 @@ void checker2 (
  uniform float invert = float 0;
 //checker2.uvCoord <-- place2dTexture3.outUV
   float outAlpha = float 0.5;
- {
-   color _outColor;
    maya_checker(alphaGain,         
 	alphaIsLuminance,  
 	alphaOffset,       
@@ -124,31 +122,29 @@ void checker2 (
 	invert,            
 	uvCoord,           
 	outAlpha,          
-	_outColor          
+	outColor           
    );
-   outColor        = vector _outColor;
- }
 }
 
 //shader name: lambert2
 void lambert2 (
- vector inColor;
+ color inColor;
 )
 {
 //lambert2.color <-- checker2.outColor
-  vector transparency = vector (0,0,0);
-  vector ambientColor = vector (0,0,0);
-  vector incandescence = vector (0,0,0);
+  color transparency = color (0,0,0);
+  color ambientColor = color (0,0,0);
+  color incandescence = color (0,0,0);
   float diffusion = float 0.8;
-  vector outColor = vector (0,0,0);
-  vector outTransparency = vector (0,0,0);
+  color outColor = color (0,0,0);
+  color outTransparency = color (0,0,0);
  extern normal N;
  normal Nn = normalize( N );
  outTransparency = transparency;
  Oi = Os * color ( 1 - outTransparency );
  outColor = incandescence +
             ( inColor * ( diffusion * 
-                          vector diffuse( Nn ) +
+                          diffuse( Nn ) +
                           ambientColor ) );
  Ci = Cs * Oi * color outColor;
 }
@@ -158,7 +154,7 @@ void lambert2 (
 
 // call the shaders ----------------------------------------------------------------------------
  float place2dTexture3_outUV[2];
- vector checker2_outColor;
+ color checker2_outColor;
 
  //place2dTexture3
  place2dTexture3(place2dTexture3_outUV);
