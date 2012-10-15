@@ -104,7 +104,7 @@ namespace renderman
 
 	void Renderer::shader_UserDefinedShader(const liqShader* liqshader, std::vector<MString> &yetExportedShaders/*, SHADER_TYPE forceAs*/)
 	{
-		CM_TRACE_FUNC("Renderer::shader_UserDefinedShader("<<liqshader->getName()<<")");
+		CM_TRACE_FUNC("Renderer::shader_UserDefinedShader("<<liqshader->getName()<<",...)");
 
 		SHADER_TYPE forceAs = liqshader->forceAs;
 
@@ -303,6 +303,7 @@ namespace renderman
 	//
 	void Renderer::writeRibAttributes(const liqShader* liqshader/*, SHADER_TYPE shaderType*/)
 	{
+		CM_TRACE_FUNC("Renderer::writeRibAttributes("<<liqshader->getName()<<")");
 		MFnDependencyNode node(liqshader->getMObject());
 
 		MStatus status;

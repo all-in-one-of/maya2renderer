@@ -1539,5 +1539,6 @@ std::string liqShader::getShaderFileName() const
 }
 void liqShader::getValidConnection( MStringArray& connections ) const
 {
+	CM_TRACE_FUNC("liqShader::getValidConnection(...)");
 	IfMErrorWarn(MGlobal::executeCommand( ("getAttr "+MString(getName().c_str())+".rmanParams"), connections));
 }

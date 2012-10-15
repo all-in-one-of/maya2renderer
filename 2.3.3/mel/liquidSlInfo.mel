@@ -88,7 +88,7 @@ proc int isNonEmptyIntPart(string $part)
 proc int isValidFloatPart (string $part)
 {	
 	liqPushIdent();
-	liqlog("isNonEmptyIntPart("+$part+")");
+	liqlog("isValidFloatPart("+$part+")");
 
 	string $tmp = match("^[\.][0-9]*", $part);
 	if ( size($tmp) == size($part) ) {
@@ -133,7 +133,7 @@ proc int isNonEmptyExpPart (string $part)
 proc int isValidExpPart (string $part)
 {
 	liqPushIdent();
-	liqlog("isNonEmptyExpPart("+$part+")");
+	liqlog("isValidExpPart("+$part+")");
 
 	int $ret = ( ($part == "") || isNonEmptyExpPart($part) );
 
@@ -1136,30 +1136,44 @@ global proc string liquidSlDefaultToType( string $type, int $array, string $defa
 
 global proc string[] liquidSlAllParamNames()
 {
+	liqPushIdent();
+	liqlog("liquidSlAllParamNames()");
+
   global string $gLiquidSlParamNames[];
+    liqPopIdent(); 
   return $gLiquidSlParamNames;
 }
 
 global proc string[] liquidSlAllParamTypes()
 {
+	liqPushIdent();
+	liqlog("liquidSlAllParamTypes()");
   global string $gLiquidSlParamTypes[];
+    liqPopIdent(); 
   return $gLiquidSlParamTypes;
 }
 
 global proc string[] liquidSlAllParamDetails()
 {
+	liqPushIdent();
+	liqlog("liquidSlAllParamDetails()");
   global string $gLiquidSlParamDetails[];
+    liqPopIdent(); 
   return $gLiquidSlParamDetails;
 }
 
 global proc int[] liquidSlAllParamArraySizes()
 {
+	liqPushIdent();
+	liqlog("liquidSlAllParamArraySizes()");
   global int $gLiquidSlParamArraySizes[];
+    liqPopIdent(); 
   return $gLiquidSlParamArraySizes;
 }
 global proc string[] liquidSlAllParamDefaultsRaw()
 {
   liqPushIdent();
+	liqlog("liquidSlAllParamDefaultsRaw()");
   global string $gLiquidSlParamDefaults[];
   string $result[];
   int $i;
