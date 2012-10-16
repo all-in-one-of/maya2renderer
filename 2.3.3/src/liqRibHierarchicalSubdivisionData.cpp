@@ -85,7 +85,6 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 	objDagPath = fnMesh.dagPath();
 
 	name = fnMesh.name();
-	longName = fnMesh.fullPathName();
 
 	checkExtraTags( mesh );
 
@@ -744,7 +743,7 @@ void liqRibHierarchicalSubdivisionData::addExtraTags( MObject &dstNode, float ex
 
 				// since the crease set could contain more that one mesh
 				// we only want the current one - Alf
-				if( dagPath.fullPathName() != longName )
+				if( dagPath.fullPathName() != getFullPathName() )
 					continue;
 
 				switch ( extraTag )
