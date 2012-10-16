@@ -90,6 +90,10 @@ public:
     bool        outputInShadow;
     bool        hasErrors;
     //SHADER_TYPE shader_type;
+	//use shader_type_ex instead of shader_type for all renderers
+	//e.g."surface","volume","light",... for renderman
+	//    "surface","volume","light","shadow",... for elvishray
+	//    "surfaceShader","BRDF,"EDF",... for appleseed
 	MString     shader_type_ex;
     MString     shaderSpace;
     MString     shaderHandler;
