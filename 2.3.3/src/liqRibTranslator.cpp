@@ -6677,7 +6677,7 @@ MStatus liqRibTranslator::objectBlock()
 				if( !m_ignoreSurfaces ) 
 				{
 					MObject shadingGroup = ribNode->assignedShadingGroup.object();
-					MObject shader = ribNode->findShader( shadingGroup );
+					MObject shader = ribNode->findShader();
 					//
 					// here we check for regular shader nodes first
 					// and assign default shader to shader-less nodes.

@@ -508,10 +508,9 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
       if( rib.box == "" ) 
       {
         MString ribBoxValue;
-        
-		// added in r773
-		//bool disableRibBoxParsing = 0;
-		//liquidGetPlugValue( nodePeeker, "liqDisableRibBoxParsing", disableRibBoxParsing, status );
+		bool disableRibBoxParsing = 0;
+		
+		liquidGetPlugValue( nodePeeker, "liqDisableRibBoxParsing", disableRibBoxParsing, status );
 
         if( liquidGetPlugValue( nodePeeker, "liqRIBBox", ribBoxValue, status ) == MS::kSuccess ) 
         {
@@ -526,15 +525,14 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
             liqglo.liqglo_preRibBoxShadow.append( parseString( parseThis ) );
           }
         }
-		// added in r773
-		//if( disableRibBoxParsing )
-		//{
-		//	rib.box = (ribBoxValue == "")? "-" : ribBoxValue; // => don't parse make it faster ...
-		//}
-		//else
-		//{
+		if( disableRibBoxParsing )
+		{
+			rib.box = (ribBoxValue == "")? "-" : ribBoxValue; // => don't parse make it faster ...
+		}
+		else
+		{
 			rib.box = (ribBoxValue == "")? "-" : parseString(ribBoxValue);
-		//}
+		}
       }
 
 	  if( rib.generator == "" ) 
@@ -759,7 +757,7 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
           tokenPointerPair.set( cutString.asChar(), rString );
           MString stringVal;
           sPlug.getValue( stringVal );
-		  //stringVal = parseString(stringVal);// added in r773
+		  stringVal = parseString(stringVal);
           tokenPointerPair.setTokenString( 0, stringVal.asChar() );
           if( tokenPointerMap.end() == tokenPointerMap.find( tokenPointerPair.getDetailedTokenName() ) ) 
             tokenPointerMap[ tokenPointerPair.getDetailedTokenName() ] = tokenPointerPair;
@@ -778,7 +776,7 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 			MFnDependencyNode depNodeFn( setArray[ i ] );
 			bool value = false;
 
-      if( liquidGetPlugValue( depNodeFn, "liqTraceSet", value, status ) == MS::kSuccess )
+            if( liquidGetPlugValue( depNodeFn, "liqTraceSet", value, status ) == MS::kSuccess )
 			{
 				if( value )
 				{
@@ -799,44 +797,47 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 		if( shadingGroup != MObject::kNullObj ) 
 		{
 			assignedShadingGroup.setObject( shadingGroup );
-			MObject surfaceShader = findShader( shadingGroup );
-			assignedShader.setObject( surfaceShader );
-			assignedDisp.setObject( findDisp( shadingGroup ) );
-			assignedVolume.setObject( findVolume( shadingGroup ) );
-
-			//color
-			AttributeState colorState = getColor( surfaceShader, color );
-			if( surfaceShader == MObject::kNullObj ){
-				color.r = AS_NotEXist;
-			}else{
-				if( AS_NotEXist==colorState || AS_ConnectedAsDes==colorState ){
-					color.r = color.g = color.b = colorState;
-				} else if ( AS_NotConnected==colorState ||  AS_ConnectedAsSrc==colorState){
-					// keep the color value
-				}else{
-					assert(0&&"can't handle this AttributeState");
-				}
-			}
-			//opacity
-			AttributeState opacityState = getOpacity( surfaceShader, opacity );
-			if( surfaceShader == MObject::kNullObj ){
-				opacity.r = AS_NotEXist;
-			}else{
-				if( AS_NotEXist==opacityState || AS_ConnectedAsDes==opacityState ){
-					opacity.r = opacity.g = opacity.b = opacityState;
-				} else if ( AS_NotConnected==opacityState ||  AS_ConnectedAsSrc==opacityState){
-					// keep the opacity value
-				}else{
-					assert(0&&"can't handle this AttributeState");
-				}
-			}
-			mayaMatteMode = getMatteMode( surfaceShader );
 		} //if( shadingGroup != MObject::kNullObj )  
 		else 
 		{
 			color.r = AS_NotEXist;
 			opacity.r = AS_NotEXist;
 		}
+
+		MObject surfaceShader = findShader();
+		assignedShader.setObject( surfaceShader );
+		assignedDisp.setObject( findDisp() );
+		assignedVolume.setObject( findVolume() );
+		//color //modified by yaoyansi
+		AttributeState colorState = getColor( surfaceShader, color );
+		if( surfaceShader == MObject::kNullObj ){
+			// This is how we specify that the color was not found.
+			color.r = AS_NotEXist;
+		}else{
+			if( AS_NotEXist==colorState || AS_ConnectedAsDes==colorState ){
+				color.r = color.g = color.b = colorState;
+			} else if ( AS_NotConnected==colorState ||  AS_ConnectedAsSrc==colorState){
+				// keep the color value
+			}else{
+				assert(0&&"can't handle this AttributeState");
+			}
+		}
+		//opacity //modified by yaoyansi
+		AttributeState opacityState = getOpacity( surfaceShader, opacity );
+		if( surfaceShader == MObject::kNullObj ){
+			// This is how we specify that the opacity was not found.
+			opacity.r = AS_NotEXist;
+		}else{
+			if( AS_NotEXist==opacityState || AS_ConnectedAsDes==opacityState ){
+				opacity.r = opacity.g = opacity.b = opacityState;
+			} else if ( AS_NotConnected==opacityState ||  AS_ConnectedAsSrc==opacityState){
+				// keep the opacity value
+			}else{
+				assert(0&&"can't handle this AttributeState");
+			}
+		}
+		mayaMatteMode = getMatteMode( surfaceShader );
+
 		doubleSided = isObjectTwoSided( path );
 		reversedNormals = isObjectReversed( path );
 	}
@@ -1131,14 +1132,19 @@ MObject liqRibNode::findShadingGroup( const MDagPath& path, ObjectType type )
 /**
  * Find the shading node for the given shading group.
  */
-MObject liqRibNode::findShader( MObject& group )
+MObject liqRibNode::findShader()
 {
-	CM_TRACE_FUNC("liqRibNode::findShader("<<MFnDependencyNode(group).name().asChar()<<")");
+	CM_TRACE_FUNC("liqRibNode::findShader()");
 
   LIQDEBUGPRINTF( "-> finding shader for rib node shading group\n");
-  MFnDependencyNode fnNode( group );
-  MPlug shaderPlug = fnNode.findPlug( "surfaceShader" );
+  //MFnDependencyNode fnNode( group );
+  //MPlug shaderPlug = fnNode.findPlug( "surfaceShader" );
 
+  MStatus status;
+  MFnDagNode fnDagNode( path() );
+  MPlug shaderPlug = fnDagNode.findPlug( MString( "liquidSurfaceShaderNode" ), &status );
+  if( ( status != MS::kSuccess ) || ( !shaderPlug.isConnected() ) ) { status.clear(); shaderPlug = assignedShadingGroup.findPlug( MString( "liquidSurfaceShaderNode" ), &status ); }
+  if( ( status != MS::kSuccess ) || ( !shaderPlug.isConnected() ) ) { status.clear(); shaderPlug = assignedShadingGroup.findPlug( MString( "surfaceShader" ), &status ); }
   if( !shaderPlug.isNull() ) 
   {
     MPlugArray connectedPlugs;
@@ -1160,14 +1166,19 @@ MObject liqRibNode::findShader( MObject& group )
 /**
  * Find the displacement node for the given shading group
  */
-MObject liqRibNode::findDisp( MObject& group )
+MObject liqRibNode::findDisp()
 {
-	CM_TRACE_FUNC("liqRibNode::findDisp("<<MFnDependencyNode(group).name().asChar()<<")");
+	CM_TRACE_FUNC("liqRibNode::findDisp()");
 
   LIQDEBUGPRINTF( "-> finding shader for rib node shading group\n");
-  MFnDependencyNode fnNode( group );
-  MPlug shaderPlug = fnNode.findPlug( "displacementShader" );
+  //MFnDependencyNode fnNode( group );
+  //MPlug shaderPlug = fnNode.findPlug( "displacementShader" );
 
+  MStatus status;
+  MFnDagNode fnDagNode( path() );
+  MPlug shaderPlug = fnDagNode.findPlug( MString( "liquidDispShaderNode" ), &status );
+  if( ( status != MS::kSuccess ) || ( !shaderPlug.isConnected() ) ) { status.clear(); shaderPlug = assignedShadingGroup.findPlug( MString( "liquidDispShaderNode" ), &status ); }
+  if( ( status != MS::kSuccess ) || ( !shaderPlug.isConnected() ) ) { status.clear(); shaderPlug = assignedShadingGroup.findPlug( MString( "displacementShader" ), &status ); }
   if( !shaderPlug.isNull() ) 
   {
     MPlugArray connectedPlugs;
@@ -1189,14 +1200,19 @@ MObject liqRibNode::findDisp( MObject& group )
 /**
  * Find the volume shading node for the given shading group.
  */
-MObject liqRibNode::findVolume( MObject& group )
+MObject liqRibNode::findVolume()
 {
-	CM_TRACE_FUNC("liqRibNode::findVolume("<<MFnDependencyNode(group).name().asChar()<<")");
+	CM_TRACE_FUNC("liqRibNode::findVolume()");
 
   LIQDEBUGPRINTF( "-> finding shader for rib node shading group\n");
-  MFnDependencyNode fnNode( group );
-  MPlug shaderPlug = fnNode.findPlug( "volumeShader" );
+  //MFnDependencyNode fnNode( group );
+  //MPlug shaderPlug = fnNode.findPlug( "volumeShader" );
 
+  MStatus status;
+  MFnDagNode fnDagNode( path() );
+  MPlug shaderPlug = fnDagNode.findPlug( MString( "liquidVolumeShaderNode" ), &status );
+  if( ( status != MS::kSuccess ) || ( !shaderPlug.isConnected() ) ) { status.clear(); shaderPlug = assignedShadingGroup.findPlug( MString( "liquidVolumeShaderNode" ), &status ); }
+  if( ( status != MS::kSuccess ) || ( !shaderPlug.isConnected() ) ) { status.clear(); shaderPlug = assignedShadingGroup.findPlug( MString( "volumeShader" ), &status ); }
   if( !shaderPlug.isNull() ) 
   {
     MPlugArray connectedPlugs;
