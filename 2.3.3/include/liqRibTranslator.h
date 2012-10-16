@@ -128,6 +128,7 @@ public:
 	MString generateTempMayaSceneName() const;
 	MString generateFileName( fileGenMode mode, const structJob& job );
 	std::string  generateImageName( MString aovName, const structJob& job );
+	//generateShadowArchiveName() is moved to liqGlobalHelpers.h
 	// MString generateShadowArchiveName( bool renderAllFrames, long renderAtframe, MString geometrySet );
 	static bool renderFrameSort( const structJob& a, const structJob& b );
 
@@ -329,7 +330,7 @@ public:
 	bool m_currentMatteMode;
 	bool m_renderSelected;
 
-	bool m_renderAllCurves;
+	//bool m_renderAllCurves;
 	bool m_liquidSetLightLinking;
 	bool m_ignoreLights;
 	bool m_ignoreSurfaces;

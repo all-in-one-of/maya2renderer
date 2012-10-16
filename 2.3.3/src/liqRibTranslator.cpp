@@ -245,7 +245,6 @@ liqRibTranslator::liqRibTranslator()
 	m_ignoreSurfaces = false;
 	m_ignoreDisplacements = false;
 	m_ignoreVolumes = false;
-	m_renderAllCurves = false;
 	m_renderSelected = false;
 	liqglo.m_exportReadArchive = false;
 	liqglo.useNetRman = false;
@@ -596,7 +595,7 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 		} 
 		else if((arg == "-sel") || (arg == "-selected"))		m_renderSelected = true;
 		else if((arg == "-ra") || (arg == "-readArchive"))		liqglo.m_exportReadArchive = true;
-		else if((arg == "-acv") || (arg == "-allCurves"))		m_renderAllCurves = true;
+		else if((arg == "-acv") || (arg == "-allCurves"))		liqglo.liqglo_renderAllCurves = true;
 		else if((arg == "-tif") || (arg == "-tiff"))			liqglo.outFormat = "tiff";
 		else if((arg == "-dof") || (arg == "-dofOn"))			liqglo.doDof = true;
 		else if((arg == "-bin") || (arg == "-doBinary"))		liqglo.liqglo_doBinary = true;
@@ -1087,7 +1086,7 @@ void liqRibTranslator::liquidReadGlobals()
 	liquidGetPlugValue( rGlobalNode, "deferredBlock", liqglo.m_deferredBlockSize, gStatus );
 	liquidGetPlugValue( rGlobalNode, "useRenderScript", useRenderScript, gStatus );
 	liquidGetPlugValue( rGlobalNode, "remoteRender", liqglo.remoteRender, gStatus );
-	liquidGetPlugValue( rGlobalNode, "renderAllCurves", m_renderAllCurves, gStatus );
+	liquidGetPlugValue( rGlobalNode, "renderAllCurves", liqglo.liqglo_renderAllCurves, gStatus );
 	liquidGetPlugValue( rGlobalNode, "illuminateByDefault", liqglo.m_illuminateByDefault, gStatus );
 	liquidGetPlugValue( rGlobalNode, "liquidSetLightLinking", m_liquidSetLightLinking, gStatus );
 	liquidGetPlugValue( rGlobalNode, "ignoreLights", m_ignoreLights, gStatus );
