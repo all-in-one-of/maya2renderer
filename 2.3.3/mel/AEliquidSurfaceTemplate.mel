@@ -71,12 +71,12 @@ global proc AEliquidSurfaceTemplate( string $nodeName )
     editorTemplate -beginLayout "RIB";
       editorTemplate -label "Color (Ci)" -addControl "color";
       editorTemplate -label "Opacity (Oi)" -addControl "opacity";
-	  //added in r773 editorTemplate -addControl "transparency";
+      editorTemplate -addControl "transparency";
       editorTemplate -addControl "displacementBound";
       editorTemplate -label "Disp. Bound Space" -addControl "displacementBoundSpace";
       editorTemplate -addControl "shaderSpace";
       editorTemplate -addControl "outputInShadow";
-	  //added in r773 editorTemplate -ccu ("liquidLargeFieldNew "+$nodeName+" \"RIB Box\"") ("liquidLargeFieldReplace "+$nodeName+" \"RIB Box\"") "liqRIBBox";
+      editorTemplate -ccu ("liquidLargeFieldNew "+$nodeName+" \"RIB Box\"") ("liquidLargeFieldReplace "+$nodeName+" \"RIB Box\"") "liqRIBBox";
     editorTemplate -endLayout;
 
     editorTemplate -beginLayout "Parameters" -collapse 0;

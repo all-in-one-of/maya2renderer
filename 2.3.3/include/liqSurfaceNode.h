@@ -73,7 +73,7 @@ class liqSurfaceNode : public MPxNode
 
     // Input attributes
     static MObject aRmanShader;
-    static MObject aRmanShaderType;
+    static MObject aRmanShaderType;//for liqShader::shader_type_ex
     static MObject aRmanShaderLong;
     static MObject aRmanShaderLif;
     static MObject aRmanParams;
@@ -99,6 +99,7 @@ class liqSurfaceNode : public MPxNode
 
     static MObject aColor;
     static MObject aOpacity;
+    static MObject aTransparency; // Needed to get Open GL transparency updated in "5" mode
     static MObject aDisplacementBound;
     static MObject aDisplacementBoundSpace;
     static MObject aOutputInShadow;
@@ -107,8 +108,8 @@ class liqSurfaceNode : public MPxNode
     static MObject aResolution;
     static MObject aRefreshPreview;
 
-    static MObject aCi;
-    static MObject aOi;
+    //static MObject aCi;
+    //static MObject aOi;
 
     static MObject aMayaIgnoreLights;
     static MObject aMayaKa;
