@@ -614,8 +614,8 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 
   if ( shader_type_TempForRefactoring=="surface"/*currentShader.shader_type == SHADER_TYPE_SURFACE*/ ) //  [2/14/2012 yaoyansi]
 	{
-    RiColor( currentShader.rmColor );
-    RiOpacity( currentShader.rmOpacity );
+		RiColor( currentShader.rmColor );
+		RiOpacity( currentShader.rmOpacity );
 		//cout << "Shader: " << shaderFileName << endl;
 		if ( options.fullShaderPath ) 
 				RiSurface( (RtToken)shaderFileName.c_str(), RI_NULL );
@@ -628,9 +628,9 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   } 
 	else if ( shader_type_TempForRefactoring=="displacement"/*currentShader.shader_type == SHADER_TYPE_DISPLACEMENT*/ ) //  [2/14/2012 yaoyansi]
 	{
-    RtToken Kd( "Kd" );
-    RtFloat KdValue( 1. );
-    RiSurface( "plastic", &Kd, &KdValue, RI_NULL );
+		RtToken Kd( "Kd" );
+		RtFloat KdValue( 1. );
+		RiSurface( "plastic", &Kd, &KdValue, RI_NULL );
 		if ( options.fullShaderPath ) 
 			RiDisplacement( (RtToken)shaderFileName.c_str(), RI_NULL );
 		else 
