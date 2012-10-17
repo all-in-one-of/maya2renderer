@@ -144,7 +144,8 @@ namespace renderman
 		}
 
 		// write rib attributes (but not for coshaders)
-		writeRibAttributes(liqshader/*, shaderType*/);
+		RiArchiveRecord( RI_COMMENT, "writeRibAttributes() is omitted." );
+		//writeRibAttributes(liqshader/*, shaderType*/);
 
 		// write shader
 		char* shaderFileName = const_cast<char*>(liqshader->getShaderFileName().c_str());
