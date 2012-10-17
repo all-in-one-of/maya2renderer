@@ -621,10 +621,19 @@ MString parseCommandString( const MString& inputString )
   unsigned sLength = inputString.length();
   for( unsigned i = 0; i < sLength; i++ ) 
   {
-    if( inputString.substring(i, i) == "`" && inputString.substring(i - 1, i - 1) != "\\" ) 
+    MString str = inputString.substring(i, i);
+    MString str_inc = inputString.substring(i+1, i+1);
+    MString str_dec = inputString.substring(i-1, i-1);
+    
+    if ( str == "`" && str_dec != "\\" ) 
     {
       MString  melCmdString;
       i++;
+      
+      str = inputString.substring(i, i);
+      str_inc = inputString.substring(i+1, i+1);
+      str_dec = inputString.substring(i-1, i-1);
+      
       // loop through the string looking for the closing %
       if( i < sLength ) 
       {
@@ -754,22 +763,22 @@ MString parseCommandString( const MString& inputString )
       }
       // else early exit: ] was the last character in the string.. do nothing
     } 
-    else if( inputString.substring(i + 1, i + 1 ) == "#" && inputString.substring(i, i) == "\\" ) 
+    else if ( str_inc == "#" && str == "\\" ) 
     {
       // do nothing
     } 
-    else if( inputString.substring(i + 1, i + 1 ) == "n" && inputString.substring(i, i) == "\\" ) 
+    else if ( str_inc == "n" && str == "\\" ) 
     {
       constructedString += "\n";
       i++;
     } 
-    else if( inputString.substring(i + 1, i + 1 ) == "t" && inputString.substring(i, i) == "\\" ) 
+    else if ( str_inc == "t" && str == "\\" ) 
     {
       constructedString += "\t";
       i++;
     } 
     else 
-      constructedString += inputString.substring(i, i);
+      constructedString += str;
   }
   constructedString = removeEscapes( constructedString );
   return constructedString;
@@ -927,26 +936,31 @@ MString removeEscapes( const MString& inputString )
 
   for( i = 0; i < sLength; i++ ) 
   {
-    if( inputString.substring(i, i+1) == "\\@" ) 
+    MString str = inputString.substring( i, i );
+    MString str_inc = inputString.substring( i, i+1 );
+    
+    if ( str_inc == "\\@" ) 
     {
       constructedString += "@";
       i++;
     } 
-    else if( inputString.substring(i, i+1) == "\\#" ) 
+    else if ( str_inc == "\\#" ) 
     {
       constructedString += "#";
       i++;
     } 
-    else if( inputString.substring(i, i+1) == "\\[" ) 
+    else if ( str_inc == "\\[" ) 
     {
       constructedString += "[";
       i++;
     } 
-    else if( inputString.substring(i, i+1) == "\\]" ) 
+    else if ( str_inc == "\\]" ) 
     {
       constructedString += "]";
       i++;
-    } else constructedString += inputString.substring(i, i);
+    } 
+    else 
+      constructedString += str;
   }
   return constructedString;
 }
