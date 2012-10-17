@@ -35,7 +35,8 @@
 #else
   #include <sys/wait.h>
 #endif
-
+// Standard/Boost headers
+#include <boost/scoped_array.hpp>
 // Maya headers
 #include <maya/MArgList.h>
 #include <maya/MGlobal.h>
@@ -49,8 +50,8 @@
 #include <liqShader.h>
 #include <liqGlobalVariable.h>
 #include <liqShaderFactory.h>
-// Standard/Boost headers
-#include <boost/scoped_array.hpp>
+#include <liqRibTranslator.h>
+#include "renderermgr.h"
 
 using namespace std;
 using namespace boost;
@@ -405,6 +406,20 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 	CM_TRACE_OPEN(previewLog.c_str());
 	CM_TRACE_FUNC("liquidOutputPreviewShader("<<fileName<<", options)");
 
+	if( MS::kSuccess!=liqglo.liquidRenderer.setRenderer() ){
+		return 0;
+	}
+	liqRibTranslator::liquidInitGlobals();
+	{//set renderer
+		MStatus status;
+		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
+		MString renderer;
+		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
+		liquid::RendererMgr::getInstancePtr()->createFactory(renderer.asChar());
+		liquid::RendererMgr::getInstancePtr()->install();
+		liquid::RendererMgr::getInstancePtr()->prologue();
+	}
+
 	// clear shaders
 	liqShaderFactory::instance().clearShaders();
 
@@ -570,10 +585,6 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RiAttributeBegin();
 
 
-  scoped_array< RtToken > tokenArray( new RtToken[ currentShader.tokenPointerArray.size()] );
-  scoped_array< RtPointer > pointerArray( new RtPointer[ currentShader.tokenPointerArray.size() ] );
-  assignTokenArrays( currentShader.tokenPointerArray.size(), &currentShader.tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
-
   float displacementBounds = 0.;
 	liquidGetPlugValue( assignedShader, "displacementBound", displacementBounds, status);
   
@@ -610,14 +621,9 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 				RiSurface( (RtToken)shaderFileName.c_str(), RI_NULL );
 		else
 		{
-			//r772
-			// its one less as the tokenPointerArray has a preset size of 1 not 0
-			int shaderParamCount = currentShader.tokenPointerArray.size() - 1;
-			RiSurfaceV( (RtToken)shaderFileName.c_str(), shaderParamCount, tokenArray.get(), pointerArray.get() );
-			// r773
-			//liqShader liqAssignedShader( shaderObj );
-			//liqAssignedShader.write( options.shortShaderName, 0, SHADER_TYPE_SURFACE);
-		
+			liqShader liqAssignedShader( shaderObj );
+			liqAssignedShader.forceAs = SHADER_TYPE_SURFACE;
+			liqAssignedShader.write();
 		}
   } 
 	else if ( shader_type_TempForRefactoring=="displacement"/*currentShader.shader_type == SHADER_TYPE_DISPLACEMENT*/ ) //  [2/14/2012 yaoyansi]
@@ -629,13 +635,9 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 			RiDisplacement( (RtToken)shaderFileName.c_str(), RI_NULL );
 		else 
 		{
-			//r772
-			int shaderParamCount = currentShader.tokenPointerArray.size() - 1;
-			RiDisplacementV( (RtToken)shaderFileName.c_str(), shaderParamCount, tokenArray.get(), pointerArray.get() );
-			// r773
-			//liqShader liqAssignedShader( shaderObj );
-			//liqAssignedShader.write( (bool)options.shortShaderName, (unsigned int)0 );
-		
+			liqShader liqAssignedShader( shaderObj );
+			liqAssignedShader.forceAs = SHADER_TYPE_DISPLACEMENT;
+			liqAssignedShader.write();
 		}
   }
   RiTransformEnd();
@@ -939,6 +941,12 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 
   LIQDEBUGPRINTF("-> Shader Preview RIB output done.\n" );
 
+  {
+	  liquid::RendererMgr::getInstancePtr()->test();
+	  liquid::RendererMgr::getInstancePtr()->epilogue();
+	  liquid::RendererMgr::getInstancePtr()->uninstall();
+	  liquid::RendererMgr::getInstancePtr()->deleteFactory();
+  }
   CM_TRACE_CLOSE();
   return 1;
 }

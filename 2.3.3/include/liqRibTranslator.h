@@ -100,7 +100,7 @@ public:
 
 	// rib output functions
 	MStatus liquidDoArgs( MArgList args );
-	bool liquidInitGlobals();
+	static bool liquidInitGlobals();
 	void liquidReadGlobals();
 
 	MStatus buildJobs();
