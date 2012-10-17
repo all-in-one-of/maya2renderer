@@ -636,8 +636,10 @@ MStatus RIColor::doIt( const MArgList &args )
 	bool isTest = argData.isFlagSet( testModeFlag );
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Color " ) + r + " " + g + " " + b );
-	else
+	else{
+		RiArchiveRecord( RI_COMMENT, "mark15" );
 		RiColor( color );
+	}
 
 	return redoIt();
 }

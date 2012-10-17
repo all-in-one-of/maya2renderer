@@ -6599,10 +6599,13 @@ MStatus liqRibTranslator::objectBlock()
 						rColor[0] = ribNode->shading.color[0];
 						rColor[1] = ribNode->shading.color[1];
 						rColor[2] = ribNode->shading.color[2];
+						RiArchiveRecord( RI_COMMENT, "mark1" );
 						RiColor( rColor );
 					}
-					else
+					else{
+						RiArchiveRecord( RI_COMMENT, "mark2" );
 						RiColor( currentShader.rmColor );
+					}
 
 					if(ribNode->shading.opacity.r != -1.0)
 					{
@@ -6634,6 +6637,7 @@ MStatus liqRibTranslator::objectBlock()
 					rColor[0] = 1.;
 					rColor[1] = 0.;
 					rColor[2] = 0.;
+					RiArchiveRecord( RI_COMMENT, "mark3" );
 					RiColor( rColor );
 
 					rOpacity[0] = 1.;
@@ -6648,6 +6652,7 @@ MStatus liqRibTranslator::objectBlock()
 						rColor[0] = ribNode->shading.color[0];
 						rColor[1] = ribNode->shading.color[1];
 						rColor[2] = ribNode->shading.color[2];
+						RiArchiveRecord( RI_COMMENT, "mark4" );
 						RiColor( rColor );
 					} 
 					else if( ( ribNode->color.r != -1.0 ) ) 
@@ -6655,6 +6660,7 @@ MStatus liqRibTranslator::objectBlock()
 						rColor[0] = ribNode->color[0];
 						rColor[1] = ribNode->color[1];
 						rColor[2] = ribNode->color[2];
+						RiArchiveRecord( RI_COMMENT, "mark5" );
 						RiColor( rColor );
 					}
 					if(ribNode->shading.opacity.r != -1.0) 
@@ -6767,10 +6773,13 @@ MStatus liqRibTranslator::objectBlock()
 					rColor[0] = ribNode->shading.color[0];
 					rColor[1] = ribNode->shading.color[1];
 					rColor[2] = ribNode->shading.color[2];
+					RiArchiveRecord( RI_COMMENT, "mark6" );
 					RiColor( rColor );
 				} 
-				else 
+				else {
+					RiArchiveRecord( RI_COMMENT, "mark7" );
 					RiColor( currentShader.rmColor );
+				}
 
 				if(ribNode->shading.opacity.r != -1.0) 
 				{
@@ -6798,6 +6807,7 @@ MStatus liqRibTranslator::objectBlock()
 					rColor[0] = ribNode->shading.color[0];
 					rColor[1] = ribNode->shading.color[1];
 					rColor[2] = ribNode->shading.color[2];
+					RiArchiveRecord( RI_COMMENT, "mark8" );
 					RiColor( rColor );
 				} 
 				else if( ( ribNode->color.r != -1.0 ) ) 
@@ -6805,6 +6815,7 @@ MStatus liqRibTranslator::objectBlock()
 					rColor[0] = ribNode->color[0];
 					rColor[1] = ribNode->color[1];
 					rColor[2] = ribNode->color[2];
+					RiArchiveRecord( RI_COMMENT, "mark9" );
 					RiColor( rColor );
 				}
 				if(ribNode->shading.opacity.r != -1.0) 

@@ -3301,10 +3301,13 @@ void liqRibTranslator::F1(
 		rColor[0] = ribNode__->shading.color[0];
 		rColor[1] = ribNode__->shading.color[1];
 		rColor[2] = ribNode__->shading.color[2];
+		RiArchiveRecord( RI_COMMENT, "mark10" );
 		RiColor( rColor );
 	}
-	else
+	else{
+		RiArchiveRecord( RI_COMMENT, "mark11" );
 		RiColor( currentShader.rmColor );
+	}
 
 	if(ribNode__->shading.opacity.r != -1.0)
 	{
@@ -3333,6 +3336,7 @@ void liqRibTranslator::F2(
 		rColor[0] = 1.;
 		rColor[1] = 0.;
 		rColor[2] = 0.;
+		RiArchiveRecord( RI_COMMENT, "mark12" );
 		RiColor( rColor );
 
 		rOpacity[0] = 1.;
@@ -3346,6 +3350,7 @@ void liqRibTranslator::F2(
 			rColor[0] = ribNode__->shading.color[0];
 			rColor[1] = ribNode__->shading.color[1];
 			rColor[2] = ribNode__->shading.color[2];
+			RiArchiveRecord( RI_COMMENT, "mark13" );
 			RiColor( rColor );
 		} 
 		else if( ( ribNode__->color.r != AS_NotEXist )&&( ribNode__->color.r != AS_ConnectedAsDes )) 
@@ -3354,6 +3359,7 @@ void liqRibTranslator::F2(
 			rColor[0] = ribNode__->color[0];
 			rColor[1] = ribNode__->color[1];
 			rColor[2] = ribNode__->color[2];
+			RiArchiveRecord( RI_COMMENT, "mark14" );
 			RiColor( rColor );
 		}
 

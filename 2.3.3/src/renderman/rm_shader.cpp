@@ -316,6 +316,7 @@ namespace renderman
 		//			COLOR
 		if( liqshader->shader_type_ex == "surface" )//if( shaderType == SHADER_TYPE_SURFACE )
 		{
+			RiArchiveRecord( RI_COMMENT, "Renderer::writeRibAttributes()" );
 			RiColor((RtFloat*)(liqshader->rmColor));
 			RiOpacity((RtFloat*)(liqshader->rmOpacity));
 		}
