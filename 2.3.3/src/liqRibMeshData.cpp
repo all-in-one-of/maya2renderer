@@ -76,6 +76,8 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
 {
 	CM_TRACE_FUNC("liqRibMeshData::liqRibMeshData("<<MFnDagNode(mesh).fullPathName().asChar()<<")");
 
+	unsigned int i;
+	unsigned int j;
   areaLight = false;
   LIQDEBUGPRINTF( "-> creating mesh\n" );
   MFnMesh fnMesh( mesh );
@@ -233,13 +235,8 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
   {
     count = polyIt.polygonVertexCount();
     nverts[face] = count;
-    unsigned j, i = count;
-	  
-    // printf("poly count = %d\n", count );
-    
-    while( i )
+	for( i=0; i<count; i++ )    // boucle sur les vertex de la face
     {
-      --i;
       vertex = polyIt.vertexIndex( i );
       verts[faceVertex] = vertex;
       point = polyIt.point( i, MSpace::kObject );

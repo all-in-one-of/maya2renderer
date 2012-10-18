@@ -58,8 +58,8 @@ namespace renderman
 			return;
 		}
 		//
-		RiArchiveRecord( RI_COMMENT, "Sometimes the polygon cant be rendered correctly, so I try to reverse the normal. //- yaoyansi" );
-		RiReverseOrientation();
+		//RiArchiveRecord( RI_COMMENT, "Sometimes the polygon cant be rendered correctly, so I try to reverse the normal. //- yaoyansi" );
+		//RiReverseOrientation();
 
 		if(pData->isAreaLight())
 		{
