@@ -1,0 +1,646 @@
+##RenderMan RIB-Structure 1.0
+version 3.03
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.873100 -8.051345 1.634190
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 1.932037 -10.271831 0.144980
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 0.375518 -9.278539 0.741840
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.441524 -8.102800 1.569186
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.155210 -7.226393 2.413169
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.236358 -7.329967 2.282322
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.744258 -8.935122 0.912492
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -1.906690 -6.889579 2.838667
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.134884 -7.451978 2.172050
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.048289 -6.900190 2.825263
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.433896 -6.950685 2.761472
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 1.786139 -6.482370 3.353097
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.657273 -6.114907 3.817315
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.801155 -6.454669 3.388093
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -1.798854 -5.956763 4.017100
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.281532 -5.909963 4.076223
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.901346 -5.686642 4.358346
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.711990 -5.753172 4.274298
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.770188 -5.482974 4.615641
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.815422 -5.452380 4.654291
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -2.471325 -5.317790 4.824319
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.572412 -5.400615 4.719685
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -1.009374 -5.332331 4.805949
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -0.840741 -5.151817 4.883510
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.625816 -5.311913 4.831742
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.300036 -5.127100 4.839004
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.157809 -5.088671 4.769807
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.183941 -4.257662 4.211292
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -2.145591 -3.751799 3.675550
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.463194 -3.449064 3.443045
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.519467 -3.376954 3.313200
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 0.712642 -2.528341 2.347855
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 2.133424 -2.741531 2.606689
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.558291 -2.442594 2.193456
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 2.209793 -2.232995 1.878565
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 0.826756 -1.935162 1.342276
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate 1.734378 -2.457167 2.219696
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -1.607037 -9.696832 0.520461
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.896753 -8.121322 1.545788
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -1.847907 -8.704837 1.203412
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.782632 -7.224065 2.416108
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.796389 -7.839674 1.770000
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 1.664700 -6.902140 2.822799
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 3.405786 -6.535831 3.285559
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 1.243580 -5.886032 4.106455
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 1.142706 -5.989718 3.975468
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -0.528392 -6.071966 3.871563
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -1.695588 -6.071928 3.871612
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate 2.182473 -5.472042 4.629452
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 0.000000 1.000000 ]
+    TransformBegin
+        Translate -0.077721 -5.541786 4.541343
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.780244 -5.499559 4.594689
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -0.159744 -4.266627 3.789780
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.686492 -4.416505 4.059656
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.997841 -4.090597 3.910469
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.382601 -2.480371 2.261478
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -2.732578 -3.899426 3.566240
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.993646 -2.310913 1.956346
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -2.076925 -3.169431 2.939527
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 2.342094 -1.789286 1.079607
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.712722 -2.084867 1.611841
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.702929 -1.430607 0.433755
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.211324 -0.745625 -0.799648
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.074292 -0.952209 -0.427666
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.670231 -0.833006 -0.642308
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.173277 -0.809814 -0.684068
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -2.002057 -0.485973 -1.267187
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.805159 -0.092028 -1.976540
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 2.297842 -0.465812 -1.303490
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.928577 -0.407666 -1.408191
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.783073 -0.254982 -1.683118
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -0.203102 -0.142575 -1.885524
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate -1.610669 -0.190016 -1.800100
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 0.000000 1.000000 0.000000 ]
+    TransformBegin
+        Translate 1.082908 -0.372676 -1.471195
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate 0.531444 0.384358 -1.309253
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate 1.126395 1.025809 -0.820780
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate -1.598075 1.674755 -0.269615
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate 1.143013 2.259663 0.238015
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate 0.461264 3.296349 1.210269
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate -0.703372 3.312265 1.233904
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate 0.559168 3.631451 1.501634
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate 0.785905 4.961735 3.167667
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 0.000000 0.000000 ]
+    TransformBegin
+        Translate -0.732539 4.631308 2.677001
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.841721 5.146588 3.229232
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.062863 6.224725 5.043136
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate 0.849473 5.917014 4.163486
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.111029 6.993042 4.839900
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.185849 7.411053 4.703898
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.177001 9.679709 2.979536
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.393435 10.168702 4.113300
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate 1.022596 11.997001 5.167675
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate -0.507390 12.966008 3.299905
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd
+AttributeBegin
+    Color [ 1.000000 1.000000 1.000000 ]
+    TransformBegin
+        Translate 0.198080 12.311677 4.087377
+        Sphere 0.500000 -0.500000 0.500000 360.000000 
+    TransformEnd
+AttributeEnd

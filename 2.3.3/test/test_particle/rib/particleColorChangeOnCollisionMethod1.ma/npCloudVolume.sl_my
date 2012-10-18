@@ -1,0 +1,17 @@
+//surface shader name: npCloudVolume
+volume npCloudVolume()
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+
+
+// define the shaders --------------------------------------------------------------------------
+
+
+
+// call the shaders ----------------------------------------------------------------------------
+
+}
