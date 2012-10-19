@@ -1026,12 +1026,12 @@ global proc vector[] liquidSlDefaultToVectorArray( string $default )
   liqPopIdent();
 	return $val;
 }
-//added in r773
-//global proc vector[] liquidSlDefaultToFloatVectorArray( string $default )
-//{
-//	float $val[] = eval("float $foo_FVarray[] =" + $default );
-//	return $val;
-//}
+
+global proc vector[] liquidSlDefaultToFloatVectorArray( string $default )
+{
+	float $val[] = eval("float $foo_FVarray[] =" + $default );
+	return $val;
+}
 global proc matrix liquidSlDefaultToMatrix( string $default )
 {
   liqPushIdent();

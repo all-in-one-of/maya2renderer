@@ -464,9 +464,8 @@ proc string liquidNewShaderNode_old( string $filename )
     setAttr ( $newNodeName + ".typeId" ) 303126792;
   } else if ( $shaderType == "volume" ) {
     setAttr ( $newNodeName + ".typeId" ) 303126793;
-// added in r773
-//  } else if ( $shaderType == "shader" ) {
-//    setAttr ( $newNodeName + ".typeId" ) 303126796;    
+  } else if ( $shaderType == "shader" ) {
+    setAttr ( $newNodeName + ".typeId" ) 303126796;    
   } else {
     delete $newNodeName;
     error "Unrecognized Shader Type";

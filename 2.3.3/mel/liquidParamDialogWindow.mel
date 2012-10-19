@@ -42,9 +42,13 @@ source xxliquidutility.mel;
 
 global proc liquidAddTextureViewerMenu( string $textFieldGrp, string $nodeDotAttr )
 {
-	liqPushIdent();
-	liqlog("liquidAddTextureViewerMenu(...)");
-  string $viewer = `getAttr liquidGlobals.viewTexture`;
+  liqPushIdent();
+  liqlog("liquidAddTextureViewerMenu(...)");
+  string $viewer = "";
+  if( objExists("liquidGlobals") )
+  {
+  	$viewer = `getAttr liquidGlobals.viewTexture`;
+  }
   if ( $viewer != "" ) {
     string $attr = match("[A-Za-z0-9_]+$", $nodeDotAttr);
     popupMenu -button 3 -postMenuCommand ("liquidAE_LifStringOverrideEnabler ($gLiquid_currentAENode+\"."+$attr+"\") "+$textFieldGrp) ($textFieldGrp+"PopupMenu");
@@ -79,9 +83,13 @@ global proc liquidChangeTextFileAttr ( string $selectedObj, string $argName, str
 	liqlog("liquidChangeTextFileAttr(...)");
   string $currentAttrValue = `getAttr ($selectedObj+"."+$argName)`;
   string $defaultPath = (`getAttr liquidGlobals.textureDirectory`);
+  if(gmatch($defaultPath, "*`*"))  // if there's a mel procedure, we must eval!...
+  {
+	  $defaultPath = eval(substituteAllString($defaultPath, "`", ""));
+  }
 
   string $fileSpec;
-  if ( `about -os` == "linux" ) $fileSpec += "*.tex";
+  if ( `about -os` == "linux" || `about -os` == "linux64" ) $fileSpec += "*.tex";
   else $fileSpec += "*.tex;*.tif;*.dsts";
 
   liquidChangeTextFileAttrPlus ( $selectedObj, $argName, $fieldName, $defaultPath, $fileSpec );

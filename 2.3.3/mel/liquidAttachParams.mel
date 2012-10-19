@@ -201,9 +201,9 @@ global proc liquidAttachShaderParams( string $currentNodeName, string $shaderFil
 					$argDefaultV = liquidSlDefaultToVectorArray( $paramDefault );
 					int $size = size($argDefaultV);
 					addAttr -hidden true -k true -longName $argName -at "float3" -usedAsColor -multi $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName+"a" ) -at "float" -parent $argName $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName+"b" ) -at "float" -parent $argName $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName+"c" ) -at "float" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName+"R" ) -at "float" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName+"G" ) -at "float" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName+"B" ) -at "float" -parent $argName $currentNodeName;
 					for ( $k = 0; $k<$size; $k++ )
 					{
 						$cplug = ( $plug + "[" + $k + "]" );
@@ -217,9 +217,9 @@ global proc liquidAttachShaderParams( string $currentNodeName, string $shaderFil
 					$argDefaultV[0] = liquidSlDefaultToVector( $paramDefault );
 					vector $v = $argDefaultV[0];
 					addAttr -hidden true -k true -longName $argName -at "float3" -usedAsColor $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName + "a" ) -at "float" -parent $argName $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName + "b" ) -at "float" -parent $argName $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName + "c" ) -at "float" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName + "R" ) -at "float" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName + "G" ) -at "float" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName + "B" ) -at "float" -parent $argName $currentNodeName;
 					setAttr  $plug -type "float3" ($v.x) ($v.y) ($v.z);
 				}
 				break;
@@ -233,9 +233,9 @@ global proc liquidAttachShaderParams( string $currentNodeName, string $shaderFil
 					int $size = size($argDefaultV);
 					liqDebug("[1]addAttr -hidden true -k true -ln "+$argName+" -at double3-multi "+$currentNodeName);
 					addAttr -hidden true -k true -longName $argName -at "double3"-multi $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName+"a" ) -at "double" -parent $argName $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName+"b" ) -at "double" -parent $argName $currentNodeName;
-					addAttr -hidden true -k true -longName ( $argName+"c" ) -at "double" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName+"X" ) -at "double" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName+"Y" ) -at "double" -parent $argName $currentNodeName;
+					addAttr -hidden true -k true -longName ( $argName+"Z" ) -at "double" -parent $argName $currentNodeName;
 					for ( $k = 0; $k<$size; $k++ )
 					{
 						$cplug = ( $plug + "[" + $k + "]" );
@@ -252,12 +252,12 @@ global proc liquidAttachShaderParams( string $currentNodeName, string $shaderFil
 						
 			liqlog("addAttr -hidden true -k true -longName "+$argName+" -at \"double3\" "+$currentNodeName);
 					addAttr -hidden true -k true -longName $argName -at "double3" $currentNodeName;
-			liqlog("addAttr -hidden true -k true -longName "+$argName+"a"+" -at \"double\" -parent "+$argName+" "+$currentNodeName);
-					addAttr -hidden true -k true -longName ( $argName + "a" ) -at "double" -parent $argName $currentNodeName;
-			liqlog("addAttr -hidden true -k true -longName "+$argName+"b"+" -at \"double\" -parent "+$argName+" "+$currentNodeName);
-					addAttr -hidden true -k true -longName ( $argName + "b" ) -at "double" -parent $argName $currentNodeName;
-			liqlog("addAttr -hidden true -k true -longName "+$argName+"c"+" -at \"double\" -parent "+$argName+" "+$currentNodeName);
-					addAttr -hidden true -k true -longName ( $argName + "c" ) -at "double" -parent $argName $currentNodeName;
+			liqlog("addAttr -hidden true -k true -longName "+$argName+"X"+" -at \"double\" -parent "+$argName+" "+$currentNodeName);
+					addAttr -hidden true -k true -longName ( $argName + "X" ) -at "double" -parent $argName $currentNodeName;
+			liqlog("addAttr -hidden true -k true -longName "+$argName+"Y"+" -at \"double\" -parent "+$argName+" "+$currentNodeName);
+					addAttr -hidden true -k true -longName ( $argName + "Y" ) -at "double" -parent $argName $currentNodeName;
+			liqlog("addAttr -hidden true -k true -longName "+$argName+"Z"+" -at \"double\" -parent "+$argName+" "+$currentNodeName);
+					addAttr -hidden true -k true -longName ( $argName + "Z" ) -at "double" -parent $argName $currentNodeName;
 			liqlog("setAttr "+$currentNodeName+"."+$argName+" -type double3 "+$v);
 					setAttr  $plug -type double3 ($v.x) ($v.y) ($v.z);
 				}

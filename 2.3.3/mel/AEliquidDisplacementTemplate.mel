@@ -29,7 +29,7 @@ global proc AEliquidDisplacementTemplate( string $nodeName )
       editorTemplate -label "Disp. Bound Space" -addControl "displacementBoundSpace";
       editorTemplate -addControl "shaderSpace";
       editorTemplate -addControl "outputInShadow";
-	  // added in r773 editorTemplate -ccu ("liquidLargeFieldNew "+$nodeName+" \"RIB Box\"") ("liquidLargeFieldReplace "+$nodeName+" \"RIB Box\"") "liqRIBBox";
+      editorTemplate -ccu ("liquidLargeFieldNew "+$nodeName+" \"RIB Box\"") ("liquidLargeFieldReplace "+$nodeName+" \"RIB Box\"") "liqRIBBox";
     editorTemplate -endLayout;
 
     editorTemplate -beginLayout "Parameters" -collapse 0;
@@ -39,11 +39,11 @@ global proc AEliquidDisplacementTemplate( string $nodeName )
     editorTemplate -endLayout;
 
     editorTemplate -suppress rmanShader;
-	editorTemplate -suppress rmanShaderType;
+    editorTemplate -suppress rmanShaderType;
     editorTemplate -suppress rmanShaderLong;
     editorTemplate -suppress rmanShaderLif;
     editorTemplate -suppress rmanParams;
-	editorTemplate -suppress rmanMethods;
+    editorTemplate -suppress rmanMethods;
     editorTemplate -suppress rmanDetails;
     editorTemplate -suppress rmanTypes;
     editorTemplate -suppress rmanIsOutput;

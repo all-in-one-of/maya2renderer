@@ -425,6 +425,18 @@ global proc liquidCreateVisibilityTransmission()
   liqPushIdent();
   liqlog("liquidCreateVisibilityTransmission()");
 
+  // r773
+//   if ( !liquidGlobalsFeatureQuery( "AdvancedVisibility" ) ) liquidCreateTransmissionAttribute();
+//   else {
+//     string $nodes[] = liquidGetSelection( "-tr" );
+//     string $currentNode;
+//     for ( $currentNode in $nodes ) {
+//       if ( !`attributeQuery -node $currentNode -ex "liqVisibilityNewTransmission"` ) {
+//         addAttr -ln "liqVisibilityNewTransmission" -at bool -k true $currentNode;
+//       }
+//     }
+//   }
+    //r775 ymesh-branch
     string $currentNode, $nodes[] = liquidGetSelection( "-tr" );
     
     for ( $currentNode in $nodes ) 
@@ -933,6 +945,22 @@ global proc liquidDeletePostShapeMelAttribute()
 }
 
 // RIB group -----------------------------------------------
+global proc liquidCreateDisableRibBoxParsingAttribute()
+{
+  liqPushIdent();
+  liqlog("liquidCreateDisableRibBoxParsingAttribute()");
+  
+  string $nodes[] = liquidGetSelection( "-tr" );
+  string $currentNode;
+  for ( $currentNode in $nodes )
+  {
+    if ( !`attributeQuery -node $currentNode -ex "liqDisableRibBoxParsing"` )
+    {
+      addAttr -ln "liqDisableRibBoxParsing" -at bool $currentNode;
+    }
+  }
+  liqPopIdent();
+}
 
 global proc liquidCreateRIBAttributes()
 {
@@ -1140,7 +1168,40 @@ global proc liquidCreateShdDelayedReadArchiveAttribute()
   }
   liqPopIdent();
 }
+global proc liquidCreateShaderRIBBox()
+{
+  liqPushIdent();
+  liqlog("liquidCreateShaderRIBBox()");
 
+	string $nodes[] = liquidGetShaderSelection();
+	string $currentNode;
+	for( $currentNode in $nodes )
+	{
+		if( !`attributeQuery -node $currentNode -ex "liqRIBBox"` )
+		{
+			addAttr -ln "liqRIBBox" -dt "string" $currentNode;
+		}
+	}  
+	liqPopIdent();
+}
+
+
+global proc liquidRemoveShaderRIBBox()
+{
+  liqPushIdent();
+  liqlog("liquidRemoveShaderRIBBox()");
+
+	string $nodes[] = liquidGetShaderSelection();
+	string $currentNode;
+	for( $currentNode in $nodes )
+	{
+		if( `attributeQuery -node $currentNode -ex "liqRIBBox"` )
+		{
+			deleteAttr ($currentNode+".liqRIBBox");
+		}
+	}
+	liqPopIdent();
+}
 // Instancing group -----------------------------------------------
 
 global proc liquidCreateInstancingAttributes()
@@ -1295,6 +1356,10 @@ global proc liquidCreateMeshRenderingAttributes()
     if ( !`attributeQuery -node $currentNode -ex "liqSubdiv"` ) 
       addAttr -ln "liqSubdiv" -at bool $currentNode;
     
+    if ( !`attributeQuery -node $currentNode -ex "liqHierarchicalSubdiv"` )
+    {
+    	addAttr -ln "liqHierarchicalSubdiv" -at bool $currentNode;
+    }
     if ( !`attributeQuery -node $currentNode -ex "liqSubdivInterpolateBoundary"` ) 
       addAttr -ln "liqSubdivInterpolateBoundary" -at bool $currentNode;
   }
@@ -1312,7 +1377,10 @@ global proc liquidDeleteMeshRenderingAttributes()
   {
     if ( `attributeQuery -node $currentNode -ex "liqSubdiv"` ) 
       deleteAttr ( $currentNode + ".liqSubdiv" );
-    
+      if ( `attributeQuery -node $currentNode -ex "liqHierarchicalSubdiv"` )
+      {
+	deleteAttr ( $currentNode + ".liqHierarchicalSubdiv" );
+      }
     if ( `attributeQuery -node $currentNode -ex "liqSubdivInterpolateBoundary"` ) 
       deleteAttr ( $currentNode + ".liqSubdivInterpolateBoundary" );
   }
