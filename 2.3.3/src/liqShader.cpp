@@ -440,7 +440,7 @@ liqShader::liqShader( MObject shaderObj )
 								}//for( kk
 							}//indices.length() == 0
 						}//if( arraySize==0 )
-						if ( arraySize > 0 )    // static array
+						else if ( arraySize > 0 )    // static array
 						{
 							std::vector<MString> coShaderHandlers;
 
@@ -1031,7 +1031,8 @@ liqShader::liqShader( MObject shaderObj )
 									}//if( existingIndex )else
 								}
 							}// indices.length() != 0 
-						}else  if ( arraySize > 0 )    // static array
+						}
+						else  if ( arraySize > 0 )    // static array
 						{
 							// check default
 							int isDefault = 1;

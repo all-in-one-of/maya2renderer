@@ -95,6 +95,10 @@ liqShader &liqShaderFactory::getShader( MObject shaderObj )
 	LIQDEBUGPRINTF("    name = %s\n", currentShader->getName().c_str());
 	LIQDEBUGPRINTF("    file = %s\n", currentShader->getShaderFileName().c_str());
 	LIQDEBUGPRINTF("    hdl  = %s\n", currentShader->shaderHandler.asChar());
+	if( currentShader->hasErrors )
+	{
+		printf("[liqShaderFactory] error while creating liqObject for node '%s'\n", shaderNode.name().asChar() );
+	}
 	m_shaders.push_back( currentShader );
 	return *(m_shaders.back());
 }

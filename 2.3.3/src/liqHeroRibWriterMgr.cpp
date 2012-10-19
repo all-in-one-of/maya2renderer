@@ -418,7 +418,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				{
 					//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
 					imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();
-					//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );
+					//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob, currentJob.format);
 
 					// TODO: It doesn't work on windoze...
 					//MString host = "localhost";
@@ -466,13 +466,13 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
 					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
 					if ( m_displays_iterator == liqglo.m_displays.begin() ) {
-						//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob );  
+						//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob, currentJob.format );  
 						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
 						imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();					
 						if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )
 							imageName<<".left.tif";
 					}else{
-						//imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob ) ;
+						//imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob, imageType.c_str() ) ;
 						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
 						imageName <<"+"<<liqglo.m_pixDir.asChar() << parseString( (*m_displays_iterator).name, false ).asChar();
 						if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )

@@ -1489,12 +1489,13 @@ MString getBaseShadowName(const structJob &job__)
 
 	//[refactor][1.9.1.2] begin from _doIt()
 	// build the shadow archive name for the job
+	//r773 use this section
 	//bool renderAllFrames( job__.everyFrame );
 	//long refFrame( job__.renderFrame );
 	//MString geoSet( job__.shadowObjectSet );
 	//baseShadowName___ = generateShadowArchiveName( renderAllFrames, refFrame, geoSet );
 	//baseShadowName___ = liquidGetRelativePath( liqglo.liqglo_relativeFileNames, baseShadowName___, liqglo.liqglo_ribDir );
-	//r772 use this section
+	//r775 ymesh use this section
 	baseShadowName___ = liqRibTranslator::getInstancePtr()->generateFileName( fgm_shadow_archive, job__); 
 	baseShadowName___ = liquidGetRelativePath( liqglo.liqglo_relativeFileNames, baseShadowName___, liqglo.liqglo_ribDir );
 	//[refactor][1.9.1.2] end from _doIt()

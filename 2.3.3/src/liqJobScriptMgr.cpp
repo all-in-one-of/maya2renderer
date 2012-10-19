@@ -39,7 +39,7 @@ void tJobScriptMgr::setCommonParameters(
 		m_jobScript.maxServers = 1;
 	}
 
-	if ( m_dirmaps__.length() )
+	if ( m_dirmaps__.length() )//added in ymesh
 		m_jobScript.dirmaps = m_dirmaps__.asChar();
 	//[refactor][1.4 end] from _doIt()
 }
@@ -92,9 +92,14 @@ void tJobScriptMgr::addDefferedJob(
 	//       Because we replace liqglo.liqglo_sceneName with liquidTransGetSceneName(), and delete liqglo.liqglo_sceneName,
 	//       we use liqglo.liqglo_ribName to store the ribName which passed by commandline parameter '-ribName'
 	//  [2/17/2012 yaoyansi]
+	//---------------------------------------------------
+#if 1
+	//---ymesh r775
 	assert(0&&"warrning: ribName is store in liqglo.liqglo_ribName instead of liqglo.liqglo_sceneName.[2/17/2012 yaoyansi]");
 	// ribGenExtras << " -progress -noDef -nop -noalfred -projectDir " << liqglo_projectDir.asChar() << " -ribName " << liqglo.liqglo_ribName.asChar() << " -mf " << liqglo.tempDefname.asChar() << " -t ";
-	ribGenExtras << " -progress -noDef -projectDir " << liqglo.liqglo_projectDir.asChar() << " -ribName " << liqglo.liqglo_ribName.asChar() << " -fl ";
+	if ( debugMode ) ribGenExtras << " -debug";
+	ribGenExtras << " -progress -noDef -ribGenOnly -noLaunchRender";
+	ribGenExtras << " -projectDir \""<< liqglo.liqglo_projectDir.asChar() << "\" -ribName \"" << liqglo.liqglo_ribName.asChar() << "\" -fl ";
 
 	unsigned lastGenFrame( ( frameIndex__ + liqglo.m_deferredBlockSize ) < liqglo.frameNumbers.size() ? frameIndex__ + liqglo.m_deferredBlockSize : liqglo.frameNumbers.size() );
 
@@ -106,6 +111,15 @@ void tJobScriptMgr::addDefferedJob(
 		ribGenExtras << (( outputFrame != ( lastGenFrame - 1 ) )? ", " : " ");
 		// liquidMessage2(messageInfo, "\t outputFrame = %d\n", outputFrame );
 	}
+#else					// r773
+	//ribGenExtras << " -progress -noDef -nop -noalfred -projectDir " << liqglo_projectDir.asChar() << " -ribName " << liqglo_sceneName.asChar() << " -mf " << tempDefname.asChar() << " -t ";
+	// Ensure deferred rib gen and use render script are off
+	// Project dir argument must be first, in case -GL uses paths relative to the current project
+
+	//string preFrameCmd = "if(exists(\"userSetup\")){source \"userSetup\";}";
+	ribGenExtras << "-projectDir " << liqglo_projectDir.asChar() << " -GL -noDef -noLaunchRender -noRenderScript -ribGenOnly -ribdir "<< liqglo_ribDir.asChar() <<" -ribName " << liqglo_sceneName.asChar() << " " << frameRangePart.asChar() << " " << tempDefname.asChar();
+#endif
+	//-----------------------------------------------------
 	std::stringstream titleStream;
 	titleStream << liquidTransGetSceneName().asChar() << "FrameRIBGEN" << currentBlock__;
 	deferredJob__.title = titleStream.str();

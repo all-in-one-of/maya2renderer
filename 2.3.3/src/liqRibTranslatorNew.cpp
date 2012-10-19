@@ -649,7 +649,7 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 		}
 		
 		//[refactor 11] 
-		if( !m_renderSelected )
+		if( !m_renderSelected && !m_exportSpecificList )
 		{
 			MItDag dagIterator( MItDag::kDepthFirst, MFn::kInvalid, &returnStatus);
 			for (; !dagIterator.isDone(); dagIterator.next())
@@ -664,12 +664,21 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 					continue;
 			}
 			dealwithParticleInstancedObjects(sample, lframe, count);//[refactor 11.1] begin/end
-		}
+		}//  if ( !m_renderSelected && !m_exportSpecificList )
 		else
 		{
 			// scanScene: find out the current selection for possible selected object output
 			MSelectionList currentSelection;
-			MGlobal::getActiveSelectionList( currentSelection );
+			if ( m_renderSelected )
+			{
+				// scanScene: find out the current selection for possible selected object output
+				MGlobal::getActiveSelectionList( currentSelection );
+			}
+			else   // m_exportSpecificList = 1
+			{
+				for ( unsigned int i = 0; i < m_objectListToExport.length() ; i++ )
+					currentSelection.add( m_objectListToExport[i] );
+			}
 			MItSelectionList selIterator( currentSelection );
 			for( ; !selIterator.isDone(); selIterator.next() )
 			{
@@ -1186,6 +1195,7 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 // {
 // 	MString     baseShadowName___;
 // 	// build the shadow archive name for the job
+//  // r773 use this section
 // 	bool renderAllFrames( job__.everyFrame );
 // 	long refFrame( job__.renderFrame );
 // 	MString geoSet( job__.shadowObjectSet );
@@ -3023,7 +3033,7 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 			//[refactor][1.7 end] from _doIt()
 			//[refactor] [1.8.1 begin] to _doIt()
 			liqRenderScript::Job frameScriptJob;
-			//[refactor] [1.8.1 begin] to _doIt()
+			//[refactor] [1.8.1 end] to _doIt()
 			tFrameScriptJobMgr frameScriptJobMgr(frameScriptJob);
 
 			//[refactor] [1.8.3.1 begin] from _doIt()
@@ -3039,10 +3049,24 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 				{
 					if( ( frameIndex % liqglo.m_deferredBlockSize ) == 0 ) 
 					{
+						//[refactor] [1.8.1.1 begin] from _doIt()
+						MString frameRangePart;
 						if( liqglo.m_deferredBlockSize == 1 ) 
+						{
 							currentBlock = liqglo.liqglo_lframe;
-						else 
+							frameRangePart = MString( "-t " ) + liqglo.liqglo_lframe;
+						}else {
 							currentBlock++;
+							// Add list of frames to process for this block
+							unsigned lastGenFrame( ( frameIndex + liqglo.m_deferredBlockSize ) < liqglo.frameNumbers.size() ? frameIndex + liqglo.m_deferredBlockSize : liqglo.frameNumbers.size() );
+							//frameRangePart = MString( "-sequence " ) + frameIndex + " " + lastGenFrame  + " " + "1";
+							frameRangePart = MString( "-t " ) + liqglo.liqglo_lframe;
+							for( unsigned outputFrame( frameIndex + 1 ); outputFrame < lastGenFrame; outputFrame++ )
+							{
+								frameRangePart += "," + liqglo.frameNumbers[ outputFrame ];
+							}
+						}
+						//[refactor] [1.8.1.1 end] 
 
 						jobScriptMgr.addDefferedJob(currentBlock, frameIndex,
 							framePreCommand, frameRibgenCommand
@@ -3242,6 +3266,7 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 			//[refactor][1.15 ]
 			if( true/*useRenderScript*/ ) 
 			{
+				bool wait = false;
 				// mesh: This already cheched while reading globals
 				//if ( m_renderScriptCommand == "" ) 
 				//  m_renderScriptCommand = "alfred";
@@ -3249,15 +3274,32 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 				if( m_renderScriptFormat == NONE ) 
 					liquidMessage( "No render script format specified to Liquid, and direct render execution not selected.", messageWarning );
 
-#ifdef _WIN32
-				// Moritz: Added quotes to render script name as it may contain spaces in bloody Windoze
-				// Note: also adding quotes to the path (aka project dir) breaks ShellExecute() -- cost me one hour to trace this!!!
-				// Bloody, damn, asinine Windoze!!!
-				printf("5.liqProcessLauncher::execute(%s, \"%s\", %s, %d);\n", m_renderScriptCommand.asChar(), renderScriptName.asChar(), liqglo.liqglo_projectDir.asChar(), false);
-				liqProcessLauncher::execute( m_renderScriptCommand, "\"" + renderScriptName + "\"", liqglo.liqglo_projectDir, false );
+				// mesh: this allows to debug output from custom renderScriptCommand
+				if ( m_renderScriptCommand != "alfred" )
+				{
+					MString cmd = m_renderScriptCommand;
+#ifndef _WIN32
+					chdir( liqglo.liqglo_projectDir.asChar() );
+					cmd += " " + renderScriptName + " " + liqglo.liqglo_projectDir + " " +( wait ? "" : "&" ); 
 #else
-				liqProcessLauncher::execute( m_renderScriptCommand, renderScriptName, liqglo.liqglo_projectDir, false );
+					_chdir( liqglo.liqglo_projectDir.asChar() );
+					cmd += " \"" + renderScriptName + "\"" + " \"" + liqglo.liqglo_projectDir + "\""; 
+#endif          
+					stringstream err;
+					err << ">> render (" << ( (!wait)? "no " : "" ) << "wait) "<< cmd.asChar() << endl << ends;
+					liquidMessage( err.str(), messageInfo );
+					int returnCode = ::system( cmd.asChar() );
+				} else{
+#ifdef _WIN32
+					// Moritz: Added quotes to render script name as it may contain spaces in bloody Windoze
+					// Note: also adding quotes to the path (aka project dir) breaks ShellExecute() -- cost me one hour to trace this!!!
+					// Bloody, damn, asinine Windoze!!!
+					printf("5.liqProcessLauncher::execute(%s, \"%s\", %s, %d);\n", m_renderScriptCommand.asChar(), renderScriptName.asChar(), liqglo.liqglo_projectDir.asChar(), false);
+					liqProcessLauncher::execute( m_renderScriptCommand, "\"" + renderScriptName + "\"", liqglo.liqglo_projectDir, false );
+#else
+					liqProcessLauncher::execute( m_renderScriptCommand, renderScriptName, liqglo.liqglo_projectDir, false );
 #endif
+				}
 // 				if( liqglo.m_renderView ) //omited in r772
 // 				{
 // 					doRenderView();

@@ -127,7 +127,7 @@ public:
 	MString generateRenderScriptName()  const;
 	MString generateTempMayaSceneName() const;
 	MString generateFileName( fileGenMode mode, const structJob& job );
-	std::string  generateImageName( MString aovName, const structJob& job );
+	std::string  generateImageName( MString aovName, const structJob& job, MString format );
 	//generateShadowArchiveName() is moved to liqGlobalHelpers.h
 	// MString generateShadowArchiveName( bool renderAllFrames, long renderAtframe, MString geometrySet );
 	static bool renderFrameSort( const structJob& a, const structJob& b );
@@ -565,7 +565,13 @@ private:
 public:
 	static liqRibTranslator* getInstancePtr();
 
+	MStringArray m_objectListToExport;
+	bool m_exportSpecificList;
 	bool m_exportOnlyObjectBlock;
+
+	bool m_skipVisibilityAttributes;
+	bool m_skipShadingAttributes;
+	bool m_skipRayTraceAttributes;
 };
 
 

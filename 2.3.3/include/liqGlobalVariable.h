@@ -258,6 +258,9 @@ struct liqGlobalVariable
 
 	bool m_ribFileOpen;//is the rib file open? for renderman only.
 	bool m_writeDataIntoMainRibFile;
+
+	bool liqglo_exportAllShadersParams;
+	bool liqglo_skipDefaultMatte;
 };
 
 extern struct liqGlobalVariable liqglo;

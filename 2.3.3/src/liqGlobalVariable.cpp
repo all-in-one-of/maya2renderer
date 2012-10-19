@@ -282,6 +282,8 @@ void initOtherParameters()
 	liqglo.m_rFilterY = 1;
 	liqglo.m_rFilter = pfBoxFilter;
 
+	//m_pixelFilterNames... moved to liqRenderer::liqRenderer()
+
 	liqglo.pixelSamples = 1;
 	liqglo.shadingRate = 1.0;
 	liqglo.m_renderView        = false;
@@ -300,6 +302,9 @@ void initOtherParameters()
 
 	liqglo.m_ribFileOpen     = false;
 	liqglo.m_writeDataIntoMainRibFile = true;
+
+	liqglo.liqglo_exportAllShadersParams = false;
+	liqglo.liqglo_skipDefaultMatte = false;
 
 }
 void getOtherParameters(const MFnDependencyNode& rGlobalNode)

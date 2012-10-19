@@ -430,8 +430,13 @@ void liqWriteArchive::writeObjectToRib(const MDagPath &objDagPath, bool writeTra
 			}
 			// push the transform onto the RIB stack
 			outputObjectName(objDagPath);
-			MFnDagNode mfnDag(objDagPath);
-			MMatrix tm = mfnDag.transformationMatrix();
+			//MFnDagNode mfnDag(objDagPath);
+			//MMatrix tm = mfnDag.transformationMatrix();
+			MMatrix tm = objDagPath.inclusiveMatrix(&status);
+			if(status != MS::kSuccess)
+			{
+				cout << "[liqWriteArchive::writeObjectToRib] error while getting transform for '" << objDagPath.fullPathName().asChar() <<"'"<< endl;
+			}
 			if (true)   // (!tm.isEquivalent(MMatrix::identity)) {
 			{
 				RtMatrix riTM;

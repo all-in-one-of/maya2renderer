@@ -2694,7 +2694,7 @@ MStatus RIProcedural::doIt( const MArgList &args )
 		}
 		call = ( "Procedural \"" + type + "\" [\"" + fileName + "\" \"" + param + "\"] [" + bb + "]" );
 	}
-	else if( type == "DelayedReadArchive" )
+	else if( type == "DelayedReadArchive" || type == "RunProgram" )
 		call = ( "Procedural \"" + type + "\" [\"" + fileName + "\"] [" + bb + "]" );
 	else
 	{

@@ -443,52 +443,48 @@ void liqRibSubdivisionData::checkExtraTags( MObject &mesh )
 				if( status != MS::kSuccess )
 					continue;
 				if ( liquidGetPlugValue( setNode, "liqSubdivCrease", extraTagValue, status ) == MS::kSuccess )
-        { 
-          if( extraTagValue && !liqglo.liqglo_outputMayaPolyCreases ) // skip zero values
-            addExtraTags( dstNode, extraTagValue, TAG_CREASE );
-        } 
-        else 
-        if ( liquidGetPlugValue( setNode, "liqSubdivCorner", extraTagValue, status ) == MS::kSuccess )
-        { 
-          if( extraTagValue && !liqglo.liqglo_outputMayaPolyCreases ) // skip zero values
-            addExtraTags( dstNode, extraTagValue, TAG_CORNER );
-        }
-        else
-				if ( liquidGetPlugValue( setNode, "liqSubdivHole", extraTagValue, status ) == MS::kSuccess )
-        { 
-          if( extraTagValue ) // skip zero values
-            addExtraTags( dstNode, extraTagValue, TAG_HOLE );
-        }
-				else
-        if ( liquidGetPlugValue( setNode, "liqSubdivStitch", extraTagValue, status ) == MS::kSuccess )
-        { 
-          if( extraTagValue ) // skip zero values
-            addExtraTags( dstNode, extraTagValue, TAG_STITCH );
-        }
+				{ 
+					if( extraTagValue && !liqglo.liqglo_outputMayaPolyCreases ) // skip zero values
+						addExtraTags( dstNode, extraTagValue, TAG_CREASE );
+				} else  if ( liquidGetPlugValue( setNode, "liqSubdivCorner", extraTagValue, status ) == MS::kSuccess )
+				{ 
+					if( extraTagValue && !liqglo.liqglo_outputMayaPolyCreases ) // skip zero values
+						addExtraTags( dstNode, extraTagValue, TAG_CORNER );
+				} else if ( liquidGetPlugValue( setNode, "liqSubdivHole", extraTagValue, status ) == MS::kSuccess )
+				{ 
+					if( extraTagValue ) // skip zero values
+						addExtraTags( dstNode, extraTagValue, TAG_HOLE );
+				} else if ( liquidGetPlugValue( setNode, "liqSubdivStitch", extraTagValue, status ) == MS::kSuccess )
+				{ 
+					if( extraTagValue ) // skip zero values
+						addExtraTags( dstNode, extraTagValue, TAG_STITCH );
+				}
         
 				if( liqglo.liqglo_useMtorSubdiv ) // check mtor subdivisions extra tag
 				{
 					if ( liquidGetPlugValue( setNode, "mtorSubdivCrease", extraTagValue, status ) == MS::kSuccess )
-          { 
-            if( extraTagValue && !liqglo.liqglo_outputMayaPolyCreases ) // skip zero values
-              addExtraTags( dstNode, extraTagValue, TAG_CREASE );
-          } 
-          else 
-					if ( liquidGetPlugValue( setNode, "mtorSubdivCorner", extraTagValue, status ) == MS::kSuccess )
-          { 
-            if( extraTagValue && !liqglo.liqglo_outputMayaPolyCreases ) // skip zero values
-              addExtraTags( dstNode, extraTagValue, TAG_CORNER );
-          } 
-          else 
-          if ( liquidGetPlugValue( setNode, "mtorSubdivHole", extraTagValue, status ) == MS::kSuccess )
-          { 
-            if( extraTagValue ) // skip zero values
-              addExtraTags( dstNode, extraTagValue, TAG_HOLE );
-          }
-        }
-			}
-		}
-	}
+					{ 
+						if( extraTagValue 
+							&& !liqglo.liqglo_outputMayaPolyCreases//added in r775 ymesh
+							) // skip zero values
+							addExtraTags( dstNode, extraTagValue, TAG_CREASE );
+					} 
+					else if ( liquidGetPlugValue( setNode, "mtorSubdivCorner", extraTagValue, status ) == MS::kSuccess )
+					{ 
+						if( extraTagValue 
+							&& !liqglo.liqglo_outputMayaPolyCreases//added in r775 ymesh
+							) // skip zero values
+							addExtraTags( dstNode, extraTagValue, TAG_CORNER );
+					} 
+					else if ( liquidGetPlugValue( setNode, "mtorSubdivHole", extraTagValue, status ) == MS::kSuccess )
+					{ 
+						if( extraTagValue ) // skip zero values
+							addExtraTags( dstNode, extraTagValue, TAG_HOLE );
+					}
+				}
+			}//if( dstNode.hasFn( MFn::kSet ) )
+		}//for ( i
+	}//for ( i
 	bool interpolateBoundaryOld = false;
   bool mtor_interpolateBoundary = false;
   int liqSubdivUVInterpolation;

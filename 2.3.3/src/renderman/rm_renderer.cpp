@@ -848,15 +848,6 @@ namespace renderman
 		std::vector<structJob>::const_iterator iter = txtList_.begin();
 		while ( iter != txtList_.end() ) 
 		{
-#ifdef r772
-			if(iter->skip)
-			{
-				printf("    - skipping '%s'\n", iter->ribFileName.asChar() );
-				liquidMessage("     - skipping '"+std::string(iter->ribFileName.asChar())+"'", messageInfo);
-				++iter;
-				continue;
-			}
-#endif
 			liquidMessage( "Making textures '" + std::string( iter->imageName.asChar() ) + "'", messageInfo );
 			liqProcessLauncher::execute( iter->renderName, 
 #ifdef _WIN32
