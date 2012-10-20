@@ -74,12 +74,14 @@ MObject liqShaderNode::aRmanArraySizes;
 MObject liqShaderNode::aRmanLifCmds;
 MObject liqShaderNode::aRmanMethods;
 MObject liqShaderNode::aRmanIsOutput;  
+MObject liqShaderNode::aRmanAccept;
 
 MObject liqShaderNode::aPreviewPrimitive;
 MObject liqShaderNode::aPreviewCustomPrimitive;
 MObject liqShaderNode::aPreviewCustomBackplane;
 MObject liqShaderNode::aPreviewCustomLightRig;
 MObject liqShaderNode::aColor;
+MObject liqShaderNode::aTransparency;
 MObject liqShaderNode::aOpacity;
 MObject liqShaderNode::aShaderSpace;
 MObject liqShaderNode::aDisplacementBound;
@@ -93,8 +95,8 @@ MObject liqShaderNode::aPreviewShadingRate;
 MObject liqShaderNode::aPreviewBackplane;
 MObject liqShaderNode::aPreviewIntensity;
 MObject liqShaderNode::aGLPreviewTexture;
-MObject liqShaderNode::aCi;
-MObject liqShaderNode::aOi;
+//MObject liqShaderNode::aCi;
+//MObject liqShaderNode::aOi;
 
 MObject liqShaderNode::aMayaIgnoreLights;
 MObject liqShaderNode::aMayaKa;
@@ -120,7 +122,8 @@ MObject liqShaderNode::aLightBlindData;
 MObject liqShaderNode::aLightData;
 
 MObject liqShaderNode::aEvaluateAtEveryFrame;
-  
+MObject liqShaderNode::aPreviewGamma;
+
 MObject liqShaderNode::aOutColor;
 MObject liqShaderNode::aOutTransparency;
 
@@ -219,6 +222,9 @@ MStatus liqShaderNode::initialize()
   aRmanIsOutput = tAttr.create(  MString("rmanIsOutput"),  MString("rio"), MFnData::kIntArray, aRmanIsOutput, &status );
   MAKE_INPUT(tAttr);
 
+  aRmanAccept = tAttr.create(  MString("rmanAccept"),  MString("rma"), MFnData::kStringArray, aRmanAccept, &status );
+  MAKE_INPUT(tAttr);
+
   aPreviewPrimitive = eAttr.create( "previewPrimitive", "pvp", 7, &status );
   eAttr.addField( "Sphere",   0 );
   eAttr.addField( "Cube",     1 );
@@ -270,6 +276,10 @@ MStatus liqShaderNode::initialize()
   nAttr.setDefault( 1.0, 1.0, 1.0 );
   MAKE_INPUT(nAttr);
 
+  aTransparency = nAttr.createColor("transparency", "ts"); // Needed by Maya for Open Gl preview in "5" mode, invert opacity in compute
+  nAttr.setDefault( 0.0, 0.0, 0.0 );
+  MAKE_INPUT(nAttr);
+  
   aShaderSpace = tAttr.create( MString("shaderSpace"), MString("ssp"), MFnData::kString, aShaderSpace, &status );
   MAKE_INPUT(tAttr);
 
@@ -298,13 +308,13 @@ MStatus liqShaderNode::initialize()
   CHECK_MSTATUS(nAttr.setHidden(true ) );
 
   // dynamic shader attr
-  aCi = nAttr.createColor("Ci", "ci");
-  nAttr.setDefault( 1.0, 1.0, 1.0 );
-  MAKE_INPUT(nAttr);
+  //aCi = nAttr.createColor("Ci", "ci");
+  //nAttr.setDefault( 1.0, 1.0, 1.0 );
+  //MAKE_INPUT(nAttr);
 
-  aOi = nAttr.createColor("Oi", "oi");
-  nAttr.setDefault( 1.0, 1.0, 1.0 );
-  MAKE_INPUT(nAttr);
+  //aOi = nAttr.createColor("Oi", "oi");
+  //nAttr.setDefault( 1.0, 1.0, 1.0 );
+  //MAKE_INPUT(nAttr);
 
 
   // create attributes for maya renderer
@@ -448,6 +458,13 @@ MStatus liqShaderNode::initialize()
   aEvaluateAtEveryFrame = nAttr.create("evaluateAtEveryFrame", "def",  MFnNumericData::kBoolean, 0.0, &status);
   MAKE_NONKEYABLE_INPUT(nAttr);
   
+  aPreviewGamma = nAttr.create( "previewGamma", "pg", MFnNumericData::kFloat, 1, &status );
+  CHECK_MSTATUS( status );
+  CHECK_MSTATUS( nAttr.setStorable( true ) );
+  CHECK_MSTATUS( nAttr.setHidden( true ) );
+  CHECK_MSTATUS( nAttr.setReadable( true ) );
+  CHECK_MSTATUS( nAttr.setDefault( 1.0f ) );
+
   // Create output attributes
   aOutColor = nAttr.createColor("outColor", "oc");
   MAKE_OUTPUT(nAttr);
@@ -466,6 +483,7 @@ MStatus liqShaderNode::initialize()
   CHECK_MSTATUS( addAttribute( aRmanLifCmds ) );
   CHECK_MSTATUS( addAttribute(aRmanMethods) );
   CHECK_MSTATUS( addAttribute(aRmanIsOutput) );
+  CHECK_MSTATUS( addAttribute( aRmanAccept) );
 
   CHECK_MSTATUS( addAttribute( aPreviewPrimitive ) );
   CHECK_MSTATUS( addAttribute( aPreviewCustomPrimitive ) );
@@ -476,10 +494,11 @@ MStatus liqShaderNode::initialize()
   CHECK_MSTATUS( addAttribute( aPreviewBackplane ) );
   CHECK_MSTATUS( addAttribute( aPreviewIntensity ) );
   CHECK_MSTATUS(addAttribute(aGLPreviewTexture));
-  CHECK_MSTATUS( addAttribute( aCi ) );
-  CHECK_MSTATUS( addAttribute( aOi ) );
+  //CHECK_MSTATUS( addAttribute( aCi ) );
+  //CHECK_MSTATUS( addAttribute( aOi ) );
 
   CHECK_MSTATUS( addAttribute( aColor ) );
+  CHECK_MSTATUS( addAttribute( aTransparency ) );
   CHECK_MSTATUS( addAttribute( aOpacity ) );
   CHECK_MSTATUS( addAttribute( aShaderSpace ) );
   CHECK_MSTATUS( addAttribute( aDisplacementBound ) );
@@ -495,7 +514,8 @@ MStatus liqShaderNode::initialize()
   CHECK_MSTATUS( addAttribute( aLightData ) );
   
   CHECK_MSTATUS( addAttribute( aEvaluateAtEveryFrame ) );
-  
+  CHECK_MSTATUS( addAttribute( aPreviewGamma ) );
+
   CHECK_MSTATUS( addAttribute( aOutColor ) );
   CHECK_MSTATUS( addAttribute( aOutTransparency ) );
   CHECK_MSTATUS(attributeAffects( aGLPreviewTexture,    aOutColor ));
@@ -524,6 +544,7 @@ MStatus liqShaderNode::initialize()
   CHECK_MSTATUS(attributeAffects( aLightBlindData,      aOutColor ) );
   CHECK_MSTATUS(attributeAffects( aLightData,           aOutColor ) );
 
+  CHECK_MSTATUS(attributeAffects( aOpacity,           aOutTransparency ) );
   return MS::kSuccess;
 }
 
@@ -532,7 +553,9 @@ MStatus liqShaderNode::compute( const MPlug& plug, MDataBlock& block )
 	//CM_TRACE_FUNC("liqShaderNode::compute(job="<<plug.name()<<",block)");
 
   // outColor or individual R, G, B channel
-  if( (plug == aOutColor) || (plug.parent() == aOutColor) ) {
+  if(   (plug == aOutColor) || (plug.parent() == aOutColor)||
+  		( plug == aOutTransparency ) || (plug.parent() == aOutTransparency) ) 
+   {
 
     //cout <<"compute... "<<endl;
 
@@ -613,9 +636,9 @@ MStatus liqShaderNode::compute( const MPlug& plug, MDataBlock& block )
 
     }
 
-    resultTrans[0] = ( 1 - resultTrans[0] );
-    resultTrans[1] = ( 1 - resultTrans[1] );
-    resultTrans[2] = ( 1 - resultTrans[2] );
+    resultTrans[0] = ( 1.0 - resultTrans[0] );
+    resultTrans[1] = ( 1.0 - resultTrans[1] );
+    resultTrans[2] = ( 1.0 - resultTrans[2] );
 
 
     // set ouput color attribute

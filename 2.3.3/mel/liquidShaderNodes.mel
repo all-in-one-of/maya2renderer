@@ -1359,10 +1359,10 @@ global proc liquidShaderPickerNew(  string $msg )
 /**
  *  Reconnects the shader selection field to the currently selected shader
  */
-global proc liquidShaderPickerReplace( string $nodeName, string $msg )
+global proc liquidShaderPickerReplace( string $msg )
 {
   liqPushIdent();
-	liqlog("liquidShaderPickerReplace("+$nodeName+","+$msg+")");
+	liqlog("liquidShaderPickerReplace("+$msg+")");
   if ( !liquidGlobalsExists() ) 
     liquidCreateGlobals();
 

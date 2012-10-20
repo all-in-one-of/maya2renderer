@@ -77,7 +77,7 @@ global proc string liquidGetShaderNodeType( string $node )
     $returnValue = "Surface";
   }
   if(  $nodeType == "liquidShader"  ) {
-	liqError("liquidGetShaderNodeType() for liquidShader is not implemented yet.");
+	liqWarn("liquidGetShaderNodeType() for liquidShader is not implemented yet.");
     $returnValue = "Shader";
   }
   if( ( $type == "liquidDisp" ) || ( $typeId == 303126791 ) || ( $nodeType == "liquidDisplacement" ) ) {

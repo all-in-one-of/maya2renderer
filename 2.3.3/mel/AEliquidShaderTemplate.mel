@@ -70,12 +70,13 @@ global proc AEliquidShaderTemplate( string $nodeName )
 
   layout -e -vis false "AEcontrolFormLayout";
 
-  editorTemplate -callCustom ("liquidPreviewSwatchNew "+$nodeName) ("liquidPreviewSwatchReplace "+$nodeName) "message";
+  editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
 
   editorTemplate -beginScrollLayout;
     //--------------------------------------------------
-    editorTemplate -ccu ("liquidShaderPickerNew "+$nodeName) ("liquidShaderPickerReplace "+$nodeName) "rmanShaderLong";
-	//--------------------------------------------------
+    editorTemplate -ccu "liquidShaderPickerNew" "liquidShaderPickerReplace" "rmanShaderLong";
+    editorTemplate -addControl "evaluateAtEveryFrame";
+    //--------------------------------------------------
     editorTemplate -beginLayout "Parameters" -collapse 0;
       editorTemplate -ccu "liquidShaderNodesParamsNew "  "liquidShaderNodesParamsReplace " "rmanShaderLong";
     editorTemplate -endLayout;
