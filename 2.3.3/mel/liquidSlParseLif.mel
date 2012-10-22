@@ -91,6 +91,8 @@ global proc int liquidLifKeyable(int $state)
 //			1:	keyable					1
 proc int setState(int $state, string $flag)
 {
+	liqPushIdent();
+	liqlog("setState("+$state+","+$flag+")");
 	switch ($flag) {
 		case "open" :
 			$state =  ((0 * 8) + ($state % 8));
@@ -121,7 +123,7 @@ proc int setState(int $state, string $flag)
 			error ("[liquidSlParse.setState] unkown flag "+$flag);	
 			break;	
 	}
-	
+	liqPopIdent();
 	return $state;
 }
 
@@ -133,12 +135,15 @@ proc int defaultState()
 
 proc string padString (string $theString, string $padChar, int $length, int $side)
 {
+	liqPushIdent();
+	liqlog("padString("+$theString+","+$padChar+","+$length+","+$side+")");
 	string $padding = "";
 	for ( $i = 0; $i < max(0, $length - size($theString)); $i++ ) {
 		$padding += $padChar;
 	}
-
-	return ($side ? $theString + $padding : $padding + $theString);
+	string $ret = ($side ? $theString + $padding : $padding + $theString);
+	liqPopIdent();
+	return $ret;
 }
 
 /**
@@ -146,6 +151,8 @@ proc string padString (string $theString, string $padChar, int $length, int $sid
  */
 proc int getParamIndex( string $name )
 {
+	liqPushIdent();
+	liqlog("getParamIndex("+$name+")");
  	global int    $gLiquidSlNumParams;
 	global string $gLiquidSlParamNames[];
 
@@ -153,9 +160,11 @@ proc int getParamIndex( string $name )
 	int $index = 0;
 	for ($index = 0; $index < $gLiquidSlNumParams; $index++) {
 		if ( $gLiquidSlParamNames[$index] == $name ) {
+			liqPopIdent();
 			return $index;
 		}
 	}
+	liqPopIdent();
 	return -1;
 
 }
@@ -172,6 +181,8 @@ proc int getParamIndex( string $name )
 // shoud not be quote enclosed. Then checks it's a recognized valid keyword.
 proc string fetchKeyword (string $arg)
 {
+	liqPushIdent();
+	liqlog("fetchKeyword("+$arg+")");
 	string $result = "";
 	
 	string $tmp = match ("^[a-zA-Z_][a-zA-Z0-9_]*", $arg);
@@ -201,7 +212,7 @@ proc string fetchKeyword (string $arg)
 	if( isValidShaderTypeForPL($tmp) ){
 		$result = $tmp;
 	}
-	
+	liqPopIdent();
 	return $result;
 }
 
@@ -211,6 +222,9 @@ proc string fetchKeyword (string $arg)
 // Supports nested strings with escaped quotes
 proc string fetchString (string $arg)
 {
+	liqPushIdent();
+	liqlog("fetchString("+$arg+")");
+
 	string $result = "";
 	int $complete = 0;	
 
@@ -239,8 +253,10 @@ proc string fetchString (string $arg)
 	if ( size($result) && !$complete ) {
 		error ( "[liquidSlParseLif.fetchString] unifinished string on "+match("^.*[\"]", $arg) );
 	} else {
+		liqPopIdent();
 		return $result;
 	}
+	liqPopIdent();
 }
 
 // Tries to fetch a parenthesis enclosed possibly nested vector list from
@@ -248,6 +264,8 @@ proc string fetchString (string $arg)
 // Returns an empty array if none is found, raises an error in case of syntax error
 proc string fetchVectorList (string $arg)
 {
+	liqPushIdent();
+	liqlog("fetchVectorList("+$arg+")");
 	string		$result		= "";
 	int			$complete	= 0;	
 
@@ -314,8 +332,10 @@ proc string fetchVectorList (string $arg)
 	if ( size($result) && !$complete ) {
 		error ( "[liquidSlParseLif.fetchVector] mismatched \""+(($level > 0) ? "(" : ")")+"\" on "+match("^.*[)]", $arg) );
 	} else {
+		liqPopIdent();
 		return $result;
 	}
+	liqPopIdent();
 }
 
 // Tries to fetch a barcket enclosed list from the line, returns it brackets included.
@@ -323,6 +343,8 @@ proc string fetchVectorList (string $arg)
 // Supports lists containing strings
 proc string fetchBracketList (string $arg)
 {
+	liqPushIdent();
+	liqlog("fetchBracketList("+$arg+")");
 	string $result = "";
 	int $complete = 0;	
 
@@ -389,13 +411,17 @@ proc string fetchBracketList (string $arg)
 	if ( size($result) && !$complete ) {
 		error ( "[liquidSlParseLif.fetchBracketList] mismatched \""+(($bracketlevel > 0) ? "[" : "]")+"\" on "+match("^.*[\]]", $arg) );
 	} else {
+		liqPopIdent();
 		return $result;
 	}
+	liqPopIdent();
 }
 
 // Parses a line into a array of keyword (first) and arguments (remaining)
 proc string[] getKeyAndArgs( string $line, string $errors[] )
 {
+	liqPushIdent();
+	liqlog("getKeyAndArgs("+$line+",["+stringArrayToString($errors, " ")+")");
 	string $tokens[];
 	int		$st			= 0;
 		
@@ -484,13 +510,15 @@ proc string[] getKeyAndArgs( string $line, string $errors[] )
 	if ($complete) {
 		if (!$keyword) {
 			$errors[$ne++] = ("found no keyword in line");
+			liqPopIdent();
 			return {};
 		}
 	} else {
 		$errors[$ne++] = ("error while parsing part: "+$tmp);
+		liqPopIdent();
 		return {};
  	}
- 
+	liqPopIdent();
 	return $tokens;
 }
 
@@ -506,24 +534,33 @@ proc string[] getKeyAndArgs( string $line, string $errors[] )
 // Raises an error in case of failure.
 proc string getKeyword (string $arg)
 {
+	liqPushIdent();
+	liqlog("getKeyword("+$arg+")");
 	if ( size($result = fetchKeyword($arg)) == size($arg) ) {
+		liqPopIdent();
 		return $result;
 	} else {
 		error ("[liquidSlParseLif.getKeyword] "+$arg+" is not a valid keyword");
 	}
+	liqPopIdent();
 }
 
 // Tries to parse a single argument into a string, expects it to be quote enclosed
 // and returns it unquoted. Raises an error in case of failure
 proc string getString (string $arg)
 {
+	liqPushIdent();
+	liqlog("getString("+$arg+")");
 	string $result;
 	
 	if ( !catch($result = fetchString($arg)) && size($result) ) {
-		return substring ($result, 2, size($result)-1);
+		string $ret = substring ($result, 2, size($result)-1);
+		liqPopIdent();
+		return $ret;
 	} else {
 		error ("[liquidSlParseLif.getString] invalid string "+$arg);
 	}
+	liqPopIdent();
 }
 	
 // Tries to parse a single argument into an float, raises an error in case of failure
@@ -531,6 +568,8 @@ proc string getString (string $arg)
 // catchQuiet doesn't work so well when casting strings to ints or floats (no always quiet)
 proc float getFloat (string $arg)
 {
+	liqPushIdent();
+	liqlog("getFloat("+$arg+")");
 	float $result = 0;
 	
 	if ( liquidSlValidFloatString($arg) ) {
@@ -538,7 +577,7 @@ proc float getFloat (string $arg)
 	} else {
 		error ("[liquidSlParseLif.getFloat]"+$arg+" is not a valid float value");
 	}
-	
+	liqPopIdent();
 	return $result;
 }
 
@@ -547,6 +586,8 @@ proc float getFloat (string $arg)
 // catchQuiet doesn't work so well when casting strings to ints or floats (no always quiet)
 proc int getInt (string $arg)
 {
+	liqPushIdent();
+	liqlog("getInt("+$arg+")");
 	int $result = 0;
 	
 	if ( liquidSlValidIntString($arg) ) {
@@ -554,13 +595,15 @@ proc int getInt (string $arg)
 	} else {
 		error ("[liquidSlParseLif.getInt]"+$arg+" is not a valid int value");
 	}
-	
+	liqPopIdent();	
 	return $result;
 }
 
 // Tries to parse a single argument into a Boolean, raises an error in case of failure
 proc int getBoolean (string $arg)
 {
+	liqPushIdent();
+	liqlog("getBoolean("+$arg+")");
 	int $result = 0;
 	
 	float $f;
@@ -573,7 +616,7 @@ proc int getBoolean (string $arg)
 	} else {
 		error ("[liquidSlParseLif.getBoolean]"+$arg+" is not a valid boolean value");
 	}
-	
+	liqPopIdent();	
 	return $result;
 }
 
@@ -582,12 +625,14 @@ proc int getBoolean (string $arg)
 // it is always output as 3 space separated floats that can be used in a setAttr
 proc vector getVector (string $arg)
 {
+	liqPushIdent();
+	liqlog("getVector("+$arg+")");
 	vector $result;
 	
 	if ( catchQuiet($result = liquidSlStringToVector($arg)) ) {
 		error ("[liquidSlParseLif.getVector]"+$arg+" is not a valid boolean vector");
 	}
-	
+	liqPopIdent();	
 	return $result;
 }
 
@@ -596,12 +641,14 @@ proc vector getVector (string $arg)
 // with it's values
 proc float[] getFloatMatrix (string $arg)
 {
+	liqPushIdent();
+	liqlog("getFloatMatrix("+$arg+")");
 	float $result[];
 	
 	if ( catchQuiet($result = liquidSlStringToFloatMatrix($arg)) ) {
 		error ("[liquidSlParseLif.getFloatMatrix]"+$arg+" is not a valid boolean matrix");
 	}
-	
+	liqPopIdent();	
 	return $result;
 }
 
@@ -610,6 +657,9 @@ proc float[] getFloatMatrix (string $arg)
 // TODO : a handler for named arguments with "name" value or -name value couples
 proc string[] getValidArgs( int $requested, string $type, string $args[], string $defaults[], string $errors[])
 {
+	liqPushIdent();
+	liqlog("getValidArgs("+$requested+","+$type+",["+stringArrayToString($args, " ")+"], ["+stringArrayToString($defaults, " ")+"], ["+stringArrayToString($errors, " ")+"])");
+
 	int $na			= size($args);
 	int $nd			= size($defaults);
 	int $ne			= size($errors);
@@ -703,7 +753,7 @@ proc string[] getValidArgs( int $requested, string $type, string $args[], string
 	liqlog ("[liquidSlParseLif.getValidArgs] for "+(($requested < 0) ? "all" : $requested)
 			+" argument(s) of type "+$type+" on "+stringArrayToString($args, " ")
 			+" reported "+$ne+" errors, got "+$nr+" results: "+stringArrayToString($results, " "));	
-
+	liqPopIdent();
   	return $results;
 }
 
@@ -716,6 +766,8 @@ proc string[] getValidArgs( int $requested, string $type, string $args[], string
 // float, vector, color lists could be parsed with strictier type checking
 proc string[] getRange ( string $args[], string $errors[])
 {
+	liqPushIdent();
+	liqlog("getRange(["+stringArrayToString($args, " ")+"], ["+stringArrayToString($errors, " ")+"])");
 	string	$results[]	= {};
 	int		$nr			= 0;
 	int		$ne			= size($errors);	
@@ -731,6 +783,7 @@ proc string[] getRange ( string $args[], string $errors[])
 		$tmp			= strip( substring( $tmp , 2 , $nc - 1 ) );
 	} else {
 		$errors[$ne++]	= ("\""+$args[0]+"\" is empty or not a valid range");
+		liqPopIdent();
 		return $results;
 	}	
 	$nc					= size($tmp);
@@ -782,12 +835,15 @@ proc string[] getRange ( string $args[], string $errors[])
  	}
 
 	liqlog ("[liquidSlParseLif.getRange] parsed range arguments "+stringArrayToString($args," ")+" into: "+stringArrayToString($results,"|"));
+	liqPopIdent();
 	return $results;
 }
 
 // More specific slider range proc that looks for a float range
 proc string[] getSliderRange( string $args[], string $errors[])
 {
+	liqPushIdent();
+	liqlog("getSliderRange(["+stringArrayToString($args, " ")+"], ["+stringArrayToString($errors, " ")+"])");
 	string	$results[]	= {};
 	int		$nr			= 0;
 	int		$ne			= size($errors);
@@ -805,13 +861,15 @@ proc string[] getSliderRange( string $args[], string $errors[])
 	}
 
 	liqlog ("[liquidSlParseLif.getSliderRange] got "+$nr+" valid elements out of "+$nl);
-	
+	liqPopIdent();
 	return $results;
 }
 
 // selectors (list of string - value couple), using the attribute value
 proc string[] getSelectorRange( string $args[], string $type, string $errors[])
 {
+	liqPushIdent();
+	liqlog("getSelectorRange(["+stringArrayToString($args, " ")+"], "+$type+", ["+stringArrayToString($errors, " ")+"])");
 	string	$results[]	= {};
 	int		$nr			= 0;
 	int		$ne			= size($errors);	
@@ -906,7 +964,7 @@ proc string[] getSelectorRange( string $args[], string $type, string $errors[])
 	}
 
 	liqlog ("[liquidSlParseLif.getSliderRange] got "+$nr+" valid entries (pairs) out of "+$nl+" elements");
-		
+	liqPopIdent();
 	return $results;
 	
 }
@@ -914,6 +972,8 @@ proc string[] getSelectorRange( string $args[], string $type, string $errors[])
 // Parse the arguments for a list of state flags
 proc string[] getStateFlags(string $args[], string $errors[])
 {
+	liqPushIdent();
+	liqlog("getStateFlags(["+stringArrayToString($args, " ")+"], ["+stringArrayToString($errors, " ")+"])");
 	string	$results[];
 	int		$nr			= 0;
 	
@@ -939,13 +999,15 @@ proc string[] getStateFlags(string $args[], string $errors[])
 				break;
 		}
 	}
-	
+	liqPopIdent();	
 	return $results;
 }
 
 
 global proc string[] liquidGetLifParamTypes()
 {
+	liqPushIdent();
+	liqlog("liquidGetLifParamTypes()");
 	string $paramTypes[] = {	"field",
 								"slider",
 								"bool",
@@ -956,6 +1018,7 @@ global proc string[] liquidGetLifParamTypes()
 								"shadow",
 								"coordsys",
 								"shader" };
+	liqPopIdent();
 	return $paramTypes;
 }
 
@@ -963,6 +1026,8 @@ global proc string[] liquidGetLifParamTypes()
 // Get valid UI type names from the arguments	
 proc string[] getTypeNames(string $args[], string $errors[])
 {
+	liqPushIdent();
+	liqlog("getTypeNames(["+stringArrayToString($args, " ")+"], ["+stringArrayToString($errors, " ")+"])");
 	string	$results[];
 	int		$nr			= 0;
 	
@@ -1002,13 +1067,15 @@ proc string[] getTypeNames(string $args[], string $errors[])
 		//		break;
 		//}
 	}
-	
+	liqPopIdent();
 	return $results;
 }
 
 // Get valid UI type names for groups (collections)	
 proc string[] getGroupTypeNames(string $args[], string $errors[])
 {
+	liqPushIdent();
+	liqlog("getGroupTypeNames(["+stringArrayToString($args, " ")+"], ["+stringArrayToString($errors, " ")+"])");
 	string	$results[];
 	int		$nr			= 0;
 	
@@ -1032,7 +1099,7 @@ proc string[] getGroupTypeNames(string $args[], string $errors[])
 				break;
 		}
 	}
-	
+	liqPopIdent();
 	return $results;
 }
 
@@ -1043,6 +1110,9 @@ proc string[] getGroupTypeNames(string $args[], string $errors[])
 
 global proc liquidSlReadLifFromDisk( string $lifFile )
 {
+	liqPushIdent();
+	liqlog("liquidSlReadLifFromDisk("+$lifFile+")");
+
 	float $st = `timerX`;
 	string $lines[];
 	int $fileId = fopen( $lifFile, "r" );
@@ -1053,11 +1123,15 @@ global proc liquidSlReadLifFromDisk( string $lifFile )
 	fclose($fileId);
 	int $parsedLineNo = liquidSlReadLifFromBuffer($lines);
  	liqlog ("[liquidSlReadLifFromDisk] "+$lifFile+", "+$parsedLineNo+" lines, in "+`timerX -st $st`+" sec.");
+	liqPopIdent();
 }
 
 
 global proc int liquidSlReadLifFromBuffer( string $lines[] )
 {
+	liqPushIdent();
+	liqlog("liquidSlReadLifFromBuffer( lines[]("+size($lines)+" lines) )");
+
 	// Storage for read lines
 	global string	$gLiquidSLifFile[];
 	clear $gLiquidSLifFile;
@@ -1140,6 +1214,7 @@ global proc int liquidSlReadLifFromBuffer( string $lines[] )
 	{
 		error("[liquidSlReadLifFromBuffer] not all lines have been read! stop on line "+$fileLineNo+"/"+$nbLines+"\n");
 	}
+	liqPopIdent();
 	return $parsedLineNo;
 }
 
@@ -1150,6 +1225,8 @@ global proc int liquidSlReadLifFromBuffer( string $lines[] )
 
 global proc liquidSlBuildLifCmdList()
 {
+	liqPushIdent();
+	liqlog("liquidSlBuildLifCmdList()");
 	float $st = `timerX`;
 
 	global string 	$gLiquidSlShaderFile;
@@ -1455,12 +1532,14 @@ global proc liquidSlBuildLifCmdList()
 	}
 
 	liqlog ( "[liquidSlBuildLifCmdList] generated " + $ncmds + " commands in " +`timerX -st $st`+" sec.");
-
+	liqPopIdent();
 }
 
 
 global proc liquidSlParseLifInitGlobals()
 {
+	liqPushIdent();
+	liqlog("liquidSlParseLifInitGlobals()");
     global string	$gLiquidSlParamNames[];
     global string	$gLiquidSlParamTypes[];
     global string	$gLiquidSlParamAccept[];    
@@ -1485,18 +1564,23 @@ global proc liquidSlParseLifInitGlobals()
     $gLiquidSlParamGuiLabel			= $gLiquidSlParamNames;
     $gLiquidSlParamGuiType			= $gLiquidSlParamTypes;
     $gLiquidSlParamGuiAccept		= $gLiquidSlParamAccept;
+	liqPopIdent();
 }
 
 
 global proc string liquidSlGetLifFile(string $shaderFile)
 {
+	liqPushIdent();
+	liqlog("liquidSlGetLifFile("+$shaderFile+")");
 	// get the lif file name
 	string $lifFile = substitute("[a-zA-Z]{3}$", $shaderFile, "lif" );
 	// check its existence
 	if( !`filetest -r $lifFile` )
 	{
+		liqPopIdent();
 		return "";
 	}
+	liqPopIdent();
 	return $lifFile;
 }
 
@@ -1507,13 +1591,18 @@ global proc string liquidSlGetLifFile(string $shaderFile)
  */
 global proc liquidSlParseLif( string $lifFile )
 {
+	liqPushIdent();
+	liqlog("liquidSlParseLif("+$lifFile+")");
 	liquidSlReadLifFromDisk( $lifFile );
 	liquidSlParseReadLif();
+	liqPopIdent();
 }
 
 
 global proc liquidSlParseReadLif( /*string $lifFile*/ )
 {
+	liqPushIdent();
+	liqlog("liquidSlParseReadLif()");
     // init globals
     global string	$gLiquidSLifFilePath;
     global string	$gLiquidSLifFile[];
@@ -1550,7 +1639,8 @@ global proc liquidSlParseReadLif( /*string $lifFile*/ )
     if ( ! `filetest -r $lifFile` ) {
         liquidSlBuildLifCmdList();
         liqlog ( "[liquidSlParseLif] no lif file for shader: " + $lifFile );
-        return;
+        liqPopIdent();
+	return;
     } else {
         $gLiquidSlLifExists = 1;
     }
@@ -1948,6 +2038,7 @@ global proc liquidSlParseReadLif( /*string $lifFile*/ )
 
     liquidSlBuildLifCmdList();
     liqlog ("[liquidSlParseLif] "+`timerX -st $timer`+" sec.");
+    liqPopIdent();
 }
 
 
@@ -1994,8 +2085,11 @@ global proc int liquidLifGetGuiOrder( int $i )
 
 global proc string liquidLifShaderDescription()
 {
+  liqPushIdent();
+  liqlog("liquidLifShaderDescription()");
   global string $gLiquidSlLifShaderDescription;
   string $desc = eval("string $foo_S = \""+$gLiquidSlLifShaderDescription+"\"");
+  liqPopIdent();
   return $desc;
 }
 
@@ -2006,16 +2100,26 @@ global proc string liquidLifShaderDescription()
  */
 global proc string liquidLifParamName( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamName("+$i+")");
+
 	if ( liquidLifIsAvailable() )
 	{
 		int $guiOrder = liquidLifGetGuiOrder($i);
 		if( $guiOrder >= liquidSlNumParams() )
-		{
+		{	
+			liqPopIdent();
 			return "group";
 		}
-		return liquidSlParamName( $guiOrder );
-	}
-	return liquidSlParamName( $i );
+		string $ret = liquidSlParamName( $guiOrder );
+		
+		liqPopIdent();
+		return $ret;
+	}	
+	string $ret = liquidSlParamName( $i );
+
+	liqPopIdent();
+	return $ret;
 }
 
 
@@ -2025,16 +2129,24 @@ global proc string liquidLifParamName( int $i )
  */
 global proc int liquidLifParamIsOutput( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamIsOutput("+$i+")");
   if ( liquidLifIsAvailable() ) {
 
     int $guiOrder = liquidLifGetGuiOrder($i);
-    if ( $guiOrder >= liquidSlNumParams() ) return 0;
-
-    return liquidSlParamIsOutput( $guiOrder );
+    if ( $guiOrder >= liquidSlNumParams() ) 
+    {
+	liqPopIdent();
+	return 0;
+    }
+    int $ret = liquidSlParamIsOutput( $guiOrder );
+    liqPopIdent();
+    return $ret;
 
   }
-
-  return liquidSlParamIsOutput( $i );
+  int $ret = liquidSlParamIsOutput( $i );
+  liqPopIdent();
+  return $ret;
 }
 
 
@@ -2045,16 +2157,24 @@ global proc int liquidLifParamIsOutput( int $i )
  */
 global proc string liquidLifParamType( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamType("+$i+")");
   if ( liquidLifIsAvailable() ) {
 
     int $guiOrder = liquidLifGetGuiOrder($i);
-    if ( $guiOrder >= liquidSlNumParams() ) return "group";
-
-    return liquidSlParamType( $guiOrder );
+    if ( $guiOrder >= liquidSlNumParams() ) 
+    { 
+        liqPopIdent();
+	return "group";
+    }
+    string $ret = liquidSlParamType( $guiOrder );
+    liqPopIdent();
+    return $ret;
 
   }
-
-  return liquidSlParamType( $i );
+  string $ret = liquidSlParamType( $i );
+  liqPopIdent();
+  return $ret;
 }
 
 /* return the gui defined param accept when a lif is available, else
@@ -2062,24 +2182,32 @@ global proc string liquidLifParamType( int $i )
 */
 global proc string liquidLifParamAccept( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamAccept("+$i+")");
+
 	global string $gLiquidSlParamGuiAccept[];
 	
 	if ( liquidLifIsAvailable() ) {
 		int $guiOrder = liquidLifGetGuiOrder($i);
 		if ( $guiOrder < liquidSlNumParams() ) {
+			liqPopIdent();
 			return $gLiquidSlParamGuiAccept[ $guiOrder ];
 		} else {
+			liqPopIdent();
 			return "";
 		}
 	}
-	
-	return liquidSlParamAccept( $i );
+	string $ret = liquidSlParamAccept( $i );
+	liqPopIdent();	
+	return $ret;
 }
 
 // this is the only case where lif parsing modifies info that comes from sl parsing
 // not that great design but necessary for connection exports
 global proc liquidLifSetParamAccept( int $i, string $accept )
 {
+	liqPushIdent();
+	liqlog("liquidLifSetParamAccept("+$i+", "+$accept+")");
 	if ( liquidLifIsAvailable() ) {
 		int $guiOrder = liquidLifGetGuiOrder($i);
 		if ( $guiOrder < liquidSlNumParams() ) {
@@ -2088,6 +2216,7 @@ global proc liquidLifSetParamAccept( int $i, string $accept )
 	} else {
 		liquidSlSetParamAccept( $i, $accept );
 	}
+	liqPopIdent();	
 }
 
 /**
@@ -2096,18 +2225,21 @@ global proc liquidLifSetParamAccept( int $i, string $accept )
  */
 global proc string liquidLifParamLabel( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamLabel("+$i+")");
   global string $gLiquidSlParamGuiLabel[];
 
   if ( liquidLifIsAvailable() ) {
 
     int $guiOrder = liquidLifGetGuiOrder($i);
     string $label = $gLiquidSlParamGuiLabel[ $guiOrder ];
-
+    liqPopIdent();	
     return $label;
 
   }
-
-  return liquidSlParamName( $i );
+  string $ret = liquidSlParamName( $i );
+  liqPopIdent();	
+  return $ret;
 }
 
 
@@ -2117,17 +2249,19 @@ global proc string liquidLifParamLabel( int $i )
  */
 global proc string liquidLifParamDescription( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamDescription("+$i+")");
   global string $gLiquidSlParamGuiDescription[];
 
   if ( liquidLifIsAvailable() ) {
 
     int $guiOrder = liquidLifGetGuiOrder($i);
     string $desc = $gLiquidSlParamGuiDescription[ $guiOrder ];
-
+    liqPopIdent();
     return $desc;
 
   }
-
+  liqPopIdent();
   return "";
 
 }
@@ -2140,18 +2274,21 @@ global proc string liquidLifParamDescription( int $i )
  */
 global proc string liquidLifParamGuiType( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamGuiType("+$i+")");
   global string $gLiquidSlParamGuiType[];
 
   if ( liquidLifIsAvailable() ) {
 
     int $guiOrder = liquidLifGetGuiOrder($i);
     string $subtype = $gLiquidSlParamGuiType[ $guiOrder ];
-
+    liqPopIdent();
     return $subtype;
 
   }
-
-  return liquidSlParamType( $i );
+  string $ret = liquidSlParamType( $i );
+  liqPopIdent();
+  return $ret;
 }
 
 
@@ -2161,6 +2298,8 @@ global proc string liquidLifParamGuiType( int $i )
  */
 global proc string[] liquidLifParamGuiRange( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamGuiRange("+$i+")");
   global string $gLiquidSlParamGuiRange[];
   string $range[] = {};
 
@@ -2171,7 +2310,7 @@ global proc string[] liquidLifParamGuiRange( int $i )
     if ( size( $gLiquidSlParamGuiRange[ $guiOrder ] ) ) tokenize( $gLiquidSlParamGuiRange[ $guiOrder ], "|", $range);
 
   }
-
+  liqPopIdent();
   return $range;
 }
 
@@ -2181,35 +2320,57 @@ global proc string[] liquidLifParamGuiRange( int $i )
  */
 global proc int liquidLifParamArraySize( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifParamArraySize("+$i+")");
   if ( liquidLifIsAvailable() ) {
 
     int $guiOrder = liquidLifGetGuiOrder($i);
-    if ( $guiOrder >= liquidSlNumParams() ) return 0;
-
-    return liquidSlParamArraySize( $guiOrder );
+    if ( $guiOrder >= liquidSlNumParams() )
+    {
+	liqPopIdent();
+	return 0;
+    }
+    int $ret = liquidSlParamArraySize( $guiOrder );
+    liqPopIdent();
+    return $ret;
 
   }
-
-  return liquidSlParamArraySize( $i );
+  int $ret = liquidSlParamArraySize( $i );
+  liqPopIdent();
+  return $ret;
 }
 
 global proc int liquidLifVisibleState( int $i )
 {
-  return liquidLifVisible(liquidLifState( $i ));
+	liqPushIdent();
+	liqlog("liquidLifVisibleState("+$i+")");
+	int $ret = liquidLifVisible(liquidLifState( $i ));
+	liqPopIdent();
+	return $ret;
 }
 
 global proc int liquidLifEnableState( int $i )
 {
-  return liquidLifEnable(liquidLifState( $i ));
+	liqPushIdent();
+	liqlog("liquidLifEnableState("+$i+")");
+	int $ret = liquidLifEnable(liquidLifState( $i ));
+	liqPopIdent();
+	return $ret;
 }
 
 global proc int liquidLifKeyableState( int $i )
 {
-  return liquidLifKeyable(liquidLifState( $i ));
+	liqPushIdent();
+	liqlog("liquidLifKeyableState("+$i+")");
+	int $ret = liquidLifKeyable(liquidLifState( $i ));
+	liqPopIdent();
+	return $ret;
 }
 
 global proc int liquidLifState( int $i )
 {
+	liqPushIdent();
+	liqlog("liquidLifState("+$i+")");
 	global int $gLiquidSlParamGuiState[];
 	int $result = defaultState();
 
@@ -2218,7 +2379,7 @@ global proc int liquidLifState( int $i )
 		int $guiOrder = liquidLifGetGuiOrder($i);
 		$result = $gLiquidSlParamGuiState[ $guiOrder ];  
 	}
-
+	liqPopIdent();
 	return $result;
 }
 
@@ -2231,16 +2392,25 @@ global proc int liquidLifState( int $i )
  */
 proc string format( string $str, int $len )
 {
+	liqPushIdent();
+	liqlog("format("+$str+","+$len+")");
   string $out;
   int $s = size( $str );
-  if ( $s > $len ) return (substring( $str, 1, $len-3 )+"...");
+  if ( $s > $len )
+  {
+	string $ret = (substring( $str, 1, $len-3 )+"...");
+	liqPopIdent();
+	return $ret;
+  }
   if ( $s < $len ) {
     while( $s != $len ) {
       $str += " ";
       $s = size( $str );
     }
+    liqPopIdent();
     return $str;
   }
+  liqPopIdent();
   return $str;
 }
 
@@ -2249,6 +2419,8 @@ proc string format( string $str, int $len )
  */
 global proc gdump()
 {
+	liqPushIdent();
+	liqlog("gdump()");
     if ( `filetest -w "/tmp/gdump.txt"` ) sysFile -delete "/tmp/gdump.txt";
 
     global string   $gLiquidSlShaderType;
@@ -2284,5 +2456,6 @@ global proc gdump()
 
     fclose $fh;
     liqlog ("gdump : DONE\n");
+    liqPopIdent();
 }
 
