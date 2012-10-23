@@ -1,9 +1,9 @@
 //Maya ASCII 2012 scene
 //Name: er_directlight.ma
-//Last modified: Tue, Sep 25, 2012 09:50:39 PM
+//Last modified: Tue, Oct 23, 2012 10:15:04 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:56:11.10)";
+requires "liquid_2012x32d" "2.3.5 (buildtime=21:12:36.90)";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -127,7 +127,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/er_directlight.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/er_directlight179.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -146,7 +146,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "appleseed";
+	setAttr ".rnd" -type "string" "elvishray";
 createNode script -n "uiConfigurationScriptNode";
 	setAttr ".b" -type "string" (
 		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `modelPanel -unParent -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels `;\n\t\t\t$editorName = $panelName;\n            modelEditor -e \n                -camera \"top\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n"
@@ -235,24 +235,25 @@ createNode place2dTexture -n "place2dTexture2";
 	setAttr ".re" -type "float2" 5 5 ;
 createNode liquidSurface -n "liquidSurface1";
 	addAttr -ci true -sn "liqAssignedObjects" -ln "liqAssignedObjects" -at "message";
-	addAttr -ci true -h true -k true -sn "Cs" -ln "Cs" -at "double3" -nc 3;
-	addAttr -ci true -h true -k true -sn "Csa" -ln "Csa" -at "double" -p "Cs";
-	addAttr -ci true -h true -k true -sn "Csb" -ln "Csb" -at "double" -p "Cs";
-	addAttr -ci true -h true -k true -sn "Csc" -ln "Csc" -at "double" -p "Cs";
-	addAttr -ci true -h true -k true -sn "Kd" -ln "Kd" -at "double3" -nc 3;
-	addAttr -ci true -h true -k true -sn "Kda" -ln "Kda" -at "double" -p "Kd";
-	addAttr -ci true -h true -k true -sn "Kdb" -ln "Kdb" -at "double" -p "Kd";
-	addAttr -ci true -h true -k true -sn "Kdc" -ln "Kdc" -at "double" -p "Kd";
 	addAttr -ci true -h true -sn "Ks" -ln "Ks" -at "double";
 	addAttr -ci true -h true -sn "roughness" -ln "roughness" -at "double";
-	addAttr -ci true -uac -h true -k true -sn "specularcolor" -ln "specularcolor" -at "float3" 
+	addAttr -ci true -h true -sn "Cs" -ln "Cs" -at "double3" -nc 3;
+	addAttr -ci true -h true -sn "CsX" -ln "CsX" -at "double" -p "Cs";
+	addAttr -ci true -h true -sn "CsY" -ln "CsY" -at "double" -p "Cs";
+	addAttr -ci true -h true -sn "CsZ" -ln "CsZ" -at "double" -p "Cs";
+	addAttr -ci true -h true -sn "Kd" -ln "Kd" -at "double3" -nc 3;
+	addAttr -ci true -h true -sn "KdX" -ln "KdX" -at "double" -p "Kd";
+	addAttr -ci true -h true -sn "KdY" -ln "KdY" -at "double" -p "Kd";
+	addAttr -ci true -h true -sn "KdZ" -ln "KdZ" -at "double" -p "Kd";
+	addAttr -ci true -uac -h true -sn "specularcolor" -ln "specularcolor" -at "float3" 
 		-nc 3;
-	addAttr -ci true -h true -k true -sn "specularcolora" -ln "specularcolora" -at "float" 
-		-p "specularcolor";
-	addAttr -ci true -h true -k true -sn "specularcolorb" -ln "specularcolorb" -at "float" 
-		-p "specularcolor";
-	addAttr -ci true -h true -k true -sn "specularcolorc" -ln "specularcolorc" -at "float" 
-		-p "specularcolor";
+	addAttr -ci true -h true -sn "specularcolorR" -ln "specularcolorR" -at "float" -p "specularcolor";
+	addAttr -ci true -h true -sn "specularcolorG" -ln "specularcolorG" -at "float" -p "specularcolor";
+	addAttr -ci true -h true -sn "specularcolorB" -ln "specularcolorB" -at "float" -p "specularcolor";
+	addAttr -ci true -h true -sn "rmanParamLifCmdId" -ln "rmanParamLifCmdId" -dt "Int32Array";
+	addAttr -ci true -h true -sn "rmanGroups" -ln "rmanGroups" -dt "stringArray";
+	addAttr -ci true -h true -sn "rmanGroupLifCmdId" -ln "rmanGroupLifCmdId" -dt "Int32Array";
+	addAttr -ci true -sn "rmanLifCtrls" -ln "rmanLifCtrls" -dt "stringArray";
 	setAttr ".rms" -type "string" "plastic";
 	setAttr ".rst" -type "string" "surface";
 	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_er_light/plastic.dll";
@@ -261,14 +262,19 @@ createNode liquidSurface -n "liquidSurface1";
 	setAttr ".rty" -type "stringArray" 5 "vector" "vector" "float" "float" "color"  ;
 	setAttr ".rdf" -type "stringArray" 5 "1.0000001.0000001.000000" "1.0000001.0000001.000000" "0.5" "0.1" "1.0000001.0000001.000000"  ;
 	setAttr ".ras" -type "Int32Array" 5 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 5 "liquidAE_LifVector( \"Cs\", -1, \"vector\", \"Cs\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifVector( \"Kd\", -1, \"vector\", \"Kd\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"Ks\", -1, \"float\", \"Ks\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"roughness\", -1, \"float\", \"roughness\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specularcolor\", -1, \"color\", \"specularcolor\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rlc" -type "stringArray" 5 "liquidAE_LifParameter( \"Cs\", \"-1\", \"vector\", \"vector\", \"Cs\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"Kd\", \"-1\", \"vector\", \"vector\", \"Kd\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"Ks\", \"-1\", \"float\", \"float\", \"Ks\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"roughness\", \"-1\", \"float\", \"float\", \"roughness\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"specularcolor\", \"-1\", \"color\", \"color\", \"specularcolor\", {\"\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
 	setAttr ".rio" -type "Int32Array" 5 0 0 0 0 0 ;
-	setAttr -k on ".Cs" -type "double3" 1 0 0 ;
-	setAttr -k on ".Kd" -type "double3" 1 1 1 ;
+	setAttr ".rma" -type "stringArray" 5 "" "" "" "" ""  ;
 	setAttr ".Ks" 0.5;
 	setAttr ".roughness" 0.1;
-	setAttr -k on ".specularcolor" -type "float3" 1 1 1 ;
+	setAttr ".Cs" -type "double3" 1 0 0 ;
+	setAttr ".Kd" -type "double3" 1 1 1 ;
+	setAttr ".specularcolor" -type "float3" 1 1 1 ;
+	setAttr ".rmanParamLifCmdId" -type "Int32Array" 5 0 1 2 3
+		 4 ;
+	setAttr ".rmanGroups" -type "stringArray" 0  ;
+	setAttr ".rmanGroupLifCmdId" -type "Int32Array" 0 ;
 createNode shadingEngine -n "liquidSurface1SG";
 	addAttr -ci true -uac -k true -sn "liqShadowShader" -ln "liqShadowShader" -at "float3" 
 		-nc 3;
@@ -320,24 +326,25 @@ createNode polyPlane -n "polyPlane1";
 	setAttr ".cuv" 2;
 createNode liquidSurface -n "liquidSurface3";
 	addAttr -ci true -sn "liqAssignedObjects" -ln "liqAssignedObjects" -at "message";
-	addAttr -ci true -h true -k true -sn "Cs" -ln "Cs" -at "double3" -nc 3;
-	addAttr -ci true -h true -k true -sn "Csa" -ln "Csa" -at "double" -p "Cs";
-	addAttr -ci true -h true -k true -sn "Csb" -ln "Csb" -at "double" -p "Cs";
-	addAttr -ci true -h true -k true -sn "Csc" -ln "Csc" -at "double" -p "Cs";
-	addAttr -ci true -h true -k true -sn "Kd" -ln "Kd" -at "double3" -nc 3;
-	addAttr -ci true -h true -k true -sn "Kda" -ln "Kda" -at "double" -p "Kd";
-	addAttr -ci true -h true -k true -sn "Kdb" -ln "Kdb" -at "double" -p "Kd";
-	addAttr -ci true -h true -k true -sn "Kdc" -ln "Kdc" -at "double" -p "Kd";
 	addAttr -ci true -h true -sn "Ks" -ln "Ks" -at "double";
 	addAttr -ci true -h true -sn "roughness" -ln "roughness" -at "double";
-	addAttr -ci true -uac -h true -k true -sn "specularcolor" -ln "specularcolor" -at "float3" 
+	addAttr -ci true -h true -sn "Cs" -ln "Cs" -at "double3" -nc 3;
+	addAttr -ci true -h true -sn "CsX" -ln "CsX" -at "double" -p "Cs";
+	addAttr -ci true -h true -sn "CsY" -ln "CsY" -at "double" -p "Cs";
+	addAttr -ci true -h true -sn "CsZ" -ln "CsZ" -at "double" -p "Cs";
+	addAttr -ci true -h true -sn "Kd" -ln "Kd" -at "double3" -nc 3;
+	addAttr -ci true -h true -sn "KdX" -ln "KdX" -at "double" -p "Kd";
+	addAttr -ci true -h true -sn "KdY" -ln "KdY" -at "double" -p "Kd";
+	addAttr -ci true -h true -sn "KdZ" -ln "KdZ" -at "double" -p "Kd";
+	addAttr -ci true -uac -h true -sn "specularcolor" -ln "specularcolor" -at "float3" 
 		-nc 3;
-	addAttr -ci true -h true -k true -sn "specularcolora" -ln "specularcolora" -at "float" 
-		-p "specularcolor";
-	addAttr -ci true -h true -k true -sn "specularcolorb" -ln "specularcolorb" -at "float" 
-		-p "specularcolor";
-	addAttr -ci true -h true -k true -sn "specularcolorc" -ln "specularcolorc" -at "float" 
-		-p "specularcolor";
+	addAttr -ci true -h true -sn "specularcolorR" -ln "specularcolorR" -at "float" -p "specularcolor";
+	addAttr -ci true -h true -sn "specularcolorG" -ln "specularcolorG" -at "float" -p "specularcolor";
+	addAttr -ci true -h true -sn "specularcolorB" -ln "specularcolorB" -at "float" -p "specularcolor";
+	addAttr -ci true -h true -sn "rmanParamLifCmdId" -ln "rmanParamLifCmdId" -dt "Int32Array";
+	addAttr -ci true -h true -sn "rmanGroups" -ln "rmanGroups" -dt "stringArray";
+	addAttr -ci true -h true -sn "rmanGroupLifCmdId" -ln "rmanGroupLifCmdId" -dt "Int32Array";
+	addAttr -ci true -sn "rmanLifCtrls" -ln "rmanLifCtrls" -dt "stringArray";
 	setAttr ".rms" -type "string" "plastic";
 	setAttr ".rst" -type "string" "surface";
 	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_er_light/plastic.dll";
@@ -346,14 +353,19 @@ createNode liquidSurface -n "liquidSurface3";
 	setAttr ".rty" -type "stringArray" 5 "vector" "vector" "float" "float" "color"  ;
 	setAttr ".rdf" -type "stringArray" 5 "1.0000001.0000001.000000" "1.0000001.0000001.000000" "0.5" "0.1" "1.0000001.0000001.000000"  ;
 	setAttr ".ras" -type "Int32Array" 5 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 5 "liquidAE_LifVector( \"Cs\", -1, \"vector\", \"Cs\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifVector( \"Kd\", -1, \"vector\", \"Kd\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"Ks\", -1, \"float\", \"Ks\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"roughness\", -1, \"float\", \"roughness\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"specularcolor\", -1, \"color\", \"specularcolor\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rlc" -type "stringArray" 5 "liquidAE_LifParameter( \"Cs\", \"-1\", \"vector\", \"vector\", \"Cs\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"Kd\", \"-1\", \"vector\", \"vector\", \"Kd\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"Ks\", \"-1\", \"float\", \"float\", \"Ks\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"roughness\", \"-1\", \"float\", \"float\", \"roughness\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"specularcolor\", \"-1\", \"color\", \"color\", \"specularcolor\", {\"\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
 	setAttr ".rio" -type "Int32Array" 5 0 0 0 0 0 ;
-	setAttr -k on ".Cs" -type "double3" 0 0 1 ;
-	setAttr -k on ".Kd" -type "double3" 1 1 1 ;
+	setAttr ".rma" -type "stringArray" 5 "" "" "" "" ""  ;
 	setAttr ".Ks" 0.5;
 	setAttr ".roughness" 0.1;
-	setAttr -k on ".specularcolor" -type "float3" 1 1 1 ;
+	setAttr ".Cs" -type "double3" 0.2 0.2 0.2 ;
+	setAttr ".Kd" -type "double3" 1 1 1 ;
+	setAttr ".specularcolor" -type "float3" 1 1 1 ;
+	setAttr ".rmanParamLifCmdId" -type "Int32Array" 5 0 1 2 3
+		 4 ;
+	setAttr ".rmanGroups" -type "stringArray" 0  ;
+	setAttr ".rmanGroupLifCmdId" -type "Int32Array" 0 ;
 createNode shadingEngine -n "liquidSurface3SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;

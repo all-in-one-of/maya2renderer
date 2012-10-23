@@ -25,7 +25,7 @@ param "decay";
 name "Decay";
 desc "";
 type "selector";
-range [ None 0 Linear 1 Quadratic 2 Cubic 3 ];
+range [ "None" 0 "Linear" 1 "Quadratic" 2 "Cubic" 3 ];
 
 param "lightID";
 name "lightID";
