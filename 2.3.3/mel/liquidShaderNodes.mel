@@ -44,6 +44,7 @@ global proc string[] getLiquidAssignableShadingNodeTypeList()
 	$shadingNodeTypes[size($shadingNodeTypes)] = "liquidLight";
 	$shadingNodeTypes[size($shadingNodeTypes)] = "liquidSurfaceSwitcher";
 	$shadingNodeTypes[size($shadingNodeTypes)] = "liquidDisplacementSwitcher";
+	$shadingNodeTypes[size($shadingNodeTypes)] = "liquidShader";
 	return $shadingNodeTypes;
 }
 // 
@@ -1748,7 +1749,7 @@ global proc liquidAssignShaderToSelected( string $node )
   else if ( $nodetype == "liquidVolume" ) liquidAssignVolumeShaderToSelected( $node );
   else if ( $nodetype == "liquidSurfaceSwitcher" ) liquidAssignSurfaceSwitcherShaderToSelected( $node );
   else if ( $nodetype == "liquidDisplacementSwitcher" ) liquidAssignDisplacementSwitcherShaderToSelected( $node );
-
+  else if ( $nodetype == "liquidShader" ) liquidAssignLiquidShaderToSelected( $node );
   liqPopIdent();
 }
 
