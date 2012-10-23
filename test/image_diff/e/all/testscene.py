@@ -129,3 +129,11 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, "")
 
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_particle/ParticleColorChangeOnCollision.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_particle/particleColorChangeOnCollisionMethod1.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_particle/TextureBaseParticleRamp.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")

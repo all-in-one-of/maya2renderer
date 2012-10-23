@@ -277,3 +277,6 @@ appleseed
 
 - run all test cases for rm
 - matrix array UI is not shown in AE
+- doc: pl file is used to set default value
+- adapt *.ma for pl/lif
+- (done)add liqPushIndent()/liqPopIndent() in mel
