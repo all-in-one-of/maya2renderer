@@ -183,7 +183,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
     }
   }
 
-   if ( liquidRenderer.renderName == MString("3Delight") )
+   if ( liqglo.liquidRenderer.renderName == MString("3Delight") )
    {
  	  liquidGetPlugValue( lightDepNode, "liqDelightLightEmitphotons", delightLight.emitPhotons, status );
  	  liquidGetPlugValue( lightDepNode, "liqDelightLightShadows", delightLight.autoShadows, status );
