@@ -261,11 +261,7 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
 				  fnMesh.getPolygonUV( face, i, S, T, &uvSetName );
 
 				  currentUVSetUPtr.setTokenFloat( faceVertex, S );
-#ifdef DURANDUBOI
-				  currentUVSetVPtr.setTokenFloat( faceVertex, T );
-#else
 				  currentUVSetVPtr.setTokenFloat( faceVertex, 1-T );
-#endif
 			  }
 			  else
 			  {
@@ -275,11 +271,7 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
 				  // set uv values
 				  fnMesh.getPolygonUV( face, i, S, T, &uvSetName );
 				  extraUVSetsUPtr.setTokenFloat( (numFaceVertices*(j-1)) + faceVertex, S );
-#ifdef DURANDUBOI
-				  extraUVSetsVPtr.setTokenFloat( (numFaceVertices*(j-1)) + faceVertex, T );
-#else
 				  extraUVSetsVPtr.setTokenFloat( (numFaceVertices*(j-1)) + faceVertex, 1-T );
-#endif
 			  }
 		  }
 	  }
