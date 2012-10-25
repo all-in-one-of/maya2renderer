@@ -3,6 +3,7 @@
 
 #include "rm_renderer.h"
 #include <liqRibLightData.h>
+#include <liqGlobalVariable.h>
 #include "rm_helper.h"
 
 namespace renderman
@@ -39,6 +40,31 @@ namespace renderman
 		{
 			RtInt msdepth = ribNode->trace.maxSpecularDepth;
 			RiAttribute( "trace", (RtToken) "maxspeculardepth", &msdepth, RI_NULL );
+		}
+
+		if ( liqglo.liquidRenderer.renderName == MString("3Delight") )
+		{
+			RiArchiveRecord( RI_COMMENT, "light attributes for 3delight is omitted. You can open them." );
+// 			if ( delightLight.emitPhotons )
+// 			{
+// 				RtString value = "on";
+// 				RiAttribute( "light", (RtToken) "emitphotons", &value, RI_NULL );
+// 			}
+// 			if ( delightLight.autoShadows )
+// 			{
+// 				RtString value = "on";
+// 				RiAttribute( "light", (RtToken) "shadows", &value, RI_NULL );
+// 			}
+// 			if ( delightLight.autoShadowsSamples != 1 )
+// 			{
+// 				RtInt value = delightLight.autoShadowsSamples;
+// 				RiAttribute( "light", (RtToken) "samples", &value, RI_NULL );
+// 			}
+// 			if ( delightLight.SamplingStrategy != delightLight::SAMPLING_STRATEGY_NONE )
+// 			{
+// 				RtString values[] = { "lightsource", "illuminance" };
+// 				RiAttribute( "light", (RtToken) "samplingstrategy", &values[(int)delightLight.SamplingStrategy], RI_NULL );
+// 			}
 		}
 		return true;
 	}

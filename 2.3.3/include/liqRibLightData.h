@@ -100,6 +100,18 @@ private:
   MString       lightMap;
   RtFloat       lightMapSaturation;
 
+  // 3Delight light attributes
+  struct delightLight {
+	  bool emitPhotons;
+	  bool autoShadows;
+	  int  autoShadowsSamples;
+	  enum {
+		  SAMPLING_STRATEGY_NONE = -1,
+		  SAMPLING_STRATEGY_LIGHTSOURCE = 0, // lightsource
+		  SAMPLING_STRATEGY_ILLUMINANCE = 1 // illuminance
+	  } SamplingStrategy;
+  } delightLight;
+
   RtFloat       nonDiffuse;
   RtFloat       nonSpecular;
   //RtPoint       from, to;

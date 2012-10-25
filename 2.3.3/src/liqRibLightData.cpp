@@ -106,6 +106,12 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 	// Area Lights
 	lightMap = "";
 	lightMapSaturation = 0;
+  
+  // 3Delight light attributes
+  delightLight.emitPhotons = false;
+	delightLight.autoShadows = false;
+  delightLight.autoShadowsSamples = 1;
+  delightLight.SamplingStrategy = delightLight::SAMPLING_STRATEGY_NONE;
 	// General
 	nonDiffuse = 0;
 	nonSpecular = 0;
@@ -176,14 +182,14 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
       liquidGetPlugValue( lightDepNode, "shadowRays", raySamples, status );
     }
   }
-// for3delight
-//   if ( liquidRenderer.renderName == MString("3Delight") )
-//   {
-// 	  liquidGetPlugValue( lightDepNode, "liqDelightLightEmitphotons", delightLight.emitPhotons, status );
-// 	  liquidGetPlugValue( lightDepNode, "liqDelightLightShadows", delightLight.autoShadows, status );
-// 	  liquidGetPlugValue( lightDepNode, "liqDelightLightSamples", delightLight.autoShadowsSamples, status );
-// 	  liquidGetPlugValue( lightDepNode, "liqDelightLightSamplingStrategy", (int &)delightLight.SamplingStrategy, status );
-//   }
+
+   if ( liquidRenderer.renderName == MString("3Delight") )
+   {
+ 	  liquidGetPlugValue( lightDepNode, "liqDelightLightEmitphotons", delightLight.emitPhotons, status );
+ 	  liquidGetPlugValue( lightDepNode, "liqDelightLightShadows", delightLight.autoShadows, status );
+ 	  liquidGetPlugValue( lightDepNode, "liqDelightLightSamples", delightLight.autoShadowsSamples, status );
+ 	  liquidGetPlugValue( lightDepNode, "liqDelightLightSamplingStrategy", (int &)delightLight.SamplingStrategy, status );
+   }
   if( !rayTraced ) 
   {
     if ( liquidGetPlugValue( fnLight, "liquidShadowName", userShadowName, status ) ==  MS::kSuccess )
