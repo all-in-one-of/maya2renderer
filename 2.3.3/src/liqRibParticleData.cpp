@@ -1512,7 +1512,7 @@ void liqRibParticleData::_write(const structJob &currentJob)
 			for( unsigned int i(0); i < m_stringArray.size(); i++ ) {
 				stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str()) );
 			}
-			if(stringArray.size()==0)
+			if(stringArray.size()==0)//added by yaoyansi, or it leads a crash on windows
 				stringArray.push_back( "" );
 
 			scoped_array< RtToken > ithTokenArray( new RtToken[ numTokens ] );
