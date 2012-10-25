@@ -330,24 +330,11 @@ liqRibTranslator::liqRibTranslator()
 	m_postShapeMel.clear();
 	liqglo.m_outputComments = false;
 	m_shaderDebug = false;
-	// raytracing
-	liqglo.rt_useRayTracing = false;
-	liqglo.rt_traceBreadthFactor = 1.0;
-	liqglo.rt_traceDepthFactor = 1.0;
-	liqglo.rt_traceMaxDepth = 10;
-	liqglo.rt_traceSpecularThreshold = 10.0;
-	liqglo.rt_traceRayContinuation = 1;
-	liqglo.rt_traceCacheMemory = 30720;
-	liqglo.rt_traceDisplacements = false;
-	liqglo.rt_traceSampleMotion = false;
-	liqglo.rt_traceBias = 0.05;
-	liqglo.rt_traceMaxDiffuseDepth = 2;
-	liqglo.rt_traceMaxSpecularDepth = 2;
-	liqglo.renderCamera.clear();
-	liqglo.liqglo_shotName.clear();
-	liqglo.liqglo_shotVersion.clear();
-	liqglo.liqglo_layer.clear();
-	originalLayer.clear();
+
+
+
+
+
 
 #ifdef AIR
 	m_renderCommand = "air";
@@ -401,9 +388,34 @@ liqRibTranslator::liqRibTranslator()
 	liqglo.liqglo_texturePath = "&:@:.:~:" + liqglo.liqglo_textureDir;
 	liqglo.liqglo_archivePath = "&:@:.:~:" + liqglo.liqglo_ribDir;
 	liqglo.liqglo_proceduralPath = "&:@:.:~";
+	liqglo.renderCamera.clear();
+	liqglo.liqglo_shotName.clear();
+	liqglo.liqglo_shotVersion.clear();
+	liqglo.liqglo_layer.clear();
+	originalLayer.clear();
 
+	// raytracing
+	liqglo.rt_useRayTracing = false;
+	liqglo.rt_traceBreadthFactor = 1.0;
+	liqglo.rt_traceDepthFactor = 1.0;
+	liqglo.rt_traceMaxDepth = 10;
+	liqglo.rt_traceSpecularThreshold = 10.0;
+	liqglo.rt_traceRayContinuation = 1;
+	liqglo.rt_traceCacheMemory = 30720;
+	liqglo.rt_traceDisplacements = false;
+	liqglo.rt_traceSampleMotion = false;
+	liqglo.rt_traceBias = 0.05;
+	liqglo.rt_traceMaxDiffuseDepth = 2;
+	liqglo.rt_traceMaxSpecularDepth = 2;
 
+  liqglo.rt_irradianceGlobalHandle="";
+  liqglo.rt_irradianceGlobalFileMode=0;
 
+  liqglo.rt_photonGlobalHandle = "";
+  liqglo.rt_causticGlobalHandle = "";
+  liqglo.rt_photonShadingModel = liqRibNode::photon::SHADINGMODEL_MATTE;
+  liqglo.rt_photonEstimator = 0;
+	
 	MString tmphome( getenv( "LIQUIDHOME" ) );
 	tmphome = liquidSanitizeSearchPath( tmphome );
 
@@ -7232,6 +7244,46 @@ MStatus liqRibTranslator::worldPrologue()
 				RiAttribute( "irradiance", (RtToken) "float maxerror", &liqglo.rt_irradianceMaxError, RI_NULL );
 			if( liqglo.rt_irradianceMaxPixelDist != -1.0 )
 				RiAttribute( "irradiance", (RtToken) "float maxpixeldist", &liqglo.rt_irradianceMaxPixelDist, RI_NULL );
+ 
+		// ymesh: add photon/caustic map attribites
+		  if (  liqglo.rt_photonGlobalHandle != "" || liqglo.rt_causticGlobalHandle != "") 
+		  {
+			MString parsedName = parseString( liqglo.rt_photonGlobalHandle, false );  //  doEscaped = false
+
+			RtString photon_map = const_cast< char* >( parsedName.asChar() );
+			RiAttribute( "photon", (RtToken) "globalmap", &photon_map, RI_NULL );
+        
+			parsedName = parseString( liqglo.rt_causticGlobalHandle, false );  //  doEscaped = false
+			RtString caustic_map = const_cast< char* >( parsedName.asChar() );
+			RiAttribute( "photon", (RtToken) "causticmap", &caustic_map, RI_NULL );
+      
+			RtString model;
+			switch ( liqglo.rt_photonShadingModel  ) 
+			{
+			  case liqRibNode::photon::SHADINGMODEL_GLASS:
+				model = "glass";
+				break;
+			  case liqRibNode::photon::SHADINGMODEL_WATER:
+				model = "water";
+				break;
+			  case liqRibNode::photon::SHADINGMODEL_CHROME:
+				model = "chrome";
+				break;
+			  case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
+				model = "chrome";
+				break;
+			  case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
+				model = "dielectric";
+				break;
+			  case liqRibNode::photon::SHADINGMODEL_MATTE:
+			  default:
+				model = "matte";
+			}
+			RiAttribute( "photon", (RtToken) "shadingmodel", &model, RI_NULL );
+      
+			RtInt estimator = liqglo.rt_photonEstimator;
+			RiAttribute( "photon", (RtToken) "estimator", &estimator, RI_NULL );
+		  }
 		}
 		// put in post-worldbegin statements
 		prePostplug = globalsNode.findPlug( "postWorldMel" );

@@ -133,6 +133,14 @@ struct liqGlobalVariable
 	RtFloat      rt_irradianceMaxError;
 	RtFloat      rt_irradianceMaxPixelDist;
 
+	MString      rt_irradianceGlobalHandle;
+	int          rt_irradianceGlobalFileMode;
+
+	MString      rt_photonGlobalHandle;
+	MString      rt_causticGlobalHandle;
+	int          rt_photonShadingModel;
+	int          rt_photonEstimator;
+
 	// Additionnal globals for organized people
 	MString      liqglo_shotName;
 	MString      liqglo_shotVersion;

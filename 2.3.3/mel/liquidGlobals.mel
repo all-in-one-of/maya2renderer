@@ -714,6 +714,10 @@ global proc liquidInitGlobalVals()
     ,"irradianceMaxPixelDist",      "float",  -1.0
     ,"irradianceHandle",            "string", ""
     ,"irradianceFileMode",          "long",   0
+    ,"photonGlobalHandle",          "string", ""
+    ,"causticGlobalHandle",         "string", ""
+    ,"phtonShadingModel",           "long",   0
+    ,"phtonEstimator",           "long",   0
 
     ,"useMtorSubdiv",               "bool",   "false"
     ,"hider",                       "long",   "0"
@@ -3222,6 +3226,14 @@ global proc liquidGlobalsRaysTab_buildIt( string $prefix )
           columnLayout -adj true;
             liquidShowStringGlobal  "irradianceHandle"   "File" $prefix;
             liquidShowIntGlobalMenu "irradianceFileMode" "Mode" {"Ignore", "Read", "Write"} $prefix;
+          setParent ..;
+        setParent ..;
+        frameLayout -bs "etchedIn" -l "Photon Map" -cll true -cl false;
+          columnLayout -adj true;
+            liquidShowStringGlobal  "photonGlobalHandle"   "Global Photon Map" $prefix;
+            liquidShowStringGlobal  "causticGlobalHandle"  "Global Caustic Map" $prefix;
+            liquidShowIntGlobalMenu "photonShadingModel" "Shading Model" {"Matte", "Glass", "Water", "Chrome", "Transparent", "Dialectric" } $prefix;
+            liquidShowIntGlobal   "photonEstimator" "Estimator";
           setParent ..;
         setParent ..;
       setParent ..;

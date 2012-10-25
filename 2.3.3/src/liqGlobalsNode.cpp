@@ -268,6 +268,11 @@ MObject liqGlobalsNode::aIrradianceMaxPixelDist;
 MObject liqGlobalsNode::aIrradianceHandle;
 MObject liqGlobalsNode::aIrradianceFileMode;
 
+MObject liqGlobalsNode::aPhotonGlobalHandle;
+MObject liqGlobalsNode::aCausticGlobalHandle;
+MObject liqGlobalsNode::aPhotonShadingModel;
+MObject liqGlobalsNode::aPhotonEstimator;
+
 MObject liqGlobalsNode::aUseMtorSubdiv;
 MObject liqGlobalsNode::aHider;
 MObject liqGlobalsNode::aJitter;
@@ -361,13 +366,15 @@ MObject liqGlobalsNode::aVerbosity;
 MObject liqGlobalsNode::aCurrentLayerRifParameters;
 MObject liqGlobalsNode::aRenderer;
 
+#define LIQ_GLOBALS_HIDE_ATTRIBUTES false
+
 #define CREATE_BOOL(attr, obj, name, shortName, default)    \
     obj = attr.create( name, shortName, MFnNumericData::kBoolean, default, &status); \
     CHECK_MSTATUS(attr.setKeyable(true));     \
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_BOOL(attr, obj, name, shortName, default)    \
@@ -377,7 +384,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_INT(attr, obj, name, shortName, default)    \
@@ -386,7 +393,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_INT(attr, obj, name, shortName, default)    \
@@ -396,7 +403,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_LONG(attr, obj, name, shortName, default)    \
@@ -405,7 +412,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_LONG(attr, obj, name, shortName, default)    \
@@ -415,7 +422,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_FLOAT(attr, obj, name, shortName, default)    \
@@ -424,7 +431,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_FLOAT(attr, obj, name, shortName, default)    \
@@ -434,7 +441,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_STRING(attr, obj, name, shortName, default)    \
@@ -443,7 +450,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));     \
 	CHECK_MSTATUS(attr.setDefault( stringData.create( MString( default ), &sstat ) ) ); \
 	CHECK_MSTATUS( sstat );					  \
     CHECK_MSTATUS(addAttribute(obj));
@@ -455,7 +462,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_COMP(attr, obj, name, shortName)    \
@@ -463,7 +470,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_STR_ARRAY(attr, obj, name, shortName)    \
@@ -473,7 +480,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_INT_ARRAY(attr, obj, name, shortName)    \
@@ -483,7 +490,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_COLOR( attr, obj, name, shortName, default1, default2, default3 )    \
@@ -493,7 +500,7 @@ MObject liqGlobalsNode::aRenderer;
     CHECK_MSTATUS(attr.setStorable(true));    \
     CHECK_MSTATUS(attr.setReadable(true));    \
     CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(true));      \
+    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
     CHECK_MSTATUS(addAttribute(obj));
 
 
@@ -726,6 +733,10 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_STRING( tAttr,  aIrradianceHandle,           "irradianceHandle",             "ih",     ""    );
 	CREATE_INT( nAttr,  aIrradianceFileMode,         "irradianceFileMode",           "ifm",    0     );
 
+  CREATE_STRING( tAttr,  aPhotonGlobalHandle,         "photonGlobalHandle",            "pgh",     ""    );
+  CREATE_STRING( tAttr,  aCausticGlobalHandle,        "causticGlobalHandle",           "cgh",     ""    );
+  CREATE_INT( nAttr,     aPhotonShadingModel,         "photonShadingModel",            "pshm",  0    );
+  CREATE_INT( nAttr,     aPhotonEstimator,            "photonEstimator",               "pest",  0    );
 	CREATE_BOOL( nAttr,  aUseMtorSubdiv,              "useMtorSubdiv",                "ums",    false );
 
 	CREATE_INT( nAttr,  aHider,                      "hider",                        "h",      0     );

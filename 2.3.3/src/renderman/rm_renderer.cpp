@@ -198,6 +198,46 @@ namespace renderman
 					RiAttribute( "irradiance", (RtToken) "float maxerror", &liqglo.rt_irradianceMaxError, RI_NULL );
 				if( liqglo.rt_irradianceMaxPixelDist != -1.0 )
 					RiAttribute( "irradiance", (RtToken) "float maxpixeldist", &liqglo.rt_irradianceMaxPixelDist, RI_NULL );
+
+				// ymesh: add photon/caustic map attribites
+				if (  liqglo.rt_photonGlobalHandle != "" || liqglo.rt_causticGlobalHandle != "") 
+				{
+					MString parsedName = parseString( liqglo.rt_photonGlobalHandle, false );  //  doEscaped = false
+
+					RtString photon_map = const_cast< char* >( parsedName.asChar() );
+					RiAttribute( "photon", (RtToken) "globalmap", &photon_map, RI_NULL );
+
+					parsedName = parseString( liqglo.rt_causticGlobalHandle, false );  //  doEscaped = false
+					RtString caustic_map = const_cast< char* >( parsedName.asChar() );
+					RiAttribute( "photon", (RtToken) "causticmap", &caustic_map, RI_NULL );
+
+					RtString model;
+					switch ( liqglo.rt_photonShadingModel  ) 
+					{
+					case liqRibNode::photon::SHADINGMODEL_GLASS:
+						model = "glass";
+						break;
+					case liqRibNode::photon::SHADINGMODEL_WATER:
+						model = "water";
+						break;
+					case liqRibNode::photon::SHADINGMODEL_CHROME:
+						model = "chrome";
+						break;
+					case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
+						model = "chrome";
+						break;
+					case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
+						model = "dielectric";
+						break;
+					case liqRibNode::photon::SHADINGMODEL_MATTE:
+					default:
+						model = "matte";
+					}
+					RiAttribute( "photon", (RtToken) "shadingmodel", &model, RI_NULL );
+
+					RtInt estimator = liqglo.rt_photonEstimator;
+					RiAttribute( "photon", (RtToken) "estimator", &estimator, RI_NULL );
+				}
 			}
 			// put in post-worldbegin statements
 			prePostplug = globalsNode.findPlug( "postWorldMel" );

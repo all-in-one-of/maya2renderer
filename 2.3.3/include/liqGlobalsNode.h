@@ -259,6 +259,10 @@ class liqGlobalsNode : public MPxNode
     static MObject aIrradianceMaxPixelDist;
     static MObject aIrradianceHandle;
     static MObject aIrradianceFileMode;
+    static MObject aPhotonGlobalHandle;
+    static MObject aCausticGlobalHandle;
+    static MObject aPhotonShadingModel;
+    static MObject aPhotonEstimator;
 
     static MObject aUseMtorSubdiv;
     static MObject aHider;
