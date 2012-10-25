@@ -585,12 +585,15 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RiAttributeBegin();
 
 
+  //ymesh omit this section, because liqShader::writeRibAttributes do this work in that branch
   float displacementBounds = 0.;
 	liquidGetPlugValue( assignedShader, "displacementBound", displacementBounds, status);
   
   if ( displacementBounds > 0. ) 
 	{
     RtString coordsys = "shader";
+	RiArchiveRecord( RI_COMMENT, "ymesh omit this section, because liqShader::writeRibAttributes do this work in that branch" );
+    RiAttribute( "displacementbound", "coordinatesystem", &coordsys, RI_NULL );	
     RiAttribute( "displacementbound", "sphere", &displacementBounds, "coordinatesystem", &coordsys, RI_NULL );
   }
 
