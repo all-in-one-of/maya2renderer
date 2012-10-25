@@ -3517,6 +3517,14 @@ MStatus liqRibTranslator::buildJobs()
 					{
 						liquidGetPlugValue( fnLightShaderNode, "pixelSamples", thisJob.shadowPixelSamples, status );
 						liquidGetPlugValue( fnLightShaderNode, "volumeInterpretation", thisJob.shadowVolumeInterpretation, status );
+						
+						thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+						thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+
+						int displayImageMode = 0; // 0 = default
+						liquidGetPlugValue( fnLightShaderNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
+						if ( displayImageMode ) thisJob.imageMode = MString( "deepprevdisttotal" );
+
 					}
 
 					// philippe : check the shadow rendering frequency
@@ -3777,6 +3785,9 @@ MStatus liqRibTranslator::buildJobs()
 						liquidGetPlugValue( shadowCamDepNode, "liqDeepShadows", thisJob.deepShadows, status );
 						liquidGetPlugValue( shadowCamDepNode, "liqPixelSamples", thisJob.shadowPixelSamples, status );
 						liquidGetPlugValue( shadowCamDepNode, "liqVolumeInterpretation", thisJob.shadowVolumeInterpretation, status );
+            int displayImageMode = 0; // 0 = default
+            liquidGetPlugValue( shadowCamDepNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
+            if ( displayImageMode ) thisJob.imageMode = MString( "deepprevdisttotal" );
 						liquidGetPlugValue( shadowCamDepNode, "liqEveryFrame", thisJob.everyFrame, status );
 						// as previously : this is important as thisJob.renderFrame corresponds to the
 						// scene scanning time.
@@ -3827,6 +3838,14 @@ MStatus liqRibTranslator::buildJobs()
 				{
 					fnCameraNode.findPlug( "pixelSamples" ).getValue( thisJob.shadowPixelSamples );
 					fnCameraNode.findPlug( "volumeInterpretation" ).getValue( thisJob.shadowVolumeInterpretation );
+					
+					  thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+					  thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+
+					  int displayImageMode = 0; // 0 = default
+					  fnCameraNode.findPlug( "liqDeepShadowsDisplayMode" ).getValue( displayImageMode );
+					  if ( displayImageMode )
+						  thisJob.imageMode = MString("deepprevdisttotal");
 				}
 
 				thisJob.hasShadowCam = true;

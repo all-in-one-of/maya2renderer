@@ -173,6 +173,14 @@ MStatus tLightMgr::buildShadowJob(
 				{
 					liquidGetPlugValue( fnLightShaderNode, "pixelSamples", thisJob___.shadowPixelSamples, status__ );
 					liquidGetPlugValue( fnLightShaderNode, "volumeInterpretation", thisJob___.shadowVolumeInterpretation, status__ );
+
+					thisJob___.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+					thisJob___.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+
+					int displayImageMode = 0; // 0 = default
+					liquidGetPlugValue( fnLightShaderNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
+					if ( displayImageMode ) thisJob___.imageMode = MString( "deepprevdisttotal" );
+
 				}
 
 				// philippe : check the shadow rendering frequency
@@ -206,6 +214,14 @@ MStatus tLightMgr::buildShadowJob(
 				{
 					liquidGetPlugValue( fnLightNode, "pixelSamples", thisJob___.shadowPixelSamples, status__ );
 					liquidGetPlugValue( fnLightNode, "volumeInterpretation", thisJob___.shadowVolumeInterpretation, status__ );
+				
+					thisJob___.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+					thisJob___.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+
+					int displayImageMode = 0; // 0 = default
+					liquidGetPlugValue( fnLightNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
+					if ( displayImageMode ) thisJob___.imageMode = MString( "deepprevdisttotal" );
+
 				}
 				liquidGetPlugValue( fnLightNode, "everyFrame", thisJob___.everyFrame, status__ );
 				if( !thisJob___.everyFrame ) 
@@ -266,6 +282,12 @@ MStatus tLightMgr::buildShadowJob(
 				liquidGetPlugValue( shadowCamDepNode, "liqDeepShadows", thisJob___.deepShadows, status__ );
 				liquidGetPlugValue( shadowCamDepNode, "liqPixelSamples", thisJob___.shadowPixelSamples, status__ );
 				liquidGetPlugValue( shadowCamDepNode, "liqVolumeInterpretation", thisJob___.shadowVolumeInterpretation, status__ );
+				
+				int displayImageMode = 0; // 0 = default
+				liquidGetPlugValue( shadowCamDepNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
+				if ( displayImageMode ) 
+					thisJob___.imageMode = MString( "deepprevdisttotal" );
+
 				liquidGetPlugValue( shadowCamDepNode, "liqEveryFrame", thisJob___.everyFrame, status__ );
 				// as previously : this is important as thisJob.renderFrame corresponds to the
 				// scene scanning time.
@@ -326,6 +348,15 @@ MStatus tLightMgr::buildShadowCameraJob(
 			{
 				fnCameraNode.findPlug( "pixelSamples" ).getValue( thisJob___.shadowPixelSamples );
 				fnCameraNode.findPlug( "volumeInterpretation" ).getValue( thisJob___.shadowVolumeInterpretation );
+			
+				thisJob___.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+				thisJob___.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+
+				int displayImageMode = 0; // 0 = default
+				fnCameraNode.findPlug( "liqDeepShadowsDisplayMode" ).getValue( displayImageMode );
+				if ( displayImageMode )
+					thisJob___.imageMode = MString("deepprevdisttotal");
+
 			}
 
 			thisJob___.hasShadowCam = true;

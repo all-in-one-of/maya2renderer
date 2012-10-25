@@ -88,6 +88,7 @@ MObject liqLightNode::aGenerateMainShadow;
 MObject liqLightNode::aDeepShadows;
 MObject liqLightNode::aPixelSamples;
 MObject liqLightNode::aVolumeInterpretation;
+MObject liqLightNode::aDeepShadowsDisplayMode;
 MObject liqLightNode::aEveryFrame;
 MObject liqLightNode::aRenderAtFrame;
 MObject liqLightNode::aAggregateShadowMaps;
@@ -246,6 +247,10 @@ MStatus liqLightNode::initialize()
   eAttr.addField( "Discreet",  0 );
   eAttr.addField( "Continuous", 1 );
   MAKE_INPUT(eAttr);
+  aDeepShadowsDisplayMode = eAttr.create( "liqDeepShadowsDisplayMode", "dshdm", 0, &status );
+  eAttr.addField( "Default",  0 );
+  eAttr.addField( "deepprevdisttotal", 1 );
+  MAKE_INPUT(eAttr);
   aEveryFrame = nAttr.create( "everyFrame", "ef", MFnNumericData::kBoolean, 1.0, &status );
   MAKE_NONKEYABLE_INPUT(nAttr);
   aRenderAtFrame = nAttr.create( "renderAtFrame", "raf", MFnNumericData::kInt, 0, &status );
@@ -310,6 +315,7 @@ MStatus liqLightNode::initialize()
   CHECK_MSTATUS(addAttribute(aDeepShadows));
   CHECK_MSTATUS(addAttribute(aPixelSamples));
   CHECK_MSTATUS(addAttribute(aVolumeInterpretation));
+   CHECK_MSTATUS(addAttribute(aDeepShadowsDisplayMode));
   CHECK_MSTATUS(addAttribute(aEveryFrame));
   CHECK_MSTATUS(addAttribute(aRenderAtFrame));
   CHECK_MSTATUS(addAttribute(aAggregateShadowMaps));

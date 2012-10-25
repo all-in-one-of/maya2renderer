@@ -261,6 +261,7 @@ MStatus liqDisplacementNode::initialize()
   CHECK_MSTATUS(addAttribute(aRmanMethods));
   CHECK_MSTATUS(addAttribute(aRmanIsOutput));
   CHECK_MSTATUS(addAttribute(aRmanAccept));
+  CHECK_MSTATUS(addAttribute(aPreviewGamma));
 
   CHECK_MSTATUS(addAttribute(aPreviewPrimitive));
   CHECK_MSTATUS(addAttribute(aPreviewCustomPrimitive));

@@ -85,6 +85,7 @@ class liqLightNode : public MPxNode
     static MObject aDeepShadows;
     static MObject aPixelSamples;
     static MObject aVolumeInterpretation;
+	static MObject aDeepShadowsDisplayMode;
     static MObject aEveryFrame;
     static MObject aRenderAtFrame;
     static MObject aAggregateShadowMaps;

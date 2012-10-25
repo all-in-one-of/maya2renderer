@@ -340,6 +340,7 @@ global proc mainShadowStatusReplace( string $nodeDotAttr )
   editorTemplate -dimControl $node  "deepShadows"            $state;
   editorTemplate -dimControl $node  "pixelSamples"           $state;
   editorTemplate -dimControl $node  "volumeInterpretation"   $state;
+  editorTemplate -dimControl $node  "liqDeepShadowsDisplayMode"   $state;
   editorTemplate -dimControl $node  "everyFrame"             $state;
   editorTemplate -dimControl $node  "renderAtFrame"          $state;
   editorTemplate -dimControl $node  "geometrySet"            $state;
@@ -389,6 +390,7 @@ global proc AEliquidLightTemplate( string $nodeDotAttr )
       editorTemplate -addControl "deepShadows";
       editorTemplate -addControl "pixelSamples";
       editorTemplate -addControl "volumeInterpretation";
+      editorTemplate -label "Display Mode" -addControl "liqDeepShadowsDisplayMode";
       editorTemplate -addSeparator;
       editorTemplate -addControl "everyFrame";
       editorTemplate -addControl "renderAtFrame";
@@ -401,6 +403,7 @@ global proc AEliquidLightTemplate( string $nodeDotAttr )
       editorTemplate -ccu "mainShadowStatusNew" "mainShadowStatusReplace" "generateMainShadow";
     editorTemplate -endLayout;
     editorTemplate -beginLayout "Extra Shadows";
+      editorTemplate -label "Aggregate Shadow Maps" -addDynamicControl "aggregateShadowMaps";
       editorTemplate -ccu "shadowCameraNew" "shadowCameraReplace" "shadowCameras";
     editorTemplate -endLayout;
 
