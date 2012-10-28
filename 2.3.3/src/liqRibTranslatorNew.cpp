@@ -155,7 +155,7 @@ MStatus liqRibTranslator::_doItNew( const MArgList& args , const MString& origin
 // 			m_renderCommand = m_renderCommand + " -Progress";
 	//[refactor][1.1 end] from _doItNew()
 
-	if( !liqglo.m_deferredGen && m_justRib ) 
+	if( (!liqglo.m_deferredGen && m_justRib) || liqglo.m_exportReadArchive )
 		useRenderScript = false;
 	liquidMessage2(messageInfo,"useRenderScript=%d", useRenderScript);
 

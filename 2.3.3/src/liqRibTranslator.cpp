@@ -1648,7 +1648,7 @@ MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& j
 	ss << "." << fileExt.asChar() ;
 
 	filename = liquidSanitizePath( ss.str() ).c_str();
-	filename = liquidGetRelativePath( false, filename, liqglo.liqglo_projectDir );//r776
+	filename = liquidGetRelativePath( false, filename, liqglo.liqglo_projectDir );
 
 	//cerr << "liqRibTranslator::generateFileName( " << debug.asChar() << " ) -> " << filename.asChar() << endl;
 	LIQDEBUGPRINTF( "liqRibTranslator::generateFileName(%s) -> %s\n", debug.asChar(), filename.asChar() );
@@ -2019,7 +2019,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 			MFileIO::exportAll( tempDefname, currentFileType.asChar() );
 		}
 
-		if( !liqglo.m_deferredGen && m_justRib ) 
+		if( (!liqglo.m_deferredGen && m_justRib) || liqglo.m_exportReadArchive ) 
 			useRenderScript = false;
 
 		liqRenderScript jobScript;
