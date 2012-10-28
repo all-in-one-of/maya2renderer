@@ -278,6 +278,7 @@ liqRibTranslator::liqRibTranslator()
 	m_useFrameExt = true;  // Use frame extensions
 
 	liqglo.liqglo_motionSamples = 2;
+	liqglo.liqglo_motionFactor = 1.0f;
 	liqglo.liqglo_FPS = 24.0;
 	width = 360;
 	height = 243;

@@ -75,6 +75,7 @@ struct liqGlobalVariable
 	RtFloat      liqglo_sampleTimes[LIQMAXMOTIONSAMPLES]; // current sample times
 	RtFloat      liqglo_sampleTimesOffsets[LIQMAXMOTIONSAMPLES]; // current sample times (as offsets from frame)
 	int          liqglo_motionSamples;                    // used to assign more than two motion blur samples!
+	float        liqglo_motionFactor;
 	float        liqglo_shutterTime;
 	float        liqglo_shutterEfficiency;
 	bool         liqglo_doShadows;                        // Kept global for liquidRigLightData

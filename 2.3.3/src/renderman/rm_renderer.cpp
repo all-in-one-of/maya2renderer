@@ -778,7 +778,8 @@ namespace renderman
 			if( liqglo.m_bakeNoCullHidden )
 				RiAttribute( "cull","int hidden", &zero, RI_NULL );
 		}
-
+		if ( liqglo.liqglo_doMotion ) 
+			RiGeometricApproximation( "motionfactor", liqglo.liqglo_motionFactor );
 		return MStatus::kSuccess;
 	}
 	void Renderer::ribPrologue_writeSearthPath()
