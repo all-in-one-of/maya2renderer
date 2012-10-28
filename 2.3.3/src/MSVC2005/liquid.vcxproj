@@ -2310,6 +2310,8 @@
     <ClCompile Include="..\liqRibSubdivisionData.cpp" />
     <ClCompile Include="..\liqRibSurfaceData.cpp" />
     <ClCompile Include="..\liqRibTranslator.cpp" />
+    <ClCompile Include="..\liqRibTranslatorArgs.cpp" />
+    <ClCompile Include="..\liqRibTranslatorGlobals.cpp" />
     <ClCompile Include="..\liqRibTranslatorNew.cpp" />
     <ClCompile Include="..\liqRiCommands.cpp" />
     <ClCompile Include="..\liqShader.cpp" />

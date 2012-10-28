@@ -176,29 +176,6 @@ void liqRibTranslator::printProgress( unsigned stat, unsigned numFrames, unsigne
 }
 
 /**
-* Checks to see if the liquidGlobals are available.
-*/
-bool liqRibTranslator::liquidInitGlobals()
-{
-	//CM_TRACE_FUNC("liqRibTranslator::liquidInitGlobals()");
-
-	//trace log is not created, can't call CM_TRACE_FUNC("liqRibTranslator::liquidInitGlobals()");
-	MStatus status;
-	MSelectionList rGlobalList;
-	status = rGlobalList.add( "liquidGlobals" );
-	if( rGlobalList.length() > 0 ) 
-	{
-		status.clear();
-		status = rGlobalList.getDependNode( 0, liqglo.rGlobalObj );
-		if( status == MS::kSuccess ) 
-			return true;
-		else 
-			return false;
-	} 
-	return false;
-}
-
-/**
 * Class constructor.
 */
 liqRibTranslator::liqRibTranslator()
@@ -468,870 +445,870 @@ void liqRibTranslatorErrorHandler( RtInt code, RtInt severity, const char* messa
 	throw error;
 }
 
-MSyntax liqRibTranslator::syntax()
-{
-	//CM_TRACE_FUNC("liqRibTranslator::syntax()");
+// MSyntax liqRibTranslator::syntax()
+// {
+// 	//CM_TRACE_FUNC("liqRibTranslator::syntax()");
 
-	MSyntax syntax;
+// 	MSyntax syntax;
 
-	syntax.addFlag("lr",    "launchRender");
-	syntax.addFlag("nolr",  "noLaunchRender");
-	syntax.addFlag("GL",    "useGlobals");
-	syntax.addFlag("sel",   "selected");
-	syntax.addFlag("ra",    "readArchive");
-	syntax.addFlag("acv",   "allCurves");
-	syntax.addFlag("tif",   "tiff");
-	syntax.addFlag("dof",   "dofOn");
-	syntax.addFlag("bin",   "doBinary");
-	syntax.addFlag("sh",    "shadows");
-	syntax.addFlag("nsh",   "noShadows");
-	syntax.addFlag("zip",   "doCompression");
-	syntax.addFlag("cln",   "cleanRib");
-	syntax.addFlag("pro",   "progress");
-	syntax.addFlag("mb",    "motionBlur");
-	syntax.addFlag("rmot",  "relativeMotion");
-	syntax.addFlag("db",    "deformationBlur");
-	syntax.addFlag("d",     "debug");
-	syntax.addFlag("net",   "netRender");
-	syntax.addFlag("fsr",   "fullShadowRib");
-	syntax.addFlag("rem",   "remote");
-	syntax.addFlag("rs",    "renderScript");
-	syntax.addFlag("nrs",   "noRenderScript");
-	syntax.addFlag("err",   "errHandler");
-	syntax.addFlag("sdb",   "shaderDebug");
-	syntax.addFlag("n",     "sequence",         MSyntax::kLong, MSyntax::kLong, MSyntax::kLong);
-	syntax.addFlag("fl",    "frameList",        MSyntax::kString);
-	syntax.addFlag("m",     "mbSamples",        MSyntax::kLong);
-	syntax.addFlag("dbs",   "defBlock");
-	syntax.addFlag("cam",   "camera",           MSyntax::kString);
-	syntax.addFlag("rcam",  "rotateCamera");
-	syntax.addFlag("s",     "samples",          MSyntax::kLong);
-	syntax.addFlag("rnm",   "ribName",          MSyntax::kString);
-	syntax.addFlag("pd",    "projectDir",       MSyntax::kString);
-	syntax.addFlag("rel",   "relativeDirs");
-	syntax.addFlag("prm",   "preFrameMel",      MSyntax::kString);
-	syntax.addFlag("pom",   "postFrameMel",     MSyntax::kString);
-	syntax.addFlag("rid",   "ribdir",           MSyntax::kString);
-	syntax.addFlag("txd",   "texdir",           MSyntax::kString);
-	syntax.addFlag("tmd",   "tmpdir",           MSyntax::kString);
-	syntax.addFlag("pid",   "picdir",           MSyntax::kString);
-	syntax.addFlag("pec",   "preCommand",       MSyntax::kString);
-	syntax.addFlag("poc",   "postJobCommand",   MSyntax::kString);
-	syntax.addFlag("pof",   "postFrameCommand", MSyntax::kString);
-	syntax.addFlag("prf",   "preFrameCommand",  MSyntax::kString);
-	syntax.addFlag("rec",   "renderCommand",    MSyntax::kString);
-	syntax.addFlag("rgc",   "ribgenCommand",    MSyntax::kString);
-	syntax.addFlag("blt",   "blurTime",         MSyntax::kDouble);
-	syntax.addFlag("sr",    "shadingRate",      MSyntax::kDouble);
-	syntax.addFlag("bs",    "bucketSize",       MSyntax::kLong, MSyntax::kLong);
-	syntax.addFlag("pf",    "pixelFilter",      MSyntax::kLong, MSyntax::kLong, MSyntax::kLong);
-	syntax.addFlag("gs",    "gridSize",         MSyntax::kLong);
-	syntax.addFlag("txm",   "texmem",           MSyntax::kLong);
-	syntax.addFlag("es",    "eyeSplits",        MSyntax::kLong);
-	syntax.addFlag("ar",    "aspect",           MSyntax::kDouble);
-	syntax.addFlag("x",     "width",            MSyntax::kLong);
-	syntax.addFlag("y",     "height",           MSyntax::kLong);
-	syntax.addFlag("cw",    "cropWindow",       MSyntax::kLong, MSyntax::kLong, MSyntax::kLong, MSyntax::kLong);
-	syntax.addFlag("def",   "deferred");
-	syntax.addFlag("ndf",   "noDef");
-	syntax.addFlag("pad",   "padding",          MSyntax::kLong);
-	syntax.addFlag("rgo",   "ribGenOnly");
-	syntax.addFlag("sfso",  "singleFrameShadowsOnly");
-	syntax.addFlag("nsfs",  "noSingleFrameShadows");
-	syntax.addFlag("rv",    "renderView");
-	syntax.addFlag("rvl",   "renderViewlocal");
-	syntax.addFlag("rvp",   "renderViewPort",  MSyntax::kLong);
-	syntax.addFlag("shn",   "shotName",        MSyntax::kString);
-	syntax.addFlag("shv",   "shotVersion",     MSyntax::kString);
-	syntax.addFlag("lyr",   "layer",           MSyntax::kString);
-//	syntax.addFlag("lrp",   "currentLayerRifParameters",           MSyntax::kString);
-	syntax.addFlag("obl",   "objectList", MSyntax::kString, MSyntax::kString, MSyntax::kString, MSyntax::kString, MSyntax::kString, MSyntax::kString);
-	syntax.addFlag("oob",   "onlyObjectBlock");
-	syntax.addFlag("igs",   "ignoreSurfaces");
-	syntax.addFlag("no_igs","noIgnoreSurfaces");
-	syntax.addFlag("igd",   "ignoreDisplacements");
-	syntax.addFlag("no_igd","noIgnoreDisplacements");
-	syntax.addFlag("igv",   "ignoreVolumes");
-	syntax.addFlag("no_igv","noIgnoreVolumes");
-	syntax.addFlag("no_ufe","noUseFrameExtension");
-	syntax.addFlag("skv",   "skipVisibilityAttributes");
-	syntax.addFlag("sks",   "skipShadingAttributes");
-	syntax.addFlag("skr",   "skipRayTraceAttributes");
+// 	syntax.addFlag("lr",    "launchRender");
+// 	syntax.addFlag("nolr",  "noLaunchRender");
+// 	syntax.addFlag("GL",    "useGlobals");
+// 	syntax.addFlag("sel",   "selected");
+// 	syntax.addFlag("ra",    "readArchive");
+// 	syntax.addFlag("acv",   "allCurves");
+// 	syntax.addFlag("tif",   "tiff");
+// 	syntax.addFlag("dof",   "dofOn");
+// 	syntax.addFlag("bin",   "doBinary");
+// 	syntax.addFlag("sh",    "shadows");
+// 	syntax.addFlag("nsh",   "noShadows");
+// 	syntax.addFlag("zip",   "doCompression");
+// 	syntax.addFlag("cln",   "cleanRib");
+// 	syntax.addFlag("pro",   "progress");
+// 	syntax.addFlag("mb",    "motionBlur");
+// 	syntax.addFlag("rmot",  "relativeMotion");
+// 	syntax.addFlag("db",    "deformationBlur");
+// 	syntax.addFlag("d",     "debug");
+// 	syntax.addFlag("net",   "netRender");
+// 	syntax.addFlag("fsr",   "fullShadowRib");
+// 	syntax.addFlag("rem",   "remote");
+// 	syntax.addFlag("rs",    "renderScript");
+// 	syntax.addFlag("nrs",   "noRenderScript");
+// 	syntax.addFlag("err",   "errHandler");
+// 	syntax.addFlag("sdb",   "shaderDebug");
+// 	syntax.addFlag("n",     "sequence",         MSyntax::kLong, MSyntax::kLong, MSyntax::kLong);
+// 	syntax.addFlag("fl",    "frameList",        MSyntax::kString);
+// 	syntax.addFlag("m",     "mbSamples",        MSyntax::kLong);
+// 	syntax.addFlag("dbs",   "defBlock");
+// 	syntax.addFlag("cam",   "camera",           MSyntax::kString);
+// 	syntax.addFlag("rcam",  "rotateCamera");
+// 	syntax.addFlag("s",     "samples",          MSyntax::kLong);
+// 	syntax.addFlag("rnm",   "ribName",          MSyntax::kString);
+// 	syntax.addFlag("pd",    "projectDir",       MSyntax::kString);
+// 	syntax.addFlag("rel",   "relativeDirs");
+// 	syntax.addFlag("prm",   "preFrameMel",      MSyntax::kString);
+// 	syntax.addFlag("pom",   "postFrameMel",     MSyntax::kString);
+// 	syntax.addFlag("rid",   "ribdir",           MSyntax::kString);
+// 	syntax.addFlag("txd",   "texdir",           MSyntax::kString);
+// 	syntax.addFlag("tmd",   "tmpdir",           MSyntax::kString);
+// 	syntax.addFlag("pid",   "picdir",           MSyntax::kString);
+// 	syntax.addFlag("pec",   "preCommand",       MSyntax::kString);
+// 	syntax.addFlag("poc",   "postJobCommand",   MSyntax::kString);
+// 	syntax.addFlag("pof",   "postFrameCommand", MSyntax::kString);
+// 	syntax.addFlag("prf",   "preFrameCommand",  MSyntax::kString);
+// 	syntax.addFlag("rec",   "renderCommand",    MSyntax::kString);
+// 	syntax.addFlag("rgc",   "ribgenCommand",    MSyntax::kString);
+// 	syntax.addFlag("blt",   "blurTime",         MSyntax::kDouble);
+// 	syntax.addFlag("sr",    "shadingRate",      MSyntax::kDouble);
+// 	syntax.addFlag("bs",    "bucketSize",       MSyntax::kLong, MSyntax::kLong);
+// 	syntax.addFlag("pf",    "pixelFilter",      MSyntax::kLong, MSyntax::kLong, MSyntax::kLong);
+// 	syntax.addFlag("gs",    "gridSize",         MSyntax::kLong);
+// 	syntax.addFlag("txm",   "texmem",           MSyntax::kLong);
+// 	syntax.addFlag("es",    "eyeSplits",        MSyntax::kLong);
+// 	syntax.addFlag("ar",    "aspect",           MSyntax::kDouble);
+// 	syntax.addFlag("x",     "width",            MSyntax::kLong);
+// 	syntax.addFlag("y",     "height",           MSyntax::kLong);
+// 	syntax.addFlag("cw",    "cropWindow",       MSyntax::kLong, MSyntax::kLong, MSyntax::kLong, MSyntax::kLong);
+// 	syntax.addFlag("def",   "deferred");
+// 	syntax.addFlag("ndf",   "noDef");
+// 	syntax.addFlag("pad",   "padding",          MSyntax::kLong);
+// 	syntax.addFlag("rgo",   "ribGenOnly");
+// 	syntax.addFlag("sfso",  "singleFrameShadowsOnly");
+// 	syntax.addFlag("nsfs",  "noSingleFrameShadows");
+// 	syntax.addFlag("rv",    "renderView");
+// 	syntax.addFlag("rvl",   "renderViewlocal");
+// 	syntax.addFlag("rvp",   "renderViewPort",  MSyntax::kLong);
+// 	syntax.addFlag("shn",   "shotName",        MSyntax::kString);
+// 	syntax.addFlag("shv",   "shotVersion",     MSyntax::kString);
+// 	syntax.addFlag("lyr",   "layer",           MSyntax::kString);
+// //	syntax.addFlag("lrp",   "currentLayerRifParameters",           MSyntax::kString);
+// 	syntax.addFlag("obl",   "objectList", MSyntax::kString, MSyntax::kString, MSyntax::kString, MSyntax::kString, MSyntax::kString, MSyntax::kString);
+// 	syntax.addFlag("oob",   "onlyObjectBlock");
+// 	syntax.addFlag("igs",   "ignoreSurfaces");
+// 	syntax.addFlag("no_igs","noIgnoreSurfaces");
+// 	syntax.addFlag("igd",   "ignoreDisplacements");
+// 	syntax.addFlag("no_igd","noIgnoreDisplacements");
+// 	syntax.addFlag("igv",   "ignoreVolumes");
+// 	syntax.addFlag("no_igv","noIgnoreVolumes");
+// 	syntax.addFlag("no_ufe","noUseFrameExtension");
+// 	syntax.addFlag("skv",   "skipVisibilityAttributes");
+// 	syntax.addFlag("sks",   "skipShadingAttributes");
+// 	syntax.addFlag("skr",   "skipRayTraceAttributes");
 
-	syntax.addFlag("easp",   "exportAllShadersParams");
-	syntax.addFlag("rhcn",   "ribHasCameraName");
-	return syntax;
-}
+// 	syntax.addFlag("easp",   "exportAllShadersParams");
+// 	syntax.addFlag("rhcn",   "ribHasCameraName");
+// 	return syntax;
+// }
 
 /**
 * Read the values from the command line and set the internal values.
 */
-MStatus liqRibTranslator::liquidDoArgs( MArgList args )
-{
-	//CM_TRACE_FUNC("liqRibTranslator::liquidDoArgs(args)");
-
-	MStatus status;
-	MString argValue;
-
-	LIQDEBUGPRINTF( "-> processing arguments\n" );
-
-	// Parse the arguments and set the options.
-	if( args.length() == 0 ) 
-	{
-		liquidMessage( "Doing nothing, no parameters given", messageError );
-		return MS::kFailure;
-	}
-	// find the activeView for previews;
-	width        = M3dView::active3dView().portWidth();
-	height       = M3dView::active3dView().portHeight();
-
-	// get the current project directory
-	MString MELCommand = "workspace -q -rd";
-	MString MELReturn;
-	MGlobal::executeCommand( MELCommand, MELReturn );
-	liqglo.liqglo_projectDir = MELReturn;
-
-	// get the current scene name
-	//liqglo.liqglo_sceneName = liquidTransGetSceneName();//omitted by yaoyansi
-
-	// setup default animation parameters
-	liqglo.frameNumbers.push_back( ( int )MAnimControl::currentTime().as( MTime::uiUnit() ) );
-
-	// check to see if the correct project directory was found
-	/*if( !fileFullyAccessible( liqglo_projectDir ) ) {
-	liqglo_projectDir = m_systemTempDirectory;
-	liquidMessage( "Trying to set project directory to system temp directory '" + string( liqglo_projectDir.asChar() ) + "'.", messageWarning );
-	}*/
-	LIQ_ADD_SLASH_IF_NEEDED( liqglo.liqglo_projectDir );
-	if( !fileFullyAccessible( liqglo.liqglo_projectDir ) ) 
-	{
-		liquidMessage( "Cannot find project directory, '" + string( liqglo.liqglo_projectDir.asChar() ) + "'. Defaulting to system temp directory!", messageWarning );
-		liqglo.liqglo_projectDir = m_systemTempDirectory;
-	}
-
-	bool GL_read( false );
-
-	for( unsigned i( 0 ); i < args.length(); i++ ) 
-	{
-		MString arg = args.asString( i, &status );
-		MString err, err_fmt = "error in ^1s parameter";
-		err.format( err_fmt, arg);
-		LIQCHECKSTATUS(status, err );
-
-		if((arg == "-lr") || (arg == "-launchRender"))			liqglo.launchRender = true;
-		else if((arg == "-nolr") || (arg == "-noLaunchRender")) liqglo.launchRender = false;
-		else if((arg == "-GL") || (arg == "-useGlobals")) 
-		{
-			//load up all the render global parameters!
-			if( liquidInitGlobals() && !GL_read ) 
-				liquidReadGlobals();
-			GL_read = true;
-		} 
-		else if((arg == "-sel") || (arg == "-selected"))		m_renderSelected = true;
-		else if((arg == "-ra") || (arg == "-readArchive"))		liqglo.m_exportReadArchive = true;
-		else if((arg == "-acv") || (arg == "-allCurves"))		liqglo.liqglo_renderAllCurves = true;
-		else if((arg == "-tif") || (arg == "-tiff"))			liqglo.outFormat = "tiff";
-		else if((arg == "-dof") || (arg == "-dofOn"))			liqglo.doDof = true;
-		else if((arg == "-bin") || (arg == "-doBinary"))		liqglo.liqglo_doBinary = true;
-		else if((arg == "-sh") || (arg == "-shadows"))			liqglo.liqglo_doShadows = true;
-		else if((arg == "-nsh") || (arg == "-noShadows"))		liqglo.liqglo_doShadows = false;
-		else if((arg == "-zip") || (arg == "-doCompression"))	liqglo.liqglo_doCompression = true;
-		else if((arg == "-cln") || (arg == "-cleanRib"))		liqglo.cleanRib = true;
-		else if((arg == "-cmd") || (arg == "-createMissingDirs")) createOutputDirectories = true;
-		else if((arg == "-pro") || (arg == "-progress"))		m_showProgress = true;
-		else if((arg == "-mb") || (arg == "-motionBlur"))		liqglo.liqglo_doMotion = true;
-		else if((arg == "-db") || (arg == "-deformationBlur"))	liqglo.liqglo_doDef = true;
-		else if((arg == "-d") || (arg == "-debug"))				debugMode = 1;
-		else if((arg == "-net") || (arg == "-netRender"))		liqglo.useNetRman = true;
-		else if((arg == "-fsr") || (arg == "-fullShadowRib"))	liqglo.fullShadowRib = true;
-		else if((arg == "-rem") || (arg == "-remote"))			liqglo.remoteRender = true;
-		else if((arg == "-rs") || (arg == "-renderScript"))		useRenderScript = true;
-		else if((arg == "-nrs") || (arg == "-noRenderScript"))	useRenderScript = false;
-		else if((arg == "-err") || (arg == "-errHandler"))		m_errorMode = 1;
-		else if((arg == "-sdb") || (arg == "-shaderDebug"))		m_shaderDebug = true;
-		else if((arg == "-rmot") || (arg == "-relativeMotion"))	liqglo.liqglo_relativeMotion = true;
-		else if((arg == "-rcam") || (arg == "-rotateCamera"))	liqglo.liqglo_rotateCamera = true;
-		else if((arg == "-rel") || (arg == "-relativeDirs"))	liqglo.liqglo_relativeFileNames = true;
-		else if((arg == "-def") || (arg == "-deferred"))		liqglo.m_deferredGen = true;
-		else if((arg == "-ndf") || (arg == "-noDef"))			liqglo.m_deferredGen = false;
-		else if((arg == "-rgo") || (arg == "-ribGenOnly"))		m_justRib = true;
-		else if((arg == "-rv") || (arg == "-renderView"))		liqglo.m_renderView = true;
-		else if((arg == "-rvl") || (arg == "-renderViewLocal")) liqglo.m_renderViewLocal = true;
-		else if((arg == "-nsfs") || (arg == "-noSingleFrameShadows")) liqglo.liqglo_noSingleFrameShadows = true;
-		else if((arg == "-sfso") || (arg == "-singleFrameShadowsOnly"))liqglo.liqglo_singleFrameShadowsOnly = true;
-		else if((arg == "-shn") || (arg == "-shotName"))		liqglo.liqglo_shotName = args.asString( i, &status );
-		else if((arg == "-shv") || (arg == "-shotVersion"))		liqglo.liqglo_shotVersion = args.asString( i, &status );
-		else if((arg == "-n") || (arg == "-sequence")) 
-		{
-			int first( argValue.asInt() );
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			int last( argValue.asInt() );
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			int step( argValue.asInt() );
-			LIQCHECKSTATUS(status, err);
-			m_animation = true;
-			if( first > last ) 
-				step = -abs( step );
-			// Fill our vector with frames
-			liqglo.frameNumbers.clear();
-			for ( int frame( first ); frame <= last; frame += step ) 
-				liqglo.frameNumbers.push_back( frame );
-		} 
-		else if((arg == "-fl") || (arg == "-frameList") || (arg == "-t") || (arg == "-timeRange") || (arg == "--timerange")) 
-		{
-			argValue = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-			// fill our vector with frames
-			liqglo.frameNumbers = generateFrameNumbers( string( argValue.asChar() ) );
-			if( liqglo.frameNumbers.size() ) { 
-				m_animation = true;
-				//liquidMessage2(messageInfo, ">>> render frames: ");
-				//for( unsigned i(0) ; i < frameNumbers.size() ; i++ )
-				//  liquidMessage2(messageInfo, "%d ", frameNumbers[i] );
-				//liquidMessage2(messageInfo, "\n");
-			}
-		} 
-		else if((arg == "-m") || (arg == "-mbSamples")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.liqglo_motionSamples = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-dbs") || (arg == "-defBlock")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.m_deferredBlockSize = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-cam") || (arg == "-camera")) 
-		{
-			MString parsingString = args.asString( ++i, &status );
-			liqglo.renderCamera = parseString( parsingString );
-			liqglo.liqglo_renderCamera = liqglo.renderCamera;
-			LIQCHECKSTATUS(status, err);
-		} 
-
-		else if((arg == "-s") || (arg == "-samples")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.pixelSamples = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-rnm") || (arg == "-ribName")) 
-		{
-			MString parsingString = args.asString( ++i, &status );;
-			//Note:  -ribName is set to liqglo.liqglo_sceneName originally. 
-			//       Because we replace liqglo.liqglo_sceneName with liquidTransGetSceneName(), and delete liqglo.liqglo_sceneName,
-			//       we use liqglo.liqglo_ribName to store the ribName which passed by commandline parameter '-ribName'
-			//  [2/17/2012 yaoyansi]
-			assert(0&&"warrning: ribName is store in liqglo.liqglo_ribName instead of liqglo.liqglo_sceneName.[2/17/2012 yaoyansi]");
-#if 0
-			liqglo.liqglo_sceneName = parseString( parsingString );//liquidMaya r772 use this one.
-#else
-			liqglo.liqglo_ribName = parseString( parsingString );
-#endif
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-pd") || (arg == "-projectDir")) 
-		{
-			MString parsingString = args.asString( ++i, &status );
-			liqglo.liqglo_projectDir = parseString( parsingString, false );
-			LIQ_ADD_SLASH_IF_NEEDED( liqglo.liqglo_projectDir );
-#ifdef _WIN32
-			int dirMode = 6; // dummy arg
-			int mkdirMode = 0;
-#else
-			mode_t dirMode, mkdirMode;
-			dirMode = R_OK|W_OK|X_OK|F_OK;
-			mkdirMode = S_IRWXU|S_IRWXG|S_IRWXO;
-#endif
-			if( createOutputDirectories ) 
-				makeFullPath( liqglo.liqglo_projectDir.asChar(), mkdirMode );
-			if( !fileFullyAccessible( liqglo.liqglo_projectDir ) ) 
-			{
-				liquidMessage( "Cannot find or access Maya project directory; defaulting to system temp directory!", messageWarning );
-				liqglo.liqglo_projectDir = m_systemTempDirectory;
-			}
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-prm") || (arg == "-preFrameMel")) 
-		{
-			m_preFrameMel =  args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-pom") || (arg == "-postFrameMel")) 
-		{
-			m_postFrameMel = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-rid") || (arg == "-ribdir")) 
-		{
-			MString parsingString = args.asString( ++i, &status );
-			liqglo.liqglo_ribDir = parseString( parsingString, false );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-txd") || (arg == "-texdir")) 
-		{
-			MString parsingString = args.asString( ++i, &status );
-			liqglo.liqglo_textureDir = parseString( parsingString, false );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-tmd") || (arg == "-tmpdir")) 
-		{
-			MString parsingString = args.asString( ++i, &status );
-			m_tmpDir = parseString( parsingString, false );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-pid") || (arg == "-picdir")) 
-		{
-			MString parsingString = args.asString( ++i, &status );
-			liqglo.m_pixDir = parseString( parsingString, false );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-pec") || (arg == "-preCommand")) 
-		{
-			liqglo.m_preCommand = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-poc") || (arg == "-postJobCommand")) 
-		{
-			MString varVal = args.asString( ++i, &status );
-			m_postJobCommand = parseString( varVal );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-pof") || (arg == "-postFrameCommand")) 
-		{
-			m_postFrameCommand = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-prf") || (arg == "-preFrameCommand")) 
-		{
-			m_preFrameCommand = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-rec") || (arg == "-renderCommand")) 
-		{
-			m_renderCommand = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-rgc") || (arg == "-ribgenCommand")) 
-		{
-			m_ribgenCommand = args.asString( ++i, &status );
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-blt") || (arg == "-blurTime")) 
-		{
-			argValue = args.asString( ++i, &status );
-			m_blurTime = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-sr") || (arg == "-shadingRate")) 
-		{ 
-			argValue = args.asString( ++i, &status );
-			liqglo.shadingRate = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-bs") || (arg == "-bucketSize")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.bucketSize[0] = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			liqglo.bucketSize[1] = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-pf") || (arg == "-pixelFilter")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.m_rFilter = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			liqglo.m_rFilterX = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			liqglo.m_rFilterY = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-gs") || (arg == "-gridSize")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.gridSize = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-txm") || (arg == "-texmem")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.textureMemory = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if ((arg == "-es") || (arg == "-eyeSplits")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.eyeSplits = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if ((arg == "-ar") || (arg == "-aspect")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.aspectRatio = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if ((arg == "-x") || (arg == "-width")) 
-		{
-			argValue = args.asString( ++i, &status );
-			width = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if ((arg == "-y") || (arg == "-height")) 
-		{
-			argValue = args.asString( ++i, &status );
-			height = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-// 		else if((arg == "-def") || (arg == "-deferred")) {
-//       		LIQCHECKSTATUS(status, "error in -deferred parameter");
-//       		m_deferredGen = true;
-//     	} 
-// 		else if((arg == "-ndf") || (arg == "-noDef")) {
-//       		LIQCHECKSTATUS(status, "error in -noDef parameter");
-//       		m_deferredGen = false;
-//     	} 
-		else if((arg == "-pad") || (arg == "-padding")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.liqglo_outPadding = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if((arg == "-rvp") || (arg == "-renderViewPort")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.m_renderViewPort = argValue.asInt();
-			LIQCHECKSTATUS(status, err);
-		} 
-		else if ((arg == "-cw") || (arg == "-cropWindow")) 
-		{
-			argValue = args.asString( ++i, &status );
-			liqglo.m_cropX1 = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			liqglo.m_cropX2 = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			liqglo.m_cropY1 = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-			argValue = args.asString( ++i, &status );
-			liqglo.m_cropY2 = argValue.asDouble();
-			LIQCHECKSTATUS(status, err);
-			if( liqglo.m_renderView ) 
-				liqglo.m_renderViewCrop = true;
-		}
-// 		else if ((arg == "-shn") || (arg == "-shotName")) 
-// 		{
-// 			liqglo.liqglo_shotName = args.asString( ++i, &status );
+// MStatus liqRibTranslator::liquidDoArgs( MArgList args )
+// {
+// 	//CM_TRACE_FUNC("liqRibTranslator::liquidDoArgs(args)");
+// 
+// 	MStatus status;
+// 	MString argValue;
+// 
+// 	LIQDEBUGPRINTF( "-> processing arguments\n" );
+// 
+// 	// Parse the arguments and set the options.
+// 	if( args.length() == 0 ) 
+// 	{
+// 		liquidMessage( "Doing nothing, no parameters given", messageError );
+// 		return MS::kFailure;
+// 	}
+// 	// find the activeView for previews;
+// 	width        = M3dView::active3dView().portWidth();
+// 	height       = M3dView::active3dView().portHeight();
+// 
+// 	// get the current project directory
+// 	MString MELCommand = "workspace -q -rd";
+// 	MString MELReturn;
+// 	MGlobal::executeCommand( MELCommand, MELReturn );
+// 	liqglo.liqglo_projectDir = MELReturn;
+// 
+// 	// get the current scene name
+// 	//liqglo.liqglo_sceneName = liquidTransGetSceneName();//omitted by yaoyansi
+// 
+// 	// setup default animation parameters
+// 	liqglo.frameNumbers.push_back( ( int )MAnimControl::currentTime().as( MTime::uiUnit() ) );
+// 
+// 	// check to see if the correct project directory was found
+// 	/*if( !fileFullyAccessible( liqglo_projectDir ) ) {
+// 	liqglo_projectDir = m_systemTempDirectory;
+// 	liquidMessage( "Trying to set project directory to system temp directory '" + string( liqglo_projectDir.asChar() ) + "'.", messageWarning );
+// 	}*/
+// 	LIQ_ADD_SLASH_IF_NEEDED( liqglo.liqglo_projectDir );
+// 	if( !fileFullyAccessible( liqglo.liqglo_projectDir ) ) 
+// 	{
+// 		liquidMessage( "Cannot find project directory, '" + string( liqglo.liqglo_projectDir.asChar() ) + "'. Defaulting to system temp directory!", messageWarning );
+// 		liqglo.liqglo_projectDir = m_systemTempDirectory;
+// 	}
+// 
+// 	bool GL_read( false );
+// 
+// 	for( unsigned i( 0 ); i < args.length(); i++ ) 
+// 	{
+// 		MString arg = args.asString( i, &status );
+// 		MString err, err_fmt = "error in ^1s parameter";
+// 		err.format( err_fmt, arg);
+// 		LIQCHECKSTATUS(status, err );
+// 
+// 		if((arg == "-lr") || (arg == "-launchRender"))			liqglo.launchRender = true;
+// 		else if((arg == "-nolr") || (arg == "-noLaunchRender")) liqglo.launchRender = false;
+// 		else if((arg == "-GL") || (arg == "-useGlobals")) 
+//		{
+// 			//load up all the render global parameters!
+// 			if( liquidInitGlobals() && !GL_read ) 
+// 				liquidReadGlobals();
+// 			GL_read = true;
+// 		} 
+// 		else if((arg == "-sel") || (arg == "-selected"))		m_renderSelected = true;
+// 		else if((arg == "-ra") || (arg == "-readArchive"))		liqglo.m_exportReadArchive = true;
+// 		else if((arg == "-acv") || (arg == "-allCurves"))		liqglo.liqglo_renderAllCurves = true;
+// 		else if((arg == "-tif") || (arg == "-tiff"))			liqglo.outFormat = "tiff";
+// 		else if((arg == "-dof") || (arg == "-dofOn"))			liqglo.doDof = true;
+// 		else if((arg == "-bin") || (arg == "-doBinary"))		liqglo.liqglo_doBinary = true;
+// 		else if((arg == "-sh") || (arg == "-shadows"))			liqglo.liqglo_doShadows = true;
+// 		else if((arg == "-nsh") || (arg == "-noShadows"))		liqglo.liqglo_doShadows = false;
+// 		else if((arg == "-zip") || (arg == "-doCompression"))	liqglo.liqglo_doCompression = true;
+// 		else if((arg == "-cln") || (arg == "-cleanRib"))		liqglo.cleanRib = true;
+// 		else if((arg == "-cmd") || (arg == "-createMissingDirs")) createOutputDirectories = true;
+// 		else if((arg == "-pro") || (arg == "-progress"))		m_showProgress = true;
+// 		else if((arg == "-mb") || (arg == "-motionBlur"))		liqglo.liqglo_doMotion = true;
+// 		else if((arg == "-db") || (arg == "-deformationBlur"))	liqglo.liqglo_doDef = true;
+// 		else if((arg == "-d") || (arg == "-debug"))				debugMode = 1;
+// 		else if((arg == "-net") || (arg == "-netRender"))		liqglo.useNetRman = true;
+// 		else if((arg == "-fsr") || (arg == "-fullShadowRib"))	liqglo.fullShadowRib = true;
+// 		else if((arg == "-rem") || (arg == "-remote"))			liqglo.remoteRender = true;
+// 		else if((arg == "-rs") || (arg == "-renderScript"))		useRenderScript = true;
+// 		else if((arg == "-nrs") || (arg == "-noRenderScript"))	useRenderScript = false;
+// 		else if((arg == "-err") || (arg == "-errHandler"))		m_errorMode = 1;
+// 		else if((arg == "-sdb") || (arg == "-shaderDebug"))		m_shaderDebug = true;
+// 		else if((arg == "-rmot") || (arg == "-relativeMotion"))	liqglo.liqglo_relativeMotion = true;
+// 		else if((arg == "-rcam") || (arg == "-rotateCamera"))	liqglo.liqglo_rotateCamera = true;
+// 		else if((arg == "-rel") || (arg == "-relativeDirs"))	liqglo.liqglo_relativeFileNames = true;
+// 		else if((arg == "-def") || (arg == "-deferred"))		liqglo.m_deferredGen = true;
+// 		else if((arg == "-ndf") || (arg == "-noDef"))			liqglo.m_deferredGen = false;
+// 		else if((arg == "-rgo") || (arg == "-ribGenOnly"))		m_justRib = true;
+// 		else if((arg == "-rv") || (arg == "-renderView"))		liqglo.m_renderView = true;
+// 		else if((arg == "-rvl") || (arg == "-renderViewLocal")) liqglo.m_renderViewLocal = true;
+// 		else if((arg == "-nsfs") || (arg == "-noSingleFrameShadows")) liqglo.liqglo_noSingleFrameShadows = true;
+// 		else if((arg == "-sfso") || (arg == "-singleFrameShadowsOnly"))liqglo.liqglo_singleFrameShadowsOnly = true;
+// 		else if((arg == "-shn") || (arg == "-shotName"))		liqglo.liqglo_shotName = args.asString( i, &status );
+// 		else if((arg == "-shv") || (arg == "-shotVersion"))		liqglo.liqglo_shotVersion = args.asString( i, &status );
+// 		else if((arg == "-n") || (arg == "-sequence")) 
+//		{
+// 			int first( argValue.asInt() );
+//			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			int last( argValue.asInt() );
+//			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			int step( argValue.asInt() );
+//			LIQCHECKSTATUS(status, err);
+// 			m_animation = true;
+// 			if( first > last ) 
+// 				step = -abs( step );
+// 			// Fill our vector with frames
+// 			liqglo.frameNumbers.clear();
+// 			for ( int frame( first ); frame <= last; frame += step ) 
+// 				liqglo.frameNumbers.push_back( frame );
+// 		} 
+// 		else if((arg == "-fl") || (arg == "-frameList") || (arg == "-t") || (arg == "-timeRange") || (arg == "--timerange")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 			// fill our vector with frames
+// 			liqglo.frameNumbers = generateFrameNumbers( string( argValue.asChar() ) );
+// 			if( liqglo.frameNumbers.size() ) { 
+// 				m_animation = true;
+// 				//liquidMessage2(messageInfo, ">>> render frames: ");
+// 				//for( unsigned i(0) ; i < frameNumbers.size() ; i++ )
+// 				//  liquidMessage2(messageInfo, "%d ", frameNumbers[i] );
+// 				//liquidMessage2(messageInfo, "\n");
+// 			}
+// 		} 
+// 		else if((arg == "-m") || (arg == "-mbSamples")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.liqglo_motionSamples = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-dbs") || (arg == "-defBlock")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_deferredBlockSize = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-cam") || (arg == "-camera")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );
+// 			liqglo.renderCamera = parseString( parsingString );
+// 			liqglo.liqglo_renderCamera = liqglo.renderCamera;
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 
+// 		else if((arg == "-s") || (arg == "-samples")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.pixelSamples = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-rnm") || (arg == "-ribName")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );;
+// 			//Note:  -ribName is set to liqglo.liqglo_sceneName originally. 
+// 			//       Because we replace liqglo.liqglo_sceneName with liquidTransGetSceneName(), and delete liqglo.liqglo_sceneName,
+// 			//       we use liqglo.liqglo_ribName to store the ribName which passed by commandline parameter '-ribName'
+// 			//  [2/17/2012 yaoyansi]
+// 			assert(0&&"warrning: ribName is store in liqglo.liqglo_ribName instead of liqglo.liqglo_sceneName.[2/17/2012 yaoyansi]");
+// #if 0
+// 			liqglo.liqglo_sceneName = parseString( parsingString );//liquidMaya r772 use this one.
+// #else
+// 			liqglo.liqglo_ribName = parseString( parsingString );
+// #endif
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-pd") || (arg == "-projectDir")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );
+// 			liqglo.liqglo_projectDir = parseString( parsingString, false );
+// 			LIQ_ADD_SLASH_IF_NEEDED( liqglo.liqglo_projectDir );
+// #ifdef _WIN32
+// 			int dirMode = 6; // dummy arg
+// 			int mkdirMode = 0;
+// #else
+// 			mode_t dirMode, mkdirMode;
+// 			dirMode = R_OK|W_OK|X_OK|F_OK;
+// 			mkdirMode = S_IRWXU|S_IRWXG|S_IRWXO;
+// #endif
+// 			if( createOutputDirectories ) 
+// 				makeFullPath( liqglo.liqglo_projectDir.asChar(), mkdirMode );
+// 			if( !fileFullyAccessible( liqglo.liqglo_projectDir ) ) 
+// 			{
+// 				liquidMessage( "Cannot find or access Maya project directory; defaulting to system temp directory!", messageWarning );
+// 				liqglo.liqglo_projectDir = m_systemTempDirectory;
+// 			}
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-prm") || (arg == "-preFrameMel")) 
+//		{
+// 			m_preFrameMel =  args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-pom") || (arg == "-postFrameMel")) 
+//		{
+// 			m_postFrameMel = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-rid") || (arg == "-ribdir")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );
+// 			liqglo.liqglo_ribDir = parseString( parsingString, false );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-txd") || (arg == "-texdir")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );
+// 			liqglo.liqglo_textureDir = parseString( parsingString, false );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-tmd") || (arg == "-tmpdir")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );
+// 			m_tmpDir = parseString( parsingString, false );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-pid") || (arg == "-picdir")) 
+//		{
+// 			MString parsingString = args.asString( ++i, &status );
+// 			liqglo.m_pixDir = parseString( parsingString, false );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-pec") || (arg == "-preCommand")) 
+//		{
+// 			liqglo.m_preCommand = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-poc") || (arg == "-postJobCommand")) 
+//		{
+// 			MString varVal = args.asString( ++i, &status );
+// 			m_postJobCommand = parseString( varVal );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-pof") || (arg == "-postFrameCommand")) 
+//		{
+// 			m_postFrameCommand = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-prf") || (arg == "-preFrameCommand")) 
+//		{
+// 			m_preFrameCommand = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-rec") || (arg == "-renderCommand")) 
+//		{
+// 			m_renderCommand = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-rgc") || (arg == "-ribgenCommand")) 
+//		{
+// 			m_ribgenCommand = args.asString( ++i, &status );
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-blt") || (arg == "-blurTime")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			m_blurTime = argValue.asDouble();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-sr") || (arg == "-shadingRate")) 
+//		{ 
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.shadingRate = argValue.asDouble();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-bs") || (arg == "-bucketSize")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+//			liqglo.bucketSize[0] = argValue.asInt();
+// 			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.bucketSize[1] = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-pf") || (arg == "-pixelFilter")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_rFilter = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_rFilterX = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_rFilterY = argValue.asInt();
+//			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-gs") || (arg == "-gridSize")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.gridSize = argValue.asInt();
 // 			LIQCHECKSTATUS(status, err);
 // 		} 
-// 		else if ((arg == "-shv") || (arg == "-shotVersion")) 
-// 		{
-// 			liqglo.liqglo_shotVersion = args.asString( ++i, &status );
+// 		else if((arg == "-txm") || (arg == "-texmem")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.textureMemory = argValue.asInt();
 // 			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if ((arg == "-es") || (arg == "-eyeSplits")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.eyeSplits = argValue.asInt();
+// 			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if ((arg == "-ar") || (arg == "-aspect")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.aspectRatio = argValue.asDouble();
+// 			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if ((arg == "-x") || (arg == "-width")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			width = argValue.asInt();
+// 			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if ((arg == "-y") || (arg == "-height")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			height = argValue.asInt();
+// 			LIQCHECKSTATUS(status, err);
+// 		} 
+// // 		else if((arg == "-def") || (arg == "-deferred")) {
+// //       		LIQCHECKSTATUS(status, "error in -deferred parameter");
+// //       		m_deferredGen = true;
+// //     	} 
+// // 		else if((arg == "-ndf") || (arg == "-noDef")) {
+// //       		LIQCHECKSTATUS(status, "error in -noDef parameter");
+// //       		m_deferredGen = false;
+// //     	} 
+// 		else if((arg == "-pad") || (arg == "-padding")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.liqglo_outPadding = argValue.asInt();
+// 			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if((arg == "-rvp") || (arg == "-renderViewPort")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_renderViewPort = argValue.asInt();
+// 			LIQCHECKSTATUS(status, err);
+// 		} 
+// 		else if ((arg == "-cw") || (arg == "-cropWindow")) 
+//		{
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_cropX1 = argValue.asDouble();
+// 			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_cropX2 = argValue.asDouble();
+// 			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_cropY1 = argValue.asDouble();
+// 			LIQCHECKSTATUS(status, err);
+// 			argValue = args.asString( ++i, &status );
+// 			liqglo.m_cropY2 = argValue.asDouble();
+// 			LIQCHECKSTATUS(status, err);
+// 			if( liqglo.m_renderView ) 
+// 				liqglo.m_renderViewCrop = true;
 // 		}
-		else if((arg == "-obl") || (arg == "-objectList")) {
-      		LIQCHECKSTATUS(status, "error in -objectList parameter");
-      		i++;
-      		m_objectListToExport = args.asStringArray( i, &status );
-      		LIQCHECKSTATUS(status, "error in -objectList parameter 1");
-      		m_exportSpecificList = true;
-    	}
-    	else if((arg == "-oob") || (arg == "-onlyObjectBlock")) {
-      		m_exportOnlyObjectBlock = true;
-    	}
-		else if((arg == "-igs") || (arg == "-ignoreSurfaces")) {
-      		m_ignoreSurfaces = true;
-    	}
-		else if((arg == "-no_igs") || (arg == "-noIgnoreSurfaces")) {
-		  m_ignoreSurfaces = false;
-		}
-		else if((arg == "-igd") || (arg == "-ignoreDisplacements")) {
-		  m_ignoreDisplacements = true;
-		}
-		else if((arg == "-no_igd") || (arg == "-noIgnoreDisplacements")) {
-		  m_ignoreDisplacements = false;
-		}
-		else if((arg == "-igv") || (arg == "-ignoreVolumes")) {
-		  m_ignoreVolumes = true;
-		}
-		else if((arg == "-no_igv") || (arg == "-noIgnoreVolumes")) {
-		  m_ignoreVolumes = false;
-		}
-		else if((arg == "-no_ufe") || (arg == "-noUseFrameExtension")) {
-		  m_useFrameExt = false;
-		}
-		else if((arg == "-skv") || (arg == "-skipVisibilityAttributes")) {
-		  m_skipVisibilityAttributes = true;
-		}
-		else if((arg == "-sks") || (arg == "-skipShadingAttributes")) {
-		  m_skipShadingAttributes = true;
-		}
-		else if((arg == "-skr") || (arg == "-skipRayTraceAttributes")) {
-		  m_skipRayTraceAttributes = true;
-		}
-		else if((arg == "-easp") || (arg == "-exportAllShadersParams")) {
-		  i++;
-		  argValue = args.asString( i, &status );
-		  LIQCHECKSTATUS(status, "error in -exportAllShadersParams parameter : -exportAllShadersParams 1/0");
-		  liqglo.liqglo_exportAllShadersParams = args.asInt( i, &status );
-		  LIQCHECKSTATUS(status, "error in -exportAllShadersParams parameter (must be an integer) : -exportAllShadersParams 1/0");
-		}
-		else if((arg == "-rhcn") || (arg == "-ribHasCameraName")) {
-		  i++;
-		  argValue = args.asString( i, &status );
-		  LIQCHECKSTATUS(status, "error in -ribHasCameraName parameter : -ribHasCameraName 1/0");
-		  liqglo.liqglo_beautyRibHasCameraName = args.asInt( i, &status );
-		  LIQCHECKSTATUS(status, "error in -ribHasCameraName parameter (must be an integer) :  1/0");
-		}
-		else if((arg == "-sdm") || (arg == "-skipDefaultMatte")) {
-		  i++;
-		  argValue = args.asString( i, &status );
-		  LIQCHECKSTATUS(status, "error in -skipDefaultMatte parameter : -skipDefaultMatte 1/0");
-		  liqglo.liqglo_skipDefaultMatte = args.asInt( i, &status );
-		  LIQCHECKSTATUS(status, "error in -skipDefaultMatte parameter (must be an integer) :  1/0");
-		}
-		else {
-			printf("[liqRibTranslator] undefined argument %d : '%s' \n", i, args.asString( i ).asChar());
-		}
-	}
-	if( !m_useFrameExt )
-	{
-		if( m_animation )
-		{
-			liquidMessage( "[liqRibTranslator] useFrameExtension is false and animation was true, set animation=false", messageWarning );
-		}
-		m_animation = false;
-	}
-	liquidMessage( "Using project base path '" + string( liqglo.liqglo_projectDir.asChar() ) + "'", messageInfo );
-	setSearchPaths();
-	return MS::kSuccess;
-}
+// // 		else if ((arg == "-shn") || (arg == "-shotName")) 
+// // 		{
+// // 			liqglo.liqglo_shotName = args.asString( ++i, &status );
+// // 			LIQCHECKSTATUS(status, err);
+// // 		} 
+// // 		else if ((arg == "-shv") || (arg == "-shotVersion")) 
+// // 		{
+// // 			liqglo.liqglo_shotVersion = args.asString( ++i, &status );
+// // 			LIQCHECKSTATUS(status, err);
+// // 		}
+// 		else if((arg == "-obl") || (arg == "-objectList")) {
+//       		LIQCHECKSTATUS(status, "error in -objectList parameter");
+//       		i++;
+//       		m_objectListToExport = args.asStringArray( i, &status );
+//       		LIQCHECKSTATUS(status, "error in -objectList parameter 1");
+//       		m_exportSpecificList = true;
+//     	}
+//     	else if((arg == "-oob") || (arg == "-onlyObjectBlock")) {
+//       		m_exportOnlyObjectBlock = true;
+//     	}
+// 		else if((arg == "-igs") || (arg == "-ignoreSurfaces")) {
+//       		m_ignoreSurfaces = true;
+//     	}
+// 		else if((arg == "-no_igs") || (arg == "-noIgnoreSurfaces")) {
+// 		  m_ignoreSurfaces = false;
+// 		}
+// 		else if((arg == "-igd") || (arg == "-ignoreDisplacements")) {
+// 		  m_ignoreDisplacements = true;
+// 		}
+// 		else if((arg == "-no_igd") || (arg == "-noIgnoreDisplacements")) {
+// 		  m_ignoreDisplacements = false;
+// 		}
+// 		else if((arg == "-igv") || (arg == "-ignoreVolumes")) {
+// 		  m_ignoreVolumes = true;
+// 		}
+// 		else if((arg == "-no_igv") || (arg == "-noIgnoreVolumes")) {
+// 		  m_ignoreVolumes = false;
+// 		}
+// 		else if((arg == "-no_ufe") || (arg == "-noUseFrameExtension")) {
+// 		  m_useFrameExt = false;
+// 		}
+// 		else if((arg == "-skv") || (arg == "-skipVisibilityAttributes")) {
+// 		  m_skipVisibilityAttributes = true;
+// 		}
+// 		else if((arg == "-sks") || (arg == "-skipShadingAttributes")) {
+// 		  m_skipShadingAttributes = true;
+// 		}
+// 		else if((arg == "-skr") || (arg == "-skipRayTraceAttributes")) {
+// 		  m_skipRayTraceAttributes = true;
+// 		}
+// 		else if((arg == "-easp") || (arg == "-exportAllShadersParams")) {
+// 		  i++;
+// 		  argValue = args.asString( i, &status );
+// 		  LIQCHECKSTATUS(status, "error in -exportAllShadersParams parameter : -exportAllShadersParams 1/0");
+// 		  liqglo.liqglo_exportAllShadersParams = args.asInt( i, &status );
+// 		  LIQCHECKSTATUS(status, "error in -exportAllShadersParams parameter (must be an integer) : -exportAllShadersParams 1/0");
+// 		}
+// 		else if((arg == "-rhcn") || (arg == "-ribHasCameraName")) {
+// 		  i++;
+// 		  argValue = args.asString( i, &status );
+// 		  LIQCHECKSTATUS(status, "error in -ribHasCameraName parameter : -ribHasCameraName 1/0");
+// 		  liqglo.liqglo_beautyRibHasCameraName = args.asInt( i, &status );
+// 		  LIQCHECKSTATUS(status, "error in -ribHasCameraName parameter (must be an integer) :  1/0");
+// 		}
+// 		else if((arg == "-sdm") || (arg == "-skipDefaultMatte")) {
+// 		  i++;
+// 		  argValue = args.asString( i, &status );
+// 		  LIQCHECKSTATUS(status, "error in -skipDefaultMatte parameter : -skipDefaultMatte 1/0");
+// 		  liqglo.liqglo_skipDefaultMatte = args.asInt( i, &status );
+// 		  LIQCHECKSTATUS(status, "error in -skipDefaultMatte parameter (must be an integer) :  1/0");
+// 		}
+// 		else {
+// 			printf("[liqRibTranslator] undefined argument %d : '%s' \n", i, args.asString( i ).asChar());
+// 		}
+// 	}
+// 	if( !m_useFrameExt )
+// 	{
+// 		if( m_animation )
+// 		{
+// 			liquidMessage( "[liqRibTranslator] useFrameExtension is false and animation was true, set animation=false", messageWarning );
+// 		}
+// 		m_animation = false;
+// 	}
+// 	liquidMessage( "Using project base path '" + string( liqglo.liqglo_projectDir.asChar() ) + "'", messageInfo );
+// 	setSearchPaths();
+// 	return MS::kSuccess;
+// }
 
 /**
 * Read the values from the render globals and set internal values.
 */
-void liqRibTranslator::liquidReadGlobals()
-{
-	//CM_TRACE_FUNC("liqRibTranslator::liquidReadGlobals()");
-
-	//trace log is not created, can't call CM_TRACE_FUNC("liqRibTranslator::liquidReadGlobals()");
-	MStatus gStatus;
-	MPlug gPlug;
-	MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
-	MString varVal;
-	int var;
-	// Display Channels - Read and store 'em !
-	// philippe : channels are stored as structures in a vector
-	{
-		if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 
-		{
-			liqglo.m_channels.clear();
-			unsigned int nChannels = liquidGetPlugNumElements( rGlobalNode, "channelName", &gStatus );
-
-			for ( unsigned i( 0 ); i < nChannels; i++ ) 
-			{
-				StructChannel theChannel;
-
-				liquidGetPlugElementValue( rGlobalNode, i, "channelName", theChannel.name, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelType", theChannel.type, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelArraySize", theChannel.arraySize, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelQuantize", theChannel.quantize, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelBitDepth", theChannel.bitDepth, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelDither", theChannel.dither, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelFilter", theChannel.filter, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelPixelFilter", theChannel.pixelFilter, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelPixelFilterX", theChannel.pixelFilterX, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "channelPixelFilterY", theChannel.pixelFilterY, gStatus );
-
-				liqglo.m_channels.push_back( theChannel );
-			}
-		}
-	}
-	// Display Driver Globals - Read 'em and store 'em !
-	liquidGetPlugValue( rGlobalNode, "ignoreAOVDisplays", liqglo.m_ignoreAOVDisplays, gStatus );
-	{
-		liqglo.m_displays.clear();
-		unsigned int nDisplays = liquidGetPlugNumElements( rGlobalNode, "ddImageName", &gStatus );
-		//cout <<"  DD : we have "<<nDisplays<<" displays..."<<endl;
-		for ( unsigned int i(0); i<nDisplays; i++ ) 
-		{
-			StructDisplay theDisplay;
-			
-			liquidGetPlugElementValue( rGlobalNode, i, "ddImageName", theDisplay.name, gStatus );
-			liquidGetPlugElementValue( rGlobalNode, i, "ddImageType", theDisplay.type, gStatus );
-			liquidGetPlugElementValue( rGlobalNode, i, "ddImageMode", theDisplay.mode, gStatus );
-
-			if( i==0 ) {
-				theDisplay.enabled = true;
-				theDisplay.doQuantize = true;
-				theDisplay.doFilter = true;
-			}
-			else 
-			{
-				liquidGetPlugElementValue( rGlobalNode, i, "ddEnable", theDisplay.enabled, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "ddQuantizeEnabled", theDisplay.doQuantize, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "ddFilterEnabled", theDisplay.doFilter, gStatus );
-			}
-			
-			if ( theDisplay.doQuantize )
-			{
-				liquidGetPlugElementValue( rGlobalNode, i, "ddBitDepth", theDisplay.bitDepth, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "ddDither", theDisplay.dither, gStatus );
-			}
-			if ( theDisplay.doFilter )
-			{
-				liquidGetPlugElementValue( rGlobalNode, i, "ddPixelFilter", theDisplay.filter, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "ddPixelFilterX", theDisplay.filterX, gStatus );
-				liquidGetPlugElementValue( rGlobalNode, i, "ddPixelFilterY", theDisplay.filterY, gStatus );
-			}
-			
-			// retrieve the extra parameters for this display
-			MStringArray xtraParamsNames;
-			MStringArray xtraParamsDatas;
-			MIntArray    xtraParamsTypes;
-
-			liquidGetPlugElementValue( rGlobalNode, i, "ddXtraParamNames", xtraParamsNames, gStatus );
-			liquidGetPlugElementValue( rGlobalNode, i, "ddXtraParamTypes", xtraParamsTypes, gStatus );
-			liquidGetPlugElementValue( rGlobalNode, i, "ddXtraParamDatas", xtraParamsDatas, gStatus );
-
-			if(i==0) 
-			{ // copy filter params from display 0
-				liqglo.m_rFilter = theDisplay.filter;
-				liqglo.m_rFilterX = theDisplay.filterX;
-				liqglo.m_rFilterY = theDisplay.filterY;
-				liqglo.quantValue = theDisplay.bitDepth;
-				//liqglo_DDimageName = theDisplay.name; //we don't use liqglo_DDimageName, so we omit this line in r772
-			}
-			StructDDParam xtraDDParams;
-			xtraDDParams.num   = xtraParamsNames.length();
-			xtraDDParams.names = xtraParamsNames;
-			xtraDDParams.data  = xtraParamsDatas;
-			xtraDDParams.type  = xtraParamsTypes;
-			theDisplay.xtraParams = xtraDDParams;
-
-			liqglo.m_displays.push_back( theDisplay );
-		}
-	}
-	liquidGetPlugValue( rGlobalNode, "shotName", liqglo.liqglo_shotName, gStatus ); // no substitution here
-	liquidGetPlugValue( rGlobalNode, "shotVersion", liqglo.liqglo_shotVersion, gStatus ); // no substitution here
-	liquidGetPlugValue( rGlobalNode, "rotateCamera",  liqglo.liqglo_rotateCamera, gStatus );
-	liquidGetPlugValue( rGlobalNode, "relativeFileNames", liqglo.liqglo_relativeFileNames, gStatus );
-	
-	liquidGetPlugValue( rGlobalNode, "renderScriptFileName", m_userRenderScriptFileName, gStatus );
-	liquidGetPlugValue( rGlobalNode, "beautyRibHasCameraName", liqglo.liqglo_beautyRibHasCameraName, gStatus );
-
-	liquidGetPlugValue( rGlobalNode, "ribgenCommand", m_ribgenCommand, gStatus, true ); // get parsed result
-	liquidGetPlugValue( rGlobalNode, "preJobCommand", varVal, gStatus, true );
-	liquidGetPlugValue( rGlobalNode, "postJobCommand", varVal, gStatus, true );
-	liquidGetPlugValue( rGlobalNode, "postFrameCommand", m_postFrameCommand, gStatus );
-	liquidGetPlugValue( rGlobalNode, "preFrameCommand", m_preFrameCommand, gStatus );
-	liquidGetPlugValue( rGlobalNode, "preCommand", liqglo.m_preCommand, gStatus );
-	liquidGetPlugValue( rGlobalNode, "launchRender",  liqglo.launchRender, gStatus );
-
-
-	liquidGetPlugValue( rGlobalNode, "renderCamera", liqglo.renderCamera, gStatus, true );
-	liqglo.liqglo_renderCamera = liqglo.renderCamera;
-	getCameraParameters(rGlobalNode);
-
-	liquidGetPlugValue( rGlobalNode, "ribName", liqglo.liqglo_ribName, gStatus, true );
-	//Note:  -ribName is set to liqglo.liqglo_sceneName originally. 
-	//       Because we replace liqglo.liqglo_sceneName with liquidTransGetSceneName(), and delete liqglo.liqglo_sceneName,
-	//       we use liqglo.liqglo_ribName to store the ribName which passed by commandline parameter '-ribName'
-	//  [2/17/2012 yaoyansi]
-	//liquidMessage2(messageWarning,"warrning: ribName is store in liqglo.liqglo_ribName instead of liqglo.liqglo_sceneName.[2/17/2012 yaoyansi]");
-
-
-
-
-	liquidGetPlugValue( rGlobalNode, "alfredTags", liqglo.m_alfredTags, gStatus, true );
-	liquidGetPlugValue( rGlobalNode, "alfredServices", liqglo.m_alfredServices, gStatus, true );
-	liquidGetPlugValue( rGlobalNode, "dirmaps", liqglo.m_dirmaps, gStatus, true );
-	liquidGetPlugValue( rGlobalNode, "key", liqglo.m_defGenKey, gStatus, true );
-	liquidGetPlugValue( rGlobalNode, "service", liqglo.m_defGenService, gStatus, true );
-
-	liquidGetPlugValue( rGlobalNode, "preframeMel", m_preFrameMel, gStatus );
-	liquidGetPlugValue( rGlobalNode, "postframeMel", m_postFrameMel, gStatus );
-
-	getHinderParameters(rGlobalNode);
-
-	liquidGetPlugValue( rGlobalNode, "cropX1", liqglo.m_cropX1, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cropX2", liqglo.m_cropX2, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cropY1", liqglo.m_cropY1, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cropY2", liqglo.m_cropY2, gStatus );
-
-	// RAYTRACING OPTIONS:BEGIN
-
-	liquidGetPlugValue( rGlobalNode, "useRayTracing", liqglo.rt_useRayTracing, gStatus );
-	liquidGetPlugValue( rGlobalNode, "traceMaxDepth", liqglo.rt_traceMaxDepth, gStatus );
-	liquidGetPlugValue( rGlobalNode, "traceSpecularThreshold", liqglo.rt_traceSpecularThreshold, gStatus );
-	liquidGetPlugValue( rGlobalNode, "traceBreadthFactor", liqglo.rt_traceBreadthFactor, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceDepthFactor", liqglo.rt_traceDepthFactor, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceRayContinuation", liqglo.rt_traceRayContinuation, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceCacheMemory", liqglo.rt_traceCacheMemory, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceDisplacements", liqglo.rt_traceDisplacements, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceSampleMotion", liqglo.rt_traceSampleMotion, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceBias", liqglo.rt_traceBias, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceMaxDiffuseDepth", liqglo.rt_traceMaxDiffuseDepth, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "traceMaxSpecularDepth", liqglo.rt_traceMaxSpecularDepth, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "irradianceMaxError", liqglo.rt_irradianceMaxError, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "irradianceMaxPixelDist", liqglo.rt_irradianceMaxPixelDist, gStatus ); 
-	// RAYTRACING OPTIONS:END
-	liquidGetPlugValue( rGlobalNode, "outputMayaPolyCreases", liqglo.liqglo_outputMayaPolyCreases, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "useMtorSubdiv", liqglo.liqglo_useMtorSubdiv, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "ribRelativeTransforms", liqglo.liqglo_relativeTransforms, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "shortShaderNames", liqglo.liqglo_shortShaderNames, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "expandAlfred", liqglo.m_alfredExpand, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "createOutputDirectories", createOutputDirectories, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "minCPU", m_minCPU, gStatus ); 
-	liquidGetPlugValue( rGlobalNode, "maxCPU", m_maxCPU, gStatus );
-	liquidGetPlugValue( rGlobalNode, "showProgress", m_showProgress, gStatus );
-	liquidGetPlugValue( rGlobalNode, "expandShaderArrays", liqglo.liqglo_expandShaderArrays, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputComments", liqglo.m_outputComments, gStatus );
-	liquidGetPlugValue( rGlobalNode, "shaderDebug", m_shaderDebug, gStatus );
-	liquidGetPlugValue( rGlobalNode, "deferredGen", liqglo.m_deferredGen, gStatus );
-	liquidGetPlugValue( rGlobalNode, "deferredBlock", liqglo.m_deferredBlockSize, gStatus );
-	liquidGetPlugValue( rGlobalNode, "useRenderScript", useRenderScript, gStatus );
-	liquidGetPlugValue( rGlobalNode, "remoteRender", liqglo.remoteRender, gStatus );
-	liquidGetPlugValue( rGlobalNode, "renderAllCurves", liqglo.liqglo_renderAllCurves, gStatus );
-	liquidGetPlugValue( rGlobalNode, "illuminateByDefault", liqglo.m_illuminateByDefault, gStatus );
-	liquidGetPlugValue( rGlobalNode, "liquidSetLightLinking", m_liquidSetLightLinking, gStatus );
-	liquidGetPlugValue( rGlobalNode, "ignoreLights", m_ignoreLights, gStatus );
-	liquidGetPlugValue( rGlobalNode, "ignoreSurfaces", m_ignoreSurfaces, gStatus );
-	liquidGetPlugValue( rGlobalNode, "ignoreDisplacements", m_ignoreDisplacements, gStatus );
-	liquidGetPlugValue( rGlobalNode, "ignoreVolumes", m_ignoreVolumes, gStatus );
-
-	liquidGetPlugValue( rGlobalNode, "useNewTranslator", m_useNewTranslator, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputShaderGraph", m_OutputShaderGraph, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputDebugMsgToRib", m_outputDebugMsgToRib, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputShadowPass", m_outputShadowPass, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputHeroPass", m_outputHeroPass, gStatus );
-
-	liquidGetPlugValue( rGlobalNode, "netRManRender", liqglo.useNetRman, gStatus );
-	liquidGetPlugValue( rGlobalNode, "ignoreShadows", liqglo.liqglo_doShadows, gStatus );
-	liqglo.liqglo_doShadows = !liqglo.liqglo_doShadows;
-
-	liquidGetPlugValue( rGlobalNode, "shapeOnlyInShadowNames", liqglo.liqglo_shapeOnlyInShadowNames, gStatus );
-	liquidGetPlugValue( rGlobalNode, "fullShadowRibs", liqglo.fullShadowRib, gStatus );
-	liquidGetPlugValue( rGlobalNode, "binaryOutput", liqglo.liqglo_doBinary, gStatus );
-	liquidGetPlugValue( rGlobalNode, "lazyCompute", m_lazyCompute, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputShadersInShadows", m_outputShadersInShadows, gStatus );
-	// Moritz: added new options for light/shader output in deep shadows
-	liquidGetPlugValue( rGlobalNode, "outputShadersInDeepShadows", m_outputShadersInDeepShadows, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputLightsInDeepShadows", m_outputLightsInDeepShadows, gStatus );
-
-	liquidGetPlugValue( rGlobalNode, "outputMeshUVs", liqglo.liqglo_outputMeshUVs, gStatus );
-	liquidGetPlugValue( rGlobalNode, "outputMeshAsRMSArrays", liqglo.liqglo_outputMeshAsRMSArrays, gStatus );
-	liquidGetPlugValue( rGlobalNode, "compressedOutput", liqglo.liqglo_doCompression, gStatus );
-	liquidGetPlugValue( rGlobalNode, "exportReadArchive", liqglo.m_exportReadArchive, gStatus );
-	liquidGetPlugValue( rGlobalNode, "renderJobName", renderJobName, gStatus );
-	liquidGetPlugValue( rGlobalNode, "doAnimation", m_animation, gStatus );
-	if( m_animation ) 
-	{
-		MString frameSequence;
-		liquidGetPlugValue( rGlobalNode, "frameSequence", frameSequence, gStatus );
-		if( gStatus == MS::kSuccess ) 
-			liqglo.frameNumbers = generateFrameNumbers( string( frameSequence.asChar() ) );
-	}
-	liquidGetPlugValue( rGlobalNode, "doPadding", liqglo.liqglo_doExtensionPadding, gStatus );
-	if( liqglo.liqglo_doExtensionPadding ) 
-		liquidGetPlugValue( rGlobalNode, "padding", liqglo.liqglo_outPadding, gStatus );
-	{  
-		int gWidth, gHeight;
-		liquidGetPlugValue( rGlobalNode, "xResolution", gWidth, gStatus );
-		liquidGetPlugValue( rGlobalNode, "yResolution", gHeight, gStatus );
-		if( gWidth > 0 ) 
-			width = gWidth;
-		if( gHeight > 0 ) 
-			height = gHeight;
-	}
-
-
-	liquidGetPlugValue( rGlobalNode, "transformationBlur", liqglo.liqglo_doMotion, gStatus );
-
-	liquidGetPlugValue( rGlobalNode, "deformationBlur", liqglo.liqglo_doDef, gStatus );
-
-	liquidGetPlugValue( rGlobalNode, "shutterEfficiency", liqglo.liqglo_shutterEfficiency, gStatus );
-	liquidGetPlugValue( rGlobalNode, "motionBlurSamples", liqglo.liqglo_motionSamples, gStatus );
-	if( liqglo.liqglo_motionSamples > LIQMAXMOTIONSAMPLES )
-		liqglo.liqglo_motionSamples = LIQMAXMOTIONSAMPLES;
-	liquidGetPlugValue( rGlobalNode, "relativeMotion", liqglo.liqglo_relativeMotion, gStatus );
-
-
-	getOtherParameters(rGlobalNode);	
-	getLimitsParameters(rGlobalNode);
-
-	liquidGetPlugValue( rGlobalNode, "cleanRib", liqglo.cleanRib, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cleanRenderScript", cleanRenderScript, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cleanTex", cleanTextures, gStatus );
-	liquidGetPlugValue( rGlobalNode, "cleanShad", cleanShadows, gStatus );
-	liquidGetPlugValue( rGlobalNode, "justRib", m_justRib, gStatus );
-
-
-	getStatisticsParameters(rGlobalNode);
-
-	// Philippe : OBSOLETE ?
-
-
-	// taking into account liquidRibRequest nodes and preposterous mel scripts - Alf
-	{
-		MStringArray requestArray;
-		MString request;
-
-		liquidGetPlugValue( rGlobalNode, "preFrameBegin", request, gStatus );
-		if( request != "" )
-			requestArray.append( request );
-		// add rib request node values
-		request = parseLiquidRibRequest( requestArray, "preFrame" );
-		if( request != "" )
-			liqglo.m_preFrameRIB = parseString( request );
-		requestArray.clear();
-		request.clear();
-
-		liquidGetPlugValue( rGlobalNode, "preWorld", request, gStatus );
-		if( request != "" )
-			requestArray.append( request );
-		request = parseLiquidRibRequest( requestArray, "preWorld" );
-		if( request != "" )
-			liqglo.m_preWorldRIB = parseString( request );
-		requestArray.clear();
-		request.clear();
-
-		liquidGetPlugValue( rGlobalNode, "postWorld", request, gStatus );
-		if( request != "" )
-			requestArray.append( request );
-		request = parseLiquidRibRequest( requestArray, "postWorld" );
-		if( request != "" )
-			liqglo.m_postWorldRIB = parseString( request );
-		requestArray.clear();
-		request.clear();
-
-		liquidGetPlugValue( rGlobalNode, "preGeom", request, gStatus );
-		if( request != "" )
-			requestArray.append( request );
-		request = parseLiquidRibRequest( requestArray, "preGeom" );
-		if( request != "" )
-			m_preGeomRIB = parseString( request );
-	}
-	liquidGetPlugValue( rGlobalNode, "renderScriptFormat", var, gStatus );
-	if( gStatus == MS::kSuccess ) 
-		m_renderScriptFormat = ( enum renderScriptFormat ) var;
-
-	liquidGetPlugValue( rGlobalNode, "renderScriptCommand", varVal, gStatus );
-	m_renderScriptCommand = ( varVal != "" )? parseString( varVal, false ) : "alfred";
-
-	liquidGetPlugValue( rGlobalNode, "currentLayerRifParameters", liqglo.liqglo_rifParams, gStatus );
-	
-	setOutDirs();
-	setSearchPaths();
-}
+// void liqRibTranslator::liquidReadGlobals()
+// {
+// 	//CM_TRACE_FUNC("liqRibTranslator::liquidReadGlobals()");
+// 
+// 	//trace log is not created, can't call CM_TRACE_FUNC("liqRibTranslator::liquidReadGlobals()");
+// 	MStatus gStatus;
+// 	MPlug gPlug;
+// 	MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
+// 	MString varVal;
+// 	int var;
+// 	// Display Channels - Read and store 'em !
+// 	// philippe : channels are stored as structures in a vector
+// 	{
+// 		if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 
+// 		{
+// 			liqglo.m_channels.clear();
+// 			unsigned int nChannels = liquidGetPlugNumElements( rGlobalNode, "channelName", &gStatus );
+// 
+// 			for ( unsigned i( 0 ); i < nChannels; i++ ) 
+// 			{
+// 				StructChannel theChannel;
+// 
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelName", theChannel.name, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelType", theChannel.type, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelArraySize", theChannel.arraySize, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelQuantize", theChannel.quantize, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelBitDepth", theChannel.bitDepth, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelDither", theChannel.dither, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelFilter", theChannel.filter, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelPixelFilter", theChannel.pixelFilter, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelPixelFilterX", theChannel.pixelFilterX, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "channelPixelFilterY", theChannel.pixelFilterY, gStatus );
+// 
+// 				liqglo.m_channels.push_back( theChannel );
+// 			}
+// 		}
+// 	}
+// 	// Display Driver Globals - Read 'em and store 'em !
+// 	liquidGetPlugValue( rGlobalNode, "ignoreAOVDisplays", liqglo.m_ignoreAOVDisplays, gStatus );
+// 	{
+// 		liqglo.m_displays.clear();
+// 		unsigned int nDisplays = liquidGetPlugNumElements( rGlobalNode, "ddImageName", &gStatus );
+// 		//cout <<"  DD : we have "<<nDisplays<<" displays..."<<endl;
+// 		for ( unsigned int i(0); i<nDisplays; i++ ) 
+// 		{
+// 			StructDisplay theDisplay;
+// 			
+// 			liquidGetPlugElementValue( rGlobalNode, i, "ddImageName", theDisplay.name, gStatus );
+// 			liquidGetPlugElementValue( rGlobalNode, i, "ddImageType", theDisplay.type, gStatus );
+// 			liquidGetPlugElementValue( rGlobalNode, i, "ddImageMode", theDisplay.mode, gStatus );
+// 
+// 			if( i==0 ) {
+// 				theDisplay.enabled = true;
+// 				theDisplay.doQuantize = true;
+// 				theDisplay.doFilter = true;
+// 			}
+// 			else 
+// 			{
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddEnable", theDisplay.enabled, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddQuantizeEnabled", theDisplay.doQuantize, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddFilterEnabled", theDisplay.doFilter, gStatus );
+// 			}
+// 			
+// 			if ( theDisplay.doQuantize )
+// 			{
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddBitDepth", theDisplay.bitDepth, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddDither", theDisplay.dither, gStatus );
+// 			}
+// 			if ( theDisplay.doFilter )
+// 			{
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddPixelFilter", theDisplay.filter, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddPixelFilterX", theDisplay.filterX, gStatus );
+// 				liquidGetPlugElementValue( rGlobalNode, i, "ddPixelFilterY", theDisplay.filterY, gStatus );
+// 			}
+// 			
+// 			// retrieve the extra parameters for this display
+// 			MStringArray xtraParamsNames;
+// 			MStringArray xtraParamsDatas;
+// 			MIntArray    xtraParamsTypes;
+// 
+// 			liquidGetPlugElementValue( rGlobalNode, i, "ddXtraParamNames", xtraParamsNames, gStatus );
+// 			liquidGetPlugElementValue( rGlobalNode, i, "ddXtraParamTypes", xtraParamsTypes, gStatus );
+// 			liquidGetPlugElementValue( rGlobalNode, i, "ddXtraParamDatas", xtraParamsDatas, gStatus );
+// 
+// 			if(i==0) 
+// 			{ // copy filter params from display 0
+// 				liqglo.m_rFilter = theDisplay.filter;
+// 				liqglo.m_rFilterX = theDisplay.filterX;
+// 				liqglo.m_rFilterY = theDisplay.filterY;
+// 				liqglo.quantValue = theDisplay.bitDepth;
+// 				//liqglo_DDimageName = theDisplay.name; //we don't use liqglo_DDimageName, so we omit this line in r772
+// 			}
+// 			StructDDParam xtraDDParams;
+// 			xtraDDParams.num   = xtraParamsNames.length();
+// 			xtraDDParams.names = xtraParamsNames;
+// 			xtraDDParams.data  = xtraParamsDatas;
+// 			xtraDDParams.type  = xtraParamsTypes;
+// 			theDisplay.xtraParams = xtraDDParams;
+// 
+// 			liqglo.m_displays.push_back( theDisplay );
+// 		}
+// 	}
+// 	liquidGetPlugValue( rGlobalNode, "shotName", liqglo.liqglo_shotName, gStatus ); // no substitution here
+// 	liquidGetPlugValue( rGlobalNode, "shotVersion", liqglo.liqglo_shotVersion, gStatus ); // no substitution here
+// 	liquidGetPlugValue( rGlobalNode, "rotateCamera",  liqglo.liqglo_rotateCamera, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "relativeFileNames", liqglo.liqglo_relativeFileNames, gStatus );
+// 	
+// 	liquidGetPlugValue( rGlobalNode, "renderScriptFileName", m_userRenderScriptFileName, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "beautyRibHasCameraName", liqglo.liqglo_beautyRibHasCameraName, gStatus );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "ribgenCommand", m_ribgenCommand, gStatus, true ); // get parsed result
+// 	liquidGetPlugValue( rGlobalNode, "preJobCommand", varVal, gStatus, true );
+// 	liquidGetPlugValue( rGlobalNode, "postJobCommand", varVal, gStatus, true );
+// 	liquidGetPlugValue( rGlobalNode, "postFrameCommand", m_postFrameCommand, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "preFrameCommand", m_preFrameCommand, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "preCommand", liqglo.m_preCommand, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "launchRender",  liqglo.launchRender, gStatus );
+// 
+// 
+// 	liquidGetPlugValue( rGlobalNode, "renderCamera", liqglo.renderCamera, gStatus, true );
+// 	liqglo.liqglo_renderCamera = liqglo.renderCamera;
+// 	getCameraParameters(rGlobalNode);
+// 
+// 	liquidGetPlugValue( rGlobalNode, "ribName", liqglo.liqglo_ribName, gStatus, true );
+// 	//Note:  -ribName is set to liqglo.liqglo_sceneName originally. 
+// 	//       Because we replace liqglo.liqglo_sceneName with liquidTransGetSceneName(), and delete liqglo.liqglo_sceneName,
+// 	//       we use liqglo.liqglo_ribName to store the ribName which passed by commandline parameter '-ribName'
+// 	//  [2/17/2012 yaoyansi]
+// 	//liquidMessage2(messageWarning,"warrning: ribName is store in liqglo.liqglo_ribName instead of liqglo.liqglo_sceneName.[2/17/2012 yaoyansi]");
+// 
+// 
+// 
+// 
+// 	liquidGetPlugValue( rGlobalNode, "alfredTags", liqglo.m_alfredTags, gStatus, true );
+// 	liquidGetPlugValue( rGlobalNode, "alfredServices", liqglo.m_alfredServices, gStatus, true );
+// 	liquidGetPlugValue( rGlobalNode, "dirmaps", liqglo.m_dirmaps, gStatus, true );
+// 	liquidGetPlugValue( rGlobalNode, "key", liqglo.m_defGenKey, gStatus, true );
+// 	liquidGetPlugValue( rGlobalNode, "service", liqglo.m_defGenService, gStatus, true );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "preframeMel", m_preFrameMel, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "postframeMel", m_postFrameMel, gStatus );
+// 
+// 	getHinderParameters(rGlobalNode);
+// 
+// 	liquidGetPlugValue( rGlobalNode, "cropX1", liqglo.m_cropX1, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "cropX2", liqglo.m_cropX2, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "cropY1", liqglo.m_cropY1, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "cropY2", liqglo.m_cropY2, gStatus );
+// 
+// 	// RAYTRACING OPTIONS:BEGIN
+// 
+// 	liquidGetPlugValue( rGlobalNode, "useRayTracing", liqglo.rt_useRayTracing, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "traceMaxDepth", liqglo.rt_traceMaxDepth, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "traceSpecularThreshold", liqglo.rt_traceSpecularThreshold, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "traceBreadthFactor", liqglo.rt_traceBreadthFactor, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceDepthFactor", liqglo.rt_traceDepthFactor, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceRayContinuation", liqglo.rt_traceRayContinuation, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceCacheMemory", liqglo.rt_traceCacheMemory, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceDisplacements", liqglo.rt_traceDisplacements, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceSampleMotion", liqglo.rt_traceSampleMotion, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceBias", liqglo.rt_traceBias, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceMaxDiffuseDepth", liqglo.rt_traceMaxDiffuseDepth, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "traceMaxSpecularDepth", liqglo.rt_traceMaxSpecularDepth, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "irradianceMaxError", liqglo.rt_irradianceMaxError, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "irradianceMaxPixelDist", liqglo.rt_irradianceMaxPixelDist, gStatus ); 
+// 	// RAYTRACING OPTIONS:END
+// 	liquidGetPlugValue( rGlobalNode, "outputMayaPolyCreases", liqglo.liqglo_outputMayaPolyCreases, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "useMtorSubdiv", liqglo.liqglo_useMtorSubdiv, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "ribRelativeTransforms", liqglo.liqglo_relativeTransforms, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "shortShaderNames", liqglo.liqglo_shortShaderNames, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "expandAlfred", liqglo.m_alfredExpand, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "createOutputDirectories", createOutputDirectories, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "minCPU", m_minCPU, gStatus ); 
+// 	liquidGetPlugValue( rGlobalNode, "maxCPU", m_maxCPU, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "showProgress", m_showProgress, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "expandShaderArrays", liqglo.liqglo_expandShaderArrays, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputComments", liqglo.m_outputComments, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "shaderDebug", m_shaderDebug, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "deferredGen", liqglo.m_deferredGen, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "deferredBlock", liqglo.m_deferredBlockSize, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "useRenderScript", useRenderScript, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "remoteRender", liqglo.remoteRender, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "renderAllCurves", liqglo.liqglo_renderAllCurves, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "illuminateByDefault", liqglo.m_illuminateByDefault, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "liquidSetLightLinking", m_liquidSetLightLinking, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "ignoreLights", m_ignoreLights, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "ignoreSurfaces", m_ignoreSurfaces, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "ignoreDisplacements", m_ignoreDisplacements, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "ignoreVolumes", m_ignoreVolumes, gStatus );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "useNewTranslator", m_useNewTranslator, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputShaderGraph", m_OutputShaderGraph, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputDebugMsgToRib", m_outputDebugMsgToRib, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputShadowPass", m_outputShadowPass, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputHeroPass", m_outputHeroPass, gStatus );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "netRManRender", liqglo.useNetRman, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "ignoreShadows", liqglo.liqglo_doShadows, gStatus );
+// 	liqglo.liqglo_doShadows = !liqglo.liqglo_doShadows;
+// 
+// 	liquidGetPlugValue( rGlobalNode, "shapeOnlyInShadowNames", liqglo.liqglo_shapeOnlyInShadowNames, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "fullShadowRibs", liqglo.fullShadowRib, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "binaryOutput", liqglo.liqglo_doBinary, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "lazyCompute", m_lazyCompute, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputShadersInShadows", m_outputShadersInShadows, gStatus );
+// 	// Moritz: added new options for light/shader output in deep shadows
+// 	liquidGetPlugValue( rGlobalNode, "outputShadersInDeepShadows", m_outputShadersInDeepShadows, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputLightsInDeepShadows", m_outputLightsInDeepShadows, gStatus );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "outputMeshUVs", liqglo.liqglo_outputMeshUVs, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "outputMeshAsRMSArrays", liqglo.liqglo_outputMeshAsRMSArrays, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "compressedOutput", liqglo.liqglo_doCompression, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "exportReadArchive", liqglo.m_exportReadArchive, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "renderJobName", renderJobName, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "doAnimation", m_animation, gStatus );
+// 	if( m_animation ) 
+// 	{
+// 		MString frameSequence;
+// 		liquidGetPlugValue( rGlobalNode, "frameSequence", frameSequence, gStatus );
+// 		if( gStatus == MS::kSuccess ) 
+// 			liqglo.frameNumbers = generateFrameNumbers( string( frameSequence.asChar() ) );
+// 	}
+// 	liquidGetPlugValue( rGlobalNode, "doPadding", liqglo.liqglo_doExtensionPadding, gStatus );
+// 	if( liqglo.liqglo_doExtensionPadding ) 
+// 		liquidGetPlugValue( rGlobalNode, "padding", liqglo.liqglo_outPadding, gStatus );
+// 	{  
+// 		int gWidth, gHeight;
+// 		liquidGetPlugValue( rGlobalNode, "xResolution", gWidth, gStatus );
+// 		liquidGetPlugValue( rGlobalNode, "yResolution", gHeight, gStatus );
+// 		if( gWidth > 0 ) 
+// 			width = gWidth;
+// 		if( gHeight > 0 ) 
+// 			height = gHeight;
+// 	}
+// 
+// 
+// 	liquidGetPlugValue( rGlobalNode, "transformationBlur", liqglo.liqglo_doMotion, gStatus );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "deformationBlur", liqglo.liqglo_doDef, gStatus );
+// 
+// 	liquidGetPlugValue( rGlobalNode, "shutterEfficiency", liqglo.liqglo_shutterEfficiency, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "motionBlurSamples", liqglo.liqglo_motionSamples, gStatus );
+// 	if( liqglo.liqglo_motionSamples > LIQMAXMOTIONSAMPLES )
+// 		liqglo.liqglo_motionSamples = LIQMAXMOTIONSAMPLES;
+// 	liquidGetPlugValue( rGlobalNode, "relativeMotion", liqglo.liqglo_relativeMotion, gStatus );
+// 
+// 
+// 	getOtherParameters(rGlobalNode);	
+// 	getLimitsParameters(rGlobalNode);
+// 
+// 	liquidGetPlugValue( rGlobalNode, "cleanRib", liqglo.cleanRib, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "cleanRenderScript", cleanRenderScript, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "cleanTex", cleanTextures, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "cleanShad", cleanShadows, gStatus );
+// 	liquidGetPlugValue( rGlobalNode, "justRib", m_justRib, gStatus );
+// 
+// 
+// 	getStatisticsParameters(rGlobalNode);
+// 
+// 	// Philippe : OBSOLETE ?
+// 
+// 
+// 	// taking into account liquidRibRequest nodes and preposterous mel scripts - Alf
+// 	{
+// 		MStringArray requestArray;
+// 		MString request;
+// 
+// 		liquidGetPlugValue( rGlobalNode, "preFrameBegin", request, gStatus );
+// 		if( request != "" )
+// 			requestArray.append( request );
+// 		// add rib request node values
+// 		request = parseLiquidRibRequest( requestArray, "preFrame" );
+// 		if( request != "" )
+// 			liqglo.m_preFrameRIB = parseString( request );
+// 		requestArray.clear();
+// 		request.clear();
+// 
+// 		liquidGetPlugValue( rGlobalNode, "preWorld", request, gStatus );
+// 		if( request != "" )
+// 			requestArray.append( request );
+// 		request = parseLiquidRibRequest( requestArray, "preWorld" );
+// 		if( request != "" )
+// 			liqglo.m_preWorldRIB = parseString( request );
+// 		requestArray.clear();
+// 		request.clear();
+// 
+// 		liquidGetPlugValue( rGlobalNode, "postWorld", request, gStatus );
+// 		if( request != "" )
+// 			requestArray.append( request );
+// 		request = parseLiquidRibRequest( requestArray, "postWorld" );
+// 		if( request != "" )
+// 			liqglo.m_postWorldRIB = parseString( request );
+// 		requestArray.clear();
+// 		request.clear();
+// 
+// 		liquidGetPlugValue( rGlobalNode, "preGeom", request, gStatus );
+// 		if( request != "" )
+// 			requestArray.append( request );
+// 		request = parseLiquidRibRequest( requestArray, "preGeom" );
+// 		if( request != "" )
+// 			m_preGeomRIB = parseString( request );
+// 	}
+// 	liquidGetPlugValue( rGlobalNode, "renderScriptFormat", var, gStatus );
+// 	if( gStatus == MS::kSuccess ) 
+// 		m_renderScriptFormat = ( enum renderScriptFormat ) var;
+// 
+// 	liquidGetPlugValue( rGlobalNode, "renderScriptCommand", varVal, gStatus );
+// 	m_renderScriptCommand = ( varVal != "" )? parseString( varVal, false ) : "alfred";
+// 
+// 	liquidGetPlugValue( rGlobalNode, "currentLayerRifParameters", liqglo.liqglo_rifParams, gStatus );
+// 	
+// 	setOutDirs();
+// 	setSearchPaths();
+// }
 
 MString liqRibTranslator::verifyResourceDir( const char *resourceName, MString resourceDir, bool &problem )
 {
