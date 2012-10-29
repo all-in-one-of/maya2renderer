@@ -283,10 +283,10 @@ global proc liquidAddReflection()
   // `attributeQuery -node $texNode -ex "liqReflectMapGen"`
 
   addAttr -ln liqReflectionMapGen -at bool -dv true $name;
-  addAttr -ln liqReflectionSet -dt "string" $name;
-  addAttr -ln liqReflectionMapSize -at short -dv 512 $name;
-  addAttr -ln liqReflectionShadingRate -at short -dv 5 $name;
-  addAttr -ln liqReflectionEveryFrame -at bool -dv true $name;
+  addAttr -ln liqMapGenSet -dt "string" $name;
+  addAttr -ln liqMapSize -at short -dv 512 $name;
+  addAttr -ln liqMapGenShadingRate -at short -dv 5 $name;
+  addAttr -ln liqMapGenEveryFrame -at bool -dv true $name;
 
   rename $plane "liqReflectionMapGen";
   liqPopIdent();
@@ -306,10 +306,10 @@ global proc liquidAddEnvironment()
 	liqlog("liquidAddEnvironment()");
   string $name = `shadingNode -asUtility place3dTexture`;
   addAttr -ln liqEnvMapGen -at bool -dv true $name;
-  addAttr -ln liqEnvironmentSet -dt "string" $name;
-  addAttr -ln liqEnvironmentMapSize -at short -dv 512 $name;
-  addAttr -ln liqEnvironmentShadingRate -at short -dv 5 $name;
-  addAttr -ln liqReflectionEveryFrame -at bool -dv true $name;
+  addAttr -ln liqMapGenSet -dt "string" $name;
+  addAttr -ln liqMapSize -at short -dv 512 $name;
+  addAttr -ln liqMapGenShadingRate -at short -dv 5 $name;
+  addAttr -ln liqMapGenEveryFrame -at bool -dv true $name;
 
   rename $name "liqEnvironmentMapGen";
   liqPopIdent();
@@ -600,6 +600,7 @@ global proc string liquidAutoShadowName( string $lightShape )
   }
 
   $shadowname += $lightShape;
+  $shadowname += "_";
 
   $shadowname += ( objExists(($lightShape+".deepShadows")) && `getAttr ($lightShape+".deepShadows")`)? "DSH":"SHD";
 

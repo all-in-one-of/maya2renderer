@@ -50,6 +50,8 @@ void tLightMgr::scanScene(const float lframe__, const int sample__,
 		if(MS::kSuccess != returnStatus__) 
 			continue;
 
+		bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
+
 		// scanScene: if it's a light then insert it into the hash table
 		if( currentNode.hasFn( MFn::kLight ) ) 
 		{
@@ -97,10 +99,8 @@ void tLightMgr::scanScene(const float lframe__, const int sample__,
 				}
 			}
 
-			if( ( sample__ > 0 ) && isObjectMotionBlur( path )) 
-				htable__->insert( path, lframe__, sample__, MRT_Light,	count__++ );
-			else 
-				htable__->insert( path, lframe__, 0, MRT_Light, count__++ );
+			htable__->insert( path, lframe__, ( useSamples )? sample__ : 0, MRT_Light,	count__++ );
+
 			continue;
 		}
 	}
@@ -144,6 +144,9 @@ MStatus tLightMgr::buildShadowJob(
 			thisJob___.shadowVolumeInterpretation  = 1;
 			thisJob___.shadingRateFactor           = 1.0;
 			thisJob___.shadowAggregation			= 0;
+			
+			thisJob___.imageMode = "z";
+			thisJob___.format = "shadow";
 
 			// philippe : we grab the job's resolution now instead of in the output phase
 			// that way , we can make sure one light can generate many shadow maps

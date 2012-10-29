@@ -303,7 +303,29 @@ proc string liquidSl_getParamDefaultV( string $value )
 	$result = ("<<"+$t[0 ]+", "+$t[1 ]+", "+$t[2 ]+">>");
     }
 
-	liqPopIdent();
+    return $result;
+}
+
+proc string liquidSl_getParamDefaultFV( string $value )
+{
+	liqPushIdent();
+	liqlog("liquidSl_getParamDefaultFV(...)");
+    string $result = "0,0,0";
+
+    // First check for "Unknown"
+    if ( ($value == "") || ($value == "Unknown") ) {
+    	liqPopIdent();
+        return $result;
+	}
+
+    // Strip everything out the leading and trailing brackets, included
+	if (size(match("\\[.*\\]", $value))) {
+    	$result = `substitute "^.*\\[" $value ""`;
+    	$result = `substitute "\\].*$" $result ""`;
+		string $t[] = stringToStringArray($result, " \t");
+		$result = ($t[0 ]+", "+$t[1 ]+", "+$t[2 ]);
+	}
+    liqPopIdent();
     return $result;
 }
 
@@ -471,13 +493,12 @@ global proc liquidSlParseSdl( string $sdlFile )
     }
 
     // Store the shader methods
-    // TODO : temporary fix until Liquid internal code supports SL 2.0
-    // shaders of type "shader"
 
     /* That option doesn't exist in shaderinfo
     $cmd = $slInfo + " --methods \"" + $sdlFile + "\"";
     int $fmid = `popen $cmd "r"`;
     int $m = 0;
+    clear($gLiquidSlMethods);
     while (!`feof $fmid`) {
         $gLiquidSlMethods[$m++] = strip(`fgetline $fmid`);
     }

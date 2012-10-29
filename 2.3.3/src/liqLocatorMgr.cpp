@@ -55,20 +55,13 @@ void tLocatorMgr::scanScene(const float lframe__, const int sample__,
 			if( MS::kSuccess == returnStatus__ ) 
 				typePlug.getValue( coordType );
 
-			if( ( sample__ > 0 ) && isObjectMotionBlur( path )) 
-			{
-				// philippe : should I store a motion-blurred clipping plane ?
-				if( coordType == 5 ) 
-					htable__->insert(path, lframe__, sample__, MRT_ClipPlane,count__++ );
-				else 
-					htable__->insert(path, lframe__, sample__, MRT_Coord,count__++ );
-			} 
-			else 
-			{
-				if( coordType == 5 ) 
-					htable__->insert(path, lframe__, 0, MRT_ClipPlane,count__++ );
-				htable__->insert(path, lframe__, 0, MRT_Coord,count__++ );
-			}
+			bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
+
+			htable__->insert( path, 
+				lframe__, 
+				( useSamples )? sample__ : 0, 
+				( coordType == 5 )? MRT_ClipPlane : MRT_Coord, 
+				count__++ );
 			continue;
 		}
 	}

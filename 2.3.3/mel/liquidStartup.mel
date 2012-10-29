@@ -205,6 +205,18 @@ global proc liquidMayaVersionOverwrite()
   
   string $liquidHome = liquidGetHome();
   
+/* //ymesh
+  int $liq_maya_version_int = $liq_maya_version;
+
+  if ( $liq_maya_version_int >= 2011 )
+  {	
+  	eval( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
+  } 
+  if ( $liq_maya_version_int >= 2012 )
+  {	
+  	eval( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"" );
+  } 
+*/
   if ( $liq_maya_version == "2011" )
   {	
   	eval( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
@@ -572,7 +584,7 @@ global proc liquidCreateMenus()
       liquidCreateObjectsAttributesMenu( "main" );
       liquidCreateLightsAttributesMenu( "main" );
       liquidCreateSetsAttributesMenu( "main" );
-      liquidCreateShaderAttributesMenu( "main" );
+      liquidCreateShaderAttributesMenu( "main" );//ymesh not use this in r775
       menuItem -d true;
       menuItem -label "Subdivision Surfaces" -subMenu true -tearOff true -aob true;
         if ( !`optionVar -exists liqSubivMesh` ) optionVar -iv liqSubdiv true;
@@ -643,7 +655,8 @@ global proc liquidCreateMenus()
                   -ann "Tries to convert selected hypershade shaders / networks to Sl, compile them and attach them";
         menuItem  -label "Convert MtoR to Liquid" -command liquidConvertMtor
                   -ann "Tries to convert any reference to MtoR/RAT in the scene into matching liquid assignments BASED ON CURRENT PALETTE";
-        menuItem -label "Shader Manager" -ann "Shader Source Manager" -command "liquidSLManager";
+        //ymesh not use this in r775:
+	menuItem -label "Shader Manager" -ann "Shader Source Manager" -command "liquidSLManager";
         menuItem -label "SL Search/Replace..." -ann "SL search/replace utility" -command "liquidSLEditor";
       setParent -menu ..;
       menuItem -label "External RIB" -subMenu true -tearOff true;

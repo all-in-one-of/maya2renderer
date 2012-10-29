@@ -7,6 +7,10 @@ global proc string[] liquidGetSelection( string $flag )
 }
 
 
+proc string[] liquidGetShaderSelection()
+{
+	return `ls -sl -type "liquidSurface" -type "liquidDisplacement" -type "liquidVolume" -type "liquidLight"`;
+}
 // Shading group -----------------------------------------------
 
 global proc liquidCreateShadingAttributes()
@@ -1355,7 +1359,7 @@ global proc liquidCreateMeshRenderingAttributes()
   {
     if ( !`attributeQuery -node $currentNode -ex "liqSubdiv"` ) 
       addAttr -ln "liqSubdiv" -at bool $currentNode;
-    
+    //ymesh not use this in r775
     if ( !`attributeQuery -node $currentNode -ex "liqHierarchicalSubdiv"` )
     {
     	addAttr -ln "liqHierarchicalSubdiv" -at bool $currentNode;
@@ -1377,6 +1381,7 @@ global proc liquidDeleteMeshRenderingAttributes()
   {
     if ( `attributeQuery -node $currentNode -ex "liqSubdiv"` ) 
       deleteAttr ( $currentNode + ".liqSubdiv" );
+      //ymesh not use this in r775
       if ( `attributeQuery -node $currentNode -ex "liqHierarchicalSubdiv"` )
       {
 	deleteAttr ( $currentNode + ".liqHierarchicalSubdiv" );
@@ -1455,6 +1460,7 @@ global proc liquidCreateSetAttributes()
   liqlog("liquidCreateSetAttributes()");
 
   string $currentNode, $nodes[] = liquidGetSelection( "-typ objectSet");
+  //ymesh not use this in r775
   if( size($nodes) == 0 )
   {
 	  warning("[liquidCreateSetAttributes] no sets selected !");
@@ -1613,15 +1619,17 @@ global proc liquidCreateCameraHitModeAttribute()
 {
   liqPushIdent();
   liqlog("liquidCreateCameraHitModeAttribute()");
-
-  int $newStyle = liquidGlobalsFeatureQuery( "AdvancedVisibility" );;
+  
+  //ymesh not use this in r775 ---begin
+  int $newStyle = liquidGlobalsFeatureQuery( "AdvancedVisibility" );
 
   if ( !$newStyle ) {
     warning ("camera hit-mode is not supported by your renderer !");
     liqPopIdent(); 
 	return;
   }
-
+  //ymesh not use this in r775 ---end
+    
   string $nodes[] = liquidGetSelection( "-tr" );
   string $currentNode;
   for ( $currentNode in $nodes ) {
@@ -1637,12 +1645,15 @@ global proc liquidCreateHitModeDiffuseAttribute()
 {
   liqPushIdent();
   liqlog("liquidCreateHitModeDiffuseAttribute()");
-
+  
+  //ymesh not use this in r775 ---begin
   int $newStyle = liquidGlobalsFeatureQuery( "AdvancedVisibility" );
   if ( !$newStyle ){
       liqPopIdent();
 	  return;
-  }
+  }    
+  //ymesh not use this in r775 ---end
+  
   string $nodes[] = liquidGetSelection( "-tr" );
   string $currentNode;
   for ( $currentNode in $nodes ) {
@@ -1659,12 +1670,15 @@ global proc liquidCreateHitModeSpecularAttribute()
 { 
   liqPushIdent();
   liqlog("liquidCreateHitModeSpecularAttribute()");
-
+  
+  //ymesh not use this in r775 ---begin
   int $newStyle = liquidGlobalsFeatureQuery( "AdvancedVisibility" );;
   if ( !$newStyle ){
       liqPopIdent();
 	  return;
-  }
+  } 
+  //ymesh not use this in r775 ---end
+  
   string $nodes[] = liquidGetSelection( "-tr" );
   string $currentNode;
   for ( $currentNode in $nodes ) {
@@ -1680,12 +1694,15 @@ global proc liquidCreateHitModeTransmissionAttribute()
 {
   liqPushIdent();
   liqlog("liquidCreateHitModeTransmissionAttribute()");
-
+    
+  //ymesh not use this in r775 ---begin
   int $newStyle = liquidGlobalsFeatureQuery( "AdvancedVisibility" );;
   if ( !$newStyle ){
       liqPopIdent();
 	  return;
   }
+  //ymesh not use this in r775 ---end
+      
   string $nodes[] = liquidGetSelection( "-tr" );
   string $currentNode;
   for ( $currentNode in $nodes ) {
@@ -2016,6 +2033,23 @@ global proc liquidDeleteDecayRegionAttributes()
 
   liqPopIdent(); 
 }
+
+global proc liquidAddNoNormalizeNurbs()
+{
+  liqPushIdent();
+  liqlog("liquidAddNoNormalizeNurbs()");
+
+  string $currentNode, $nodes[] = `ls -type nurbsSurface -dag -sl`;
+  
+  for ( $currentNode in $nodes ) 
+  {
+    if ( !objExists( ($currentNode+".noNormalizeNurbs") ) ) 
+      addAttr -ln "noNormalizeNurbs" -at bool $currentNode;
+    setAttr ($currentNode+".noNormalizeNurbs") 1;
+  }
+  liqPopIdent(); 
+}
+
 // Particle attributes -------------------------------------------------
 
 global proc liquidAddCloudAttributes( )
@@ -2063,21 +2097,6 @@ global proc liquidDeleteCloudAttributes( )
   liqPopIdent(); 
 }
 
-global proc liquidAddNoNormalizeNurbs()
-{
-  liqPushIdent();
-  liqlog("liquidAddNoNormalizeNurbs()");
-
-  string $currentNode, $nodes[] = `ls -type nurbsSurface -dag -sl`;
-  
-  for ( $currentNode in $nodes ) 
-  {
-    if ( !objExists( ($currentNode+".noNormalizeNurbs") ) ) 
-      addAttr -ln "noNormalizeNurbs" -at bool $currentNode;
-    setAttr ($currentNode+".noNormalizeNurbs") 1;
-  }
-  liqPopIdent(); 
-}
 
 //trim curve -------------------------------------------------
 global proc liquidCreateTrimCurveAttribute()

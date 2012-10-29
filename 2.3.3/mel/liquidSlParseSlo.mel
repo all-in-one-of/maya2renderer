@@ -80,6 +80,7 @@ proc string liquidSl_getShaderType( int $fid )
   string $tokens[];
   string $tokensquote[];
   string $line = `fgetline $fid`;
+  string $name = "";
   // brute workaround for windooze "UNC paths are not supported" error if shader name starts with network path
   if ( `about -win` && startsWith( $line, "\'\\\\") ) 
   {
@@ -514,6 +515,7 @@ global proc liquidSlParseSlo( string $sloFile )
     while (!`feof $fmid`) {
         $gLiquidSlMethods[$m++] = strip(`fgetline $fmid`);
     }
+    pclose($fmid);
 
     $gLiquidSlNumMethods = size($gLiquidSlMethods);
 

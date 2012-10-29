@@ -59,7 +59,9 @@ global proc string liquidGetCurrentRenderLayerName()
 	// Work round maya changing it's mind about which layout we attach to
 	// depending on the number of render layers.  Lie about the name of the layer
 	// when we have more than one and it's the master
-	if ((0 == `getAttr ($layerName + ".identification")`) && (size(`getAttr renderLayerManager.renderLayerId`) > 1)) {
+	if ((0 == `getAttr ($layerName + ".identification")`) &&
+	 (size(`getAttr renderLayerManager.renderLayerId`) > 1))
+	{
 		$layerNameResult = "masterLayer";
 	}
 	  
@@ -75,25 +77,36 @@ global proc liquidSwitchGlobalsRenderLayer()
   string $unifiedRendererTabName = rendererTabName("liquid","Liquid");
   string $ourUberLayout = ($prefix+"liquidUberLayout");
   
-  if(`layout -q -ex $unifiedRendererTabName`) {
+  if(`layout -q -ex $unifiedRendererTabName`) 
+  {
   	  // only if maya created our tab yet
   	  
 	  string $otherLayerTabLayouts[] = `formLayout -query -childArray $unifiedRendererTabName`;
-	  
-	  string $prevParent = `setParent -q`;
-	  
-	  setParent $unifiedRendererTabName;
-	  // Unmanage all the other uberLayouts
-	  for ($i = 0; $i < size($otherLayerTabLayouts); $i++)
+	  if ( size( $otherLayerTabLayouts ) )
 	  {
-		columnLayout -edit -manage false $otherLayerTabLayouts[$i];
-	  }
-	  if ( `layout -q -ex $ourUberLayout`) {
+	  
+	  	string $prevParent = `setParent -q`;
+	  
+	  	setParent $unifiedRendererTabName;
+	  	// Unmanage all the other uberLayouts
+	  	for ($i = 0; $i < size($otherLayerTabLayouts); $i++)
+	  	{
+			columnLayout -edit -manage false $otherLayerTabLayouts[$i];
+	  	}
+	  	if ( `layout -q -ex $ourUberLayout`) {
 		  // Except us, if we exist, if not, we'll be created soon
 		  columnLayout -edit -manage true $ourUberLayout;
-	  }
-	
-	  setParent $prevParent;
+	  	} else {
+  	  		liquidCreateGlobalsTab;
+	  	}
+	  	setParent $prevParent;
+	} else {
+      		warning( "liquidSwitchGlobalsRenderLayer: size( $otherLayerTabLayouts ) == 0 !!!");
+      		// evalDeferred -lp "liquidCreateGlobalsTab";
+	}
+  } else {
+    warning( "liquidSwitchGlobalsRenderLayer: " + $unifiedRendererTabName + " not exists");
+    // evalDeferred -lp "liquidCreateGlobalsTab";
   }
   liqPopIdent();
 }

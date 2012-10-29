@@ -916,6 +916,7 @@ global proc string[] liquidPreviewSwatchNew ( string $msg )
   string $liquidAEEditLif         = `button -w 70 -h 28 -l "Edit LIF" ("liquidAEEditLif_"+$nodeType)`;
     //button -w 70 -h 28 -l "Instance" liquidAEMakeInstance;
     //button -w 70 -h 28 -l "Unnstance" liquidAEUninstance;
+    //"RefreshAE" is added by yaoyansi for maya2renderer
     button -w 70 -h 28 -l "RefreshAE" 
 		-ann "run \"refreshEditorTemplates\""
 		liquidAERefresh;
@@ -996,11 +997,6 @@ global proc liquidPreviewSwatchReplace ( string $msg )
   button -e -c ("liquidFluidEditLifFile \""+$theNode+"\";")     ("liquidAEEditLif_"+$nodeType);
   button -e -c ("liquidShaderNodes_AERefresh")					liquidAERefresh;
 
-  //duran unuse this section
-  //2.3.3 and mesh use this section
-  //int $enable = `objExists($node[0]+".liquidParentShader")`;
-  //button -e -c ("liquidShaderNodesMakeInstance\""+$node[0]+"\";") liquidAEMakeInstance;
-  //button -e -c ("liquidShaderNodesUninstance\""+$node[0]+"\";") -en ($enable)   liquidAEUninstance;
   liqPopIdent();
 }
 
@@ -1782,17 +1778,6 @@ global proc liquidShaderUpdater( int $force )
 }
 
 
-{
-	liqDebug(" Warning: How we get here?");
-  string $jobs[] = `scriptJob -lj`;
-  string $j;
-  for ( $j in $jobs ) 
-    if ( gmatch( $j, "*liquidShaderUpdater*") ) 
-      scriptJob -kill (int(match("[0-9]+", $j))) -force;
-  
-  scriptJob -event "SceneOpened" "evalDeferred(\"liquidShaderUpdater 1\")" -protected;
-}
-
 global proc liquidShaderNodes_AERefresh()
 {
 	liqPushIdent();
@@ -1870,7 +1855,16 @@ global proc string liquidShaderNodesFirstAvailableAttr ( string $node, string $p
 	liqPopIdent();
 	return $result;
 }
-
+{
+	liqDebug(" Warning: How we get here?");
+  string $jobs[] = `scriptJob -lj`;
+  string $j;
+  for ( $j in $jobs ) 
+    if ( gmatch( $j, "*liquidShaderUpdater*") ) 
+      scriptJob -kill (int(match("[0-9]+", $j))) -force;
+  
+  scriptJob -event "SceneOpened" "evalDeferred(\"liquidShaderUpdater 1\")" -protected;
+}
 
 global proc string[] liquidGetShadingNodesFromContainer(string $node)
 {

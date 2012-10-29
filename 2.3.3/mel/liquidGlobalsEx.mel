@@ -283,7 +283,7 @@ proc liquidShowStringGlobalPlus2( string $node, string $name, string $label, str
   liqPushIdent();
 	liqlog("liquidShowStringGlobalPlus2("+$node+","+$name+","+$label+","+$info+","+$prefix+")");
   if ( `objExists ($node+"."+$name)` ) {
-    string $ctl = `textFieldGrp -label $label -ann $info`;
+    string $ctl = `textFieldGrp -label $label -ann $info ($name + "_ctl")`;
     connectControl -index 2 $ctl ($node+"."+$name);
     popupMenu -pmc ("liquidGlobalsRenderLayerOverrideUpdateMenu \""+$name+"\" \""+$prefix+"\"");
     menuItem -l "Create Layer Override" ($prefix+"liquidGlobalsOverride_"+$name);

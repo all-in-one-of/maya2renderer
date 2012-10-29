@@ -762,10 +762,12 @@ void liqRibTranslator::dealwithParticleInstancedObjects(
 
 		MMatrix instanceMatrix( instancerIter.matrix() );
 
-		if( ( sample__ > 0 ) && isObjectMotionBlur( path ))
-			htable->insert( path, lframe__, sample__, MRT_Unknown,count__++, &instanceMatrix, instanceStr, instancerIter.particleId() );
-		else
-			htable->insert( path, lframe__, 0, MRT_Unknown,count__++, &instanceMatrix, instanceStr, instancerIter.particleId() );
+		bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
+		htable->insert( path, lframe__, 
+			( useSamples )? sample__ : 0,	
+			MRT_Unknown, count__++, 
+			&instanceMatrix, instanceStr, instancerIter.particleId() );
+
 		instancerIter.next();
 	}
 }
@@ -1174,7 +1176,7 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 		else 
 			iter__->camera[sample__].hFOV = 95;
 	}
-
+	/*
 	// Determine what information to write out ( depth map or deep shadow )
 	//
 	iter__->imageMode.clear();
@@ -1187,7 +1189,7 @@ void liqRibTranslator::getLightData( vector<structJob>::iterator &iter__ , const
 	{
 		iter__->imageMode += "z";
 		iter__->format = "shadow";
-	}
+	}*/
 	//[refactor 13] end
 }
 //
@@ -1830,133 +1832,154 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 	CM_TRACE_FUNC("liqRibTranslatorNew::objectNonShadowAttribute("<<ribNode__->name.asChar()<<")");
 	RtInt off( 0 );
 	RtInt on( 1 );
+	if ( !m_skipShadingAttributes )
+	{
 	if( !ribNode__->shading.diceRasterOrient ) 
 		RiAttribute( "dice", (RtToken) "rasterorient", &off, RI_NULL );
 	if( ribNode__->shading.doubleShaded ) 
 		RiAttribute( "sides", (RtToken) "doubleshaded", &on, RI_NULL );
-	if( liqglo.liquidRenderer.supports_RAYTRACE ) 
-	{
-		if( ribNode__->trace.sampleMotion ) 
-			RiAttribute( "trace", (RtToken) "samplemotion", &on, RI_NULL );
-		if( ribNode__->trace.displacements ) 
-			RiAttribute( "trace", (RtToken) "displacements", &on, RI_NULL );
-		if( ribNode__->trace.bias != 0.01f ) 
-		{
-			RtFloat bias( ribNode__->trace.bias );
-			RiAttribute( "trace", (RtToken) "bias", &bias, RI_NULL );
-		}
-		if( ribNode__->trace.maxDiffuseDepth != 1 ) 
-		{
-			RtInt mddepth( ribNode__->trace.maxDiffuseDepth );
-			RiAttribute( "trace", (RtToken) "maxdiffusedepth", &mddepth, RI_NULL );
-		}
-		if( ribNode__->trace.maxSpecularDepth != 2 ) 
-		{
-			RtInt msdepth( ribNode__->trace.maxSpecularDepth );
-			RiAttribute( "trace", (RtToken) "maxspeculardepth", &msdepth, RI_NULL );
-		}
 	}
+	if( !m_skipRayTraceAttributes )
+	{
+		if( liqglo.liquidRenderer.supports_RAYTRACE ) 
+		{
+			if( ribNode__->trace.sampleMotion ) 
+				RiAttribute( "trace", (RtToken) "samplemotion", &on, RI_NULL );
+			if( ribNode__->trace.displacements ) 
+				RiAttribute( "trace", (RtToken) "displacements", &on, RI_NULL );
+			if( ribNode__->trace.bias != 0.01f ) 
+			{
+				RtFloat bias( ribNode__->trace.bias );
+				RiAttribute( "trace", (RtToken) "bias", &bias, RI_NULL );
+			}
+			if( ribNode__->trace.maxDiffuseDepth != 1 ) 
+			{
+				RtInt mddepth( ribNode__->trace.maxDiffuseDepth );
+				RiAttribute( "trace", (RtToken) "maxdiffusedepth", &mddepth, RI_NULL );
+			}
+			if( ribNode__->trace.maxSpecularDepth != 2 ) 
+			{
+				RtInt msdepth( ribNode__->trace.maxSpecularDepth );
+				RiAttribute( "trace", (RtToken) "maxspeculardepth", &msdepth, RI_NULL );
+			}
+		}//if( liqglo.liquidRenderer.supports_RAYTRACE ) 
+	}//if( !m_skipRayTraceAttributes )
 	if( !ribNode__->visibility.camera ) 
 		RiAttribute( "visibility", (RtToken) "camera", &off, RI_NULL );
-
-	// old-style raytracing visibility support
-	// philippe: if raytracing is off in the globals, trace visibility is turned off for all objects, transmission is set to TRANSPARENT for all objects
-	if( liqglo.liquidRenderer.supports_RAYTRACE && !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
-	{
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.trace ) {
-			RtInt on( 1 );
-			RiAttribute( "visibility", (RtToken) "trace", &on, RI_NULL );
-		}
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.transmission != liqRibNode::visibility::TRANSMISSION_TRANSPARENT ) 
-		{
-			RtString trans;
-			switch( ribNode__->visibility.transmission ) 
-			{
-			case liqRibNode::visibility::TRANSMISSION_OPAQUE:
-				trans = "opaque";
-				break;
-			case liqRibNode::visibility::TRANSMISSION_OS:
-				trans = "Os";
-				break;
-			case liqRibNode::visibility::TRANSMISSION_SHADER:
-			default:
-				trans = "shader";
-			}
-			RiAttribute( "visibility", (RtToken) "string transmission", &trans, RI_NULL );
-		}
-	}
-	// philippe : prman 12.5 visibility support
 #ifdef GENERIC_RIBLIB      
 	extern int useAdvancedVisibilityAttributes;
 	useAdvancedVisibilityAttributes = false;
 #endif
-	if( liqglo.liquidRenderer.supports_RAYTRACE && liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
+	// old-style raytracing visibility support
+	// philippe: if raytracing is off in the globals, trace visibility is turned off for all objects, transmission is set to TRANSPARENT for all objects
+	if ( liqglo.liquidRenderer.supports_RAYTRACE )
+	{
+		if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
+		{
+		if(liqglo.rt_useRayTracing)
+		{
+			if ( ribNode__->visibility.trace ) 
+				RiAttribute( "visibility", (RtToken) "trace", &on, RI_NULL );
+			else                             
+				RiAttribute( "visibility", (RtToken) "trace", &off, RI_NULL );
+
+			if( ribNode__->visibility.transmission != liqRibNode::visibility::TRANSMISSION_TRANSPARENT ) 
+			{
+				RtString trans;
+				switch( ribNode__->visibility.transmission ) 
+				{
+				case liqRibNode::visibility::TRANSMISSION_OPAQUE:
+					trans = "opaque";
+					break;
+				case liqRibNode::visibility::TRANSMISSION_OS:
+					trans = "Os";
+					break;
+				case liqRibNode::visibility::TRANSMISSION_SHADER:
+				default:
+					trans = "shader";
+				}
+				RiAttribute( "visibility", (RtToken) "string transmission", &trans, RI_NULL );
+			}
+		}
+
+		}//if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
+	else // philippe : prman 12.5 visibility support
 	{
 		RtInt on( 1 );
 		RtString mode;
 #ifdef GENERIC_RIBLIB         
 		useAdvancedVisibilityAttributes = true;
 #endif
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.diffuse ) 
+	if ( liqglo.rt_useRayTracing )
+	{
+		if( !m_skipVisibilityAttributes )
+		{
+		if(  ribNode__->visibility.diffuse ) 
 			RiAttribute( "visibility", (RtToken) "int diffuse", &on, RI_NULL );
 
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.specular ) 
+		if(  ribNode__->visibility.specular ) 
 			RiAttribute( "visibility", (RtToken) "int specular", &on, RI_NULL );
 
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.newtransmission ) 
+		if(  ribNode__->visibility.newtransmission ) 
 			RiAttribute( "visibility", (RtToken) "int transmission", &on, RI_NULL );
 
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.camera ) 
-			RiAttribute( "visibility", (RtToken) "int camera", &on, RI_NULL );
+		//if( ribNode__->visibility.camera ) 
+		//	RiAttribute( "visibility", (RtToken) "int camera", &on, RI_NULL );
 
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.photon ) 
-			RiAttribute( "visibility", (RtToken) "int photon", &on, RI_NULL );
+		//if(  ribNode__->visibility.photon ) 
+		//	RiAttribute( "visibility", (RtToken) "int photon", &on, RI_NULL );
 
-		if( liqglo.rt_useRayTracing && ribNode__->visibility.midpoint ) 
-			RiAttribute( "visibility", (RtToken) "int midpoint", &on, RI_NULL );
-
-		if( liqglo.rt_useRayTracing && ribNode__->hitmode.diffuse != liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE ) 
-		{
-			switch( ribNode__->hitmode.diffuse ) 
-			{
-			case liqRibNode::hitmode::DIFFUSE_HITMODE_SHADER:
-				mode = "shader";
-				break;
-			case liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE:
-			default:
-				mode = "primitive";
-			}
-			RiAttribute( "shade", (RtToken) "string diffusehitmode", &mode, RI_NULL );
+		//if( ribNode__->visibility.midpoint ) 
+		//	RiAttribute( "visibility", (RtToken) "int midpoint", &on, RI_NULL );
 		}
 
-		if( liqglo.rt_useRayTracing && ribNode__->hitmode.specular != liqRibNode::hitmode::SPECULAR_HITMODE_SHADER ) 
+		if( !m_skipRayTraceAttributes )
 		{
-			switch( ribNode__->hitmode.specular ) 
+			if( liqglo.rt_useRayTracing && ribNode__->hitmode.diffuse != liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE ) 
 			{
-			case liqRibNode::hitmode::SPECULAR_HITMODE_PRIMITIVE:
-				mode = "primitive";
-				break;
-			case liqRibNode::hitmode::SPECULAR_HITMODE_SHADER:
-			default:
-				mode = "shader";
+				switch( ribNode__->hitmode.diffuse ) 
+				{
+				case liqRibNode::hitmode::DIFFUSE_HITMODE_SHADER:
+					mode = "shader";
+					break;
+				case liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE:
+				default:
+					mode = "primitive";
+				}
+				RiAttribute( "shade", (RtToken) "string diffusehitmode", &mode, RI_NULL );
 			}
-			RiAttribute( "shade", (RtToken) "string specularhitmode", &mode, RI_NULL );
-		}
 
-		if( liqglo.rt_useRayTracing && ribNode__->hitmode.transmission != liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER ) 
-		{
-			switch( ribNode__->hitmode.transmission ) 
+			if( ribNode__->hitmode.specular != liqRibNode::hitmode::SPECULAR_HITMODE_SHADER ) 
 			{
-			case liqRibNode::hitmode::TRANSMISSION_HITMODE_PRIMITIVE:
-				mode = "primitive";
-				break;
-			case liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER:
-			default:
-				mode = "shader";
+				switch( ribNode__->hitmode.specular ) 
+				{
+				case liqRibNode::hitmode::SPECULAR_HITMODE_PRIMITIVE:
+					mode = "primitive";
+					break;
+				case liqRibNode::hitmode::SPECULAR_HITMODE_SHADER:
+				default:
+					mode = "shader";
+				}
+				RiAttribute( "shade", (RtToken) "string specularhitmode", &mode, RI_NULL );
 			}
-			RiAttribute( "shade", (RtToken) "string transmissionhitmode", &mode, RI_NULL );
-		}
 
+			if( ribNode__->hitmode.transmission != liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER ) 
+			{
+				switch( ribNode__->hitmode.transmission ) 
+				{
+				case liqRibNode::hitmode::TRANSMISSION_HITMODE_PRIMITIVE:
+					mode = "primitive";
+					break;
+				case liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER:
+				default:
+					mode = "shader";
+				}
+				RiAttribute( "shade", (RtToken) "string transmissionhitmode", &mode, RI_NULL );
+			}
+		}//if( !m_skipRayTraceAttributes )
+	}//if ( rt_useRayTracing )
+	if( !m_skipShadingAttributes )
+	{
 		if( ribNode__->hitmode.camera != liqRibNode::hitmode::CAMERA_HITMODE_SHADER ) 
 		{
 			switch( ribNode__->hitmode.camera ) 
@@ -1971,9 +1994,8 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 			RiAttribute( "shade", (RtToken) "string camerahitmode", &mode, RI_NULL );
 		}
 	}
-
-	if( liqglo.liquidRenderer.supports_RAYTRACE ) 
-	{
+	} //else philippe : prman 12.5 visibility support 
+	// irradiance attributes
 		if( ribNode__->irradiance.shadingRate != 1.0f ) 
 		{
 			RtFloat rate = ribNode__->irradiance.shadingRate;
@@ -2021,6 +2043,10 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 			}
 			RiAttribute( "irradiance", (RtToken) "filemode", &mode, RI_NULL );
 		}
+
+		// ymesh: photon visibility support
+		if ( liqglo.rt_useRayTracing && ribNode__->visibility.photon ) 
+			RiAttribute( "visibility", (RtToken) "int photon", &on, RI_NULL );
 
 		if( ribNode__->photon.globalMap != "" ) 
 		{
@@ -2256,7 +2282,9 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 		}
 	}//procedural
 
-	if( ribNode__->motion.deformationBlur || ribNode__->motion.transformationBlur && ribNode__->motion.factor != 1.0f ) 
+	if( liqglo.liqglo_doMotion && 
+		ribNode__->motion.factor != 1.0f && 
+		( ribNode__->motion.deformationBlur || ribNode__->motion.transformationBlur ) ) 
 		RiGeometricApproximation( "motionfactor", ribNode__->motion.factor );
 
 	ribNode__->writeUserAttributes();
@@ -2375,7 +2403,7 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 //					}else if( path__.hasFn( MFn::kPfxGeometry ) ){
 //						RiSurface( "liquidpfx", RI_NULL );
 //					}else {
-//						//RiSurface( "plastic", RI_NULL );
+//						//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
 //						MFnDependencyNode shaderFn(shader);
 //						RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
 //					}
@@ -2438,7 +2466,7 @@ MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 
 	LIQDEBUGPRINTF( "-> objectBlock_reference\n" );
 
-	if( m_ignoreSurfaces ) 
+	if( m_ignoreSurfaces && !liqglo.liqglo_skipDefaultMatte ) 
 		RiSurface( "matte", RI_NULL );
 
 	// Moritz: Added Pre-Geometry RIB for insertion right before any primitives
@@ -3508,14 +3536,13 @@ void liqRibTranslator::oneObjectBlock_reference(
 
 		bool writeShaders( true );
 // 
-// 		if( currentJob.isShadow &&
-// 			(    ( !currentJob.deepShadows && !m_outputShadersInShadows ) 
-// 			  || (  currentJob.deepShadows && !m_outputShadersInDeepShadows ) 
-// 			)
-// 		  )
-// 		{
-// 			writeShaders = false;
-// 		} 
+		if( currentJob.isShadow &&
+			(    ( !currentJob.deepShadows && !m_outputShadersInShadows ) 
+			  || (  currentJob.deepShadows && !m_outputShadersInDeepShadows ) )
+		  )
+		{
+			writeShaders = false;
+		} 
 // 		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
 // 			currentJob.isShadow, 
 //			currentJob.deepShadows, m_outputShadersInShadows, currentJob.deepShadows, m_outputShadersInDeepShadows );
@@ -3830,7 +3857,7 @@ MStatus liqRibTranslator::writeShader_forShadow(
 				}else if( path__.hasFn( MFn::kPfxGeometry ) ){
 					RiSurface( "liquidpfx", RI_NULL );
 				}else {
-					//RiSurface( "plastic", RI_NULL );
+					//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
 					MFnDependencyNode shaderFn(shader);
 					RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
 				}

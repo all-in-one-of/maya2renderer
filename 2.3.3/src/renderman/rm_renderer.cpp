@@ -565,10 +565,9 @@ namespace renderman
 					{
 						if( ribNode__->object( 0 )->isNextObjectGrainAnimated() ) //isNextObjectGrainAnimated() is always true.
 						{
-							if(liqglo.liqglo_relativeMotion)
-								RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimesOffsets );
-							else
-								RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
+							RiMotionBeginV( liqglo.liqglo_motionSamples, 
+								( liqglo.liqglo_relativeMotion )? 
+								liqglo.liqglo_sampleTimesOffsets : liqglo.liqglo_sampleTimes);
 
 							for ( unsigned msampleOn( 0 ); msampleOn < liqglo.liqglo_motionSamples; msampleOn++ )
 							{ 
@@ -1199,6 +1198,7 @@ namespace renderman
 			RiAttribute( "grouping", "membership", &members, RI_NULL );
 		}
 
+		if ( !liqRibTranslator::getInstancePtr()->m_skipShadingAttributes )
 		if( ribNode->shading.matte || ribNode->mayaMatteMode ) 
 			RiMatte( RI_TRUE );
 
@@ -1222,6 +1222,7 @@ namespace renderman
 		// if the node's shading rate == -1,
 		// it means it hasn't been overriden by a liqShadingRate attribute.
 		// No need to output it then.
+		if ( !liqRibTranslator::getInstancePtr()->m_skipShadingAttributes )//!m_skipShadingAttributes
 		if( ribNode->shading.shadingRate > 0 )
 			RiShadingRate ( ribNode->shading.shadingRate );
 
@@ -1312,7 +1313,7 @@ namespace renderman
 			}else if( path__.hasFn( MFn::kPfxGeometry ) ){
 				RiSurface( "liquidpfx", RI_NULL );
 			}else {
-				//RiSurface( "plastic", RI_NULL );
+				//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
 				//MFnDependencyNode shaderFn(shader);
 				//RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );//use ShadingGroup file reference(e.g. *.erapi/*.rmsg) instead.
 			}

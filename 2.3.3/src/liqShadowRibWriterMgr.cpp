@@ -295,7 +295,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					"minmax", &minmax,
 					RI_NULL );
 			}
-			//r775 exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
+			liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.camera );
 			//refactor 17 end
 }
 //
