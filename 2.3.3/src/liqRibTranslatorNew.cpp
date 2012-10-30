@@ -253,7 +253,7 @@ MStatus liqRibTranslator::buildJobs__()
 		);
 	}
 		
-	//[refactor 4] begin to buildJobs()
+	//[refactor 4] begin from buildJobs()
 	// If we didn't find a renderable camera then give up
 	if( jobList.size() == 0 ) 
 	{
