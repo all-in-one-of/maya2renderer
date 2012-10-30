@@ -258,6 +258,8 @@ MStatus tLightMgr::buildShadowJob(
 			//[refactor][2.1.3 begin] from buildJobs()
 			// if the job has shadow cameras, we will store them here
 			//
+			//if( lightHasShadowCam )
+			{
 			int isAggregate = thisJob___.shadowAggregation;
 			for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
 			{
@@ -310,6 +312,7 @@ MStatus tLightMgr::buildShadowJob(
 				liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
 			}//for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
 			//[refactor][2.1.3 end] from buildJobs()
+			}//if( lightHasShadowCam )
 		} // if( usesDepthMap && areObjectAndParentsVisible( lightPath__ ) ) 
 		//cout <<thisJob.name.asChar()<<" -> shd:"<<thisJob.isShadow<<" ef:"<<thisJob.everyFrame<<" raf:"<<thisJob.renderFrame<<" set:"<<thisJob.shadowObjectSet.asChar()<<endl;
 	} // light dagIterator
