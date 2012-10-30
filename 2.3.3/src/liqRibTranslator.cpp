@@ -4315,7 +4315,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 // 		,currentNode.hasFn( MFn::kPfxToon )
 // 		,currentNode.hasFn( MFn::kImplicitSphere )
 // 		,currentNode.hasFn( MFn::kPluginShape )
-// 		,currentNode.hasFn( MFn::kNurbsCurve ) 
+// 		,currentNode.hasFn( MFn::kNurbsCurve ) );
 	
 	if(  currentNode.hasFn( MFn::kNurbsSurface )
 		|| currentNode.hasFn( MFn::kMesh )
@@ -4323,7 +4323,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		|| currentNode.hasFn( MFn::kNParticle)//r775 doesn't use this
 		|| currentNode.hasFn( MFn::kLocator )
 		|| currentNode.hasFn( MFn::kSubdiv )
-		|| currentNode.hasFn( MFn::kPfxHair )
+//		|| currentNode.hasFn( MFn::kPfxHair )//Sometimes, pfxhair has both MFn::kPfxHair and MFn::kPfxGeometry, so I treat pfxhair as kPfxGeometry. If there is something wrong, check this section. // [10/30/2012 yaoyansi]
 		|| currentNode.hasFn( MFn::kPfxToon )
 		|| currentNode.hasFn( MFn::kImplicitSphere )
 		|| currentNode.hasFn( MFn::kPluginShape ) ) // include plugin shapes as placeholders
@@ -4331,6 +4331,10 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		LIQDEBUGPRINTF( "==> inserting obj to htable %s\n", path.fullPathName().asChar() );
     	htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
 		LIQDEBUGPRINTF( "==> %s inserted\n", path.fullPathName().asChar() );
+	}
+	else if(currentNode.hasFn( MFn::kPfxHair ))//added by yaoyansi for maya2renderer
+	{
+		liquidMessage2(messageWarning, "Sometimes, pfxhair has both MFn::kPfxHair and MFn::kPfxGeometry, so I treat pfxhair as kPfxGeometry. If there is something wrong, check this section. // [10/30/2012 yaoyansi]");
 	}
 	// Alf: treat PFX as three separate entities so a separate shading group can
 	// be assigned to each part
@@ -4366,7 +4370,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 
 		MStatus plugStatus;
 		MPlug renderCurvePlug = dagNode.findPlug( "liquidCurve", &plugStatus );
-		if( liqglo.liqglo_renderAllCurves && ( plugStatus == MS::kSuccess ) )// ymesh(r775) use ||, r773 use &&
+		if( liqglo.liqglo_renderAllCurves || ( plugStatus == MS::kSuccess ) )// ymesh(r775) use ||, r773 use &&
 		{
 			bool renderCurve( false );
 			renderCurvePlug.getValue( renderCurve );
@@ -4605,9 +4609,9 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 			while( !instancerIter.isDone() )
 			{
 				MDagPath path( instancerIter.path() );
-				MString instanceStr( ( MString )"|INSTANCE_" +
-					instancerIter.instancerId() + (MString)"_" +
-					instancerIter.particleId() + (MString)"_" +
+				MString instanceStr( MString("|INSTANCE_") +
+					instancerIter.instancerId() + MString("_") +
+					instancerIter.particleId() + MString("_") +
 					instancerIter.pathId() );
 
 				MMatrix instanceMatrix( instancerIter.matrix() );
@@ -4620,7 +4624,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				instancerIter.next();
 			}
 			//[refactor 11.1] end
-		}
+		}//  if ( !m_renderSelected && !m_exportSpecificList )
 
 		vector<structJob>::iterator iter = jobList.begin();
 		while ( iter != jobList.end() ) 
