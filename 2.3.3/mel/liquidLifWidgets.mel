@@ -296,6 +296,8 @@ global proc string liquidAE_Lif_field( string $paramName, string $paramType, str
 	global string $gLiquid_currentAEParent;
 	global string $gLiquid_currentAEShader;
 
+    // !!! temporary solution for compatibility with previose versions
+    if ( $attr == -1 ) $attr = $paramName;
     string $plug = ($gLiquid_currentAENode+"."+$attr);
     string $mayaType = `getAttr -typ $plug`;
     string $ctlName = controlName( $paramName);
@@ -331,6 +333,8 @@ global proc string liquidAE_LifFloat_field( string $paramName, string $attr, str
 	global string $gLiquid_currentAEParent;
 	global string $gLiquid_currentAEShader;
 
+    // !!! temporary solution for compatibility with previose versions
+    if ( $attr == -1 ) $attr = $paramName;
     string $plug = ($gLiquid_currentAENode+"."+$attr);
     string $mayaType = `getAttr -typ $plug`;
     string $ctlName = controlName( $paramName);
@@ -365,6 +369,8 @@ global proc string liquidAE_LifFloat_slider( string $paramName, string $attr, st
 	global string $gLiquid_currentAEParent;
 	global string $gLiquid_currentAEShader;
 
+  // !!! temporary solution for compatibility with previose versions
+  if ( $attr == -1 ) $attr = $paramName;
     string $plug = ($gLiquid_currentAENode+"."+$attr);
     string $mayaType = `getAttr -typ $plug`;
     string $ctlName = controlName( $paramName);
@@ -420,6 +426,8 @@ global proc string liquidAE_LifFloat_bool( string $paramName, string $attr, stri
 	global string $gLiquid_currentAENode;
 	global string $gLiquid_currentAEShader;
 
+  // !!! temporary solution for compatibility with previose versions
+  if ( $attr == -1 ) $attr = $paramName;
     string $plug = ($gLiquid_currentAENode+"."+$attr);
     string $mayaType = `getAttr -typ $plug`;
     string $ctlName = controlName( $paramName);
@@ -499,6 +507,8 @@ global proc string liquidAE_LifColor_slider( string $paramName, string $attr, st
 	global string $gLiquid_currentAEParent;
 	global string $gLiquid_currentAEShader;
 
+  // !!! temporary solution for compatibility with previose versions
+  if ( $attr == -1 ) $attr = $paramName;
     string $plug = ($gLiquid_currentAENode+"."+$attr);
     // string $mayaType = `getAttr -typ $plug`;
     string $ctlName = controlName( $paramName);
@@ -512,7 +522,8 @@ global proc string liquidAE_LifColor_slider( string $paramName, string $attr, st
 							-at $plug
 							-showButton false
 							// -cc ( "liquidParamAU " + $gLiquid_currentAENode )
-							-visible $visible		-enable $enable
+							-visible $visible
+							-enable $enable
                        	 	$ctlName;
 	} else {
 		attrColorSliderGrp  -e
@@ -826,12 +837,14 @@ global proc string liquidAE_LifString_shaderAttrDrop (string $sourceNode, string
 }
 
 // Doesn't seem to ever be called ?
-global proc string liquidAE_LifString_shaderConnectToExisting (string $plug) 
+// ymesh: Yes. If we provide 3 argument to the function
+global proc string liquidAE_LifString_shaderConnectToExisting (string $plug, string $flag, string $node ) 
 {
-	print ("connect existing: "+$plug+"\n");
-
+	liqPushIdent();
+	liqlog ("liquidAE_LifString_shaderConnectToExisting("+$plug+","+$flag+","+$node+")");
+        connectAttr ( $node + ".message" ) $plug;
+	liqPopIdent();
 	return "connect existing";
-	
 }
 
 // This works, when the "map" button is pressed
