@@ -55,9 +55,9 @@ public:
 
   void addAdditionalParticleParameters( MObject node );
 
-  void addAdditionalFloatParameters ( MFnDependencyNode nodeFn);
+  void addAdditionalFloatParameters ( MFnDependencyNode &nodeFn);
   //void addAdditionalPointParameters ( MFnDependencyNode nodeFn);
-  void addAdditionalVectorParameters( MFnDependencyNode nodeFn, const std::string& prefix, ParameterType type );
+  void addAdditionalVectorParameters( MFnDependencyNode &nodeFn, const std::string& prefix, ParameterType type );
   //void addAdditionalColorParameters ( MFnDependencyNode nodeFn);
 
   // pType data type, these values corrospond to the types of

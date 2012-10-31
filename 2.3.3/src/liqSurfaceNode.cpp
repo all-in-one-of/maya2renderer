@@ -86,7 +86,9 @@ MObject liqSurfaceNode::aOpacity;
 MObject liqSurfaceNode::aShaderSpace;
 MObject liqSurfaceNode::aDisplacementBound;
 MObject liqSurfaceNode::aDisplacementBoundSpace;
-MObject liqSurfaceNode::aOutputInShadow;
+MObject liqSurfaceNode::aOutputInShadow; 
+
+MObject liqSurfaceNode::aVisiblePoints;
 
 MObject liqSurfaceNode::aResolution;
 MObject liqSurfaceNode::aRefreshPreview;
@@ -292,6 +294,10 @@ MStatus liqSurfaceNode::initialize()
 
   aOutputInShadow = nAttr.create("outputInShadow", "ois",  MFnNumericData::kBoolean, 0.0, &status);
   MAKE_NONKEYABLE_INPUT(nAttr);
+
+  aVisiblePoints = nAttr.create( "useVisiblePoints", "uvp", MFnNumericData::kBoolean, false, &status );
+  MAKE_NONKEYABLE_INPUT(nAttr);
+  CHECK_MSTATUS( nAttr.setConnectable(false ) );
 
 	// resolution attribute for maya's hardware renderer
   aResolution = nAttr.create("resolution", "res",  MFnNumericData::kInt, 32, &status);
@@ -504,6 +510,7 @@ MStatus liqSurfaceNode::initialize()
   CHECK_MSTATUS( addAttribute( aDisplacementBound ) );
   CHECK_MSTATUS( addAttribute( aDisplacementBoundSpace ) );
   CHECK_MSTATUS( addAttribute( aOutputInShadow ) );
+  CHECK_MSTATUS( addAttribute( aVisiblePoints ) );
   
   CHECK_MSTATUS( addAttribute( aResolution ) );
   CHECK_MSTATUS( addAttribute( aRefreshPreview ) );

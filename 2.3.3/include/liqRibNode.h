@@ -161,31 +161,54 @@ class liqRibNode {
       bool      midpoint;
       bool      newtransmission;
       bool      subsurface;
-      enum {
+      typedef enum {
         TRANSMISSION_TRANSPARENT = 0,
         TRANSMISSION_OPAQUE      = 1,
         TRANSMISSION_OS          = 2,
         TRANSMISSION_SHADER      = 3
-      } transmission;
+      } Transmission;
+	  Transmission transmission;
     } visibility;
 
+    struct shade {
+      typedef enum {
+        SHADE_STRATEGY_GRIDS      = 0,
+        SHADE_STRATEGY_VPVOLUMES  = 1   
+      } Strategy;
+      Strategy strategy;
+      typedef enum {
+        SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE = 0,
+        SHADE_VOLUMEINTERSECTIONSTRATEGY_ADDITIVE = 1   
+      } VolumeIntersectionStrategy;
+      VolumeIntersectionStrategy volumeIntersectionStrategy;
+      float volumeIntersectionPriority; 
+    } shade;
+
     struct hitmode {
-      enum {
+      typedef enum {
         CAMERA_HITMODE_PRIMITIVE  = 0,
-        CAMERA_HITMODE_SHADER     = 1
-      } camera;
-      enum {
+        CAMERA_HITMODE_SHADER     = 1,
+        CAMERA_HITMODE_CACHE      = 2
+      } Camera;
+	    Camera camera;
+      typedef enum {
         DIFFUSE_HITMODE_PRIMITIVE  = 0,
-        DIFFUSE_HITMODE_SHADER     = 1
-      } diffuse;
-      enum {
+        DIFFUSE_HITMODE_SHADER     = 1,
+        DIFFUSE_HITMODE_CACHE      = 2
+      } Diffuse;
+	    Diffuse diffuse;
+      typedef enum {
         SPECULAR_HITMODE_PRIMITIVE  = 0,
-        SPECULAR_HITMODE_SHADER     = 1
-      } specular;
-      enum {
+        SPECULAR_HITMODE_SHADER     = 1,
+        SPECULAR_HITMODE_CACHE      = 2
+      } Specular;
+	    Specular specular;
+      typedef enum {
         TRANSMISSION_HITMODE_PRIMITIVE  = 0,
-        TRANSMISSION_HITMODE_SHADER     = 1
-      } transmission;
+        TRANSMISSION_HITMODE_SHADER     = 1,
+        TRANSMISSION_HITMODE_CACHE      = 2
+      } Transmission;
+	    Transmission transmission;
     } hitmode;
 
     struct irradiance {
@@ -194,25 +217,27 @@ class liqRibNode {
       float     maxError;
       float     maxPixelDist;
       MString   handle;
-      enum {
+      typedef enum {
         FILEMODE_NONE = 0,
         FILEMODE_READ = 1,
         FILEMODE_WRITE = 2,
         FILEMODE_READ_WRITE = 3
-      } fileMode;
+      } FileMode;
+	    FileMode fileMode;
     } irradiance;
 
     struct photon {
       MString   globalMap;
       MString   causticMap;
-      enum {
+      typedef enum {
         SHADINGMODEL_MATTE = 0,
         SHADINGMODEL_GLASS = 1,
         SHADINGMODEL_WATER = 2,
         SHADINGMODEL_CHROME = 3,
         SHADINGMODEL_TRANSPARENT = 4,
         SHADINGMODEL_DIALECTRIC = 5
-      } shadingModel;
+      } ShadingModel;
+	  	ShadingModel shadingModel;
       int estimator;
     } photon;
 

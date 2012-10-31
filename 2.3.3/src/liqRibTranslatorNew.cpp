@@ -1830,6 +1830,8 @@ MStatus liqRibTranslator::objectShadowAttribute(const liqRibNodePtr &ribNode__)
 MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode__)
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::objectNonShadowAttribute("<<ribNode__->name.asChar()<<")");
+
+	RtString mode;
 	RtInt off( 0 );
 	RtInt on( 1 );
 	if ( !m_skipShadingAttributes )
@@ -1905,8 +1907,6 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 		}//if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
 	else // philippe : prman 12.5 visibility support
 	{
-		RtInt on( 1 );
-		RtString mode;
 #ifdef GENERIC_RIBLIB         
 		useAdvancedVisibilityAttributes = true;
 #endif
@@ -1942,6 +1942,9 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 				case liqRibNode::hitmode::DIFFUSE_HITMODE_SHADER:
 					mode = "shader";
 					break;
+				case liqRibNode::hitmode::DIFFUSE_HITMODE_CACHE:
+					mode = "cache";
+					break;
 				case liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE:
 				default:
 					mode = "primitive";
@@ -1956,6 +1959,9 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 				case liqRibNode::hitmode::SPECULAR_HITMODE_PRIMITIVE:
 					mode = "primitive";
 					break;
+				case liqRibNode::hitmode::SPECULAR_HITMODE_CACHE:
+					mode = "cache";
+					break;
 				case liqRibNode::hitmode::SPECULAR_HITMODE_SHADER:
 				default:
 					mode = "shader";
@@ -1969,6 +1975,9 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 				{
 				case liqRibNode::hitmode::TRANSMISSION_HITMODE_PRIMITIVE:
 					mode = "primitive";
+					break;
+				case liqRibNode::hitmode::TRANSMISSION_HITMODE_CACHE:
+					mode = "cache";
 					break;
 				case liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER:
 				default:
@@ -1986,6 +1995,9 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 			{
 			case liqRibNode::hitmode::CAMERA_HITMODE_PRIMITIVE:
 				mode = "primitive";
+				break;
+			case liqRibNode::hitmode::CAMERA_HITMODE_CACHE:
+				mode = "cache";
 				break;
 			case liqRibNode::hitmode::CAMERA_HITMODE_SHADER:
 			default:
@@ -2062,28 +2074,28 @@ MStatus liqRibTranslator::objectNonShadowAttribute(const liqRibNodePtr &ribNode_
 
 		if( ribNode__->photon.shadingModel != liqRibNode::photon::SHADINGMODEL_MATTE ) 
 		{
-			RtString model;
-			switch( ribNode__->photon.shadingModel  ) {
+			switch( ribNode__->photon.shadingModel  ) 
+			{
 			case liqRibNode::photon::SHADINGMODEL_GLASS:
-				model = "glass";
+				mode = "glass";
 				break;
 			case liqRibNode::photon::SHADINGMODEL_WATER:
-				model = "water";
+				mode = "water";
 				break;
 			case liqRibNode::photon::SHADINGMODEL_CHROME:
-				model = "chrome";
+				mode = "chrome";
 				break;
 			case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
-				model = "chrome";
+				mode = "chrome";
 				break;
 			case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
-				model = "dielectric";
+				mode = "dielectric";
 				break;
 			case liqRibNode::photon::SHADINGMODEL_MATTE:
 			default:
-				model = "matte";
+				mode = "matte";
 			}
-			RiAttribute( "photon", (RtToken) "shadingmodel", &model, RI_NULL );
+			RiAttribute( "photon", (RtToken) "shadingmodel", &mode, RI_NULL );
 		}
 
 		if( ribNode__->photon.estimator != 100 ) 
@@ -3533,7 +3545,7 @@ void liqRibTranslator::oneObjectBlock_reference(
 
 		liquid::RendererMgr::getInstancePtr()->getRenderer()
 			->oneObjectBlock_reference_attribute_block1(ribNode, currentJob);
-
+		//[refactor 33] begin
 		bool writeShaders( true );
 // 
 		if( currentJob.isShadow &&
@@ -3543,6 +3555,26 @@ void liqRibTranslator::oneObjectBlock_reference(
 		{
 			writeShaders = false;
 		} 
+		//[refactor 33] end
+		RtString mode;
+		//[refactor 34] begin
+		// new prman 16.x shade attributes group 
+		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
+		{
+			mode = "vpvolumes"; 
+			RiAttribute( "shade", (RtToken) "strategy", &mode, RI_NULL );
+		}
+		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
+		{
+			mode = "additive"; 
+			RiAttribute( "shade", (RtToken) "volumeintersectionstrategy", &mode, RI_NULL );
+		}
+		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
+		{
+			RtFloat value= ribNode->shade.volumeIntersectionPriority; 
+			RiAttribute( "shade", (RtToken) "volumeintersectionpriority", &value, RI_NULL );
+		}
+		//[refactor 34] end
 // 		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
 // 			currentJob.isShadow, 
 //			currentJob.deepShadows, m_outputShadersInShadows, currentJob.deepShadows, m_outputShadersInDeepShadows );

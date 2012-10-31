@@ -73,6 +73,8 @@ liqShader::liqShader()
   hasErrors             = false;
 //  shader_type           = SHADER_TYPE_UNKNOWN;
   shader_type_ex        = "";
+  volume_type           = VOLUME_TYPE_ATMOSPHERE;
+  useVisiblePoints      = false;  // New for PPMAN 16.x: use VP.. shader version
   shaderSpace           = "";
   evaluateAtEveryFrame  = 0;
   tokenPointerArray.push_back( liqTokenPointer() ); // ENsure we have a 0 element
@@ -102,6 +104,8 @@ liqShader::liqShader( const liqShader& src )
   hasErrors            = src.hasErrors;
 //  shader_type        = src.shader_type;
   shader_type_ex       = src.shader_type_ex;
+  volume_type          = src.volume_type;
+  useVisiblePoints     = src.useVisiblePoints;
   shaderSpace          = src.shaderSpace;
   evaluateAtEveryFrame = src.evaluateAtEveryFrame;
   shaderHandler        = src.shaderHandler;
@@ -131,6 +135,8 @@ liqShader & liqShader::operator=( const liqShader & src )
   hasErrors             = src.hasErrors;
 //  shader_type         = src.shader_type;
   shader_type_ex        = src.shader_type_ex;
+  volume_type           = src.volume_type;
+  useVisiblePoints     = src.useVisiblePoints;
   shaderSpace           = src.shaderSpace;
   evaluateAtEveryFrame = src.evaluateAtEveryFrame;
   shaderHandler        = src.shaderHandler;
@@ -222,34 +228,16 @@ liqShader::liqShader( MObject shaderObj )
 		  opacityPlug.child(1).getValue( rmOpacity[1] );
 		  opacityPlug.child(2).getValue( rmOpacity[2] );
 		}
+		int volumeType = volume_type; 
+		liquidGetPlugValue( shaderNode, "volumeType", volumeType, status );
+		if ( MS::kSuccess == status ) volume_type = (VOLUME_TYPE)volumeType;
 
-		status.clear();
-		MPlug shaderSpacePlug( shaderNode.findPlug( "shaderSpace" ) );
-		if ( MS::kSuccess == status )
-		{
-			shaderSpacePlug.getValue( shaderSpace );
-		}
+		liquidGetPlugValue( shaderNode, "useVisiblePoints", useVisiblePoints, status );
 
-		status.clear();
-		MPlug outputInShadowPlug( shaderNode.findPlug( "outputInShadow" ) );
-		if ( MS::kSuccess == status )
-		{
-			outputInShadowPlug.getValue( outputInShadow );
-		}
-
-		status.clear();
-		MPlug evaluateAtEveryFramePlug( shaderNode.findPlug( "evaluateAtEveryFrame" ) );
-		if ( MS::kSuccess == status )
-		{
-			evaluateAtEveryFramePlug.getValue( evaluateAtEveryFrame );
-		}
-
-		status.clear();
-		MPlug previewGammaPlug( shaderNode.findPlug( "previewGamma" ) );
-		if ( MS::kSuccess == status )
-		{
-			previewGammaPlug.getValue( m_previewGamma );
-		}
+		liquidGetPlugValue( shaderNode, "shaderSpace", shaderSpace, status );
+		liquidGetPlugValue( shaderNode, "outputInShadow", outputInShadow, status );
+		liquidGetPlugValue( shaderNode, "evaluateAtEveryFrame", evaluateAtEveryFrame, status );
+		liquidGetPlugValue( shaderNode, "previewGamma", m_previewGamma, status );
 
 		// find the parameter details and declare them in the rib stream
 		numArgs = shaderInfo.getNumParam();
@@ -1245,7 +1233,10 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 		MFnDependencyNode fnObject(coshader);
 		MTypeId depNodeId = fnObject.typeId();
 		//liquidMessage2(messageInfo, "liqSurfaceNodeId=%d  liqDisplacementNodeId=%d  liqVolumeNodeId=%d  liqCoShaderNodeId=%d\n", liqSurfaceNodeId, liqDisplacementNodeId, liqVolumeNodeId, liqCoShaderNodeId);
-		if( depNodeId==liqSurfaceNodeId || depNodeId==liqDisplacementNodeId || depNodeId==liqVolumeNodeId || depNodeId==liqCoShaderNodeId )
+		if( depNodeId==liqSurfaceNodeId || 
+		  depNodeId==liqDisplacementNodeId || 
+		  depNodeId==liqVolumeNodeId || 
+		  depNodeId==liqCoShaderNodeId )
 		{
 			isLiquidShader = 1;
 		}
@@ -1262,54 +1253,54 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 }
 
 
-MStatus liqShader::liqShaderParseVectorAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType )
-{
-	CM_TRACE_FUNC("liqShader::liqShaderParseVectorAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<")");
-
-	MStatus status( MS::kSuccess );
-
-	MPlug triplePlug( shaderNode.findPlug( argName.c_str(), &status ) );
-
-	if ( MS::kSuccess == status )
-	{
-		float x, y, z;
-		tokenPointerArray.rbegin()->set( argName.c_str(), pType );
-		triplePlug.child( 0 ).getValue( x );
-		triplePlug.child( 1 ).getValue( y );
-		triplePlug.child( 2 ).getValue( z );
-		tokenPointerArray.rbegin()->setTokenFloat( 0, x, y, z );
-		//tokenPointerArray.push_back( liqTokenPointer() );
-	}
-  return status;
-}
+// MStatus liqShader::liqShaderParseVectorAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType )
+// {
+// 	CM_TRACE_FUNC("liqShader::liqShaderParseVectorAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<")");
+// 
+// 	MStatus status( MS::kSuccess );
+// 
+// 	MPlug triplePlug( shaderNode.findPlug( argName.c_str(), &status ) );
+// 
+// 	if ( MS::kSuccess == status )
+// 	{
+// 		float x, y, z;
+// 		tokenPointerArray.rbegin()->set( argName.c_str(), pType );
+// 		triplePlug.child( 0 ).getValue( x );
+// 		triplePlug.child( 1 ).getValue( y );
+// 		triplePlug.child( 2 ).getValue( z );
+// 		tokenPointerArray.rbegin()->setTokenFloat( 0, x, y, z );
+// 		//tokenPointerArray.push_back( liqTokenPointer() );
+// 	}
+//   return status;
+// }
 
 // philippe : multi attr support
-MStatus liqShader::liqShaderParseVectorArrayAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType, unsigned int arraySize )
-{
-	CM_TRACE_FUNC("liqShader::liqShaderParseVectorArrayAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<","<<arraySize<<")");
-
-  MStatus status( MS::kSuccess );
-
-  MPlug triplePlug( shaderNode.findPlug( argName.c_str(), true, &status ) );
-
-  if ( MS::kSuccess == status ) {
-    tokenPointerArray.rbegin()->set( argName, pType, false, true, arraySize );
-    for( unsigned int kk( 0 ); kk < arraySize; kk++ ) {
-      MPlug argNameElement( triplePlug.elementByLogicalIndex( kk ) );
-
-      if ( MS::kSuccess == status ) {
-        float x, y, z;
-        argNameElement.child( 0 ).getValue( x );
-        argNameElement.child( 1 ).getValue( y );
-        argNameElement.child( 2 ).getValue( z );
-        tokenPointerArray.rbegin()->setTokenFloat( kk, x, y, z );
-      }
-    }
-    //tokenPointerArray.push_back( liqTokenPointer() );
-  }
-
-  return status;
-}
+// MStatus liqShader::liqShaderParseVectorArrayAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType, unsigned int arraySize )
+// {
+// 	CM_TRACE_FUNC("liqShader::liqShaderParseVectorArrayAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<","<<arraySize<<")");
+// 
+//   MStatus status( MS::kSuccess );
+// 
+//   MPlug triplePlug( shaderNode.findPlug( argName.c_str(), true, &status ) );
+// 
+//   if ( MS::kSuccess == status ) {
+//     tokenPointerArray.rbegin()->set( argName, pType, false, true, arraySize );
+//     for( unsigned int kk( 0 ); kk < arraySize; kk++ ) {
+//       MPlug argNameElement( triplePlug.elementByLogicalIndex( kk ) );
+// 
+//       if ( MS::kSuccess == status ) {
+//         float x, y, z;
+//         argNameElement.child( 0 ).getValue( x );
+//         argNameElement.child( 1 ).getValue( y );
+//         argNameElement.child( 2 ).getValue( z );
+//         tokenPointerArray.rbegin()->setTokenFloat( kk, x, y, z );
+//       }
+//     }
+//     //tokenPointerArray.push_back( liqTokenPointer() );
+//   }
+// 
+//   return status;
+// }
 
 
 void liqShader::write(/*, */)
@@ -1339,46 +1330,46 @@ void liqShader::write(/*, */)
 // 	}
 // }
 
-MStatus liqShader::liqShaderParseMatrixAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType )
-{
-	CM_TRACE_FUNC("liqShader::liqShaderParseMatrixAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<")");
-	MStatus status( MS::kSuccess );
-
-	MPlug matrixPlug( shaderNode.findPlug( argName.c_str(), &status ) );
-
-	if ( MS::kSuccess == status )
-	{
- 		tokenPointerArray.rbegin()->set( argName.c_str(), pType );
-		
-		RtFloat matrixBuff[16];
-
-		//get matrix value
-		MObject oMatrix;
-		matrixPlug.getValue(oMatrix);
-		MFnMatrixData fndMatrix(oMatrix, &status);
-		LIQCHECKSTATUS(status,"liqShader::liqShaderParseMatrixAttr(...) fndMatrix");
-		MMatrix matrix(fndMatrix.matrix(&status));
-		LIQCHECKSTATUS(status,"liqShader::liqShaderParseMatrixAttr(...) mmatrix");
-		RtFloat mmatrixBuff[4][4];
-		matrix.get(mmatrixBuff);
-		matrixBuff[0 ] = mmatrixBuff[0][0];  matrixBuff[1 ] = mmatrixBuff[0][1];  matrixBuff[2 ] = mmatrixBuff[0][2];  matrixBuff[3 ] = mmatrixBuff[0][3];
-		matrixBuff[4 ] = mmatrixBuff[1][0];  matrixBuff[5 ] = mmatrixBuff[1][1];  matrixBuff[6 ] = mmatrixBuff[1][2];  matrixBuff[7 ] = mmatrixBuff[1][3];
-		matrixBuff[8 ] = mmatrixBuff[2][0];  matrixBuff[9 ] = mmatrixBuff[2][1];  matrixBuff[10] = mmatrixBuff[2][2];  matrixBuff[11] = mmatrixBuff[2][3];
-		matrixBuff[12] = mmatrixBuff[3][0];  matrixBuff[13] = mmatrixBuff[3][1];  matrixBuff[14] = mmatrixBuff[3][2];  matrixBuff[15] = mmatrixBuff[3][3];
-      
-		//you can alose get the matrix value by mel
-// 		MDoubleArray matrix;
-// 		MString cmd;
-// 		cmd += "getAttr "+shaderNode.name()+"."+(MString)(argName.c_str());
-// 		MGlobal::executeCommand(cmd, matrix);
-// 		liquidMessage2(messageInfo, "m[][]={%f, %f, %f, %f, ...}",matrix[0] , matrix[1], matrix[2], matrix[3]);
-//		matrix.get(matrixBuff);
-
-		tokenPointerArray.rbegin()->setTokenFloats( matrixBuff );			
-		//tokenPointerArray.push_back( liqTokenPointer() );
-	}
-	return status;
-}
+//MStatus liqShader::liqShaderParseMatrixAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType )
+// {
+// 	CM_TRACE_FUNC("liqShader::liqShaderParseMatrixAttr("<<shaderNode.name().asChar()<<","<<argName<<","<<pType<<")");
+// 	MStatus status( MS::kSuccess );
+// 
+// 	MPlug matrixPlug( shaderNode.findPlug( argName.c_str(), &status ) );
+// 
+// 	if ( MS::kSuccess == status )
+// 	{
+//  		tokenPointerArray.rbegin()->set( argName.c_str(), pType );
+// 		
+// 		RtFloat matrixBuff[16];
+// 
+// 		//get matrix value
+// 		MObject oMatrix;
+// 		matrixPlug.getValue(oMatrix);
+// 		MFnMatrixData fndMatrix(oMatrix, &status);
+// 		LIQCHECKSTATUS(status,"liqShader::liqShaderParseMatrixAttr(...) fndMatrix");
+// 		MMatrix matrix(fndMatrix.matrix(&status));
+// 		LIQCHECKSTATUS(status,"liqShader::liqShaderParseMatrixAttr(...) mmatrix");
+// 		RtFloat mmatrixBuff[4][4];
+// 		matrix.get(mmatrixBuff);
+// 		matrixBuff[0 ] = mmatrixBuff[0][0];  matrixBuff[1 ] = mmatrixBuff[0][1];  matrixBuff[2 ] = mmatrixBuff[0][2];  matrixBuff[3 ] = mmatrixBuff[0][3];
+// 		matrixBuff[4 ] = mmatrixBuff[1][0];  matrixBuff[5 ] = mmatrixBuff[1][1];  matrixBuff[6 ] = mmatrixBuff[1][2];  matrixBuff[7 ] = mmatrixBuff[1][3];
+// 		matrixBuff[8 ] = mmatrixBuff[2][0];  matrixBuff[9 ] = mmatrixBuff[2][1];  matrixBuff[10] = mmatrixBuff[2][2];  matrixBuff[11] = mmatrixBuff[2][3];
+// 		matrixBuff[12] = mmatrixBuff[3][0];  matrixBuff[13] = mmatrixBuff[3][1];  matrixBuff[14] = mmatrixBuff[3][2];  matrixBuff[15] = mmatrixBuff[3][3];
+//       
+// 		//you can alose get the matrix value by mel
+// // 		MDoubleArray matrix;
+// // 		MString cmd;
+// // 		cmd += "getAttr "+shaderNode.name()+"."+(MString)(argName.c_str());
+// // 		MGlobal::executeCommand(cmd, matrix);
+// // 		liquidMessage2(messageInfo, "m[][]={%f, %f, %f, %f, ...}",matrix[0] , matrix[1], matrix[2], matrix[3]);
+// //		matrix.get(matrixBuff);
+// 
+// 		tokenPointerArray.rbegin()->setTokenFloats( matrixBuff );			
+// 		//tokenPointerArray.push_back( liqTokenPointer() );
+// 	}
+// 	return status;
+// }
 //
 void liqShader::buildJobs()
 {

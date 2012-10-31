@@ -181,11 +181,31 @@ namespace renderman
 			}
 			RiWorldBegin();
 			// set attributes from the globals
+#ifdef GENERIC_RIBLIB      
+			extern int useAdvancedVisibilityAttributes;
+			useAdvancedVisibilityAttributes = false;
+#endif
 			if( liqglo.rt_useRayTracing )
 			{
 				RiArchiveRecord(RI_COMMENT,  " Ray-Tracing Attributes from liquid globals");
 				RtInt on( 1 );
-				RiAttribute("visibility", "int trace", &on, RI_NULL );
+
+				if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY )
+				{
+					RtString trans = "shader";
+					RiAttribute( "visibility", "int trace", &on, RI_NULL );
+					RiAttribute( "visibility", "string transmission", &trans, RI_NULL );
+				}
+				else
+				{
+#ifdef GENERIC_RIBLIB         
+					useAdvancedVisibilityAttributes = true;
+#endif
+					RiAttribute( "visibility", "int diffuse", &on, RI_NULL );
+					RiAttribute( "visibility", "int specular", &on, RI_NULL );
+					RiAttribute( "visibility", "int transmission", &on, RI_NULL );
+				}
+
 				if( liqglo.rt_traceDisplacements )
 					RiAttribute("trace", "int displacements", &on, RI_NULL );
 				if( liqglo.rt_traceSampleMotion )
@@ -805,7 +825,11 @@ namespace renderman
 				// names.at(i)    - from
 				// names.at(i+1)  - to
 				// [\"UNC\" \"/from_path/\" \"//comp/to_path/\"]
+#ifdef GENERIC_RIBLIB
 				ss << "[\\\"" << names.at(i+2) << "\\\" \\\"" << names.at(i) << "\\\" \\\"" << names.at(i+1) << "\\\"] ";
+#else
+				ss << "[\"" << names.at(i+2) << "\" \"" << names.at(i) << "\" \"" << names.at(i+1) << "\"] ";
+#endif
 			}
 			printf("%s\n", ss.str().c_str());
 			string dirmapsPath ( ss.str() );

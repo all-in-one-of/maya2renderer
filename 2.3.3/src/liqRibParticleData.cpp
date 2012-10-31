@@ -974,8 +974,10 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
                                   posArray[m_validParticles[part_num]].x,
                                   posArray[m_validParticles[part_num]].y,
                                   posArray[m_validParticles[part_num]].z );
-        if ( haveSpriteNumsArray ) 
-          spriteNumParameter.setTokenFloat( part_num, spriteNumArray[m_validParticles[part_num]]);
+        if ( haveSpriteNumsArray ) {
+			float spriteNumPP = spriteNumArray[m_validParticles[part_num]];
+        	spriteNumParameter.setTokenFloat( part_num, spriteNumPP );
+		}
         else if ( haveSpriteNums ) 
           spriteNumParameter.setTokenFloat( part_num, spriteNum );
         
@@ -1407,9 +1409,6 @@ void liqRibParticleData::_write(const structJob &currentJob)
 
         for( unsigned ui( 0 ); ui < m_numValidParticles; ui++ ) 
         {
-			//unsigned index = grain;//grain is used in r772
-			unsigned index = ui;//ui is used in r773
-
           MVector up( camUp );
           MVector right( camRight );
 
@@ -1421,29 +1420,31 @@ void liqRibParticleData::_write(const structJob &currentJob)
 		  RiReverseOrientation();
 
           if ( -1 != colAttr ) 
-            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ index * 3 ] );
+            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ ui * 3 ] );
 
           if ( -1 != opacAttr ) 
-            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ index * 3 ] );
+            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ ui * 3 ] );
 
           if ( -1 != twistAttr ) 
           {
-            float twist( -( ( RtFloat* )pointerArray[ twistAttr ] )[ index ] * M_PI / 180 );
+            float twist( -( ( RtFloat* )pointerArray[ twistAttr ] )[ ui ] * M_PI / 180 );
             MQuaternion twistQ( twist, camEye );
             right = camRight.rotateBy( twistQ );
             up    = camUp.rotateBy( twistQ );
           }
 
           if ( scaleXAttr != -1 ) 
-            spriteRadiusX *= ( ( RtFloat* )pointerArray[ scaleXAttr ] )[ index ];
+            spriteRadiusX *= ( ( RtFloat* )pointerArray[ scaleXAttr ] )[ ui ];
 
           if ( scaleYAttr != -1 ) 
-            spriteRadiusY *= ( ( RtFloat* )pointerArray[ scaleYAttr ] )[ index ];
+            spriteRadiusY *= ( ( RtFloat* )pointerArray[ scaleYAttr ] )[ ui ];
 
           if ( posAttr != -1 ) 
           {
-            float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ index * 3 ] );
-            float spriteNum( numAttr == -1 ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ index ] );
+            float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ ui * 3 ] );
+            float spriteNumPP = 0;
+            if ( numAttr != -1 ) 
+              spriteNumPP = ( ( RtFloat* )pointerArray[ numAttr ] )[ ui ];
 
             float x0 = P[ 0 ] - spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
             float y0 = P[ 1 ] - spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
@@ -1462,7 +1463,12 @@ void liqRibParticleData::_write(const structJob &currentJob)
                                   x1, y1, z1,
                                   x2, y2, z2,
                                   x3, y3, z3 };
-            RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );
+        	// !!! if not GENERIC_RIBLIB use RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );                                  
+            // RiPatch( "bilinear", "P", &patch, "float spriteNum", (RtFloat*)&spriteNumPP, RI_NULL );
+            // Patch "bilinear"  "P" [0.446265 0.316269 -0.647637 1.27725 0.316269 -1.20393 0.615752 -0.636188 -0.39446 1.44674 -0.636188 -0.950756 ]  "float spriteNum" [2 0 0 0 ]
+            RiArchiveRecord( RI_VERBATIM, "Patch \"bilinear\" \"P\" [%f %f %f %f %f %f %f %f %f %f %f %f] \"float spriteNum\" [%f]", 
+                                          x0, y0, z0,x1, y1, z1, x2, y2, z2,x3, y3, z3,
+                                            spriteNumPP ); 
           } 
           else {
             RiIdentity();
@@ -1783,7 +1789,7 @@ bool liqRibParticleData::writeNextGrain(const structJob &currentJob)
           if ( posAttr != -1 ) 
           {
             float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ grain * 3 ] );
-            float spriteNum( numAttr == -1 ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ grain ] );
+            float spriteNum( (numAttr == -1) ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ grain ] );
 
             float x0 = P[ 0 ] - spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
             float y0 = P[ 1 ] - spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
@@ -1802,7 +1808,10 @@ bool liqRibParticleData::writeNextGrain(const structJob &currentJob)
                                   x1, y1, z1,
                                   x2, y2, z2,
                                   x3, y3, z3 };
-            RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );
+            // RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );
+             RiArchiveRecord( RI_VERBATIM, "Patch \"bilinear\" \"P\" [%f %f %f %f %f %f %f %f %f %f %f %f] \"float spriteNum\" [%f]", 
+                                          x0, y0, z0,x1, y1, z1, x2, y2, z2,x3, y3, z3,
+                                            spriteNum ); 
           } else {
             RiIdentity();
           }
@@ -1879,7 +1888,7 @@ void liqRibParticleData::addAdditionalParticleParameters( MObject node )
   addAdditionalVectorParameters( nodeFn, "rmanC", rColor );
 }
 
-void liqRibParticleData::addAdditionalFloatParameters( MFnDependencyNode nodeFn )
+void liqRibParticleData::addAdditionalFloatParameters( MFnDependencyNode &nodeFn )
 {
 	CM_TRACE_FUNC("liqRibParticleData::addAdditionalFloatParameters("<<nodeFn.name().asChar()<<")");
 
@@ -1923,7 +1932,7 @@ void liqRibParticleData::addAdditionalFloatParameters( MFnDependencyNode nodeFn 
   }
 }
 
-void liqRibParticleData::addAdditionalVectorParameters( MFnDependencyNode nodeFn, const string& prefix, ParameterType type )
+void liqRibParticleData::addAdditionalVectorParameters( MFnDependencyNode &nodeFn, const string& prefix, ParameterType type )
 {
 	CM_TRACE_FUNC("liqRibParticleData::addAdditionalVectorParameters("<<nodeFn.name().asChar()<<","<<prefix<<","<<type<<")");
 

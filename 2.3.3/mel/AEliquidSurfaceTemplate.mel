@@ -76,6 +76,9 @@ global proc AEliquidSurfaceTemplate( string $nodeName )
       editorTemplate -label "Disp. Bound Space" -addControl "displacementBoundSpace";
       editorTemplate -addControl "shaderSpace";
       editorTemplate -addControl "outputInShadow";
+
+      editorTemplate -label "Use VisiblePoints Shader" -ann "available in PRMan 16.x" -addControl "useVisiblePoints" ; //  
+
       editorTemplate -ccu ("liquidLargeFieldNew "+$nodeName+" \"RIB Box\"") ("liquidLargeFieldReplace "+$nodeName+" \"RIB Box\"") "liqRIBBox";
     editorTemplate -endLayout;
 

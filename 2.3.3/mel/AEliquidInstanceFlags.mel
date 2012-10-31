@@ -367,6 +367,14 @@ global proc AEliquidInstanceFlags( string $node )
 
     editorTemplate -endLayout;
 
+    editorTemplate -beginLayout "Volume" -collapse true;
+
+      editorTemplate -label "Shade Strategy"        -addDynamicControl "liqShadeStrategy";
+      editorTemplate -label "Intersection Strategy" -addDynamicControl "liqVolumeIntersectionStrategy";
+      editorTemplate -label "Intersection Priority" -addDynamicControl "liqVolumeIntersectionPriority";
+
+    editorTemplate -endLayout;
+    
     editorTemplate -beginLayout "Motion Blur" -collapse true;
 
       editorTemplate -label "Transformation Blur" -addDynamicControl "liqTransformationBlur";

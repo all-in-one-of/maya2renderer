@@ -119,6 +119,10 @@ liqRibNode::liqRibNode( liqRibNodePtr instanceOfNode,
   visibility.newtransmission = false;
   visibility.midpoint       = false;//true;
   visibility.photon         = false;
+  
+  shade.strategy = shade::SHADE_STRATEGY_GRIDS;
+  shade.volumeIntersectionStrategy = shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE;
+  shade.volumeIntersectionPriority = 0.0;
 
   hitmode.diffuse           = hitmode::DIFFUSE_HITMODE_PRIMITIVE;
   hitmode.specular          = hitmode::SPECULAR_HITMODE_SHADER;
@@ -358,6 +362,14 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
       if( visibility.photon == false ) 
         liquidGetPlugValue( nodePeeker, "liqVisibilityPhoton", visibility.photon, status );
       
+      // ymesh: new shade attrributes in prman 16.x
+      if ( shade.strategy == shade::SHADE_STRATEGY_GRIDS ) 
+        liquidGetPlugValue( nodePeeker, "liqShadeStrategy", (int&)shade.strategy, status ); 
+      if ( shade.volumeIntersectionStrategy == shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE ) 
+        liquidGetPlugValue( nodePeeker, "liqVolumeIntersectionStrategy", (int&)shade.volumeIntersectionStrategy, status ); 
+      if ( shade.volumeIntersectionPriority == 0.0 ) 
+        liquidGetPlugValue( nodePeeker, "liqVolumeIntersectionPriority", shade.volumeIntersectionPriority, status ); 
+
 	  if( visibility.midpoint == false ) 
 		  liquidGetPlugValue( nodePeeker, "liqVisibilityMidpoint", visibility.midpoint, status );
 

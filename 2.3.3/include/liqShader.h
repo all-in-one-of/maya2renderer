@@ -51,9 +51,9 @@ public :
     liqShader & operator=( const liqShader & src );
     explicit liqShader ( MObject shaderObj );
     virtual ~liqShader();
-	MStatus liqShaderParseVectorAttr( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType );
-    MStatus liqShaderParseVectorArrayAttr( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType, unsigned int arraySize );
-	MStatus liqShaderParseMatrixAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType );
+	//MStatus liqShaderParseVectorAttr( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType );
+    //MStatus liqShaderParseVectorArrayAttr( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType, unsigned int arraySize );
+	//MStatus liqShaderParseMatrixAttr ( const MFnDependencyNode& shaderNode, const std::string& argName, ParameterType pType );
 
 	void appendCoShader(MObject coshader, MPlug plug);
 	void write();
@@ -89,6 +89,9 @@ public:
     RtFloat     displacementBound;
     bool        outputInShadow;
     bool        hasErrors;
+    VOLUME_TYPE volume_type;
+    bool        useVisiblePoints; // New for PPMAN 16.x: use VP.. shader version
+	
     //SHADER_TYPE shader_type;
 	//use shader_type_ex instead of shader_type for all renderers
 	//e.g."surface","volume","light",... for renderman

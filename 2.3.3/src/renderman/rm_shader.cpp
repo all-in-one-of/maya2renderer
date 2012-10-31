@@ -31,8 +31,12 @@ namespace renderman
 		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
-		RiSurfaceV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get() , pointerArray.get() );
-
+		if ( shader.useVisiblePoints ){
+			//RiVPSurfaceV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );
+			RiArchiveRecord( RI_COMMENT, "RiVPSurfaceV is not implemented in maya2renderer" );
+		}else{
+			RiSurfaceV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get() , pointerArray.get() );
+		}
 	}
 	liqLightHandle Renderer::shader_light(
 		const liqShader &shader,
@@ -75,8 +79,36 @@ namespace renderman
 		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
-		RiAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount,  tokenArray.get(), pointerArray.get() );
-
+		//RiAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount,  tokenArray.get(), pointerArray.get() );
+		switch ( shader.volume_type )
+		{
+		case VOLUME_TYPE_INTERIOR:
+			if ( shader.useVisiblePoints ){
+				//RiVPInteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
+				RiArchiveRecord( RI_COMMENT, "RiVPInteriorV is not implemented in maya2renderer" );
+			}else{
+				RiInteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
+			}break;
+		case VOLUME_TYPE_EXTERIOR:
+			if ( shader.useVisiblePoints )
+#ifdef GENERIC            
+				RiVPExteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );
+#else
+				// Atleast Prman 16.x haven't this function
+				RiExteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );  
+#endif  
+			else
+				RiExteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
+			break;
+		case VOLUME_TYPE_ATMOSPHERE:
+		default:
+			if ( shader.useVisiblePoints ){
+				//RiVPAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
+				RiArchiveRecord( RI_COMMENT, "RiVPAtmosphereV is not implemented in maya2renderer" );
+			}else{
+				RiAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
+			}break;
+		}
 	}
 	//co-shader
 	void Renderer::shader_shader(
@@ -315,7 +347,7 @@ namespace renderman
 
 		////////////////////////////////////////////
 		//			COLOR
-		if( liqshader->shader_type_ex == "surface" )//if( shaderType == SHADER_TYPE_SURFACE )
+		if( liqshader->shader_type_ex == "surface" || liqshader->shader_type_ex == "volume")//if( shaderType == SHADER_TYPE_SURFACE || shaderType == SHADER_TYPE_VOLUME)
 		{
 			RiArchiveRecord( RI_COMMENT, "Renderer::writeRibAttributes()" );
 			RiColor((RtFloat*)(liqshader->rmColor));

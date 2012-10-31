@@ -4061,7 +4061,11 @@ MStatus liqRibTranslator::ribPrologue()
 				// names.at(i)    - from
 				// names.at(i+1)  - to
 				// [\"UNC\" \"/from_path/\" \"//comp/to_path/\"]
-				ss << "[\\\"" << names.at(i+2) << "\\\" \\\"" << names.at(i) << "\\\" \\\"" << names.at(i+1) << "\\\"] ";
+#ifdef GENERIC_RIBLIB
+        		ss << "[\\\"" << names.at(i+2) << "\\\" \\\"" << names.at(i) << "\\\" \\\"" << names.at(i+1) << "\\\"] ";
+#else
+        		ss << "[\"" << names.at(i+2) << "\" \"" << names.at(i) << "\" \"" << names.at(i+1) << "\"] ";
+#endif
 			}
 			printf("%s\n", ss.str().c_str() );
 			string dirmapsPath ( ss.str() );
@@ -6242,10 +6246,13 @@ MStatus liqRibTranslator::objectBlock()
 		if ( !m_skipShadingAttributes )
 		if( ribNode->shading.shadingRate > 0 )
 			RiShadingRate ( ribNode->shading.shadingRate );
+
+		RtString mode;
+		RtInt off( 0 );
+		RtInt on( 1 );
 		if( !liqglo_currentJob.isShadow ) 
 		{
-			RtInt off( 0 );
-			RtInt on( 1 );
+
 			if ( !m_skipShadingAttributes )
 			{
 			if( !ribNode->shading.diceRasterOrient ) 
@@ -6320,8 +6327,6 @@ MStatus liqRibTranslator::objectBlock()
 			}//if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
 			else // philippe : prman 12.5 visibility support
 			{
-				RtInt on( 1 );
-				RtString mode;
 #ifdef GENERIC_RIBLIB         
 				useAdvancedVisibilityAttributes = true;
 #endif
@@ -6357,6 +6362,9 @@ MStatus liqRibTranslator::objectBlock()
 						case liqRibNode::hitmode::DIFFUSE_HITMODE_SHADER:
 							mode = "shader";
 							break;
+                  		case liqRibNode::hitmode::DIFFUSE_HITMODE_CACHE:
+                  			mode = "cache";
+                  			break;
 						case liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE:
 						default:
 							mode = "primitive";
@@ -6371,6 +6379,9 @@ MStatus liqRibTranslator::objectBlock()
 						case liqRibNode::hitmode::SPECULAR_HITMODE_PRIMITIVE:
 							mode = "primitive";
 							break;
+                  		case liqRibNode::hitmode::SPECULAR_HITMODE_CACHE:
+                    		mode = "cache";
+                    		break;
 						case liqRibNode::hitmode::SPECULAR_HITMODE_SHADER:
 						default:
 							mode = "shader";
@@ -6385,6 +6396,9 @@ MStatus liqRibTranslator::objectBlock()
 						case liqRibNode::hitmode::TRANSMISSION_HITMODE_PRIMITIVE:
 							mode = "primitive";
 							break;
+						case liqRibNode::hitmode::TRANSMISSION_HITMODE_CACHE:
+                    		mode = "cache";
+                    		break;
 						case liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER:
 						default:
 							mode = "shader";
@@ -6402,6 +6416,9 @@ MStatus liqRibTranslator::objectBlock()
 					case liqRibNode::hitmode::CAMERA_HITMODE_PRIMITIVE:
 						mode = "primitive";
 						break;
+                	case liqRibNode::hitmode::CAMERA_HITMODE_CACHE:
+                		mode = "cache";
+                		break;
 					case liqRibNode::hitmode::CAMERA_HITMODE_SHADER:
 					default:
 						mode = "shader";
@@ -6480,28 +6497,28 @@ MStatus liqRibTranslator::objectBlock()
 
 				if( ribNode->photon.shadingModel != liqRibNode::photon::SHADINGMODEL_MATTE ) 
 				{
-					RtString model;
-					switch( ribNode->photon.shadingModel  ) {
-			case liqRibNode::photon::SHADINGMODEL_GLASS:
-				model = "glass";
-				break;
-			case liqRibNode::photon::SHADINGMODEL_WATER:
-				model = "water";
-				break;
-			case liqRibNode::photon::SHADINGMODEL_CHROME:
-				model = "chrome";
-				break;
-			case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
-				model = "chrome";
-				break;
-			case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
-				model = "dielectric";
-				break;
-			case liqRibNode::photon::SHADINGMODEL_MATTE:
-			default:
-				model = "matte";
+					switch( ribNode->photon.shadingModel  ) 
+					{
+						case liqRibNode::photon::SHADINGMODEL_GLASS:
+							mode = "glass";
+							break;
+						case liqRibNode::photon::SHADINGMODEL_WATER:
+							mode = "water";
+							break;
+						case liqRibNode::photon::SHADINGMODEL_CHROME:
+							mode = "chrome";
+							break;
+						case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
+							mode = "chrome";
+							break;
+						case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
+							mode = "dielectric";
+							break;
+						case liqRibNode::photon::SHADINGMODEL_MATTE:
+						default:
+							mode = "matte";
 					}
-					RiAttribute( "photon", (RtToken) "shadingmodel", &model, RI_NULL );
+					RiAttribute( "photon", (RtToken) "shadingmodel", &mode, RI_NULL );
 				}
 
 				if( ribNode->photon.estimator != 100 ) 
@@ -6707,7 +6724,7 @@ MStatus liqRibTranslator::objectBlock()
 
 			ribNode->writeUserAttributes();
 		}// !liqglo_currentJob.isShadow
-
+		//[refactor 33] begin
 		bool writeShaders( true );
 
 		if( liqglo_currentJob.isShadow &&
@@ -6717,6 +6734,25 @@ MStatus liqRibTranslator::objectBlock()
 		{
 			writeShaders = false;
 		}
+		//[refactor 33] end
+		//[refactor 34] begin
+		// new prman 16.x shade attributes group 
+		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
+		{
+		  mode = "vpvolumes"; 
+		  RiAttribute( "shade", (RtToken) "strategy", &mode, RI_NULL );
+		}
+		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
+		{
+		  mode = "additive"; 
+		  RiAttribute( "shade", (RtToken) "volumeintersectionstrategy", &mode, RI_NULL );
+		}
+		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
+		{
+		  RtFloat value= ribNode->shade.volumeIntersectionPriority; 
+		  RiAttribute( "shade", (RtToken) "volumeintersectionpriority", &value, RI_NULL );
+		}
+		//[refactor 34] end
 //		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
 //			liqglo_currentJob.isShadow, 
 //			liqglo_currentJob.deepShadows, m_outputShadersInShadows, liqglo_currentJob.deepShadows, m_outputShadersInDeepShadows );
@@ -7246,11 +7282,31 @@ MStatus liqRibTranslator::worldPrologue()
 		}
 		RiWorldBegin();
 		// set attributes from the globals
+#ifdef GENERIC_RIBLIB      
+		extern int useAdvancedVisibilityAttributes;
+		useAdvancedVisibilityAttributes = false;
+#endif
 		if( liqglo.rt_useRayTracing )
 		{
 			RiArchiveRecord(RI_COMMENT,  " Ray-Tracing Attributes from liquid globals");
 			RtInt on( 1 );
-			RiAttribute("visibility", "int trace", &on, RI_NULL );
+
+			if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY )
+			{
+				RtString trans = "shader";
+				RiAttribute( "visibility", "int trace", &on, RI_NULL );
+				RiAttribute( "visibility", "string transmission", &trans, RI_NULL );
+			}
+			else
+			{
+#ifdef GENERIC_RIBLIB         
+				useAdvancedVisibilityAttributes = true;
+#endif
+				RiAttribute( "visibility", "int diffuse", &on, RI_NULL );
+				RiAttribute( "visibility", "int specular", &on, RI_NULL );
+				RiAttribute( "visibility", "int transmission", &on, RI_NULL );
+			}
+
 			if( liqglo.rt_traceDisplacements )
 				RiAttribute("trace", "int displacements", &on, RI_NULL );
 			if( liqglo.rt_traceSampleMotion )

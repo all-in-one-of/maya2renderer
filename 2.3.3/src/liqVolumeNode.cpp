@@ -74,17 +74,24 @@ MObject liqVolumeNode::aRmanMethods;
 MObject liqVolumeNode::aRmanIsOutput;
 MObject liqVolumeNode::aRmanAccept;
 
+MObject liqVolumeNode::aPreviewGamma;
 MObject liqVolumeNode::aPreviewPrimitive;
 MObject liqVolumeNode::aPreviewCustomPrimitive;
 MObject liqVolumeNode::aPreviewObjectSize;
 MObject liqVolumeNode::aPreviewShadingRate;
 MObject liqVolumeNode::aPreviewBackplane;
 
+MObject liqVolumeNode::aVolumeType;
+MObject liqVolumeNode::aVisiblePoints;
+
+MObject liqVolumeNode::aColor;
+MObject liqVolumeNode::aTransparency;
+MObject liqVolumeNode::aOpacity;
+
 MObject liqVolumeNode::aShaderSpace;
 MObject liqVolumeNode::aOutputInShadow;
 MObject liqVolumeNode::aRefreshPreview;
 
-MObject liqVolumeNode::aPreviewGamma;
 MObject liqVolumeNode::aOutColor;
 
 #define MAKE_INPUT(attr)		\
@@ -196,6 +203,26 @@ MStatus liqVolumeNode::initialize()
   MAKE_NONKEYABLE_INPUT(eAttr);
   CHECK_MSTATUS(eAttr.setConnectable(false));
 
+  aVolumeType = eAttr.create( "volumeType", "vot", 3, &status );
+  eAttr.addField( "Atmosphere", 0 );
+  eAttr.addField( "Interior",   1 );
+  eAttr.addField( "Exterior",   2 );
+  MAKE_NONKEYABLE_INPUT( eAttr );
+  CHECK_MSTATUS( eAttr.setConnectable(false) );
+
+  aColor = nAttr.createColor("color", "cs");
+  nAttr.setDefault( 1.0, 1.0, 1.0 );
+  nAttr.setDisconnectBehavior( MFnAttribute::kReset );
+  MAKE_INPUT(nAttr);
+
+  aOpacity = nAttr.createColor("opacity", "os");
+  nAttr.setDefault( 1.0, 1.0, 1.0 );
+  MAKE_INPUT(nAttr);
+
+  aTransparency = nAttr.createColor("transparency", "ts"); // Needed by Maya for Open Gl preview in "5" mode, invert opacity in compute
+  nAttr.setDefault( 0.0, 0.0, 0.0 );
+  MAKE_INPUT(nAttr);
+
   aPreviewCustomPrimitive = tAttr.create(  MString("previewCustomPrimitive"),  MString("pcp"), MFnData::kString, aPreviewCustomPrimitive, &status );
   MAKE_INPUT(tAttr);
 
@@ -217,6 +244,10 @@ MStatus liqVolumeNode::initialize()
   aOutputInShadow = nAttr.create("outputInShadow", "ois",  MFnNumericData::kBoolean, 0.0, &status);
   MAKE_NONKEYABLE_INPUT(nAttr);
 
+  aVisiblePoints = nAttr.create( "useVisiblePoints", "uvp", MFnNumericData::kBoolean, false, &status );
+  MAKE_NONKEYABLE_INPUT(nAttr);
+  CHECK_MSTATUS( nAttr.setConnectable(false ) );
+  
   // refreshPreview must be true to allow refresh
   aRefreshPreview = nAttr.create("refreshPreview", "rfp",  MFnNumericData::kBoolean, 0.0, &status);
   MAKE_NONKEYABLE_INPUT(nAttr);
@@ -246,6 +277,7 @@ MStatus liqVolumeNode::initialize()
   CHECK_MSTATUS(addAttribute(aRmanMethods));
   CHECK_MSTATUS(addAttribute(aRmanIsOutput));
   CHECK_MSTATUS(addAttribute(aRmanAccept));
+  CHECK_MSTATUS(addAttribute(aPreviewGamma));
 
   CHECK_MSTATUS(addAttribute(aPreviewPrimitive));
   CHECK_MSTATUS(addAttribute(aPreviewCustomPrimitive));
@@ -256,7 +288,13 @@ MStatus liqVolumeNode::initialize()
   CHECK_MSTATUS(addAttribute(aOutputInShadow));
   CHECK_MSTATUS(addAttribute(aRefreshPreview));
 
-  CHECK_MSTATUS(addAttribute(aPreviewGamma));
+  CHECK_MSTATUS( addAttribute( aVolumeType ) );
+  CHECK_MSTATUS( addAttribute( aVisiblePoints ) );
+
+  CHECK_MSTATUS( addAttribute( aColor ) );
+  CHECK_MSTATUS( addAttribute( aOpacity ) );
+  CHECK_MSTATUS( addAttribute( aTransparency ) );
+
   CHECK_MSTATUS(addAttribute(aOutColor));
 
   return MS::kSuccess;
