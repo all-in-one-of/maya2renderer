@@ -1,0 +1,134 @@
+##RenderMan RIB-Structure 1.0
+version 3.03
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.659201 0.505971 -0.554659 5.659146 0.505971 -0.565131 4.666877 -0.174260 0.178299 5.666822 -0.174260 0.167828] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.589476 0.379690 -0.199573 5.589421 0.379690 -0.210044 4.597151 -0.300541 0.533386 5.597096 -0.300541 0.522914] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.663540 0.363019 -0.122953 5.663486 0.363019 -0.133425 4.671216 -0.317212 0.610005 5.671161 -0.317212 0.599534] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.685747 0.432290 -0.583439 5.685692 0.432290 -0.593910 4.693423 -0.247941 0.149520 5.693368 -0.247941 0.139048] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.762650 0.602687 -0.416732 5.762596 0.602687 -0.427203 4.770326 -0.077543 0.316227 5.770271 -0.077543 0.305755] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.696974 0.136115 -0.466522 5.696919 0.136115 -0.476993 4.704650 -0.544116 0.266437 5.704595 -0.544116 0.255965] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [5.040960 0.521075 -0.309556 6.040905 0.521075 -0.320028 5.048636 -0.159156 0.423402 6.048581 -0.159156 0.412930] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [5.022364 0.481743 -0.494796 6.022309 0.481743 -0.505268 5.030039 -0.198487 0.238162 6.029984 -0.198487 0.227690] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.670106 0.494563 -0.350356 5.670052 0.494563 -0.360827 4.677782 -0.185667 0.382603 5.677727 -0.185667 0.372131] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [5.030940 0.188614 -0.292350 6.030885 0.188614 -0.302822 5.038616 -0.491616 0.440608 6.038561 -0.491616 0.430136] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.920045 0.418742 -0.565317 5.919991 0.418742 -0.575789 4.927721 -0.261489 0.167641 5.927666 -0.261489 0.157169] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.745644 0.523294 -0.351390 5.745589 0.523294 -0.361862 4.753319 -0.156937 0.381568 5.753264 -0.156937 0.371096] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.725820 0.189377 -0.318116 5.725765 0.189377 -0.328587 4.733496 -0.490853 0.414843 5.733441 -0.490853 0.404371] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.964223 0.411370 -0.218095 5.964169 0.411370 -0.228567 4.971899 -0.268860 0.514863 5.971844 -0.268860 0.504391] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [5.016651 0.422971 -0.383355 6.016596 0.422971 -0.393827 5.024326 -0.257260 0.349603 6.024271 -0.257260 0.339131] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.993075 0.427692 -0.412018 5.993020 0.427692 -0.422490 5.000751 -0.252538 0.320940 6.000696 -0.252538 0.310468] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.813721 0.423355 -0.230076 5.813666 0.423355 -0.240547 4.821397 -0.256875 0.502883 5.821342 -0.256875 0.492411] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.968960 0.325643 -0.263879 5.968905 0.325643 -0.274351 4.976635 -0.354587 0.469079 5.976581 -0.354587 0.458607] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.993012 0.336200 -0.336174 5.992957 0.336200 -0.346646 5.000688 -0.344030 0.396784 6.000633 -0.344030 0.386312] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.890886 0.232430 -0.434967 5.890831 0.232430 -0.445438 4.898561 -0.447800 0.297992 5.898507 -0.447800 0.287520] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.815905 0.413353 -0.438756 5.815850 0.413353 -0.449228 4.823580 -0.266878 0.294202 5.823525 -0.266878 0.283731] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.898128 0.238092 -0.356158 5.898073 0.238092 -0.366630 4.905803 -0.442138 0.376800 5.905748 -0.442138 0.366328] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.944746 0.291759 -0.384229 5.944691 0.291759 -0.394701 4.952421 -0.388471 0.348729 5.952366 -0.388471 0.338257] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.798356 0.396111 -0.321681 5.798301 0.396111 -0.332153 4.806032 -0.284120 0.411277 5.805977 -0.284120 0.400806] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.923904 0.384348 -0.363998 5.923849 0.384348 -0.374469 4.931580 -0.295882 0.368961 5.931525 -0.295882 0.358489] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.913012 0.304796 -0.386260 5.912957 0.304796 -0.396731 4.920687 -0.375434 0.346699 5.920632 -0.375434 0.336227] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.883271 0.374432 -0.409890 5.883216 0.374432 -0.420362 4.890947 -0.305798 0.323068 5.890892 -0.305798 0.312597] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.839209 0.384777 -0.372693 5.839154 0.384777 -0.383165 4.846885 -0.295454 0.360265 5.846830 -0.295454 0.349793] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.842100 0.363227 -0.396714 5.842045 0.363227 -0.407185 4.849775 -0.317003 0.336245 5.849720 -0.317003 0.325773] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.848968 0.314026 -0.380050 5.848913 0.314026 -0.390521 4.856643 -0.366204 0.352909 5.856588 -0.366204 0.342437] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.837547 0.323887 -0.374360 5.837492 0.323887 -0.384832 4.845222 -0.356343 0.358598 5.845168 -0.356343 0.348126] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.864347 0.334337 -0.378124 5.864292 0.334337 -0.388596 4.872022 -0.345893 0.354834 5.871967 -0.345893 0.344363] "float spriteNum" [1.000000]AttributeEnd
+AttributeBegin
+    #normal has to be reversed to show the Sprite particles. //  [10/9/2012 yaoyansi]
+    ReverseOrientation
+Patch "bilinear" "P" [4.858757 0.342927 -0.361010 5.858703 0.342927 -0.371481 4.866433 -0.337304 0.371949 5.866378 -0.337304 0.361477] "float spriteNum" [1.000000]AttributeEnd

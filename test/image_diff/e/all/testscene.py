@@ -137,3 +137,6 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/2.3.3/test/test_particle/TextureBaseParticleRamp.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_particle/particle2.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
