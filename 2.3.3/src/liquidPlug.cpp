@@ -59,7 +59,7 @@
 #include <liqGetAttr.h>
 #include <liqAttachPrefAttribute.h>
 #include <liqPreviewShader.h>
-//#include <liqWriteArchive.h>
+#include <liqWriteArchive.h>
 #include <liqNodeSwatch.h>
 #include <liqSurfaceNode.h>
 #include <liqDisplacementNode.h>
@@ -74,7 +74,7 @@
 #include <liqMayaRenderView.h>
 #include <liqGlobalsNode.h>
 #include "liqGlobalNodeRenderer.h"
-//#include <liqJobList.h>
+#include <liqJobList.h>
 #include <liqRiCommands.h>
 #include <liqBoundingBoxLocator.h>
 #include <liqCoShaderNode.h>
@@ -138,8 +138,8 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
   LIQCHECKSTATUS( status, "Can't register liquidRenderView command" );
 
   // register the liquidJobList command
-//   status = plugin.registerCommand( "liquidJobList", liqJobList::creator ,liqJobList::syntax);
-//   LIQCHECKSTATUS( status, "Can't register liquidJobList command" );
+  status = plugin.registerCommand( "liquidJobList", liqJobList::creator ,liqJobList::syntax);
+  LIQCHECKSTATUS( status, "Can't register liquidJobList command" );
 
 #ifndef NO_RICMD
   // register the RIArchiveBegin command
@@ -462,6 +462,9 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
   status = MSwatchRenderRegister::registerSwatchRender( "liqCoShaderSwatch", liqNodeSwatch::creator );
   LIQCHECKSTATUS( status, "Can't register liquidCoShader swatch" );
 
+//  status = plugin.registerCommand("liqRibShaderTranslator", liqRibShaderTranslator::creator );
+//  LIQCHECKSTATUS( status, "Can't register liquid translator command" );
+  
   // register the liqGlobalsNodeRenderer node
   status = plugin.registerNode( "liqGlobalsNodeRenderer", liqGlobalsNodeRenderer::id, liqGlobalsNodeRenderer::creator, liqGlobalsNodeRenderer::initialize, MPxNode::kDependNode );
   LIQCHECKSTATUS( status, "Can't register liqGlobalsNodeRenderer node" );
@@ -529,14 +532,14 @@ LIQUID_EXPORT MStatus uninitializePlugin(MObject obj)
   status = plugin.deregisterCommand("liquidGetAttr");
   LIQCHECKSTATUS( status, "Can't deregister liquidGetAttr command" );
 
-//   status = plugin.deregisterCommand("liquidWriteArchive");
-//   LIQCHECKSTATUS( status, "Can't deregister liquidWriteArchive command" );
+   status = plugin.deregisterCommand("liquidWriteArchive");
+   LIQCHECKSTATUS( status, "Can't deregister liquidWriteArchive command" );
 
   status = plugin.deregisterCommand("liquidRenderView");
   LIQCHECKSTATUS( status, "Can't deregister liquidRenderView command" );
 
-//   status = plugin.deregisterCommand("liquidJobList");
-//   LIQCHECKSTATUS( status, "Can't deregister liquidJobList command" );
+   status = plugin.deregisterCommand("liquidJobList");
+   LIQCHECKSTATUS( status, "Can't deregister liquidJobList command" );
 
 #ifndef NO_RICMD
   status = plugin.deregisterCommand("RIArchiveBegin");
@@ -778,6 +781,9 @@ LIQUID_EXPORT MStatus uninitializePlugin(MObject obj)
   status = MSwatchRenderRegister::unregisterSwatchRender( "liqCoShaderSwatch" );
   LIQCHECKSTATUS( status, "Can't deregister liquidCoShader swatch generator" );
 
+//  status = plugin.deregisterCommand("liqRibShaderTranslator");
+//  LIQCHECKSTATUS( status, "Can't deregister liqRibShaderTranslator command" );
+  
   status = plugin.deregisterCommand("liqParseString");
   LIQCHECKSTATUS( status, "Can't deregister liqParseString command" );
 

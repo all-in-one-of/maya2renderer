@@ -503,25 +503,34 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
     RiBegin_liq( (RtToken)fileName.c_str() );
   }
 
-  string shaderPath( "&:@:.:~:" + liquidSanitizeSearchPath( getEnvironment( "LIQUIDHOME" ) ) + "/lib/shaders" );
-	if ( liquidProjectDir != "")
-		shaderPath += ":" + string(liquidSanitizeSearchPath( liquidProjectDir ).asChar());	
-	if ( liquidShaderPath != "")
-		shaderPath += ":" + string(liquidSanitizeSearchPath( liquidShaderPath ).asChar());	
+  string liquidHomeDir = liquidSanitizeSearchPath( getEnvironment( "LIQUIDHOME" ) );
+  string shaderPath( "&:@:.:~:" + liquidHomeDir + "/lib/shaders" );
+  string texturePath( "&:@:.:~:" + liquidHomeDir + "/lib/textures" );
+  string proceduralPath( "&:@:.:~:" + liquidHomeDir + "/lib/shaders" );
+
+  string projectDir = string( liquidSanitizeSearchPath( liquidProjectDir ).asChar() );
+  if ( liquidProjectDir != "")
+  {
+    shaderPath += ":" + projectDir;	
+    texturePath += ":" + projectDir;
+    proceduralPath += ":" + projectDir;
+  }
+  if ( liquidShaderPath != "" )
+		shaderPath += ":" + string( liquidSanitizeSearchPath( parseString( liquidShaderPath, false ) ).asChar());	
+  if ( liquidTexturePath != "" )
+		texturePath += ":" + string( liquidSanitizeSearchPath( parseString( liquidTexturePath, false) ).asChar());	
+  if ( liquidProceduralPath != "" )
+		proceduralPath += ":" + string( liquidSanitizeSearchPath( parseString( liquidProceduralPath, false) ).asChar());	
 	
   RtString list( const_cast< RtString >( shaderPath.c_str() ) );
   RiOption( "searchpath", "shader", &list, RI_NULL );
 	
-	string texturePath( "&:@:.:~:" + liquidSanitizeSearchPath( getEnvironment( "LIQUIDHOME" ) ) + "/lib/textures" );
-	if ( liquidProjectDir != "")
-		texturePath += ":" + string(liquidSanitizeSearchPath( liquidProjectDir ).asChar());	
-	if ( liquidTexturePath != "")
-		texturePath += ":" + string(liquidSanitizeSearchPath( liquidTexturePath ).asChar());	
-	
   RtString texPath( const_cast< RtString >( texturePath.c_str() ) );
   if( texPath[ 0 ] )
     RiOption( "searchpath","texture", &texPath, RI_NULL );
-  RtString procPath( const_cast< RtString >( liquidSanitizeSearchPath( liquidProceduralPath ).asChar() ) );
+	
+  RtString procPath( const_cast< RtString >( proceduralPath.c_str() ) );
+  
   if( procPath[ 0 ] )
     RiOption( "searchpath","procedural", &procPath, RI_NULL );
 
@@ -554,6 +563,14 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RiProjection( "perspective", "fov", &fov, RI_NULL );
   RiTranslate( 0, 0, 2.75 );
   RiExposure(1, currentShader.m_previewGamma);
+  
+  RtInt visible = 1;
+  RtString transmission = "transparent";
+
+  RiAttribute( "visibility", ( RtToken ) "camera", &visible, RI_NULL );
+  RiAttribute( "visibility",  ( RtToken ) "trace", &visible, RI_NULL );
+  // RiAttribute( "visibility", ( RtToken ) "transmission", ( RtPointer ) &transmission, RI_NULL );
+  
   RiWorldBegin();
   RiReverseOrientation();
   RiTransformBegin();
@@ -585,7 +602,8 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RiAttributeBegin();
 
 
-  //ymesh omit this section, because liqShader::writeRibAttributes do this work in that branch
+  //ymesh omit this section, because liqShader::writeRibAttributes() do this work in that branch
+  //I don't use liqShader::writeRibAttributes(), so I use this section. -yayansi
   float displacementBounds = 0.;
 	liquidGetPlugValue( assignedShader, "displacementBound", displacementBounds, status);
   
@@ -599,6 +617,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 
   //LIQ_GET_SHADER_FILE_NAME( shaderFileName, options.shortShaderName, currentShader );
 
+	// output shader space
   MString shadingSpace;
 	liquidGetPlugValue( assignedShader, "shaderSpace", shadingSpace, status);
   
@@ -615,7 +634,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
   RtFloat scale( 1.f / ( RtFloat )options.objectScale );
   RiScale( scale, scale, scale );
 
-  if ( shader_type_TempForRefactoring=="surface"/*currentShader.shader_type == SHADER_TYPE_SURFACE*/ ) //  [2/14/2012 yaoyansi]
+  if ( shader_type_TempForRefactoring=="surface" || shader_type_TempForRefactoring=="shader"/*currentShader.shader_type == SHADER_TYPE_SURFACE || currentShader.shader_type == SHADER_TYPE_SHADER */ ) //  [2/14/2012 yaoyansi]
 	{
 		RiColor( currentShader.rmColor );
 		RiOpacity( currentShader.rmOpacity );
@@ -633,7 +652,12 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 	{
 		RtToken Kd( "Kd" );
 		RtFloat KdValue( 1. );
+#ifdef GENERIC_RIBLIB    
+    // !!! current ribLib has wrong interpretation of RiSurface parameters 
+    RiSurface( "plastic", Kd, &KdValue, RI_NULL );
+#else
 		RiSurface( "plastic", &Kd, &KdValue, RI_NULL );
+#endif    
 		if ( options.fullShaderPath ) 
 			RiDisplacement( (RtToken)shaderFileName.c_str(), RI_NULL );
 		else 
@@ -905,10 +929,9 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
       } else 
         RiSurface( const_cast< RtToken >( options.backPlaneShader.c_str() ), RI_NULL );
 
-			RtInt visible = 1;
-      RtString transmission = "transparent";
 
-      RiAttribute( "visibility", ( RtToken ) "camera", &visible, ( RtToken ) "trace", &visible, ( RtToken ) "transmission", ( RtPointer ) &transmission, RI_NULL );
+
+
       static RtPoint backplane[4] = {
         { -1.,  1.,  2. },
         {  1.,  1.,  2. },

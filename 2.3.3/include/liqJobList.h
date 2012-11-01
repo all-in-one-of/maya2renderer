@@ -27,12 +27,6 @@
 #ifndef liqJobList_H
 #define liqJobList_H
 
-/* ______________________________________________________________________
-**
-** Liquid Get .slo Info Header File
-** ______________________________________________________________________
-*/
-
 #include <maya/MPxCommand.h>
 #include <maya/MStringArray.h>
 
@@ -56,6 +50,7 @@ private:
   bool shorter;
   bool fullPath;
   bool debug;
+  bool info;
   MStringArray result;
 
 private:

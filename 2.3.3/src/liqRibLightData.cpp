@@ -1094,7 +1094,7 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
         frame = "0" + frame;
     
     shadowName += frame;
-    shadowName += ".tex";
+    shadowName += "." + liqglo.liquidRenderer.textureExtension; // ".tex";
   }
   //cout <<"liqRibLightData::autoShadowName : "<<shadowName.asChar()<<"  ( "<<liquidTransGetSceneName().asChar()<<" )"<<endl;
   LIQDEBUGPRINTF( "[liqRibLightData::autoShadowName] : %s scene = %s\n", shadowName.asChar(), liquidTransGetSceneName().asChar() );// we replace liqglo.liqglo_sceneName with liquidTransGetSceneName()
@@ -1157,7 +1157,7 @@ MString liqRibLightData::extraShadowName( const MFnDependencyNode & lightShaderN
         while( frame.length() < liqglo.liqglo_outPadding ) 
           frame = "0" + frame;
       shadowName += frame;
-      shadowName += ".tex";
+      shadowName += "." + liqglo.liquidRenderer.textureExtension; // ".tex";
     } 
     else 
     {

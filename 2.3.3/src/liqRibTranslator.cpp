@@ -1475,7 +1475,10 @@ string liqRibTranslator::generateImageName( MString aovName, const structJob& jo
 	CM_TRACE_FUNC(boost::format("liqRibTranslator::generateImageName(%s, job(%s)), %s")%aovName.asChar() %job.name.asChar() %format.asChar());
 
 	std::stringstream ss;
-	ss << liqglo.m_pixDir.asChar(); 
+    // MString pixDir = liquidGetRelativePath ( false, liqglo.m_pixDir, liqglo.liqglo_projectDir ); // use full name instead of relative
+    MString pixDir = getFullPathFromRelative ( liqglo.m_pixDir);
+    ss << pixDir.asChar();
+
 	
 	std::string ext( liqglo.outExt.asChar() );
 	if ( format != "" )
@@ -1648,8 +1651,8 @@ MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& j
 	ss << "." << fileExt.asChar() ;
 
 	filename = liquidSanitizePath( ss.str() ).c_str();
-	filename = liquidGetRelativePath( false, filename, liqglo.liqglo_projectDir );
-
+    // filename = liquidGetRelativePath ( false, filename, liqglo.liqglo_projectDir );
+    filename = getFullPathFromRelative ( filename );
 	//cerr << "liqRibTranslator::generateFileName( " << debug.asChar() << " ) -> " << filename.asChar() << endl;
 	LIQDEBUGPRINTF( "liqRibTranslator::generateFileName(%s) -> %s\n", debug.asChar(), filename.asChar() );
 	return filename;
