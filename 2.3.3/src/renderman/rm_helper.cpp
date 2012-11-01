@@ -36,7 +36,7 @@ namespace renderman
 			RiArchiveRecord( RI_COMMENT, "output: %s", m_ribFile.c_str() );
 			//write the data into another rib file.
 			m_contex = RiGetContext();//push context
-			liquidMessage("output rib: "+ std::string(m_ribFile.c_str()) , messageInfo);
+			liquidMessage("output rib: "+ MString(m_ribFile.c_str()) , messageInfo);
 			RiBegin_liq( const_cast< RtToken >( m_ribFile.c_str() ) );
 		}
 	}

@@ -678,7 +678,7 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::ribPrologue_begin("<<currentJob___.name.asChar()<<")");
 
 #ifndef RENDER_PIPE
-		liquidMessage( "Beginning RIB output to '" + std::string( currentJob___.ribFileName.asChar() ) + "'", messageInfo );
+		liquidMessage( "Beginning RIB output to '" + currentJob___.ribFileName + "'", messageInfo );
 		RiBegin_liq( const_cast< RtToken >( currentJob___.ribFileName.asChar() ) );
 		liqglo.m_ribFileOpen = true;
 #else//RENDER_PIPE
@@ -912,7 +912,7 @@ namespace renderman
 		std::vector<structJob>::const_iterator iter = txtList_.begin();
 		while ( iter != txtList_.end() ) 
 		{
-			liquidMessage( "Making textures '" + std::string( iter->imageName.asChar() ) + "'", messageInfo );
+			liquidMessage( "Making textures '" + iter->imageName + "'", messageInfo );
 			liqProcessLauncher::execute( iter->renderName, 
 #ifdef _WIN32
 				(" -progress \"" + iter->ribFileName + "\""), 
@@ -937,11 +937,11 @@ namespace renderman
 		{
 			if( iter->skip ) 
 			{
-				liquidMessage( "    - skipping '" + std::string( iter->ribFileName.asChar() ) + "'", messageInfo );
+				liquidMessage( "    - skipping '" + iter->ribFileName + "'", messageInfo );
 				++iter;
 				continue;
 			}
-			liquidMessage( "    + '" + std::string( iter->ribFileName.asChar() ) + "'", messageInfo );
+			liquidMessage( "    + '" + iter->ribFileName + "'", messageInfo );
 			if ( 
 				!liqProcessLauncher::execute(  liqglo.liquidRenderer.renderCommand,  liqglo.liquidRenderer.renderCmdFlags + " " +
 #ifdef _WIN32
@@ -980,7 +980,7 @@ namespace renderman
 		CM_TRACE_FUNC(boost::format("rm::Renderer::renderAll_local(%s)")%ribFileName.asChar());
 
 		//[refactor][1.20 ]
-		liquidMessage( "    + '" + std::string( ribFileName.asChar() ) + "'", messageInfo );
+		liquidMessage( "    + '" + ribFileName + "'", messageInfo );
 		liqProcessLauncher::execute( 
 			liqglo.liquidRenderer.renderCommand, 
 #ifdef _WIN32
@@ -1099,7 +1099,7 @@ namespace renderman
 		if( currentJob.skip ) 
 		{
 			//[refactor][1.19 ]
-			liquidMessage( "    - skipping '" + std::string( currentJob.ribFileName.asChar() ) + "'", messageInfo );
+			liquidMessage( "    - skipping '" + currentJob.ribFileName + "'", messageInfo );
 			//[refactor][1.19 ]
 		}else {
 			renderAll_local(currentJob.ribFileName);
@@ -1123,7 +1123,7 @@ namespace renderman
 		//
 		//[refactor][1.9.2.4 begin] from ribOutput(baseShadowName__)
 #ifndef RENDER_PIPE
-		liquidMessage( "Beginning RIB output to '" + std::string( baseShadowName__.asChar() ) + "'", messageInfo );
+		liquidMessage( "Beginning RIB output to '" + baseShadowName__ + "'", messageInfo );
 		RiBegin_liq( const_cast< RtToken >( baseShadowName__.asChar() ) );
 		liqglo.m_ribFileOpen = true;
 #else

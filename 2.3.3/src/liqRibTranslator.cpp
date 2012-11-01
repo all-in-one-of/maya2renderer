@@ -171,7 +171,7 @@ void liqRibTranslator::printProgress( unsigned stat, unsigned numFrames, unsigne
 	{
 		stringstream progressOutput;
 		progressOutput << "Progress: frame "<< where <<", " << progress << "%" << ends;
-		liquidMessage( progressOutput.str(), messageInfo );
+		liquidMessage( progressOutput.str().c_str(), messageInfo );
 	}
 }
 
@@ -1326,11 +1326,11 @@ MString liqRibTranslator::verifyResourceDir( const char *resourceName, MString r
 
 #ifndef DIR_CREATION_WARNING
 #define DIR_CREATION_WARNING(type, path) \
-	liquidMessage( "Had trouble creating " + string( type ) + " directory, '" + path + "'. Defaulting to system temp directory!", messageWarning );
+	liquidMessage( "Had trouble creating " + MString( type ) + " directory, '" + path + "'. Defaulting to system temp directory!", messageWarning );
 #endif
 #ifndef DIR_MISSING_WARNING
 #define DIR_MISSING_WARNING(type, path) \
-	liquidMessage( string( type ) + " directory, '" + path + "', does not exist or is not accessible. Defaulting to system temp directory!", messageWarning );
+	liquidMessage( MString( type ) + " directory, '" + path + "', does not exist or is not accessible. Defaulting to system temp directory!", messageWarning );
 #endif  
 
 	LIQ_ADD_SLASH_IF_NEEDED( resourceDir );
@@ -1688,7 +1688,7 @@ MStatus liqRibTranslator::setRenderLayer( const MArgList& args )
     cmd += "editRenderLayerGlobals( \"-currentRenderLayer\", \"" + liqglo.liqglo_layer + "\");";
     if (  MGlobal::executeCommand( cmd, false, false ) == MS::kFailure ) 
     {
-      liquidMessage( "Could not switch to render layer '" + std::string( liqglo.liqglo_layer.asChar() ) + "'! ABORTING.", messageError );
+      liquidMessage( "Could not switch to render layer '" + liqglo.liqglo_layer + "'! ABORTING.", messageError );
       return MS::kFailure;
     }
   } 
@@ -1745,7 +1745,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 
 
 
-	liquidMessage( "Beginning RIB output to " + string( ribName.asChar() ), messageInfo );
+	liquidMessage( "Beginning RIB output to " + ribName, messageInfo );
 	//[refactor][1.9.2.4 begin] to rm::renderer::BaseShadowBegin(ribName)
 #ifndef RENDER_PIPE
 	RiBegin_liq( const_cast< RtToken >( ribName.asChar() ) );
@@ -1782,7 +1782,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 	{
 		// reference the correct shadow/scene archive
 		//[refactor][1.9.2.8 begin] to rm::Renderer::readBaseShadow()
-		liquidMessage( "Writng archiveName " + string( archiveName.asChar() ), messageInfo ); 
+		liquidMessage( "Writng archiveName " + archiveName, messageInfo ); 
 		RiArchiveRecord( RI_COMMENT, "Read Archive Data:\n" );
 		RiReadArchive( const_cast< RtToken >( archiveName.asChar() ), NULL, RI_NULL );
 		//[refactor][1.9.2.8 end] to rm::Renderer::readBaseShadow()
@@ -1822,7 +1822,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 	}
 	RiEnd();
 	// output info when done with the rib - Alf
-	liquidMessage( "Finished RIB generation " + string( ribName.asChar()), messageInfo ); 
+	liquidMessage( "Finished RIB generation " + ribName, messageInfo ); 
 
 #ifdef RENDER_PIPE  
 	fclose( liqglo.liqglo_ribFP );
@@ -2868,9 +2868,8 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				  _chdir( liqglo.liqglo_projectDir.asChar() );
 				  cmd += " \"" + renderScriptName + "\"" + " \"" + liqglo.liqglo_projectDir + "\""; 
 #endif          
-				  stringstream err;
-				  err << ">> render (" << ( (!wait)? "no " : "" ) << "wait) "<< cmd.asChar() << endl << ends;
-				  liquidMessage( err.str(), messageInfo );
+				  MString err = ">> render (" + MString( (!wait)? "no " : "" ) + "wait) "+ cmd + "\n";
+				  liquidMessage( err, messageInfo );
 				  int returnCode = ::system( cmd.asChar() );
 				} else{
 #ifdef _WIN32
@@ -2890,7 +2889,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 			{
 				//[refactor][1.16 ]
 				// launch renders directly
-				liquidMessage( string(), messageInfo ); // emit a '\n'
+				liquidMessage( "", messageInfo ); // emit a '\n'
         		// int exitstat = 0; ???
 				
 				//[refactor][1.17 ]
@@ -2898,7 +2897,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 				vector<structJob>::iterator iter = txtList.begin();
 				while ( iter != txtList.end() ) 
 				{
-					liquidMessage( "Making textures '" + string( iter->imageName.asChar() ) + "'", messageInfo );
+					liquidMessage( "Making textures '" + iter->imageName + "'", messageInfo );
 					liqProcessLauncher::execute( iter->renderName, 
 #ifdef _WIN32
 						(" -progress \"" + iter->ribFileName + "\""), 
@@ -2922,11 +2921,11 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					{
 						if( iter->skip ) 
 						{
-							liquidMessage( "    - skipping '" + string( iter->ribFileName.asChar() ) + "'", messageInfo );
+							liquidMessage( "    - skipping '" + iter->ribFileName + "'", messageInfo );
 							++iter;
 							continue;
 						}
-						liquidMessage( "    + '" + string( iter->ribFileName.asChar() ) + "'", messageInfo );
+						liquidMessage( "    + '" + iter->ribFileName + "'", messageInfo );
 						if ( 
 							!liqProcessLauncher::execute(  liqglo.liquidRenderer.renderCommand,  liqglo.liquidRenderer.renderCmdFlags + " " +
 #ifdef _WIN32
@@ -2950,13 +2949,13 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 					if( liqglo_currentJob.skip ) 
 					{
 						//[refactor][1.19 ]
-						liquidMessage( "    - skipping '" + string( liqglo_currentJob.ribFileName.asChar() ) + "'", messageInfo );
+						liquidMessage( "    - skipping '" + liqglo_currentJob.ribFileName + "'", messageInfo );
 						//[refactor][1.19 ]
 					} 
 					else 
 					{
 						//[refactor][1.20 ]
-						liquidMessage( "    + '" + string( liqglo_currentJob.ribFileName.asChar() ) + "'", messageInfo );
+						liquidMessage( "    + '" + liqglo_currentJob.ribFileName + "'", messageInfo );
 						liqProcessLauncher::execute( 
 							liqglo.liquidRenderer.renderCommand, 
 #ifdef _WIN32
@@ -3014,7 +3013,7 @@ MStatus liqRibTranslator::_doIt( const MArgList& args , const MString& originalL
 	} 
 	catch ( MString errorMessage ) 
 	{
-		liquidMessage( errorMessage.asChar(), messageError );
+		liquidMessage( errorMessage, messageError );
 		/*if( htable && hashTableInited ) delete htable;
 		freeShaders();*/
 		m_escHandler.endComputation();
@@ -3604,7 +3603,7 @@ MStatus liqRibTranslator::buildJobs()
 							else
 							{
 								// cerr << ">> Invalid camera name " << endl;
-								string err = "Invalid main shadow camera name " + string( camName.asChar() ) + " for light " + string( lightPath.fullPathName().asChar() );
+								MString err = "Invalid main shadow camera name " + camName + " for light " + lightPath.fullPathName();
 								liquidMessage( err, messageError );
 							}
 						}
@@ -5850,7 +5849,7 @@ MStatus liqRibTranslator::objectBlock()
 			shadowSetObj = tmp;
 		else 
 		{
-			std::string warn = "Liquid : set " + string(liqglo_currentJob.shadowObjectSet.asChar()) + " in shadow " + string(liqglo_currentJob.name.asChar()) + " does not exist !";
+			MString warn = "Liquid : set " + liqglo_currentJob.shadowObjectSet + " in shadow " + liqglo_currentJob.name + " does not exist !";
 			liquidMessage( warn, messageWarning );
 		}
 		status.clear();

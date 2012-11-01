@@ -83,9 +83,8 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
 {
 	CM_TRACE_FUNC(boost::format("liqProcessLauncher::_execute(%s,%s,%s, wait=%d)")%command.asChar()%arguments.asChar()%path.asChar()%wait);
 	
-	std::stringstream err;
-	err << "Render (" << ( (!wait)? "no " : "" ) << "wait) "<< command.asChar() << " "<< arguments.asChar()<<" "<< path.asChar() << std::endl << std::ends;
-	liquidMessage( err.str(), messageInfo );
+	MString err = "Render (" + MString( (!wait)? "no " : "" ) + "wait) "+ command + " "+ arguments +" "+ path + "\n";
+	liquidMessage( err, messageInfo );
 
   if ( !wait ) {
     printf( "::=> Render (no wait) %s %s %s\n", command.asChar(), arguments.asChar(), path.asChar() );
@@ -107,8 +106,11 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
     
 	int returnCode =  _spawnlp( _P_NOWAITO, command.asChar(), command.asChar(), arguments.asChar(), NULL );
     DWORD dw = GetLastError();
-	err << "err:Return value = " << returnCode << " GetLastError = " << dw << std::endl << std::ends;
-	liquidMessage( err.str(), messageInfo );
+	MString err = "err:Return value = ";
+	err += (int)returnCode;
+	err += " GetLastError = ";
+	err += (int)dw;
+	liquidMessage( err, messageInfo );
 	// cout << "out:Return value = " << returnCode << " GetLastError = " << dw << endl << flush;
     return ( returnCode != -1 );
     

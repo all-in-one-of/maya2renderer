@@ -150,7 +150,7 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 	LIQ_ADD_SLASH_IF_NEEDED( liqglo.liqglo_projectDir );
 	if( !fileFullyAccessible( liqglo.liqglo_projectDir ) ) 
 	{
-		liquidMessage( "Cannot find project directory, '" + std::string( liqglo.liqglo_projectDir.asChar() ) + "'. Defaulting to system temp directory!", messageWarning );
+		liquidMessage( "Cannot find project directory, '" + liqglo.liqglo_projectDir + "'. Defaulting to system temp directory!", messageWarning );
 		liqglo.liqglo_projectDir = m_systemTempDirectory;
 	}
 
@@ -546,7 +546,7 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 		}
 		m_animation = false;
 	}
-	liquidMessage( "Using project base path '" + std::string( liqglo.liqglo_projectDir.asChar() ) + "'", messageInfo );
+	liquidMessage( "Using project base path '" + liqglo.liqglo_projectDir + "'", messageInfo );
 	setSearchPaths();
 	return MS::kSuccess;
 }

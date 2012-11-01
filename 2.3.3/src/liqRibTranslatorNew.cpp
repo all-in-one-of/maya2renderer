@@ -2821,7 +2821,7 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 			{
 				//[refactor][1.16 ]
 				// launch renders directly
-				liquidMessage( string(), messageInfo ); // emit a '\n'
+				liquidMessage( "", messageInfo ); // emit a '\n'
 				//int exitstat = 0;
 #ifndef _Refactor_doTexure_doShadow
 				// write out make texture pass
@@ -2872,7 +2872,7 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 	} 
 	catch ( MString errorMessage ) 
 	{
-		liquidMessage( errorMessage.asChar(), messageError );
+		liquidMessage( errorMessage, messageError );
 		/*if( htable && hashTableInited ) delete htable;
 		freeShaders();*/
 		liqRibTranslator::m_escHandler.endComputation();
@@ -3325,9 +3325,8 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 					_chdir( liqglo.liqglo_projectDir.asChar() );
 					cmd += " \"" + renderScriptName + "\"" + " \"" + liqglo.liqglo_projectDir + "\""; 
 #endif          
-					stringstream err;
-					err << ">> render (" << ( (!wait)? "no " : "" ) << "wait) "<< cmd.asChar() << endl << ends;
-					liquidMessage( err.str(), messageInfo );
+					MString err = ">> render (" + MString( (!wait)? "no " : "" ) + "wait) "+ cmd +"\n";
+					liquidMessage( err, messageInfo );
 					int returnCode = ::system( cmd.asChar() );
 				} else{
 #ifdef _WIN32
@@ -3355,7 +3354,7 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 	} 
 	catch ( MString errorMessage ) 
 	{
-		liquidMessage( errorMessage.asChar(), messageError );
+		liquidMessage( errorMessage, messageError );
 		/*if( htable && hashTableInited ) delete htable;
 		freeShaders();*/
 		liqRibTranslator::m_escHandler.endComputation();

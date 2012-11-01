@@ -215,12 +215,12 @@ void liqRibGenData::_write(const structJob &currentJob)
         0, NULL );
     LIQDEBUGPRINTF( "-> [Error] opening RIBGen %s (%d) %s \n", ribGenSoName.asChar(), dw, lpMsgBuf );
 #else
-    string errorString( "Opening RIBGen '" );
-    errorString += ribGenSoName.asChar();
+    MString errorString( "Opening RIBGen '" );
+    errorString += ribGenSoName;
     errorString += "'(";
     errorString += dlStatus;
     errorString += ") on object '";
-    errorString += ribStatus.objectName + "'";
+    errorString += MString(ribStatus.objectName.c_str()) + "'";
     liquidMessage( errorString, messageError );
 #endif
   }

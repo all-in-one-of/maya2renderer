@@ -110,7 +110,7 @@ std::string sanitizeNodeName2( const std::string& name );
 //replace ':' with '=', and '|' with '/'
 std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name);
 RtString& getLiquidRibName( const std::string& name );
-void liquidMessage( const std::string& msg, liquidVerbosityType type );
+void liquidMessage( const MString &msg, liquidVerbosityType type );
 MString parseLiquidRibRequest( MStringArray requestArray, MString attr );
 
 void initalizeShaderHandlerGenerator();

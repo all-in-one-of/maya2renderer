@@ -192,7 +192,7 @@ liqShader::liqShader( MObject shaderObj )
 	int success = ( shaderInfo.setShaderNode( shaderNode ) );
 	if ( !success )
 	{
-		liquidMessage( "Problem using shader '" + std::string( shaderNode.name().asChar() ) + "'", messageError );
+		liquidMessage( "Problem using shader '" + shaderNode.name() + "'", messageError );
 		rmColor[0] = 1.0;
 		rmColor[1] = 0.0;
 		rmColor[2] = 0.0;

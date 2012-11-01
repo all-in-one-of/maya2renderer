@@ -10,7 +10,7 @@
 #define liquidMessage2(msgtype, msg,...) \
 {\
 	sprintf_s(gLogBuffer, LOG_BUFFER_LEN, (msg),__VA_ARGS__ );\
-	liquidMessage(gLogBuffer, msgtype );\
+	liquidMessage(MString(gLogBuffer), msgtype );\
 }
 
 void _liqRIBMsg(const char* msg);

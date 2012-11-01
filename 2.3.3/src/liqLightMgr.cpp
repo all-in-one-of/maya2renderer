@@ -453,7 +453,7 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 			else
 			{
 				// cerr << ">> Invalid camera name " << endl;
-				std::string err = "Invalid main shadow camera name " + std::string( camName.asChar() ) + " for light " + std::string( lightPath__.fullPathName().asChar() );
+				MString err("Invalid main shadow camera name " + camName + " for light " + lightPath__.fullPathName());
 				liquidMessage( err, messageError );
 			}
 		}
