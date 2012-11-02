@@ -29,7 +29,7 @@ namespace renderman
 			}
 		}else{
 	 		if( !bReference ){//write data at first time
-				if( !currentJob.isShadow ){
+				if( currentJob.pass != rpShadowMap ){
 					assert(pData->getRibFileFullPath().length()==0&&"rm_writeLocatorData.cpp");
 				}
 				pData->setRibFileFullPath(ribFileName);

@@ -153,7 +153,7 @@ namespace appleseed
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 		bool bGeometryMotion = 
 			liqglo.liqglo_doDef 
@@ -181,7 +181,7 @@ namespace appleseed
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 		bool bGeometryMotion = 
 			liqglo.liqglo_doDef 
@@ -538,7 +538,7 @@ namespace appleseed
 		bool bDepthOfField;//enable DOF on this camera?
 		liquidGetPlugValue(fnCamera,"depthOfField", bDepthOfField, status);
 		_s("//Depth of Field on camera \""<<currentJob.camera[0].name.asChar()<<"\" is turned "<< (bDepthOfField?"on":"off")<<" in Maya");
-		bDepthOfField = bDepthOfField && liqglo.doDof && !currentJob.isShadow;
+		bDepthOfField = bDepthOfField && liqglo.doDof && currentJob.pass != rpShadowMap;
 
 
 		_s("\n//############################### camera #");

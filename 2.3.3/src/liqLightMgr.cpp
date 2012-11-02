@@ -116,6 +116,9 @@ MStatus tLightMgr::buildShadowJob(
 	MStatus returnStatus__;
 	MStatus status__;
 	MDagPath lightPath__;
+	//
+	// lights
+	//
 	//[refactor 2.1] begin
 	MItDag dagIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus__ );
 	for (; !dagIterator.isDone(); dagIterator.next()) 
@@ -124,34 +127,31 @@ MStatus tLightMgr::buildShadowJob(
 			continue;
 
 		thisJob___.pass = rpNone; // reset RenderPass type
-		thisJob___.isShadow      = false;
 		thisJob___.isPoint       = false;
+		thisJob___.pointDir = pPX;
+		thisJob___.shadowObjectSet.clear();
+		thisJob___.shadowArchiveRibDone = false;
+		thisJob___.shadowType    = stStandart;
+		thisJob___.shadowHiderType = shNone;
+		thisJob___.hasShadowCam = false;
+		thisJob___.shadowAggregation = false;
+		thisJob___.midPointRatio = 0;
+		thisJob___.samples = 1;
+		thisJob___.shadingRate = 1.0;
+		thisJob___.shadingRateFactor = 1.0;
+		thisJob___.aspectRatio = 1.0;
+		thisJob___.volume = viNone;
+		thisJob___.deepShadowOption.clear();
+		thisJob___.renderFrame   = liqglo.liqglo_lframe;
 		thisJob___.everyFrame    = true;
+		thisJob___.skip          = false;
 
 		bool usesDepthMap = false;
 		MFnLight fnLightNode( lightPath__ );
 		liquidGetPlugValue( fnLightNode, "useDepthMapShadows", usesDepthMap, status__ );
 		if( usesDepthMap && areObjectAndParentsVisible( lightPath__ ) ) 
 		{
-			// philippe : this is the default and can be overriden
-			// by the everyFrame/renderAtFrame attributes.
-			//
 			thisJob___.pass = rpShadowMap;
-			thisJob___.renderFrame           = liqglo.liqglo_lframe;
-			thisJob___.everyFrame            = true;
-			thisJob___.shadowObjectSet       = "";
-			thisJob___.shadowArchiveRibDone  = false;
-			thisJob___.skip                  = false;
-			//
-			// We have a shadow job, so find out if we need to use deep shadows,
-			// and the pixel sample__ count
-			//
-			thisJob___.deepShadows                 = false;
-			thisJob___.shadowPixelSamples          = 1;
-			thisJob___.shadowVolumeInterpretation  = 1;
-			thisJob___.shadingRateFactor           = 1.0;
-			thisJob___.shadowAggregation			= 0;
-			
 			thisJob___.imageMode = "z";
 			thisJob___.format = "shadow";
 
@@ -175,14 +175,22 @@ MStatus tLightMgr::buildShadowJob(
 
 				// Now grab the parameters.
 				//
-				liquidGetPlugValue( fnLightShaderNode, "deepShadows", thisJob___.deepShadows, status__ );
+				bool deepShadows = false;
+				liquidGetPlugValue( fnLightShaderNode, "deepShadows", deepShadows, status__ );
 
 				// Only use the pixel samples and volume interpretation with deep shadows.
 				//
-				if( thisJob___.deepShadows )
+				if( deepShadows )
 				{
-					liquidGetPlugValue( fnLightShaderNode, "pixelSamples", thisJob___.shadowPixelSamples, status__ );
-					liquidGetPlugValue( fnLightShaderNode, "volumeInterpretation", thisJob___.shadowVolumeInterpretation, status__ );
+					thisJob___.shadowType = stDeep;
+
+					int samples = (int)thisJob___.samples;
+					liquidGetPlugValue( fnLightShaderNode, "pixelSamples", samples, status__ );
+					thisJob___.samples = (short)samples;
+
+					int volume = (int)thisJob___.volume;
+					liquidGetPlugValue( fnLightShaderNode, "volumeInterpretation", volume, status__ );
+					thisJob___.volume = (VolumeInterpretation)volume;
 
 					thisJob___.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
 					thisJob___.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
@@ -203,8 +211,10 @@ MStatus tLightMgr::buildShadowJob(
 				// renderAtFrame attribute, otherwise, the current time.
 				//
 				if( !thisJob___.everyFrame ) 
-					liquidGetPlugValue( fnLightShaderNode, "renderAtFrame", thisJob___.renderFrame, status__ );  
-
+				{
+					thisJob___.renderFrame = 0; // should be Reference frame from Globals 
+					liquidGetPlugValue( fnLightShaderNode, "renderAtFrame", thisJob___.renderFrame, status__ ); 
+				}
 				// Check if the shadow aggregation option is used
 				liquidGetPlugValue( fnLightShaderNode, "aggregateShadowMaps", thisJob___.shadowAggregation, status__ );  
 
@@ -219,45 +229,58 @@ MStatus tLightMgr::buildShadowJob(
 				but we look for dynamic attributes, so we need a bit more error checking.
 				*/
 				//MPlug paramPlug = fnLightNode.findPlug( "deepShadows", &status );
-				liquidGetPlugValue( fnLightNode, "deepShadows", thisJob___.deepShadows, status__ );
-				if( thisJob___.deepShadows ) 
+				bool deepShadows = false;
+				liquidGetPlugValue( fnLightNode, "deepShadows", deepShadows, status__ );
+				if ( deepShadows ) 
 				{
-					liquidGetPlugValue( fnLightNode, "pixelSamples", thisJob___.shadowPixelSamples, status__ );
-					liquidGetPlugValue( fnLightNode, "volumeInterpretation", thisJob___.shadowVolumeInterpretation, status__ );
-				
+					thisJob___.shadowType = stDeep;
+
+					int samples = (int)thisJob___.samples;
+					liquidGetPlugValue( fnLightNode, "pixelSamples", samples, status__ );
+					thisJob___.samples = (short)samples;
+
+					int volume = (int)thisJob___.volume;
+					liquidGetPlugValue( fnLightNode, "volumeInterpretation", volume, status__ );
+					thisJob___.volume = (VolumeInterpretation)volume;
+
 					thisJob___.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
 					thisJob___.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
 
 					int displayImageMode = 0; // 0 = default
 					liquidGetPlugValue( fnLightNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
-					if ( displayImageMode ) thisJob___.imageMode = MString( "deepprevdisttotal" );
+					if ( displayImageMode ) 
+						thisJob___.imageMode = MString( "deepprevdisttotal" );
 
 				}
 				liquidGetPlugValue( fnLightNode, "everyFrame", thisJob___.everyFrame, status__ );
-				if( !thisJob___.everyFrame ) 
+				if ( !thisJob___.everyFrame ) 
+				{
+					thisJob___.renderFrame = 0; // should be Reference frame from Globals 
 					liquidGetPlugValue( fnLightNode, "renderAtFrame", thisJob___.renderFrame, status__ );  
-
+				}
 				liquidGetPlugValue( fnLightNode, "geometrySet", thisJob___.shadowObjectSet, status__ );  
 				liquidGetPlugValue( fnLightNode, "shadingRateFactor", thisJob___.shadingRateFactor, status__ ); 
 			}
 
 
 			// this will store the shadow camera path and the test's result
-			//bool lightHasShadowCam = false;//1
+			bool lightHasShadowCam = false;//1
 			MDagPathArray shadowCamPath;
 
 			if( lightPath__.hasFn( MFn::kSpotLight ) || lightPath__.hasFn( MFn::kDirectionalLight ) ) 
 			{	
 				tLightMgr::buildShadowJob_SpotAndDirectionLight(
 					thisJob___, shadowCamPath, fnLightNode, lightPath__,
-					m_lazyCompute__
+					m_lazyCompute__,
+					lightHasShadowCam
 					);
 			} 
 			else if( lightPath__.hasFn(MFn::kPointLight) ) 
 			{
 				tLightMgr::buildShadowJob_PointLight(
 					thisJob___, shadowCamPath, fnLightNode, lightPath__,
-					m_lazyCompute__
+					m_lazyCompute__,
+					lightHasShadowCam
 					);
 			}//else if( lightPath__.hasFn(MFn::kPointLight) )  
 
@@ -265,7 +288,7 @@ MStatus tLightMgr::buildShadowJob(
 			//[refactor][2.1.3 begin] from buildJobs()
 			// if the job has shadow cameras, we will store them here
 			//
-			//if( lightHasShadowCam )
+			if( lightHasShadowCam )
 			{
 			int isAggregate = thisJob___.shadowAggregation;
 			for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
@@ -288,25 +311,40 @@ MStatus tLightMgr::buildShadowJob(
 				//						thisJob.name = shadowCamDepNode.name();
 				if( liquidGetPlugValue( shadowCamDepNode, "liqShadowResolution", thisJob___.width, status__ ) == MS::kSuccess )
 					thisJob___.height = thisJob___.width;
-				liquidGetPlugValue( shadowCamDepNode, "liqMidPointShadow", thisJob___.isMidPointShadow, status__ );
+				bool isMidPointShadow = false;
+				liquidGetPlugValue( shadowCamDepNode, "liqMidPointShadow", isMidPointShadow, status__ );
+				if ( isMidPointShadow ) thisJob___.shadowType = stMidPoint;
+
 				thisJob___.midPointRatio = 0;
 				liquidGetPlugValue( shadowCamDepNode, "liqMidPointRatio", thisJob___.midPointRatio, status__ );
-				liquidGetPlugValue( shadowCamDepNode, "liqDeepShadows", thisJob___.deepShadows, status__ );
-				liquidGetPlugValue( shadowCamDepNode, "liqPixelSamples", thisJob___.shadowPixelSamples, status__ );
-				liquidGetPlugValue( shadowCamDepNode, "liqVolumeInterpretation", thisJob___.shadowVolumeInterpretation, status__ );
-				
-				int displayImageMode = 0; // 0 = default
-				liquidGetPlugValue( shadowCamDepNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
-				if ( displayImageMode ) 
-					thisJob___.imageMode = MString( "deepprevdisttotal" );
+					
+				bool deepShadows = false;
+				liquidGetPlugValue( shadowCamDepNode, "liqDeepShadows", deepShadows, status__ );
+				if ( deepShadows ) 
+				{  
+					thisJob___.shadowType = stDeep;
+
+					int samples = (int)thisJob___.samples;
+					liquidGetPlugValue( shadowCamDepNode, "liqPixelSamples", samples, status__ );
+					thisJob___.samples = (short)samples;
+
+					int volume = (int)thisJob___.volume;
+					liquidGetPlugValue( shadowCamDepNode, "liqVolumeInterpretation", volume, status__ );
+					thisJob___.volume = (VolumeInterpretation)volume;
+
+					int displayImageMode = 0; // 0 = default
+					liquidGetPlugValue( shadowCamDepNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
+					if ( displayImageMode ) thisJob___.imageMode = MString( "deepprevdisttotal" );
+				}
 
 				liquidGetPlugValue( shadowCamDepNode, "liqEveryFrame", thisJob___.everyFrame, status__ );
 				// as previously : this is important as thisJob.renderFrame corresponds to the
 				// scene scanning time.
-				if( thisJob___.everyFrame )
-					thisJob___.renderFrame = liqglo.liqglo_lframe;
-				else
+				if ( !thisJob___.everyFrame )
+				{
+					thisJob___.renderFrame = 0; // should be Reference frame from Globals 
 					liquidGetPlugValue( shadowCamDepNode, "liqRenderAtFrame", thisJob___.renderFrame, status__ );
+				}
 				liquidGetPlugValue( shadowCamDepNode, "liqGeometrySet", thisJob___.shadowObjectSet, status__ );
 				liquidGetPlugValue( shadowCamDepNode, "liqShadingRateFactor", thisJob___.shadingRateFactor, status__ );
 				// test if the file is already on disk...
@@ -321,7 +359,6 @@ MStatus tLightMgr::buildShadowJob(
 			//[refactor][2.1.3 end] from buildJobs()
 			}//if( lightHasShadowCam )
 		} // if( usesDepthMap && areObjectAndParentsVisible( lightPath__ ) ) 
-		//cout <<thisJob.name.asChar()<<" -> shd:"<<thisJob.isShadow<<" ef:"<<thisJob.everyFrame<<" raf:"<<thisJob.renderFrame<<" set:"<<thisJob.shadowObjectSet.asChar()<<endl;
 	} // light dagIterator
 	return returnStatus__;
 }
@@ -335,6 +372,9 @@ MStatus tLightMgr::buildShadowCameraJob(
 
 	MStatus returnStatus__ = MS::kSuccess;
 	MStatus status__;
+	//
+	// cameras
+	//
 	//[refactor][2.1.4 begin] from buildJob()
 	MDagPath cameraPath;
 	MItDag dagCameraIterator( MItDag::kDepthFirst, MFn::kCamera, &returnStatus__ );
@@ -347,26 +387,39 @@ MStatus tLightMgr::buildShadowCameraJob(
 		liquidGetPlugValue( fnCameraNode, "useDepthMapShadows", usesDepthMap, status__ );
 		if( usesDepthMap && areObjectAndParentsVisible( cameraPath ) ) 
 		{
+			thisJob___.pass = rpShadowMap;
 			//
 			// We have a shadow job, so find out if we need to use deep shadows,
 			// and the pixel sample count
 			//
-			thisJob___.deepShadows = false;
-			thisJob___.shadowPixelSamples = 1;
-			thisJob___.shadowVolumeInterpretation = 1;
-			fnCameraNode.findPlug( "deepShadows" ).getValue( thisJob___.deepShadows );
+			//thisJob___.shadowPixelSamples = 1;
+			//thisJob___.shadowVolumeInterpretation = 1;
+
+			thisJob___.samples = 1;
+			thisJob___.volume = viNone;
+
+			bool deepShadows = false;
+			liquidGetPlugValue( fnCameraNode, "deepShadows", deepShadows, status__ );
+
 			// Only use the pixel samples and volume interpretation with deep shadows.
 			//
-			if( thisJob___.deepShadows )
+			if( deepShadows )
 			{
-				fnCameraNode.findPlug( "pixelSamples" ).getValue( thisJob___.shadowPixelSamples );
-				fnCameraNode.findPlug( "volumeInterpretation" ).getValue( thisJob___.shadowVolumeInterpretation );
-			
+				thisJob___.shadowType = stDeep;
+
+				int samples = (int)thisJob___.samples;
+				liquidGetPlugValue( fnCameraNode, "pixelSamples", samples, status__ );
+				thisJob___.samples = (short)samples;
+
+				int volume = (int)thisJob___.volume;
+				liquidGetPlugValue( fnCameraNode, "volumeInterpretation", volume, status__ );
+				thisJob___.volume = (VolumeInterpretation)volume;
+
 				thisJob___.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
 				thisJob___.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
 
 				int displayImageMode = 0; // 0 = default
-				fnCameraNode.findPlug( "liqDeepShadowsDisplayMode" ).getValue( displayImageMode );
+				liquidGetPlugValue( fnCameraNode, "liqDeepShadowsDisplayMode", displayImageMode, status__ );
 				if ( displayImageMode )
 					thisJob___.imageMode = MString("deepprevdisttotal");
 
@@ -376,23 +429,19 @@ MStatus tLightMgr::buildShadowCameraJob(
 			thisJob___.shadowCamPath = cameraPath;
 			thisJob___.path = cameraPath;
 			thisJob___.name = fnCameraNode.name();
-			thisJob___.isShadow = true;
+			//thisJob___.isShadow = true;
 			thisJob___.isPoint = false;
 			thisJob___.isShadowPass = false;
 
 			// check to see if the minmax shadow option is used
-			thisJob___.isMinMaxShadow = false;
-			status__.clear();
-			MPlug liquidMinMaxShadow = fnCameraNode.findPlug( "liquidMinMaxShadow", &status__ );
-			if( status__ == MS::kSuccess ) 
-				liquidMinMaxShadow.getValue( thisJob___.isMinMaxShadow );
+			bool isMinMaxShadow = false;
+			liquidGetPlugValue( fnCameraNode, "liquidMinMaxShadow", isMinMaxShadow, status__ ); 
+			if ( isMinMaxShadow ) thisJob___.shadowType = stMinMax;
 
 			// check to see if the midpoint shadow option is used
-			thisJob___.isMidPointShadow = false;
-			status__.clear();
-			MPlug liquidMidPointShadow = fnCameraNode.findPlug( "useMidDistDmap", &status__ );
-			if( status__ == MS::kSuccess ) 
-				liquidMidPointShadow.getValue( thisJob___.isMidPointShadow );
+			bool isMidPointShadow = false;
+			liquidGetPlugValue(  fnCameraNode, "useMidDistDmap", isMidPointShadow, status__ ); 
+			if ( isMidPointShadow ) thisJob___.shadowType = stMidPoint;
 
 			bool computeShadow( true );
 			if( m_lazyCompute__ ) 
@@ -413,7 +462,8 @@ MStatus tLightMgr::buildShadowCameraJob(
 void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 	structJob &thisJob___, MDagPathArray &shadowCamPath, 
 	const MFnLight &fnLightNode, const MDagPath &lightPath__,
-	const bool m_lazyCompute__
+	const bool m_lazyCompute__,
+	bool &lightHasShadowCam
 	)
 {
 	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_SpotAndDirectionLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
@@ -492,24 +542,28 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 					cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
 					//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
 					shadowCamPath.append( cameraPath );
-					//lightHasShadowCam = true;//2
+					lightHasShadowCam = true;//2
 				}
 			}
 		}
 	}
 	thisJob___.path = lightPath__;
 	thisJob___.name = fnLightNode.name();
-	thisJob___.texName = "";
-	thisJob___.isShadow = true;
-	thisJob___.isPoint = false;
-	thisJob___.isShadowPass = false;
+	//thisJob___.texName = "";
+	//thisJob___.isShadow = true;
+	//thisJob___.isPoint = false;
+	//thisJob___.isShadowPass = false;
 
 	// check to see if the minmax shadow option is used
-	thisJob___.isMinMaxShadow = false;
-	liquidGetPlugValue( fnLightNode, "liquidMinMaxShadow", thisJob___.isMinMaxShadow, status__ ); 
+	bool isMinMaxShadow = false;
+	liquidGetPlugValue( fnLightNode, "liquidMinMaxShadow", isMinMaxShadow, status__ ); 
+	if ( isMinMaxShadow ) thisJob___.shadowType = stMinMax;
+
 	// check to see if the midpoint shadow option is used
-	thisJob___.isMidPointShadow = false;
-	liquidGetPlugValue( fnLightNode, "useMidDistDmap", thisJob___.isMidPointShadow, status__ ); 
+	bool isMidPointShadow = false;
+	liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status__ ); 
+	if ( isMidPointShadow ) thisJob___.shadowType = stMidPoint;
+
 	// in lazy compute mode, we check if the map is already on disk first.
 	if( m_lazyCompute__ && computeShadow ) 
 	{
@@ -531,27 +585,31 @@ void tLightMgr::buildShadowJob_PointLight(
 	structJob &thisJob___, MDagPathArray &shadowCamPath, 
 	const MFnLight &fnLightNode, 
 	const MDagPath &lightPath__,
-	const bool m_lazyCompute__
+	const bool m_lazyCompute__,
+	bool &lightHasShadowCam
 	)
 {
 	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_PointLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
 
 	MStatus status__;
 
+	thisJob___.hasShadowCam = false;
+	thisJob___.path = lightPath__;
+	thisJob___.name = fnLightNode.name();
+	//thisJob.isShadow = true;
+
+	thisJob___.isShadowPass = false;
+	thisJob___.isPoint = true;
+
+	// check to see if the midpoint shadow option is used
+	bool isMidPointShadow = false;
+	liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status__ );
+	if ( isMidPointShadow ) thisJob___.shadowType = stMidPoint;
+
 	//[refactor 2.1.2] begin
 	for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ ) 
 	{
-		thisJob___.hasShadowCam = false;
-		thisJob___.path = lightPath__;
-		thisJob___.name = fnLightNode.name();
-		thisJob___.isShadow = true;
-		thisJob___.isShadowPass = false;
-		thisJob___.isPoint = true;
 		thisJob___.pointDir = ( PointLightDirection )dirOn;
-
-		// check to see if the midpoint shadow option is used
-		thisJob___.isMidPointShadow = false;
-		liquidGetPlugValue( fnLightNode, "useMidDistDmap", thisJob___.isMidPointShadow, status__ );
 
 		bool computeShadow = true;
 		MStatus liquidLightShaderStatus;
@@ -595,7 +653,7 @@ void tLightMgr::buildShadowJob_PointLight(
 						cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
 						//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
 						shadowCamPath.append( cameraPath );
-						//lightHasShadowCam = true;//3
+						lightHasShadowCam = true;//3
 					}
 				}
 			}

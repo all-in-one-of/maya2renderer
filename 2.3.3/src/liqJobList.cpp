@@ -130,7 +130,7 @@ MStatus liqJobList::doIt(const MArgList& args)
 MStatus liqJobList::redoIt()
 {
 	CM_TRACE_FUNC("liqJobList::redoIt()");
-  LIQDEBUGPRINTF("redoIt");
+
   clearResult();
   MStatus status;
   MObject cameraNode;
@@ -165,14 +165,14 @@ MStatus liqJobList::redoIt()
 
     // read the globals
     //
-    LIQDEBUGPRINTF("  read globals...");
+    //LIQDEBUGPRINTF("  read globals...");
     if ( ribTranslator.liquidInitGlobals() ) 
 	  ribTranslator.liquidReadGlobals();
     else {
       MString err("no liquidGlobals node in the scene");
       throw err;
     }
-    LIQDEBUGPRINTF("done !\n");
+    //LIQDEBUGPRINTF("done !\n");
     
     // liquidMessage ( "liqglo_sceneName = '" + liqglo.liqglo_renderCamera + "'", messageInfo );
 
@@ -187,12 +187,12 @@ MStatus liqJobList::redoIt()
 
     // build the job list
     //
-    LIQDEBUGPRINTF("  build jobs...");
+    //LIQDEBUGPRINTF("  build jobs...");
     if ( ribTranslator.buildJobs() != MS::kSuccess ) {
       MString err("buildJob() Failed");
       throw err;
     }
-    LIQDEBUGPRINTF("done !\n");
+    //LIQDEBUGPRINTF("done !\n");
 
 
     //
@@ -201,7 +201,7 @@ MStatus liqJobList::redoIt()
     if ( info ) 
     {
       std::vector<structJob>::iterator iterJob = ribTranslator.jobList.begin();
-      LIQDEBUGPRINTF( "  do jobs info ..." );
+      //LIQDEBUGPRINTF( "  do jobs info ..." );
       int i = 0;
       while ( iterJob != ribTranslator.jobList.end() )
       {
@@ -220,9 +220,9 @@ MStatus liqJobList::redoIt()
         result.append( "ribFileName = " + iterJob->ribFileName + "\n" );
         result.append( "imageName = " + iterJob->imageName + "\n" );
 
-        result.append( "isShadow = " + MString( ( iterJob->isShadow )? "Yes" : "No" ) + "\n" );
-        result.append( "isMinMaxShadow = " + MString( ( iterJob->isMinMaxShadow )? "Yes" : "No" ) + "\n" );
-        result.append( "isMidPointShadow = " + MString( ( iterJob->isMidPointShadow )? "Yes" : "No" ) + "\n" );
+        //result.append( "isShadow = " + MString( ( iterJob->isShadow )? "Yes" : "No" ) + "\n" );
+        //result.append( "isMinMaxShadow = " + MString( ( iterJob->isMinMaxShadow )? "Yes" : "No" ) + "\n" );
+        //result.append( "isMidPointShadow = " + MString( ( iterJob->isMidPointShadow )? "Yes" : "No" ) + "\n" );
 
         result.append( "midPointRatio = " + ( MString("") += (float)(iterJob->midPointRatio) ) + "\n" );
 
@@ -278,8 +278,8 @@ MStatus liqJobList::redoIt()
         result.append( "isShadowPass = " + MString( ( iterJob->isShadowPass )? "Yes" : "No" ) + "\n" );
         result.append( "isStereoPass = " + MString( ( iterJob->isStereoPass )? "Yes" : "No" ) + "\n" );
 
-        result.append( "shadowPixelSamples = " + ( MString("") += (int)( iterJob->shadowPixelSamples ) ) + "\n" );
-        result.append( "shadowVolumeInterpretation = " + ( MString("") += (int)( iterJob->shadowVolumeInterpretation ) ) + "\n" );
+        //result.append( "shadowPixelSamples = " + ( MString("") += (int)( iterJob->shadowPixelSamples ) ) + "\n" );
+        //result.append( "shadowVolumeInterpretation = " + ( MString("") += (int)( iterJob->shadowVolumeInterpretation ) ) + "\n" );
 
         result.append( "shadowAggregation = " + MString( ( iterJob->shadowAggregation )? "Yes" : "No" ) + "\n" );
         result.append( "isPoint = " + MString( ( iterJob->isPoint )? "Yes" : "No" ) + "\n" );
@@ -308,7 +308,7 @@ MStatus liqJobList::redoIt()
         result.append( "jobFrameRib = " + iterJob->jobFrameRib + "\n" );
         result.append( "gotJobFrameRib = " + MString( ( iterJob->gotJobFrameRib )? "Yes" : "No" ) + "\n" );
 
-        result.append( "deepShadows = " + MString( ( iterJob->deepShadows )? "Yes" : "No" ) + "\n" );
+        //result.append( "deepShadows = " + MString( ( iterJob->deepShadows )? "Yes" : "No" ) + "\n" );
 
         result.append( "everyFrame = " + MString( ( iterJob->everyFrame )? "Yes" : "No" ) + "\n" );
         result.append( "renderFrame = " + ( MString("") += (int)( iterJob->renderFrame ) ) + "\n" );
@@ -331,18 +331,17 @@ MStatus liqJobList::redoIt()
     if ( doShadows || doSingleShadows ) 
 	{
       std::vector<structJob>::iterator iterShad = ribTranslator.jobList.begin();
-      LIQDEBUGPRINTF("  do shadows...");
+      //LIQDEBUGPRINTF("  do shadows...");
 
       while ( iterShad != ribTranslator.jobList.end() ) {
-        if ( doShadows && iterShad->isShadow && iterShad->everyFrame ) 
+        if ( doShadows && iterShad->pass == rpShadowMap && iterShad->everyFrame ) 
 			result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
-        if ( doSingleShadows && iterShad->isShadow && !iterShad->everyFrame ) {
+        if ( doSingleShadows && iterShad->pass == rpShadowMap && !iterShad->everyFrame ) {
           result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
         }
         ++iterShad;
       }
-
-      LIQDEBUGPRINTF("done !\n");
+      //LIQDEBUGPRINTF("done !\n");
     }
 
 
@@ -350,11 +349,11 @@ MStatus liqJobList::redoIt()
     //
     if ( doCamera ) {
       std::vector<structJob>::iterator iterShad = ribTranslator.jobList.end();
-      LIQDEBUGPRINTF("  do camera...");
+      //LIQDEBUGPRINTF("  do camera...");
 
       --iterShad;
       result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
-      LIQDEBUGPRINTF("done !\n");
+      //LIQDEBUGPRINTF("done !\n");
     }
 
     ribTranslator.m_escHandler.endComputation();

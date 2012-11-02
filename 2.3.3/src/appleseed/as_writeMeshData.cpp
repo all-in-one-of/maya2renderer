@@ -240,7 +240,7 @@ namespace appleseed
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 		bool bGeometryMotion = 
 			liqglo.liqglo_doDef 

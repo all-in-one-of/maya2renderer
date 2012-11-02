@@ -124,7 +124,7 @@ void liqRibGenData::_write(const structJob &currentJob)
   // Hmmmmmm do not really understand what's going on here?
   ribStatus.ribFP = liqglo.liqglo_ribFP;
   ribStatus.frame = liqglo.liqglo_lframe;
-  if ( currentJob.isShadow ) 
+  if ( currentJob.pass == rpShadowMap ) 
     ribStatus.renderPass = liqRibStatus::rpShadow;
   else 
     ribStatus.renderPass = liqRibStatus::rpFinal;
@@ -137,7 +137,7 @@ void liqRibGenData::_write(const structJob &currentJob)
   ribStatus.sampleTimes = liqglo.liqglo_sampleTimes;
   if ( liqglo.liqglo_doMotion || liqglo.liqglo_doDef ) 
   {
-    if ( !currentJob.isShadow || currentJob.deepShadows ) 
+    if ( currentJob.pass != rpShadowMap || currentJob.shadowType == stDeep ) 
       ribStatus.motionSamples = liqglo.liqglo_motionSamples;
     else 
       ribStatus.motionSamples = 1;

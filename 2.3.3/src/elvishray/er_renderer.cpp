@@ -164,7 +164,7 @@ namespace elvishray
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 		bool bGeometryMotion = 
 			liqglo.liqglo_doDef 
@@ -195,7 +195,7 @@ namespace elvishray
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 		bool bGeometryMotion = 
 			liqglo.liqglo_doDef 
@@ -405,9 +405,9 @@ namespace elvishray
 		MFloatPoint contrast(m_gnode->getVector("contrast"));
 		_S( ei_contrast( contrast.x, contrast.y, contrast.z, contrast.w ) );
 		
-		if( currentJob.isShadow ){
+		if( currentJob.pass == rpShadowMap ){
 			_s("//this is a shadow pass, how to deal with the samples and filter?");
-			_S( ei_samples( currentJob.shadowPixelSamples, currentJob.shadowPixelSamples ) );
+			_S( ei_samples( currentJob.samples, currentJob.samples ) );
 			_S( ei_filter( EI_FILTER_BOX, 1 ) );
 			//_S( ei_shading_rate( currentJob.shadingRateFactor ) );
 
@@ -581,7 +581,7 @@ namespace elvishray
 		bool bDepthOfField;//enable DOF on this camera?
 		liquidGetPlugValue(fnCamera,"depthOfField", bDepthOfField, status);
 		_s("//Depth of Field on camera \""<<currentJob.camera[0].name.asChar()<<"\" is turned "<< (bDepthOfField?"on":"off")<<" in Maya");
-		bDepthOfField = bDepthOfField && liqglo.doDof && !currentJob.isShadow;
+		bDepthOfField = bDepthOfField && liqglo.doDof && currentJob.pass != rpShadowMap;
 
 		MStringArray LensShaders, EnvironmentShaders;
 		{
@@ -610,7 +610,7 @@ namespace elvishray
 			_S( ei_focal( focal ) );
 			_S( ei_aperture( aperture ) );
 			_S( ei_aspect( aspect ) );
-			if( currentJob.isShadow == false && liqglo.liqglo_rotateCamera  == true ) {
+			if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true ) {
 				_S( ei_resolution(height, width) );
 			}else{ 
 				_S( ei_resolution(width, height) );

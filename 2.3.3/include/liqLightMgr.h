@@ -27,13 +27,15 @@ public:
 	static void buildShadowJob_SpotAndDirectionLight(
 		structJob &thisJob____, MDagPathArray &shadowCamPath, 
 		const MFnLight &fnLightNode, const MDagPath &lightPath__,
-		const bool m_lazyCompute__
+		const bool m_lazyCompute__,
+		bool &lightHasShadowCam
 		);
 	static void buildShadowJob_PointLight(
 		structJob &thisJob____, MDagPathArray &shadowCamPath, 
 		const MFnLight &fnLightNode, 
 		const MDagPath &lightPath__,
-		const bool m_lazyCompute__
+		const bool m_lazyCompute__,
+		bool &lightHasShadowCam
 		);
 private:
 	tLightMgr(const tLightMgr&);

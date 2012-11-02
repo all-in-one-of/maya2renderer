@@ -34,7 +34,7 @@ void tRibCameraMgr::gatherDataForJob(
 	// setup hero pass
 	thisJob___.pass			 = rpHeroPass;
 	thisJob___.isShadowPass  = false;
-	thisJob___.isShadow      = false;
+	//thisJob___.isShadow      = false;
 	thisJob___.isPoint       = false;
 	thisJob___.name.clear();
 	thisJob___.renderFrame   = liqglo.liqglo_lframe;
@@ -60,7 +60,7 @@ void tRibCameraMgr::gatherDataForJob(
 			return /*MS::kFailure*/;
 		}
 
-		std::cerr << "liqglo_renderCamera = " << liqglo.liqglo_renderCamera.asChar() << std::endl << std::flush;  
+		//std::cerr << "liqglo_renderCamera = " << liqglo.liqglo_renderCamera.asChar() << std::endl << std::flush;  
 
 		if( liqglo.renderCamera != MString("") ) 
 		{
@@ -98,7 +98,7 @@ void tRibCameraMgr::gatherDataForJob(
 	else
 	{
 		liqglo.liqglo_renderCamera = "";
-		liqglo.liqglo_beautyRibHasCameraName = 0;
+		liqglo.liqglo_beautyRibHasCameraName = false;
 	}
 	// [refactor 3.1] end
 	// [refactor 3.2] begin 
@@ -112,11 +112,11 @@ void tRibCameraMgr::gatherDataForJob(
 		jobList__.push_back( thisJob___ );
 	}
 	//for hero pass
-	if( m_outputHeroPass_ ) 
+	if ( 1 )   // m_outputHeroPass
 	{
-		thisJob___.pass			 = rpHeroPass;
-		//thisJob___.name        = fnCameraNode.name();
-		thisJob___.isShadowPass  = false;
+// 		thisJob___.pass			 = rpHeroPass;
+// 		//thisJob___.name        = fnCameraNode.name();
+// 		thisJob___.isShadowPass  = false;
 		jobList__.push_back( thisJob___ );
 	}
 	//[refactor 3.2] end 
@@ -246,19 +246,19 @@ void tRibCameraMgr::framePrologue_camera(long lframe, const structJob &currentJo
 	if( currentJob.gotJobOptions ) 
 		RiArchiveRecord( RI_COMMENT, "jobOptions: \n%s", currentJob.jobOptions.asChar() );
 
-	if( ( liqglo.liqglo_preRibBox.length() > 0 ) && !currentJob.isShadow ) 
+	if( ( liqglo.liqglo_preRibBox.length() > 0 ) && currentJob.pass != rpShadowMap ) 
 		for ( unsigned ii(0); ii < liqglo.liqglo_preRibBox.length(); ii++ ) 
 			RiArchiveRecord( RI_COMMENT, "Additional Rib:\n%s", liqglo.liqglo_preRibBox[ii].asChar() );
 
-	if( ( liqglo.liqglo_preReadArchive.length() > 0 ) && !currentJob.isShadow ) 
+	if( ( liqglo.liqglo_preReadArchive.length() > 0 ) && currentJob.pass != rpShadowMap ) 
 		for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchive.length(); ii++ ) 
 			RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchive[ii].asChar() );
 
-	if( ( liqglo.liqglo_preRibBoxShadow.length() > 0 ) && !currentJob.isShadow ) 
+	if( ( liqglo.liqglo_preRibBoxShadow.length() > 0 ) && currentJob.pass != rpShadowMap ) 
 		for ( unsigned ii(0); ii < liqglo.liqglo_preRibBoxShadow.length(); ii++ ) 
 			RiArchiveRecord( RI_COMMENT, "Additional Rib:\n%s", liqglo.liqglo_preRibBoxShadow[ii].asChar() );
 
-	if( ( liqglo.liqglo_preReadArchiveShadow.length() > 0 ) && currentJob.isShadow ) 
+	if( ( liqglo.liqglo_preReadArchiveShadow.length() > 0 ) && currentJob.pass == rpShadowMap ) 
 		for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchiveShadow.length(); ii++ ) 
 			RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchiveShadow[ii].asChar() );
 //omitted in r773

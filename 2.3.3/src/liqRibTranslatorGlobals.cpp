@@ -55,6 +55,11 @@ void liqRibTranslator::liquidReadGlobals()
 	width        = M3dView::active3dView().portWidth();
 	height       = M3dView::active3dView().portHeight();
 
+	if( MS::kSuccess!=liqglo.liquidRenderer.setRenderer() ){
+		return /*MS::kFailure*/;
+	}
+	m_renderCommand = liqglo.liquidRenderer.renderCommand;
+
 	// Display Channels - Read and store 'em !
 	// philippe : channels are stored as structures in a vector
 	{

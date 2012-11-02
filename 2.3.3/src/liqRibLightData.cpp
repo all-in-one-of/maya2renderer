@@ -1078,22 +1078,25 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
       }
     }
 	//[refactor][shadowname] end 
-    shadowName += ".";
+    //shadowName += ".";
 
     if ( geometrySet != "" ) 
-      shadowName += geometrySet + ".";
+      shadowName += "." + geometrySet;
+	
+	if ( everyFrame )
+	{
+		if ( everyFrame ) 
+		  frame += (int) liqglo.liqglo_lframe;
+		else 
+		  frame += (int) renderAtFrame;
 
-    if ( everyFrame ) 
-      frame += (int) liqglo.liqglo_lframe;
-    else 
-      frame += (int) renderAtFrame;
 
-
-    if ( liqglo.liqglo_doExtensionPadding ) 
-      while( frame.length() < liqglo.liqglo_outPadding ) 
-        frame = "0" + frame;
+		if ( liqglo.liqglo_doExtensionPadding ) 
+		  while( frame.length() < liqglo.liqglo_outPadding ) 
+			frame = "0" + frame;
     
-    shadowName += frame;
+		shadowName += "." + frame;
+	}
     shadowName += "." + liqglo.liquidRenderer.textureExtension; // ".tex";
   }
   //cout <<"liqRibLightData::autoShadowName : "<<shadowName.asChar()<<"  ( "<<liquidTransGetSceneName().asChar()<<" )"<<endl;
@@ -1144,19 +1147,25 @@ MString liqRibLightData::extraShadowName( const MFnDependencyNode & lightShaderN
       shadowName += "_";
       shadowName += sanitizeNodeName( shdCamName );
       shadowName += ( shdCamDeepShadows )? "DSH": "SHD";
-      shadowName += ".";
+      //shadowName += ".";
       if ( shdCamGeometrySet != "" ) 
       {
-        shadowName += shdCamGeometrySet + ".";
+        shadowName += "." + shdCamGeometrySet ;
       }
-      if ( shdCamEveryFrame ) 
-        frame += (int) liqglo.liqglo_lframe;
-      else 
-        frame += (int) shdCamRenderAtFrame;
-      if ( liqglo.liqglo_doExtensionPadding ) 
-        while( frame.length() < liqglo.liqglo_outPadding ) 
-          frame = "0" + frame;
-      shadowName += frame;
+
+	  if ( shdCamEveryFrame )
+	  {
+		  if ( shdCamEveryFrame ) 
+			  frame += (int) liqglo.liqglo_lframe;
+		  else 
+			  frame += (int) shdCamRenderAtFrame;
+
+		  if ( liqglo.liqglo_doExtensionPadding ) 
+			  while( frame.length() < liqglo.liqglo_outPadding ) 
+				  frame = "0" + frame;
+
+		  shadowName += "." + frame;
+	  }
       shadowName += "." + liqglo.liquidRenderer.textureExtension; // ".tex";
     } 
     else 

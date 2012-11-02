@@ -385,7 +385,7 @@ namespace renderman
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 // 		const bool bMatrixMotionBlur = 
 // 			liqglo.liqglo_doMotion 
@@ -485,7 +485,7 @@ namespace renderman
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&
 			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( !currentJob__.isShadow || currentJob__.deepShadows );
+			( currentJob__.pass != rpShadowMap || currentJob__.shadowType == stDeep );
 
 		const bool bMatrixMotionBlur = 
 			liqglo.liqglo_doMotion 
@@ -726,14 +726,20 @@ namespace renderman
 		ribPrologue_writeSearthPath();
 
 		//RiOrientation( RI_RH ); // Right-hand coordinates
-		if( currentJob.isShadow ) 
+		if( currentJob.pass == rpShadowMap ) 
 		{
 			//[refactor 7] 
-			tShadowRibWriterMgr::ribPrologue_samples(currentJob.shadowPixelSamples, currentJob.shadowPixelSamples);
+			tShadowRibWriterMgr::ribPrologue_samples(currentJob.samples, currentJob.samples);
 			tShadowRibWriterMgr::ribPrologue_shadingrate(currentJob.shadingRateFactor);
 			// Need to use Box filter for deep shadows.			
 			tShadowRibWriterMgr::ribPrologue_filter( pfBoxFilter, 1, 1);
-			tShadowRibWriterMgr::ribPrologue_pass(currentJob.deepShadows? "deepshadow":"shadow");
+			
+			RtString option;
+			if ( currentJob.shadowType == stDeep ) 
+				option = "deepshadow";
+			else                                 
+				option = "shadow";
+			tShadowRibWriterMgr::ribPrologue_pass(option);
 			//[refactor 7] 
 		} 
 		else 
@@ -872,7 +878,7 @@ namespace renderman
 
 		RiFrameBegin( lframe );
 
-		if( currentJob.isShadow )
+		if( currentJob.pass == rpShadowMap )
 		{
 			tShadowRibWriterMgr::framePrologue_display(currentJob);
 		}//if( liqglo.liqglo_currentJob.isShadow )
@@ -1251,7 +1257,7 @@ namespace renderman
 		if( ribNode->shading.shadingRate > 0 )
 			RiShadingRate ( ribNode->shading.shadingRate );
 
-		if( currentJob.isShadow ) 
+		if( currentJob.pass == rpShadowMap ) 
 		{
 			liqRibTranslator::getInstancePtr()->objectShadowAttribute(ribNode);
 		}else{
@@ -1283,9 +1289,9 @@ namespace renderman
 
 		liqRibTranslator::getInstancePtr()->F1(ribNode__, currentShader);
 
-		liqRIBMsg("[2] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", currentJob.isShadow, currentShader.outputInShadow );
+		liqRIBMsg("[2] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", currentJob.pass, currentShader.outputInShadow );
 		// per shader shadow pass override
-		if( !currentJob.isShadow || currentShader.outputInShadow )
+		if( currentJob.pass != rpShadowMap || currentShader.outputInShadow )
 		{
 			//currentShader.write();//use ShadingGroup file reference(e.g. *.erapi/*.rmsg) instead.
 		}

@@ -46,7 +46,7 @@ struct liqGlobalVariable &liqglo___,
 		//[refactor][1.9.2.6 begin] from ribOutput()
 		if( liqRibTranslator::getInstancePtr()->worldPrologue__(currentJob___) != MS::kSuccess ) 
 			return TCB_Break;//break;
-		if( !currentJob___.isShadow || ( currentJob___.isShadow && currentJob___.deepShadows && m_outputLightsInDeepShadows__) ) 
+		if( currentJob___.pass != rpShadowMap || ( currentJob___.pass == rpShadowMap && currentJob___.shadowType == stDeep && m_outputLightsInDeepShadows__) ) 
 			if( liqRibTranslator::getInstancePtr()->lightBlock__(currentJob___) != MS::kSuccess ) 
 				return TCB_Break;//break;
 		if( liqRibTranslator::getInstancePtr()->coordSysBlock__(currentJob___) != MS::kSuccess ) 
@@ -341,7 +341,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					m_channels_iterator++;
 				}//while ( m_channels_iterator != m_channels.end() ) 
 #if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
-				if ( liqRibTranslator::getInstancePtr()->m_isStereoCamera /*&& !currentJob.isShadow*/ )
+				if ( liqRibTranslator::getInstancePtr()->m_isStereoCamera && currentJob.pass != rpShadowMap )
 				{
 					RtToken   *emptyTokens = NULL;
 					RtPointer *emptyValues = NULL;

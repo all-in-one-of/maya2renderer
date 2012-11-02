@@ -245,7 +245,7 @@ enum fileGenMode {
   fgm_shadow_rib,
   fgm_shadow_archive,
   fgm_scene_archive,
-  fgm_beauty_rib,
+  fgm_hero_rib,
   fgm_image
 };
 
@@ -320,11 +320,13 @@ struct structJob {
 
   bool                  isShadowPass;
   bool                  isStereoPass;//r773
+  
+  int					renderFrame;
 
   // shadows specific job options
-  bool     				isShadow;
+  //bool     			isShadow;
   bool                  everyFrame;
-  int                   renderFrame;
+
   MString               shadowObjectSet;
   bool                  shadowArchiveRibDone;
   
@@ -335,17 +337,17 @@ struct structJob {
   bool                  shadowAggregation;
   
   // MidPoint shadows specific job options
-  bool                  isMidPointShadow;
+  //bool                isMidPointShadow;
   float                 midPointRatio;
 
   // MinMax shadows specific job options
-  bool                  isMinMaxShadow;
+  //bool                  isMinMaxShadow;
 
   // Deep shadows specific job options
-  bool                  deepShadows;
-  int                   shadowPixelSamples;
+  //bool                  deepShadows;
+  //int                   shadowPixelSamples;
   VolumeInterpretation  volume;
-  int                   shadowVolumeInterpretation;
+  //int                   shadowVolumeInterpretation;
   MString               deepShadowOption; // deep shadows display driver option
   
   // pointlight shadow job options

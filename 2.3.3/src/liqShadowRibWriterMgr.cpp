@@ -39,9 +39,9 @@ TempControlBreak tShadowRibWriterMgr::write(
 		if( liqRibTranslator::getInstancePtr()->worldPrologue__(currentJob___) != MS::kSuccess )
 			return TCB_Break;//break;
 
-		if( currentJob___.isShadow 
+		if( currentJob___.pass == rpShadowMap 
 			//[refactor][1.9.2.2 begin] from _doIt()
-			&& currentJob___.deepShadows && m_outputLightsInDeepShadows__ 
+			&& currentJob___.shadowType == stDeep && m_outputLightsInDeepShadows__ 
 			//[refactor][1.9.2.2 end] from _doIt()			
 			) {
 			if( liqRibTranslator::getInstancePtr()->lightBlock__(currentJob___) != MS::kSuccess ) 
@@ -192,7 +192,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 	CM_TRACE_FUNC("tShadowRibWriterMgr::framePrologue_display(job="<<currentJob.name.asChar()<<")");
 
 	//refactor 14-1 begin from liqRibTranslator::framePrologue()
-	if( true == false && liqglo.liqglo_rotateCamera  == true )
+	if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true )
 	{
 		// philippe : Rotated Camera Case
 		RiFormat( currentJob.height, currentJob.width, currentJob.aspectRatio );
@@ -201,7 +201,30 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 	}
 	//refactor 14-1 end
 
-			if( !/*liqglo.liqglo_*/currentJob.deepShadows || /*liqglo.liqglo_*/currentJob.shadowPixelSamples == 1)
+	if( currentJob.pass != rpShadowMap )
+	{
+		//refactor 14 begin to tHeroRibWriterMgr::framePrologue_display()
+		// Smooth Shading
+		RiShadingInterpolation( "smooth" );
+		// Quantization
+		// overriden to floats when in rendering to Maya's renderView
+		if( !liqglo.m_renderView && liqglo.quantValue != 0 )
+		{
+			int whiteValue = (int) pow( 2.0, liqglo.quantValue ) - 1;
+			RiQuantize( RI_RGBA, whiteValue, 0, whiteValue, 0.5 );
+		}
+		else
+		{
+			RiQuantize( RI_RGBA, 0, 0, 0, 0 );
+		}
+		if( liqglo.m_rgain != 1.0 || liqglo.m_rgamma != 1.0 )
+		{
+			RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
+		}
+		//refactor 14 end
+	}
+
+			if( currentJob.pass == rpShadowMap &&(currentJob.shadowType != stDeep || currentJob.samples == 1 ) )
 			{	
 				//refactor 15
 				if( liqglo.liquidRenderer.renderName == MString("Pixie") )
@@ -216,9 +239,9 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				}
 				//refactor 15
 			}
-			if( /*liqglo.liqglo_*/currentJob.isMidPointShadow && !/*liqglo.liqglo_*/currentJob.deepShadows )
+			if( currentJob.pass == rpShadowMap && currentJob.shadowType == stMidPoint )
 			{
-							//refactor 16
+				//refactor 16
 				RtString midPoint = "midpoint";
 				RtFloat midRatio = /*liqglo.liqglo_*/currentJob.midPointRatio;
 
@@ -230,15 +253,18 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			}
 			//-----------------------------------------------------
 			LIQDEBUGPRINTF( "-> Setting Display Options\n" );
+			//if( currentJob.pass == rpShadowMap )
 			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
 			//refactor 17 begin
-			if( !/*liqglo.liqglo_*/currentJob.isMinMaxShadow )
+			if( currentJob.shadowType != stMinMax )
 			{
-				if( /*liqglo.liqglo_*/currentJob.deepShadows )
+				if( currentJob.shadowType == stDeep )
 				{
 					// RiDeclare( "volumeinterpretation", "string" );
-					RtString viContinuous = "continuous";
-					RtString viDiscrete   = "discrete";
+					RtString volume = "continuous";
+
+					if ( currentJob.volume != viContinuous )
+						volume = "discrete"; 
 
 					if( liqglo.liquidRenderer.renderName == MString("3Delight") )
 					{
@@ -246,8 +272,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						RiDisplay( const_cast< char* >( /*liqglo.liqglo_*/currentJob.imageName.asChar()),
 							const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
 							(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
-							"string volumeinterpretation",
-							( /*liqglo.liqglo_*/currentJob.shadowVolumeInterpretation == 1 ? &viContinuous : &viDiscrete ),
+							"string volumeinterpretation", &volume,
 							RI_NULL );
 					}
 					else
@@ -268,8 +293,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						RiDisplay( const_cast< char* >( deepFileImageName.asChar() ),
 							const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
 							(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
-							"string volumeinterpretation",
-							( /*liqglo.liqglo_*/currentJob.shadowVolumeInterpretation == 1 ? &viContinuous : &viDiscrete ),
+							"string volumeinterpretation", &volume,
 							RI_NULL );
 					}
 				}//if( liqglo.liqglo_currentJob.deepShadows )
@@ -297,5 +321,6 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			}
 			liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.camera );
 			//refactor 17 end
+			//}
 }
 //
