@@ -79,14 +79,15 @@
 #define TIMER_START       struct tms t,u;long r1,r2;r1 = times(&t);
 #define TIMER_STOP(msg)   r2 = times(&u); cout <<"[liquid timer] "<<msg<<" :"<<endl<<"\t  user time = "<<((float)(u.tms_utime-t.tms_utime))/(HZ)<<endl<<"\tsystem time = "<<((float)(u.tms_stime-t.tms_stime))/(HZ)<<endl;
 
-#define STDERR stdout
 
 extern int  debugMode;
 #if !defined(LINUX) && !defined(OSX)
+#define STDERR stderr
 #  ifndef LIQDEBUGPRINTF
 #    define LIQDEBUGPRINTF(msg,...)  if( debugMode ) fprintf(STDERR,(msg),__VA_ARGS__); fflush(STDERR); 
 #  endif
 #else
+#define STDERR stdout
 // gcc compatible variable args macro version of LIQDEBUGPRINTF
 #  ifndef LIQDEBUGPRINTF
 #    define LIQDEBUGPRINTF(msg,...) if( debugMode ) { fprintf(STDERR,(msg),## __VA_ARGS__) ; fflush(STDERR); }
@@ -103,7 +104,7 @@ extern int  debugMode;
 
 #define LIQ_CANCEL_FEEDBACK_MESSAGE MString( "Liquid -> RIB Generation Cancelled!\n" )
 #define LIQ_CHECK_CANCEL_REQUEST    if ( liqRibTranslator::m_escHandler.isInterruptRequested() ) throw( LIQ_CANCEL_FEEDBACK_MESSAGE )
-#define LIQ_ADD_SLASH_IF_NEEDED(a) if ( a.asChar()[a.length() - 1] != '/' ) a += "/"
+#define LIQ_ADD_SLASH_IF_NEEDED(a) if(a.length()){ if ( a.asChar()[a.length() - 1] != '/' ) { a += "/";}}
 #define LIQ_ANIM_EXT MString( ".%0*d");
 #define LIQ_SET_EXT MString( ".%0*s");
 
@@ -164,7 +165,7 @@ enum ObjectType {
   MRT_PfxPetal        = 19,
   MRT_ImplicitSphere  = 20,
   MRT_Curves          = 21,
-  MRT_Shave			  = 22
+  MRT_Shave			  = 22 //added in maya2renderer -yaoyansi
 };
 
 enum LightType {
@@ -224,24 +225,11 @@ enum HiderType {
   htDepthMask = 5
 };
 
-enum ShadowType {
-  stStandart = 0,
-  stMinMax   = 1,
-  stDeep     = 2
-};
 
 enum VolumeInterpretation {
   viNone       = 0, // renderer doesn't support DSMs
   viDiscrete   = 1,
   viContinuous = 2
-};
-
-enum ShadowHiderType {
-  shNone     = 0,
-  shMin      = 1,
-  shMax      = 2,
-  shAverage  = 3,
-  shMidPoint = 4
 };
 
 enum TransmissionType { // shadow cast attribute
@@ -261,6 +249,20 @@ enum fileGenMode {
   fgm_image
 };
 
+enum ShadowType {
+  stStandart = 0,
+  stMidPoint = 1,
+  stMinMax   = 2,
+  stDeep     = 3
+};
+
+enum ShadowHiderType {
+  shNone     = 0,
+  shMin      = 1,
+  shMax      = 2,
+  shAverage  = 3,
+  shMidPoint = 4
+};
 
 struct structCamera {
   MMatrix  mat;   // camera inverse matrix
@@ -286,6 +288,7 @@ struct structCamera {
 };
 
 enum RenderPass {
+  rpNone        = -1,
   rpHeroPass    = 0,
   rpShadowPass  = 1, // special shadow pass for compositing purpose
   rpShadowMap   = 2,
@@ -295,54 +298,74 @@ enum RenderPass {
 };
 
 struct structJob {
-  int      width, height;
-  float    aspectRatio;
-  MString  name;
-  MString  texName;
-  MString  imageMode;
-  MString  format;
-  MString  renderName;
-  MString  ribFileName;
-  MString  imageName;
-  bool     isShadow;
-  bool     isMinMaxShadow;
-  bool     isMidPointShadow;
-  float    midPointRatio;
+  MString name;
+  MString renderName;
+  
+  MString ribFileName;
+
+  MString texName;
+  
+  MString imageName;
+  MString imageMode;
+  MString format;
+
+  int     width, height;
+  float   aspectRatio;
 
   short   samples;
   float   shadingRate;
   float   shadingRateFactor;
 
-  RenderPass  pass;
+  RenderPass  			pass;
 
-  // shadows specific job options
-  ShadowType            shadowType;
-  ShadowHiderType       shadowHiderType;
-  VolumeInterpretation  volume;
-  MString               deepShadowOption; // deep shadows display driver option
-
-  bool                  hasShadowCam;
   bool                  isShadowPass;
   bool                  isStereoPass;//r773
-  int                   shadowPixelSamples;
-  int                   shadowVolumeInterpretation;
-  bool                  shadowAggregation;
-  bool                  isPoint;
-  PointLightDirection   pointDir;
-  structCamera          camera[ LIQMAXMOTIONSAMPLES ];
-  structCamera          leftCamera[ LIQMAXMOTIONSAMPLES ];    // stereo cam
-  structCamera          rightCamera[ LIQMAXMOTIONSAMPLES ];   // stereo cam
-  MDagPath              path;
-  MDagPath              shadowCamPath;
-  MString               jobOptions;
-  bool                  gotJobOptions;
-  MString               jobFrameRib;
-  bool                  gotJobFrameRib;
-  bool                  deepShadows;
+
+  // shadows specific job options
+  bool     				isShadow;
   bool                  everyFrame;
   int                   renderFrame;
   MString               shadowObjectSet;
   bool                  shadowArchiveRibDone;
+  
+  ShadowType            shadowType;
+  ShadowHiderType       shadowHiderType;
+
+  bool                  hasShadowCam;
+  bool                  shadowAggregation;
+  
+  // MidPoint shadows specific job options
+  bool                  isMidPointShadow;
+  float                 midPointRatio;
+
+  // MinMax shadows specific job options
+  bool                  isMinMaxShadow;
+
+  // Deep shadows specific job options
+  bool                  deepShadows;
+  int                   shadowPixelSamples;
+  VolumeInterpretation  volume;
+  int                   shadowVolumeInterpretation;
+  MString               deepShadowOption; // deep shadows display driver option
+  
+  // pointlight shadow job options
+  bool                  isPoint;
+  PointLightDirection   pointDir;
+
+  // camera job options
+  structCamera          camera[ LIQMAXMOTIONSAMPLES ];
+  structCamera          leftCamera[ LIQMAXMOTIONSAMPLES ];    // stereo cam
+  structCamera          rightCamera[ LIQMAXMOTIONSAMPLES ];   // stereo cam
+
+  MDagPath              path;
+  MDagPath              shadowCamPath;
+
+  MString               jobOptions;
+  bool                  gotJobOptions;
+
+  MString               jobFrameRib;
+  bool                  gotJobFrameRib;
+
   bool                  skip;
 };
 

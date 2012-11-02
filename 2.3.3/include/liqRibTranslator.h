@@ -235,12 +235,12 @@ public:
 	// NOTE : used in liqRibTranslator::doAttributeBlocking,
 	// but this method isn't called anywhere.
 	int attributeDepth;
+	M3dView       m_activeView;
 
 private :
 
 	// Old global values
 	int           m_errorMode;
-	M3dView       m_activeView;
 
 	MString       m_tmpDir;
 	bool          m_noDirCheck;
@@ -437,7 +437,7 @@ public:
 	void doTextures(const std::vector<structJob> &txtList_);
 	void doShadows(const std::vector<structJob> &shadowList_);
 	void postActions(const MString& originalLayer__);
-	MStatus buildShadowJobs__();
+	MStatus buildShadowJobs__(structJob &thisJob__);
 	MStatus scanScene__(float lframe, int sample );
 	void dealwithParticleInstancedObjects(
 		const float lframe__, const int sample__,

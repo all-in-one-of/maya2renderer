@@ -51,6 +51,10 @@ void liqRibTranslator::liquidReadGlobals()
 	MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 	MString varVal;
 	int var;
+	// find the activeView for previews;
+	width        = M3dView::active3dView().portWidth();
+	height       = M3dView::active3dView().portHeight();
+
 	// Display Channels - Read and store 'em !
 	// philippe : channels are stored as structures in a vector
 	{

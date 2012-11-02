@@ -122,6 +122,12 @@ MStatus tLightMgr::buildShadowJob(
 	{
 		if( !dagIterator.getPath( lightPath__ ) ) 
 			continue;
+
+		thisJob___.pass = rpNone; // reset RenderPass type
+		thisJob___.isShadow      = false;
+		thisJob___.isPoint       = false;
+		thisJob___.everyFrame    = true;
+
 		bool usesDepthMap = false;
 		MFnLight fnLightNode( lightPath__ );
 		liquidGetPlugValue( fnLightNode, "useDepthMapShadows", usesDepthMap, status__ );
@@ -130,6 +136,7 @@ MStatus tLightMgr::buildShadowJob(
 			// philippe : this is the default and can be overriden
 			// by the everyFrame/renderAtFrame attributes.
 			//
+			thisJob___.pass = rpShadowMap;
 			thisJob___.renderFrame           = liqglo.liqglo_lframe;
 			thisJob___.everyFrame            = true;
 			thisJob___.shadowObjectSet       = "";

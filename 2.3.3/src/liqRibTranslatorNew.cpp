@@ -214,7 +214,19 @@ MStatus liqRibTranslator::buildJobs__()
 	shadowList.clear();
 	txtList.clear();
 
-//	structJob thisJob;
+	//[refactor 35] begin from liqRibTranslator.buildJobs()
+	structJob thisJob;
+
+	thisJob.pass = rpNone; // reset RenderPass type
+	thisJob.name.clear();
+	thisJob.isShadowPass  = false;
+	thisJob.isShadow      = false;
+	thisJob.isPoint       = false;
+	thisJob.renderFrame   = liqglo.liqglo_lframe;
+	thisJob.everyFrame    = true;
+	thisJob.isStereoPass  = false;
+	thisJob.skip          = false;
+	//[refactor 35] end 
 
 	MItDependencyNodes dependencyNodesIter(MFn::kDependencyNode, &returnStatus);
 	if(returnStatus==MS::kSuccess)
@@ -242,10 +254,11 @@ MStatus liqRibTranslator::buildJobs__()
 
 	if( liqglo.liqglo_doShadows ) 
 	{
-		returnStatus = buildShadowJobs__();
+		returnStatus = buildShadowJobs__(thisJob);
 	} // liqglo_doShadows
 
-	structJob thisJob;
+
+
 	{
 		tRibCameraMgr::gatherDataForJob(
 			liqglo, thisJob, jobList,
@@ -257,10 +270,14 @@ MStatus liqRibTranslator::buildJobs__()
 	// If we didn't find a renderable camera then give up
 	if( jobList.size() == 0 ) 
 	{
-		MString cError("No Renderable Camera Found!\n");
-		throw( cError );
-		return MS::kFailure;
+		liquidMessage ( "No Renderable Jobs in the list", messageWarning );
+		// MString cError( "No Renderable Camera Found!" );
+		// throw( cError );
+		// return MS::kFailure;
 	}
+
+	LIQDEBUGPRINTF("  step through the jobs and setup their names..." );
+	//cerr << "step through the jobs and setup their names..." << endl << flush;
 
 	// step through the jobs and setup their names
 	vector<structJob>::iterator iter = jobList.begin();
@@ -270,7 +287,7 @@ MStatus liqRibTranslator::buildJobs__()
 		thisJob = *iter;
 
 		MString frameFileName;
-		if( thisJob.isShadow )
+		if( iter->isShadow )
 			frameFileName = generateFileName( ( fileGenMode )fgm_shadow_rib, thisJob );
 		else
 			frameFileName = generateFileName( ( fileGenMode )fgm_beauty_rib, thisJob );
@@ -288,11 +305,11 @@ MStatus liqRibTranslator::buildJobs__()
 				iter->skip   = true;
 				thisJob.skip = true;
 			}
-			else if( !thisJob.everyFrame && ( liqglo.liqglo_noSingleFrameShadows || liqglo.liqglo_lframe > liqglo.frameNumbers[ 0 ] && thisJob.renderFrame != liqglo.liqglo_lframe ) )
+			else if( !iter->everyFrame && ( liqglo.liqglo_noSingleFrameShadows || liqglo.liqglo_lframe > liqglo.frameNumbers[ 0 ] && iter->renderFrame != liqglo.liqglo_lframe ) )
 			{
 				// noSingleFrameShadows or rendering past the first frame of the sequence
 				iter->skip   = true;
-				thisJob.skip = true;
+				//thisJob.skip = true;
 			}
 			else if( thisJob.everyFrame && liqglo.liqglo_singleFrameShadowsOnly )
 			{
@@ -310,7 +327,7 @@ MStatus liqRibTranslator::buildJobs__()
 
 		MString outFileFmtString;
 
-		if( thisJob.isShadow ) 
+		if( iter->isShadow ) 
 		{
 			MString varVal;
 			MString userShadowName;
@@ -598,11 +615,11 @@ void liqRibTranslator::postActions(const MString& originalLayer__)
 	//[refactor][1.22 ]
 }
 //
-MStatus liqRibTranslator::buildShadowJobs__()
+MStatus liqRibTranslator::buildShadowJobs__(structJob &thisJob__)
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::buildShadowJobs__()");
-	structJob thisJob__;
 
+	LIQDEBUGPRINTF("  setup shadows...\n" );
 	MStatus returnStatus__ = MS::kSuccess;
 
 	returnStatus__ = tLightMgr::buildShadowJob(thisJob__, m_lazyCompute);
@@ -2622,46 +2639,6 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 
 	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
 	//[refactor][1.1.1 begin] from _doIt()
-	if ( !m_exportOnlyObjectBlock )
-	{
-		MStatus camStatus;
-		// check to see if the output camera, if specified, is available
-		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
-		{
-			liquidMessage( "No render camera specified!", messageError );
-			return MS::kFailure;
-		}
-		if( liqglo.renderCamera != MString("") ) 
-		{
-			MStatus selectionStatus;
-			MSelectionList camList;
-			selectionStatus = camList.add( liqglo.renderCamera );
-			if( selectionStatus != MS::kSuccess ) 
-			{
-				liquidMessage( "Invalid render camera!", messageError );
-				return MS::kFailure;
-			}
-			camList.getDagPath(0, m_camDagPath);
-		}
-		else{
-			m_activeView.getCamera( m_camDagPath );
-		}
-		// check stereo camera
-		MFnCamera fnCamera( m_camDagPath, &camStatus );
-		if ( camStatus != MS::kSuccess )
-		{
-			liquidMessage( "Cannot create FN for render camera!", messageError );
-			return MS::kFailure;
-		}
-		MString camType = fnCamera.typeName();
-		if ( camType == "stereoRigCamera" )
-			m_isStereoCamera = true;
-	}
-	else
-	{
-		liqglo.liqglo_renderCamera = "";
-		liqglo.liqglo_beautyRibHasCameraName = 0;
-	}
 	//[refactor][1.1.1 end] from _doIt()
 
 	// check to see if all the directories we are working with actually exist.
@@ -2913,46 +2890,6 @@ MStatus liqRibTranslator::_doItNewWithRenderScript(
 
 	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
 	//[refactor][1.1.1 begin] from _doIt()
-	if ( !m_exportOnlyObjectBlock )
-	{
-		MStatus camStatus;
-		// check to see if the output camera, if specified, is available
-		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
-		{
-			liquidMessage( "No render camera specified!", messageError );
-			return MS::kFailure;
-		}
-		if( liqglo.renderCamera != MString("") ) 
-		{
-			MStatus selectionStatus;
-			MSelectionList camList;
-			selectionStatus = camList.add( liqglo.renderCamera );
-			if( selectionStatus != MS::kSuccess ) 
-			{
-				liquidMessage( "Invalid render camera!", messageError );
-				return MS::kFailure;
-			}
-			camList.getDagPath(0, m_camDagPath);
-		}
-		else{
-			m_activeView.getCamera( m_camDagPath );
-		}
-		// check stereo camera
-		MFnCamera fnCamera( m_camDagPath, &camStatus );
-		if ( camStatus != MS::kSuccess )
-		{
-			liquidMessage( "Cannot create FN for render camera!", messageError );
-			return MS::kFailure;
-		}
-		MString camType = fnCamera.typeName();
-		if ( camType == "stereoRigCamera" )
-			m_isStereoCamera = true;
-	}
-	else
-	{
-		liqglo.liqglo_renderCamera = "";
-		liqglo.liqglo_beautyRibHasCameraName = 0;
-	}
 	//[refactor][1.1.1 end] from _doIt()
 
 	// check to see if all the directories we are working with actually exist.

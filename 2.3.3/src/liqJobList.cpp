@@ -47,7 +47,6 @@
 
 
 
-
 void* liqJobList::creator()
 {
   return new liqJobList();
@@ -103,6 +102,7 @@ MStatus liqJobList::doIt(const MArgList& args)
   flagIndex = args.flagIndex("d", "debug");
   if (flagIndex != MArgList::kInvalidArgIndex) {
     debug = true;
+    debugMode = true;
   }
 
   info = false;
@@ -150,12 +150,14 @@ MStatus liqJobList::redoIt()
     MGlobal::executeCommand( MELCommand, MELReturn );
     liqglo.liqglo_projectDir = MELReturn;
 
-
+    //liquidMessage ( "liqglo_projectDir = '" + liqglo_projectDir + "'", messageInfo );
+    //
     // set the current scene name
     //
     //liqglo.liqglo_sceneName = liquidTransGetSceneName();
-
-
+    
+    //liquidMessage ( "liqglo_sceneName = '" + liqglo_sceneName + "'", messageInfo );
+    //
     // set the frame
     //
     liqglo.liqglo_lframe = ( int ) MAnimControl::currentTime().as( MTime::uiUnit() );
@@ -171,8 +173,10 @@ MStatus liqJobList::redoIt()
       throw err;
     }
     LIQDEBUGPRINTF("done !\n");
+    
+    // liquidMessage ( "liqglo_sceneName = '" + liqglo.liqglo_renderCamera + "'", messageInfo );
 
-
+    //
     // verify the output directories
     //
     if ( ribTranslator.verifyOutputDirectories() ) {
@@ -226,7 +230,7 @@ MStatus liqJobList::redoIt()
         result.append( "shadingRate = " + ( MString("") += (float)( iterJob->shadingRate ) ) + "\n" );
         result.append( "shadingRateFactor = " + ( MString("") += (float)( iterJob->shadingRateFactor ) ) + "\n" );
         
-        MString renderPass(""); 
+        MString renderPass("rpNone"); 
         switch ( iterJob->pass )
         {
           case rpHeroPass: renderPass = "rpHeroPass"; break;
@@ -243,6 +247,7 @@ MStatus liqJobList::redoIt()
         switch ( iterJob->shadowType )
         {
           case stStandart: shadowType = "stStandart"; break;
+          case stMidPoint: shadowType = "stMidPoint"; break;
           case stMinMax: shadowType = "stMinMax"; break;
           case stDeep: shadowType = "stDeep"; break;
         }

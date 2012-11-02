@@ -30,34 +30,96 @@ void tRibCameraMgr::gatherDataForJob(
 {
 	CM_TRACE_FUNC("tRibCameraMgr::gatherDataForJob(liqglo___, "<<thisJob___.name.asChar()<<",jobList__,"<<m_outputShadowPass_<<","<<m_outputHeroPass_<<")");
 	
+	LIQDEBUGPRINTF("  setup hero pass..." );
+	// setup hero pass
+	thisJob___.pass			 = rpHeroPass;
+	thisJob___.isShadowPass  = false;
+	thisJob___.isShadow      = false;
+	thisJob___.isPoint       = false;
+	thisJob___.name.clear();
+	thisJob___.renderFrame   = liqglo.liqglo_lframe;
+	thisJob___.everyFrame    = true;
+	thisJob___.skip          = false;
+
 	//[refactor 3] begin from buildJobs()
 	// Determine which cameras to render
 	// it will either traverse the dag and find all the renderable cameras or
 	// grab the current view and render that as a camera - both get added to the
 	// end of the renderable camera array
-	MFnCamera fnCameraNode( liqRibTranslator::getInstancePtr()->m_camDagPath );
-	thisJob___.renderFrame   = liqglo.liqglo_lframe;
-	thisJob___.everyFrame    = true;
-	thisJob___.isPoint       = false;
-	thisJob___.path          = liqRibTranslator::getInstancePtr()->m_camDagPath;
-	thisJob___.isShadow      = false;
-	thisJob___.skip          = false;
+	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
+	// [refactor 3.1] begin
+	if ( !liqRibTranslator::getInstancePtr()->m_exportOnlyObjectBlock )
+	{
+		// cerr << "!m_exportOnlyObjectBlock..." << endl << flush;
+
+		MStatus camStatus;
+		// check to see if the output camera, if specified, is available
+		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
+		{
+			liquidMessage( "No render camera specified!", messageError );
+			return /*MS::kFailure*/;
+		}
+
+		std::cerr << "liqglo_renderCamera = " << liqglo.liqglo_renderCamera.asChar() << std::endl << std::flush;  
+
+		if( liqglo.renderCamera != MString("") ) 
+		{
+			MStatus selectionStatus;
+			MSelectionList camList;
+			selectionStatus = camList.add( liqglo.renderCamera );
+			if( selectionStatus != MS::kSuccess ) 
+			{
+				liquidMessage( "Invalid render camera!", messageError );
+				return/* MS::kFailure*/;
+			}
+			camList.getDagPath(0, liqRibTranslator::getInstancePtr()->m_camDagPath);
+		}
+		else{
+			liqRibTranslator::getInstancePtr()->m_activeView.getCamera( liqRibTranslator::getInstancePtr()->m_camDagPath );
+		}
+		// check stereo camera
+		MFnCamera fnCamera( liqRibTranslator::getInstancePtr()->m_camDagPath, &camStatus );
+		if ( camStatus != MS::kSuccess )
+		{
+			liquidMessage( "Cannot create FN for render camera!", messageError );
+			return /*MS::kFailure*/;
+		}
+		thisJob___.path = liqRibTranslator::getInstancePtr()->m_camDagPath;//new
+		thisJob___.name = fnCamera.name();//new
+
+		MString camType = fnCamera.typeName();
+		if ( camType == "stereoRigCamera" )
+		{
+			liqRibTranslator::getInstancePtr()->m_isStereoCamera = true;
+			thisJob___.isStereoPass = true;//new
+		}
+		liqglo.liqglo_shutterTime = fnCamera.shutterAngle() * 0.5 / M_PI;//new
+	}
+	else
+	{
+		liqglo.liqglo_renderCamera = "";
+		liqglo.liqglo_beautyRibHasCameraName = 0;
+	}
+	// [refactor 3.1] end
+	// [refactor 3.2] begin 
+	//MFnCamera fnCameraNode( liqRibTranslator::getInstancePtr()->m_camDagPath );
 	//for shadow pass
 	if( m_outputShadowPass_ )
-	{ 
-		thisJob___.name          = fnCameraNode.name() + "SHADOWPASS";
+	{
+		thisJob___.pass		     = rpShadowPass;
+		thisJob___.name         += "SHADOWPASS";//thisJob___.name          = fnCameraNode.name() + "SHADOWPASS";
 		thisJob___.isShadowPass  = true;
 		jobList__.push_back( thisJob___ );
 	}
 	//for hero pass
 	if( m_outputHeroPass_ ) 
 	{
-		thisJob___.name          = fnCameraNode.name();
+		thisJob___.pass			 = rpHeroPass;
+		//thisJob___.name        = fnCameraNode.name();
 		thisJob___.isShadowPass  = false;
 		jobList__.push_back( thisJob___ );
 	}
-
-	liqglo.liqglo_shutterTime    = fnCameraNode.shutterAngle() * 0.5 / M_PI;
+	//[refactor 3.2] end 
 	//[refactor 3] end from buildJobs()
 }
 //

@@ -962,15 +962,16 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::doRenderView()");
 
 		//[refactor][1.21 ]
-		std::stringstream displayCmd;
-		displayCmd << "liquidRenderView -c " << liqglo.renderCamera.asChar();
-		displayCmd << " -l " << ( ( liqglo.m_renderViewLocal )? "1":"0" );
-		displayCmd << " -port " << liqglo.m_renderViewPort;
-		displayCmd << " -timeout " << liqglo.m_renderViewTimeOut;
+		MString displayCmd = "liquidRenderView -c " + liqglo.liqglo_renderCamera;
+		displayCmd += " -l " + MString( ( liqglo.m_renderViewLocal )? "1":"0" );
+		displayCmd += " -port ";
+		displayCmd += (int)liqglo.m_renderViewPort;
+		displayCmd += " -timeout ";
+		displayCmd += (int)liqglo.m_renderViewTimeOut;
 		if ( liqglo.m_renderViewCrop ) 
-			displayCmd << " -doRegion";
-		displayCmd << ";liquidSaveRenderViewImage();";
-		MGlobal::executeCommand( MString( displayCmd.str().c_str() ) );
+			displayCmd += " -doRegion";
+		displayCmd += ";liquidSaveRenderViewImage();";
+		MGlobal::executeCommand( displayCmd );
 		//[refactor][1.21 ]
 
 		return MStatus::kSuccess;

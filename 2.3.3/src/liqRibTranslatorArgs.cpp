@@ -127,8 +127,8 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 		return MS::kFailure;
 	}
 	// find the activeView for previews;
-	width        = M3dView::active3dView().portWidth();
-	height       = M3dView::active3dView().portHeight();
+	//width        = M3dView::active3dView().portWidth();
+	//height       = M3dView::active3dView().portHeight();
 
 	// get the current project directory
 	MString MELCommand = "workspace -q -rd";
