@@ -542,7 +542,7 @@ namespace renderman
 		liqRibTranslator::getInstancePtr()->preShapeMel(transform);
 		//refactor 31 begin from liqRibTranslator::objectBlock()
 		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
-		//if( !ribNode->object(0)->receiveShadow )
+		if( !ribNode__->object(0)->receiveShadow )
 		{
 			int receiveShadows = ribNode__->object(0)->receiveShadow;
 			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);

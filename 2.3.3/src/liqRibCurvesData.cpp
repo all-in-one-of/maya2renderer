@@ -104,10 +104,10 @@ liqRibCurvesData::liqRibCurvesData( MObject curveGroup )
 		}
 	}
 
-	if( liqglo.liqglo_renderAllCurves )
+	//if( liqglo.liqglo_renderAllCurves )
 	  ncurves = curveObj.length();
-	else
-		ncurves = 0;  
+	//else
+	//	ncurves = 0;  
 	  
 	if( !ncurves )
 		return;

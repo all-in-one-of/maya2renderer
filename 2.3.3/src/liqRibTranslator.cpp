@@ -7244,7 +7244,7 @@ MStatus liqRibTranslator::objectBlock()
 		//refactor 31 begin to renderman::Renderer::exportOneObject_reference()
 
 		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
- 		//if( !ribNode->object(0)->receiveShadow )
+ 		if( !ribNode->object(0)->receiveShadow )
 		{
 			int receiveShadows = ribNode->object(0)->receiveShadow;
 			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
