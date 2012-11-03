@@ -4192,10 +4192,14 @@ MStatus liqRibTranslator::ribPrologue()
 		{
 			MString home( getenv( "LIQUIDHOME" ) );
 			MString displaySearchPath;
+			MString rendererDisplays = liquidSanitizeSearchPath ( liqglo.liquidRenderer.renderHome );
+			MString liquidDisplays = liquidSanitizeSearchPath ( home ) + "/displayDrivers/" + liqglo.liquidRenderer.renderName + "/";
+
 			if( (liqglo.liquidRenderer.renderName == MString("Pixie")) || (liqglo.liquidRenderer.renderName == MString("Air")) || (liqglo.liquidRenderer.renderName == MString("3Delight")) )
-				displaySearchPath = ".:@::" + liqglo.liquidRenderer.renderHome + "/displays:" + liquidSanitizePath( home ) + "/displayDrivers/" + liqglo.liquidRenderer.renderName + "/";
+				rendererDisplays += "/displays";
 			else 
-				displaySearchPath = ".:@:" + liqglo.liquidRenderer.renderHome + "/etc:" + liquidSanitizePath( home ) +  "/displayDrivers/" + liqglo.liquidRenderer.renderName + "/";
+				rendererDisplays += "/etc";
+			displaySearchPath = ".:@:" + rendererDisplays + ":" + liquidDisplays;
 
 			list = const_cast< char* > ( displaySearchPath.asChar() );
 			RiArchiveRecord( RI_VERBATIM, "Option \"searchpath\" \"display\" [\"%s\"]\n", list );

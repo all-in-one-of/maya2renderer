@@ -867,7 +867,7 @@ MString liquidSanitizeSearchPath( const MString& inputString ) {
 #if defined( DELIGHT ) || defined( PRMAN ) || defined( GENERIC_RIBLIB )
   // Convert from "C:/path" into "//C/path"
   if( inputString.substring( 1, 1 ) == ":" )
-    constructedString = "//" + constructedString.substring( 0, 0 ) + constructedString.substring( 2, inputString.length() - 1 ).toLowerCase();
+    constructedString = "//" + constructedString.substring( 0, 0 ) + constructedString.substring( 2, inputString.length() - 1 );//.toLowerCase();
 #endif // defined DELIGHT || PRMAN
   return constructedString;
 }
@@ -899,9 +899,7 @@ std::string liquidSanitizeSearchPath( const std::string& inputString )
 #if defined( DELIGHT ) || defined( PRMAN ) || defined( GENERIC_RIBLIB )
   // Convert from "C:/path" into "//C/path"
   if( inputString[ 1 ] == ':' ) {
-    constructedString = "//" +
-    constructedString.substr( 0, 1 )
-	+ boost::to_lower_copy( constructedString.substr( 2 ) );
+    constructedString = "//" + constructedString.substr( 0, 1 ) + constructedString.substr( 2 ); // boost::to_lower_copy( constructedString.substr( 2 ) )
   }
 #endif // defined DELIGHT || PRMAN
   return constructedString;
