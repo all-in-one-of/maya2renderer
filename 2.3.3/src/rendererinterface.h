@@ -29,6 +29,7 @@ class liqRibParticleData;
 class liqRibPfxToonData;
 class liqRibSubdivisionData;
 class liqRibSurfaceData;
+class liqPreviewShaderOptions;
 
 namespace liquid
 {
@@ -314,6 +315,10 @@ public:
 		const MString &fileName, 
 		const structJob &currentJob,
 		const bool bReference) = 0;
+	
+	//preview
+	virtual int preview(const std::string& fileName, const liqPreviewShaderOptions& options) = 0;
+
 	//
 
 	virtual bool isHeroPassReady(const structJob &currentJob) = 0;
@@ -358,6 +363,8 @@ public:
 	virtual void oneObjectBlock_reference_attribute_block3_ShadingGroup(
 		const MString& meshname
 		) = 0;
+
+
 protected:
 
 

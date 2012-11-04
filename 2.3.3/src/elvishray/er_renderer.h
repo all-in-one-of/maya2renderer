@@ -293,6 +293,10 @@ namespace elvishray
 			const MString &fileName, 
 			const structJob &currentJob,
 			const bool bReference);
+	
+		//preview
+		virtual int preview( const std::string& fileName, const liqPreviewShaderOptions& options);
+
 		//
 		virtual bool isHeroPassReady(const structJob &currentJob);
 		virtual void HeroPassBegin(const structJob &currentJob);

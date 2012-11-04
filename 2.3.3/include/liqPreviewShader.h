@@ -34,6 +34,8 @@
 ** ______________________________________________________________________
 */
 
+#include <string>
+
 #include <maya/MPxCommand.h>
 #include <maya/MSyntax.h>
 
@@ -62,6 +64,34 @@ private:
 private:
 	liqPreviewShader(const liqPreviewShader&);
 	liqPreviewShader& operator=(const liqPreviewShader&);
+};
+
+class liqPreviewShaderOptions
+{
+public:
+	std::string  shaderNodeName;
+	std::string  displayDriver;
+	std::string  displayName;
+	std::string  renderCommand;
+	std::string  backPlaneShader;
+	bool    shortShaderName, backPlane, usePipe;
+	int     displaySize;
+	int     primitiveType;
+	float   pixelSamples;
+	float   objectScale;
+	float   shadingRate;
+	std::string  customRibFile;
+	bool    fullShaderPath;
+	std::string  type;
+	float   previewIntensity;
+	std::string  customBackplane;
+	bool    cleanRibs;
+public:
+	liqPreviewShaderOptions() {};
+	virtual ~liqPreviewShaderOptions() {};
+private:
+	liqPreviewShaderOptions(const liqPreviewShaderOptions&);
+	liqPreviewShaderOptions& operator=(const liqPreviewShaderOptions&);
 };
 
 #endif

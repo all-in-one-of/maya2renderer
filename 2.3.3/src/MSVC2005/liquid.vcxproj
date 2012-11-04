@@ -2247,6 +2247,7 @@
     <ClCompile Include="..\appleseed\as_material2.cpp" />
     <ClCompile Include="..\appleseed\as_material3.cpp" />
     <ClCompile Include="..\appleseed\as_material4.cpp" />
+    <ClCompile Include="..\appleseed\as_preview.cpp" />
     <ClCompile Include="..\appleseed\as_writeClipPlaneData.cpp" />
     <ClCompile Include="..\appleseed\as_writeCoordData.cpp" />
     <ClCompile Include="..\appleseed\as_writeCurvesData.cpp" />
@@ -2262,6 +2263,7 @@
     <ClCompile Include="..\appleseed\prerequest_as.cpp" />
     <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp" />
     <ClCompile Include="..\common\prerequest_maya.cpp" />
+    <ClCompile Include="..\elvishray\er_preview.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCurvesData.cpp" />
@@ -2343,6 +2345,7 @@
     <ClCompile Include="..\liqTokenPointer.cpp" />
     <ClCompile Include="..\liquidPlug.cpp" />
     <ClCompile Include="..\liqVolumeNode.cpp" />
+    <ClCompile Include="..\renderman\rm_preview.cpp" />
     <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCoordData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCurvesData.cpp" />

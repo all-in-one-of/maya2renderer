@@ -634,6 +634,15 @@
     <ClCompile Include="..\appleseed\as_writeCoordData.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_preview.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_preview.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_preview.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
