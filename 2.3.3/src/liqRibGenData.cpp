@@ -33,6 +33,8 @@
 */
 #include <liqRibGenData.h>
 
+#ifdef _USE_liqRibGenData
+
 #ifndef _WIN32
 #  include <dlfcn.h> // dlopen() etc
 #endif
@@ -337,3 +339,5 @@ MCommandResult * liqRibGenStatus::ExecuteHostCmd( const char *cmd, std::string &
 RtVoid liqRibGenStatus::Comment( RtToken name ) { RiArchiveRecord( RI_COMMENT, name ); }
 RtVoid liqRibGenStatus::AttributeBegin() { RiAttributeBegin(); }
 RtVoid liqRibGenStatus::AttributeEnd() { RiAttributeEnd(); }
+
+#endif//_USE_liqRibGenData

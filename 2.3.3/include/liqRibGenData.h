@@ -29,6 +29,8 @@
 #ifndef liquidRibGenData_H
 #define liquidRibGenData_H
 
+//#define _USE_liqRibGenData
+#ifdef _USE_liqRibGenData
 /* ______________________________________________________________________
 **
 ** Liquid Rib Generator Data Header File
@@ -82,6 +84,6 @@ private: // Data
     liqRibGenStatus	ribStatus;
 };
 
-
+#endif//_USE_liqRibGenData
 
 #endif

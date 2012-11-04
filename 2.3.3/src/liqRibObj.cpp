@@ -55,7 +55,9 @@
 #include <liqRibMayaSubdivisionData.h>
 #include <liqRibClipPlaneData.h>
 #include <liqRibCoordData.h>
+#ifdef _USE_liqRibGenData
 #include <liqRibGenData.h>
+#endif
 #include <liqRibCustomNode.h>
 #include <liqRibPfxData.h>
 #include <liqRibPfxToonData.h>
@@ -139,7 +141,11 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
     if( objType == MRT_RibGen ) 
     {
       type = MRT_RibGen;
+#ifdef _USE_liqRibGenData
       data = liqRibDataPtr( new liqRibGenData( obj, path ) );
+#else
+	  liquidMessage2(messageError, "liqRibGenData is omited in maya2renderer temporarily.");
+#endif
     } 
     else 
     {
