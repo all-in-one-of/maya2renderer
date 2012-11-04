@@ -314,6 +314,7 @@ public:
 		const MString &fileName, 
 		const structJob &currentJob,
 		const bool bReference) = 0;
+	//
 
 	virtual bool isHeroPassReady(const structJob &currentJob) = 0;
 	virtual void HeroPassBegin(const structJob &currentJob) = 0;

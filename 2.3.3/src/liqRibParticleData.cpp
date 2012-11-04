@@ -36,7 +36,7 @@
 
 // Renderman Headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 
 #ifdef _WIN32
@@ -1616,230 +1616,230 @@ unsigned liqRibParticleData::granularity() const
 
 /** Write the RIB for this surface -- grain by grain.
  */
-bool liqRibParticleData::writeNextGrain(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibParticleData::writeNextGrain(job="<<currentJob.name.asChar()<<")");
-
-  LIQDEBUGPRINTF( "-> writing particles\n");
-
-#ifdef DEBUG
-  RiArchiveRecord( RI_COMMENT, "Number of Particles: %d", m_numValidParticles );
-  RiArchiveRecord( RI_COMMENT, "Number of Discarded Particles: %d", m_numParticles - m_numValidParticles );
-#endif
-
-  unsigned numTokens( tokenPointerArray.size() );
-  scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-  scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-  assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-  switch ( particleType ) 
-  {
-    case MPTBlobbies: 
-      {
-		// Build an array that can be given to RiBlobby
-		vector< RtString > stringArray;
-		for( int i(0); i < m_stringArray.size(); i++ ) {
-			stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str() ) );
-		}
-
-        RiBlobbyV( m_numValidParticles,
-                   m_codeArray.size(), const_cast< RtInt* >( &m_codeArray[0] ),
-                   m_floatArray.size(), const_cast< RtFloat* >( &m_floatArray[0] ),
-                   stringArray.size(), const_cast< RtString* >( &stringArray[0] ),
-                   numTokens,
-                   tokenArray.get(),
-                   const_cast< RtPointer* >( pointerArray.get() ) );
-
-        grain = 0;
-        return false;
-      }
-    case MPTMultiPoint:
-    case MPTPoints:
-#ifdef DELIGHT
-    case MPTSpheres:
-    case MPTSprites:
-#endif
-    {
-      RiPointsV( m_numValidParticles*m_multiCount, numTokens, tokenArray.get(), pointerArray.get() );
-      grain = 0;
-      return false;
-    }
-    case MPTMultiStreak:
-    case MPTStreak: 
-      {
-        unsigned nStreaks( m_numValidParticles * m_multiCount / 2 );
-        vector< RtInt > verts( nStreaks, 2 );
-        // Alternatively:
-        //   fill( verts.get(), verts.get() + nStreaks, ( RtInt )2 );
-        //   scoped_array< RtInt >verts( new RtInt[ nStreaks ] );
-
-        RiCurvesV( "linear", nStreaks, &verts[ 0 ], "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
-
-        grain = 0;
-        return false;
-      }
-#ifndef DELIGHT
-    case MPTSpheres: 
-      {
-        if( m_numValidParticles > grain ) 
-        {
-          int posAttr  = -1,
-              radAttr  = -1,
-              colAttr  = -1,
-              opacAttr = -1;
-
-          for ( unsigned i( 0 ); i < tokenPointerArray.size(); i++ )
-          {
-            const string tokenName( tokenPointerArray[i].getTokenName() );
-            if ( "P" == tokenName )
-              posAttr = i;
-            else if ( "radius" == tokenName )
-              radAttr = i;
-            else if ( "Cs" == tokenName )
-              colAttr = i;
-            else if ( "Os" == tokenName )
-              opacAttr = i;
-          }
-          if ( colAttr != -1 ) 
-            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ grain * 3 ] );
-          
-          if ( opacAttr != -1 ) 
-            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ grain * 3 ] );
-          
-          RiTransformBegin();
-          RiTranslate((( RtFloat* )pointerArray[ posAttr ] )[ grain *3 + 0 ],
-                (( RtFloat* )pointerArray[ posAttr ] )[ grain * 3 + 1 ],
-                (( RtFloat* )pointerArray[ posAttr ] )[ grain * 3 + 2 ]);
-
-          RtFloat radius( ( ( RtFloat* )pointerArray[ radAttr ] )[ grain ] );
-          RiSphere( radius, -radius, radius, 360, RI_NULL );
-          RiTransformEnd();
-
-          ++grain;
-          return true;
-        } 
-        else 
-        {
-          grain = 0;
-          return false;
-        }
-      }
-
-    case MPTSprites: 
-      {
-        if( m_numValidParticles > grain ) 
-        {
-          int posAttr    = -1,
-              numAttr    = -1,
-              twistAttr  = -1,
-              scaleXAttr = -1,
-              scaleYAttr = -1,
-              colAttr    = -1,
-              opacAttr   = -1;
-
-          for ( unsigned i( 0 ); i < tokenPointerArray.size(); i++ )
-          {
-            const string tokenName( tokenPointerArray[ i ].getTokenName() );
-            if ( "P" == tokenName ) 
-              posAttr = i;
-            else if ( "spriteNum" == tokenName ) 
-              numAttr = i;
-            else if ( "spriteTwist" == tokenName ) 
-              twistAttr = i;
-            else if ( "spriteScaleX" == tokenName ) 
-              scaleXAttr = i;
-            else if ( "spriteScaleY" == tokenName ) 
-              scaleYAttr = i;
-            else if ( "Cs" == tokenName ) 
-              colAttr = i;
-            else if ( "Os" == tokenName ) 
-              opacAttr = i;
-          }
-          MVector camUp( 0, 1, 0 );
-          MVector camRight( 1, 0, 0 );
-          MVector camEye( 0, 0, 1 );
-
-          camUp    *= currentJob.camera[0].mat.inverse();
-          camRight *= currentJob.camera[0].mat.inverse();
-          camEye   *= currentJob.camera[0].mat.inverse();
-
-          //MGlobal::displayInfo( MString( "I: " ) + ( ( double ) grain ) );
-          MVector up( camUp );
-          MVector right( camRight );
-
-          float spriteRadiusX = 0.5;
-          float spriteRadiusY = 0.5;
-
-          if ( colAttr != -1 ) 
-            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ grain * 3 ] );
-
-          if ( opacAttr != -1 ) 
-            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ grain * 3 ] );
-
-          if ( twistAttr != -1 ) 
-          {
-            float twist( -( ( RtFloat* )pointerArray[ twistAttr ] )[ grain ] * M_PI / 180 );
-            MQuaternion twistQ( twist, camEye );
-            right = camRight.rotateBy( twistQ );
-            up    = camUp.rotateBy( twistQ );
-          }
-          if ( scaleXAttr != -1 ) 
-            spriteRadiusX *= ( ( RtFloat* )pointerArray[ scaleXAttr ] )[ grain ];
-
-          if ( scaleYAttr != -1 ) 
-            spriteRadiusY *= ( ( RtFloat* )pointerArray[ scaleYAttr ] )[ grain ];
-
-          if ( posAttr != -1 ) 
-          {
-            float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ grain * 3 ] );
-            float spriteNum( (numAttr == -1) ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ grain ] );
-
-            float x0 = P[ 0 ] - spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
-            float y0 = P[ 1 ] - spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
-            float z0 = P[ 2 ] - spriteRadiusX * right[ 2 ] + spriteRadiusY * up[ 2 ];
-            float x1 = P[ 0 ] + spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
-            float y1 = P[ 1 ] + spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
-            float z1 = P[ 2 ] + spriteRadiusX * right[ 2 ] + spriteRadiusY * up[ 2 ];
-            float x2 = P[ 0 ] - spriteRadiusX * right[ 0 ] - spriteRadiusY * up[ 0 ];
-            float y2 = P[ 1 ] - spriteRadiusX * right[ 1 ] - spriteRadiusY * up[ 1 ];
-            float z2 = P[ 2 ] - spriteRadiusX * right[ 2 ] - spriteRadiusY * up[ 2 ];
-            float x3 = P[ 0 ] + spriteRadiusX * right[ 0 ] - spriteRadiusY * up[ 0 ];
-            float y3 = P[ 1 ] + spriteRadiusX * right[ 1 ] - spriteRadiusY * up[ 1 ];
-            float z3 = P[ 2 ] + spriteRadiusX * right[ 2 ] - spriteRadiusY * up[ 2 ];
-
-            float patch[ 12 ] = { x0, y0, z0,
-                                  x1, y1, z1,
-                                  x2, y2, z2,
-                                  x3, y3, z3 };
-            // RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );
-             RiArchiveRecord( RI_VERBATIM, "Patch \"bilinear\" \"P\" [%f %f %f %f %f %f %f %f %f %f %f %f] \"float spriteNum\" [%f]", 
-                                          x0, y0, z0,x1, y1, z1, x2, y2, z2,x3, y3, z3,
-                                            spriteNum ); 
-          } else {
-            RiIdentity();
-          }
-
-          ++grain;
-          return true;
-        } 
-        else 
-        {
-          grain = 0;
-          return false;
-        }
-      }
-
-#endif // #ifndef DELIGHT
-
-    case MPTNumeric:
-    case MPTCloudy:
-    case MPTTube:
-      // do nothing. These are not supported
-      break;
-  }
-
-  return false;
-}
+//bool liqRibParticleData::writeNextGrain(const structJob &currentJob)
+//{
+//	CM_TRACE_FUNC("liqRibParticleData::writeNextGrain(job="<<currentJob.name.asChar()<<")");
+//
+//  LIQDEBUGPRINTF( "-> writing particles\n");
+//
+//#ifdef DEBUG
+//  RiArchiveRecord( RI_COMMENT, "Number of Particles: %d", m_numValidParticles );
+//  RiArchiveRecord( RI_COMMENT, "Number of Discarded Particles: %d", m_numParticles - m_numValidParticles );
+//#endif
+//
+//  unsigned numTokens( tokenPointerArray.size() );
+//  scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//  scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//  assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+//
+//  switch ( particleType ) 
+//  {
+//    case MPTBlobbies: 
+//      {
+//		// Build an array that can be given to RiBlobby
+//		vector< RtString > stringArray;
+//		for( int i(0); i < m_stringArray.size(); i++ ) {
+//			stringArray.push_back( const_cast<char *>( m_stringArray[i].c_str() ) );
+//		}
+//
+//        RiBlobbyV( m_numValidParticles,
+//                   m_codeArray.size(), const_cast< RtInt* >( &m_codeArray[0] ),
+//                   m_floatArray.size(), const_cast< RtFloat* >( &m_floatArray[0] ),
+//                   stringArray.size(), const_cast< RtString* >( &stringArray[0] ),
+//                   numTokens,
+//                   tokenArray.get(),
+//                   const_cast< RtPointer* >( pointerArray.get() ) );
+//
+//        grain = 0;
+//        return false;
+//      }
+//    case MPTMultiPoint:
+//    case MPTPoints:
+//#ifdef DELIGHT
+//    case MPTSpheres:
+//    case MPTSprites:
+//#endif
+//    {
+//      RiPointsV( m_numValidParticles*m_multiCount, numTokens, tokenArray.get(), pointerArray.get() );
+//      grain = 0;
+//      return false;
+//    }
+//    case MPTMultiStreak:
+//    case MPTStreak: 
+//      {
+//        unsigned nStreaks( m_numValidParticles * m_multiCount / 2 );
+//        vector< RtInt > verts( nStreaks, 2 );
+//        // Alternatively:
+//        //   fill( verts.get(), verts.get() + nStreaks, ( RtInt )2 );
+//        //   scoped_array< RtInt >verts( new RtInt[ nStreaks ] );
+//
+//        RiCurvesV( "linear", nStreaks, &verts[ 0 ], "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
+//
+//        grain = 0;
+//        return false;
+//      }
+//#ifndef DELIGHT
+//    case MPTSpheres: 
+//      {
+//        if( m_numValidParticles > grain ) 
+//        {
+//          int posAttr  = -1,
+//              radAttr  = -1,
+//              colAttr  = -1,
+//              opacAttr = -1;
+//
+//          for ( unsigned i( 0 ); i < tokenPointerArray.size(); i++ )
+//          {
+//            const string tokenName( tokenPointerArray[i].getTokenName() );
+//            if ( "P" == tokenName )
+//              posAttr = i;
+//            else if ( "radius" == tokenName )
+//              radAttr = i;
+//            else if ( "Cs" == tokenName )
+//              colAttr = i;
+//            else if ( "Os" == tokenName )
+//              opacAttr = i;
+//          }
+//          if ( colAttr != -1 ) 
+//            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ grain * 3 ] );
+//          
+//          if ( opacAttr != -1 ) 
+//            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ grain * 3 ] );
+//          
+//          RiTransformBegin();
+//          RiTranslate((( RtFloat* )pointerArray[ posAttr ] )[ grain *3 + 0 ],
+//                (( RtFloat* )pointerArray[ posAttr ] )[ grain * 3 + 1 ],
+//                (( RtFloat* )pointerArray[ posAttr ] )[ grain * 3 + 2 ]);
+//
+//          RtFloat radius( ( ( RtFloat* )pointerArray[ radAttr ] )[ grain ] );
+//          RiSphere( radius, -radius, radius, 360, RI_NULL );
+//          RiTransformEnd();
+//
+//          ++grain;
+//          return true;
+//        } 
+//        else 
+//        {
+//          grain = 0;
+//          return false;
+//        }
+//      }
+//
+//    case MPTSprites: 
+//      {
+//        if( m_numValidParticles > grain ) 
+//        {
+//          int posAttr    = -1,
+//              numAttr    = -1,
+//              twistAttr  = -1,
+//              scaleXAttr = -1,
+//              scaleYAttr = -1,
+//              colAttr    = -1,
+//              opacAttr   = -1;
+//
+//          for ( unsigned i( 0 ); i < tokenPointerArray.size(); i++ )
+//          {
+//            const string tokenName( tokenPointerArray[ i ].getTokenName() );
+//            if ( "P" == tokenName ) 
+//              posAttr = i;
+//            else if ( "spriteNum" == tokenName ) 
+//              numAttr = i;
+//            else if ( "spriteTwist" == tokenName ) 
+//              twistAttr = i;
+//            else if ( "spriteScaleX" == tokenName ) 
+//              scaleXAttr = i;
+//            else if ( "spriteScaleY" == tokenName ) 
+//              scaleYAttr = i;
+//            else if ( "Cs" == tokenName ) 
+//              colAttr = i;
+//            else if ( "Os" == tokenName ) 
+//              opacAttr = i;
+//          }
+//          MVector camUp( 0, 1, 0 );
+//          MVector camRight( 1, 0, 0 );
+//          MVector camEye( 0, 0, 1 );
+//
+//          camUp    *= currentJob.camera[0].mat.inverse();
+//          camRight *= currentJob.camera[0].mat.inverse();
+//          camEye   *= currentJob.camera[0].mat.inverse();
+//
+//          //MGlobal::displayInfo( MString( "I: " ) + ( ( double ) grain ) );
+//          MVector up( camUp );
+//          MVector right( camRight );
+//
+//          float spriteRadiusX = 0.5;
+//          float spriteRadiusY = 0.5;
+//
+//          if ( colAttr != -1 ) 
+//            RiColor( &( ( RtFloat* )pointerArray[ colAttr ] )[ grain * 3 ] );
+//
+//          if ( opacAttr != -1 ) 
+//            RiOpacity( &( ( RtFloat* )pointerArray[ opacAttr ] )[ grain * 3 ] );
+//
+//          if ( twistAttr != -1 ) 
+//          {
+//            float twist( -( ( RtFloat* )pointerArray[ twistAttr ] )[ grain ] * M_PI / 180 );
+//            MQuaternion twistQ( twist, camEye );
+//            right = camRight.rotateBy( twistQ );
+//            up    = camUp.rotateBy( twistQ );
+//          }
+//          if ( scaleXAttr != -1 ) 
+//            spriteRadiusX *= ( ( RtFloat* )pointerArray[ scaleXAttr ] )[ grain ];
+//
+//          if ( scaleYAttr != -1 ) 
+//            spriteRadiusY *= ( ( RtFloat* )pointerArray[ scaleYAttr ] )[ grain ];
+//
+//          if ( posAttr != -1 ) 
+//          {
+//            float *P( &( ( RtFloat* ) pointerArray[ posAttr ] )[ grain * 3 ] );
+//            float spriteNum( (numAttr == -1) ? 0 : ( ( RtFloat* )pointerArray[ numAttr ] )[ grain ] );
+//
+//            float x0 = P[ 0 ] - spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
+//            float y0 = P[ 1 ] - spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
+//            float z0 = P[ 2 ] - spriteRadiusX * right[ 2 ] + spriteRadiusY * up[ 2 ];
+//            float x1 = P[ 0 ] + spriteRadiusX * right[ 0 ] + spriteRadiusY * up[ 0 ];
+//            float y1 = P[ 1 ] + spriteRadiusX * right[ 1 ] + spriteRadiusY * up[ 1 ];
+//            float z1 = P[ 2 ] + spriteRadiusX * right[ 2 ] + spriteRadiusY * up[ 2 ];
+//            float x2 = P[ 0 ] - spriteRadiusX * right[ 0 ] - spriteRadiusY * up[ 0 ];
+//            float y2 = P[ 1 ] - spriteRadiusX * right[ 1 ] - spriteRadiusY * up[ 1 ];
+//            float z2 = P[ 2 ] - spriteRadiusX * right[ 2 ] - spriteRadiusY * up[ 2 ];
+//            float x3 = P[ 0 ] + spriteRadiusX * right[ 0 ] - spriteRadiusY * up[ 0 ];
+//            float y3 = P[ 1 ] + spriteRadiusX * right[ 1 ] - spriteRadiusY * up[ 1 ];
+//            float z3 = P[ 2 ] + spriteRadiusX * right[ 2 ] - spriteRadiusY * up[ 2 ];
+//
+//            float patch[ 12 ] = { x0, y0, z0,
+//                                  x1, y1, z1,
+//                                  x2, y2, z2,
+//                                  x3, y3, z3 };
+//            // RiPatch( "bilinear", "P", &patch, "float spriteNum", &spriteNum, RI_NULL );
+//             RiArchiveRecord( RI_VERBATIM, "Patch \"bilinear\" \"P\" [%f %f %f %f %f %f %f %f %f %f %f %f] \"float spriteNum\" [%f]", 
+//                                          x0, y0, z0,x1, y1, z1, x2, y2, z2,x3, y3, z3,
+//                                            spriteNum ); 
+//          } else {
+//            RiIdentity();
+//          }
+//
+//          ++grain;
+//          return true;
+//        } 
+//        else 
+//        {
+//          grain = 0;
+//          return false;
+//        }
+//      }
+//
+//#endif // #ifndef DELIGHT
+//
+//    case MPTNumeric:
+//    case MPTCloudy:
+//    case MPTTube:
+//      // do nothing. These are not supported
+//      break;
+//  }
+//
+//  return false;
+//}
 
 
 /** Compare this curve to the other for the purpose of determining

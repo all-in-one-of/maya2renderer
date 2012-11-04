@@ -38,7 +38,7 @@
 #include <boost/scoped_array.hpp>
 // Renderman Headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 
 // Maya headers

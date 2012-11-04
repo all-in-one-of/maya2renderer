@@ -40,7 +40,7 @@
 #include <boost/scoped_array.hpp>
 // Renderman headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 // Maya headers
 #include <maya/MDoubleArray.h>
@@ -515,30 +515,30 @@ unsigned liqRibPfxData::granularity() const
 }
 
 
-bool liqRibPfxData::writeNextGrain()
-{
-	CM_TRACE_FUNC("liqRibPfxData::writeNextGrain()");
-
-	LIQDEBUGPRINTF( "-> writing painteffects curves\n" );
-
-	if( hasFeature[ grain ] )
-	{
-		unsigned numTokens( pfxTokenPointerArrays[ grain ].size() );
-		scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-		scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-		assignTokenArraysV( pfxTokenPointerArrays[ grain ], tokenArray.get(), pointerArray.get() );
-
-		RiCurvesV( "cubic", nverts[ grain ].size(), const_cast< RtInt* >( &nverts[ grain ][ 0 ] ), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
-	}
-
-	if( 2 < ++grain )
-	{
-		grain = 0;
-		return false;
-	}
-	else
-		return true;
-}
+//bool liqRibPfxData::writeNextGrain()
+//{
+//	CM_TRACE_FUNC("liqRibPfxData::writeNextGrain()");
+//
+//	LIQDEBUGPRINTF( "-> writing painteffects curves\n" );
+//
+//	if( hasFeature[ grain ] )
+//	{
+//		unsigned numTokens( pfxTokenPointerArrays[ grain ].size() );
+//		scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//		scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//		assignTokenArraysV( pfxTokenPointerArrays[ grain ], tokenArray.get(), pointerArray.get() );
+//
+//		RiCurvesV( "cubic", nverts[ grain ].size(), const_cast< RtInt* >( &nverts[ grain ][ 0 ] ), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
+//	}
+//
+//	if( 2 < ++grain )
+//	{
+//		grain = 0;
+//		return false;
+//	}
+//	else
+//		return true;
+//}
 
 
 /** Compare this curve to the other for the purpose of determining

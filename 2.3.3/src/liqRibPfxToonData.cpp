@@ -36,7 +36,7 @@
 #include <boost/scoped_array.hpp>
 // RenderMan jeaders
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 // Maya headers
 #include <maya/MDoubleArray.h>

@@ -40,7 +40,7 @@
 #include <boost/shared_array.hpp>
 // RenderMan headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 
 // Maya headers

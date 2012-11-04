@@ -52,7 +52,7 @@ public: // Methods
 	  const bool bReference
 	  );
   virtual unsigned        granularity() const;
-  virtual bool            writeNextGrain();
+//  virtual bool            writeNextGrain();
   virtual bool            compare( const liqRibData& other ) const;
   virtual ObjectType      type() const;
 

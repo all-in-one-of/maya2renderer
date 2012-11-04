@@ -49,7 +49,7 @@ public:
 	  const bool bReference
 	  );
   virtual unsigned granularity() const;
-  virtual bool writeNextGrain(const structJob &currentJob);
+//  virtual bool writeNextGrain(const structJob &currentJob);
   virtual bool	compare( const liqRibData & other ) const;
   virtual ObjectType	type() const;
 

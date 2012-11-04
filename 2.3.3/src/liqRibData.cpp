@@ -32,7 +32,7 @@
 #include <liqRibData.h>
 // Renderman Headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 // Maya's Headers
 #include <maya/MDoubleArray.h>

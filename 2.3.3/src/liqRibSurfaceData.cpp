@@ -482,49 +482,49 @@ unsigned liqRibSurfaceData::granularity() const
   }
 }
 
-bool liqRibSurfaceData::writeNextGrain()
-{
-	CM_TRACE_FUNC("liqRibSurfaceData::writeNextGrain()");
-
-  if ( hasTrims && ( 0 == grain ) ) 
-  {
-    RiTrimCurve( nloops,
-                 const_cast< RtInt* >( &ncurves[ 0 ] ),
-                 const_cast< RtInt* >( &order[ 0 ] ),
-                 const_cast< RtFloat* >( &knot[ 0 ] ),
-                 const_cast< RtFloat* >( &minKnot[ 0 ] ),
-                 const_cast< RtFloat* >( &maxKnot[ 0 ] ),
-                 const_cast< RtInt* >( &numCVs[ 0 ] ),
-                 const_cast< RtFloat* >( &u[ 0 ] ),
-                 const_cast< RtFloat* >( &v[ 0 ] ),
-                 const_cast< RtFloat* >( &w[ 0 ] ) );
-    ++grain;
-    return true;
-  } else if ( !tokenPointerArray.empty() ) {
-    unsigned numTokens( tokenPointerArray.size() );
-    scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-    scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-    assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-    RiNuPatchV( nu,
-                uorder,
-                uknot.get(),
-                umin,
-                umax,
-                nv,
-                vorder,
-                vknot.get(),
-                vmin,
-                vmax,
-                numTokens,
-                tokenArray.get(),
-                pointerArray.get() );
-
-    grain = 0;
-  }
-
-  return false;
-}
+//bool liqRibSurfaceData::writeNextGrain()
+//{
+//	CM_TRACE_FUNC("liqRibSurfaceData::writeNextGrain()");
+//
+//  if ( hasTrims && ( 0 == grain ) ) 
+//  {
+//    RiTrimCurve( nloops,
+//                 const_cast< RtInt* >( &ncurves[ 0 ] ),
+//                 const_cast< RtInt* >( &order[ 0 ] ),
+//                 const_cast< RtFloat* >( &knot[ 0 ] ),
+//                 const_cast< RtFloat* >( &minKnot[ 0 ] ),
+//                 const_cast< RtFloat* >( &maxKnot[ 0 ] ),
+//                 const_cast< RtInt* >( &numCVs[ 0 ] ),
+//                 const_cast< RtFloat* >( &u[ 0 ] ),
+//                 const_cast< RtFloat* >( &v[ 0 ] ),
+//                 const_cast< RtFloat* >( &w[ 0 ] ) );
+//    ++grain;
+//    return true;
+//  } else if ( !tokenPointerArray.empty() ) {
+//    unsigned numTokens( tokenPointerArray.size() );
+//    scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//    scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//    assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+//
+//    RiNuPatchV( nu,
+//                uorder,
+//                uknot.get(),
+//                umin,
+//                umax,
+//                nv,
+//                vorder,
+//                vknot.get(),
+//                vmin,
+//                vmax,
+//                numTokens,
+//                tokenArray.get(),
+//                pointerArray.get() );
+//
+//    grain = 0;
+//  }
+//
+//  return false;
+//}
 
 /** Compare this surface to the other for the purpose of determining
  *  if it is animated.

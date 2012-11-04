@@ -35,7 +35,7 @@
 
 // Renderman Headers
 //extern "C" {
-  #include "ri_interface.h"
+//  #include "ri_interface.h"
 //}
 #include <liquid.h>
 #include <liqGlobalVariable.h>
