@@ -41,7 +41,7 @@
 #include <liqRibCoordData.h>
 #include <liqGlobalVariable.h>
 #include "renderman/rm_helper.h"
-
+#include "renderermgr.h"
 /** Create a RIB compatible representation of a Maya coordinate system.
  */
 liqRibCoordData::liqRibCoordData( MObject coord )
@@ -56,33 +56,36 @@ void liqRibCoordData::write(const MString &ribFileName, const structJob &current
 {
 	CM_TRACE_FUNC("liqRibCoordData::write("<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
-	assert(liqglo.m_ribFileOpen&&"liqRibCoordData.cpp");
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
 
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0);
-		m_ribFileFullPath = ribFileName;
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+// 	assert(liqglo.m_ribFileOpen&&"liqRibCoordData.cpp");
+// 
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0);
+// 		m_ribFileFullPath = ribFileName;
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 
 /** Write the RIB for this coordinate system.
  */
-void liqRibCoordData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibCoordData::_write("<<currentJob.name.asChar()<<")");
-
-  LIQDEBUGPRINTF("-> writing coord"); 
-  RiCoordinateSystem( const_cast<char *> ( name.asChar() ) );
-}
+// void liqRibCoordData::_write(const structJob &currentJob)
+// {
+// 	CM_TRACE_FUNC("liqRibCoordData::_write("<<currentJob.name.asChar()<<")");
+// 
+//   LIQDEBUGPRINTF("-> writing coord"); 
+//   RiCoordinateSystem( const_cast<char *> ( name.asChar() ) );
+// }
 
 /** Compare this coordinate system to otherObj.
  *  The purpose is usually to determe if the coordinate system is animated.

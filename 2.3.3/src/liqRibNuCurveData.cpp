@@ -49,6 +49,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
 #include "renderman/rm_helper.h"
+#include "renderermgr.h"
 using namespace boost;
 
 
@@ -169,39 +170,41 @@ liqRibNuCurveData::liqRibNuCurveData( MObject curve )
 void liqRibNuCurveData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
 	CM_TRACE_FUNC("liqRibNuCurveData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
-
-	assert(liqglo.m_ribFileOpen&&"liqRibNuCurveData.cpp");
-
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0);
-		m_ribFileFullPath = ribFileName;
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+	
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
+// 	assert(liqglo.m_ribFileOpen&&"liqRibNuCurveData.cpp");
+// 
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0);
+// 		m_ribFileFullPath = ribFileName;
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 /**  Write the RIB for this curve.
  */
-void liqRibNuCurveData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibNuCurveData::_write(job="<<currentJob.name.asChar()<<")");
-
-  LIQDEBUGPRINTF( "-> writing nurbs curve\n" );
-
-  unsigned numTokens( tokenPointerArray.size() );
-  scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-  scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-  assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-  RiCurvesV( "cubic", ncurves, nverts.get(), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
-}
+// void liqRibNuCurveData::_write(const structJob &currentJob)
+// {
+// 	CM_TRACE_FUNC("liqRibNuCurveData::_write(job="<<currentJob.name.asChar()<<")");
+// 
+//   LIQDEBUGPRINTF( "-> writing nurbs curve\n" );
+// 
+//   unsigned numTokens( tokenPointerArray.size() );
+//   scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//   scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//   assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+// 
+//   RiCurvesV( "cubic", ncurves, nverts.get(), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
+// }
 
 /** Compare this curve to the other for the purpose of determining
  *  if it is animated.

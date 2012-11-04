@@ -77,8 +77,8 @@ public:
 
   pType particleType;
 
-private:
-  void	_write(const structJob &currentJob);
+//private:
+  //void	_write(const structJob &currentJob);
   unsigned grain;
 
   // Data storage for blobby particles

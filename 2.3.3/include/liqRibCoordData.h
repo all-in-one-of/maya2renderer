@@ -44,8 +44,10 @@ public: // Methods
     virtual bool       compare( const liqRibData & other ) const;
     virtual ObjectType type() const;
 
+	const MString getName() const { return name;}
+
 private: // Data
-    void       _write(const structJob &currentJob);
+    //void       _write(const structJob &currentJob);
 	MString name;
 
 private:

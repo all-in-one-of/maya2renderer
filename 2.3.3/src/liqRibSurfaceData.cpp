@@ -52,6 +52,7 @@
 #include <liqRenderer.h>
 #include <liqGlobalVariable.h>
 #include "renderman/rm_helper.h"
+#include "renderermgr.h"
 
 using namespace boost;
 
@@ -396,74 +397,76 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 void liqRibSurfaceData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
 	CM_TRACE_FUNC("liqRibSurfaceData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
-
-	assert(liqglo.m_ribFileOpen&&"liqRibSurfaceData");
-
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0);
-		m_ribFileFullPath = ribFileName;
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+	
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
+// 	assert(liqglo.m_ribFileOpen&&"liqRibSurfaceData");
+// 
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0);
+// 		m_ribFileFullPath = ribFileName;
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 /** Write the RIB for this surface.
  */
-void liqRibSurfaceData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibSurfaceData::_write(job="<<currentJob.name.asChar()<<")");
-
-  LIQDEBUGPRINTF( "-> writing nurbs surface\n" );
-
-  LIQDEBUGPRINTF( "-> writing nurbs surface trims\n" );
-  if ( hasTrims ) 
-  {
-    RiTrimCurve( nloops,
-                 const_cast< RtInt* >( &ncurves[ 0 ] ),
-                 const_cast< RtInt* >( &order[ 0 ] ),
-                 const_cast< RtFloat* >( &knot[ 0 ] ),
-                 const_cast< RtFloat* >( &minKnot[ 0 ] ),
-                 const_cast< RtFloat* >( &maxKnot[ 0 ] ),
-                 const_cast< RtInt* >( &numCVs[ 0 ] ),
-                 const_cast< RtFloat* >( &u[ 0 ] ),
-                 const_cast< RtFloat* >( &v[ 0 ] ),
-                 const_cast< RtFloat* >( &w[ 0 ] ) );
-  }
-
-  if ( !tokenPointerArray.empty() ) 
-  {
-    unsigned numTokens( tokenPointerArray.size() );
-    scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-    scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-    assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-    RiNuPatchV( nu,
-                uorder,
-                uknot.get(),
-                umin,
-                umax,
-                nv,
-                vorder,
-                vknot.get(),
-                vmin,
-                vmax,
-                numTokens,
-                tokenArray.get(),
-                pointerArray.get() );
-  } 
-  else 
-  {
-    LIQDEBUGPRINTF( "-> ignoring nurbs surface\n" );
-  }
-  LIQDEBUGPRINTF( "-> done writing nurbs surface\n" );
-}
+//void liqRibSurfaceData::_write(const structJob &currentJob)
+//{
+//	CM_TRACE_FUNC("liqRibSurfaceData::_write(job="<<currentJob.name.asChar()<<")");
+//
+//  LIQDEBUGPRINTF( "-> writing nurbs surface\n" );
+//
+//  LIQDEBUGPRINTF( "-> writing nurbs surface trims\n" );
+//  if ( hasTrims ) 
+//  {
+//    RiTrimCurve( nloops,
+//                 const_cast< RtInt* >( &ncurves[ 0 ] ),
+//                 const_cast< RtInt* >( &order[ 0 ] ),
+//                 const_cast< RtFloat* >( &knot[ 0 ] ),
+//                 const_cast< RtFloat* >( &minKnot[ 0 ] ),
+//                 const_cast< RtFloat* >( &maxKnot[ 0 ] ),
+//                 const_cast< RtInt* >( &numCVs[ 0 ] ),
+//                 const_cast< RtFloat* >( &u[ 0 ] ),
+//                 const_cast< RtFloat* >( &v[ 0 ] ),
+//                 const_cast< RtFloat* >( &w[ 0 ] ) );
+//  }
+//
+//  if ( !tokenPointerArray.empty() ) 
+//  {
+//    unsigned numTokens( tokenPointerArray.size() );
+//    scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//    scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//    assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+//
+//    RiNuPatchV( nu,
+//                uorder,
+//                uknot.get(),
+//                umin,
+//                umax,
+//                nv,
+//                vorder,
+//                vknot.get(),
+//                vmin,
+//                vmax,
+//                numTokens,
+//                tokenArray.get(),
+//                pointerArray.get() );
+//  } 
+//  else 
+//  {
+//    LIQDEBUGPRINTF( "-> ignoring nurbs surface\n" );
+//  }
+//  LIQDEBUGPRINTF( "-> done writing nurbs surface\n" );
+//}
 
 unsigned liqRibSurfaceData::granularity() const 
 {

@@ -45,7 +45,7 @@ public: // Methods
     virtual ObjectType type() const;
 
 private: // Data
-	void       _write(const structJob &currentJob);
+	//void       _write(const structJob &currentJob);
 
 	MString name;
 

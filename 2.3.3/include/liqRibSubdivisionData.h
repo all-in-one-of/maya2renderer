@@ -77,8 +77,8 @@ public: // Methods
   virtual bool       compare( const liqRibData & other ) const;
   virtual ObjectType type() const;
 
-private: // Data
-  void       _write(const structJob &currentJob);
+//private: // Data
+  //void       _write(const structJob &currentJob);
   RtInt     numFaces;
   RtInt     numPoints;
   boost::shared_array< RtInt > nverts;

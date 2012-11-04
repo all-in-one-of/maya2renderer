@@ -50,6 +50,7 @@ public: // Methods
 		);
     virtual bool       compare( const liqRibData & other ) const;
     virtual ObjectType type() const;
+	float getRadius()const { return radius; }
 
 private: // Data
     void       _write(const structJob &currentJob);

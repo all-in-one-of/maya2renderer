@@ -535,6 +535,105 @@
     <ClCompile Include="..\liqRibTranslatorArgs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeClipPlaneData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeCoordData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeCurvesData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeParticleData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeHSubdData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeImplicitSphereData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeMayaSubdData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeNuCurveData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writePfxToonData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeSubdData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeSurfaceData.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeCurvesData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeHSubdData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeImplicitSphereData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeMayaSubdData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeNuCurveData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeParticleData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writePfxToonData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeSubdData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeSurfaceData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeCoordData.cpp">
+      <Filter>renderer\elvishray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeCurvesData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeHSubdData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeImplicitSphereData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeMayaSubdData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeNuCurveData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeParticleData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writePfxToonData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeSubdData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeSurfaceData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_writeCoordData.cpp">
+      <Filter>renderer\appleseed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">

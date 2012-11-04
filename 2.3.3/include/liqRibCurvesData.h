@@ -46,8 +46,17 @@ public: // Methods
     virtual bool       compare( const liqRibData & other ) const;
     virtual ObjectType type() const;
 
+	bool isEmpty() { return !ncurves; }
+	const boost::shared_array< RtInt >& getNVerts()const
+	{
+		return nverts;
+	}
+	RtInt getNCurves()const
+	{
+		return ncurves;
+	}
 private: // Data
-    void       _write(const structJob &currentJob);
+    //void       _write(const structJob &currentJob);
     RtInt                   ncurves;
 	boost::shared_array< RtInt >   nverts;
     boost::shared_array< RtFloat > CVs;

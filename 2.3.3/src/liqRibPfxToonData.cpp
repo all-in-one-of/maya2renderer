@@ -60,7 +60,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
 #include "renderman/rm_helper.h"
-
+#include "renderermgr.h"
 
 using namespace boost;
 
@@ -298,44 +298,46 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
 void liqRibPfxToonData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
 	CM_TRACE_FUNC("liqRibPfxToonData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
-
-	assert(liqglo.m_ribFileOpen&&"liqRibPfxToonData");
-
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0);
-		m_ribFileFullPath = ribFileName;
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+	
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
+// 	assert(liqglo.m_ribFileOpen&&"liqRibPfxToonData");
+// 
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0);
+// 		m_ribFileFullPath = ribFileName;
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 /** Write the RIB for this paint effects toon line.
  */
-void liqRibPfxToonData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibPfxToonData::_write(job="<<currentJob.name.asChar()<<")");
-
-  LIQDEBUGPRINTF( "-> writing pfxToon curve\n" );
-
-  if ( 0 < ncurves  ) 
-  {
-    unsigned numTokens( tokenPointerArray.size() );
-    scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-    scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-    assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-    RiCurvesV( "linear", ncurves, nverts.get(), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
-  } else 
-    RiIdentity(); // Make sure we don't create empty motion blocks
-  
-}
+// void liqRibPfxToonData::_write(const structJob &currentJob)
+// {
+// 	CM_TRACE_FUNC("liqRibPfxToonData::_write(job="<<currentJob.name.asChar()<<")");
+// 
+//   LIQDEBUGPRINTF( "-> writing pfxToon curve\n" );
+// 
+//   if ( 0 < ncurves  ) 
+//   {
+//     unsigned numTokens( tokenPointerArray.size() );
+//     scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//     scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//     assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+// 
+//     RiCurvesV( "linear", ncurves, nverts.get(), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
+//   } else 
+//     RiIdentity(); // Make sure we don't create empty motion blocks
+//   
+// }
 
 /** Compare this curve to the other for the purpose of determining
  *  if it is animated.

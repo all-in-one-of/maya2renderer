@@ -56,6 +56,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
 #include "renderman/rm_helper.h"
+#include "renderermgr.h"
 
 using namespace boost;
 
@@ -298,42 +299,44 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
 void liqRibSubdivisionData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
 	CM_TRACE_FUNC("liqRibSubdivisionData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
-
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0);
-		m_ribFileFullPath = ribFileName;
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+	
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0);
+// 		m_ribFileFullPath = ribFileName;
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 /** Write the RIB for this mesh.
  */
-void liqRibSubdivisionData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibSubdivisionData::_write(job="<<currentJob.name.asChar()<<")");
-
-  LIQDEBUGPRINTF( "-> writing subdivision surface\n" );
-
-  unsigned numTokens( tokenPointerArray.size() );
-  scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-  scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-  assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-  RiSubdivisionMeshV( "catmull-clark", numFaces, nverts.get(), verts.get(),
-                      v_tags.size(), v_tags.size() ? &v_tags[0] : NULL,
-                      v_nargs.size() ? &v_nargs[0] : NULL,
-                      v_intargs.size() ? &v_intargs[0] : NULL,
-                      v_floatargs.size() ? &v_floatargs[0] : NULL,
-                      numTokens, tokenArray.get(), pointerArray.get() );
-}
+// void liqRibSubdivisionData::_write(const structJob &currentJob)
+// {
+// 	CM_TRACE_FUNC("liqRibSubdivisionData::_write(job="<<currentJob.name.asChar()<<")");
+// 
+//   LIQDEBUGPRINTF( "-> writing subdivision surface\n" );
+// 
+//   unsigned numTokens( tokenPointerArray.size() );
+//   scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//   scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//   assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+// 
+//   RiSubdivisionMeshV( "catmull-clark", numFaces, nverts.get(), verts.get(),
+//                       v_tags.size(), v_tags.size() ? &v_tags[0] : NULL,
+//                       v_nargs.size() ? &v_nargs[0] : NULL,
+//                       v_intargs.size() ? &v_intargs[0] : NULL,
+//                       v_floatargs.size() ? &v_floatargs[0] : NULL,
+//                       numTokens, tokenArray.get(), pointerArray.get() );
+// }
 
 /** Compare this mesh to the other for the purpose of determining if its animated
  */

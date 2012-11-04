@@ -40,7 +40,7 @@
 #include <liquid.h>
 #include <liqGlobalVariable.h>
 #include "renderman/rm_helper.h"
-
+#include "renderermgr.h"
 
 
 /** Create a RIB compatible representation of a Maya coordinate system.
@@ -57,33 +57,36 @@ void liqRibClipPlaneData::write(const MString &ribFileName, const structJob &cur
 {
 	CM_TRACE_FUNC("liqRibClipPlaneData::write("<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<","<<bReference<<")");
 
-	assert(liqglo.m_ribFileOpen&&"liqRibClipPlaneData.cpp");
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
 
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0);
-		m_ribFileFullPath = ribFileName;
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+// 	assert(liqglo.m_ribFileOpen&&"liqRibClipPlaneData.cpp");
+// 
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0);
+// 		m_ribFileFullPath = ribFileName;
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 
 /** Write the RIB for this coordinate system.
 */
-void liqRibClipPlaneData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibClipPlaneData::_write("<<currentJob.name.asChar()<<")");
-
-	LIQDEBUGPRINTF("-> writing clipPlane");
-	RiArchiveRecord( RI_VERBATIM, "ClippingPlane 0 0 -1 0 0 0\n" );
-}
+// void liqRibClipPlaneData::_write(const structJob &currentJob)
+// {
+// 	CM_TRACE_FUNC("liqRibClipPlaneData::_write("<<currentJob.name.asChar()<<")");
+// 
+// 	LIQDEBUGPRINTF("-> writing clipPlane");
+// 	RiArchiveRecord( RI_VERBATIM, "ClippingPlane 0 0 -1 0 0 0\n" );
+// }
 /** Compare this coordinate system to otherObj.
  *  The purpose is usually to determe if the coordinate system is animated.
  */

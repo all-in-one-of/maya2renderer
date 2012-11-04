@@ -229,6 +229,67 @@ namespace renderman
 			const structJob &currentJob,
 			const bool bReference);
 #endif
+		virtual void write(
+			liqRibClipPlaneData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibCoordData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibCurvesData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibHierarchicalSubdivisionData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibImplicitSphereData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+// 		virtual void write(
+// 			liqRibLightData* data,
+// 			const MString &fileName, 
+// 			const structJob &currentJob,
+// 			const bool bReference);
+		virtual void write(
+			liqRibMayaSubdivisionData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibNuCurveData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibParticleData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibPfxToonData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibSubdivisionData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+		virtual void write(
+			liqRibSurfaceData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
+
 		//
 		virtual bool isHeroPassReady(const structJob &currentJob);
 		virtual void HeroPassBegin(const structJob &currentJob);

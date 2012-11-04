@@ -18,6 +18,17 @@ class liqRibLocatorData;
 class liqRibPfxHairData;
 class liqRibPfxData;
 class liqRibShaveData;
+class liqRibClipPlaneData;
+class liqRibCoordData;
+class liqRibCurvesData;
+class liqRibHierarchicalSubdivisionData;
+class liqRibImplicitSphereData;
+class liqRibMayaSubdivisionData;
+class liqRibNuCurveData;
+class liqRibParticleData;
+class liqRibPfxToonData;
+class liqRibSubdivisionData;
+class liqRibSurfaceData;
 
 namespace liquid
 {
@@ -243,6 +254,67 @@ public:
 		const structJob &currentJob,
 		const bool bReference) = 0;
 #endif
+	virtual void write(
+		liqRibClipPlaneData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibCoordData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibCurvesData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibHierarchicalSubdivisionData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibImplicitSphereData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+// 	virtual void write(
+// 		liqRibLightData* data,
+// 		const MString &fileName, 
+// 		const structJob &currentJob,
+// 		const bool bReference) = 0;
+	virtual void write(
+		liqRibMayaSubdivisionData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibNuCurveData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibParticleData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibPfxToonData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibSubdivisionData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+	virtual void write(
+		liqRibSurfaceData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+
 	virtual bool isHeroPassReady(const structJob &currentJob) = 0;
 	virtual void HeroPassBegin(const structJob &currentJob) = 0;
 	virtual void HeroPassEnd(const structJob &currentJob) = 0;

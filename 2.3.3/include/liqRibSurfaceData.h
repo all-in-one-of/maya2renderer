@@ -54,8 +54,8 @@ public: // Methods
   virtual bool          compare( const liqRibData & other ) const;
   virtual ObjectType    type() const;
 
-private: // Data
-  void          _write(const structJob &currentJob);
+//private: // Data
+  //void          _write(const structJob &currentJob);
   unsigned              grain;
   bool                  hasTrims;
 
