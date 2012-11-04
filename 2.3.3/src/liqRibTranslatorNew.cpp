@@ -949,7 +949,7 @@ MStatus liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , c
 						printf(errorMsg);
 						return MS::kFailure;
 					}
-
+					/////////////////////////////
 					getCameraInfo( fnLeftCam, iter__->leftCamera[sample__] );
 					iter__->leftCamera[sample__].orthoWidth     = fnLeftCam.orthoWidth();
 					iter__->leftCamera[sample__].orthoHeight    = fnLeftCam.orthoWidth() * ((float)iter__->camera[sample__].height / (float)iter__->camera[sample__].width);
@@ -996,7 +996,7 @@ MStatus liqRibTranslator::getCameraData( vector<structJob>::iterator &iter__ , c
 
 					iter__->camera[sample__].rightCam = &(iter__->rightCamera[sample__]);
 					iter__->camera[sample__].leftCam  = &(iter__->leftCamera[sample__]);
-				}
+				}//if( camType == "stereoRigCamera" ) 
 				iter__->isStereoPass = isStereoCamera;
 				iter__->aspectRatio  = liqglo.aspectRatio;
 				//[refactor 12.1] end 
