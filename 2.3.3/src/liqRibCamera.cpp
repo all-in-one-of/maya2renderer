@@ -6,7 +6,7 @@
 #include <maya/M3dView.h>
 #include <maya/MDagPath.h>
 #include <maya/MString.h>
-
+#include "ri_interface.h"
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 

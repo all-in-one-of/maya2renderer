@@ -44,7 +44,7 @@ using namespace std;
 // Renderman headers
 //extern "C" {
 #include "liqtypes.h"
-//#include "ri_interface.h"
+#include "ri_interface.h"
 //}
 
 // flags
@@ -1905,7 +1905,7 @@ MStatus RIIlluminate::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Illuminate " ) + sequencenumber + " " + onoff );
 	else
-		RiIlluminate( (liqLightHandle)sequencenumber, (RtBoolean)onoff );
+		RiIlluminate( (liqLightHandle)sequencenumber, (liqBoolean)onoff );
 
 	return redoIt();
 }
@@ -2146,7 +2146,7 @@ MStatus RIMatte::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Matte " ) + onoff );
 	else
-		RiMatte( (RtBoolean)onoff );
+		RiMatte( (liqBoolean)onoff );
 
 	return redoIt();
 }

@@ -6,7 +6,7 @@
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 #include "shadergraph/shadermgr.h"
-//#include "ri_interface.h"
+#include "ri_interface.h"
 
 tHeroRibWriterMgr::tHeroRibWriterMgr()
 {

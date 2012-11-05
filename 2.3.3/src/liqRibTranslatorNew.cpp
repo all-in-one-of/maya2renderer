@@ -63,7 +63,8 @@
 
 // Renderman Headers
 //extern "C" {
-#include "liqtypes.h"//#include "ri_interface.h"
+#include "liqtypes.h"
+#include "ri_interface.h"
 //}
 
 #ifdef _WIN32

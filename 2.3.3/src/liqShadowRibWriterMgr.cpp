@@ -2,7 +2,7 @@
 
 #include <string>
 #include "liqtypes.h"
-//#include "ri_interface.h"
+#include "ri_interface.h"
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 #include <liqProcessLauncher.h>
