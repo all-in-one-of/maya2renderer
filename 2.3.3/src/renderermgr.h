@@ -16,8 +16,11 @@ public:
 	static RendererMgr* getInstancePtr();
 	virtual ~RendererMgr();
 
-	void createFactory(const std::string& renderername);
-	void deleteFactory();
+	void setFactory(const std::string& renderername);
+	void unsetFactory();
+
+	static void registFactory(const std::string& renderername, AbstractFactory* factory);
+	static void unregistFactory(const std::string& renderername);
 
 	RendererInterface* getRenderer(){ return m_renderer; }
 	
@@ -38,6 +41,8 @@ protected:
 	//std::map<std::string, RendererInterface*> m_registeredRenderers;
 
 	AbstractFactory* m_factory;
+	static std::map<std::string, AbstractFactory*> m_factories;
+
 };
 
 }

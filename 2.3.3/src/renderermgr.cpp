@@ -6,8 +6,8 @@
 
 namespace liquid
 {
-
 	RendererMgr* RendererMgr::m_instance = 0;
+	std::map<std::string, AbstractFactory*> RendererMgr::m_factories;
 	//
 	RendererMgr::RendererMgr()
 	:m_renderer(0),
@@ -54,35 +54,23 @@ namespace liquid
 		getRenderer()->closeLog();
 	}
 	//
-	void RendererMgr::createFactory(const std::string& renderername)
+	void RendererMgr::setFactory(const std::string& renderername)
 	{
 		CM_TRACE_FUNC("RendererMgr::createFactory("<<renderername<<")");
 		
-		if(false){}
-#ifdef _USE_RENDERMAN_
-		else if(renderername=="renderman"){
-			m_factory = new renderman::Factory();
-		}
-#endif
-#ifdef _USE_ELVISHRAY_
-		else if(renderername=="elvishray"){
-			m_factory = new elvishray::Factory();
-		}
-#endif 
-#ifdef _USE_APPLESEED_
-		else if(renderername=="appleseed"){
-			m_factory = new appleseed::Factory();
-		}
-#endif 
-		else {
+		std::map<std::string, AbstractFactory*>::iterator 
+			i = m_factories.find(renderername);
+		if( i != m_factories.end() )
+		{
+			m_factory = i->second;
+		} else {
 			liquidMessage2(messageError, "Unkown renderer:%s.",renderername.c_str() );
 		}
 	}
-	void RendererMgr::deleteFactory()
+	void RendererMgr::unsetFactory()
 	{
 		CM_TRACE_FUNC("RendererMgr::deleteFactory()");
 
-		delete m_factory;
 		m_factory = 0;
 	}
 	//
@@ -101,5 +89,26 @@ namespace liquid
 		assert(m_factory);
 		m_factory->deleteOutputReceiver();
 		m_factory->deleteRenderer();
+	}
+	void RendererMgr::registFactory(const std::string& renderername, AbstractFactory* factory)
+	{
+		if( m_factories.find(renderername) != m_factories.end() )
+		{
+			return;//already registed
+		}
+
+		m_factories.insert(std::make_pair(renderername, factory));
+
+	}
+	void RendererMgr::unregistFactory(const std::string& renderername)
+	{
+		std::map<std::string, AbstractFactory*>::iterator i
+			= m_factories.find(renderername);
+		if( i == m_factories.end() )
+		{
+			return;//not registed
+		}
+		delete i->second;
+		m_factories.erase(renderername);
 	}
 }

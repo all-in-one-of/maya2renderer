@@ -83,6 +83,11 @@
 #include <liqGetSloInfo.h>
 #include <liqParseString.h>
 
+#include "renderermgr.h"
+#include "./renderman/rm_factory.h"
+#include "./elvishray/er_factory.h"
+#include "./appleseed/as_factory.h"
+
 #define LIQVENDOR "http://liquidmaya.sourceforge.net/"
 
 #if defined(_WIN32) /*&& !defined(DEFINED_LIQUIDVERSION)*/
@@ -507,6 +512,12 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
   status = plugin.registerUI("liquidStartup", "liquidShutdown");
   LIQCHECKSTATUS( status, "Can't register liquidStartup and liquidShutdown interface scripts" );
   printf("Liquid %s registered\n", LIQUIDVERSION);
+
+
+  liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
+  liquid::RendererMgr::registFactory("elvishray", new elvishray::Factory());
+  liquid::RendererMgr::registFactory("appleseed", new appleseed::Factory());
+  
   return MS::kSuccess;
 }
 
@@ -514,6 +525,10 @@ LIQUID_EXPORT MStatus uninitializePlugin(MObject obj)
 //  Description:
 //      Deregister the command when the plug-in is unloaded
 {
+	liquid::RendererMgr::unregistFactory("appleseed");
+	liquid::RendererMgr::unregistFactory("elvishray");
+	liquid::RendererMgr::unregistFactory("renderman");
+
   MStatus status;
   MFnPlugin plugin(obj);
 

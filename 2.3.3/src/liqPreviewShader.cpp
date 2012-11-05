@@ -415,7 +415,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 		MString renderer;
 		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
-		liquid::RendererMgr::getInstancePtr()->createFactory(renderer.asChar());
+		liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->prologue();
 	}
@@ -974,7 +974,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 	  liquid::RendererMgr::getInstancePtr()->test();
 	  liquid::RendererMgr::getInstancePtr()->epilogue();
 	  liquid::RendererMgr::getInstancePtr()->uninstall();
-	  liquid::RendererMgr::getInstancePtr()->deleteFactory();
+	  liquid::RendererMgr::getInstancePtr()->unsetFactory();
   }
   CM_TRACE_CLOSE();
   return 1;

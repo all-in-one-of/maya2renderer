@@ -1855,7 +1855,7 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 			MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 			MString renderer;
 			liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
-			liquid::RendererMgr::getInstancePtr()->createFactory(renderer.asChar());
+			liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
 			liquid::RendererMgr::getInstancePtr()->install();
 			liquid::RendererMgr::getInstancePtr()->prologue();
 		}
@@ -1875,7 +1875,7 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 			liquid::RendererMgr::getInstancePtr()->test();
 			liquid::RendererMgr::getInstancePtr()->epilogue();
 			liquid::RendererMgr::getInstancePtr()->uninstall();
-			liquid::RendererMgr::getInstancePtr()->deleteFactory();
+			liquid::RendererMgr::getInstancePtr()->unsetFactory();
 		}
 		CM_TRACE_CLOSE();
 	}
