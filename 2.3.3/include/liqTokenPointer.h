@@ -28,7 +28,7 @@
 
 #include "../src/common/prerequest_std.h"
 //extern "C" {
-#include "ri_interface.h"//#include "liqtypes.h"
+#include "liqtypes.h"//#include "ri_interface.h"//
 //}
 
 #include "liqTokenParameterType.h"
@@ -51,27 +51,27 @@ class liqTokenPointer
     // -----------
     int            reserve( unsigned int size );
     void           setDetailType( DetailType dType );
-    void           setTokenFloat( unsigned int i, RtFloat val );
-    void           setTokenFloat( unsigned int i, unsigned int uIndex, RtFloat val );
-    void           setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFloat z );
-    void           setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFloat z, RtFloat w );
-	void           setTokenFloat( unsigned int i, RtFloat x1, RtFloat y1 , RtFloat z1, RtFloat w1, RtFloat x2, RtFloat y2 , RtFloat z2, RtFloat w2, RtFloat x3, RtFloat y3 , RtFloat z3, RtFloat w3, RtFloat x4, RtFloat y4 , RtFloat z4, RtFloat w4 );
-	void           setTokenFloats( const boost::shared_array< RtFloat > floatVals ); // Warning! This method assumes ownership of the pointer is transferred to the TokenPointer!!!
-    void           setTokenFloats( const RtFloat* floatVals ); // Use this one to copy the data
+    void           setTokenFloat( unsigned int i, liqFloat val );
+    void           setTokenFloat( unsigned int i, unsigned int uIndex, liqFloat val );
+    void           setTokenFloat( unsigned int i, liqFloat x, liqFloat y , liqFloat z );
+    void           setTokenFloat( unsigned int i, liqFloat x, liqFloat y , liqFloat z, liqFloat w );
+	void           setTokenFloat( unsigned int i, liqFloat x1, liqFloat y1 , liqFloat z1, liqFloat w1, liqFloat x2, liqFloat y2 , liqFloat z2, liqFloat w2, liqFloat x3, liqFloat y3 , liqFloat z3, liqFloat w3, liqFloat x4, liqFloat y4 , liqFloat z4, liqFloat w4 );
+	void           setTokenFloats( const boost::shared_array< liqFloat > floatVals ); // Warning! This method assumes ownership of the pointer is transferred to the TokenPointer!!!
+    void           setTokenFloats( const liqFloat* floatVals ); // Use this one to copy the data
     void           setTokenString( unsigned int i, const std::string& str );
 
     const std::string&						getDetailedTokenName();
     DetailType								getDetailType() const;
 
-    const RtFloat*							getTokenFloatArray() const;
-	const boost::shared_array< RtFloat >	getTokenFloatSharedArray() const;
+    const liqFloat*							getTokenFloatArray() const;
+	const boost::shared_array< liqFloat >	getTokenFloatSharedArray() const;
     std::string								getTokenString() const;
 	std::string								getTokenName() const;
 
     ParameterType							getParameterType() const;
 
-    const RtPointer							getRtPointer();
-	const RtPointer							getIthRtPointer( unsigned int i );
+    const liqPointer							getRtPointer();
+	const liqPointer							getIthRtPointer( unsigned int i );
     std::string								getRiDeclare() const;
 
     bool           empty() const;
@@ -81,9 +81,9 @@ class liqTokenPointer
 
     typedef std::vector< liqTokenPointer > array;
   private:
-	boost::shared_array< RtFloat >	m_tokenFloats;
+	boost::shared_array< liqFloat >	m_tokenFloats;
     std::vector< std::string >		m_tokenString;
-	boost::shared_array< RtString > m_tokenStringArray; // Holds pointers for getRtPointer();
+	boost::shared_array< liqString > m_tokenStringArray; // Holds pointers for getRtPointer();
     ParameterType	m_pType;
     DetailType		m_dType;
     std::string		m_tokenName;

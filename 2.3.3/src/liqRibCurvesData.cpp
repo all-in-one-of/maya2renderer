@@ -112,7 +112,7 @@ liqRibCurvesData::liqRibCurvesData( MObject curveGroup )
 	if( !ncurves )
 		return;
 
-	nverts = shared_array< RtInt >( new RtInt[ ncurves ] );
+	nverts = shared_array< liqInt >( new liqInt[ ncurves ] );
 
 	unsigned cvcount( 0 );
 
@@ -125,7 +125,7 @@ liqRibCurvesData::liqRibCurvesData( MObject curveGroup )
 		cvcount += nverts[i];
 	}
 
-	CVs = shared_array< RtFloat >( new RtFloat[ cvcount * 3 ] );
+	CVs = shared_array< liqFloat >( new liqFloat[ cvcount * 3 ] );
 
 	unsigned k( 0 );
 	for( unsigned i( 0 ); i < ncurves; i++ )
@@ -189,7 +189,7 @@ liqRibCurvesData::liqRibCurvesData( MObject curveGroup )
 	}
 	else
 	{
-		NuCurveWidth = shared_array< RtFloat >( new RtFloat[ cvcount - ncurves * 2 ] );
+		NuCurveWidth = shared_array< liqFloat >( new liqFloat[ cvcount - ncurves * 2 ] );
 		k = 0;
 		for( unsigned i( 0 ); i < ncurves; i++ )
 		{

@@ -127,7 +127,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
 
       if ( ncurves > 0 ) 
       {
-        nverts = shared_array< RtInt >( new RtInt[ ncurves ] );
+        nverts = shared_array< liqInt >( new liqInt[ ncurves ] );
 
         // Calculate storage requirments.
         // This is a lot more efficient than all those reallocs()
@@ -142,7 +142,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
         }
 
         // Allocate memory
-        CVs = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices * 3 ] );
+        CVs = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices * 3 ] );
         if ( !CVs ) 
         {
           //MString err( "liqRibPfxToonData failed to allocate CV memory!" );
@@ -152,7 +152,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
           return;
         }
 
-        curveWidth = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices ] );
+        curveWidth = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices ] );
         if ( !curveWidth ) 
         {
           //MString err( "liqRibPfxToonData failed to allocate per vertex width memory!" );
@@ -162,7 +162,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
           return;
         }
 
-        cvColor = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices * 3 ] );
+        cvColor = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices * 3 ] );
         if ( !cvColor ) 
         {
           //MString err( "liqRibPfxToonData failed to allocate CV color memory!" );
@@ -172,7 +172,7 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
           return;
         }
 
-        cvOpacity = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices * 3 ] );
+        cvOpacity = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices * 3 ] );
         if ( !cvOpacity ) 
         {
           //MString err("liqRibPfxToonData failed to allocate CV opacity memory !");
@@ -182,10 +182,10 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
           return;
         }
 
-        RtFloat* cvPtr;
-        RtFloat* widthPtr;
-        RtFloat* colorPtr;
-        RtFloat* opacityPtr;
+        liqFloat* cvPtr;
+        liqFloat* widthPtr;
+        liqFloat* colorPtr;
+        liqFloat* opacityPtr;
 
         totalNumberOfVertices = 0;
 
@@ -213,19 +213,19 @@ liqRibPfxToonData::liqRibPfxToonData( MObject pfxToon )
 
             for ( unsigned vertIndex( 0 ); vertIndex < vertices.length(); vertIndex++ ) 
             {
-              *cvPtr++      = ( RtFloat ) vertices[ vertIndex ].x;
-              *cvPtr++      = ( RtFloat ) vertices[ vertIndex ].y;
-              *cvPtr++      = ( RtFloat ) vertices[ vertIndex ].z;
+              *cvPtr++      = ( liqFloat ) vertices[ vertIndex ].x;
+              *cvPtr++      = ( liqFloat ) vertices[ vertIndex ].y;
+              *cvPtr++      = ( liqFloat ) vertices[ vertIndex ].z;
 
-              *widthPtr++   = ( RtFloat )width[ vertIndex ];
+              *widthPtr++   = ( liqFloat )width[ vertIndex ];
 
-              *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].x ;
-              *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].y ;
-              *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].z ;
+              *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].x ;
+              *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].y ;
+              *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].z ;
 
-              *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].x ) ;
-              *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].y ) ;
-              *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].z ) ;
+              *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].x ) ;
+              *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].y ) ;
+              *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].z ) ;
             }
           }
         }

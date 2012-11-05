@@ -55,14 +55,14 @@ public: // Methods
 
 //private: // Data
     //void       _write(const structJob &currentJob);
-    RtInt                   ncurves;
-	boost::shared_array< RtInt >   nverts;
-    //boost::shared_array< RtInt >   order;
-    //boost::shared_array< RtFloat > knot;
-    //boost::shared_array< RtFloat > min;
-    //boost::shared_array< RtFloat > max;
-    boost::shared_array< RtFloat > CVs;
-    boost::shared_array< RtFloat > NuCurveWidth;
+    liqInt                   ncurves;
+	boost::shared_array< liqInt >   nverts;
+    //boost::shared_array< liqInt >   order;
+    //boost::shared_array< liqFloat > knot;
+    //boost::shared_array< liqFloat > min;
+    //boost::shared_array< liqFloat > max;
+    boost::shared_array< liqFloat > CVs;
+    boost::shared_array< liqFloat > NuCurveWidth;
 
 private:
 	liqRibNuCurveData(const liqRibNuCurveData&);

@@ -34,7 +34,7 @@ namespace elvishray
 		}else{
 			//write the reference
 			assert(pData->getRibFileFullPath() == fileName);
-//			RiReadArchive( const_cast< RtToken >( pData->getRibFileFullPath().asChar() ), NULL, RI_NULL );
+//			RiReadArchive( const_cast< liqToken >( pData->getRibFileFullPath().asChar() ), NULL, RI_NULL );
 		}
 	}
 	//
@@ -158,10 +158,10 @@ namespace elvishray
 			_d( ei_end_tab() );
 		
 			// read other attributes from the lines
-			boost::shared_array< RtFloat > uniformCurveWidth(  new RtFloat[ numLines ] );
-			boost::shared_array< RtFloat > curveWidth(         new RtFloat[ totalVarying ] );
-			RtFloat* uniformWidthPtr( uniformCurveWidth.get() );
-			RtFloat* widthPtr( curveWidth.get() );
+			boost::shared_array< liqFloat > uniformCurveWidth(  new liqFloat[ numLines ] );
+			boost::shared_array< liqFloat > curveWidth(         new liqFloat[ totalVarying ] );
+			liqFloat* uniformWidthPtr( uniformCurveWidth.get() );
+			liqFloat* widthPtr( curveWidth.get() );
 
 			bool hasUniformWidth( false );
 			bool hasWidth( false );

@@ -265,11 +265,11 @@ bool areObjectAndParentsTemplated( const MDagPath & path )
 /** Build the correct token/array pairs from the scene data to correctly pass
  *  to RenderMan.
  */
-void assignTokenArrays( unsigned int numTokens, const liqTokenPointer tokenPointerArray[], RtToken tokens[], RtPointer pointers[] )
+void assignTokenArrays( unsigned int numTokens, const liqTokenPointer tokenPointerArray[], liqToken tokens[], liqPointer pointers[] )
 {
   for( unsigned i( 0 ); i < numTokens; i++ ) 
   {
-    tokens[i] = const_cast< RtString >( const_cast< liqTokenPointer* >( &tokenPointerArray[i] )->getDetailedTokenName().c_str() );
+    tokens[i] = const_cast< liqString >( const_cast< liqTokenPointer* >( &tokenPointerArray[i] )->getDetailedTokenName().c_str() );
     pointers[i] = const_cast< liqTokenPointer* >( &tokenPointerArray[i] )->getRtPointer();
   }
 }
@@ -279,21 +279,21 @@ void assignTokenArrays( unsigned int numTokens, const liqTokenPointer tokenPoint
  *
  *  This is another version that takes a vector as input instead of a static array.
  */
-void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[] )
+void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[] )
 {
   unsigned i( 0 );
   for( std::vector< liqTokenPointer >::const_iterator iter( tokenPointerArray.begin() ); iter != tokenPointerArray.end(); iter++, i++ ) 
   {
-    tokens[ i ] = const_cast< RtString >( const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName().c_str() );
+    tokens[ i ] = const_cast< liqString >( const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName().c_str() );
     pointers[ i ] = const_cast< liqTokenPointer* >( &( *iter ) )->getRtPointer();
   }
 }
 
-void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[], unsigned int primi )
+void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[], unsigned int primi )
 {
 	unsigned i( 0 );
 	for( std::vector< liqTokenPointer >::const_iterator iter( tokenPointerArray.begin() ); iter != tokenPointerArray.end(); iter++, i++ ) {
-		tokens[ i ] = const_cast< RtString >( const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName().c_str() );
+		tokens[ i ] = const_cast< liqString >( const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName().c_str() );
 		pointers[ i ] = const_cast< liqTokenPointer* >( &( *iter ) )->getIthRtPointer( primi );
 	}
 }
@@ -1205,12 +1205,12 @@ std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name)
 
 	return newName;
 }
-RtString& getLiquidRibName( const std::string& name ) 
+liqString& getLiquidRibName( const std::string& name ) 
 {
   static std::string ribName;
-  static RtString tmp;
+  static liqString tmp;
   ribName = sanitizeNodeName( name );
-  tmp = const_cast< RtString >( ribName.c_str() );
+  tmp = const_cast< liqString >( ribName.c_str() );
   return tmp;
 }
 
@@ -1334,8 +1334,8 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value
     plug.getValue( value );
   return status;
 }
-// liquidGetPlugValue RtFloat
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, RtFloat &value, MStatus &status )
+// liquidGetPlugValue liqFloat
+MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &value, MStatus &status )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );

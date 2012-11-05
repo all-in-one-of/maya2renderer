@@ -34,7 +34,7 @@
 
 // Renderman Headers
 //extern "C" {
-#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 //}
 
 
@@ -435,9 +435,9 @@ liqRibTranslator::~liqRibTranslator()
 * This gets called when the RIB library detects an error.
 */
 #if defined( DELIGHT ) || defined( ENTROPY ) ||  defined( PRMAN ) || defined( AIR ) || defined( PIXIE ) || defined( GENERIC_RIBLIB ) 
-void liqRibTranslatorErrorHandler( RtInt code, RtInt severity, char* message )
+void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, char* message )
 #else
-void liqRibTranslatorErrorHandler( RtInt code, RtInt severity, const char* message )
+void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* message )
 #endif
 {
 	liquidMessage2(messageError, "The renderman library is reporting and error! Code: %d  Severity: %d", code, severity );
@@ -1720,17 +1720,17 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 #if defined(PRMAN) || defined(DELIGHT)
 	/* THERE IS A RIBLIB BUG WHICH PREVENTS THIS WORKING */
 
-	RtString format[ 2 ] = { "ascii", "binary" };
+	liqString format[ 2 ] = { "ascii", "binary" };
 	if ( liqglo.liqglo_doBinary )
 	{
 		LIQDEBUGPRINTF( "-> setting binary option\n" );
-		RiOption( "rib", "format", ( RtPointer )&format[1], RI_NULL );
+		RiOption( "rib", "format", ( liqPointer )&format[1], RI_NULL );
 	}
 	else
 	{
 		LIQDEBUGPRINTF( "-> setting ascii option\n" );
-		RiOption( "rib", "format", ( RtPointer )&format[0], RI_NULL );
-		RtString style = "indented";
+		RiOption( "rib", "format", ( liqPointer )&format[0], RI_NULL );
+		liqString style = "indented";
 		RiOption( "rib", "string asciistyle", &style, RI_NULL );
 	}
 #endif // PRMAN || DELIGHT
@@ -1738,8 +1738,8 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 	LIQDEBUGPRINTF( "-> setting compression option\n" );
 	if ( liqglo.liqglo_doCompression ) 
 	{
-		RtString comp[ 1 ] = { "gzip" };
-		RiOption( "rib", "compression", ( RtPointer )comp, RI_NULL );
+		liqString comp[ 1 ] = { "gzip" };
+		RiOption( "rib", "compression", ( liqPointer )comp, RI_NULL );
 	}
 #endif // PRMAN || DELIGHT || GENERIC_RIBLIB
 	//[refactor][1.9.2.3 end] to getRenderer()::setRenderScriptFormatAndCompress() --> rm::_RiOption_format_compress()
@@ -1750,13 +1750,13 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 	liquidMessage( "Beginning RIB output to " + ribName, messageInfo );
 	//[refactor][1.9.2.4 begin] to rm::renderer::BaseShadowBegin(ribName)
 #ifndef RENDER_PIPE
-	RiBegin_liq( const_cast< RtToken >( ribName.asChar() ) );
+	RiBegin_liq( const_cast< liqToken >( ribName.asChar() ) );
 #else
 	liqglo_ribFP = fopen( ribName.asChar(), "w" );
 	if ( liqglo_ribFP ) 
 	{
 		LIQDEBUGPRINTF( "-> setting pipe option\n" );
-		RtInt ribFD( fileno( liqglo_ribFP ) );
+		liqInt ribFD( fileno( liqglo_ribFP ) );
 		RiOption( "rib", "pipe", &ribFD, RI_NULL );
 	}
 	else
@@ -1786,7 +1786,7 @@ MStatus liqRibTranslator::ribOutput( long scanTime, MString ribName, bool world_
 		//[refactor][1.9.2.8 begin] to rm::Renderer::readBaseShadow()
 		liquidMessage( "Writng archiveName " + archiveName, messageInfo ); 
 		RiArchiveRecord( RI_COMMENT, "Read Archive Data:\n" );
-		RiReadArchive( const_cast< RtToken >( archiveName.asChar() ), NULL, RI_NULL );
+		RiReadArchive( const_cast< liqToken >( archiveName.asChar() ), NULL, RI_NULL );
 		//[refactor][1.9.2.8 end] to rm::Renderer::readBaseShadow()
 	}
 	else
@@ -3082,7 +3082,7 @@ void liqRibTranslator::exportJobCamera(const structJob &job, const structCamera 
 
 	if ( camera[0].isOrtho )
 	{
-		RtFloat frameWidth, frameHeight;
+		liqFloat frameWidth, frameHeight;
 		// the whole frame width has to be scaled according to the UI Unit
 		frameWidth  = camera[0].orthoWidth  * 0.5 ;
 		frameHeight = camera[0].orthoHeight * 0.5 ;
@@ -3097,7 +3097,7 @@ void liqRibTranslator::exportJobCamera(const structJob &job, const structCamera 
 	}
 	else
 	{
-		RtFloat fieldOfView = camera[0].hFOV * 180.0 / M_PI ;
+		liqFloat fieldOfView = camera[0].hFOV * 180.0 / M_PI ;
 		if ( job.pass == rpShadowMap && job.isPoint ) fieldOfView = job.camera[0].hFOV;
 
 		RiProjection( "perspective", RI_FOV, &fieldOfView, RI_NULL );
@@ -3146,7 +3146,7 @@ void liqRibTranslator::exportJobCamera(const structJob &job, const structCamera 
 
 	// write the camera transform
 	//
-	RtMatrix cameraMatrix;
+	liqMatrix cameraMatrix;
 	camera[0].mat.get( cameraMatrix );
 	RiTransform( cameraMatrix );
 
@@ -4170,10 +4170,10 @@ MStatus liqRibTranslator::ribPrologue()
 			}
 			printf("%s\n", ss.str().c_str() );
 			string dirmapsPath ( ss.str() );
-			RtString list = const_cast< char* > ( dirmapsPath.c_str() );
+			liqString list = const_cast< char* > ( dirmapsPath.c_str() );
 			RiOption( "searchpath", "dirmap", &list, RI_NULL );
 		}
-		RtString list = const_cast< char* > ( liqglo.liqglo_shaderPath.asChar() );
+		liqString list = const_cast< char* > ( liqglo.liqglo_shaderPath.asChar() );
 		RiOption( "searchpath", "shader", &list, RI_NULL );
 
 		MString texturePath = liqglo.liqglo_texturePath + ":" + liquidSanitizeSearchPath( liqglo.liqglo_textureDir );
@@ -4214,18 +4214,18 @@ MStatus liqRibTranslator::ribPrologue()
 			RiShadingRate( liqglo_currentJob.shadingRateFactor );
 			// Need to use Box filter for deep shadows.
 			RiPixelFilter( RiBoxFilter, 1, 1 );
-			RtString option;
+			liqString option;
 			if( liqglo_currentJob.shadowType == stDeep ) 
 				option = "deepshadow";
 			else 
 				option = "shadow";
-			RiOption( "user", "string pass", ( RtPointer )&option, RI_NULL );
+			RiOption( "user", "string pass", ( liqPointer )&option, RI_NULL );
 			//[refactor 7] 
 		} 
 		else 
 		{
 						//[refactor 8] 
-			RtString hiderName;
+			liqString hiderName;
 			switch( liqglo.liqglo_hider ) 
 			{
 			case htPhoton:
@@ -4302,21 +4302,21 @@ MStatus liqRibTranslator::ribPrologue()
 				}
 			}
 			//
-			RtString option( "beauty" );
-			RiOption( "user", "string pass", ( RtPointer )&option, RI_NULL );
+			liqString option( "beauty" );
+			RiOption( "user", "string pass", ( liqPointer )&option, RI_NULL );
 		}
 
 		// RAYTRACING OPTIONS
 		if( liqglo.liquidRenderer.supports_RAYTRACE && liqglo.rt_useRayTracing ) 
 		{
 			RiArchiveRecord( RI_COMMENT, "Ray Tracing : ON" );
-			RiOption( "trace",   "int maxdepth",                ( RtPointer ) &liqglo.rt_traceMaxDepth,            RI_NULL );
+			RiOption( "trace",   "int maxdepth",                ( liqPointer ) &liqglo.rt_traceMaxDepth,            RI_NULL );
 #if defined ( DELIGHT ) || defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
-			RiOption( "trace",   "float specularthreshold",     ( RtPointer ) &liqglo.rt_traceSpecularThreshold, RI_NULL );
-			RiOption( "trace",   "int continuationbydefault",   ( RtPointer ) &liqglo.rt_traceRayContinuation,   RI_NULL );
-			RiOption( "limits",  "int geocachememory",          ( RtPointer ) &liqglo.rt_traceCacheMemory,       RI_NULL );
-			RiOption( "user",    "float traceBreadthFactor",    ( RtPointer ) &liqglo.rt_traceBreadthFactor,     RI_NULL );
-			RiOption( "user",    "float traceDepthFactor",      ( RtPointer ) &liqglo.rt_traceDepthFactor,       RI_NULL );
+			RiOption( "trace",   "float specularthreshold",     ( liqPointer ) &liqglo.rt_traceSpecularThreshold, RI_NULL );
+			RiOption( "trace",   "int continuationbydefault",   ( liqPointer ) &liqglo.rt_traceRayContinuation,   RI_NULL );
+			RiOption( "limits",  "int geocachememory",          ( liqPointer ) &liqglo.rt_traceCacheMemory,       RI_NULL );
+			RiOption( "user",    "float traceBreadthFactor",    ( liqPointer ) &liqglo.rt_traceBreadthFactor,     RI_NULL );
+			RiOption( "user",    "float traceDepthFactor",      ( liqPointer ) &liqglo.rt_traceDepthFactor,       RI_NULL );
 #endif
 		} 
 		else 
@@ -4326,8 +4326,8 @@ MStatus liqRibTranslator::ribPrologue()
 			else 
 			{
 				RiArchiveRecord( RI_COMMENT, "Ray Tracing : OFF" );
-				RtInt maxDepth = 0;
-				RiOption( "trace",   "int maxdepth",                ( RtPointer ) &maxDepth,                  RI_NULL );
+				liqInt maxDepth = 0;
+				RiOption( "trace",   "int maxdepth",                ( liqPointer ) &maxDepth,                  RI_NULL );
 			}
 		}
 
@@ -4345,7 +4345,7 @@ MStatus liqRibTranslator::ribPrologue()
 		if( liqglo.m_bakeNonRasterOrient || liqglo.m_bakeNoCullHidden || liqglo.m_bakeNoCullBackface ) 
 		{
 			RiArchiveRecord( RI_COMMENT, "Bake Attributes" );
-			RtInt zero( 0 );
+			liqInt zero( 0 );
 			if( liqglo.m_bakeNonRasterOrient )
 				RiAttribute( "dice","int rasterorient", &zero, RI_NULL );
 			if( liqglo.m_bakeNoCullBackface )
@@ -5232,7 +5232,7 @@ void liqRibTranslator::doAttributeBlocking( const MDagPath& newPath, const MDagP
 		{
 			// We have a transform, so write out the info
 			//
-			RtMatrix ribMatrix;
+			liqMatrix ribMatrix;
 			MObject transform = newPath.node();
 			MFnTransform transFn( transform );
 			MTransformationMatrix localTransformMatrix = transFn.transformation();
@@ -5301,20 +5301,20 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 			//refactor 15
 			if( liqglo.liquidRenderer.renderName == MString("Pixie") )
 			{
-				RtFloat zero = 0;
+				liqFloat zero = 0;
 				RiHider( "hidden", "jitter", &zero, RI_NULL );
 			}
 			else
 			{
-				RtInt zero = 0;
+				liqInt zero = 0;
 				RiHider( "hidden", "int jitter", &zero, RI_NULL );
 			}
 			//refactor 15
 		}
 		if( liqglo_currentJob.pass == rpShadowMap && liqglo_currentJob.shadowType == stMidPoint )
 		{//refactor 16
-			RtString midPoint = "midpoint";
-			RtFloat midRatio = liqglo_currentJob.midPointRatio;
+			liqString midPoint = "midpoint";
+			liqFloat midRatio = liqglo_currentJob.midPointRatio;
 
 			RiHider( "hidden", "depthfilter", &midPoint, RI_NULL );
 
@@ -5333,7 +5333,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 				if( liqglo_currentJob.shadowType == stDeep )
 				{
 					// RiDeclare( "volumeinterpretation", "string" );
-					RtString volume = "continuous";
+					liqString volume = "continuous";
 
 					if ( liqglo_currentJob.volume != viContinuous )
 						volume = "discrete"; 
@@ -5343,7 +5343,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 						RiArchiveRecord( RI_COMMENT, "Display 1");
 						RiDisplay( const_cast< char* >( liqglo_currentJob.imageName.asChar()),
 							const_cast< char* >( liqglo_currentJob.format.asChar() ),
-							(RtToken)liqglo_currentJob.imageMode.asChar(),
+							(liqToken)liqglo_currentJob.imageMode.asChar(),
 							"string volumeinterpretation", &volume,
 							RI_NULL );
 					}
@@ -5364,7 +5364,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 						RiArchiveRecord( RI_COMMENT, "Display 3");
 						RiDisplay( const_cast< char* >( deepFileImageName.asChar() ),
 							const_cast< char* >( liqglo_currentJob.format.asChar() ),
-							(RtToken)liqglo_currentJob.imageMode.asChar(),
+							(liqToken)liqglo_currentJob.imageMode.asChar(),
 							"string volumeinterpretation", &volume,
 							RI_NULL );
 					}
@@ -5372,10 +5372,10 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 				else
 				{
 					RiArchiveRecord( RI_COMMENT, "Display 4");
-					RtInt aggregate( liqglo_currentJob.shadowAggregation );
+					liqInt aggregate( liqglo_currentJob.shadowAggregation );
 					RiDisplay( const_cast< char* >( liqglo_currentJob.imageName.asChar() ),
 						const_cast< char* >( liqglo_currentJob.format.asChar() ),
-						(RtToken)liqglo_currentJob.imageMode.asChar(),
+						(liqToken)liqglo_currentJob.imageMode.asChar(),
 						"int aggregate", &aggregate,
 						RI_NULL );
 				}
@@ -5384,10 +5384,10 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 			{
 				RiArchiveRecord( RI_COMMENT, "Display 5");
 				RiArchiveRecord( RI_COMMENT, "Display Driver:" );
-				RtInt minmax = 1;
+				liqInt minmax = 1;
 				RiDisplay( const_cast< char* >( (liqglo_currentJob.imageName+(int)liqglo.liqglo_lframe).asChar() ),//const_cast< char* >( parseString(liqglo_currentJob.imageName).asChar() ),
 					const_cast< char* >(liqglo_currentJob.format.asChar()),
-					(RtToken)liqglo_currentJob.imageMode.asChar(),
+					(liqToken)liqglo_currentJob.imageMode.asChar(),
 					"minmax", &minmax,
 					RI_NULL );
 			}
@@ -5440,8 +5440,8 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 				while ( m_channels_iterator != liqglo.m_channels.end() ) 
 				{
 					int       numTokens = 0;
-					RtToken   tokens[5];
-					RtPointer values[5];
+					liqToken   tokens[5];
+					liqPointer values[5];
 
 					stringstream channel;
 					char* filter;
@@ -5466,7 +5466,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 						quantize[0] = quantize[2] = 0;
 						quantize[1] = quantize[3] = max;
 						tokens[ numTokens ] = "int[4] quantize";
-						values[ numTokens ] = (RtPointer)quantize;
+						values[ numTokens ] = (liqPointer)quantize;
 						numTokens++;
 #if !defined( GENERIC_RIBLIB )               
 					}
@@ -5490,13 +5490,13 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s\n", pixFilter.asChar() );
 
 						tokens[ numTokens ] = "string filter";
-						values[ numTokens ] = ( RtPointer )&filter;
+						values[ numTokens ] = ( liqPointer )&filter;
 						numTokens++;
 
 						filterwidth[0] = m_channels_iterator->pixelFilterX;
 						filterwidth[1] = m_channels_iterator->pixelFilterY;
 						tokens[ numTokens ] = "float filterwidth[2]";
-						values[ numTokens ] = ( RtPointer )filterwidth;
+						values[ numTokens ] = ( liqPointer )filterwidth;
 						numTokens++;
 #if !defined( GENERIC_RIBLIB )               
 					}
@@ -5509,7 +5509,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 
 #if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
 					//if( liquidRenderer.renderName == MString("PRMan") )
-					RiDisplayChannelV( ( RtToken )channel.str().c_str(), numTokens, tokens, values );
+					RiDisplayChannelV( ( liqToken )channel.str().c_str(), numTokens, tokens, values );
 					if( channel == "color Ci" )
 					{
 						isCiDeclared = 1;
@@ -5529,12 +5529,12 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 #if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
 				if ( m_isStereoCamera && liqglo_currentJob.pass != rpShadowMap )
 				{
-					RtToken   *emptyTokens = NULL;
-					RtPointer *emptyValues = NULL;
+					liqToken   *emptyTokens = NULL;
+					liqPointer *emptyValues = NULL;
 					if ( !isCiDeclared ) 
-						RiDisplayChannelV( ( RtToken )"color Ci", 0, emptyTokens, emptyValues );
+						RiDisplayChannelV( ( liqToken )"color Ci", 0, emptyTokens, emptyValues );
 					if ( !isADeclared ) 
-						RiDisplayChannelV( ( RtToken )"float a", 0, emptyTokens, emptyValues );
+						RiDisplayChannelV( ( liqToken )"float a", 0, emptyTokens, emptyValues );
 				}
 #endif
 			}
@@ -5739,7 +5739,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 //omitted in r773
 // 		if( liqglo_currentJob.camera[0].isOrtho )
 // 		{
-// 			RtFloat frameWidth, frameHeight;
+// 			liqFloat frameWidth, frameHeight;
 // 			// the whole frame width has to be scaled according to the UI Unit
 // 			frameWidth  = liqglo_currentJob.camera[0].orthoWidth  * 0.5 ;
 // 			frameHeight = liqglo_currentJob.camera[0].orthoHeight * 0.5 ;
@@ -5755,7 +5755,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 // 		} 
 // 		else 
 // 		{
-// 			RtFloat fieldOfView = liqglo_currentJob.camera[0].hFOV * 180.0 / M_PI ;
+// 			liqFloat fieldOfView = liqglo_currentJob.camera[0].hFOV * 180.0 / M_PI ;
 // 			if( liqglo_currentJob.isShadow && liqglo_currentJob.isPoint ) 
 // 				fieldOfView = liqglo_currentJob.camera[0].hFOV;
 // 
@@ -5873,7 +5873,7 @@ MStatus liqRibTranslator::framePrologue( long lframe )
 // 
 // 		// write the camera transform
 // 		//
-// 		RtMatrix cameraMatrix;
+// 		liqMatrix cameraMatrix;
 // 		liqglo_currentJob.camera[0].mat.get( cameraMatrix );
 // 		RiTransform( cameraMatrix );
 // 
@@ -6004,7 +6004,7 @@ MStatus liqRibTranslator::objectBlock()
 
 		if( !ribNode->grouping.membership.empty() ) 
 		{
-			RtString members( const_cast< char* >( ribNode->grouping.membership.c_str() ) );
+			liqString members( const_cast< char* >( ribNode->grouping.membership.c_str() ) );
 			RiAttribute( "grouping", "membership", &members, RI_NULL );
 		}
 
@@ -6071,7 +6071,7 @@ MStatus liqRibTranslator::objectBlock()
 				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
 		}
 #if 1
-		RtMatrix ribMatrix;
+		liqMatrix ribMatrix;
 		matrix = ribNode->object( 0 )->matrix( path.instanceNumber() );
 		matrix.get( ribMatrix );
 
@@ -6093,9 +6093,9 @@ MStatus liqRibTranslator::objectBlock()
 		int tzIntPart = (int)(doubleTransformMatrix[3][2]);
 		float tzFloatPart = doubleTransformMatrix[3][2] - tzIntPart;
 
-		RtFloat floatTransformMatrixWithIntegerTranslatePart[4][4];
+		liqFloat floatTransformMatrixWithIntegerTranslatePart[4][4];
 		matrix.get( floatTransformMatrixWithIntegerTranslatePart );
-		RtFloat floatIdentityMatrixWithFloatingTranslatePart[4][4] = { {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1} };
+		liqFloat floatIdentityMatrixWithFloatingTranslatePart[4][4] = { {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1} };
 
 		floatTransformMatrixWithIntegerTranslatePart[3][0] = txIntPart;
 		floatTransformMatrixWithIntegerTranslatePart[3][1] = tyIntPart;
@@ -6125,7 +6125,7 @@ MStatus liqRibTranslator::objectBlock()
 			( liqglo_currentJob.pass != rpShadowMap  || liqglo_currentJob.shadowType == stDeep ) )
 		{
 			path = ribNode->path();
-			RtMatrix ribMatrix;
+			liqMatrix ribMatrix;
 			for( unsigned mm( 1 ); mm < liqglo.liqglo_motionSamples; mm++ ) {
 				matrix = ribNode->object( mm )->matrix( path.instanceNumber() );
 				matrix.get( ribMatrix );
@@ -6336,13 +6336,13 @@ MStatus liqRibTranslator::objectBlock()
 // 		}
 // 		if( ( dispDisplacementBounds != 0.0 ) && ( dispDisplacementBounds > surfaceDisplacementBounds ) ) 
 // 		{
-// 			RtString coordsys( const_cast< char* >( dispDisplacementBoundsSpace.asChar() ) );
-// 			RiAttribute( "displacementbound", (RtToken) "sphere", &dispDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+// 			liqString coordsys( const_cast< char* >( dispDisplacementBoundsSpace.asChar() ) );
+// 			RiAttribute( "displacementbound", (liqToken) "sphere", &dispDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
 // 		} 
 // 		else if( ( surfaceDisplacementBounds != 0.0 ) ) 
 // 		{
-// 			RtString coordsys( const_cast< char* >( surfaceDisplacementBoundsSpace.asChar() ) );
-// 			RiAttribute( "displacementbound", (RtToken) "sphere", &surfaceDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+// 			liqString coordsys( const_cast< char* >( surfaceDisplacementBoundsSpace.asChar() ) );
+// 			RiAttribute( "displacementbound", (liqToken) "sphere", &surfaceDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
 // 		}
 		LIQDEBUGPRINTF( "-> writing node attributes\n" );
 		// if the node's shading rate == -1,
@@ -6352,46 +6352,46 @@ MStatus liqRibTranslator::objectBlock()
 		if( ribNode->shading.shadingRate > 0 )
 			RiShadingRate ( ribNode->shading.shadingRate );
 
-		RtString mode;
-		RtInt off( 0 );
-		RtInt on( 1 );
+		liqString mode;
+		liqInt off( 0 );
+		liqInt on( 1 );
 		if( liqglo_currentJob.pass != rpShadowMap  ) 
 		{
 
 			if ( !m_skipShadingAttributes )
 			{
 			if( !ribNode->shading.diceRasterOrient ) 
-				RiAttribute( "dice", (RtToken) "rasterorient", &off, RI_NULL );
+				RiAttribute( "dice", (liqToken) "rasterorient", &off, RI_NULL );
 			if( ribNode->shading.doubleShaded ) 
-				RiAttribute( "sides", (RtToken) "doubleshaded", &on, RI_NULL );
+				RiAttribute( "sides", (liqToken) "doubleshaded", &on, RI_NULL );
 			}
 		if( !m_skipRayTraceAttributes )
 		{
 			if( liqglo.liquidRenderer.supports_RAYTRACE ) 
 			{
 				if( ribNode->trace.sampleMotion ) 
-					RiAttribute( "trace", (RtToken) "samplemotion", &on, RI_NULL );
+					RiAttribute( "trace", (liqToken) "samplemotion", &on, RI_NULL );
 				if( ribNode->trace.displacements ) 
-					RiAttribute( "trace", (RtToken) "displacements", &on, RI_NULL );
+					RiAttribute( "trace", (liqToken) "displacements", &on, RI_NULL );
 				if( ribNode->trace.bias != 0.01f ) 
 				{
-					RtFloat bias( ribNode->trace.bias );
-					RiAttribute( "trace", (RtToken) "bias", &bias, RI_NULL );
+					liqFloat bias( ribNode->trace.bias );
+					RiAttribute( "trace", (liqToken) "bias", &bias, RI_NULL );
 				}
 				if( ribNode->trace.maxDiffuseDepth != 1 ) 
 				{
-					RtInt mddepth( ribNode->trace.maxDiffuseDepth );
-					RiAttribute( "trace", (RtToken) "maxdiffusedepth", &mddepth, RI_NULL );
+					liqInt mddepth( ribNode->trace.maxDiffuseDepth );
+					RiAttribute( "trace", (liqToken) "maxdiffusedepth", &mddepth, RI_NULL );
 				}
 				if( ribNode->trace.maxSpecularDepth != 2 ) 
 				{
-					RtInt msdepth( ribNode->trace.maxSpecularDepth );
-					RiAttribute( "trace", (RtToken) "maxspeculardepth", &msdepth, RI_NULL );
+					liqInt msdepth( ribNode->trace.maxSpecularDepth );
+					RiAttribute( "trace", (liqToken) "maxspeculardepth", &msdepth, RI_NULL );
 				}
 			}//if( liqglo.liquidRenderer.supports_RAYTRACE ) 
 		}//if( !m_skipRayTraceAttributes )
 			if( !ribNode->visibility.camera ) 
-				RiAttribute( "visibility", (RtToken) "camera", &off, RI_NULL );
+				RiAttribute( "visibility", (liqToken) "camera", &off, RI_NULL );
 #ifdef GENERIC_RIBLIB      
       extern int useAdvancedVisibilityAttributes;
       useAdvancedVisibilityAttributes = false;
@@ -6406,13 +6406,13 @@ MStatus liqRibTranslator::objectBlock()
 				if(liqglo.rt_useRayTracing)
 				{
 					if ( ribNode->visibility.trace ) 
-						RiAttribute( "visibility", (RtToken) "trace", &on, RI_NULL );
+						RiAttribute( "visibility", (liqToken) "trace", &on, RI_NULL );
 					else                             
-						RiAttribute( "visibility", (RtToken) "trace", &off, RI_NULL );
+						RiAttribute( "visibility", (liqToken) "trace", &off, RI_NULL );
 
 					if( ribNode->visibility.transmission != liqRibNode::visibility::TRANSMISSION_TRANSPARENT ) 
 					{
-						RtString trans;
+						liqString trans;
 						switch( ribNode->visibility.transmission ) 
 						{
 						case liqRibNode::visibility::TRANSMISSION_OPAQUE:
@@ -6425,7 +6425,7 @@ MStatus liqRibTranslator::objectBlock()
 						default:
 							trans = "shader";
 						}
-						RiAttribute( "visibility", (RtToken) "string transmission", &trans, RI_NULL );
+						RiAttribute( "visibility", (liqToken) "string transmission", &trans, RI_NULL );
 					}
 				}
 
@@ -6440,22 +6440,22 @@ MStatus liqRibTranslator::objectBlock()
 				if( !m_skipVisibilityAttributes )
 				{
 				if( ribNode->visibility.diffuse ) 
-					RiAttribute( "visibility", (RtToken) "int diffuse", &on, RI_NULL );
+					RiAttribute( "visibility", (liqToken) "int diffuse", &on, RI_NULL );
 
 				if( ribNode->visibility.specular ) 
-					RiAttribute( "visibility", (RtToken) "int specular", &on, RI_NULL );
+					RiAttribute( "visibility", (liqToken) "int specular", &on, RI_NULL );
 
 				if( ribNode->visibility.newtransmission ) 
-					RiAttribute( "visibility", (RtToken) "int transmission", &on, RI_NULL );
+					RiAttribute( "visibility", (liqToken) "int transmission", &on, RI_NULL );
 
 				//if( ribNode->visibility.camera ) 
-				//	RiAttribute( "visibility", (RtToken) "int camera", &on, RI_NULL );
+				//	RiAttribute( "visibility", (liqToken) "int camera", &on, RI_NULL );
 
 				//if( ribNode->visibility.photon ) 
-				//	RiAttribute( "visibility", (RtToken) "int photon", &on, RI_NULL );
+				//	RiAttribute( "visibility", (liqToken) "int photon", &on, RI_NULL );
 
 				//if( ribNode->visibility.midpoint ) 
-				//	RiAttribute( "visibility", (RtToken) "int midpoint", &on, RI_NULL );
+				//	RiAttribute( "visibility", (liqToken) "int midpoint", &on, RI_NULL );
 				}
 				
 				if( !m_skipRayTraceAttributes )
@@ -6474,7 +6474,7 @@ MStatus liqRibTranslator::objectBlock()
 						default:
 							mode = "primitive";
 						}
-						RiAttribute( "shade", (RtToken) "string diffusehitmode", &mode, RI_NULL );
+						RiAttribute( "shade", (liqToken) "string diffusehitmode", &mode, RI_NULL );
 					}
 
 					if( ribNode->hitmode.specular != liqRibNode::hitmode::SPECULAR_HITMODE_SHADER ) 
@@ -6491,7 +6491,7 @@ MStatus liqRibTranslator::objectBlock()
 						default:
 							mode = "shader";
 						}
-						RiAttribute( "shade", (RtToken) "string specularhitmode", &mode, RI_NULL );
+						RiAttribute( "shade", (liqToken) "string specularhitmode", &mode, RI_NULL );
 					}
 
 					if( ribNode->hitmode.transmission != liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER ) 
@@ -6508,7 +6508,7 @@ MStatus liqRibTranslator::objectBlock()
 						default:
 							mode = "shader";
 						}
-						RiAttribute( "shade", (RtToken) "string transmissionhitmode", &mode, RI_NULL );
+						RiAttribute( "shade", (liqToken) "string transmissionhitmode", &mode, RI_NULL );
 					}
 				}//if( !m_skipRayTraceAttributes )
 			}//if ( rt_useRayTracing )
@@ -6528,7 +6528,7 @@ MStatus liqRibTranslator::objectBlock()
 					default:
 						mode = "shader";
 					}
-					RiAttribute( "shade", (RtToken) "string camerahitmode", &mode, RI_NULL );
+					RiAttribute( "shade", (liqToken) "string camerahitmode", &mode, RI_NULL );
 				}
 				}//if ( !m_skipShadingAttributes )
 			}//else  // philippe : prman 12.5 visibility support
@@ -6536,37 +6536,37 @@ MStatus liqRibTranslator::objectBlock()
 
 				if( ribNode->irradiance.shadingRate != 1.0f ) 
 				{
-					RtFloat rate = ribNode->irradiance.shadingRate;
-					RiAttribute( "irradiance", (RtToken) "shadingrate", &rate, RI_NULL );
+					liqFloat rate = ribNode->irradiance.shadingRate;
+					RiAttribute( "irradiance", (liqToken) "shadingrate", &rate, RI_NULL );
 				}
 
 				if( ribNode->irradiance.nSamples != 64 ) 
 				{
-					RtInt samples = ribNode->irradiance.nSamples;
-					RiAttribute( "irradiance", (RtToken) "nsamples", &samples, RI_NULL );
+					liqInt samples = ribNode->irradiance.nSamples;
+					RiAttribute( "irradiance", (liqToken) "nsamples", &samples, RI_NULL );
 				}
 
 				if( ribNode->irradiance.maxError != 0.5f ) 
 				{
-					RtFloat merror = ribNode->irradiance.maxError;
-					RiAttribute( "irradiance", (RtToken) "float maxerror", &merror, RI_NULL );
+					liqFloat merror = ribNode->irradiance.maxError;
+					RiAttribute( "irradiance", (liqToken) "float maxerror", &merror, RI_NULL );
 				}
 
 				if( ribNode->irradiance.maxPixelDist != 30.0f ) 
 				{
-					RtFloat mpd = ribNode->irradiance.maxPixelDist;
-					RiAttribute( "irradiance", (RtToken) "float maxpixeldist", &mpd, RI_NULL );
+					liqFloat mpd = ribNode->irradiance.maxPixelDist;
+					RiAttribute( "irradiance", (liqToken) "float maxpixeldist", &mpd, RI_NULL );
 				}
 
 				if( ribNode->irradiance.handle != "" ) 
 				{
-					RtString handle = const_cast< char* >( ribNode->irradiance.handle.asChar() );
-					RiAttribute( "irradiance", (RtToken) "handle", &handle, RI_NULL );
+					liqString handle = const_cast< char* >( ribNode->irradiance.handle.asChar() );
+					RiAttribute( "irradiance", (liqToken) "handle", &handle, RI_NULL );
 				}
 
 				if( ribNode->irradiance.fileMode != liqRibNode::irradiance::FILEMODE_NONE ) 
 				{
-					RtString mode;
+					liqString mode;
 					switch( ribNode->irradiance.fileMode ) 
 					{
 					case liqRibNode::irradiance::FILEMODE_READ:
@@ -6579,25 +6579,25 @@ MStatus liqRibTranslator::objectBlock()
 					default:
 						mode = "rw";
 					}
-					RiAttribute( "irradiance", (RtToken) "filemode", &mode, RI_NULL );
+					RiAttribute( "irradiance", (liqToken) "filemode", &mode, RI_NULL );
 				}
 
 				// ymesh: photon visibility support
 				if ( liqglo.rt_useRayTracing && ribNode->visibility.photon ) 
-					RiAttribute( "visibility", (RtToken) "int photon", &on, RI_NULL );
+					RiAttribute( "visibility", (liqToken) "int photon", &on, RI_NULL );
 			
 				if( ribNode->photon.globalMap != "" ) 
 				{
           			MString parsedName = parseString( ribNode->photon.globalMap, false );  //  doEscaped = false
-          			RtString map = const_cast< char* >( parsedName.asChar() );
-          			RiAttribute( "photon", (RtToken) "globalmap", &map, RI_NULL );
+          			liqString map = const_cast< char* >( parsedName.asChar() );
+          			RiAttribute( "photon", (liqToken) "globalmap", &map, RI_NULL );
 				}
 
 				if( ribNode->photon.causticMap != "" ) 
 				{
           			MString parsedName = parseString( ribNode->photon.causticMap, false );  //  doEscaped = false
-          			RtString map = const_cast< char* >( parsedName.asChar() );
-          			RiAttribute( "photon", (RtToken) "causticmap", &map, RI_NULL );
+          			liqString map = const_cast< char* >( parsedName.asChar() );
+          			RiAttribute( "photon", (liqToken) "causticmap", &map, RI_NULL );
 				}
 
 				if( ribNode->photon.shadingModel != liqRibNode::photon::SHADINGMODEL_MATTE ) 
@@ -6623,13 +6623,13 @@ MStatus liqRibTranslator::objectBlock()
 						default:
 							mode = "matte";
 					}
-					RiAttribute( "photon", (RtToken) "shadingmodel", &mode, RI_NULL );
+					RiAttribute( "photon", (liqToken) "shadingmodel", &mode, RI_NULL );
 				}
 
 				if( ribNode->photon.estimator != 100 ) 
 				{
-					RtInt estimator = ribNode->photon.estimator;
-					RiAttribute( "photon", (RtToken) "estimator", &estimator, RI_NULL );
+					liqInt estimator = ribNode->photon.estimator;
+					RiAttribute( "photon", (liqToken) "estimator", &estimator, RI_NULL );
 				}
 
 			} // liquidRenderer.supports_RAYTRACE
@@ -6640,10 +6640,10 @@ MStatus liqRibTranslator::objectBlock()
 #ifdef GENERIC_RIBLIB         
 				useAdvancedVisibilityAttributes = true;
 #endif			  
-				RtString groupName = const_cast< char* >( ribNode->delightSSS.groupName.asChar() );
-				RiAttribute( "visibility", (RtToken) "string subsurface", &groupName, RI_NULL );
+				liqString groupName = const_cast< char* >( ribNode->delightSSS.groupName.asChar() );
+				RiAttribute( "visibility", (liqToken) "string subsurface", &groupName, RI_NULL );
 
-				RtColor scattering, absorption;
+				liqColor scattering, absorption;
 				scattering[0] = ribNode->delightSSS.scattering.r;
 				scattering[1] = ribNode->delightSSS.scattering.g;
 				scattering[2] = ribNode->delightSSS.scattering.b;
@@ -6654,21 +6654,21 @@ MStatus liqRibTranslator::objectBlock()
 
 				if ( scattering[0] && scattering[1] && scattering[2] )
 					RiAttribute( "subsurface",
-					(RtToken) "scattering", &scattering,
-					(RtToken) "absorption", &absorption,
+					(liqToken) "scattering", &scattering,
+					(liqToken) "absorption", &absorption,
 					RI_NULL );
 
-				RtFloat refractionindex = ribNode->delightSSS.refraction;
-				RtFloat shadingrate = ribNode->delightSSS.shadingRate;
-				RtFloat scale = ribNode->delightSSS.scale;
+				liqFloat refractionindex = ribNode->delightSSS.refraction;
+				liqFloat shadingrate = ribNode->delightSSS.shadingRate;
+				liqFloat scale = ribNode->delightSSS.scale;
 
 				RiAttribute( "subsurface",
-					(RtToken) "refractionindex", &refractionindex,
-					(RtToken) "shadingrate", &shadingrate,
-					(RtToken) "scale", &scale, 
+					(liqToken) "refractionindex", &refractionindex,
+					(liqToken) "shadingrate", &shadingrate,
+					(liqToken) "scale", &scale, 
 					RI_NULL );
 
-				RtColor meanfreepath, reflectance;
+				liqColor meanfreepath, reflectance;
 				meanfreepath[0] = ribNode->delightSSS.meanfreepath.r;
 				meanfreepath[1] = ribNode->delightSSS.meanfreepath.g;
 				meanfreepath[2] = ribNode->delightSSS.meanfreepath.b;
@@ -6679,49 +6679,49 @@ MStatus liqRibTranslator::objectBlock()
 
 				if ( reflectance[0] && reflectance[1] && reflectance[2] )
 					RiAttribute( "subsurface",
-					(RtToken) "meanfreepath", &meanfreepath,
-					(RtToken) "reflectance", &reflectance, 
+					(liqToken) "meanfreepath", &meanfreepath,
+					(liqToken) "reflectance", &reflectance, 
 					RI_NULL );
 
 				if ( ribNode->delightSSS.referencecamera != "" )
 				{
-					RtString referenceCamera = const_cast< char* >( ribNode->delightSSS.referencecamera.asChar() );
-					RiAttribute( "subsurface", (RtToken) "string referencecamera", &referenceCamera, RI_NULL );
+					liqString referenceCamera = const_cast< char* >( ribNode->delightSSS.referencecamera.asChar() );
+					RiAttribute( "subsurface", (liqToken) "string referencecamera", &referenceCamera, RI_NULL );
 				}
 			}// 3Delight sss group
 
 			//strategy
 			{
 				if(ribNode->strategy.strategy_!="grids"){
-					RtString strategy = const_cast<char*>(ribNode->strategy.strategy_.asChar());
-					RiAttribute("shade",(RtToken)"string strategy", &strategy, RI_NULL);
+					liqString strategy = const_cast<char*>(ribNode->strategy.strategy_.asChar());
+					RiAttribute("shade",(liqToken)"string strategy", &strategy, RI_NULL);
 				}
 
 				if(ribNode->strategy.volumeIntersectionStrategy!="exclusive"){
-					RtString volumeIntersectionStrategy = const_cast<char*>(ribNode->strategy.volumeIntersectionStrategy.asChar());
-					RiAttribute("shade",(RtToken)"string volumeintersectionstrategy", &volumeIntersectionStrategy, RI_NULL);
+					liqString volumeIntersectionStrategy = const_cast<char*>(ribNode->strategy.volumeIntersectionStrategy.asChar());
+					RiAttribute("shade",(liqToken)"string volumeintersectionstrategy", &volumeIntersectionStrategy, RI_NULL);
 				}
 
 				if(ribNode->strategy.volumeIntersectionPriority >0.0001){
-					RtFloat volumeIntersectionPriority = ribNode->strategy.volumeIntersectionPriority;
-					RiAttribute("shade",(RtToken)"float volumeintersectionpriority", &volumeIntersectionPriority, RI_NULL);
+					liqFloat volumeIntersectionPriority = ribNode->strategy.volumeIntersectionPriority;
+					RiAttribute("shade",(liqToken)"float volumeintersectionpriority", &volumeIntersectionPriority, RI_NULL);
 				}
 			}
 
 			//trim curve 
 			{
-				RtString sense = "inside";
+				liqString sense = "inside";
 
 				switch(ribNode->trimcurve.sense){
 				case liqRibNode::trimcurve::INSIDE:  
 					{
 						sense  = "inside";
-						//RiAttribute("trimcurve",(RtToken)"string sense", &sense, RI_NULL);//default value, need not to write.
+						//RiAttribute("trimcurve",(liqToken)"string sense", &sense, RI_NULL);//default value, need not to write.
 					}break;
 				case liqRibNode::trimcurve::OUTSIDE:
 					{
 						sense  = "outside";
-						RiAttribute("trimcurve",(RtToken)"string sense", &sense, RI_NULL);	
+						RiAttribute("trimcurve",(liqToken)"string sense", &sense, RI_NULL);	
 					}break;
 				default:
 					assert(0);
@@ -6732,69 +6732,69 @@ MStatus liqRibTranslator::objectBlock()
 			//stitch
 			{
 				if( ribNode->stitch.enable != true ){
-					RtInt enable = (ribNode->stitch.enable)? 1: 0;
-					RiAttribute("stitch",(RtToken)"int enable", &enable, RI_NULL);	
+					liqInt enable = (ribNode->stitch.enable)? 1: 0;
+					RiAttribute("stitch",(liqToken)"int enable", &enable, RI_NULL);	
 				}
 				if( ribNode->stitch.traceenable != false ){
-					RtInt traceenable = (ribNode->stitch.traceenable)? 1: 0;
-					RiAttribute("stitch",(RtToken)"int traceenable", &traceenable, RI_NULL);	
+					liqInt traceenable = (ribNode->stitch.traceenable)? 1: 0;
+					RiAttribute("stitch",(liqToken)"int traceenable", &traceenable, RI_NULL);	
 				}
 				if( ribNode->stitch.newgroup != false ){
-					RtInt newgroup = (ribNode->stitch.newgroup)? 1: 0;
-					RiAttribute("stitch",(RtToken)"int newgroup", &newgroup, RI_NULL);	
+					liqInt newgroup = (ribNode->stitch.newgroup)? 1: 0;
+					RiAttribute("stitch",(liqToken)"int newgroup", &newgroup, RI_NULL);	
 				}	
 			}//stitch
 
 			//stochastic
 			{
 				if( ribNode->stochastic.sigma != 0 ){
-					RtInt sigma = ribNode->stochastic.sigma;
-					RiAttribute("stochastic",(RtToken)"int sigma", &sigma, RI_NULL);	
+					liqInt sigma = ribNode->stochastic.sigma;
+					RiAttribute("stochastic",(liqToken)"int sigma", &sigma, RI_NULL);	
 				}
 				if( ribNode->stochastic.pointfalloff != 0 ){
-					RtInt pointfalloff = ribNode->stochastic.pointfalloff;
-					RiAttribute("stochastic",(RtToken)"int pointfalloff", &pointfalloff, RI_NULL);	
+					liqInt pointfalloff = ribNode->stochastic.pointfalloff;
+					RiAttribute("stochastic",(liqToken)"int pointfalloff", &pointfalloff, RI_NULL);	
 				}
 			}//stochastic
 
 			//dice
 			{
 				if( ribNode->dice.binary != 0 ){
-					RtInt binary = ribNode->dice.binary;
-					RiAttribute("dice",(RtToken)"int binary", &binary, RI_NULL);
+					liqInt binary = ribNode->dice.binary;
+					RiAttribute("dice",(liqToken)"int binary", &binary, RI_NULL);
 				}
 				if( ribNode->dice.hair != 0 ){
-					RtInt hair = ribNode->dice.hair;
-					RiAttribute("dice",(RtToken)"int hair", &hair, RI_NULL);
+					liqInt hair = ribNode->dice.hair;
+					RiAttribute("dice",(liqToken)"int hair", &hair, RI_NULL);
 				}
 				//strategy
-				RtString strategy = "planarprojection";
+				liqString strategy = "planarprojection";
 				switch(ribNode->dice.strategy){
 				  case liqRibNode::dice::PLANAR_PROJECTION:
 					  {
 						  strategy = "planarprojection";
-						  //RiAttribute("dice",(RtToken)"string strategy", &strategy, RI_NULL); //default value
+						  //RiAttribute("dice",(liqToken)"string strategy", &strategy, RI_NULL); //default value
 					  }break;
 				  case liqRibNode::dice::SPHERICAL_PROJECTION:
 					  {
 						  strategy = "sphericalprojection";
-						  RiAttribute("dice",(RtToken)"string strategy", &strategy, RI_NULL);
+						  RiAttribute("dice",(liqToken)"string strategy", &strategy, RI_NULL);
 					  }break;
 				  default:
 					  assert(0);
 				}
 				//referencecamera
-				RtString referencecamera = "worldcamera";
+				liqString referencecamera = "worldcamera";
 				switch(ribNode->dice.referencecamera){
 				  case liqRibNode::dice::WORLD_CAMERA:
 					  {
 						  referencecamera = "worldcamera";
-						  //RiAttribute("dice",(RtToken)"string referencecamera", &referencecamera, RI_NULL); //default value
+						  //RiAttribute("dice",(liqToken)"string referencecamera", &referencecamera, RI_NULL); //default value
 					  }break;
 				  case liqRibNode::dice::FRAME_CAMERA:
 					  {
 						  referencecamera = "framecamera";
-						  RiAttribute("dice",(RtToken)"string referencecamera", &referencecamera, RI_NULL);
+						  RiAttribute("dice",(liqToken)"string referencecamera", &referencecamera, RI_NULL);
 					  }break;
 				  default:
 					  assert(0);
@@ -6805,20 +6805,20 @@ MStatus liqRibTranslator::objectBlock()
 			//derivatives
 			{
 				if( ribNode->derivatives.centered != 1 ){
-					RtInt centered = ribNode->derivatives.centered;
-					RiAttribute("derivatives",(RtToken)"int centered", &centered, RI_NULL);
+					liqInt centered = ribNode->derivatives.centered;
+					RiAttribute("derivatives",(liqToken)"int centered", &centered, RI_NULL);
 				}
 				if( ribNode->derivatives.extrapolate != 1 ){
-					RtInt extrapolate = ribNode->derivatives.extrapolate;
-					RiAttribute("derivatives",(RtToken)"int extrapolate", &extrapolate, RI_NULL);
+					liqInt extrapolate = ribNode->derivatives.extrapolate;
+					RiAttribute("derivatives",(liqToken)"int extrapolate", &extrapolate, RI_NULL);
 				}
 			}//derivatives
 
 			//procedural
 			{
 				if( ribNode->procedural.attribute.length()>0 ){
-					RtString attribute = const_cast<char*>(ribNode->procedural.attribute.asChar());
-					RiAttribute("procedural",(RtToken)"string attribute", &attribute, RI_NULL);
+					liqString attribute = const_cast<char*>(ribNode->procedural.attribute.asChar());
+					RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
 				}
 			}//procedural
 
@@ -6845,17 +6845,17 @@ MStatus liqRibTranslator::objectBlock()
 		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
 		{
 		  mode = "vpvolumes"; 
-		  RiAttribute( "shade", (RtToken) "strategy", &mode, RI_NULL );
+		  RiAttribute( "shade", (liqToken) "strategy", &mode, RI_NULL );
 		}
 		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
 		{
 		  mode = "additive"; 
-		  RiAttribute( "shade", (RtToken) "volumeintersectionstrategy", &mode, RI_NULL );
+		  RiAttribute( "shade", (liqToken) "volumeintersectionstrategy", &mode, RI_NULL );
 		}
 		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
 		{
-		  RtFloat value= ribNode->shade.volumeIntersectionPriority; 
-		  RiAttribute( "shade", (RtToken) "volumeintersectionpriority", &value, RI_NULL );
+		  liqFloat value= ribNode->shade.volumeIntersectionPriority; 
+		  RiAttribute( "shade", (liqToken) "volumeintersectionpriority", &value, RI_NULL );
 		}
 		//[refactor 34] end
 //		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
@@ -6904,7 +6904,7 @@ MStatus liqRibTranslator::objectBlock()
 					// Output color overrides or color ====>>>>>  WILL BE DONE IN liqShader::write -begin //r773 going to omit in r773
 					if(ribNode->shading.color.r != -1.0)
 					{
-						RtColor rColor;
+						liqColor rColor;
 						rColor[0] = ribNode->shading.color[0];
 						rColor[1] = ribNode->shading.color[1];
 						rColor[2] = ribNode->shading.color[2];
@@ -6918,7 +6918,7 @@ MStatus liqRibTranslator::objectBlock()
 
 					if(ribNode->shading.opacity.r != -1.0)
 					{
-						RtColor rOpacity;
+						liqColor rOpacity;
 						rOpacity[0] = ribNode->shading.opacity[0];
 						rOpacity[1] = ribNode->shading.opacity[1];
 						rOpacity[2] = ribNode->shading.opacity[2];
@@ -6938,7 +6938,7 @@ MStatus liqRibTranslator::objectBlock()
 			} 
 			else //if( hasSurfaceShader && !m_ignoreSurfaces )
 			{
-				RtColor rColor,rOpacity;
+				liqColor rColor,rOpacity;
 				if( m_shaderDebug ) 
 				{
 					liqRIBMsg("shader debug is turned on, so the object is red.");
@@ -7011,8 +7011,8 @@ MStatus liqRibTranslator::objectBlock()
 					else if( path.hasFn( MFn::kPfxHair ) ) 
 					{
 						// get some of the hair system parameters
-						RtFloat translucence = 0, specularPower = 0;
-						RtColor specularColor;
+						liqFloat translucence = 0, specularPower = 0;
+						liqColor specularColor;
 						//cout <<"getting pfxHair shading params..."<<endl;
 						MObject hairSystemObj;
 						MFnDependencyNode pfxHairNode( path.node() );
@@ -7078,7 +7078,7 @@ MStatus liqRibTranslator::objectBlock()
 				// Output color overrides or color
 				if(ribNode->shading.color.r != -1.0) 
 				{
-					RtColor rColor;
+					liqColor rColor;
 					rColor[0] = ribNode->shading.color[0];
 					rColor[1] = ribNode->shading.color[1];
 					rColor[2] = ribNode->shading.color[2];
@@ -7092,7 +7092,7 @@ MStatus liqRibTranslator::objectBlock()
 
 				if(ribNode->shading.opacity.r != -1.0) 
 				{
-					RtColor rOpacity;
+					liqColor rOpacity;
 					rOpacity[0] = ribNode->shading.opacity[0];
 					rOpacity[1] = ribNode->shading.opacity[1];
 					rOpacity[2] = ribNode->shading.opacity[2];
@@ -7109,7 +7109,7 @@ MStatus liqRibTranslator::objectBlock()
 			} 
 			else 
 			{
-				RtColor rColor,rOpacity;
+				liqColor rColor,rOpacity;
 
 				if(ribNode->shading.color.r != -1.0) 
 				{
@@ -7215,7 +7215,7 @@ MStatus liqRibTranslator::objectBlock()
 			/* {
 			// this is a visual display of the archive's bounding box
 			RiAttributeBegin();
-			RtColor debug;
+			liqColor debug;
 			debug[0] = debug[1] = 1;
 			debug[2] = 0;
 			RiColor( debug );
@@ -7251,7 +7251,7 @@ MStatus liqRibTranslator::objectBlock()
  		if( !ribNode->object(0)->receiveShadow )
 		{
 			int receiveShadows = ribNode->object(0)->receiveShadow;
-			RiAttribute("user", (RtToken)"int receivesShadows", &receiveShadows, RI_NULL);
+			RiAttribute("user", (liqToken)"int receivesShadows", &receiveShadows, RI_NULL);
 		}
 		//refactor 31 end
 
@@ -7371,7 +7371,7 @@ MStatus liqRibTranslator::worldPrologue()
 				RiTransformBegin();
 				if( liqglo.m_outputComments )
 					RiArchiveRecord( RI_COMMENT, "Clipping Plane: %s", ribNode->name.asChar(), RI_NULL );
-				RtMatrix ribMatrix;
+				liqMatrix ribMatrix;
 				MMatrix matrix;
 				MDagPath path;
 
@@ -7394,11 +7394,11 @@ MStatus liqRibTranslator::worldPrologue()
 		if( liqglo.rt_useRayTracing )
 		{
 			RiArchiveRecord(RI_COMMENT,  " Ray-Tracing Attributes from liquid globals");
-			RtInt on( 1 );
+			liqInt on( 1 );
 
 			if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY )
 			{
-				RtString trans = "shader";
+				liqString trans = "shader";
 				RiAttribute( "visibility", "int trace", &on, RI_NULL );
 				RiAttribute( "visibility", "string transmission", &trans, RI_NULL );
 			}
@@ -7421,23 +7421,23 @@ MStatus liqRibTranslator::worldPrologue()
 			RiAttribute("trace", "int maxdiffusedepth", &liqglo.rt_traceMaxDiffuseDepth, RI_NULL);
 			RiAttribute("trace", "int maxspeculardepth", &liqglo.rt_traceMaxSpecularDepth, RI_NULL);
 			if( liqglo.rt_irradianceMaxError != -1.0 )
-				RiAttribute( "irradiance", (RtToken) "float maxerror", &liqglo.rt_irradianceMaxError, RI_NULL );
+				RiAttribute( "irradiance", (liqToken) "float maxerror", &liqglo.rt_irradianceMaxError, RI_NULL );
 			if( liqglo.rt_irradianceMaxPixelDist != -1.0 )
-				RiAttribute( "irradiance", (RtToken) "float maxpixeldist", &liqglo.rt_irradianceMaxPixelDist, RI_NULL );
+				RiAttribute( "irradiance", (liqToken) "float maxpixeldist", &liqglo.rt_irradianceMaxPixelDist, RI_NULL );
  
 		// ymesh: add photon/caustic map attribites
 		  if (  liqglo.rt_photonGlobalHandle != "" || liqglo.rt_causticGlobalHandle != "") 
 		  {
 			MString parsedName = parseString( liqglo.rt_photonGlobalHandle, false );  //  doEscaped = false
 
-			RtString photon_map = const_cast< char* >( parsedName.asChar() );
-			RiAttribute( "photon", (RtToken) "globalmap", &photon_map, RI_NULL );
+			liqString photon_map = const_cast< char* >( parsedName.asChar() );
+			RiAttribute( "photon", (liqToken) "globalmap", &photon_map, RI_NULL );
         
 			parsedName = parseString( liqglo.rt_causticGlobalHandle, false );  //  doEscaped = false
-			RtString caustic_map = const_cast< char* >( parsedName.asChar() );
-			RiAttribute( "photon", (RtToken) "causticmap", &caustic_map, RI_NULL );
+			liqString caustic_map = const_cast< char* >( parsedName.asChar() );
+			RiAttribute( "photon", (liqToken) "causticmap", &caustic_map, RI_NULL );
       
-			RtString model;
+			liqString model;
 			switch ( liqglo.rt_photonShadingModel  ) 
 			{
 			  case liqRibNode::photon::SHADINGMODEL_GLASS:
@@ -7459,10 +7459,10 @@ MStatus liqRibTranslator::worldPrologue()
 			  default:
 				model = "matte";
 			}
-			RiAttribute( "photon", (RtToken) "shadingmodel", &model, RI_NULL );
+			RiAttribute( "photon", (liqToken) "shadingmodel", &model, RI_NULL );
       
-			RtInt estimator = liqglo.rt_photonEstimator;
-			RiAttribute( "photon", (RtToken) "estimator", &estimator, RI_NULL );
+			liqInt estimator = liqglo.rt_photonEstimator;
+			RiAttribute( "photon", (liqToken) "estimator", &estimator, RI_NULL );
 		  }
 		}
 		// put in post-worldbegin statements
@@ -7523,7 +7523,7 @@ MStatus liqRibTranslator::coordSysBlock()
 		RiAttributeBegin();
 		RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
 
-		RtMatrix ribMatrix;
+		liqMatrix ribMatrix;
 		MMatrix matrix;
 		MDagPath path;
 
@@ -7559,7 +7559,7 @@ MStatus liqRibTranslator::lightBlock()
 		int nbLight = 0;
 		for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ )
 		{
-			RtInt on( 1 );
+			liqInt on( 1 );
 			LIQ_CHECK_CANCEL_REQUEST;
 			liqRibNodePtr   ribNode = (*rniter).second;
 
@@ -7571,27 +7571,27 @@ MStatus liqRibTranslator::lightBlock()
 
 			// All this stuff below should be handled by a new attribute class
 			LIQDEBUGPRINTF( "-> RibNodeName " );
-			RtString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
+			liqString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
 			LIQDEBUGPRINTF( "= %s.\n", (char *)RibNodeName  );
 			RiAttribute( "identifier", "name", &RibNodeName, RI_NULL );
 			if( ribNode->trace.sampleMotion )
-				RiAttribute( "trace", (RtToken) "samplemotion", &on, RI_NULL );
+				RiAttribute( "trace", (liqToken) "samplemotion", &on, RI_NULL );
 			if( ribNode->trace.displacements )
-				RiAttribute( "trace", (RtToken) "displacements", &on, RI_NULL );
+				RiAttribute( "trace", (liqToken) "displacements", &on, RI_NULL );
 			if( ribNode->trace.bias != 0.01f )
 			{
-				RtFloat bias = ribNode->trace.bias;
-				RiAttribute( "trace", (RtToken) "bias", &bias, RI_NULL );
+				liqFloat bias = ribNode->trace.bias;
+				RiAttribute( "trace", (liqToken) "bias", &bias, RI_NULL );
 			}
 			if( ribNode->trace.maxDiffuseDepth != 1 )
 			{
-				RtInt mddepth = ribNode->trace.maxDiffuseDepth;
-				RiAttribute( "trace", (RtToken) "maxdiffusedepth", &mddepth, RI_NULL );
+				liqInt mddepth = ribNode->trace.maxDiffuseDepth;
+				RiAttribute( "trace", (liqToken) "maxdiffusedepth", &mddepth, RI_NULL );
 			}
 			if( ribNode->trace.maxSpecularDepth != 2 )
 			{
-				RtInt msdepth = ribNode->trace.maxSpecularDepth;
-				RiAttribute( "trace", (RtToken) "maxspeculardepth", &msdepth, RI_NULL );
+				liqInt msdepth = ribNode->trace.maxSpecularDepth;
+				RiAttribute( "trace", (liqToken) "maxspeculardepth", &msdepth, RI_NULL );
 			}
 			ribNode->object(0)->writeObject("", liqglo_currentJob, false);
 			ribNode->object(0)->written = 1;

@@ -33,7 +33,7 @@
 #include <maya/MString.h>
 #include <maya/MObject.h>
 
-#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 
 #include "liqShaderParameterType.h"
 #include "liqTokenParameterType.h"
@@ -81,12 +81,12 @@ protected:
 	std::string      file;
 
 public:
-    RtColor     rmColor;
-    RtColor     rmOpacity;
+    liqColor     rmColor;
+    liqColor     rmOpacity;
     bool        hasShadingRate;
-    RtFloat     shadingRate;
+    liqFloat     shadingRate;
     bool        hasDisplacementBound;
-    RtFloat     displacementBound;
+    liqFloat     displacementBound;
     bool        outputInShadow;
     bool        hasErrors;
     VOLUME_TYPE volume_type;

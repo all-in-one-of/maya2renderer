@@ -29,7 +29,7 @@ namespace appleseed
 
 		CM_TRACE_FUNC("Renderer::writeLight_pre("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
-		RtString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
+		liqString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
 		_s("\n// Renderer::exportLight(\""+std::string(RibNodeName)+"\");");
 
 		return true;

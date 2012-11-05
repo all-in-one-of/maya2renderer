@@ -39,6 +39,7 @@
 #include <liquid.h>
 #include <liqRibData.h>
 #include <boost/shared_array.hpp>
+#include "liqtypes.h"
 
 using namespace boost;
 
@@ -47,17 +48,17 @@ using namespace boost;
 
 typedef struct tagPolyEdgeIndx
 {
-	RtInt	vtx0;
-	RtInt	vtx1;
+	liqInt	vtx0;
+	liqInt	vtx1;
 } PolyEdgeIndx;
 
-typedef RtInt PolyVertexIndx;
-typedef RtInt PolyFaceIndx;
+typedef liqInt PolyVertexIndx;
+typedef liqInt PolyFaceIndx;
 
 typedef struct tagSbdExtraTag
 {
-	RtFloat	value;		// hardness for creases and corners
-	RtInt	length;		// number of elements
+	liqFloat	value;		// hardness for creases and corners
+	liqInt	length;		// number of elements
 	union tagExtraData
 	{
 		PolyEdgeIndx	*edges;
@@ -82,44 +83,44 @@ public: // Methods
 	
 	bool isEmpty()const { return (numPoints<=1); }
 	MString getName()const { return name; }
-	const RtFloat* getTransformationMatrixPtr() const {return &transformationMatrix[0][0]; }
+	const liqFloat* getTransformationMatrixPtr() const {return &transformationMatrix[0][0]; }
 
 //private: // Data
 	//void       _write(const structJob &currentJob);
-	RtInt     numFaces;
-	RtInt     numPoints;
-	shared_array< RtInt > nverts;
-	shared_array< RtInt > verts;
-	const RtFloat* vertexParam;
+	liqInt     numFaces;
+	liqInt     numPoints;
+	shared_array< liqInt > nverts;
+	shared_array< liqInt > verts;
+	const liqFloat* vertexParam;
 
 	DetailType uvDetail;
 	bool trueFacevarying;
 
 	MString   name;
-	RtMatrix  transformationMatrix;
+	liqMatrix  transformationMatrix;
 
 	int interpolateBoundary; // Now an integer from PRMan 12/3Delight 6
 
-	std::vector <RtToken> v_tags;
-	std::vector <RtInt>   v_nargs;
-	std::vector <RtInt>   v_intargs;
-	std::vector <RtFloat> v_floatargs;
+	std::vector <liqToken> v_tags;
+	std::vector <liqInt>   v_nargs;
+	std::vector <liqInt>   v_intargs;
+	std::vector <liqFloat> v_floatargs;
 
 	void checkExtraTags( MObject &mesh );
 	void addExtraTags( MObject &mesh, SBD_EXTRA_TAG extraTag );
 	void addExtraTags( MObject &mesh, float extraTagValue, SBD_EXTRA_TAG extraTag );
 
 	// subdiv params
-	RtToken m_subdivScheme;
-	RtInt m_subdivNTags;
-	RtToken *m_subdivTags;
-	RtInt *m_subdivNArgs;
+	liqToken m_subdivScheme;
+	liqInt m_subdivNTags;
+	liqToken *m_subdivTags;
+	liqInt *m_subdivNArgs;
 	int m_subdivsNInts;
 	int m_subdivsNFloats;
 	int m_subdivsNStrings;
-	RtInt *m_subdivIntArgs;
-	RtFloat *m_subdivFloatArgs;
-	RtString *m_subdivStringArgs;
+	liqInt *m_subdivIntArgs;
+	liqFloat *m_subdivFloatArgs;
+	liqString *m_subdivStringArgs;
 
 private:
 	liqRibHierarchicalSubdivisionData(const liqRibHierarchicalSubdivisionData&);

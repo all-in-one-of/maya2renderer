@@ -2437,6 +2437,7 @@
     <ClInclude Include="..\..\include\liqParseString.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
+    <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h" />
     <ClInclude Include="..\appleseed\as_connection.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />

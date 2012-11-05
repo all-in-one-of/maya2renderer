@@ -54,12 +54,12 @@ public: // Methods
   virtual void       printMesh();
   virtual bool       compare( const liqRibData & other ) const;
   virtual ObjectType type() const;
-  const RtInt getNumFaces()const{ return numFaces; }
-  const boost::shared_array< RtInt >& getNverts()const
+  const liqInt getNumFaces()const{ return numFaces; }
+  const boost::shared_array< liqInt >& getNverts()const
   {
 	  return nverts;
   }
-  const boost::shared_array< RtInt >& getVerts()const
+  const boost::shared_array< liqInt >& getVerts()const
   {
 	  return verts;
   }
@@ -68,21 +68,21 @@ public: // Methods
   bool isEmpty()const { return (numPoints<=1); }
   MString getName()const { return name; }
   float getAreaIntensity() const {return areaIntensity;}
-  const RtFloat* getTransformationMatrixPtr() const {return &transformationMatrix[0][0]; }
+  const liqFloat* getTransformationMatrixPtr() const {return &transformationMatrix[0][0]; }
 
 private: // Data
   //void       _write(const structJob &currentJob);
-  RtInt     numFaces;
-  RtInt     numPoints;
-  RtInt     numNormals;
-  boost::shared_array< RtInt > nverts;
-  boost::shared_array< RtInt > verts;
-  const RtFloat* vertexParam;
-  const RtFloat* normalParam;
+  liqInt     numFaces;
+  liqInt     numPoints;
+  liqInt     numNormals;
+  boost::shared_array< liqInt > nverts;
+  boost::shared_array< liqInt > verts;
+  const liqFloat* vertexParam;
+  const liqFloat* normalParam;
 
   bool    	areaLight;
   MString 	name;
-  RtMatrix	transformationMatrix;
+  liqMatrix	transformationMatrix;
   float   	areaIntensity;
 
 private:

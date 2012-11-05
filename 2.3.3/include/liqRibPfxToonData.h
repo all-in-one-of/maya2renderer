@@ -56,12 +56,12 @@ public: // Methods
 
 //private: // Data
     //void       _write(const structJob &currentJob);
-	boost::shared_array< RtInt >   nverts;
-    RtInt                   ncurves;
-    boost::shared_array< RtFloat > CVs;
-    boost::shared_array< RtFloat > curveWidth;
-    boost::shared_array< RtFloat > cvColor;
-    boost::shared_array< RtFloat > cvOpacity;
+	boost::shared_array< liqInt >   nverts;
+    liqInt                   ncurves;
+    boost::shared_array< liqFloat > CVs;
+    boost::shared_array< liqFloat > curveWidth;
+    boost::shared_array< liqFloat > cvColor;
+    boost::shared_array< liqFloat > cvOpacity;
 
 private:
 	liqRibPfxToonData(const liqRibPfxToonData&);

@@ -1,7 +1,8 @@
 #include <liqShadowRibWriterMgr.h>
 
 #include <string>
-
+#include "liqtypes.h"
+//#include "ri_interface.h"
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 #include <liqProcessLauncher.h>
@@ -115,14 +116,14 @@ TempControlBreak tShadowRibWriterMgr::write(
 
 
 //
-void tShadowRibWriterMgr::ribPrologue_samples(RtFloat xsamples, RtFloat ysamples)
+void tShadowRibWriterMgr::ribPrologue_samples(liqFloat xsamples, liqFloat ysamples)
 {
 	CM_TRACE_FUNC("tShadowRibWriterMgr::ribPrologue_samples("<<xsamples<<","<<ysamples<<")");
 
 	RiPixelSamples( xsamples, ysamples );
 }
 //
-void tShadowRibWriterMgr::ribPrologue_shadingrate(RtFloat size)
+void tShadowRibWriterMgr::ribPrologue_shadingrate(liqFloat size)
 {
 	CM_TRACE_FUNC("tShadowRibWriterMgr::ribPrologue_shadingrate("<<size<<")");
 
@@ -131,7 +132,7 @@ void tShadowRibWriterMgr::ribPrologue_shadingrate(RtFloat size)
 //
 void tShadowRibWriterMgr::ribPrologue_filter(
 	liquidlong m_rFilter,
-	RtFloat m_rFilterX, RtFloat m_rFilterY)
+	liqFloat m_rFilterX, liqFloat m_rFilterY)
 {
 	CM_TRACE_FUNC("tShadowRibWriterMgr::ribPrologue_filter("<<m_rFilter<<","<<m_rFilterX<<","<<m_rFilterY<<")");
 
@@ -180,11 +181,11 @@ void tShadowRibWriterMgr::ribPrologue_filter(
 	}
 }
 //
-void tShadowRibWriterMgr::ribPrologue_pass(RtString pass)
+void tShadowRibWriterMgr::ribPrologue_pass(liqString pass)
 {
 	CM_TRACE_FUNC("tShadowRibWriterMgr::ribPrologue_pass("<<pass<<")");
 
-	RiOption( "user", "string pass", ( RtPointer )&pass, RI_NULL );	
+	RiOption( "user", "string pass", ( liqPointer )&pass, RI_NULL );	
 }
 //
 void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
@@ -229,12 +230,12 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				//refactor 15
 				if( liqglo.liquidRenderer.renderName == MString("Pixie") )
 				{
-					RtFloat zero = 0;
+					liqFloat zero = 0;
 					RiHider( "hidden", "jitter", &zero, RI_NULL );
 				}
 				else
 				{
-					RtInt zero = 0;
+					liqInt zero = 0;
 					RiHider( "hidden", "int jitter", &zero, RI_NULL );
 				}
 				//refactor 15
@@ -242,8 +243,8 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			if( currentJob.pass == rpShadowMap && currentJob.shadowType == stMidPoint )
 			{
 				//refactor 16
-				RtString midPoint = "midpoint";
-				RtFloat midRatio = /*liqglo.liqglo_*/currentJob.midPointRatio;
+				liqString midPoint = "midpoint";
+				liqFloat midRatio = /*liqglo.liqglo_*/currentJob.midPointRatio;
 
 				RiHider( "hidden", "depthfilter", &midPoint, RI_NULL );
 
@@ -261,7 +262,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				if( currentJob.shadowType == stDeep )
 				{
 					// RiDeclare( "volumeinterpretation", "string" );
-					RtString volume = "continuous";
+					liqString volume = "continuous";
 
 					if ( currentJob.volume != viContinuous )
 						volume = "discrete"; 
@@ -271,7 +272,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						RiArchiveRecord( RI_COMMENT, "Display 1");
 						RiDisplay( const_cast< char* >( /*liqglo.liqglo_*/currentJob.imageName.asChar()),
 							const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
-							(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
+							(liqToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
 							"string volumeinterpretation", &volume,
 							RI_NULL );
 					}
@@ -292,7 +293,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						RiArchiveRecord( RI_COMMENT, "Display 3");
 						RiDisplay( const_cast< char* >( deepFileImageName.asChar() ),
 							const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
-							(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
+							(liqToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
 							"string volumeinterpretation", &volume,
 							RI_NULL );
 					}
@@ -300,10 +301,10 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				else
 				{
 					RiArchiveRecord( RI_COMMENT, "Display 4");
-					RtInt aggregate( /*liqglo.liqglo_*/currentJob.shadowAggregation );
+					liqInt aggregate( /*liqglo.liqglo_*/currentJob.shadowAggregation );
 					RiDisplay( const_cast< char* >( /*liqglo.liqglo_*/currentJob.imageName.asChar() ),
 						const_cast< char* >( /*liqglo.liqglo_*/currentJob.format.asChar() ),
-						(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
+						(liqToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
 						"int aggregate", &aggregate,
 						RI_NULL );
 				}
@@ -312,10 +313,10 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			{
 				RiArchiveRecord( RI_COMMENT, "Display 5");
 				RiArchiveRecord( RI_COMMENT, "Display Driver:" );
-				RtInt minmax = 1;
+				liqInt minmax = 1;
 				RiDisplay( const_cast< char* >( (/*liqglo.liqglo_*/currentJob.imageName+(int)liqglo.liqglo_lframe).asChar() ),//const_cast< char* >( parseString(liqglo_currentJob.imageName).asChar() ),
 					const_cast< char* >(/*liqglo.liqglo_*/currentJob.format.asChar()),
-					(RtToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
+					(liqToken)/*liqglo.liqglo_*/currentJob.imageMode.asChar(),
 					"minmax", &minmax,
 					RI_NULL );
 			}

@@ -37,7 +37,7 @@
 #include <liquid.h>
 #include <liqRibData.h>
 #include <liqShader.h>
-#include "../src/liqtypes.h"
+#include "liqtypes.h"
 
 class liqRibLightData : public liqRibData {
 public:
@@ -53,7 +53,7 @@ public:
   virtual bool       compare( const liqRibData & other ) const;
   virtual ObjectType type() const;
 
-  RtLightHandle lightHandle() const;
+  liqLightHandle lightHandle() const;
   bool          rmanLight;
   MString       assignedRManShader;
 
@@ -69,36 +69,36 @@ private:
   MString       extraShadowName( const MFnDependencyNode & lightShaderNode, const int & index ) const;
 
   LightType     lightType;
-  RtFloat       color[3];
-  RtFloat       decay;
-  RtFloat       intensity, coneAngle, penumbraAngle, dropOff;
+  liqFloat       color[3];
+  liqFloat       decay;
+  liqFloat       intensity, coneAngle, penumbraAngle, dropOff;
 
-  RtFloat       shadowBlur;
+  liqFloat       shadowBlur;
 
   // spot lights
-  RtFloat       barnDoors;
-  RtFloat       leftBarnDoor;
-  RtFloat       rightBarnDoor;
-  RtFloat       topBarnDoor;
-  RtFloat       bottomBarnDoor;
+  liqFloat       barnDoors;
+  liqFloat       leftBarnDoor;
+  liqFloat       rightBarnDoor;
+  liqFloat       topBarnDoor;
+  liqFloat       bottomBarnDoor;
 
-  RtFloat       decayRegions;
-  RtFloat       startDistance1;
-  RtFloat       endDistance1;
-  RtFloat       startDistance2;
-  RtFloat       endDistance2;
-  RtFloat       startDistance3;
-  RtFloat       endDistance3;
-  RtFloat       startDistanceIntensity1;
-  RtFloat       endDistanceIntensity1;
-  RtFloat       startDistanceIntensity2;
-  RtFloat       endDistanceIntensity2;
-  RtFloat       startDistanceIntensity3;
-  RtFloat       endDistanceIntensity3;
+  liqFloat       decayRegions;
+  liqFloat       startDistance1;
+  liqFloat       endDistance1;
+  liqFloat       startDistance2;
+  liqFloat       endDistance2;
+  liqFloat       startDistance3;
+  liqFloat       endDistance3;
+  liqFloat       startDistanceIntensity1;
+  liqFloat       endDistanceIntensity1;
+  liqFloat       startDistanceIntensity2;
+  liqFloat       endDistanceIntensity2;
+  liqFloat       startDistanceIntensity3;
+  liqFloat       endDistanceIntensity3;
 
   // Area Lights
   MString       lightMap;
-  RtFloat       lightMapSaturation;
+  liqFloat       lightMapSaturation;
 
   // 3Delight light attributes
   struct delightLight {
@@ -112,19 +112,19 @@ private:
 	  } SamplingStrategy;
   } delightLight;
 
-  RtFloat       nonDiffuse;
-  RtFloat       nonSpecular;
+  liqFloat       nonDiffuse;
+  liqFloat       nonSpecular;
   //RtPoint       from, to;
-  RtMatrix      transformationMatrix;
+  liqMatrix      transformationMatrix;
 
-  RtLightHandle handle;
+  liqLightHandle handle;
   bool          usingShadow;
   bool          deepShadows;
   bool          rayTraced;
-  RtInt         raySamples;
-  RtFloat       shadowRadius;
+  liqInt         raySamples;
+  liqFloat       shadowRadius;
   bool          excludeFromRib;
-  RtFloat       bothSidesEmit;
+  liqFloat       bothSidesEmit;
   //bool          outputLightInShadow;
   MString       userShadowName;
   MString       lightName;
@@ -143,12 +143,12 @@ private:
   MString       shadowNameNy;
   MString       shadowNamePz;
   MString       shadowNameNz;
-  RtFloat       shadowBias;
-  RtFloat       shadowFilterSize;
-  RtFloat       shadowSamples;
-  RtColor       shadowColor;
+  liqFloat       shadowBias;
+  liqFloat       shadowFilterSize;
+  liqFloat       shadowSamples;
+  liqColor       shadowColor;
   MString       lightCategory;
-  RtFloat       lightID;
+  liqFloat       lightID;
   int           hitmode;
   
   liqShader     *rmanLightShader;

@@ -182,29 +182,29 @@ liqRibPfxData::liqRibPfxData( MObject pfxGeo, ObjectType type )
 		hasFeature[ setOn ] = true;
 
 		// read other attributes from the lines
-		CVs = shared_array< RtFloat >(              new RtFloat[ totalVertex * 3 ] );
-		shared_array< RtFloat > curveTwist(         new RtFloat[ totalVarying * 3 ] );
-		shared_array< RtFloat > uniformCurveWidth(  new RtFloat[ numLines ] );
-		shared_array< RtFloat > curveID(			new RtFloat[ numLines ] );
-		shared_array< RtFloat > curveWidth(         new RtFloat[ totalVarying ] );
-		shared_array< RtFloat > curveFlatness(      new RtFloat[ totalVarying ] );
-		//shared_array< RtFloat > curveParameter(     new RtFloat[ totalVarying ] );
-		shared_array< RtFloat > curveColor(         new RtFloat[ totalVarying * 3 ] );
-		shared_array< RtFloat > curveIncandescence( new RtFloat[ totalVarying * 3 ] );
-		shared_array< RtFloat > curveOpacity(       new RtFloat[ totalVarying * 3 ] );
+		CVs = shared_array< liqFloat >(              new liqFloat[ totalVertex * 3 ] );
+		shared_array< liqFloat > curveTwist(         new liqFloat[ totalVarying * 3 ] );
+		shared_array< liqFloat > uniformCurveWidth(  new liqFloat[ numLines ] );
+		shared_array< liqFloat > curveID(			new liqFloat[ numLines ] );
+		shared_array< liqFloat > curveWidth(         new liqFloat[ totalVarying ] );
+		shared_array< liqFloat > curveFlatness(      new liqFloat[ totalVarying ] );
+		//shared_array< liqFloat > curveParameter(     new liqFloat[ totalVarying ] );
+		shared_array< liqFloat > curveColor(         new liqFloat[ totalVarying * 3 ] );
+		shared_array< liqFloat > curveIncandescence( new liqFloat[ totalVarying * 3 ] );
+		shared_array< liqFloat > curveOpacity(       new liqFloat[ totalVarying * 3 ] );
 
 		LIQDEBUGPRINTF( "-> memory allocated for pfx data\n" );
 
-		RtFloat* cvPtr( CVs.get() );
-		RtFloat* twistPtr( curveTwist.get() );
-		RtFloat* uniformWidthPtr( uniformCurveWidth.get() );
-		RtFloat* curveIDPtr( curveID.get() );
-		RtFloat* widthPtr( curveWidth.get() );
-		RtFloat* flatnessPtr( curveFlatness.get() );
-		//RtFloat* parameterPtr( curveParameter.get() );
-		RtFloat* colorPtr( curveColor.get() );
-		RtFloat* incandescencePtr( curveIncandescence.get() );
-		RtFloat* opacityPtr( curveOpacity.get() );
+		liqFloat* cvPtr( CVs.get() );
+		liqFloat* twistPtr( curveTwist.get() );
+		liqFloat* uniformWidthPtr( uniformCurveWidth.get() );
+		liqFloat* curveIDPtr( curveID.get() );
+		liqFloat* widthPtr( curveWidth.get() );
+		liqFloat* flatnessPtr( curveFlatness.get() );
+		//liqFloat* parameterPtr( curveParameter.get() );
+		liqFloat* colorPtr( curveColor.get() );
+		liqFloat* incandescencePtr( curveIncandescence.get() );
+		liqFloat* opacityPtr( curveOpacity.get() );
 
 		bool hasUniformWidth( false );
 		bool hasWidth( false );
@@ -494,7 +494,7 @@ void liqRibPfxData::write(const MString &ribFileName, const structJob &currentJo
  //		scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
  //		assignTokenArraysV( pfxTokenPointerArrays[ setOn ], tokenArray.get(), pointerArray.get() );
  //
- //		RiCurvesV( "cubic", nverts[ setOn ].size(), const_cast< RtInt* >( &nverts[ setOn ][ 0 ] ), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
+ //		RiCurvesV( "cubic", nverts[ setOn ].size(), const_cast< liqInt* >( &nverts[ setOn ][ 0 ] ), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
  //	}
  //}
 
@@ -528,7 +528,7 @@ unsigned liqRibPfxData::granularity() const
 //		scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
 //		assignTokenArraysV( pfxTokenPointerArrays[ grain ], tokenArray.get(), pointerArray.get() );
 //
-//		RiCurvesV( "cubic", nverts[ grain ].size(), const_cast< RtInt* >( &nverts[ grain ][ 0 ] ), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
+//		RiCurvesV( "cubic", nverts[ grain ].size(), const_cast< liqInt* >( &nverts[ grain ][ 0 ] ), "nonperiodic", numTokens, tokenArray.get(), pointerArray.get() );
 //	}
 //
 //	if( 2 < ++grain )

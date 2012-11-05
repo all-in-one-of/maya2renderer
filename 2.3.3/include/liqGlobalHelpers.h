@@ -77,9 +77,9 @@ bool isObjectReceivesShadows( const MDagPath & path );
 bool isObjectMotionBlur( const MDagPath & path );
 bool areObjectAndParentsVisible( const MDagPath & path );
 bool areObjectAndParentsTemplated( const MDagPath & path );
-void assignTokenArrays( unsigned numTokens, const liqTokenPointer tokenPointerArray[], RtToken tokens[], RtPointer pointers[] );
-void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[] );
-void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, RtToken tokens[], RtPointer pointers[], unsigned int primi );
+void assignTokenArrays( unsigned numTokens, const liqTokenPointer tokenPointerArray[], liqToken tokens[], liqPointer pointers[] );
+void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[] );
+void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[], unsigned int primi );
 MObject findFacetShader( MObject mesh, int polygonIndex );
 bool fileExists( const MString & filename );
 bool fileIsNewer( const MString & file1, const MString & file2 );
@@ -109,7 +109,7 @@ MString sanitizeNodeName( const MString& name );
 std::string sanitizeNodeName2( const std::string& name );
 //replace ':' with '=', and '|' with '/'
 std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name);
-RtString& getLiquidRibName( const std::string& name );
+liqString& getLiquidRibName( const std::string& name );
 void liquidMessage( const MString &msg, liquidVerbosityType type );
 MString parseLiquidRibRequest( MStringArray requestArray, MString attr );
 
@@ -118,7 +118,7 @@ std::string getUniqueShaderHandler();
 
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &value, MStatus &status );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, RtFloat &value, MStatus &status );
+MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &value, MStatus &status );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed = false );
 MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status );

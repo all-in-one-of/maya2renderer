@@ -1035,6 +1035,9 @@
     <ClInclude Include="..\..\include\liqParseString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\liqtypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">

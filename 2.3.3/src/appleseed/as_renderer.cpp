@@ -243,7 +243,7 @@ namespace appleseed
 
 		MMatrix matrix;
 		matrix = ribNode__->object( sample_first )->matrix( ribNode__->path().instanceNumber() );
-		RtMatrix m;		
+		liqMatrix m;		
 		IfMErrorWarn(matrix.get(m));
 		
 		//transform motion
@@ -532,7 +532,7 @@ namespace appleseed
 		MFnDagNode transform (transformNode, &status);
 		IfMErrorWarn(status);
 		MTransformationMatrix   m0(transform.transformationMatrix());
-		RtMatrix m;		
+		liqMatrix m;		
 		IfMErrorWarn(m0.asMatrix().get(m));
 
 		bool bDepthOfField;//enable DOF on this camera?

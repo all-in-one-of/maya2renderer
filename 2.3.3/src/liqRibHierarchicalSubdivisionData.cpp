@@ -344,7 +344,7 @@ void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 	m_subdivNTags = 3;
 	m_subdivsNInts = 0;
 	m_subdivsNFloats = 0;
-	m_subdivsNStrings = 0;	m_subdivTags = new RtToken[m_subdivNTags];
+	m_subdivsNStrings = 0;	m_subdivTags = new liqToken[m_subdivNTags];
 	m_subdivTags[0] = "creasemethod";
 	m_subdivTags[1] = "facevaryingpropagatecorners";
 	m_subdivTags[2] = "interpolateboundary";
@@ -373,11 +373,11 @@ void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 	}
 	if(m_subdivsNFloats)
 	{
-		m_subdivFloatArgs = new RtFloat[m_subdivsNFloats];
+		m_subdivFloatArgs = new liqFloat[m_subdivsNFloats];
 	}
 	if(m_subdivsNStrings)
 	{
-		m_subdivStringArgs = new RtString[m_subdivsNStrings];
+		m_subdivStringArgs = new liqString[m_subdivsNStrings];
 	}
 	m_subdivIntArgs[0] = 1; //facevaryingpropagatecorners;
 	m_subdivIntArgs[1] = 1; //interpolateboundary;
@@ -390,7 +390,7 @@ void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 //	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::_write(job="<<currentJob.name.asChar()<<")");
 //
 //	unsigned numTokens( tokenPointerArray.size() );
-//	scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//	scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
 //	scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
 //	assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
 //
@@ -431,7 +431,7 @@ void liqRibHierarchicalSubdivisionData::write(const MString &ribFileName, const 
 // 	}else{
 // 		//write the reference
 // 		assert(m_ribFileFullPath == ribFileName);
-// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 		RiReadArchive( const_cast< liqToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
 // 	}
 }
 /** Compare this mesh to the other for the purpose of determining if its animated

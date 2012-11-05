@@ -7,7 +7,7 @@
 #include <maya/MStringArray.h>
 #include <maya/MIntArray.h>
 
-#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 
 #include <liquid.h>
 #include <liqRenderer.h>
@@ -72,8 +72,8 @@ struct liqGlobalVariable
 	bool         liqglo_doCompression;                    // output compressed ribs
 	bool         liqglo_doBinary;                         // output binary ribs
 	bool         liqglo_relativeMotion;                   // Use relative motion blocks
-	RtFloat      liqglo_sampleTimes[LIQMAXMOTIONSAMPLES]; // current sample times
-	RtFloat      liqglo_sampleTimesOffsets[LIQMAXMOTIONSAMPLES]; // current sample times (as offsets from frame)
+	liqFloat      liqglo_sampleTimes[LIQMAXMOTIONSAMPLES]; // current sample times
+	liqFloat      liqglo_sampleTimesOffsets[LIQMAXMOTIONSAMPLES]; // current sample times (as offsets from frame)
 	int          liqglo_motionSamples;                    // used to assign more than two motion blur samples!
 	float        liqglo_motionFactor;
 	float        liqglo_shutterTime;
@@ -120,19 +120,19 @@ struct liqGlobalVariable
 
 	// Kept global for raytracing
 	bool         rt_useRayTracing;
-	RtFloat      rt_traceBreadthFactor;
-	RtFloat      rt_traceDepthFactor;
+	liqFloat      rt_traceBreadthFactor;
+	liqFloat      rt_traceDepthFactor;
 	int          rt_traceMaxDepth;
-	RtFloat      rt_traceSpecularThreshold;
+	liqFloat      rt_traceSpecularThreshold;
 	int         rt_traceRayContinuation;
 	int          rt_traceCacheMemory;
 	bool         rt_traceDisplacements;
 	bool         rt_traceSampleMotion;
-	RtFloat      rt_traceBias;
+	liqFloat      rt_traceBias;
 	int          rt_traceMaxDiffuseDepth;
 	int          rt_traceMaxSpecularDepth;
-	RtFloat      rt_irradianceMaxError;
-	RtFloat      rt_irradianceMaxPixelDist;
+	liqFloat      rt_irradianceMaxError;
+	liqFloat      rt_irradianceMaxPixelDist;
 
 	MString      rt_irradianceGlobalHandle;
 	int          rt_irradianceGlobalFileMode;

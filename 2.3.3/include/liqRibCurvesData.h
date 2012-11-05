@@ -47,20 +47,20 @@ public: // Methods
     virtual ObjectType type() const;
 
 	bool isEmpty() { return !ncurves; }
-	const boost::shared_array< RtInt >& getNVerts()const
+	const boost::shared_array< liqInt >& getNVerts()const
 	{
 		return nverts;
 	}
-	RtInt getNCurves()const
+	liqInt getNCurves()const
 	{
 		return ncurves;
 	}
 private: // Data
     //void       _write(const structJob &currentJob);
-    RtInt                   ncurves;
-	boost::shared_array< RtInt >   nverts;
-    boost::shared_array< RtFloat > CVs;
-    boost::shared_array< RtFloat > NuCurveWidth;
+    liqInt                   ncurves;
+	boost::shared_array< liqInt >   nverts;
+    boost::shared_array< liqFloat > CVs;
+    boost::shared_array< liqFloat > NuCurveWidth;
 
 
 private:

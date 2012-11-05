@@ -120,8 +120,8 @@ class liqRibNode {
     bool     getMatteMode( MObject& shader );
     bool     hasRibGen();
     void     doRibGen();
-    RtBound  bound;
-    RtBound  shadowBound;
+    liqBound  bound;
+    liqBound  shadowBound;
     bool     doDef;    /* Used for per-object deformation blur */
     bool     doMotion;  /* Used for per-object transformation blur */
 

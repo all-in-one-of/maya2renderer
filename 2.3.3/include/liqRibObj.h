@@ -41,7 +41,7 @@
 #include <maya/MMatrix.h>
 // Renderman Headers
 //extern "C" {
-#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 //}
 
 enum ObjectType;
@@ -77,16 +77,16 @@ public:
     void     ref();
     void     unref();
 
-    void     setHandle( RtObjectHandle handle );
+    void     setHandle( liqObjectHandle handle );
 
-    RtObjectHandle handle() const;
-    RtLightHandle  lightHandle() const;
+    liqObjectHandle handle() const;
+    liqLightHandle  lightHandle() const;
     //char         **lightSources; // unused?
 	const liqRibDataPtr getDataPtr() const{ return data; }
 
 private:
 	std::vector< MMatrix > instanceMatrices; // Matrices for all instances of this object
-    RtObjectHandle    objectHandle;     // Handle used by RenderMan to refer to defined geometry
+    liqObjectHandle    objectHandle;     // Handle used by RenderMan to refer to defined geometry
     int               referenceCount;   // Object's reference count
     liqRibDataPtr     data;             // Geometry or light data
 private:

@@ -59,22 +59,22 @@ public: // Methods
   unsigned              grain;
   bool                  hasTrims;
 
-  RtInt                 nu, nv;
-  RtInt                 uorder, vorder;
-  boost::shared_array< RtFloat > uknot;
-  boost::shared_array< RtFloat > vknot;
-  RtFloat               umin, umax,
+  liqInt                 nu, nv;
+  liqInt                 uorder, vorder;
+  boost::shared_array< liqFloat > uknot;
+  boost::shared_array< liqFloat > vknot;
+  liqFloat               umin, umax,
                         vmin, vmax;
-  boost::shared_array< RtFloat > CVs;
+  boost::shared_array< liqFloat > CVs;
 
   // Trim information
 
-  RtInt                 nloops;
-  //shared_array< RtInt > ncurves, order, n;
-  //shared_array< RtFloat > knot, minKnot, maxKnot, u, v, w;
+  liqInt                 nloops;
+  //shared_array< liqInt > ncurves, order, n;
+  //shared_array< liqFloat > knot, minKnot, maxKnot, u, v, w;
 
-  std::vector< RtInt >       ncurves, order, numCVs;
-  std::vector< RtFloat >     knot, minKnot, maxKnot, u, v, w;
+  std::vector< liqInt >       ncurves, order, numCVs;
+  std::vector< liqFloat >     knot, minKnot, maxKnot, u, v, w;
 
 private:
 	liqRibSurfaceData(const liqRibSurfaceData&);

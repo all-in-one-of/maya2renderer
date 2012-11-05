@@ -214,7 +214,7 @@ void liqRibMayaSubdivisionData::write(const MString &ribFileName, const structJo
 // 	}else{
 // 		//write the reference
 // 		assert(m_ribFileFullPath == ribFileName);
-// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 		RiReadArchive( const_cast< liqToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
 // 	}
 }
 /** Write the RIB for this mesh.
@@ -226,7 +226,7 @@ void liqRibMayaSubdivisionData::write(const MString &ribFileName, const structJo
 // 	LIQDEBUGPRINTF( "-> writing subdivision surface\n" );
 // 
 // 	unsigned numTokens( tokenPointerArray.size() );
-// 	scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+// 	scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
 // 	scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
 // 	assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
 // 

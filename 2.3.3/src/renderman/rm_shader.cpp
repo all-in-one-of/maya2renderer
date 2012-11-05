@@ -1,6 +1,7 @@
 #include <liqConfig.h>
 #ifdef _USE_RENDERMAN_
 #include "../common/prerequest_maya.h"
+#include "ri_interface.h"
 #include "rm_renderer.h"
 #include <liqShader.h>
 #include <liqShaderFactory.h>
@@ -27,8 +28,8 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::shader_surface("<<shader.getName()<<", tokenPointerArray)");
 
 		int shaderParamCount = tokenPointerArray.size() - 1;
-		boost::scoped_array< RtToken > tokenArray( new RtToken[ tokenPointerArray.size() ] );
-		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqToken > tokenArray( new liqToken[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqPointer > pointerArray( new liqPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
 		if ( shader.useVisiblePoints ){
@@ -46,8 +47,8 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::shader_light("<<shader.getName()<<", tokenPointerArray)");
 
 		int shaderParamCount = tokenPointerArray.size() - 1;
-		boost::scoped_array< RtToken > tokenArray( new RtToken[ tokenPointerArray.size() ] );
-		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqToken > tokenArray( new liqToken[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqPointer > pointerArray( new liqPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
 		return RiLightSourceV( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );
@@ -60,8 +61,8 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::shader_displacement("<<shader.getName()<<", tokenPointerArray)");
 
 		int shaderParamCount = tokenPointerArray.size() - 1;
-		boost::scoped_array< RtToken > tokenArray( new RtToken[ tokenPointerArray.size() ] );
-		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqToken > tokenArray( new liqToken[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqPointer > pointerArray( new liqPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
 		RiDisplacementV( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get());
@@ -75,8 +76,8 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::shader_volume("<<shader.getName()<<", tokenPointerArray)");
 
 		int shaderParamCount = tokenPointerArray.size() - 1;
-		boost::scoped_array< RtToken > tokenArray( new RtToken[ tokenPointerArray.size() ] );
-		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqToken > tokenArray( new liqToken[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqPointer > pointerArray( new liqPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
 		//RiAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount,  tokenArray.get(), pointerArray.get() );
@@ -119,8 +120,8 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::shader_shader("<<shader.getName()<<", tokenPointerArray)");
 
 		int shaderParamCount = tokenPointerArray.size() - 1;
-		boost::scoped_array< RtToken > tokenArray( new RtToken[ tokenPointerArray.size() ] );
-		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqToken > tokenArray( new liqToken[ tokenPointerArray.size() ] );
+		boost::scoped_array< liqPointer > pointerArray( new liqPointer[ tokenPointerArray.size() ] );
 		assignTokenArrays( tokenPointerArray.size(), &tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 
 		RiShaderV ( const_cast<char *>(shader.getShaderFileName().c_str()), 
@@ -285,8 +286,8 @@ namespace renderman
 // 			this->writeAsCoShader(&coShader);
 // 		}
 // 		// write co-shader
-// 		boost::scoped_array< RtToken > tokenArray( new RtToken[ liqshader->tokenPointerArray.size() ] );
-// 		boost::scoped_array< RtPointer > pointerArray( new RtPointer[ liqshader->tokenPointerArray.size() ] );
+// 		boost::scoped_array< liqToken > tokenArray( new liqToken[ liqshader->tokenPointerArray.size() ] );
+// 		boost::scoped_array< liqPointer > pointerArray( new liqPointer[ liqshader->tokenPointerArray.size() ] );
 // 		assignTokenArrays( liqshader->tokenPointerArray.size(), &liqshader->tokenPointerArray[ 0 ], tokenArray.get(), pointerArray.get() );
 // 
 // 
@@ -394,7 +395,7 @@ namespace renderman
 		if( displacementBounds != 0.0 )
 		{
 			RtString coordsys( const_cast< char* >( displacementBoundsSpace.asChar() ) );
-			RiAttribute( "displacementbound", (RtToken) "sphere", &displacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+			RiAttribute( "displacementbound", (liqToken) "sphere", &displacementBounds, "coordinatesystem", &coordsys, RI_NULL );
 		}
 	}
 

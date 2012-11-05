@@ -111,8 +111,8 @@ liqRibSubdivisionData::liqRibSubdivisionData( MObject mesh )
   liqTokenPointer pFaceVertexTPointer;
 
   // Allocate memory and tokens
-  nverts = shared_array< RtInt >( new RtInt[ numFaces ] );
-  verts = shared_array< RtInt >( new RtInt[ numFaceVertices ] );
+  nverts = shared_array< liqInt >( new liqInt[ numFaces ] );
+  verts = shared_array< liqInt >( new liqInt[ numFaceVertices ] );
 
   pointsPointerPair.set( "P", rPoint, numPoints );
   pointsPointerPair.setDetailType( rVertex );
@@ -314,7 +314,7 @@ void liqRibSubdivisionData::write(const MString &ribFileName, const structJob &c
 // 	}else{
 // 		//write the reference
 // 		assert(m_ribFileFullPath == ribFileName);
-// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 		RiReadArchive( const_cast< liqToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
 // 	}
 }
 /** Write the RIB for this mesh.
@@ -326,7 +326,7 @@ void liqRibSubdivisionData::write(const MString &ribFileName, const structJob &c
 //   LIQDEBUGPRINTF( "-> writing subdivision surface\n" );
 // 
 //   unsigned numTokens( tokenPointerArray.size() );
-//   scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//   scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
 //   scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
 //   assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
 // 

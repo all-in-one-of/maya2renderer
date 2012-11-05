@@ -1587,12 +1587,12 @@ void liqRibNode::writeUserAttributes() {
 
   unsigned numTokens( tokenPointerMap.size() );
   if( numTokens ) {
-    scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-    scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+    scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
+    scoped_array< liqPointer > pointerArray( new liqPointer[ numTokens ] );
     // Can't use assignTokenArraysV() since we're dealing with std::map
     unsigned i( 0 );
     for ( map<const string, liqTokenPointer >::const_iterator iter( tokenPointerMap.begin() ); iter != tokenPointerMap.end(); iter++, i++ ) {
-      tokenArray[ i ] = const_cast< RtString >( const_cast< liqTokenPointer* >( &( iter->second ) )->getDetailedTokenName().c_str() );
+      tokenArray[ i ] = const_cast< liqString >( const_cast< liqTokenPointer* >( &( iter->second ) )->getDetailedTokenName().c_str() );
       pointerArray[ i ] = const_cast< liqTokenPointer* >( &( iter->second ) )->getRtPointer();
     }
 

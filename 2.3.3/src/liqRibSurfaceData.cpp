@@ -37,7 +37,7 @@
 #include <boost/shared_array.hpp>
 // RenderMan headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 
 // Maya headers
@@ -112,10 +112,10 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
       
       double uMin_d, uMax_d, vMin_d, vMax_d;
       nurbs.getKnotDomain(uMin_d, uMax_d, vMin_d, vMax_d);
-      umin = ( RtFloat )vMin_d; // uv order is switched
-      umax = ( RtFloat )vMax_d; // uv order is switched
-      vmin = ( RtFloat )uMin_d; // uv order is switched
-      vmax = ( RtFloat )uMax_d; // uv order is switched
+      umin = ( liqFloat )vMin_d; // uv order is switched
+      umax = ( liqFloat )vMax_d; // uv order is switched
+      vmin = ( liqFloat )uMin_d; // uv order is switched
+      vmax = ( liqFloat )uMax_d; // uv order is switched
     } 
     else 
     {
@@ -133,10 +133,10 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 
       double uMin_d, uMax_d, vMin_d, vMax_d;
       nurbs.getKnotDomain( uMin_d, uMax_d, vMin_d, vMax_d );
-      umin = ( RtFloat )uMin_d;
-      umax = ( RtFloat )uMax_d;
-      vmin = ( RtFloat )vMin_d;
-      vmax = ( RtFloat )vMax_d;
+      umin = ( liqFloat )uMin_d;
+      umax = ( liqFloat )uMax_d;
+      vmin = ( liqFloat )vMin_d;
+      vmax = ( liqFloat )vMax_d;
       
           	
     	// Reverse v knots values for matching Maya texture coordinates
@@ -167,19 +167,19 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
     }
 
     // Allocate CV and knot storage
-    CVs   = shared_array< RtFloat >( new RtFloat[ nu * nv * 4 ] );
-    uknot = shared_array< RtFloat >( new RtFloat[ uKnots.length() + 2 ] );
-    vknot = shared_array< RtFloat >( new RtFloat[ vKnots.length() + 2 ] );
+    CVs   = shared_array< liqFloat >( new liqFloat[ nu * nv * 4 ] );
+    uknot = shared_array< liqFloat >( new liqFloat[ uKnots.length() + 2 ] );
+    vknot = shared_array< liqFloat >( new liqFloat[ vKnots.length() + 2 ] );
 
     unsigned k;
     if ( normalizeNurbsUV ) 
     {
       for ( k = 0; k < uKnots.length(); k++ ) 
-        uknot[ k + 1 ] = ( ( RtFloat )uKnots[ k ] - umin ) * uKnotMult;
+        uknot[ k + 1 ] = ( ( liqFloat )uKnots[ k ] - umin ) * uKnotMult;
     } 
     else 
       for ( k = 0; k < uKnots.length(); k++ ) 
-        uknot[ k + 1 ] = ( RtFloat )uKnots[ k ];
+        uknot[ k + 1 ] = ( liqFloat )uKnots[ k ];
 
     // Maya doesn't store the first and last knots, so we double them up
     // manually
@@ -193,22 +193,22 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 			if ( normalizeNurbsUV ) 
 			{
 				for ( k = 0; k < vKnots.length(); k++ ) 
-					vknot[ k + 1 ] = ( ( RtFloat )vKnots[ k ] - vmin ) * vKnotMult;
+					vknot[ k + 1 ] = ( ( liqFloat )vKnots[ k ] - vmin ) * vKnotMult;
 			} 
 			else 
 				for ( k = 0; k < vKnots.length(); k++ ) 
-					vknot[ k + 1 ] = ( RtFloat )vKnots[ k ];
+					vknot[ k + 1 ] = ( liqFloat )vKnots[ k ];
 		}
 		else
 		{
 			if ( normalizeNurbsUV ) 
 			{
 				for ( k = 0; k < vKnots.length(); k++ ) 
-					vknot[ k + 1 ] = ( ( RtFloat )vKnots[ vKnots.length() - 1 - k ] - vmin ) * vKnotMult;
+					vknot[ k + 1 ] = ( ( liqFloat )vKnots[ vKnots.length() - 1 - k ] - vmin ) * vKnotMult;
 			} 
 			else 
 				for ( k = 0; k < vKnots.length(); k++ ) 
-					vknot[ k + 1 ] = ( RtFloat )vKnots[ vKnots.length() - 1 - k ];	
+					vknot[ k + 1 ] = ( liqFloat )vKnots[ vKnots.length() - 1 - k ];	
 		}
     // Maya doesn't store the first and last knots, so we double them up
     // manually
@@ -225,16 +225,16 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
     
     if ( liqglo.liquidRenderer.requires_SWAPPED_UVS )
     {
-			RtFloat* cvPtr( CVs.get() );
+			liqFloat* cvPtr( CVs.get() );
     	while( !cvs.isDone() ) 
 			{
 				while( !cvs.isRowDone() ) 
 				{
 					MPoint pt( cvs.position( MSpace::kObject ) );
-					*cvPtr++ = ( RtFloat )(pt.x * pt.w);
-					*cvPtr++ = ( RtFloat )(pt.y * pt.w); 
-					*cvPtr++ = ( RtFloat )(pt.z * pt.w);
-					*cvPtr++ = ( RtFloat )pt.w;
+					*cvPtr++ = ( liqFloat )(pt.x * pt.w);
+					*cvPtr++ = ( liqFloat )(pt.y * pt.w); 
+					*cvPtr++ = ( liqFloat )(pt.z * pt.w);
+					*cvPtr++ = ( liqFloat )pt.w;
 					cvs.next();
 				}
 				cvs.nextRow();
@@ -246,7 +246,7 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
     	
     	    	
     	// store rows in reversed order
-    	RtFloat* cvPtr( CVs.get() );
+    	liqFloat* cvPtr( CVs.get() );
     	cvPtr += nu * ( nv - 1 ) * 4; // set pointer to last row in array
     	
     	while( !cvs.isDone() ) 
@@ -254,10 +254,10 @@ liqRibSurfaceData::liqRibSurfaceData( MObject surface )
 				while( !cvs.isRowDone() ) 
 				{
 					MPoint pt( cvs.position( MSpace::kObject ) );
-					*cvPtr++ = ( RtFloat )(pt.x * pt.w);
-					*cvPtr++ = ( RtFloat )(pt.y * pt.w); 
-					*cvPtr++ = ( RtFloat )(pt.z * pt.w);
-					*cvPtr++ = ( RtFloat )pt.w;
+					*cvPtr++ = ( liqFloat )(pt.x * pt.w);
+					*cvPtr++ = ( liqFloat )(pt.y * pt.w); 
+					*cvPtr++ = ( liqFloat )(pt.z * pt.w);
+					*cvPtr++ = ( liqFloat )pt.w;
 					cvs.next();
 					// LIQDEBUGPRINTF( "-> %f %f %f %f\n", pt.x, pt.y, pt.z, pt.w  );
 				}
@@ -429,15 +429,15 @@ void liqRibSurfaceData::write(const MString &ribFileName, const structJob &curre
 //  if ( hasTrims ) 
 //  {
 //    RiTrimCurve( nloops,
-//                 const_cast< RtInt* >( &ncurves[ 0 ] ),
-//                 const_cast< RtInt* >( &order[ 0 ] ),
-//                 const_cast< RtFloat* >( &knot[ 0 ] ),
-//                 const_cast< RtFloat* >( &minKnot[ 0 ] ),
-//                 const_cast< RtFloat* >( &maxKnot[ 0 ] ),
-//                 const_cast< RtInt* >( &numCVs[ 0 ] ),
-//                 const_cast< RtFloat* >( &u[ 0 ] ),
-//                 const_cast< RtFloat* >( &v[ 0 ] ),
-//                 const_cast< RtFloat* >( &w[ 0 ] ) );
+//                 const_cast< liqInt* >( &ncurves[ 0 ] ),
+//                 const_cast< liqInt* >( &order[ 0 ] ),
+//                 const_cast< liqFloat* >( &knot[ 0 ] ),
+//                 const_cast< liqFloat* >( &minKnot[ 0 ] ),
+//                 const_cast< liqFloat* >( &maxKnot[ 0 ] ),
+//                 const_cast< liqInt* >( &numCVs[ 0 ] ),
+//                 const_cast< liqFloat* >( &u[ 0 ] ),
+//                 const_cast< liqFloat* >( &v[ 0 ] ),
+//                 const_cast< liqFloat* >( &w[ 0 ] ) );
 //  }
 //
 //  if ( !tokenPointerArray.empty() ) 
@@ -489,15 +489,15 @@ unsigned liqRibSurfaceData::granularity() const
 //  if ( hasTrims && ( 0 == grain ) ) 
 //  {
 //    RiTrimCurve( nloops,
-//                 const_cast< RtInt* >( &ncurves[ 0 ] ),
-//                 const_cast< RtInt* >( &order[ 0 ] ),
-//                 const_cast< RtFloat* >( &knot[ 0 ] ),
-//                 const_cast< RtFloat* >( &minKnot[ 0 ] ),
-//                 const_cast< RtFloat* >( &maxKnot[ 0 ] ),
-//                 const_cast< RtInt* >( &numCVs[ 0 ] ),
-//                 const_cast< RtFloat* >( &u[ 0 ] ),
-//                 const_cast< RtFloat* >( &v[ 0 ] ),
-//                 const_cast< RtFloat* >( &w[ 0 ] ) );
+//                 const_cast< liqInt* >( &ncurves[ 0 ] ),
+//                 const_cast< liqInt* >( &order[ 0 ] ),
+//                 const_cast< liqFloat* >( &knot[ 0 ] ),
+//                 const_cast< liqFloat* >( &minKnot[ 0 ] ),
+//                 const_cast< liqFloat* >( &maxKnot[ 0 ] ),
+//                 const_cast< liqInt* >( &numCVs[ 0 ] ),
+//                 const_cast< liqFloat* >( &u[ 0 ] ),
+//                 const_cast< liqFloat* >( &v[ 0 ] ),
+//                 const_cast< liqFloat* >( &w[ 0 ] ) );
 //    ++grain;
 //    return true;
 //  } else if ( !tokenPointerArray.empty() ) {

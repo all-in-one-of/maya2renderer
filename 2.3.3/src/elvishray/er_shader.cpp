@@ -244,9 +244,9 @@ namespace elvishray
 		if( liqshader->shader_type_ex == "light" )
 		{
 			//outputIndentation(indentLevel);
-			RtLightHandle ret = this->shader_light( *liqshader,  liqshader->tokenPointerArray );
+			liqLightHandle ret = this->shader_light( *liqshader,  liqshader->tokenPointerArray );
 #ifdef RIBLIB_AQSIS
-			(const_cast<liqShader*>(liqshader))->shaderHandler.set( reinterpret_cast<ptrdiff_t>(static_cast<RtLightHandle>(ret)) );
+			(const_cast<liqShader*>(liqshader))->shaderHandler.set( reinterpret_cast<ptrdiff_t>(static_cast<liqLightHandle>(ret)) );
 #else
 			liqshader->shaderHandler.set( ret );
 #endif

@@ -381,14 +381,14 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
  *
  *  This is used to refer to RIB data that was previously written in the frame prologue.
  */
-inline RtObjectHandle liqRibObj::handle() const
+inline liqObjectHandle liqRibObj::handle() const
 {
   return objectHandle;
 }
 
 /** Set the RenderMan instance handle.
  */
-inline void liqRibObj::setHandle( RtObjectHandle handle )
+inline void liqRibObj::setHandle( liqObjectHandle handle )
 {
 	CM_TRACE_FUNC("liqRibObj::setHandle("<<handle<<")");
 
@@ -398,11 +398,11 @@ inline void liqRibObj::setHandle( RtObjectHandle handle )
 
 /** Return the RenderMan handle handle for this light.
  */
-RtLightHandle liqRibObj::lightHandle() const
+liqLightHandle liqRibObj::lightHandle() const
 {
   LIQDEBUGPRINTF( "-> creating light node handle rep\n");
   //assert( type == MRT_Light );
-  RtLightHandle lHandle( INVALID_LIGHT_INDEX );
+  liqLightHandle lHandle( INVALID_LIGHT_INDEX );
   if( type == MRT_Light ) {
     liqRibLightData* light( ( liqRibLightData* )data.get() );
     lHandle = light->lightHandle();

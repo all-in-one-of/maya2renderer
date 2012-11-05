@@ -43,7 +43,8 @@ using namespace std;
 
 // Renderman headers
 //extern "C" {
-#include "ri_interface.h"
+#include "liqtypes.h"
+//#include "ri_interface.h"
 //}
 
 // flags
@@ -570,7 +571,7 @@ MStatus RIClipping::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Clipping " ) + near_ + " " + far_ );
 	else
-		RiClipping( (RtFloat)near_, (RtFloat)far_ );
+		RiClipping( (liqFloat)near_, (liqFloat)far_ );
 
 	return redoIt();
 }
@@ -703,7 +704,7 @@ MStatus RIConcatTransform::doIt( const MArgList &args )
 			return MS::kSuccess;
 		}
 	}
-	RtMatrix mat;
+	liqMatrix mat;
 	unsigned k( 0 );
 	for( unsigned i( 0 ); i < 4; i++ )
 	{
@@ -791,7 +792,7 @@ MStatus RICropWindow::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: ScreenWindow " ) + xmin + " " + xmax + " " + ymin + " " + ymax );
 	else
-		RiCropWindow( (RtFloat)xmin, (RtFloat)xmax, (RtFloat)ymin, (RtFloat)ymax );
+		RiCropWindow( (liqFloat)xmin, (liqFloat)xmax, (liqFloat)ymin, (liqFloat)ymax );
 
 	return redoIt();
 }
@@ -856,7 +857,7 @@ MStatus RIDepthOfField::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: DepthOfField " ) + fstop + " " + focallength + " " + focaldistance);
 	else
-		RiDepthOfField( (RtFloat)fstop, (RtFloat)focallength , (RtFloat)focaldistance );
+		RiDepthOfField( (liqFloat)fstop, (liqFloat)focallength , (liqFloat)focaldistance );
 
 	return redoIt();
 }
@@ -1016,7 +1017,7 @@ MStatus RIDetailRange::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: DetailRange [" )+minvisible+" "+lowertransition+" "+uppertransition+" "+maxvisible+"]" );
 	else
-		RiDetailRange( (RtFloat)minvisible, (RtFloat)lowertransition, (RtFloat)uppertransition, (RtFloat)maxvisible );
+		RiDetailRange( (liqFloat)minvisible, (liqFloat)lowertransition, (liqFloat)uppertransition, (liqFloat)maxvisible );
 
 	return redoIt();
 }
@@ -1468,7 +1469,7 @@ MStatus RIFormat::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Format " ) + xresolution + " " + yresolution + " " + pixelaspectratio );
 	else
-		RiFormat( (RtInt)xresolution, (RtInt)yresolution, (RtFloat)pixelaspectratio );
+		RiFormat( (liqInt)xresolution, (liqInt)yresolution, (liqFloat)pixelaspectratio );
 
 	return redoIt();
 }
@@ -1621,7 +1622,7 @@ MStatus RIGeometricApproximation::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: GeometricApproximation \"" ) + type + "\" " + value );
 	else
-		RiGeometricApproximation( (RtToken)type.asChar(), (RtFloat)value );
+		RiGeometricApproximation( (liqToken)type.asChar(), (liqFloat)value );
 
 	return redoIt();
 }
@@ -1904,7 +1905,7 @@ MStatus RIIlluminate::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Illuminate " ) + sequencenumber + " " + onoff );
 	else
-		RiIlluminate( (RtLightHandle)sequencenumber, (RtBoolean)onoff );
+		RiIlluminate( (liqLightHandle)sequencenumber, (RtBoolean)onoff );
 
 	return redoIt();
 }
@@ -2192,7 +2193,7 @@ MStatus RIMotionBegin::doIt( const MArgList &args )
 		return MS::kSuccess;
 	}
 
-	scoped_array< RtFloat > values( new RtFloat[ number ] );
+	scoped_array< liqFloat > values( new liqFloat[ number ] );
 	MString call( MString( "RiMotionBegin [ " ) + number + " " );
 	for( unsigned i( 0 ); i < number; i++ )
 	{
@@ -2546,7 +2547,7 @@ MStatus RIOrientation::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Orientation \"" ) + orientation + "\"" );
 	else
-		RiOrientation( (RtToken)orientation.asChar() );
+		RiOrientation( (liqToken)orientation.asChar() );
 
 	return redoIt();
 }
@@ -2603,7 +2604,7 @@ MStatus RIPixelSamples::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: PixelSamples " ) + xsamples + " " + ysamples );
 	else
-		RiPixelSamples( (RtFloat)xsamples, (RtFloat)ysamples );
+		RiPixelSamples( (liqFloat)xsamples, (liqFloat)ysamples );
 
 	return redoIt();
 }
@@ -2851,7 +2852,7 @@ MStatus RIReadArchive::doIt( const MArgList &args )
 	if( isTest && !isInline )
 		MGlobal::displayInfo( MString( "RIB output: ReadArchive \"" ) + archiveName.asChar() + "\"" );
 	else if( !isInline )
-		RiReadArchive( const_cast< RtToken >( archiveName.asChar() ), NULL, RI_NULL );
+		RiReadArchive( const_cast< liqToken >( archiveName.asChar() ), NULL, RI_NULL );
 	else
 	{
 		const char *fileName = archiveName.asChar();
@@ -2935,7 +2936,7 @@ MStatus RIRelativeDetail::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: RelativeDetail " ) + relativedetail );
 	else
-		RiRelativeDetail( (RtFloat)relativedetail );
+		RiRelativeDetail( (liqFloat)relativedetail );
 
 	return redoIt();
 }
@@ -3234,7 +3235,7 @@ MStatus RIRotate::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Rotate " ) + angle + " " + dx + " " + dy + " " + dz );
 	else
-		RiRotate( (RtFloat)angle, (RtFloat)dx, (RtFloat)dy, (RtFloat)dz );
+		RiRotate( (liqFloat)angle, (liqFloat)dx, (liqFloat)dy, (liqFloat)dz );
 
 	return redoIt();
 }
@@ -3298,7 +3299,7 @@ MStatus RIScale::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Scale " ) + sx + " " + sy + " " + sz );
 	else
-		RiScale( (RtFloat)sx, (RtFloat)sy, (RtFloat)sz );
+		RiScale( (liqFloat)sx, (liqFloat)sy, (liqFloat)sz );
 
 	return redoIt();
 }
@@ -3369,7 +3370,7 @@ MStatus RIScreenWindow::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: ScreenWindow " ) + left + " " + right + " " + bot + " " + top );
 	else
-		RiScreenWindow( (RtFloat)left, (RtFloat)right, (RtFloat)bot, (RtFloat)top );
+		RiScreenWindow( (liqFloat)left, (liqFloat)right, (liqFloat)bot, (liqFloat)top );
 
 	return redoIt();
 }
@@ -3419,7 +3420,7 @@ MStatus RIShadingInterpolation::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: ShadingInterpolation \"" ) + type );
 	else
-		RiShadingInterpolation( (RtToken)type.asChar() );
+		RiShadingInterpolation( (liqToken)type.asChar() );
 
 	return redoIt();
 }
@@ -3469,7 +3470,7 @@ MStatus RIShadingRate::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: ShadingRate " ) + size );
 	else
-		RiShadingRate( (RtFloat)size );
+		RiShadingRate( (liqFloat)size );
 
 	return redoIt();
 }
@@ -3526,7 +3527,7 @@ MStatus RIShutter::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Shutter " ) + min + " " + max );
 	else
-		RiShutter( (RtFloat)min, (RtFloat)max );
+		RiShutter( (liqFloat)min, (liqFloat)max );
 
 	return redoIt();
 }
@@ -3576,7 +3577,7 @@ MStatus RISides::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Sides " ) + sides );
 	else
-		RiSides( (RtInt)sides );
+		RiSides( (liqInt)sides );
 
 	return redoIt();
 }
@@ -3667,7 +3668,7 @@ MStatus RISkew::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Skew " )+angle+" "+dx1+" "+dy1+" "+dz1+" "+dx2+" "+dy2+" "+dz2 );
 	else
-		RiSkew( (RtFloat)angle, (RtFloat)dx1, (RtFloat)dy1, (RtFloat)dz1, (RtFloat)dx2, (RtFloat)dy2, (RtFloat) dz2 );
+		RiSkew( (liqFloat)angle, (liqFloat)dx1, (liqFloat)dy1, (liqFloat)dz1, (liqFloat)dx2, (liqFloat)dy2, (liqFloat) dz2 );
 
 	return redoIt();
 }
@@ -4118,7 +4119,7 @@ MStatus RITranslate::doIt( const MArgList &args )
 	if( isTest )
 		MGlobal::displayInfo( MString( "RIB output: Translate " ) + dx + " " + dy + " " + dz );
 	else
-		RiTranslate( (RtFloat)dx, (RtFloat)dy, (RtFloat)dz );
+		RiTranslate( (liqFloat)dx, (liqFloat)dy, (liqFloat)dz );
 
 	return redoIt();
 }

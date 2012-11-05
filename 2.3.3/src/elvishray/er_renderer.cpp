@@ -256,7 +256,7 @@ namespace elvishray
 
 		MMatrix matrix;
 		matrix = ribNode__->object( sample_first )->matrix( ribNode__->path().instanceNumber() );
-		RtMatrix m;		
+		liqMatrix m;		
 		IfMErrorWarn(matrix.get(m));
 		_S( ei_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] ) );
 		
@@ -575,7 +575,7 @@ namespace elvishray
 		MFnDagNode transform (transformNode, &status);
 		IfMErrorWarn(status);
 		MTransformationMatrix   m0(transform.transformationMatrix());
-		RtMatrix m;		
+		liqMatrix m;		
 		IfMErrorWarn(m0.asMatrix().get(m));
 
 		bool bDepthOfField;//enable DOF on this camera?

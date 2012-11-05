@@ -225,22 +225,23 @@ void getLimitsParameters(const MFnDependencyNode& rGlobalNode)
 }
 void writeLimitsOptions()
 {
-	if( liqglo.bucketSize != 0 )    
-		RiOption( "limits", "bucketsize", ( RtPointer ) &liqglo.bucketSize, RI_NULL );
-	if( liqglo.gridSize != 0 )      
-		RiOption( "limits", "gridsize", ( RtPointer ) &liqglo.gridSize, RI_NULL );
-	if( liqglo.textureMemory != 0 ) 
-		RiOption( "limits", "texturememory", ( RtPointer) &liqglo.textureMemory, RI_NULL );
-	if( liqglo.liquidRenderer.supports_EYESPLITS ) 
-		RiOption( "limits", "eyesplits", ( RtPointer ) &liqglo.eyeSplits, RI_NULL );
-
-	if(liqglo.liquidRenderer.renderName == MString("PRMan") || liqglo.liquidRenderer.renderName == MString("3Delight") )
-	{
-		RtColor othresholdC = {liqglo.othreshold[0], liqglo.othreshold[1], liqglo.othreshold[2]};
-		RiOption( "limits", "othreshold", &othresholdC, RI_NULL );
-		RtColor zthresholdC = {liqglo.zthreshold[0], liqglo.zthreshold[1], liqglo.zthreshold[2]};
-		RiOption( "limits", "zthreshold", &zthresholdC, RI_NULL );
-	}
+// moved to renderman::Renderer::writeLimitsOptions()
+// 	if( liqglo.bucketSize != 0 )    
+// 		RiOption( "limits", "bucketsize", ( liqPointer ) &liqglo.bucketSize, RI_NULL );
+// 	if( liqglo.gridSize != 0 )      
+// 		RiOption( "limits", "gridsize", ( liqPointer ) &liqglo.gridSize, RI_NULL );
+// 	if( liqglo.textureMemory != 0 ) 
+// 		RiOption( "limits", "texturememory", ( liqPointer) &liqglo.textureMemory, RI_NULL );
+// 	if( liqglo.liquidRenderer.supports_EYESPLITS ) 
+// 		RiOption( "limits", "eyesplits", ( liqPointer ) &liqglo.eyeSplits, RI_NULL );
+// 
+// 	if(liqglo.liquidRenderer.renderName == MString("PRMan") || liqglo.liquidRenderer.renderName == MString("3Delight") )
+// 	{
+// 		liqColor othresholdC = {liqglo.othreshold[0], liqglo.othreshold[1], liqglo.othreshold[2]};
+// 		RiOption( "limits", "othreshold", &othresholdC, RI_NULL );
+// 		liqColor zthresholdC = {liqglo.zthreshold[0], liqglo.zthreshold[1], liqglo.zthreshold[2]};
+// 		RiOption( "limits", "zthreshold", &zthresholdC, RI_NULL );
+// 	}
 }
 //
 //
@@ -262,18 +263,19 @@ void getStatisticsParameters(const MFnDependencyNode& rGlobalNode)
 }
 void writeStatisticsOptions()
 {
-		if( liqglo.m_statistics != 0 )  
-		{
-			if( liqglo.m_statistics < 4 ) 
-				RiOption( "statistics", "endofframe", ( RtPointer ) &liqglo.m_statistics, RI_NULL );
-			else 
-			{
-				//cout <<"xml stats "<<endl;
-				int stats = 1;
-				RiOption( "statistics", "int endofframe", ( RtPointer ) &stats, RI_NULL );
-				RiArchiveRecord( RI_VERBATIM, "Option \"statistics\" \"xmlfilename\" [\"%s\"]\n", const_cast< char* > ( liqglo.m_statisticsFile.asChar() ) );
-			}
-		}
+// moved to renderman::Renderer::writeStatisticsOptions()
+// 		if( liqglo.m_statistics != 0 )  
+// 		{
+// 			if( liqglo.m_statistics < 4 ) 
+// 				RiOption( "statistics", "endofframe", ( liqPointer ) &liqglo.m_statistics, RI_NULL );
+// 			else 
+// 			{
+// 				//cout <<"xml stats "<<endl;
+// 				int stats = 1;
+// 				RiOption( "statistics", "int endofframe", ( liqPointer ) &stats, RI_NULL );
+// 				RiArchiveRecord( RI_VERBATIM, "Option \"statistics\" \"xmlfilename\" [\"%s\"]\n", const_cast< char* > ( liqglo.m_statisticsFile.asChar() ) );
+// 			}
+// 		}
 }
 //
 void initOtherParameters()

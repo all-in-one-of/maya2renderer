@@ -61,13 +61,13 @@ public:
 private: // Data
 #endif
  //   void       _write(const structJob &currentJob);
-    RtInt ncurves;
-	boost::shared_array< RtInt >   nverts;
-    boost::shared_array< RtFloat > CVs;
-    boost::shared_array< RtFloat > normals;
-    boost::shared_array< RtFloat > curveWidth;
-    boost::shared_array< RtFloat > cvColor;
-	boost::shared_array< RtFloat > cvOpacity;
+    liqInt ncurves;
+	boost::shared_array< liqInt >   nverts;
+    boost::shared_array< liqFloat > CVs;
+    boost::shared_array< liqFloat > normals;
+    boost::shared_array< liqFloat > curveWidth;
+    boost::shared_array< liqFloat > cvColor;
+	boost::shared_array< liqFloat > cvOpacity;
 
 private:
 	liqRibPfxHairData(const liqRibPfxHairData&);

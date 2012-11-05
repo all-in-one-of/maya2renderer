@@ -36,7 +36,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqIOStream.h>
 #include <liqRibTranslator.h>
-#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 #include <liqGlobalVariable.h>
 
 // RI_VERBATIM is in the current RenderMan spec but

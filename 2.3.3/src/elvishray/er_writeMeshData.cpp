@@ -60,7 +60,7 @@ namespace elvishray
 			}
 		}
 		assert( !vertex.empty() );
-		const RtFloat* vertex_buf = vertex.getTokenFloatArray();
+		const liqFloat* vertex_buf = vertex.getTokenFloatArray();
 
 		MFnMesh fnMesh(mesh->objDagPath, &status);
 		IfMErrorWarn(status);

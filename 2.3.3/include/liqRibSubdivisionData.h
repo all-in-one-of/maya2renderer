@@ -45,16 +45,16 @@
 #define liqSubdivStructs_H
 
 typedef struct tagPolyEdgeIndx {
-    RtInt	vtx0;
-    RtInt	vtx1;
+    liqInt	vtx0;
+    liqInt	vtx1;
 } PolyEdgeIndx;
 
-typedef RtInt PolyVertexIndx;
-typedef RtInt PolyFaceIndx;
+typedef liqInt PolyVertexIndx;
+typedef liqInt PolyFaceIndx;
 
 typedef struct tagSbdExtraTag {
-    RtFloat	value;		// hardness for creases and corners
-    RtInt	length;		// number of elements
+    liqFloat	value;		// hardness for creases and corners
+    liqInt	length;		// number of elements
     union tagExtraData {
         PolyEdgeIndx	*edges;
         PolyVertexIndx	*vertices;
@@ -79,25 +79,25 @@ public: // Methods
 
 //private: // Data
   //void       _write(const structJob &currentJob);
-  RtInt     numFaces;
-  RtInt     numPoints;
-  boost::shared_array< RtInt > nverts;
-  boost::shared_array< RtInt > verts;
-  const RtFloat* vertexParam;
+  liqInt     numFaces;
+  liqInt     numPoints;
+  boost::shared_array< liqInt > nverts;
+  boost::shared_array< liqInt > verts;
+  const liqFloat* vertexParam;
 
   DetailType uvDetail;
   bool trueFacevarying;
 
   MString   name;
   MString   longName;
-  RtMatrix  transformationMatrix;
+  liqMatrix  transformationMatrix;
 
   int interpolateBoundary; // Now an integer from PRMan 12/3Delight 6
 
-  std::vector <RtToken> v_tags;
-  std::vector <RtInt>   v_nargs;
-  std::vector <RtInt>   v_intargs;
-  std::vector <RtFloat> v_floatargs;
+  std::vector <liqToken> v_tags;
+  std::vector <liqInt>   v_nargs;
+  std::vector <liqInt>   v_intargs;
+  std::vector <liqFloat> v_floatargs;
 
   void checkExtraTags( MObject &mesh );
   void addExtraTags( MObject &mesh, SBD_EXTRA_TAG extraTag );

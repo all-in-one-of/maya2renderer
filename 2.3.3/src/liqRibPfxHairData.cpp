@@ -109,7 +109,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
 
       if( ncurves > 0 ) {
 
-        nverts = shared_array< RtInt >( new RtInt[ ncurves ] );
+        nverts = shared_array< liqInt >( new liqInt[ ncurves ] );
 
         // Calculate storage requirments.
         // This is a lot more efficient than all those reallocs()
@@ -124,7 +124,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
         }
 
         // Allocate memory
-        CVs = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices ] );
+        CVs = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices ] );
         if ( !CVs ) 
         {
           //MString err( "liqRibPfxHairData failed to allocate CV memory!" );
@@ -134,7 +134,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
           return;
         }
 
-        normals = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices * 3 ] );
+        normals = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices * 3 ] );
         if( !normals ) 
         {
           //MString err( "liqRibPfxHairData failed to allocate normal memory!" );
@@ -144,7 +144,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
           return;
         }
 
-        curveWidth = shared_array< RtFloat >( new RtFloat[ totalNumberOfSpans ] );
+        curveWidth = shared_array< liqFloat >( new liqFloat[ totalNumberOfSpans ] );
         if( !curveWidth ) 
         {
           //MString err( "liqRibPfxHairData failed to allocate per vertex width memory!" );
@@ -154,7 +154,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
           return;
         }
 
-        cvColor = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices * 3 ] );
+        cvColor = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices * 3 ] );
         if( !cvColor ) 
         {
           //MString err( "liqRibPfxHairData failed to allocate CV color memory!" );
@@ -164,7 +164,7 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
           return;
         }
 
-        cvOpacity = shared_array< RtFloat >( new RtFloat[ totalNumberOfVertices * 3 ] );
+        cvOpacity = shared_array< liqFloat >( new liqFloat[ totalNumberOfVertices * 3 ] );
         if( !cvOpacity ) 
         {
           //MString err( "liqRibPfxHairData failed to allocate CV opacity memory !" );
@@ -174,11 +174,11 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
           return;
         }
 
-        RtFloat* cvPtr;
-        RtFloat* normalPtr;
-        RtFloat* widthPtr;
-        RtFloat* colorPtr;
-        RtFloat* opacityPtr;
+        liqFloat* cvPtr;
+        liqFloat* normalPtr;
+        liqFloat* widthPtr;
+        liqFloat* colorPtr;
+        liqFloat* opacityPtr;
 
         totalNumberOfVertices = 0;
         for( unsigned i( 0 ); i < ncurves; i++ ) 
@@ -205,50 +205,50 @@ liqRibPfxHairData::liqRibPfxHairData( MObject pfxHair )
             colorPtr   = cvColor.get()    + ( totalNumberOfVertices * 3 - nverts[ i ] * 3 );
             opacityPtr = cvOpacity.get()  + ( totalNumberOfVertices * 3 - nverts[ i ] * 3 );
 
-            *cvPtr++      = ( RtFloat )vertex[ vertIndex ].x;
-            *cvPtr++      = ( RtFloat )vertex[ vertIndex ].y;
-            *cvPtr++      = ( RtFloat )vertex[ vertIndex ].z;
+            *cvPtr++      = ( liqFloat )vertex[ vertIndex ].x;
+            *cvPtr++      = ( liqFloat )vertex[ vertIndex ].y;
+            *cvPtr++      = ( liqFloat )vertex[ vertIndex ].z;
 
-            *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].x;
-            *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].y;
-            *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].z;
+            *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].x;
+            *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].y;
+            *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].z;
 
-            *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].x );
-            *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].y );
-            *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].z );
+            *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].x );
+            *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].y );
+            *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].z );
 
             for ( ; vertIndex < vertex.length(); vertIndex++ ) 
             {
-              *cvPtr++      = ( RtFloat )vertex[ vertIndex ].x;
-              *cvPtr++      = ( RtFloat )vertex[ vertIndex ].y;
-              *cvPtr++      = ( RtFloat )vertex[ vertIndex ].z;
+              *cvPtr++      = ( liqFloat )vertex[ vertIndex ].x;
+              *cvPtr++      = ( liqFloat )vertex[ vertIndex ].y;
+              *cvPtr++      = ( liqFloat )vertex[ vertIndex ].z;
 
-              *normalPtr++  = ( RtFloat )twist[ vertIndex ].x;
-              *normalPtr++  = ( RtFloat )twist[ vertIndex ].y;
-              *normalPtr++  = ( RtFloat )twist[ vertIndex ].z;
+              *normalPtr++  = ( liqFloat )twist[ vertIndex ].x;
+              *normalPtr++  = ( liqFloat )twist[ vertIndex ].y;
+              *normalPtr++  = ( liqFloat )twist[ vertIndex ].z;
 
-              *widthPtr++   = ( RtFloat )width[ vertIndex ];
+              *widthPtr++   = ( liqFloat )width[ vertIndex ];
 
-              *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].x;
-              *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].y;
-              *colorPtr++   = ( RtFloat )vertexColor[ vertIndex ].z;
+              *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].x;
+              *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].y;
+              *colorPtr++   = ( liqFloat )vertexColor[ vertIndex ].z;
 
-              *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].x );
-              *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].y );
-              *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex ].z );
+              *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].x );
+              *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].y );
+              *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex ].z );
             }
 
             *cvPtr++ = ( float )vertex[ vertIndex - 1 ].x;
             *cvPtr++ = ( float )vertex[ vertIndex - 1 ].y;
             *cvPtr++ = ( float )vertex[ vertIndex - 1 ].z;
 
-            *colorPtr++ = ( RtFloat )vertexColor[ vertIndex - 1 ].x;
-            *colorPtr++ = ( RtFloat )vertexColor[ vertIndex - 1 ].y;
-            *colorPtr++ = ( RtFloat )vertexColor[ vertIndex - 1 ].z;
+            *colorPtr++ = ( liqFloat )vertexColor[ vertIndex - 1 ].x;
+            *colorPtr++ = ( liqFloat )vertexColor[ vertIndex - 1 ].y;
+            *colorPtr++ = ( liqFloat )vertexColor[ vertIndex - 1 ].z;
 
-            *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex-1 ].x );
-            *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex-1 ].y );
-            *opacityPtr++ = ( RtFloat )( 1.0f - vertexTransparency[ vertIndex-1 ].z );
+            *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex-1 ].x );
+            *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex-1 ].y );
+            *opacityPtr++ = ( liqFloat )( 1.0f - vertexTransparency[ vertIndex-1 ].z );
           }
         }
 

@@ -536,7 +536,7 @@ public:
 		const bool m_shaderDebug, const liqRibNodePtr &ribNode__
 		);
 	void getPfxHairData(const MDagPath &path__,
-		RtFloat &translucence, RtFloat &specularPower, RtColor &specularColor
+		liqFloat &translucence, liqFloat &specularPower, liqColor &specularColor
 		);
 	//
 	MStatus _doItNewWithoutRenderScript(const MArgList& args , const MString& originalLayer );

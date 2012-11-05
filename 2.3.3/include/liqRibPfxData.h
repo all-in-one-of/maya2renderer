@@ -65,8 +65,8 @@ private: // Data
   unsigned                grain;
   bool                    hasFeature[ 3 ];
   ObjectType			  pfxtype;
-  std::vector< RtInt >         nverts[ 3 ];
-  boost::shared_array< RtFloat > CVs;
+  std::vector< liqInt >         nverts[ 3 ];
+  boost::shared_array< liqFloat > CVs;
   liqTokenPointer::array pfxTokenPointerArrays[ 3 ];
 
 private:

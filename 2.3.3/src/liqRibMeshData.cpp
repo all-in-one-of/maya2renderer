@@ -140,8 +140,8 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
 
   // Allocate memory and tokens
   numFaces = numFaces;
-  nverts = shared_array< RtInt >( new RtInt[ numFaces ] );
-  verts = shared_array< RtInt >( new RtInt[ numFaceVertices ] );
+  nverts = shared_array< liqInt >( new liqInt[ numFaces ] );
+  verts = shared_array< liqInt >( new liqInt[ numFaceVertices ] );
 
   pointsPointerPair.set( "P", rPoint, numPoints );
   pointsPointerPair.setDetailType( rVertex );
@@ -346,7 +346,7 @@ liqRibMeshData::liqRibMeshData( MObject mesh )
 void liqRibMeshData::printMesh()
 {
 	int i;
-    scoped_array< RtInt > nloops( new RtInt[ numFaces ] );
+    scoped_array< liqInt > nloops( new liqInt[ numFaces ] );
 	unsigned numTokens( tokenPointerArray.size() );
 
 	LIQDEBUGPRINTF("numFace %d \n", numFaces);
@@ -358,7 +358,7 @@ void liqRibMeshData::printMesh()
 	LIQDEBUGPRINTF("]\n");
 
 	int nvertsSize = nverts.use_count();
-	RtInt *nvertsPtr = nverts.get();
+	liqInt *nvertsPtr = nverts.get();
 	LIQDEBUGPRINTF("nverts (%d) [ ", nvertsSize);
 	for(i=0; i<nvertsSize; i++)
 	{
@@ -368,7 +368,7 @@ void liqRibMeshData::printMesh()
 
 
 	int vertsSize = verts.use_count();
-	RtInt *vertsPtr = verts.get();
+	liqInt *vertsPtr = verts.get();
 	LIQDEBUGPRINTF("nverts (%d) [ ", vertsSize);
 	for(i=0; i<vertsSize; i++)
 	{
@@ -432,10 +432,10 @@ void liqRibMeshData::write(const MString &ribFileName, const structJob &currentJ
 //		//
 //		// Each loop has one polygon, so we just want an array of 1's of
 //		// the correct size. Stack version.
-//		//vector< RtInt > nloops( numFaces, 1 );
+//		//vector< liqInt > nloops( numFaces, 1 );
 //		// Alternatively (heap version):
-//		boost::scoped_array< RtInt > nloops( new RtInt[ this->getNumFaces() ] );
-//		std::fill( nloops.get(), nloops.get() + this->getNumFaces(), ( RtInt )1 );
+//		boost::scoped_array< liqInt > nloops( new liqInt[ this->getNumFaces() ] );
+//		std::fill( nloops.get(), nloops.get() + this->getNumFaces(), ( liqInt )1 );
 //
 //		unsigned numTokens( this->tokenPointerArray.size() );
 //		boost::scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
@@ -460,10 +460,10 @@ void liqRibMeshData::write(const MString &ribFileName, const structJob &currentJ
 //		//
 //		// Each loop has one polygon, so we just want an array of 1's of
 //		// the correct size. Stack version.
-//		//vector< RtInt > nloops( numFaces, 1 );
+//		//vector< liqInt > nloops( numFaces, 1 );
 //		// Alternatively (heap version):
-//		boost::scoped_array< RtInt > nloops( new RtInt[ this->getNumFaces() ] );
-//		std::fill( nloops.get(), nloops.get() + this->getNumFaces(), ( RtInt )1 );
+//		boost::scoped_array< liqInt > nloops( new liqInt[ this->getNumFaces() ] );
+//		std::fill( nloops.get(), nloops.get() + this->getNumFaces(), ( liqInt )1 );
 //
 //		unsigned numTokens( this->tokenPointerArray.size() );
 //		boost::scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );

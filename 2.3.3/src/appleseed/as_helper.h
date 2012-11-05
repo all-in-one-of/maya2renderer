@@ -4,7 +4,7 @@
 #pragma once
 //#ifndef _AS_Helper_H
 //#define _AS_Helper_H
-#include "../liqtypes.h"
+#include "liqtypes.h"
 #include "prerequest_as.h"
 /* ______________________________________________________________________
 **

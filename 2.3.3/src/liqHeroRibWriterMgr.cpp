@@ -6,6 +6,7 @@
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 #include "shadergraph/shadermgr.h"
+//#include "ri_interface.h"
 
 tHeroRibWriterMgr::tHeroRibWriterMgr()
 {
@@ -72,14 +73,14 @@ struct liqGlobalVariable &liqglo___,
 }
 //
 //
-void tHeroRibWriterMgr::ribPrologue_samples(RtFloat xsamples, RtFloat ysamples)
+void tHeroRibWriterMgr::ribPrologue_samples(liqFloat xsamples, liqFloat ysamples)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::ribPrologue_samples("<<xsamples<<","<<ysamples<<")");
 
 	RiPixelSamples( xsamples, ysamples );
 }
 //
-void tHeroRibWriterMgr::ribPrologue_shadingrate(RtFloat size)
+void tHeroRibWriterMgr::ribPrologue_shadingrate(liqFloat size)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::ribPrologue_shadingrate("<<size<<")");
 
@@ -88,7 +89,7 @@ void tHeroRibWriterMgr::ribPrologue_shadingrate(RtFloat size)
 //
 void tHeroRibWriterMgr::ribPrologue_filter(
 	liquidlong m_rFilter,
-	RtFloat m_rFilterX, RtFloat m_rFilterY)
+	liqFloat m_rFilterX, liqFloat m_rFilterY)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::ribPrologue_filter("<<m_rFilter<<","<<m_rFilterX<<","<<m_rFilterY<<")");
 
@@ -143,7 +144,7 @@ void tHeroRibWriterMgr::ribPrologue_hider(HiderType hidertype)
 	CM_TRACE_FUNC("tHeroRibWriterMgr::ribPrologue_hider("<<hidertype<<")");
 				
 	//[refactor 8] 
-	RtString hiderName;
+	liqString hiderName;
 	switch( hidertype ) 
 	{
 	case htPhoton:
@@ -170,11 +171,11 @@ void tHeroRibWriterMgr::ribPrologue_hider(HiderType hidertype)
 	//[refactor 8]
 }
 //
-void tHeroRibWriterMgr::ribPrologue_pass(RtString pass)
+void tHeroRibWriterMgr::ribPrologue_pass(liqString pass)
 {
 	CM_TRACE_FUNC("tHeroRibWriterMgr::ribPrologue_pass("<<pass<<")");
 
-	RiOption( "user", "string pass", ( RtPointer )&pass, RI_NULL );	
+	RiOption( "user", "string pass", ( liqPointer )&pass, RI_NULL );	
 }
 //
 void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
@@ -255,8 +256,8 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 				while ( m_channels_iterator != liqglo.m_channels.end() ) 
 				{
 					int       numTokens = 0;
-					RtToken   tokens[5];
-					RtPointer values[5];
+					liqToken   tokens[5];
+					liqPointer values[5];
 
 					std::stringstream channel;
 					char* filter;
@@ -281,7 +282,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						quantize[0] = quantize[2] = 0;
 						quantize[1] = quantize[3] = max;
 						tokens[ numTokens ] = "int[4] quantize";
-						values[ numTokens ] = (RtPointer)quantize;
+						values[ numTokens ] = (liqPointer)quantize;
 						numTokens++;
 #if !defined( GENERIC_RIBLIB )               
 					}
@@ -305,13 +306,13 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s\n", pixFilter.asChar() );
 
 						tokens[ numTokens ] = "string filter";
-						values[ numTokens ] = ( RtPointer )&filter;
+						values[ numTokens ] = ( liqPointer )&filter;
 						numTokens++;
 
 						filterwidth[0] = m_channels_iterator->pixelFilterX;
 						filterwidth[1] = m_channels_iterator->pixelFilterY;
 						tokens[ numTokens ] = "float filterwidth[2]";
-						values[ numTokens ] = ( RtPointer )filterwidth;
+						values[ numTokens ] = ( liqPointer )filterwidth;
 						numTokens++;
 #if !defined( GENERIC_RIBLIB )               
 					}
@@ -324,7 +325,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 
 #if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
 					//if( liquidRenderer.renderName == MString("PRMan") )
-					RiDisplayChannelV( ( RtToken )channel.str().c_str(), numTokens, tokens, values );
+					RiDisplayChannelV( ( liqToken )channel.str().c_str(), numTokens, tokens, values );
 					if( channel.str() == "color Ci" )
 					{
 						isCiDeclared = 1;
@@ -343,12 +344,12 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 #if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
 				if ( liqRibTranslator::getInstancePtr()->m_isStereoCamera && currentJob.pass != rpShadowMap )
 				{
-					RtToken   *emptyTokens = NULL;
-					RtPointer *emptyValues = NULL;
+					liqToken   *emptyTokens = NULL;
+					liqPointer *emptyValues = NULL;
 					if ( !isCiDeclared ) 
-						RiDisplayChannelV( ( RtToken )"color Ci", 0, emptyTokens, emptyValues );
+						RiDisplayChannelV( ( liqToken )"color Ci", 0, emptyTokens, emptyValues );
 					if ( !isADeclared ) 
-						RiDisplayChannelV( ( RtToken )"float a", 0, emptyTokens, emptyValues );
+						RiDisplayChannelV( ( liqToken )"float a", 0, emptyTokens, emptyValues );
 				}
 #endif
 			}//if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 

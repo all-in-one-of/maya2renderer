@@ -144,10 +144,10 @@ namespace appleseed
 			//todo
 		
 			// read other attributes from the lines
-			boost::shared_array< RtFloat > uniformCurveWidth(  new RtFloat[ numLines ] );
-			boost::shared_array< RtFloat > curveWidth(         new RtFloat[ totalVarying ] );
-			RtFloat* uniformWidthPtr( uniformCurveWidth.get() );
-			RtFloat* widthPtr( curveWidth.get() );
+			boost::shared_array< liqFloat > uniformCurveWidth(  new liqFloat[ numLines ] );
+			boost::shared_array< liqFloat > curveWidth(         new liqFloat[ totalVarying ] );
+			liqFloat* uniformWidthPtr( uniformCurveWidth.get() );
+			liqFloat* widthPtr( curveWidth.get() );
 
 			bool hasUniformWidth( false );
 			bool hasWidth( false );

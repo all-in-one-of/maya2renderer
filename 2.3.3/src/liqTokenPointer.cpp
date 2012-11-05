@@ -32,7 +32,7 @@
 #include <sstream>
 
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 
 #include <liquid.h>
@@ -234,7 +234,7 @@ bool liqTokenPointer::set( const string& name, ParameterType ptype, unsigned int
 		// Check if we already got enough space
 		if( m_tokenSize < neededSize ) {
 			LIQDEBUGPRINTF("-> allocating memory 1 for: %s\n", name.c_str() );
-			m_tokenFloats = shared_array< RtFloat >( new RtFloat[ neededSize ] );
+			m_tokenFloats = shared_array< liqFloat >( new liqFloat[ neededSize ] );
 			if( ! m_tokenFloats ) {
 				m_tokenSize = 0;
 				cerr << "Error : liqTokenPointer out of memory for " << neededSize << " bytes" << endl;
@@ -243,7 +243,7 @@ bool liqTokenPointer::set( const string& name, ParameterType ptype, unsigned int
 			m_tokenSize = neededSize;
 		} else if( neededSize ) {
 			LIQDEBUGPRINTF("-> allocating memory 2 for: %s\n", name.c_str() );
-			m_tokenFloats = shared_array< RtFloat >( new RtFloat[ neededSize ] );
+			m_tokenFloats = shared_array< liqFloat >( new liqFloat[ neededSize ] );
 			if( ! m_tokenFloats ) {
 				cerr << "Error : liqTokenPointer out of memory for " << neededSize << " bytes" << endl;
 				return false;
@@ -292,7 +292,7 @@ int liqTokenPointer::reserve( unsigned int size )
 			if( m_isUArray )
 				neededSize *= m_uArraySize;
 			if( m_tokenSize < neededSize ) {
-				shared_array< RtFloat > tmp( new RtFloat[ neededSize ] );
+				shared_array< liqFloat > tmp( new liqFloat[ neededSize ] );
 				memcpy( tmp.get(), m_tokenFloats.get(), m_tokenSize );
 				m_tokenFloats = tmp;
 				m_tokenSize = neededSize;
@@ -325,21 +325,21 @@ ParameterType liqTokenPointer::getParameterType() const
 	return m_pType;
 }
 
-void liqTokenPointer::setTokenFloat( unsigned int i, RtFloat val )
+void liqTokenPointer::setTokenFloat( unsigned int i, liqFloat val )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloat(<<i<<","<<val<<)");
 	assert( m_tokenSize > i );
 	m_tokenFloats[i] = val;
 }
 
-void liqTokenPointer::setTokenFloat( unsigned int i, unsigned int uIndex, RtFloat val )
+void liqTokenPointer::setTokenFloat( unsigned int i, unsigned int uIndex, liqFloat val )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloat(<<i<<","<<uIndex<<","<<val<<)");
 	assert( m_tokenSize > ( i * m_uArraySize + uIndex ) );
 	setTokenFloat( i * m_uArraySize + uIndex, val );
 }
 
-void liqTokenPointer::setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFloat z )
+void liqTokenPointer::setTokenFloat( unsigned int i, liqFloat x, liqFloat y , liqFloat z )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloat(<<i<<","<<x<<","<<y<<","<<z<<")");
 	assert( m_tokenSize > ( m_eltSize * i + 2 ) );
@@ -350,41 +350,41 @@ void liqTokenPointer::setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFl
 
 
 
-void liqTokenPointer::setTokenFloats( const RtFloat* vals )
+void liqTokenPointer::setTokenFloats( const liqFloat* vals )
 {
-	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloats(const RtFloat* vals)");
+	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloats(const liqFloat* vals)");
 	LIQDEBUGPRINTF( "-> copying data\n" );
 	if( m_isArray || m_isUArray ) {
-		//m_tokenFloats = shared_array< RtFloat >( new RtFloat[ m_tokenSize ] );
-		memcpy( m_tokenFloats.get(), vals, m_tokenSize * sizeof( RtFloat) );
+		//m_tokenFloats = shared_array< liqFloat >( new liqFloat[ m_tokenSize ] );
+		memcpy( m_tokenFloats.get(), vals, m_tokenSize * sizeof( liqFloat) );
 	} else {
-		//m_tokenFloats = shared_array< RtFloat >( new RtFloat[ m_eltSize ] );
-		memcpy( m_tokenFloats.get(), vals, m_eltSize * sizeof( RtFloat) );
+		//m_tokenFloats = shared_array< liqFloat >( new liqFloat[ m_eltSize ] );
+		memcpy( m_tokenFloats.get(), vals, m_eltSize * sizeof( liqFloat) );
 	}
 }
 
-void liqTokenPointer::setTokenFloats( const shared_array< RtFloat > vals )
+void liqTokenPointer::setTokenFloats( const shared_array< liqFloat > vals )
 {
-	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloats(const shared_array< RtFloat > vals)");
+	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloats(const shared_array< liqFloat > vals)");
 
 	m_tokenFloats = vals;
 }
 
-const RtFloat* liqTokenPointer::getTokenFloatArray() const
+const liqFloat* liqTokenPointer::getTokenFloatArray() const
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getTokenFloatArray()");
 
 	return m_tokenFloats.get();
 }
 
-const shared_array< RtFloat > liqTokenPointer::getTokenFloatSharedArray() const
+const shared_array< liqFloat > liqTokenPointer::getTokenFloatSharedArray() const
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getTokenFloatSharedArray()");
 
 	return m_tokenFloats;
 }
 
-void liqTokenPointer::setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFloat z, RtFloat w )
+void liqTokenPointer::setTokenFloat( unsigned int i, liqFloat x, liqFloat y , liqFloat z, liqFloat w )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloat(<<i<<","<<x<<","<<y<<","<<z<<","<<w<<")");
 
@@ -395,7 +395,7 @@ void liqTokenPointer::setTokenFloat( unsigned int i, RtFloat x, RtFloat y , RtFl
 	m_tokenFloats[ m_eltSize * i + 3 ] = w;
 }
 
-void liqTokenPointer::setTokenFloat( unsigned int i, RtFloat x1, RtFloat y1 , RtFloat z1, RtFloat w1, RtFloat x2, RtFloat y2 , RtFloat z2, RtFloat w2, RtFloat x3, RtFloat y3 , RtFloat z3, RtFloat w3, RtFloat x4, RtFloat y4 , RtFloat z4, RtFloat w4 )
+void liqTokenPointer::setTokenFloat( unsigned int i, liqFloat x1, liqFloat y1 , liqFloat z1, liqFloat w1, liqFloat x2, liqFloat y2 , liqFloat z2, liqFloat w2, liqFloat x3, liqFloat y3 , liqFloat z3, liqFloat w3, liqFloat x4, liqFloat y4 , liqFloat z4, liqFloat w4 )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:setTokenFloat(<<i<<","<<x1<<","<<y1<<","<<z1<<"...)");
 	assert( m_tokenSize > ( m_eltSize * i + 15 ) );
@@ -479,37 +479,37 @@ const string& liqTokenPointer::getDetailedTokenName()
 	return detailedTokenName;
 }
 
-const RtPointer liqTokenPointer::getRtPointer()
+const liqPointer liqTokenPointer::getRtPointer()
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getRtPointer()");
 	if( m_pType == rString ) {
-		m_tokenStringArray = shared_array< RtString >( new RtString[ m_tokenString.size() ] );
+		m_tokenStringArray = shared_array< liqString >( new liqString[ m_tokenString.size() ] );
 
 		for( unsigned i( 0 ); i < m_tokenString.size(); i++ ) {
-			m_tokenStringArray[ i ] = const_cast< RtString >( m_tokenString[ i ].c_str() );
+			m_tokenStringArray[ i ] = const_cast< liqString >( m_tokenString[ i ].c_str() );
 		}
-		return ( RtPointer )m_tokenStringArray.get();
+		return ( liqPointer )m_tokenStringArray.get();
 	} else {
-		return ( RtPointer )m_tokenFloats.get();
+		return ( liqPointer )m_tokenFloats.get();
 	}
 }
 
 
-// Return a RtPointer for a token corresponding to the ith element of a primitive
-const RtPointer liqTokenPointer::getIthRtPointer( unsigned int i )
+// Return a liqPointer for a token corresponding to the ith element of a primitive
+const liqPointer liqTokenPointer::getIthRtPointer( unsigned int i )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getIthRtPointer("<<i<<")");
 	if( m_pType == rString ) {
 		assert( m_arraySize > i );
-		m_tokenStringArray = shared_array< RtString >( new RtString[ 1 ] );
-		m_tokenStringArray[ 0 ] = const_cast< RtString >( m_tokenString[ i ].c_str() );
-		return ( RtPointer )m_tokenStringArray.get();
+		m_tokenStringArray = shared_array< liqString >( new liqString[ 1 ] );
+		m_tokenStringArray[ 0 ] = const_cast< liqString >( m_tokenString[ i ].c_str() );
+		return ( liqPointer )m_tokenStringArray.get();
 	} else {
 		if( m_isArray || m_isUArray ) {
 			assert( m_tokenSize > ( m_eltSize * i ) );
-			return ( RtPointer ) ( m_tokenFloats.get() + m_eltSize * i);
+			return ( liqPointer ) ( m_tokenFloats.get() + m_eltSize * i);
 		} else {
-			return ( RtPointer )m_tokenFloats.get(); // uniform ...
+			return ( liqPointer )m_tokenFloats.get(); // uniform ...
 		}
 	}
 }

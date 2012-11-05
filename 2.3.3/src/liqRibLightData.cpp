@@ -1023,7 +1023,7 @@ ObjectType liqRibLightData::type() const
   return MRT_Light;
 }
 
-RtLightHandle liqRibLightData::lightHandle() const
+liqLightHandle liqRibLightData::lightHandle() const
 {
 	LIQDEBUGPRINTF( "-> returning light handle: " );
 	LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );

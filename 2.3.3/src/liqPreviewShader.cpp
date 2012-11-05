@@ -28,7 +28,7 @@
 #include <liqPreviewShader.h>
 // Renderman headers
 //extern "C" {
-#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 //}
 #ifdef _WIN32
   #include <process.h>

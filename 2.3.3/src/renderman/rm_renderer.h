@@ -371,6 +371,9 @@ namespace renderman
 		void writeRibAttributes(const liqShader* liqshader/*, SHADER_TYPE shaderType*/);
 		void shader_UserDefinedShader(const liqShader* liqshader, std::vector<MString> &yetExportedShaders/*, SHADER_TYPE forceAs*/);
 
+		void writeLimitsOptions();
+		void writeStatisticsOptions();
+
 	private:
 
 	};
