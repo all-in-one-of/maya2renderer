@@ -64,8 +64,8 @@ public:
   static void scaleZ_forRenderman(liqMatrix& desMatrix, const liqMatrix& srcMatrix);
 #endif
 
-private:
-  void       _write(const structJob &currentJob);
+//private:
+  //void       _write(const structJob &currentJob);
   MString       extraShadowName( const MFnDependencyNode & lightShaderNode, const int & index ) const;
 
   LightType     lightType;

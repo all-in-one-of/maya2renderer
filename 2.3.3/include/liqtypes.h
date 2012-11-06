@@ -29,6 +29,8 @@
 #ifndef LIQUID_TYPES_H_INCLUDED
 #define LIQUID_TYPES_H_INCLUDED
 
+#define INVALID_LIGHT_INDEX 0
+
 #ifdef __cplusplus
 extern	"C"
 {

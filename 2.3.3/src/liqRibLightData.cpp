@@ -479,529 +479,531 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 
 /** Write the RIB for this light.
  */
-void liqRibLightData::_write(const structJob &currentJob)
-{
-	CM_TRACE_FUNC("liqRibLightData::_write(job="<<currentJob.name.asChar()<<")");
-
-  if ( !excludeFromRib ) 
-  {
-    LIQDEBUGPRINTF( "-> writing light %s \n", lightName.asChar());
-
-	//RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrix ) );
-    if ( liqglo.liqglo_isShadowPass ) 
-    {
-      if ( usingShadow ) 
-      {
-        RtString sName( const_cast< char* >( shadowName.asChar() ) );
-        // Hmmmmm got to set a LIQUIDHOME env var and use it ...
-        // May be set relative name shadowPassLight and resolve path with RIB searchpath
-        // Moritz: solved through default shader searchpath in liqRibTranslator
-		handle = liquid::RendererMgr::getInstancePtr()->
-			getRenderer()->exportShadowPassLight("??", lightName.asChar(), sName, transformationMatrix);
-      }
-    } 
-    else 
-    {
-      RtString cat( const_cast< char* >( lightCategory.asChar() ) );
-
-      switch ( lightType ) 
-      {
-        case MRLT_Ambient:
-			handle = liquid::RendererMgr::getInstancePtr()->
-				getRenderer()->exportAmbientLight("???", lightName.asChar(), intensity, color, transformationMatrix);
-          break;
-        
-        case MRLT_Distant:
-			{
-				liqFloat    i_intensity = 1;
-				liqColor i_lightcolor;	setColor(i_lightcolor, 1.0);
-				assert(i_lightcolor[0] == 1.0f);
-				assert(i_lightcolor[1] == 1.0f);
-				assert(i_lightcolor[2] == 1.0f);
-				liqString i_shadowname = "";  /* shadow map name or "raytrace" for traced shadows */
-				liqFloat i_shadowbias = 0.01;
-				liqFloat i_shadowblur = 0.0;
-				liqFloat i_shadowsamples = 16; /* samples or rays */
-				liqFloat i_shadowfiltersize = 1;
-				liqColor i_shadowcolor;	setColor(i_shadowcolor, 0.0);
-				liqFloat  i_lightID=0;
-				liqString o_category="";
-				liqFloat o_shadowF = 0;
-				liqColor o_shadowC;	setColor(o_shadowC, 0.0);
-				liqColor o_unshadowed_Cl;	setColor(o_unshadowed_Cl, 0.0);
-				liqFloat o_nondiffuse = 0;  /* set to 1 to exclude from diffuse light */
-				liqFloat o_nonspecular = 0; /* set to 1 to exclude from highlights */
-
-				if ( liqglo.liqglo_doShadows && usingShadow ) 
-				{
-					i_intensity = intensity;
-					setColor(i_lightcolor, color);
-					i_shadowname  = const_cast< char* >( shadowName.asChar() );
-					i_shadowfiltersize = rayTraced ? shadowRadius : shadowFilterSize;
-					i_shadowbias = shadowBias;
-					i_shadowsamples = shadowSamples;
-					i_shadowblur = shadowBlur;
-					setColor(i_shadowcolor, shadowColor);
-					o_nondiffuse = nonDiffuse;
-					o_nonspecular = nonSpecular;
-					o_category = cat;
-					i_lightID = lightID;
-				}else{
-					i_intensity = intensity;
-					setColor(i_lightcolor, color);
-					setColor(i_shadowcolor, shadowColor);
-					o_nondiffuse = nonDiffuse;
-					o_nonspecular = nonSpecular;
-					o_category = cat;
-					i_lightID = lightID;
-				}
-				handle = liquid::RendererMgr::getInstancePtr()->
-					getRenderer()->exportDistantLight(
-					"distantlight", 
-					lightName.asChar(),  
-					i_intensity,
-					i_lightcolor,
-					i_shadowname,
-					i_shadowbias,
-					i_shadowblur,
-					i_shadowsamples,
-					i_shadowfiltersize,
-					i_shadowcolor,
-					i_lightID,
-					o_category,
-					o_shadowF,
-					o_shadowC,
-					o_unshadowed_Cl,
-					o_nondiffuse,
-					o_nonspecular,
-					transformationMatrix
-					);
-			}
-          break;
-        
-        case MRLT_Point:
-			{
-					liqFloat    i_intensity = 1;
-					liqColor i_lightcolor;	setColor(i_lightcolor, 1);
-					liqFloat i_decay = 0;
-					liqString i_shadownamepx = "";
-					liqString i_shadownamenx = "";
-					liqString i_shadownamepy = "";
-					liqString i_shadownameny = "";
-					liqString i_shadownamepz = "";
-					liqString i_shadownamenz = "";
-					liqFloat i_shadowbias = 0.01;
-					liqFloat i_shadowblur = 0.0;
-					liqFloat i_shadowsamples = 16; /* samples or rays */
-					liqFloat i_shadowfiltersize = 1.0;
-					liqColor i_shadowcolor;	setColor(i_shadowcolor, 0.0);
-					liqFloat  i_lightID=0;
-					liqString o_category="";
-					liqFloat	o_shadowF = 0;
-					liqColor	o_shadowC;setColor(o_shadowC, 1.0);
-					liqColor	o_unshadowed_Cl;setColor(o_unshadowed_Cl, 0.0);
-					liqFloat o_nondiffuse = 0;  /* set to 1 to exclude from diffuse light */
-					liqFloat o_nonspecular = 0; /* set to 1 to exclude from highlights */
-
-			  if ( liqglo.liqglo_doShadows && usingShadow ) 
-			  {
-				  liqFloat    i_intensity = intensity;
-				  setColor(i_lightcolor, color);
-				  i_decay = decay;
-				  {
-					  MString	px = rayTraced ? "raytrace" : autoShadowName( pPX );
-					  MString	nx = rayTraced ? "raytrace" : autoShadowName( pNX );
-					  MString	py = rayTraced ? "raytrace" : autoShadowName( pPY );
-					  MString	ny = rayTraced ? "raytrace" : autoShadowName( pNY );
-					  MString	pz = rayTraced ? "raytrace" : autoShadowName( pPZ );
-					  MString	nz = rayTraced ? "raytrace" : autoShadowName( pNZ );
-					  i_shadownamepx = const_cast<char*>( px.asChar() );
-					  i_shadownamenx = const_cast<char*>( nx.asChar() );
-					  i_shadownamepy = const_cast<char*>( py.asChar() );
-					  i_shadownameny = const_cast<char*>( ny.asChar() );
-					  i_shadownamepz = const_cast<char*>( pz.asChar() );
-					  i_shadownamenz = const_cast<char*>( nz.asChar() );
-				  }
-				  i_shadowbias = shadowBias;
-				  i_shadowblur = shadowBlur;
-				  i_shadowsamples = shadowSamples; /* samples or rays */
-				  i_shadowfiltersize = rayTraced ? shadowRadius : shadowFilterSize;
-				  setColor(i_shadowcolor, shadowColor);
-				  i_lightID = lightID;
-				  o_category=cat;
-				  o_nondiffuse = nonDiffuse;  /* set to 1 to exclude from diffuse light */
-				  o_nonspecular = nonSpecular; /* set to 1 to exclude from highlights */
-			  }else{
-					i_intensity = intensity;
-					setColor(i_lightcolor, color);
-					i_decay = decay;
-					setColor(i_shadowcolor, shadowColor);
-					i_lightID = lightID;					
-					o_category=cat;
-					o_nondiffuse = nonDiffuse;  /* set to 1 to exclude from diffuse light */
-					o_nonspecular = nonSpecular; /* set to 1 to exclude from highlights */
-			  }
-			  handle = liquid::RendererMgr::getInstancePtr()->
-				  getRenderer()->exportPointLight(
-				  "pointlight", 
-				  lightName.asChar(),  
-				  i_intensity,
-				  i_lightcolor,
-				  i_decay,
-				  i_shadownamepx,
-				  i_shadownamenx,
-				  i_shadownamepy,
-				  i_shadownameny,
-				  i_shadownamepz,
-				  i_shadownamenz,
-				  i_shadowbias,
-				  i_shadowblur,
-				  i_shadowsamples,
-				  i_shadowfiltersize,
-				  i_shadowcolor,
-				  i_lightID,
-				  o_category,
-				  o_shadowF,
-				  o_shadowC,
-				  o_unshadowed_Cl,
-				  o_nondiffuse,
-				  o_nonspecular,
-				  transformationMatrix
-				  );
-			}
-          break;
-        case MRLT_Spot:
-			{
-				liqFloat i_intensity = 1;
-				liqColor i_lightcolor;	setColor(i_lightcolor, 1.0);
-				liqFloat i_coneangle               = 40;
-				liqFloat i_penumbraangle           = 0;
-				liqFloat i_dropoff                 = 0;
-				liqFloat i_decay                   = 0;
-
-				liqFloat i_barndoors               = 0;
-				liqFloat i_leftbarndoor            = 10;
-				liqFloat i_rightbarndoor           = 10;
-				liqFloat i_topbarndoor             = 10;
-				liqFloat i_bottombarndoor          = 10;
-
-				liqFloat i_decayRegions            = 0;
-				liqFloat i_startDistance1          = 1.0;
-				liqFloat i_endDistance1            = 2.0;
-				liqFloat i_startDistance2          = 3.0;
-				liqFloat i_endDistance2            = 6.0;
-				liqFloat i_startDistance3          = 8.0;
-				liqFloat i_endDistance3            = 10.0;
-				liqFloat i_startDistanceIntensity1 = 1.0;
-				liqFloat i_endDistanceIntensity1   = 1.0;
-				liqFloat i_startDistanceIntensity2 = 1.0;
-				liqFloat i_endDistanceIntensity2   = 1.0;
-				liqFloat i_startDistanceIntensity3 = 1.0;
-				liqFloat i_endDistanceIntensity3   = 1.0;
-
-				liqString i_shadowname       = "";
-				liqFloat  i_shadowbias       = 0.01;
-				liqFloat  i_shadowblur       = 0.0;
-				liqFloat  i_shadowsamples    = 32;
-				liqFloat  i_shadowfiltersize = 1;
-				liqColor  i_shadowcolor;setColor(i_shadowcolor, 0.0f);
-				liqColor  i_shadowcolorsurf;setColor(i_shadowcolorsurf, 0.0f);
-				liqFloat  i_shadowcolormix  = -1;
-
-				liqFloat  i_lightID          = 0;
-				liqString i_category       = "";
-
-				liqColor o_shadowC;setColor(o_shadowC, 0.0f);
-				liqFloat o_shadowF        = 0;
-				liqFloat o_barn           = 0;
-				liqColor o_unshadowed_Cl;setColor(o_unshadowed_Cl, 0.0f);
-				liqFloat o_nondiffuse     = 0;
-				liqFloat o_nonspecular    = 0;
-
-				  if (liqglo.liqglo_doShadows && usingShadow) 
-				  {
-					/* if ( ( shadowName == "" ) || ( shadowName.substring( 0, 9 ) == "autoshadow" ) ) {
-					  shadowName = liqglo_texDir + autoShadowName();
-					} */
-					i_intensity = intensity;
-					setColor(i_lightcolor, color);
-					i_coneangle = coneAngle;
-					i_penumbraangle = penumbraAngle;
-					i_dropoff = dropOff;
-					i_decay = decay;
-					i_barndoors = barnDoors;
-					i_leftbarndoor = leftBarnDoor;
-					i_rightbarndoor = rightBarnDoor;
-					i_topbarndoor = topBarnDoor;
-					i_bottombarndoor = bottomBarnDoor;
-					i_decayRegions = decayRegions;
-					i_startDistance1 = startDistance1;
-					i_endDistance1   = endDistance1;
-					i_startDistance2 = startDistance2;
-					i_endDistance2   = endDistance2;
-					i_startDistance3 = startDistance3;
-					i_endDistance3   = endDistance3;
-					i_startDistanceIntensity1 = startDistanceIntensity1;
-					i_endDistanceIntensity1   = endDistanceIntensity1;
-					i_startDistanceIntensity2 = startDistanceIntensity2;
-					i_endDistanceIntensity2   = endDistanceIntensity2;
-					i_startDistanceIntensity3 = startDistanceIntensity3;
-					i_endDistanceIntensity3   = endDistanceIntensity3;
-					i_shadowname = const_cast< char* >( shadowName.asChar() );
-					i_shadowfiltersize = rayTraced ? shadowRadius : shadowFilterSize;
-					i_shadowbias = shadowBias;
-					i_shadowsamples = shadowSamples;
-					i_shadowblur = shadowBlur;
-					setColor(i_shadowcolor,shadowColor);
-					o_nondiffuse = nonDiffuse;
-					o_nonspecular = nonSpecular;
-					i_category = cat;
-					i_lightID = lightID;
-				} 
-				else 
-				{
-						i_intensity = intensity;
-						setColor(i_lightcolor, color);
-						setColor(i_shadowcolor, shadowColor);
-						i_coneangle = coneAngle;
-						i_penumbraangle = penumbraAngle;
-						i_dropoff = dropOff;
-						i_decay = decay;
-						i_barndoors = barnDoors;
-						i_leftbarndoor = leftBarnDoor;
-						i_rightbarndoor = rightBarnDoor;
-						i_topbarndoor = topBarnDoor;
-						i_bottombarndoor = bottomBarnDoor;
-						i_decayRegions = decayRegions;
-						i_startDistance1 = startDistance1;
-						i_endDistance1   = endDistance1;
-						i_startDistance2 = startDistance2;
-						i_endDistance2   = endDistance2;
-						i_startDistance3 = startDistance3;
-						i_endDistance3   = endDistance3;
-						i_startDistanceIntensity1 = startDistanceIntensity1;
-						i_endDistanceIntensity1   = endDistanceIntensity1;
-						i_startDistanceIntensity2 = startDistanceIntensity2;
-						i_endDistanceIntensity2   = endDistanceIntensity2;
-						i_startDistanceIntensity3 = startDistanceIntensity3;
-						i_endDistanceIntensity3   = endDistanceIntensity3;
-						i_shadowname = const_cast< char* >( shadowName.asChar() );
-						i_shadowbias = shadowBias;
-						i_shadowsamples = shadowSamples;
-						o_nondiffuse = nonDiffuse;
-						o_nonspecular = nonSpecular;
-						i_category = cat;
-						i_lightID = lightID;
-				  }
-				  handle = liquid::RendererMgr::getInstancePtr()->
-					  getRenderer()->exportSpotLight(
-					  "spotlight", 
-					  lightName.asChar(),
-					  i_intensity,
-					  i_lightcolor,
-					  i_coneangle,
-					  i_penumbraangle,
-					  i_dropoff,
-					  i_decay,
-
-					  i_barndoors,
-					  i_leftbarndoor,
-					  i_rightbarndoor,
-					  i_topbarndoor,
-					  i_bottombarndoor,
-
-					  i_decayRegions,
-					  i_startDistance1,
-					  i_endDistance1,
-					  i_startDistance2,
-					  i_endDistance2,
-					  i_startDistance3,
-					  i_endDistance3,
-					  i_startDistanceIntensity1,
-					  i_endDistanceIntensity1,
-					  i_startDistanceIntensity2,
-					  i_endDistanceIntensity2,
-					  i_startDistanceIntensity3,
-					  i_endDistanceIntensity3,
-
-					  i_shadowname,
-					  i_shadowbias,
-					  i_shadowblur,
-					  i_shadowsamples,
-					  i_shadowfiltersize,
-					  i_shadowcolor,
-					  i_shadowcolorsurf,
-					  i_shadowcolormix,
-
-					  i_lightID,
-					  i_category,
-
-					  o_shadowC,
-					  o_shadowF,
-					  o_barn,
-					  o_unshadowed_Cl,
-					  o_nondiffuse,
-					  o_nonspecular,
-					  transformationMatrix
-					  );
-
-				  
-			}
-          break;
-        case MRLT_Rman: 
-        {
-          /*
-          unsigned numTokens( tokenPointerArray.size() );
-          scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-          scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-          assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-
-          if ( liqglo_shortShaderNames ) 
-            assignedRManShader = basename( const_cast< char* >( assignedRManShader.asChar() ) );
-         
-          RtString shaderName = const_cast< RtString >( assignedRManShader.asChar() );
-          handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
-          */
-			liqMatrix transformationMatrixScaledZ;
-			liqRibLightData::scaleZ_forRenderman(
-				transformationMatrixScaledZ, transformationMatrix
-				);
-			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
-          rmanLightShader->write();
- 		  #ifdef RIBLIB_AQSIS
- 		  handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(rmanLightShader->shaderHandler.asInt()));
- 		  #else
-		  /* !!!! In Generic libRib light handle is unsigned int */
-		  LIQDEBUGPRINTF( "-> assigning light handle: " );
-		  handle = (const RtLightHandle)(const void *)( rmanLightShader->shaderHandler.asUnsigned() );
-		  LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
-          #endif
-          break;
-        }
-        case MRLT_Area: 
-        {
-			liqFloat   i_intensity     = 1.0;
-			liqColor   i_lightcolor;	setColor(i_lightcolor, 1.0);
-			liqFloat   i_decay         = 2;
-			liqString  i_coordsys      = "";
-			liqFloat   i_lightsamples  = 32;
-			liqFloat   i_doublesided   = 0;
-			liqString  i_shadowname    = "";
-			liqColor   i_shadowcolor;	setColor(i_lightcolor, 0.0);
-			liqString  i_hitmode       = "primitive";
-
-			liqString  i_lightmap      = "";
-			liqFloat   i_lightmapsaturation  = 2.0;
-
-			liqFloat  i_lightID        = 0;
-			liqString i_category       = "";
-
-			liqFloat o_nonspecular          = 1;
-			liqFloat o_shadowF              = 0;
-			liqColor o_shadowC;	setColor(o_shadowC, 0.0);
-			liqColor o_unshadowed_Cl;	setColor(o_unshadowed_Cl, 0.0);
-			liqFloat o_arealightIntensity   = 0;
-			liqColor o_arealightColor;	setColor(o_arealightColor, 0.0);
-
-
-
-		  i_coordsys = const_cast< char* >(MString(lightName+"CoordSys").asChar());
-          RtString areacoordsys = i_coordsys;
-
-//           MString areashader( getenv("LIQUIDHOME") );
-//           areashader += "/lib/shaders/liquidarea";
-
-          RtString rt_hitmode;
-          switch( hitmode ) 
-		  {
-            case 1:
-              rt_hitmode = const_cast< char* >( "primitive" );
-              break;
-            case 2:
-              rt_hitmode = const_cast< char* >( "shader" );
-              break;
-            default:
-              rt_hitmode = const_cast< char* >( "default" );
-              break;
-          }
-
-
-          // if raytraced shadows are off, we get a negative value, so we correct it here.
-          RtString rt_lightmap( const_cast< char* >( lightMap.asChar() ) );
-		 
-		  {
-			  i_intensity = intensity;
-			  setColor(i_lightcolor, color);
-			  i_decay = decay;
-			  i_coordsys = areacoordsys;
-			  i_lightsamples = shadowSamples;
-			  i_doublesided = bothSidesEmit;
-			  i_shadowname = const_cast< char* >( shadowName.asChar() );
-			  setColor(i_shadowcolor, shadowColor);
-			  i_lightmap = rt_lightmap;
-			  i_lightID = lightID;
-			  i_hitmode = rt_hitmode;
-			  i_category = cat;
-		  }
-
-		  handle = liquid::RendererMgr::getInstancePtr()->
-			  getRenderer()->exportAreaLight(
-			  "arealight", 
-			  lightName.asChar(),
-			  i_intensity,
-			  i_lightcolor,
-			  i_decay,
-			  i_coordsys,
-			  i_lightsamples,
-			  i_doublesided,
-			  i_shadowname,
-			  i_shadowcolor,
-			  i_hitmode,
-			  i_lightmap,
-			  i_lightmapsaturation,
-			  i_lightID,
-			  i_category,
-
-			  o_nonspecular,
-			  o_shadowF, 
-			  o_shadowC,
-			  o_unshadowed_Cl,
-			  o_arealightIntensity,
-			  o_arealightColor,
-			  transformationMatrix
-			  );
-          break;
-        }
-        case MRLT_Unknown: {
-			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrix ) );
-          break;
-        }
-      }
-    }
-  }
-}
+//void liqRibLightData::_write(const structJob &currentJob)
+//{
+//	CM_TRACE_FUNC("liqRibLightData::_write(job="<<currentJob.name.asChar()<<")");
+// 
+//   if ( !excludeFromRib ) 
+//   {
+//     LIQDEBUGPRINTF( "-> writing light %s \n", lightName.asChar());
+// 
+// 	//RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrix ) );
+//     if ( liqglo.liqglo_isShadowPass ) 
+//     {
+//       if ( usingShadow ) 
+//       {
+//         RtString sName( const_cast< char* >( shadowName.asChar() ) );
+//         // Hmmmmm got to set a LIQUIDHOME env var and use it ...
+//         // May be set relative name shadowPassLight and resolve path with RIB searchpath
+//         // Moritz: solved through default shader searchpath in liqRibTranslator
+// 		handle = liquid::RendererMgr::getInstancePtr()->
+// 			getRenderer()->exportShadowPassLight("??", lightName.asChar(), sName, transformationMatrix);
+//       }
+//     } 
+//     else 
+//     {
+//       RtString cat( const_cast< char* >( lightCategory.asChar() ) );
+// 
+//       switch ( lightType ) 
+//       {
+//         case MRLT_Ambient:
+// 			handle = liquid::RendererMgr::getInstancePtr()->
+// 				getRenderer()->exportAmbientLight("???", lightName.asChar(), intensity, color, transformationMatrix);
+//           break;
+//         
+//         case MRLT_Distant:
+// 			{
+// 				liqFloat    i_intensity = 1;
+// 				liqColor i_lightcolor;	setColor(i_lightcolor, 1.0);
+// 				assert(i_lightcolor[0] == 1.0f);
+// 				assert(i_lightcolor[1] == 1.0f);
+// 				assert(i_lightcolor[2] == 1.0f);
+// 				liqString i_shadowname = "";  /* shadow map name or "raytrace" for traced shadows */
+// 				liqFloat i_shadowbias = 0.01;
+// 				liqFloat i_shadowblur = 0.0;
+// 				liqFloat i_shadowsamples = 16; /* samples or rays */
+// 				liqFloat i_shadowfiltersize = 1;
+// 				liqColor i_shadowcolor;	setColor(i_shadowcolor, 0.0);
+// 				liqFloat  i_lightID=0;
+// 				liqString o_category="";
+// 				liqFloat o_shadowF = 0;
+// 				liqColor o_shadowC;	setColor(o_shadowC, 0.0);
+// 				liqColor o_unshadowed_Cl;	setColor(o_unshadowed_Cl, 0.0);
+// 				liqFloat o_nondiffuse = 0;  /* set to 1 to exclude from diffuse light */
+// 				liqFloat o_nonspecular = 0; /* set to 1 to exclude from highlights */
+// 
+// 				if ( liqglo.liqglo_doShadows && usingShadow ) 
+// 				{
+// 					i_intensity = intensity;
+// 					setColor(i_lightcolor, color);
+// 					i_shadowname  = const_cast< char* >( shadowName.asChar() );
+// 					i_shadowfiltersize = rayTraced ? shadowRadius : shadowFilterSize;
+// 					i_shadowbias = shadowBias;
+// 					i_shadowsamples = shadowSamples;
+// 					i_shadowblur = shadowBlur;
+// 					setColor(i_shadowcolor, shadowColor);
+// 					o_nondiffuse = nonDiffuse;
+// 					o_nonspecular = nonSpecular;
+// 					o_category = cat;
+// 					i_lightID = lightID;
+// 				}else{
+// 					i_intensity = intensity;
+// 					setColor(i_lightcolor, color);
+// 					setColor(i_shadowcolor, shadowColor);
+// 					o_nondiffuse = nonDiffuse;
+// 					o_nonspecular = nonSpecular;
+// 					o_category = cat;
+// 					i_lightID = lightID;
+// 				}
+// 				handle = liquid::RendererMgr::getInstancePtr()->
+// 					getRenderer()->exportDistantLight(
+// 					"distantlight", 
+// 					lightName.asChar(),  
+// 					i_intensity,
+// 					i_lightcolor,
+// 					i_shadowname,
+// 					i_shadowbias,
+// 					i_shadowblur,
+// 					i_shadowsamples,
+// 					i_shadowfiltersize,
+// 					i_shadowcolor,
+// 					i_lightID,
+// 					o_category,
+// 					o_shadowF,
+// 					o_shadowC,
+// 					o_unshadowed_Cl,
+// 					o_nondiffuse,
+// 					o_nonspecular,
+// 					transformationMatrix
+// 					);
+// 			}
+//           break;
+//         
+//         case MRLT_Point:
+// 			{
+// 					liqFloat    i_intensity = 1;
+// 					liqColor i_lightcolor;	setColor(i_lightcolor, 1);
+// 					liqFloat i_decay = 0;
+// 					liqString i_shadownamepx = "";
+// 					liqString i_shadownamenx = "";
+// 					liqString i_shadownamepy = "";
+// 					liqString i_shadownameny = "";
+// 					liqString i_shadownamepz = "";
+// 					liqString i_shadownamenz = "";
+// 					liqFloat i_shadowbias = 0.01;
+// 					liqFloat i_shadowblur = 0.0;
+// 					liqFloat i_shadowsamples = 16; /* samples or rays */
+// 					liqFloat i_shadowfiltersize = 1.0;
+// 					liqColor i_shadowcolor;	setColor(i_shadowcolor, 0.0);
+// 					liqFloat  i_lightID=0;
+// 					liqString o_category="";
+// 					liqFloat	o_shadowF = 0;
+// 					liqColor	o_shadowC;setColor(o_shadowC, 1.0);
+// 					liqColor	o_unshadowed_Cl;setColor(o_unshadowed_Cl, 0.0);
+// 					liqFloat o_nondiffuse = 0;  /* set to 1 to exclude from diffuse light */
+// 					liqFloat o_nonspecular = 0; /* set to 1 to exclude from highlights */
+// 
+// 			  if ( liqglo.liqglo_doShadows && usingShadow ) 
+// 			  {
+// 				  liqFloat    i_intensity = intensity;
+// 				  setColor(i_lightcolor, color);
+// 				  i_decay = decay;
+// 				  {
+// 					  MString	px = rayTraced ? "raytrace" : autoShadowName( pPX );
+// 					  MString	nx = rayTraced ? "raytrace" : autoShadowName( pNX );
+// 					  MString	py = rayTraced ? "raytrace" : autoShadowName( pPY );
+// 					  MString	ny = rayTraced ? "raytrace" : autoShadowName( pNY );
+// 					  MString	pz = rayTraced ? "raytrace" : autoShadowName( pPZ );
+// 					  MString	nz = rayTraced ? "raytrace" : autoShadowName( pNZ );
+// 					  i_shadownamepx = const_cast<char*>( px.asChar() );
+// 					  i_shadownamenx = const_cast<char*>( nx.asChar() );
+// 					  i_shadownamepy = const_cast<char*>( py.asChar() );
+// 					  i_shadownameny = const_cast<char*>( ny.asChar() );
+// 					  i_shadownamepz = const_cast<char*>( pz.asChar() );
+// 					  i_shadownamenz = const_cast<char*>( nz.asChar() );
+// 				  }
+// 				  i_shadowbias = shadowBias;
+// 				  i_shadowblur = shadowBlur;
+// 				  i_shadowsamples = shadowSamples; /* samples or rays */
+// 				  i_shadowfiltersize = rayTraced ? shadowRadius : shadowFilterSize;
+// 				  setColor(i_shadowcolor, shadowColor);
+// 				  i_lightID = lightID;
+// 				  o_category=cat;
+// 				  o_nondiffuse = nonDiffuse;  /* set to 1 to exclude from diffuse light */
+// 				  o_nonspecular = nonSpecular; /* set to 1 to exclude from highlights */
+// 			  }else{
+// 					i_intensity = intensity;
+// 					setColor(i_lightcolor, color);
+// 					i_decay = decay;
+// 					setColor(i_shadowcolor, shadowColor);
+// 					i_lightID = lightID;					
+// 					o_category=cat;
+// 					o_nondiffuse = nonDiffuse;  /* set to 1 to exclude from diffuse light */
+// 					o_nonspecular = nonSpecular; /* set to 1 to exclude from highlights */
+// 			  }
+// 			  handle = liquid::RendererMgr::getInstancePtr()->
+// 				  getRenderer()->exportPointLight(
+// 				  "pointlight", 
+// 				  lightName.asChar(),  
+// 				  i_intensity,
+// 				  i_lightcolor,
+// 				  i_decay,
+// 				  i_shadownamepx,
+// 				  i_shadownamenx,
+// 				  i_shadownamepy,
+// 				  i_shadownameny,
+// 				  i_shadownamepz,
+// 				  i_shadownamenz,
+// 				  i_shadowbias,
+// 				  i_shadowblur,
+// 				  i_shadowsamples,
+// 				  i_shadowfiltersize,
+// 				  i_shadowcolor,
+// 				  i_lightID,
+// 				  o_category,
+// 				  o_shadowF,
+// 				  o_shadowC,
+// 				  o_unshadowed_Cl,
+// 				  o_nondiffuse,
+// 				  o_nonspecular,
+// 				  transformationMatrix
+// 				  );
+// 			}
+//           break;
+//         case MRLT_Spot:
+// 			{
+// 				liqFloat i_intensity = 1;
+// 				liqColor i_lightcolor;	setColor(i_lightcolor, 1.0);
+// 				liqFloat i_coneangle               = 40;
+// 				liqFloat i_penumbraangle           = 0;
+// 				liqFloat i_dropoff                 = 0;
+// 				liqFloat i_decay                   = 0;
+// 
+// 				liqFloat i_barndoors               = 0;
+// 				liqFloat i_leftbarndoor            = 10;
+// 				liqFloat i_rightbarndoor           = 10;
+// 				liqFloat i_topbarndoor             = 10;
+// 				liqFloat i_bottombarndoor          = 10;
+// 
+// 				liqFloat i_decayRegions            = 0;
+// 				liqFloat i_startDistance1          = 1.0;
+// 				liqFloat i_endDistance1            = 2.0;
+// 				liqFloat i_startDistance2          = 3.0;
+// 				liqFloat i_endDistance2            = 6.0;
+// 				liqFloat i_startDistance3          = 8.0;
+// 				liqFloat i_endDistance3            = 10.0;
+// 				liqFloat i_startDistanceIntensity1 = 1.0;
+// 				liqFloat i_endDistanceIntensity1   = 1.0;
+// 				liqFloat i_startDistanceIntensity2 = 1.0;
+// 				liqFloat i_endDistanceIntensity2   = 1.0;
+// 				liqFloat i_startDistanceIntensity3 = 1.0;
+// 				liqFloat i_endDistanceIntensity3   = 1.0;
+// 
+// 				liqString i_shadowname       = "";
+// 				liqFloat  i_shadowbias       = 0.01;
+// 				liqFloat  i_shadowblur       = 0.0;
+// 				liqFloat  i_shadowsamples    = 32;
+// 				liqFloat  i_shadowfiltersize = 1;
+// 				liqColor  i_shadowcolor;setColor(i_shadowcolor, 0.0f);
+// 				liqColor  i_shadowcolorsurf;setColor(i_shadowcolorsurf, 0.0f);
+// 				liqFloat  i_shadowcolormix  = -1;
+// 
+// 				liqFloat  i_lightID          = 0;
+// 				liqString i_category       = "";
+// 
+// 				liqColor o_shadowC;setColor(o_shadowC, 0.0f);
+// 				liqFloat o_shadowF        = 0;
+// 				liqFloat o_barn           = 0;
+// 				liqColor o_unshadowed_Cl;setColor(o_unshadowed_Cl, 0.0f);
+// 				liqFloat o_nondiffuse     = 0;
+// 				liqFloat o_nonspecular    = 0;
+// 
+// 				  if (liqglo.liqglo_doShadows && usingShadow) 
+// 				  {
+// 					/* if ( ( shadowName == "" ) || ( shadowName.substring( 0, 9 ) == "autoshadow" ) ) {
+// 					  shadowName = liqglo_texDir + autoShadowName();
+// 					} */
+// 					i_intensity = intensity;
+// 					setColor(i_lightcolor, color);
+// 					i_coneangle = coneAngle;
+// 					i_penumbraangle = penumbraAngle;
+// 					i_dropoff = dropOff;
+// 					i_decay = decay;
+// 					i_barndoors = barnDoors;
+// 					i_leftbarndoor = leftBarnDoor;
+// 					i_rightbarndoor = rightBarnDoor;
+// 					i_topbarndoor = topBarnDoor;
+// 					i_bottombarndoor = bottomBarnDoor;
+// 					i_decayRegions = decayRegions;
+// 					i_startDistance1 = startDistance1;
+// 					i_endDistance1   = endDistance1;
+// 					i_startDistance2 = startDistance2;
+// 					i_endDistance2   = endDistance2;
+// 					i_startDistance3 = startDistance3;
+// 					i_endDistance3   = endDistance3;
+// 					i_startDistanceIntensity1 = startDistanceIntensity1;
+// 					i_endDistanceIntensity1   = endDistanceIntensity1;
+// 					i_startDistanceIntensity2 = startDistanceIntensity2;
+// 					i_endDistanceIntensity2   = endDistanceIntensity2;
+// 					i_startDistanceIntensity3 = startDistanceIntensity3;
+// 					i_endDistanceIntensity3   = endDistanceIntensity3;
+// 					i_shadowname = const_cast< char* >( shadowName.asChar() );
+// 					i_shadowfiltersize = rayTraced ? shadowRadius : shadowFilterSize;
+// 					i_shadowbias = shadowBias;
+// 					i_shadowsamples = shadowSamples;
+// 					i_shadowblur = shadowBlur;
+// 					setColor(i_shadowcolor,shadowColor);
+// 					o_nondiffuse = nonDiffuse;
+// 					o_nonspecular = nonSpecular;
+// 					i_category = cat;
+// 					i_lightID = lightID;
+// 				} 
+// 				else 
+// 				{
+// 						i_intensity = intensity;
+// 						setColor(i_lightcolor, color);
+// 						setColor(i_shadowcolor, shadowColor);
+// 						i_coneangle = coneAngle;
+// 						i_penumbraangle = penumbraAngle;
+// 						i_dropoff = dropOff;
+// 						i_decay = decay;
+// 						i_barndoors = barnDoors;
+// 						i_leftbarndoor = leftBarnDoor;
+// 						i_rightbarndoor = rightBarnDoor;
+// 						i_topbarndoor = topBarnDoor;
+// 						i_bottombarndoor = bottomBarnDoor;
+// 						i_decayRegions = decayRegions;
+// 						i_startDistance1 = startDistance1;
+// 						i_endDistance1   = endDistance1;
+// 						i_startDistance2 = startDistance2;
+// 						i_endDistance2   = endDistance2;
+// 						i_startDistance3 = startDistance3;
+// 						i_endDistance3   = endDistance3;
+// 						i_startDistanceIntensity1 = startDistanceIntensity1;
+// 						i_endDistanceIntensity1   = endDistanceIntensity1;
+// 						i_startDistanceIntensity2 = startDistanceIntensity2;
+// 						i_endDistanceIntensity2   = endDistanceIntensity2;
+// 						i_startDistanceIntensity3 = startDistanceIntensity3;
+// 						i_endDistanceIntensity3   = endDistanceIntensity3;
+// 						i_shadowname = const_cast< char* >( shadowName.asChar() );
+// 						i_shadowbias = shadowBias;
+// 						i_shadowsamples = shadowSamples;
+// 						o_nondiffuse = nonDiffuse;
+// 						o_nonspecular = nonSpecular;
+// 						i_category = cat;
+// 						i_lightID = lightID;
+// 				  }
+// 				  handle = liquid::RendererMgr::getInstancePtr()->
+// 					  getRenderer()->exportSpotLight(
+// 					  "spotlight", 
+// 					  lightName.asChar(),
+// 					  i_intensity,
+// 					  i_lightcolor,
+// 					  i_coneangle,
+// 					  i_penumbraangle,
+// 					  i_dropoff,
+// 					  i_decay,
+// 
+// 					  i_barndoors,
+// 					  i_leftbarndoor,
+// 					  i_rightbarndoor,
+// 					  i_topbarndoor,
+// 					  i_bottombarndoor,
+// 
+// 					  i_decayRegions,
+// 					  i_startDistance1,
+// 					  i_endDistance1,
+// 					  i_startDistance2,
+// 					  i_endDistance2,
+// 					  i_startDistance3,
+// 					  i_endDistance3,
+// 					  i_startDistanceIntensity1,
+// 					  i_endDistanceIntensity1,
+// 					  i_startDistanceIntensity2,
+// 					  i_endDistanceIntensity2,
+// 					  i_startDistanceIntensity3,
+// 					  i_endDistanceIntensity3,
+// 
+// 					  i_shadowname,
+// 					  i_shadowbias,
+// 					  i_shadowblur,
+// 					  i_shadowsamples,
+// 					  i_shadowfiltersize,
+// 					  i_shadowcolor,
+// 					  i_shadowcolorsurf,
+// 					  i_shadowcolormix,
+// 
+// 					  i_lightID,
+// 					  i_category,
+// 
+// 					  o_shadowC,
+// 					  o_shadowF,
+// 					  o_barn,
+// 					  o_unshadowed_Cl,
+// 					  o_nondiffuse,
+// 					  o_nonspecular,
+// 					  transformationMatrix
+// 					  );
+// 
+// 				  
+// 			}
+//           break;
+//         case MRLT_Rman: 
+//         {
+//           /*
+//           unsigned numTokens( tokenPointerArray.size() );
+//           scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+//           scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+//           assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+// 
+//           if ( liqglo_shortShaderNames ) 
+//             assignedRManShader = basename( const_cast< char* >( assignedRManShader.asChar() ) );
+//          
+//           RtString shaderName = const_cast< RtString >( assignedRManShader.asChar() );
+//           handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
+//           */
+// 			liqMatrix transformationMatrixScaledZ;
+// 			liqRibLightData::scaleZ_forRenderman(
+// 				transformationMatrixScaledZ, transformationMatrix
+// 				);
+// 			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
+//           rmanLightShader->write();
+//  		  #ifdef RIBLIB_AQSIS
+//  		  handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(rmanLightShader->shaderHandler.asInt()));
+//  		  #else
+// 		  /* !!!! In Generic libRib light handle is unsigned int */
+// 		  LIQDEBUGPRINTF( "-> assigning light handle: " );
+// 		  handle = (const RtLightHandle)(const void *)( rmanLightShader->shaderHandler.asUnsigned() );
+// 		  LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
+//           #endif
+//           break;
+//         }
+//         case MRLT_Area: 
+//         {
+// 			liqFloat   i_intensity     = 1.0;
+// 			liqColor   i_lightcolor;	setColor(i_lightcolor, 1.0);
+// 			liqFloat   i_decay         = 2;
+// 			liqString  i_coordsys      = "";
+// 			liqFloat   i_lightsamples  = 32;
+// 			liqFloat   i_doublesided   = 0;
+// 			liqString  i_shadowname    = "";
+// 			liqColor   i_shadowcolor;	setColor(i_lightcolor, 0.0);
+// 			liqString  i_hitmode       = "primitive";
+// 
+// 			liqString  i_lightmap      = "";
+// 			liqFloat   i_lightmapsaturation  = 2.0;
+// 
+// 			liqFloat  i_lightID        = 0;
+// 			liqString i_category       = "";
+// 
+// 			liqFloat o_nonspecular          = 1;
+// 			liqFloat o_shadowF              = 0;
+// 			liqColor o_shadowC;	setColor(o_shadowC, 0.0);
+// 			liqColor o_unshadowed_Cl;	setColor(o_unshadowed_Cl, 0.0);
+// 			liqFloat o_arealightIntensity   = 0;
+// 			liqColor o_arealightColor;	setColor(o_arealightColor, 0.0);
+// 
+// 
+// 
+// 		  i_coordsys = const_cast< char* >(MString(lightName+"CoordSys").asChar());
+//           RtString areacoordsys = i_coordsys;
+// 
+// //           MString areashader( getenv("LIQUIDHOME") );
+// //           areashader += "/lib/shaders/liquidarea";
+// 
+//           RtString rt_hitmode;
+//           switch( hitmode ) 
+// 		  {
+//             case 1:
+//               rt_hitmode = const_cast< char* >( "primitive" );
+//               break;
+//             case 2:
+//               rt_hitmode = const_cast< char* >( "shader" );
+//               break;
+//             default:
+//               rt_hitmode = const_cast< char* >( "default" );
+//               break;
+//           }
+// 
+// 
+//           // if raytraced shadows are off, we get a negative value, so we correct it here.
+//           RtString rt_lightmap( const_cast< char* >( lightMap.asChar() ) );
+// 		 
+// 		  {
+// 			  i_intensity = intensity;
+// 			  setColor(i_lightcolor, color);
+// 			  i_decay = decay;
+// 			  i_coordsys = areacoordsys;
+// 			  i_lightsamples = shadowSamples;
+// 			  i_doublesided = bothSidesEmit;
+// 			  i_shadowname = const_cast< char* >( shadowName.asChar() );
+// 			  setColor(i_shadowcolor, shadowColor);
+// 			  i_lightmap = rt_lightmap;
+// 			  i_lightID = lightID;
+// 			  i_hitmode = rt_hitmode;
+// 			  i_category = cat;
+// 		  }
+// 
+// 		  handle = liquid::RendererMgr::getInstancePtr()->
+// 			  getRenderer()->exportAreaLight(
+// 			  "arealight", 
+// 			  lightName.asChar(),
+// 			  i_intensity,
+// 			  i_lightcolor,
+// 			  i_decay,
+// 			  i_coordsys,
+// 			  i_lightsamples,
+// 			  i_doublesided,
+// 			  i_shadowname,
+// 			  i_shadowcolor,
+// 			  i_hitmode,
+// 			  i_lightmap,
+// 			  i_lightmapsaturation,
+// 			  i_lightID,
+// 			  i_category,
+// 
+// 			  o_nonspecular,
+// 			  o_shadowF, 
+// 			  o_shadowC,
+// 			  o_unshadowed_Cl,
+// 			  o_arealightIntensity,
+// 			  o_arealightColor,
+// 			  transformationMatrix
+// 			  );
+//           break;
+//         }
+//         case MRLT_Unknown: {
+// 			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrix ) );
+//           break;
+//         }
+//       }
+//     }
+//   }
+//}
 
 //
 void liqRibLightData::write(const MString &ribFileName, const structJob &currentJob, const bool bReference)
 {
 	CM_TRACE_FUNC("liqRibLightData::write("<<ribFileName.asChar()<<",job="<<currentJob.name.asChar()<<","<<bReference<<")");
 
-	//assert(liqglo.m_ribFileOpen&&"liqRibLightData.cpp");//er also goes here , refactoring is needed.
-
-	if( !bReference ){//write data at first time
-		assert(m_ribFileFullPath.length()==0&&"liqRibLightData.cpp");
-		this->setRibFileFullPath(ribFileName);
-
-		renderman::Helper o;
-		o.RiBeginRef(m_ribFileFullPath.asChar());
-		_write(currentJob);
-		o.RiEndRef();
-
-	}else{
-		//write the reference
-		assert(m_ribFileFullPath == ribFileName);
-		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
-	}
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->write(this, ribFileName, currentJob, bReference);
+// 	//assert(liqglo.m_ribFileOpen&&"liqRibLightData.cpp");//er also goes here , refactoring is needed.
+// 
+// 	if( !bReference ){//write data at first time
+// 		assert(m_ribFileFullPath.length()==0&&"liqRibLightData.cpp");
+// 		this->setRibFileFullPath(ribFileName);
+// 
+// 		renderman::Helper o;
+// 		o.RiBeginRef(m_ribFileFullPath.asChar());
+// 		_write(currentJob);
+// 		o.RiEndRef();
+// 
+// 	}else{
+// 		//write the reference
+// 		assert(m_ribFileFullPath == ribFileName);
+// 		RiReadArchive( const_cast< RtToken >( m_ribFileFullPath.asChar() ), NULL, RI_NULL );
+// 	}
 }
 /** Light comparisons are not supported in this version.
  */

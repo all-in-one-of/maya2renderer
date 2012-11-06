@@ -280,11 +280,11 @@ public:
 		const MString &fileName, 
 		const structJob &currentJob,
 		const bool bReference) = 0;
-// 	virtual void write(
-// 		liqRibLightData* data,
-// 		const MString &fileName, 
-// 		const structJob &currentJob,
-// 		const bool bReference) = 0;
+	virtual void write(
+		liqRibLightData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
 	virtual void write(
 		liqRibMayaSubdivisionData* data,
 		const MString &fileName, 

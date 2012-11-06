@@ -254,11 +254,11 @@ namespace renderman
 			const MString &fileName, 
 			const structJob &currentJob,
 			const bool bReference);
-// 		virtual void write(
-// 			liqRibLightData* data,
-// 			const MString &fileName, 
-// 			const structJob &currentJob,
-// 			const bool bReference);
+		virtual void write(
+			liqRibLightData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
 		virtual void write(
 			liqRibMayaSubdivisionData* data,
 			const MString &fileName, 
