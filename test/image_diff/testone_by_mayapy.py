@@ -95,8 +95,11 @@ def _test(mayaFile, liqRenderer):
     imagediff.compare(output_image_fullpath, std_image_fullpath)
     
     mLiqlog.renderer_end()
-    raw_input("test <"+mayaFile+"> \nwith <"+liqRenderer+">  is done. \nPress ENTER to continue.")
-
+    print("test <"+mayaFile+"> \nwith <"+liqRenderer+">  is done.\n")
+    
+    #raw_input("Press ENTER to continue.")
+    import time
+    time.sleep(2)
 
 def test_one_scene(mayaFile, liqRenderer):
     mLiqlog.scene_beg(mayaFile)
