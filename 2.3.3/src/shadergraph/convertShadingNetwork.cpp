@@ -399,7 +399,7 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 	if( outputVars.length()<(outputIndex+1) ){
 		outputVars.setLength(outputIndex+1);
 	}
-	outputVars[outputIndex] = renderman::getVariableName(node, plug);
+	outputVars[outputIndex] = getVariableName(node, plug);
 }
 //
 void ConvertShadingNetwork::getNodeVariables(

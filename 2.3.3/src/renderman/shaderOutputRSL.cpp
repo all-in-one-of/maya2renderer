@@ -154,7 +154,7 @@ void OutputHelper::beginRSL (const MString& name)
 	// "Open" the header and body.
 	//
 	rslShaderHeader  = ( "//shader name: " + name + "\n" );
-	rslShaderHeader += ( "void " + renderman::getShaderName(name) + " (\n" );
+	rslShaderHeader += ( "void " + getShaderName(name) + " (\n" );
 	rslShaderBody = "{\n";
 }
 //
@@ -223,7 +223,7 @@ void Visitor::outputBegin(const char* shaderNodeName)
 	RSLfile.open( renderman::getShaderFilePath_SRC(shaderNodeName).asChar() );
 
 	RSLfile << "//surface shader name: " << shaderNodeName << "\n";
-	RSLfile << shaderType.asChar()<<" " << renderman::getShaderName(shaderNodeName).asChar() << "()\n{\n";
+	RSLfile << shaderType.asChar()<<" " << getShaderName(shaderNodeName).asChar() << "()\n{\n";
 
 	defineAOVVariables();
 
@@ -259,10 +259,10 @@ void  Visitor::addShaderMethodBody(
 	{
 		MStringArray vars;
 		for(std::size_t i=0; i<inputVars.length(); ++i){
-			vars.append( renderman::getVariableName(inputVars[i]) );
+			vars.append( getVariableName(inputVars[i]) );
 		}
 		for(std::size_t i=0; i<outputVars.length(); ++i){
-			vars.append( renderman::getVariableName(outputVars[i]) );
+			vars.append( getVariableName(outputVars[i]) );
 		}
 
 		for(std::size_t index=0; index<vars.length(); ++index){
@@ -272,7 +272,7 @@ void  Visitor::addShaderMethodBody(
 
 	// Add the current node method to the shader body
 	shaderData[ SHADER_METHOD_BODY_I ] += " //" + currentNode +"\n";
-	shaderData[ SHADER_METHOD_BODY_I ] += " " + renderman::getShaderName(currentNode) +"("+varString+");\n";
+	shaderData[ SHADER_METHOD_BODY_I ] += " " + getShaderName(currentNode) +"("+varString+");\n";
 	
 	// test the input and output of currentNode
 	{	
@@ -295,11 +295,11 @@ void Visitor::addShaderMethodVariavles(
 
 	if(arraysize == -1)
 	{
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " "+type_+" "+renderman::getVariableName(node, plug)+";\n";
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " "+type_+" "+ getVariableName(node, plug)+";\n";
 	}else{
 		MString strArraySize;
 		strArraySize.set(arraysize);
-		shaderData[SHADER_METHOD_VARIAVLES_I] += " "+type_+" "+renderman::getVariableName(node, plug)+"["+strArraySize+"];\n";
+		shaderData[SHADER_METHOD_VARIAVLES_I] += " "+type_+" "+ getVariableName(node, plug)+"["+strArraySize+"];\n";
 	}
 }
 void Visitor::outputEnd()

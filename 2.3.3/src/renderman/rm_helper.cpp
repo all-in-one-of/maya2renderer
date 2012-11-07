@@ -78,20 +78,6 @@ namespace renderman
 		CM_TRACE_FUNC("getShaderFilePath_SLO("<<shaderNodeName.asChar()<<")");
 		return getShaderFilePath_NoExt(shaderNodeName)+".slo";
 	}
-	MString getShaderName(const MString &shaderName)
-	{
-		CM_TRACE_FUNC("getShaderName("<<shaderName.asChar()<<")");
-		return sanitizeNodeName(shaderName);
-	}
-	MString getVariableName(const MString &varName)
-	{
-		CM_TRACE_FUNC("getVariableName("<<varName.asChar()<<")");
-		return sanitizeNodeName(varName);
-	}
-	MString getVariableName(const MString &node,const MString &plug)
-	{
-		CM_TRACE_FUNC("getVariableName("<<node.asChar()<<","<<plug.asChar()<<")");
-		return getVariableName(node+"_"+plug);
-	}
+
 }
 #endif//_USE_RENDERMAN_

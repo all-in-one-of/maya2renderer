@@ -1818,3 +1818,19 @@ bool isZero(const float r, const float g, const float b)
 	else 
 		return false;
 }
+//
+MString getShaderName(const MString &shaderName)
+{
+	//CM_TRACE_FUNC("getShaderName("<<shaderName.asChar()<<")");
+	return sanitizeNodeName(shaderName);
+}
+MString getVariableName(const MString &varName)
+{
+	//CM_TRACE_FUNC("getVariableName("<<varName.asChar()<<")");
+	return sanitizeNodeName(varName);
+}
+MString getVariableName(const MString &node,const MString &plug)
+{
+	//CM_TRACE_FUNC("getVariableName("<<node.asChar()<<","<<plug.asChar()<<")");
+	return getVariableName(node+"_"+plug);
+}

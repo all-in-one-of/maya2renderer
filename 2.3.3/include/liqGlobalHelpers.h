@@ -181,6 +181,9 @@ MString liqMerge(const MStringArray& sa, const char split);
 #define liqM(msa) liqMerge(msa,'|').asChar()
 //
 bool isZero(const float r, const float g, const float b);
-
+//
+MString getShaderName(const MString &shaderName);
+MString getVariableName(const MString &varName);
+MString getVariableName(const MString &node,const MString &plug);
 
 #endif
