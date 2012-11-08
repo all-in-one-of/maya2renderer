@@ -76,12 +76,12 @@ typedef	liqVoid	( *liqProgressFunc ) ( liqFloat PercentComplete, liqInt FrameNo 
 
 #ifdef	__cplusplus
 }
+#endif
 
 void setColor(liqColor& color, const liqFloat &c );
 void setColor(liqColor& to, const liqColor& from );
 //void setColor(liqColor& to, const liqFloat from[3] );
 liqFloat toRadians(const liqFloat &angle);
 
-#endif
 
 #endif 
