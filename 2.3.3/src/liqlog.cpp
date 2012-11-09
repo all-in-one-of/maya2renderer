@@ -3,7 +3,7 @@
 #include <liqGlobalVariable.h>
 #include "renderermgr.h"
 
-char gLogBuffer[LOG_BUFFER_LEN];
+LIQUID_EXPORT char gLogBuffer[LOG_BUFFER_LEN];
 
 void _logFunctionCall(const char* log)
 {

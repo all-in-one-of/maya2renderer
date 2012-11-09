@@ -66,69 +66,69 @@ char* basename( const char* filename );
 #define LIQ_GET_SHADER_FILE_NAME(a, b, c) if( b ) a = basename( const_cast<char *>(c.getShaderFileName().c_str())); else a = const_cast<char *>(c.getShaderFileName().c_str());
 
 
-MStringArray findAttributesByPrefix(const char* pPrefix, MFnDependencyNode& NodeFn );
-bool isObjectTwoSided( const MDagPath & path );
-bool isObjectReversed( const MDagPath & path );
-bool isObjectVisible( const MDagPath & path );
-bool isObjectPrimaryVisible( const MDagPath & path );
-bool isObjectTemplated( const MDagPath & path );
-bool isObjectCastsShadows( const MDagPath & path );
-bool isObjectReceivesShadows( const MDagPath & path );
-bool isObjectMotionBlur( const MDagPath & path );
-bool areObjectAndParentsVisible( const MDagPath & path );
-bool areObjectAndParentsTemplated( const MDagPath & path );
-void assignTokenArrays( unsigned numTokens, const liqTokenPointer tokenPointerArray[], liqToken tokens[], liqPointer pointers[] );
-void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[] );
-void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[], unsigned int primi );
-MObject findFacetShader( MObject mesh, int polygonIndex );
-bool fileExists( const MString & filename );
-bool fileIsNewer( const MString & file1, const MString & file2 );
-bool fileFullyAccessible( const MString& path );
-MString getFullPathFromRelative ( const MString & filename );
-MString getFileName( const MString & fullpath );
-MString parseString( const MString & inputString, bool doEscaped = true );
-MString parseCommandString( const MString & inputString );
-MString liquidTransGetSceneName();
-MString liquidTransGetFullSceneName();
-void liquidGetGlobal( MString globalName, double &value, MStatus &returnStatus );
-liquidlong liquidHash( const char *str );
-MString liquidSanitizePath( const MString& inputString );
-std::string liquidSanitizePath( const std::string& inputString );
-MString liquidSanitizeSearchPath( const MString& inputString );
-std::string liquidSanitizeSearchPath( const std::string& inputString );
-std::string liquidGetRelativePath( bool relative, const std::string& name, const std::string& dir );
-MString liquidGetRelativePath( bool relative, const MString& name, const MString& dir );
-MString removeEscapes( const MString & inputString );
-MObject getNodeByName( MString name, MStatus *returnStatus );
-std::string getEnvironment( const std::string& envVar );
-std::vector< int > generateFrameNumbers( const std::string& mayaSeq );
-bool makeFullPath( const std::string& name, int mode );
-std::string sanitizeNodeName( const std::string& name );
-MString sanitizeNodeName( const MString& name );
+LIQUID_EXPORT MStringArray findAttributesByPrefix(const char* pPrefix, MFnDependencyNode& NodeFn );
+LIQUID_EXPORT bool isObjectTwoSided( const MDagPath & path );
+LIQUID_EXPORT bool isObjectReversed( const MDagPath & path );
+LIQUID_EXPORT bool isObjectVisible( const MDagPath & path );
+LIQUID_EXPORT bool isObjectPrimaryVisible( const MDagPath & path );
+LIQUID_EXPORT bool isObjectTemplated( const MDagPath & path );
+LIQUID_EXPORT bool isObjectCastsShadows( const MDagPath & path );
+LIQUID_EXPORT bool isObjectReceivesShadows( const MDagPath & path );
+LIQUID_EXPORT bool isObjectMotionBlur( const MDagPath & path );
+LIQUID_EXPORT bool areObjectAndParentsVisible( const MDagPath & path );
+LIQUID_EXPORT bool areObjectAndParentsTemplated( const MDagPath & path );
+LIQUID_EXPORT void assignTokenArrays( unsigned numTokens, const liqTokenPointer tokenPointerArray[], liqToken tokens[], liqPointer pointers[] );
+LIQUID_EXPORT void assignTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[] );
+LIQUID_EXPORT void assignIthTokenArraysV( const std::vector<liqTokenPointer>& tokenPointerArray, liqToken tokens[], liqPointer pointers[], unsigned int primi );
+LIQUID_EXPORT MObject findFacetShader( MObject mesh, int polygonIndex );
+LIQUID_EXPORT bool fileExists( const MString & filename );
+LIQUID_EXPORT bool fileIsNewer( const MString & file1, const MString & file2 );
+LIQUID_EXPORT bool fileFullyAccessible( const MString& path );
+LIQUID_EXPORT MString getFullPathFromRelative ( const MString & filename );
+LIQUID_EXPORT MString getFileName( const MString & fullpath );
+LIQUID_EXPORT MString parseString( const MString & inputString, bool doEscaped = true );
+LIQUID_EXPORT MString parseCommandString( const MString & inputString );
+LIQUID_EXPORT MString liquidTransGetSceneName();
+LIQUID_EXPORT MString liquidTransGetFullSceneName();
+LIQUID_EXPORT void liquidGetGlobal( MString globalName, double &value, MStatus &returnStatus );
+LIQUID_EXPORT liquidlong liquidHash( const char *str );
+LIQUID_EXPORT MString liquidSanitizePath( const MString& inputString );
+LIQUID_EXPORT std::string liquidSanitizePath( const std::string& inputString );
+LIQUID_EXPORT MString liquidSanitizeSearchPath( const MString& inputString );
+LIQUID_EXPORT std::string liquidSanitizeSearchPath( const std::string& inputString );
+LIQUID_EXPORT std::string liquidGetRelativePath( bool relative, const std::string& name, const std::string& dir );
+LIQUID_EXPORT MString liquidGetRelativePath( bool relative, const MString& name, const MString& dir );
+LIQUID_EXPORT MString removeEscapes( const MString & inputString );
+LIQUID_EXPORT MObject getNodeByName( MString name, MStatus *returnStatus );
+LIQUID_EXPORT std::string getEnvironment( const std::string& envVar );
+LIQUID_EXPORT std::vector< int > generateFrameNumbers( const std::string& mayaSeq );
+LIQUID_EXPORT bool makeFullPath( const std::string& name, int mode );
+LIQUID_EXPORT std::string sanitizeNodeName( const std::string& name );
+LIQUID_EXPORT MString sanitizeNodeName( const MString& name );
 //replace ':' with '='
-std::string sanitizeNodeName2( const std::string& name );
+LIQUID_EXPORT std::string sanitizeNodeName2( const std::string& name );
 //replace ':' with '=', and '|' with '/'
-std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name);
-liqString& getLiquidRibName( const std::string& name );
-void liquidMessage( const MString &msg, liquidVerbosityType type );
-MString parseLiquidRibRequest( MStringArray requestArray, MString attr );
+LIQUID_EXPORT std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name);
+LIQUID_EXPORT liqString& getLiquidRibName( const std::string& name );
+LIQUID_EXPORT void liquidMessage( const MString &msg, liquidVerbosityType type );
+LIQUID_EXPORT MString parseLiquidRibRequest( MStringArray requestArray, MString attr );
 
-void initalizeShaderHandlerGenerator();
-std::string getUniqueShaderHandler();
+LIQUID_EXPORT void initalizeShaderHandlerGenerator();
+LIQUID_EXPORT std::string getUniqueShaderHandler();
 
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &value, MStatus &status );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &value, MStatus &status );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed = false );
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status );
-unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name, MStatus *status );
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MString &value, MStatus &status );
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, int &value, MStatus &status );
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, bool &value, MStatus &status );
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, float &value, MStatus &status );
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MStringArray &array, MStatus &status );
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MIntArray &array, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed = false );
+LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status );
+LIQUID_EXPORT unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name, MStatus *status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MString &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, int &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, bool &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, float &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MStringArray &array, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MIntArray &array, MStatus &status );
 
 class arrayDeleter // needed to free a shared/scoped/weak_ptr to an array
 {
@@ -138,52 +138,52 @@ class arrayDeleter // needed to free a shared/scoped/weak_ptr to an array
       delete[] t;
     }
 };
-const MString replaceAll(const MString& str, const char from, const char to);
-MString generateShadowArchiveName( bool renderAllFrames, long renderAtframe, MString geometrySet );
-MString getBaseShadowName(const structJob &job__);
+LIQUID_EXPORT const MString replaceAll(const MString& str, const char from, const char to);
+LIQUID_EXPORT MString generateShadowArchiveName( bool renderAllFrames, long renderAtframe, MString geometrySet );
+LIQUID_EXPORT MString getBaseShadowName(const structJob &job__);
 
-void getDagPathByName(MDagPath& dagPath, char const* name);
-void getDependNodeByName(MObject& depNode, char const* name);
-void getNodeType(MString& type,  MString const& node);
-MString getNodeType(MString const& node);
-MString getWorkspaceDirectory();
-MString getShaderDirectory();
-bool is2DFileTexture(const MString& node);
-bool is2DTexture(const MString& node);
-bool is3DTexture(const MString& node);
-bool isMiTexture(const MString& node);
-bool isBatchMode();
+LIQUID_EXPORT void getDagPathByName(MDagPath& dagPath, char const* name);
+LIQUID_EXPORT void getDependNodeByName(MObject& depNode, char const* name);
+LIQUID_EXPORT void getNodeType(MString& type,  MString const& node);
+LIQUID_EXPORT MString getNodeType(MString const& node);
+LIQUID_EXPORT MString getWorkspaceDirectory();
+LIQUID_EXPORT MString getShaderDirectory();
+LIQUID_EXPORT bool is2DFileTexture(const MString& node);
+LIQUID_EXPORT bool is2DTexture(const MString& node);
+LIQUID_EXPORT bool is3DTexture(const MString& node);
+LIQUID_EXPORT bool isMiTexture(const MString& node);
+LIQUID_EXPORT bool isBatchMode();
 
-int find_first_of(const MString& search, const MStringArray& array);
+LIQUID_EXPORT int find_first_of(const MString& search, const MStringArray& array);
 
-std::string toFullDagPath(const std::string& name);
-MString toFullDagPath(const MString& name);
-void toFullDagPath(MStringArray& array);
+LIQUID_EXPORT std::string toFullDagPath(const std::string& name);
+LIQUID_EXPORT MString toFullDagPath(const MString& name);
+LIQUID_EXPORT void toFullDagPath(MStringArray& array);
 
-std::string getObjectName(const char *ribDataName);
+LIQUID_EXPORT std::string getObjectName(const char *ribDataName);
 
-void printFrameSequence(const char* prefix);
+LIQUID_EXPORT void printFrameSequence(const char* prefix);
 
-void getlistConnections(const MString& shadingGroupNode,
+LIQUID_EXPORT void getlistConnections(const MString& shadingGroupNode,
 						const MString& plug, 
 						MStringArray& connections );
-bool doesPlugExist(const MString& node, const MString& plug);
+LIQUID_EXPORT bool doesPlugExist(const MString& node, const MString& plug);
 //
-MString getLightGroupName(const MString& meshShapeNodes);
+LIQUID_EXPORT MString getLightGroupName(const MString& meshShapeNodes);
 //
-bool liqAssert(const MString & msg);
-bool liqAssert(const MString &title, const MString & msg, const MString &bYes);
-bool liqAssert(const MString &title, const MString & msg, const MString &bYes, const MString &bNo);
+LIQUID_EXPORT bool liqAssert(const MString & msg);
+LIQUID_EXPORT bool liqAssert(const MString &title, const MString & msg, const MString &bYes);
+LIQUID_EXPORT bool liqAssert(const MString &title, const MString & msg, const MString &bYes, const MString &bNo);
 //
-MString getFileNodeImageName(const MString &node);
+LIQUID_EXPORT MString getFileNodeImageName(const MString &node);
 
-MString liqMerge(const MStringArray& sa, const char split);
+LIQUID_EXPORT MString liqMerge(const MStringArray& sa, const char split);
 #define liqM(msa) liqMerge(msa,'|').asChar()
 //
-bool isZero(const float r, const float g, const float b);
+LIQUID_EXPORT bool isZero(const float r, const float g, const float b);
 //
-MString getShaderName(const MString &shaderName);
-MString getVariableName(const MString &varName);
-MString getVariableName(const MString &node,const MString &plug);
+LIQUID_EXPORT MString getShaderName(const MString &shaderName);
+LIQUID_EXPORT MString getVariableName(const MString &varName);
+LIQUID_EXPORT MString getVariableName(const MString &node,const MString &plug);
 
 #endif

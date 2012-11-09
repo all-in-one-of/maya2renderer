@@ -32,10 +32,11 @@
 
 #include <maya/MObject.h>
 #include <maya/MString.h>
+#include "liqtypes.h"
 
 class liqShader;//#include <liqShader.h>
 
-class liqShaderFactory
+class LIQUID_EXPORT liqShaderFactory
 {
 public:
     inline static liqShaderFactory &instance()

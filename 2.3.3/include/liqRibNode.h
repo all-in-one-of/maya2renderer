@@ -69,7 +69,7 @@ enum AttributeState{
 	AS_Num
 };
 
-class liqRibNode {
+class LIQUID_EXPORT liqRibNode {
   public:
 
 

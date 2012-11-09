@@ -7,7 +7,7 @@
 
 struct liqGlobalVariable;
 
-class tShadowRibWriterMgr
+class LIQUID_EXPORT tShadowRibWriterMgr
 {
 public:
 	tShadowRibWriterMgr();

@@ -31,6 +31,17 @@
 
 #define INVALID_LIGHT_INDEX 0
 
+// DLL export symbols must be specified under Win32
+#ifdef _WIN32
+#	ifdef   LIQUID_EXPORT_DLL
+#		define LIQUID_EXPORT _declspec(dllexport)
+#	else
+#		define LIQUID_EXPORT _declspec(dllimport)
+#	endif
+#else
+#	define LIQUID_EXPORT
+#endif
+
 #ifdef __cplusplus
 extern	"C"
 {
@@ -78,10 +89,10 @@ typedef	liqVoid	( *liqProgressFunc ) ( liqFloat PercentComplete, liqInt FrameNo 
 }
 #endif
 
-void setColor(liqColor& color, const liqFloat &c );
-void setColor(liqColor& to, const liqColor& from );
-//void setColor(liqColor& to, const liqFloat from[3] );
-liqFloat toRadians(const liqFloat &angle);
+LIQUID_EXPORT void setColor(liqColor& color, const liqFloat &c );
+LIQUID_EXPORT void setColor(liqColor& to, const liqColor& from );
+//LIQUID_EXPORT void setColor(liqColor& to, const liqFloat from[3] );
+LIQUID_EXPORT liqFloat toRadians(const liqFloat &angle);
 
 
 #endif 

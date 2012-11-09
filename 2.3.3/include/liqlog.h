@@ -13,7 +13,7 @@
 	liquidMessage(MString(gLogBuffer), msgtype );\
 }
 
-void _liqRIBMsg(const char* msg);
+LIQUID_EXPORT void _liqRIBMsg(const char* msg);
 //output debug info to rib file
 #define liqRIBMsg( msg,...) \
 {\
@@ -23,8 +23,8 @@ void _liqRIBMsg(const char* msg);
 	}\
 }
 
-void _logFunctionCall(const char* log);
+LIQUID_EXPORT void _logFunctionCall(const char* log);
 
-extern char gLogBuffer[LOG_BUFFER_LEN];
+extern LIQUID_EXPORT char gLogBuffer[LOG_BUFFER_LEN];
 
 #endif//liqLog_H

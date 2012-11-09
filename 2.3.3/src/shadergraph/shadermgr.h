@@ -4,15 +4,17 @@
 
 #include "../common/prerequest_maya.h"
 #include "../common/prerequest_std.h"
+#include "liqtypes.h"
 #include "convertShadingNetwork.h"
 #include "shaderValidConnection.h"
+
 
 namespace liquidmaya
 {
 
 	class OutputAgentInterface;
 	//
-	class ShaderMgr
+	class LIQUID_EXPORT ShaderMgr
 	{
 	public:
 		static ShaderMgr* getSingletonPtr();

@@ -7,7 +7,7 @@
 
 struct liqGlobalVariable;
 
-class tHeroRibWriterMgr
+class LIQUID_EXPORT tHeroRibWriterMgr
 {
 public:
 	tHeroRibWriterMgr();

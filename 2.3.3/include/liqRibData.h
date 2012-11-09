@@ -45,7 +45,7 @@ struct structJob;
 //typedef shared_ptr< liqRibData > liqRibDataPtr;
 enum ObjectType;
 
-class liqRibData {
+class LIQUID_EXPORT liqRibData {
 public:
 	liqRibData();
     virtual           ~liqRibData();

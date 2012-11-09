@@ -39,7 +39,7 @@
 #include <liqShader.h>
 #include "liqtypes.h"
 
-class liqRibLightData : public liqRibData {
+class LIQUID_EXPORT liqRibLightData : public liqRibData {
 public:
 
   explicit liqRibLightData( const MDagPath & light );

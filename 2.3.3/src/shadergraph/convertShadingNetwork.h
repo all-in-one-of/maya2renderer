@@ -3,11 +3,12 @@
 
 #include "../common/prerequest_maya.h"
 #include "../common/prerequest_std.h"
+#include "liqtypes.h"
 
 namespace liquidmaya
 {
 
-class ConvertShadingNetwork
+class LIQUID_EXPORT ConvertShadingNetwork
 {
 public:
 	ConvertShadingNetwork();

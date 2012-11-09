@@ -3,11 +3,12 @@
 
 #include "../common/prerequest_std.h"
 #include "../common/prerequest_maya.h"
+#include "liqtypes.h"
 
 namespace liquidmaya
 {
 
-class ShaderValidConnection
+class LIQUID_EXPORT ShaderValidConnection
 {
 public:
 	ShaderValidConnection();

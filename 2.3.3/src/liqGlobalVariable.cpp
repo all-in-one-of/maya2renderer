@@ -2,9 +2,9 @@
 #include <liqGlobalVariable.h>
 #include <sstream>
 
-struct liqGlobalVariable liqglo;
-liquidVerbosityType liqglo_verbosity( verbosityAll );
-int  debugMode;
+LIQUID_EXPORT struct liqGlobalVariable liqglo;
+LIQUID_EXPORT liquidVerbosityType liqglo_verbosity( verbosityAll );
+LIQUID_EXPORT int  debugMode;
 
 void initHinderParameters()
 {

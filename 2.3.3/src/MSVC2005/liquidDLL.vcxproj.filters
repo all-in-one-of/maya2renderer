@@ -1,0 +1,824 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{ddb24d1e-c526-4847-b49c-4ea68188493c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\shadergraph">
+      <UniqueIdentifier>{fc827aad-c917-4b00-b793-c01677cc1cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{e6847972-bb33-4bc6-93e0-0cb0f57786af}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="MEL Scripts">
+      <UniqueIdentifier>{6055271f-a772-49f7-8585-7c48afd566ca}</UniqueIdentifier>
+      <Extensions>*.mel</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{eac56672-81b8-439f-a044-702182bfcbf4}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\rendererDesc">
+      <UniqueIdentifier>{cf9695ac-d96c-429c-bb82-eda1bf268a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xx">
+      <UniqueIdentifier>{3ca59bd8-6285-4259-910f-31c425263ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{6bdc42a0-628d-4992-afe7-91750420e169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{39d7854d-6796-48b5-bd32-845a04a8b17a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependence">
+      <UniqueIdentifier>{c88b583e-5896-422f-9cfe-fd97a0271bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependence\trace">
+      <UniqueIdentifier>{f62a9a44-8fec-4a40-bb7b-76d2657a46ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\liqAttachPrefAttribute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqBoundingBoxLocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqBucket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqCoordSysNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqCoShaderNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqDisplacementNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqExpression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqFrameScriptMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGetAttr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGetSloInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGlobalHelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGlobalNodeRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGlobalsNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGlobalVariable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqHeroRibWriterMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqJobList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqJobScriptMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqLightMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqLightNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqLightNodeBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqLocatorMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqlog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqMayaRenderView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqMemory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqNodeSwatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqPreviewShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqProcessLauncher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRenderScript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibboxNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibClipPlaneData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibCoordData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibCurvesData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibGenData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibHT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibImplicitSphereData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibLightData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibLocatorData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibMayaSubdivisionData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibMeshData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibNuCurveData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibParticleData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibPfxData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibPfxHairData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibPfxToonData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibRequestNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibShaveData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibSubdivisionData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibSurfaceData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibTranslator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibTranslatorNew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRiCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqShaderFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqShadowRibWriterMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqSurfaceNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqTokenPointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqVolumeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ri_interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shadergraph\shadermgr.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shadergraph\shaderOutput.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shadergraph\shaderOutputMgr.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shadergraph\shaderValidConnection.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shadergraph\shaderValidConnection_mi.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqGlobalNodeHelper.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqtypes.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderermgr.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\logmgr.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\mayacheck.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dependence\trace\trace.cpp">
+      <Filter>dependence\trace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\liqJobList.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\prerequest_maya.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqShaderNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibHierarchicalSubdivisionData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqParseString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibTranslatorGlobals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRibTranslatorArgs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liq_plug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liq_plug2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\liqGlobalNodeRenderer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibCamera.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shadergraph\convertShadingNetwork.h">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shadergraph\shadermgr.h">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shadergraph\shaderOutput.h">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shadergraph\shaderOutputMgr.h">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shadergraph\shaderValidConnection.h">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqAqsisRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqAttachPrefAttribute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqBoundingBoxLocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqBucket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqCoordSysNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqCoShaderNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqCustomNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqDelightRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqDisplacementNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqEntropyRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqExpression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqFrameScriptMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGetAttr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGetSloInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGlobalHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGlobals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGlobalsNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGlobalVariable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqHeroRibWriterMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqIOStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqJobScriptMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqLightMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqLightNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqLightNodeBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqLocatorMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqlog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqMayaNodeIds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqMayaRenderView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqNodeSwatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqPixieRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqPreviewShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqPrmanRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqProcessLauncher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRenderScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibBakeSubdivisionData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibboxNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibClipPlaneData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibCoordData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibCurvesData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibCustomNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibGenData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibHT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibImplicitSphereData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibLightData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibLocatorData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibMayaSubdivisionData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibMeshData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibNuCurveData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibObj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibParticleData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibPfxData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibPfxHairData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibPfxToonData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibRequestNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibShaveData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibSubdivisionData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibSurfaceData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibTranslator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRiCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqShaderFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqShaderParameterType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqShadowRibWriterMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqSurfaceNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqTokenParameterType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqTokenPointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liquid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqVolumeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ri_interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\liqAbstractFactory.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\liqGlobalNodeHelper.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\liqtypes.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\rendererinterface.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderermgr.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\logmgr.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\mayacheck.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\prerequest_maya.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\prerequest_std.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dependence\trace\trace.hpp">
+      <Filter>dependence\trace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqShaderNode.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqParseString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqtypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\mel\AEdagNodeInclude.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEdependNodeTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidCamera.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidCoordSysTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidCoShaderTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidDisplacementTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidFGGIOverrideFlags.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidInstanceFlags.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidLightTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidNurbsCurveShape.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidPaintEffects.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidRibBoxTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidRibRequestTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidSetFlags.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidShadowControls.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidSubdivisionSurfaceShape.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidSurfaceTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidVolumeTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEobjectSetTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEoldBlindDataBaseTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\getMultiListerSelection.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liqGlobalsNodeRenderer.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquid_FE.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidAttachParams.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidAttributes.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidBuildHypergraphNodePopupMenuItems.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCommon.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidConvertMtor.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidConvertShadingNetworkToRSL.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidConvMTOR.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCreateGlobalsTab.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidDelayedReadArchive.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidFileBrowser.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidFluid.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidGlobals.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidGlobalsEx.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidHelpers.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidIni.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidLifWidgets.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidLightLinker.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidMenuHelp.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidPaintEffects.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidParamDialogWindow.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidParseSlShader.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidPrefAttribute.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidReadArchive.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidReAttachParams.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidRenderCurve.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidRenderView.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidRibBox.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidRibGen.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidShaderNodes.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidShaders.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidShutdown.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlInfo.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlParseLif.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlParsePL.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlParseSdr.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlParseSlb.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlParseSlo.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSlParseSlx.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidStartup.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSubdiv.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidSubdivInspector.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidVertexPrimvars.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidWriteRSL_materials.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidWriteRSL_textures.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidWriteRSL_utilities.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\mmm.liquidMenu.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\registerLiquidRenderer.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\rendererDesc\liquidRenderer.xml">
+      <Filter>Resource Files\rendererDesc</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCheck.mel">
+      <Filter>xx</Filter>
+    </None>
+    <None Include="..\..\mel\xxliquidutility.mel">
+      <Filter>xx</Filter>
+    </None>
+    <None Include="..\..\mel\liquidAttributeManager.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\AEliquidShaderTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidliquidShaderNodes.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
+      <Filter>MEL Scripts</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+</Project>

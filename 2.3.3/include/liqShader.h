@@ -43,7 +43,7 @@
 class liqTokenPointer;
 class liqRibLightData;
 
-class liqShader
+class LIQUID_EXPORT liqShader
 {
 public :
     liqShader();

@@ -3,12 +3,13 @@
 
 #include "../common/prerequest_std.h"
 #include "../common/prerequest_maya.h"
+#include "liqtypes.h"
 
 namespace liquidmaya{
 
 	class ShaderOutputVisitor;
 	//
-	class ShaderOutputMgr
+	class LIQUID_EXPORT ShaderOutputMgr
 	{
 	public:
 		static ShaderOutputMgr* getSingletonPtr();

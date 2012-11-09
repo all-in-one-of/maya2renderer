@@ -52,11 +52,11 @@
 
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
-LIQUID_EXPORT MStatus initializePlugin(MObject obj)
+PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 //  Description:
 //      Register the command when the plug-in is loaded
 {
-	_initializePlugin(obj);
+	//_initializePlugin(obj);
 
   liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
 
@@ -64,13 +64,13 @@ LIQUID_EXPORT MStatus initializePlugin(MObject obj)
   return MS::kSuccess;
 }
 
-LIQUID_EXPORT MStatus uninitializePlugin(MObject obj)
+PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 //  Description:
 //      Deregister the command when the plug-in is unloaded
 {
 	liquid::RendererMgr::unregistFactory("renderman");
 	
-	_uninitializePlugin(obj);
+	//_uninitializePlugin(obj);
 
   return MS::kSuccess;
 }

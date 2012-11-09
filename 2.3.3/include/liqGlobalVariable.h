@@ -57,7 +57,7 @@ typedef struct StructChannel {
 
 
 
-struct liqGlobalVariable
+struct LIQUID_EXPORT liqGlobalVariable
 {
 	// this get's set if we are running the commandline version of liquid
 	bool liquidBin;
@@ -272,8 +272,8 @@ struct liqGlobalVariable
 	bool liqglo_skipDefaultMatte;
 };
 
-extern struct liqGlobalVariable liqglo;
-extern liquidVerbosityType liqglo_verbosity;
+extern LIQUID_EXPORT struct liqGlobalVariable liqglo;
+extern LIQUID_EXPORT liquidVerbosityType liqglo_verbosity;
 
 void initHinderParameters();
 void getHinderParameters(const MFnDependencyNode& rGlobalNode);

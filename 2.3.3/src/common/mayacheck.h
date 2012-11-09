@@ -20,9 +20,21 @@
 #define _MAYA_CHECK_
 
 //#include "prerequest_maya.h"
+#include <maya/MFn.h>
 #include <maya/MString.h>
 #include <maya/MStatus.h>
 #include <maya/M3dView.h>
+
+#ifdef _WIN32
+#	ifdef   LIQUID_EXPORT_DLL
+#		define MAYACHECK_EXPORT _declspec(dllexport)
+#	else
+#		define MAYACHECK_EXPORT _declspec(dllimport)
+#	endif
+#else
+#	define MAYACHECK_EXPORT
+#endif
+
 class MMatrix;
 class MVector;
 class MFloatVectorArray;
@@ -35,21 +47,21 @@ class MColor;
 // enum DisplayStatus;
 class MGlobal;
 //////////////////////////////////////////////////////////////////////////
-void displayInfo(const MString& info);
-void displayError(const MString& error);
-void displayWarning(const MString& warning);
-void displayInfo(const MString& prefix, const MMatrix& matrix);
-void displayInfo(const MString& prefix, double x, double y, double z);
-void displayInfo(const MString& prefix, const MVector& v);
-void displayInfo(const MString& prefix, const MFloatVectorArray& v);
-void displayInfo(const MString& prefix, const MEulerRotation& v);
-void displayInfo(const MString& prefix, double d);
-void displayInfo(const MString& prefix, const MStringArray& array);
-void displayInfo(const MString& prefix, const MIntArray& array);
-void displayInfo(const MString& prefix, const MFloatArray& array);
-void displayInfo(const MString& prefix, const MString& value);
-void displayInfo(const MString& prefix, const MColor& value);
-void displayInfo(const MString& prefix, M3dView::DisplayStatus displayStatus);
+MAYACHECK_EXPORT void displayInfo(const MString& info);
+MAYACHECK_EXPORT void displayError(const MString& error);
+MAYACHECK_EXPORT void displayWarning(const MString& warning);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MMatrix& matrix);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, double x, double y, double z);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MVector& v);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MFloatVectorArray& v);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MEulerRotation& v);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, double d);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MStringArray& array);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MIntArray& array);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MFloatArray& array);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MString& value);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, const MColor& value);
+MAYACHECK_EXPORT void displayInfo(const MString& prefix, M3dView::DisplayStatus displayStatus);
 
 // Convenience macros for checking the return status from API methods.
 // The output is displayed in the script editor instead of the output window...

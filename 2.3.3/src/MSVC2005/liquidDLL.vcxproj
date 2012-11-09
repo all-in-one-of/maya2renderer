@@ -131,7 +131,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{162E401F-7F1D-4E7F-B783-868FFF572F6A}</ProjectGuid>
+    <ProjectGuid>{25151EBE-239A-4866-89A6-47C8D23636F6}</ProjectGuid>
     <RootNamespace>liquid</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -2075,8 +2075,7 @@
     <PreBuildEvent>
       <Message>
       </Message>
-      <Command>
-      </Command>
+      <Command> </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -2091,8 +2090,8 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/elvishray/trunk;../../../dependence/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/aqsis/1.6.0/src/include/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/;E:\dev\render\renderer\appleseed\trunk\src\openexr\IlmImf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;LIQUID_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -2111,19 +2110,18 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/elvishray.mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\zlib\lib\vc9_sp1/zlibstat.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/liquidDLL.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/elvishray/bin;../../../dependence/zlib/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/elvishray.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2012x32d.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>
-      </ImportLibrary>
+      <ImportLibrary>../../bin/prman/win32/liquidDLL.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
@@ -2238,66 +2236,275 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\elvishray\er_plug.cpp" />
-    <ClCompile Include="..\elvishray\er_preview.cpp" />
-    <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeCurvesData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeHSubdData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeImplicitSphereData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeMayaSubdData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeNuCurveData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeParticleData.cpp" />
-    <ClCompile Include="..\elvishray\er_writePfxToonData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeSubdData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeSurfaceData.cpp" />
-    <ClCompile Include="..\elvishray\er_factory.cpp" />
-    <ClCompile Include="..\elvishray\er_GlobalNodeHelper.cpp" />
-    <ClCompile Include="..\elvishray\er_group.cpp" />
-    <ClCompile Include="..\elvishray\er_groupmgr.cpp" />
-    <ClCompile Include="..\elvishray\er_renderer.cpp" />
-    <ClCompile Include="..\elvishray\er_shader.cpp" />
-    <ClCompile Include="..\elvishray\er_writeLightData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeLocatorData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeMeshData.cpp" />
-    <ClCompile Include="..\elvishray\er_writePfxData.cpp" />
-    <ClCompile Include="..\elvishray\er_writePfxHairData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeShaveData.cpp" />
-    <ClCompile Include="..\elvishray\ercall.cpp" />
-    <ClCompile Include="..\elvishray\MayaConnection.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_materials.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_materials.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_mi.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_textures.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_utilities.cpp" />
+    <ClCompile Include="..\common\prerequest_maya.cpp" />
+    <ClCompile Include="..\liqAttachPrefAttribute.cpp" />
+    <ClCompile Include="..\liqBoundingBoxLocator.cpp" />
+    <ClCompile Include="..\liqBucket.cpp" />
+    <ClCompile Include="..\liqCoordSysNode.cpp" />
+    <ClCompile Include="..\liqCoShaderNode.cpp" />
+    <ClCompile Include="..\liqDisplacementNode.cpp" />
+    <ClCompile Include="..\liqExpression.cpp" />
+    <ClCompile Include="..\liqFrameScriptMgr.cpp" />
+    <ClCompile Include="..\liqGetAttr.cpp" />
+    <ClCompile Include="..\liqGetSloInfo.cpp" />
+    <ClCompile Include="..\liqGlobalHelpers.cpp" />
+    <ClCompile Include="..\liqGlobalNodeRenderer.cpp" />
+    <ClCompile Include="..\liqGlobalsNode.cpp" />
+    <ClCompile Include="..\liqGlobalVariable.cpp" />
+    <ClCompile Include="..\liqHeroRibWriterMgr.cpp" />
+    <ClCompile Include="..\liqJobList.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\liqJobScriptMgr.cpp" />
+    <ClCompile Include="..\liqLightMgr.cpp" />
+    <ClCompile Include="..\liqLightNode.cpp" />
+    <ClCompile Include="..\liqLightNodeBehavior.cpp" />
+    <ClCompile Include="..\liqLocatorMgr.cpp" />
+    <ClCompile Include="..\liqlog.cpp" />
+    <ClCompile Include="..\liqMayaRenderView.cpp" />
+    <ClCompile Include="..\liqMemory.cpp" />
+    <ClCompile Include="..\liqNodeSwatch.cpp" />
+    <ClCompile Include="..\liqParseString.cpp" />
+    <ClCompile Include="..\liqPreviewShader.cpp" />
+    <ClCompile Include="..\liqProcessLauncher.cpp" />
+    <ClCompile Include="..\liqRenderer.cpp" />
+    <ClCompile Include="..\liqRenderScript.cpp" />
+    <ClCompile Include="..\liqRibboxNode.cpp" />
+    <ClCompile Include="..\liqRibCamera.cpp" />
+    <ClCompile Include="..\liqRibClipPlaneData.cpp" />
+    <ClCompile Include="..\liqRibCoordData.cpp" />
+    <ClCompile Include="..\liqRibCurvesData.cpp" />
+    <ClCompile Include="..\liqRibData.cpp" />
+    <ClCompile Include="..\liqRibGenData.cpp" />
+    <ClCompile Include="..\liqRibHierarchicalSubdivisionData.cpp" />
+    <ClCompile Include="..\liqRibHT.cpp" />
+    <ClCompile Include="..\liqRibImplicitSphereData.cpp" />
+    <ClCompile Include="..\liqRibLightData.cpp" />
+    <ClCompile Include="..\liqRibLocatorData.cpp" />
+    <ClCompile Include="..\liqRibMayaSubdivisionData.cpp" />
+    <ClCompile Include="..\liqRibMeshData.cpp" />
+    <ClCompile Include="..\liqRibNode.cpp" />
+    <ClCompile Include="..\liqRibNuCurveData.cpp" />
+    <ClCompile Include="..\liqRibObj.cpp" />
+    <ClCompile Include="..\liqRibParticleData.cpp" />
+    <ClCompile Include="..\liqRibPfxData.cpp" />
+    <ClCompile Include="..\liqRibPfxHairData.cpp" />
+    <ClCompile Include="..\liqRibPfxToonData.cpp" />
+    <ClCompile Include="..\liqRibRequestNode.cpp" />
+    <ClCompile Include="..\liqRibShaveData.cpp" />
+    <ClCompile Include="..\liqRibSubdivisionData.cpp" />
+    <ClCompile Include="..\liqRibSurfaceData.cpp" />
+    <ClCompile Include="..\liqRibTranslator.cpp" />
+    <ClCompile Include="..\liqRibTranslatorArgs.cpp" />
+    <ClCompile Include="..\liqRibTranslatorGlobals.cpp" />
+    <ClCompile Include="..\liqRibTranslatorNew.cpp" />
+    <ClCompile Include="..\liqRiCommands.cpp" />
+    <ClCompile Include="..\liqShader.cpp" />
+    <ClCompile Include="..\liqShaderFactory.cpp" />
+    <ClCompile Include="..\liqShaderNode.cpp" />
+    <ClCompile Include="..\liqShadowRibWriterMgr.cpp" />
+    <ClCompile Include="..\liqSurfaceNode.cpp" />
+    <ClCompile Include="..\liqTokenPointer.cpp" />
+    <ClCompile Include="..\liqVolumeNode.cpp" />
+    <ClCompile Include="..\liq_plug.cpp" />
+    <ClCompile Include="..\liq_plug2.cpp" />
+    <ClCompile Include="..\ri_interface.cpp" />
+    <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp" />
+    <ClCompile Include="..\shadergraph\shadermgr.cpp" />
+    <ClCompile Include="..\shadergraph\shaderOutput.cpp" />
+    <ClCompile Include="..\shadergraph\shaderOutputMgr.cpp" />
+    <ClCompile Include="..\shadergraph\shaderValidConnection.cpp" />
+    <ClCompile Include="..\shadergraph\shaderValidConnection_mi.cpp" />
+    <ClCompile Include="..\liqGlobalNodeHelper.cpp" />
+    <ClCompile Include="..\liqtypes.cpp" />
+    <ClCompile Include="..\renderermgr.cpp" />
+    <ClCompile Include="..\common\logmgr.cpp" />
+    <ClCompile Include="..\common\mayacheck.cpp" />
+    <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\elvishray\er_factory.h" />
-    <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
-    <ClInclude Include="..\elvishray\er_group.h" />
-    <ClInclude Include="..\elvishray\er_groupmgr.h" />
-    <ClInclude Include="..\elvishray\er_renderer.h" />
-    <ClInclude Include="..\elvishray\ercall.h" />
-    <ClInclude Include="..\elvishray\log_helper.h" />
-    <ClInclude Include="..\elvishray\MayaConnection.h" />
-    <ClInclude Include="..\elvishray\shaderOutputER.h" />
-    <ClInclude Include="..\elvishray\shaderOutputERCall.h" />
+    <ClInclude Include="..\..\include\liqParseString.h" />
+    <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqShaderNode.h" />
+    <ClInclude Include="..\..\include\liqtypes.h" />
+    <ClInclude Include="..\liqGlobalNodeRenderer.h" />
+    <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
+    <ClInclude Include="..\shadergraph\shadermgr.h" />
+    <ClInclude Include="..\shadergraph\shaderOutput.h" />
+    <ClInclude Include="..\shadergraph\shaderOutputMgr.h" />
+    <ClInclude Include="..\shadergraph\shaderValidConnection.h" />
+    <ClInclude Include="..\..\include\liqAqsisRenderer.h" />
+    <ClInclude Include="..\..\include\liqAttachPrefAttribute.h" />
+    <ClInclude Include="..\..\include\liqBoundingBoxLocator.h" />
+    <ClInclude Include="..\..\include\liqBucket.h" />
+    <ClInclude Include="..\..\include\liqConfig.h" />
+    <ClInclude Include="..\..\include\liqCoordSysNode.h" />
+    <ClInclude Include="..\..\include\liqCoShaderNode.h" />
+    <ClInclude Include="..\..\include\liqCustomNode.h" />
+    <ClInclude Include="..\..\include\liqDelightRenderer.h" />
+    <ClInclude Include="..\..\include\liqDisplacementNode.h" />
+    <ClInclude Include="..\..\include\liqEntropyRenderer.h" />
+    <ClInclude Include="..\..\include\liqExpression.h" />
+    <ClInclude Include="..\..\include\liqFrameScriptMgr.h" />
+    <ClInclude Include="..\..\include\liqGetAttr.h" />
+    <ClInclude Include="..\..\include\liqGetSloInfo.h" />
+    <ClInclude Include="..\..\include\liqGlobalHelpers.h" />
+    <ClInclude Include="..\..\include\liqGlobals.h" />
+    <ClInclude Include="..\..\include\liqGlobalsNode.h" />
+    <ClInclude Include="..\..\include\liqGlobalVariable.h" />
+    <ClInclude Include="..\..\include\liqHeroRibWriterMgr.h" />
+    <ClInclude Include="..\..\include\liqIOStream.h" />
+    <ClCompile Include="..\..\include\liqJobList.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClInclude Include="..\..\include\liqJobScriptMgr.h" />
+    <ClInclude Include="..\..\include\liqLightMgr.h" />
+    <ClInclude Include="..\..\include\liqLightNode.h" />
+    <ClInclude Include="..\..\include\liqLightNodeBehavior.h" />
+    <ClInclude Include="..\..\include\liqLocatorMgr.h" />
+    <ClInclude Include="..\..\include\liqlog.h" />
+    <ClInclude Include="..\..\include\liqMayaNodeIds.h" />
+    <ClInclude Include="..\..\include\liqMayaRenderView.h" />
+    <ClInclude Include="..\..\include\liqMemory.h" />
+    <ClInclude Include="..\..\include\liqNodeSwatch.h" />
+    <ClInclude Include="..\..\include\liqPixieRenderer.h" />
+    <ClInclude Include="..\..\include\liqPreviewShader.h" />
+    <ClInclude Include="..\..\include\liqPrmanRenderer.h" />
+    <ClInclude Include="..\..\include\liqProcessLauncher.h" />
+    <ClInclude Include="..\..\include\liqRenderer.h" />
+    <ClInclude Include="..\..\include\liqRenderScript.h" />
+    <ClInclude Include="..\..\include\liqRibBakeSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRibboxNode.h" />
+    <ClInclude Include="..\..\include\liqRibClipPlaneData.h" />
+    <ClInclude Include="..\..\include\liqRibCoordData.h" />
+    <ClInclude Include="..\..\include\liqRibCurvesData.h" />
+    <ClInclude Include="..\..\include\liqRibCustomNode.h" />
+    <ClInclude Include="..\..\include\liqRibData.h" />
+    <ClInclude Include="..\..\include\liqRibGen.h" />
+    <ClInclude Include="..\..\include\liqRibGenData.h" />
+    <ClInclude Include="..\..\include\liqRibHT.h" />
+    <ClInclude Include="..\..\include\liqRibImplicitSphereData.h" />
+    <ClInclude Include="..\..\include\liqRibLightData.h" />
+    <ClInclude Include="..\..\include\liqRibLocatorData.h" />
+    <ClInclude Include="..\..\include\liqRibMayaSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRibMeshData.h" />
+    <ClInclude Include="..\..\include\liqRibNode.h" />
+    <ClInclude Include="..\..\include\liqRibNuCurveData.h" />
+    <ClInclude Include="..\..\include\liqRibObj.h" />
+    <ClInclude Include="..\..\include\liqRibParticleData.h" />
+    <ClInclude Include="..\..\include\liqRibPfxData.h" />
+    <ClInclude Include="..\..\include\liqRibPfxHairData.h" />
+    <ClInclude Include="..\..\include\liqRibPfxToonData.h" />
+    <ClInclude Include="..\..\include\liqRibRequestNode.h" />
+    <ClInclude Include="..\..\include\liqRibShaveData.h" />
+    <ClInclude Include="..\..\include\liqRibStatus.h" />
+    <ClInclude Include="..\..\include\liqRibSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRibSurfaceData.h" />
+    <ClInclude Include="..\..\include\liqRibTranslator.h" />
+    <ClInclude Include="..\..\include\liqRiCommands.h" />
+    <ClInclude Include="..\..\include\liqShader.h" />
+    <ClInclude Include="..\..\include\liqShaderFactory.h" />
+    <ClInclude Include="..\..\include\liqShaderParameterType.h" />
+    <ClInclude Include="..\..\include\liqShadowRibWriterMgr.h" />
+    <ClInclude Include="..\..\include\liqSurfaceNode.h" />
+    <ClInclude Include="..\..\include\liqTokenParameterType.h" />
+    <ClInclude Include="..\..\include\liqTokenPointer.h" />
+    <ClInclude Include="..\..\include\liquid.h" />
+    <ClInclude Include="..\..\include\liqVolumeNode.h" />
+    <ClInclude Include="..\..\include\ri_interface.h" />
+    <ClInclude Include="..\liqAbstractFactory.h" />
+    <ClInclude Include="..\liqGlobalNodeHelper.h" />
+    <ClInclude Include="..\liqtypes.h" />
+    <ClInclude Include="..\rendererinterface.h" />
+    <ClInclude Include="..\renderermgr.h" />
+    <ClInclude Include="..\common\logmgr.h" />
+    <ClInclude Include="..\common\mayacheck.h" />
+    <ClInclude Include="..\common\prerequest_maya.h" />
+    <ClInclude Include="..\common\prerequest_std.h" />
+    <ClInclude Include="..\..\..\dependence\trace\trace.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\mel\AEdagNodeInclude.mel" />
+    <None Include="..\..\mel\AEdependNodeTemplate.mel" />
+    <None Include="..\..\mel\AEliquidCamera.mel" />
+    <None Include="..\..\mel\AEliquidCoordSysTemplate.mel" />
+    <None Include="..\..\mel\AEliquidCoShaderTemplate.mel" />
+    <None Include="..\..\mel\AEliquidDisplacementTemplate.mel" />
+    <None Include="..\..\mel\AEliquidFGGIOverrideFlags.mel" />
+    <None Include="..\..\mel\AEliquidInstanceFlags.mel" />
+    <None Include="..\..\mel\AEliquidLightTemplate.mel" />
+    <None Include="..\..\mel\AEliquidNurbsCurveShape.mel" />
+    <None Include="..\..\mel\AEliquidPaintEffects.mel" />
+    <None Include="..\..\mel\AEliquidRibBoxTemplate.mel" />
+    <None Include="..\..\mel\AEliquidRibRequestTemplate.mel" />
+    <None Include="..\..\mel\AEliquidSetFlags.mel" />
+    <None Include="..\..\mel\AEliquidShaderTemplate.mel" />
+    <None Include="..\..\mel\AEliquidShadowControls.mel" />
+    <None Include="..\..\mel\AEliquidSubdivisionSurfaceShape.mel" />
+    <None Include="..\..\mel\AEliquidSurfaceTemplate.mel" />
+    <None Include="..\..\mel\AEliquidVolumeTemplate.mel" />
+    <None Include="..\..\mel\AEobjectSetTemplate.mel" />
+    <None Include="..\..\mel\AEoldBlindDataBaseTemplate.mel" />
+    <None Include="..\..\mel\getMultiListerSelection.mel" />
+    <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
+    <None Include="..\..\mel\liquidAttributeManager.mel" />
+    <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
+    <None Include="..\..\mel\liquid_FE.mel" />
+    <None Include="..\..\mel\liquidAttachParams.mel" />
+    <None Include="..\..\mel\liquidAttributes.mel" />
+    <None Include="..\..\mel\liquidBuildHypergraphNodePopupMenuItems.mel" />
+    <None Include="..\..\mel\liquidCommon.mel" />
+    <None Include="..\..\mel\liquidConvertMtor.mel" />
+    <None Include="..\..\mel\liquidConvertShadingNetworkToRSL.mel" />
+    <None Include="..\..\mel\liquidConvMTOR.mel" />
+    <None Include="..\..\mel\liquidCreateGlobalsTab.mel" />
+    <None Include="..\..\mel\liquidDelayedReadArchive.mel" />
+    <None Include="..\..\mel\liquidFileBrowser.mel" />
+    <None Include="..\..\mel\liquidFluid.mel" />
+    <None Include="..\..\mel\liquidGlobals.mel" />
+    <None Include="..\..\mel\liquidGlobalsEx.mel" />
+    <None Include="..\..\mel\liquidHelpers.mel" />
+    <None Include="..\..\mel\liquidIni.mel" />
+    <None Include="..\..\mel\liquidLifWidgets.mel" />
+    <None Include="..\..\mel\liquidLightLinker.mel" />
+    <None Include="..\..\mel\liquidMenuHelp.mel" />
+    <None Include="..\..\mel\liquidPaintEffects.mel" />
+    <None Include="..\..\mel\liquidParamDialogWindow.mel" />
+    <None Include="..\..\mel\liquidParseSlShader.mel" />
+    <None Include="..\..\mel\liquidPrefAttribute.mel" />
+    <None Include="..\..\mel\liquidReadArchive.mel" />
+    <None Include="..\..\mel\liquidReAttachParams.mel" />
+    <None Include="..\..\mel\liquidRenderCurve.mel" />
+    <None Include="..\..\mel\liquidRenderView.mel" />
+    <None Include="..\..\mel\liquidRibBox.mel" />
+    <None Include="..\..\mel\liquidRibGen.mel" />
+    <None Include="..\..\mel\liquidShaderNodes.mel" />
+    <None Include="..\..\mel\liquidShaders.mel" />
+    <None Include="..\..\mel\liquidShutdown.mel" />
+    <None Include="..\..\mel\liquidSlInfo.mel" />
+    <None Include="..\..\mel\liquidSlParseLif.mel" />
+    <None Include="..\..\mel\liquidSlParsePL.mel" />
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
       <FileType>Document</FileType>
     </CustomBuildStep>
-    <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
-    <None Include="..\elvishray\mel\er_callback.mel" />
-    <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
-    <None Include="..\elvishray\mel\er_CreateMenus.mel" />
-    <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel" />
-    <None Include="..\elvishray\mel\userSetup.mel" />
+    <None Include="..\..\mel\liquidSlParseSdr.mel" />
+    <None Include="..\..\mel\liquidSlParseSlb.mel" />
+    <None Include="..\..\mel\liquidSlParseSlo.mel" />
+    <None Include="..\..\mel\liquidSlParseSlx.mel" />
+    <None Include="..\..\mel\liquidStartup.mel" />
+    <None Include="..\..\mel\liquidSubdiv.mel" />
+    <None Include="..\..\mel\liquidSubdivInspector.mel" />
+    <None Include="..\..\mel\liquidVertexPrimvars.mel" />
+    <None Include="..\..\mel\liquidWriteRSL_materials.mel" />
+    <None Include="..\..\mel\liquidWriteRSL_textures.mel" />
+    <None Include="..\..\mel\liquidWriteRSL_utilities.mel" />
+    <None Include="..\..\mel\mmm.liquidMenu.mel" />
+    <None Include="..\..\mel\registerLiquidRenderer.mel" />
+    <None Include="..\..\rendererDesc\liquidRenderer.xml" />
+    <None Include="..\..\mel\liquidCheck.mel" />
+    <None Include="..\..\mel\xxliquidutility.mel" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="displayDriverAqsis\displayDriverAqsis.vcxproj">

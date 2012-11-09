@@ -74,13 +74,15 @@
 // extern int debugMode;
 // #endif
 
+#include "liqtypes.h"
+
 #define HERE  cout<<"at line "<<__LINE__<<" in "<<__FUNCTION__<<endl<<flush;
 
 #define TIMER_START       struct tms t,u;long r1,r2;r1 = times(&t);
 #define TIMER_STOP(msg)   r2 = times(&u); cout <<"[liquid timer] "<<msg<<" :"<<endl<<"\t  user time = "<<((float)(u.tms_utime-t.tms_utime))/(HZ)<<endl<<"\tsystem time = "<<((float)(u.tms_stime-t.tms_stime))/(HZ)<<endl;
 
 
-extern int  debugMode;
+extern LIQUID_EXPORT int  debugMode;
 #if !defined(LINUX) && !defined(OSX)
 #define STDERR stderr
 #  ifndef LIQDEBUGPRINTF

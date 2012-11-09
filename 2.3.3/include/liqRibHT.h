@@ -60,7 +60,7 @@
 	typedef std::vector< MString > str_Vector;
 	typedef std::vector< ObjectType > type_Vector;
 
-class liqRibHT {
+class LIQUID_EXPORT liqRibHT {
 
 public:
 	liqRibHT();

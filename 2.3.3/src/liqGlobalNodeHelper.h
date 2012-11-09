@@ -3,6 +3,7 @@
 #define liqGlobalNodeHelper_H
 
 #include "common/prerequest_maya.h"
+#include "liqtypes.h"
 
 /* ______________________________________________________________________
 **
@@ -10,7 +11,7 @@
 ** ______________________________________________________________________
 */
 
-class liqGlobalNodeHelper
+class LIQUID_EXPORT liqGlobalNodeHelper
 {
 public:
 	liqGlobalNodeHelper();

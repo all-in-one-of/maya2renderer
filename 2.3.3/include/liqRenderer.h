@@ -35,8 +35,9 @@
 #include <maya/MStringArray.h>
 #include <maya/MObject.h>
 
+#include "liqtypes.h"
 
-class liqRenderer {
+class LIQUID_EXPORT liqRenderer {
 
 public:
 

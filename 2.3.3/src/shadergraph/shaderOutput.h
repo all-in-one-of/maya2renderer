@@ -2,11 +2,12 @@
 #define _SHADER_OUTPUT_H_
 
 #include "../common/prerequest_maya.h"
+#include "liqtypes.h"
 
 namespace liquidmaya{
 
 // Visitor Pattern
-class ShaderOutputVisitor
+class LIQUID_EXPORT ShaderOutputVisitor
 {
 public:
 	ShaderOutputVisitor();

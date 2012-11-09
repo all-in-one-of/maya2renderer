@@ -10,7 +10,7 @@ namespace liquid
 {
 
 
-class RendererMgr
+class LIQUID_EXPORT RendererMgr
 {
 public:
 	static RendererMgr* getInstancePtr();

@@ -63,7 +63,7 @@ typedef enum {
 	liqRibBoxShader = 2          // A rib box attached to the shader
 } liqDetailShaderKind;
 
-class liqRibTranslator : public MPxCommand {
+class LIQUID_EXPORT liqRibTranslator : public MPxCommand {
 public:
 	liqRibTranslator();
 	virtual ~liqRibTranslator();

@@ -3,7 +3,7 @@
 
 // use aqsis for rib exportion
 #include <liqConfig.h>
-
+#include "liqtypes.h"
 //-------------------------------------------------------
 #ifdef RIBLIB_AQSIS
 
@@ -17,7 +17,7 @@
 #	include "../riblib/ri.h"
 #endif
 //-------------------------------------------------------
-RtVoid RiBegin_liq(RtToken name);
+LIQUID_EXPORT RtVoid RiBegin_liq(RtToken name);
 //-------------------------------------------------------
 
 #endif//liqRiInterface_H

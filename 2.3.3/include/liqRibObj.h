@@ -53,7 +53,7 @@ typedef boost::shared_ptr< liqRibData > liqRibDataPtr;
 
 struct structJob;
 
-class liqRibObj {
+class LIQUID_EXPORT liqRibObj {
 public:
     explicit liqRibObj( const MDagPath &, ObjectType objType );
 	virtual ~liqRibObj(){}

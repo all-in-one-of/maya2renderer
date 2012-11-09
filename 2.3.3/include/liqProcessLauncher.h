@@ -19,6 +19,7 @@
 #ifndef liqProcessLauncher_H
 #define liqProcessLauncher_H
 
+#include "liqtypes.h"
 
 class MString;
 
@@ -26,7 +27,7 @@ class MString;
 // class for spawning new processes from within Liquid (e.g. start the render 
 // process after making RIB files). The code is platform-dependant so this 
 // class encapsulates all the details
-class liqProcessLauncher
+class LIQUID_EXPORT liqProcessLauncher
 {
 public:
   static bool execute(const MString &command, const MString &arguments, const MString &path, const bool wait );

@@ -38,23 +38,18 @@
 #pragma warning(disable:4786)
 #endif
 
-// DLL export symbols must be specified under Win32
-#ifdef _WIN32
-#define LIQUID_EXPORT _declspec(dllexport)
-#else
-#define LIQUID_EXPORT
-#endif
+
 
 // Renderman Headers
 //extern "C" {
-//#include "ri_interface.h"
+#include "liqtypes.h"//#include "ri_interface.h"
 //}
 
 #include <maya/MObject.h>
 #include <maya/MStatus.h>
 
 
-MStatus _initializePlugin(MObject obj);
-MStatus _uninitializePlugin(MObject obj);
+LIQUID_EXPORT MStatus _initializePlugin(MObject obj);
+LIQUID_EXPORT MStatus _uninitializePlugin(MObject obj);
 
 #endif//_LIQ_PLUG_H_

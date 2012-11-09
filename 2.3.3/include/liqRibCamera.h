@@ -9,7 +9,7 @@ struct liqGlobalVariable;
 
 
 
-class tRibCameraMgr
+class LIQUID_EXPORT tRibCameraMgr
 {
 public:
 	tRibCameraMgr();

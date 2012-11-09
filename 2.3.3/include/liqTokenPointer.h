@@ -33,7 +33,7 @@
 
 #include "liqTokenParameterType.h"
 
-class liqTokenPointer
+class LIQUID_EXPORT liqTokenPointer
 {
   public:
     liqTokenPointer();
