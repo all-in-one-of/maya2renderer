@@ -179,6 +179,7 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		DebugDLL_Liquid|Win32 = DebugDLL_Liquid|Win32
 		DebugLib_Liquid|Win32 = DebugLib_Liquid|Win32
 		MinSizeRel|Win32 = MinSizeRel|Win32
 		Release|Win32 = Release|Win32
@@ -187,6 +188,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.Debug|Win32.Build.0 = Debug|Win32
+		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -196,17 +199,21 @@ Global
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{59571DB5-E38C-4AA3-BEDC-52F0C1C558FD}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{22155448-4AB0-42A1-9759-3557A4EF6F5C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22155448-4AB0-42A1-9759-3557A4EF6F5C}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
 		{22155448-4AB0-42A1-9759-3557A4EF6F5C}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{22155448-4AB0-42A1-9759-3557A4EF6F5C}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
 		{22155448-4AB0-42A1-9759-3557A4EF6F5C}.Release|Win32.ActiveCfg = Release|Win32
 		{22155448-4AB0-42A1-9759-3557A4EF6F5C}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{8F015476-A521-4866-ADD6-0C82941699E9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F015476-A521-4866-ADD6-0C82941699E9}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
 		{8F015476-A521-4866-ADD6-0C82941699E9}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{8F015476-A521-4866-ADD6-0C82941699E9}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
 		{8F015476-A521-4866-ADD6-0C82941699E9}.Release|Win32.ActiveCfg = Release|Win32
 		{8F015476-A521-4866-ADD6-0C82941699E9}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.Debug|Win32.Build.0 = Debug|Win32
+		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -217,6 +224,8 @@ Global
 		{DA442667-4C7B-4E97-B747-5C63896D9B1A}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{65D5F5A1-7989-4B32-94D5-CED617A35486}.Debug|Win32.ActiveCfg = Debug|Win32
 		{65D5F5A1-7989-4B32-94D5-CED617A35486}.Debug|Win32.Build.0 = Debug|Win32
+		{65D5F5A1-7989-4B32-94D5-CED617A35486}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{65D5F5A1-7989-4B32-94D5-CED617A35486}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{65D5F5A1-7989-4B32-94D5-CED617A35486}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{65D5F5A1-7989-4B32-94D5-CED617A35486}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{65D5F5A1-7989-4B32-94D5-CED617A35486}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -227,6 +236,8 @@ Global
 		{65D5F5A1-7989-4B32-94D5-CED617A35486}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{C7152568-05A8-47D1-A4FF-69B989AB5157}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C7152568-05A8-47D1-A4FF-69B989AB5157}.Debug|Win32.Build.0 = Debug|Win32
+		{C7152568-05A8-47D1-A4FF-69B989AB5157}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{C7152568-05A8-47D1-A4FF-69B989AB5157}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{C7152568-05A8-47D1-A4FF-69B989AB5157}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{C7152568-05A8-47D1-A4FF-69B989AB5157}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{C7152568-05A8-47D1-A4FF-69B989AB5157}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -237,6 +248,8 @@ Global
 		{C7152568-05A8-47D1-A4FF-69B989AB5157}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.Debug|Win32.Build.0 = Debug|Win32
+		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -247,6 +260,8 @@ Global
 		{8AA1BEDE-4E82-4026-ACFD-11C07395BD1B}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{D19E97CD-208C-4F68-89AC-816896127AE7}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D19E97CD-208C-4F68-89AC-816896127AE7}.Debug|Win32.Build.0 = Debug|Win32
+		{D19E97CD-208C-4F68-89AC-816896127AE7}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{D19E97CD-208C-4F68-89AC-816896127AE7}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{D19E97CD-208C-4F68-89AC-816896127AE7}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{D19E97CD-208C-4F68-89AC-816896127AE7}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{D19E97CD-208C-4F68-89AC-816896127AE7}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -257,6 +272,8 @@ Global
 		{D19E97CD-208C-4F68-89AC-816896127AE7}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.Debug|Win32.Build.0 = Debug|Win32
+		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -267,6 +284,8 @@ Global
 		{7953CCDE-6957-4AC7-861A-C4AD159DBB12}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.Debug|Win32.ActiveCfg = Debug|Win32
 		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.Debug|Win32.Build.0 = Debug|Win32
+		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -277,6 +296,8 @@ Global
 		{1D1ABEBC-B78D-4431-B67D-12FE0B7CB584}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.Debug|Win32.ActiveCfg = Debug|Win32
 		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.Debug|Win32.Build.0 = Debug|Win32
+		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -287,6 +308,8 @@ Global
 		{AD1213C4-C1B6-4CB2-BE09-3BF2B1CFB1E5}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.Debug|Win32.Build.0 = Debug|Win32
+		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -297,6 +320,8 @@ Global
 		{2C8E8168-8E00-487E-B4CC-86B575739FDA}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.Debug|Win32.Build.0 = Debug|Win32
+		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -307,6 +332,8 @@ Global
 		{BD4B08CE-79F5-45B5-BFB7-DDCCC6424CDD}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{FCB32810-123C-4639-9A04-D51024226737}.Debug|Win32.ActiveCfg = Debug|Win32
 		{FCB32810-123C-4639-9A04-D51024226737}.Debug|Win32.Build.0 = Debug|Win32
+		{FCB32810-123C-4639-9A04-D51024226737}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{FCB32810-123C-4639-9A04-D51024226737}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{FCB32810-123C-4639-9A04-D51024226737}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{FCB32810-123C-4639-9A04-D51024226737}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{FCB32810-123C-4639-9A04-D51024226737}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -317,6 +344,8 @@ Global
 		{FCB32810-123C-4639-9A04-D51024226737}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.Debug|Win32.Build.0 = Debug|Win32
+		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -327,6 +356,8 @@ Global
 		{B3A065F3-F111-4165-BCE1-5789AEB277A2}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.Debug|Win32.Build.0 = Debug|Win32
+		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -337,6 +368,8 @@ Global
 		{C137E61B-0936-49AA-9BF9-00B20DD9479D}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.Debug|Win32.Build.0 = Debug|Win32
+		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -347,6 +380,8 @@ Global
 		{E7503019-BDF4-45D7-9D3D-D9DEE211293A}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.Debug|Win32.Build.0 = Debug|Win32
+		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -357,6 +392,8 @@ Global
 		{35A64CC0-38E0-4224-8803-A7F02F148DDD}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.Debug|Win32.Build.0 = Debug|Win32
+		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -367,6 +404,8 @@ Global
 		{B8A83B4C-36F7-494B-BCFC-52FAFB0FD299}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.Debug|Win32.ActiveCfg = Debug|Win32
 		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.Debug|Win32.Build.0 = Debug|Win32
+		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -377,6 +416,8 @@ Global
 		{15952154-3A45-483D-A8B6-5F0E63EE4FA8}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.Debug|Win32.Build.0 = Debug|Win32
+		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -387,6 +428,8 @@ Global
 		{F0299328-9744-4A5E-B343-ED4C19EAE64E}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.Debug|Win32.Build.0 = Debug|Win32
+		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -397,6 +440,8 @@ Global
 		{E66F1CC4-683C-42C2-97B9-A624495BE15A}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.Debug|Win32.ActiveCfg = Debug|Win32
 		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.Debug|Win32.Build.0 = Debug|Win32
+		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -407,6 +452,8 @@ Global
 		{008E6A51-D57C-49BA-B2BA-68A658DF3938}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.Debug|Win32.ActiveCfg = Debug|Win32
 		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.Debug|Win32.Build.0 = Debug|Win32
+		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32
@@ -417,6 +464,8 @@ Global
 		{EBB3F70F-A4A5-4A5F-AEBC-92875A758DCB}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
 		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.Debug|Win32.Build.0 = Debug|Win32
+		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.DebugDLL_Liquid|Win32.ActiveCfg = DebugDLL_Liquid|Win32
+		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.DebugDLL_Liquid|Win32.Build.0 = DebugDLL_Liquid|Win32
 		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.DebugLib_Liquid|Win32.ActiveCfg = DebugLib_Liquid|Win32
 		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.DebugLib_Liquid|Win32.Build.0 = DebugLib_Liquid|Win32
 		{8512F463-D016-46BC-A35F-C7B05DC80FD7}.MinSizeRel|Win32.ActiveCfg = MinSizeRel|Win32

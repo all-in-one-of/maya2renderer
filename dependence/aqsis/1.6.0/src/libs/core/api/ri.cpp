@@ -247,13 +247,13 @@ RtToken RI_SHADER           = tokenCast("shader");
 RtToken RI_EYE              = tokenCast("eye");
 RtToken RI_NDC              = tokenCast("ndc");
 RtToken RI_AMPLITUDE        = tokenCast("amplitude");
-RtToken RI_COMMENT          = tokenCast("comment");
+AQSIS_RI_SHARE RtToken RI_COMMENT          = tokenCast("comment");
 RtToken RI_CONSTANTWIDTH    = tokenCast("constantwidth");
 RtToken RI_KR               = tokenCast("Kr");
 RtToken RI_SHINYMETAL       = tokenCast("shinymetal");
 RtToken RI_STRUCTURE        = tokenCast("structure");
 RtToken RI_TEXTURENAME      = tokenCast("texturename");
-RtToken RI_VERBATIM         = tokenCast("verbatim");
+AQSIS_RI_SHARE RtToken RI_VERBATIM         = tokenCast("verbatim");
 RtToken RI_WIDTH            = tokenCast("width");
 
 RtBasis	RiBezierBasis	= {{ -1.0f,       3.0f,      -3.0f,       1.0f},
