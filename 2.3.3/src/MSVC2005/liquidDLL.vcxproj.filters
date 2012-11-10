@@ -289,7 +289,7 @@
     <ClCompile Include="..\liq_plug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\liq_plug2.cpp">
+    <ClCompile Include="..\liq_plugdll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

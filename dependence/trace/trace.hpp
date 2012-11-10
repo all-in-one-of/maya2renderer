@@ -40,10 +40,14 @@ class's constructor and destructor. This rational is simple enough, but this way
 #define CM_TRACE_FUNC(func_name)    std::stringstream __CM_TRACE_SSTR; __CM_TRACE_SSTR<<func_name; cm::Trace __CM_TRACE__(__CM_TRACE_SSTR.str())
 
 #ifdef _WIN32
-#	ifdef   LIQUID_EXPORT_DLL
-#		define TRACE_EXPORT _declspec(dllexport)
+#	ifdef LIQUID_SEPARATE
+#		ifdef LIQUID_EXPORT_DLL
+#			define TRACE_EXPORT _declspec(dllexport)
+#		else
+#			define TRACE_EXPORT _declspec(dllimport)
+#		endif
 #	else
-#		define TRACE_EXPORT _declspec(dllimport)
+#		define TRACE_EXPORT
 #	endif
 #else
 #	define TRACE_EXPORT

@@ -19,5 +19,8 @@
 //-------------------------------------------------------
 LIQUID_EXPORT RtVoid RiBegin_liq(RtToken name);
 //-------------------------------------------------------
-
+#ifdef LIQUID_SEPARATE
+extern LIQUID_EXPORT liqToken RI_COMMENT;
+extern LIQUID_EXPORT liqToken RI_VERBATIM;
+#endif
 #endif//liqRiInterface_H
