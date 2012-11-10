@@ -2345,6 +2345,7 @@
     <ClCompile Include="..\liqTokenPointer.cpp" />
     <ClCompile Include="..\liquidPlug.cpp" />
     <ClCompile Include="..\liqVolumeNode.cpp" />
+    <ClCompile Include="..\liq_plug.cpp" />
     <ClCompile Include="..\renderman\rm_preview.cpp" />
     <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCoordData.cpp" />

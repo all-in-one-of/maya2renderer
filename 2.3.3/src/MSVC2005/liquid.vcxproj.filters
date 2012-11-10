@@ -643,6 +643,9 @@
     <ClCompile Include="..\appleseed\as_preview.cpp">
       <Filter>renderer\appleseed</Filter>
     </ClCompile>
+    <ClCompile Include="..\liq_plug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
