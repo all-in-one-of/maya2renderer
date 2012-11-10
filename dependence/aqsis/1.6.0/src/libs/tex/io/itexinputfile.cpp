@@ -26,8 +26,9 @@
  */
 
 #include <aqsis/tex/io/itexinputfile.h>
-
+#ifdef USE_OPENEXR
 #include "exrinputfile.h"
+#endif
 #include <aqsis/util/logging.h>
 #include "magicnumber.h"
 #include "tiffinputfile.h"
