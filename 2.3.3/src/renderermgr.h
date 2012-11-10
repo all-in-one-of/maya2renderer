@@ -16,7 +16,7 @@ public:
 	static RendererMgr* getInstancePtr();
 	virtual ~RendererMgr();
 
-	void setFactory(const std::string& renderername);
+	bool setFactory(const std::string& renderername);
 	void unsetFactory();
 
 	static void registFactory(const std::string& renderername, AbstractFactory* factory);

@@ -54,7 +54,7 @@ namespace liquid
 		getRenderer()->closeLog();
 	}
 	//
-	void RendererMgr::setFactory(const std::string& renderername)
+	bool RendererMgr::setFactory(const std::string& renderername)
 	{
 		CM_TRACE_FUNC("RendererMgr::createFactory("<<renderername<<")");
 		
@@ -63,8 +63,10 @@ namespace liquid
 		if( i != m_factories.end() )
 		{
 			m_factory = i->second;
+			return true;
 		} else {
 			liquidMessage2(messageError, "Unkown renderer:%s.",renderername.c_str() );
+			return false;
 		}
 	}
 	void RendererMgr::unsetFactory()

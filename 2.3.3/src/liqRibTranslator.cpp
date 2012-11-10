@@ -1855,7 +1855,11 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 			MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 			MString renderer;
 			liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
-			liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
+
+			bool bSetFactory 
+				= liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
+			if( !bSetFactory )
+				return MS::kFailure;
 			liquid::RendererMgr::getInstancePtr()->install();
 			liquid::RendererMgr::getInstancePtr()->prologue();
 		}
