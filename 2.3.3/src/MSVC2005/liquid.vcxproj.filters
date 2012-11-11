@@ -646,6 +646,12 @@
     <ClCompile Include="..\liq_plug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp">
+      <Filter>renderer\renderman</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -1040,6 +1046,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\liqtypes.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h">
+      <Filter>renderer\renderman</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h">
+      <Filter>renderer\renderman</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

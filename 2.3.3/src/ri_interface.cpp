@@ -51,7 +51,7 @@ RtVoid RiBegin_liq(RtToken name)
 	RiBegin( const_cast<RtToken>(newname.c_str()) );
 }
 //--------------------------------------------------------
-#ifdef LIQUID_SEPARATE
-LIQUID_EXPORT liqToken RI_COMMENT          = tokenCast("comment");
-LIQUID_EXPORT liqToken RI_VERBATIM         = tokenCast("verbatim");
-#endif
+// #ifdef LIQUID_SEPARATE
+//LIQUID_EXPORT liqToken RI_COMMENT          = tokenCast("comment");
+//LIQUID_EXPORT liqToken RI_VERBATIM         = tokenCast("verbatim");
+//#endif

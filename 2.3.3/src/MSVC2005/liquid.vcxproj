@@ -2346,7 +2346,9 @@
     <ClCompile Include="..\liquidPlug.cpp" />
     <ClCompile Include="..\liqVolumeNode.cpp" />
     <ClCompile Include="..\liq_plug.cpp" />
+    <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
     <ClCompile Include="..\renderman\rm_preview.cpp" />
+    <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
     <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCoordData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCurvesData.cpp" />
@@ -2451,6 +2453,8 @@
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
+    <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
     <ClInclude Include="..\shadergraph\shadermgr.h" />
     <ClInclude Include="..\shadergraph\shaderOutput.h" />

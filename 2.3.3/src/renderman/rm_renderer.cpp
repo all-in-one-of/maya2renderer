@@ -29,8 +29,8 @@
 #include <liqFrameScriptMgr.h>
 #include <liqLightMgr.h>
 #include <liqLocatorMgr.h>
-#include <liqShadowRibWriterMgr.h>
-#include <liqHeroRibWriterMgr.h>
+#include "rm_shadowRibWriterMgr.h"//#include <liqShadowRibWriterMgr.h>
+#include "rm_heroRibWriterMgr.h"//#include <liqHeroRibWriterMgr.h>
 #include <liqRibCamera.h>
 #include <liqRibTranslator.h>
 

@@ -19,16 +19,16 @@ public:
 		const bool m_outputLightsInDeepShadows__
 		//,std::vector<structJob>  jobList__
 		);
-	static void ribPrologue_samples(liqFloat xsamples, liqFloat ysamples);
-	static void ribPrologue_shadingrate(liqFloat size);
-	static void ribPrologue_filter(
-		liquidlong m_rFilter,
-		liqFloat m_rFilterX, liqFloat m_rFilterY
-		);
-	static void ribPrologue_hider(HiderType hidertype);
-	static void ribPrologue_pass(liqString pass);
-
-	static void framePrologue_display(const structJob &currentJob);
+// 	static void ribPrologue_samples(liqFloat xsamples, liqFloat ysamples);
+// 	static void ribPrologue_shadingrate(liqFloat size);
+// 	static void ribPrologue_filter(
+// 		liquidlong m_rFilter,
+// 		liqFloat m_rFilterX, liqFloat m_rFilterY
+// 		);
+// 	static void ribPrologue_hider(HiderType hidertype);
+// 	static void ribPrologue_pass(liqString pass);
+// 
+// 	static void framePrologue_display(const structJob &currentJob);
 
 protected:
 	tHeroRibWriterMgr(const tHeroRibWriterMgr&);

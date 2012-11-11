@@ -94,6 +94,8 @@
     <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp">
       <Filter>renderer\renderman</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
+    <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -122,5 +124,7 @@
     <ClInclude Include="..\renderman\shaderOutputRSL.h">
       <Filter>renderer\renderman</Filter>
     </ClInclude>
+    <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
+    <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
   </ItemGroup>
 </Project>
