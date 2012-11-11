@@ -68,7 +68,7 @@ using namespace __gnu_cxx;
 #include <liquid.h>
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 
 using namespace std;
@@ -421,7 +421,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
 
       LIQDEBUGPRINTF( "-> Reading Particle Data\n");
 
-      RtInt floatOn( 0 );
+      liqInt floatOn( 0 );
 
       for ( unsigned part_num( 0 ); part_num < m_numValidParticles; part_num++ ) 
       {
@@ -549,9 +549,9 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
           }
 
           Pparameter.setTokenFloat( part_num * m_multiCount + multiNum,
-                                    RtFloat(posArray[ m_validParticles[ part_num ] ].x + rad * xDir),
-                                    RtFloat(posArray[ m_validParticles[ part_num ] ].y + rad * yDir),
-                                    RtFloat(posArray[ m_validParticles[ part_num ] ].z + rad * zDir) );
+                                    liqFloat(posArray[ m_validParticles[ part_num ] ].x + rad * xDir),
+                                    liqFloat(posArray[ m_validParticles[ part_num ] ].y + rad * yDir),
+                                    liqFloat(posArray[ m_validParticles[ part_num ] ].z + rad * zDir) );
         }
       }
 
