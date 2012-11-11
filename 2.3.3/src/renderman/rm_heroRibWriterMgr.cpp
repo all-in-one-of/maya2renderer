@@ -7,6 +7,7 @@
 #include <liqRibTranslator.h>
 #include "../shadergraph/shadermgr.h"
 #include "ri_interface.h"
+#include "rm_helper.h"
 
 namespace renderman
 {
@@ -170,16 +171,16 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 			}
 
 			if ( !currentJob.isStereoPass ) 
-				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.camera );
+				exportJobCamera( currentJob, currentJob.camera );
 			else
 			{
 				// export right camera
 				RiTransformBegin();
-				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.rightCamera );
+				exportJobCamera( currentJob, currentJob.rightCamera );
 				RiArchiveRecord( RI_VERBATIM, "Camera \"%s\"\n", "right" );//RiCameraV( "right", 0, (char**)RI_NULL, (void**)RI_NULL );
 				RiTransformEnd();
 				// export left camera
-				liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.leftCamera );
+				exportJobCamera( currentJob, currentJob.leftCamera );
 			}
 
 			// display channels

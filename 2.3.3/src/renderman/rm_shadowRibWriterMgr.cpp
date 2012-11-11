@@ -7,6 +7,7 @@
 #include <liqRibTranslator.h>
 #include <liqProcessLauncher.h>
 #include "../renderermgr.h"
+#include "rm_helper.h"
 
 namespace renderman
 {
@@ -224,7 +225,7 @@ void tShadowRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					"minmax", &minmax,
 					RI_NULL );
 			}
-			liqRibTranslator::getInstancePtr()->exportJobCamera( currentJob, currentJob.camera );
+			exportJobCamera( currentJob, currentJob.camera );
 			//refactor 17 end
 			//}
 }

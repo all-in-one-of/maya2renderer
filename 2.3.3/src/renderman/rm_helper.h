@@ -45,7 +45,8 @@ namespace renderman
 	MString getShaderFilePath_NoExt(const MString &shaderNodeName);
 	MString getShaderFilePath_SRC(const MString &shaderNodeName);
 	MString getShaderFilePath_SLO(const MString &shaderNodeName);
-
+	//-------------------------------------------------------
+	void exportJobCamera(const structJob &job, const structCamera camera[]);
 }
 
 #endif//RM_HELPER_H

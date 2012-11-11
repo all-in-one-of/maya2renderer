@@ -74,7 +74,7 @@ public:
 	MStatus doIt(const MArgList& args );
 	
 	MStatus _doItNew(const MArgList& args, const MString& originalLayer );
-	MStatus _doIt(const MArgList& args, const MString& originalLayer );
+	//MStatus _doIt(const MArgList& args, const MString& originalLayer );
 
 	friend class liqJobList;
 
@@ -94,7 +94,7 @@ private: // Methods
 #ifdef Refactoring 
 public: 
 #endif
-	void exportJobCamera(const structJob &job, const structCamera camera[]);//r773
+//	void exportJobCamera(const structJob &job, const structCamera camera[]);//r773
 	MString verifyResourceDir( const char *resourceName, MString resourceDir, bool &problem );
 	bool verifyOutputDirectories();
 
@@ -106,7 +106,7 @@ public:
 	MStatus buildJobs();
 
 	// rib output functions
-	MStatus ribOutput( long scanTime, MString ribName, bool world_only, bool out_lightBlock, MString archiveName );
+	//MStatus ribOutput( long scanTime, MString ribName, bool world_only, bool out_lightBlock, MString archiveName );
 
 #ifdef Refactoring 
 public: 
