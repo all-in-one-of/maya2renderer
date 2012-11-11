@@ -58,7 +58,7 @@
 #include <liquid.h>
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 
 
@@ -101,8 +101,8 @@ liqRibMayaSubdivisionData::liqRibMayaSubdivisionData( MObject subd )
 	liqTokenPointer pFaceVertexTPointer;
 
 	// Allocate memory and tokens
-	nverts = shared_array< RtInt >( new RtInt[ numFaces ] );
-	verts = shared_array< RtInt >( new RtInt[ numFaceVertices ] );
+	nverts = shared_array< liqInt >( new liqInt[ numFaces ] );
+	verts = shared_array< liqInt >( new liqInt[ numFaceVertices ] );
 
 	pointsPointerPair.set( "P", rPoint, numPoints );
 	pointsPointerPair.setDetailType( rVertex );

@@ -61,7 +61,7 @@
 #include <liqShaderFactory.h>
 #include <liqGlobalVariable.h>
 #include "renderermgr.h"
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #ifdef Refactoring
 #include "liqRibTranslator.h"
 #endif
@@ -115,9 +115,9 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 	// General
 	nonDiffuse = 0;
 	nonSpecular = 0;
-	RtMatrix transformationMatrixTmp = {{1, 0, 0, 0},  {0, 1, 0, 0},  {0, 0, 1, 0},  {0, 0, 0, 1}};
-  memcpy( ( void *)transformationMatrix, ( void *)transformationMatrixTmp, sizeof(RtMatrix) );
-//	bcopy(transformationMatrixTmp, transformationMatrix, sizeof(RtMatrix));
+	liqMatrix transformationMatrixTmp = {{1, 0, 0, 0},  {0, 1, 0, 0},  {0, 0, 1, 0},  {0, 0, 0, 1}};
+  memcpy( ( void *)transformationMatrix, ( void *)transformationMatrixTmp, sizeof(liqMatrix) );
+//	bcopy(transformationMatrixTmp, transformationMatrix, sizeof(liqMatrix));
 	handle = NULL;
 	usingShadow = false;
 	deepShadows = 0;
@@ -259,7 +259,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 
   // get the light transform and flip it as maya's light work in the opposite direction
   // this seems to work correctly!
-  RtMatrix rLightFix = {{ 1.0, 0.0,  0.0, 0.0},
+  liqMatrix rLightFix = {{ 1.0, 0.0,  0.0, 0.0},
                         { 0.0, 1.0,  0.0, 0.0},
                         { 0.0, 0.0, -1.0, 0.0},
                         { 0.0, 0.0,  0.0, 1.0}};
@@ -487,7 +487,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 //   {
 //     LIQDEBUGPRINTF( "-> writing light %s \n", lightName.asChar());
 // 
-// 	//RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrix ) );
+// 	//RiConcatTransform( * const_cast< liqMatrix* >( &transformationMatrix ) );
 //     if ( liqglo.liqglo_isShadowPass ) 
 //     {
 //       if ( usingShadow ) 
@@ -866,7 +866,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 // 			liqRibLightData::scaleZ_forRenderman(
 // 				transformationMatrixScaledZ, transformationMatrix
 // 				);
-// 			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
+// 			RiConcatTransform( * const_cast< liqMatrix* >( &transformationMatrixScaledZ ) );
 //           rmanLightShader->write();
 //  		  #ifdef RIBLIB_AQSIS
 //  		  handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(rmanLightShader->shaderHandler.asInt()));
@@ -973,7 +973,7 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 //           break;
 //         }
 //         case MRLT_Unknown: {
-// 			RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrix ) );
+// 			RiConcatTransform( * const_cast< liqMatrix* >( &transformationMatrix ) );
 //           break;
 //         }
 //       }

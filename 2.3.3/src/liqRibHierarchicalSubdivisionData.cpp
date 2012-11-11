@@ -57,7 +57,7 @@
 
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 
 using namespace boost;
@@ -122,8 +122,8 @@ liqRibHierarchicalSubdivisionData::liqRibHierarchicalSubdivisionData( MObject me
 	liqTokenPointer pFaceVertexTPointer;
 
 	// Allocate memory and tokens
-	nverts = shared_array< RtInt >( new RtInt[ numFaces ] );
-	verts = shared_array< RtInt >( new RtInt[ numFaceVertices ] );
+	nverts = shared_array< liqInt >( new liqInt[ numFaces ] );
+	verts = shared_array< liqInt >( new liqInt[ numFaceVertices ] );
 
 	pointsPointerPair.set( "P", rPoint, numPoints );
 	pointsPointerPair.setDetailType( rVertex );
@@ -348,7 +348,7 @@ void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 	m_subdivTags[0] = "creasemethod";
 	m_subdivTags[1] = "facevaryingpropagatecorners";
 	m_subdivTags[2] = "interpolateboundary";
-	m_subdivNArgs = new RtInt[ m_subdivNTags * 3 ];
+	m_subdivNArgs = new liqInt[ m_subdivNTags * 3 ];
 	// creasemethod args : 1 string : "normal" | "chaikin"  // inutile puisque pas de crease ...
 	m_subdivNArgs[0] = 0;
 	m_subdivNArgs[1] = 0;
@@ -369,7 +369,7 @@ void liqRibHierarchicalSubdivisionData::initializeSubdivParameters()
 	}   
 	if(m_subdivsNInts)
 	{
-		m_subdivIntArgs = new RtInt[m_subdivsNInts];
+		m_subdivIntArgs = new liqInt[m_subdivsNInts];
 	}
 	if(m_subdivsNFloats)
 	{
