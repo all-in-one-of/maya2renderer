@@ -103,7 +103,7 @@ public:
 	static bool liquidInitGlobals();
 	void liquidReadGlobals();
 
-	MStatus buildJobs();
+//	MStatus buildJobs();
 
 	// rib output functions
 	//MStatus ribOutput( long scanTime, MString ribName, bool world_only, bool out_lightBlock, MString archiveName );
@@ -111,15 +111,15 @@ public:
 #ifdef Refactoring 
 public: 
 #endif
-	MStatus ribPrologue();
-	MStatus ribEpilogue();
-	MStatus framePrologue( long );
-	MStatus worldPrologue();
-	MStatus lightBlock();
-	MStatus coordSysBlock();
-	MStatus objectBlock();
+//	MStatus ribPrologue();
+//	MStatus ribEpilogue();
+//	MStatus framePrologue( long );
+//	MStatus worldPrologue();
+//	MStatus lightBlock();
+//	MStatus coordSysBlock();
+//	MStatus objectBlock();
 	MStatus worldEpilogue();
-	MStatus frameEpilogue( long );
+//	MStatus frameEpilogue( long );
 
 	void doAttributeBlocking( const MDagPath & newPath,  const MDagPath & previousPath );
 	void printProgress ( unsigned stat, unsigned frames, unsigned where );
@@ -467,7 +467,7 @@ public:
 	MStatus preTransformMel(const MObject &transform__);
 	MStatus postTransformMel(const MObject &transform__);
 	MStatus tRiIlluminate(const structJob &currentJob__, const liqRibNodePtr ribNode__);
-	MStatus MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagPath &path__, const bool bMotionBlur);
+//	MStatus MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagPath &path__, const bool bMotionBlur);
 
 	MStatus preShapeMel(const MObject &transform__);
 	MStatus postShapeMel(const MObject &transform__);
@@ -493,7 +493,7 @@ public:
 		//MString &shaderRibBox__
 		);
 	MStatus displacementBounds(const liqRibNodePtr &ribNode__);
-	MStatus objectNonShadowAttribute(const liqRibNodePtr &ribNode__);
+//	MStatus objectNonShadowAttribute(const liqRibNodePtr &ribNode__);
 	MStatus objectShadowAttribute(const liqRibNodePtr &ribNode__);
 // 	MStatus writeShader(
 // 		const bool writeShaders__, 
@@ -529,12 +529,12 @@ public:
 		const structJob &currentJob
 		);
 	//
-	void F1(
-		const liqRibNodePtr &ribNode__, liqShader &currentShader
-		);
-	void F2(
-		const bool m_shaderDebug, const liqRibNodePtr &ribNode__
-		);
+// 	void F1(
+// 		const liqRibNodePtr &ribNode__, liqShader &currentShader
+// 		);
+// 	void F2(
+// 		const bool m_shaderDebug, const liqRibNodePtr &ribNode__
+// 		);
 	void getPfxHairData(const MDagPath &path__,
 		liqFloat &translucence, liqFloat &specularPower, liqColor &specularColor
 		);

@@ -37,7 +37,7 @@
 #include <boost/scoped_array.hpp>
 // RenderMan headers
 //extern "C" {
-#include "ri_interface.h"
+//#include "ri_interface.h"
 //}
 
 // Maya headers
@@ -1582,20 +1582,22 @@ void liqRibNode::parseVectorAttributes( const MFnDependencyNode& nodeFn, const M
 }
 
 
-void liqRibNode::writeUserAttributes() {
+void liqRibNode::writeUserAttributes() 
+{
 	CM_TRACE_FUNC("liqRibNode::writeUserAttributes()");
 
-  unsigned numTokens( tokenPointerMap.size() );
-  if( numTokens ) {
-    scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
-    scoped_array< liqPointer > pointerArray( new liqPointer[ numTokens ] );
-    // Can't use assignTokenArraysV() since we're dealing with std::map
-    unsigned i( 0 );
-    for ( map<const string, liqTokenPointer >::const_iterator iter( tokenPointerMap.begin() ); iter != tokenPointerMap.end(); iter++, i++ ) {
-      tokenArray[ i ] = const_cast< liqString >( const_cast< liqTokenPointer* >( &( iter->second ) )->getDetailedTokenName().c_str() );
-      pointerArray[ i ] = const_cast< liqTokenPointer* >( &( iter->second ) )->getRtPointer();
-    }
+	assert(0&&"liqRibNode::writeUserAttributes() is not implemented.");
+  //unsigned numTokens( tokenPointerMap.size() );
+  //if( numTokens ) {
+  //  scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
+  //  scoped_array< liqPointer > pointerArray( new liqPointer[ numTokens ] );
+  //  // Can't use assignTokenArraysV() since we're dealing with std::map
+  //  unsigned i( 0 );
+  //  for ( map<const string, liqTokenPointer >::const_iterator iter( tokenPointerMap.begin() ); iter != tokenPointerMap.end(); iter++, i++ ) {
+  //    tokenArray[ i ] = const_cast< liqString >( const_cast< liqTokenPointer* >( &( iter->second ) )->getDetailedTokenName().c_str() );
+  //    pointerArray[ i ] = const_cast< liqTokenPointer* >( &( iter->second ) )->getRtPointer();
+  //  }
 
-    RiAttributeV( "user", numTokens, tokenArray.get(), pointerArray.get() );
-  }
+  //  RiAttributeV( "user", numTokens, tokenArray.get(), pointerArray.get() );
+  //}
 }

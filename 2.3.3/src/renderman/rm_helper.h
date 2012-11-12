@@ -12,6 +12,8 @@
 #include "liqRibShaveData.h"
 #include "liqRibPfxHairData.h"
 #include "liqRibPfxData.h"
+#include "liqRibNode.h"
+#include "liqRibHT.h"
 
 namespace renderman
 {
@@ -47,6 +49,10 @@ namespace renderman
 	MString getShaderFilePath_SLO(const MString &shaderNodeName);
 	//-------------------------------------------------------
 	void exportJobCamera(const structJob &job, const structCamera camera[]);
+	MStatus MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagPath &path__, const bool bMotionBlur);
+	MStatus objectNonShadowAttribute(const liqRibNodePtr &ribNode__);
+
+	//
 }
 
 #endif//RM_HELPER_H

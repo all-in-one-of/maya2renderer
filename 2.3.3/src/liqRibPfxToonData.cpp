@@ -59,7 +59,7 @@
 #include <liquid.h>
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 
 using namespace boost;

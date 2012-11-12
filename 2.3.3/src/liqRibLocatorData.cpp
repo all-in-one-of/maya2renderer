@@ -47,7 +47,7 @@
 
 #include <liquid.h>
 #include <liqGlobalHelpers.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 
 /** Create a RIB compatible representation of a Maya locator.

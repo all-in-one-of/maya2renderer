@@ -7,7 +7,7 @@
 #include "shaderOutputMgr.h"
 #include "../renderermgr.h"
 
-#include "../renderman/rm_helper.h"
+//#include "../renderman/rm_helper.h"
 
 namespace liquidmaya{
 

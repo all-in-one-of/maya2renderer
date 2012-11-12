@@ -491,7 +491,7 @@ namespace renderman
 			liqglo.liqglo_doMotion 
 			&& bMotionBlur;
 
-		liqRibTranslator::getInstancePtr()->MaxtrixMotionBlur(ribNode__, path, bMatrixMotionBlur);
+		MaxtrixMotionBlur(ribNode__, path, bMatrixMotionBlur);
 
 		// Alf: postTransformMel
 		liqRibTranslator::getInstancePtr()->postTransformMel(transform);
@@ -1430,7 +1430,7 @@ namespace renderman
 		{
 			liqRibTranslator::getInstancePtr()->objectShadowAttribute(ribNode);
 		}else{
-			liqRibTranslator::getInstancePtr()->objectNonShadowAttribute(ribNode);
+			objectNonShadowAttribute(ribNode);
 		}
 	}
 	void Renderer::logFrame(const char* msg)
@@ -1456,7 +1456,7 @@ namespace renderman
 		//liqShader& currentShader( liqGetShader( ribNode__->assignedShader.object() ) );
 		liqShader& currentShader = liqShaderFactory::instance().getShader( ribNode__->assignedShader.object() );
 
-		liqRibTranslator::getInstancePtr()->F1(ribNode__, currentShader);
+		F1(ribNode__, currentShader);
 
 		liqRIBMsg("[2] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", currentJob.pass, currentShader.outputInShadow );
 		// per shader shadow pass override
@@ -1472,7 +1472,7 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface("
 			<<ribNode__->name.asChar()<<","<<path__.fullPathName().asChar()<<","<<m_shaderDebug<<")");
 
-		liqRibTranslator::getInstancePtr()->F2(m_shaderDebug, ribNode__);
+		F2(m_shaderDebug, ribNode__);
 
 		if( !liqRibTranslator::getInstancePtr()->m_ignoreSurfaces ) 
 		{
@@ -1583,6 +1583,148 @@ namespace renderman
 			}
 		}
 	}
+	MStatus Renderer::coordSysBlock__(const structJob &currentJob, boost::shared_ptr< liqRibHT > &htable)
+	{
+		CM_TRACE_FUNC("Renderer::coordSysBlock__("<<currentJob.name.asChar()<<")");
+
+		MStatus returnStatus = MS::kSuccess;
+		LIQDEBUGPRINTF( "-> Writing coordinate systems.\n" );
+		RNMAP::iterator rniter;
+		for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ ) 
+		{
+			LIQ_CHECK_CANCEL_REQUEST;
+			liqRibNodePtr   ribNode = (*rniter).second;
+			if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_Coord ) 
+				continue;
+			if( liqglo.m_outputComments )
+				RiArchiveRecord( RI_COMMENT, "Name: %s", ribNode->name.asChar(), RI_NULL );
+
+			RiAttributeBegin();
+			RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
+
+			liqMatrix ribMatrix;
+			MMatrix matrix;
+			MDagPath path;
+
+			matrix = ribNode->object(0)->matrix( path.instanceNumber() );
+			matrix.get( ribMatrix );
+			if( liqglo.liqglo_relativeTransforms ) 
+				RiConcatTransform( ribMatrix ); 
+			else 
+				RiTransform( ribMatrix );
+
+			ribNode->object(0)->writeObject("", currentJob, false);
+			ribNode->object(0)->written = 1;
+			RiAttributeEnd();
+		}
+		return returnStatus;
+	}
+	MStatus Renderer::preGeometryMel(const MString &m_preGeomRIB)
+	{
+		CM_TRACE_FUNC("Renderer::preGeometryMel()");
+		// Moritz: Added Pre-Geometry RIB for insertion right before any primitives
+		MFnDependencyNode globalsNode( liqglo.rGlobalObj );
+		MPlug prePostplug( globalsNode.findPlug( "preGeomMel" ) );
+		MString melcommand( prePostplug.asString() );
+		if( m_preGeomRIB != "" || melcommand.length() )
+		{
+			RiArchiveRecord( RI_COMMENT,  " Pre-Geometry RIB from liquid globals");
+			MGlobal::executeCommand( melcommand );
+			RiArchiveRecord( RI_VERBATIM, ( char* ) m_preGeomRIB.asChar() );
+			RiArchiveRecord( RI_VERBATIM, "\n");
+		}
+		return MS::kSuccess;
+	}
+	//
+	void Renderer::F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader)
+	{
+		CM_TRACE_FUNC("Renderer::F1("<<ribNode__->name.asChar()<<","<<currentShader.getName()<<")");
+		// Output color overrides or color ====>>>>>  WILL BE DONE IN liqShader::write -begin //r773 going to omit in r773
+		if(ribNode__->shading.color.r != -1.0)
+		{
+			liqColor rColor;
+			rColor[0] = ribNode__->shading.color[0];
+			rColor[1] = ribNode__->shading.color[1];
+			rColor[2] = ribNode__->shading.color[2];
+			RiArchiveRecord( RI_COMMENT, "mark10" );
+			RiColor( rColor );
+		}
+		else{
+			RiArchiveRecord( RI_COMMENT, "mark11" );
+			RiColor( currentShader.rmColor );
+		}
+
+		if(ribNode__->shading.opacity.r != -1.0)
+		{
+			liqColor rOpacity;
+			rOpacity[0] = ribNode__->shading.opacity[0];
+			rOpacity[1] = ribNode__->shading.opacity[1];
+			rOpacity[2] = ribNode__->shading.opacity[2];
+			RiOpacity( rOpacity );
+		}
+		else
+			RiOpacity( currentShader.rmOpacity );
+		//====>>>>>  WILL BE DONE IN liqShader::write  -end
+	}
+
+	////////////////////////////////////////
+	void Renderer::F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__)
+	{ 
+		CM_TRACE_FUNC("Renderer::F2("<<m_shaderDebug<<","<<ribNode__->name.asChar()<<")");
+		if( m_shaderDebug ) 
+		{
+			liqColor rColor,rOpacity;
+			liqRIBMsg("shader debug is turned on, so the object is red.");
+			// shader debug on !! everything goes red and opaque !!!
+			rColor[0] = 1.;
+			rColor[1] = 0.;
+			rColor[2] = 0.;
+			RiArchiveRecord( RI_COMMENT, "mark12" );
+			RiColor( rColor );
+
+			rOpacity[0] = 1.;
+			rOpacity[1] = 1.;
+			rOpacity[2] = 1.;
+			RiOpacity( rOpacity );
+		}else{
+			if(ribNode__->shading.color.r != -1.0) 
+			{
+				liqColor rColor;
+				rColor[0] = ribNode__->shading.color[0];
+				rColor[1] = ribNode__->shading.color[1];
+				rColor[2] = ribNode__->shading.color[2];
+				RiArchiveRecord( RI_COMMENT, "mark13" );
+				RiColor( rColor );
+			} 
+			else if( ( ribNode__->color.r != AS_NotEXist )&&( ribNode__->color.r != AS_ConnectedAsDes )) 
+			{
+				liqColor rColor;
+				rColor[0] = ribNode__->color[0];
+				rColor[1] = ribNode__->color[1];
+				rColor[2] = ribNode__->color[2];
+				RiArchiveRecord( RI_COMMENT, "mark14" );
+				RiColor( rColor );
+			}
+
+			if(ribNode__->shading.opacity.r != -1.0) 
+			{
+				liqColor rOpacity;
+				rOpacity[0] = ribNode__->shading.opacity[0];
+				rOpacity[1] = ribNode__->shading.opacity[1];
+				rOpacity[2] = ribNode__->shading.opacity[2];
+				RiOpacity( rOpacity );
+			} 
+			else if( ( ribNode__->opacity.r != AS_NotEXist )&&( ribNode__->opacity.r != AS_ConnectedAsDes )) 
+			{	
+				liqColor rOpacity;
+				rOpacity[0] = ribNode__->opacity[0];
+				rOpacity[1] = ribNode__->opacity[1];
+				rOpacity[2] = ribNode__->opacity[2];
+				RiOpacity( rOpacity );
+			}
+		}
+	}
+
 }//namespace
 
 #endif//_USE_RENDERMAN_

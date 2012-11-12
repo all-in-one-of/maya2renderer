@@ -994,6 +994,25 @@ namespace elvishray
 
 		return true;
 	}
+	MStatus Renderer::coordSysBlock__(const structJob &currentJob, boost::shared_ptr< liqRibHT > &htable)
+	{
+		CM_TRACE_FUNC("Renderer::coordSysBlock__("<<currentJob.name.asChar()<<")");
+		return MS::kSuccess;
+	}
+	MStatus Renderer::preGeometryMel(const MString &m_preGeomRIB)
+	{
+		CM_TRACE_FUNC("Renderer::preGeometryMel()");
+		return MS::kSuccess;
+	}
+	void Renderer::F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader)
+	{
+		CM_TRACE_FUNC("Renderer::F1("<<ribNode__->name.asChar()<<","<<currentShader.getName()<<")");
+	}
+	void Renderer::F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__)
+	{
+		CM_TRACE_FUNC("Renderer::F2("<<m_shaderDebug<<","<<ribNode__->name.asChar()<<")");
+	}
+
 }//namespace
 
 #endif//_USE_ELVISHRAY_

@@ -96,6 +96,8 @@
     </ClCompile>
     <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
+    <ClCompile Include="..\ri_interface.cpp" />
+    <ClCompile Include="..\liqRiCommands.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -126,5 +128,6 @@
     </ClInclude>
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
     <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
+    <ClInclude Include="..\..\include\liqRiCommands.h" />
   </ItemGroup>
 </Project>

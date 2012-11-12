@@ -333,6 +333,11 @@ namespace renderman
 		virtual void oneObjectBlock_reference_attribute_block3_ShadingGroup(
 			const MString& meshname
 			);
+		virtual MStatus coordSysBlock__(const structJob &currentJob, boost::shared_ptr< liqRibHT > &htable);
+		virtual MStatus preGeometryMel(const MString &m_preGeomRIB);
+		virtual void F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader);
+		virtual void F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__);
+
 	protected:
 		Renderer(const Renderer&);
 		Renderer& operator=(const Renderer&);

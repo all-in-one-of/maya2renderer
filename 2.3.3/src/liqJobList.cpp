@@ -188,7 +188,7 @@ MStatus liqJobList::redoIt()
     // build the job list
     //
     //LIQDEBUGPRINTF("  build jobs...");
-    if ( ribTranslator.buildJobs() != MS::kSuccess ) {
+    if ( ribTranslator.buildJobs__() != MS::kSuccess ) {
       MString err("buildJob() Failed");
       throw err;
     }

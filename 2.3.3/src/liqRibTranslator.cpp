@@ -3368,1012 +3368,1012 @@ void liqRibTranslator::getCameraInfo(const MFnCamera& cam, structCamera &camStru
 /**
 * Set up data for the current job.
 */
-MStatus liqRibTranslator::buildJobs()
-{
-	CM_TRACE_FUNC("liqRibTranslator::buildJobs()");
-
-	LIQDEBUGPRINTF( "-> beginning to build job list\n" );
-	MStatus returnStatus = MS::kSuccess;
-	MStatus status;
-	MObject cameraNode;
-	MDagPath lightPath;
-	jobList.clear();
-	shadowList.clear();
-	txtList.clear();
-
-	//[refactor 35] begin to liqRibTranslator.buildJobs__()
-	structJob thisJob;
-
-	thisJob.pass = rpNone; // reset RenderPass type
-	thisJob.name.clear();
-	thisJob.texName.clear();
-	thisJob.height = thisJob.width = 0;
-	thisJob.renderName = m_renderCommand;
-	thisJob.isShadowPass  = false;
-	thisJob.isPoint       = false;
-	thisJob.renderFrame   = liqglo.liqglo_lframe;
-	thisJob.everyFrame    = true;
-	thisJob.isStereoPass  = false;
-	thisJob.aspectRatio   = 1.0;
-	thisJob.samples       = 1;
-	thisJob.shadingRate   = 1.0;
-	thisJob.shadingRateFactor = 1.0;
-	thisJob.skip          = false;
-	//[refactor 35] end 
-
-	MItDependencyNodes dependencyNodesIter(MFn::kDependencyNode, &returnStatus);
-	if(returnStatus==MS::kSuccess)
-	{
-		//char *currentName = NULL;
-		for(; !dependencyNodesIter.isDone(); dependencyNodesIter.next())
-		{
-			MFnDependencyNode dependencyNodeFn(dependencyNodesIter.thisNode());
-			if( dependencyNodeFn.typeName()=="liquidSurface"
-				|| dependencyNodeFn.typeName()=="liquidDisplacement"
-				|| dependencyNodeFn.typeName()=="liquidVolume"
-				|| dependencyNodeFn.typeName()=="liquidLight"
-				|| dependencyNodeFn.typeName()=="liquidShader"
-				)
-			{
-				MString name(dependencyNodeFn.name());
-				liqShader currentShader(dependencyNodesIter.thisNode());
-				currentShader.buildJobs();
-			}
-		}
-	}
-	// what we do here is make all of the lights with depth shadows turned on into
-	// cameras and add them to the renderable camera list *before* the main camera
-	// so all the automatic depth map shadows are complete before the main pass
-
-	if( liqglo.liqglo_doShadows ) 
-	{
-		LIQDEBUGPRINTF("  setup shadows...\n" );
-		//
-		// lights
-		//
-		//[refactor 2] begin
-		//[refactor 2.1] begin
-		MItDag dagIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus );
-		for (; !dagIterator.isDone(); dagIterator.next()) 
-		{
-			if( !dagIterator.getPath( lightPath ) ) 
-				continue;
-
-			thisJob.pass = rpNone; // reset RenderPass type
-			thisJob.isPoint       = false;
-			thisJob.pointDir = pPX;
-			thisJob.shadowObjectSet.clear();
-			thisJob.shadowArchiveRibDone = false;
-			thisJob.shadowType    = stStandart;
-			thisJob.shadowHiderType = shNone;
-			thisJob.hasShadowCam = false;
-			thisJob.shadowAggregation = false;
-			thisJob.midPointRatio = 0;
-			thisJob.samples = 1;
-			thisJob.shadingRate = 1.0;
-			thisJob.shadingRateFactor = 1.0;
-			thisJob.aspectRatio = 1.0;
-			thisJob.volume = viNone;
-			thisJob.deepShadowOption.clear();
-			thisJob.renderFrame   = liqglo.liqglo_lframe;
-			thisJob.everyFrame    = true;
-			thisJob.skip          = false;
-
-			bool usesDepthMap = false;
-			MFnLight fnLightNode( lightPath );
-			liquidGetPlugValue( fnLightNode, "useDepthMapShadows", usesDepthMap, status );
-			if( usesDepthMap && areObjectAndParentsVisible( lightPath ) ) 
-			{
-				thisJob.pass = rpShadowMap;
-        		thisJob.imageMode = "z";
-        		thisJob.format = "shadow";
-				// philippe : we grab the job's resolution now instead of in the output phase
-				// that way , we can make sure one light can generate many shadow maps
-				// with different resolutions
-				thisJob.aspectRatio = 1.0;
-				liquidGetPlugValue( fnLightNode, "dmapResolution", thisJob.width, status );
-				thisJob.height = thisJob.width;
-
-				// Get to our shader node.
-				//
-				MPlug liquidLightShaderNodeConnection;
-				MStatus liquidLightShaderStatus;
-				liquidLightShaderNodeConnection = fnLightNode.findPlug( "liquidLightShaderNode", &liquidLightShaderStatus );
-				if( liquidLightShaderStatus == MS::kSuccess && liquidLightShaderNodeConnection.isConnected() )
-				{
-					MPlugArray liquidLightShaderNodePlugArray;
-					liquidLightShaderNodeConnection.connectedTo( liquidLightShaderNodePlugArray, true, true );
-					MFnDependencyNode fnLightShaderNode( liquidLightShaderNodePlugArray[0].node() );
-
-					// Now grab the parameters.
-					//
-					bool deepShadows = false;
-					liquidGetPlugValue( fnLightShaderNode, "deepShadows", deepShadows, status );
-
-					// Only use the pixel samples and volume interpretation with deep shadows.
-					//
-					if( deepShadows )
-					{
-						thisJob.shadowType = stDeep;
-
-						int samples = (int)thisJob.samples;
-						liquidGetPlugValue( fnLightShaderNode, "pixelSamples", samples, status );
-						thisJob.samples = (short)samples;
-
-						int volume = (int)thisJob.volume;
-						liquidGetPlugValue( fnLightShaderNode, "volumeInterpretation", volume, status );
-						thisJob.volume = (VolumeInterpretation)volume;
-
-						thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
-						thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
-
-						int displayImageMode = 0; // 0 = default
-						liquidGetPlugValue( fnLightShaderNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
-						if ( displayImageMode ) thisJob.imageMode = MString( "deepprevdisttotal" );
-
-					}
-
-					// philippe : check the shadow rendering frequency
-					//
-					liquidGetPlugValue( fnLightShaderNode, "everyFrame", thisJob.everyFrame, status );
-
-					// philippe : this is crucial, as we rely on the renderFrame to check
-					// which frame the scene should be scanned for that job.
-					// If the job is a shadow rendering once only at a given frame, we take the
-					// renderAtFrame attribute, otherwise, the current time.
-					//
-					if( !thisJob.everyFrame ) 
-					{
-						thisJob.renderFrame = 0; // should be Reference frame from Globals 
-						liquidGetPlugValue( fnLightShaderNode, "renderAtFrame", thisJob.renderFrame, status ); 
-					}
-					// Check if the shadow aggregation option is used
-					liquidGetPlugValue( fnLightShaderNode, "aggregateShadowMaps", thisJob.shadowAggregation, status );  
-
-					// philippe : check the shadow geometry set
-					//
-					liquidGetPlugValue( fnLightShaderNode, "geometrySet", thisJob.shadowObjectSet, status );
-					liquidGetPlugValue( fnLightShaderNode, "shadingRateFactor", thisJob.shadingRateFactor, status );
-				} 
-				else 
-				{
-					/* Here we support the same options as those found on light shader nodes
-					but we look for dynamic attributes, so we need a bit more error checking.
-					*/
-					//MPlug paramPlug = fnLightNode.findPlug( "deepShadows", &status );
-					bool deepShadows = false;
-					liquidGetPlugValue( fnLightNode, "deepShadows", deepShadows, status );
-					if ( deepShadows ) 
-					{
-						thisJob.shadowType = stDeep;
-
-						int samples = (int)thisJob.samples;
-						liquidGetPlugValue( fnLightNode, "pixelSamples", samples, status );
-						thisJob.samples = (short)samples;
-
-						int volume = (int)thisJob.volume;
-						liquidGetPlugValue( fnLightNode, "volumeInterpretation", volume, status );
-						thisJob.volume = (VolumeInterpretation)volume;
-
-            			thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
-            			thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
-
-            			int displayImageMode = 0; // 0 = default
-            			liquidGetPlugValue( fnLightNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
-            			if ( displayImageMode ) 
-							thisJob.imageMode = MString( "deepprevdisttotal" );
-					}
-					liquidGetPlugValue( fnLightNode, "everyFrame", thisJob.everyFrame, status );
-					if ( !thisJob.everyFrame ) 
-					{
-						thisJob.renderFrame = 0; // should be Reference frame from Globals 
-						liquidGetPlugValue( fnLightNode, "renderAtFrame", thisJob.renderFrame, status );  
-					}
-					liquidGetPlugValue( fnLightNode, "geometrySet", thisJob.shadowObjectSet, status );  
-					liquidGetPlugValue( fnLightNode, "shadingRateFactor", thisJob.shadingRateFactor, status ); 
-				}
-				// this will store the shadow camera path and the test's result
-				bool lightHasShadowCam = false;//1
-				MDagPathArray shadowCamPath;
-
-				if( lightPath.hasFn( MFn::kSpotLight ) || lightPath.hasFn( MFn::kDirectionalLight ) ) 
-				{
-					//[refactor 2.1.1] begin
-					bool computeShadow = true;
-					thisJob.hasShadowCam = false;
-					MPlug liquidLightShaderNodeConnection;
-					MStatus liquidLightShaderStatus;
-					liquidLightShaderNodeConnection = fnLightNode.findPlug( "liquidLightShaderNode", &liquidLightShaderStatus );
-
-					if( liquidLightShaderStatus == MS::kSuccess && liquidLightShaderNodeConnection.isConnected() ) 
-					{
-						// a shader is connected to the light !
-						MPlugArray liquidLightShaderNodePlugArray;
-						liquidLightShaderNodeConnection.connectedTo( liquidLightShaderNodePlugArray, true, true );
-						MFnDependencyNode fnLightShaderNode( liquidLightShaderNodePlugArray[0].node() );
-
-						// has the main shadow been disabled ?
-						liquidGetPlugValue( fnLightShaderNode, "generateMainShadow", computeShadow, status ); 
-
-						// look for shadow cameras...
-						MStatus stat;
-						//[refactor 2.1.1.1] begin//added in liquidMaya r772   begin
-						// at first, check if shadow main camera is specified
-						// cerr << ">> at first, check if shadow main camera is specified for "  << lightPath.fullPathName().asChar() << endl;
-
-						MString camName;
-						liquidGetPlugValue( fnLightShaderNode, "shadowMainCamera", camName, status ); 
-						if ( status == MS::kSuccess && camName != "" )
-						{
-							// cerr << ">> Light node has main shadow camera : " << camName.asChar() << endl;
-							MDagPath cameraPath;
-							MSelectionList camList;
-							camList.add( camName );
-							camList.getDagPath( 0, cameraPath );
-							if ( cameraPath.hasFn( MFn::kCamera ) )
-							{
-								// cerr << ">> cameraPath : "<< cameraPath.fullPathName().asChar() << endl;
-								thisJob.hasShadowCam = true;
-								thisJob.shadowCamPath = cameraPath;
-							}
-							else
-							{
-								// cerr << ">> Invalid camera name " << endl;
-								MString err = "Invalid main shadow camera name " + camName + " for light " + lightPath.fullPathName();
-								liquidMessage( err, messageError );
-							}
-						}
-						// now we're looking for extra cameras 
-						//[refactor 2.1.1.1] end//added in liquidMaya r772   end
-
-						MPlug shadowCamPlug = fnLightShaderNode.findPlug( "shadowCameras", &stat );
-						// find the multi message attribute...
-						if( stat == MS::kSuccess ) 
-						{
-							int numShadowCams = shadowCamPlug.numElements();
-							//cout <<">> got "<<numShadowCams<<" shadow cameras"<<endl;
-							// iterate through existing array elements
-							for ( unsigned int i=0; i<numShadowCams; i++ ) 
-							{
-								stat.clear();
-								MPlug camPlug = shadowCamPlug.elementByPhysicalIndex( i, &stat );
-								if( stat != MS::kSuccess ) 
-									continue;
-								MPlugArray shadowCamPlugArray;
-
-								// if the element is connected, keep going...
-								if( camPlug.connectedTo( shadowCamPlugArray, true, false ) ) 
-								{
-									MFnDependencyNode shadowCamDepNode = shadowCamPlugArray[0].node();
-									//cout <<"shadow camera plug "<<i<<" is connected to "<<shadowCamDepNode.name()<<endl;
-
-									MDagPath cameraPath;
-									cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
-									//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
-									shadowCamPath.append( cameraPath );
-									lightHasShadowCam = true;//2
-								}
-							}
-						}
-					}
-					thisJob.path = lightPath;
-					thisJob.name = fnLightNode.name();
-					//thisJob.texName = "";
-					//thisJob.isShadow = true;
-					//thisJob.isPoint = false;
-					//thisJob.isShadowPass = false;
-
-					// check to see if the minmax shadow option is used
-					bool isMinMaxShadow = false;
-					liquidGetPlugValue( fnLightNode, "liquidMinMaxShadow", isMinMaxShadow, status );
-					if ( isMinMaxShadow ) thisJob.shadowType = stMinMax;
-
-					// check to see if the midpoint shadow option is used
-					bool isMidPointShadow = false;
-					liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status );
-					if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
-
-					// in lazy compute mode, we check if the map is already on disk first.
-					if( m_lazyCompute && computeShadow ) 
-					{
-						MString fileName( generateFileName( (fileGenMode) fgm_shadow_tex, thisJob ) );
-						if( fileExists( fileName ) ) 
-							computeShadow = false;
-					}
-					//
-					// store the main shadow map    *****************************
-					//
-					if( computeShadow )
-						jobList.push_back( thisJob );
-					// We have to handle point lights differently as they need 6 shadow maps!
-					//[refactor 2.1.1] end
-				} 
-				else if( lightPath.hasFn(MFn::kPointLight) ) 
-				{
-					thisJob.hasShadowCam = false;
-					thisJob.path = lightPath;
-					thisJob.name = fnLightNode.name();
-					//thisJob.isShadow = true;
-
-					thisJob.isShadowPass = false;
-					thisJob.isPoint = true;
-
-					// check to see if the midpoint shadow option is used
-					bool isMidPointShadow = false;
-					liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status );
-					if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
-
-					//[refactor 2.1.2] begin
-					for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ ) 
-					{
-						thisJob.pointDir = ( PointLightDirection )dirOn;
-
-						bool computeShadow = true;
-						MStatus liquidLightShaderStatus;
-						MPlug liquidLightShaderNodeConnection( fnLightNode.findPlug( "liquidLightShaderNode", &liquidLightShaderStatus ) );
-
-						if( liquidLightShaderStatus == MS::kSuccess && liquidLightShaderNodeConnection.isConnected() ) 
-						{
-							// a shader is connected to the light !
-							MPlugArray liquidLightShaderNodePlugArray;
-							liquidLightShaderNodeConnection.connectedTo( liquidLightShaderNodePlugArray, true, true );
-							MFnDependencyNode fnLightShaderNode( liquidLightShaderNodePlugArray[0].node() );
-
-							// has the main shadow been disabled ?
-							liquidGetPlugValue( fnLightShaderNode, "generateMainShadow", computeShadow, status );
-
-							// look for shadow cameras...
-							MStatus stat;
-							MPlug shadowCamPlug( fnLightShaderNode.findPlug( "shadowCameras", &stat ) );
-
-							// find the multi message attribute...
-							if( stat == MS::kSuccess ) 
-							{
-								int numShadowCams = shadowCamPlug.numElements();
-								//cout <<">> got "<<numShadowCams<<" shadow cameras"<<endl;
-								// iterate through existing array elements
-								for ( unsigned i( 0 ); i < numShadowCams; i++ ) 
-								{
-									stat.clear();
-									MPlug camPlug = shadowCamPlug.elementByPhysicalIndex( i, &stat );
-									if( stat != MS::kSuccess ) 
-										continue;
-									MPlugArray shadowCamPlugArray;
-
-									// if the element is connected, keep going...
-									if( camPlug.connectedTo( shadowCamPlugArray, true, false ) ) 
-									{
-										MFnDependencyNode shadowCamDepNode = shadowCamPlugArray[0].node();
-										//cout <<"shadow camera plug "<<i<<" is connected to "<<shadowCamDepNode.name()<<endl;
-
-										MDagPath cameraPath;
-										cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
-										//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
-										shadowCamPath.append( cameraPath );
-										lightHasShadowCam = true;//3
-									}
-								}
-							}
-						}
-						if( m_lazyCompute ) {
-							MString fileName( generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob ) );
-							if( fileExists( fileName ) ) 
-								computeShadow = false;
-						}
-						if( computeShadow ) 
-							jobList.push_back( thisJob );
-					}
-				}
-				//[refactor 2.1.2] end
-
-				//[refactor][2.1.3 begin] to buildShadowJob()
-				// if the job has shadow cameras, we will store them here
-				//
-				if( lightHasShadowCam )
-				{
-					int isAggregate = thisJob.shadowAggregation;
-					for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
-					{
-						if( !i && isAggregate )
-							thisJob.shadowAggregation = 0;
-						else if ( isAggregate )
-							thisJob.shadowAggregation = 1;
-						else
-							thisJob.shadowAggregation = 0;
-						thisJob.shadowCamPath = shadowCamPath[ i ];
-						thisJob.hasShadowCam = true;
-
-						MFnDependencyNode shadowCamDepNode( shadowCamPath[ i ].node() );
-						thisJob.name = shadowCamDepNode.name();
-						if( isAggregate )
-							thisJob.texName = fnLightNode.name(); //MFnDependencyNode( shadowCamPath[ i ].node() ).name();
-						//					else
-						//						thisJob.texName = "";
-						//						thisJob.name = shadowCamDepNode.name();
-						if( liquidGetPlugValue( shadowCamDepNode, "liqShadowResolution", thisJob.width, status ) == MS::kSuccess )
-							thisJob.height = thisJob.width;
-						bool isMidPointShadow = false;
-						liquidGetPlugValue( shadowCamDepNode, "liqMidPointShadow", isMidPointShadow, status );
-						if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
-
-						thisJob.midPointRatio = 0;
-						liquidGetPlugValue( shadowCamDepNode, "liqMidPointRatio", thisJob.midPointRatio, status );
-						
-						bool deepShadows = false;
-						liquidGetPlugValue( shadowCamDepNode, "liqDeepShadows", deepShadows, status );
-						if ( deepShadows ) 
-						{  
-							thisJob.shadowType = stDeep;
-
-							int samples = (int)thisJob.samples;
-							liquidGetPlugValue( shadowCamDepNode, "liqPixelSamples", samples, status );
-							thisJob.samples = (short)samples;
-
-							int volume = (int)thisJob.volume;
-							liquidGetPlugValue( shadowCamDepNode, "liqVolumeInterpretation", volume, status );
-							thisJob.volume = (VolumeInterpretation)volume;
-
-							int displayImageMode = 0; // 0 = default
-							liquidGetPlugValue( shadowCamDepNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
-							if ( displayImageMode ) thisJob.imageMode = MString( "deepprevdisttotal" );
-						}
-
-						liquidGetPlugValue( shadowCamDepNode, "liqEveryFrame", thisJob.everyFrame, status );
-						// as previously : this is important as thisJob.renderFrame corresponds to the
-						// scene scanning time.
-						if ( !thisJob.everyFrame )
-						{
-							thisJob.renderFrame = 0; // should be Reference frame from Globals 
-							liquidGetPlugValue( shadowCamDepNode, "liqRenderAtFrame", thisJob.renderFrame, status );
-						}
-						liquidGetPlugValue( shadowCamDepNode, "liqGeometrySet", thisJob.shadowObjectSet, status );
-						liquidGetPlugValue( shadowCamDepNode, "liqShadingRateFactor", thisJob.shadingRateFactor, status );
-						// test if the file is already on disk...
-						if( m_lazyCompute )
-						{
-							MString fileName( generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob ) );
-							if( fileExists( fileName ) )
-								continue;
-						}
-						jobList.push_back( thisJob );
-					}
-					//[refactor][2.1.3 end] to buildShadowJob()
-				}
-			} // useDepthMap	
-		} // light dagIterator
-
-		//
-		// cameras
-		//
-		//[refactor][2.1.4 begin] to buildShadowCameraJob()
-		MDagPath cameraPath;
-		MItDag dagCameraIterator( MItDag::kDepthFirst, MFn::kCamera, &returnStatus );
-		for ( ; !dagCameraIterator.isDone(); dagCameraIterator.next() ) 
-		{
-			if( !dagCameraIterator.getPath(cameraPath) ) 
-				continue;
-			bool usesDepthMap( false );
-			MFnCamera fnCameraNode( cameraPath );
-			liquidGetPlugValue( fnCameraNode, "useDepthMapShadows", usesDepthMap, status );
-			if( usesDepthMap && areObjectAndParentsVisible( cameraPath ) ) 
-			{
-				thisJob.pass = rpShadowMap;
-				//
-				// We have a shadow job, so find out if we need to use deep shadows,
-				// and the pixel sample count
-				//
-				//thisJob.shadowPixelSamples = 1;
-				//thisJob.shadowVolumeInterpretation = 1;
-
-				thisJob.samples = 1;
-				thisJob.volume = viNone;
-
-				bool deepShadows = false;
-				liquidGetPlugValue( fnCameraNode, "deepShadows", deepShadows, status );
-
-				// Only use the pixel samples and volume interpretation with deep shadows.
-				//
-				if( deepShadows )
-				{
-					thisJob.shadowType = stDeep;
-
-					int samples = (int)thisJob.samples;
-					liquidGetPlugValue( fnCameraNode, "pixelSamples", samples, status );
-					thisJob.samples = (short)samples;
-
-					int volume = (int)thisJob.volume;
-					liquidGetPlugValue( fnCameraNode, "volumeInterpretation", volume, status );
-					thisJob.volume = (VolumeInterpretation)volume;
-
-					  thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
-					  thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
-
-					  int displayImageMode = 0; // 0 = default
-					  liquidGetPlugValue( fnCameraNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
-					  if ( displayImageMode )
-						  thisJob.imageMode = MString("deepprevdisttotal");
-				}
-
-				thisJob.hasShadowCam = true;
-				thisJob.shadowCamPath = cameraPath;
-				thisJob.path = cameraPath;
-				thisJob.name = fnCameraNode.name();
-				//thisJob.isShadow = true;
-				thisJob.isPoint = false;
-				thisJob.isShadowPass = false;
-
-				// check to see if the minmax shadow option is used
-				bool isMinMaxShadow = false;
-				liquidGetPlugValue( fnCameraNode, "liquidMinMaxShadow", isMinMaxShadow, status ); 
-				if ( isMinMaxShadow ) thisJob.shadowType = stMinMax;
-
-				// check to see if the midpoint shadow option is used
-				bool isMidPointShadow = false;
-				liquidGetPlugValue(  fnCameraNode, "useMidDistDmap", isMidPointShadow, status ); 
-				if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
-
-				bool computeShadow( true );
-				if( m_lazyCompute ) 
-				{
-					MString fileName( generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob ) );
-					if( fileExists( fileName ) ) continue;
-				}
-
-				if( computeShadow ) 
-					jobList.push_back( thisJob );
-			}
-			//[refactor][2.1.4 end] to buildShadowCameraJob()
-		} // camera dagIterator
-		//[refactor 2] end
-	} // liqglo_doShadows
-
-	LIQDEBUGPRINTF("  setup hero pass..." );
-	// setup hero pass
-	thisJob.pass		  = rpHeroPass;
-	thisJob.isShadowPass  = false;
-	//thisJob.isShadow      = false;
-	thisJob.isPoint       = false;
-	thisJob.name.clear();
-	thisJob.renderFrame   = liqglo.liqglo_lframe;
-	thisJob.everyFrame    = true;
-	thisJob.skip          = false;
-
-	//[refactor 3] begin to tRibCameraMgr::gatherDataForJob()
-	// Determine which cameras to render
-	// it will either traverse the dag and find all the renderable cameras or
-	// grab the current view and render that as a camera - both get added to the
-	// end of the renderable camera array
-	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
-	// [refactor 3.1] begin
- 	if ( !m_exportOnlyObjectBlock )
- 	{
-		// cerr << "!m_exportOnlyObjectBlock..." << endl << flush;
-
- 		MStatus camStatus;
- 		// check to see if the output camera, if specified, is available
- 		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
- 		{
- 			liquidMessage( "No render camera specified!", messageError );
- 			return MS::kFailure;
- 		}
-
-		//cerr << "liqglo_renderCamera = " << liqglo.liqglo_renderCamera.asChar() << endl << flush;  
- 		
-		if( liqglo.renderCamera != MString("") ) 
- 		{
- 			MStatus selectionStatus;
- 			MSelectionList camList;
- 			selectionStatus = camList.add( liqglo.renderCamera );
- 			if( selectionStatus != MS::kSuccess ) 
- 			{
- 				liquidMessage( "Invalid render camera!", messageError );
- 				return MS::kFailure;
- 			}
- 			camList.getDagPath(0, m_camDagPath);
- 		}
- 		else{
- 			m_activeView.getCamera( m_camDagPath );
- 		}
- 		// check stereo camera
- 		MFnCamera fnCamera( m_camDagPath, &camStatus );
- 		if ( camStatus != MS::kSuccess )
- 		{
- 			liquidMessage( "Cannot create FN for render camera!", messageError );
- 			return MS::kFailure;
- 		}
-		thisJob.path = m_camDagPath;//new
-		thisJob.name = fnCamera.name();//new
-
- 		MString camType = fnCamera.typeName();
- 		if ( camType == "stereoRigCamera" )
-		{
- 			m_isStereoCamera = true;
-			thisJob.isStereoPass = true;//new
-		}
-		liqglo.liqglo_shutterTime = fnCamera.shutterAngle() * 0.5 / M_PI;//new
- 	}
- 	else
- 	{
- 		liqglo.liqglo_renderCamera = "";
- 		liqglo.liqglo_beautyRibHasCameraName = false;
- 	}
-	// [refactor 3.1] end 
-	// [refactor 3.2] begin 
-	//MFnCamera fnCameraNode( m_camDagPath );
-	if( m_outputShadowPass )
-	{ 
-		thisJob.pass		  = rpShadowPass;
-		thisJob.name         += "SHADOWPASS";//thisJob.name          = fnCameraNode.name() + "SHADOWPASS";
-		thisJob.isShadowPass  = true;
-		jobList.push_back( thisJob );
-	}
-	if ( 1 )   // m_outputHeroPass
-	{
-// 		thisJob.pass		  = rpHeroPass;
-// 		//thisJob.name          = fnCameraNode.name();
-// 		thisJob.isShadowPass  = false;
-		jobList.push_back( thisJob );
-	}
-	//[refactor 3.2] end 
-	//[refactor 3] end to tRibCameraMgr::gatherDataForJob()
-
-	
-	//[refactor 4] begin to buildJobs__()
-	// If we didn't find a renderable camera then give up
-	if( jobList.size() == 0 ) 
-	{
-		liquidMessage ( "No Renderable Jobs in the list", messageWarning );
-		// MString cError( "No Renderable Camera Found!" );
-		// throw( cError );
-		// return MS::kFailure;
-	}
-
-	LIQDEBUGPRINTF("  step through the jobs and setup their names..." );
-	//cerr << "step through the jobs and setup their names..." << endl << flush;
-
-	// step through the jobs and setup their names
-	vector<structJob>::iterator iter = jobList.begin();
-	while ( iter != jobList.end() )
-	{
-		LIQ_CHECK_CANCEL_REQUEST;
-		thisJob = *iter;
-
-		// set the skip flag for the job
-		iter->skip   = false;
-
-		if ( iter->pass == rpHeroPass )
-		{
-			iter->ribFileName = generateFileName( fgm_hero_rib, thisJob );
-			iter->imageName = generateFileName( ( fileGenMode )fgm_image, thisJob );
-			if ( liqglo.liqglo_singleFrameShadowsOnly )
-			{
-				// singleFrameShadowsOnly on hero pass
-				iter->skip   = true;
-			}
-		} 
-		else if ( iter->pass == rpShadowMap )
-		{
-			iter->ribFileName = generateFileName( fgm_shadow_rib, thisJob );
-
-			MString varVal;
-			MString userShadowName;
-			MFnDagNode lightNode( thisJob.path );
-
-			if ( liquidGetPlugValue( lightNode, "liquidShadowName", varVal, status ) == MS::kSuccess ) 
-				userShadowName = parseString( varVal, false );
-
-			iter->imageName = ( userShadowName.length() )? userShadowName : generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob );
-
-			if ( !liqglo.liqglo_doShadows ) // shadow generation disabled
-			{
-				iter->skip   = true;
-			}
-			else if ( !iter->everyFrame )
-			{
-				int firstFrame = 1;
-				if ( liqglo.frameNumbers.size() )
-					firstFrame = liqglo.frameNumbers[ 0 ];
-
-				if ( liqglo.liqglo_noSingleFrameShadows || liqglo.liqglo_lframe > firstFrame && iter->renderFrame != liqglo.liqglo_lframe )
-				{
-					// noSingleFrameShadows or rendering past the first frame of the sequence
-					iter->skip   = true;
-				}
-			}
-			else if ( iter->everyFrame && liqglo.liqglo_singleFrameShadowsOnly )
-			{
-				// singleFrameShadowsOnly on regular shadows
-				iter->skip   = true;
-			}
-			thisJob = *iter;
-			shadowList.push_back( thisJob );
-		}
-		++iter;
-	}
-
-	// sort the shadow jobs to put the reference frames first
-#ifndef _WIN32
-	sort( jobList.begin(), jobList.end(), renderFrameSort );
-	sort( shadowList.begin(), shadowList.end(), renderFrameSort );
-	sort( txtList.begin(), txtList.end(), renderFrameSort );
-#else
-	sort( jobList.begin(), jobList.end(), renderFrameSort );
-	sort( shadowList.begin(), shadowList.end(), renderFrameSort );
-	sort( txtList.begin(), txtList.end(), renderFrameSort );
-#endif
-	ribStatus = kRibBegin;
-	return MS::kSuccess;
-	//[refactor 4] end to buildJobs__()
-}
+//MStatus liqRibTranslator::buildJobs()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::buildJobs()");
+//
+//	LIQDEBUGPRINTF( "-> beginning to build job list\n" );
+//	MStatus returnStatus = MS::kSuccess;
+//	MStatus status;
+//	MObject cameraNode;
+//	MDagPath lightPath;
+//	jobList.clear();
+//	shadowList.clear();
+//	txtList.clear();
+//
+//	//[refactor 35] begin to liqRibTranslator.buildJobs__()
+//	structJob thisJob;
+//
+//	thisJob.pass = rpNone; // reset RenderPass type
+//	thisJob.name.clear();
+//	thisJob.texName.clear();
+//	thisJob.height = thisJob.width = 0;
+//	thisJob.renderName = m_renderCommand;
+//	thisJob.isShadowPass  = false;
+//	thisJob.isPoint       = false;
+//	thisJob.renderFrame   = liqglo.liqglo_lframe;
+//	thisJob.everyFrame    = true;
+//	thisJob.isStereoPass  = false;
+//	thisJob.aspectRatio   = 1.0;
+//	thisJob.samples       = 1;
+//	thisJob.shadingRate   = 1.0;
+//	thisJob.shadingRateFactor = 1.0;
+//	thisJob.skip          = false;
+//	//[refactor 35] end 
+//
+//	MItDependencyNodes dependencyNodesIter(MFn::kDependencyNode, &returnStatus);
+//	if(returnStatus==MS::kSuccess)
+//	{
+//		//char *currentName = NULL;
+//		for(; !dependencyNodesIter.isDone(); dependencyNodesIter.next())
+//		{
+//			MFnDependencyNode dependencyNodeFn(dependencyNodesIter.thisNode());
+//			if( dependencyNodeFn.typeName()=="liquidSurface"
+//				|| dependencyNodeFn.typeName()=="liquidDisplacement"
+//				|| dependencyNodeFn.typeName()=="liquidVolume"
+//				|| dependencyNodeFn.typeName()=="liquidLight"
+//				|| dependencyNodeFn.typeName()=="liquidShader"
+//				)
+//			{
+//				MString name(dependencyNodeFn.name());
+//				liqShader currentShader(dependencyNodesIter.thisNode());
+//				currentShader.buildJobs();
+//			}
+//		}
+//	}
+//	// what we do here is make all of the lights with depth shadows turned on into
+//	// cameras and add them to the renderable camera list *before* the main camera
+//	// so all the automatic depth map shadows are complete before the main pass
+//
+//	if( liqglo.liqglo_doShadows ) 
+//	{
+//		LIQDEBUGPRINTF("  setup shadows...\n" );
+//		//
+//		// lights
+//		//
+//		//[refactor 2] begin
+//		//[refactor 2.1] begin
+//		MItDag dagIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus );
+//		for (; !dagIterator.isDone(); dagIterator.next()) 
+//		{
+//			if( !dagIterator.getPath( lightPath ) ) 
+//				continue;
+//
+//			thisJob.pass = rpNone; // reset RenderPass type
+//			thisJob.isPoint       = false;
+//			thisJob.pointDir = pPX;
+//			thisJob.shadowObjectSet.clear();
+//			thisJob.shadowArchiveRibDone = false;
+//			thisJob.shadowType    = stStandart;
+//			thisJob.shadowHiderType = shNone;
+//			thisJob.hasShadowCam = false;
+//			thisJob.shadowAggregation = false;
+//			thisJob.midPointRatio = 0;
+//			thisJob.samples = 1;
+//			thisJob.shadingRate = 1.0;
+//			thisJob.shadingRateFactor = 1.0;
+//			thisJob.aspectRatio = 1.0;
+//			thisJob.volume = viNone;
+//			thisJob.deepShadowOption.clear();
+//			thisJob.renderFrame   = liqglo.liqglo_lframe;
+//			thisJob.everyFrame    = true;
+//			thisJob.skip          = false;
+//
+//			bool usesDepthMap = false;
+//			MFnLight fnLightNode( lightPath );
+//			liquidGetPlugValue( fnLightNode, "useDepthMapShadows", usesDepthMap, status );
+//			if( usesDepthMap && areObjectAndParentsVisible( lightPath ) ) 
+//			{
+//				thisJob.pass = rpShadowMap;
+//        		thisJob.imageMode = "z";
+//        		thisJob.format = "shadow";
+//				// philippe : we grab the job's resolution now instead of in the output phase
+//				// that way , we can make sure one light can generate many shadow maps
+//				// with different resolutions
+//				thisJob.aspectRatio = 1.0;
+//				liquidGetPlugValue( fnLightNode, "dmapResolution", thisJob.width, status );
+//				thisJob.height = thisJob.width;
+//
+//				// Get to our shader node.
+//				//
+//				MPlug liquidLightShaderNodeConnection;
+//				MStatus liquidLightShaderStatus;
+//				liquidLightShaderNodeConnection = fnLightNode.findPlug( "liquidLightShaderNode", &liquidLightShaderStatus );
+//				if( liquidLightShaderStatus == MS::kSuccess && liquidLightShaderNodeConnection.isConnected() )
+//				{
+//					MPlugArray liquidLightShaderNodePlugArray;
+//					liquidLightShaderNodeConnection.connectedTo( liquidLightShaderNodePlugArray, true, true );
+//					MFnDependencyNode fnLightShaderNode( liquidLightShaderNodePlugArray[0].node() );
+//
+//					// Now grab the parameters.
+//					//
+//					bool deepShadows = false;
+//					liquidGetPlugValue( fnLightShaderNode, "deepShadows", deepShadows, status );
+//
+//					// Only use the pixel samples and volume interpretation with deep shadows.
+//					//
+//					if( deepShadows )
+//					{
+//						thisJob.shadowType = stDeep;
+//
+//						int samples = (int)thisJob.samples;
+//						liquidGetPlugValue( fnLightShaderNode, "pixelSamples", samples, status );
+//						thisJob.samples = (short)samples;
+//
+//						int volume = (int)thisJob.volume;
+//						liquidGetPlugValue( fnLightShaderNode, "volumeInterpretation", volume, status );
+//						thisJob.volume = (VolumeInterpretation)volume;
+//
+//						thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+//						thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+//
+//						int displayImageMode = 0; // 0 = default
+//						liquidGetPlugValue( fnLightShaderNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
+//						if ( displayImageMode ) thisJob.imageMode = MString( "deepprevdisttotal" );
+//
+//					}
+//
+//					// philippe : check the shadow rendering frequency
+//					//
+//					liquidGetPlugValue( fnLightShaderNode, "everyFrame", thisJob.everyFrame, status );
+//
+//					// philippe : this is crucial, as we rely on the renderFrame to check
+//					// which frame the scene should be scanned for that job.
+//					// If the job is a shadow rendering once only at a given frame, we take the
+//					// renderAtFrame attribute, otherwise, the current time.
+//					//
+//					if( !thisJob.everyFrame ) 
+//					{
+//						thisJob.renderFrame = 0; // should be Reference frame from Globals 
+//						liquidGetPlugValue( fnLightShaderNode, "renderAtFrame", thisJob.renderFrame, status ); 
+//					}
+//					// Check if the shadow aggregation option is used
+//					liquidGetPlugValue( fnLightShaderNode, "aggregateShadowMaps", thisJob.shadowAggregation, status );  
+//
+//					// philippe : check the shadow geometry set
+//					//
+//					liquidGetPlugValue( fnLightShaderNode, "geometrySet", thisJob.shadowObjectSet, status );
+//					liquidGetPlugValue( fnLightShaderNode, "shadingRateFactor", thisJob.shadingRateFactor, status );
+//				} 
+//				else 
+//				{
+//					/* Here we support the same options as those found on light shader nodes
+//					but we look for dynamic attributes, so we need a bit more error checking.
+//					*/
+//					//MPlug paramPlug = fnLightNode.findPlug( "deepShadows", &status );
+//					bool deepShadows = false;
+//					liquidGetPlugValue( fnLightNode, "deepShadows", deepShadows, status );
+//					if ( deepShadows ) 
+//					{
+//						thisJob.shadowType = stDeep;
+//
+//						int samples = (int)thisJob.samples;
+//						liquidGetPlugValue( fnLightNode, "pixelSamples", samples, status );
+//						thisJob.samples = (short)samples;
+//
+//						int volume = (int)thisJob.volume;
+//						liquidGetPlugValue( fnLightNode, "volumeInterpretation", volume, status );
+//						thisJob.volume = (VolumeInterpretation)volume;
+//
+//            			thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+//            			thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+//
+//            			int displayImageMode = 0; // 0 = default
+//            			liquidGetPlugValue( fnLightNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
+//            			if ( displayImageMode ) 
+//							thisJob.imageMode = MString( "deepprevdisttotal" );
+//					}
+//					liquidGetPlugValue( fnLightNode, "everyFrame", thisJob.everyFrame, status );
+//					if ( !thisJob.everyFrame ) 
+//					{
+//						thisJob.renderFrame = 0; // should be Reference frame from Globals 
+//						liquidGetPlugValue( fnLightNode, "renderAtFrame", thisJob.renderFrame, status );  
+//					}
+//					liquidGetPlugValue( fnLightNode, "geometrySet", thisJob.shadowObjectSet, status );  
+//					liquidGetPlugValue( fnLightNode, "shadingRateFactor", thisJob.shadingRateFactor, status ); 
+//				}
+//				// this will store the shadow camera path and the test's result
+//				bool lightHasShadowCam = false;//1
+//				MDagPathArray shadowCamPath;
+//
+//				if( lightPath.hasFn( MFn::kSpotLight ) || lightPath.hasFn( MFn::kDirectionalLight ) ) 
+//				{
+//					//[refactor 2.1.1] begin
+//					bool computeShadow = true;
+//					thisJob.hasShadowCam = false;
+//					MPlug liquidLightShaderNodeConnection;
+//					MStatus liquidLightShaderStatus;
+//					liquidLightShaderNodeConnection = fnLightNode.findPlug( "liquidLightShaderNode", &liquidLightShaderStatus );
+//
+//					if( liquidLightShaderStatus == MS::kSuccess && liquidLightShaderNodeConnection.isConnected() ) 
+//					{
+//						// a shader is connected to the light !
+//						MPlugArray liquidLightShaderNodePlugArray;
+//						liquidLightShaderNodeConnection.connectedTo( liquidLightShaderNodePlugArray, true, true );
+//						MFnDependencyNode fnLightShaderNode( liquidLightShaderNodePlugArray[0].node() );
+//
+//						// has the main shadow been disabled ?
+//						liquidGetPlugValue( fnLightShaderNode, "generateMainShadow", computeShadow, status ); 
+//
+//						// look for shadow cameras...
+//						MStatus stat;
+//						//[refactor 2.1.1.1] begin//added in liquidMaya r772   begin
+//						// at first, check if shadow main camera is specified
+//						// cerr << ">> at first, check if shadow main camera is specified for "  << lightPath.fullPathName().asChar() << endl;
+//
+//						MString camName;
+//						liquidGetPlugValue( fnLightShaderNode, "shadowMainCamera", camName, status ); 
+//						if ( status == MS::kSuccess && camName != "" )
+//						{
+//							// cerr << ">> Light node has main shadow camera : " << camName.asChar() << endl;
+//							MDagPath cameraPath;
+//							MSelectionList camList;
+//							camList.add( camName );
+//							camList.getDagPath( 0, cameraPath );
+//							if ( cameraPath.hasFn( MFn::kCamera ) )
+//							{
+//								// cerr << ">> cameraPath : "<< cameraPath.fullPathName().asChar() << endl;
+//								thisJob.hasShadowCam = true;
+//								thisJob.shadowCamPath = cameraPath;
+//							}
+//							else
+//							{
+//								// cerr << ">> Invalid camera name " << endl;
+//								MString err = "Invalid main shadow camera name " + camName + " for light " + lightPath.fullPathName();
+//								liquidMessage( err, messageError );
+//							}
+//						}
+//						// now we're looking for extra cameras 
+//						//[refactor 2.1.1.1] end//added in liquidMaya r772   end
+//
+//						MPlug shadowCamPlug = fnLightShaderNode.findPlug( "shadowCameras", &stat );
+//						// find the multi message attribute...
+//						if( stat == MS::kSuccess ) 
+//						{
+//							int numShadowCams = shadowCamPlug.numElements();
+//							//cout <<">> got "<<numShadowCams<<" shadow cameras"<<endl;
+//							// iterate through existing array elements
+//							for ( unsigned int i=0; i<numShadowCams; i++ ) 
+//							{
+//								stat.clear();
+//								MPlug camPlug = shadowCamPlug.elementByPhysicalIndex( i, &stat );
+//								if( stat != MS::kSuccess ) 
+//									continue;
+//								MPlugArray shadowCamPlugArray;
+//
+//								// if the element is connected, keep going...
+//								if( camPlug.connectedTo( shadowCamPlugArray, true, false ) ) 
+//								{
+//									MFnDependencyNode shadowCamDepNode = shadowCamPlugArray[0].node();
+//									//cout <<"shadow camera plug "<<i<<" is connected to "<<shadowCamDepNode.name()<<endl;
+//
+//									MDagPath cameraPath;
+//									cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
+//									//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
+//									shadowCamPath.append( cameraPath );
+//									lightHasShadowCam = true;//2
+//								}
+//							}
+//						}
+//					}
+//					thisJob.path = lightPath;
+//					thisJob.name = fnLightNode.name();
+//					//thisJob.texName = "";
+//					//thisJob.isShadow = true;
+//					//thisJob.isPoint = false;
+//					//thisJob.isShadowPass = false;
+//
+//					// check to see if the minmax shadow option is used
+//					bool isMinMaxShadow = false;
+//					liquidGetPlugValue( fnLightNode, "liquidMinMaxShadow", isMinMaxShadow, status );
+//					if ( isMinMaxShadow ) thisJob.shadowType = stMinMax;
+//
+//					// check to see if the midpoint shadow option is used
+//					bool isMidPointShadow = false;
+//					liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status );
+//					if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
+//
+//					// in lazy compute mode, we check if the map is already on disk first.
+//					if( m_lazyCompute && computeShadow ) 
+//					{
+//						MString fileName( generateFileName( (fileGenMode) fgm_shadow_tex, thisJob ) );
+//						if( fileExists( fileName ) ) 
+//							computeShadow = false;
+//					}
+//					//
+//					// store the main shadow map    *****************************
+//					//
+//					if( computeShadow )
+//						jobList.push_back( thisJob );
+//					// We have to handle point lights differently as they need 6 shadow maps!
+//					//[refactor 2.1.1] end
+//				} 
+//				else if( lightPath.hasFn(MFn::kPointLight) ) 
+//				{
+//					thisJob.hasShadowCam = false;
+//					thisJob.path = lightPath;
+//					thisJob.name = fnLightNode.name();
+//					//thisJob.isShadow = true;
+//
+//					thisJob.isShadowPass = false;
+//					thisJob.isPoint = true;
+//
+//					// check to see if the midpoint shadow option is used
+//					bool isMidPointShadow = false;
+//					liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status );
+//					if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
+//
+//					//[refactor 2.1.2] begin
+//					for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ ) 
+//					{
+//						thisJob.pointDir = ( PointLightDirection )dirOn;
+//
+//						bool computeShadow = true;
+//						MStatus liquidLightShaderStatus;
+//						MPlug liquidLightShaderNodeConnection( fnLightNode.findPlug( "liquidLightShaderNode", &liquidLightShaderStatus ) );
+//
+//						if( liquidLightShaderStatus == MS::kSuccess && liquidLightShaderNodeConnection.isConnected() ) 
+//						{
+//							// a shader is connected to the light !
+//							MPlugArray liquidLightShaderNodePlugArray;
+//							liquidLightShaderNodeConnection.connectedTo( liquidLightShaderNodePlugArray, true, true );
+//							MFnDependencyNode fnLightShaderNode( liquidLightShaderNodePlugArray[0].node() );
+//
+//							// has the main shadow been disabled ?
+//							liquidGetPlugValue( fnLightShaderNode, "generateMainShadow", computeShadow, status );
+//
+//							// look for shadow cameras...
+//							MStatus stat;
+//							MPlug shadowCamPlug( fnLightShaderNode.findPlug( "shadowCameras", &stat ) );
+//
+//							// find the multi message attribute...
+//							if( stat == MS::kSuccess ) 
+//							{
+//								int numShadowCams = shadowCamPlug.numElements();
+//								//cout <<">> got "<<numShadowCams<<" shadow cameras"<<endl;
+//								// iterate through existing array elements
+//								for ( unsigned i( 0 ); i < numShadowCams; i++ ) 
+//								{
+//									stat.clear();
+//									MPlug camPlug = shadowCamPlug.elementByPhysicalIndex( i, &stat );
+//									if( stat != MS::kSuccess ) 
+//										continue;
+//									MPlugArray shadowCamPlugArray;
+//
+//									// if the element is connected, keep going...
+//									if( camPlug.connectedTo( shadowCamPlugArray, true, false ) ) 
+//									{
+//										MFnDependencyNode shadowCamDepNode = shadowCamPlugArray[0].node();
+//										//cout <<"shadow camera plug "<<i<<" is connected to "<<shadowCamDepNode.name()<<endl;
+//
+//										MDagPath cameraPath;
+//										cameraPath.getAPathTo( shadowCamPlugArray[0].node(), cameraPath);
+//										//cout <<"cameraPath : "<<cameraPath.fullPathName()<<endl;
+//										shadowCamPath.append( cameraPath );
+//										lightHasShadowCam = true;//3
+//									}
+//								}
+//							}
+//						}
+//						if( m_lazyCompute ) {
+//							MString fileName( generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob ) );
+//							if( fileExists( fileName ) ) 
+//								computeShadow = false;
+//						}
+//						if( computeShadow ) 
+//							jobList.push_back( thisJob );
+//					}
+//				}
+//				//[refactor 2.1.2] end
+//
+//				//[refactor][2.1.3 begin] to buildShadowJob()
+//				// if the job has shadow cameras, we will store them here
+//				//
+//				if( lightHasShadowCam )
+//				{
+//					int isAggregate = thisJob.shadowAggregation;
+//					for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
+//					{
+//						if( !i && isAggregate )
+//							thisJob.shadowAggregation = 0;
+//						else if ( isAggregate )
+//							thisJob.shadowAggregation = 1;
+//						else
+//							thisJob.shadowAggregation = 0;
+//						thisJob.shadowCamPath = shadowCamPath[ i ];
+//						thisJob.hasShadowCam = true;
+//
+//						MFnDependencyNode shadowCamDepNode( shadowCamPath[ i ].node() );
+//						thisJob.name = shadowCamDepNode.name();
+//						if( isAggregate )
+//							thisJob.texName = fnLightNode.name(); //MFnDependencyNode( shadowCamPath[ i ].node() ).name();
+//						//					else
+//						//						thisJob.texName = "";
+//						//						thisJob.name = shadowCamDepNode.name();
+//						if( liquidGetPlugValue( shadowCamDepNode, "liqShadowResolution", thisJob.width, status ) == MS::kSuccess )
+//							thisJob.height = thisJob.width;
+//						bool isMidPointShadow = false;
+//						liquidGetPlugValue( shadowCamDepNode, "liqMidPointShadow", isMidPointShadow, status );
+//						if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
+//
+//						thisJob.midPointRatio = 0;
+//						liquidGetPlugValue( shadowCamDepNode, "liqMidPointRatio", thisJob.midPointRatio, status );
+//						
+//						bool deepShadows = false;
+//						liquidGetPlugValue( shadowCamDepNode, "liqDeepShadows", deepShadows, status );
+//						if ( deepShadows ) 
+//						{  
+//							thisJob.shadowType = stDeep;
+//
+//							int samples = (int)thisJob.samples;
+//							liquidGetPlugValue( shadowCamDepNode, "liqPixelSamples", samples, status );
+//							thisJob.samples = (short)samples;
+//
+//							int volume = (int)thisJob.volume;
+//							liquidGetPlugValue( shadowCamDepNode, "liqVolumeInterpretation", volume, status );
+//							thisJob.volume = (VolumeInterpretation)volume;
+//
+//							int displayImageMode = 0; // 0 = default
+//							liquidGetPlugValue( shadowCamDepNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
+//							if ( displayImageMode ) thisJob.imageMode = MString( "deepprevdisttotal" );
+//						}
+//
+//						liquidGetPlugValue( shadowCamDepNode, "liqEveryFrame", thisJob.everyFrame, status );
+//						// as previously : this is important as thisJob.renderFrame corresponds to the
+//						// scene scanning time.
+//						if ( !thisJob.everyFrame )
+//						{
+//							thisJob.renderFrame = 0; // should be Reference frame from Globals 
+//							liquidGetPlugValue( shadowCamDepNode, "liqRenderAtFrame", thisJob.renderFrame, status );
+//						}
+//						liquidGetPlugValue( shadowCamDepNode, "liqGeometrySet", thisJob.shadowObjectSet, status );
+//						liquidGetPlugValue( shadowCamDepNode, "liqShadingRateFactor", thisJob.shadingRateFactor, status );
+//						// test if the file is already on disk...
+//						if( m_lazyCompute )
+//						{
+//							MString fileName( generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob ) );
+//							if( fileExists( fileName ) )
+//								continue;
+//						}
+//						jobList.push_back( thisJob );
+//					}
+//					//[refactor][2.1.3 end] to buildShadowJob()
+//				}
+//			} // useDepthMap	
+//		} // light dagIterator
+//
+//		//
+//		// cameras
+//		//
+//		//[refactor][2.1.4 begin] to buildShadowCameraJob()
+//		MDagPath cameraPath;
+//		MItDag dagCameraIterator( MItDag::kDepthFirst, MFn::kCamera, &returnStatus );
+//		for ( ; !dagCameraIterator.isDone(); dagCameraIterator.next() ) 
+//		{
+//			if( !dagCameraIterator.getPath(cameraPath) ) 
+//				continue;
+//			bool usesDepthMap( false );
+//			MFnCamera fnCameraNode( cameraPath );
+//			liquidGetPlugValue( fnCameraNode, "useDepthMapShadows", usesDepthMap, status );
+//			if( usesDepthMap && areObjectAndParentsVisible( cameraPath ) ) 
+//			{
+//				thisJob.pass = rpShadowMap;
+//				//
+//				// We have a shadow job, so find out if we need to use deep shadows,
+//				// and the pixel sample count
+//				//
+//				//thisJob.shadowPixelSamples = 1;
+//				//thisJob.shadowVolumeInterpretation = 1;
+//
+//				thisJob.samples = 1;
+//				thisJob.volume = viNone;
+//
+//				bool deepShadows = false;
+//				liquidGetPlugValue( fnCameraNode, "deepShadows", deepShadows, status );
+//
+//				// Only use the pixel samples and volume interpretation with deep shadows.
+//				//
+//				if( deepShadows )
+//				{
+//					thisJob.shadowType = stDeep;
+//
+//					int samples = (int)thisJob.samples;
+//					liquidGetPlugValue( fnCameraNode, "pixelSamples", samples, status );
+//					thisJob.samples = (short)samples;
+//
+//					int volume = (int)thisJob.volume;
+//					liquidGetPlugValue( fnCameraNode, "volumeInterpretation", volume, status );
+//					thisJob.volume = (VolumeInterpretation)volume;
+//
+//					  thisJob.imageMode    = liqglo.liquidRenderer.dshImageMode;        //"deepopacity";
+//					  thisJob.format       = liqglo.liquidRenderer.dshDisplayName;    //"deepshad";
+//
+//					  int displayImageMode = 0; // 0 = default
+//					  liquidGetPlugValue( fnCameraNode, "liqDeepShadowsDisplayMode", displayImageMode, status );
+//					  if ( displayImageMode )
+//						  thisJob.imageMode = MString("deepprevdisttotal");
+//				}
+//
+//				thisJob.hasShadowCam = true;
+//				thisJob.shadowCamPath = cameraPath;
+//				thisJob.path = cameraPath;
+//				thisJob.name = fnCameraNode.name();
+//				//thisJob.isShadow = true;
+//				thisJob.isPoint = false;
+//				thisJob.isShadowPass = false;
+//
+//				// check to see if the minmax shadow option is used
+//				bool isMinMaxShadow = false;
+//				liquidGetPlugValue( fnCameraNode, "liquidMinMaxShadow", isMinMaxShadow, status ); 
+//				if ( isMinMaxShadow ) thisJob.shadowType = stMinMax;
+//
+//				// check to see if the midpoint shadow option is used
+//				bool isMidPointShadow = false;
+//				liquidGetPlugValue(  fnCameraNode, "useMidDistDmap", isMidPointShadow, status ); 
+//				if ( isMidPointShadow ) thisJob.shadowType = stMidPoint;
+//
+//				bool computeShadow( true );
+//				if( m_lazyCompute ) 
+//				{
+//					MString fileName( generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob ) );
+//					if( fileExists( fileName ) ) continue;
+//				}
+//
+//				if( computeShadow ) 
+//					jobList.push_back( thisJob );
+//			}
+//			//[refactor][2.1.4 end] to buildShadowCameraJob()
+//		} // camera dagIterator
+//		//[refactor 2] end
+//	} // liqglo_doShadows
+//
+//	LIQDEBUGPRINTF("  setup hero pass..." );
+//	// setup hero pass
+//	thisJob.pass		  = rpHeroPass;
+//	thisJob.isShadowPass  = false;
+//	//thisJob.isShadow      = false;
+//	thisJob.isPoint       = false;
+//	thisJob.name.clear();
+//	thisJob.renderFrame   = liqglo.liqglo_lframe;
+//	thisJob.everyFrame    = true;
+//	thisJob.skip          = false;
+//
+//	//[refactor 3] begin to tRibCameraMgr::gatherDataForJob()
+//	// Determine which cameras to render
+//	// it will either traverse the dag and find all the renderable cameras or
+//	// grab the current view and render that as a camera - both get added to the
+//	// end of the renderable camera array
+//	// check to see if the output camera, if specified, is available. If exporting only objects, don't care about camera
+//	// [refactor 3.1] begin
+// 	if ( !m_exportOnlyObjectBlock )
+// 	{
+//		// cerr << "!m_exportOnlyObjectBlock..." << endl << flush;
+//
+// 		MStatus camStatus;
+// 		// check to see if the output camera, if specified, is available
+// 		if( liqglo.liquidBin && ( liqglo.renderCamera == MString("") ) ) 
+// 		{
+// 			liquidMessage( "No render camera specified!", messageError );
+// 			return MS::kFailure;
+// 		}
+//
+//		//cerr << "liqglo_renderCamera = " << liqglo.liqglo_renderCamera.asChar() << endl << flush;  
+// 		
+//		if( liqglo.renderCamera != MString("") ) 
+// 		{
+// 			MStatus selectionStatus;
+// 			MSelectionList camList;
+// 			selectionStatus = camList.add( liqglo.renderCamera );
+// 			if( selectionStatus != MS::kSuccess ) 
+// 			{
+// 				liquidMessage( "Invalid render camera!", messageError );
+// 				return MS::kFailure;
+// 			}
+// 			camList.getDagPath(0, m_camDagPath);
+// 		}
+// 		else{
+// 			m_activeView.getCamera( m_camDagPath );
+// 		}
+// 		// check stereo camera
+// 		MFnCamera fnCamera( m_camDagPath, &camStatus );
+// 		if ( camStatus != MS::kSuccess )
+// 		{
+// 			liquidMessage( "Cannot create FN for render camera!", messageError );
+// 			return MS::kFailure;
+// 		}
+//		thisJob.path = m_camDagPath;//new
+//		thisJob.name = fnCamera.name();//new
+//
+// 		MString camType = fnCamera.typeName();
+// 		if ( camType == "stereoRigCamera" )
+//		{
+// 			m_isStereoCamera = true;
+//			thisJob.isStereoPass = true;//new
+//		}
+//		liqglo.liqglo_shutterTime = fnCamera.shutterAngle() * 0.5 / M_PI;//new
+// 	}
+// 	else
+// 	{
+// 		liqglo.liqglo_renderCamera = "";
+// 		liqglo.liqglo_beautyRibHasCameraName = false;
+// 	}
+//	// [refactor 3.1] end 
+//	// [refactor 3.2] begin 
+//	//MFnCamera fnCameraNode( m_camDagPath );
+//	if( m_outputShadowPass )
+//	{ 
+//		thisJob.pass		  = rpShadowPass;
+//		thisJob.name         += "SHADOWPASS";//thisJob.name          = fnCameraNode.name() + "SHADOWPASS";
+//		thisJob.isShadowPass  = true;
+//		jobList.push_back( thisJob );
+//	}
+//	if ( 1 )   // m_outputHeroPass
+//	{
+//// 		thisJob.pass		  = rpHeroPass;
+//// 		//thisJob.name          = fnCameraNode.name();
+//// 		thisJob.isShadowPass  = false;
+//		jobList.push_back( thisJob );
+//	}
+//	//[refactor 3.2] end 
+//	//[refactor 3] end to tRibCameraMgr::gatherDataForJob()
+//
+//	
+//	//[refactor 4] begin to buildJobs__()
+//	// If we didn't find a renderable camera then give up
+//	if( jobList.size() == 0 ) 
+//	{
+//		liquidMessage ( "No Renderable Jobs in the list", messageWarning );
+//		// MString cError( "No Renderable Camera Found!" );
+//		// throw( cError );
+//		// return MS::kFailure;
+//	}
+//
+//	LIQDEBUGPRINTF("  step through the jobs and setup their names..." );
+//	//cerr << "step through the jobs and setup their names..." << endl << flush;
+//
+//	// step through the jobs and setup their names
+//	vector<structJob>::iterator iter = jobList.begin();
+//	while ( iter != jobList.end() )
+//	{
+//		LIQ_CHECK_CANCEL_REQUEST;
+//		thisJob = *iter;
+//
+//		// set the skip flag for the job
+//		iter->skip   = false;
+//
+//		if ( iter->pass == rpHeroPass )
+//		{
+//			iter->ribFileName = generateFileName( fgm_hero_rib, thisJob );
+//			iter->imageName = generateFileName( ( fileGenMode )fgm_image, thisJob );
+//			if ( liqglo.liqglo_singleFrameShadowsOnly )
+//			{
+//				// singleFrameShadowsOnly on hero pass
+//				iter->skip   = true;
+//			}
+//		} 
+//		else if ( iter->pass == rpShadowMap )
+//		{
+//			iter->ribFileName = generateFileName( fgm_shadow_rib, thisJob );
+//
+//			MString varVal;
+//			MString userShadowName;
+//			MFnDagNode lightNode( thisJob.path );
+//
+//			if ( liquidGetPlugValue( lightNode, "liquidShadowName", varVal, status ) == MS::kSuccess ) 
+//				userShadowName = parseString( varVal, false );
+//
+//			iter->imageName = ( userShadowName.length() )? userShadowName : generateFileName( ( fileGenMode )fgm_shadow_tex, thisJob );
+//
+//			if ( !liqglo.liqglo_doShadows ) // shadow generation disabled
+//			{
+//				iter->skip   = true;
+//			}
+//			else if ( !iter->everyFrame )
+//			{
+//				int firstFrame = 1;
+//				if ( liqglo.frameNumbers.size() )
+//					firstFrame = liqglo.frameNumbers[ 0 ];
+//
+//				if ( liqglo.liqglo_noSingleFrameShadows || liqglo.liqglo_lframe > firstFrame && iter->renderFrame != liqglo.liqglo_lframe )
+//				{
+//					// noSingleFrameShadows or rendering past the first frame of the sequence
+//					iter->skip   = true;
+//				}
+//			}
+//			else if ( iter->everyFrame && liqglo.liqglo_singleFrameShadowsOnly )
+//			{
+//				// singleFrameShadowsOnly on regular shadows
+//				iter->skip   = true;
+//			}
+//			thisJob = *iter;
+//			shadowList.push_back( thisJob );
+//		}
+//		++iter;
+//	}
+//
+//	// sort the shadow jobs to put the reference frames first
+//#ifndef _WIN32
+//	sort( jobList.begin(), jobList.end(), renderFrameSort );
+//	sort( shadowList.begin(), shadowList.end(), renderFrameSort );
+//	sort( txtList.begin(), txtList.end(), renderFrameSort );
+//#else
+//	sort( jobList.begin(), jobList.end(), renderFrameSort );
+//	sort( shadowList.begin(), shadowList.end(), renderFrameSort );
+//	sort( txtList.begin(), txtList.end(), renderFrameSort );
+//#endif
+//	ribStatus = kRibBegin;
+//	return MS::kSuccess;
+//	//[refactor 4] end to buildJobs__()
+//}
 
 /**
 * Write the prologue for the RIB file.
 * This includes all RI options but not the camera transformation.
 */
-MStatus liqRibTranslator::ribPrologue()
-{
-	CM_TRACE_FUNC("liqRibTranslator::ribPrologue()");
-
-	if( !liqglo.m_exportReadArchive ) 
-	{
-		LIQDEBUGPRINTF( "-> beginning to write prologue\n" );
-
-		//[refactor 5] begin 
-		// general info for traceability
-		//
-		RiArchiveRecord( RI_COMMENT, "    Generated by Liquid v%s", LIQUIDVERSION );
-		RiArchiveRecord( RI_COMMENT, "    Scene : %s", (liqglo.liqglo_projectDir + liquidTransGetSceneName()).asChar() );
-#ifndef _WIN32
-		uid_t userId = getuid();
-		struct passwd *userPwd = getpwuid( userId );
-		RiArchiveRecord( RI_COMMENT, "    User  : %s", userPwd->pw_name );
-#else
-		char* user = getenv("USERNAME");
-		if( user )
-			RiArchiveRecord( RI_COMMENT, "    User  : %s", user );
-#endif
-		time_t now;
-		time( &now );
-		char* theTime = ctime(&now);
-		RiArchiveRecord( RI_COMMENT, "    Time  : %s", theTime );
-		//[refactor 5] end
-
-		// set any rib options
-		//
-		writeStatisticsOptions();
-
-		//limits options
-		writeLimitsOptions();
-
-		// set search paths
-		//
-		//[refactor 6] begin to rm::Renderer::ribPrologue_writeSearthPath ()
-		if ( liqglo.m_dirmaps.length() )
-		{
-			using namespace std;
-			using namespace boost;
-
-			const string str( liqglo.m_dirmaps.asChar() );
-			stringstream ss;
-			vector< string > names;
-			typedef tokenizer< char_separator< char > > tokenizer;
-			char_separator< char > sep("{ }");
-			tokenizer tokens(str, sep);
-			for ( tokenizer::iterator tok_iter = tokens.begin(); tok_iter != tokens.end(); ++tok_iter )
-				names.push_back( *tok_iter );
-			for ( unsigned i( 0 ); i < names.size(); i+= 3 )
-			{
-				// names.at(i+2)  - zone
-				// names.at(i)    - from
-				// names.at(i+1)  - to
-				// [\"UNC\" \"/from_path/\" \"//comp/to_path/\"]
-#ifdef GENERIC_RIBLIB
-        		ss << "[\\\"" << names.at(i+2) << "\\\" \\\"" << names.at(i) << "\\\" \\\"" << names.at(i+1) << "\\\"] ";
-#else
-        		ss << "[\"" << names.at(i+2) << "\" \"" << names.at(i) << "\" \"" << names.at(i+1) << "\"] ";
-#endif
-			}
-			printf("%s\n", ss.str().c_str() );
-			string dirmapsPath ( ss.str() );
-			liqString list = const_cast< char* > ( dirmapsPath.c_str() );
-			RiOption( "searchpath", "dirmap", &list, RI_NULL );
-		}
-		liqString list = const_cast< char* > ( liqglo.liqglo_shaderPath.asChar() );
-		RiOption( "searchpath", "shader", &list, RI_NULL );
-
-		MString texturePath = liqglo.liqglo_texturePath + ":" + liquidSanitizeSearchPath( liqglo.liqglo_textureDir );
-		list = const_cast< char* > ( texturePath.asChar() );
-		RiOption( "searchpath", "texture", &list, RI_NULL );
-
-		MString archivePath = liqglo.liqglo_archivePath + ":" + liquidSanitizeSearchPath( liqglo.liqglo_ribDir );
-		list = const_cast< char* > ( archivePath.asChar() );
-		RiOption( "searchpath", "archive", &list, RI_NULL );
-
-		list = const_cast< char* > ( liqglo.liqglo_proceduralPath.asChar() );
-		RiOption( "searchpath", "procedural", &list, RI_NULL );
-
-		// if rendering to the renderview, add a path to the liqmaya display driver
-		if( liqglo.m_renderView ) 
-		{
-			MString home( getenv( "LIQUIDHOME" ) );
-			MString displaySearchPath;
-			MString rendererDisplays = liquidSanitizeSearchPath ( liqglo.liquidRenderer.renderHome );
-			MString liquidDisplays = liquidSanitizeSearchPath ( home ) + "/displayDrivers/" + liqglo.liquidRenderer.renderName + "/";
-
-			if( (liqglo.liquidRenderer.renderName == MString("Pixie")) || (liqglo.liquidRenderer.renderName == MString("Air")) || (liqglo.liquidRenderer.renderName == MString("3Delight")) )
-				rendererDisplays += "/displays";
-			else 
-				rendererDisplays += "/etc";
-			displaySearchPath = ".:@:" + rendererDisplays + ":" + liquidDisplays;
-
-			list = const_cast< char* > ( displaySearchPath.asChar() );
-			RiArchiveRecord( RI_VERBATIM, "Option \"searchpath\" \"display\" [\"%s\"]\n", list );
-		}
-		//[refactor 6] end to rm::Renderer::ribPrologue_writeSearthPath ()
-
-		//RiOrientation( RI_RH ); // Right-hand coordinates
-		if( liqglo_currentJob.pass == rpShadowMap ) 
-		{
-			//[refactor 7] 
-			RiPixelSamples( liqglo_currentJob.samples, liqglo_currentJob.samples );
-			RiShadingRate( liqglo_currentJob.shadingRateFactor );
-			// Need to use Box filter for deep shadows.
-			RiPixelFilter( RiBoxFilter, 1, 1 );
-			liqString option;
-			if( liqglo_currentJob.shadowType == stDeep ) 
-				option = "deepshadow";
-			else 
-				option = "shadow";
-			RiOption( "user", "string pass", ( liqPointer )&option, RI_NULL );
-			//[refactor 7] 
-		} 
-		else 
-		{
-						//[refactor 8] 
-			liqString hiderName;
-			switch( liqglo.liqglo_hider ) 
-			{
-			case htPhoton:
-				hiderName = "photon";
-				break;
-			case htRaytrace:
-				hiderName = "raytrace";
-				break;
-			case htOpenGL:
-				hiderName = "OpenGL";
-				break;
-			case htZbuffer:
-				hiderName = "zbuffer";
-				break;
-			case htDepthMask:
-				hiderName = "depthmask";
-				break;
-			case htHidden:
-			default:
-				hiderName = "hidden";
-			}
-			MString hiderOptions = getHiderOptions( liqglo.liquidRenderer.renderName, hiderName );
-			RiArchiveRecord( RI_VERBATIM, "Hider \"%s\" %s\n", hiderName, ( char* )hiderOptions.asChar() );
-			//[refactor 8]
-
-			RiPixelSamples( liqglo.pixelSamples, liqglo.pixelSamples );
-
-			RiShadingRate( liqglo.shadingRate );
-
-			if( liqglo.m_rFilterX > 1 || liqglo.m_rFilterY > 1 ) 
-			{
-				switch (liqglo.m_rFilter) 
-				{
-				case pfBoxFilter:
-					RiPixelFilter( RiBoxFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
-					break;
-				case pfTriangleFilter:
-					RiPixelFilter( RiTriangleFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
-					break;
-				case pfCatmullRomFilter:
-					RiPixelFilter( RiCatmullRomFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
-					break;
-				case pfGaussianFilter:
-					RiPixelFilter( RiGaussianFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
-					break;
-				case pfSincFilter:
-					RiPixelFilter( RiSincFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
-					break;
-#if defined ( DELIGHT ) || defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
-				case pfBlackmanHarrisFilter:
-					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"blackman-harris\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
-					break;
-				case pfMitchellFilter:
-					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"mitchell\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
-					break;
-				case pfSepCatmullRomFilter:
-					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"separable-catmull-rom\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
-					break;
-				case pfBesselFilter:
-					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"bessel\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
-					break;
-#endif
-#if defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
-				case pfLanczosFilter:
-					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"lanczos\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
-					break;
-				case pfDiskFilter:
-					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"disk\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
-					break;
-#endif
-				default:
-					RiArchiveRecord( RI_COMMENT, "Unknown Pixel Filter selected" );
-					break;
-				}
-			}
-			//
-			liqString option( "beauty" );
-			RiOption( "user", "string pass", ( liqPointer )&option, RI_NULL );
-		}
-
-		// RAYTRACING OPTIONS
-		if( liqglo.liquidRenderer.supports_RAYTRACE && liqglo.rt_useRayTracing ) 
-		{
-			RiArchiveRecord( RI_COMMENT, "Ray Tracing : ON" );
-			RiOption( "trace",   "int maxdepth",                ( liqPointer ) &liqglo.rt_traceMaxDepth,            RI_NULL );
-#if defined ( DELIGHT ) || defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
-			RiOption( "trace",   "float specularthreshold",     ( liqPointer ) &liqglo.rt_traceSpecularThreshold, RI_NULL );
-			RiOption( "trace",   "int continuationbydefault",   ( liqPointer ) &liqglo.rt_traceRayContinuation,   RI_NULL );
-			RiOption( "limits",  "int geocachememory",          ( liqPointer ) &liqglo.rt_traceCacheMemory,       RI_NULL );
-			RiOption( "user",    "float traceBreadthFactor",    ( liqPointer ) &liqglo.rt_traceBreadthFactor,     RI_NULL );
-			RiOption( "user",    "float traceDepthFactor",      ( liqPointer ) &liqglo.rt_traceDepthFactor,       RI_NULL );
-#endif
-		} 
-		else 
-		{
-			if( !liqglo.liquidRenderer.supports_RAYTRACE ) 
-				RiArchiveRecord( RI_COMMENT, "Ray Tracing : NOT SUPPORTED" );
-			else 
-			{
-				RiArchiveRecord( RI_COMMENT, "Ray Tracing : OFF" );
-				liqInt maxDepth = 0;
-				RiOption( "trace",   "int maxdepth",                ( liqPointer ) &maxDepth,                  RI_NULL );
-			}
-		}
-
-		// CUSTOM OPTIONS
-		MFnDependencyNode globalsNode( liqglo.rGlobalObj );
-		MPlug prePostplug( globalsNode.findPlug( "preFrameBeginMel" ) );
-		MString melcommand( prePostplug.asString() );
-		if( liqglo.m_preFrameRIB != "" || melcommand.length() )
-		{
-			RiArchiveRecord(RI_COMMENT,  " Pre-FrameBegin RIB from liquid globals" );
-			MGlobal::executeCommand( melcommand );
-			RiArchiveRecord(RI_VERBATIM, ( char* )liqglo.m_preFrameRIB.asChar() );
-			RiArchiveRecord(RI_VERBATIM, "\n");
-		}
-		if( liqglo.m_bakeNonRasterOrient || liqglo.m_bakeNoCullHidden || liqglo.m_bakeNoCullBackface ) 
-		{
-			RiArchiveRecord( RI_COMMENT, "Bake Attributes" );
-			liqInt zero( 0 );
-			if( liqglo.m_bakeNonRasterOrient )
-				RiAttribute( "dice","int rasterorient", &zero, RI_NULL );
-			if( liqglo.m_bakeNoCullBackface )
-				RiAttribute( "cull","int backfacing", &zero, RI_NULL );
-			if( liqglo.m_bakeNoCullHidden )
-				RiAttribute( "cull","int hidden", &zero, RI_NULL );
-		}
-	}
-	ribStatus = kRibBegin;
-	return MS::kSuccess;
-}
+//MStatus liqRibTranslator::ribPrologue()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::ribPrologue()");
+//
+//	if( !liqglo.m_exportReadArchive ) 
+//	{
+//		LIQDEBUGPRINTF( "-> beginning to write prologue\n" );
+//
+//		//[refactor 5] begin 
+//		// general info for traceability
+//		//
+//		RiArchiveRecord( RI_COMMENT, "    Generated by Liquid v%s", LIQUIDVERSION );
+//		RiArchiveRecord( RI_COMMENT, "    Scene : %s", (liqglo.liqglo_projectDir + liquidTransGetSceneName()).asChar() );
+//#ifndef _WIN32
+//		uid_t userId = getuid();
+//		struct passwd *userPwd = getpwuid( userId );
+//		RiArchiveRecord( RI_COMMENT, "    User  : %s", userPwd->pw_name );
+//#else
+//		char* user = getenv("USERNAME");
+//		if( user )
+//			RiArchiveRecord( RI_COMMENT, "    User  : %s", user );
+//#endif
+//		time_t now;
+//		time( &now );
+//		char* theTime = ctime(&now);
+//		RiArchiveRecord( RI_COMMENT, "    Time  : %s", theTime );
+//		//[refactor 5] end
+//
+//		// set any rib options
+//		//
+//		writeStatisticsOptions();
+//
+//		//limits options
+//		writeLimitsOptions();
+//
+//		// set search paths
+//		//
+//		//[refactor 6] begin to rm::Renderer::ribPrologue_writeSearthPath ()
+//		if ( liqglo.m_dirmaps.length() )
+//		{
+//			using namespace std;
+//			using namespace boost;
+//
+//			const string str( liqglo.m_dirmaps.asChar() );
+//			stringstream ss;
+//			vector< string > names;
+//			typedef tokenizer< char_separator< char > > tokenizer;
+//			char_separator< char > sep("{ }");
+//			tokenizer tokens(str, sep);
+//			for ( tokenizer::iterator tok_iter = tokens.begin(); tok_iter != tokens.end(); ++tok_iter )
+//				names.push_back( *tok_iter );
+//			for ( unsigned i( 0 ); i < names.size(); i+= 3 )
+//			{
+//				// names.at(i+2)  - zone
+//				// names.at(i)    - from
+//				// names.at(i+1)  - to
+//				// [\"UNC\" \"/from_path/\" \"//comp/to_path/\"]
+//#ifdef GENERIC_RIBLIB
+//        		ss << "[\\\"" << names.at(i+2) << "\\\" \\\"" << names.at(i) << "\\\" \\\"" << names.at(i+1) << "\\\"] ";
+//#else
+//        		ss << "[\"" << names.at(i+2) << "\" \"" << names.at(i) << "\" \"" << names.at(i+1) << "\"] ";
+//#endif
+//			}
+//			printf("%s\n", ss.str().c_str() );
+//			string dirmapsPath ( ss.str() );
+//			liqString list = const_cast< char* > ( dirmapsPath.c_str() );
+//			RiOption( "searchpath", "dirmap", &list, RI_NULL );
+//		}
+//		liqString list = const_cast< char* > ( liqglo.liqglo_shaderPath.asChar() );
+//		RiOption( "searchpath", "shader", &list, RI_NULL );
+//
+//		MString texturePath = liqglo.liqglo_texturePath + ":" + liquidSanitizeSearchPath( liqglo.liqglo_textureDir );
+//		list = const_cast< char* > ( texturePath.asChar() );
+//		RiOption( "searchpath", "texture", &list, RI_NULL );
+//
+//		MString archivePath = liqglo.liqglo_archivePath + ":" + liquidSanitizeSearchPath( liqglo.liqglo_ribDir );
+//		list = const_cast< char* > ( archivePath.asChar() );
+//		RiOption( "searchpath", "archive", &list, RI_NULL );
+//
+//		list = const_cast< char* > ( liqglo.liqglo_proceduralPath.asChar() );
+//		RiOption( "searchpath", "procedural", &list, RI_NULL );
+//
+//		// if rendering to the renderview, add a path to the liqmaya display driver
+//		if( liqglo.m_renderView ) 
+//		{
+//			MString home( getenv( "LIQUIDHOME" ) );
+//			MString displaySearchPath;
+//			MString rendererDisplays = liquidSanitizeSearchPath ( liqglo.liquidRenderer.renderHome );
+//			MString liquidDisplays = liquidSanitizeSearchPath ( home ) + "/displayDrivers/" + liqglo.liquidRenderer.renderName + "/";
+//
+//			if( (liqglo.liquidRenderer.renderName == MString("Pixie")) || (liqglo.liquidRenderer.renderName == MString("Air")) || (liqglo.liquidRenderer.renderName == MString("3Delight")) )
+//				rendererDisplays += "/displays";
+//			else 
+//				rendererDisplays += "/etc";
+//			displaySearchPath = ".:@:" + rendererDisplays + ":" + liquidDisplays;
+//
+//			list = const_cast< char* > ( displaySearchPath.asChar() );
+//			RiArchiveRecord( RI_VERBATIM, "Option \"searchpath\" \"display\" [\"%s\"]\n", list );
+//		}
+//		//[refactor 6] end to rm::Renderer::ribPrologue_writeSearthPath ()
+//
+//		//RiOrientation( RI_RH ); // Right-hand coordinates
+//		if( liqglo_currentJob.pass == rpShadowMap ) 
+//		{
+//			//[refactor 7] 
+//			RiPixelSamples( liqglo_currentJob.samples, liqglo_currentJob.samples );
+//			RiShadingRate( liqglo_currentJob.shadingRateFactor );
+//			// Need to use Box filter for deep shadows.
+//			RiPixelFilter( RiBoxFilter, 1, 1 );
+//			liqString option;
+//			if( liqglo_currentJob.shadowType == stDeep ) 
+//				option = "deepshadow";
+//			else 
+//				option = "shadow";
+//			RiOption( "user", "string pass", ( liqPointer )&option, RI_NULL );
+//			//[refactor 7] 
+//		} 
+//		else 
+//		{
+//						//[refactor 8] 
+//			liqString hiderName;
+//			switch( liqglo.liqglo_hider ) 
+//			{
+//			case htPhoton:
+//				hiderName = "photon";
+//				break;
+//			case htRaytrace:
+//				hiderName = "raytrace";
+//				break;
+//			case htOpenGL:
+//				hiderName = "OpenGL";
+//				break;
+//			case htZbuffer:
+//				hiderName = "zbuffer";
+//				break;
+//			case htDepthMask:
+//				hiderName = "depthmask";
+//				break;
+//			case htHidden:
+//			default:
+//				hiderName = "hidden";
+//			}
+//			MString hiderOptions = getHiderOptions( liqglo.liquidRenderer.renderName, hiderName );
+//			RiArchiveRecord( RI_VERBATIM, "Hider \"%s\" %s\n", hiderName, ( char* )hiderOptions.asChar() );
+//			//[refactor 8]
+//
+//			RiPixelSamples( liqglo.pixelSamples, liqglo.pixelSamples );
+//
+//			RiShadingRate( liqglo.shadingRate );
+//
+//			if( liqglo.m_rFilterX > 1 || liqglo.m_rFilterY > 1 ) 
+//			{
+//				switch (liqglo.m_rFilter) 
+//				{
+//				case pfBoxFilter:
+//					RiPixelFilter( RiBoxFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
+//					break;
+//				case pfTriangleFilter:
+//					RiPixelFilter( RiTriangleFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
+//					break;
+//				case pfCatmullRomFilter:
+//					RiPixelFilter( RiCatmullRomFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
+//					break;
+//				case pfGaussianFilter:
+//					RiPixelFilter( RiGaussianFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
+//					break;
+//				case pfSincFilter:
+//					RiPixelFilter( RiSincFilter, liqglo.m_rFilterX, liqglo.m_rFilterY );
+//					break;
+//#if defined ( DELIGHT ) || defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
+//				case pfBlackmanHarrisFilter:
+//					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"blackman-harris\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
+//					break;
+//				case pfMitchellFilter:
+//					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"mitchell\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
+//					break;
+//				case pfSepCatmullRomFilter:
+//					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"separable-catmull-rom\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
+//					break;
+//				case pfBesselFilter:
+//					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"bessel\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
+//					break;
+//#endif
+//#if defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
+//				case pfLanczosFilter:
+//					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"lanczos\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
+//					break;
+//				case pfDiskFilter:
+//					RiArchiveRecord( RI_VERBATIM, "PixelFilter \"disk\" %g %g\n", liqglo.m_rFilterX, liqglo.m_rFilterY);
+//					break;
+//#endif
+//				default:
+//					RiArchiveRecord( RI_COMMENT, "Unknown Pixel Filter selected" );
+//					break;
+//				}
+//			}
+//			//
+//			liqString option( "beauty" );
+//			RiOption( "user", "string pass", ( liqPointer )&option, RI_NULL );
+//		}
+//
+//		// RAYTRACING OPTIONS
+//		if( liqglo.liquidRenderer.supports_RAYTRACE && liqglo.rt_useRayTracing ) 
+//		{
+//			RiArchiveRecord( RI_COMMENT, "Ray Tracing : ON" );
+//			RiOption( "trace",   "int maxdepth",                ( liqPointer ) &liqglo.rt_traceMaxDepth,            RI_NULL );
+//#if defined ( DELIGHT ) || defined ( PRMAN ) || defined ( GENERIC_RIBLIB )
+//			RiOption( "trace",   "float specularthreshold",     ( liqPointer ) &liqglo.rt_traceSpecularThreshold, RI_NULL );
+//			RiOption( "trace",   "int continuationbydefault",   ( liqPointer ) &liqglo.rt_traceRayContinuation,   RI_NULL );
+//			RiOption( "limits",  "int geocachememory",          ( liqPointer ) &liqglo.rt_traceCacheMemory,       RI_NULL );
+//			RiOption( "user",    "float traceBreadthFactor",    ( liqPointer ) &liqglo.rt_traceBreadthFactor,     RI_NULL );
+//			RiOption( "user",    "float traceDepthFactor",      ( liqPointer ) &liqglo.rt_traceDepthFactor,       RI_NULL );
+//#endif
+//		} 
+//		else 
+//		{
+//			if( !liqglo.liquidRenderer.supports_RAYTRACE ) 
+//				RiArchiveRecord( RI_COMMENT, "Ray Tracing : NOT SUPPORTED" );
+//			else 
+//			{
+//				RiArchiveRecord( RI_COMMENT, "Ray Tracing : OFF" );
+//				liqInt maxDepth = 0;
+//				RiOption( "trace",   "int maxdepth",                ( liqPointer ) &maxDepth,                  RI_NULL );
+//			}
+//		}
+//
+//		// CUSTOM OPTIONS
+//		MFnDependencyNode globalsNode( liqglo.rGlobalObj );
+//		MPlug prePostplug( globalsNode.findPlug( "preFrameBeginMel" ) );
+//		MString melcommand( prePostplug.asString() );
+//		if( liqglo.m_preFrameRIB != "" || melcommand.length() )
+//		{
+//			RiArchiveRecord(RI_COMMENT,  " Pre-FrameBegin RIB from liquid globals" );
+//			MGlobal::executeCommand( melcommand );
+//			RiArchiveRecord(RI_VERBATIM, ( char* )liqglo.m_preFrameRIB.asChar() );
+//			RiArchiveRecord(RI_VERBATIM, "\n");
+//		}
+//		if( liqglo.m_bakeNonRasterOrient || liqglo.m_bakeNoCullHidden || liqglo.m_bakeNoCullBackface ) 
+//		{
+//			RiArchiveRecord( RI_COMMENT, "Bake Attributes" );
+//			liqInt zero( 0 );
+//			if( liqglo.m_bakeNonRasterOrient )
+//				RiAttribute( "dice","int rasterorient", &zero, RI_NULL );
+//			if( liqglo.m_bakeNoCullBackface )
+//				RiAttribute( "cull","int backfacing", &zero, RI_NULL );
+//			if( liqglo.m_bakeNoCullHidden )
+//				RiAttribute( "cull","int hidden", &zero, RI_NULL );
+//		}
+//	}
+//	ribStatus = kRibBegin;
+//	return MS::kSuccess;
+//}
 
 /**
 * Write the epilogue for the RIB file.
 */
-MStatus liqRibTranslator::ribEpilogue()
-{
-	CM_TRACE_FUNC("liqRibTranslator::ribEpilogue()");
-
-	if(ribStatus == kRibBegin) 
-		ribStatus = kRibOK;
-	return (ribStatus == kRibOK ? MS::kSuccess : MS::kFailure);
-}
+//MStatus liqRibTranslator::ribEpilogue()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::ribEpilogue()");
+//
+//	if(ribStatus == kRibBegin) 
+//		ribStatus = kRibOK;
+//	return (ribStatus == kRibOK ? MS::kSuccess : MS::kFailure);
+//}
 
 /**
 * Scan the DAG at the given frame number and record information about the scene for writing.
@@ -5187,2311 +5187,2311 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 * This method compares two DAG paths and figures out how many attribute levels to push and/or pop.
 * The intention seems clear but this method is not currently used -- anyone cares to comment? --Moritz.
 */
-void liqRibTranslator::doAttributeBlocking( const MDagPath& newPath, const MDagPath& previousPath )
-{
-	CM_TRACE_FUNC("liqRibTranslator::doAttributeBlocking("<<MFnDagNode(newPath).fullPathName().asChar()<<","<<previousPath.fullPathName().asChar()<<")");
-
-	int newDepth = newPath.length();
-	int prevDepth = 0;
-	MFnDagNode dagFn( newPath );
-	MDagPath npath = newPath;
-	MDagPath ppath = previousPath;
-
-	if( previousPath.isValid() ) 
-	{
-		// Recursive base case
-		// If the paths are the same, then we don't have to write
-		// any start/end attribute blocks.  So, just return
-		//
-		if( newPath == previousPath ) 
-			return;
-		prevDepth = previousPath.length();
-		// End attribute block if necessary
-		//
-		if( newDepth <= prevDepth ) 
-		{
-			// Write an attribute block end
-			//
-			RiAttributeEnd();
-			attributeDepth--;
-			if( prevDepth > 1 ) 
-				ppath.pop();
-		}
-	}
-	if( ( newDepth >= prevDepth ) && ( newDepth > 1 ) )
-		npath.pop();
-	// Recurse and process parents
-	//
-	if( ( prevDepth > 1 ) || ( newDepth > 1 ) ) 
-		doAttributeBlocking( npath, ppath ); // Recurse
-	// Write open for new attribute block if necessary
-	//
-	if( newDepth >= prevDepth ) 
-	{
-		MString name( dagFn.name() );
-
-		RiAttributeBegin();
-		RiAttribute( "identifier", "name", &getLiquidRibName( name.asChar() ), RI_NULL );
-
-		if( newPath.hasFn( MFn::kTransform ) ) 
-		{
-			// We have a transform, so write out the info
-			//
-			liqMatrix ribMatrix;
-			MObject transform = newPath.node();
-			MFnTransform transFn( transform );
-			MTransformationMatrix localTransformMatrix = transFn.transformation();
-			MMatrix localMatrix = localTransformMatrix.asMatrix();
-			localMatrix.get( ribMatrix );
-			RiConcatTransform( ribMatrix );
-		}
-		attributeDepth++;
-	}
-}
+//void liqRibTranslator::doAttributeBlocking( const MDagPath& newPath, const MDagPath& previousPath )
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::doAttributeBlocking("<<MFnDagNode(newPath).fullPathName().asChar()<<","<<previousPath.fullPathName().asChar()<<")");
+//
+//	int newDepth = newPath.length();
+//	int prevDepth = 0;
+//	MFnDagNode dagFn( newPath );
+//	MDagPath npath = newPath;
+//	MDagPath ppath = previousPath;
+//
+//	if( previousPath.isValid() ) 
+//	{
+//		// Recursive base case
+//		// If the paths are the same, then we don't have to write
+//		// any start/end attribute blocks.  So, just return
+//		//
+//		if( newPath == previousPath ) 
+//			return;
+//		prevDepth = previousPath.length();
+//		// End attribute block if necessary
+//		//
+//		if( newDepth <= prevDepth ) 
+//		{
+//			// Write an attribute block end
+//			//
+//			RiAttributeEnd();
+//			attributeDepth--;
+//			if( prevDepth > 1 ) 
+//				ppath.pop();
+//		}
+//	}
+//	if( ( newDepth >= prevDepth ) && ( newDepth > 1 ) )
+//		npath.pop();
+//	// Recurse and process parents
+//	//
+//	if( ( prevDepth > 1 ) || ( newDepth > 1 ) ) 
+//		doAttributeBlocking( npath, ppath ); // Recurse
+//	// Write open for new attribute block if necessary
+//	//
+//	if( newDepth >= prevDepth ) 
+//	{
+//		MString name( dagFn.name() );
+//
+//		RiAttributeBegin();
+//		RiAttribute( "identifier", "name", &getLiquidRibName( name.asChar() ), RI_NULL );
+//
+//		if( newPath.hasFn( MFn::kTransform ) ) 
+//		{
+//			// We have a transform, so write out the info
+//			//
+//			liqMatrix ribMatrix;
+//			MObject transform = newPath.node();
+//			MFnTransform transFn( transform );
+//			MTransformationMatrix localTransformMatrix = transFn.transformation();
+//			MMatrix localMatrix = localTransformMatrix.asMatrix();
+//			localMatrix.get( ribMatrix );
+//			RiConcatTransform( ribMatrix );
+//		}
+//		attributeDepth++;
+//	}
+//}
 
 /**
 * Write out the frame prologue.
 * This includes all pass-dependant options like shading interpolation, hider,
 * display driver and the camera transformation.
 */
-MStatus liqRibTranslator::framePrologue( long lframe )
-{
-	CM_TRACE_FUNC("liqRibTranslator::framePrologue("<<lframe<<")");
-
-	LIQDEBUGPRINTF( "-> Beginning Frame Prologue\n" );
-	ribStatus = kRibFrame;
-
-	if( !liqglo.m_exportReadArchive )
-	{
-		RiFrameBegin( lframe );
-
-		//refactor 14-1 begin to tShadowRibWriterMgr::framePrologue_display()/tHeroRibWriterMgr::framePrologue_display()
-		if( liqglo_currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true )
-		{
-			// philippe : Rotated Camera Case
-			RiFormat( liqglo_currentJob.height, liqglo_currentJob.width, liqglo_currentJob.aspectRatio );
-		}
-		else
-		{
-			RiFormat( liqglo_currentJob.width, liqglo_currentJob.height, liqglo_currentJob.aspectRatio );
-		}
-		//refactor 14-1 end
-
-		if( liqglo_currentJob.pass != rpShadowMap )
-		{
-			//refactor 14 begin to tHeroRibWriterMgr::framePrologue_display()
-			// Smooth Shading
-			RiShadingInterpolation( "smooth" );
-			// Quantization
-			// overriden to floats when in rendering to Maya's renderView
-			if( !liqglo.m_renderView && liqglo.quantValue != 0 )
-			{
-				int whiteValue = (int) pow( 2.0, liqglo.quantValue ) - 1;
-				RiQuantize( RI_RGBA, whiteValue, 0, whiteValue, 0.5 );
-			}
-			else
-			{
-				RiQuantize( RI_RGBA, 0, 0, 0, 0 );
-			}
-			if( liqglo.m_rgain != 1.0 || liqglo.m_rgamma != 1.0 )
-			{
-				RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
-			}
-			//refactor 14 end
-		}
-		if ( liqglo_currentJob.pass == rpShadowMap &&
-			( liqglo_currentJob.shadowType != stDeep ||
-			liqglo_currentJob.samples == 1 ) )
-		{
-			//refactor 15
-			if( liqglo.liquidRenderer.renderName == MString("Pixie") )
-			{
-				liqFloat zero = 0;
-				RiHider( "hidden", "jitter", &zero, RI_NULL );
-			}
-			else
-			{
-				liqInt zero = 0;
-				RiHider( "hidden", "int jitter", &zero, RI_NULL );
-			}
-			//refactor 15
-		}
-		if( liqglo_currentJob.pass == rpShadowMap && liqglo_currentJob.shadowType == stMidPoint )
-		{//refactor 16
-			liqString midPoint = "midpoint";
-			liqFloat midRatio = liqglo_currentJob.midPointRatio;
-
-			RiHider( "hidden", "depthfilter", &midPoint, RI_NULL );
-
-			if ( liqglo_currentJob.midPointRatio != 0 )
-				RiHider( "hidden", "midpointratio", &midRatio, RI_NULL ); // Output to rib jami
-		//refactor 16
-		}
-
-		LIQDEBUGPRINTF( "-> Setting Display Options\n" );
-		if( liqglo_currentJob.pass == rpShadowMap )
-		{
-			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
-			//refactor 17 begin
-			if( liqglo_currentJob.shadowType != stMinMax )
-			{
-				if( liqglo_currentJob.shadowType == stDeep )
-				{
-					// RiDeclare( "volumeinterpretation", "string" );
-					liqString volume = "continuous";
-
-					if ( liqglo_currentJob.volume != viContinuous )
-						volume = "discrete"; 
-
-					if( liqglo.liquidRenderer.renderName == MString("3Delight") )
-					{
-						RiArchiveRecord( RI_COMMENT, "Display 1");
-						RiDisplay( const_cast< char* >( liqglo_currentJob.imageName.asChar()),
-							const_cast< char* >( liqglo_currentJob.format.asChar() ),
-							(liqToken)liqglo_currentJob.imageMode.asChar(),
-							"string volumeinterpretation", &volume,
-							RI_NULL );
-					}
-					else
-					{
-						// Deep shadows cannot be the primary output driver in PRMan & co.
-						// We need to create a null output zfile first, and use the deep
-						// shadows as a secondary output.
-						//
-						if( liqglo.liquidRenderer.renderName != MString("Pixie") )
-						{
-							RiArchiveRecord( RI_COMMENT, "Display 2");
-							RiDisplay( "null", "null", "z", RI_NULL );
-						}
-
-						MString deepFileImageName = "+" + liqglo_currentJob.imageName;
-
-						RiArchiveRecord( RI_COMMENT, "Display 3");
-						RiDisplay( const_cast< char* >( deepFileImageName.asChar() ),
-							const_cast< char* >( liqglo_currentJob.format.asChar() ),
-							(liqToken)liqglo_currentJob.imageMode.asChar(),
-							"string volumeinterpretation", &volume,
-							RI_NULL );
-					}
-				}
-				else
-				{
-					RiArchiveRecord( RI_COMMENT, "Display 4");
-					liqInt aggregate( liqglo_currentJob.shadowAggregation );
-					RiDisplay( const_cast< char* >( liqglo_currentJob.imageName.asChar() ),
-						const_cast< char* >( liqglo_currentJob.format.asChar() ),
-						(liqToken)liqglo_currentJob.imageMode.asChar(),
-						"int aggregate", &aggregate,
-						RI_NULL );
-				}
-			}//if( !liqglo.liqglo_currentJob.isMinMaxShadow )
-			else
-			{
-				RiArchiveRecord( RI_COMMENT, "Display 5");
-				RiArchiveRecord( RI_COMMENT, "Display Driver:" );
-				liqInt minmax = 1;
-				RiDisplay( const_cast< char* >( (liqglo_currentJob.imageName+(int)liqglo.liqglo_lframe).asChar() ),//const_cast< char* >( parseString(liqglo_currentJob.imageName).asChar() ),
-					const_cast< char* >(liqglo_currentJob.format.asChar()),
-					(liqToken)liqglo_currentJob.imageMode.asChar(),
-					"minmax", &minmax,
-					RI_NULL );
-			}
-			exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
-			//refactor 17 end
-		}
-		else
-		{
-			//refactor 18 begin
-			if( ( liqglo.m_cropX1 != 0.0 ) || ( liqglo.m_cropY1 != 0.0 ) || ( liqglo.m_cropX2 != 1.0 ) || ( liqglo.m_cropY2 != 1.0 ) ) 
-			{
-				// philippe : handle the rotated camera case
-				if( liqglo.liqglo_rotateCamera == true ) 
-					RiCropWindow( liqglo.m_cropY2, liqglo.m_cropY1, 1 - liqglo.m_cropX1, 1 - liqglo.m_cropX2 );
-				else 
-					RiCropWindow( liqglo.m_cropX1, liqglo.m_cropX2, liqglo.m_cropY1, liqglo.m_cropY2 );
-			}
-
-			if ( !liqglo_currentJob.isStereoPass ) 
-				exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
-			else
-			{
-				// export right camera
-				RiTransformBegin();
-				exportJobCamera( liqglo_currentJob, liqglo_currentJob.rightCamera );
-				RiArchiveRecord( RI_VERBATIM, "Camera \"%s\"", "right" );//RiCameraV( "right", 0, (char**)RI_NULL, (void**)RI_NULL );
-				RiTransformEnd();
-				// export left camera
-				exportJobCamera( liqglo_currentJob, liqglo_currentJob.leftCamera );
-			}
-
-			// display channels
-			if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 
-			{
-				RiArchiveRecord( RI_COMMENT, "Display Channels:" );
-				// philippe -> to do : move this to higher scope ?
-				//MStringArray channeltype;
-				//channeltype.append( "float" );
-				//channeltype.append( "color" );
-				//channeltype.append( "point" );
-				//channeltype.append( "normal" );
-				//channeltype.append( "vector" );
-				std::string  channeltype[] = { "float", "color", "point", "normal", "vector" };
-
-				std::vector<StructChannel>::iterator m_channels_iterator;
-				m_channels_iterator = liqglo.m_channels.begin();
-
-				bool isCiDeclared = 0;
-				bool isADeclared = 0;
-				while ( m_channels_iterator != liqglo.m_channels.end() ) 
-				{
-					int       numTokens = 0;
-					liqToken   tokens[5];
-					liqPointer values[5];
-
-					stringstream channel;
-					char* filter;
-					int quantize[4];
-					float filterwidth[2];
-					float dither;
-
-// #if defined( GENERIC_RIBLIB )          
-					stringstream quantize_str;
-					stringstream dither_str;
-					stringstream filter_str;
-// #endif
-					channel << channeltype[m_channels_iterator->type];
-					if ( m_channels_iterator->arraySize > 0 ) 
-						channel << "[" << m_channels_iterator->arraySize << "]";
-					channel << " " << m_channels_iterator->name.asChar();
-
-					if( m_channels_iterator->quantize ) 
-					{
-						int max = ( int )pow( 2., m_channels_iterator->bitDepth ) - 1;
-						dither = m_channels_iterator->dither;
-						quantize[0] = quantize[2] = 0;
-						quantize[1] = quantize[3] = max;
-						tokens[ numTokens ] = "int[4] quantize";
-						values[ numTokens ] = (liqPointer)quantize;
-						numTokens++;
-#if !defined( GENERIC_RIBLIB )               
-					}
-#else
-						quantize_str << "\"int[4] quantize\" [ 0 " << max << " 0 " << max << " ]";
-						dither_str << "\"float dither\" [" << dither << "]";
-					}
-					else
-					{
-						quantize_str << "\"int[4] quantize\" [ 0 0 0 0 ]"; 
-						dither_str.clear();
-					}
-#endif
-
-					if( m_channels_iterator->filter ) 
-					{
-						MString pixFilter( liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ] );
-						filter = ( char* )pixFilter.asChar();
-
-						liquidMessage2(messageInfo, ">>  m_channels_iterator->pixelFilter = %s\n", liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ].asChar() );
-						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s\n", pixFilter.asChar() );
-
-						tokens[ numTokens ] = "string filter";
-						values[ numTokens ] = ( liqPointer )&filter;
-						numTokens++;
-
-						filterwidth[0] = m_channels_iterator->pixelFilterX;
-						filterwidth[1] = m_channels_iterator->pixelFilterY;
-						tokens[ numTokens ] = "float filterwidth[2]";
-						values[ numTokens ] = ( liqPointer )filterwidth;
-						numTokens++;
-#if !defined( GENERIC_RIBLIB )               
-					}
-#else
-						filter_str << "\"string filter\" [\"" << pixFilter.asChar() << "\"] \"float filterwidth[2]\" [" << filterwidth[0] << " " << filterwidth[1] << "]";
-					} 
-					else
-						filter_str.clear();
-#endif
-
-#if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
-					//if( liquidRenderer.renderName == MString("PRMan") )
-					RiDisplayChannelV( ( liqToken )channel.str().c_str(), numTokens, tokens, values );
-					if( channel == "color Ci" )
-					{
-						isCiDeclared = 1;
-					}
-					else if( channel == "float a" )
-					{
-						isADeclared = 1;
-					}
-#else
-					// || defined( GENERIC_RIBLIB )
-					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s\" %s %s %s",
-						const_cast< char* >( channel.str().c_str() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
-
-#endif
-					m_channels_iterator++;
-				}
-#if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
-				if ( m_isStereoCamera && liqglo_currentJob.pass != rpShadowMap )
-				{
-					liqToken   *emptyTokens = NULL;
-					liqPointer *emptyValues = NULL;
-					if ( !isCiDeclared ) 
-						RiDisplayChannelV( ( liqToken )"color Ci", 0, emptyTokens, emptyValues );
-					if ( !isADeclared ) 
-						RiDisplayChannelV( ( liqToken )"float a", 0, emptyTokens, emptyValues );
-				}
-#endif
-			}
-			// output display drivers
-			RiArchiveRecord( RI_COMMENT, "Display Drivers:" );
-			RiArchiveRecord( RI_COMMENT, "Display 6");
-
-			std::vector<StructDisplay>::iterator m_displays_iterator;
-			m_displays_iterator = liqglo.m_displays.begin();
-
-			// create right display for stereo
-			if( m_isStereoCamera )
-			{
-				StructDisplay rightStereoAov;
-				rightStereoAov.name = m_displays_iterator->name;
-				rightStereoAov.name = m_displays_iterator->name;
-				rightStereoAov.mode = "Ci,a";
-				if( m_displays_iterator->type == "it" )
-				{
-					rightStereoAov.type = "tiff"; // should be optionnal ?....
-				}
-				else
-				{
-					rightStereoAov.type = m_displays_iterator->type;
-				}
-				rightStereoAov.enabled = m_displays_iterator->enabled;
-				rightStereoAov.doQuantize = m_displays_iterator->doQuantize;
-				rightStereoAov.bitDepth = m_displays_iterator->bitDepth;
-				rightStereoAov.dither = m_displays_iterator->dither;
-				rightStereoAov.doFilter = m_displays_iterator->doFilter;
-				rightStereoAov.filter = m_displays_iterator->filter;
-				rightStereoAov.filterX = m_displays_iterator->filterX;
-				rightStereoAov.filterY = m_displays_iterator->filterY;
-				rightStereoAov.xtraParams = m_displays_iterator->xtraParams;
-				rightStereoAov.xtraParams.num = rightStereoAov.xtraParams.num + 1;
-				rightStereoAov.xtraParams.names.append("camera");
-				rightStereoAov.xtraParams.data.append("right");
-				rightStereoAov.xtraParams.type.append(0);  // string
-				m_displays_iterator ++;
-				liqglo.m_displays.insert( m_displays_iterator, rightStereoAov );
-				// replace iter at beginning
-				m_displays_iterator = liqglo.m_displays.begin();
-			}
-
-			string paramType[] = { "string ", "float ",  "int " };
-
-			//refactor 19
-			while ( m_displays_iterator != liqglo.m_displays.end() ) 
-			{
-				stringstream parameterString;
-				stringstream imageName;
-				std::string imageType;
-				std::string imageMode;
-				stringstream quantizer;
-				stringstream dither;
-				stringstream filter;
-				// check if additionnal displays are enabled
-				// if not, call it off after the 1st iteration.
-				if( liqglo.m_ignoreAOVDisplays && m_displays_iterator > liqglo.m_displays.begin() ) 
-					break;
-
-				// This is the override for the primary DD
-				// when you render to maya's renderview.
-				if( m_displays_iterator == liqglo.m_displays.begin() && liqglo.m_renderView ) 
-				{
-					//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
-					imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();
-					//imageName << generateImageName( "", liqglo_currentJob, liqglo_currentJob.format );
-
-					// TODO: It doesn't work on windoze...
-					//MString host = "localhost";
-					//if( !m_renderViewLocal ) 
-					//  MGlobal::executeCommand( "strip(system(\"echo $HOST\"));", host );
-
-					RiArchiveRecord( RI_COMMENT, "Display 7");
-					RiArchiveRecord( RI_COMMENT, "Render To Maya renderView :" );
-					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%d] \"string host\" [\"%s\"]\n", 
-						const_cast< char* >( imageName.str().c_str() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
-
-					// in this case, override the launch render settings
-					if( liqglo.launchRender == false ) 
-						liqglo.launchRender = true;
-				} 
-				else 
-				{
-					// check if display is enabled
-					if( !(*m_displays_iterator).enabled ) 
-					{
-						m_displays_iterator++;
-						continue;
-					}
-//added in r773, but omited in r775
-// 					// get display name
-// 					// defaults to scenename.0001.tif if left empty
-// 					imageName = (*m_displays_iterator).name;
-// 					if( imageName == "" )
-// 					{
-// 						if( m_isStereoCamera && m_displays_iterator == m_displays.begin() )
-// 						{
-// 							imageName = liqglo_sceneName + ".left.#." + outExt;
-// 						}
-// 						else if( m_isStereoCamera )
-// 						{
-// 							imageName = liqglo_sceneName + ".right.#." + outExt;
-// 						}
-// 						else
-// 						{
-// 							imageName = liqglo_sceneName + ".#." + outExt;
-// 						}
-// 					}
-// 					imageName = m_pixDir + parseString( imageName, false );
-
-					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
-					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
-					if ( m_displays_iterator == liqglo.m_displays.begin() ) {
-						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
-						imageName << generateImageName( "", liqglo_currentJob, liqglo_currentJob.format );  
-					}else{
-						imageName << "+" << generateImageName( (*m_displays_iterator).name, liqglo_currentJob, imageType.c_str() ) ;
-					}
-
-					// get display type ( tiff, openexr, etc )
-					if( !isBatchMode() ){
-						imageType = ((*m_displays_iterator).type == "")? 
-							"framebuffer" : (*m_displays_iterator).type.asChar();
-					}else {// if in batch mode, we always use "file" -yaoyansi
-						imageType = "file";
-					}
-					// get display mode ( rgb, z or defined display channel )
-					imageMode = ( (*m_displays_iterator).mode == "")? "rgba" : (*m_displays_iterator).mode.asChar();
-
-					// get quantization params
-					if( (*m_displays_iterator).doQuantize && m_displays_iterator > liqglo.m_displays.begin() ) 
-					{
-						if( (*m_displays_iterator).bitDepth != 0 ) 
-						{
-							int max = (int) pow( 2.0, (*m_displays_iterator).bitDepth ) - 1;
-							quantizer << "\"float quantize[4]\" [ 0 " << max << " 0 " << max << " ]";
-						} 
-						else {
-							quantizer << "\"float quantize[4]\" [ 0 0 0 0 ]";
-						}
-						
-						dither << "\"float dither\" [" << (*m_displays_iterator).dither <<"]";
-
-					} 
-					else 
-					{
-						quantizer.clear();
-						dither.clear();
-					}
-
-					// get filter params
-					if( (*m_displays_iterator).doFilter && m_displays_iterator > liqglo.m_displays.begin() )
-					{
-						filter << "\"string filter\" [\"" <<  liqglo.liquidRenderer.pixelFilterNames[(*m_displays_iterator).filter].asChar() << "\"] ";
-						filter << "\"float filterwidth[2]\" ";
-						filter << "[" << (*m_displays_iterator).filterX << " " << (*m_displays_iterator).filterY << "]";
-					} 
-					else 
-						filter.clear();
-
-					// display driver specific arguments
-					parameterString.clear();
-					for ( int p = 0; p < (*m_displays_iterator).xtraParams.num; p++ ) 
-					{
-						parameterString << "\"";
-						parameterString << paramType[ (*m_displays_iterator).xtraParams.type[p] ];
-						parameterString << (*m_displays_iterator).xtraParams.names[p].asChar();
-						parameterString << "\" [";
-						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "":"\"";
-						parameterString << (*m_displays_iterator).xtraParams.data[p].asChar();
-						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "] ":"\"] ";
-					}
-
-					RiArchiveRecord( RI_COMMENT, "Display 8");
-					// output call
-					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" %s %s %s %s\n", 
-						const_cast< char* >( imageName.str().c_str() ), 
-						imageType.c_str(), 
-						imageMode.c_str(), 
-						quantizer.str().c_str(), 
-						dither.str().c_str(), 
-						filter.str().c_str(), 
-						parameterString.str().c_str() );
-				}//while ( m_displays_iterator != m_displays.end() )
-				m_displays_iterator++;
-			}
-			//refactor 19
-			//refactor 18 end
-		}
-
-		//refactor 20 begin to tRibCameraMgr::framePrologue_camera()
-		LIQDEBUGPRINTF( "-> Setting Resolution\n" );
-//moved to above
-// 		// philippe : Rotated Camera Case
-// 		if( liqglo_currentJob.isShadow == false && liqglo.liqglo_rotateCamera  == true ) 
-// 			RiFormat( liqglo_currentJob.height, liqglo_currentJob.width, liqglo_currentJob.aspectRatio );
-// 		else 
-// 			RiFormat( liqglo_currentJob.width, liqglo_currentJob.height, liqglo_currentJob.aspectRatio );
-
-//omitted in r773
-// 		if( liqglo_currentJob.camera[0].isOrtho )
-// 		{
-// 			liqFloat frameWidth, frameHeight;
-// 			// the whole frame width has to be scaled according to the UI Unit
-// 			frameWidth  = liqglo_currentJob.camera[0].orthoWidth  * 0.5 ;
-// 			frameHeight = liqglo_currentJob.camera[0].orthoHeight * 0.5 ;
-// 			RiProjection( "orthographic", RI_NULL );
-// 
-// 			// if we are describing a shadow map camera,
-// 			// we need to set the screenwindow to the default,
-// 			// as shadow maps are always square.
-// 			if( liqglo_currentJob.isShadow == true )
-// 				RiScreenWindow( -frameWidth, frameWidth, -frameHeight, frameHeight );
-// 			else
-// 				RiScreenWindow( -frameWidth, frameWidth, -frameHeight, frameHeight );
-// 		} 
-// 		else 
-// 		{
-// 			liqFloat fieldOfView = liqglo_currentJob.camera[0].hFOV * 180.0 / M_PI ;
-// 			if( liqglo_currentJob.isShadow && liqglo_currentJob.isPoint ) 
-// 				fieldOfView = liqglo_currentJob.camera[0].hFOV;
-// 
-// 			RiProjection( "perspective", RI_FOV, &fieldOfView, RI_NULL );
-// 
-// 			// if we are describing a shadow map camera,
-// 			// we need to set the screenwindow to the default,
-// 			// as shadow maps are always square.
-// 			if( liqglo_currentJob.isShadow == false )
-// 			{
-// 				double ratio = (double)liqglo_currentJob.width / (double)liqglo_currentJob.height;
-// 				double left, right, bottom, top;
-// 				if( ratio <= 0 ) 
-// 				{
-// 					left    = -1 + liqglo_currentJob.camera[0].horizontalFilmOffset;
-// 					right   =  1 + liqglo_currentJob.camera[0].horizontalFilmOffset;
-// 					bottom  = -1 / ratio + liqglo_currentJob.camera[0].verticalFilmOffset;
-// 					top     =  1 / ratio + liqglo_currentJob.camera[0].verticalFilmOffset;
-// 				} 
-// 				else 
-// 				{
-// 					left    = -ratio + liqglo_currentJob.camera[0].horizontalFilmOffset;
-// 					right   =  ratio + liqglo_currentJob.camera[0].horizontalFilmOffset;
-// 					bottom  = -1 + liqglo_currentJob.camera[0].verticalFilmOffset;
-// 					top     =  1 + liqglo_currentJob.camera[0].verticalFilmOffset;
-// 				}
-// 				RiScreenWindow( left, right, bottom, top );
-// 			} else 
-// 				RiScreenWindow( -1.0, 1.0, -1.0, 1.0 );
-// 		}
-// 
-// 		RiClipping( liqglo_currentJob.camera[0].neardb, liqglo_currentJob.camera[0].fardb );
-// 		if( liqglo.doDof && !liqglo_currentJob.isShadow ) 
-// 			RiDepthOfField( liqglo_currentJob.camera[0].fStop, liqglo_currentJob.camera[0].focalLength, liqglo_currentJob.camera[0].focalDistance );
-
-		// Set up for camera motion blur
-		/* doCameraMotion = liqglo_currentJob.camera[0].motionBlur && liqglo_doMotion; */
-		float frameOffset = 0;
-		if( liqglo.doCameraMotion || liqglo.liqglo_doMotion || liqglo.liqglo_doDef ) 
-		{
-			switch( liqglo.shutterConfig ) 
-			{
-			case OPEN_ON_FRAME:
-			default:
-				if(liqglo.liqglo_relativeMotion)
-					RiShutter( 0, liqglo_currentJob.camera[0].shutter );
-				else
-					RiShutter( lframe, lframe + liqglo_currentJob.camera[0].shutter );
-				frameOffset = lframe;
-				break;
-			case CENTER_ON_FRAME:
-				if(liqglo.liqglo_relativeMotion)
-					RiShutter(  - ( liqglo_currentJob.camera[0].shutter * 0.5 ),  ( liqglo_currentJob.camera[0].shutter * 0.5 ) );
-				else
-					RiShutter( ( lframe - ( liqglo_currentJob.camera[0].shutter * 0.5 ) ), ( lframe + ( liqglo_currentJob.camera[0].shutter * 0.5 ) ) );
-				frameOffset = lframe - ( liqglo_currentJob.camera[0].shutter * 0.5 );
-				break;
-			case CENTER_BETWEEN_FRAMES:
-				if(liqglo.liqglo_relativeMotion)
-					RiShutter( + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) ), + liqglo_currentJob.camera[0].shutter + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) ) );
-				else
-					RiShutter( lframe + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) ), lframe + liqglo_currentJob.camera[0].shutter + ( 0.5 * ( 1 -liqglo_currentJob.camera[0].shutter ) ) );
-				frameOffset = lframe + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) );
-				break;
-			case CLOSE_ON_NEXT_FRAME:
-				if(liqglo.liqglo_relativeMotion)
-					RiShutter( + ( 1 - liqglo_currentJob.camera[0].shutter ),  1 );
-				else
-					RiShutter( lframe + ( 1 - liqglo_currentJob.camera[0].shutter ), lframe + 1 );
-				frameOffset = lframe + ( 1 - liqglo_currentJob.camera[0].shutter );
-				break;
-			}
-		} 
-		else 
-		{
-			if(liqglo.liqglo_relativeMotion)
-				RiShutter( 0, 0);
-			else
-				RiShutter( lframe, lframe );
-			frameOffset = lframe;
-		}
-		// relative motion
-		if(liqglo.liqglo_relativeMotion)    
-			RiOption( "shutter", "offset", &frameOffset, RI_NULL);
-
-#ifdef DELIGHT
-		RiOption( "shutter", "efficiency", &liqglo.liqglo_shutterEfficiency, RI_NULL );
-#endif
-		if( liqglo_currentJob.gotJobOptions ) 
-			RiArchiveRecord( RI_COMMENT, "jobOptions: \n%s", liqglo_currentJob.jobOptions.asChar() );
-
-		if( ( liqglo.liqglo_preRibBox.length() > 0 ) && liqglo_currentJob.pass != rpShadowMap ) 
-			for ( unsigned ii(0); ii < liqglo.liqglo_preRibBox.length(); ii++ ) 
-				RiArchiveRecord( RI_COMMENT, "Additional Rib:\n%s", liqglo.liqglo_preRibBox[ii].asChar() );
-
-		if( ( liqglo.liqglo_preReadArchive.length() > 0 ) && liqglo_currentJob.pass != rpShadowMap ) 
-			for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchive.length(); ii++ ) 
-				RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchive[ii].asChar() );
-
-		if( ( liqglo.liqglo_preRibBoxShadow.length() > 0 ) && liqglo_currentJob.pass != rpShadowMap ) 
-			for ( unsigned ii(0); ii < liqglo.liqglo_preRibBoxShadow.length(); ii++ ) 
-				RiArchiveRecord( RI_COMMENT, "Additional Rib:\n%s", liqglo.liqglo_preRibBoxShadow[ii].asChar() );
-
-		if( ( liqglo.liqglo_preReadArchiveShadow.length() > 0 ) && liqglo_currentJob.pass == rpShadowMap ) 
-			for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchiveShadow.length(); ii++ ) 
-				RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchiveShadow[ii].asChar() );
-//omitted in r773
-// 		// if we motion-blur the cam, open the motion block
-// 		//
-// 		if( liqglo.doCameraMotion && ( !liqglo_currentJob.isShadow || liqglo_currentJob.deepShadows) ) 
-// 			if(liqglo.liqglo_relativeMotion)
-// 				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimesOffsets );
-// 			else
-// 				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
-// 
-// 		// write the camera transform
-// 		//
-// 		liqMatrix cameraMatrix;
-// 		liqglo_currentJob.camera[0].mat.get( cameraMatrix );
-// 		RiTransform( cameraMatrix );
-// 
-// 		// if we motion-blur the cam, write the subsequent motion samples and close the motion block
-// 		//
-// 		if( liqglo.doCameraMotion && ( !liqglo_currentJob.isShadow || liqglo_currentJob.deepShadows ) ) 
-// 		{
-// 			int mm = 1;
-// 			while ( mm < liqglo.liqglo_motionSamples ) 
-// 			{
-// 				liqglo_currentJob.camera[mm].mat.get( cameraMatrix );
-// 				RiTransform( cameraMatrix );
-// 				++mm;
-// 			}
-// 			RiMotionEnd();
-// 		}
-		//refactor 20 end
-	}
-	
-	return MS::kSuccess;
-}
+//MStatus liqRibTranslator::framePrologue( long lframe )
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::framePrologue("<<lframe<<")");
+//
+//	LIQDEBUGPRINTF( "-> Beginning Frame Prologue\n" );
+//	ribStatus = kRibFrame;
+//
+//	if( !liqglo.m_exportReadArchive )
+//	{
+//		RiFrameBegin( lframe );
+//
+//		//refactor 14-1 begin to tShadowRibWriterMgr::framePrologue_display()/tHeroRibWriterMgr::framePrologue_display()
+//		if( liqglo_currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true )
+//		{
+//			// philippe : Rotated Camera Case
+//			RiFormat( liqglo_currentJob.height, liqglo_currentJob.width, liqglo_currentJob.aspectRatio );
+//		}
+//		else
+//		{
+//			RiFormat( liqglo_currentJob.width, liqglo_currentJob.height, liqglo_currentJob.aspectRatio );
+//		}
+//		//refactor 14-1 end
+//
+//		if( liqglo_currentJob.pass != rpShadowMap )
+//		{
+//			//refactor 14 begin to tHeroRibWriterMgr::framePrologue_display()
+//			// Smooth Shading
+//			RiShadingInterpolation( "smooth" );
+//			// Quantization
+//			// overriden to floats when in rendering to Maya's renderView
+//			if( !liqglo.m_renderView && liqglo.quantValue != 0 )
+//			{
+//				int whiteValue = (int) pow( 2.0, liqglo.quantValue ) - 1;
+//				RiQuantize( RI_RGBA, whiteValue, 0, whiteValue, 0.5 );
+//			}
+//			else
+//			{
+//				RiQuantize( RI_RGBA, 0, 0, 0, 0 );
+//			}
+//			if( liqglo.m_rgain != 1.0 || liqglo.m_rgamma != 1.0 )
+//			{
+//				RiExposure( liqglo.m_rgain, liqglo.m_rgamma );
+//			}
+//			//refactor 14 end
+//		}
+//		if ( liqglo_currentJob.pass == rpShadowMap &&
+//			( liqglo_currentJob.shadowType != stDeep ||
+//			liqglo_currentJob.samples == 1 ) )
+//		{
+//			//refactor 15
+//			if( liqglo.liquidRenderer.renderName == MString("Pixie") )
+//			{
+//				liqFloat zero = 0;
+//				RiHider( "hidden", "jitter", &zero, RI_NULL );
+//			}
+//			else
+//			{
+//				liqInt zero = 0;
+//				RiHider( "hidden", "int jitter", &zero, RI_NULL );
+//			}
+//			//refactor 15
+//		}
+//		if( liqglo_currentJob.pass == rpShadowMap && liqglo_currentJob.shadowType == stMidPoint )
+//		{//refactor 16
+//			liqString midPoint = "midpoint";
+//			liqFloat midRatio = liqglo_currentJob.midPointRatio;
+//
+//			RiHider( "hidden", "depthfilter", &midPoint, RI_NULL );
+//
+//			if ( liqglo_currentJob.midPointRatio != 0 )
+//				RiHider( "hidden", "midpointratio", &midRatio, RI_NULL ); // Output to rib jami
+//		//refactor 16
+//		}
+//
+//		LIQDEBUGPRINTF( "-> Setting Display Options\n" );
+//		if( liqglo_currentJob.pass == rpShadowMap )
+//		{
+//			//MString relativeShadowName( liquidSanitizePath( liquidGetRelativePath( liqglo_relativeFileNames, liqglo_currentJob.imageName, liqglo_projectDir ) ) );
+//			//refactor 17 begin
+//			if( liqglo_currentJob.shadowType != stMinMax )
+//			{
+//				if( liqglo_currentJob.shadowType == stDeep )
+//				{
+//					// RiDeclare( "volumeinterpretation", "string" );
+//					liqString volume = "continuous";
+//
+//					if ( liqglo_currentJob.volume != viContinuous )
+//						volume = "discrete"; 
+//
+//					if( liqglo.liquidRenderer.renderName == MString("3Delight") )
+//					{
+//						RiArchiveRecord( RI_COMMENT, "Display 1");
+//						RiDisplay( const_cast< char* >( liqglo_currentJob.imageName.asChar()),
+//							const_cast< char* >( liqglo_currentJob.format.asChar() ),
+//							(liqToken)liqglo_currentJob.imageMode.asChar(),
+//							"string volumeinterpretation", &volume,
+//							RI_NULL );
+//					}
+//					else
+//					{
+//						// Deep shadows cannot be the primary output driver in PRMan & co.
+//						// We need to create a null output zfile first, and use the deep
+//						// shadows as a secondary output.
+//						//
+//						if( liqglo.liquidRenderer.renderName != MString("Pixie") )
+//						{
+//							RiArchiveRecord( RI_COMMENT, "Display 2");
+//							RiDisplay( "null", "null", "z", RI_NULL );
+//						}
+//
+//						MString deepFileImageName = "+" + liqglo_currentJob.imageName;
+//
+//						RiArchiveRecord( RI_COMMENT, "Display 3");
+//						RiDisplay( const_cast< char* >( deepFileImageName.asChar() ),
+//							const_cast< char* >( liqglo_currentJob.format.asChar() ),
+//							(liqToken)liqglo_currentJob.imageMode.asChar(),
+//							"string volumeinterpretation", &volume,
+//							RI_NULL );
+//					}
+//				}
+//				else
+//				{
+//					RiArchiveRecord( RI_COMMENT, "Display 4");
+//					liqInt aggregate( liqglo_currentJob.shadowAggregation );
+//					RiDisplay( const_cast< char* >( liqglo_currentJob.imageName.asChar() ),
+//						const_cast< char* >( liqglo_currentJob.format.asChar() ),
+//						(liqToken)liqglo_currentJob.imageMode.asChar(),
+//						"int aggregate", &aggregate,
+//						RI_NULL );
+//				}
+//			}//if( !liqglo.liqglo_currentJob.isMinMaxShadow )
+//			else
+//			{
+//				RiArchiveRecord( RI_COMMENT, "Display 5");
+//				RiArchiveRecord( RI_COMMENT, "Display Driver:" );
+//				liqInt minmax = 1;
+//				RiDisplay( const_cast< char* >( (liqglo_currentJob.imageName+(int)liqglo.liqglo_lframe).asChar() ),//const_cast< char* >( parseString(liqglo_currentJob.imageName).asChar() ),
+//					const_cast< char* >(liqglo_currentJob.format.asChar()),
+//					(liqToken)liqglo_currentJob.imageMode.asChar(),
+//					"minmax", &minmax,
+//					RI_NULL );
+//			}
+//			exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
+//			//refactor 17 end
+//		}
+//		else
+//		{
+//			//refactor 18 begin
+//			if( ( liqglo.m_cropX1 != 0.0 ) || ( liqglo.m_cropY1 != 0.0 ) || ( liqglo.m_cropX2 != 1.0 ) || ( liqglo.m_cropY2 != 1.0 ) ) 
+//			{
+//				// philippe : handle the rotated camera case
+//				if( liqglo.liqglo_rotateCamera == true ) 
+//					RiCropWindow( liqglo.m_cropY2, liqglo.m_cropY1, 1 - liqglo.m_cropX1, 1 - liqglo.m_cropX2 );
+//				else 
+//					RiCropWindow( liqglo.m_cropX1, liqglo.m_cropX2, liqglo.m_cropY1, liqglo.m_cropY2 );
+//			}
+//
+//			if ( !liqglo_currentJob.isStereoPass ) 
+//				exportJobCamera( liqglo_currentJob, liqglo_currentJob.camera );
+//			else
+//			{
+//				// export right camera
+//				RiTransformBegin();
+//				exportJobCamera( liqglo_currentJob, liqglo_currentJob.rightCamera );
+//				RiArchiveRecord( RI_VERBATIM, "Camera \"%s\"", "right" );//RiCameraV( "right", 0, (char**)RI_NULL, (void**)RI_NULL );
+//				RiTransformEnd();
+//				// export left camera
+//				exportJobCamera( liqglo_currentJob, liqglo_currentJob.leftCamera );
+//			}
+//
+//			// display channels
+//			if( liqglo.liquidRenderer.supports_DISPLAY_CHANNELS ) 
+//			{
+//				RiArchiveRecord( RI_COMMENT, "Display Channels:" );
+//				// philippe -> to do : move this to higher scope ?
+//				//MStringArray channeltype;
+//				//channeltype.append( "float" );
+//				//channeltype.append( "color" );
+//				//channeltype.append( "point" );
+//				//channeltype.append( "normal" );
+//				//channeltype.append( "vector" );
+//				std::string  channeltype[] = { "float", "color", "point", "normal", "vector" };
+//
+//				std::vector<StructChannel>::iterator m_channels_iterator;
+//				m_channels_iterator = liqglo.m_channels.begin();
+//
+//				bool isCiDeclared = 0;
+//				bool isADeclared = 0;
+//				while ( m_channels_iterator != liqglo.m_channels.end() ) 
+//				{
+//					int       numTokens = 0;
+//					liqToken   tokens[5];
+//					liqPointer values[5];
+//
+//					stringstream channel;
+//					char* filter;
+//					int quantize[4];
+//					float filterwidth[2];
+//					float dither;
+//
+//// #if defined( GENERIC_RIBLIB )          
+//					stringstream quantize_str;
+//					stringstream dither_str;
+//					stringstream filter_str;
+//// #endif
+//					channel << channeltype[m_channels_iterator->type];
+//					if ( m_channels_iterator->arraySize > 0 ) 
+//						channel << "[" << m_channels_iterator->arraySize << "]";
+//					channel << " " << m_channels_iterator->name.asChar();
+//
+//					if( m_channels_iterator->quantize ) 
+//					{
+//						int max = ( int )pow( 2., m_channels_iterator->bitDepth ) - 1;
+//						dither = m_channels_iterator->dither;
+//						quantize[0] = quantize[2] = 0;
+//						quantize[1] = quantize[3] = max;
+//						tokens[ numTokens ] = "int[4] quantize";
+//						values[ numTokens ] = (liqPointer)quantize;
+//						numTokens++;
+//#if !defined( GENERIC_RIBLIB )               
+//					}
+//#else
+//						quantize_str << "\"int[4] quantize\" [ 0 " << max << " 0 " << max << " ]";
+//						dither_str << "\"float dither\" [" << dither << "]";
+//					}
+//					else
+//					{
+//						quantize_str << "\"int[4] quantize\" [ 0 0 0 0 ]"; 
+//						dither_str.clear();
+//					}
+//#endif
+//
+//					if( m_channels_iterator->filter ) 
+//					{
+//						MString pixFilter( liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ] );
+//						filter = ( char* )pixFilter.asChar();
+//
+//						liquidMessage2(messageInfo, ">>  m_channels_iterator->pixelFilter = %s\n", liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ].asChar() );
+//						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s\n", pixFilter.asChar() );
+//
+//						tokens[ numTokens ] = "string filter";
+//						values[ numTokens ] = ( liqPointer )&filter;
+//						numTokens++;
+//
+//						filterwidth[0] = m_channels_iterator->pixelFilterX;
+//						filterwidth[1] = m_channels_iterator->pixelFilterY;
+//						tokens[ numTokens ] = "float filterwidth[2]";
+//						values[ numTokens ] = ( liqPointer )filterwidth;
+//						numTokens++;
+//#if !defined( GENERIC_RIBLIB )               
+//					}
+//#else
+//						filter_str << "\"string filter\" [\"" << pixFilter.asChar() << "\"] \"float filterwidth[2]\" [" << filterwidth[0] << " " << filterwidth[1] << "]";
+//					} 
+//					else
+//						filter_str.clear();
+//#endif
+//
+//#if defined( DELIGHT )  || defined( PRMAN ) || defined( PIXIE )
+//					//if( liquidRenderer.renderName == MString("PRMan") )
+//					RiDisplayChannelV( ( liqToken )channel.str().c_str(), numTokens, tokens, values );
+//					if( channel == "color Ci" )
+//					{
+//						isCiDeclared = 1;
+//					}
+//					else if( channel == "float a" )
+//					{
+//						isADeclared = 1;
+//					}
+//#else
+//					// || defined( GENERIC_RIBLIB )
+//					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s\" %s %s %s",
+//						const_cast< char* >( channel.str().c_str() ),  quantize_str.asChar(), dither_str.asChar(), filter_str.asChar() );
+//
+//#endif
+//					m_channels_iterator++;
+//				}
+//#if defined ( DELIGHT ) || defined ( GENERIC_RIBLIB ) || defined ( PRMAN ) || defined (PIXIE)
+//				if ( m_isStereoCamera && liqglo_currentJob.pass != rpShadowMap )
+//				{
+//					liqToken   *emptyTokens = NULL;
+//					liqPointer *emptyValues = NULL;
+//					if ( !isCiDeclared ) 
+//						RiDisplayChannelV( ( liqToken )"color Ci", 0, emptyTokens, emptyValues );
+//					if ( !isADeclared ) 
+//						RiDisplayChannelV( ( liqToken )"float a", 0, emptyTokens, emptyValues );
+//				}
+//#endif
+//			}
+//			// output display drivers
+//			RiArchiveRecord( RI_COMMENT, "Display Drivers:" );
+//			RiArchiveRecord( RI_COMMENT, "Display 6");
+//
+//			std::vector<StructDisplay>::iterator m_displays_iterator;
+//			m_displays_iterator = liqglo.m_displays.begin();
+//
+//			// create right display for stereo
+//			if( m_isStereoCamera )
+//			{
+//				StructDisplay rightStereoAov;
+//				rightStereoAov.name = m_displays_iterator->name;
+//				rightStereoAov.name = m_displays_iterator->name;
+//				rightStereoAov.mode = "Ci,a";
+//				if( m_displays_iterator->type == "it" )
+//				{
+//					rightStereoAov.type = "tiff"; // should be optionnal ?....
+//				}
+//				else
+//				{
+//					rightStereoAov.type = m_displays_iterator->type;
+//				}
+//				rightStereoAov.enabled = m_displays_iterator->enabled;
+//				rightStereoAov.doQuantize = m_displays_iterator->doQuantize;
+//				rightStereoAov.bitDepth = m_displays_iterator->bitDepth;
+//				rightStereoAov.dither = m_displays_iterator->dither;
+//				rightStereoAov.doFilter = m_displays_iterator->doFilter;
+//				rightStereoAov.filter = m_displays_iterator->filter;
+//				rightStereoAov.filterX = m_displays_iterator->filterX;
+//				rightStereoAov.filterY = m_displays_iterator->filterY;
+//				rightStereoAov.xtraParams = m_displays_iterator->xtraParams;
+//				rightStereoAov.xtraParams.num = rightStereoAov.xtraParams.num + 1;
+//				rightStereoAov.xtraParams.names.append("camera");
+//				rightStereoAov.xtraParams.data.append("right");
+//				rightStereoAov.xtraParams.type.append(0);  // string
+//				m_displays_iterator ++;
+//				liqglo.m_displays.insert( m_displays_iterator, rightStereoAov );
+//				// replace iter at beginning
+//				m_displays_iterator = liqglo.m_displays.begin();
+//			}
+//
+//			string paramType[] = { "string ", "float ",  "int " };
+//
+//			//refactor 19
+//			while ( m_displays_iterator != liqglo.m_displays.end() ) 
+//			{
+//				stringstream parameterString;
+//				stringstream imageName;
+//				std::string imageType;
+//				std::string imageMode;
+//				stringstream quantizer;
+//				stringstream dither;
+//				stringstream filter;
+//				// check if additionnal displays are enabled
+//				// if not, call it off after the 1st iteration.
+//				if( liqglo.m_ignoreAOVDisplays && m_displays_iterator > liqglo.m_displays.begin() ) 
+//					break;
+//
+//				// This is the override for the primary DD
+//				// when you render to maya's renderview.
+//				if( m_displays_iterator == liqglo.m_displays.begin() && liqglo.m_renderView ) 
+//				{
+//					//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+//					imageName << liqglo.m_pixDir.asChar() << parseString( liqglo.m_displays[ 0 ].name, false ).asChar();
+//					//imageName << generateImageName( "", liqglo_currentJob, liqglo_currentJob.format );
+//
+//					// TODO: It doesn't work on windoze...
+//					//MString host = "localhost";
+//					//if( !m_renderViewLocal ) 
+//					//  MGlobal::executeCommand( "strip(system(\"echo $HOST\"));", host );
+//
+//					RiArchiveRecord( RI_COMMENT, "Display 7");
+//					RiArchiveRecord( RI_COMMENT, "Render To Maya renderView :" );
+//					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" \"int merge\" [0] \"int mayaDisplayPort\" [%d] \"string host\" [\"%s\"]\n", 
+//						const_cast< char* >( imageName.str().c_str() ), "liqmaya", "rgba", liqglo.m_renderViewPort, "localhost" );
+//
+//					// in this case, override the launch render settings
+//					if( liqglo.launchRender == false ) 
+//						liqglo.launchRender = true;
+//				} 
+//				else 
+//				{
+//					// check if display is enabled
+//					if( !(*m_displays_iterator).enabled ) 
+//					{
+//						m_displays_iterator++;
+//						continue;
+//					}
+////added in r773, but omited in r775
+//// 					// get display name
+//// 					// defaults to scenename.0001.tif if left empty
+//// 					imageName = (*m_displays_iterator).name;
+//// 					if( imageName == "" )
+//// 					{
+//// 						if( m_isStereoCamera && m_displays_iterator == m_displays.begin() )
+//// 						{
+//// 							imageName = liqglo_sceneName + ".left.#." + outExt;
+//// 						}
+//// 						else if( m_isStereoCamera )
+//// 						{
+//// 							imageName = liqglo_sceneName + ".right.#." + outExt;
+//// 						}
+//// 						else
+//// 						{
+//// 							imageName = liqglo_sceneName + ".#." + outExt;
+//// 						}
+//// 					}
+//// 					imageName = m_pixDir + parseString( imageName, false );
+//
+//					// we test for an absolute path before converting from rel to abs path in case the picture dir was overriden through the command line.
+//					//if( liqglo.m_pixDir.index( '/' ) != 0 ) imageName = liquidGetRelativePath( liqglo_relativeFileNames, imageName, liqglo_projectDir );
+//					if ( m_displays_iterator == liqglo.m_displays.begin() ) {
+//						//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+//						imageName << generateImageName( "", liqglo_currentJob, liqglo_currentJob.format );  
+//					}else{
+//						imageName << "+" << generateImageName( (*m_displays_iterator).name, liqglo_currentJob, imageType.c_str() ) ;
+//					}
+//
+//					// get display type ( tiff, openexr, etc )
+//					if( !isBatchMode() ){
+//						imageType = ((*m_displays_iterator).type == "")? 
+//							"framebuffer" : (*m_displays_iterator).type.asChar();
+//					}else {// if in batch mode, we always use "file" -yaoyansi
+//						imageType = "file";
+//					}
+//					// get display mode ( rgb, z or defined display channel )
+//					imageMode = ( (*m_displays_iterator).mode == "")? "rgba" : (*m_displays_iterator).mode.asChar();
+//
+//					// get quantization params
+//					if( (*m_displays_iterator).doQuantize && m_displays_iterator > liqglo.m_displays.begin() ) 
+//					{
+//						if( (*m_displays_iterator).bitDepth != 0 ) 
+//						{
+//							int max = (int) pow( 2.0, (*m_displays_iterator).bitDepth ) - 1;
+//							quantizer << "\"float quantize[4]\" [ 0 " << max << " 0 " << max << " ]";
+//						} 
+//						else {
+//							quantizer << "\"float quantize[4]\" [ 0 0 0 0 ]";
+//						}
+//						
+//						dither << "\"float dither\" [" << (*m_displays_iterator).dither <<"]";
+//
+//					} 
+//					else 
+//					{
+//						quantizer.clear();
+//						dither.clear();
+//					}
+//
+//					// get filter params
+//					if( (*m_displays_iterator).doFilter && m_displays_iterator > liqglo.m_displays.begin() )
+//					{
+//						filter << "\"string filter\" [\"" <<  liqglo.liquidRenderer.pixelFilterNames[(*m_displays_iterator).filter].asChar() << "\"] ";
+//						filter << "\"float filterwidth[2]\" ";
+//						filter << "[" << (*m_displays_iterator).filterX << " " << (*m_displays_iterator).filterY << "]";
+//					} 
+//					else 
+//						filter.clear();
+//
+//					// display driver specific arguments
+//					parameterString.clear();
+//					for ( int p = 0; p < (*m_displays_iterator).xtraParams.num; p++ ) 
+//					{
+//						parameterString << "\"";
+//						parameterString << paramType[ (*m_displays_iterator).xtraParams.type[p] ];
+//						parameterString << (*m_displays_iterator).xtraParams.names[p].asChar();
+//						parameterString << "\" [";
+//						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "":"\"";
+//						parameterString << (*m_displays_iterator).xtraParams.data[p].asChar();
+//						parameterString << ((*m_displays_iterator).xtraParams.type[p] > 0)? "] ":"\"] ";
+//					}
+//
+//					RiArchiveRecord( RI_COMMENT, "Display 8");
+//					// output call
+//					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" %s %s %s %s\n", 
+//						const_cast< char* >( imageName.str().c_str() ), 
+//						imageType.c_str(), 
+//						imageMode.c_str(), 
+//						quantizer.str().c_str(), 
+//						dither.str().c_str(), 
+//						filter.str().c_str(), 
+//						parameterString.str().c_str() );
+//				}//while ( m_displays_iterator != m_displays.end() )
+//				m_displays_iterator++;
+//			}
+//			//refactor 19
+//			//refactor 18 end
+//		}
+//
+//		//refactor 20 begin to tRibCameraMgr::framePrologue_camera()
+//		LIQDEBUGPRINTF( "-> Setting Resolution\n" );
+////moved to above
+//// 		// philippe : Rotated Camera Case
+//// 		if( liqglo_currentJob.isShadow == false && liqglo.liqglo_rotateCamera  == true ) 
+//// 			RiFormat( liqglo_currentJob.height, liqglo_currentJob.width, liqglo_currentJob.aspectRatio );
+//// 		else 
+//// 			RiFormat( liqglo_currentJob.width, liqglo_currentJob.height, liqglo_currentJob.aspectRatio );
+//
+////omitted in r773
+//// 		if( liqglo_currentJob.camera[0].isOrtho )
+//// 		{
+//// 			liqFloat frameWidth, frameHeight;
+//// 			// the whole frame width has to be scaled according to the UI Unit
+//// 			frameWidth  = liqglo_currentJob.camera[0].orthoWidth  * 0.5 ;
+//// 			frameHeight = liqglo_currentJob.camera[0].orthoHeight * 0.5 ;
+//// 			RiProjection( "orthographic", RI_NULL );
+//// 
+//// 			// if we are describing a shadow map camera,
+//// 			// we need to set the screenwindow to the default,
+//// 			// as shadow maps are always square.
+//// 			if( liqglo_currentJob.isShadow == true )
+//// 				RiScreenWindow( -frameWidth, frameWidth, -frameHeight, frameHeight );
+//// 			else
+//// 				RiScreenWindow( -frameWidth, frameWidth, -frameHeight, frameHeight );
+//// 		} 
+//// 		else 
+//// 		{
+//// 			liqFloat fieldOfView = liqglo_currentJob.camera[0].hFOV * 180.0 / M_PI ;
+//// 			if( liqglo_currentJob.isShadow && liqglo_currentJob.isPoint ) 
+//// 				fieldOfView = liqglo_currentJob.camera[0].hFOV;
+//// 
+//// 			RiProjection( "perspective", RI_FOV, &fieldOfView, RI_NULL );
+//// 
+//// 			// if we are describing a shadow map camera,
+//// 			// we need to set the screenwindow to the default,
+//// 			// as shadow maps are always square.
+//// 			if( liqglo_currentJob.isShadow == false )
+//// 			{
+//// 				double ratio = (double)liqglo_currentJob.width / (double)liqglo_currentJob.height;
+//// 				double left, right, bottom, top;
+//// 				if( ratio <= 0 ) 
+//// 				{
+//// 					left    = -1 + liqglo_currentJob.camera[0].horizontalFilmOffset;
+//// 					right   =  1 + liqglo_currentJob.camera[0].horizontalFilmOffset;
+//// 					bottom  = -1 / ratio + liqglo_currentJob.camera[0].verticalFilmOffset;
+//// 					top     =  1 / ratio + liqglo_currentJob.camera[0].verticalFilmOffset;
+//// 				} 
+//// 				else 
+//// 				{
+//// 					left    = -ratio + liqglo_currentJob.camera[0].horizontalFilmOffset;
+//// 					right   =  ratio + liqglo_currentJob.camera[0].horizontalFilmOffset;
+//// 					bottom  = -1 + liqglo_currentJob.camera[0].verticalFilmOffset;
+//// 					top     =  1 + liqglo_currentJob.camera[0].verticalFilmOffset;
+//// 				}
+//// 				RiScreenWindow( left, right, bottom, top );
+//// 			} else 
+//// 				RiScreenWindow( -1.0, 1.0, -1.0, 1.0 );
+//// 		}
+//// 
+//// 		RiClipping( liqglo_currentJob.camera[0].neardb, liqglo_currentJob.camera[0].fardb );
+//// 		if( liqglo.doDof && !liqglo_currentJob.isShadow ) 
+//// 			RiDepthOfField( liqglo_currentJob.camera[0].fStop, liqglo_currentJob.camera[0].focalLength, liqglo_currentJob.camera[0].focalDistance );
+//
+//		// Set up for camera motion blur
+//		/* doCameraMotion = liqglo_currentJob.camera[0].motionBlur && liqglo_doMotion; */
+//		float frameOffset = 0;
+//		if( liqglo.doCameraMotion || liqglo.liqglo_doMotion || liqglo.liqglo_doDef ) 
+//		{
+//			switch( liqglo.shutterConfig ) 
+//			{
+//			case OPEN_ON_FRAME:
+//			default:
+//				if(liqglo.liqglo_relativeMotion)
+//					RiShutter( 0, liqglo_currentJob.camera[0].shutter );
+//				else
+//					RiShutter( lframe, lframe + liqglo_currentJob.camera[0].shutter );
+//				frameOffset = lframe;
+//				break;
+//			case CENTER_ON_FRAME:
+//				if(liqglo.liqglo_relativeMotion)
+//					RiShutter(  - ( liqglo_currentJob.camera[0].shutter * 0.5 ),  ( liqglo_currentJob.camera[0].shutter * 0.5 ) );
+//				else
+//					RiShutter( ( lframe - ( liqglo_currentJob.camera[0].shutter * 0.5 ) ), ( lframe + ( liqglo_currentJob.camera[0].shutter * 0.5 ) ) );
+//				frameOffset = lframe - ( liqglo_currentJob.camera[0].shutter * 0.5 );
+//				break;
+//			case CENTER_BETWEEN_FRAMES:
+//				if(liqglo.liqglo_relativeMotion)
+//					RiShutter( + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) ), + liqglo_currentJob.camera[0].shutter + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) ) );
+//				else
+//					RiShutter( lframe + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) ), lframe + liqglo_currentJob.camera[0].shutter + ( 0.5 * ( 1 -liqglo_currentJob.camera[0].shutter ) ) );
+//				frameOffset = lframe + ( 0.5 * ( 1 - liqglo_currentJob.camera[0].shutter ) );
+//				break;
+//			case CLOSE_ON_NEXT_FRAME:
+//				if(liqglo.liqglo_relativeMotion)
+//					RiShutter( + ( 1 - liqglo_currentJob.camera[0].shutter ),  1 );
+//				else
+//					RiShutter( lframe + ( 1 - liqglo_currentJob.camera[0].shutter ), lframe + 1 );
+//				frameOffset = lframe + ( 1 - liqglo_currentJob.camera[0].shutter );
+//				break;
+//			}
+//		} 
+//		else 
+//		{
+//			if(liqglo.liqglo_relativeMotion)
+//				RiShutter( 0, 0);
+//			else
+//				RiShutter( lframe, lframe );
+//			frameOffset = lframe;
+//		}
+//		// relative motion
+//		if(liqglo.liqglo_relativeMotion)    
+//			RiOption( "shutter", "offset", &frameOffset, RI_NULL);
+//
+//#ifdef DELIGHT
+//		RiOption( "shutter", "efficiency", &liqglo.liqglo_shutterEfficiency, RI_NULL );
+//#endif
+//		if( liqglo_currentJob.gotJobOptions ) 
+//			RiArchiveRecord( RI_COMMENT, "jobOptions: \n%s", liqglo_currentJob.jobOptions.asChar() );
+//
+//		if( ( liqglo.liqglo_preRibBox.length() > 0 ) && liqglo_currentJob.pass != rpShadowMap ) 
+//			for ( unsigned ii(0); ii < liqglo.liqglo_preRibBox.length(); ii++ ) 
+//				RiArchiveRecord( RI_COMMENT, "Additional Rib:\n%s", liqglo.liqglo_preRibBox[ii].asChar() );
+//
+//		if( ( liqglo.liqglo_preReadArchive.length() > 0 ) && liqglo_currentJob.pass != rpShadowMap ) 
+//			for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchive.length(); ii++ ) 
+//				RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchive[ii].asChar() );
+//
+//		if( ( liqglo.liqglo_preRibBoxShadow.length() > 0 ) && liqglo_currentJob.pass != rpShadowMap ) 
+//			for ( unsigned ii(0); ii < liqglo.liqglo_preRibBoxShadow.length(); ii++ ) 
+//				RiArchiveRecord( RI_COMMENT, "Additional Rib:\n%s", liqglo.liqglo_preRibBoxShadow[ii].asChar() );
+//
+//		if( ( liqglo.liqglo_preReadArchiveShadow.length() > 0 ) && liqglo_currentJob.pass == rpShadowMap ) 
+//			for ( unsigned ii(0); ii < liqglo.liqglo_preReadArchiveShadow.length(); ii++ ) 
+//				RiArchiveRecord( RI_COMMENT, "Read Archive Data: \nReadArchive \"%s\"", liqglo.liqglo_preReadArchiveShadow[ii].asChar() );
+////omitted in r773
+//// 		// if we motion-blur the cam, open the motion block
+//// 		//
+//// 		if( liqglo.doCameraMotion && ( !liqglo_currentJob.isShadow || liqglo_currentJob.deepShadows) ) 
+//// 			if(liqglo.liqglo_relativeMotion)
+//// 				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimesOffsets );
+//// 			else
+//// 				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
+//// 
+//// 		// write the camera transform
+//// 		//
+//// 		liqMatrix cameraMatrix;
+//// 		liqglo_currentJob.camera[0].mat.get( cameraMatrix );
+//// 		RiTransform( cameraMatrix );
+//// 
+//// 		// if we motion-blur the cam, write the subsequent motion samples and close the motion block
+//// 		//
+//// 		if( liqglo.doCameraMotion && ( !liqglo_currentJob.isShadow || liqglo_currentJob.deepShadows ) ) 
+//// 		{
+//// 			int mm = 1;
+//// 			while ( mm < liqglo.liqglo_motionSamples ) 
+//// 			{
+//// 				liqglo_currentJob.camera[mm].mat.get( cameraMatrix );
+//// 				RiTransform( cameraMatrix );
+//// 				++mm;
+//// 			}
+//// 			RiMotionEnd();
+//// 		}
+//		//refactor 20 end
+//	}
+//	
+//	return MS::kSuccess;
+//}
 
 /**
 * Write out the frame epilogue.
 * This basically calls RiFrameEnd().
 */
-MStatus liqRibTranslator::frameEpilogue( long )
-{
-	CM_TRACE_FUNC("liqRibTranslator::frameEpilogue()");
-
-	if(ribStatus == kRibFrame) 
-	{
-		ribStatus = kRibBegin;
-		if( !liqglo.m_exportReadArchive ) 
-			RiFrameEnd();
-	}
-	return (ribStatus == kRibBegin ? MS::kSuccess : MS::kFailure);
-}
+// MStatus liqRibTranslator::frameEpilogue( long )
+// {
+// 	CM_TRACE_FUNC("liqRibTranslator::frameEpilogue()");
+// 
+// 	if(ribStatus == kRibFrame) 
+// 	{
+// 		ribStatus = kRibBegin;
+// 		if( !liqglo.m_exportReadArchive ) 
+// 			RiFrameEnd();
+// 	}
+// 	return (ribStatus == kRibBegin ? MS::kSuccess : MS::kFailure);
+// }
 
 /**
 * Write out the body of the frame.
 * This is a dump of the DAG to RIB with flattened transforms (MtoR-style).
 */
-MStatus liqRibTranslator::objectBlock()
-{
-	CM_TRACE_FUNC("liqRibTranslator::objectBlock()");
-
-	MStatus returnStatus = MS::kSuccess;
-	MStatus status;
-	attributeDepth = 0;
-
-	LIQDEBUGPRINTF( "-> objectBlock\n" );
-
-	if( m_ignoreSurfaces && !liqglo.liqglo_skipDefaultMatte ) 
-		RiSurface( "matte", RI_NULL );
-
-	// Moritz: Added Pre-Geometry RIB for insertion right before any primitives
-	MFnDependencyNode globalsNode( liqglo.rGlobalObj );
-	MPlug prePostplug( globalsNode.findPlug( "preGeomMel" ) );
-	MString melcommand( prePostplug.asString() );
-	if( m_preGeomRIB != "" || melcommand.length() )
-	{
-		RiArchiveRecord( RI_COMMENT,  " Pre-Geometry RIB from liquid globals");
-		MGlobal::executeCommand( melcommand );
-		RiArchiveRecord( RI_VERBATIM, ( char* ) m_preGeomRIB.asChar() );
-		RiArchiveRecord( RI_VERBATIM, "\n");
-	}
-
-	// retrieve the shadow set object
-	MObject shadowSetObj;
-	if( liqglo_currentJob.pass == rpShadowMap && liqglo_currentJob.shadowObjectSet != "" ) 
-	{
-		MObject tmp;
-		tmp = getNodeByName( liqglo_currentJob.shadowObjectSet, &status );
-		if( status == MS::kSuccess ) 
-			shadowSetObj = tmp;
-		else 
-		{
-			MString warn = "Liquid : set " + liqglo_currentJob.shadowObjectSet + " in shadow " + liqglo_currentJob.name + " does not exist !";
-			liquidMessage( warn, messageWarning );
-		}
-		status.clear();
-	}
-	MFnSet shadowSet( shadowSetObj, &status );
-
-	MMatrix matrix;
-	MDagPath path;
-	MObject transform;
-	MFnDagNode dagFn;
-
-	for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
-	{
-		LIQ_CHECK_CANCEL_REQUEST;
-
-		liqRibNodePtr ribNode( rniter->second );
-		path = ribNode->path();
-		transform = path.transform();
-
-		if( ( !ribNode ) || ( ribNode->object(0)->type == MRT_Light ) ) 
-			continue;
-		if( ribNode->object(0)->type == MRT_Coord || ribNode->object(0)->type == MRT_ClipPlane ) 
-			continue;
-		if( ( liqglo_currentJob.pass != rpShadowMap ) && ( ribNode->object(0)->ignore ) ) 
-			continue;
-		if( ( liqglo_currentJob.pass == rpShadowMap ) && ( ribNode->object(0)->ignoreShadow ) ) 
-			continue;
-		// test against the set
-		if( ( liqglo_currentJob.pass == rpShadowMap ) && ( liqglo_currentJob.shadowObjectSet != "" ) 
-		  &&( !shadowSetObj.isNull() ) && ( !shadowSet.isMember( transform, &status ) ) ) 
-		{
-			//cout <<"SET FILTER : object "<<ribNode->name.asChar()<<" is NOT in "<<liqglo_currentJob.shadowObjectSet.asChar()<<endl;
-			continue;
-		}
-
-		if( liqglo.m_outputComments ) 
-			RiArchiveRecord( RI_COMMENT, "Name: %s", ribNode->name.asChar(), RI_NULL );
-
-		RiAttributeBegin();
-		RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
-
-		// Alf: preTransformMel
-		MFnDagNode fnTransform( transform );
-		MPlug prePostPlug = fnTransform.findPlug( "liqPreTransformMel" );
-		m_preTransformMel = prePostPlug.asString();
-
-		if( m_preTransformMel != "" )
-			MGlobal::executeCommand( m_preTransformMel );
-
-		if( !ribNode->grouping.membership.empty() ) 
-		{
-			liqString members( const_cast< char* >( ribNode->grouping.membership.c_str() ) );
-			RiAttribute( "grouping", "membership", &members, RI_NULL );
-		}
-
-		if ( !m_skipShadingAttributes )
-		if( ribNode->shading.matte || ribNode->mayaMatteMode ) 
-			RiMatte( RI_TRUE );
-
-		// If this is a single sided object, then turn that on (RMan default is Sides 2)
-		if( !ribNode->doubleSided ) 
-			RiSides( 1 );
-
-		if( ribNode->reversedNormals ) 
-			RiReverseOrientation();
-
-		LIQDEBUGPRINTF( "-> object name: %s\n", ribNode->name.asChar() );
-		MObject object;
-
-		// Moritz: only write out light linking if we're not in a shadow pass
-		if( liqglo_currentJob.pass != rpShadowMap || liqglo_currentJob.shadowType == stDeep && m_outputLightsInDeepShadows && !m_ignoreLights )
-		{
-			MObjectArray linkLights;
-
-			// light linking mode - Alf
-			// inclusive - lights are off by default and objects list included lights
-			// exclusive - lights are on by default and objects list ignored lights
-			// liquid Light sets - ignores the maya light linker
-			if( m_liquidSetLightLinking )
-				ribNode->getSetLights( linkLights );
-			else
-				ribNode->getLinkLights( linkLights, liqglo.m_illuminateByDefault );
-
-			for( unsigned i( 0 ); i < linkLights.length(); i++ )
-			{
-				MFnDagNode lightFnDag( linkLights[i] );
-				MString nodeName = lightFnDag.fullPathName();
-				if( htable )
-				{
-					//RibNode * ln = htable->find( light, MRT_Light );
-					MDagPath nodeDagPath;
-					lightFnDag.getPath( nodeDagPath );
-					liqRibNodePtr  ln( htable->find( lightFnDag.fullPathName(), nodeDagPath, MRT_Light ) );
-					if( NULL != ln )
-					{
-						if( liqglo.m_illuminateByDefault )
-							RiIlluminate( ln->object(0)->lightHandle(), RI_FALSE );
-						else
-							RiIlluminate( ln->object(0)->lightHandle(), RI_TRUE );
-					}
-				}
-			}
-		}
-		//refactor 30 to liqRibTranslator::MaxtrixMotionBlur()
-		if( liqglo.liqglo_doMotion &&
-			ribNode->motion.transformationBlur &&
-			( ribNode->object( 1 ) ) &&
-			//( ribNode->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( liqglo_currentJob.pass != rpShadowMap || liqglo_currentJob.shadowType == stDeep ) )
-		{
-			LIQDEBUGPRINTF( "-> writing matrix motion blur data\n" );
-			// Moritz: replaced RiMotionBegin call with ..V version to allow for more than five motion samples
-			if(liqglo.liqglo_relativeMotion)
-				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimesOffsets );
-			else
-				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
-		}
-#if 1
-		liqMatrix ribMatrix;
-		matrix = ribNode->object( 0 )->matrix( path.instanceNumber() );
-		matrix.get( ribMatrix );
-
-		if( liqglo.liqglo_relativeTransforms ) 
-			RiConcatTransform( ribMatrix );
-		else 
-			RiTransform( ribMatrix );
-#elif 0  // Bat : a way to have double transforms :
-		double doubleTransformMatrix[4][4];
-		matrix = ribNode->object( 0 )->matrix( path.instanceNumber() );
-		matrix.get( doubleTransformMatrix );
-
-		int txIntPart = (int)(doubleTransformMatrix[3][0]);
-		float txFloatPart = doubleTransformMatrix[3][0] - txIntPart;
-
-		int tyIntPart = (int)(doubleTransformMatrix[3][1]);
-		float tyFloatPart = doubleTransformMatrix[3][1] - tyIntPart;
-
-		int tzIntPart = (int)(doubleTransformMatrix[3][2]);
-		float tzFloatPart = doubleTransformMatrix[3][2] - tzIntPart;
-
-		liqFloat floatTransformMatrixWithIntegerTranslatePart[4][4];
-		matrix.get( floatTransformMatrixWithIntegerTranslatePart );
-		liqFloat floatIdentityMatrixWithFloatingTranslatePart[4][4] = { {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1} };
-
-		floatTransformMatrixWithIntegerTranslatePart[3][0] = txIntPart;
-		floatTransformMatrixWithIntegerTranslatePart[3][1] = tyIntPart;
-		floatTransformMatrixWithIntegerTranslatePart[3][2] = tzIntPart;
-
-		floatIdentityMatrixWithFloatingTranslatePart[3][0] = txFloatPart;
-		floatIdentityMatrixWithFloatingTranslatePart[3][1] = tyFloatPart;
-		floatIdentityMatrixWithFloatingTranslatePart[3][2] = tzFloatPart;
-
-		if( liqglo_relativeTransforms )
-		{
-			RiConcatTransform( floatIdentityMatrixWithFloatingTranslatePart );
-			RiConcatTransform( floatTransformMatrixWithIntegerTranslatePart );
-		}
-		else
-		{
-			RiTransform( floatIdentityMatrixWithFloatingTranslatePart );
-			RiConcatTransform( floatTransformMatrixWithIntegerTranslatePart );
-		}
-#endif
-		// Output the world matrices for the motionblur
-		// This will override the current transformation setting
-		if( liqglo.liqglo_doMotion &&
-			ribNode->motion.transformationBlur &&
-			( ribNode->object( 1 ) ) &&
-			//( ribNode->object( 0 )->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( liqglo_currentJob.pass != rpShadowMap  || liqglo_currentJob.shadowType == stDeep ) )
-		{
-			path = ribNode->path();
-			liqMatrix ribMatrix;
-			for( unsigned mm( 1 ); mm < liqglo.liqglo_motionSamples; mm++ ) {
-				matrix = ribNode->object( mm )->matrix( path.instanceNumber() );
-				matrix.get( ribMatrix );
-				if( liqglo.liqglo_relativeTransforms ) 
-					RiConcatTransform( ribMatrix ); 
-				else 
-					RiTransform( ribMatrix );
-			}
-			RiMotionEnd();
-		}
-		//refactor 30 end
-
-		// Alf: postTransformMel
-		prePostPlug = fnTransform.findPlug( "liqPostTransformMel" );
-		m_postTransformMel = prePostPlug.asString();
-		if( m_postTransformMel != "" )
-			MGlobal::executeCommand( m_postTransformMel );
-
-		bool hasSurfaceShader( false );
-		typedef enum {
-			liqRegularShaderNode = 0,     // A regular Liquid node, keep it 0 to evaluate to false in conditions
-			liqCustomPxShaderNode = 1,     // A custom MPxNode inheriting from liqCustomNode
-			liqRibBoxShader = 2          // A rib box attached to the shader
-		} liqDetailShaderKind;
-
-		liqDetailShaderKind hasCustomSurfaceShader( liqRegularShaderNode );
-		MString shaderRibBox( "" );
-		bool hasDisplacementShader( false );
-		bool hasVolumeShader( false );
-
-		MPlug rmanShaderPlug;
-		// Check for surface shader
-		status.clear();
-		MFnDagNode fnDagNode( path );
-		rmanShaderPlug = fnDagNode.findPlug( MString( "liquidSurfaceShaderNode" ), &status );
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "liquidSurfaceShaderNode" ), &status ); 
-		}
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShader.findPlug( MString( "liquidSurfaceShaderNode" ), &status ); 
-		}
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "surfaceShader" ), &status ); 
-		}
-		if( status == MS::kSuccess && !rmanShaderPlug.isNull() ) 
-		{
-			if( rmanShaderPlug.isConnected() ) 
-			{
-				MPlugArray rmShaderNodeArray;
-				rmanShaderPlug.connectedTo( rmShaderNodeArray, true, true );
-				MObject rmShaderNodeObj;
-				rmShaderNodeObj = rmShaderNodeArray[0].node();
-				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
-				//std::cout <<"path="<<path.fullPathName()<<", shaderDepNode.typeName()="<<shaderDepNode.typeName()<<std::endl;
-				// philippe : we must check the node type to avoid checking in regular maya shaders
-				if( shaderDepNode.typeName() == "liquidSurface" 
-				    //added in r773 || shaderDepNode.typeName() == "liquidSurfaceSwitcher"
-					|| shaderDepNode.typeName() == "liquidShader" 
-					|| shaderDepNode.typeName() == "oldBlindDataBase" ) 
-				{ //cout <<"setting shader"<<endl;
-					ribNode->assignedShader.setObject( rmShaderNodeObj );
-					hasSurfaceShader = true;
-				} 
-				else 
-				{ // Is it a custom shading node ?
-					MPxNode *mpxNode = shaderDepNode.userNode();
-					liqCustomNode *customNode = NULL;
-					if( mpxNode && ( customNode = dynamic_cast<liqCustomNode*>(mpxNode) ) ) 
-					{ // customNode will be null if can't be casted to a liqCustomNode
-						ribNode->assignedShader.setObject( rmShaderNodeObj );
-						hasSurfaceShader = true;
-						hasCustomSurfaceShader = liqCustomPxShaderNode;
-					} 
-					else 
-					{ // Try to find a liqRIBBox attribute
-						MPlug ribbPlug = shaderDepNode.findPlug( MString( "liqRIBBox" ), &status );
-						if( status == MS::kSuccess ) 
-						{
-							ribbPlug.getValue( shaderRibBox );
-							if( shaderRibBox.substring(0,2) == "*H*" ) 
-							{
-								MString parseThis = shaderRibBox.substring(3, shaderRibBox.length() - 1 );
-								shaderRibBox = parseThis;
-							} 
-							else if( shaderRibBox.substring(0,3) == "*SH*" ) 
-							{
-								MString parseThis = shaderRibBox.substring(3, shaderRibBox.length() - 1 );
-								shaderRibBox = parseThis;
-							}
-							hasSurfaceShader = true;
-							hasCustomSurfaceShader = liqRibBoxShader;
-						}
-						// else {
-						//liquidMessage( "Do noy know how to handle " + string( shaderDepNode.typeName().asChar() ), messageError );
-						//}
-					}
-				}
-			}
-		}
-		// Check for displacement shader
-		status.clear();
-		rmanShaderPlug = fnDagNode.findPlug( MString( "liquidDispShaderNode" ), &status );
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "liquidDispShaderNode" ), &status ); 
-		}
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedDisp.findPlug( MString( "liquidDispShaderNode" ), &status ); 
-		}
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "displacementShader" ), &status ); 
-		}
-		if( ( status == MS::kSuccess ) && !rmanShaderPlug.isNull() && !m_ignoreDisplacements ) 
-		{
-			if( rmanShaderPlug.isConnected() ) 
-			{
-				MPlugArray rmShaderNodeArray;
-				rmanShaderPlug.connectedTo( rmShaderNodeArray, true, true );
-				MObject rmShaderNodeObj;
-				rmShaderNodeObj = rmShaderNodeArray[0].node();
-				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
-				// philippe : we must check the node type to avoid checking in regular maya shaders
-				if( shaderDepNode.typeName() == "liquidDisplacement" 
-					//added in r773 || shaderDepNode.typeName() == "liquidDisplacementSwitcher"
-					|| shaderDepNode.typeName() == "oldBlindDataBase" ) 
-				{
-					ribNode->assignedDisp.setObject( rmShaderNodeObj );
-					hasDisplacementShader = true;
-				}
-			}
-		}
-		// Check for volume shader
-		status.clear();
-		rmanShaderPlug = fnDagNode.findPlug( MString( "liquidVolumeShaderNode" ), &status );
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "liquidVolumeShaderNode" ), &status ); 
-		}
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedVolume.findPlug( MString( "liquidVolumeShaderNode" ), &status ); 
-		}
-		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
-		{ 
-			status.clear(); 
-			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "volumeShader" ), &status ); 
-		}
-		if( ( status == MS::kSuccess ) && !rmanShaderPlug.isNull() && !m_ignoreVolumes ) 
-		{
-			if( rmanShaderPlug.isConnected() ) 
-			{
-				MPlugArray rmShaderNodeArray;
-				rmanShaderPlug.connectedTo( rmShaderNodeArray, true, true );
-				MObject rmShaderNodeObj;
-				rmShaderNodeObj = rmShaderNodeArray[0].node();
-				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
-				// philippe : we must check the node type to avoid checking in regular maya shaders
-				if( shaderDepNode.typeName() == "liquidVolume" || shaderDepNode.typeName() == "oldBlindDataBase" ) 
-				{
-					ribNode->assignedVolume.setObject( rmShaderNodeObj );
-					hasVolumeShader = true;
-				}
-			}
-		}
-// 		// displacement bounds
-// 		float surfaceDisplacementBounds = 0.0;
-// 		MString surfaceDisplacementBoundsSpace = "shader";
-// 		MString tmpSpace = "";
-// 		status.clear();
-// 		if( !ribNode->assignedShader.object().isNull() ) 
-// 		{
-// 			MPlug sDBPlug = ribNode->assignedShader.findPlug( MString( "displacementBound" ), &status );
-// 			if( status == MS::kSuccess ) 
-// 				sDBPlug.getValue( surfaceDisplacementBounds );
-// 			MPlug sDBSPlug = ribNode->assignedShader.findPlug( MString( "displacementBoundSpace" ), &status );
-// 			if( status == MS::kSuccess ) 
-// 				sDBSPlug.getValue( tmpSpace );
-// 			if( tmpSpace != "" ) 
-// 				surfaceDisplacementBoundsSpace = tmpSpace;
-// 		}
-// 		float dispDisplacementBounds = 0.0;
-// 		MString dispDisplacementBoundsSpace = "shader";
-// 		tmpSpace = "";
-// 		status.clear();
-// 		if( !ribNode->assignedDisp.object().isNull() ) 
-// 		{
-// 			MPlug dDBPlug = ribNode->assignedDisp.findPlug( MString( "displacementBound" ), &status );
-// 			if( status == MS::kSuccess ) 
-// 				dDBPlug.getValue( dispDisplacementBounds );
-// 			MPlug sDBSPlug = ribNode->assignedDisp.findPlug( MString( "displacementBoundSpace" ), &status );
-// 			if( status == MS::kSuccess ) 
-// 				sDBSPlug.getValue( tmpSpace );
-// 			if( tmpSpace != "" ) 
-// 				dispDisplacementBoundsSpace = tmpSpace;
-// 		}
-// 		if( ( dispDisplacementBounds != 0.0 ) && ( dispDisplacementBounds > surfaceDisplacementBounds ) ) 
-// 		{
-// 			liqString coordsys( const_cast< char* >( dispDisplacementBoundsSpace.asChar() ) );
-// 			RiAttribute( "displacementbound", (liqToken) "sphere", &dispDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
-// 		} 
-// 		else if( ( surfaceDisplacementBounds != 0.0 ) ) 
-// 		{
-// 			liqString coordsys( const_cast< char* >( surfaceDisplacementBoundsSpace.asChar() ) );
-// 			RiAttribute( "displacementbound", (liqToken) "sphere", &surfaceDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
-// 		}
-		LIQDEBUGPRINTF( "-> writing node attributes\n" );
-		// if the node's shading rate == -1,
-		// it means it hasn't been overriden by a liqShadingRate attribute.
-		// No need to output it then.
-		if ( !m_skipShadingAttributes )
-		if( ribNode->shading.shadingRate > 0 )
-			RiShadingRate ( ribNode->shading.shadingRate );
-
-		liqString mode;
-		liqInt off( 0 );
-		liqInt on( 1 );
-		if( liqglo_currentJob.pass != rpShadowMap  ) 
-		{
-
-			if ( !m_skipShadingAttributes )
-			{
-			if( !ribNode->shading.diceRasterOrient ) 
-				RiAttribute( "dice", (liqToken) "rasterorient", &off, RI_NULL );
-			if( ribNode->shading.doubleShaded ) 
-				RiAttribute( "sides", (liqToken) "doubleshaded", &on, RI_NULL );
-			}
-		if( !m_skipRayTraceAttributes )
-		{
-			if( liqglo.liquidRenderer.supports_RAYTRACE ) 
-			{
-				if( ribNode->trace.sampleMotion ) 
-					RiAttribute( "trace", (liqToken) "samplemotion", &on, RI_NULL );
-				if( ribNode->trace.displacements ) 
-					RiAttribute( "trace", (liqToken) "displacements", &on, RI_NULL );
-				if( ribNode->trace.bias != 0.01f ) 
-				{
-					liqFloat bias( ribNode->trace.bias );
-					RiAttribute( "trace", (liqToken) "bias", &bias, RI_NULL );
-				}
-				if( ribNode->trace.maxDiffuseDepth != 1 ) 
-				{
-					liqInt mddepth( ribNode->trace.maxDiffuseDepth );
-					RiAttribute( "trace", (liqToken) "maxdiffusedepth", &mddepth, RI_NULL );
-				}
-				if( ribNode->trace.maxSpecularDepth != 2 ) 
-				{
-					liqInt msdepth( ribNode->trace.maxSpecularDepth );
-					RiAttribute( "trace", (liqToken) "maxspeculardepth", &msdepth, RI_NULL );
-				}
-			}//if( liqglo.liquidRenderer.supports_RAYTRACE ) 
-		}//if( !m_skipRayTraceAttributes )
-			if( !ribNode->visibility.camera ) 
-				RiAttribute( "visibility", (liqToken) "camera", &off, RI_NULL );
-#ifdef GENERIC_RIBLIB      
-      extern int useAdvancedVisibilityAttributes;
-      useAdvancedVisibilityAttributes = false;
-#endif
-
-			// old-style raytracing visibility support
-			// philippe: if raytracing is off in the globals, trace visibility is turned off for all objects, transmission is set to TRANSPARENT for all objects
-      	if ( liqglo.liquidRenderer.supports_RAYTRACE )
-      	{
-        	if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
-        	{
-				if(liqglo.rt_useRayTracing)
-				{
-					if ( ribNode->visibility.trace ) 
-						RiAttribute( "visibility", (liqToken) "trace", &on, RI_NULL );
-					else                             
-						RiAttribute( "visibility", (liqToken) "trace", &off, RI_NULL );
-
-					if( ribNode->visibility.transmission != liqRibNode::visibility::TRANSMISSION_TRANSPARENT ) 
-					{
-						liqString trans;
-						switch( ribNode->visibility.transmission ) 
-						{
-						case liqRibNode::visibility::TRANSMISSION_OPAQUE:
-							trans = "opaque";
-							break;
-						case liqRibNode::visibility::TRANSMISSION_OS:
-							trans = "Os";
-							break;
-						case liqRibNode::visibility::TRANSMISSION_SHADER:
-						default:
-							trans = "shader";
-						}
-						RiAttribute( "visibility", (liqToken) "string transmission", &trans, RI_NULL );
-					}
-				}
-
-			}//if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
-			else // philippe : prman 12.5 visibility support
-			{
-#ifdef GENERIC_RIBLIB         
-				useAdvancedVisibilityAttributes = true;
-#endif
-          if ( liqglo.rt_useRayTracing )
-          {
-				if( !m_skipVisibilityAttributes )
-				{
-				if( ribNode->visibility.diffuse ) 
-					RiAttribute( "visibility", (liqToken) "int diffuse", &on, RI_NULL );
-
-				if( ribNode->visibility.specular ) 
-					RiAttribute( "visibility", (liqToken) "int specular", &on, RI_NULL );
-
-				if( ribNode->visibility.newtransmission ) 
-					RiAttribute( "visibility", (liqToken) "int transmission", &on, RI_NULL );
-
-				//if( ribNode->visibility.camera ) 
-				//	RiAttribute( "visibility", (liqToken) "int camera", &on, RI_NULL );
-
-				//if( ribNode->visibility.photon ) 
-				//	RiAttribute( "visibility", (liqToken) "int photon", &on, RI_NULL );
-
-				//if( ribNode->visibility.midpoint ) 
-				//	RiAttribute( "visibility", (liqToken) "int midpoint", &on, RI_NULL );
-				}
-				
-				if( !m_skipRayTraceAttributes )
-				{	
-					if( ribNode->hitmode.diffuse != liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE ) 
-					{
-						switch( ribNode->hitmode.diffuse ) 
-						{
-						case liqRibNode::hitmode::DIFFUSE_HITMODE_SHADER:
-							mode = "shader";
-							break;
-                  		case liqRibNode::hitmode::DIFFUSE_HITMODE_CACHE:
-                  			mode = "cache";
-                  			break;
-						case liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE:
-						default:
-							mode = "primitive";
-						}
-						RiAttribute( "shade", (liqToken) "string diffusehitmode", &mode, RI_NULL );
-					}
-
-					if( ribNode->hitmode.specular != liqRibNode::hitmode::SPECULAR_HITMODE_SHADER ) 
-					{
-						switch( ribNode->hitmode.specular ) 
-						{
-						case liqRibNode::hitmode::SPECULAR_HITMODE_PRIMITIVE:
-							mode = "primitive";
-							break;
-                  		case liqRibNode::hitmode::SPECULAR_HITMODE_CACHE:
-                    		mode = "cache";
-                    		break;
-						case liqRibNode::hitmode::SPECULAR_HITMODE_SHADER:
-						default:
-							mode = "shader";
-						}
-						RiAttribute( "shade", (liqToken) "string specularhitmode", &mode, RI_NULL );
-					}
-
-					if( ribNode->hitmode.transmission != liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER ) 
-					{
-						switch( ribNode->hitmode.transmission ) 
-						{
-						case liqRibNode::hitmode::TRANSMISSION_HITMODE_PRIMITIVE:
-							mode = "primitive";
-							break;
-						case liqRibNode::hitmode::TRANSMISSION_HITMODE_CACHE:
-                    		mode = "cache";
-                    		break;
-						case liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER:
-						default:
-							mode = "shader";
-						}
-						RiAttribute( "shade", (liqToken) "string transmissionhitmode", &mode, RI_NULL );
-					}
-				}//if( !m_skipRayTraceAttributes )
-			}//if ( rt_useRayTracing )
-				if( !m_skipShadingAttributes )
-				{
-				if( ribNode->hitmode.camera != liqRibNode::hitmode::CAMERA_HITMODE_SHADER ) 
-				{
-					switch( ribNode->hitmode.camera ) 
-					{
-					case liqRibNode::hitmode::CAMERA_HITMODE_PRIMITIVE:
-						mode = "primitive";
-						break;
-                	case liqRibNode::hitmode::CAMERA_HITMODE_CACHE:
-                		mode = "cache";
-                		break;
-					case liqRibNode::hitmode::CAMERA_HITMODE_SHADER:
-					default:
-						mode = "shader";
-					}
-					RiAttribute( "shade", (liqToken) "string camerahitmode", &mode, RI_NULL );
-				}
-				}//if ( !m_skipShadingAttributes )
-			}//else  // philippe : prman 12.5 visibility support
-        // irradiance attributes
-
-				if( ribNode->irradiance.shadingRate != 1.0f ) 
-				{
-					liqFloat rate = ribNode->irradiance.shadingRate;
-					RiAttribute( "irradiance", (liqToken) "shadingrate", &rate, RI_NULL );
-				}
-
-				if( ribNode->irradiance.nSamples != 64 ) 
-				{
-					liqInt samples = ribNode->irradiance.nSamples;
-					RiAttribute( "irradiance", (liqToken) "nsamples", &samples, RI_NULL );
-				}
-
-				if( ribNode->irradiance.maxError != 0.5f ) 
-				{
-					liqFloat merror = ribNode->irradiance.maxError;
-					RiAttribute( "irradiance", (liqToken) "float maxerror", &merror, RI_NULL );
-				}
-
-				if( ribNode->irradiance.maxPixelDist != 30.0f ) 
-				{
-					liqFloat mpd = ribNode->irradiance.maxPixelDist;
-					RiAttribute( "irradiance", (liqToken) "float maxpixeldist", &mpd, RI_NULL );
-				}
-
-				if( ribNode->irradiance.handle != "" ) 
-				{
-					liqString handle = const_cast< char* >( ribNode->irradiance.handle.asChar() );
-					RiAttribute( "irradiance", (liqToken) "handle", &handle, RI_NULL );
-				}
-
-				if( ribNode->irradiance.fileMode != liqRibNode::irradiance::FILEMODE_NONE ) 
-				{
-					liqString mode;
-					switch( ribNode->irradiance.fileMode ) 
-					{
-					case liqRibNode::irradiance::FILEMODE_READ:
-						mode = "r";
-						break;
-					case liqRibNode::irradiance::FILEMODE_WRITE:
-						mode = "w";
-						break;
-					case liqRibNode::irradiance::FILEMODE_READ_WRITE:
-					default:
-						mode = "rw";
-					}
-					RiAttribute( "irradiance", (liqToken) "filemode", &mode, RI_NULL );
-				}
-
-				// ymesh: photon visibility support
-				if ( liqglo.rt_useRayTracing && ribNode->visibility.photon ) 
-					RiAttribute( "visibility", (liqToken) "int photon", &on, RI_NULL );
-			
-				if( ribNode->photon.globalMap != "" ) 
-				{
-          			MString parsedName = parseString( ribNode->photon.globalMap, false );  //  doEscaped = false
-          			liqString map = const_cast< char* >( parsedName.asChar() );
-          			RiAttribute( "photon", (liqToken) "globalmap", &map, RI_NULL );
-				}
-
-				if( ribNode->photon.causticMap != "" ) 
-				{
-          			MString parsedName = parseString( ribNode->photon.causticMap, false );  //  doEscaped = false
-          			liqString map = const_cast< char* >( parsedName.asChar() );
-          			RiAttribute( "photon", (liqToken) "causticmap", &map, RI_NULL );
-				}
-
-				if( ribNode->photon.shadingModel != liqRibNode::photon::SHADINGMODEL_MATTE ) 
-				{
-					switch( ribNode->photon.shadingModel  ) 
-					{
-						case liqRibNode::photon::SHADINGMODEL_GLASS:
-							mode = "glass";
-							break;
-						case liqRibNode::photon::SHADINGMODEL_WATER:
-							mode = "water";
-							break;
-						case liqRibNode::photon::SHADINGMODEL_CHROME:
-							mode = "chrome";
-							break;
-						case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
-							mode = "chrome";
-							break;
-						case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
-							mode = "dielectric";
-							break;
-						case liqRibNode::photon::SHADINGMODEL_MATTE:
-						default:
-							mode = "matte";
-					}
-					RiAttribute( "photon", (liqToken) "shadingmodel", &mode, RI_NULL );
-				}
-
-				if( ribNode->photon.estimator != 100 ) 
-				{
-					liqInt estimator = ribNode->photon.estimator;
-					RiAttribute( "photon", (liqToken) "estimator", &estimator, RI_NULL );
-				}
-
-			} // liquidRenderer.supports_RAYTRACE
-
-			// 3Delight sss group
-			if( ribNode->delightSSS.doScatter && liqglo.liquidRenderer.renderName == MString("3Delight") )
-			{
-#ifdef GENERIC_RIBLIB         
-				useAdvancedVisibilityAttributes = true;
-#endif			  
-				liqString groupName = const_cast< char* >( ribNode->delightSSS.groupName.asChar() );
-				RiAttribute( "visibility", (liqToken) "string subsurface", &groupName, RI_NULL );
-
-				liqColor scattering, absorption;
-				scattering[0] = ribNode->delightSSS.scattering.r;
-				scattering[1] = ribNode->delightSSS.scattering.g;
-				scattering[2] = ribNode->delightSSS.scattering.b;
-
-				absorption[0] = ribNode->delightSSS.absorption.r;
-				absorption[1] = ribNode->delightSSS.absorption.g;
-				absorption[2] = ribNode->delightSSS.absorption.b;
-
-				if ( scattering[0] && scattering[1] && scattering[2] )
-					RiAttribute( "subsurface",
-					(liqToken) "scattering", &scattering,
-					(liqToken) "absorption", &absorption,
-					RI_NULL );
-
-				liqFloat refractionindex = ribNode->delightSSS.refraction;
-				liqFloat shadingrate = ribNode->delightSSS.shadingRate;
-				liqFloat scale = ribNode->delightSSS.scale;
-
-				RiAttribute( "subsurface",
-					(liqToken) "refractionindex", &refractionindex,
-					(liqToken) "shadingrate", &shadingrate,
-					(liqToken) "scale", &scale, 
-					RI_NULL );
-
-				liqColor meanfreepath, reflectance;
-				meanfreepath[0] = ribNode->delightSSS.meanfreepath.r;
-				meanfreepath[1] = ribNode->delightSSS.meanfreepath.g;
-				meanfreepath[2] = ribNode->delightSSS.meanfreepath.b;
-
-				reflectance[0] = ribNode->delightSSS.reflectance.r;
-				reflectance[1] = ribNode->delightSSS.reflectance.g;
-				reflectance[2] = ribNode->delightSSS.reflectance.b;
-
-				if ( reflectance[0] && reflectance[1] && reflectance[2] )
-					RiAttribute( "subsurface",
-					(liqToken) "meanfreepath", &meanfreepath,
-					(liqToken) "reflectance", &reflectance, 
-					RI_NULL );
-
-				if ( ribNode->delightSSS.referencecamera != "" )
-				{
-					liqString referenceCamera = const_cast< char* >( ribNode->delightSSS.referencecamera.asChar() );
-					RiAttribute( "subsurface", (liqToken) "string referencecamera", &referenceCamera, RI_NULL );
-				}
-			}// 3Delight sss group
-
-			//strategy
-			{
-				if(ribNode->strategy.strategy_!="grids"){
-					liqString strategy = const_cast<char*>(ribNode->strategy.strategy_.asChar());
-					RiAttribute("shade",(liqToken)"string strategy", &strategy, RI_NULL);
-				}
-
-				if(ribNode->strategy.volumeIntersectionStrategy!="exclusive"){
-					liqString volumeIntersectionStrategy = const_cast<char*>(ribNode->strategy.volumeIntersectionStrategy.asChar());
-					RiAttribute("shade",(liqToken)"string volumeintersectionstrategy", &volumeIntersectionStrategy, RI_NULL);
-				}
-
-				if(ribNode->strategy.volumeIntersectionPriority >0.0001){
-					liqFloat volumeIntersectionPriority = ribNode->strategy.volumeIntersectionPriority;
-					RiAttribute("shade",(liqToken)"float volumeintersectionpriority", &volumeIntersectionPriority, RI_NULL);
-				}
-			}
-
-			//trim curve 
-			{
-				liqString sense = "inside";
-
-				switch(ribNode->trimcurve.sense){
-				case liqRibNode::trimcurve::INSIDE:  
-					{
-						sense  = "inside";
-						//RiAttribute("trimcurve",(liqToken)"string sense", &sense, RI_NULL);//default value, need not to write.
-					}break;
-				case liqRibNode::trimcurve::OUTSIDE:
-					{
-						sense  = "outside";
-						RiAttribute("trimcurve",(liqToken)"string sense", &sense, RI_NULL);	
-					}break;
-				default:
-					assert(0);
-				}
-
-			}//trim curve 
-
-			//stitch
-			{
-				if( ribNode->stitch.enable != true ){
-					liqInt enable = (ribNode->stitch.enable)? 1: 0;
-					RiAttribute("stitch",(liqToken)"int enable", &enable, RI_NULL);	
-				}
-				if( ribNode->stitch.traceenable != false ){
-					liqInt traceenable = (ribNode->stitch.traceenable)? 1: 0;
-					RiAttribute("stitch",(liqToken)"int traceenable", &traceenable, RI_NULL);	
-				}
-				if( ribNode->stitch.newgroup != false ){
-					liqInt newgroup = (ribNode->stitch.newgroup)? 1: 0;
-					RiAttribute("stitch",(liqToken)"int newgroup", &newgroup, RI_NULL);	
-				}	
-			}//stitch
-
-			//stochastic
-			{
-				if( ribNode->stochastic.sigma != 0 ){
-					liqInt sigma = ribNode->stochastic.sigma;
-					RiAttribute("stochastic",(liqToken)"int sigma", &sigma, RI_NULL);	
-				}
-				if( ribNode->stochastic.pointfalloff != 0 ){
-					liqInt pointfalloff = ribNode->stochastic.pointfalloff;
-					RiAttribute("stochastic",(liqToken)"int pointfalloff", &pointfalloff, RI_NULL);	
-				}
-			}//stochastic
-
-			//dice
-			{
-				if( ribNode->dice.binary != 0 ){
-					liqInt binary = ribNode->dice.binary;
-					RiAttribute("dice",(liqToken)"int binary", &binary, RI_NULL);
-				}
-				if( ribNode->dice.hair != 0 ){
-					liqInt hair = ribNode->dice.hair;
-					RiAttribute("dice",(liqToken)"int hair", &hair, RI_NULL);
-				}
-				//strategy
-				liqString strategy = "planarprojection";
-				switch(ribNode->dice.strategy){
-				  case liqRibNode::dice::PLANAR_PROJECTION:
-					  {
-						  strategy = "planarprojection";
-						  //RiAttribute("dice",(liqToken)"string strategy", &strategy, RI_NULL); //default value
-					  }break;
-				  case liqRibNode::dice::SPHERICAL_PROJECTION:
-					  {
-						  strategy = "sphericalprojection";
-						  RiAttribute("dice",(liqToken)"string strategy", &strategy, RI_NULL);
-					  }break;
-				  default:
-					  assert(0);
-				}
-				//referencecamera
-				liqString referencecamera = "worldcamera";
-				switch(ribNode->dice.referencecamera){
-				  case liqRibNode::dice::WORLD_CAMERA:
-					  {
-						  referencecamera = "worldcamera";
-						  //RiAttribute("dice",(liqToken)"string referencecamera", &referencecamera, RI_NULL); //default value
-					  }break;
-				  case liqRibNode::dice::FRAME_CAMERA:
-					  {
-						  referencecamera = "framecamera";
-						  RiAttribute("dice",(liqToken)"string referencecamera", &referencecamera, RI_NULL);
-					  }break;
-				  default:
-					  assert(0);
-				}
-
-			}//dice
-
-			//derivatives
-			{
-				if( ribNode->derivatives.centered != 1 ){
-					liqInt centered = ribNode->derivatives.centered;
-					RiAttribute("derivatives",(liqToken)"int centered", &centered, RI_NULL);
-				}
-				if( ribNode->derivatives.extrapolate != 1 ){
-					liqInt extrapolate = ribNode->derivatives.extrapolate;
-					RiAttribute("derivatives",(liqToken)"int extrapolate", &extrapolate, RI_NULL);
-				}
-			}//derivatives
-
-			//procedural
-			{
-				if( ribNode->procedural.attribute.length()>0 ){
-					liqString attribute = const_cast<char*>(ribNode->procedural.attribute.asChar());
-					RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
-				}
-			}//procedural
-
-			if( liqglo.liqglo_doMotion && 
-				ribNode->motion.factor != 1.0f && 
-				( ribNode->motion.deformationBlur || ribNode->motion.transformationBlur ) ) 
-				RiGeometricApproximation( "motionfactor", ribNode->motion.factor );
-
-			ribNode->writeUserAttributes();
-		}// liqglo_currentJob.pass != rpShadowMap
-		//[refactor 33] begin
-		bool writeShaders( true );
-
-		if( liqglo_currentJob.pass == rpShadowMap &&
-			(   (  liqglo_currentJob.shadowType != stDeep && !m_outputShadersInShadows ) 
-			 || (  liqglo_currentJob.shadowType == stDeep && !m_outputShadersInDeepShadows ) )
-			)
-		{
-			writeShaders = false;
-		}
-		//[refactor 33] end
-		//[refactor 34] begin
-		// new prman 16.x shade attributes group 
-		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
-		{
-		  mode = "vpvolumes"; 
-		  RiAttribute( "shade", (liqToken) "strategy", &mode, RI_NULL );
-		}
-		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
-		{
-		  mode = "additive"; 
-		  RiAttribute( "shade", (liqToken) "volumeintersectionstrategy", &mode, RI_NULL );
-		}
-		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
-		{
-		  liqFloat value= ribNode->shade.volumeIntersectionPriority; 
-		  RiAttribute( "shade", (liqToken) "volumeintersectionpriority", &value, RI_NULL );
-		}
-		//[refactor 34] end
-//		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
-//			liqglo_currentJob.isShadow, 
-//			liqglo_currentJob.deepShadows, m_outputShadersInShadows, liqglo_currentJob.deepShadows, m_outputShadersInDeepShadows );
-		if( writeShaders ) 
-		{
-			liqRIBMsg("[5] hasVolumeShader=%d, m_ignoreVolumes=%d", hasVolumeShader, m_ignoreVolumes );
-			if( hasVolumeShader && !m_ignoreVolumes ) 
-			{
-				//liqShader& currentShader( liqGetShader( ribNode->assignedVolume.object() ) );
-				liqShader& currentShader = liqShaderFactory::instance().getShader( ribNode->assignedVolume.object() );
-				liqRIBMsg("[1] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", liqglo_currentJob.pass, currentShader.outputInShadow );
-				// per shader shadow pass override
-				if( liqglo_currentJob.pass != rpShadowMap || currentShader.outputInShadow )
-				{
-					currentShader.write( );
-				}
-			}
-			if( hasSurfaceShader && !m_ignoreSurfaces )
-			{
-				if( hasCustomSurfaceShader )
-				{
-					if( hasCustomSurfaceShader == liqCustomPxShaderNode )
-					{  // Just call the write method of the custom shader
-						MFnDependencyNode customShaderDepNode( ribNode->assignedShader.object() );
-						MPxNode *mpxNode = customShaderDepNode.userNode();
-						liqCustomNode *customNode( NULL );
-						if( mpxNode && ( customNode = dynamic_cast<liqCustomNode*>( mpxNode ) ) )
-							customNode->liquidWrite();
-						else
-							;// Should never happen in theory ... but what is the way to report a problem ???
-					}
-					else//hasCustomSurfaceShader==liqRibBoxShader
-					{ 
-						// Default : just write the contents of the rib box
-						RiArchiveRecord( RI_VERBATIM, ( char* )shaderRibBox.asChar() );
-						RiArchiveRecord( RI_VERBATIM, "\n" );
-					}
-				}
-				else//hasCustomSurfaceShader==liqRegularShaderNode
-				{
-					//liqShader& currentShader( liqGetShader( ribNode->assignedShader.object() ) );
-					liqShader& currentShader = liqShaderFactory::instance().getShader( ribNode->assignedShader.object() );
-
-					// Output color overrides or color ====>>>>>  WILL BE DONE IN liqShader::write -begin //r773 going to omit in r773
-					if(ribNode->shading.color.r != -1.0)
-					{
-						liqColor rColor;
-						rColor[0] = ribNode->shading.color[0];
-						rColor[1] = ribNode->shading.color[1];
-						rColor[2] = ribNode->shading.color[2];
-						RiArchiveRecord( RI_COMMENT, "mark1" );
-						RiColor( rColor );
-					}
-					else{
-						RiArchiveRecord( RI_COMMENT, "mark2" );
-						RiColor( currentShader.rmColor );
-					}
-
-					if(ribNode->shading.opacity.r != -1.0)
-					{
-						liqColor rOpacity;
-						rOpacity[0] = ribNode->shading.opacity[0];
-						rOpacity[1] = ribNode->shading.opacity[1];
-						rOpacity[2] = ribNode->shading.opacity[2];
-						RiOpacity( rOpacity );
-					}
-					else
-						RiOpacity( currentShader.rmOpacity );
-					liqRIBMsg("[2] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", liqglo_currentJob.pass, currentShader.outputInShadow );
-					//====>>>>>  WILL BE DONE IN liqShader::write  -end
-					
-					// per shader shadow pass override
-					if( liqglo_currentJob.pass != rpShadowMap || currentShader.outputInShadow )
-					{
-						currentShader.write();
-					}
-				}
-			} 
-			else //if( hasSurfaceShader && !m_ignoreSurfaces )
-			{
-				liqColor rColor,rOpacity;
-				if( m_shaderDebug ) 
-				{
-					liqRIBMsg("shader debug is turned on, so the object is red.");
-					// shader debug on !! everything goes red and opaque !!!
-					rColor[0] = 1.;
-					rColor[1] = 0.;
-					rColor[2] = 0.;
-					RiArchiveRecord( RI_COMMENT, "mark3" );
-					RiColor( rColor );
-
-					rOpacity[0] = 1.;
-					rOpacity[1] = 1.;
-					rOpacity[2] = 1.;
-					RiOpacity( rOpacity );
-				} 
-				else 
-				{
-					if(ribNode->shading.color.r != -1.0) 
-					{
-						rColor[0] = ribNode->shading.color[0];
-						rColor[1] = ribNode->shading.color[1];
-						rColor[2] = ribNode->shading.color[2];
-						RiArchiveRecord( RI_COMMENT, "mark4" );
-						RiColor( rColor );
-					} 
-					else if( ( ribNode->color.r != -1.0 ) ) 
-					{
-						rColor[0] = ribNode->color[0];
-						rColor[1] = ribNode->color[1];
-						rColor[2] = ribNode->color[2];
-						RiArchiveRecord( RI_COMMENT, "mark5" );
-						RiColor( rColor );
-					}
-					if(ribNode->shading.opacity.r != -1.0) 
-					{
-						rOpacity[0] = ribNode->shading.opacity[0];
-						rOpacity[1] = ribNode->shading.opacity[1];
-						rOpacity[2] = ribNode->shading.opacity[2];
-						RiOpacity( rOpacity );
-					} 
-					else if( ( ribNode->opacity.r != -1.0 ) ) 
-					{
-						rOpacity[0] = ribNode->opacity[0];
-						rOpacity[1] = ribNode->opacity[1];
-						rOpacity[2] = ribNode->opacity[2];
-						RiOpacity( rOpacity );
-					}
-				}
-
-				if( !m_ignoreSurfaces ) 
-				{
-					MObject shadingGroup = ribNode->assignedShadingGroup.object();
-					MObject shader = ribNode->findShader();
-					//
-					// here we check for regular shader nodes first
-					// and assign default shader to shader-less nodes.
-					//
-					if( m_shaderDebug ) {
-						liqRIBMsg("shader debug is turned on, so the surface is constant.");
-						RiSurface( "constant", RI_NULL );
-						LIQDEBUGPRINTF("add more constant parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorBlinn.sl as an example.(?)");
-					}
-// 					else if( shader.apiType() == MFn::kLambert ){ 
-// 						RiSurface( "matte", RI_NULL );
-// 						LIQDEBUGPRINTF("add more lambert parameters here. take //RMS-1.0.1-Maya2008/lib/shaders/src/mtorLambert.sl as an example.");
-// 					}else if( shader.apiType() == MFn::kPhong ) {
-// 						RiSurface( "plastic", RI_NULL );
-// 						LIQDEBUGPRINTF("add more phong parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorPhong.sl as an example.");
-// 					}
-					else if( path.hasFn( MFn::kPfxHair ) ) 
-					{
-						// get some of the hair system parameters
-						liqFloat translucence = 0, specularPower = 0;
-						liqColor specularColor;
-						//cout <<"getting pfxHair shading params..."<<endl;
-						MObject hairSystemObj;
-						MFnDependencyNode pfxHairNode( path.node() );
-						MPlug plugToHairSystem = pfxHairNode.findPlug( "renderHairs", &status );
-						MPlugArray hsPlugs;
-						status.clear();
-						if( plugToHairSystem.connectedTo( hsPlugs, true, false, &status ) ) 
-							if( status == MS::kSuccess ) 
-								hairSystemObj = hsPlugs[0].node();
-
-						if( hairSystemObj != MObject::kNullObj ) 
-						{
-							MFnDependencyNode hairSystemNode(hairSystemObj);
-							MPlug paramPlug;
-							status.clear();
-							paramPlug = hairSystemNode.findPlug( "translucence", &status );
-							if( status == MS::kSuccess ) 
-								paramPlug.getValue( translucence );
-							status.clear();
-							paramPlug = hairSystemNode.findPlug( "specularColor", &status );
-							if( status == MS::kSuccess ) 
-							{
-								paramPlug.child(0).getValue( specularColor[0] );
-								paramPlug.child(1).getValue( specularColor[1] );
-								paramPlug.child(2).getValue( specularColor[2] );
-							}
-							status.clear();
-							paramPlug = hairSystemNode.findPlug( "specularPower", &status );
-							if( status == MS::kSuccess ) 
-								paramPlug.getValue( specularPower );
-						}
-						RiSurface(  "liquidpfxhair",
-							"float specularpower", &specularPower,
-							"float translucence",  &translucence,
-							"color specularcolor", &specularColor,
-							RI_NULL );
-					} 
-					else if( path.hasFn( MFn::kPfxToon ) ) {
-						RiSurface( "liquidpfxtoon", RI_NULL );
-					}else if( path.hasFn( MFn::kPfxGeometry ) ){
-						RiSurface( "liquidpfx", RI_NULL );
-					}else {
-						//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
-						MFnDependencyNode shaderFn(shader);
-						RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
-					}
-				}//if ( !m_ignoreSurfaces )  
-			}//if( hasSurfaceShader && !m_ignoreSurfaces )else
-		} //if( writeShaders ) 
-		else if( liqglo_currentJob.shadowType == stDeep ) 
-		{
-			liqRIBMsg("[7] liqglo_currentJob[.deepShadows=%d, .isShadow=%d ], hasSurfaceShader=%d, hasCustomSurfaceShader=%d",
-				liqglo_currentJob.shadowType, liqglo_currentJob.pass, hasSurfaceShader, hasCustomSurfaceShader );
-
-			// if the current job is a deep shadow,
-			// we still want to output primitive color and opacity and surface shader
-			// In case of custom shaders, what should we do ? Stephane.
-			if( hasSurfaceShader && ! hasCustomSurfaceShader ) 
-			{
-				//liqShader & currentShader = liqGetShader( ribNode->assignedShader.object());
-				liqShader &currentShader = liqShaderFactory::instance().getShader( ribNode->assignedShader.object() );
-
-				// Output color overrides or color
-				if(ribNode->shading.color.r != -1.0) 
-				{
-					liqColor rColor;
-					rColor[0] = ribNode->shading.color[0];
-					rColor[1] = ribNode->shading.color[1];
-					rColor[2] = ribNode->shading.color[2];
-					RiArchiveRecord( RI_COMMENT, "mark6" );
-					RiColor( rColor );
-				} 
-				else {
-					RiArchiveRecord( RI_COMMENT, "mark7" );
-					RiColor( currentShader.rmColor );
-				}
-
-				if(ribNode->shading.opacity.r != -1.0) 
-				{
-					liqColor rOpacity;
-					rOpacity[0] = ribNode->shading.opacity[0];
-					rOpacity[1] = ribNode->shading.opacity[1];
-					rOpacity[2] = ribNode->shading.opacity[2];
-					RiOpacity( rOpacity );
-				} 
-				else 
-					RiOpacity( currentShader.rmOpacity );
-				
-				liqRIBMsg("[8] currentShader[.name=%s, .filename=%s, .outputInShadow=%d]", currentShader.getName().c_str(), currentShader.getShaderFileName().c_str(), currentShader.outputInShadow );
-				if(currentShader.outputInShadow){
-					currentShader.write();
-				}
-
-			} 
-			else 
-			{
-				liqColor rColor,rOpacity;
-
-				if(ribNode->shading.color.r != -1.0) 
-				{
-					rColor[0] = ribNode->shading.color[0];
-					rColor[1] = ribNode->shading.color[1];
-					rColor[2] = ribNode->shading.color[2];
-					RiArchiveRecord( RI_COMMENT, "mark8" );
-					RiColor( rColor );
-				} 
-				else if( ( ribNode->color.r != -1.0 ) ) 
-				{
-					rColor[0] = ribNode->color[0];
-					rColor[1] = ribNode->color[1];
-					rColor[2] = ribNode->color[2];
-					RiArchiveRecord( RI_COMMENT, "mark9" );
-					RiColor( rColor );
-				}
-				if(ribNode->shading.opacity.r != -1.0) 
-				{
-					rOpacity[0] = ribNode->shading.opacity[0];
-					rOpacity[1] = ribNode->shading.opacity[1];
-					rOpacity[2] = ribNode->shading.opacity[2];
-					RiOpacity( rOpacity );
-				} 
-				else if( ( ribNode->opacity.r != -1.0 ) ) 
-				{
-					rOpacity[0] = ribNode->opacity[0];
-					rOpacity[1] = ribNode->opacity[1];
-					rOpacity[2] = ribNode->opacity[2];
-					RiOpacity( rOpacity );
-				}
-				if( path.hasFn( MFn::kPfxHair ) ) 
-				{
-					// get some of the hair system parameters
-					float translucence = 0, specularPower = 0;
-					float specularColor[3];
-					//cout <<"getting pfxHair shading params..."<<endl;
-					MObject hairSystemObj;
-					MFnDependencyNode pfxHairNode( path.node() );
-					MPlug plugToHairSystem = pfxHairNode.findPlug( "renderHairs", &status );
-					MPlugArray hsPlugs;
-					status.clear();
-					if( plugToHairSystem.connectedTo( hsPlugs, true, false, &status ) ) 
-						if( status == MS::kSuccess ) 
-							hairSystemObj = hsPlugs[0].node();
-					if( hairSystemObj != MObject::kNullObj ) 
-					{
-						MFnDependencyNode hairSystemNode(hairSystemObj);
-						MPlug paramPlug;
-						status.clear();
-						paramPlug = hairSystemNode.findPlug( "translucence", &status );
-						if( status == MS::kSuccess ) 
-							paramPlug.getValue( translucence );
-						status.clear();
-						paramPlug = hairSystemNode.findPlug( "specularColor", &status );
-						if( status == MS::kSuccess ) 
-						{
-							paramPlug.child(0).getValue( specularColor[0] );
-							paramPlug.child(1).getValue( specularColor[1] );
-							paramPlug.child(2).getValue( specularColor[2] );
-							//cout <<"specularColor = "<<specularColor<<endl;
-						}
-						status.clear();
-						paramPlug = hairSystemNode.findPlug( "specularPower", &status );
-						if( status == MS::kSuccess ) 
-							paramPlug.getValue( specularPower );
-					}
-					RiSurface(  "liquidPfxHair",
-						"float specularPower", &specularPower,
-						"float translucence",  &translucence,
-						"color specularColor", &specularColor,
-						RI_NULL );
-				}
-			}
-		} 
-		else 
-			RiSurface( "null", RI_NULL );
-
-		liqRIBMsg("[4] hasDisplacementShader=%d, m_ignoreDisplacements=%d", hasDisplacementShader, m_ignoreDisplacements );
-		if( hasDisplacementShader && !m_ignoreDisplacements ) 
-		{
-			//liqShader & currentShader = liqGetShader( ribNode->assignedDisp.object() );
-			liqShader &currentShader = liqShaderFactory::instance().getShader( ribNode->assignedDisp.object() );
-			
-			liqRIBMsg("[3] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", liqglo_currentJob.pass, currentShader.outputInShadow );
-			// per shader shadow pass override
-			if( liqglo_currentJob.pass != rpShadowMap || currentShader.outputInShadow )
-			{
-				currentShader.write();
-			}
-		}
-		if( ribNode->rib.hasBox() ) 
-			RiArchiveRecord( RI_COMMENT, " RIB Box:\n%s", ribNode->rib.box.asChar() );
-		if( ribNode->rib.hasGenerator() ){
-			MGlobal::executeCommand( ribNode->rib.generator, false, false );
-		}
-		if( ribNode->rib.hasReadArchive() ) 
-			RiArchiveRecord( RI_VERBATIM, " ReadArchive \"%s\" \n", ribNode->rib.readArchive.asChar() );
-		if( ribNode->rib.hasDelayedReadArchive() ) 
-		{
-			RiArchiveRecord( RI_VERBATIM, " Procedural \"DelayedReadArchive\" [ \"%s\" ] [ %f %f %f %f %f %f ] \n", ribNode->rib.delayedReadArchive.asChar(), ribNode->bound[0],ribNode->bound[3],ribNode->bound[1],ribNode->bound[4],ribNode->bound[2],ribNode->bound[5] );
-			// should be using the bounding box node - Alf
-			/* {
-			// this is a visual display of the archive's bounding box
-			RiAttributeBegin();
-			liqColor debug;
-			debug[0] = debug[1] = 1;
-			debug[2] = 0;
-			RiColor( debug );
-			debug[0] = debug[1] = debug[2] = 0.250;
-			RiOpacity( debug );
-			RiSurface( "defaultsurface", RI_NULL );
-			RiArchiveRecord( RI_VERBATIM, "Attribute \"visibility\" \"int diffuse\" [0]\n" );
-			RiArchiveRecord( RI_VERBATIM, "Attribute \"visibility\" \"int specular\" [0]\n" );
-			RiArchiveRecord( RI_VERBATIM, "Attribute \"visibility\" \"int transmission\" [0]\n" );
-			float xmin = ribNode->bound[0];
-			float ymin = ribNode->bound[1];
-			float zmin = ribNode->bound[2];
-			float xmax = ribNode->bound[3];
-			float ymax = ribNode->bound[4];
-			float zmax = ribNode->bound[5];
-			RiSides( 2 );
-			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymax,zmin, xmax,ymax,zmin, xmax,ymax,zmax, xmin,ymax,zmax );
-			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymin,zmin, xmax,ymin,zmin, xmax,ymin,zmax, xmin,ymin,zmax );
-			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymax,zmax, xmax,ymax,zmax, xmax,ymin,zmax, xmin,ymin,zmax );
-			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymax,zmin, xmax,ymax,zmin, xmax,ymin,zmin, xmin,ymin,zmin );
-			RiAttributeEnd();
-			} */
-		}
-		// Alf: preShapeMel
-		prePostPlug = fnTransform.findPlug( "liqPreShapeMel" );
-		m_preShapeMel = prePostPlug.asString();
-		if( m_preShapeMel != "" )
-			MGlobal::executeCommand( m_preShapeMel );
-
-		//refactor 31 begin to renderman::Renderer::exportOneObject_reference()
-
-		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
- 		if( !ribNode->object(0)->receiveShadow )
-		{
-			int receiveShadows = ribNode->object(0)->receiveShadow;
-			RiAttribute("user", (liqToken)"int receivesShadows", &receiveShadows, RI_NULL);
-		}
-		//refactor 31 end
-
-		if( !ribNode->ignoreShapes ) 
-		{
-			liqRIBMsg("ribNode->object(0)->type= %d, path=%s",ribNode->object(0)->type, ribNode->path().fullPathName().asChar() );
-			// check to see if we are writing a curve to set the proper basis
-			if( ribNode->object(0)->type == MRT_NuCurve
-				|| ribNode->object(0)->type == MRT_PfxHair
-				|| ribNode->object(0)->type == MRT_PfxTube
-				|| ribNode->object(0)->type == MRT_PfxLeaf
-				|| ribNode->object(0)->type == MRT_PfxPetal 
-				|| ribNode->object(0)->type == MRT_Curves )
-
-			{
-				RiBasis( RiBSplineBasis, 1, RiBSplineBasis, 1 );
-			} 
-
-			bool doMotion ( liqglo.liqglo_doDef && ribNode->motion.deformationBlur &&
-				( ribNode->object(1) ) &&
-				( ribNode->object(0)->type != MRT_RibGen ) &&
-				//( ribNode->object(0)->type != MRT_Locator ) &&
-				( liqglo_currentJob.pass != rpShadowMap || liqglo_currentJob.shadowType == stDeep ) );
-
-			if( doMotion )
-			{
-				// For each grain, open a new motion block...
-				for( unsigned i( 0 ); i < ribNode->object( 0 )->granularity(); i++ ) //granularity() is always 1.
-				{
-					if( ribNode->object( 0 )->isNextObjectGrainAnimated() ) //isNextObjectGrainAnimated() is always true.
-					{
-						RiMotionBeginV( liqglo.liqglo_motionSamples, 
-										( liqglo.liqglo_relativeMotion )? 
-										liqglo.liqglo_sampleTimesOffsets : liqglo.liqglo_sampleTimes);
-
-						for ( unsigned msampleOn( 0 ); msampleOn < liqglo.liqglo_motionSamples; msampleOn++ ){ 
-							MString geometryRibFile( liquidGetRelativePath( false, getLiquidRibName( ribNode->name.asChar() ), liqglo.liqglo_ribDir ) +"."+(int)liqglo.liqglo_lframe+".m"+(int)msampleOn+".rib" );
-							ribNode->object( msampleOn )->writeObject(geometryRibFile, liqglo_currentJob, false);
-						}
-
-						RiMotionEnd();
-					} 
-					else {
-						RiArchiveRecord( RI_COMMENT, "the the next object grain is not animated" );
-
-						MString geometryRibFile( liquidGetRelativePath( false, getLiquidRibName( ribNode->name.asChar() ), liqglo.liqglo_ribDir ) +"."+(int)liqglo.liqglo_lframe+".rib" );
-						ribNode->object( 0 )->writeObject(geometryRibFile, liqglo_currentJob, false);
-					}
-				}
-			} 
-			else {
-				if(    ribNode->rib.hasGenerator()
-					|| ribNode->rib.hasReadArchive()  
-					|| ribNode->rib.hasDelayedReadArchive() 
-					)
-				{
-					//if ribNode is tagged as readArchive or delayedReadArchive, we do not output its geometry data.
-					//return;
-				}else{
-					//ribNode->object( 0 )->writeObject();
-					_writeObject(ribNode, liqglo_currentJob, false, 0);
-				}
-
-			}
-
-			// Alf: postShapeMel
-			prePostPlug = fnTransform.findPlug( "liqPostShapeMel" );
-			m_postShapeMel = prePostPlug.asString();
-			if( m_postShapeMel != "" )
-				MGlobal::executeCommand( m_postShapeMel );
-
-		} // else RiArchiveRecord( RI_COMMENT, " Shapes Ignored !!" );
-		RiAttributeEnd();
-	}
-	while ( attributeDepth > 0 ) 
-	{
-		RiAttributeEnd();
-		attributeDepth--;
-	}
-	return returnStatus;
-}
+//MStatus liqRibTranslator::objectBlock()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::objectBlock()");
+//
+//	MStatus returnStatus = MS::kSuccess;
+//	MStatus status;
+//	attributeDepth = 0;
+//
+//	LIQDEBUGPRINTF( "-> objectBlock\n" );
+//
+//	if( m_ignoreSurfaces && !liqglo.liqglo_skipDefaultMatte ) 
+//		RiSurface( "matte", RI_NULL );
+//
+//	// Moritz: Added Pre-Geometry RIB for insertion right before any primitives
+//	MFnDependencyNode globalsNode( liqglo.rGlobalObj );
+//	MPlug prePostplug( globalsNode.findPlug( "preGeomMel" ) );
+//	MString melcommand( prePostplug.asString() );
+//	if( m_preGeomRIB != "" || melcommand.length() )
+//	{
+//		RiArchiveRecord( RI_COMMENT,  " Pre-Geometry RIB from liquid globals");
+//		MGlobal::executeCommand( melcommand );
+//		RiArchiveRecord( RI_VERBATIM, ( char* ) m_preGeomRIB.asChar() );
+//		RiArchiveRecord( RI_VERBATIM, "\n");
+//	}
+//
+//	// retrieve the shadow set object
+//	MObject shadowSetObj;
+//	if( liqglo_currentJob.pass == rpShadowMap && liqglo_currentJob.shadowObjectSet != "" ) 
+//	{
+//		MObject tmp;
+//		tmp = getNodeByName( liqglo_currentJob.shadowObjectSet, &status );
+//		if( status == MS::kSuccess ) 
+//			shadowSetObj = tmp;
+//		else 
+//		{
+//			MString warn = "Liquid : set " + liqglo_currentJob.shadowObjectSet + " in shadow " + liqglo_currentJob.name + " does not exist !";
+//			liquidMessage( warn, messageWarning );
+//		}
+//		status.clear();
+//	}
+//	MFnSet shadowSet( shadowSetObj, &status );
+//
+//	MMatrix matrix;
+//	MDagPath path;
+//	MObject transform;
+//	MFnDagNode dagFn;
+//
+//	for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
+//	{
+//		LIQ_CHECK_CANCEL_REQUEST;
+//
+//		liqRibNodePtr ribNode( rniter->second );
+//		path = ribNode->path();
+//		transform = path.transform();
+//
+//		if( ( !ribNode ) || ( ribNode->object(0)->type == MRT_Light ) ) 
+//			continue;
+//		if( ribNode->object(0)->type == MRT_Coord || ribNode->object(0)->type == MRT_ClipPlane ) 
+//			continue;
+//		if( ( liqglo_currentJob.pass != rpShadowMap ) && ( ribNode->object(0)->ignore ) ) 
+//			continue;
+//		if( ( liqglo_currentJob.pass == rpShadowMap ) && ( ribNode->object(0)->ignoreShadow ) ) 
+//			continue;
+//		// test against the set
+//		if( ( liqglo_currentJob.pass == rpShadowMap ) && ( liqglo_currentJob.shadowObjectSet != "" ) 
+//		  &&( !shadowSetObj.isNull() ) && ( !shadowSet.isMember( transform, &status ) ) ) 
+//		{
+//			//cout <<"SET FILTER : object "<<ribNode->name.asChar()<<" is NOT in "<<liqglo_currentJob.shadowObjectSet.asChar()<<endl;
+//			continue;
+//		}
+//
+//		if( liqglo.m_outputComments ) 
+//			RiArchiveRecord( RI_COMMENT, "Name: %s", ribNode->name.asChar(), RI_NULL );
+//
+//		RiAttributeBegin();
+//		RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
+//
+//		// Alf: preTransformMel
+//		MFnDagNode fnTransform( transform );
+//		MPlug prePostPlug = fnTransform.findPlug( "liqPreTransformMel" );
+//		m_preTransformMel = prePostPlug.asString();
+//
+//		if( m_preTransformMel != "" )
+//			MGlobal::executeCommand( m_preTransformMel );
+//
+//		if( !ribNode->grouping.membership.empty() ) 
+//		{
+//			liqString members( const_cast< char* >( ribNode->grouping.membership.c_str() ) );
+//			RiAttribute( "grouping", "membership", &members, RI_NULL );
+//		}
+//
+//		if ( !m_skipShadingAttributes )
+//		if( ribNode->shading.matte || ribNode->mayaMatteMode ) 
+//			RiMatte( RI_TRUE );
+//
+//		// If this is a single sided object, then turn that on (RMan default is Sides 2)
+//		if( !ribNode->doubleSided ) 
+//			RiSides( 1 );
+//
+//		if( ribNode->reversedNormals ) 
+//			RiReverseOrientation();
+//
+//		LIQDEBUGPRINTF( "-> object name: %s\n", ribNode->name.asChar() );
+//		MObject object;
+//
+//		// Moritz: only write out light linking if we're not in a shadow pass
+//		if( liqglo_currentJob.pass != rpShadowMap || liqglo_currentJob.shadowType == stDeep && m_outputLightsInDeepShadows && !m_ignoreLights )
+//		{
+//			MObjectArray linkLights;
+//
+//			// light linking mode - Alf
+//			// inclusive - lights are off by default and objects list included lights
+//			// exclusive - lights are on by default and objects list ignored lights
+//			// liquid Light sets - ignores the maya light linker
+//			if( m_liquidSetLightLinking )
+//				ribNode->getSetLights( linkLights );
+//			else
+//				ribNode->getLinkLights( linkLights, liqglo.m_illuminateByDefault );
+//
+//			for( unsigned i( 0 ); i < linkLights.length(); i++ )
+//			{
+//				MFnDagNode lightFnDag( linkLights[i] );
+//				MString nodeName = lightFnDag.fullPathName();
+//				if( htable )
+//				{
+//					//RibNode * ln = htable->find( light, MRT_Light );
+//					MDagPath nodeDagPath;
+//					lightFnDag.getPath( nodeDagPath );
+//					liqRibNodePtr  ln( htable->find( lightFnDag.fullPathName(), nodeDagPath, MRT_Light ) );
+//					if( NULL != ln )
+//					{
+//						if( liqglo.m_illuminateByDefault )
+//							RiIlluminate( ln->object(0)->lightHandle(), RI_FALSE );
+//						else
+//							RiIlluminate( ln->object(0)->lightHandle(), RI_TRUE );
+//					}
+//				}
+//			}
+//		}
+//		//refactor 30 to liqRibTranslator::MaxtrixMotionBlur()
+//		if( liqglo.liqglo_doMotion &&
+//			ribNode->motion.transformationBlur &&
+//			( ribNode->object( 1 ) ) &&
+//			//( ribNode->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
+//			( liqglo_currentJob.pass != rpShadowMap || liqglo_currentJob.shadowType == stDeep ) )
+//		{
+//			LIQDEBUGPRINTF( "-> writing matrix motion blur data\n" );
+//			// Moritz: replaced RiMotionBegin call with ..V version to allow for more than five motion samples
+//			if(liqglo.liqglo_relativeMotion)
+//				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimesOffsets );
+//			else
+//				RiMotionBeginV( liqglo.liqglo_motionSamples, liqglo.liqglo_sampleTimes );
+//		}
+//#if 1
+//		liqMatrix ribMatrix;
+//		matrix = ribNode->object( 0 )->matrix( path.instanceNumber() );
+//		matrix.get( ribMatrix );
+//
+//		if( liqglo.liqglo_relativeTransforms ) 
+//			RiConcatTransform( ribMatrix );
+//		else 
+//			RiTransform( ribMatrix );
+//#elif 0  // Bat : a way to have double transforms :
+//		double doubleTransformMatrix[4][4];
+//		matrix = ribNode->object( 0 )->matrix( path.instanceNumber() );
+//		matrix.get( doubleTransformMatrix );
+//
+//		int txIntPart = (int)(doubleTransformMatrix[3][0]);
+//		float txFloatPart = doubleTransformMatrix[3][0] - txIntPart;
+//
+//		int tyIntPart = (int)(doubleTransformMatrix[3][1]);
+//		float tyFloatPart = doubleTransformMatrix[3][1] - tyIntPart;
+//
+//		int tzIntPart = (int)(doubleTransformMatrix[3][2]);
+//		float tzFloatPart = doubleTransformMatrix[3][2] - tzIntPart;
+//
+//		liqFloat floatTransformMatrixWithIntegerTranslatePart[4][4];
+//		matrix.get( floatTransformMatrixWithIntegerTranslatePart );
+//		liqFloat floatIdentityMatrixWithFloatingTranslatePart[4][4] = { {1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1} };
+//
+//		floatTransformMatrixWithIntegerTranslatePart[3][0] = txIntPart;
+//		floatTransformMatrixWithIntegerTranslatePart[3][1] = tyIntPart;
+//		floatTransformMatrixWithIntegerTranslatePart[3][2] = tzIntPart;
+//
+//		floatIdentityMatrixWithFloatingTranslatePart[3][0] = txFloatPart;
+//		floatIdentityMatrixWithFloatingTranslatePart[3][1] = tyFloatPart;
+//		floatIdentityMatrixWithFloatingTranslatePart[3][2] = tzFloatPart;
+//
+//		if( liqglo_relativeTransforms )
+//		{
+//			RiConcatTransform( floatIdentityMatrixWithFloatingTranslatePart );
+//			RiConcatTransform( floatTransformMatrixWithIntegerTranslatePart );
+//		}
+//		else
+//		{
+//			RiTransform( floatIdentityMatrixWithFloatingTranslatePart );
+//			RiConcatTransform( floatTransformMatrixWithIntegerTranslatePart );
+//		}
+//#endif
+//		// Output the world matrices for the motionblur
+//		// This will override the current transformation setting
+//		if( liqglo.liqglo_doMotion &&
+//			ribNode->motion.transformationBlur &&
+//			( ribNode->object( 1 ) ) &&
+//			//( ribNode->object( 0 )->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
+//			( liqglo_currentJob.pass != rpShadowMap  || liqglo_currentJob.shadowType == stDeep ) )
+//		{
+//			path = ribNode->path();
+//			liqMatrix ribMatrix;
+//			for( unsigned mm( 1 ); mm < liqglo.liqglo_motionSamples; mm++ ) {
+//				matrix = ribNode->object( mm )->matrix( path.instanceNumber() );
+//				matrix.get( ribMatrix );
+//				if( liqglo.liqglo_relativeTransforms ) 
+//					RiConcatTransform( ribMatrix ); 
+//				else 
+//					RiTransform( ribMatrix );
+//			}
+//			RiMotionEnd();
+//		}
+//		//refactor 30 end
+//
+//		// Alf: postTransformMel
+//		prePostPlug = fnTransform.findPlug( "liqPostTransformMel" );
+//		m_postTransformMel = prePostPlug.asString();
+//		if( m_postTransformMel != "" )
+//			MGlobal::executeCommand( m_postTransformMel );
+//
+//		bool hasSurfaceShader( false );
+//		typedef enum {
+//			liqRegularShaderNode = 0,     // A regular Liquid node, keep it 0 to evaluate to false in conditions
+//			liqCustomPxShaderNode = 1,     // A custom MPxNode inheriting from liqCustomNode
+//			liqRibBoxShader = 2          // A rib box attached to the shader
+//		} liqDetailShaderKind;
+//
+//		liqDetailShaderKind hasCustomSurfaceShader( liqRegularShaderNode );
+//		MString shaderRibBox( "" );
+//		bool hasDisplacementShader( false );
+//		bool hasVolumeShader( false );
+//
+//		MPlug rmanShaderPlug;
+//		// Check for surface shader
+//		status.clear();
+//		MFnDagNode fnDagNode( path );
+//		rmanShaderPlug = fnDagNode.findPlug( MString( "liquidSurfaceShaderNode" ), &status );
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "liquidSurfaceShaderNode" ), &status ); 
+//		}
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShader.findPlug( MString( "liquidSurfaceShaderNode" ), &status ); 
+//		}
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "surfaceShader" ), &status ); 
+//		}
+//		if( status == MS::kSuccess && !rmanShaderPlug.isNull() ) 
+//		{
+//			if( rmanShaderPlug.isConnected() ) 
+//			{
+//				MPlugArray rmShaderNodeArray;
+//				rmanShaderPlug.connectedTo( rmShaderNodeArray, true, true );
+//				MObject rmShaderNodeObj;
+//				rmShaderNodeObj = rmShaderNodeArray[0].node();
+//				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
+//				//std::cout <<"path="<<path.fullPathName()<<", shaderDepNode.typeName()="<<shaderDepNode.typeName()<<std::endl;
+//				// philippe : we must check the node type to avoid checking in regular maya shaders
+//				if( shaderDepNode.typeName() == "liquidSurface" 
+//				    //added in r773 || shaderDepNode.typeName() == "liquidSurfaceSwitcher"
+//					|| shaderDepNode.typeName() == "liquidShader" 
+//					|| shaderDepNode.typeName() == "oldBlindDataBase" ) 
+//				{ //cout <<"setting shader"<<endl;
+//					ribNode->assignedShader.setObject( rmShaderNodeObj );
+//					hasSurfaceShader = true;
+//				} 
+//				else 
+//				{ // Is it a custom shading node ?
+//					MPxNode *mpxNode = shaderDepNode.userNode();
+//					liqCustomNode *customNode = NULL;
+//					if( mpxNode && ( customNode = dynamic_cast<liqCustomNode*>(mpxNode) ) ) 
+//					{ // customNode will be null if can't be casted to a liqCustomNode
+//						ribNode->assignedShader.setObject( rmShaderNodeObj );
+//						hasSurfaceShader = true;
+//						hasCustomSurfaceShader = liqCustomPxShaderNode;
+//					} 
+//					else 
+//					{ // Try to find a liqRIBBox attribute
+//						MPlug ribbPlug = shaderDepNode.findPlug( MString( "liqRIBBox" ), &status );
+//						if( status == MS::kSuccess ) 
+//						{
+//							ribbPlug.getValue( shaderRibBox );
+//							if( shaderRibBox.substring(0,2) == "*H*" ) 
+//							{
+//								MString parseThis = shaderRibBox.substring(3, shaderRibBox.length() - 1 );
+//								shaderRibBox = parseThis;
+//							} 
+//							else if( shaderRibBox.substring(0,3) == "*SH*" ) 
+//							{
+//								MString parseThis = shaderRibBox.substring(3, shaderRibBox.length() - 1 );
+//								shaderRibBox = parseThis;
+//							}
+//							hasSurfaceShader = true;
+//							hasCustomSurfaceShader = liqRibBoxShader;
+//						}
+//						// else {
+//						//liquidMessage( "Do noy know how to handle " + string( shaderDepNode.typeName().asChar() ), messageError );
+//						//}
+//					}
+//				}
+//			}
+//		}
+//		// Check for displacement shader
+//		status.clear();
+//		rmanShaderPlug = fnDagNode.findPlug( MString( "liquidDispShaderNode" ), &status );
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "liquidDispShaderNode" ), &status ); 
+//		}
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedDisp.findPlug( MString( "liquidDispShaderNode" ), &status ); 
+//		}
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "displacementShader" ), &status ); 
+//		}
+//		if( ( status == MS::kSuccess ) && !rmanShaderPlug.isNull() && !m_ignoreDisplacements ) 
+//		{
+//			if( rmanShaderPlug.isConnected() ) 
+//			{
+//				MPlugArray rmShaderNodeArray;
+//				rmanShaderPlug.connectedTo( rmShaderNodeArray, true, true );
+//				MObject rmShaderNodeObj;
+//				rmShaderNodeObj = rmShaderNodeArray[0].node();
+//				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
+//				// philippe : we must check the node type to avoid checking in regular maya shaders
+//				if( shaderDepNode.typeName() == "liquidDisplacement" 
+//					//added in r773 || shaderDepNode.typeName() == "liquidDisplacementSwitcher"
+//					|| shaderDepNode.typeName() == "oldBlindDataBase" ) 
+//				{
+//					ribNode->assignedDisp.setObject( rmShaderNodeObj );
+//					hasDisplacementShader = true;
+//				}
+//			}
+//		}
+//		// Check for volume shader
+//		status.clear();
+//		rmanShaderPlug = fnDagNode.findPlug( MString( "liquidVolumeShaderNode" ), &status );
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "liquidVolumeShaderNode" ), &status ); 
+//		}
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedVolume.findPlug( MString( "liquidVolumeShaderNode" ), &status ); 
+//		}
+//		if( ( status != MS::kSuccess ) || ( !rmanShaderPlug.isConnected() ) ) 
+//		{ 
+//			status.clear(); 
+//			rmanShaderPlug = ribNode->assignedShadingGroup.findPlug( MString( "volumeShader" ), &status ); 
+//		}
+//		if( ( status == MS::kSuccess ) && !rmanShaderPlug.isNull() && !m_ignoreVolumes ) 
+//		{
+//			if( rmanShaderPlug.isConnected() ) 
+//			{
+//				MPlugArray rmShaderNodeArray;
+//				rmanShaderPlug.connectedTo( rmShaderNodeArray, true, true );
+//				MObject rmShaderNodeObj;
+//				rmShaderNodeObj = rmShaderNodeArray[0].node();
+//				MFnDependencyNode shaderDepNode( rmShaderNodeObj );
+//				// philippe : we must check the node type to avoid checking in regular maya shaders
+//				if( shaderDepNode.typeName() == "liquidVolume" || shaderDepNode.typeName() == "oldBlindDataBase" ) 
+//				{
+//					ribNode->assignedVolume.setObject( rmShaderNodeObj );
+//					hasVolumeShader = true;
+//				}
+//			}
+//		}
+//// 		// displacement bounds
+//// 		float surfaceDisplacementBounds = 0.0;
+//// 		MString surfaceDisplacementBoundsSpace = "shader";
+//// 		MString tmpSpace = "";
+//// 		status.clear();
+//// 		if( !ribNode->assignedShader.object().isNull() ) 
+//// 		{
+//// 			MPlug sDBPlug = ribNode->assignedShader.findPlug( MString( "displacementBound" ), &status );
+//// 			if( status == MS::kSuccess ) 
+//// 				sDBPlug.getValue( surfaceDisplacementBounds );
+//// 			MPlug sDBSPlug = ribNode->assignedShader.findPlug( MString( "displacementBoundSpace" ), &status );
+//// 			if( status == MS::kSuccess ) 
+//// 				sDBSPlug.getValue( tmpSpace );
+//// 			if( tmpSpace != "" ) 
+//// 				surfaceDisplacementBoundsSpace = tmpSpace;
+//// 		}
+//// 		float dispDisplacementBounds = 0.0;
+//// 		MString dispDisplacementBoundsSpace = "shader";
+//// 		tmpSpace = "";
+//// 		status.clear();
+//// 		if( !ribNode->assignedDisp.object().isNull() ) 
+//// 		{
+//// 			MPlug dDBPlug = ribNode->assignedDisp.findPlug( MString( "displacementBound" ), &status );
+//// 			if( status == MS::kSuccess ) 
+//// 				dDBPlug.getValue( dispDisplacementBounds );
+//// 			MPlug sDBSPlug = ribNode->assignedDisp.findPlug( MString( "displacementBoundSpace" ), &status );
+//// 			if( status == MS::kSuccess ) 
+//// 				sDBSPlug.getValue( tmpSpace );
+//// 			if( tmpSpace != "" ) 
+//// 				dispDisplacementBoundsSpace = tmpSpace;
+//// 		}
+//// 		if( ( dispDisplacementBounds != 0.0 ) && ( dispDisplacementBounds > surfaceDisplacementBounds ) ) 
+//// 		{
+//// 			liqString coordsys( const_cast< char* >( dispDisplacementBoundsSpace.asChar() ) );
+//// 			RiAttribute( "displacementbound", (liqToken) "sphere", &dispDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+//// 		} 
+//// 		else if( ( surfaceDisplacementBounds != 0.0 ) ) 
+//// 		{
+//// 			liqString coordsys( const_cast< char* >( surfaceDisplacementBoundsSpace.asChar() ) );
+//// 			RiAttribute( "displacementbound", (liqToken) "sphere", &surfaceDisplacementBounds, "coordinatesystem", &coordsys, RI_NULL );
+//// 		}
+//		LIQDEBUGPRINTF( "-> writing node attributes\n" );
+//		// if the node's shading rate == -1,
+//		// it means it hasn't been overriden by a liqShadingRate attribute.
+//		// No need to output it then.
+//		if ( !m_skipShadingAttributes )
+//		if( ribNode->shading.shadingRate > 0 )
+//			RiShadingRate ( ribNode->shading.shadingRate );
+//
+//		liqString mode;
+//		liqInt off( 0 );
+//		liqInt on( 1 );
+//		if( liqglo_currentJob.pass != rpShadowMap  ) 
+//		{
+//
+//			if ( !m_skipShadingAttributes )
+//			{
+//			if( !ribNode->shading.diceRasterOrient ) 
+//				RiAttribute( "dice", (liqToken) "rasterorient", &off, RI_NULL );
+//			if( ribNode->shading.doubleShaded ) 
+//				RiAttribute( "sides", (liqToken) "doubleshaded", &on, RI_NULL );
+//			}
+//		if( !m_skipRayTraceAttributes )
+//		{
+//			if( liqglo.liquidRenderer.supports_RAYTRACE ) 
+//			{
+//				if( ribNode->trace.sampleMotion ) 
+//					RiAttribute( "trace", (liqToken) "samplemotion", &on, RI_NULL );
+//				if( ribNode->trace.displacements ) 
+//					RiAttribute( "trace", (liqToken) "displacements", &on, RI_NULL );
+//				if( ribNode->trace.bias != 0.01f ) 
+//				{
+//					liqFloat bias( ribNode->trace.bias );
+//					RiAttribute( "trace", (liqToken) "bias", &bias, RI_NULL );
+//				}
+//				if( ribNode->trace.maxDiffuseDepth != 1 ) 
+//				{
+//					liqInt mddepth( ribNode->trace.maxDiffuseDepth );
+//					RiAttribute( "trace", (liqToken) "maxdiffusedepth", &mddepth, RI_NULL );
+//				}
+//				if( ribNode->trace.maxSpecularDepth != 2 ) 
+//				{
+//					liqInt msdepth( ribNode->trace.maxSpecularDepth );
+//					RiAttribute( "trace", (liqToken) "maxspeculardepth", &msdepth, RI_NULL );
+//				}
+//			}//if( liqglo.liquidRenderer.supports_RAYTRACE ) 
+//		}//if( !m_skipRayTraceAttributes )
+//			if( !ribNode->visibility.camera ) 
+//				RiAttribute( "visibility", (liqToken) "camera", &off, RI_NULL );
+//#ifdef GENERIC_RIBLIB      
+//      extern int useAdvancedVisibilityAttributes;
+//      useAdvancedVisibilityAttributes = false;
+//#endif
+//
+//			// old-style raytracing visibility support
+//			// philippe: if raytracing is off in the globals, trace visibility is turned off for all objects, transmission is set to TRANSPARENT for all objects
+//      	if ( liqglo.liquidRenderer.supports_RAYTRACE )
+//      	{
+//        	if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
+//        	{
+//				if(liqglo.rt_useRayTracing)
+//				{
+//					if ( ribNode->visibility.trace ) 
+//						RiAttribute( "visibility", (liqToken) "trace", &on, RI_NULL );
+//					else                             
+//						RiAttribute( "visibility", (liqToken) "trace", &off, RI_NULL );
+//
+//					if( ribNode->visibility.transmission != liqRibNode::visibility::TRANSMISSION_TRANSPARENT ) 
+//					{
+//						liqString trans;
+//						switch( ribNode->visibility.transmission ) 
+//						{
+//						case liqRibNode::visibility::TRANSMISSION_OPAQUE:
+//							trans = "opaque";
+//							break;
+//						case liqRibNode::visibility::TRANSMISSION_OS:
+//							trans = "Os";
+//							break;
+//						case liqRibNode::visibility::TRANSMISSION_SHADER:
+//						default:
+//							trans = "shader";
+//						}
+//						RiAttribute( "visibility", (liqToken) "string transmission", &trans, RI_NULL );
+//					}
+//				}
+//
+//			}//if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY ) 
+//			else // philippe : prman 12.5 visibility support
+//			{
+//#ifdef GENERIC_RIBLIB         
+//				useAdvancedVisibilityAttributes = true;
+//#endif
+//          if ( liqglo.rt_useRayTracing )
+//          {
+//				if( !m_skipVisibilityAttributes )
+//				{
+//				if( ribNode->visibility.diffuse ) 
+//					RiAttribute( "visibility", (liqToken) "int diffuse", &on, RI_NULL );
+//
+//				if( ribNode->visibility.specular ) 
+//					RiAttribute( "visibility", (liqToken) "int specular", &on, RI_NULL );
+//
+//				if( ribNode->visibility.newtransmission ) 
+//					RiAttribute( "visibility", (liqToken) "int transmission", &on, RI_NULL );
+//
+//				//if( ribNode->visibility.camera ) 
+//				//	RiAttribute( "visibility", (liqToken) "int camera", &on, RI_NULL );
+//
+//				//if( ribNode->visibility.photon ) 
+//				//	RiAttribute( "visibility", (liqToken) "int photon", &on, RI_NULL );
+//
+//				//if( ribNode->visibility.midpoint ) 
+//				//	RiAttribute( "visibility", (liqToken) "int midpoint", &on, RI_NULL );
+//				}
+//				
+//				if( !m_skipRayTraceAttributes )
+//				{	
+//					if( ribNode->hitmode.diffuse != liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE ) 
+//					{
+//						switch( ribNode->hitmode.diffuse ) 
+//						{
+//						case liqRibNode::hitmode::DIFFUSE_HITMODE_SHADER:
+//							mode = "shader";
+//							break;
+//                  		case liqRibNode::hitmode::DIFFUSE_HITMODE_CACHE:
+//                  			mode = "cache";
+//                  			break;
+//						case liqRibNode::hitmode::DIFFUSE_HITMODE_PRIMITIVE:
+//						default:
+//							mode = "primitive";
+//						}
+//						RiAttribute( "shade", (liqToken) "string diffusehitmode", &mode, RI_NULL );
+//					}
+//
+//					if( ribNode->hitmode.specular != liqRibNode::hitmode::SPECULAR_HITMODE_SHADER ) 
+//					{
+//						switch( ribNode->hitmode.specular ) 
+//						{
+//						case liqRibNode::hitmode::SPECULAR_HITMODE_PRIMITIVE:
+//							mode = "primitive";
+//							break;
+//                  		case liqRibNode::hitmode::SPECULAR_HITMODE_CACHE:
+//                    		mode = "cache";
+//                    		break;
+//						case liqRibNode::hitmode::SPECULAR_HITMODE_SHADER:
+//						default:
+//							mode = "shader";
+//						}
+//						RiAttribute( "shade", (liqToken) "string specularhitmode", &mode, RI_NULL );
+//					}
+//
+//					if( ribNode->hitmode.transmission != liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER ) 
+//					{
+//						switch( ribNode->hitmode.transmission ) 
+//						{
+//						case liqRibNode::hitmode::TRANSMISSION_HITMODE_PRIMITIVE:
+//							mode = "primitive";
+//							break;
+//						case liqRibNode::hitmode::TRANSMISSION_HITMODE_CACHE:
+//                    		mode = "cache";
+//                    		break;
+//						case liqRibNode::hitmode::TRANSMISSION_HITMODE_SHADER:
+//						default:
+//							mode = "shader";
+//						}
+//						RiAttribute( "shade", (liqToken) "string transmissionhitmode", &mode, RI_NULL );
+//					}
+//				}//if( !m_skipRayTraceAttributes )
+//			}//if ( rt_useRayTracing )
+//				if( !m_skipShadingAttributes )
+//				{
+//				if( ribNode->hitmode.camera != liqRibNode::hitmode::CAMERA_HITMODE_SHADER ) 
+//				{
+//					switch( ribNode->hitmode.camera ) 
+//					{
+//					case liqRibNode::hitmode::CAMERA_HITMODE_PRIMITIVE:
+//						mode = "primitive";
+//						break;
+//                	case liqRibNode::hitmode::CAMERA_HITMODE_CACHE:
+//                		mode = "cache";
+//                		break;
+//					case liqRibNode::hitmode::CAMERA_HITMODE_SHADER:
+//					default:
+//						mode = "shader";
+//					}
+//					RiAttribute( "shade", (liqToken) "string camerahitmode", &mode, RI_NULL );
+//				}
+//				}//if ( !m_skipShadingAttributes )
+//			}//else  // philippe : prman 12.5 visibility support
+//        // irradiance attributes
+//
+//				if( ribNode->irradiance.shadingRate != 1.0f ) 
+//				{
+//					liqFloat rate = ribNode->irradiance.shadingRate;
+//					RiAttribute( "irradiance", (liqToken) "shadingrate", &rate, RI_NULL );
+//				}
+//
+//				if( ribNode->irradiance.nSamples != 64 ) 
+//				{
+//					liqInt samples = ribNode->irradiance.nSamples;
+//					RiAttribute( "irradiance", (liqToken) "nsamples", &samples, RI_NULL );
+//				}
+//
+//				if( ribNode->irradiance.maxError != 0.5f ) 
+//				{
+//					liqFloat merror = ribNode->irradiance.maxError;
+//					RiAttribute( "irradiance", (liqToken) "float maxerror", &merror, RI_NULL );
+//				}
+//
+//				if( ribNode->irradiance.maxPixelDist != 30.0f ) 
+//				{
+//					liqFloat mpd = ribNode->irradiance.maxPixelDist;
+//					RiAttribute( "irradiance", (liqToken) "float maxpixeldist", &mpd, RI_NULL );
+//				}
+//
+//				if( ribNode->irradiance.handle != "" ) 
+//				{
+//					liqString handle = const_cast< char* >( ribNode->irradiance.handle.asChar() );
+//					RiAttribute( "irradiance", (liqToken) "handle", &handle, RI_NULL );
+//				}
+//
+//				if( ribNode->irradiance.fileMode != liqRibNode::irradiance::FILEMODE_NONE ) 
+//				{
+//					liqString mode;
+//					switch( ribNode->irradiance.fileMode ) 
+//					{
+//					case liqRibNode::irradiance::FILEMODE_READ:
+//						mode = "r";
+//						break;
+//					case liqRibNode::irradiance::FILEMODE_WRITE:
+//						mode = "w";
+//						break;
+//					case liqRibNode::irradiance::FILEMODE_READ_WRITE:
+//					default:
+//						mode = "rw";
+//					}
+//					RiAttribute( "irradiance", (liqToken) "filemode", &mode, RI_NULL );
+//				}
+//
+//				// ymesh: photon visibility support
+//				if ( liqglo.rt_useRayTracing && ribNode->visibility.photon ) 
+//					RiAttribute( "visibility", (liqToken) "int photon", &on, RI_NULL );
+//			
+//				if( ribNode->photon.globalMap != "" ) 
+//				{
+//          			MString parsedName = parseString( ribNode->photon.globalMap, false );  //  doEscaped = false
+//          			liqString map = const_cast< char* >( parsedName.asChar() );
+//          			RiAttribute( "photon", (liqToken) "globalmap", &map, RI_NULL );
+//				}
+//
+//				if( ribNode->photon.causticMap != "" ) 
+//				{
+//          			MString parsedName = parseString( ribNode->photon.causticMap, false );  //  doEscaped = false
+//          			liqString map = const_cast< char* >( parsedName.asChar() );
+//          			RiAttribute( "photon", (liqToken) "causticmap", &map, RI_NULL );
+//				}
+//
+//				if( ribNode->photon.shadingModel != liqRibNode::photon::SHADINGMODEL_MATTE ) 
+//				{
+//					switch( ribNode->photon.shadingModel  ) 
+//					{
+//						case liqRibNode::photon::SHADINGMODEL_GLASS:
+//							mode = "glass";
+//							break;
+//						case liqRibNode::photon::SHADINGMODEL_WATER:
+//							mode = "water";
+//							break;
+//						case liqRibNode::photon::SHADINGMODEL_CHROME:
+//							mode = "chrome";
+//							break;
+//						case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
+//							mode = "chrome";
+//							break;
+//						case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
+//							mode = "dielectric";
+//							break;
+//						case liqRibNode::photon::SHADINGMODEL_MATTE:
+//						default:
+//							mode = "matte";
+//					}
+//					RiAttribute( "photon", (liqToken) "shadingmodel", &mode, RI_NULL );
+//				}
+//
+//				if( ribNode->photon.estimator != 100 ) 
+//				{
+//					liqInt estimator = ribNode->photon.estimator;
+//					RiAttribute( "photon", (liqToken) "estimator", &estimator, RI_NULL );
+//				}
+//
+//			} // liquidRenderer.supports_RAYTRACE
+//
+//			// 3Delight sss group
+//			if( ribNode->delightSSS.doScatter && liqglo.liquidRenderer.renderName == MString("3Delight") )
+//			{
+//#ifdef GENERIC_RIBLIB         
+//				useAdvancedVisibilityAttributes = true;
+//#endif			  
+//				liqString groupName = const_cast< char* >( ribNode->delightSSS.groupName.asChar() );
+//				RiAttribute( "visibility", (liqToken) "string subsurface", &groupName, RI_NULL );
+//
+//				liqColor scattering, absorption;
+//				scattering[0] = ribNode->delightSSS.scattering.r;
+//				scattering[1] = ribNode->delightSSS.scattering.g;
+//				scattering[2] = ribNode->delightSSS.scattering.b;
+//
+//				absorption[0] = ribNode->delightSSS.absorption.r;
+//				absorption[1] = ribNode->delightSSS.absorption.g;
+//				absorption[2] = ribNode->delightSSS.absorption.b;
+//
+//				if ( scattering[0] && scattering[1] && scattering[2] )
+//					RiAttribute( "subsurface",
+//					(liqToken) "scattering", &scattering,
+//					(liqToken) "absorption", &absorption,
+//					RI_NULL );
+//
+//				liqFloat refractionindex = ribNode->delightSSS.refraction;
+//				liqFloat shadingrate = ribNode->delightSSS.shadingRate;
+//				liqFloat scale = ribNode->delightSSS.scale;
+//
+//				RiAttribute( "subsurface",
+//					(liqToken) "refractionindex", &refractionindex,
+//					(liqToken) "shadingrate", &shadingrate,
+//					(liqToken) "scale", &scale, 
+//					RI_NULL );
+//
+//				liqColor meanfreepath, reflectance;
+//				meanfreepath[0] = ribNode->delightSSS.meanfreepath.r;
+//				meanfreepath[1] = ribNode->delightSSS.meanfreepath.g;
+//				meanfreepath[2] = ribNode->delightSSS.meanfreepath.b;
+//
+//				reflectance[0] = ribNode->delightSSS.reflectance.r;
+//				reflectance[1] = ribNode->delightSSS.reflectance.g;
+//				reflectance[2] = ribNode->delightSSS.reflectance.b;
+//
+//				if ( reflectance[0] && reflectance[1] && reflectance[2] )
+//					RiAttribute( "subsurface",
+//					(liqToken) "meanfreepath", &meanfreepath,
+//					(liqToken) "reflectance", &reflectance, 
+//					RI_NULL );
+//
+//				if ( ribNode->delightSSS.referencecamera != "" )
+//				{
+//					liqString referenceCamera = const_cast< char* >( ribNode->delightSSS.referencecamera.asChar() );
+//					RiAttribute( "subsurface", (liqToken) "string referencecamera", &referenceCamera, RI_NULL );
+//				}
+//			}// 3Delight sss group
+//
+//			//strategy
+//			{
+//				if(ribNode->strategy.strategy_!="grids"){
+//					liqString strategy = const_cast<char*>(ribNode->strategy.strategy_.asChar());
+//					RiAttribute("shade",(liqToken)"string strategy", &strategy, RI_NULL);
+//				}
+//
+//				if(ribNode->strategy.volumeIntersectionStrategy!="exclusive"){
+//					liqString volumeIntersectionStrategy = const_cast<char*>(ribNode->strategy.volumeIntersectionStrategy.asChar());
+//					RiAttribute("shade",(liqToken)"string volumeintersectionstrategy", &volumeIntersectionStrategy, RI_NULL);
+//				}
+//
+//				if(ribNode->strategy.volumeIntersectionPriority >0.0001){
+//					liqFloat volumeIntersectionPriority = ribNode->strategy.volumeIntersectionPriority;
+//					RiAttribute("shade",(liqToken)"float volumeintersectionpriority", &volumeIntersectionPriority, RI_NULL);
+//				}
+//			}
+//
+//			//trim curve 
+//			{
+//				liqString sense = "inside";
+//
+//				switch(ribNode->trimcurve.sense){
+//				case liqRibNode::trimcurve::INSIDE:  
+//					{
+//						sense  = "inside";
+//						//RiAttribute("trimcurve",(liqToken)"string sense", &sense, RI_NULL);//default value, need not to write.
+//					}break;
+//				case liqRibNode::trimcurve::OUTSIDE:
+//					{
+//						sense  = "outside";
+//						RiAttribute("trimcurve",(liqToken)"string sense", &sense, RI_NULL);	
+//					}break;
+//				default:
+//					assert(0);
+//				}
+//
+//			}//trim curve 
+//
+//			//stitch
+//			{
+//				if( ribNode->stitch.enable != true ){
+//					liqInt enable = (ribNode->stitch.enable)? 1: 0;
+//					RiAttribute("stitch",(liqToken)"int enable", &enable, RI_NULL);	
+//				}
+//				if( ribNode->stitch.traceenable != false ){
+//					liqInt traceenable = (ribNode->stitch.traceenable)? 1: 0;
+//					RiAttribute("stitch",(liqToken)"int traceenable", &traceenable, RI_NULL);	
+//				}
+//				if( ribNode->stitch.newgroup != false ){
+//					liqInt newgroup = (ribNode->stitch.newgroup)? 1: 0;
+//					RiAttribute("stitch",(liqToken)"int newgroup", &newgroup, RI_NULL);	
+//				}	
+//			}//stitch
+//
+//			//stochastic
+//			{
+//				if( ribNode->stochastic.sigma != 0 ){
+//					liqInt sigma = ribNode->stochastic.sigma;
+//					RiAttribute("stochastic",(liqToken)"int sigma", &sigma, RI_NULL);	
+//				}
+//				if( ribNode->stochastic.pointfalloff != 0 ){
+//					liqInt pointfalloff = ribNode->stochastic.pointfalloff;
+//					RiAttribute("stochastic",(liqToken)"int pointfalloff", &pointfalloff, RI_NULL);	
+//				}
+//			}//stochastic
+//
+//			//dice
+//			{
+//				if( ribNode->dice.binary != 0 ){
+//					liqInt binary = ribNode->dice.binary;
+//					RiAttribute("dice",(liqToken)"int binary", &binary, RI_NULL);
+//				}
+//				if( ribNode->dice.hair != 0 ){
+//					liqInt hair = ribNode->dice.hair;
+//					RiAttribute("dice",(liqToken)"int hair", &hair, RI_NULL);
+//				}
+//				//strategy
+//				liqString strategy = "planarprojection";
+//				switch(ribNode->dice.strategy){
+//				  case liqRibNode::dice::PLANAR_PROJECTION:
+//					  {
+//						  strategy = "planarprojection";
+//						  //RiAttribute("dice",(liqToken)"string strategy", &strategy, RI_NULL); //default value
+//					  }break;
+//				  case liqRibNode::dice::SPHERICAL_PROJECTION:
+//					  {
+//						  strategy = "sphericalprojection";
+//						  RiAttribute("dice",(liqToken)"string strategy", &strategy, RI_NULL);
+//					  }break;
+//				  default:
+//					  assert(0);
+//				}
+//				//referencecamera
+//				liqString referencecamera = "worldcamera";
+//				switch(ribNode->dice.referencecamera){
+//				  case liqRibNode::dice::WORLD_CAMERA:
+//					  {
+//						  referencecamera = "worldcamera";
+//						  //RiAttribute("dice",(liqToken)"string referencecamera", &referencecamera, RI_NULL); //default value
+//					  }break;
+//				  case liqRibNode::dice::FRAME_CAMERA:
+//					  {
+//						  referencecamera = "framecamera";
+//						  RiAttribute("dice",(liqToken)"string referencecamera", &referencecamera, RI_NULL);
+//					  }break;
+//				  default:
+//					  assert(0);
+//				}
+//
+//			}//dice
+//
+//			//derivatives
+//			{
+//				if( ribNode->derivatives.centered != 1 ){
+//					liqInt centered = ribNode->derivatives.centered;
+//					RiAttribute("derivatives",(liqToken)"int centered", &centered, RI_NULL);
+//				}
+//				if( ribNode->derivatives.extrapolate != 1 ){
+//					liqInt extrapolate = ribNode->derivatives.extrapolate;
+//					RiAttribute("derivatives",(liqToken)"int extrapolate", &extrapolate, RI_NULL);
+//				}
+//			}//derivatives
+//
+//			//procedural
+//			{
+//				if( ribNode->procedural.attribute.length()>0 ){
+//					liqString attribute = const_cast<char*>(ribNode->procedural.attribute.asChar());
+//					RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
+//				}
+//			}//procedural
+//
+//			if( liqglo.liqglo_doMotion && 
+//				ribNode->motion.factor != 1.0f && 
+//				( ribNode->motion.deformationBlur || ribNode->motion.transformationBlur ) ) 
+//				RiGeometricApproximation( "motionfactor", ribNode->motion.factor );
+//
+//			ribNode->writeUserAttributes();
+//		}// liqglo_currentJob.pass != rpShadowMap
+//		//[refactor 33] begin
+//		bool writeShaders( true );
+//
+//		if( liqglo_currentJob.pass == rpShadowMap &&
+//			(   (  liqglo_currentJob.shadowType != stDeep && !m_outputShadersInShadows ) 
+//			 || (  liqglo_currentJob.shadowType == stDeep && !m_outputShadersInDeepShadows ) )
+//			)
+//		{
+//			writeShaders = false;
+//		}
+//		//[refactor 33] end
+//		//[refactor 34] begin
+//		// new prman 16.x shade attributes group 
+//		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
+//		{
+//		  mode = "vpvolumes"; 
+//		  RiAttribute( "shade", (liqToken) "strategy", &mode, RI_NULL );
+//		}
+//		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
+//		{
+//		  mode = "additive"; 
+//		  RiAttribute( "shade", (liqToken) "volumeintersectionstrategy", &mode, RI_NULL );
+//		}
+//		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
+//		{
+//		  liqFloat value= ribNode->shade.volumeIntersectionPriority; 
+//		  RiAttribute( "shade", (liqToken) "volumeintersectionpriority", &value, RI_NULL );
+//		}
+//		//[refactor 34] end
+////		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
+////			liqglo_currentJob.isShadow, 
+////			liqglo_currentJob.deepShadows, m_outputShadersInShadows, liqglo_currentJob.deepShadows, m_outputShadersInDeepShadows );
+//		if( writeShaders ) 
+//		{
+//			liqRIBMsg("[5] hasVolumeShader=%d, m_ignoreVolumes=%d", hasVolumeShader, m_ignoreVolumes );
+//			if( hasVolumeShader && !m_ignoreVolumes ) 
+//			{
+//				//liqShader& currentShader( liqGetShader( ribNode->assignedVolume.object() ) );
+//				liqShader& currentShader = liqShaderFactory::instance().getShader( ribNode->assignedVolume.object() );
+//				liqRIBMsg("[1] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", liqglo_currentJob.pass, currentShader.outputInShadow );
+//				// per shader shadow pass override
+//				if( liqglo_currentJob.pass != rpShadowMap || currentShader.outputInShadow )
+//				{
+//					currentShader.write( );
+//				}
+//			}
+//			if( hasSurfaceShader && !m_ignoreSurfaces )
+//			{
+//				if( hasCustomSurfaceShader )
+//				{
+//					if( hasCustomSurfaceShader == liqCustomPxShaderNode )
+//					{  // Just call the write method of the custom shader
+//						MFnDependencyNode customShaderDepNode( ribNode->assignedShader.object() );
+//						MPxNode *mpxNode = customShaderDepNode.userNode();
+//						liqCustomNode *customNode( NULL );
+//						if( mpxNode && ( customNode = dynamic_cast<liqCustomNode*>( mpxNode ) ) )
+//							customNode->liquidWrite();
+//						else
+//							;// Should never happen in theory ... but what is the way to report a problem ???
+//					}
+//					else//hasCustomSurfaceShader==liqRibBoxShader
+//					{ 
+//						// Default : just write the contents of the rib box
+//						RiArchiveRecord( RI_VERBATIM, ( char* )shaderRibBox.asChar() );
+//						RiArchiveRecord( RI_VERBATIM, "\n" );
+//					}
+//				}
+//				else//hasCustomSurfaceShader==liqRegularShaderNode
+//				{
+//					//liqShader& currentShader( liqGetShader( ribNode->assignedShader.object() ) );
+//					liqShader& currentShader = liqShaderFactory::instance().getShader( ribNode->assignedShader.object() );
+//
+//					// Output color overrides or color ====>>>>>  WILL BE DONE IN liqShader::write -begin //r773 going to omit in r773
+//					if(ribNode->shading.color.r != -1.0)
+//					{
+//						liqColor rColor;
+//						rColor[0] = ribNode->shading.color[0];
+//						rColor[1] = ribNode->shading.color[1];
+//						rColor[2] = ribNode->shading.color[2];
+//						RiArchiveRecord( RI_COMMENT, "mark1" );
+//						RiColor( rColor );
+//					}
+//					else{
+//						RiArchiveRecord( RI_COMMENT, "mark2" );
+//						RiColor( currentShader.rmColor );
+//					}
+//
+//					if(ribNode->shading.opacity.r != -1.0)
+//					{
+//						liqColor rOpacity;
+//						rOpacity[0] = ribNode->shading.opacity[0];
+//						rOpacity[1] = ribNode->shading.opacity[1];
+//						rOpacity[2] = ribNode->shading.opacity[2];
+//						RiOpacity( rOpacity );
+//					}
+//					else
+//						RiOpacity( currentShader.rmOpacity );
+//					liqRIBMsg("[2] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", liqglo_currentJob.pass, currentShader.outputInShadow );
+//					//====>>>>>  WILL BE DONE IN liqShader::write  -end
+//					
+//					// per shader shadow pass override
+//					if( liqglo_currentJob.pass != rpShadowMap || currentShader.outputInShadow )
+//					{
+//						currentShader.write();
+//					}
+//				}
+//			} 
+//			else //if( hasSurfaceShader && !m_ignoreSurfaces )
+//			{
+//				liqColor rColor,rOpacity;
+//				if( m_shaderDebug ) 
+//				{
+//					liqRIBMsg("shader debug is turned on, so the object is red.");
+//					// shader debug on !! everything goes red and opaque !!!
+//					rColor[0] = 1.;
+//					rColor[1] = 0.;
+//					rColor[2] = 0.;
+//					RiArchiveRecord( RI_COMMENT, "mark3" );
+//					RiColor( rColor );
+//
+//					rOpacity[0] = 1.;
+//					rOpacity[1] = 1.;
+//					rOpacity[2] = 1.;
+//					RiOpacity( rOpacity );
+//				} 
+//				else 
+//				{
+//					if(ribNode->shading.color.r != -1.0) 
+//					{
+//						rColor[0] = ribNode->shading.color[0];
+//						rColor[1] = ribNode->shading.color[1];
+//						rColor[2] = ribNode->shading.color[2];
+//						RiArchiveRecord( RI_COMMENT, "mark4" );
+//						RiColor( rColor );
+//					} 
+//					else if( ( ribNode->color.r != -1.0 ) ) 
+//					{
+//						rColor[0] = ribNode->color[0];
+//						rColor[1] = ribNode->color[1];
+//						rColor[2] = ribNode->color[2];
+//						RiArchiveRecord( RI_COMMENT, "mark5" );
+//						RiColor( rColor );
+//					}
+//					if(ribNode->shading.opacity.r != -1.0) 
+//					{
+//						rOpacity[0] = ribNode->shading.opacity[0];
+//						rOpacity[1] = ribNode->shading.opacity[1];
+//						rOpacity[2] = ribNode->shading.opacity[2];
+//						RiOpacity( rOpacity );
+//					} 
+//					else if( ( ribNode->opacity.r != -1.0 ) ) 
+//					{
+//						rOpacity[0] = ribNode->opacity[0];
+//						rOpacity[1] = ribNode->opacity[1];
+//						rOpacity[2] = ribNode->opacity[2];
+//						RiOpacity( rOpacity );
+//					}
+//				}
+//
+//				if( !m_ignoreSurfaces ) 
+//				{
+//					MObject shadingGroup = ribNode->assignedShadingGroup.object();
+//					MObject shader = ribNode->findShader();
+//					//
+//					// here we check for regular shader nodes first
+//					// and assign default shader to shader-less nodes.
+//					//
+//					if( m_shaderDebug ) {
+//						liqRIBMsg("shader debug is turned on, so the surface is constant.");
+//						RiSurface( "constant", RI_NULL );
+//						LIQDEBUGPRINTF("add more constant parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorBlinn.sl as an example.(?)");
+//					}
+//// 					else if( shader.apiType() == MFn::kLambert ){ 
+//// 						RiSurface( "matte", RI_NULL );
+//// 						LIQDEBUGPRINTF("add more lambert parameters here. take //RMS-1.0.1-Maya2008/lib/shaders/src/mtorLambert.sl as an example.");
+//// 					}else if( shader.apiType() == MFn::kPhong ) {
+//// 						RiSurface( "plastic", RI_NULL );
+//// 						LIQDEBUGPRINTF("add more phong parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorPhong.sl as an example.");
+//// 					}
+//					else if( path.hasFn( MFn::kPfxHair ) ) 
+//					{
+//						// get some of the hair system parameters
+//						liqFloat translucence = 0, specularPower = 0;
+//						liqColor specularColor;
+//						//cout <<"getting pfxHair shading params..."<<endl;
+//						MObject hairSystemObj;
+//						MFnDependencyNode pfxHairNode( path.node() );
+//						MPlug plugToHairSystem = pfxHairNode.findPlug( "renderHairs", &status );
+//						MPlugArray hsPlugs;
+//						status.clear();
+//						if( plugToHairSystem.connectedTo( hsPlugs, true, false, &status ) ) 
+//							if( status == MS::kSuccess ) 
+//								hairSystemObj = hsPlugs[0].node();
+//
+//						if( hairSystemObj != MObject::kNullObj ) 
+//						{
+//							MFnDependencyNode hairSystemNode(hairSystemObj);
+//							MPlug paramPlug;
+//							status.clear();
+//							paramPlug = hairSystemNode.findPlug( "translucence", &status );
+//							if( status == MS::kSuccess ) 
+//								paramPlug.getValue( translucence );
+//							status.clear();
+//							paramPlug = hairSystemNode.findPlug( "specularColor", &status );
+//							if( status == MS::kSuccess ) 
+//							{
+//								paramPlug.child(0).getValue( specularColor[0] );
+//								paramPlug.child(1).getValue( specularColor[1] );
+//								paramPlug.child(2).getValue( specularColor[2] );
+//							}
+//							status.clear();
+//							paramPlug = hairSystemNode.findPlug( "specularPower", &status );
+//							if( status == MS::kSuccess ) 
+//								paramPlug.getValue( specularPower );
+//						}
+//						RiSurface(  "liquidpfxhair",
+//							"float specularpower", &specularPower,
+//							"float translucence",  &translucence,
+//							"color specularcolor", &specularColor,
+//							RI_NULL );
+//					} 
+//					else if( path.hasFn( MFn::kPfxToon ) ) {
+//						RiSurface( "liquidpfxtoon", RI_NULL );
+//					}else if( path.hasFn( MFn::kPfxGeometry ) ){
+//						RiSurface( "liquidpfx", RI_NULL );
+//					}else {
+//						//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
+//						MFnDependencyNode shaderFn(shader);
+//						RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
+//					}
+//				}//if ( !m_ignoreSurfaces )  
+//			}//if( hasSurfaceShader && !m_ignoreSurfaces )else
+//		} //if( writeShaders ) 
+//		else if( liqglo_currentJob.shadowType == stDeep ) 
+//		{
+//			liqRIBMsg("[7] liqglo_currentJob[.deepShadows=%d, .isShadow=%d ], hasSurfaceShader=%d, hasCustomSurfaceShader=%d",
+//				liqglo_currentJob.shadowType, liqglo_currentJob.pass, hasSurfaceShader, hasCustomSurfaceShader );
+//
+//			// if the current job is a deep shadow,
+//			// we still want to output primitive color and opacity and surface shader
+//			// In case of custom shaders, what should we do ? Stephane.
+//			if( hasSurfaceShader && ! hasCustomSurfaceShader ) 
+//			{
+//				//liqShader & currentShader = liqGetShader( ribNode->assignedShader.object());
+//				liqShader &currentShader = liqShaderFactory::instance().getShader( ribNode->assignedShader.object() );
+//
+//				// Output color overrides or color
+//				if(ribNode->shading.color.r != -1.0) 
+//				{
+//					liqColor rColor;
+//					rColor[0] = ribNode->shading.color[0];
+//					rColor[1] = ribNode->shading.color[1];
+//					rColor[2] = ribNode->shading.color[2];
+//					RiArchiveRecord( RI_COMMENT, "mark6" );
+//					RiColor( rColor );
+//				} 
+//				else {
+//					RiArchiveRecord( RI_COMMENT, "mark7" );
+//					RiColor( currentShader.rmColor );
+//				}
+//
+//				if(ribNode->shading.opacity.r != -1.0) 
+//				{
+//					liqColor rOpacity;
+//					rOpacity[0] = ribNode->shading.opacity[0];
+//					rOpacity[1] = ribNode->shading.opacity[1];
+//					rOpacity[2] = ribNode->shading.opacity[2];
+//					RiOpacity( rOpacity );
+//				} 
+//				else 
+//					RiOpacity( currentShader.rmOpacity );
+//				
+//				liqRIBMsg("[8] currentShader[.name=%s, .filename=%s, .outputInShadow=%d]", currentShader.getName().c_str(), currentShader.getShaderFileName().c_str(), currentShader.outputInShadow );
+//				if(currentShader.outputInShadow){
+//					currentShader.write();
+//				}
+//
+//			} 
+//			else 
+//			{
+//				liqColor rColor,rOpacity;
+//
+//				if(ribNode->shading.color.r != -1.0) 
+//				{
+//					rColor[0] = ribNode->shading.color[0];
+//					rColor[1] = ribNode->shading.color[1];
+//					rColor[2] = ribNode->shading.color[2];
+//					RiArchiveRecord( RI_COMMENT, "mark8" );
+//					RiColor( rColor );
+//				} 
+//				else if( ( ribNode->color.r != -1.0 ) ) 
+//				{
+//					rColor[0] = ribNode->color[0];
+//					rColor[1] = ribNode->color[1];
+//					rColor[2] = ribNode->color[2];
+//					RiArchiveRecord( RI_COMMENT, "mark9" );
+//					RiColor( rColor );
+//				}
+//				if(ribNode->shading.opacity.r != -1.0) 
+//				{
+//					rOpacity[0] = ribNode->shading.opacity[0];
+//					rOpacity[1] = ribNode->shading.opacity[1];
+//					rOpacity[2] = ribNode->shading.opacity[2];
+//					RiOpacity( rOpacity );
+//				} 
+//				else if( ( ribNode->opacity.r != -1.0 ) ) 
+//				{
+//					rOpacity[0] = ribNode->opacity[0];
+//					rOpacity[1] = ribNode->opacity[1];
+//					rOpacity[2] = ribNode->opacity[2];
+//					RiOpacity( rOpacity );
+//				}
+//				if( path.hasFn( MFn::kPfxHair ) ) 
+//				{
+//					// get some of the hair system parameters
+//					float translucence = 0, specularPower = 0;
+//					float specularColor[3];
+//					//cout <<"getting pfxHair shading params..."<<endl;
+//					MObject hairSystemObj;
+//					MFnDependencyNode pfxHairNode( path.node() );
+//					MPlug plugToHairSystem = pfxHairNode.findPlug( "renderHairs", &status );
+//					MPlugArray hsPlugs;
+//					status.clear();
+//					if( plugToHairSystem.connectedTo( hsPlugs, true, false, &status ) ) 
+//						if( status == MS::kSuccess ) 
+//							hairSystemObj = hsPlugs[0].node();
+//					if( hairSystemObj != MObject::kNullObj ) 
+//					{
+//						MFnDependencyNode hairSystemNode(hairSystemObj);
+//						MPlug paramPlug;
+//						status.clear();
+//						paramPlug = hairSystemNode.findPlug( "translucence", &status );
+//						if( status == MS::kSuccess ) 
+//							paramPlug.getValue( translucence );
+//						status.clear();
+//						paramPlug = hairSystemNode.findPlug( "specularColor", &status );
+//						if( status == MS::kSuccess ) 
+//						{
+//							paramPlug.child(0).getValue( specularColor[0] );
+//							paramPlug.child(1).getValue( specularColor[1] );
+//							paramPlug.child(2).getValue( specularColor[2] );
+//							//cout <<"specularColor = "<<specularColor<<endl;
+//						}
+//						status.clear();
+//						paramPlug = hairSystemNode.findPlug( "specularPower", &status );
+//						if( status == MS::kSuccess ) 
+//							paramPlug.getValue( specularPower );
+//					}
+//					RiSurface(  "liquidPfxHair",
+//						"float specularPower", &specularPower,
+//						"float translucence",  &translucence,
+//						"color specularColor", &specularColor,
+//						RI_NULL );
+//				}
+//			}
+//		} 
+//		else 
+//			RiSurface( "null", RI_NULL );
+//
+//		liqRIBMsg("[4] hasDisplacementShader=%d, m_ignoreDisplacements=%d", hasDisplacementShader, m_ignoreDisplacements );
+//		if( hasDisplacementShader && !m_ignoreDisplacements ) 
+//		{
+//			//liqShader & currentShader = liqGetShader( ribNode->assignedDisp.object() );
+//			liqShader &currentShader = liqShaderFactory::instance().getShader( ribNode->assignedDisp.object() );
+//			
+//			liqRIBMsg("[3] liqglo_currentJob.isShadow=%d, currentShader.outputInShadow=%d", liqglo_currentJob.pass, currentShader.outputInShadow );
+//			// per shader shadow pass override
+//			if( liqglo_currentJob.pass != rpShadowMap || currentShader.outputInShadow )
+//			{
+//				currentShader.write();
+//			}
+//		}
+//		if( ribNode->rib.hasBox() ) 
+//			RiArchiveRecord( RI_COMMENT, " RIB Box:\n%s", ribNode->rib.box.asChar() );
+//		if( ribNode->rib.hasGenerator() ){
+//			MGlobal::executeCommand( ribNode->rib.generator, false, false );
+//		}
+//		if( ribNode->rib.hasReadArchive() ) 
+//			RiArchiveRecord( RI_VERBATIM, " ReadArchive \"%s\" \n", ribNode->rib.readArchive.asChar() );
+//		if( ribNode->rib.hasDelayedReadArchive() ) 
+//		{
+//			RiArchiveRecord( RI_VERBATIM, " Procedural \"DelayedReadArchive\" [ \"%s\" ] [ %f %f %f %f %f %f ] \n", ribNode->rib.delayedReadArchive.asChar(), ribNode->bound[0],ribNode->bound[3],ribNode->bound[1],ribNode->bound[4],ribNode->bound[2],ribNode->bound[5] );
+//			// should be using the bounding box node - Alf
+//			/* {
+//			// this is a visual display of the archive's bounding box
+//			RiAttributeBegin();
+//			liqColor debug;
+//			debug[0] = debug[1] = 1;
+//			debug[2] = 0;
+//			RiColor( debug );
+//			debug[0] = debug[1] = debug[2] = 0.250;
+//			RiOpacity( debug );
+//			RiSurface( "defaultsurface", RI_NULL );
+//			RiArchiveRecord( RI_VERBATIM, "Attribute \"visibility\" \"int diffuse\" [0]\n" );
+//			RiArchiveRecord( RI_VERBATIM, "Attribute \"visibility\" \"int specular\" [0]\n" );
+//			RiArchiveRecord( RI_VERBATIM, "Attribute \"visibility\" \"int transmission\" [0]\n" );
+//			float xmin = ribNode->bound[0];
+//			float ymin = ribNode->bound[1];
+//			float zmin = ribNode->bound[2];
+//			float xmax = ribNode->bound[3];
+//			float ymax = ribNode->bound[4];
+//			float zmax = ribNode->bound[5];
+//			RiSides( 2 );
+//			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymax,zmin, xmax,ymax,zmin, xmax,ymax,zmax, xmin,ymax,zmax );
+//			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymin,zmin, xmax,ymin,zmin, xmax,ymin,zmax, xmin,ymin,zmax );
+//			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymax,zmax, xmax,ymax,zmax, xmax,ymin,zmax, xmin,ymin,zmax );
+//			RiArchiveRecord( RI_VERBATIM, "Polygon \"P\" [ %f %f %f  %f %f %f  %f %f %f  %f %f %f ]\n", xmin,ymax,zmin, xmax,ymax,zmin, xmax,ymin,zmin, xmin,ymin,zmin );
+//			RiAttributeEnd();
+//			} */
+//		}
+//		// Alf: preShapeMel
+//		prePostPlug = fnTransform.findPlug( "liqPreShapeMel" );
+//		m_preShapeMel = prePostPlug.asString();
+//		if( m_preShapeMel != "" )
+//			MGlobal::executeCommand( m_preShapeMel );
+//
+//		//refactor 31 begin to renderman::Renderer::exportOneObject_reference()
+//
+//		// receive shadows ?   =>   Attribute "user" "int receivesShadows" [0/1]
+// 		if( !ribNode->object(0)->receiveShadow )
+//		{
+//			int receiveShadows = ribNode->object(0)->receiveShadow;
+//			RiAttribute("user", (liqToken)"int receivesShadows", &receiveShadows, RI_NULL);
+//		}
+//		//refactor 31 end
+//
+//		if( !ribNode->ignoreShapes ) 
+//		{
+//			liqRIBMsg("ribNode->object(0)->type= %d, path=%s",ribNode->object(0)->type, ribNode->path().fullPathName().asChar() );
+//			// check to see if we are writing a curve to set the proper basis
+//			if( ribNode->object(0)->type == MRT_NuCurve
+//				|| ribNode->object(0)->type == MRT_PfxHair
+//				|| ribNode->object(0)->type == MRT_PfxTube
+//				|| ribNode->object(0)->type == MRT_PfxLeaf
+//				|| ribNode->object(0)->type == MRT_PfxPetal 
+//				|| ribNode->object(0)->type == MRT_Curves )
+//
+//			{
+//				RiBasis( RiBSplineBasis, 1, RiBSplineBasis, 1 );
+//			} 
+//
+//			bool doMotion ( liqglo.liqglo_doDef && ribNode->motion.deformationBlur &&
+//				( ribNode->object(1) ) &&
+//				( ribNode->object(0)->type != MRT_RibGen ) &&
+//				//( ribNode->object(0)->type != MRT_Locator ) &&
+//				( liqglo_currentJob.pass != rpShadowMap || liqglo_currentJob.shadowType == stDeep ) );
+//
+//			if( doMotion )
+//			{
+//				// For each grain, open a new motion block...
+//				for( unsigned i( 0 ); i < ribNode->object( 0 )->granularity(); i++ ) //granularity() is always 1.
+//				{
+//					if( ribNode->object( 0 )->isNextObjectGrainAnimated() ) //isNextObjectGrainAnimated() is always true.
+//					{
+//						RiMotionBeginV( liqglo.liqglo_motionSamples, 
+//										( liqglo.liqglo_relativeMotion )? 
+//										liqglo.liqglo_sampleTimesOffsets : liqglo.liqglo_sampleTimes);
+//
+//						for ( unsigned msampleOn( 0 ); msampleOn < liqglo.liqglo_motionSamples; msampleOn++ ){ 
+//							MString geometryRibFile( liquidGetRelativePath( false, getLiquidRibName( ribNode->name.asChar() ), liqglo.liqglo_ribDir ) +"."+(int)liqglo.liqglo_lframe+".m"+(int)msampleOn+".rib" );
+//							ribNode->object( msampleOn )->writeObject(geometryRibFile, liqglo_currentJob, false);
+//						}
+//
+//						RiMotionEnd();
+//					} 
+//					else {
+//						RiArchiveRecord( RI_COMMENT, "the the next object grain is not animated" );
+//
+//						MString geometryRibFile( liquidGetRelativePath( false, getLiquidRibName( ribNode->name.asChar() ), liqglo.liqglo_ribDir ) +"."+(int)liqglo.liqglo_lframe+".rib" );
+//						ribNode->object( 0 )->writeObject(geometryRibFile, liqglo_currentJob, false);
+//					}
+//				}
+//			} 
+//			else {
+//				if(    ribNode->rib.hasGenerator()
+//					|| ribNode->rib.hasReadArchive()  
+//					|| ribNode->rib.hasDelayedReadArchive() 
+//					)
+//				{
+//					//if ribNode is tagged as readArchive or delayedReadArchive, we do not output its geometry data.
+//					//return;
+//				}else{
+//					//ribNode->object( 0 )->writeObject();
+//					_writeObject(ribNode, liqglo_currentJob, false, 0);
+//				}
+//
+//			}
+//
+//			// Alf: postShapeMel
+//			prePostPlug = fnTransform.findPlug( "liqPostShapeMel" );
+//			m_postShapeMel = prePostPlug.asString();
+//			if( m_postShapeMel != "" )
+//				MGlobal::executeCommand( m_postShapeMel );
+//
+//		} // else RiArchiveRecord( RI_COMMENT, " Shapes Ignored !!" );
+//		RiAttributeEnd();
+//	}
+//	while ( attributeDepth > 0 ) 
+//	{
+//		RiAttributeEnd();
+//		attributeDepth--;
+//	}
+//	return returnStatus;
+//}
 
 /**
 * Write the world prologue.
 * This includes the pre- and post-world begin RIB boxes and the definition of
 * any default coordinate systems.
 */
-MStatus liqRibTranslator::worldPrologue()
-{
-	CM_TRACE_FUNC("liqRibTranslator::worldPrologue()");
-
-	MStatus returnStatus = MS::kSuccess;
-	LIQDEBUGPRINTF( "-> Writing world prologue.\n" );
-	// if this is a readArchive that we are exporting then ingore this header information
-	if( !liqglo.m_exportReadArchive )
-	{
-		MFnDependencyNode globalsNode( liqglo.rGlobalObj );
-		MPlug prePostplug( globalsNode.findPlug( "preWorldMel" ) );
-		MString melcommand( prePostplug.asString() );
-		// put in pre-worldbegin statements
-		if(liqglo.m_preWorldRIB != "" || melcommand.length() )
-		{
-			RiArchiveRecord(RI_COMMENT,  " Pre-WorldBegin RIB from liquid globals");
-			MGlobal::executeCommand( melcommand );
-			RiArchiveRecord(RI_VERBATIM, ( char* )liqglo.m_preWorldRIB.asChar());
-			RiArchiveRecord(RI_VERBATIM, "\n");
-		}
-		// output the arbitrary clipping planes here /////////////
-		//
-		{
-			for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
-			{
-				LIQ_CHECK_CANCEL_REQUEST;
-				liqRibNodePtr   ribNode = (*rniter).second;
-				if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_ClipPlane ) 
-					continue;
-				RiTransformBegin();
-				if( liqglo.m_outputComments )
-					RiArchiveRecord( RI_COMMENT, "Clipping Plane: %s", ribNode->name.asChar(), RI_NULL );
-				liqMatrix ribMatrix;
-				MMatrix matrix;
-				MDagPath path;
-
-				matrix = ribNode->object(0)->matrix( path.instanceNumber() );
-				matrix.get( ribMatrix );
-				RiConcatTransform( ribMatrix );
-
-				ribNode->object(0)->writeObject("", liqglo_currentJob, false);
-				ribNode->object(0)->written = 1;
-
-				RiTransformEnd();
-			}
-		}
-		RiWorldBegin();
-		// set attributes from the globals
-#ifdef GENERIC_RIBLIB      
-		extern int useAdvancedVisibilityAttributes;
-		useAdvancedVisibilityAttributes = false;
-#endif
-		if( liqglo.rt_useRayTracing )
-		{
-			RiArchiveRecord(RI_COMMENT,  " Ray-Tracing Attributes from liquid globals");
-			liqInt on( 1 );
-
-			if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY )
-			{
-				liqString trans = "shader";
-				RiAttribute( "visibility", "int trace", &on, RI_NULL );
-				RiAttribute( "visibility", "string transmission", &trans, RI_NULL );
-			}
-			else
-			{
-#ifdef GENERIC_RIBLIB         
-				useAdvancedVisibilityAttributes = true;
-#endif
-				RiAttribute( "visibility", "int diffuse", &on, RI_NULL );
-				RiAttribute( "visibility", "int specular", &on, RI_NULL );
-				RiAttribute( "visibility", "int transmission", &on, RI_NULL );
-			}
-
-			if( liqglo.rt_traceDisplacements )
-				RiAttribute("trace", "int displacements", &on, RI_NULL );
-			if( liqglo.rt_traceSampleMotion )
-				RiAttribute("trace", "int samplemotion", &on, RI_NULL );
-			if( liqglo.rt_traceBias != 0 )
-				RiAttribute("trace", "float bias", &liqglo.rt_traceBias, RI_NULL );
-			RiAttribute("trace", "int maxdiffusedepth", &liqglo.rt_traceMaxDiffuseDepth, RI_NULL);
-			RiAttribute("trace", "int maxspeculardepth", &liqglo.rt_traceMaxSpecularDepth, RI_NULL);
-			if( liqglo.rt_irradianceMaxError != -1.0 )
-				RiAttribute( "irradiance", (liqToken) "float maxerror", &liqglo.rt_irradianceMaxError, RI_NULL );
-			if( liqglo.rt_irradianceMaxPixelDist != -1.0 )
-				RiAttribute( "irradiance", (liqToken) "float maxpixeldist", &liqglo.rt_irradianceMaxPixelDist, RI_NULL );
- 
-		// ymesh: add photon/caustic map attribites
-		  if (  liqglo.rt_photonGlobalHandle != "" || liqglo.rt_causticGlobalHandle != "") 
-		  {
-			MString parsedName = parseString( liqglo.rt_photonGlobalHandle, false );  //  doEscaped = false
-
-			liqString photon_map = const_cast< char* >( parsedName.asChar() );
-			RiAttribute( "photon", (liqToken) "globalmap", &photon_map, RI_NULL );
-        
-			parsedName = parseString( liqglo.rt_causticGlobalHandle, false );  //  doEscaped = false
-			liqString caustic_map = const_cast< char* >( parsedName.asChar() );
-			RiAttribute( "photon", (liqToken) "causticmap", &caustic_map, RI_NULL );
-      
-			liqString model;
-			switch ( liqglo.rt_photonShadingModel  ) 
-			{
-			  case liqRibNode::photon::SHADINGMODEL_GLASS:
-				model = "glass";
-				break;
-			  case liqRibNode::photon::SHADINGMODEL_WATER:
-				model = "water";
-				break;
-			  case liqRibNode::photon::SHADINGMODEL_CHROME:
-				model = "chrome";
-				break;
-			  case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
-				model = "chrome";
-				break;
-			  case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
-				model = "dielectric";
-				break;
-			  case liqRibNode::photon::SHADINGMODEL_MATTE:
-			  default:
-				model = "matte";
-			}
-			RiAttribute( "photon", (liqToken) "shadingmodel", &model, RI_NULL );
-      
-			liqInt estimator = liqglo.rt_photonEstimator;
-			RiAttribute( "photon", (liqToken) "estimator", &estimator, RI_NULL );
-		  }
-		}
-		// put in post-worldbegin statements
-		prePostplug = globalsNode.findPlug( "postWorldMel" );
-		melcommand = prePostplug.asString();
-		if(liqglo.m_postWorldRIB != "" || melcommand.length() )
-		{
-			RiArchiveRecord( RI_COMMENT,  " Post-WorldBegin RIB from liquid globals" );
-			MGlobal::executeCommand( melcommand );
-			RiArchiveRecord( RI_VERBATIM, ( char* )liqglo.m_postWorldRIB.asChar() );
-			RiArchiveRecord( RI_VERBATIM, "\n");
-		}
-		RiTransformBegin();
-		RiCoordinateSystem( "worldspace" );
-		RiTransformEnd();
-
-		RiTransformBegin();
-		RiRotate( -90., 1., 0., 0. );
-		RiCoordinateSystem( "_environment" );
-		RiTransformEnd();
-	}
-	//RiReverseOrientation();//???
-	return returnStatus;
-}
+//MStatus liqRibTranslator::worldPrologue()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::worldPrologue()");
+//
+//	MStatus returnStatus = MS::kSuccess;
+//	LIQDEBUGPRINTF( "-> Writing world prologue.\n" );
+//	// if this is a readArchive that we are exporting then ingore this header information
+//	if( !liqglo.m_exportReadArchive )
+//	{
+//		MFnDependencyNode globalsNode( liqglo.rGlobalObj );
+//		MPlug prePostplug( globalsNode.findPlug( "preWorldMel" ) );
+//		MString melcommand( prePostplug.asString() );
+//		// put in pre-worldbegin statements
+//		if(liqglo.m_preWorldRIB != "" || melcommand.length() )
+//		{
+//			RiArchiveRecord(RI_COMMENT,  " Pre-WorldBegin RIB from liquid globals");
+//			MGlobal::executeCommand( melcommand );
+//			RiArchiveRecord(RI_VERBATIM, ( char* )liqglo.m_preWorldRIB.asChar());
+//			RiArchiveRecord(RI_VERBATIM, "\n");
+//		}
+//		// output the arbitrary clipping planes here /////////////
+//		//
+//		{
+//			for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
+//			{
+//				LIQ_CHECK_CANCEL_REQUEST;
+//				liqRibNodePtr   ribNode = (*rniter).second;
+//				if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_ClipPlane ) 
+//					continue;
+//				RiTransformBegin();
+//				if( liqglo.m_outputComments )
+//					RiArchiveRecord( RI_COMMENT, "Clipping Plane: %s", ribNode->name.asChar(), RI_NULL );
+//				liqMatrix ribMatrix;
+//				MMatrix matrix;
+//				MDagPath path;
+//
+//				matrix = ribNode->object(0)->matrix( path.instanceNumber() );
+//				matrix.get( ribMatrix );
+//				RiConcatTransform( ribMatrix );
+//
+//				ribNode->object(0)->writeObject("", liqglo_currentJob, false);
+//				ribNode->object(0)->written = 1;
+//
+//				RiTransformEnd();
+//			}
+//		}
+//		RiWorldBegin();
+//		// set attributes from the globals
+//#ifdef GENERIC_RIBLIB      
+//		extern int useAdvancedVisibilityAttributes;
+//		useAdvancedVisibilityAttributes = false;
+//#endif
+//		if( liqglo.rt_useRayTracing )
+//		{
+//			RiArchiveRecord(RI_COMMENT,  " Ray-Tracing Attributes from liquid globals");
+//			liqInt on( 1 );
+//
+//			if ( !liqglo.liquidRenderer.supports_ADVANCED_VISIBILITY )
+//			{
+//				liqString trans = "shader";
+//				RiAttribute( "visibility", "int trace", &on, RI_NULL );
+//				RiAttribute( "visibility", "string transmission", &trans, RI_NULL );
+//			}
+//			else
+//			{
+//#ifdef GENERIC_RIBLIB         
+//				useAdvancedVisibilityAttributes = true;
+//#endif
+//				RiAttribute( "visibility", "int diffuse", &on, RI_NULL );
+//				RiAttribute( "visibility", "int specular", &on, RI_NULL );
+//				RiAttribute( "visibility", "int transmission", &on, RI_NULL );
+//			}
+//
+//			if( liqglo.rt_traceDisplacements )
+//				RiAttribute("trace", "int displacements", &on, RI_NULL );
+//			if( liqglo.rt_traceSampleMotion )
+//				RiAttribute("trace", "int samplemotion", &on, RI_NULL );
+//			if( liqglo.rt_traceBias != 0 )
+//				RiAttribute("trace", "float bias", &liqglo.rt_traceBias, RI_NULL );
+//			RiAttribute("trace", "int maxdiffusedepth", &liqglo.rt_traceMaxDiffuseDepth, RI_NULL);
+//			RiAttribute("trace", "int maxspeculardepth", &liqglo.rt_traceMaxSpecularDepth, RI_NULL);
+//			if( liqglo.rt_irradianceMaxError != -1.0 )
+//				RiAttribute( "irradiance", (liqToken) "float maxerror", &liqglo.rt_irradianceMaxError, RI_NULL );
+//			if( liqglo.rt_irradianceMaxPixelDist != -1.0 )
+//				RiAttribute( "irradiance", (liqToken) "float maxpixeldist", &liqglo.rt_irradianceMaxPixelDist, RI_NULL );
+// 
+//		// ymesh: add photon/caustic map attribites
+//		  if (  liqglo.rt_photonGlobalHandle != "" || liqglo.rt_causticGlobalHandle != "") 
+//		  {
+//			MString parsedName = parseString( liqglo.rt_photonGlobalHandle, false );  //  doEscaped = false
+//
+//			liqString photon_map = const_cast< char* >( parsedName.asChar() );
+//			RiAttribute( "photon", (liqToken) "globalmap", &photon_map, RI_NULL );
+//        
+//			parsedName = parseString( liqglo.rt_causticGlobalHandle, false );  //  doEscaped = false
+//			liqString caustic_map = const_cast< char* >( parsedName.asChar() );
+//			RiAttribute( "photon", (liqToken) "causticmap", &caustic_map, RI_NULL );
+//      
+//			liqString model;
+//			switch ( liqglo.rt_photonShadingModel  ) 
+//			{
+//			  case liqRibNode::photon::SHADINGMODEL_GLASS:
+//				model = "glass";
+//				break;
+//			  case liqRibNode::photon::SHADINGMODEL_WATER:
+//				model = "water";
+//				break;
+//			  case liqRibNode::photon::SHADINGMODEL_CHROME:
+//				model = "chrome";
+//				break;
+//			  case liqRibNode::photon::SHADINGMODEL_TRANSPARENT:
+//				model = "chrome";
+//				break;
+//			  case liqRibNode::photon::SHADINGMODEL_DIALECTRIC:
+//				model = "dielectric";
+//				break;
+//			  case liqRibNode::photon::SHADINGMODEL_MATTE:
+//			  default:
+//				model = "matte";
+//			}
+//			RiAttribute( "photon", (liqToken) "shadingmodel", &model, RI_NULL );
+//      
+//			liqInt estimator = liqglo.rt_photonEstimator;
+//			RiAttribute( "photon", (liqToken) "estimator", &estimator, RI_NULL );
+//		  }
+//		}
+//		// put in post-worldbegin statements
+//		prePostplug = globalsNode.findPlug( "postWorldMel" );
+//		melcommand = prePostplug.asString();
+//		if(liqglo.m_postWorldRIB != "" || melcommand.length() )
+//		{
+//			RiArchiveRecord( RI_COMMENT,  " Post-WorldBegin RIB from liquid globals" );
+//			MGlobal::executeCommand( melcommand );
+//			RiArchiveRecord( RI_VERBATIM, ( char* )liqglo.m_postWorldRIB.asChar() );
+//			RiArchiveRecord( RI_VERBATIM, "\n");
+//		}
+//		RiTransformBegin();
+//		RiCoordinateSystem( "worldspace" );
+//		RiTransformEnd();
+//
+//		RiTransformBegin();
+//		RiRotate( -90., 1., 0., 0. );
+//		RiCoordinateSystem( "_environment" );
+//		RiTransformEnd();
+//	}
+//	//RiReverseOrientation();//???
+//	return returnStatus;
+//}
 
 /**
 * Write the world epilogue.
@@ -7509,110 +7509,110 @@ MStatus liqRibTranslator::worldEpilogue()
 * This writes all user-defined coordinate systems as well as those required
 * for environment/reflection map lookup and texture projection.
 */
-MStatus liqRibTranslator::coordSysBlock()
-{
-	CM_TRACE_FUNC("liqRibTranslator::coordSysBlock()");
-
-	MStatus returnStatus = MS::kSuccess;
-	LIQDEBUGPRINTF( "-> Writing coordinate systems.\n" );
-	RNMAP::iterator rniter;
-	for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ ) 
-	{
-		LIQ_CHECK_CANCEL_REQUEST;
-		liqRibNodePtr   ribNode = (*rniter).second;
-		if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_Coord ) 
-			continue;
-		if( liqglo.m_outputComments )
-			RiArchiveRecord( RI_COMMENT, "Name: %s", ribNode->name.asChar(), RI_NULL );
-
-		RiAttributeBegin();
-		RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
-
-		liqMatrix ribMatrix;
-		MMatrix matrix;
-		MDagPath path;
-
-		matrix = ribNode->object(0)->matrix( path.instanceNumber() );
-		matrix.get( ribMatrix );
-		if( liqglo.liqglo_relativeTransforms ) 
-			RiConcatTransform( ribMatrix ); 
-		else 
-			RiTransform( ribMatrix );
-
-		ribNode->object(0)->writeObject("", liqglo_currentJob, false);
-		ribNode->object(0)->written = 1;
-		RiAttributeEnd();
-	}
-	return returnStatus;
-}
+//MStatus liqRibTranslator::coordSysBlock()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::coordSysBlock()");
+//
+//	MStatus returnStatus = MS::kSuccess;
+//	LIQDEBUGPRINTF( "-> Writing coordinate systems.\n" );
+//	RNMAP::iterator rniter;
+//	for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ ) 
+//	{
+//		LIQ_CHECK_CANCEL_REQUEST;
+//		liqRibNodePtr   ribNode = (*rniter).second;
+//		if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_Coord ) 
+//			continue;
+//		if( liqglo.m_outputComments )
+//			RiArchiveRecord( RI_COMMENT, "Name: %s", ribNode->name.asChar(), RI_NULL );
+//
+//		RiAttributeBegin();
+//		RiAttribute( "identifier", "name", &getLiquidRibName( ribNode->name.asChar() ), RI_NULL );
+//
+//		liqMatrix ribMatrix;
+//		MMatrix matrix;
+//		MDagPath path;
+//
+//		matrix = ribNode->object(0)->matrix( path.instanceNumber() );
+//		matrix.get( ribMatrix );
+//		if( liqglo.liqglo_relativeTransforms ) 
+//			RiConcatTransform( ribMatrix ); 
+//		else 
+//			RiTransform( ribMatrix );
+//
+//		ribNode->object(0)->writeObject("", liqglo_currentJob, false);
+//		ribNode->object(0)->written = 1;
+//		RiAttributeEnd();
+//	}
+//	return returnStatus;
+//}
 
 /**
 * Write all lights.
 * This writes all lightsource shaders with their attributes and switches them
 * on afterwards.
 */
-MStatus liqRibTranslator::lightBlock()
-{
-	CM_TRACE_FUNC("liqRibTranslator::lightBlock()");
-
-	MStatus returnStatus = MS::kSuccess;
-	LIQDEBUGPRINTF( "-> Writing lights.\n" );
-	// If this is a readArchive that we are exporting then ignore this header information
-	if( !liqglo.m_exportReadArchive )
-	{
-		RNMAP::iterator rniter;
-		int nbLight = 0;
-		for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ )
-		{
-			liqInt on( 1 );
-			LIQ_CHECK_CANCEL_REQUEST;
-			liqRibNodePtr   ribNode = (*rniter).second;
-
-			if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_Light )
-				continue;
-			// We need to enclose lights in attribute blocks because of the
-			// new added attribute support
-			RiAttributeBegin();
-
-			// All this stuff below should be handled by a new attribute class
-			LIQDEBUGPRINTF( "-> RibNodeName " );
-			liqString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
-			LIQDEBUGPRINTF( "= %s.\n", (char *)RibNodeName  );
-			RiAttribute( "identifier", "name", &RibNodeName, RI_NULL );
-			if( ribNode->trace.sampleMotion )
-				RiAttribute( "trace", (liqToken) "samplemotion", &on, RI_NULL );
-			if( ribNode->trace.displacements )
-				RiAttribute( "trace", (liqToken) "displacements", &on, RI_NULL );
-			if( ribNode->trace.bias != 0.01f )
-			{
-				liqFloat bias = ribNode->trace.bias;
-				RiAttribute( "trace", (liqToken) "bias", &bias, RI_NULL );
-			}
-			if( ribNode->trace.maxDiffuseDepth != 1 )
-			{
-				liqInt mddepth = ribNode->trace.maxDiffuseDepth;
-				RiAttribute( "trace", (liqToken) "maxdiffusedepth", &mddepth, RI_NULL );
-			}
-			if( ribNode->trace.maxSpecularDepth != 2 )
-			{
-				liqInt msdepth = ribNode->trace.maxSpecularDepth;
-				RiAttribute( "trace", (liqToken) "maxspeculardepth", &msdepth, RI_NULL );
-			}
-			ribNode->object(0)->writeObject("", liqglo_currentJob, false);
-			ribNode->object(0)->written = 1;
-			// The next line pops the light...
-			RiAttributeEnd();
-			// ...so we have to switch it on again explicitly
-			// if exclusive Lightlinking is set
-			if( liqglo.m_illuminateByDefault )
-				RiIlluminate( ribNode->object(0)->lightHandle(), 1 );
-			else
-				RiIlluminate( ribNode->object(0)->lightHandle(), 0 );
-			nbLight++;
-		}
-	}
-	return returnStatus;
-}
+//MStatus liqRibTranslator::lightBlock()
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::lightBlock()");
+//
+//	MStatus returnStatus = MS::kSuccess;
+//	LIQDEBUGPRINTF( "-> Writing lights.\n" );
+//	// If this is a readArchive that we are exporting then ignore this header information
+//	if( !liqglo.m_exportReadArchive )
+//	{
+//		RNMAP::iterator rniter;
+//		int nbLight = 0;
+//		for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ )
+//		{
+//			liqInt on( 1 );
+//			LIQ_CHECK_CANCEL_REQUEST;
+//			liqRibNodePtr   ribNode = (*rniter).second;
+//
+//			if( ribNode->object(0)->ignore || ribNode->object(0)->type != MRT_Light )
+//				continue;
+//			// We need to enclose lights in attribute blocks because of the
+//			// new added attribute support
+//			RiAttributeBegin();
+//
+//			// All this stuff below should be handled by a new attribute class
+//			LIQDEBUGPRINTF( "-> RibNodeName " );
+//			liqString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
+//			LIQDEBUGPRINTF( "= %s.\n", (char *)RibNodeName  );
+//			RiAttribute( "identifier", "name", &RibNodeName, RI_NULL );
+//			if( ribNode->trace.sampleMotion )
+//				RiAttribute( "trace", (liqToken) "samplemotion", &on, RI_NULL );
+//			if( ribNode->trace.displacements )
+//				RiAttribute( "trace", (liqToken) "displacements", &on, RI_NULL );
+//			if( ribNode->trace.bias != 0.01f )
+//			{
+//				liqFloat bias = ribNode->trace.bias;
+//				RiAttribute( "trace", (liqToken) "bias", &bias, RI_NULL );
+//			}
+//			if( ribNode->trace.maxDiffuseDepth != 1 )
+//			{
+//				liqInt mddepth = ribNode->trace.maxDiffuseDepth;
+//				RiAttribute( "trace", (liqToken) "maxdiffusedepth", &mddepth, RI_NULL );
+//			}
+//			if( ribNode->trace.maxSpecularDepth != 2 )
+//			{
+//				liqInt msdepth = ribNode->trace.maxSpecularDepth;
+//				RiAttribute( "trace", (liqToken) "maxspeculardepth", &msdepth, RI_NULL );
+//			}
+//			ribNode->object(0)->writeObject("", liqglo_currentJob, false);
+//			ribNode->object(0)->written = 1;
+//			// The next line pops the light...
+//			RiAttributeEnd();
+//			// ...so we have to switch it on again explicitly
+//			// if exclusive Lightlinking is set
+//			if( liqglo.m_illuminateByDefault )
+//				RiIlluminate( ribNode->object(0)->lightHandle(), 1 );
+//			else
+//				RiIlluminate( ribNode->object(0)->lightHandle(), 0 );
+//			nbLight++;
+//		}
+//	}
+//	return returnStatus;
+//}
 
 void liqRibTranslator::setOutDirs()
 {

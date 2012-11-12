@@ -2238,6 +2238,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\liqRiCommands.cpp" />
     <ClCompile Include="..\renderman\rm_factory.cpp" />
     <ClCompile Include="..\renderman\rm_helper.cpp" />
     <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
@@ -2268,6 +2269,7 @@
     <ClCompile Include="..\renderman\shaderOutputRSL_mi.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_textures.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp" />
+    <ClCompile Include="..\ri_interface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
@@ -2287,6 +2289,7 @@
     <None Include="..\renderman\mel\userSetup.mel" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\liqRiCommands.h" />
     <ClInclude Include="..\renderman\rm_factory.h" />
     <ClInclude Include="..\renderman\rm_helper.h" />
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />

@@ -51,7 +51,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqRenderer.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 
 using namespace boost;

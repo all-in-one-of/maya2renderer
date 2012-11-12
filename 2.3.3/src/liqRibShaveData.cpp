@@ -57,7 +57,7 @@
 #include <liqRenderer.h>
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 #include "./common/mayacheck.h"
 

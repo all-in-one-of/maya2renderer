@@ -65,7 +65,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqRibGen.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 
 using namespace std;
 

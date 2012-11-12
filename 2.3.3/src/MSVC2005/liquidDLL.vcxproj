@@ -2111,10 +2111,10 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\zlib\lib\vc9_sp1/zlibstat.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/prman/win32/liquidDLL.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib-;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -2299,7 +2299,6 @@
     <ClCompile Include="..\liqRibTranslatorArgs.cpp" />
     <ClCompile Include="..\liqRibTranslatorGlobals.cpp" />
     <ClCompile Include="..\liqRibTranslatorNew.cpp" />
-    <ClCompile Include="..\liqRiCommands.cpp" />
     <ClCompile Include="..\liqShader.cpp" />
     <ClCompile Include="..\liqShaderFactory.cpp" />
     <ClCompile Include="..\liqShaderNode.cpp" />
@@ -2309,7 +2308,9 @@
     <ClCompile Include="..\liqVolumeNode.cpp" />
     <ClCompile Include="..\liq_plug.cpp" />
     <ClCompile Include="..\liq_plugdll.cpp" />
-    <ClCompile Include="..\ri_interface.cpp" />
+    <ClCompile Include="..\ri_interface.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp" />
     <ClCompile Include="..\shadergraph\shadermgr.cpp" />
     <ClCompile Include="..\shadergraph\shaderOutput.cpp" />

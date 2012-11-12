@@ -277,7 +277,7 @@ extern LIQUID_EXPORT liquidVerbosityType liqglo_verbosity;
 
 void initHinderParameters();
 void getHinderParameters(const MFnDependencyNode& rGlobalNode);
-MString getHiderOptions( MString rendername, MString hidername );
+LIQUID_EXPORT MString getHiderOptions( MString rendername, MString hidername );
 
 void initLimitsParameters();
 void getLimitsParameters(const MFnDependencyNode& rGlobalNode);

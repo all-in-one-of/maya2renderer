@@ -205,9 +205,6 @@
     <ClCompile Include="..\liqRibTranslatorNew.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\liqRiCommands.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\liqShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -6,6 +6,7 @@
 #include <liqRibNode.h>
 #include <liqRibMeshData.h>
 #include <liqTokenPointer.h>
+#include <liqRibHT.h>
 #include "liqtypes.h"
 #include "./common/prerequest_std.h"
 #include <liqConfig.h>
@@ -363,7 +364,11 @@ public:
 	virtual void oneObjectBlock_reference_attribute_block3_ShadingGroup(
 		const MString& meshname
 		) = 0;
-
+	virtual MStatus coordSysBlock__(const structJob &currentJob, boost::shared_ptr< liqRibHT > &htable) = 0;
+	virtual MStatus preGeometryMel(const MString &m_preGeomRIB)=0;
+	//virtual MStatus postGeometryMel();
+	virtual void F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader)=0;
+	virtual void F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__)=0;
 
 protected:
 

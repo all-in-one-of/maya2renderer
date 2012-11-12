@@ -48,7 +48,7 @@
 #include <liquid.h>
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
-#include "renderman/rm_helper.h"
+//#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 using namespace boost;
 
@@ -70,39 +70,39 @@ liqRibNuCurveData::liqRibNuCurveData( MObject curve )
   // Extract the order and number of CVs in the surface keeping
   // in mind that UV order is switched between Renderman and Maya
   ncurves = 1;  //RiNuCurves can be passed many curves but right now it only passes one from maya at a time
-  nverts = shared_array< RtInt >( new RtInt[ ncurves ] );
+  nverts = shared_array< liqInt >( new liqInt[ ncurves ] );
   nverts[0] = nurbs.numCVs() + 4;
 
-  CVs   = shared_array< RtFloat >( new RtFloat[ nverts[ 0 ] * 3 ] );
+  CVs   = shared_array< liqFloat >( new liqFloat[ nverts[ 0 ] * 3 ] );
   MItCurveCV cvs( curve, &status );
-  RtFloat* cvPtr = CVs.get();
+  liqFloat* cvPtr = CVs.get();
 
   // Double up start and end to simulate knot, MToor style (we should really be using RiNuCurves) - Paul
   MPoint pt = cvs.position(MSpace::kObject);
 
-  *cvPtr = (RtFloat)pt.x; cvPtr++;
-  *cvPtr = (RtFloat)pt.y; cvPtr++;
-  *cvPtr = (RtFloat)pt.z; cvPtr++;
+  *cvPtr = (liqFloat)pt.x; cvPtr++;
+  *cvPtr = (liqFloat)pt.y; cvPtr++;
+  *cvPtr = (liqFloat)pt.z; cvPtr++;
 
-  *cvPtr = (RtFloat)pt.x; cvPtr++;
-  *cvPtr = (RtFloat)pt.y; cvPtr++;
-  *cvPtr = (RtFloat)pt.z; cvPtr++;
+  *cvPtr = (liqFloat)pt.x; cvPtr++;
+  *cvPtr = (liqFloat)pt.y; cvPtr++;
+  *cvPtr = (liqFloat)pt.z; cvPtr++;
 
   while(!cvs.isDone()) {
     pt = cvs.position(MSpace::kObject);
-    *cvPtr = (RtFloat)pt.x; cvPtr++;
-    *cvPtr = (RtFloat)pt.y; cvPtr++;
-    *cvPtr = (RtFloat)pt.z; cvPtr++;
+    *cvPtr = (liqFloat)pt.x; cvPtr++;
+    *cvPtr = (liqFloat)pt.y; cvPtr++;
+    *cvPtr = (liqFloat)pt.z; cvPtr++;
     cvs.next();
   }
 
-  *cvPtr = (RtFloat)pt.x; cvPtr++;
-  *cvPtr = (RtFloat)pt.y; cvPtr++;
-  *cvPtr = (RtFloat)pt.z; cvPtr++;
+  *cvPtr = (liqFloat)pt.x; cvPtr++;
+  *cvPtr = (liqFloat)pt.y; cvPtr++;
+  *cvPtr = (liqFloat)pt.z; cvPtr++;
 
-  *cvPtr = (RtFloat)pt.x; cvPtr++;
-  *cvPtr = (RtFloat)pt.y; cvPtr++;
-  *cvPtr = (RtFloat)pt.z; cvPtr++;
+  *cvPtr = (liqFloat)pt.x; cvPtr++;
+  *cvPtr = (liqFloat)pt.y; cvPtr++;
+  *cvPtr = (liqFloat)pt.z; cvPtr++;
 
   liqTokenPointer pointsPointerPair;
 
@@ -134,7 +134,7 @@ liqRibNuCurveData::liqRibNuCurveData( MObject curve )
 	}
 	else
 	{
-		NuCurveWidth = shared_array< RtFloat >( new RtFloat[ nverts[ 0 ] - 2 ] );
+		NuCurveWidth = shared_array< liqFloat >( new liqFloat[ nverts[ 0 ] - 2 ] );
 		unsigned k(0);
 
 		// easy way just linear - will have to be refined
