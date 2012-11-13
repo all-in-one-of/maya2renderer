@@ -2112,7 +2112,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/liquidDLL.mll</OutputFile>
+      <OutputFile>../../bin/prman/win32/liquid_2012x32d.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/aqsis/1.6.0/build/DebugLib-;../../../dependence/zlib/lib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
