@@ -916,6 +916,11 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup("<<meshname.asChar()<<")");
 	}
+	void Renderer::oneObjectBlock_reference_attribute_block4_strategy(
+		const liqRibNodePtr &ribNode)
+	{
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block4_strategy("<<ribNode->name.asChar()<<")");
+	}
 	//
 	bool Renderer::canExport()
 	{
@@ -1025,6 +1030,35 @@ namespace appleseed
 	void Renderer::F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__)
 	{
 		CM_TRACE_FUNC("Renderer::F2("<<m_shaderDebug<<","<<ribNode__->name.asChar()<<")");
+	}
+	void Renderer::writeUserAttributes(const liqRibNode *ribNode__)
+	{
+		CM_TRACE_FUNC("Renderer::writeUserAttributes()");
+	}
+	void Renderer::objectBlock_reference_begin()
+	{
+		CM_TRACE_FUNC("Renderer::objectBlock_reference_begin()");
+	}
+	void Renderer::objectBlock_reference_end()
+	{
+		CM_TRACE_FUNC("Renderer::objectBlock_reference_end()");
+	}
+	void Renderer::writeShader_forShadow_ribbox(const MString & text)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forShadow_ribbox(text)");
+
+	}
+	void Renderer::writeShader_forShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, bool m_shaderDebug, const MDagPath & path__)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forShadow_forSpecialTypes("<<ribNode__->name.asChar()<<","<<m_shaderDebug <<",path__)");
+	}
+	void Renderer::writeShader_forDeepShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, const MDagPath & path__)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forDeepShadow_forSpecialTypes("<<ribNode__->name.asChar() <<",path__)");
+	}
+	void Renderer::writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forShadow_NullShader("<<ribNode__->name.asChar() <<",path__)");
 	}
 }//namespace appleseed
 

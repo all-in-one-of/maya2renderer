@@ -333,10 +333,20 @@ namespace renderman
 		virtual void oneObjectBlock_reference_attribute_block3_ShadingGroup(
 			const MString& meshname
 			);
+		virtual void oneObjectBlock_reference_attribute_block4_strategy(
+			const liqRibNodePtr &ribNode
+			);
 		virtual MStatus coordSysBlock__(const structJob &currentJob, boost::shared_ptr< liqRibHT > &htable);
 		virtual MStatus preGeometryMel(const MString &m_preGeomRIB);
 		virtual void F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader);
 		virtual void F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__);
+		virtual void writeUserAttributes(const liqRibNode *ribNode__);
+		virtual void objectBlock_reference_begin();
+		virtual void objectBlock_reference_end();
+		virtual void writeShader_forShadow_ribbox(const MString & text);
+		virtual void writeShader_forShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, bool m_shaderDebug, const MDagPath & path__);
+		virtual void writeShader_forDeepShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, const MDagPath & path__);
+		virtual void writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__);
 
 	protected:
 		Renderer(const Renderer&);

@@ -364,11 +364,21 @@ public:
 	virtual void oneObjectBlock_reference_attribute_block3_ShadingGroup(
 		const MString& meshname
 		) = 0;
+	virtual void oneObjectBlock_reference_attribute_block4_strategy(
+		const liqRibNodePtr &ribNode
+		) = 0;
 	virtual MStatus coordSysBlock__(const structJob &currentJob, boost::shared_ptr< liqRibHT > &htable) = 0;
 	virtual MStatus preGeometryMel(const MString &m_preGeomRIB)=0;
 	//virtual MStatus postGeometryMel();
 	virtual void F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader)=0;
 	virtual void F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__)=0;
+	virtual void writeUserAttributes(const liqRibNode *ribNode__) = 0;
+	virtual void objectBlock_reference_begin() = 0;
+	virtual void objectBlock_reference_end() = 0;
+	virtual void writeShader_forShadow_ribbox(const MString & text) = 0;
+	virtual void writeShader_forShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, bool m_shaderDebug, const MDagPath & path__) = 0;
+	virtual void writeShader_forDeepShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, const MDagPath & path__) = 0;
+	virtual void writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__) = 0;
 
 protected:
 

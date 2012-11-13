@@ -1542,6 +1542,31 @@ namespace renderman
 
 		RSL::Visitor::outputShadingGroup(shadingGroupNode[0].asChar(), true);
 	}
+	void Renderer::oneObjectBlock_reference_attribute_block4_strategy(
+		const liqRibNodePtr &ribNode)
+	{
+		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block4_strategy("<<ribNode->name.asChar()<<")");
+	
+		//[refactor 34] begin
+		liqString mode;
+		// new prman 16.x shade attributes group 
+		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
+		{
+			mode = "vpvolumes"; 
+			RiAttribute( "shade", (liqToken) "strategy", &mode, RI_NULL );
+		}
+		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
+		{
+			mode = "additive"; 
+			RiAttribute( "shade", (liqToken) "volumeintersectionstrategy", &mode, RI_NULL );
+		}
+		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
+		{
+			liqFloat value= ribNode->shade.volumeIntersectionPriority; 
+			RiAttribute( "shade", (liqToken) "volumeintersectionpriority", &value, RI_NULL );
+		}
+		//[refactor 34] end
+	}
 	//
 	bool Renderer::canExport()
 	{
@@ -1724,7 +1749,129 @@ namespace renderman
 			}
 		}
 	}
+	void Renderer::writeUserAttributes(const liqRibNode *ribNode__)
+	{
+		CM_TRACE_FUNC("Renderer::writeUserAttributes()");
 
+		unsigned numTokens( ribNode__->tokenPointerMap.size() );
+		if( numTokens ) {
+		  boost::scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
+		  boost::scoped_array< liqPointer > pointerArray( new liqPointer[ numTokens ] );
+		  // Can't use assignTokenArraysV() since we're dealing with std::map
+		  std::size_t i( 0 );
+		  for ( std::map<const std::string, liqTokenPointer >::const_iterator iter( ribNode__->tokenPointerMap.begin() ); iter != ribNode__->tokenPointerMap.end(); iter++, i++ ) 
+		  {
+		    tokenArray[ i ] = const_cast< liqString >( const_cast< liqTokenPointer* >( &( iter->second ) )->getDetailedTokenName().c_str() );
+		    pointerArray[ i ] = const_cast< liqTokenPointer* >( &( iter->second ) )->getRtPointer();
+		  }
+
+		  RiAttributeV( "user", numTokens, tokenArray.get(), pointerArray.get() );
+		}
+	}
+	void Renderer::objectBlock_reference_begin()
+	{
+		CM_TRACE_FUNC("Renderer::objectBlock_reference_begin()");
+
+		if( liqRibTranslator::getInstancePtr()->m_ignoreSurfaces && !liqglo.liqglo_skipDefaultMatte )
+		{
+			RiSurface( "matte", RI_NULL );
+		}
+	}
+	void Renderer::objectBlock_reference_end()
+	{
+		CM_TRACE_FUNC("Renderer::objectBlock_reference_end()");
+
+		assert(liqRibTranslator::getInstancePtr()->attributeDepth==0);
+		while ( liqRibTranslator::getInstancePtr()->attributeDepth > 0 ) 
+		{
+			RiAttributeEnd();
+			liqRibTranslator::getInstancePtr()->attributeDepth--;
+		}
+	}
+	void Renderer::writeShader_forShadow_ribbox(const MString & text)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forShadow_ribbox(text)");
+		//refactor 37 begin
+		// Default : just write the contents of the rib box
+		RiArchiveRecord( RI_VERBATIM, ( char* )text.asChar() );
+		RiArchiveRecord( RI_VERBATIM, "\n" );
+		//refactor 37 end
+	}
+	void Renderer::writeShader_forShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, bool m_shaderDebug, const MDagPath & path__)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forShadow_forSpecialTypes("<<ribNode__->name.asChar()<<","<<m_shaderDebug <<",path__)");
+	
+		//refactor 38 begin
+		MObject shadingGroup = ribNode__->assignedShadingGroup.object();
+		MObject shader = ribNode__->findShader();
+		//
+		// here we check for regular shader nodes first
+		// and assign default shader to shader-less nodes.
+		//
+
+		if( m_shaderDebug ) {
+			liqRIBMsg("shader debug is turned on, so the surface is constant.");
+			RiSurface( "constant", RI_NULL );
+			LIQDEBUGPRINTF("add more constant parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorBlinn.sl as an example.(?)");
+		}
+		//else if( shader.apiType() == MFn::kLambert ){ 
+		//	RiSurface( "matte", RI_NULL );
+		//	LIQDEBUGPRINTF("add more lambert parameters here. take //RMS-1.0.1-Maya2008/lib/shaders/src/mtorLambert.sl as an example.");
+		//}else if( shader.apiType() == MFn::kPhong ) {
+		//	RiSurface( "plastic", RI_NULL );
+		//	LIQDEBUGPRINTF("add more phong parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorPhong.sl as an example.");
+		//}
+		else if( path__.hasFn( MFn::kPfxHair ) ) 
+		{
+			// get some of the hair system parameters
+			liqFloat translucence = 0, specularPower = 0;
+			liqColor specularColor;
+
+			liqRibTranslator::getInstancePtr()->getPfxHairData(path__, translucence, specularPower, specularColor);
+
+			RiSurface(  "liquidpfxhair",
+				"float specularpower", &specularPower,
+				"float translucence",  &translucence,
+				"color specularcolor", &specularColor,
+				RI_NULL );
+		} 
+		else if( path__.hasFn( MFn::kPfxToon ) ) {
+			RiSurface( "liquidpfxtoon", RI_NULL );
+		}else if( path__.hasFn( MFn::kPfxGeometry ) ){
+			RiSurface( "liquidpfx", RI_NULL );
+		}else {
+			//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
+			MFnDependencyNode shaderFn(shader);
+			RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
+		}
+		//refactor 38 end
+
+	}
+	void Renderer::writeShader_forDeepShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, const MDagPath & path__)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forDeepShadow_forSpecialTypes("<<ribNode__->name.asChar() <<",path__)");
+	
+		if( path__.hasFn( MFn::kPfxHair ) ) 
+		{
+			// get some of the hair system parameters
+			liqFloat translucence = 0, specularPower = 0;
+			liqColor specularColor;
+
+			liqRibTranslator::getInstancePtr()->getPfxHairData(path__, translucence, specularPower, specularColor);
+
+			RiSurface(  "liquidPfxHair",
+				"float specularPower", &specularPower,
+				"float translucence",  &translucence,
+				"color specularColor", &specularColor,
+				RI_NULL );
+		}
+	}
+	void Renderer::writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__)
+	{
+		CM_TRACE_FUNC("Renderer::writeShader_forShadow_NullShader("<<ribNode__->name.asChar() <<",path__)");
+	
+		RiSurface( "null", RI_NULL );
+	}
 }//namespace
 
 #endif//_USE_RENDERMAN_

@@ -2491,14 +2491,13 @@ MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 
 	LIQDEBUGPRINTF( "-> objectBlock_reference\n" );
 
-	if( m_ignoreSurfaces && !liqglo.liqglo_skipDefaultMatte )
-	{
-#if 0
-		RiSurface( "matte", RI_NULL );
-#else
-		liquidMessage2(messageWarning,"move to renderman module.");
-#endif
-	}
+	//[refactor 36] begin
+	liquid::RendererMgr::getInstancePtr()->getRenderer()->objectBlock_reference_begin();
+// 	if( m_ignoreSurfaces && !liqglo.liqglo_skipDefaultMatte )
+// 	{
+// 		RiSurface( "matte", RI_NULL );
+// 	}
+	//[refactor 36] end
 
 	// Moritz: Added Pre-Geometry RIB for insertion right before any primitives
 	preGeometryMel();
@@ -2536,16 +2535,15 @@ MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 
 	}//for ( RNMAP::iterator rniter(...
 
-	assert(attributeDepth==0);
-#if 0
-	while ( attributeDepth > 0 ) 
-	{
-		RiAttributeEnd();
-		attributeDepth--;
-	}
-#else
-	liquidMessage2(messageWarning,"move to renderman module.");
-#endif
+	//[refactor 37] begin
+	liquid::RendererMgr::getInstancePtr()->getRenderer()->objectBlock_reference_end();
+// 	assert(attributeDepth==0);
+// 	while ( attributeDepth > 0 ) 
+// 	{
+// 		RiAttributeEnd();
+// 		attributeDepth--;
+// 	}
+	//[refactor 37] end
 
 	return returnStatus;
 }
@@ -3499,28 +3497,24 @@ void liqRibTranslator::oneObjectBlock_reference(
 			writeShaders = false;
 		} 
 		//[refactor 33] end
-		liqString mode;
 		//[refactor 34] begin
-#if 0
-		// new prman 16.x shade attributes group 
-		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
-		{
-			mode = "vpvolumes"; 
-			RiAttribute( "shade", (liqToken) "strategy", &mode, RI_NULL );
-		}
-		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
-		{
-			mode = "additive"; 
-			RiAttribute( "shade", (liqToken) "volumeintersectionstrategy", &mode, RI_NULL );
-		}
-		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
-		{
-			liqFloat value= ribNode->shade.volumeIntersectionPriority; 
-			RiAttribute( "shade", (liqToken) "volumeintersectionpriority", &value, RI_NULL );
-		}
-#else
-		liquidMessage2(messageWarning,"strategy section should be moved to renderman module.");
-#endif
+// 		liqString mode;
+// 		// new prman 16.x shade attributes group 
+// 		if ( ribNode->shade.strategy != liqRibNode::shade::SHADE_STRATEGY_GRIDS )
+// 		{
+// 			mode = "vpvolumes"; 
+// 			RiAttribute( "shade", (liqToken) "strategy", &mode, RI_NULL );
+// 		}
+// 		if ( ribNode->shade.volumeIntersectionStrategy != liqRibNode::shade::SHADE_VOLUMEINTERSECTIONSTRATEGY_EXCLUSIVE )
+// 		{
+// 			mode = "additive"; 
+// 			RiAttribute( "shade", (liqToken) "volumeintersectionstrategy", &mode, RI_NULL );
+// 		}
+// 		if ( ribNode->shade.volumeIntersectionPriority != 0.0 )
+// 		{
+// 			liqFloat value= ribNode->shade.volumeIntersectionPriority; 
+// 			RiAttribute( "shade", (liqToken) "volumeintersectionpriority", &value, RI_NULL );
+// 		}
 		//[refactor 34] end
 // 		liqRIBMsg("[6] writeShaders=%d=%d && ((!%d&&!%d)||(%d&&!%d) ", writeShaders, 
 // 			currentJob.isShadow, 
@@ -3752,13 +3746,13 @@ MStatus liqRibTranslator::writeShader_forShadow(
 				}
 				else
 				{ 
+					
+					liquid::RendererMgr::getInstancePtr()->getRenderer()->writeShader_forShadow_ribbox(shaderRibBox__.asChar());
+					//refactor 37 begin
 					// Default : just write the contents of the rib box
-#if 0
-					RiArchiveRecord( RI_VERBATIM, ( char* )shaderRibBox__.asChar() );
-					RiArchiveRecord( RI_VERBATIM, "\n" );
-#else
-					liquidMessage2(messageWarning,"move this section to renderman module.");
-#endif
+					//RiArchiveRecord( RI_VERBATIM, ( char* )shaderRibBox__.asChar() );
+ 					//RiArchiveRecord( RI_VERBATIM, "\n" );
+					//refactor 37 end
 				}
 			}
 			else
@@ -3803,51 +3797,52 @@ MStatus liqRibTranslator::writeShader_forShadow(
 
 			if( !m_ignoreSurfaces ) 
 			{
-				MObject shadingGroup = ribNode__->assignedShadingGroup.object();
-				MObject shader = ribNode__->findShader();
-				//
-				// here we check for regular shader nodes first
-				// and assign default shader to shader-less nodes.
-				//
-#if 0
-				if( m_shaderDebug ) {
-					liqRIBMsg("shader debug is turned on, so the surface is constant.");
-					RiSurface( "constant", RI_NULL );
-					LIQDEBUGPRINTF("add more constant parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorBlinn.sl as an example.(?)");
-				}
- 				//else if( shader.apiType() == MFn::kLambert ){ 
- 				//	RiSurface( "matte", RI_NULL );
- 				//	LIQDEBUGPRINTF("add more lambert parameters here. take //RMS-1.0.1-Maya2008/lib/shaders/src/mtorLambert.sl as an example.");
- 				//}else if( shader.apiType() == MFn::kPhong ) {
- 				//	RiSurface( "plastic", RI_NULL );
- 				//	LIQDEBUGPRINTF("add more phong parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorPhong.sl as an example.");
- 				//}
-				else if( path__.hasFn( MFn::kPfxHair ) ) 
-				{
-					// get some of the hair system parameters
-					liqFloat translucence = 0, specularPower = 0;
-					liqColor specularColor;
+				//refactor 38 begin
+				liquid::RendererMgr::getInstancePtr()->getRenderer()
+					->writeShader_forShadow_forSpecialTypes(ribNode__, m_shaderDebug, path__);
+// 				MObject shadingGroup = ribNode__->assignedShadingGroup.object();
+// 				MObject shader = ribNode__->findShader();
+// 				//
+// 				// here we check for regular shader nodes first
+// 				// and assign default shader to shader-less nodes.
+// 				//
+// 				if( m_shaderDebug ) {
+// 					liqRIBMsg("shader debug is turned on, so the surface is constant.");
+// 					RiSurface( "constant", RI_NULL );
+// 					LIQDEBUGPRINTF("add more constant parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorBlinn.sl as an example.(?)");
+// 				}
+//  				//else if( shader.apiType() == MFn::kLambert ){ 
+//  				//	RiSurface( "matte", RI_NULL );
+//  				//	LIQDEBUGPRINTF("add more lambert parameters here. take //RMS-1.0.1-Maya2008/lib/shaders/src/mtorLambert.sl as an example.");
+//  				//}else if( shader.apiType() == MFn::kPhong ) {
+//  				//	RiSurface( "plastic", RI_NULL );
+//  				//	LIQDEBUGPRINTF("add more phong parameters here. take /RMS-1.0.1-Maya2008/lib/shaders/src/mtorPhong.sl as an example.");
+//  				//}
+// 				else if( path__.hasFn( MFn::kPfxHair ) ) 
+// 				{
+// 					// get some of the hair system parameters
+// 					liqFloat translucence = 0, specularPower = 0;
+// 					liqColor specularColor;
+// 
+// 					getPfxHairData(path__, translucence, specularPower, specularColor);
+// 
+// 					RiSurface(  "liquidpfxhair",
+// 						"float specularpower", &specularPower,
+// 						"float translucence",  &translucence,
+// 						"color specularcolor", &specularColor,
+// 						RI_NULL );
+// 				} 
+// 				else if( path__.hasFn( MFn::kPfxToon ) ) {
+// 					RiSurface( "liquidpfxtoon", RI_NULL );
+// 				}else if( path__.hasFn( MFn::kPfxGeometry ) ){
+// 					RiSurface( "liquidpfx", RI_NULL );
+// 				}else {
+// 					//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
+// 					MFnDependencyNode shaderFn(shader);
+// 					RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
+// 				}
+ 				//refactor 38 end
 
-					getPfxHairData(path__, translucence, specularPower, specularColor);
-
-					RiSurface(  "liquidpfxhair",
-						"float specularpower", &specularPower,
-						"float translucence",  &translucence,
-						"color specularcolor", &specularColor,
-						RI_NULL );
-				} 
-				else if( path__.hasFn( MFn::kPfxToon ) ) {
-					RiSurface( "liquidpfxtoon", RI_NULL );
-				}else if( path__.hasFn( MFn::kPfxGeometry ) ){
-					RiSurface( "liquidpfx", RI_NULL );
-				}else {
-					//RiSurface( "plastic", RI_NULL );//ymesh-branch r773 use this
-					MFnDependencyNode shaderFn(shader);
-					RiSurface( const_cast<char*>(shaderFn.name().asChar()), RI_NULL );
-				}
-#else
-				liquidMessage2(messageWarning,"move to renderman module");
-#endif
 			}
 		}//if( hasSurfaceShader && !m_ignoreSurfaces )else
 	} //if( writeShaders ) 
@@ -3874,31 +3869,32 @@ MStatus liqRibTranslator::writeShader_forShadow(
 		else //if( hasSurfaceShader__ && ! hasCustomSurfaceShader__ ) 
 		{
 			liquid::RendererMgr::getInstancePtr()->getRenderer()->F2(false, ribNode__ );
-#if 0
-			if( path__.hasFn( MFn::kPfxHair ) ) 
-			{
-				// get some of the hair system parameters
-				liqFloat translucence = 0, specularPower = 0;
-				liqColor specularColor;
 
-				getPfxHairData(path__, translucence, specularPower, specularColor);
+			//refactor 39 begin
+			liquid::RendererMgr::getInstancePtr()->getRenderer()
+				->writeShader_forDeepShadow_forSpecialTypes(ribNode__, path__);
+// 			if( path__.hasFn( MFn::kPfxHair ) ) 
+// 			{
+// 				// get some of the hair system parameters
+// 				liqFloat translucence = 0, specularPower = 0;
+// 				liqColor specularColor;
+// 
+// 				getPfxHairData(path__, translucence, specularPower, specularColor);
+// 
+// 				RiSurface(  "liquidPfxHair",
+// 					"float specularPower", &specularPower,
+// 					"float translucence",  &translucence,
+// 					"color specularColor", &specularColor,
+// 					RI_NULL );
+// 			}
+			//refactor 39 end
 
-				RiSurface(  "liquidPfxHair",
-					"float specularPower", &specularPower,
-					"float translucence",  &translucence,
-					"color specularColor", &specularColor,
-					RI_NULL );
-			}
-#else
-			liquidMessage2(messageWarning,"move to renderman module");
-#endif
 		}
 	}else {
-#if 0
-		RiSurface( "null", RI_NULL );
-#else
-			liquidMessage2(messageWarning,"move to renderman module");
-#endif
+		//refactor 40 begin
+		liquid::RendererMgr::getInstancePtr()->getRenderer()
+			->writeShader_forShadow_NullShader(ribNode__, path__);
+		//refactor 40 end
 	}
 
 

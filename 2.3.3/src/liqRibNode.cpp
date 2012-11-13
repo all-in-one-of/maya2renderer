@@ -65,6 +65,8 @@
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
 #include "common/mayacheck.h"
+#include "renderermgr.h"
+
 using namespace std;
 using namespace boost;
 
@@ -1586,7 +1588,8 @@ void liqRibNode::writeUserAttributes()
 {
 	CM_TRACE_FUNC("liqRibNode::writeUserAttributes()");
 
-	assert(0&&"liqRibNode::writeUserAttributes() is not implemented.");
+	liquid::RendererMgr::getInstancePtr()->
+		getRenderer()->writeUserAttributes(this);
   //unsigned numTokens( tokenPointerMap.size() );
   //if( numTokens ) {
   //  scoped_array< liqToken > tokenArray( new liqToken[ numTokens ] );
