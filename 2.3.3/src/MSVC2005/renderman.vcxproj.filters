@@ -1,133 +1,146 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="renderer">
-      <UniqueIdentifier>{6bdc42a0-628d-4992-afe7-91750420e169}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="renderer\renderman">
-      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="renderer\renderman\mel">
+    <Filter Include="mel">
       <UniqueIdentifier>{91efda18-f028-4987-8ad7-85ef4f4bfe8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\renderman\rm_plug.cpp" />
     <ClCompile Include="..\renderman\rm_factory.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_helper.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_preview.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_renderer.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_shader.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeCoordData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeCurvesData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeHSubdData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeImplicitSphereData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeLightData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeLocatorData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeMayaSubdData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeMeshData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeNuCurveData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeParticleData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writePfxData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writePfxHairData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writePfxToonData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeShaveData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeSubdData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_writeSurfaceData.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\shaderOutputRSL.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\shaderOutputRSL_materials.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\shaderOutputRSL_mi.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\shaderOutputRSL_textures.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
-    <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
-    <ClCompile Include="..\ri_interface.cpp" />
-    <ClCompile Include="..\liqRiCommands.cpp" />
+    <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_plug.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ri_interface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\liqRiCommands.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
-      <Filter>renderer\renderman\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel">
-      <Filter>renderer\renderman\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\renderman\mel\rm_callback.mel">
-      <Filter>renderer\renderman\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\renderman\mel\userSetup.mel">
-      <Filter>renderer\renderman\mel</Filter>
+      <Filter>mel</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\renderman\rm_factory.h">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_helper.h">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_renderer.h">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\shaderOutputRSL.h">
-      <Filter>renderer\renderman</Filter>
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
-    <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
-    <ClInclude Include="..\..\include\liqRiCommands.h" />
+    <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRiCommands.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

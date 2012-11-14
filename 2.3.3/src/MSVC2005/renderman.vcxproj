@@ -2277,12 +2277,6 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="displayDriverAqsis\displayDriverAqsis.vcxproj">
-      <Project>{74e7c4b8-b607-43a9-8ce3-21209cf2da67}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel" />
     <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel" />
     <None Include="..\renderman\mel\rm_callback.mel" />

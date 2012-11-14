@@ -1,177 +1,176 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="renderer">
-      <UniqueIdentifier>{6bdc42a0-628d-4992-afe7-91750420e169}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="renderer\elvishray">
-      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="renderer\elvishray\mel">
+    <Filter Include="mel">
       <UniqueIdentifier>{91efda18-f028-4987-8ad7-85ef4f4bfe8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\elvishray\er_factory.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_GlobalNodeHelper.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_group.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_groupmgr.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_renderer.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_shader.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeLightData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeLocatorData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeMeshData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writePfxData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writePfxHairData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeShaveData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\ercall.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\MayaConnection.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputER.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputER_materials.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputERCall.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputERCall_materials.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputERCall_mi.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputERCall_textures.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\shaderOutputERCall_utilities.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeCurvesData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeHSubdData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeImplicitSphereData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeMayaSubdData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeNuCurveData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeParticleData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writePfxToonData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeSubdData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeSurfaceData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_writeCoordData.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\elvishray\er_preview.cpp">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\elvishray\er_plug.cpp" />
+    <ClCompile Include="..\elvishray\er_plug.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_group.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_groupmgr.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_renderer.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\ercall.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\log_helper.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\MayaConnection.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\shaderOutputER.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\shaderOutputERCall.h">
-      <Filter>renderer\elvishray</Filter>
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">
-      <Filter>renderer\elvishray\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\er_CreateMenus.mel">
-      <Filter>renderer\elvishray\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel">
-      <Filter>renderer\elvishray\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\userSetup.mel">
-      <Filter>renderer\elvishray\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel">
-      <Filter>renderer\elvishray\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\er_callback.mel">
-      <Filter>renderer\elvishray\mel</Filter>
+      <Filter>mel</Filter>
     </None>
   </ItemGroup>
 </Project>

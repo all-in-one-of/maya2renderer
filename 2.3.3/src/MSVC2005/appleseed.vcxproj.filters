@@ -1,243 +1,242 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="renderer">
-      <UniqueIdentifier>{6bdc42a0-628d-4992-afe7-91750420e169}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="renderer\appleseed">
-      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="renderer\appleseed\mel">
+    <Filter Include="mel">
       <UniqueIdentifier>{91efda18-f028-4987-8ad7-85ef4f4bfe8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="renderer\appleseed\dependences">
+    <Filter Include="dependences">
       <UniqueIdentifier>{fbbaa411-af84-4b16-af41-bdcd7f743091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\appleseed\as_bsdfBuilder.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_connection.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_environment.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_factory.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_GlobalNodeHelper.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_helper5.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_helper.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_material2.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_material3.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_material4.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_material.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_preview.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_renderer.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shader.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutput.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutput_materials.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutput_mi.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutput_textures.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutput_utilities.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutputCall.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutputCall_materials.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutputCall_mi.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutputCall_textures.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_shaderOutputCall_utilities.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeClipPlaneData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeCoordData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeCurvesData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeHSubdData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeImplicitSphereData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeLightData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeLocatorData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeMayaSubdData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeMeshData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeNuCurveData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeParticleData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writePfxData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writePfxHairData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writePfxToonData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeShaveData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeSubdData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\as_writeSurfaceData.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\objExport.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\prerequest_as.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\appleseed\qttilecallbackfactory.cpp">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\appleseed\as_plug.cpp" />
     <ClCompile Include="..\..\..\dependence\appleseed\half.cpp">
-      <Filter>renderer\appleseed\dependences</Filter>
+      <Filter>dependences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\appleseed\as_plug.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_connection.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_factory.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_GlobalNodeHelper.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_helper5.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_helper.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_material2.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_material3.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_material4.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_material.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_renderer.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_shaderOutput.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\as_shaderOutputCall.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\log_helper.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\objExport.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\prerequest_as.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\appleseed\eLut.h">
-      <Filter>renderer\appleseed\dependences</Filter>
+      <Filter>dependences</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\appleseed\half.h">
-      <Filter>renderer\appleseed\dependences</Filter>
+      <Filter>dependences</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h">
-      <Filter>renderer\appleseed\dependences</Filter>
+      <Filter>dependences</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\appleseed\as_helper.inl">
-      <Filter>renderer\appleseed</Filter>
+      <Filter>src</Filter>
     </None>
     <None Include="..\appleseed\mel\AEliquidShaderTemplate_appleseed.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\appleseed\mel\as_AEliquidInstanceFlags.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\appleseed\mel\as_callback.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\appleseed\mel\as_CreateMenus.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\appleseed\mel\as_util.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\appleseed\mel\liqGlobalsNodeappleseed.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
     <None Include="..\appleseed\mel\userSetup.mel">
-      <Filter>renderer\appleseed\mel</Filter>
+      <Filter>mel</Filter>
     </None>
   </ItemGroup>
 </Project>

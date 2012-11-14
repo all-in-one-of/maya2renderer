@@ -2299,12 +2299,6 @@
     <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel" />
     <None Include="..\elvishray\mel\userSetup.mel" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="displayDriverAqsis\displayDriverAqsis.vcxproj">
-      <Project>{74e7c4b8-b607-43a9-8ce3-21209cf2da67}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
