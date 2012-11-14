@@ -346,7 +346,7 @@ namespace appleseed
 		virtual MStatus preGeometryMel(const MString &m_preGeomRIB);
 		virtual void F1(const liqRibNodePtr &ribNode__,  liqShader &currentShader);
 		virtual void F2(const bool m_shaderDebug, const liqRibNodePtr &ribNode__);
-		virtual void writeUserAttributes(const liqRibNod *ribNode__);
+		virtual void writeUserAttributes(const liqRibNode *ribNode__);
 		virtual void objectBlock_reference_begin();
 		virtual void objectBlock_reference_end();
 		virtual void writeShader_forShadow_ribbox(const MString & text);
