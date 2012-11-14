@@ -2284,6 +2284,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\liqRiCommands.h" />
+    <ClInclude Include="..\..\include\ri_interface.h" />
     <ClInclude Include="..\renderman\rm_factory.h" />
     <ClInclude Include="..\renderman\rm_helper.h" />
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />

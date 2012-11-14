@@ -232,9 +232,6 @@
     <ClCompile Include="..\liqRibTranslatorNew.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\liqRiCommands.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\liqShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -254,9 +251,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\liqVolumeNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ri_interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp">
@@ -652,6 +646,12 @@
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp">
       <Filter>renderer\renderman</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqRiCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ri_interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -870,9 +870,6 @@
     <ClInclude Include="..\..\include\liqRibTranslator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\liqRiCommands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\liqShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1052,6 +1049,9 @@
     </ClInclude>
     <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h">
       <Filter>renderer\renderman</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqRiCommands.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

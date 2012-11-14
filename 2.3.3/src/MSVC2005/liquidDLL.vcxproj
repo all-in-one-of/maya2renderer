@@ -2308,9 +2308,6 @@
     <ClCompile Include="..\liqVolumeNode.cpp" />
     <ClCompile Include="..\liq_plug.cpp" />
     <ClCompile Include="..\liq_plugdll.cpp" />
-    <ClCompile Include="..\ri_interface.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp" />
     <ClCompile Include="..\shadergraph\shadermgr.cpp" />
     <ClCompile Include="..\shadergraph\shaderOutput.cpp" />
@@ -2405,7 +2402,6 @@
     <ClInclude Include="..\..\include\liqRibSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqRibSurfaceData.h" />
     <ClInclude Include="..\..\include\liqRibTranslator.h" />
-    <ClInclude Include="..\..\include\liqRiCommands.h" />
     <ClInclude Include="..\..\include\liqShader.h" />
     <ClInclude Include="..\..\include\liqShaderFactory.h" />
     <ClInclude Include="..\..\include\liqShaderParameterType.h" />
@@ -2415,7 +2411,6 @@
     <ClInclude Include="..\..\include\liqTokenPointer.h" />
     <ClInclude Include="..\..\include\liquid.h" />
     <ClInclude Include="..\..\include\liqVolumeNode.h" />
-    <ClInclude Include="..\..\include\ri_interface.h" />
     <ClInclude Include="..\liqAbstractFactory.h" />
     <ClInclude Include="..\liqGlobalNodeHelper.h" />
     <ClInclude Include="..\liqtypes.h" />

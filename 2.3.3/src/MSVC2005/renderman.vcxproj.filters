@@ -99,10 +99,10 @@
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\ri_interface.cpp">
+    <ClCompile Include="..\liqRiCommands.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\liqRiCommands.cpp">
+    <ClCompile Include="..\ri_interface.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,6 +140,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\liqRiCommands.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ri_interface.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

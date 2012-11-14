@@ -2075,7 +2075,8 @@
     <PreBuildEvent>
       <Message>
       </Message>
-      <Command> </Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -2440,6 +2441,7 @@
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h" />
     <ClInclude Include="..\..\include\liqParseString.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
+    <ClInclude Include="..\..\include\liqRiCommands.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
     <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\appleseed\as_bsdfBuilder.h" />
@@ -2530,7 +2532,6 @@
     <ClInclude Include="..\..\include\liqRibSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqRibSurfaceData.h" />
     <ClInclude Include="..\..\include\liqRibTranslator.h" />
-    <ClInclude Include="..\..\include\liqRiCommands.h" />
     <ClInclude Include="..\..\include\liqShader.h" />
     <ClInclude Include="..\..\include\liqShaderFactory.h" />
     <ClInclude Include="..\..\include\liqShaderParameterType.h" />

@@ -223,9 +223,6 @@
     <ClCompile Include="..\liqVolumeNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ri_interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp">
       <Filter>Source Files\shadergraph</Filter>
     </ClCompile>
@@ -507,9 +504,6 @@
     <ClInclude Include="..\..\include\liqRibTranslator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\liqRiCommands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\liqShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -535,9 +529,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\liqVolumeNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ri_interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\liqAbstractFactory.h">
