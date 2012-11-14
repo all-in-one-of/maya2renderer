@@ -1,5 +1,9 @@
 #include "renderermgr.h"
 #include "liqlog.h"
+
+#include "./common/prerequest_maya.h"
+#include "./common/mayacheck.h"
+
 #include "./renderman/rm_factory.h"
 #include "./elvishray/er_factory.h"
 #include "./appleseed/as_factory.h"
@@ -101,6 +105,9 @@ namespace liquid
 
 		m_factories.insert(std::make_pair(renderername, factory));
 
+		int registStatus;
+		IfMErrorWarn(MGlobal::executeCommand("registerLiquidSubRenderer(\""+MString(renderername.c_str())+"\")", registStatus, true));
+
 	}
 	void RendererMgr::unregistFactory(const std::string& renderername)
 	{
@@ -112,5 +119,8 @@ namespace liquid
 		}
 		delete i->second;
 		m_factories.erase(renderername);
+		
+		int unregistStatus;
+		IfMErrorWarn(MGlobal::executeCommand("unregisterLiquidSubRenderer(\""+MString(renderername.c_str())+"\")", unregistStatus, true));
 	}
 }

@@ -9,10 +9,10 @@
 source xxliquidutility.mel;
 
 global  string $renderer[] = {
-	"renderman"
-	,"elvishray"
-	,"luxrenderer"
-	,"appleseed"
+// 	"renderman"
+// 	,"elvishray"
+// 	,"luxrenderer"
+// 	,"appleseed"
 };
 
 global proc int liquidmayaHasCommonGlobalValue( string $global )
@@ -313,5 +313,44 @@ global proc unregisterLiquidRenderer()
   liqPopIdent();
 }
 
+global proc registerLiquidSubRenderer(string $rnd)
+{
+	liqPushIdent();
+	liqlog("registerLiquidSubRenderer("+$rnd+")");
+	global  string $renderer[];
+  
+	int $found = stringArrayContains($rnd, $renderer);
+	if( $found == 0 )//not exist
+	{
+		int $i = size($renderer);
+		$renderer[$i] = $rnd;//append value
+	}
 
+	string $file = getenv("LIQUID_ROOT")+"/2.3.3/src/"+$rnd+"/mel/usersetup.mel";
+	eval("source \""+$file+"\"");
+
+	liqPopIdent();
+}
+global proc unregisterLiquidSubRenderer(string $rnd)
+{
+	liqPushIdent();
+	liqlog("unregisterLiquidSubRenderer("+$rnd+")");
+	global  string $renderer[];
+
+	int $found = stringArrayContains($rnd, $renderer);
+	if( $found == 1 )//already exist
+	{
+		int $length = size($renderer);
+		int $i;
+		for($i = 0; $i<$length; $i++)
+		{
+			if($renderer[$i] == $rnd)
+			{
+				stringArrayRemoveAtIndex($i, $renderer);
+			}
+		}
+	}
+ 
+	liqPopIdent();
+}
 

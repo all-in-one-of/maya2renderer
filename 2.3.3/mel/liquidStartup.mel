@@ -685,11 +685,11 @@ global proc liquidCreateMenus()
       menuItem -label "About..." -command "liquidShowAbout";
 
 	  //
-	  menuItem -d true;
-	  er_CreateMenu("main");
-	  //
-	  menuItem -d true;
-	  lux_CreateMenu("main");
+// 	  menuItem -d true;
+// 	  er_CreateMenu("main");
+// 	  //
+// 	  menuItem -d true;
+// 	  lux_CreateMenu("main");
   }
   liqPopIdent();
 }

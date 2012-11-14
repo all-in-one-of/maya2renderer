@@ -73,21 +73,13 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 
 	$rnd = liqGetRendererName();
 
-	if($rnd=="renderman"){
-		liqGlobalsNode_renderman($cmd);
-	}
-	else if($rnd=="luxrenderer"){
-		liqGlobalsNode_luxrenderer($cmd);
-	}
-	else if($rnd=="elvishray"){
-		liqGlobalsNode_elvishray($cmd);
-	}
-	else if($rnd=="appleseed"){
-		liqGlobalsNode_appleseed($cmd);
-	}
-	else{
-		liqError("Unkown renderer("+$rnd+").");
-	}
+	if(catch(eval("liqGlobalsNode_"+$rnd+"(\""+$cmd+"\")"))) 
+	{
+		string $errmsg;
+		$errmsg +=("ERROE>liqGlobalsNode_"+$rnd+"(\""+$cmd+"\")");
+			
+		error($errmsg);
+	} 
 
 	liqPopIdent();
 }
