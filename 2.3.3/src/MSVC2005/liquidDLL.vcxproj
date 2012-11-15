@@ -2423,6 +2423,9 @@
     <ClInclude Include="..\..\..\dependence\trace\trace.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\mel\2011\liquidFileBrowser.mel" />
+    <None Include="..\..\mel\2011\liquidParamDialogWindow.mel" />
+    <None Include="..\..\mel\2012\liquidBuildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\..\mel\AEdagNodeInclude.mel" />
     <None Include="..\..\mel\AEdependNodeTemplate.mel" />
     <None Include="..\..\mel\AEliquidCamera.mel" />

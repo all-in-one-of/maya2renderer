@@ -205,23 +205,19 @@ global proc liquidMayaVersionOverwrite()
   
   string $liquidHome = liquidGetHome();
   
-/* //ymesh
+
   int $liq_maya_version_int = $liq_maya_version;
 
   if ( $liq_maya_version_int >= 2011 )
   {	
+  	liqlog("source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"");
   	eval( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
   } 
   if ( $liq_maya_version_int >= 2012 )
   {	
+  	liqlog("source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"");
   	eval( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"" );
   } 
-*/
-  if ( $liq_maya_version == "2011" )
-  {	
-  	eval( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
-  } 
-  
   liqPopIdent();
 }
 //===========================================================================================
@@ -993,6 +989,7 @@ global proc liquidStartup()
   // Besides, there are leftovers in the mel/ folder, so we don't want to blindfoldely source
   // everything in there anyway.
   liquidLoadScripts();
+  liquidMayaVersionOverwrite();
   //liquidRegisterSlLib();
   liquidCreateMenus();
   liquidCreateScriptNode();

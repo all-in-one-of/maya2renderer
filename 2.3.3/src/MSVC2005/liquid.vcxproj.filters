@@ -65,6 +65,12 @@
     <Filter Include="renderer\appleseed\dependences">
       <UniqueIdentifier>{622c7975-f0b0-4a48-88cd-2bcfbc909231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MEL Scripts\2011">
+      <UniqueIdentifier>{fe025e61-fa14-41ab-9bb9-dec9160b24ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MEL Scripts\2012">
+      <UniqueIdentifier>{fba9b48e-1435-44b5-ba5d-382b8a2c1433}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\liqAttachPrefAttribute.cpp">
@@ -1354,6 +1360,15 @@
     </None>
     <None Include="..\luxrenderer\mel\lux_callback.mel">
       <Filter>renderer\luxrenderer\mel</Filter>
+    </None>
+    <None Include="..\..\mel\2011\liquidFileBrowser.mel">
+      <Filter>MEL Scripts\2011</Filter>
+    </None>
+    <None Include="..\..\mel\2011\liquidParamDialogWindow.mel">
+      <Filter>MEL Scripts\2011</Filter>
+    </None>
+    <None Include="..\..\mel\2012\liquidBuildHypergraphNodePopupMenuItems.mel">
+      <Filter>MEL Scripts\2012</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -38,6 +38,12 @@
     <Filter Include="dependence\trace">
       <UniqueIdentifier>{f62a9a44-8fec-4a40-bb7b-76d2657a46ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MEL Scripts\2011">
+      <UniqueIdentifier>{1874ba2c-e03a-4776-ad35-886422f40579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MEL Scripts\2012">
+      <UniqueIdentifier>{1295edd8-cd23-4f7b-bbb2-930ff8fe1964}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\liqAttachPrefAttribute.cpp">
@@ -802,6 +808,15 @@
     </None>
     <None Include="..\..\mel\liquidliquidShaderNodes.mel">
       <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\2012\liquidBuildHypergraphNodePopupMenuItems.mel">
+      <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\2011\liquidFileBrowser.mel">
+      <Filter>MEL Scripts\2011</Filter>
+    </None>
+    <None Include="..\..\mel\2011\liquidParamDialogWindow.mel">
+      <Filter>MEL Scripts\2011</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

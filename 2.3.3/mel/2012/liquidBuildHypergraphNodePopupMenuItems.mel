@@ -37,6 +37,9 @@ source colorProfileProcedures.mel;
 //
 global proc duBuildHypergraphAssignCb( string $material, string $cmd )
 {
+	liqPushIdent();
+	liqlog("2012/duBuildHypergraphAssignCb("+$material+","+$cmd+")");
+
 	string $selected[] = `ls -sl`;
 	string $sel;
 	string $conns[];
@@ -60,6 +63,7 @@ global proc duBuildHypergraphAssignCb( string $material, string $cmd )
 		}
 	}
 	eval( $cmd + " " + $material );
+    liqPopIdent();
 }
 
 
@@ -70,6 +74,8 @@ global proc buildHypergraphNodePopupMenuItems(
 	string $hypershade,
 	string $node)
 {
+	liqPushIdent();
+	liqlog("2012/buildHypergraphNodePopupMenuItems("+$hypershade+","+$node+")");
 	//
 	// Description:
 	//	This procedure is called when the user RMB clicks on a node in a scene 
@@ -649,6 +655,7 @@ global proc buildHypergraphNodePopupMenuItems(
 		-label (uiRes("m_buildHypergraphNodePopupMenuItems.kRemoveFromAsset"))
 		-enable (size($removeNodes) > 0)
 		-command ("removeNodesFromContainer("+$removeNodes+",\"\",0)");
+  liqPopIdent();
 }
 
 print "> liquidBuildHypergraphNodePopupMenuItems.mel for Maya2012 loaded...\n";

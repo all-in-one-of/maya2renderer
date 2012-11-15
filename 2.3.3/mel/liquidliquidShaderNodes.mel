@@ -19,6 +19,7 @@ global proc liquidAssignLiquidShaderToSelected( string $node )
 	else if ( $shaderType == "surface" ) liquidAssignSurfaceShaderToSelected( $node );
 	else if ( $shaderType == "displacement" ) liquidAssignDisplacementShaderToSelected( $node );
 	else if ( $shaderType == "volume" ) liquidAssignVolumeShaderToSelected( $node );
+	else if ( isValidShaderTypeForPL($shaderType) ) liquidAssignSpecificShaderToSelected($node, "liquidShaderNode");
 	else
 	{
 		liqError($node+".rmanShaderType \""+$shaderType+"\" is unknown.");
