@@ -51,7 +51,8 @@ proc _liqError(string $prefix, string $log)
 	}
 
 	if( $g_LogFileId == 0 ){// log file is not open.
-		error($indent + $prefix +">"+ $log +"\n");
+		print($indent + $prefix +">"+ $log +"\n");
+		error("liq error.\n");
 	}else{
 		fprint $g_LogFileId ($indent + $prefix +">"+ $log +"\n");
 	}
