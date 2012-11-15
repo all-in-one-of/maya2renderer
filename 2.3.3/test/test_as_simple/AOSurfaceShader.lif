@@ -5,7 +5,7 @@ param "sampling_method";
 name "Sampling Method";
 desc "Required parameter";
 type "selector";
-range [ "Cosine-Weighted Sampling" cosine "Uniform Sampling" uniform];
+range [ "Cosine-Weighted Sampling" "cosine" "Uniform Sampling" "uniform"];
 
 param "samples";
 name "Samples";
