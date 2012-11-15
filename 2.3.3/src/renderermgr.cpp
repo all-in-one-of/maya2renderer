@@ -105,9 +105,7 @@ namespace liquid
 
 		m_factories.insert(std::make_pair(renderername, factory));
 
-		int registStatus;
-		IfMErrorWarn(MGlobal::executeCommand("registerLiquidSubRenderer(\""+MString(renderername.c_str())+"\")", registStatus, true));
-
+		IfMErrorWarn(MGlobal::executeCommand("registerLiquidSubRenderer(\""+MString(renderername.c_str())+"\")",  true));
 	}
 	void RendererMgr::unregistFactory(const std::string& renderername)
 	{
@@ -120,7 +118,6 @@ namespace liquid
 		delete i->second;
 		m_factories.erase(renderername);
 		
-		int unregistStatus;
-		IfMErrorWarn(MGlobal::executeCommand("unregisterLiquidSubRenderer(\""+MString(renderername.c_str())+"\")", unregistStatus, true));
+		IfMErrorWarn(MGlobal::executeCommand("unregisterLiquidSubRenderer(\""+MString(renderername.c_str())+"\")",  true));
 	}
 }
