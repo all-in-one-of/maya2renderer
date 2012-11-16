@@ -1572,6 +1572,7 @@ global proc liquidAssignSpecificShaderToSelected( string $node, string $anchorAt
 {
   liqPushIdent();
 	liqlog("liquidAssignSpecificShaderToSelected("+$node+","+$anchorAttributeName+")");
+	//refactor 41 begin, to _liquidAssignLiquidShaderToSelected()
 	// assign the shader to geometry
 	if ( size(`ls -geometry -dag -sl`) )
 	{
@@ -1585,7 +1586,7 @@ global proc liquidAssignSpecificShaderToSelected( string $node, string $anchorAt
 	}
 	else
 	{
-		if( nodeType($node) == "liquidSurface" ) 
+		if( nodeType($node) == "liquidSurface" )
 		{
 			// connect file to node materialInfo if file exists
 			string $shadingEngine = $shadingEngineConnections[0];
@@ -1626,6 +1627,7 @@ global proc liquidAssignSpecificShaderToSelected( string $node, string $anchorAt
 			connectAttr -f ($node+".liqAssignedObjects") ($sel+"."+$anchorAttributeName);
 		}
 	}
+	//refactor 41 end, to _liquidAssignLiquidShaderToSelected()
   liqPopIdent();
 }
 
@@ -2798,4 +2800,17 @@ global proc string liquidRetrieveLifUiCmd(string $node, string $token)
 		}
 	}
 	return "";
+}
+// \@ret 1: true;  0: false
+global proc int isSurfaceShader(string $shaderType)
+{
+    liqPushIdent();
+    liqlog("isSurfaceShader("+$shaderType+")");
+
+	string $rnd = liqGetRendererName();
+	string $fn;
+	$fn = "isSurfaceShader_"+$rnd+"(\""+$shaderType+"\")";
+
+	liqPopIdent();	
+	return ( eval($fn) );
 }

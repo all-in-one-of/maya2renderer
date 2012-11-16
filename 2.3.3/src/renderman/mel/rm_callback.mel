@@ -6,7 +6,7 @@ global proc int isValidShaderTypeForPL_renderman(string $shaderType)
     liqPushIdent();
     liqlog("isValidShaderTypeForPL_renderman("+$shaderType+")");
 
-	if ( $shaderType == "surface"		||
+	if ( isSurfaceShader_renderman( $shaderType )		||
 		 $shaderType == "displacement"  ||
 		 $shaderType == "volume"        ||
 		 $shaderType == "light"         ||
@@ -18,4 +18,15 @@ global proc int isValidShaderTypeForPL_renderman(string $shaderType)
 
     liqPopIdent();
 	return 0;
+}
+//
+global proc int isSurfaceShader_renderman(string $shaderType)
+{
+	liqPushIdent();
+    liqlog("isSurfaceShader_renderman("+$shaderType+")");
+
+	int $ret = ($shaderType == "surface")? 1 : 0;
+
+	liqPopIdent();
+	return $ret;
 }

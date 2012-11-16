@@ -6,7 +6,7 @@ global proc int isValidShaderTypeForPL_elvishray(string $shaderType)
     liqPushIdent();
     liqlog("isValidShaderTypeForPL_elvishray("+$shaderType+")");
 
-	if ( $shaderType == "surface"		||
+	if ( isSurfaceShader_elvishray( $shaderType )		||
 		 $shaderType == "displace"      ||
 		 $shaderType == "volume"        ||
 		 $shaderType == "shadow"        ||
@@ -20,4 +20,15 @@ global proc int isValidShaderTypeForPL_elvishray(string $shaderType)
 
     liqPopIdent();
 	return 0;
+}
+//
+global proc int isSurfaceShader_elvishray(string $shaderType)
+{
+	liqPushIdent();
+    liqlog("isSurfaceShader_elvishray("+$shaderType+")");
+
+	int $ret = ($shaderType == "surface")? 1 : 0;
+
+	liqPopIdent();
+	return $ret;
 }

@@ -6,14 +6,8 @@ global proc int isValidShaderTypeForPL_appleseed(string $shaderType)
     liqPushIdent();
     liqlog("isValidShaderTypeForPL_appleseed("+$shaderType+")");
 
-	if ( //surface_shader
-		 $shaderType == "ao_surface_shader"			||
-		 $shaderType == "constant_surface_shader"   ||
-		 $shaderType == "diagnostic_surface_shader"	||
-		 $shaderType == "fast_sss_surface_shader"	||
-		 $shaderType == "physical_surface_shader"   ||
-		 $shaderType == "smoke_surface_shader"		||
-		 $shaderType == "voxel_ao_surface_shader"	||
+	if ( //surface shader
+		 isSurfaceShader_appleseed($shaderType)		||
 		 //BRDF
 		 $shaderType == "ashikhmin_brdf"			||
 		 $shaderType == "bsdf_mix"					||
@@ -25,6 +19,30 @@ global proc int isValidShaderTypeForPL_appleseed(string $shaderType)
 		 $shaderType == "specular_btdf"				||
 		 //EDF
 		 $shaderType == "diffuse_edf"				||
+		 false
+	)
+	{
+		liqPopIdent();
+		return 1;
+	}
+
+    liqPopIdent();
+	return 0;
+}
+//
+global proc int isSurfaceShader_appleseed(string $shaderType)
+{
+	liqPushIdent();
+    liqlog("isSurfaceShader_appleseed("+$shaderType+")");
+
+	if ( //surface_shader
+		 $shaderType == "ao_surface_shader"			||
+		 $shaderType == "constant_surface_shader"   ||
+		 $shaderType == "diagnostic_surface_shader"	||
+		 $shaderType == "fast_sss_surface_shader"	||
+		 $shaderType == "physical_surface_shader"   ||
+		 $shaderType == "smoke_surface_shader"		||
+		 $shaderType == "voxel_ao_surface_shader"	||
 		 false
 	)
 	{

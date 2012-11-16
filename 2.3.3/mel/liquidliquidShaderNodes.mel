@@ -1,6 +1,71 @@
+//liquidliquidShaderNodes.mel
 
 source xxliquidutility.mel;
 
+//
+proc _liquidAssignLiquidShaderToSelected( string $node, string $anchorAttributeName)
+{
+  liqPushIdent();
+	liqlog("_liquidAssignLiquidShaderToSelected("+$node+","+$anchorAttributeName+")");
+	//refactor 41 begin,
+	// assign the shader to geometry
+	if ( size(`ls -geometry -dag -sl`) )
+	{
+		hyperShade -assign $node;
+	}
+	string $shadingEngineConnections[] = `listConnections ($node+".outColor")`;
+	$shadingEngineConnections = `ls -l -type shadingEngine $shadingEngineConnections`;
+	if( size($shadingEngineConnections)==0 )
+	{
+		warning("no shadingEngine for shading node " + $node + "... must not happen\n");
+	}
+	else
+	{
+		if( isSurfaceShader(`getAttr ($node+".rmanShaderType")`) ) // check if it is a surface
+		{
+			// connect file to node materialInfo if file exists
+			string $shadingEngine = $shadingEngineConnections[0];
+			string $tmp[] = `listConnections -type "materialInfo" $shadingEngine`;
+			if(size($tmp))
+			{
+				string $materialInfo = $tmp[0];
+				string $fileConnection = `connectionInfo -sfd ($node+".liqcolor")`;//liquidShaderNode has "liqcolor" instead of "color"
+				if( $fileConnection != "" )
+				{
+					string $file = plugNode($fileConnection);
+					connectAttr -f ($file+".message") ($materialInfo+".texture[0]");
+				}
+			}
+		}
+	}
+
+	// special case for nodes not supported by the hypershade
+	string $selected[] = `ls  -type "stroke" // stroke = pfx
+								-type "pfxToon"
+								-type "pfxHair"
+								-type "locator"
+								-type "nurbsCurve"
+								-dag -sl`;
+
+	if ( !objExists( ($node+".liqAssignedObjects") ) )
+	{
+		addAttr -ln liqAssignedObjects -at message $node;
+	}
+	for ( $sel in $selected )
+	{
+		if ( !objExists( ($sel+"."+$anchorAttributeName) ) )
+		{
+			addAttr -ln $anchorAttributeName -at message $sel;
+		}
+		if ( !isConnected( ($node+".liqAssignedObjects"), ($sel+"."+$anchorAttributeName ) ) )
+		{
+			connectAttr -f ($node+".liqAssignedObjects") ($sel+"."+$anchorAttributeName);
+		}
+	}
+	//refactor 41 end,
+  liqPopIdent();
+}
+//
 global proc liquidAssignLiquidShaderToSelected( string $node )
 {
 	liqPushIdent();
@@ -19,7 +84,10 @@ global proc liquidAssignLiquidShaderToSelected( string $node )
 	else if ( $shaderType == "surface" ) liquidAssignSurfaceShaderToSelected( $node );
 	else if ( $shaderType == "displacement" ) liquidAssignDisplacementShaderToSelected( $node );
 	else if ( $shaderType == "volume" ) liquidAssignVolumeShaderToSelected( $node );
-	else if ( isValidShaderTypeForPL($shaderType) ) liquidAssignSpecificShaderToSelected($node, "liquidShaderNode");
+	else if ( isValidShaderTypeForPL($shaderType) ) 
+	{
+		_liquidAssignLiquidShaderToSelected($node, "liquidShaderNode");
+	}
 	else
 	{
 		liqError($node+".rmanShaderType \""+$shaderType+"\" is unknown.");
@@ -31,3 +99,5 @@ global proc liquidAssignLiquidShaderToSelected( string $node )
 	}
 	liqPopIdent();
 }
+//
+
