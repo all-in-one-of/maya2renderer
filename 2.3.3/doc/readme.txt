@@ -372,6 +372,9 @@ RenderMan (R) is a registered trademark of Pixar
   And, liquidShaderNode.color has three sub-values: colorR,colorG,colorB;
   But when liquid parse ConstantSurfaceShader.pl, it will create the attribute "color" which has sub-value : colora, colorb, colorc.
 
+- lif 文件里 有的UI显示不正确，比如枚举变量
+  lif的解析有bug，避免这个bug的一个方法是让lif文件以空行结尾
+  见test_as_simple下test.lif和test_bad.lif的差异
 
   ---------------------------------------------------------------------
                               F.A.Q.

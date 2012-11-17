@@ -1,0 +1,19 @@
+diagnostic_surface_shader "diagnostic_surface_shader0";
+desc "Appleseed Diagnostic Surface Shader";
+
+param "mode0";
+name "Mode0";
+desc "mode0\nRequired";
+type "selector";
+range [ "Ambient Occlusion"		"ambient_occlusion" 
+	"Assembly Instances"		"assembly_instances" 
+	"Barycentric Coordinates"	"barycentric" 
+	];
+param "mode1";
+name "Mode1";
+desc "mode1\nRequired";
+type "selector";
+range [ "AAA"	"0n" 
+	"BBB"	"1" 
+	"CCC"	"2" 
+	];
