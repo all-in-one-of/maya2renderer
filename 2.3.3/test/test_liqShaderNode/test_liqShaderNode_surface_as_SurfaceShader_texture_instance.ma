@@ -1,9 +1,9 @@
 //Maya ASCII 2012 scene
 //Name: test_liqShaderNode_surface_as_SurfaceShader_texture_instance.ma
-//Last modified: Wed, Aug 29, 2012 09:02:33 PM
+//Last modified: Sat, Nov 17, 2012 03:37:37 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=19:58:56.71)";
+requires "liquid_2012x32d" "2.3.5 (buildtime= 1:50:32.62)";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -123,7 +123,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_specularBTDFPSS319.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_SurfaceShader_texture_instance130.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -481,18 +481,22 @@ createNode liquidShader -n "liquidShader12";
 	addAttr -ci true -h true -sn "color_multiplier" -ln "color_multiplier" -at "double";
 	addAttr -ci true -h true -sn "alpha_multiplier" -ln "alpha_multiplier" -at "double";
 	addAttr -ci true -h true -sn "aerial_persp_mode" -ln "aerial_persp_mode" -dt "string";
-	addAttr -ci true -uac -h true -k true -sn "aerial_persp_sky_color" -ln "aerial_persp_sky_color" 
-		-at "float3" -nc 3;
-	addAttr -ci true -h true -k true -sn "aerial_persp_sky_colora" -ln "aerial_persp_sky_colora" 
-		-at "float" -p "aerial_persp_sky_color";
-	addAttr -ci true -h true -k true -sn "aerial_persp_sky_colorb" -ln "aerial_persp_sky_colorb" 
-		-at "float" -p "aerial_persp_sky_color";
-	addAttr -ci true -h true -k true -sn "aerial_persp_sky_colorc" -ln "aerial_persp_sky_colorc" 
-		-at "float" -p "aerial_persp_sky_color";
 	addAttr -ci true -h true -sn "aerial_persp_distance" -ln "aerial_persp_distance" 
 		-at "double";
 	addAttr -ci true -h true -sn "aerial_persp_intensity" -ln "aerial_persp_intensity" 
 		-at "double";
+	addAttr -ci true -uac -h true -sn "aerial_persp_sky_color" -ln "aerial_persp_sky_color" 
+		-at "float3" -nc 3;
+	addAttr -ci true -h true -sn "aerial_persp_sky_colorR" -ln "aerial_persp_sky_colorR" 
+		-at "float" -p "aerial_persp_sky_color";
+	addAttr -ci true -h true -sn "aerial_persp_sky_colorG" -ln "aerial_persp_sky_colorG" 
+		-at "float" -p "aerial_persp_sky_color";
+	addAttr -ci true -h true -sn "aerial_persp_sky_colorB" -ln "aerial_persp_sky_colorB" 
+		-at "float" -p "aerial_persp_sky_color";
+	addAttr -ci true -h true -sn "rmanParamLifCmdId" -ln "rmanParamLifCmdId" -dt "Int32Array";
+	addAttr -ci true -h true -sn "rmanGroups" -ln "rmanGroups" -dt "stringArray";
+	addAttr -ci true -h true -sn "rmanGroupLifCmdId" -ln "rmanGroupLifCmdId" -dt "Int32Array";
+	addAttr -ci true -sn "rmanLifCtrls" -ln "rmanLifCtrls" -dt "stringArray";
 	setAttr ".rms" -type "string" "physical_surface_shader0";
 	setAttr ".rst" -type "string" "physical_surface_shader";
 	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_as_simple/physicalSurfaceShader.dll";
@@ -501,9 +505,10 @@ createNode liquidShader -n "liquidShader12";
 	setAttr ".rty" -type "stringArray" 6 "float" "float" "string" "color" "float" "float"  ;
 	setAttr ".rdf" -type "stringArray" 6 "1.0" "1.0" "none" "1.01.01.0" "1000.0" "0.01"  ;
 	setAttr ".ras" -type "Int32Array" 6 -1 -1 -1 -1 -1 -1 ;
-	setAttr ".rlc" -type "stringArray" 6 "liquidAE_LifFloat( \"color_multiplier\", -1, \"float\", \"color_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"alpha_multiplier\", -1, \"float\", \"alpha_multiplier\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifString( \"aerial_persp_mode\", -1, \"string\", \"aerial_persp_mode\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifColor( \"aerial_persp_sky_color\", -1, \"color\", \"aerial_persp_sky_color\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"aerial_persp_distance\", -1, \"float\", \"aerial_persp_distance\", {\"0\", \"0\"}, \"\", 14 );" "liquidAE_LifFloat( \"aerial_persp_intensity\", -1, \"float\", \"aerial_persp_intensity\", {\"0\", \"0\"}, \"\", 14 );"  ;
+	setAttr ".rlc" -type "stringArray" 8 "liquidAE_LifParameter( \"color_multiplier\", \"-1\", \"float\", \"float\", \"Color Multiplier\", {\"\"}, \"optional\", 14 );" "liquidAE_LifParameter( \"alpha_multiplier\", \"-1\", \"float\", \"float\", \"Alpha Multiplier\", {\"\"}, \"optional\", 14 );" "liquidAE_LifGrp( \"Aerial Perspective\", 14 );" "liquidAE_LifParameter( \"aerial_persp_mode\", \"-1\", \"string\", \"selector\", \"Mode\", {\"None\", \"none\", \"Use Environment Shader\", \"environment_shader\", \"Use Sky Color\", \"sky_color\"}, \"aerial_persp_mode\\noptional\", 14 );" "liquidAE_LifParameter( \"aerial_persp_sky_color\", \"-1\", \"color\", \"color\", \"Sky Color\", {\"\"}, \"aerial_persp_sky_color\\noptional\", 14 );" "liquidAE_LifParameter( \"aerial_persp_distance\", \"-1\", \"float\", \"float\", \"Distance\", {\"\"}, \"aerial_persp_distance\\noptional\", 14 );" "liquidAE_LifParameter( \"aerial_persp_intensity\", \"-1\", \"float\", \"float\", \"Intensity\", {\"\"}, \"aerial_persp_intensity\\noptional\", 14 );" "liquidAE_LifGrp( \"end\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
 	setAttr ".rio" -type "Int32Array" 6 0 0 0 0 0 0 ;
+	setAttr ".rma" -type "stringArray" 6 "" "" "" "" "" ""  ;
 	setAttr ".bsdf_model" -type "string" "specular_btdf";
 	setAttr -k on ".specular_btdf_reflectance" -type "float3" 0 0 1 ;
 	setAttr ".specular_btdf_reflectance_multiplier" 1;
@@ -527,9 +532,13 @@ createNode liquidShader -n "liquidShader12";
 	setAttr -av ".color_multiplier" 1;
 	setAttr ".alpha_multiplier" 1;
 	setAttr ".aerial_persp_mode" -type "string" "none";
-	setAttr -k on ".aerial_persp_sky_color" -type "float3" 1 0 0 ;
 	setAttr ".aerial_persp_distance" 1000;
 	setAttr ".aerial_persp_intensity" 0.01;
+	setAttr ".aerial_persp_sky_color" -type "float3" 1 1 1 ;
+	setAttr ".rmanParamLifCmdId" -type "Int32Array" 6 0 1 3 4
+		 5 6 ;
+	setAttr ".rmanGroups" -type "stringArray" 0  ;
+	setAttr ".rmanGroupLifCmdId" -type "Int32Array" 0 ;
 createNode shadingEngine -n "liquidShader12SG";
 	addAttr -ci true -uac -k true -sn "liqBRDF" -ln "liqBRDF" -at "float3" -nc 3;
 	addAttr -ci true -k true -sn "liqBRDFr" -ln "liqBRDFr" -dv 1 -at "float" -p "liqBRDF";

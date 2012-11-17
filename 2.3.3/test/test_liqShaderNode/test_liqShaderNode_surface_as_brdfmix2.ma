@@ -1,9 +1,9 @@
 //Maya ASCII 2012 scene
 //Name: test_liqShaderNode_surface_as_brdfmix2.ma
-//Last modified: Sat, Sep 01, 2012 08:24:39 PM
+//Last modified: Sat, Nov 17, 2012 02:32:16 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=21:14:05.51)";
+requires "liquid_2012x32d" "2.3.5 (buildtime= 1:50:32.62)";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -112,7 +112,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_brdfmix2172.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_liqShaderNode_surface_as_brdfmix2179.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -314,6 +314,7 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 		-min 0 -max 1 -at "bool";
 	addAttr -ci true -h true -sn "export_mesh_normals" -ln "export_mesh_normals" -min 
 		0 -max 1 -at "bool";
+	setAttr ".constant_environment_edf_exitance" -type "float3" 1 1 1 ;
 	setAttr ".framename" -type "string" "beauty";
 	setAttr ".tile_size" -type "string" "32|32";
 	setAttr ".useFinal" yes;
