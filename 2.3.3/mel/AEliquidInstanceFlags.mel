@@ -486,9 +486,9 @@ global proc AEliquidInstanceFlags( string $node )
   editorTemplate -endLayout;//"Liquid"
 
   //create elvishray attributes
-  AEliquidInstanceFlags_elvishray( $node );
+  //AEliquidInstanceFlags_elvishray( $node );
   //
-  AEliquidInstanceFlags_luxrenderer( $node );
+  //AEliquidInstanceFlags_luxrenderer( $node );
 
   liqPopIdent();
 }
