@@ -327,7 +327,7 @@ protected:
 void _outputShadingGroup(const char* shadingGroupNode);
 //
 
-#define USE_LIQUID_RM_SHADE
+//#define USE_LIQUID_RM_SHADE
 //if not define USE_LIQUID_RM_SHADE, we use 3delight rm shader
 
 }//namespace RSL

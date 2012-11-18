@@ -113,7 +113,7 @@ void Visitor::visitBlinn(const char* node)
 	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);
 	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);
 	o.addRSLVariable(       "", "vector","transparency",		"transparency",		node);
-	o.addRSLVariable(       "", "vector", "normalCamera",		"normalCamera",		node);
+	o.addToRSL("normal normalCamera = N;");
 
 	o.addToRSL("uniform float i_reflectionMaxDistance   =4;");
 	o.addToRSL("uniform float i_reflectionSamples       =4;");
@@ -232,7 +232,7 @@ void Visitor::visitLambert(const char* node)
 	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);
 	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);
 
-	o.addRSLVariable(       "", "vector","normalCamera",		"normalCamera",		node);
+	o.addToRSL("normal normalCamera = N;");
 	o.addRSLVariable(       "", "vector","transparency",		"transparency",		node);
 	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);
 	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);
@@ -356,7 +356,7 @@ void Visitor::visitPhong(const char* node)
 	o.addRSLVariable(       "", "vector", "incandescence",		"incandescence",	node);
 	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);
 	o.addRSLVariable(       "", "float",  "matteOpacityMode",	"matteOpacityMode",	node);
-	o.addRSLVariable(       "", "vector", "normalCamera",		"normalCamera",		node);
+	o.addToRSL("normal normalCamera = N;");
 	o.addRSLVariable(       "", "vector", "specularColor",		"specularColor",	node);
 	o.addRSLVariable(       "", "float",  "reflectivity",		"reflectivity",		node);
 	o.addRSLVariable(       "", "vector", "reflectedColor",		"reflectedColor",	node);
