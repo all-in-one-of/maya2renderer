@@ -100,6 +100,7 @@ void liqRibTranslator::liquidReadGlobals()
 			liquidGetPlugElementValue( rGlobalNode, i, "ddImageName", theDisplay.name, gStatus );
 			liquidGetPlugElementValue( rGlobalNode, i, "ddImageType", theDisplay.type, gStatus );
 			liquidGetPlugElementValue( rGlobalNode, i, "ddImageMode", theDisplay.mode, gStatus );
+			liquidGetPlugElementValue( rGlobalNode, i, "ddParamType", theDisplay.ddParamType, gStatus );
 
 			if( i==0 ) {
 				theDisplay.enabled = true;

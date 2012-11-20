@@ -444,10 +444,10 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						if( (*m_displays_iterator).bitDepth != 0 ) 
 						{
 							int max = (int) pow( 2.0, (*m_displays_iterator).bitDepth ) - 1;
-							quantizer << "\"float quantize[4]\" [ 0 " << max << " 0 " << max << " ]";
+							quantizer << "\"quantize\" [ 0 " << max << " 0 " << max << " ]";
 						} 
 						else{
-							quantizer << "\"float quantize[4]\" [ 0 0 0 0 ]";
+							quantizer << "\"quantize\" [ 0 0 0 0 ]";
 						}
 
 						dither << "\"float dither\" [" << (*m_displays_iterator).dither <<"]";
@@ -486,6 +486,9 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					}
 
 					RiArchiveRecord( RI_COMMENT, "Display 8");
+					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s %s\"\n",
+						m_displays_iterator->ddParamType.asChar(), 
+						m_displays_iterator->mode.asChar() );
 					// output call
 					RiArchiveRecord( RI_VERBATIM, "Display \"%s\" \"%s\" \"%s\" %s %s %s %s\n", 
 						const_cast< char* >( imageName.str().c_str() ), 

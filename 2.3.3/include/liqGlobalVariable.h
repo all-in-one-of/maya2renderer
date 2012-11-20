@@ -30,6 +30,7 @@ typedef struct StructDDParam {
 typedef struct StructDisplay {
 	MString         name;
 	MString         type;
+	MString			ddParamType;
 	MString         mode;
 	bool            enabled;
 	bool            doQuantize;
