@@ -222,8 +222,18 @@ void Visitor::outputBegin(const char* shaderNodeName)
 	CM_TRACE_FUNC("Visitor::outputBegin("<<shaderNodeName<<"), open shader file");
 	RSLfile.open( renderman::getShaderFilePath_SRC(shaderNodeName).asChar() );
 
-	RSLfile << "//surface shader name: " << shaderNodeName << "\n";
-	RSLfile << shaderType.asChar()<<" " << getShaderName(shaderNodeName).asChar() << "()\n{\n";
+	RSLfile << "#include <"<<getAOVMacroDefineFileName()<<">" <<std::endl;
+
+	RSLfile << "//surface shader name: " << shaderNodeName << std::endl;
+	RSLfile << shaderType.asChar()<<" "<< getShaderName(shaderNodeName).asChar() << std::endl;
+	
+	//shader parameters
+	RSLfile << "(" << std::endl;
+	RSLfile << getSurfaceShaderAOVOutputParametersString() << std::endl;
+	RSLfile << ")"<< std::endl;
+
+	//shader body begin
+	RSLfile << "{"<< std::endl;
 
 	defineAOVVariables();
 
@@ -441,7 +451,347 @@ void Visitor::defineAOVVariables()
 	CM_TRACE_FUNC("Visitor::defineAOVVariables("<<shaderNodeName<<")");
 
 	RSLfile << "\n\n\n// define some extern variables which are used in 3delight shaders -----------------------------\n";
-	RSLfile << " color __transparency = color (1,1,1);";
+	RSLfile << " color __transparency = color (1,1,1);" << std::endl;
+
+	std::stringstream aov_params;
+	aov_params 
+	//begin shader_extra_parameters aov_ambient
+	<<"#ifdef USE_AOV_aov_ambient"	<<std::endl
+	<<"		color aov_ambient = 0;"	<<std::endl
+	<<"#endif"						<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_diffuse
+	<<"#ifdef USE_AOV_aov_diffuse"	<<std::endl
+	<<"		color aov_diffuse = 0;"	<<std::endl
+	<<"#endif"						<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_specular
+	<<"#ifdef USE_AOV_aov_specular"		<<std::endl
+	<<"		color aov_specular = 0;"	<<std::endl
+	<<"#endif"							<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_reflection
+	<<"#ifdef USE_AOV_aov_reflection"	<<std::endl
+	<<"		color aov_reflection = 0;"	<<std::endl
+	<<"#endif"							<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_rt_reflection
+	<<"#ifdef USE_AOV_aov_rt_reflection"	<<std::endl
+	<<"		color aov_rt_reflection = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_rt_reflection_alpha
+	<<"#ifdef USE_AOV_aov_rt_reflection_alpha"	<<std::endl
+	<<"		float aov_rt_reflection_alpha = 0;"	<<std::endl
+	<<"#endif"									<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_env_reflection
+	<<"#ifdef USE_AOV_aov_env_reflection"	<<std::endl
+	<<"		color aov_env_reflection = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_refraction
+	<<"#ifdef USE_AOV_aov_refraction"	<<std::endl
+	<<"		color aov_refraction = 0;"	<<std::endl
+	<<"#endif"							<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_shadow
+	<<"#ifdef USE_AOV_aov_shadow"	<<std::endl
+	<<"		float aov_shadow = 0;"	<<std::endl
+	<<"#endif"						<<std::endl
+	//end shader_extra_parameters 
+
+	//begin shader_extra_parameters aov_incandescence
+	<<"#ifdef USE_AOV_aov_incandescence"	<<std::endl
+	<<"		color aov_incandescence = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_translucence
+	<<"#ifdef USE_AOV_aov_translucence"		<<std::endl
+	<<"		color aov_translucence = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_ambient_no_shadow
+	<<"#ifdef USE_AOV_aov_ambient_no_shadow"	<<std::endl
+	<<"		color aov_ambient_no_shadow = 0;"	<<std::endl
+	<<"#endif"									<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_diffuse_no_shadow
+	<<"#ifdef USE_AOV_aov_diffuse_no_shadow"	<<std::endl
+	<<"		color aov_diffuse_no_shadow = 0;"	<<std::endl
+	<<"#endif"									<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_diffuse_intensity
+	<<"#ifdef USE_AOV_aov_diffuse_intensity"	<<std::endl
+	<<"		color aov_diffuse_intensity = 0;"	<<std::endl
+	<<"#endif"									<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_diffuse_intensity_no_shadow
+	<<"#ifdef USE_AOV_aov_diffuse_intensity_no_shadow"	<<std::endl
+	<<"		color aov_diffuse_intensity_no_shadow = 0;"	<<std::endl
+	<<"#endif"											<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_key_lights_diffuse_intensity
+	<<"#ifdef USE_AOV_aov_key_lights_diffuse_intensity"		<<std::endl
+	<<"		color aov_key_lights_diffuse_intensity = 0;"	<<std::endl
+	<<"#endif"												<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_key_lights_diffuse_intensity_no_shadow
+	<<"#ifdef USE_AOV_aov_key_lights_diffuse_intensity_no_shadow"	<<std::endl
+	<<"		color aov_key_lights_diffuse_intensity_no_shadow = 0;"	<<std::endl
+	<<"#endif"														<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_luminance_depth
+	<<"#ifdef USE_AOV_aov_luminance_depth"	<<std::endl
+	<<"		color aov_luminance_depth = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_specular_no_shadow
+	<<"#ifdef USE_AOV_aov_specular_no_shadow"	<<std::endl
+	<<"		color aov_specular_no_shadow = 0;"	<<std::endl
+	<<"#endif"									<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_specular_intensity
+	<<"#ifdef USE_AOV_aov_specular_intensity"	<<std::endl
+	<<"		color aov_specular_intensity = 0;"	<<std::endl
+	<<"#endif"									<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_specular_intensity_no_shadow
+	<<"#ifdef USE_AOV_aov_specular_intensity_no_shadow"		<<std::endl
+	<<"		color aov_specular_intensity_no_shadow = 0;"	<<std::endl
+	<<"#endif"												<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_key_lights_specular_intensity
+	<<"#ifdef USE_AOV_aov_key_lights_specular_intensity"	<<std::endl
+	<<"		color aov_key_lights_specular_intensity = 0;"	<<std::endl
+	<<"#endif"												<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_key_lights_specular_intensity_no_shadow
+	<<"#ifdef USE_AOV_aov_key_lights_specular_intensity_no_shadow"	<<std::endl
+	<<"		color aov_key_lights_specular_intensity_no_shadow = 0;"	<<std::endl
+	<<"#endif"														<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_color_no_shadow
+	<<"#ifdef USE_AOV_aov_color_no_shadow"	<<std::endl
+	<<"		color aov_color_no_shadow = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_surface_color
+	<<"#ifdef USE_AOV_aov_surface_color"	<<std::endl
+	<<"		color aov_surface_color = 0;"	<<std::endl
+	<<"#endif"								<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_normal
+	<<"#ifdef USE_AOV_aov_camera_space_normal"		<<std::endl
+	<<"		normal aov_camera_space_normal = 0;"	<<std::endl
+	<<"#endif"										<<std::endl
+	//end shader_extra_parameters
+
+	//begin shader_extra_parameters aov_facing_ratio
+	<<"#ifdef USE_AOV_aov_facing_ratio"				<<std::endl
+	<<"		float aov_facing_ratio = 0;"			<<std::endl
+	<<"#endif"										<<std::endl
+	//end shader_extra_parameters
+	;
+	//RSLfile << aov_params.str();
+}
+std::string Visitor::getSurfaceShaderAOVOutputParametersString()const
+{
+	CM_TRACE_FUNC("Visitor::getSurfaceShaderAOVOutputParametersString()");
+
+	std::stringstream ret;
+	ret 
+//begin shader_extra_parameters aov_ambient
+<<"#ifdef USE_AOV_aov_ambient"					<<std::endl
+<<"		output varying color aov_ambient = 0;"	<<std::endl
+<<"#endif"										<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_diffuse
+<<"#ifdef USE_AOV_aov_diffuse"					<<std::endl
+<<"		output varying color aov_diffuse = 0;"	<<std::endl
+<<"#endif"										<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_specular
+<<"#ifdef USE_AOV_aov_specular"					<<std::endl
+<<"		output varying color aov_specular = 0;"	<<std::endl
+<<"#endif"										<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_reflection
+<<"#ifdef USE_AOV_aov_reflection"					<<std::endl
+<<"		output varying color aov_reflection = 0;"	<<std::endl
+<<"#endif"											<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_rt_reflection
+<<"#ifdef USE_AOV_aov_rt_reflection"					<<std::endl
+<<"		output varying color aov_rt_reflection = 0;"	<<std::endl
+<<"#endif"												<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_rt_reflection_alpha
+<<"#ifdef USE_AOV_aov_rt_reflection_alpha"					<<std::endl
+<<"		output varying float aov_rt_reflection_alpha = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_env_reflection
+<<"#ifdef USE_AOV_aov_env_reflection"					<<std::endl
+<<"		output varying color aov_env_reflection = 0;"	<<std::endl
+<<"#endif"												<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_refraction
+<<"#ifdef USE_AOV_aov_refraction"					<<std::endl
+<<"		output varying color aov_refraction = 0;"	<<std::endl
+<<"#endif"											<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_shadow
+<<"#ifdef USE_AOV_aov_shadow"					<<std::endl
+<<"		output varying float aov_shadow = 0;"	<<std::endl
+<<"#endif"										<<std::endl
+//end shader_extra_parameters 
+
+//begin shader_extra_parameters aov_incandescence
+<<"#ifdef USE_AOV_aov_incandescence"					<<std::endl
+<<"		output varying color aov_incandescence = 0;"	<<std::endl
+<<"#endif"												<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_translucence
+<<"#ifdef USE_AOV_aov_translucence"					<<std::endl
+<<"		output varying color aov_translucence = 0;"	<<std::endl
+<<"#endif"											<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_ambient_no_shadow
+<<"#ifdef USE_AOV_aov_ambient_no_shadow"					<<std::endl
+<<"		output varying color aov_ambient_no_shadow = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_diffuse_no_shadow
+<<"#ifdef USE_AOV_aov_diffuse_no_shadow"					<<std::endl
+<<"		output varying color aov_diffuse_no_shadow = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_diffuse_intensity
+<<"#ifdef USE_AOV_aov_diffuse_intensity"					<<std::endl
+<<"		output varying color aov_diffuse_intensity = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_diffuse_intensity_no_shadow
+<<"#ifdef USE_AOV_aov_diffuse_intensity_no_shadow"					<<std::endl
+<<"		output varying color aov_diffuse_intensity_no_shadow = 0;"	<<std::endl
+<<"#endif"															<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_key_lights_diffuse_intensity
+<<"#ifdef USE_AOV_aov_key_lights_diffuse_intensity"					<<std::endl
+<<"		output varying color aov_key_lights_diffuse_intensity = 0;"	<<std::endl
+<<"#endif"															<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_key_lights_diffuse_intensity_no_shadow
+<<"#ifdef USE_AOV_aov_key_lights_diffuse_intensity_no_shadow"					<<std::endl
+<<"		output varying color aov_key_lights_diffuse_intensity_no_shadow = 0;"	<<std::endl
+<<"#endif"																		<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_luminance_depth
+<<"#ifdef USE_AOV_aov_luminance_depth"					<<std::endl
+<<"		output varying color aov_luminance_depth = 0;"	<<std::endl
+<<"#endif"												<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_specular_no_shadow
+<<"#ifdef USE_AOV_aov_specular_no_shadow"					<<std::endl
+<<"		output varying color aov_specular_no_shadow = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_specular_intensity
+<<"#ifdef USE_AOV_aov_specular_intensity"					<<std::endl
+<<"		output varying color aov_specular_intensity = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_specular_intensity_no_shadow
+<<"#ifdef USE_AOV_aov_specular_intensity_no_shadow"					<<std::endl
+<<"		output varying color aov_specular_intensity_no_shadow = 0;"	<<std::endl
+<<"#endif"															<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_key_lights_specular_intensity
+<<"#ifdef USE_AOV_aov_key_lights_specular_intensity"					<<std::endl
+<<"		output varying color aov_key_lights_specular_intensity = 0;"	<<std::endl
+<<"#endif"																<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_key_lights_specular_intensity_no_shadow
+<<"#ifdef USE_AOV_aov_key_lights_specular_intensity_no_shadow"					<<std::endl
+<<"		output varying color aov_key_lights_specular_intensity_no_shadow = 0;"	<<std::endl
+<<"#endif"																		<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_color_no_shadow
+<<"#ifdef USE_AOV_aov_color_no_shadow"					<<std::endl
+<<"		output varying color aov_color_no_shadow = 0;"	<<std::endl
+<<"#endif"												<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_surface_color
+<<"#ifdef USE_AOV_aov_surface_color"					<<std::endl
+<<"		output varying color aov_surface_color = 0;"	<<std::endl
+<<"#endif"												<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_normal
+<<"#ifdef USE_AOV_aov_camera_space_normal"					<<std::endl
+<<"		output varying normal aov_camera_space_normal = 0;"	<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+
+//begin shader_extra_parameters aov_facing_ratio
+<<"#ifdef USE_AOV_aov_facing_ratio"							<<std::endl
+<<"		output varying float aov_facing_ratio = 0;"			<<std::endl
+<<"#endif"													<<std::endl
+//end shader_extra_parameters
+;
+		return ret.str();
+}
+std::string Visitor::getAOVMacroDefineFileName()const
+{
+	return "liquidAOVMacroDef.h";
 }
 //
 }//namespace RSL

@@ -2283,6 +2283,7 @@
     <None Include="..\renderman\mel\userSetup.mel" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h" />
     <ClInclude Include="..\..\include\liqRiCommands.h" />
     <ClInclude Include="..\..\include\ri_interface.h" />
     <ClInclude Include="..\renderman\rm_factory.h" />

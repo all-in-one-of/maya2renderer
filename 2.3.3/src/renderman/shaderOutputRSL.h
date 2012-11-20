@@ -322,6 +322,8 @@ protected:
 
 	MString getRSLShaderType(const MString &mayaplug);
 	void defineAOVVariables();
+	std::string getSurfaceShaderAOVOutputParametersString()const;
+	std::string getAOVMacroDefineFileName()const;
 };
 //
 void _outputShadingGroup(const char* shadingGroupNode);

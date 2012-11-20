@@ -7,6 +7,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\aov">
+      <UniqueIdentifier>{3e06f1c7-f667-4f3a-a085-bbe9050205a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\renderman\rm_factory.cpp">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\ri_interface.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h">
+      <Filter>src\aov</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
