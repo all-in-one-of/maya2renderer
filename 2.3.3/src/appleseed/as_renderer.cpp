@@ -320,17 +320,17 @@ namespace appleseed
 				current_assembly->objects().insert(asf::auto_release_ptr<asr::Object>(object));
 
 				// Create the array of material names.
-				asf::StringArray material_names;
-				material_names.push_back( materialName.asChar() );
+				asf::StringDictionary material_names;
+				material_names.insert("default", materialName.asChar() );
 				
 				// Create the array of backface material names.
-				asf::StringArray backface_material_names;
+				asf::StringDictionary backface_material_names;
 				if( needToCreateBackfaceMaterial(materialName.asChar()) )
 				{
-					backface_material_names.push_back( getBackfaceMaterial(materialName.asChar()).c_str() );
+					backface_material_names.insert("default_back", getBackfaceMaterial(materialName.asChar()).c_str() );
 				}else{
 					//backe-face material equals to front-face material
-					backface_material_names.push_back( materialName.asChar() );
+					backface_material_names.insert("default_back", materialName.asChar() );
 				}
 				
 				// Create an instance of this object and insert it into the assembly.
@@ -339,7 +339,7 @@ namespace appleseed
 						asr::ObjectInstanceFactory::create(
 							instance_name.c_str(),
 							asr::ParamArray(),
-							*object,
+							object->get_name(),
 							asf::Transformd(asf::Matrix4d::identity()),
 							material_names,
 							backface_material_names
@@ -457,7 +457,7 @@ namespace appleseed
 			);
 		int i = imageName.rindex('.');
 		MString pngName(imageName.substring(0,i)+"png");
-		project->get_frame()->write(pngName.asChar());
+		project->get_frame()->write_main_image(pngName.asChar());
 
 		//////////////////////////////////////////////////////////////////////////
 		asr::global_logger().remove_target(m_log_target.get());
@@ -666,12 +666,22 @@ namespace appleseed
 		CM_TRACE_FUNC("Renderer::cookInstanceGroup()");
 
 		// Create an instance of the assembly and insert it into the scene.
-		project->get_scene()->assembly_instances().insert(
+		asf::auto_release_ptr<asr::AssemblyInstance> current_assembly_instance(
 			asr::AssemblyInstanceFactory::create(
-			"assembly_inst",
-			asr::ParamArray(),
-			*current_assembly,
-			asf::Transformd(asf::Matrix4d::identity())));
+				(std::string(current_assembly->get_name())+"_inst").c_str(),
+				asr::ParamArray(),
+				current_assembly->get_name()
+			)
+		);
+		//assembly instance sets transform
+		current_assembly_instance->transform_sequence()
+			.set_transform(
+				0.0,
+				asf::Transformd(asf::Matrix4d::identity())
+			);
+		//add assembly instance
+		project->get_scene()->assembly_instances()
+			.insert(current_assembly_instance);
 		// Insert the assembly into the scene.
 		project->get_scene()->assemblies().insert(current_assembly);
 	}
