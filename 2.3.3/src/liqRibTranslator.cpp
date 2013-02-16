@@ -1848,6 +1848,14 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 	if( !status ) 
 		return MS::kFailure;
 
+	//check liquid required project directories.
+	int checkDirecoties=0;
+	IfMErrorWarn(MGlobal::executeCommand( "source liquidCheck.mel; liquidCheckProjectDirectories()", checkDirecoties));
+	if(0==checkDirecoties){
+		liquidMessage2(messageError,"liquidCheckProjectDirectories() fails, see script editor for more details.");
+		return MS::kFailure;
+	}
+
 	{
 		CM_TRACE_OPEN(getFunctionTraceLogFileName().c_str());
 		CM_TRACE_FUNC("liqRibTranslator::doIt()-->if(checkSettings()==true)");
@@ -7779,13 +7787,7 @@ bool liqRibTranslator::canExport()
 		liquidMessage2(messageError,"liqglo.m_displays[ 0 ].name is empty. Please set the output image and render the scene again.");
 		return false;
 	}
-	//check liquid required project directories.
-	int checkDirecoties=0;
-	IfMErrorWarn(MGlobal::executeCommand( "source liquidCheck.mel; liquidCheckProjectDirectories()", checkDirecoties));
-	if(0==checkDirecoties){
-		liquidMessage2(messageError,"liquidCheckProjectDirectories() fails, see script editor for more details.");
-		return false;
-	}
+
 	//
 	return liquid::RendererMgr::getInstancePtr()->getRenderer()->canExport();
 }
