@@ -976,15 +976,16 @@ namespace elvishray
 		if( !(manager_ini = fopen(manager_ini_path.asChar(),"r")) )
 		{
 			liquidMessage2(messageError,
-				"%s/bin/manager.ini is not found. Please copy manager.ini of Elvishray to %s/bin/\n"
-				"Make sure searchpath is set to the directory which contains eiIMG.dll and eiSHADER.dll.\n"
+				"%s/bin/manager.ini is not found. Please copy Elvishray's manager.ini to %s/bin/,\n"
+				"Make sure the searchpath in Maya.env is set to the directory which contains eiIMG.dll and eiSHADER.dll.\n"
 				"e.g. :\n"
 				"searchpath <LiquidRoot>/dependence/elvishray/bin\n",
+				MAYA_PATH.asChar(),
 				MAYA_PATH.asChar()
 				);
 
-			assert(0&&"[ERROR] $(MAYA_LOCATION)/bin/manager.ini is not found. Please copy manager.ini of Elvishray to $(MAYA_LOCATION)/bin/\n" 
-				"Please see Maya Script Editor Window for more details.");
+			//assert(0&&"[ERROR] $(MAYA_LOCATION)/bin/manager.ini is not found. Please copy Elvishray's manager.ini to $(MAYA_LOCATION)/bin/\n" 
+			//	"See Maya Script Editor Window for more details.");
 			return false;
 		}
 		fclose(manager_ini);
