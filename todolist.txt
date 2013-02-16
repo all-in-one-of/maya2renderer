@@ -280,3 +280,5 @@ appleseed
 - doc: pl file is used to set default value
 - adapt *.ma for pl/lif
 - (done)add liqPushIndent()/liqPopIndent() in mel
+
+test_liqShaderNode_surface_as_lambertDiagnosticSS.ma , mode UIŒﬁ∑®œ‘ æ
