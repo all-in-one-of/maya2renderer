@@ -97,7 +97,8 @@ RenderMan (R) is a registered trademark of Pixar
         so, it is your choice to put 3delight\<version>\maya\rsl\*.h to $(LiquidRoot)\dependence\_3delight\ or not.
       - build displayDriverAqsis project, liqmaya.dll will be generated;
       - make sure liqmaya.dll is copied to "$(RMANTREE)\etc\d_liqmaya.dll"¡£
-    - build liquid project£»
+    - build liquidDLL project£»
+    - build renderman or elvishray or appleseed project.
 
 - Install
   - backup your original (My_Documents_DIR)\maya\2009\Maya.env
