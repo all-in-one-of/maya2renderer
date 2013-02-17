@@ -282,3 +282,10 @@ appleseed
 - (done)add liqPushIndent()/liqPopIndent() in mel
 
 test_liqShaderNode_surface_as_lambertDiagnosticSS.ma , mode UI无法显示
+project/default/as_mesh目录不存在时,会提示错误。应该考虑自动建立该目录
+
+（done）project/default/rmanpix目录不存在时，tracelog报错
+使用er时，maya/bin目录下没有manager.ini时无提示。应该在载入elvishray.mll时检查之
+
+未安装prman时，用er渲染，会提示：
+// Error: Liquid : The RMANTREE environment variable is not defined !!
