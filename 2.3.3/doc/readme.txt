@@ -130,9 +130,9 @@ RenderMan (R) is a registered trademark of Pixar
 
 - Automation test( for developer only )
   - cd $(LiquidRoot)\test\image_diff
-  - copy mayaenv_template.py to mayaenv.py, and add envs from Maya.env into mayaenv.py
+  - copy mayaenv_template*.py to mayaenv.py, and add envs from Maya.env into mayaenv.py
   - copy testscene_template.py to testscene.py, and add the test scenes into testscene.py
-  - run test.py,
+  - run test.bat. If $(LiquidRoot)\dependence\python26\python.exe doesn't exist, it will remind you to unzip $(LiquidRoot)\dependence\python26.7z, which constains python2.6 and PIL.
      Generally, the images will be generated at %MayaProjectDirectory%\rmanpix,
      rib files will be generated at %MayaProjectDirectory%\rib,
      slo file will be generated at %MayaProjectDirectory%\generatedShader
