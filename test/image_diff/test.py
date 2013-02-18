@@ -2,8 +2,22 @@ import sys
 import os
 import liqTestLog as mLiqlog
 
-#HTMLViewerPath="D:/Program Files/Mozilla Firefox/firefox.exe";
-HTMLViewerPath="D:/ProgramFiles/Firefox/firefox.exe";
+def getHTMLViewerPath_windows ():
+
+	import _winreg
+
+	IEApp_key = _winreg.OpenKey(_winreg.HKEY_CURRENT_USER, r"Software\Clients\StartMenuInternet")
+	IEApp_value, IEApp_type = _winreg.QueryValueEx(IEApp_key, "")
+	#print("IE="+IEApp_value+"\n")
+
+	IEFullPath_key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE,r"SOFTWARE\Clients\StartMenuInternet\\"+IEApp_value+"\shell\open\command")
+	IEFullPath_value, IEFullPath_type = _winreg.QueryValueEx(IEFullPath_key, "")
+	#print("IEFullPath="+IEFullPath_value+"\n")
+
+	return IEFullPath_value
+
+
+HTMLViewerPath = getHTMLViewerPath_windows();
 pyFile  = "testall.py";
 
 def main():
