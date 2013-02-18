@@ -2,7 +2,8 @@ import sys
 import os
 import liqTestLog as mLiqlog
 
-HTMLViewerPath="D:/Program Files/Mozilla Firefox/firefox.exe";
+#HTMLViewerPath="D:/Program Files/Mozilla Firefox/firefox.exe";
+HTMLViewerPath="D:/ProgramFiles/Firefox/firefox.exe";
 pyFile  = "testall.py";
 
 def main():
