@@ -31,10 +31,10 @@ def configMayaEnv():
     else:
         os.environ["MAYA_PLUG_IN_PATH"]=os.environ["LIQUID_MLL"]+";"+os.environ["MAYA_PLUG_IN_PATH"]
     # XBMLANGPATH
-    if os.environ.get('MAYA_PLUG_IN_PATH') == None:
-        os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]
-    else:
-        os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]+";"+os.environ["XBMLANGPATH"]
+    #if os.environ.get('MAYA_PLUG_IN_PATH') == None:
+    #    os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]
+    #else:
+    #    os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]+";"+os.environ["XBMLANGPATH"]
     #
     os.environ["MAYA_LOCATION"] = "D:/Program Files/Autodesk/Maya2009"
     os.environ["MAYA_PATH2009"] = "D:/Program Files/Autodesk/Maya2009"

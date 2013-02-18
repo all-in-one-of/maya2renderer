@@ -31,12 +31,14 @@ def configMayaEnv():
     else:
         os.environ["MAYA_PLUG_IN_PATH"]=os.environ["LIQUID_MLL"]+";"+os.environ["MAYA_PLUG_IN_PATH"]
     # XBMLANGPATH
-    if os.environ.get('MAYA_PLUG_IN_PATH') == None:
-        os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]
-    else:
-        os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]+";"+os.environ["XBMLANGPATH"]
+    #if os.environ.get('MAYA_PLUG_IN_PATH') == None:
+    #    os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]
+    #else:
+    #    os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]+";"+os.environ["XBMLANGPATH"]
     #
     os.environ["MAYA_LOCATION"] = "D:/Program Files/Autodesk/Maya2012"
     os.environ["MAYA_PATH2012"] = "D:/Program Files/Autodesk/Maya2012"
     os.environ["PYTHONHOME"]    = "D:/Program Files/Autodesk/Maya2012/Python"
     os.environ["PYTHONPATH"]    = "D:/Program Files/Autodesk/Maya2012/bin/python26.zip;D:/Program Files/Autodesk/Maya2012/Python/lib/site-packages;"
+    os.environ["MI_CUSTOM_SHADER_PATH"]    = "D:/Program Files/Autodesk/Maya2012/mentalray/include"
+    os.environ["MI_CUSTOM_SHADER_SUPPRESS"]= ";mayabase.mi;mayahair.mi;AdskShaderSDK.mi;MayaShaders.mi;AdskShaders.mi;adsk_Utility_Shaders.mi;adsk_Utility_Spiders.mi;lume.mi"
