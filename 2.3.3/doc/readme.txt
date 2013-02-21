@@ -91,12 +91,19 @@ RenderMan (R) is a registered trademark of Pixar
   - open $(LiquidRoot)\2.3.3\include\liqConfig.h, set _USE_SHAVE_ to 1 if shave(v61 or later) is installed, or set _USE_SHAVE_ to 0 if shave isn't installed.
   - open $(LiquidRoot)\2.3.3\src\MSVC2005\liquid.sln, choose ¡°Win32¡± and ¡°M2R2012Debug¡± in Configuration Manager£¬
     - (For renderman renderer only)
-      - make sure Prman is installed, and $(RMANTREE) is set(e.g. RMANTREE=D:\Program Files\Pixar\RenderManProServer-13.5.2),
-        $(RMANTREE) contains 3 sub-directories, bin\, etc\ and lib\.
-      - I have not the right to use 3delight's shader header files in this project,
-        so, it is your choice to put 3delight\<version>\maya\rsl\*.h to $(LiquidRoot)\dependence\_3delight\ or not.
-      - build displayDriverAqsis project, liqmaya.dll will be generated;
-      - make sure liqmaya.dll is copied to "$(RMANTREE)\etc\d_liqmaya.dll"¡£
+      - if you use PRman:
+         - make sure $(RMANTREE) is set(e.g. RMANTREE=D:\Program Files\Pixar\RenderManProServer-13.5.2),
+           $(RMANTREE) contains 3 sub-directories, bin\, etc\ and lib\.
+         - I have not the right to use 3delight's shader header files in this project,
+           so, it is your choice to put $(DELIGHT)\<version>\maya\rsl\*.h to $(LiquidRoot)\dependence\_3delight\ or not.
+         - build displayDriverAqsis project, liqmaya*.dll will be generated;
+         - make sure liqmaya.dll is copied to "$(RMANTREE)\etc\d_liqmaya.dll"
+      - if you use 3Delight:
+         - make sure $(DELIGHT) is set(e.g. DELIGHT=D:\ProgramFiles\3Delight).
+         - I have not the right to use 3delight's shader header files in this project,
+           so, it is your choice to put $(DELIGHT)\<version>\maya\rsl\*.h to $(LiquidRoot)\dependence\_3delight\ or not.
+         - build displayDriverAqsis.vcproj(not displayDriver3delight.vcproj), liqmaya*.dll will be generated;
+         - make sure liqmaya*.dll is copied to "$(DELIGHT)\displays\liqmaya.dpy"
     - build liquidDLL project£»
     - build renderman or elvishray or appleseed project.
 

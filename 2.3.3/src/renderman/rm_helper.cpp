@@ -77,7 +77,7 @@ namespace renderman
 	MString getShaderFilePath_SLO(const MString &shaderNodeName)
 	{
 		CM_TRACE_FUNC("getShaderFilePath_SLO("<<shaderNodeName.asChar()<<")");
-		return getShaderFilePath_NoExt(shaderNodeName)+".slo";
+		return getShaderFilePath_NoExt(shaderNodeName)+"."+liqglo.liquidRenderer.shaderExtension;
 	}
 	//----------------------------------------------------------------------
 	void exportJobCamera(const structJob &job, const structCamera camera[])

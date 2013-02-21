@@ -2111,7 +2111,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1/libtiff.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/prman/win32/renderman.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/zlib/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

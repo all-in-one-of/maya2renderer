@@ -968,7 +968,7 @@
       <OutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /f /y "..\..\..\displayDrivers\Aqsis\win32\liqmaya_2012x32d.dll" "$(RMANTREE)\etc\d_liqmaya.dll"</Command>
+      <Command>xcopy /f /y "..\..\..\displayDrivers\Aqsis\win32\liqmaya_2012x32d.dll" "$(DELIGHT)\displays\liqmaya.dpy"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
