@@ -152,7 +152,7 @@ MString getHiderOptions( MString rendername, MString hidername )
 	{
 		if( hidername == "hidden" ) 
 		{
-			ss << "\"jitter\" [" << liqglo.m_hiddenJitter << "] ";
+			ss << "\"int jitter\" [" << liqglo.m_hiddenJitter << "] ";
 
 			if ( liqglo.m_hiddenSampleMotion != true ) 
 				ss << "\"int samplemotion\" [0] ";

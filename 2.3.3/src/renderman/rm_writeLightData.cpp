@@ -44,27 +44,29 @@ namespace renderman
 
 		if ( liqglo.liquidRenderer.renderName == MString("3Delight") )
 		{
-			RiArchiveRecord( RI_COMMENT, "light attributes for 3delight is omitted. You can open them." );
-// 			if ( delightLight.emitPhotons )
-// 			{
-// 				RtString value = "on";
-// 				RiAttribute( "light", (RtToken) "emitphotons", &value, RI_NULL );
-// 			}
-// 			if ( delightLight.autoShadows )
-// 			{
-// 				RtString value = "on";
-// 				RiAttribute( "light", (RtToken) "shadows", &value, RI_NULL );
-// 			}
-// 			if ( delightLight.autoShadowsSamples != 1 )
-// 			{
-// 				RtInt value = delightLight.autoShadowsSamples;
-// 				RiAttribute( "light", (RtToken) "samples", &value, RI_NULL );
-// 			}
-// 			if ( delightLight.SamplingStrategy != delightLight::SAMPLING_STRATEGY_NONE )
-// 			{
-// 				RtString values[] = { "lightsource", "illuminance" };
-// 				RiAttribute( "light", (RtToken) "samplingstrategy", &values[(int)delightLight.SamplingStrategy], RI_NULL );
-// 			}
+			//RiArchiveRecord( RI_COMMENT, "light attributes for 3delight is omitted. You can open them." );
+			liqRibLightData *lightdata = dynamic_cast<liqRibLightData*>(ribNode->object(0)->getDataPtr().get());
+			assert( lightdata );
+			if ( lightdata->delightLight.emitPhotons )
+			{
+				RtString value = "on";
+				RiAttribute( "light", (RtToken) "emitphotons", &value, RI_NULL );
+			}
+			if ( lightdata->delightLight.autoShadows )
+			{
+				RtString value = "on";
+				RiAttribute( "light", (RtToken) "shadows", &value, RI_NULL );
+			}
+			if ( lightdata->delightLight.autoShadowsSamples != 1 )
+			{
+				RtInt value = lightdata->delightLight.autoShadowsSamples;
+				RiAttribute( "light", (RtToken) "samples", &value, RI_NULL );
+			}
+			if ( lightdata->delightLight.SamplingStrategy != lightdata->delightLight::SAMPLING_STRATEGY_NONE )
+			{
+				RtString values[] = { "lightsource", "illuminance" };
+				RiAttribute( "light", (RtToken) "samplingstrategy", &values[(int)(lightdata->delightLight.SamplingStrategy)], RI_NULL );
+			}
 		}
 		return true;
 	}
