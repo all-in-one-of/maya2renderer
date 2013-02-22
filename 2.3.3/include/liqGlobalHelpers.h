@@ -86,6 +86,7 @@ LIQUID_EXPORT bool fileIsNewer( const MString & file1, const MString & file2 );
 LIQUID_EXPORT bool fileFullyAccessible( const MString& path );
 LIQUID_EXPORT MString getFullPathFromRelative ( const MString & filename );
 LIQUID_EXPORT MString getFileName( const MString & fullpath );
+LIQUID_EXPORT MString getFileNameExtention( const MString& fullpath );
 LIQUID_EXPORT MString parseString( const MString & inputString, bool doEscaped = true );
 LIQUID_EXPORT MString parseCommandString( const MString & inputString );
 LIQUID_EXPORT MString liquidTransGetSceneName();

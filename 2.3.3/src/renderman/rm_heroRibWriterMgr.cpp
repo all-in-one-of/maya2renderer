@@ -433,7 +433,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 						imageType = ((*m_displays_iterator).type == "")? 
 							"framebuffer" : (*m_displays_iterator).type.asChar();
 					}else {// if in batch mode, we always use "file" -by yaoyansi
-						imageType = "file";
+						imageType = (*m_displays_iterator).type.asChar();
 					}
 					// get display mode ( rgb, z or defined display channel )
 					imageMode = ( (*m_displays_iterator).mode == "")? "rgba" : (*m_displays_iterator).mode.asChar();

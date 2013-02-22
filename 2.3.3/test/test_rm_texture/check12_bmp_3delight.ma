@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: check12_bmp_3delight.ma
-//Last modified: Fri, Feb 22, 2013 02:59:30 PM
+//Last modified: Fri, Feb 22, 2013 04:39:23 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -164,10 +164,11 @@ createNode shadingEngine -n "liquidSurface1SG";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo1";
 createNode liquidGlobals -n "liquidGlobals";
+	addAttr -ci true -sn "displayList" -ln "displayList" -dt "stringArray";
 	setAttr ".rc" -type "string" "perspShape";
-	setAttr ".ddin[0]" -type "string" "$SCN.$CAM.$F.$RND.bmp";
+	setAttr ".ddin[0]" -type "string" "$SCN.$CAM.$F.$RND.png";
 	setAttr ".ddim[0]" -type "string" "rgba";
-	setAttr ".ddit[0]" -type "string" "it";
+	setAttr ".ddit[0]" -type "string" "png";
 	setAttr ".ddbd[0]"  8;
 	setAttr ".spth" -type "string" ":E//dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/co_shader/://E/MyDocuments/maya/projects/default/generatedShader/";
 	setAttr ".texd" -type "string" "rmantex";
@@ -176,7 +177,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/check12_bmp_3delight3856.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/check12_bmp_3delight3878.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -197,6 +198,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
 	setAttr ".rnd" -type "string" "renderman";
+	setAttr ".displayList" -type "stringArray" 18 "bmp" "cineon" "dsm" "eps" "exr" "framebuffer" "idisplay" "iff" "jpeg" "liqmaya-" "liqmaya" "memory" "pic" "png" "psd" "radiance" "tiff" "zfile"  ;
 createNode shadingEngine -n "liquidSurface11SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
@@ -515,7 +517,6 @@ select -ne :lightList1;
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
 	setAttr -s 2 ".l";
-select -ne :lambert1;
 select -ne :postProcessList1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

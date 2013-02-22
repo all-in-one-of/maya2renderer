@@ -394,7 +394,10 @@ MString getFileName( const MString& fullpath )
 {
   return fullpath.substring( fullpath.rindex('/') + 1, fullpath.length() - 1 );
 }
-
+MString getFileNameExtention( const MString& fullpath ) 
+{
+	return fullpath.substring( fullpath.rindex('.') + 1, fullpath.length() - 1 );
+}
 /** Parse strings sent to Liquid to replace defined
  *  characters with specific variables.
  *
