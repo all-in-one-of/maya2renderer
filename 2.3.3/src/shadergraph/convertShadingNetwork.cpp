@@ -270,9 +270,9 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeOutputVariable("<<node.asChar()<<","<<plug.asChar()<<","<<node_plug.asChar()<<", outputVars)");
 	//DEBUG
-	//if(node_plug=="file1.outColor"){
-	//	int i = 0;
-	//}
+	if(node_plug=="place2dTexture1.mirrorU"){
+		int i = 0;
+	}
 
 	MString plugtype, detail;
 	int arraysize = -1;
@@ -369,8 +369,13 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 				MString typeSize;
 				IfMErrorWarn(MGlobal::executeCommand( ("match(\"[0-9]*$\", \""+mayaPlugType_formated+"\")"), typeSize));
 
-				if(typeSize.asInt() == 3)//float3, take it as vector
+				if(typeSize.length() == 0)//float
 				{
+					plugtype  = "float";
+					detail    = "";
+					arraysize = -1;
+				}
+				else if(typeSize.asInt() == 3){//float3, take it as vector
 					plugtype  = "vector";
 					detail    = "";
 					arraysize = -1;
