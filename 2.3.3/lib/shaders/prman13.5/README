@@ -1,0 +1,165 @@
+SHADERS IN THIS DIRECTORY:
+=========================
+There are two categories of shaders here: the shaders required by
+the RenderMan Interface and some extra shaders created by Pixar 
+as examples of how to write shaders and the different ways in which
+they can be used. The extra shaders are light, displacement, and surface
+shaders.
+
+Default Shaders
+---------------
+These are the shaders required by and described in the RenderMan Interface
+Specification. They are:
+ambientlight.sl
+bumpy.sl
+constant.sl
+defaultlight.sl
+defaultsurface.sl
+depthcue.sl
+distantlight.sl
+fog.sl
+matte.sl
+metal.sl
+null.sl
+paintedplastic.sl
+plastic.sl
+pointlight.sl
+shinymetal.sl
+spotlight.sl
+
+Light Shaders
+-------------
+pointnofalloff.sl
+	This light is just a point light source with no inverse square falloff.
+	It is useful for placing inside a scene and lighting objects
+	uniformly, without the "pools" produced by normal point lights,
+	or for placing at a great distance to simulate distant lights in
+	systems that don't have distant lights.  In addition, when using
+	point lights you normally have to set the magnitude quite large
+	to produce the right intensity at the distance you want, and this
+	light does not have that problem.
+shadowdistant.sl
+	This is just a distant light that uses a shadow map if it is passed
+	in shadowname.
+shadowpoint.sl
+	This is a spotlight that uses a shadow map if it is passed
+	in shadowname.
+shadowspot.sl
+	This is a point light that uses shadow maps.  Because a point light
+	casts shadows in all directions, in the general case this shader
+	takes 6 cube face shadow maps, sfpx, sfnx, sfpy, sfny, sfpz, sfnz,
+	corresponding to the positive and negative x, y, and z directions
+	respectively.  If any of these are not passed, the light will appear
+	as a normal point light in that direction.
+
+Displacement Shaders
+--------------------
+General note: DON'T FORGET to set the displacement bound attribute when using
+any displacement shader!
+
+cloth.sl
+	This produces a perpendicular weave cloth-like pattern.  It should
+	be very high frequency with a fairly small displacement.  It aliases
+	pretty badly, but this has the interesting effect of making it look
+	all the more like real cloth.
+diaknurl.sl
+	This produces a diamond knurl pattern like that often seen on knurled
+	screws, tool grips, etc.  Does a cylindrical projection so that
+	this will work on "fake" cylinders made of many polygons. Will look
+	better on real cylinders, however.  Note that the radius of the
+	cylinder must be set correctly for the diamonds to be diamond-shaped.
+	The projection mapping defaults to axis along z-axis, so the
+	easiest way to deal with it is to put it on cylinders
+	with this orientation (i.e. cylinder azis along z),
+	THEN rotate everything together.  Or, you can specify an
+	origin and 3 points which define a coordinate system relative
+	to this origin.  This projection is done in SHADER space for
+	consistency, although this means that the shader will have to
+	be instanced (with RiDisplacement) separately for all objects to
+	which it applies.
+sinknurl.sl
+	This produces a "wave" pattern parallel to the axis of a cylinder.
+	Uses a projection like diaknurl.  This can be used to produce
+	linear knurled patterns (which are in reality shaped like V's and
+	not sine waves) if the frequency is high, or nice Grecian columns
+	if the frequency is lower.
+threads.sl
+	This produces V-shaped threads projected onto a cylinder like the
+	knurl shaders.
+	For interior threads, use CSG operations to cut a threaded
+	cylinder out of an object (a block of metal, say, to make a
+	square nut).  To do this (the CSG), however, the shadingrate
+	has to be pretty low for the cylinder - like 0.25 or
+	lower. Sometimes this is even necessary for normal exterior threads.
+
+
+
+Surface Shaders
+---------------
+
+carpet.sl
+	This produces a speckly carpet with a turbulent scuff-mark pattern.
+	It has controllable nap and "scuffiness", and can successfully
+	anti-alias itself most of the time.
+cmarble.sl
+	This produces a marble similar to rmarble, but it uses Ci (the color
+	set in the RIB file) for the vein color.
+glass.sl
+	This is a transparent glass with an environment map.  No refraction
+	is attempted.  Works well for clear glass and colored glass -
+	just set Cs (clear = 1,1,1).  The environment map's reflective
+	intensity can be controlled to fine-tune the appearance.
+	Can be used without an environment map, but doesn't look very good.
+glassbal.sl
+	This simulates a solid glass sphere, i.e. refracts everything
+	upside down and backwards.  This looks good on spheres and other
+	curvy objects like teapots.  Will work for any color glass, but
+	will not work without an environment map.
+maps.sl
+	These are projection map functions used by the knurl and threads
+	displacement shaders and by texmap.  There is a planar, cylindrical,
+	spherical, and "auto-planar" map (planemap, cylinmap, sphermap, and 
+	automap respectively) and a wrapping function decalmap that can call
+	any of the these to get projection parameters uu and vv (which simulate
+	u and v for parametric surfaces), and then use uu and vv with a set
+	of "textcoords" s1,t1,s2,t2,... (just like RenderMan parametric
+	surfaces) to calculate simulated texture coordinates s and t.
+	After this calculation decalmap will pass back
+	an ss and tt simulating s and t as if the surface were parametrically
+	defined as a plane, cylinder, or sphere.
+	This is very useful for putting texture maps on surfaces modeled with
+	lots of little polygons, for example, which do not parameterize
+	well.
+	The "auto-planar" projection does a planar projection using the
+	surface normal as the plane normal.  This looks good on faceted
+	surfaces (like rooms or tables), but is somewhat hard to control
+	precisely.
+rmarble.sl
+	Another marble (other than the blue_marble found in the RenderMan
+	Companion) with red veins and less abrupt color transitions.  Looks
+	quite good.  The colors can be changed easily by editing the
+	shader and changing the colors in the color spline.
+rsmetal.sl
+	A metal shader that uses random noise to simulate a reflection map.
+	Looks suprisingly good for complex surfaces.  
+spatter.sl
+	Makes a surface look painted a background color with another color
+	paint spattered on it.  Does a very good job making that blue
+	camp cookware with white paint spatters.
+stippled.sl
+	A bumpy textured surface, like computer-console plastic, a plaster
+	wall, a camera surface, etc.  Does a pretty good job of anti-aliasing
+	itself.
+stone.sl
+	A speckly stone surface.  Shades at various intensity levels
+	(a discrete number controlled by a parameter) between two
+	colors also controlled by parameters.  Grey looks good with
+	about 6 intensity levels - looks like granite.
+texmap.sl
+	Puts texture maps onto surfaces using the projection map functions
+	in maps.sl. Can be given a specular coefficient and a specular color,
+	which makes a surface look nice and shiny with a photo painted onto
+	it.
+wood.sl
+	Wood shader which allows any shade, with controllable grain and
+	texture.  Looks quite good.
