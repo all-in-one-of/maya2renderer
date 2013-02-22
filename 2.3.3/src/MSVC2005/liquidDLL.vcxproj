@@ -2118,7 +2118,7 @@
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/liquid2012x32d.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/liquid_2012x32d.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>

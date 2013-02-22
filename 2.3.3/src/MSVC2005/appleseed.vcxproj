@@ -2118,7 +2118,7 @@
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/elvishray.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/appleseed.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
