@@ -7,6 +7,8 @@
 #include "ri_interface.h"
 #include <trace/trace.hpp>
 #include <liqGlobalHelpers.h>
+#include "rm_helper.h"
+#include <liqGlobalVariable.h>
 
 namespace RSL
 {
@@ -93,10 +95,10 @@ void Visitor::visitFile(const char* node)
 	o.beginRSL( node );
 
 	MString mayaTexName(getFileNodeImageName(node));
-	MString texName = mayaTexName + ".tex";
+	MString texName = mayaTexName + "."+ getTextureExt();
 	//system("txmake mayaTexName texName");
-	IfMErrorWarn(MGlobal::executeCommand("system(\"txmake "+mayaTexName+" "+texName+"\")", true));
-
+	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.textureMaker+" "+mayaTexName+" "+texName+"\")", true));
+	
 	//input
 	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);
 	o.addRSLVariable("uniform", "float",  "alphaIsLuminance",	"alphaIsLuminance",	node);

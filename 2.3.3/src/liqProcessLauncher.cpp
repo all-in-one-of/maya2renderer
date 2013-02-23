@@ -155,6 +155,7 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
     sinfo.hStdOutput = GetStdHandle( STD_ERROR_HANDLE );
 
     MString cmdline = command + " " + arguments;
+	printf("cmdline=%s\n", cmdline.asChar());
     ret = CreateProcess(
             NULL,                     // name of executable module
             (char *)cmdline.asChar(), // command line string

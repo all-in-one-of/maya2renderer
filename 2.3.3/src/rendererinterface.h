@@ -380,6 +380,9 @@ public:
 	virtual void writeShader_forDeepShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, const MDagPath & path__) = 0;
 	virtual void writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__) = 0;
 
+	virtual MString getTextureExt()const = 0;
+	virtual bool isTextureTypeSupported(const MString &textureType)const = 0;
+
 protected:
 
 

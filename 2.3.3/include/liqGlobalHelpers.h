@@ -186,5 +186,8 @@ LIQUID_EXPORT bool isZero(const float r, const float g, const float b);
 LIQUID_EXPORT MString getShaderName(const MString &shaderName);
 LIQUID_EXPORT MString getVariableName(const MString &varName);
 LIQUID_EXPORT MString getVariableName(const MString &node,const MString &plug);
+//
+LIQUID_EXPORT MString getTextureExt();
+LIQUID_EXPORT bool isTextureTypeSupported(const MString &textureType);
 
 #endif

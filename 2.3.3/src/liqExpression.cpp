@@ -100,7 +100,7 @@ MString	liqExpression::CalcValue( )
 
       source = getFullPathFromRelative( tokens[1] );
       value = getFileName( source );
-      value += ".tex";
+      value += "."+getTextureExt();
 
       for ( i = 2; i < tokens.length() ; i++ ) 
       {
@@ -109,7 +109,7 @@ MString	liqExpression::CalcValue( )
       }
 
 	  //dest = liqglo.liqglo_textureDir + value;//liquidMaya generates texture to liqglo.liqglo_textureDir
-      dest =source+".tex";//we generate texture to the same directory as source.
+      dest =source+"."+getTextureExt();//we generate texture to the same directory as source.
 
       destExists = fileExists( dest );
       destIsNewer = fileIsNewer( dest, source );
@@ -134,7 +134,7 @@ MString	liqExpression::CalcValue( )
         value += "REF";
         value += ".";
         value += (int)liqglo.liqglo_lframe;
-        value += ".tex";
+        value += "."+getTextureExt();
       }
       break;
 
@@ -162,7 +162,7 @@ MString	liqExpression::CalcValue( )
         }
         value += ".";
         value += (int)liqglo.liqglo_lframe;
-        value += ".tex";
+        value += "."+getTextureExt();
       }
       break;
 

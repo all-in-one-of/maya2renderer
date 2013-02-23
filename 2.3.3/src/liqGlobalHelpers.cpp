@@ -39,7 +39,7 @@
 #include <liqMayaNodeIds.h>
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
-
+#include "renderermgr.h"
 /**  Check to see if the node NodeFn has any attributes starting with pPrefix and store those
  *  in Matches to return.
  */
@@ -1836,4 +1836,13 @@ MString getVariableName(const MString &node,const MString &plug)
 {
 	//CM_TRACE_FUNC("getVariableName("<<node.asChar()<<","<<plug.asChar()<<")");
 	return getVariableName(node+"_"+plug);
+}
+
+MString getTextureExt()
+{
+	return liquid::RendererMgr::getInstancePtr()->getRenderer()->getTextureExt();
+}
+bool isTextureTypeSupported(const MString &textureType)
+{
+	return liquid::RendererMgr::getInstancePtr()->getRenderer()->isTextureTypeSupported(textureType);
 }

@@ -635,10 +635,10 @@ liqShader::liqShader( MObject shaderObj )
 								if( "texname" == attrName.substr(0,7) )
 								{
 									MString textureExten(textureTokensString[textureTokensString.length()-1]);
-									if(MString("tex")==textureExten.toLowerCase()){
+									if(getTextureExt()==textureExten.toLowerCase()){
 										// It is a ".tex", so we don't have to append ".tex" to value.
 									}else{
-										stringPlugVal += ".tex"; // append ".tex" to value.
+										stringPlugVal += "."+getTextureExt(); // append ".tex" to value.
 										//why do this? Because this way can store the original image type information.
 										//e.g. the original image is testB.bmp, if we replaced "bmp" with "tex" here,
 										//the problem would occur when we run "txmake testB.? testB.tex" later,
@@ -1478,7 +1478,7 @@ void liqShader::processExpression( liqTokenPointer *token, const liqRibLightData
 						}else{
 							extention = strValue.substr(loc+1);
 						}
-						thisJob.skip = ("tex"==extention);
+						thisJob.skip = (getTextureExt().asChar()==extention);
 
 						std::vector<structJob>::iterator iter = liqRibTranslator::getInstancePtr()->txtList.begin();
 						while ( iter != liqRibTranslator::getInstancePtr()->txtList.end() ) {

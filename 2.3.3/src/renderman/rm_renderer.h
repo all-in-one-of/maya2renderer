@@ -389,6 +389,9 @@ namespace renderman
 		void writeLimitsOptions();
 		void writeStatisticsOptions();
 
+		virtual MString getTextureExt()const;
+		virtual bool isTextureTypeSupported(const MString &textureType)const;
+
 	private:
 
 	};

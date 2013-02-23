@@ -53,6 +53,7 @@ namespace renderman
 	MStatus objectNonShadowAttribute(const liqRibNodePtr &ribNode__);
 
 	//
+
 }
 
 #endif//RM_HELPER_H

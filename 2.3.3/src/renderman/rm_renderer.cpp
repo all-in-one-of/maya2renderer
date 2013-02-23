@@ -1088,14 +1088,28 @@ namespace renderman
 		while ( iter != txtList_.end() ) 
 		{
 			liquidMessage( "Making textures '" + iter->imageName + "'", messageInfo );
-			liqProcessLauncher::execute( iter->renderName, 
 #ifdef _WIN32
-				(" -progress \"" + iter->ribFileName + "\""), 
+			if( liqglo.liquidRenderer.renderName == MString("PRMan") )
+			{
+				liqProcessLauncher::execute( iter->renderName, 
+					(" -progress \"" + iter->ribFileName + "\""), 
+					liqglo.liqglo_projectDir, true 
+					);
+			}
+			else if( liqglo.liquidRenderer.renderName == MString("3Delight") ){
+				liqProcessLauncher::execute( iter->renderName, 
+					(" -progress " + iter->ribFileName + ""), 
+					liqglo.liqglo_projectDir, true 
+					);
+			}
+			//else if( liqglo.liquidRenderer.renderName == MString("Aqsis") ){...}
+			//else if( liqglo.liquidRenderer.renderName == MString("Pixie") ){...}
 #else
+			liqProcessLauncher::execute( iter->renderName, 
 				(" -progress " + iter->ribFileName), 
-#endif
 				liqglo.liqglo_projectDir, true 
 				);
+#endif
 			++iter;
 		}
 		//[refactor][1.17 ]
@@ -1871,6 +1885,42 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::writeShader_forShadow_NullShader("<<ribNode__->name.asChar() <<",path__)");
 	
 		RiSurface( "null", RI_NULL );
+	}
+	MString Renderer::getTextureExt()const
+	{
+		CM_TRACE_FUNC("Renderer::getTextureExt()");
+
+		if( liqglo.liquidRenderer.renderName == MString("PRMan") )
+		{
+			return "tex";
+		}
+		else if( liqglo.liquidRenderer.renderName == MString("3Delight") )
+		{
+			return "tif";
+		}
+		//
+		return "unhandled";
+	}
+	bool Renderer::isTextureTypeSupported(const MString &textureType)const
+	{
+		CM_TRACE_FUNC("Renderer::getTextureExt("<<textureType.asChar() <<")");
+
+		if( liqglo.liquidRenderer.renderName == MString("PRMan") )
+		{
+			if(textureType=="tex"){
+				return true;
+			}
+			return false;
+		}
+		else if( liqglo.liquidRenderer.renderName == MString("3Delight") )
+		{
+			if(textureType=="tif"){
+				return true;
+			}
+			return false;
+		}
+
+		return false;
 	}
 }//namespace
 
