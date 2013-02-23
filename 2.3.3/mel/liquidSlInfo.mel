@@ -1024,7 +1024,13 @@ global proc float[] liquidSlDefaultToFloatMatrix( string $default )
 {
 	liqPushIdent();
 	liqlog("liquidSlDefaultToFloatMatrix("+$default+")");
-    float $val[] = eval( "float $foo_FM[] = " + $default );
+	
+	float $val[];
+	string $str[] = stringToStringArray($default, "<> ,;");
+	for($i = 0; $i<size($str); $i++)
+	{
+	   $val[ $i ] = $str[ $i ];
+	}
 	liqPopIdent();
     return $val;
 }
