@@ -78,7 +78,8 @@ proc setAttribute13() {
 }
 
 proc setAttribute14() {
-	setAttr ".ddImageType[0]" -type "string" "it";
+	setAttr ".ddImageType[0]" -type "string" "bmp";
+	setAttr ".ddImageMode[0]" -type "string" "rgb";
 }
 
 proc setAttribute15() {
