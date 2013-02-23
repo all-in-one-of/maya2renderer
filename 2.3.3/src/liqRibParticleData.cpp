@@ -74,6 +74,7 @@ using namespace __gnu_cxx;
 using namespace std;
 using namespace boost;
 
+#define DELIGHT
 
 // these classes are needed to produce a list of particles sorted by their ids
 class liq_particleInfo
@@ -476,14 +477,15 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
     case MPTSpheres:
     {
 
-#ifdef DELIGHT
+if( liqglo.liquidRenderer.renderName == MString("3Delight") )
+{
 
       liqTokenPointer typeParameter;
       typeParameter.set( "type", rString );
       typeParameter.setTokenString( 0, "sphere" );
       tokenPointerArray.push_back( typeParameter );
-
-#else // Write real spheres
+}else{
+	  // Write real spheres
       liqTokenPointer Pparameter;
       liqTokenPointer radiusParameter;
 
@@ -507,7 +509,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
       tokenPointerArray.push_back( Pparameter );
       tokenPointerArray.push_back( radiusParameter );
       break;
-#endif // #ifdef DELIGHT
+}
 
     }
 
@@ -695,7 +697,8 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
 
     case MPTSprites: {
 
-#ifdef DELIGHT
+if( liqglo.liquidRenderer.renderName == MString("3Delight") )
+{
 
       liqTokenPointer typeParameter;
       typeParameter.set( "type", rString );
@@ -858,7 +861,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
         tokenPointerArray.push_back( spriteAspectParameter );
       }
 
-#else // Write real bilinear patches
+}else{ // Write real bilinear patches
 
       liqTokenPointer Pparameter;
       liqTokenPointer spriteNumParameter;
@@ -1009,7 +1012,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
       
       if ( haveSpriteScaleYArray || haveSpriteScaleY ) 
         tokenPointerArray.push_back( spriteScaleYParameter );
-#endif
+}
 
     } // case MPTSprites
     break;

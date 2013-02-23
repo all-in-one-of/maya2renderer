@@ -7,6 +7,8 @@
 #include <liqGlobalVariable.h>
 #include <maya/MQuaternion.h>
 
+#define DELIGHT
+
 namespace renderman
 {
 	static void _write(liqRibParticleData* pData, const structJob &currentJob);

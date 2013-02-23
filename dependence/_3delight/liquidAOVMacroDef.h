@@ -2,13 +2,13 @@
 #define _LIQUID_AOV_MACRO_DEF_H_
 
 //////////////////////////////////////////////////////////////////////////
-#define USE_AOV_aov_ambient
+//#define USE_AOV_aov_ambient
 
-#define USE_AOV_aov_diffuse
+//#define USE_AOV_aov_diffuse
 
-#define USE_AOV_aov_specular
+//#define USE_AOV_aov_specular
 
-#define USE_AOV_aov_reflection
+//#define USE_AOV_aov_reflection
 
 //#define USE_AOV_aov_rt_reflection
 //

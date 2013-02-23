@@ -452,6 +452,8 @@ void Visitor::defineAOVVariables()
 
 	RSLfile << "\n\n\n// define some extern variables which are used in 3delight shaders -----------------------------\n";
 	RSLfile << " color __transparency = color (1,1,1);" << std::endl;
+	RSLfile << " uniform float __reflects = 0;" << std::endl;
+	RSLfile << " uniform float __refracts = 0;" << std::endl;
 
 	std::stringstream aov_params;
 	aov_params 
