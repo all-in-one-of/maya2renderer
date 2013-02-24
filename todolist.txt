@@ -162,6 +162,9 @@ prman
 - bug#2:When I use prman,liquidDisplacement is added to global frame scope, (see test\test_rm_light\rib\rm_spotlight.ma\rm\rm_spotlight.ma)
 - bug#3:fail to assign liquidLight shader node to light
 - lib/shaders/下面的slo文件如果不存在，提示用户编译之。
+
+3delight
+------------
 - bug: test\test_particle\particle2.ma 里sphere particle大小不正确
 - bug: test\test_particle\particleColorChangeOnCollisionMethod1.ma，绿色的粒子显示不出绿色
 
