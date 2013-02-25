@@ -1,0 +1,102 @@
+/*
+*/
+source xxliquidutility.mel;
+
+global proc liquidmayaChangeIprRegion(string $renderPanel)
+{
+	liqPushIdent();
+	liqlog("liquidmayaChangeIprRegion("+$renderPanel+")");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaIprOptions()
+{
+	liqPushIdent();
+	liqlog("liquidmayaIprOptions()");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaIprOptionsSubMenu(string $editor, int $res0, int $res1, string $camera)
+{
+	liqPushIdent();
+	liqlog("liquidmayaIprOptionsSubMenu("+$editor+","+$res0+","+$res1+","+$camera+")");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaIprRender(int $width, int $height, int $doShadows,
+									  int $doGlowPass, string $camera)
+{
+	liqPushIdent();
+	liqlog("liquidmayaIprRender("+$width+","+$height+","+$doShadows+","+$doGlowPass+","+$camera+")");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaIprRenderSubMenu(string $subMenu, string	$editor)
+{
+	liqPushIdent();
+	liqlog("liquidmayaIprRenderSubMenu("+$subMenu+","+$editor+")");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc int liquidmayaIsRunningIpr()
+{
+	liqPushIdent();
+	liqlog("liquidmayaIsRunningIpr()");
+
+	int $ret = 0;
+	liqlog("is running ipr: "+$ret);
+
+	liqPopIdent();
+	return $ret;
+}
+//
+global proc liquidmayaStartIprRender(string $editor, int $resolutionX, int $resolutionY, string $camera)
+{
+	liqPushIdent();
+	liqlog("liquidmayaStartIprRender("+$editor+","+$resolutionX+","+$resolutionY+","+$camera+")");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaStopIprRender()
+{
+	liqPushIdent();
+	liqlog("liquidmayaStopIprRender()");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaRefreshIprImage()
+{
+	liqPushIdent();
+	liqlog("liquidmayaRefreshIprImage()");
+
+	liqPopIdent();
+	return;
+}
+//
+global proc liquidmayaPauseIprRender(string $editor, int $pause)
+{
+	liqPushIdent();
+	liqlog("liquidmayaPauseIprRender("+$editor+","+$pause+")");
+
+	liqPopIdent();
+	return;
+}
+//
+
+
+
+

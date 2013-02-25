@@ -7,6 +7,7 @@
  * \returns  a boolean (int) value
  */
 source xxliquidutility.mel;
+//source liquidIpr.mel;
 
 global  string $renderer[] = {
 // 	"renderman"
@@ -199,6 +200,7 @@ global proc registerLiquidRenderer()
   liqPushIdent();
 	liqlog("registerLiquidRenderer()");
   //eval "source createMayaSoftwareCommonGlobalsTab.mel";
+  eval("source liquidIpr.mel");
 
   if ( !`renderer -q -ex liquid` ) 
   {
@@ -260,6 +262,19 @@ global proc registerLiquidRenderer()
 				  "-renderRegionProcedure                 \"liquidmayaRenderRegion\" "    +
 				  "-logoImageName                         \"" + $icon + "\" "             +
 				  "-logoCallbackProcedure                 \"liquidRenderLogoCallback\" "  +
+					//Ipr
+					"-changeIprRegionProcedure				\"liquidmayaChangeIprRegion\" "			+
+					"-iprOptionsMenuLabel					\"liquidmaya IPR Tuning Options\" "		+
+					"-iprOptionsProcedure					\"liquidmayaIprOptions\" "				+
+					"-iprOptionsSubMenuProcedure			\"liquidmayaIprOptionsSubMenu\" "		+
+					"-iprRenderProcedure					\"liquidmayaIprRender\" "				+
+					"-iprRenderSubMenuProcedure				\"liquidmayaIprRenderSubMenu\" "		+
+					"-isRunningIprProcedure					\"liquidmayaIsRunningIpr\" "			+
+					"-startIprRenderProcedure				\"liquidmayaStartIprRender\" "			+
+					"-stopIprRenderProcedure				\"liquidmayaStopIprRender\" "			+
+					"-refreshIprRenderProcedure				\"liquidmayaRefreshIprImage\" "			+
+					"-pauseIprRenderProcedure				\"liquidmayaPauseIprRender\" "			+
+
 				  "liquid;");
 		break;
 	default:
