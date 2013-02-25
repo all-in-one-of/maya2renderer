@@ -17,38 +17,36 @@
 #include "common/my_math.h"
 
 SURFACE(maya_bump2d)
+
+	DECLARE;
 	// Inputs
-	PARAM(scalar, bumpValue);
-	PARAM(scalar, bumpDepth);
-	PARAM(eiIndex,bumpInterp);
-	PARAM(scalar, bumpFilter);
-	PARAM(scalar, bumpFilterOffset);
-	PARAM(normal, normalCamera);
-	PARAM(normal, bumpNormal);
-	// Outputs
-	PARAM(normal, outNormal);
+	DECLARE_SCALAR(bumpValue,			0.0f);
+	DECLARE_SCALAR(bumpDepth,			1.0f);
+	DECLARE_INDEX(bumpInterp,			0);
+	DECLARE_SCALAR(bumpFilter,			1.0f);
+	DECLARE_SCALAR(bumpFilterOffset,	0.0f);
+	DECLARE_NORMAL(normalCamera,		0.0f, 0.0f, 1.0f);
+	DECLARE_NORMAL(bumpNormal,			-1.0f, -1.0f, -1.0f);
+	// Outputs		
+	DECLARE_NORMAL(outNormal,			0.0f, 0.0f, 1.0f);
+	END_DECLARE;
 
-	void parameters(int pid)
-	{
-		// Inputs
-		DECLARE_SCALAR(bumpValue,			0.0f);
-		DECLARE_SCALAR(bumpDepth,			1.0f);
-		DECLARE_INDEX(bumpInterp,			0);
-		DECLARE_SCALAR(bumpFilter,			1.0f);
-		DECLARE_SCALAR(bumpFilterOffset,	0.0f);
-		DECLARE_NORMAL(normalCamera,		0.0f, 0.0f, 1.0f);
-		DECLARE_NORMAL(bumpNormal,			-1.0f, -1.0f, -1.0f);
-		// Outputs		
-		DECLARE_NORMAL(outNormal,			0.0f, 0.0f, 1.0f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
 	{
 	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
+	{
+	}
+
 	void do_bump_map(
 		//const eiScalar i_bumpValue,
 		//const eiScalar i_bumpDepth,

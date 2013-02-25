@@ -20,7 +20,7 @@ void Visitor::visitAnisotropic(const char* node)
 	CM_TRACE_FUNC("Visitor::visitAnisotropic("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_anisotropic", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -30,9 +30,8 @@ void Visitor::visitBlinn(const char* node)
 
 	OutputHelper o(file);
 
-	o.beginRSL(node);
+	o.beginRSL("maya_blinn", node);
 
-	o.addToRSL("ei_shader_param_string(\"desc\", \"plastic\");");
 	o.addRSLVariable("vector", "inColor",		"color",		node);
 	o.addRSLVariable("vector", "transparency", "transparency", node);
 	o.addRSLVariable("vector", "ambColor",		"ambientColor", node);
@@ -59,7 +58,7 @@ void Visitor::visitHairTubeShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitHairTubeShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_hairTubeShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -69,9 +68,8 @@ void Visitor::visitLambert(const char* node)
 
 	OutputHelper o(file);
 
-	o.beginRSL(node);
-
-	o.addToRSL("ei_shader_param_string(\"desc\", \"maya_lambert_transparent\");");
+	o.beginRSL("maya_lambert_transparent", node);
+	
 	o.addRSLVariable("vector", "Cs",		"color",		node);
 	o.addRSLVariable("vector", "transparency", "transparency", node);
 	o.addRSLVariable("vector", "ambientColor",	"ambientColor", node);
@@ -88,7 +86,7 @@ void Visitor::visitLayeredShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitLayeredShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_layeredShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -98,7 +96,7 @@ void Visitor::visitOceanShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitOceanShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_oceanShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -108,9 +106,8 @@ void Visitor::visitPhong(const char* node)
 	CM_TRACE_FUNC("Visitor::visitPhong("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_phong", node);
 
-	o.addToRSL("ei_shader_param_string(\"desc\", \"maya_phong\");");
 	//Common Material Attributes
 	o.addRSLVariable("vector", "color_",		"color",		node);
 	o.addRSLVariable("vector", "transparency",	"transparency", node);
@@ -143,7 +140,7 @@ void Visitor::visitPhongE(const char* node)
 	CM_TRACE_FUNC("Visitor::visitPhongE("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_phongE", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -153,7 +150,7 @@ void Visitor::visitRampShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitRampShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_rampShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -163,7 +160,7 @@ void Visitor::visitShadingMap(const char* node)
 	CM_TRACE_FUNC("Visitor::visitShadingMap("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_shadingMap", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -173,7 +170,7 @@ void Visitor::visitSurfaceShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitSurfaceShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_surfaceShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -183,7 +180,7 @@ void Visitor::visitUseBackground(const char* node)
 	CM_TRACE_FUNC("Visitor::visitUseBackground("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_useBackground", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -194,7 +191,7 @@ void Visitor::visitEnvFog(const char* node)
 	CM_TRACE_FUNC("Visitor::visitEnvFog("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_envFog", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -204,7 +201,7 @@ void Visitor::visitFluidShape(const char* node)
 	CM_TRACE_FUNC("Visitor::visitFluidShape("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_fluidShape", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -214,7 +211,7 @@ void Visitor::visitLightFog(const char* node)
 	CM_TRACE_FUNC("Visitor::visitLightFog("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_lightFog", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -224,7 +221,7 @@ void Visitor::visitParticleCloud(const char* node)
 	CM_TRACE_FUNC("Visitor::visitParticleCloud("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_particleCloud", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -234,7 +231,7 @@ void Visitor::visitVolumeFog(const char* node)
 	CM_TRACE_FUNC("Visitor::visitVolumeFog("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_volumeFog", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -244,7 +241,7 @@ void Visitor::visitVolumeShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitVolumeShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_volumeShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -255,7 +252,7 @@ void Visitor::visitCMuscleShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitCMuscleShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_cMuscleShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -265,7 +262,7 @@ void Visitor::visitDisplacementShader(const char* node)
 	CM_TRACE_FUNC("Visitor::visitDisplacementShader("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_displacementShader", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -277,7 +274,7 @@ void Visitor::visitAmbientLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitAmbientLight("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_ambientLight", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -287,7 +284,7 @@ void Visitor::visitAreaLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitAreaLight("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_areaLight", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -297,7 +294,7 @@ void Visitor::visitDirectionalLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitDirectionalLight("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_directionalLight", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -307,7 +304,7 @@ void Visitor::visitPointLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitPointLight("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_pointLight", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -317,7 +314,7 @@ void Visitor::visitSpotLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitSpotLight("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_spotLight", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -327,7 +324,7 @@ void Visitor::visitVolumeLight(const char* node)
 	CM_TRACE_FUNC("Visitor::visitVolumeLight("<<node<<")");
 
 	OutputHelper o(file);
-	o.beginRSL(node);
+	o.beginRSL("maya_volumeLight", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
@@ -343,9 +340,7 @@ void Visitor::visit_liquidShader(const char* node)
 
 	OutputHelper o(file);
 
-	o.beginRSL(node);
-
-	o.addToRSL("ei_shader_param_string(\"desc\", \""+MString(mayaShaderName.c_str())+"\");");
+	o.beginRSL(mayaShaderName.c_str(), node);
 
 	//tokenPointerArray only store parameters of user-defined shader
 	size_t parameterNum =  shader.tokenPointerArray.size() - 1;

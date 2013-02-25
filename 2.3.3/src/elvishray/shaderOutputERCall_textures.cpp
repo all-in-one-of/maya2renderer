@@ -23,9 +23,8 @@ void Visitor::visitChecker(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
+	o.beginRSL("maya_checker", node);
 
-	ei_shader_param_string("desc", "maya_checker");
 	// Inputs:
 	o.addRSLVariable("float",	"alphaGain",		"alphaGain",		node);
 	o.addRSLVariable("bool",	"alphaIsLuminance",	"alphaIsLuminance",	node);
@@ -97,9 +96,8 @@ void Visitor::visitFile(const char* node)
 	}
 
 
-	o.beginRSL(node);
+	o.beginRSL("maya_file", node);
 
-	ei_shader_param_string("desc", "maya_file");
 	//input
 	o.addRSLVariable("float",  "alphaGain",	"alphaGain",	node);
 	o.addRSLVariable("bool",  "alphaIsLuminance",	"alphaIsLuminance",	node);

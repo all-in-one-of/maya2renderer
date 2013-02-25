@@ -17,8 +17,8 @@
 #define WRAPMAX (1.000001f)
 //#define EPSILON 1e-6   //we use eiSCALAR_EPS(1.0e-5f) instead.
 
-float
-luminance( color i_color );
+//float
+//luminance( color i_color );
 
 color
 cabs( color i_color );

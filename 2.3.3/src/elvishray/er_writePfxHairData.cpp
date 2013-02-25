@@ -99,7 +99,7 @@ namespace elvishray
 #else// SHAPE SHAPE_object PAIR
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
-		_S( ei_object( objectName.c_str(), "hair" ) );
+		_S( ei_object( "hair", objectName.c_str() ) );
 		_s("{");
 			_d( ei_degree(degree) );
 			this->generate_pfxhair(ribNode__, pData, degree);
@@ -107,7 +107,7 @@ namespace elvishray
 //
 //		//vertex position
 //		_s("//### vertex positions, fnMesh.numVertices()="<<fnMesh.numVertices() );
-//		_d( tag = ei_tab(EI_DATA_TYPE_VECTOR, 1024) )
+//		_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
 //		_S( ei_pos_list( tag ) );
 //
 //		//_exportVertexFromDagNode(fnMesh);
@@ -119,7 +119,7 @@ namespace elvishray
 //			if( sample_first != sample_last )
 //			{
 //				_s("//### vertex deform positions, " );
-//				_d( tag = ei_tab(EI_DATA_TYPE_VECTOR, 1024) )
+//				_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
 //				_S( ei_motion_pos_list( tag ) );
 //
 //				_exportVertexFromNodePlug(ribNode__, sample_last);
@@ -144,7 +144,7 @@ namespace elvishray
 //			_s("//### N");
 //			_d( tag = eiNULL_TAG );
 //			_S( ei_declare("N", eiVARYING, EI_DATA_TYPE_TAG, &tag) );
-//			_d( tag = ei_tab(EI_DATA_TYPE_VECTOR, 1024) )
+//			_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
 //			_S( ei_variable("N", &tag) );
 //			MVector nml;
 //			for(size_t i = 0; i<fnMesh.numVertices(); ++i)
@@ -189,7 +189,7 @@ namespace elvishray
 //		}
 //
 //		_s("//### triangles, size="<< triangleCounts);
-//		_d( tag = ei_tab(EI_DATA_TYPE_INDEX, 1024) )
+//		_d( tag = ei_tab(EI_TYPE_INDEX, 1024) )
 //		_S( ei_triangle_list( tag ) );
 //		for(size_t i=0; i<triangleVertices.length(); i=i+3)
 //		{
@@ -243,21 +243,20 @@ namespace elvishray
 
 
 
-		_d( eiDatabase *db = ei_context_database(CONTEXT) );
 		eiIndex num_segments = getSegment(degree);
 
 		_d( eiTag vtx_list );
-		_d( vtx_list = ei_tab(EI_DATA_TYPE_VECTOR4, 100000) );
+		_d( vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000) );
 		_d( ei_end_tab() );
 		_d( eiTag hair_list );
-		_d( hair_list = ei_tab(EI_DATA_TYPE_INDEX, 100000) );
+		_d( hair_list = ei_tab(EI_TYPE_INDEX, 100000) );
 		_d( ei_end_tab() );
 
 		for (eiInt j = 0; j < phair->ncurves; ++j)
 		{
 			_d( eiInt index ); 
-			_d( index = ei_data_table_size(db, vtx_list) );
-			_d( ei_data_table_push_back(db, hair_list, &index) );//start vertex index of this hair in vtx_list
+			_d( index = ei_data_table_size(vtx_list) );
+			_d( ei_data_table_push_back(hair_list, &index) );//start vertex index of this hair in vtx_list
 
 			MRenderLine theLine( profileArray.renderLine( j, &status ) );
 			IfMErrorWarn(status);
@@ -265,7 +264,7 @@ namespace elvishray
 			const MVectorArray& vertex( theLine.getLine() );
 
 			_d( eiIndex nverts = vertex.length() + 2 );
-            _d( ei_data_table_push_back(db, hair_list, &nverts) );//how many segments this hair contains 
+            _d( ei_data_table_push_back(hair_list, &nverts) );//how many segments this hair contains 
 			
 			//first vertex
 			unsigned int vertIndex = 0;
@@ -275,7 +274,7 @@ namespace elvishray
 				vtx.y = vertex[ vertIndex ].y;
 				vtx.z = vertex[ vertIndex ].z;
 				vtx.w = 0.01f;
-				_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+				_d( ei_data_table_push_back(vtx_list, &vtx) );
 			}
 			for ( ; vertIndex < vertex.length(); vertIndex++ )
 			{
@@ -285,7 +284,7 @@ namespace elvishray
 					vtx.y = vertex[ vertIndex ].y;
 					vtx.z = vertex[ vertIndex ].z;
 					vtx.w = 0.01f;
-					_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+					_d( ei_data_table_push_back(vtx_list, &vtx) );
 				}
 			}
 			//tail vertex
@@ -295,7 +294,7 @@ namespace elvishray
 				vtx.y = vertex[ vertIndex-1 ].y;
 				vtx.z = vertex[ vertIndex-1 ].z;
 				vtx.w = 0.01f;
-				_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+				_d( ei_data_table_push_back(vtx_list, &vtx) );
 			}
 		}
 

@@ -43,10 +43,8 @@ namespace elvishray
 		_s( "// shader("<<mayaShaderName<<","<<", ...)" );//Renderman slo file name, e.g."your_shader_dir/test_type2"
 		//_s( "// shader("<<liquidShaderName<<","<<", ...)" );//e.g."lambert1", or "liquidSurface1", NOTE: it is liquidShader, not maya shader.
 
-		_S( ei_shader(liquidShaderName.c_str()) );
+		_S( ei_shader(mayaShaderName.c_str(), liquidShaderName.c_str()) );
 
-		_s("ei_shader_param_string( \"desc\",\""<<mayaShaderName<<"\");");
-		ei_shader_param_string("desc", mayaShaderName.c_str()); // //"opaque"
 
 		//tokenPointerArray only store parameters of user-defined shader
 		size_t parameterNum =  tokenPointerArray.size() - 1;
@@ -83,8 +81,8 @@ namespace elvishray
 			case rString: case rShader:
 				{
 					const std::string &v = vp->getTokenString();
-					_s("ei_shader_param_string(\""<<vp->getTokenName()<<"\"," <<v<<");");
-					ei_shader_param_string( vp->getTokenName().c_str(), v.c_str() );
+					_s("ei_shader_param_token(\""<<vp->getTokenName()<<"\"," <<v<<");");
+					ei_shader_param_token( vp->getTokenName().c_str(), v.c_str() );
 				}
 				break; 
 			case rHpoint:
@@ -158,21 +156,19 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::dummyPhongShader()");
 
 		_s("//----------------phong_shader_for_test begin---");
-		_S( ei_shader("phong_shader_for_test") );
-		_S( ei_shader_param_string("desc", "plastic") );
+		_S( ei_shader("plastic", "phong_shader_for_test") );
 		_S( ei_shader_param_vector("Cs", 1.0f, 0.2f, 0.3f) );
 		_S( ei_shader_param_vector("Kd", 0.7f, 1.0f, 1.0f) );
 		_S( ei_shader_param_scalar("Ks", 1.0f) );
 		_S( ei_shader_param_scalar("roughness", 0.2f) );
 		_S( ei_end_shader() );
 
-		_S( ei_shader("opaque_shadow_for_test") );
-		_S( ei_shader_param_string("desc", "opaque") );
+		_S( ei_shader("opaque", "opaque_shadow_for_test") );
 		_S( ei_end_shader() );
 
 		_S( ei_material("phong_mtl_for_test") );
-		_S( ei_add_surface("phong_shader_for_test") );
-		_S( ei_add_shadow("opaque_shadow_for_test") );
+		_S( ei_surface_shader("phong_shader_for_test") );
+		_S( ei_shadow_shader("opaque_shadow_for_test") );
 		_S( ei_end_material() );
 		_s("//----------------phong_shader_for_test end ---");
 	}
@@ -191,20 +187,18 @@ namespace elvishray
 // 		const MString shaderObjectName(mayaShaderName+"_object");
 // 		const MString opaqueShadowObjectName(mayaShaderName+"_opaque_shadow_object");
 // 		_s("//----------------shader begin---");
-// 		_S( ei_shader( shaderObjectName.asChar()) );
-// 		_S( ei_shader_param_string("desc", "plastic") );
+// 		_S( ei_shader( "plastic", shaderObjectName.asChar()) );
 // 		_S( ei_shader_param_vector("Cs", color[0], color[1], color[2]) );
 // 		_S( ei_shader_param_vector("Kd", 0.7f, 1.0f, 1.0f) );
 // 		_S( ei_shader_param_scalar("Ks", 1.0f) );
 // 		_S( ei_shader_param_scalar("roughness", 0.2f) );
 // 		_S( ei_end_shader() );
 // 
-// 		_S( ei_shader(opaqueShadowObjectName.asChar()) );
-// 		_S( ei_shader_param_string("desc", "opaque") );
+// 		_S( ei_shader("opaque", opaqueShadowObjectName.asChar()) );
 // 		_S( ei_end_shader() );
 // 
 // 		_S( ei_material(mayaShaderName.asChar()) );
-// 		_S( ei_add_surface(shaderObjectName.asChar()) );
+// 		_S( ei_surface_shader(shaderObjectName.asChar()) );
 // 		_S( ei_add_shadow(opaqueShadowObjectName.asChar()) );
 // 		_S( ei_end_material() );
 // 		_s("//----------------shader end ---");

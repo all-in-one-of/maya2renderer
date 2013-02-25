@@ -17,9 +17,8 @@ class e_Connection;
 
 namespace elvishray
 {
-	eiContext* my_ei_create_context();
-	void my_ei_delete_context(eiContext *context);
-	eiContext *my_ei_context(eiContext *context);
+	void my_ei_context();
+	void my_ei_end_context();
 
 	//	Client application connection:
 	 void my_ei_connection( eiConnection *con );
@@ -61,7 +60,7 @@ namespace elvishray
 	 void my_ei_options( const char *name );
 
 	//	Sampling Quality:
-	 void my_ei_contrast( float r, float g, float b, float a );
+	 void my_ei_contrast( eiScalar value );
 	 void my_ei_samples( int _min, int _max );
 	 void my_ei_bucket_size( int size );
 	 void my_ei_filter( int filter, float size );
@@ -85,10 +84,10 @@ namespace elvishray
 // 	 void my_ei_trace( int type );
 // 	 void my_ei_scanline( int type );
 // 	 void my_ei_hardware( int type );
-	 void my_ei_acceleration( int type );
+//	 void my_ei_acceleration( int type );
 	 //void my_ei_simd( int type );
-	 void my_ei_bsp_size( int size );
-	 void my_ei_bsp_depth( int depth );
+//	 void my_ei_bsp_size( int size );
+//	 void my_ei_bsp_depth( int depth );
 	 //void my_ei_bsp_memory( int size );
 
 	//	Feature Disabling:
@@ -100,13 +99,13 @@ namespace elvishray
 	 void my_ei_imager( int type );
 
 	//	Caustics:
-	 void my_ei_caustic( int type );
-	 void my_ei_caustic_accuracy( int samples, float radius );
+//	 void my_ei_caustic( int type );
+//	 void my_ei_caustic_accuracy( int samples, float radius );
 
 	//	Global Illumination:
-	 void my_ei_globillum( int type );
-	 void my_ei_globillum_accuracy( int samples, float radius );
-	 void my_ei_photonvol_accuracy( int samples, float radius );
+//	 void my_ei_globillum( int type );
+//	 void my_ei_globillum_accuracy( int samples, float radius );
+//	 void my_ei_photonvol_accuracy( int samples, float radius );
 
 	//	Frame Buffer Control:
 	 void my_ei_exposure( float gain, float gamma );
@@ -141,8 +140,8 @@ namespace elvishray
 	 //void my_ei_offset( int x, int y );
 	 void my_ei_window( float xmin, float xmax, float ymin, float ymax );
 	 void my_ei_clip( float hither, float yon );
-	 void my_ei_add_lens(const char *shader_name);
-	 void my_ei_add_imager(const char *shader_name);
+	 void my_ei_lens_shader(const char *shader_name);
+	 void my_ei_imager_shader(const char *shader_name);
 
 	 //void my_ei_atmosphere( const char *shader_name, int end_=ei_end,... );
 	 //void my_ei_ambience( const char *shader_name, int end_=ei_end,... );
@@ -161,11 +160,11 @@ namespace elvishray
 	//	Materials:
 	 void my_ei_material( const char *name );
 
-	 void my_ei_add_surface( const char *shader_name );
-	 void my_ei_add_displace( const char *shader_name );
-	 void my_ei_add_shadow( const char *shader_name );
-	 void my_ei_add_volume( const char *shader_name );
-	 void my_ei_add_environment( const char *shader_name );
+	 void my_ei_surface_shader( const char *shader_name );
+	 void my_ei_displace_shader( const char *shader_name );
+	 void my_ei_shadow_shader( const char *shader_name );
+	 void my_ei_volume_shader( const char *shader_name );
+	 void my_ei_environment_shader( const char *shader_name );
 
 	 void my_ei_end_material();
 
@@ -174,7 +173,7 @@ namespace elvishray
 	 void my_ei_light( const char *name );
 	// void my_ei_incremental_light( const char *name );
 
-	 void my_ei_add_light( const char *shader_name );
+	 void my_ei_light_shader( const char *shader_name );
 	 void my_ei_origin(eiScalar x, eiScalar y, eiScalar z);
 
 	 void my_ei_photon_emitter( const char *shader_name, int end_=ei_end, ... );
@@ -200,7 +199,7 @@ namespace elvishray
 
 
 	//	Objects:
-	 void my_ei_object( const char *name, const char *type );
+	 void my_ei_object( const char *type, const char *name );
 	 /* polygon objects */
 	 void my_ei_pos_list(const eiTag tab);
 	 void my_ei_motion_pos_list(const eiTag tab);
@@ -260,7 +259,7 @@ namespace elvishray
 		 float t30,float t31,float t32,float t33
 		 );
 
-	 void my_ei_add_material( const char *material_name );
+	 void my_ei_mtl( const char *material_name );
 
 	 void my_ei_end_instance();
 
@@ -274,13 +273,13 @@ namespace elvishray
 
 	 void my_ei_end_instgroup();
 //
-void my_ei_shader(const char* instance_name);
+void my_ei_shader(const char *type_name, const char *instance_name);
 void my_ei_shader_param(
 					 const char *param_name, 
 					 const void *param_value);
-void my_ei_shader_param_string(
-								  const char *param_name, 
-								  const char *param_value);
+// void my_ei_shader_param_string(
+// 								  const char *param_name, 
+// 								  const char *param_value);
 void my_ei_shader_param_int(
 							   const char *param_name, 
 							   const eiInt param_value);

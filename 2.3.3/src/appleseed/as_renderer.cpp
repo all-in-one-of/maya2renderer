@@ -1070,6 +1070,18 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("Renderer::writeShader_forShadow_NullShader("<<ribNode__->name.asChar() <<",path__)");
 	}
+	MString Renderer::getTextureExt()const
+	{
+		CM_TRACE_FUNC("Renderer::getTextureExt()");
+
+		return "anyone";
+	}
+	bool Renderer::isTextureTypeSupported(const MString &textureType)const
+	{
+		CM_TRACE_FUNC("Renderer::getTextureExt("<<textureType.asChar() <<")");
+
+		return false;
+	}
 }//namespace appleseed
 
 #endif//_USE_APPLESEED_

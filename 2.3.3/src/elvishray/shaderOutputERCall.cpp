@@ -78,7 +78,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
 			{
-				ei_shader_param_string( rslName.asChar(), val.asChar());
+				ei_shader_param_token( rslName.asChar(), val.asChar());
 			}
 		}else if(rslType=="texture"){
 			MString val;
@@ -227,11 +227,11 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 // 	file<<code<<std::endl;
 // }
 //
-void OutputHelper::beginRSL (const MString& name)
+void OutputHelper::beginRSL (const MString &type_name, const MString &instance_name)
 {
-	CM_TRACE_FUNC("OutputHelper::beginRSL("<<name.asChar()<<")");
+	CM_TRACE_FUNC("OutputHelper::beginRSL("<<type_name.asChar()<<","<<instance_name.asChar()<<")");
 
-	ei_shader( name.asChar() );
+	ei_shader( type_name.asChar(), instance_name.asChar() );
 }
 //
 void OutputHelper::endRSL ()
@@ -329,19 +329,19 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 
 	ei_material( shadingGroupNode );
 	if( surfaceShaders[0].length() != 0 ){
-		ei_add_surface( surfaceShaders[0].asChar() );
+		ei_surface_shader( surfaceShaders[0].asChar() );
 	}
 	if( volumeShaders[0].length() != 0 ){
-		ei_add_volume( volumeShaders[0].asChar() );
+		ei_volume_shader( volumeShaders[0].asChar() );
 	}
 	if( displacementShaders[0].length() != 0 ){
-		ei_add_displace( displacementShaders[0].asChar() );
+		ei_displace_shader( displacementShaders[0].asChar() );
 	}
 	if( shadowShaders[0].length() != 0 ){
-		ei_add_shadow( shadowShaders[0].asChar() );
+		ei_shadow_shader( shadowShaders[0].asChar() );
 	}
 	if( environmentShaders[0].length() != 0 ){
-		ei_add_environment( environmentShaders[0].asChar() );
+		ei_environment_shader( environmentShaders[0].asChar() );
 	}
 	ei_end_material();
 

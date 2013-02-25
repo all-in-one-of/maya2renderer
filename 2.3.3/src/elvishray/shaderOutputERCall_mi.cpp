@@ -17,9 +17,8 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	CM_TRACE_FUNC("Visitor::visit_mib_amb_occlusion("<<node<<")");
 	
 	OutputHelper o;
-	o.beginRSL(node);
+	o.beginRSL("maya_mib_amb_occlusion", node);
 
-	ei_shader_param_string("desc", "maya_mib_amb_occlusion");
 	o.addRSLVariable("index",	"samples",		"samples",		node);
 	o.addRSLVariable("color",	"bright",		"bright",		node);
 	o.addRSLVariable("color",	"dark",			"dark",			node);

@@ -24,9 +24,8 @@ void Visitor::visitBump2d(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
+	o.beginRSL("maya_bump2d", node);
 
-	ei_shader_param_string("desc", "maya_bump2d");
 	//input
 	o.addRSLVariable("scalar",  "bumpValue",		"bumpValue",	node);
 	o.addRSLVariable("scalar",  "bumpDepth",		"bumpDepth",	node);
@@ -49,9 +48,8 @@ void Visitor::visitBump3d(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
+	o.beginRSL("maya_bump3d", node);
 
-	ei_shader_param_string("desc", "maya_bump3d");
 	//input
 	o.addRSLVariable("scalar",  "bumpValue",		"bumpValue",	node);
 	o.addRSLVariable("scalar",  "bumpDepth",		"bumpDepth",	node);
@@ -94,9 +92,8 @@ void Visitor::visitPlace2dTexture(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
+	o.beginRSL("maya_place2dTexture", node);
 
-	ei_shader_param_string("desc", "maya_place2dTexture");
 	//Inputs
 	//o.addRSLVariable("vector",  "uvCoord",		"uvCoord",		node);//elvishray generates uv internally, see SURFACE(maya_place2dTexture)
 	o.addRSLVariable("float",	"coverageU",	"coverageU",	node);

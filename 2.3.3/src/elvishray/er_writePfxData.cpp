@@ -85,7 +85,7 @@ namespace elvishray
 #else// SHAPE SHAPE_object PAIR
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
-		_S( ei_object( objectName.c_str(), "hair" ) );
+		_S( ei_object( "hair", objectName.c_str() ) );
 		_s("{");
 			_S( ei_degree(degree) );
 			this->generate_pfx(ribNode__, pData, degree);
@@ -148,13 +148,12 @@ namespace elvishray
 
 		if( totalVarying )
 		{
-			_d( eiDatabase *db = ei_context_database(CONTEXT) );
 
 			_d( eiTag vtx_list );
-			_d( vtx_list = ei_tab(EI_DATA_TYPE_VECTOR4, 100000) );
+			_d( vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000) );
 			_d( ei_end_tab() );
 			_d( eiTag hair_list );
-			_d( hair_list = ei_tab(EI_DATA_TYPE_INDEX, 100000) );
+			_d( hair_list = ei_tab(EI_TYPE_INDEX, 100000) );
 			_d( ei_end_tab() );
 		
 			// read other attributes from the lines
@@ -171,8 +170,8 @@ namespace elvishray
 			for( unsigned lineOn( 0 ); lineOn < lines[ setOn ].length(); lineOn++ )
 			{
 				_d( eiInt index ); 
-				_d( index = ei_data_table_size(db, vtx_list) );
-				_d( ei_data_table_push_back(db, hair_list, &index) );//start vertex index of this hair in vtx_list
+				_d( index = ei_data_table_size(vtx_list) );
+				_d( ei_data_table_push_back(hair_list, &index) );//start vertex index of this hair in vtx_list
 
 
 				MRenderLine pfxLine( lines[ setOn ].renderLine( lineOn, &status ) );
@@ -182,7 +181,7 @@ namespace elvishray
 				const MDoubleArray& pfxWidth( pfxLine.getWidth() );
 				_d( eiIndex num_segments );
 				num_segments = (pfxVerts.length() +2)/degree; _s("num_segments="<< num_segments);
-				_d( ei_data_table_push_back(db, hair_list, &num_segments) );//how many segments this hair contains 
+				_d( ei_data_table_push_back(hair_list, &num_segments) );//how many segments this hair contains 
 				
 				_d( eiVector4 vtx );
 				//for each vertex on this hair
@@ -204,7 +203,7 @@ namespace elvishray
 							pfxVerts[ pOn ].y, 
 							pfxVerts[ pOn ].z, 
 							pfxWidth[ pOn ] * 0.75);
-						_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+						_d( ei_data_table_push_back(vtx_list, &vtx) );
 					}else{
 						// start vertices (pOn == 0)
  						if( 1 == setOn )
@@ -220,14 +219,14 @@ namespace elvishray
  							tmpVertex.y, 
  							tmpVertex.z, 
  							pfxWidth[ pOn ] * 0.75);
- 						_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+ 						_d( ei_data_table_push_back(vtx_list, &vtx) );
 
 						my_set_eiVector4("vtx", vtx, 
 							pfxVerts[ 0 ].x, 
 							pfxVerts[ 0 ].y, 
 							pfxVerts[ 0 ].z, 
 							pfxWidth[ 0 ] * 0.75);
-						_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+						_d( ei_data_table_push_back(vtx_list, &vtx) );
 					}
 				}//for( ; pOn < pfxVerts.length(); pOn++ ) 
 				// end vertex
@@ -240,7 +239,7 @@ namespace elvishray
 					tmpVertex.y, 
 					tmpVertex.z, 
 					width * 0.75);
-				_d( ei_data_table_push_back(db, vtx_list, &vtx) );
+				_d( ei_data_table_push_back(vtx_list, &vtx) );
 			}//for lineon
 
 			_d( ei_vertex_list(vtx_list) );

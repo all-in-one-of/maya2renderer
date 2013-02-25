@@ -89,7 +89,7 @@ namespace elvishray
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
 		const eiIndex degree = 3;
-		_S( ei_object( objectName.c_str(), "hair" ) );
+		_S( ei_object( "hair", objectName.c_str() ) );
 		_s("{");
 			_S( ei_degree(degree) );
 			this->generate_shavehair(ribNode__, pData, degree);
@@ -113,10 +113,10 @@ namespace elvishray
 		_d( eiDatabase *db = ei_context_database(CONTEXT) );
 
 		_d( eiTag vtx_list );
-		_d( vtx_list = ei_tab(EI_DATA_TYPE_VECTOR4, 100000) );
+		_d( vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000) );
 		_d( ei_end_tab() );
 		_d( eiTag hair_list );
-		_d( hair_list = ei_tab(EI_DATA_TYPE_INDEX, 100000) );
+		_d( hair_list = ei_tab(EI_TYPE_INDEX, 100000) );
 		_d( ei_end_tab() );
 
 	

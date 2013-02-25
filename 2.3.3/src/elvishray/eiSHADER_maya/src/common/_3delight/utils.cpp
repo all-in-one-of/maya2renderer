@@ -6,14 +6,14 @@
 
 #include "utils.h"
 
-float
-luminance( color i_color )
-{
-	return
-		0.3f * i_color.x + 
-		0.59f * i_color.y + 
-		0.11f * i_color.z;
-}
+// float
+// luminance( color i_color )
+// {
+// 	return
+// 		0.3f * i_color.x + 
+// 		0.59f * i_color.y + 
+// 		0.11f * i_color.z;
+// }
 
 color
 cabs( color i_color )

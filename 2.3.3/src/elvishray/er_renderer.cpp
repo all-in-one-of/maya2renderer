@@ -121,14 +121,13 @@ namespace elvishray
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( sShaderInstanceName.c_str() ) );//shader 
-		_S( ei_shader_param_string("desc", "shadowlight") ); 
+		_S( ei_shader( "shadowlight", sShaderInstanceName.c_str() ) );//shader 
 		_S( ei_shader_param_scalar("intensity", 3.0 ) );
 		_S( ei_end_shader() );
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		_S( ei_light( sLightObjectName.c_str() ) );//object
-		_S( ei_add_light(	sShaderInstanceName.c_str() ) );//shader
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );//shader
 		_S( ei_origin( t[3][0],t[3][1],t[3][2] ) );
 		_S( ei_end_light() );
 
@@ -244,9 +243,9 @@ namespace elvishray
 				cmd = "listConnections -type \"shadingEngine\" -destination on (\""+MString(ribNode__->name.asChar())+"\" + \".instObjGroups\")";
 				IfMErrorWarn(MGlobal::executeCommand( cmd, shadingGroupNodes));
 			}
-			_S( ei_add_material( shadingGroupNodes[0].asChar() ) );
+			_S( ei_mtl( shadingGroupNodes[0].asChar() ) );
 			// add test shader,must removed when the shader export is done.
-			//_S( ei_add_material("phong_mtl_for_test") );
+			//_S( ei_mtl("phong_mtl_for_test") );
 		}
 		
 		//element
@@ -279,7 +278,7 @@ namespace elvishray
 		_s("{//light group(light-link group)");
 		const char* lg = getLightGroupName(instanceName.c_str()).asChar();
 		_d( const char *tag = NULL );
-		_S( ei_declare("lightgroup", eiCONSTANT, EI_DATA_TYPE_TOKEN, &tag) );
+		_S( ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &tag) );
 		tag = ei_token(lg);_s( "tag = ei_token(\""<<lg<<"\");" );
 		_S( ei_variable("lightgroup", &tag ) );
 		_s("}");
@@ -321,9 +320,8 @@ namespace elvishray
 			_S( ei_make_texture( currentJob.imageName.asChar(), currentJob.texName.asChar() , EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f ) );
 		}	
 		_s("//### SCENE BEGIN ###");
-		CONTEXT =_S( ei_create_context() );
 
-		_S( ei_context(CONTEXT) );
+		_S( ei_context() );
 
 		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
@@ -359,7 +357,7 @@ namespace elvishray
 		{
 			_s("// in batch render mode");
 			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-			_S( ei_delete_context(CONTEXT) );
+			_S( ei_end_context() );
 
 			MayaConnection::delInstance();
 		}else{
@@ -372,7 +370,7 @@ namespace elvishray
 			}
 
 			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-			_S( ei_delete_context(CONTEXT) );
+			_S( ei_end_context() );
 
 			// end render
 			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
@@ -403,7 +401,7 @@ namespace elvishray
 
 		//	Sampling Quality:
 		MFloatPoint contrast(m_gnode->getVector("contrast"));
-		_S( ei_contrast( contrast.x, contrast.y, contrast.z, contrast.w ) );
+		_S( ei_contrast( contrast.x ) );
 		
 		if( currentJob.pass == rpShadowMap ){
 			_s("//this is a shadow pass, how to deal with the samples and filter?");
@@ -604,7 +602,7 @@ namespace elvishray
 			);
  			_S( ei_output( imageName.asChar(), "bmp", EI_IMG_DATA_RGB ) );
 			//_S( ei_output( "d:/_cameraShape1.0001.bmp", "bmp", EI_IMG_DATA_RGB ) );
-			_S( ei_output_variable("color", EI_DATA_TYPE_VECTOR));
+			_S( ei_output_variable("color", EI_TYPE_VECTOR));
 			_S( ei_end_output());
 			 
 			_S( ei_focal( focal ) );
@@ -621,12 +619,12 @@ namespace elvishray
 			//lens shader
 			for( std::size_t i = 0; i<LensShaders.length(); ++i)
 			{
-				_S( ei_add_lens( LensShaders[i].asChar() ) );
+				_S( ei_lens_shader( LensShaders[i].asChar() ) );
 			}
 			//env shader
 			for( std::size_t i = 0; i<EnvironmentShaders.length(); ++i)
 			{
-				_S( ei_add_environment(EnvironmentShaders[i].asChar()) );
+				_S( ei_environment_shader(EnvironmentShaders[i].asChar()) );
 			}
 		_S( ei_end_camera() );
 		_s("//----------------------------------");
@@ -1046,6 +1044,21 @@ namespace elvishray
 	void Renderer::writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__)
 	{
 		CM_TRACE_FUNC("Renderer::writeShader_forShadow_NullShader("<<ribNode__->name.asChar() <<",path__)");
+	}
+	MString Renderer::getTextureExt()const
+	{
+		CM_TRACE_FUNC("Renderer::getTextureExt()");
+
+		return "tex";
+	}
+	bool Renderer::isTextureTypeSupported(const MString &textureType)const
+	{
+		CM_TRACE_FUNC("Renderer::getTextureExt("<<textureType.asChar() <<")");
+
+		if(textureType=="tex"){
+			return true;
+		}
+		return false;
 	}
 }//namespace
 

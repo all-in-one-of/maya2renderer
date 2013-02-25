@@ -36,7 +36,7 @@ namespace elvishray
 				std::string instanceName(fullPathName.asChar());
 
 				const MString lightGroupName( getLightGroupName(instanceName.c_str()) );
-				_S( ei_declare(lightGroupName.asChar(), eiCONSTANT, EI_DATA_TYPE_INT, &tag) );
+				_S( ei_declare(lightGroupName.asChar(), EI_CONSTANT, EI_TYPE_INT, &tag) );
 			}
 		_s("}");
 	}
@@ -70,14 +70,13 @@ namespace elvishray
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_string("desc", "ambientlight") ); 
+		_S( ei_shader( "ambientlight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_scalar("intensity", 3.0 ) );
 		_S( ei_end_shader() );
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_add_light(	sShaderInstanceName.c_str() ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
 		_S( ei_origin( t[3][0],t[3][1],t[3][2] ) );
 		_S( ei_end_light() );
 
@@ -115,8 +114,7 @@ namespace elvishray
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_string("desc", "directlight") ); 
+		_S( ei_shader( "directlight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) ); 
 		_S( ei_shader_param_scalar("intensity", i_intensity ) );
 		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f ) ); 
@@ -124,7 +122,7 @@ namespace elvishray
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		_S( ei_light( sLightObjectName.c_str()) );
-		_S( ei_add_light(	sShaderInstanceName.c_str() ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
 		_S( ei_origin( 0.0, 0.0, 0.0 ) );
 		_S( ei_end_light() );
 
@@ -169,15 +167,14 @@ namespace elvishray
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_string("desc", "pointlight") ); 
+		_S( ei_shader( "pointlight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) );
 		_S( ei_shader_param_scalar("intensity", i_intensity) );
 		_S( ei_end_shader() );
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_add_light(	sShaderInstanceName.c_str()  ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str()  ) );
 		_S( ei_origin( 0.0, 0.0, 0.0 ) );
 		_S( ei_end_light() );
 
@@ -245,8 +242,7 @@ namespace elvishray
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_string("desc", "spotlight") ); 
+		_S( ei_shader( "spotlight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) ); 
 		_S( ei_shader_param_scalar("intensity", i_intensity ) );
 		_S( ei_shader_param_scalar("deltaangle", (i_penumbraangle*0.5f) ) );
@@ -256,7 +252,7 @@ namespace elvishray
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		_S( ei_light( sLightObjectName.c_str() ) );
-		_S( ei_add_light(	sShaderInstanceName.c_str()  ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str()  ) );
 		_S( ei_origin( 0.0, 0.0, 0.0 ) );
 		_S( ei_end_light() );
 
@@ -299,14 +295,13 @@ namespace elvishray
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_string("desc", "arealight") ); 
+		_S( ei_shader( "arealight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_scalar("intensity", 3.0 ) );
 		_S( ei_end_shader() );
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_add_light(	sShaderInstanceName.c_str() ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
 		_S( ei_origin( t[3][0],t[3][1],t[3][2]  ) );
 		_S( ei_end_light() );
 

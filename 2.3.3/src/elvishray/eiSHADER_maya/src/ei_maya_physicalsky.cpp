@@ -190,53 +190,40 @@ static color get_cie_standard_sky_color(
 }
 
 ENVIRONMENT(maya_physicalsky)
+	DECLARE;
+	DECLARE_VECTOR(sun_dir, 0.577f, 0.577f, 0.577f);
+	DECLARE_SCALAR(sun_disk_size, 2.0f);
+	DECLARE_SCALAR(sun_disk_intensity, 7.0f);
+	DECLARE_SCALAR(sun_glow_size, 1.0f);
+	DECLARE_SCALAR(sun_glow_intensity, 1.0f);
+	DECLARE_SCALAR(sun_glow_falloff, 5.0f);
+	DECLARE_COLOR(ground_color, 0.2f, 0.2f, 0.2f);
+	DECLARE_SCALAR(ground_blur, 0.01f);
+	DECLARE_BOOL(visibility_to_camera, eiTRUE);
+	DECLARE_INT(type, 0);
+	DECLARE_SCALAR(haze, 5.0f);
+	DECLARE_COLOR(zenith_color, 0.109f, 0.109f, 0.109f);
+	DECLARE_SCALAR(a, -1.0f);
+	DECLARE_SCALAR(b, -0.32f);
+	DECLARE_SCALAR(c, 10.0f);
+	DECLARE_SCALAR(d, -3.0f);
+	DECLARE_SCALAR(e, 0.45f);
+	DECLARE_SCALAR(intensity, 0.5f);
+	END_DECLARE;
 
-	PARAM(vector, sun_dir);
-	PARAM(scalar, sun_disk_size);
-	PARAM(scalar, sun_disk_intensity);
-	PARAM(scalar, sun_glow_size);
-	PARAM(scalar, sun_glow_intensity);
-	PARAM(scalar, sun_glow_falloff);
-	PARAM(color, ground_color);
-	PARAM(scalar, ground_blur);
-	PARAM(eiBool, visibility_to_camera);
-	PARAM(int, type);
-	PARAM(scalar, haze);
-	PARAM(color, zenith_color);
-	PARAM(scalar, a);
-	PARAM(scalar, b);
-	PARAM(scalar, c);
-	PARAM(scalar, d);
-	PARAM(scalar, e);
-	PARAM(scalar, intensity);
-
-	void parameters(int pid)
-	{
-		DECLARE_VECTOR(sun_dir, 0.577f, 0.577f, 0.577f);
-		DECLARE_SCALAR(sun_disk_size, 2.0f);
-		DECLARE_SCALAR(sun_disk_intensity, 7.0f);
-		DECLARE_SCALAR(sun_glow_size, 1.0f);
-		DECLARE_SCALAR(sun_glow_intensity, 1.0f);
-		DECLARE_SCALAR(sun_glow_falloff, 5.0f);
-		DECLARE_COLOR(ground_color, 0.2f, 0.2f, 0.2f);
-		DECLARE_SCALAR(ground_blur, 0.01f);
-		DECLARE_BOOL(visibility_to_camera, eiTRUE);
-		DECLARE_INT(type, 0);
-		DECLARE_SCALAR(haze, 5.0f);
-		DECLARE_COLOR(zenith_color, 0.109f, 0.109f, 0.109f);
-		DECLARE_SCALAR(a, -1.0f);
-		DECLARE_SCALAR(b, -0.32f);
-		DECLARE_SCALAR(c, 10.0f);
-		DECLARE_SCALAR(d, -3.0f);
-		DECLARE_SCALAR(e, 0.45f);
-		DECLARE_SCALAR(intensity, 0.5f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
@@ -272,26 +259,13 @@ ENVIRONMENT(maya_physicalsky)
 	void main(void *arg)
 	{
 		if ((visibility_to_camera() == eiFALSE) &&
-			(ray_type() == eiRAY_EYE))
+			(ray_type == eiRAY_EYE))
 		{
-			return;
-		}
-
-		if (get_state()->transp_depth > get_state()->opt->transp_depth || 
-			get_state()->glossy_reflect_depth > get_state()->opt->glossy_reflect_depth || 
-			get_state()->diffuse_reflect_depth > get_state()->opt->diffuse_reflect_depth || 
-			get_state()->glossy_refract_depth > get_state()->opt->glossy_refract_depth || 
-			get_state()->diffuse_refract_depth > get_state()->opt->diffuse_refract_depth || 
-			(get_state()->glossy_reflect_depth + get_state()->glossy_refract_depth + 
-			get_state()->diffuse_reflect_depth + get_state()->diffuse_refract_depth) > get_state()->opt->sum_depth)
-		{
-			Ci() = color(0.0f);
-			Oi() = color(0.0f);
 			return;
 		}
 
 		// the shading space of physical sky should be in world space
-		vector Iw = normalize(I() * to_world());
+		vector Iw = normalize(vto_world(I));
 		vector ray_dir = Iw;
 		// we should always enable ground blur for Max material editor. 
 		// when refraction is enabled, and IOR is 1.0, because in that 
@@ -302,11 +276,11 @@ ENVIRONMENT(maya_physicalsky)
 		scalar blur = ground_blur();
 		if (ray_dir.y >= blur)
 		{
-			Ci() = physicalsky_color(ray_dir);
+			out->Ci = physicalsky_color(ray_dir);
 		}
 		else if (ray_dir.y <= 0.0f)
 		{
-			Ci() = ground_color();
+			out->Ci = ground_color();
 		}
 		else
 		{
@@ -314,10 +288,10 @@ ENVIRONMENT(maya_physicalsky)
 			color ground_c(ground_color());
 
 			scalar factor = curve(ray_dir.y / blur);
-			Ci() = ground_c * (1.0f - factor) + sky_c * factor;
+			out->Ci = ground_c * (1.0f - factor) + sky_c * factor;
 		}
 
-		Oi() = color(0.0f);
+		out->Oi = color(0.0f);
 	}
 
 END(maya_physicalsky)

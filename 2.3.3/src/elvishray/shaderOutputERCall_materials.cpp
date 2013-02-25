@@ -24,9 +24,7 @@ void Visitor::visitBlinn(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
-
-	ei_shader_param_string("desc", "plastic");
+	o.beginRSL("plastic", node);
 
 	o.addRSLVariable("vector", "inColor",		"color",		node);
 	o.addRSLVariable("vector", "transparency", "transparency", node);
@@ -59,9 +57,7 @@ void Visitor::visitLambert(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
-
-	ei_shader_param_string("desc", "maya_lambert_transparent");
+	o.beginRSL("maya_lambert_transparent", node);
 
 	o.addRSLVariable("vector", "Cs",		"color",		node);
 	o.addRSLVariable("vector", "transparency", "transparency", node);
@@ -89,9 +85,8 @@ void Visitor::visitPhong(const char* node)
 	CM_TRACE_FUNC("Visitor::visitPhong("<<node<<")");
 
 	OutputHelper o;
-	o.beginRSL(node);
+	o.beginRSL("maya_phong", node);
 
-	ei_shader_param_string("desc", "maya_phong");
 	//Common Material Attributes
 	o.addRSLVariable("vector", "color_",		"color",		node);
 	o.addRSLVariable("vector", "transparency",	"transparency", node);
@@ -229,9 +224,7 @@ void Visitor::visit_liquidShader(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL(node);
-
-	ei_shader_param_string("desc", mayaShaderName.c_str()); // //"opaque"
+	o.beginRSL(mayaShaderName.c_str(), node);
 
 	//tokenPointerArray only store parameters of user-defined shader
 	size_t parameterNum =  shader.tokenPointerArray.size() - 1;

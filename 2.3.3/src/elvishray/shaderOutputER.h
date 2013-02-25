@@ -38,7 +38,7 @@ public:
 	//--------------------------------------------------------------------
 	// Begin a new block (function) of RSL code.
 	//--------------------------------------------------------------------
-	void beginRSL (const MString& name);
+	void beginRSL (const MString &type_name, const MString &instance_name);
 
 	//--------------------------------------------------------------------
 	// End the current block (function) of RSL code.

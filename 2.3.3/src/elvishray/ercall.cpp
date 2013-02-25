@@ -31,30 +31,20 @@ namespace elvishray
 {
 
 	//////////////////////////////////////////////////////////////////////////////////
-	eiContext *my_ei_create_context()
+	void my_ei_context()
 	{
-		_s("eiContext *CONTEXT = ei_create_context()");
+		_s("ei_context()");
 #ifdef _USE_ER_LIB_
-		return _e( ei_create_context() );
+		return _e( ei_context() );
 #else
-		_e( ei_create_context() );
+		_e( ei_context() );
 		return NULL;//dummy value
 #endif
 	}
-	void my_ei_delete_context(eiContext *context)
+	void my_ei_end_context()
 	{
-		_s("ei_delete_context(CONTEXT)");
-		_e( ei_delete_context(context) );
-	}
-	eiContext *my_ei_context(eiContext *context)
-	{
-		_s("ei_context(CONTEXT)");
-#ifdef _USE_ER_LIB_
-		return _e( ei_context(context) );
-#else
-		_e( ei_context(context) );
-		return NULL;//dummy value
-#endif
+		_s("ei_end_context()");
+		_e( ei_end_context() );
 	}
 	//	Client application connection:
 	void my_ei_connection( eiConnection *con )
@@ -167,10 +157,10 @@ namespace elvishray
 	}
 
 	//	Sampling Quality:
-	void my_ei_contrast( float r, float g, float b, float a )
+	void my_ei_contrast( eiScalar value )
 	{
-		_s("ei_contrast("<<r<<","<<g<<","<<b<<","<<a<<")");
-		_e( ei_contrast(r,g,b,a));
+		_s("ei_contrast("<<value<<")");
+		_e( ei_contrast(value));
 	}
 	void my_ei_samples( int _min, int _max )
 	{
@@ -242,26 +232,26 @@ namespace elvishray
 // 		_s("ei_hardware("<<type<<")");
 // 		_e( ei_hardware(type));
 // 	}
-	void my_ei_acceleration( int type )
-	{
-		_s("ei_acceleration("<<type<<")");
-		_e( ei_acceleration(type));
-	}
+// 	void my_ei_acceleration( int type )
+// 	{
+// 		_s("ei_acceleration("<<type<<")");
+// 		_e( ei_acceleration(type));
+// 	}
 // 	void my_ei_simd( int type )
 // 	{
 // 		_s("ei_simd("<<type<<")");
 // 		_e( ei_simd(type));
 // 	}
-	void my_ei_bsp_size( int size )
-	{
-		_s("ei_bsp_size("<<size<<")");
-		_e( ei_bsp_size(size));
-	}
-	void my_ei_bsp_depth( int depth )
-	{
-		_s("ei_bsp_depth("<<depth<<")");
-		_e( ei_bsp_depth(depth));
-	}
+// 	void my_ei_bsp_size( int size )
+// 	{
+// 		_s("ei_bsp_size("<<size<<")");
+// 		_e( ei_bsp_size(size));
+// 	}
+// 	void my_ei_bsp_depth( int depth )
+// 	{
+// 		_s("ei_bsp_depth("<<depth<<")");
+// 		_e( ei_bsp_depth(depth));
+// 	}
 // 	void my_ei_bsp_memory( int size )
 // 	{
 // 		_s("ei_bsp_memory("<<size<<")");
@@ -301,32 +291,32 @@ namespace elvishray
 	}
 
 	//	Caustics:
-	void my_ei_caustic( int type )
-	{
-		_s("ei_caustic("<<type<<")");
-		_e( ei_caustic(type));
-	}
-	void my_ei_caustic_accuracy( int samples, float radius )
-	{
-		_s("ei_caustic_accuracy("<<samples<<","<<radius<<")");
-		_e( ei_caustic_accuracy(samples, radius));
-	}
+// 	void my_ei_caustic( int type )
+// 	{
+// 		_s("ei_caustic("<<type<<")");
+// 		_e( ei_caustic(type));
+// 	}
+// 	void my_ei_caustic_accuracy( int samples, float radius )
+// 	{
+// 		_s("ei_caustic_accuracy("<<samples<<","<<radius<<")");
+// 		_e( ei_caustic_accuracy(samples, radius));
+// 	}
 	//	Global Illumination:
-	void my_ei_globillum( int type )
-	{
-		_s("ei_globillum("<<type<<")");
-		_e( ei_globillum(type));
-	}
-	void my_ei_globillum_accuracy( int samples, float radius )
-	{
-		_s("ei_globillum_accuracy("<<samples<<","<<radius<<")");
-		_e( ei_globillum_accuracy(samples, radius));
-	}
-	void my_ei_photonvol_accuracy( int samples, float radius )
-	{
-		_s("ei_photonvol_accuracy("<<samples<<","<<radius<<")");
-		_e( ei_photonvol_accuracy(samples, radius));
-	}
+// 	void my_ei_globillum( int type )
+// 	{
+// 		_s("ei_globillum("<<type<<")");
+// 		_e( ei_globillum(type));
+// 	}
+// 	void my_ei_globillum_accuracy( int samples, float radius )
+// 	{
+// 		_s("ei_globillum_accuracy("<<samples<<","<<radius<<")");
+// 		_e( ei_globillum_accuracy(samples, radius));
+// 	}
+// 	void my_ei_photonvol_accuracy( int samples, float radius )
+// 	{
+// 		_s("ei_photonvol_accuracy("<<samples<<","<<radius<<")");
+// 		_e( ei_photonvol_accuracy(samples, radius));
+// 	}
 
 	//	Frame Buffer Control:
 	void my_ei_exposure( float gain, float gamma )
@@ -443,15 +433,15 @@ namespace elvishray
 		_s("ei_clip("<<hither<<","<<yon<<")");
 		_e( ei_clip(hither,yon));
 	}
-	void my_ei_add_lens(const char *shader_name)
+	void my_ei_lens_shader(const char *shader_name)
 	{
-		_s("ei_add_lens(\""<<shader_name<<"\")");
-		_e( ei_add_lens(shader_name));
+		_s("ei_lens_shader(\""<<shader_name<<"\")");
+		_e( ei_lens_shader(shader_name));
 	}
-	void my_ei_add_imager(const char *shader_name)
+	void my_ei_imager_shader(const char *shader_name)
 	{
-		_s("ei_add_imager(\""<<shader_name<<"\")");
-		_e( ei_add_imager(shader_name));
+		_s("ei_imager_shader(\""<<shader_name<<"\")");
+		_e( ei_imager_shader(shader_name));
 	}
 // 	void my_ei_atmosphere( const char *shader_name, int end_, ... )
 // 	{
@@ -502,30 +492,30 @@ namespace elvishray
 		_e( ei_material(name));
 	}
 
-	void my_ei_add_surface( const char *shader_name )
+	void my_ei_surface_shader( const char *shader_name )
 	{
-		_s("ei_add_surface(\""<<shader_name <<"\")");
-		_e( ei_add_surface(shader_name ));
+		_s("ei_surface_shader(\""<<shader_name <<"\")");
+		_e( ei_surface_shader(shader_name ));
 	}
-	void my_ei_add_displace( const char *shader_name )
+	void my_ei_displace_shader( const char *shader_name )
 	{
-		_s("ei_add_displace(\""<<shader_name <<"\")");
-		_e( ei_add_displace(shader_name ));
+		_s("ei_displace_shader(\""<<shader_name <<"\")");
+		_e( ei_displace_shader(shader_name ));
 	}
-	void my_ei_add_shadow( const char *shader_name )
+	void my_ei_shadow_shader( const char *shader_name )
 	{
-		_s("ei_add_shadow(\""<<shader_name <<"\")");
-		_e( ei_add_shadow(shader_name ));
+		_s("ei_shadow_shader(\""<<shader_name <<"\")");
+		_e( ei_shadow_shader(shader_name ));
 	}
-	void my_ei_add_volume( const char *shader_name )
+	void my_ei_volume_shader( const char *shader_name )
 	{
-		_s("ei_add_volume(\""<<shader_name <<"\")");
-		_e( ei_add_volume(shader_name ));
+		_s("ei_volume_shader(\""<<shader_name <<"\")");
+		_e( ei_volume_shader(shader_name ));
 	}
-	void my_ei_add_environment( const char *shader_name )
+	void my_ei_environment_shader( const char *shader_name )
 	{
-		_s("ei_add_environment(\""<<shader_name <<"\")");
-		_e( ei_add_environment(shader_name ));
+		_s("ei_environment_shader(\""<<shader_name <<"\")");
+		_e( ei_environment_shader(shader_name ));
 	}
 
 	void my_ei_end_material()
@@ -543,10 +533,10 @@ namespace elvishray
 	}
 	// void my_ei_incremental_light( const char *name ){}
 
-	void my_ei_add_light( const char *shader_name )
+	void my_ei_light_shader( const char *shader_name )
 	{
-		_s("ei_add_light(\""<<shader_name<<"\" )");
-		_e( ei_add_light(shader_name));
+		_s("ei_light_shader(\""<<shader_name<<"\" )");
+		_e( ei_light_shader(shader_name));
 	}
 	void my_ei_origin(eiScalar x, eiScalar y, eiScalar z)
 	{
@@ -624,10 +614,10 @@ namespace elvishray
 // 		_s("ei_area_object(\""<<object_inst<<"\")");
 // 		_e( ei_area_object(object_inst));
 // 	}
-	void my_ei_area_samples( int u_samples, int v_samples, int low_level, int low_u_samples, int low_v_samples )
+	void my_ei_area_samples( eiInt samples )
 	{
-		_s("ei_area_samples("<<u_samples<<","<<v_samples<<","<<low_level<<","<<low_u_samples<<","<<low_v_samples<<" )");
-		_e( ei_area_samples(u_samples,v_samples,low_level,low_u_samples, low_v_samples));
+		_s("ei_area_samples("<<samples<<" )");
+		_e( ei_area_samples(samples));
 	}
 
 	void my_ei_end_light()
@@ -638,10 +628,10 @@ namespace elvishray
 
 
 	//	Objects:
-	void my_ei_object( const char *name, const char *type )
+	void my_ei_object( const char *type, const char *name )
 	{
-		_s("ei_object(\""<< name <<"\",\""<<type<<"\")" ); 
-		_e( ei_object(name, type));
+		_s("ei_object(\""<< type <<"\",\""<<name<<"\")" ); 
+		_e( ei_object(type, name));
 	}
 	void my_ei_pos_list(const eiTag tab)
 	{
@@ -803,10 +793,10 @@ namespace elvishray
 // 		_s("ei_set_motion_transform("<< t00<<","<<t01<<","<<t02<<","<<t03<<",   "<<t10<<","<<t11<<","<<t12<<","<<t13<<",   "<<  t20<<","<<t21<<","<<t22<<","<<t23<<",   "<<  t30<<","<<t31<<","<<t32<<","<<t33 <<")");
 // 		_e( ei_set_motion_transform(t00,t01,t02,t03,t10,t11,t12,t13,t20,t21,t22,t23,t30,t31,t32,t33));
 // 	}
-	void my_ei_add_material( const char *material_name )
+	void my_ei_mtl( const char *material_name )
 	{
-		_s("ei_add_material(\""<<material_name<<"\")");
-		_e( ei_add_material(material_name));
+		_s("ei_mtl(\""<<material_name<<"\")");
+		_e( ei_mtl(material_name));
 	}
 
 	void my_ei_end_instance()
@@ -846,10 +836,10 @@ namespace elvishray
 	}
 	//
 	//
-	void my_ei_shader(const char* instance_name)
+	void my_ei_shader(const char *type_name, const char *instance_name)
 	{
-		_s("ei_shader(\""<<instance_name<<"\")");
-		_e( ei_shader(instance_name) );
+		_s("ei_shader(\""<<type_name<<"\", \""<<instance_name<<"\")");
+		_e( ei_shader(type_name, instance_name) );
 	}
 	void my_ei_shader_param(
 		const char *param_name, 
@@ -859,13 +849,13 @@ namespace elvishray
 		//_e( ei_shader(shaderInstanceName, shadername, shadertype, param0, ei_var(color(v0x, v0y, v0z)), param1,ei_var(color(v1x, v1y, v1z)), param2,ei_var(v2), param3, ei_var(v3), end_) );
 
 	}
-	void my_ei_shader_param_string(
-		const char *param_name, 
-		const char *param_value)
-	{
-		_s("ei_shader_param_string(\""<<param_name<<"\",\""<<param_value<<"\")");
-		_e( ei_shader_param_string(param_name,param_value));
-	}
+// 	void my_ei_shader_param_string(
+// 		const char *param_name, 
+// 		const char *param_value)
+// 	{
+// 		_s("ei_shader_param_string(\""<<param_name<<"\",\""<<param_value<<"\")");
+// 		_e( ei_shader_param_string(param_name,param_value));
+// 	}
 	void my_ei_shader_param_int(
 		const char *param_name, 
 		const eiInt param_value)

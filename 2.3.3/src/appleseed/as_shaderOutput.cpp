@@ -327,19 +327,19 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 
 	shadingGroupFile<<"ei_material(\""<<shadingGroupNode<<"\");"<<std::endl;
 	if( surfaceShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_add_surface(\""<<surfaceShaders[0].asChar()<<"\");"<<std::endl;
+		shadingGroupFile<<"ei_surface_shader(\""<<surfaceShaders[0].asChar()<<"\");"<<std::endl;
 	}
 	if( volumeShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_add_volume(\""<<volumeShaders[0].asChar()<<"\");"<<std::endl;
+		shadingGroupFile<<"ei_volume_shader(\""<<volumeShaders[0].asChar()<<"\");"<<std::endl;
 	}
 	if( displacementShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_add_displace(\""<<displacementShaders[0].asChar()<<"\");"<<std::endl;
+		shadingGroupFile<<"ei_displace_shader(\""<<displacementShaders[0].asChar()<<"\");"<<std::endl;
 	}
 	if( shadowShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_add_shadow(\""<<shadowShaders[0].asChar()<<"\");"<<std::endl;
+		shadingGroupFile<<"ei_shadow_shader(\""<<shadowShaders[0].asChar()<<"\");"<<std::endl;
 	}
 	if( environmentShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_add_environment(\""<<environmentShaders[0].asChar()<<"\");"<<std::endl;
+		shadingGroupFile<<"ei_environment_shader(\""<<environmentShaders[0].asChar()<<"\");"<<std::endl;
 	}
 	shadingGroupFile<<"ei_end_material();"<<std::endl;
 //	shadingGroupFile.close();

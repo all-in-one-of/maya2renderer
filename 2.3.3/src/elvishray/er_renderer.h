@@ -351,7 +351,9 @@ namespace elvishray
 		virtual void writeShader_forShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, bool m_shaderDebug, const MDagPath & path__);
 		virtual void writeShader_forDeepShadow_forSpecialTypes(const liqRibNodePtr &ribNode__, const MDagPath & path__);
 		virtual void writeShader_forShadow_NullShader(const liqRibNodePtr &ribNode__, const MDagPath & path__);
-
+		
+		virtual MString getTextureExt()const;
+		virtual bool isTextureTypeSupported(const MString &textureType)const;
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
