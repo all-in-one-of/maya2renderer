@@ -292,6 +292,9 @@
     <ClCompile Include="..\liq_plugdll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqIPRNodeMessageCmd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -577,6 +580,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\liqtypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqIPRNodeMessageCmd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

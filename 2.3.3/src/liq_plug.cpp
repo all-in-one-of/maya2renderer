@@ -74,6 +74,7 @@
 #include <liqGlobalVariable.h>
 #include <liqGetSloInfo.h>
 #include <liqParseString.h>
+#include <liqIPRNodeMessageCmd.h>
 
 // #include "renderermgr.h"
 // #include "./renderman/rm_factory.h"
@@ -476,6 +477,10 @@ MStatus _initializePlugin(MObject obj)
 
   status = plugin.registerCommand("liqParseString", liqParseString::creator );
   LIQCHECKSTATUS( status, "Can't register liquid parseString command" );
+ 
+  status = plugin.registerCommand( "liqIPRNodeMessage", liqIPRNodeMessage::creator );
+  LIQCHECKSTATUS( status, "Can't register liqIPRNodeMessage command" );
+
   // setup all of the base liquid interface
   MString sourceLine("source ");
   char *tmphomeChar;
@@ -792,6 +797,21 @@ MStatus _uninitializePlugin(MObject obj)
   
   status = plugin.deregisterCommand("liqParseString");
   LIQCHECKSTATUS( status, "Can't deregister liqParseString command" );
+
+  {
+	// Remove all callbacks
+	//
+	for (unsigned int i=0; i<liqIPRNodeMessage::callbackIds.length(); i++ ) 
+	{
+		if ( MS::kSuccess != MMessage::removeCallback( (MCallbackId)(liqIPRNodeMessage::callbackIds[i]) ) )
+		{
+			cout << "MMessage::removeCallback("<<i <<") failed\n";
+		}
+	}
+	status = plugin.deregisterCommand( "liqIPRNodeMessage" );
+	LIQCHECKSTATUS( status, "Can't deregister liqIPRNodeMessage command" );
+
+  }
 
   printf("Liquid %s unregistered\n\n", LIQUIDVERSION );
 

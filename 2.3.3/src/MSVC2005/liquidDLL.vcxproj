@@ -2253,6 +2253,7 @@
     <ClCompile Include="..\liqGlobalsNode.cpp" />
     <ClCompile Include="..\liqGlobalVariable.cpp" />
     <ClCompile Include="..\liqHeroRibWriterMgr.cpp" />
+    <ClCompile Include="..\liqIPRNodeMessageCmd.cpp" />
     <ClCompile Include="..\liqJobList.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -2322,6 +2323,7 @@
     <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\liqIPRNodeMessageCmd.h" />
     <ClInclude Include="..\..\include\liqParseString.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
