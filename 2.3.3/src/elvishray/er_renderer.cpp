@@ -370,7 +370,7 @@ namespace elvishray
 			}
 
 			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-			_S( ei_end_context() );
+
 
 			// end render
 			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
@@ -381,6 +381,9 @@ namespace elvishray
 			}
 			MayaConnection::delInstance();
 		}
+
+		_S( ei_end_context() );
+
 		//////////////////////////////////////////////////////////////////////////
 		//close script log file
 		m_log.close();
