@@ -357,7 +357,6 @@ namespace elvishray
 		{
 			_s("// in batch render mode");
 			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-			_S( ei_end_context() );
 
 			MayaConnection::delInstance();
 		}else{
