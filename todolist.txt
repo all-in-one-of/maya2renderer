@@ -241,7 +241,8 @@ elvishray
 - checker node(test\test_rm_texture\check12_bmp.ma)效果不正确
 - er渲染MoxMotionMeetsFBIK\scenes\texture_anim1.ma崩溃
 - 参考RenderMan-Studio-1.0.1-Maya2008\devkit\examples\ribgen\mtorHairProcedural.h,修改pfxhair的bug
-
+- 用ei api修改eiSHADER_maya里的shader
+- 按照3delight10.0.5的.h文件修改eiSHADER_maya/common/_3delight里的文件
 
 appleseed
 -------------

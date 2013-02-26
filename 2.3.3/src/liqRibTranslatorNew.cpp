@@ -145,7 +145,7 @@ liqRibTranslator* liqRibTranslator::mInstance = NULL;
 /**
 * This method actually does the renderman output.
 */
-MStatus liqRibTranslator::_doItNew( const MArgList& args , const MString& originalLayer )
+MStatus liqRibTranslator::_doItNew( const MString& originalLayer )
 {
 	CM_TRACE_FUNC(boost::format("liqRibTranslatorNew::_doItNew(args,%s)")%originalLayer.asChar());
 	
@@ -161,9 +161,9 @@ MStatus liqRibTranslator::_doItNew( const MArgList& args , const MString& origin
 	liquidMessage2(messageInfo,"useRenderScript=%d", useRenderScript);
 
 	if(useRenderScript){
-		return _doItNewWithRenderScript(args, originalLayer);
+		return _doItNewWithRenderScript(originalLayer);
 	}else{
-		return _doItNewWithoutRenderScript(args, originalLayer);
+		return _doItNewWithoutRenderScript(originalLayer);
 	}
 
 }
@@ -2620,8 +2620,7 @@ MStatus liqRibTranslator::frameEpilogue__( long scanTime)
 
 }
 //
-MStatus liqRibTranslator::_doItNewWithoutRenderScript(
-	const MArgList& args , const MString& originalLayer )
+MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLayer )
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::_doItNewWithoutRenderScript(arg,"<<originalLayer.asChar()<<")");
 	MStatus status;
@@ -2870,8 +2869,7 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript(
 	}
 }
 //
-MStatus liqRibTranslator::_doItNewWithRenderScript(
-	const MArgList& args , const MString& originalLayer )
+MStatus liqRibTranslator::_doItNewWithRenderScript( const MString& originalLayer )
 {
 	CM_TRACE_FUNC("liqRibTranslatorNew::_doItNewWithRenderScript(args,"<<originalLayer.asChar()<<")");
 

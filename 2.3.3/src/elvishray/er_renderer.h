@@ -356,6 +356,13 @@ namespace elvishray
 		
 		virtual MString getTextureExt()const;
 		virtual bool isTextureTypeSupported(const MString &textureType)const;
+		
+		//IPR callback functions
+		virtual MStatus IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
+			MPlug & plug, MPlug & otherPlug, void* userData);
+		virtual MStatus IPR_NodeDirtyCallback( MObject& node,void *userData );
+		virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData );
+
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;

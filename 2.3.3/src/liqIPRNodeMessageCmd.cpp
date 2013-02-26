@@ -3,6 +3,7 @@
 #include "liqIPRNodeMessageCmd.h"
 #include "common/mayacheck.h"
 #include "renderermgr.h"
+#include "liqRibTranslator.h"
 
 #define kRegisterFlagLong		"-register"
 #define kRegisterFlag			"-rgt"
@@ -27,6 +28,7 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 	MPlug & plug, MPlug & otherPlug, void *userData )
 {
 	MGlobal::displayInfo( "liquidIPR_AttributeChangedCallback(msg, "+ plug.name()+","+otherPlug.name()+", userData)");
+	liquidMessage2(messageInfo, "msg=%0x", msg);
 
 	if ( msg & MNodeMessage::kConnectionMade ) {
 		cout << "Connection made ";
@@ -39,6 +41,16 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 	}
 	else if ( msg & MNodeMessage::kAttributeSet ) {
 		MGlobal::displayInfo("kAttributeSet");
+
+		liqRibTranslator::getInstancePtr()->IPRRenderBegin();
+
+		//if( canExport() )
+		{
+			liquid::RendererMgr::getInstancePtr()->getRenderer()
+				->IPR_AttributeChangedCallback(msg, plug, otherPlug, userData);
+		}
+
+		liqRibTranslator::getInstancePtr()->IPRRenderEnd();
 	}
 	else {
 		return;
@@ -54,8 +66,7 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 // 	}
 // 	cout << endl;
 
-	//liquid::RendererMgr::getInstancePtr()->getRenderer()
-	//	->IPR_AttributeChangedCallback(msg, plug, otherPlug, userData);
+
 }
 
 void liquidIPR_NodeDirtyCallback( MObject& node,void *userData )
@@ -71,11 +82,14 @@ void liquidIPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData )
 {
 	MFnDependencyNode nodeFn(node);
 	MGlobal::displayInfo( "liquidIPR_NodeDirtyPlugCallback( " + nodeFn.name()+","+plug.name()+", userData)");
-	
-	float v;
-	IfMErrorWarn( plug.getValue( v ) );
-	//liquid::RendererMgr::getInstancePtr()->getRenderer()
-	//	->IPR_NodeDirtyPlugCallback(node, plug, userData);
+
+
+	liqRibTranslator::getInstancePtr()->IPRRenderBegin();
+
+	liquid::RendererMgr::getInstancePtr()->getRenderer()
+		->IPR_NodeDirtyPlugCallback(node, plug, userData);
+
+	liqRibTranslator::getInstancePtr()->IPRRenderEnd();
 }
 //////////////////////////////////////////////////////////////////////////
 //
@@ -151,13 +165,13 @@ MStatus liqIPRNodeMessage::registerCallback()
 		MGlobal::displayInfo(MString("add callback for node: ") + nodeFn.name());
 
         //AttributeChangedCallback
-	    id = MNodeMessage::addAttributeChangedCallback( node, liquidIPR_AttributeChangedCallback, NULL,  &stat);
-		IfMErrorWarn(stat);
-	    if ( stat ) {
-		    callbackIds.append( id );
-    	} else {
-	    	cout << "MNodeMessage.addAttributeChangedCallback failed\n";
-    	}
+// 	    id = MNodeMessage::addAttributeChangedCallback( node, liquidIPR_AttributeChangedCallback, NULL,  &stat);
+// 		IfMErrorWarn(stat);
+// 	    if ( stat ) {
+// 		    callbackIds.append( id );
+//     	} else {
+// 	    	cout << "MNodeMessage.addAttributeChangedCallback failed\n";
+//     	}
 
 		//AttributeAddedOrRemovedCallback
 
@@ -171,13 +185,13 @@ MStatus liqIPRNodeMessage::registerCallback()
 // 		}
 
 		//addNodeDirtyPlugCallback
-// 		id = MNodeMessage::addNodeDirtyPlugCallback( node, liquidIPR_NodeDirtyPlugCallback, NULL,  &stat);
-// 		IfMErrorWarn(stat);		
-// 		if ( stat ) {
-// 			callbackIds.append( id );
-// 		} else {
-// 			cout << "MNodeMessage.addNodeDirtyPlugCallback failed\n";
-// 		}
+		id = MNodeMessage::addNodeDirtyPlugCallback( node, liquidIPR_NodeDirtyPlugCallback, NULL,  &stat);
+		IfMErrorWarn(stat);		
+		if ( stat ) {
+			callbackIds.append( id );
+		} else {
+			cout << "MNodeMessage.addNodeDirtyPlugCallback failed\n";
+		}
 
 		//addNameChangedCallback
 

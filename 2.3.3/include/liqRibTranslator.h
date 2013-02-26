@@ -73,7 +73,7 @@ public:
 
 	MStatus doIt(const MArgList& args );
 	
-	MStatus _doItNew(const MArgList& args, const MString& originalLayer );
+	MStatus _doItNew( const MString& originalLayer );
 	//MStatus _doIt(const MArgList& args, const MString& originalLayer );
 
 	friend class liqJobList;
@@ -539,8 +539,8 @@ public:
 		liqFloat &translucence, liqFloat &specularPower, liqColor &specularColor
 		);
 	//
-	MStatus _doItNewWithoutRenderScript(const MArgList& args , const MString& originalLayer );
-	MStatus _doItNewWithRenderScript(const MArgList& args , const MString& originalLayer );
+	MStatus _doItNewWithoutRenderScript(const MString& originalLayer );
+	MStatus _doItNewWithRenderScript(const MString& originalLayer );
 	void oneObjectBlock_data(
 		const liqRibNodePtr &ribNode,
 		const structJob&currentJob
@@ -553,6 +553,9 @@ public:
 
 
 	std::string getFunctionTraceLogFileName() const;
+
+	void IPRRenderBegin();
+	void IPRRenderEnd();
 
 
 private:

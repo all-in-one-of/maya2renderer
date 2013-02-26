@@ -3,6 +3,7 @@
 
 #include <string>
 #include <maya/MStatus.h>
+#include <maya/MNodeMessage.h>
 #include <liqRibNode.h>
 #include <liqRibMeshData.h>
 #include <liqTokenPointer.h>
@@ -385,6 +386,14 @@ public:
 
 	virtual MString getTextureExt()const = 0;
 	virtual bool isTextureTypeSupported(const MString &textureType)const = 0;
+
+	//IPR callback functions
+	virtual MStatus IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
+		MPlug & plug, MPlug & otherPlug, void* userData) = 0;
+	virtual MStatus IPR_NodeDirtyCallback( MObject& node,void *userData ) = 0;
+	virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData ) = 0;
+
+
 
 protected:
 

@@ -1876,7 +1876,7 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 		{
 			if(m_useNewTranslator){
 				liquidMessage("_doItNew()", messageInfo);
-				status = _doItNew(args, originalLayer);// new doIt() process
+				status = _doItNew(originalLayer);// new doIt() process
 			}else{
 				//liquidMessage("_doIt()", messageInfo);
 				//status = _doIt(args, originalLayer);//original doIt() process
@@ -7803,11 +7803,44 @@ std::string liqRibTranslator::getFunctionTraceLogFileName() const
 		liquidMessage2(messageError, "liqglo.liqglo_lframe is not initilized in Release mode. so when the program goes here liqglo.liqglo_lframe is random value, I set it to 0 manully. You can ingore this error.");
 		liqglo.liqglo_lframe = 0;
 #endif
-		MString imageName( liqglo.liqglo_projectDir+liqglo.m_pixDir );
+		MString imageName( liqglo.liqglo_projectDir+"rmanpix/"/*liqglo.m_pixDir*/ );
 		imageName += parseString( liqglo.m_displays[ 0 ].name, false );
 
 
 		sslogFileName << boost::format("%s.log")%imageName.asChar();
 	}
 	return sslogFileName.str();
+}
+
+void liqRibTranslator::IPRRenderBegin()
+{
+	CM_TRACE_OPEN((getFunctionTraceLogFileName()+"_ipr.log").c_str());
+	CM_TRACE_FUNC("Renderer::IPRRenderBegin()");
+
+	MStatus status;
+
+	{//set renderer
+		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
+		MString renderer;
+		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
+
+		bool bSetFactory 
+			= liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
+		if( !bSetFactory )
+			return /*MS::kFailure*/;
+		liquid::RendererMgr::getInstancePtr()->install();
+		liquid::RendererMgr::getInstancePtr()->prologue();
+	}
+}
+
+void liqRibTranslator::IPRRenderEnd()
+{
+	CM_TRACE_FUNC("Renderer::IPRRenderEnd()");
+	{
+		liquid::RendererMgr::getInstancePtr()->test();
+		liquid::RendererMgr::getInstancePtr()->epilogue();
+		liquid::RendererMgr::getInstancePtr()->uninstall();
+		liquid::RendererMgr::getInstancePtr()->unsetFactory();
+	}
+	//CM_TRACE_CLOSE();
 }

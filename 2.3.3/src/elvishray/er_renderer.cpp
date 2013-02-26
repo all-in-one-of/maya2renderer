@@ -102,11 +102,32 @@ namespace elvishray
 	//}
 	void Renderer::openLog()
 	{
-		CM_TRACE_FUNC("Renderer::openLog()(but do nothing now)");
+		CM_TRACE_FUNC("Renderer::openLog()");
+
+		//////////////////////////////////////////////////////////////////////////
+		//open script log file
+		//m_log.open((currentJob.ribFileName+".er").asChar());
+		m_log.open("output.er");
+		//////////////////////////////////////////////////////////////////////////
+
+// 		if( false )
+// 		{
+// 			_S( ei_make_texture( currentJob.imageName.asChar(), currentJob.texName.asChar() , EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f ) );
+// 		}	
+		_s("//### SCENE BEGIN ###");
+
+		_S( ei_context() );
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
+
+		_S( ei_end_context() );
+
+		//////////////////////////////////////////////////////////////////////////
+		//close script log file
+		m_log.close();
+		//////////////////////////////////////////////////////////////////////////
 	}
 
 	liqLightHandle Renderer::exportShadowPassLight(
@@ -310,18 +331,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::ribPrologue_begin("<<currentJob.name.asChar()<<")");
 
-		//////////////////////////////////////////////////////////////////////////
-		//open script log file
-		m_log.open((currentJob.ribFileName+".er").asChar());
-		//////////////////////////////////////////////////////////////////////////
-
-		if( false )
-		{
-			_S( ei_make_texture( currentJob.imageName.asChar(), currentJob.texName.asChar() , EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f ) );
-		}	
-		_s("//### SCENE BEGIN ###");
-
-		_S( ei_context() );
+		currentJob.ribFileName;
 
 		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
@@ -354,12 +364,6 @@ namespace elvishray
 
 		render( currentJob );
 
-		_S( ei_end_context() );
-
-		//////////////////////////////////////////////////////////////////////////
-		//close script log file
-		m_log.close();
-		//////////////////////////////////////////////////////////////////////////
 		return MS::kSuccess;
 	}
 	//
@@ -1042,24 +1046,35 @@ namespace elvishray
 		}
 		return false;
 	}
-	MStatus Renderer::render(const structJob& currentJob)
+	MStatus Renderer::render(const structJob&)
 	{
-		CM_TRACE_FUNC("Renderer::render("<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("Renderer::render()");
 
+		MString cameraFullPath;
+		int width=0, height=0;
+		{
+			MStringArray cameraFullPaths;
+			IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`; ls -long $cam;", cameraFullPaths));
+			cameraFullPath = cameraFullPaths[0];
+			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.xResolution",width));
+			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.yResolution",height));
+		}
+
+		//
 		if( isBatchMode() )
 		{
 			_s("// in batch render mode");
-			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
+			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 		}else{
 			// start render
-			if (MayaConnection::getInstance()->startRender( currentJob.width, currentJob.height, false, true) != MS::kSuccess)
+			if (MayaConnection::getInstance()->startRender( width, height, false, true) != MS::kSuccess)
 			{
 				_s( "//MayaConnection: error occured in startRender." );
 				MayaConnection::delInstance();				
 				return MS::kFailure;
 			}
 
-			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
+			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 
 			// end render
 			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
@@ -1071,6 +1086,39 @@ namespace elvishray
 		}
 
 		MayaConnection::delInstance();
+
+		return MS::kSuccess;
+	}
+	//IPR callback functions
+	MStatus Renderer::IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
+		MPlug & plug, MPlug & otherPlug, void* userData)
+	{
+		//CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
+		liquidMessage2(messageInfo, "Renderer::IPR_AttributeChangedCallback()");
+
+		return MS::kSuccess;
+	}
+	MStatus Renderer::IPR_NodeDirtyCallback( MObject& node,void *userData )
+	{
+		//CM_TRACE_FUNC("Renderer::IPR_NodeDirtyCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
+		liquidMessage2(messageInfo, "Renderer::IPR_NodeDirtyCallback()");
+
+		return MS::kSuccess;
+	}
+	MStatus Renderer::IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData )
+	{
+		//CM_TRACE_FUNC("Renderer::IPR_NodeDirtyPlugCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
+		liquidMessage2(messageInfo, ("Renderer::IPR_NodeDirtyPlugCallback("+MFnDependencyNode(node).name()+","+plug.name()+", userData)").asChar());
+
+		float v;
+		IfMErrorWarn( plug.getValue( v ) );
+
+		ei_shader("plastic", "liquidSurface3");
+		ei_shader_param_vector("Cs",0,0,v);
+		ei_end_shader();
+
+		const structJob dummyJob;
+		render(dummyJob);
 
 		return MS::kSuccess;
 	}
