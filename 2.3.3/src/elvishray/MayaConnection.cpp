@@ -258,7 +258,17 @@ MStatus MayaConnection::startRender( unsigned int w, unsigned int h,
 	width  = w;
 	height = h;
 	m_percent = 0.0f;
-	return MRenderView::startRender( width, height, doNotClearBackground, immediateFeedback);
+
+	if( liqglo.m_renderViewCrop )
+	{
+		unsigned int left, right, bottom, top;
+		MRenderView::getRenderRegion(left, right, bottom, top);
+		return MRenderView::startRegionRender( width, height, left, right, bottom, top, 
+			doNotClearBackground, immediateFeedback);
+	} else {
+		return MRenderView::startRender( width, height, 
+			doNotClearBackground, immediateFeedback);
+	}
 }
 //
 MStatus MayaConnection::endRender()

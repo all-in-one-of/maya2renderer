@@ -413,7 +413,7 @@ namespace elvishray
 		_s("ei_aspect("<< aspect <<")");
 		_e( ei_aspect(aspect));
 	}
-	void my_ei_resolution( int x, int y )
+	void my_ei_resolution( eiInt x, eiInt y )
 	{
 		_s("ei_resolution("<< x<<","<<y <<")");
 		_e( ei_resolution(x, y));
@@ -423,7 +423,7 @@ namespace elvishray
 // 		_s("ei_offset("<< x<<","<<y <<")");
 // 		_e( ei_offset(x, y));
 // 	}
-	void my_ei_window( float xmin, float xmax, float ymin, float ymax )
+	void my_ei_window( eiInt xmin, eiInt xmax, eiInt ymin, eiInt ymax )
 	{
 		_s("ei_window("<< xmin<<","<<xmax<<","<<ymin<<","<<ymax<<")");
 		_e( ei_window(xmin, xmax, ymin, ymax ));

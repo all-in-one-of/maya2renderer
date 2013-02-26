@@ -136,9 +136,9 @@ namespace elvishray
 	 void my_ei_focal( float distance );
 	 void my_ei_aperture( float aperture );
 	 void my_ei_aspect( float aspect );
-	 void my_ei_resolution( int x, int y );
+	 void my_ei_resolution( eiInt x, eiInt y );
 	 //void my_ei_offset( int x, int y );
-	 void my_ei_window( float xmin, float xmax, float ymin, float ymax );
+	 void my_ei_window( eiInt xmin, eiInt xmax, eiInt ymin, eiInt ymax );
 	 void my_ei_clip( float hither, float yon );
 	 void my_ei_lens_shader(const char *shader_name);
 	 void my_ei_imager_shader(const char *shader_name);

@@ -614,6 +614,13 @@ namespace elvishray
 				_S( ei_resolution(width, height) );
 			}
 
+			if( liqglo.m_renderViewCrop )
+			{
+				unsigned int left, right, bottom, top;
+				MRenderView::getRenderRegion(left, right, bottom, top);
+				_S( ei_window(left, right, height-top, height-bottom) );
+			} 
+
 			_S( ei_clip( currentJob.camera[0].neardb, currentJob.camera[0].fardb) );
 			
 			//lens shader
