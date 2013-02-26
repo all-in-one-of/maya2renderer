@@ -352,32 +352,7 @@ namespace elvishray
 		assert(currentJob.camera[0].name.length());
 		assert(!m_option.empty());
 
-
-		if( isBatchMode() )
-		{
-			_s("// in batch render mode");
-			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-		}else{
-			// start render
-			if (MayaConnection::getInstance()->startRender( currentJob.width, currentJob.height, false, true) != MS::kSuccess)
-			{
-				_s( "//MayaConnection: error occured in startRender." );
-				MayaConnection::delInstance();				
-				return MS::kFailure;
-			}
-
-			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-
-			// end render
-			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
-			{
-				_s( "//MayaConnection: error occured in endRender." );
-				MayaConnection::delInstance();
-				return MS::kFailure;
-			}
-		}
-		
-		MayaConnection::delInstance();
+		render( currentJob );
 
 		_S( ei_end_context() );
 
@@ -1067,6 +1042,39 @@ namespace elvishray
 		}
 		return false;
 	}
+	MStatus Renderer::render(const structJob& currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::render("<<currentJob.name.asChar()<<")");
+
+		if( isBatchMode() )
+		{
+			_s("// in batch render mode");
+			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
+		}else{
+			// start render
+			if (MayaConnection::getInstance()->startRender( currentJob.width, currentJob.height, false, true) != MS::kSuccess)
+			{
+				_s( "//MayaConnection: error occured in startRender." );
+				MayaConnection::delInstance();				
+				return MS::kFailure;
+			}
+
+			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
+
+			// end render
+			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
+			{
+				_s( "//MayaConnection: error occured in endRender." );
+				MayaConnection::delInstance();
+				return MS::kFailure;
+			}
+		}
+
+		MayaConnection::delInstance();
+
+		return MS::kSuccess;
+	}
+
 }//namespace
 
 #endif//_USE_ELVISHRAY_

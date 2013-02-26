@@ -72,6 +72,9 @@ public:
 
 	virtual void openLog() = 0;
 	virtual void closeLog() = 0;
+
+	virtual MStatus render(const structJob& currentJob) = 0;
+
 	//
 	// Light
 	//

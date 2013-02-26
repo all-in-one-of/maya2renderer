@@ -53,6 +53,8 @@ namespace elvishray
 		virtual void openLog();
 		virtual void closeLog();
 
+		virtual MStatus render(const structJob& currentJob);
+
 		//
 		//light
 		//
