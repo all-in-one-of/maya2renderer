@@ -357,8 +357,6 @@ namespace elvishray
 		{
 			_s("// in batch render mode");
 			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
-
-			MayaConnection::delInstance();
 		}else{
 			// start render
 			if (MayaConnection::getInstance()->startRender( currentJob.width, currentJob.height, false, true) != MS::kSuccess)
@@ -370,7 +368,6 @@ namespace elvishray
 
 			_S( ei_render( m_root_group.c_str(), currentJob.camera[0].name.asChar(), m_option.c_str() ) );
 
-
 			// end render
 			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
 			{
@@ -378,8 +375,9 @@ namespace elvishray
 				MayaConnection::delInstance();
 				return MS::kFailure;
 			}
-			MayaConnection::delInstance();
 		}
+		
+		MayaConnection::delInstance();
 
 		_S( ei_end_context() );
 
