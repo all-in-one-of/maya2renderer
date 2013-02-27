@@ -60,7 +60,7 @@ namespace liquid
 	//
 	bool RendererMgr::setFactory(const std::string& renderername)
 	{
-		CM_TRACE_FUNC("RendererMgr::createFactory("<<renderername<<")");
+		CM_TRACE_FUNC("RendererMgr::setFactory("<<renderername<<")");
 		
 		std::map<std::string, AbstractFactory*>::iterator 
 			i = m_factories.find(renderername);
@@ -75,7 +75,7 @@ namespace liquid
 	}
 	void RendererMgr::unsetFactory()
 	{
-		CM_TRACE_FUNC("RendererMgr::deleteFactory()");
+		CM_TRACE_FUNC("RendererMgr::unsetFactory()");
 
 		m_factory = 0;
 	}

@@ -218,6 +218,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ei_scene_unittest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ei_shader_graph_unittest.cpp"
 				>
 				<FileConfiguration

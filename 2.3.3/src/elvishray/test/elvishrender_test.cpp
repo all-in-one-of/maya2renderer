@@ -45,15 +45,18 @@ extern void spotlight_test();
 extern void spotlight_test2();
 extern void ei_img_uv(const eiBool texturing, const char *suffix);
 extern void ei_env_test(const char *env_shader_name);
+extern void ei_scene_unittest(bool useIBL);
 
 void test_liquid2er()
 {
 //#include"cornellbox.esa"
 //#include "./liq_er_displace_good.er"
-//#include "E:/MyDocuments/maya/projects/default/rib/box.rib.er"
-#include "E:/MyDocuments/maya/projects/default/rib/er_env_physicalsky_cameraShape2.0001..rib.er"
+//#include "E:/MyDocuments/maya/projects/default/rib/er_pointlight_perspShape.0001..rib.er"
+//#include "E:/MyDocuments/maya/projects/default/rib/er_env_physicalsky_cameraShape2.0001..rib.er"
+#include "E:/MyDocuments/maya/projects/default/rmanpix/output_standalone_test.er"
+
 //#include"ei_scene_unittest.esa"//<----- use your own elvishender api script file here.
-	
+//#include"ei_scene_unittest.h"
 	//ei_face_color_unittest(NULL, "suffix");
 	//ei_shader_graph_unittest(true, "suffix");
 	//ei_shader_link_test(false, "suffix");
@@ -66,14 +69,23 @@ void test_liquid2er()
 	//spotlight_test2();
 	//ei_img_uv(true, "suffix");
 	//ei_env_test("physicalsky");//"simple_env" //""
+	//ei_scene_unittest(false);
 }
 //
+void test_ipr()
+{
+		ei_context();
+#include "E:/MyDocuments/maya/projects/default/rmanpix/output.er"
+#include "E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er"
+		ei_end_context();
+}
 int main()
 {
 	cout << "Launching elvish ray Renderer..." << endl;
 
  
-	test_liquid2er();
+	//test_liquid2er();
+	test_ipr();
 
 
 	cout << "all tests done." << endl;

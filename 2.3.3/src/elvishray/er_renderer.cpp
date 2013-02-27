@@ -42,16 +42,29 @@ namespace elvishray
 
 	Renderer::Renderer()
 	{
+		CM_TRACE_FUNC("Renderer::Renderer()");
 		m_groupMgr = new GroupMgr(this);
 
 // 		liquid::RendererMgr::getInstancePtr()->registerRenderer(
 // 			"elvishray", this
 // 			);
 		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_elvishray");
+
+		bool test = true;
+		if(test)
+		{
+			ei_context();
+			ei_connection(&(MayaConnection::getInstance()->connection.base));
+
+		}
 	}
 	//
 	Renderer::~Renderer()
 	{
+		CM_TRACE_FUNC("Renderer::~Renderer()");
+
+		// ei_end_context();
+
 		delete m_gnode;
 		m_gnode = 0;
 
@@ -107,22 +120,43 @@ namespace elvishray
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
 		//m_log.open((currentJob.ribFileName+".er").asChar());
-		m_log.open("output.er");
+		if( m_log.get().is_open() )
+		{
+			liquidMessage2(messageError,"can't open file: %s.\n", "output.er" );
+			assert(0&&"can't open file. the file is already open.");
+			m_log.close();
+		}
+		bool iprlog = false;
+		if(iprlog){
+			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er");
+		}else{
+			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output.er");
+		}
+
+		if( !m_log.get().is_open() )
+		{
+			liquidMessage2(messageError,"can't open file: %s.\n", "output.er" );
+			assert(0&&"can't open file. see script editor for more details.");
+		}
 		//////////////////////////////////////////////////////////////////////////
 
 // 		if( false )
 // 		{
 // 			_S( ei_make_texture( currentJob.imageName.asChar(), currentJob.texName.asChar() , EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f ) );
 // 		}	
-		_s("//### SCENE BEGIN ###");
+		if( !iprlog )
+		{
+			_s("//### SCENE BEGIN ###");
 
-		_S( ei_context() );
+			//_S( ei_context() );
+		}
+
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
 
-		_S( ei_end_context() );
+		//_S( ei_end_context() );
 
 		//////////////////////////////////////////////////////////////////////////
 		//close script log file
@@ -333,8 +367,7 @@ namespace elvishray
 
 		currentJob.ribFileName;
 
-		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
-
+		
 		//verbose
 		_S( ei_verbose(	m_gnode->getInt("verbose") ) );
 
@@ -597,7 +630,7 @@ namespace elvishray
 			{
 				unsigned int left, right, bottom, top;
 				MRenderView::getRenderRegion(left, right, bottom, top);
-				_S( ei_window(left, right, height-top, height-bottom) );
+				_S( ei_window(left, right+1, height-top, height-bottom+1) );
 			} 
 
 			_S( ei_clip( currentJob.camera[0].neardb, currentJob.camera[0].fardb) );
@@ -1069,6 +1102,7 @@ namespace elvishray
 			// start render
 			if (MayaConnection::getInstance()->startRender( width, height, false, true) != MS::kSuccess)
 			{
+				assert(0&&"MayaConnection: error occured in startRender.");
 				_s( "//MayaConnection: error occured in startRender." );
 				MayaConnection::delInstance();				
 				return MS::kFailure;
@@ -1079,6 +1113,7 @@ namespace elvishray
 			// end render
 			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
 			{
+				assert(0&&"MayaConnection: error occured in endRender.");
 				_s( "//MayaConnection: error occured in endRender." );
 				MayaConnection::delInstance();
 				return MS::kFailure;
@@ -1093,32 +1128,58 @@ namespace elvishray
 	MStatus Renderer::IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
 		MPlug & plug, MPlug & otherPlug, void* userData)
 	{
-		//CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
+		CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
 		liquidMessage2(messageInfo, "Renderer::IPR_AttributeChangedCallback()");
+
+		_s("// Renderer::IPR_AttributeChangedCallback");
+
+		float v;
+		IfMErrorWarn( plug.getValue( v ) );
+		liquidMessage2(messageInfo, "%s = %f,", plug.name().asChar(), v);
+
+		_S( ei_shader("plastic", "liquidSurface3") );
+		_S( ei_shader_param_vector("Cs",1,0,v) );
+		_S( ei_end_shader() );
+
+		MString cameraFullPath;
+		int width=0, height=0;
+		{
+			MStringArray cameraFullPaths;
+			IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`; ls -long $cam;", cameraFullPaths));
+			cameraFullPath = cameraFullPaths[0];
+			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.xResolution",width));
+			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.yResolution",height));
+		}
+		std::string sCameraObjectName(std::string(cameraFullPath.asChar())+"_object");
+
+		unsigned int left, right, bottom, top;
+		MRenderView::getRenderRegion(left, right, bottom, top);
+
+		_S( ei_camera( sCameraObjectName.c_str() ) );
+		_S( ei_output("E:/MyDocuments/maya/projects/default/rmanpix/er_pointlight.perspShape.1.elvishray-crop.bmp","bmp",1) );
+		_S( ei_output_variable("color",11) );
+		_S( ei_end_output() );
+		//_S( ei_window(left, right+1, height-top, height-bottom+1) );
+		_S( ei_end_camera() );
+
+		m_root_group = "perspShape";
+		m_option     = "perspShape_option";
+		const structJob dummyJob;
+		render(dummyJob);
 
 		return MS::kSuccess;
 	}
 	MStatus Renderer::IPR_NodeDirtyCallback( MObject& node,void *userData )
 	{
-		//CM_TRACE_FUNC("Renderer::IPR_NodeDirtyCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
+		CM_TRACE_FUNC("Renderer::IPR_NodeDirtyCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
 		liquidMessage2(messageInfo, "Renderer::IPR_NodeDirtyCallback()");
 
 		return MS::kSuccess;
 	}
 	MStatus Renderer::IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData )
 	{
-		//CM_TRACE_FUNC("Renderer::IPR_NodeDirtyPlugCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
+		CM_TRACE_FUNC("Renderer::IPR_NodeDirtyPlugCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
 		liquidMessage2(messageInfo, ("Renderer::IPR_NodeDirtyPlugCallback("+MFnDependencyNode(node).name()+","+plug.name()+", userData)").asChar());
-
-		float v;
-		IfMErrorWarn( plug.getValue( v ) );
-
-		ei_shader("plastic", "liquidSurface3");
-		ei_shader_param_vector("Cs",0,0,v);
-		ei_end_shader();
-
-		const structJob dummyJob;
-		render(dummyJob);
 
 		return MS::kSuccess;
 	}

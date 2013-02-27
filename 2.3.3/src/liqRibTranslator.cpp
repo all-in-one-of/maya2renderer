@@ -7842,5 +7842,5 @@ void liqRibTranslator::IPRRenderEnd()
 		liquid::RendererMgr::getInstancePtr()->uninstall();
 		liquid::RendererMgr::getInstancePtr()->unsetFactory();
 	}
-	//CM_TRACE_CLOSE();
+	CM_TRACE_CLOSE();
 }
