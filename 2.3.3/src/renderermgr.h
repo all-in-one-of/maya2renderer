@@ -31,6 +31,9 @@ public:
 	void install();
 	void uninstall();
 
+	void iprBegin();
+	void iprEnd();
+
 protected:
 	RendererMgr();
 	RendererMgr(const RendererMgr&);

@@ -7830,6 +7830,7 @@ void liqRibTranslator::IPRRenderBegin()
 			return /*MS::kFailure*/;
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->prologue();
+		liquid::RendererMgr::getInstancePtr()->iprBegin();
 	}
 }
 
@@ -7837,6 +7838,7 @@ void liqRibTranslator::IPRRenderEnd()
 {
 	CM_TRACE_FUNC("Renderer::IPRRenderEnd()");
 	{
+		liquid::RendererMgr::getInstancePtr()->iprEnd();
 		liquid::RendererMgr::getInstancePtr()->test();
 		liquid::RendererMgr::getInstancePtr()->epilogue();
 		liquid::RendererMgr::getInstancePtr()->uninstall();

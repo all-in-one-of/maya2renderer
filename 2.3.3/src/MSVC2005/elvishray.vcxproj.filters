@@ -120,6 +120,9 @@
     <ClCompile Include="..\elvishray\er_plug.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\er_iprMgr.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
@@ -150,6 +153,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\shaderOutputERCall.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\er_iprMgr.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

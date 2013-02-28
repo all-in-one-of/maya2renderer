@@ -387,6 +387,9 @@ public:
 	virtual MString getTextureExt()const = 0;
 	virtual bool isTextureTypeSupported(const MString &textureType)const = 0;
 
+
+	virtual MStatus iprBegin() = 0;
+	virtual MStatus iprEnd() = 0;
 	//IPR callback functions
 	virtual MStatus IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
 		MPlug & plug, MPlug & otherPlug, void* userData) = 0;

@@ -2238,6 +2238,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
     <ClCompile Include="..\elvishray\er_plug.cpp" />
     <ClCompile Include="..\elvishray\er_preview.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
@@ -2281,6 +2282,7 @@
     <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
     <ClInclude Include="..\elvishray\er_group.h" />
     <ClInclude Include="..\elvishray\er_groupmgr.h" />
+    <ClInclude Include="..\elvishray\er_iprMgr.h" />
     <ClInclude Include="..\elvishray\er_renderer.h" />
     <ClInclude Include="..\elvishray\ercall.h" />
     <ClInclude Include="..\elvishray\log_helper.h" />

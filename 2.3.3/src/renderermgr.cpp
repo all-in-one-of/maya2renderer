@@ -120,4 +120,14 @@ namespace liquid
 		
 		IfMErrorWarn(MGlobal::executeCommand("unregisterLiquidSubRenderer(\""+MString(renderername.c_str())+"\")",  true));
 	}
+	void RendererMgr::iprBegin()
+	{
+		assert( getRenderer() );
+		getRenderer()->iprBegin();
+	}
+	void RendererMgr::iprEnd()
+	{
+		assert( getRenderer() );
+		getRenderer()->iprEnd();
+	}
 }
