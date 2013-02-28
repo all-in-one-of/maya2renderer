@@ -30,6 +30,10 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 	MGlobal::displayInfo( "liquidIPR_AttributeChangedCallback(msg, "+ plug.name()+","+otherPlug.name()+", userData)");
 	liquidMessage2(messageInfo, "msg=%0x", msg);
 
+	static std::size_t iHowMantThreadEnters = 0;
+	iHowMantThreadEnters++;
+	liquidMessage2(messageInfo, "HowMantThreadEnters=%d", iHowMantThreadEnters);
+
 	if ( msg & MNodeMessage::kConnectionMade ) {
 		cout << "Connection made ";
 	}
@@ -53,7 +57,6 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 		liqRibTranslator::getInstancePtr()->IPRRenderEnd();
 	}
 	else {
-		return;
 	}
 
 // 	cout << plug.info();
@@ -65,7 +68,7 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 // 		}
 // 	}
 // 	cout << endl;
-
+	--iHowMantThreadEnters;
 
 }
 
@@ -208,13 +211,13 @@ MStatus liqIPRNodeMessage::registerCallback()
 MStatus liqIPRNodeMessage::unregisterCallback()
 {
 // 	// Remove all callbacks
-// 	//
-// 	for (unsigned int i=0; i<callbackIds.length(); i++ ) 
-// 	{
-// 		if ( MS::kSuccess != MMessage::removeCallback( (MCallbackId)(liqIPRNodeMessage::callbackIds[i]) ) )
-// 		{
-// 			cout << "MMessage::removeCallback("<<i <<") failed\n";
-// 		}
-// 	}
+	//
+	for (unsigned int i=0; i<callbackIds.length(); i++ ) 
+	{
+		if ( MS::kSuccess != MMessage::removeCallback( (MCallbackId)(liqIPRNodeMessage::callbackIds[i]) ) )
+		{
+			cout << "MMessage::removeCallback("<<i <<") failed\n";
+		}
+	}
 	return MS::kSuccess;
 }

@@ -798,20 +798,9 @@ MStatus _uninitializePlugin(MObject obj)
   status = plugin.deregisterCommand("liqParseString");
   LIQCHECKSTATUS( status, "Can't deregister liqParseString command" );
 
-  {
-	// Remove all callbacks
-	//
-	for (unsigned int i=0; i<liqIPRNodeMessage::callbackIds.length(); i++ ) 
-	{
-		if ( MS::kSuccess != MMessage::removeCallback( (MCallbackId)(liqIPRNodeMessage::callbackIds[i]) ) )
-		{
-			cout << "MMessage::removeCallback("<<i <<") failed\n";
-		}
-	}
-	status = plugin.deregisterCommand( "liqIPRNodeMessage" );
-	LIQCHECKSTATUS( status, "Can't deregister liqIPRNodeMessage command" );
+  status = plugin.deregisterCommand( "liqIPRNodeMessage" );
+  LIQCHECKSTATUS( status, "Can't deregister liqIPRNodeMessage command" );
 
-  }
 
   printf("Liquid %s unregistered\n\n", LIQUIDVERSION );
 

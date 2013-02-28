@@ -67,9 +67,9 @@ global proc liquidmayaStartIprRender(string $editor, int $resolutionX, int $reso
 {
 	liqPushIdent();
 	liqlog("liquidmayaStartIprRender("+$editor+","+$resolutionX+","+$resolutionY+","+$camera+")");
-	liqlog("before liqIPRNodeMessage -r");
+	//liqlog("before liqIPRNodeMessage -r");
 	liqIPRNodeMessage -rgt;
-	liqlog("after liqIPRNodeMessage -r");
+	//liqlog("after liqIPRNodeMessage -r");
 	liqPopIdent();
 	return;
 }
@@ -78,9 +78,9 @@ global proc liquidmayaStopIprRender()
 {
 	liqPushIdent();
 	liqlog("liquidmayaStopIprRender()");
-	liqlog("before liqIPRNodeMessage -u");
-	liqIPRNodeMessage -urg;
-	liqlog("after liqIPRNodeMessage -u");
+	//liqlog("before liqIPRNodeMessage -u");
+	//liqIPRNodeMessage -urg;
+	//liqlog("after liqIPRNodeMessage -u");
 	liqPopIdent();
 	return;
 }
