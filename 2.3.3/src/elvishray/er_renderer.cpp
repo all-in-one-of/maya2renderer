@@ -1138,8 +1138,8 @@ namespace elvishray
 			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.yResolution",height));
 		}
 
-		// start render - region render, don't clear background, immediate feedback
-		if (MayaConnection::getInstance()->startRegionRender( width, height, true, true) != MS::kSuccess)
+		// start render - region render, don't clear background, don't immediate feedback
+		if (MayaConnection::getInstance()->startRegionRender( width, height, true, false) != MS::kSuccess)
 		{
 			assert(0&&"MayaConnection: error occured in startRenderRegion.");
 			_s( "//MayaConnection: error occured in startRenderRegion." );
@@ -1172,9 +1172,7 @@ namespace elvishray
 
 
 
-		float v;
-		IfMErrorWarn( plug.getValue( v ) );
-		liquidMessage2(messageInfo, "%s = %f,  %s, ", plug.name().asChar(), v, plug.partialName(true, true, true, true, true, true) );
+		liquidMessage2(messageInfo, "%s, %s, ", plug.name().asChar(), plug.partialName(true, true, true, true, true, true) );
 
 		MStringArray strarray;
 		IfMErrorWarn( plug.name().split('.', strarray) );
@@ -1202,6 +1200,8 @@ namespace elvishray
 						plug.child(1).getValue(g);
 						plug.child(2).getValue(b);
 						_S( ei_shader_param_vector(plugName.asChar(),r,g,b) );
+						liquidMessage2(messageInfo, "%f, %f, %f", r,g,b );
+
 					}break;
 				case 4:
 					{
@@ -1211,12 +1211,14 @@ namespace elvishray
 						plug.child(2).getValue(b);
 						plug.child(3).getValue(a);
 						_S( ei_shader_param_vector4(plugName.asChar(),r,g,b,a) );
+						liquidMessage2(messageInfo, "%f, %f, %f, %f", r,g,b,a );
 					}break;
 				}
 			} else {
 				float v;
 				plug.child(0).getValue(v);
 				_S( ei_shader_param_scalar(plugName.asChar(), v) );
+				liquidMessage2(messageInfo, "%f", v );
 			}
 			_S( ei_end_shader() );
 
