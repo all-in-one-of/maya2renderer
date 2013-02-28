@@ -54,7 +54,7 @@ namespace elvishray
 		virtual void closeLog();
 
 		virtual MStatus render(const structJob& currentJob);
-
+		MStatus render_ipr();
 		//
 		//light
 		//

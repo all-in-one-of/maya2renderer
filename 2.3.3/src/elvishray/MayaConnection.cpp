@@ -261,14 +261,29 @@ MStatus MayaConnection::startRender( unsigned int w, unsigned int h,
 
 	if( liqglo.m_renderViewCrop )
 	{
-		unsigned int left, right, bottom, top;
-		MRenderView::getRenderRegion(left, right, bottom, top);
-		return MRenderView::startRegionRender( width, height, left, right, bottom, top, 
+		return startRegionRender( width, height, 
 			doNotClearBackground, immediateFeedback);
 	} else {
 		return MRenderView::startRender( width, height, 
 			doNotClearBackground, immediateFeedback);
 	}
+}
+//
+MStatus MayaConnection::startRegionRender(
+	unsigned int w, unsigned int h,
+	bool doNotClearBackground ,
+	bool immediateFeedback)
+{
+	//_logFunctionCall("MayaConnection::startRenderRegion()");
+	width  = w;
+	height = h;
+	m_percent = 0.0f;
+
+	unsigned int left, right, bottom, top;
+	MRenderView::getRenderRegion(left, right, bottom, top);
+
+	return MRenderView::startRegionRender( width, height, left, right, bottom, top, 
+		doNotClearBackground, immediateFeedback);
 }
 //
 MStatus MayaConnection::endRender()

@@ -51,6 +51,10 @@ public:
 						unsigned int height,
 						bool doNotClearBackground = false,
 						bool immediateFeedback = false );
+	MStatus startRegionRender(
+						unsigned int w, unsigned int h,
+						bool doNotClearBackground ,
+						bool immediateFeedback);
 	MStatus endRender();
 	unsigned int width;
 	unsigned int height;
