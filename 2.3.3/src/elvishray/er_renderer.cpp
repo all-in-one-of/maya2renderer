@@ -56,8 +56,7 @@ namespace elvishray
 		if(test)
 		{
 			ei_context();
-			ei_connection(&(MayaConnection::getInstance()->connection.base));
-
+			
 		}
 	}
 	//
@@ -1110,6 +1109,8 @@ namespace elvishray
 				return MS::kFailure;
 			}
 
+			_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
+
 			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 
 			// end render
@@ -1148,6 +1149,7 @@ namespace elvishray
 			MayaConnection::delInstance();				
 			return MS::kFailure;
 		}
+		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
 		_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 
