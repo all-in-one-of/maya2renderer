@@ -69,6 +69,10 @@ global proc liquidmayaStartIprRender(string $editor, int $resolutionX, int $reso
 	//liqlog("before liqIPRNodeMessage -r");
 	liqIPRNodeMessage -rgt;
 	//liqlog("after liqIPRNodeMessage -r");
+	   
+	int $imageSize[2] = liquidPreview_getRenderViewResolution();
+    liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -ipr;
+
 	liqPopIdent();
 	return;
 }

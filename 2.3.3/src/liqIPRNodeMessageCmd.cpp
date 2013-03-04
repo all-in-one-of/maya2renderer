@@ -48,7 +48,7 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 	else if ( msg & MNodeMessage::kAttributeSet ) {
 		MGlobal::displayInfo("kAttributeSet");
 
-		liqRibTranslator::getInstancePtr()->IPRRenderBegin();
+		//liqRibTranslator::getInstancePtr()->IPRRenderBegin();
 
 		//if( canExport() )
 		{
@@ -56,7 +56,7 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 				->IPR_AttributeChangedCallback(msg, plug, otherPlug, userData);
 		}
 
-		liqRibTranslator::getInstancePtr()->IPRRenderEnd();
+		//liqRibTranslator::getInstancePtr()->IPRRenderEnd();
 	}
 	else {
 	}
@@ -132,9 +132,13 @@ MStatus liqIPRNodeMessage::doIt( const MArgList& args)
 		if( (arg == kRegisterFlag) || (arg == kRegisterFlagLong) ){
 			IfMErrorWarn(registerCallback());
 			isRunningIPR = 1;
+			liqRibTranslator::getInstancePtr()->IPRRenderBegin();
+			//liqRibTranslator::getInstancePtr()->IPRDoIt();
 		}
 		else if( (arg == kUnregisterFlag) || (arg == kUnregisterFlagLong) ){
 			IfMErrorWarn(unregisterCallback());
+
+			liqRibTranslator::getInstancePtr()->IPRRenderEnd();
 			isRunningIPR = 0;
 		}
 		else if( (arg == kIsRunningIPR) || (arg == kIsRunningIPRLong) ){

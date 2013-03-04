@@ -64,7 +64,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::~Renderer()");
 
-		// ei_end_context();
+		ei_end_context();
 
 		delete m_gnode;
 		m_gnode = 0;

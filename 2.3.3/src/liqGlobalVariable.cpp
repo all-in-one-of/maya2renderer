@@ -308,6 +308,7 @@ void initOtherParameters()
 	liqglo.liqglo_exportAllShadersParams = false;
 	liqglo.liqglo_skipDefaultMatte = false;
 
+	liqglo.iprRendering = false;
 }
 void getOtherParameters(const MFnDependencyNode& rGlobalNode)
 {

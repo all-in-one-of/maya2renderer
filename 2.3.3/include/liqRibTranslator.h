@@ -556,6 +556,7 @@ public:
 
 	void IPRRenderBegin();
 	void IPRRenderEnd();
+	void IPRDoIt();
 
 
 private:

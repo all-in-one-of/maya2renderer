@@ -1856,6 +1856,11 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 		return MS::kFailure;
 	}
 
+	if( liqglo.iprRendering )
+	{
+		IPRDoIt();
+	} else {
+
 	{
 		CM_TRACE_OPEN(getFunctionTraceLogFileName().c_str());
 		CM_TRACE_FUNC("liqRibTranslator::doIt()-->if(checkSettings()==true)");
@@ -1891,6 +1896,7 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 		}
 		CM_TRACE_CLOSE();
 	}
+	}//not ipr rendering
 
 
 	return status;
@@ -7846,4 +7852,22 @@ void liqRibTranslator::IPRRenderEnd()
 		liquid::RendererMgr::getInstancePtr()->unsetFactory();
 	}
 	CM_TRACE_CLOSE();
+}
+
+void liqRibTranslator::IPRDoIt()
+{
+	CM_TRACE_FUNC("liqRibTranslator::IPRDoIt()");
+
+	MStatus status;
+
+	if( canExport() )
+	{
+		if(m_useNewTranslator){
+			liquidMessage("_doItNew()", messageInfo);
+			status = _doItNew(originalLayer);// new doIt() process
+		}else{
+			//liquidMessage("_doIt()", messageInfo);
+			//status = _doIt(args, originalLayer);//original doIt() process
+		}
+	}
 }

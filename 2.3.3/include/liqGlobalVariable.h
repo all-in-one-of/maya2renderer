@@ -271,6 +271,8 @@ struct LIQUID_EXPORT liqGlobalVariable
 
 	bool liqglo_exportAllShadersParams;
 	bool liqglo_skipDefaultMatte;
+
+	int iprRendering;//1:use IPR; 0:not use IPR
 };
 
 extern LIQUID_EXPORT struct liqGlobalVariable liqglo;
