@@ -129,9 +129,9 @@ namespace elvishray
 		}
 		bool iprlog = false;
 		if(iprlog){
-			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er");
+			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er", std::ios_base::out);
 		}else{
-			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output.er");
+			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output.er", std::ios_base::out);
 		}
 
 		if( !m_log.get().is_open() )

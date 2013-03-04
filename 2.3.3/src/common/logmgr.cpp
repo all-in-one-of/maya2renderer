@@ -13,9 +13,9 @@ namespace liquid
 	{
 
 	}
-	void LogMgr::open(const char* logfile)
+	void LogMgr::open(const char* logfile, std::ios_base::open_mode mod)
 	{
-		m_logfile.open(logfile);
+		m_logfile.open(logfile, mod);
 	}
 	void LogMgr::close()
 	{

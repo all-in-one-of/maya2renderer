@@ -27,7 +27,7 @@ namespace liquid
 		//LogMgr* getInstancePtr();
 		virtual ~LogMgr();
 
-		void open(const char* logfile);
+		void open(const char* logfile, std::ios_base::open_mode mod);
 		void close();
 
 		void log___(const std::string &data)
