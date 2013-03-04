@@ -17,7 +17,6 @@ public:
 	virtual	~liqIPRNodeMessage(); 
 	virtual MStatus	doIt( const MArgList& args );
 	static void*	creator();
-	static MSyntax	newSyntax();
 	virtual bool	isUndoable() const{ return false; }
 	virtual bool	hasSyntax() const{ return true; }
 

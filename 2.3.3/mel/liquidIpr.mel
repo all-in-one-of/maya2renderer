@@ -35,7 +35,7 @@ global proc liquidmayaIprRender(int $width, int $height, int $doShadows,
 	liqPushIdent();
 	liqlog("liquidmayaIprRender("+$width+","+$height+","+$doShadows+","+$doGlowPass+","+$camera+")");
 	
-	mayaSoftwareIprRender($width, $height, $doShadows, $doGlowPass, $camera);
+	//mayaSoftwareIprRender($width, $height, $doShadows, $doGlowPass, $camera);
 
 	liqPopIdent();
 	return;
@@ -55,8 +55,7 @@ global proc int liquidmayaIsRunningIpr()
 	liqPushIdent();
 	liqlog("liquidmayaIsRunningIpr()");
 
-	//int $ret = isIprFileLoaded();
-	int $ret = 1;
+	int $ret = `liqIPRNodeMessage -isrunning`;
 	liqlog("is running ipr: "+$ret);
 
 	liqPopIdent();
@@ -79,7 +78,7 @@ global proc liquidmayaStopIprRender()
 	liqPushIdent();
 	liqlog("liquidmayaStopIprRender()");
 	//liqlog("before liqIPRNodeMessage -u");
-	//liqIPRNodeMessage -urg;
+	liqIPRNodeMessage -urg;
 	//liqlog("after liqIPRNodeMessage -u");
 	liqPopIdent();
 	return;

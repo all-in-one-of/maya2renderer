@@ -9,6 +9,8 @@
 #define kRegisterFlag			"-rgt"
 #define kUnregisterFlagLong		"-unregister"
 #define kUnregisterFlag			"-urg"
+#define kIsRunningIPRLong		"-isrunning"
+#define kIsRunningIPR			"-ir"
 
 // This table will keep track of the registered callbacks
 // so they can be removed when the plug-ins is unloaded.
@@ -99,6 +101,7 @@ void liquidIPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData )
 // Command class implementation
 //
 //////////////////////////////////////////////////////////////////////////
+static int isRunningIPR = 0;// 1 - is running, 0 - is not running.
 liqIPRNodeMessage::liqIPRNodeMessage()
 {
 
@@ -113,14 +116,6 @@ void* liqIPRNodeMessage::creator()
 	return new liqIPRNodeMessage();
 }
 
-MSyntax	liqIPRNodeMessage::newSyntax()
-{
-	MSyntax syntax;
-	IfMErrorWarn(syntax.addFlag( kRegisterFlag, kRegisterFlagLong ));
-	IfMErrorWarn(syntax.addFlag( kUnregisterFlag, kUnregisterFlagLong ));
-	return syntax;
-}
-
 MStatus liqIPRNodeMessage::doIt( const MArgList& args)
 //
 // Takes the  nodes that are on the active selection list and adds an
@@ -129,29 +124,35 @@ MStatus liqIPRNodeMessage::doIt( const MArgList& args)
 {	
 	MStatus 		stat;
 
-	MArgDatabase argData( newSyntax(), args , &stat);
-	IfMErrorWarn(stat);
+	for( unsigned i( 0 ); i < args.length(); i++ ) 
+	{
+		MString arg = args.asString( i, &stat );
+		IfMErrorWarn(stat);
 
-	// Parse command flags.
-	//
-// 	if ( argData.isFlagSet( kRegisterFlag, &stat ) ) 
-// 	{	
-// 		IfMErrorWarn(stat);
-// 		IfMErrorWarn(registerCallback());
-// 	} 
-// 	else if ( argData.isFlagSet( kUnregisterFlag, &stat ) ) {
-// 		IfMErrorWarn(stat);
-// 		IfMErrorWarn(unregisterCallback());
-// 	}
-	//DEBUG:
-	IfMErrorWarn(unregisterCallback());
-	IfMErrorWarn(registerCallback());
+		if( (arg == kRegisterFlag) || (arg == kRegisterFlagLong) ){
+			IfMErrorWarn(registerCallback());
+			isRunningIPR = 1;
+		}
+		else if( (arg == kUnregisterFlag) || (arg == kUnregisterFlagLong) ){
+			IfMErrorWarn(unregisterCallback());
+			isRunningIPR = 0;
+		}
+		else if( (arg == kIsRunningIPR) || (arg == kIsRunningIPRLong) ){
+			setResult(isRunningIPR);
+		}
+		else{
+			liquidMessage2(messageError,"Parameter '%s' is undefined in liqIPRNodeMessage.", arg.asChar());
+			return MS::kUnknownParameter;
+		}
+	}
 
 	return MS::kSuccess;
 }
 
 MStatus liqIPRNodeMessage::registerCallback()
 {
+	//MGlobal::displayInfo( "liqIPRNodeMessage::registerCallback()");
+
 	MStatus 		stat;
 	MObject 		node;
 	MSelectionList 	list;
@@ -204,12 +205,13 @@ MStatus liqIPRNodeMessage::registerCallback()
 		//addKeyableChangeOverride
 		//
     }
-        
+    
 	return MS::kSuccess;
 }
 
 MStatus liqIPRNodeMessage::unregisterCallback()
 {
+	//MGlobal::displayInfo( "liqIPRNodeMessage::unregisterCallback()");
 // 	// Remove all callbacks
 	//
 	for (unsigned int i=0; i<callbackIds.length(); i++ ) 
