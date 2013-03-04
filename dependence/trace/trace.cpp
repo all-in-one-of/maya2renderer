@@ -22,7 +22,7 @@ namespace	cm
 	{
 		trace_file_ = trace_file;
 
-		m_logfile.open(trace_file_.c_str(), std::ios_base::trunc);
+		m_logfile.open(trace_file_.c_str());
 		if( !m_logfile.is_open() )
 		{
 			liquidMessage2(messageError,"[cm::Trace] can't open file: %s.\n", trace_file_.c_str() );
