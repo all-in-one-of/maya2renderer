@@ -95,6 +95,7 @@ namespace liquid
 		assert(m_factory);
 		m_factory->deleteOutputReceiver();
 		m_factory->deleteRenderer();
+		m_renderer = NULL;
 	}
 	void RendererMgr::registFactory(const std::string& renderername, AbstractFactory* factory)
 	{

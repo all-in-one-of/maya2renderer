@@ -22,7 +22,7 @@ public:
 	static void registFactory(const std::string& renderername, AbstractFactory* factory);
 	static void unregistFactory(const std::string& renderername);
 
-	RendererInterface* getRenderer(){ return m_renderer; }
+	RendererInterface* getRenderer(){ assert(m_renderer); return m_renderer; }
 	
 	void test();
 	void prologue();
