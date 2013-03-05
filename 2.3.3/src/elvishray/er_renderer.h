@@ -61,6 +61,11 @@ namespace elvishray
 			bool doNotClearBackground, bool immediateFeedback,
 			const MString &renderGroup, const MString &cameraName, const MString &optionName
 		);
+		void _renderPreview( 
+			unsigned int width, unsigned int height,
+			bool doNotClearBackground, bool immediateFeedback,
+			const MString &renderGroup, const MString &cameraName, const MString &optionName
+		);
 
 		//
 		//light
@@ -372,6 +377,10 @@ namespace elvishray
 		virtual MStatus IPR_NodeDirtyCallback( MObject& node,void *userData );
 		virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData );
 		IprMgr *m_iprMgr;
+
+		//render thread
+		boost::thread m_renderingThread;
+
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;

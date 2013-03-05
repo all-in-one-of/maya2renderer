@@ -1112,26 +1112,59 @@ namespace elvishray
 			<<doNotClearBackground<<","<<immediateFeedback<<","
 			<<renderGroup.asChar()<<","<<renderGroup.asChar()<<","<<optionName.asChar()<<")");
 
+		if( true )
+		{
+			_renderPreview(width, height, doNotClearBackground, immediateFeedback, 
+				renderGroup, cameraName, optionName);
+		}else{
+			m_renderingThread = boost::thread(
+					boost::bind(&elvishray::Renderer::_renderPreview, this,
+						width, height, doNotClearBackground, immediateFeedback, 
+						renderGroup, cameraName, optionName
+					)
+				);
+			m_renderingThread.detach();
+		}
+	}
+	void Renderer::_renderPreview( unsigned int width, unsigned int height,
+		bool doNotClearBackground, bool immediateFeedback,
+		const MString &renderGroup, const MString &cameraName, const MString &optionName)
+	{
+		CM_TRACE_FUNC("Renderer::_renderPreview("<<width<<","<<height<<","
+			<<doNotClearBackground<<","<<immediateFeedback<<","
+			<<renderGroup.asChar()<<","<<renderGroup.asChar()<<","<<optionName.asChar()<<")");
+
 		// start render - region render, don't clear background, don't immediate feedback
 		if (MayaConnection::getInstance()->startRender( width, height, doNotClearBackground, immediateFeedback) != MS::kSuccess)
 		{
 			assert(0&&"MayaConnection: error occured in startRenderRegion.");
 			_s( "//MayaConnection: error occured in startRenderRegion." );
-			MayaConnection::delInstance();				
+			//MayaConnection::delInstance();				
 			return /*MS::kFailure*/;
 		}
 
-		_S( ei_render( renderGroup.asChar(), cameraName.asChar(), optionName.asChar() ) );
-
+		if( true )
+		{
+			_S( ei_render( renderGroup.asChar(), cameraName.asChar(), optionName.asChar() ) );
+		} else {
+			m_renderingThread = boost::thread(
+					boost::bind(&ei_render, 
+						renderGroup.asChar(), cameraName.asChar(), optionName.asChar()
+					)
+				);
+			//m_renderingThread.join();
+			//m_renderingThread.detach();
+		}
+		
 		// end render
 		if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
 		{
 			assert(0&&"MayaConnection: error occured in endRender.");
 			_s( "//MayaConnection: error occured in endRender." );
-			MayaConnection::delInstance();
+			//MayaConnection::delInstance();
 			return /*MS::kFailure*/;
 		}
-		MayaConnection::delInstance();
+		//MayaConnection::delInstance();
 	}
 	//
 	MStatus Renderer::iprBegin()

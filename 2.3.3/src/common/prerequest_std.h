@@ -61,6 +61,6 @@
 #include <boost/lambda/algorithm.hpp>
 
 #include <boost/format.hpp>
-
 #include <boost/filesystem.hpp>
+#include <boost/thread/thread.hpp>
 #endif//_PREREQUEST_STD_H_
