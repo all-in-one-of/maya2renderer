@@ -1073,6 +1073,9 @@ namespace elvishray
 			_s("// in batch render mode");
 			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 		}else{
+			//set callback function for ER
+			_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
+
 			// start render - clear background, don't immediate feedback
 			if (MayaConnection::getInstance()->startRender( width, height, false, false) != MS::kSuccess)
 			{
@@ -1081,8 +1084,6 @@ namespace elvishray
 				MayaConnection::delInstance();				
 				return MS::kFailure;
 			}
-
-			_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
 			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 
@@ -1113,6 +1114,9 @@ namespace elvishray
 			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.yResolution",height));
 		}
 
+		//set callback function for ER
+		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
+
 		// start render - region render, don't clear background, don't immediate feedback
 		if (MayaConnection::getInstance()->startRegionRender( width, height, true, false) != MS::kSuccess)
 		{
@@ -1121,7 +1125,6 @@ namespace elvishray
 			MayaConnection::delInstance();				
 			return MS::kFailure;
 		}
-		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
 		_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
 
