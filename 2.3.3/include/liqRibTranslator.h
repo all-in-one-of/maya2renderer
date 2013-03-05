@@ -72,6 +72,7 @@ public:
 	static MSyntax syntax();
 
 	MStatus doIt(const MArgList& args );
+	MStatus doIt();
 	
 	MStatus _doItNew( const MString& originalLayer );
 	//MStatus _doIt(const MArgList& args, const MString& originalLayer );
@@ -556,7 +557,7 @@ public:
 
 	void IPRRenderBegin();
 	void IPRRenderEnd();
-	void IPRDoIt();
+	MStatus IPRDoIt();
 
 
 private:

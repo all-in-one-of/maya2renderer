@@ -52,19 +52,14 @@ namespace elvishray
 		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_elvishray");
 		m_iprMgr = NULL;
 
-		bool test = true;
-		if(test)
-		{
-			ei_context();
-			
-		}
+		//ei_context();
 	}
 	//
 	Renderer::~Renderer()
 	{
 		CM_TRACE_FUNC("Renderer::~Renderer()");
 
-		ei_end_context();
+		//ei_end_context();
 
 		delete m_gnode;
 		m_gnode = 0;
@@ -121,43 +116,21 @@ namespace elvishray
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
 		//m_log.open((currentJob.ribFileName+".er").asChar());
-		if( m_log.get().is_open() )
-		{
-			liquidMessage2(messageError,"can't open file: %s.\n", "output.er" );
-			assert(0&&"can't open file. the file is already open.");
-			m_log.close();
-		}
-		bool iprlog = false;
-		if(iprlog){
-			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er", std::ios_base::out);
-		}else{
-			m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output.er", std::ios_base::out);
-		}
-
+		m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output.er", std::ios_base::out);
 		if( !m_log.get().is_open() )
 		{
 			liquidMessage2(messageError,"can't open file: %s.\n", "output.er" );
 			assert(0&&"can't open file. see script editor for more details.");
 		}
 		//////////////////////////////////////////////////////////////////////////
-
-// 		if( false )
-// 		{
-// 			_S( ei_make_texture( currentJob.imageName.asChar(), currentJob.texName.asChar() , EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f ) );
-// 		}	
-		if( !iprlog )
-		{
-			_s("//### SCENE BEGIN ###");
-
-			//_S( ei_context() );
-		}
-
+		_s("//### SCENE BEGIN ###");
+		_S( ei_context() );
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
 
-		//_S( ei_end_context() );
+		_S( ei_end_context() );
 
 		//////////////////////////////////////////////////////////////////////////
 		//close script log file

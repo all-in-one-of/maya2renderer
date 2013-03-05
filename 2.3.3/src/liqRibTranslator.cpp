@@ -1858,46 +1858,50 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 
 	if( liqglo.iprRendering )
 	{
-		IPRDoIt();
+		status = IPRDoIt();
 	} else {
-
-	{
-		CM_TRACE_OPEN(getFunctionTraceLogFileName().c_str());
-		CM_TRACE_FUNC("liqRibTranslator::doIt()-->if(checkSettings()==true)");
-		{//set renderer
-			MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
-			MString renderer;
-			liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
-
-			bool bSetFactory 
-				= liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
-			if( !bSetFactory )
-				return MS::kFailure;
-			liquid::RendererMgr::getInstancePtr()->install();
-			liquid::RendererMgr::getInstancePtr()->prologue();
-		}
-
-		if( canExport() )
-		{
-			if(m_useNewTranslator){
-				liquidMessage("_doItNew()", messageInfo);
-				status = _doItNew(originalLayer);// new doIt() process
-			}else{
-				//liquidMessage("_doIt()", messageInfo);
-				//status = _doIt(args, originalLayer);//original doIt() process
-			}
-		}
-
-		{//
-			liquid::RendererMgr::getInstancePtr()->test();
-			liquid::RendererMgr::getInstancePtr()->epilogue();
-			liquid::RendererMgr::getInstancePtr()->uninstall();
-			liquid::RendererMgr::getInstancePtr()->unsetFactory();
-		}
-		CM_TRACE_CLOSE();
-	}
+		status = doIt();
 	}//not ipr rendering
 
+	return status;
+}
+MStatus liqRibTranslator::doIt()
+{
+	CM_TRACE_OPEN(getFunctionTraceLogFileName().c_str());
+	CM_TRACE_FUNC("liqRibTranslator::doIt()-->if(checkSettings()==true)");
+	
+	MStatus status;
+	{//set renderer
+		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
+		MString renderer;
+		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
+
+		bool bSetFactory 
+			= liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
+		if( !bSetFactory )
+			return MS::kFailure;
+		liquid::RendererMgr::getInstancePtr()->install();
+		liquid::RendererMgr::getInstancePtr()->prologue();
+	}
+
+	if( canExport() )
+	{
+		if(m_useNewTranslator){
+			liquidMessage("_doItNew()", messageInfo);
+			status = _doItNew(originalLayer);// new doIt() process
+		}else{
+			//liquidMessage("_doIt()", messageInfo);
+			//status = _doIt(args, originalLayer);//original doIt() process
+		}
+	}
+
+	{//
+		liquid::RendererMgr::getInstancePtr()->test();
+		liquid::RendererMgr::getInstancePtr()->epilogue();
+		liquid::RendererMgr::getInstancePtr()->uninstall();
+		liquid::RendererMgr::getInstancePtr()->unsetFactory();
+	}
+	CM_TRACE_CLOSE();
 
 	return status;
 }
@@ -7821,7 +7825,7 @@ std::string liqRibTranslator::getFunctionTraceLogFileName() const
 void liqRibTranslator::IPRRenderBegin()
 {
 	CM_TRACE_OPEN((getFunctionTraceLogFileName()+"_ipr.log").c_str());
-	CM_TRACE_FUNC("Renderer::IPRRenderBegin()");
+	CM_TRACE_FUNC("liqRibTranslator::IPRRenderBegin()");
 
 	MStatus status;
 		
@@ -7843,7 +7847,7 @@ void liqRibTranslator::IPRRenderBegin()
 
 void liqRibTranslator::IPRRenderEnd()
 {
-	CM_TRACE_FUNC("Renderer::IPRRenderEnd()");
+	CM_TRACE_FUNC("liqRibTranslator::IPRRenderEnd()");
 	{
 		liquid::RendererMgr::getInstancePtr()->test();
 		liquid::RendererMgr::getInstancePtr()->epilogue();
@@ -7854,7 +7858,7 @@ void liqRibTranslator::IPRRenderEnd()
 	CM_TRACE_CLOSE();
 }
 
-void liqRibTranslator::IPRDoIt()
+MStatus liqRibTranslator::IPRDoIt()
 {
 	CM_TRACE_FUNC("liqRibTranslator::IPRDoIt()");
 
@@ -7870,4 +7874,5 @@ void liqRibTranslator::IPRDoIt()
 			//status = _doIt(args, originalLayer);//original doIt() process
 		}
 	}
+	return status;
 }
