@@ -577,6 +577,8 @@ public:
 	bool m_skipVisibilityAttributes;
 	bool m_skipShadingAttributes;
 	bool m_skipRayTraceAttributes;
+
+	bool m_initGlobalsOnly;//init globals data only, not export data.
 };
 
 

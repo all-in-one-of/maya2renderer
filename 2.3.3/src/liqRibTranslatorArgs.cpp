@@ -538,6 +538,10 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 			liqglo.iprRendering = 1;
 			LIQCHECKSTATUS(status, err);
 		}
+		else if((arg == "-initGlobalsOnly")) {
+			m_initGlobalsOnly = true;
+			LIQCHECKSTATUS(status, err);
+		}
 		else {
 			printf("[liqRibTranslator] undefined argument %d : '%s' \n", i, args.asString( i ).asChar());
 		}

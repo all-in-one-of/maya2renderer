@@ -66,12 +66,16 @@ global proc liquidmayaStartIprRender(string $editor, int $resolutionX, int $reso
 {
 	liqPushIdent();
 	liqlog("liquidmayaStartIprRender("+$editor+","+$resolutionX+","+$resolutionY+","+$camera+")");
-	//liqlog("before liqIPRNodeMessage -r");
-	liqIPRNodeMessage -rgt;
-	//liqlog("after liqIPRNodeMessage -r");
 	   
+	//we take a rendering to initlize liquid parameters
+    liquid -GL -initGlobalsOnly;//init globals data only, not export data.
+	
+	//register callback functions
+	liqIPRNodeMessage -rgt;
+
+	//ipr rendering
 	int $imageSize[2] = liquidPreview_getRenderViewResolution();
-    liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -ipr;
+    liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -ipr;	
 
 	liqPopIdent();
 	return;
@@ -81,9 +85,10 @@ global proc liquidmayaStopIprRender()
 {
 	liqPushIdent();
 	liqlog("liquidmayaStopIprRender()");
-	//liqlog("before liqIPRNodeMessage -u");
+	
+	//unregister callback functions
 	liqIPRNodeMessage -urg;
-	//liqlog("after liqIPRNodeMessage -u");
+
 	liqPopIdent();
 	return;
 }

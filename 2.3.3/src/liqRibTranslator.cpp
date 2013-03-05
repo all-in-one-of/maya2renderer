@@ -85,7 +85,7 @@ MComputation liqRibTranslator::m_escHandler;
 */
 void *liqRibTranslator::creator()
 {
-	mInstance = new liqRibTranslator();	
+	mInstance = new liqRibTranslator();
 	return mInstance;// will be deleted by maya
 }
 
@@ -417,6 +417,8 @@ liqRibTranslator::liqRibTranslator()
 	m_skipRayTraceAttributes = false;
 
 	m_isStereoCamera = false;
+
+	m_initGlobalsOnly = false;
 }
 
 
@@ -1854,6 +1856,11 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 	if(0==checkDirecoties){
 		liquidMessage2(messageError,"liquidCheckProjectDirectories() fails, see script editor for more details.");
 		return MS::kFailure;
+	}
+
+	if( m_initGlobalsOnly )
+	{
+		return MS::kSuccess;
 	}
 
 	if( liqglo.iprRendering )
