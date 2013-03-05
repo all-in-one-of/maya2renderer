@@ -1094,9 +1094,8 @@ namespace elvishray
 				MayaConnection::delInstance();
 				return MS::kFailure;
 			}
+			MayaConnection::delInstance();
 		}
-
-		MayaConnection::delInstance();
 
 		return MS::kSuccess;
 	}
@@ -1134,6 +1133,8 @@ namespace elvishray
 			MayaConnection::delInstance();
 			return MS::kFailure;
 		}
+		MayaConnection::delInstance();
+
 		return MS::kSuccess;
 	}
 	MStatus Renderer::iprBegin()
