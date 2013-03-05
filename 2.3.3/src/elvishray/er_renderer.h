@@ -56,6 +56,12 @@ namespace elvishray
 
 		virtual MStatus render(const structJob& currentJob);
 		MStatus render_ipr();
+		void renderPreview( 
+			unsigned int width, unsigned int height,
+			bool doNotClearBackground, bool immediateFeedback,
+			const MString &renderGroup, const MString &cameraName, const MString &optionName
+		);
+
 		//
 		//light
 		//

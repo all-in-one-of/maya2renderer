@@ -1076,26 +1076,8 @@ namespace elvishray
 			//set callback function for ER
 			_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
-			// start render - clear background, don't immediate feedback
-			if (MayaConnection::getInstance()->startRender( width, height, false, false) != MS::kSuccess)
-			{
-				assert(0&&"MayaConnection: error occured in startRender.");
-				_s( "//MayaConnection: error occured in startRender." );
-				MayaConnection::delInstance();				
-				return MS::kFailure;
-			}
-
-			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
-
-			// end render
-			if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
-			{
-				assert(0&&"MayaConnection: error occured in endRender.");
-				_s( "//MayaConnection: error occured in endRender." );
-				MayaConnection::delInstance();
-				return MS::kFailure;
-			}
-			MayaConnection::delInstance();
+			renderPreview(width, height, false, false, 
+				m_root_group.c_str(), cameraFullPath, m_option.c_str());
 		}
 
 		return MS::kSuccess;
@@ -1117,16 +1099,29 @@ namespace elvishray
 		//set callback function for ER
 		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
 
+		renderPreview(width, height, true, false, 
+			 m_root_group.c_str(), cameraFullPath, m_option.c_str());
+
+		return MS::kSuccess;
+	}
+	void Renderer::renderPreview(unsigned int width, unsigned int height,
+		bool doNotClearBackground, bool immediateFeedback,
+		const MString &renderGroup, const MString &cameraName, const MString &optionName)
+	{
+		CM_TRACE_FUNC("Renderer::renderPreview("<<width<<","<<height<<","
+			<<doNotClearBackground<<","<<immediateFeedback<<","
+			<<renderGroup.asChar()<<","<<renderGroup.asChar()<<","<<optionName.asChar()<<")");
+
 		// start render - region render, don't clear background, don't immediate feedback
-		if (MayaConnection::getInstance()->startRegionRender( width, height, true, false) != MS::kSuccess)
+		if (MayaConnection::getInstance()->startRender( width, height, doNotClearBackground, immediateFeedback) != MS::kSuccess)
 		{
 			assert(0&&"MayaConnection: error occured in startRenderRegion.");
 			_s( "//MayaConnection: error occured in startRenderRegion." );
 			MayaConnection::delInstance();				
-			return MS::kFailure;
+			return /*MS::kFailure*/;
 		}
 
-		_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
+		_S( ei_render( renderGroup.asChar(), cameraName.asChar(), optionName.asChar() ) );
 
 		// end render
 		if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
@@ -1134,12 +1129,11 @@ namespace elvishray
 			assert(0&&"MayaConnection: error occured in endRender.");
 			_s( "//MayaConnection: error occured in endRender." );
 			MayaConnection::delInstance();
-			return MS::kFailure;
+			return /*MS::kFailure*/;
 		}
 		MayaConnection::delInstance();
-
-		return MS::kSuccess;
 	}
+	//
 	MStatus Renderer::iprBegin()
 	{
 		CM_TRACE_FUNC("Renderer::iprBegin()");
