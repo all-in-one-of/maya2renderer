@@ -297,6 +297,12 @@ global proc string liquidmayaRender(int $resolution0, int $resolution1, int $doS
 {
   liqPushIdent();
 	liqlog("liquidmayaRender()");
+
+	if( liquidmayaIsRunningIpr() )
+	{
+		liquidmayaStopIprRender();
+	}
+
   global int $gLiqLastRenderIsRenderRegion;
   if ( !`liquidGlobalsExists` ) {
     string $sel[] = `ls -sl`;
@@ -325,6 +331,12 @@ global proc liquidmayaRenderRegion( string $editor )
 {
   liqPushIdent();
 	liqlog("liquidmayaRenderRegion(...)");
+
+	if( liquidmayaIsRunningIpr() )
+	{
+		liquidmayaStopIprRender();
+	}
+
   global int $gLiqLastRenderIsRenderRegion;
   liquidCropPreview();
   $gLiqLastRenderIsRenderRegion = 1;
