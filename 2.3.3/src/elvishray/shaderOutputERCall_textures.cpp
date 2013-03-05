@@ -59,7 +59,7 @@ void Visitor::visitFile(const char* node)
 	MString fileImageName(getFileNodeImageName(node));
 	{
 		//test "fileImageName" exist or not.
-		if( access(fileImageName.asChar(), 0) != 0){
+		if( _access(fileImageName.asChar(), 0) != 0){
 			liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
 			assert(0&&"image not exist.");
 		}
@@ -81,7 +81,7 @@ void Visitor::visitFile(const char* node)
 		MString fileTextureName = (isERTex)? fileImageName : (fileImageName+".tex");
 
 		//generate texture
-		if ( access(fileTextureName.asChar(), 0) != 0 )//not exist
+		if ( _access(fileTextureName.asChar(), 0) != 0 )//not exist
 		{
 			ei_make_texture(fileImageName.asChar(), fileTextureName.asChar(),
 				EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f);
