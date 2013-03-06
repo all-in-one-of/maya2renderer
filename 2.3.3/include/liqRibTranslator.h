@@ -103,6 +103,10 @@ public:
 	MStatus liquidDoArgs( MArgList args );
 	static bool liquidInitGlobals();
 	void liquidReadGlobals();
+	void setGlobals0();
+	void setGlobals1();
+	void setGlobals2();
+	void setGlobals3();
 
 //	MStatus buildJobs();
 

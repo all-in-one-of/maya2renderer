@@ -130,11 +130,14 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 	//width        = M3dView::active3dView().portWidth();
 	//height       = M3dView::active3dView().portHeight();
 
+
+	//[refactor 42] begin, to liqRibTranslator::setGlobals0()
 	// get the current project directory
-	MString MELCommand = "workspace -q -rd";
-	MString MELReturn;
-	MGlobal::executeCommand( MELCommand, MELReturn );
-	liqglo.liqglo_projectDir = MELReturn;
+	//MString MELCommand = "workspace -q -rd";
+	//MString MELReturn;
+	//MGlobal::executeCommand( MELCommand, MELReturn );
+	//liqglo.liqglo_projectDir = MELReturn;
+	//[refactor 42] end,
 
 	// get the current scene name
 	//liqglo.liqglo_sceneName = liquidTransGetSceneName();//omitted by yaoyansi

@@ -1842,13 +1842,19 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 {
 	MStatus status;
 
+	setGlobals0();
+
 	status = setRenderLayer( args );
 	if( status != MS::kSuccess ) 
 		return MS::kFailure;
 
+	setGlobals1();
+
 	status = liquidDoArgs( args );
 	if( !status ) 
 		return MS::kFailure;
+
+	setGlobals2();
 
 	//check liquid required project directories.
 	int checkDirecoties=0;
@@ -1857,6 +1863,8 @@ MStatus liqRibTranslator::doIt( const MArgList& args )
 		liquidMessage2(messageError,"liquidCheckProjectDirectories() fails, see script editor for more details.");
 		return MS::kFailure;
 	}
+
+	setGlobals3();
 
 	if( m_initGlobalsOnly )
 	{
@@ -7883,3 +7891,27 @@ MStatus liqRibTranslator::IPRDoIt()
 	}
 	return status;
 }
+
+void liqRibTranslator::setGlobals0()
+{
+	//[refactor 42] begin, from liqRibTranslator::liquidDoArgs()
+	// get the current project directory
+	MString MELCommand = "workspace -q -rd";
+	MString MELReturn;
+	MGlobal::executeCommand( MELCommand, MELReturn );
+	liqglo.liqglo_projectDir = MELReturn;
+	//[refactor 42] end,
+}
+void liqRibTranslator::setGlobals1()
+{
+
+}
+void liqRibTranslator::setGlobals2()
+{
+
+}
+void liqRibTranslator::setGlobals3()
+{
+
+}
+
