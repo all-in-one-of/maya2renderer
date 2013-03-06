@@ -1897,6 +1897,7 @@ MStatus liqRibTranslator::doIt()
 			return MS::kFailure;
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->prologue();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog();
 	}
 
 	if( canExport() )
@@ -1912,6 +1913,7 @@ MStatus liqRibTranslator::doIt()
 
 	{//
 		liquid::RendererMgr::getInstancePtr()->test();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->closeLog();
 		liquid::RendererMgr::getInstancePtr()->epilogue();
 		liquid::RendererMgr::getInstancePtr()->uninstall();
 		liquid::RendererMgr::getInstancePtr()->unsetFactory();
@@ -7857,6 +7859,7 @@ void liqRibTranslator::IPRRenderBegin()
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->iprBegin();
 		liquid::RendererMgr::getInstancePtr()->prologue();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog();
 	}
 }
 
@@ -7865,6 +7868,7 @@ void liqRibTranslator::IPRRenderEnd()
 	CM_TRACE_FUNC("liqRibTranslator::IPRRenderEnd()");
 	{
 		liquid::RendererMgr::getInstancePtr()->test();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->closeLog();
 		liquid::RendererMgr::getInstancePtr()->epilogue();
 		liquid::RendererMgr::getInstancePtr()->iprEnd();
 		liquid::RendererMgr::getInstancePtr()->uninstall();

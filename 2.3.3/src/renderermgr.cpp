@@ -49,13 +49,11 @@ namespace liquid
 	{
 		CM_TRACE_FUNC("RendererMgr::prologue()");
 		assert(m_renderer);
-		getRenderer()->openLog();
 	}
 	void RendererMgr::epilogue()
 	{
 		CM_TRACE_FUNC("RendererMgr::epilogue()");
 		assert(m_renderer);
-		getRenderer()->closeLog();
 	}
 	//
 	bool RendererMgr::setFactory(const std::string& renderername)
