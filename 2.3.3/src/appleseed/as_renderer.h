@@ -55,6 +55,7 @@ namespace appleseed
 		virtual void openLog();
 		virtual void closeLog();
 
+		virtual MStatus render(const structJob& currentJob);
 		//
 		//light
 		//
@@ -356,6 +357,16 @@ namespace appleseed
 		
 		virtual MString getTextureExt()const;
 		virtual bool isTextureTypeSupported(const MString &textureType)const;
+		
+		virtual MStatus iprBegin() ;
+		virtual MStatus iprEnd();
+		//IPR callback functions
+		virtual MStatus IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
+			MPlug & plug, MPlug & otherPlug, void* userData);
+		virtual MStatus IPR_NodeDirtyCallback( MObject& node,void *userData );
+		virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData );
+
+		
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;

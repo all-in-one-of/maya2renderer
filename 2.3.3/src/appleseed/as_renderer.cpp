@@ -374,7 +374,7 @@ namespace appleseed
 
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
-		m_log.open((currentJob.ribFileName+".as").asChar());
+		m_log.open((currentJob.ribFileName+".as").asChar(), std::ios_base::out);
 
 		//appleseed
 		m_log_target.reset(asf::create_file_log_target());
@@ -659,6 +659,12 @@ namespace appleseed
 	MStatus Renderer::renderAll_remote(const MString& ribFileName)
 	{
 		CM_TRACE_FUNC("Renderer::renderAll_remote("<<ribFileName.asChar()<<")");
+		return MStatus::kSuccess;
+	}
+	MStatus Renderer::render(const structJob& currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::render("<<currentJob.name.asChar()<<")");
+
 		return MStatus::kSuccess;
 	}
 	void Renderer::cookInstanceGroup()
@@ -1082,6 +1088,44 @@ namespace appleseed
 
 		return false;
 	}
+	//
+	MStatus Renderer::iprBegin()
+	{
+		CM_TRACE_FUNC("Renderer::iprBegin()");
+
+		return MS::kSuccess;
+	}
+
+	MStatus Renderer::iprEnd()
+	{
+		CM_TRACE_FUNC("Renderer::iprEnd()");
+
+		return MS::kSuccess;
+	}
+	//IPR callback functions
+	MStatus Renderer::IPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg, 
+		MPlug & plug, MPlug & otherPlug, void* userData)
+	{
+		CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
+		liquidMessage2(messageInfo, "Renderer::IPR_AttributeChangedCallback()");
+
+		return MS::kSuccess;
+	}
+	MStatus Renderer::IPR_NodeDirtyCallback( MObject& node,void *userData )
+	{
+		CM_TRACE_FUNC("Renderer::IPR_NodeDirtyCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
+		liquidMessage2(messageInfo, "Renderer::IPR_NodeDirtyCallback()");
+
+		return MS::kSuccess;
+	}
+	MStatus Renderer::IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData )
+	{
+		CM_TRACE_FUNC("Renderer::IPR_NodeDirtyPlugCallback("<<MFnDependencyNode(node).name().asChar()<<",userData)");
+		liquidMessage2(messageInfo, ("Renderer::IPR_NodeDirtyPlugCallback("+MFnDependencyNode(node).name()+","+plug.name()+", userData)").asChar());
+
+		return MS::kSuccess;
+	}
+
 }//namespace appleseed
 
 #endif//_USE_APPLESEED_
