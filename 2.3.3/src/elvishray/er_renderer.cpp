@@ -13,6 +13,7 @@
 #include <liqRenderer.h>
 #include <liqRibLightData.h>
 #include <liqGlobalHelpers.h>
+#include <liqGlobalHelpers_refactor.h>
 #include <liqProcessLauncher.h>
 #include <liqCustomNode.h>
 #include <liqShaderFactory.h>
@@ -109,17 +110,42 @@ namespace elvishray
 
 	//	return MS::kSuccess;
 	//}
-	void Renderer::openLog()
+	void Renderer::openLog(const MString &imageFullPath)
 	{
-		CM_TRACE_FUNC("Renderer::openLog()");
+		CM_TRACE_FUNC("Renderer::openLog("<<imageFullPath.asChar()<<")");
 
 		//////////////////////////////////////////////////////////////////////////
 		//open script log file
 		//m_log.open((currentJob.ribFileName+".er").asChar());
-		m_log.open("E:/MyDocuments/maya/projects/default/rmanpix/output.er", std::ios_base::out);
+		MString tmp;
+		
+		MString tmp_path( 
+			liquidSanitizePath( 
+				liquidGetRelativePath( liqglo.liqglo_relativeFileNames,
+				"rib", liqglo.liqglo_projectDir )
+			) 
+		);
+
+		IfMErrorWarn(MGlobal::executeCommand("getAttr \"liquidGlobals.ddImageName[0]\";", tmp));		
+		MString displayName0(parseString_refactor(tmp));
+
+		int frame = MAnimControl::currentTime().as( MTime::uiUnit() );
+
+
+
+		MString projdir = liqglo.liqglo_projectDir;
+		MString filepath;
+		filepath += liqglo.liqglo_ribDir;
+		filepath += "/"+liquidTransGetSceneName();
+		MString filename;
+		filename = liquidSanitizePath( filepath );
+		filename = getFullPathFromRelative ( filename );
+
+		MString logFileName(imageFullPath+".er");
+		m_log.open(logFileName.asChar(), std::ios_base::out);
 		if( !m_log.get().is_open() )
 		{
-			liquidMessage2(messageError,"can't open file: %s.\n", "output.er" );
+			liquidMessage2(messageError,"can't open file: %s.\n", logFileName.asChar() );
 			assert(0&&"can't open file. see script editor for more details.");
 		}
 		//////////////////////////////////////////////////////////////////////////
@@ -1191,6 +1217,7 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
 		liquidMessage2(messageInfo, "Renderer::IPR_AttributeChangedCallback()");
 		
+		_s("\n\n\n\n");
 		_s("// Renderer::IPR_AttributeChangedCallback");		
 		
 		m_iprMgr->onAttributeChanged(msg, plug, otherPlug, userData );

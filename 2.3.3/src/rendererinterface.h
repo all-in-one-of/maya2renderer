@@ -71,7 +71,7 @@ public:
 	virtual MStatus renderAll_local(const MString& ribFileName) = 0;
 	virtual MStatus renderAll_remote(const MString& ribFileName) = 0;
 
-	virtual void openLog() = 0;
+	virtual void openLog(const MString &imageFullPath) = 0;
 	virtual void closeLog() = 0;
 
 	virtual MStatus render(const structJob& currentJob) = 0;

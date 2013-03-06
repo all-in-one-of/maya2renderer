@@ -30,6 +30,7 @@
 ** ______________________________________________________________________
 */
 #include <liqGlobalHelpers.h>
+#include <liqGlobalHelpers_refactor.h>
 
 #include "./common/prerequest_maya.h"
 #include "./common/prerequest_std.h"
@@ -40,6 +41,7 @@
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 #include "renderermgr.h"
+
 /**  Check to see if the node NodeFn has any attributes starting with pPrefix and store those
  *  in Matches to return.
  */
@@ -1845,4 +1847,21 @@ MString getTextureExt()
 bool isTextureTypeSupported(const MString &textureType)
 {
 	return liquid::RendererMgr::getInstancePtr()->getRenderer()->isTextureTypeSupported(textureType);
+}
+
+MString getLogFileDir()
+{
+	return liquidSanitizePath( 
+		liquidGetRelativePath(
+			liqglo.liqglo_relativeFileNames,
+			"rib", 
+			liqglo.liqglo_projectDir 
+		)
+	);
+}
+MString getLogFileName()
+{
+	MString tmp;
+	IfMErrorWarn(MGlobal::executeCommand("getAttr \"liquidGlobals.ddImageName[0]\";", tmp));		
+	return parseString_refactor(tmp);
 }

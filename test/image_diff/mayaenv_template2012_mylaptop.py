@@ -14,7 +14,7 @@ def configMayaEnv():
     os.environ["LIQUIDHOME"]     = os.environ["LIQUID_ROOT"]+"/2.3.3"
     os.environ["LIQUID_GLOBALS_OVERRIDE"] = os.environ["LIQUID_ROOT"]+"/2.3.3/renderers"
     #elvishray
-    os.environ["ELVISHRAY_BIN"] = os.environ["LIQUID_ROOT"]+"/dependence/elvishray/bin"
+    os.environ["ELVISHRAY_BIN"] = os.environ["LIQUID_ROOT"]+"/dependence/elvishray/r274/bin"
     #appleseed
     os.environ["APPLESEED_BIN"] = os.environ["LIQUID_ROOT"]+"/dependence/appleseed/appleseed-1.1.0-alpha-14-0-g4e46ed9-win32-vs100-devkit/bin/Release" 
     
@@ -31,10 +31,10 @@ def configMayaEnv():
     else:
         os.environ["MAYA_PLUG_IN_PATH"]=os.environ["LIQUID_MLL"]+";"+os.environ["MAYA_PLUG_IN_PATH"]
     # XBMLANGPATH
-    if os.environ.get('MAYA_PLUG_IN_PATH') == None:
-        os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]
-    else:
-        os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]+";"+os.environ["XBMLANGPATH"]
+    #if os.environ.get('MAYA_PLUG_IN_PATH') == None:
+    #    os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]
+    #else:
+    #    os.environ["XBMLANGPATH"]=os.environ["LIQUID_ICON"]+";"+os.environ["XBMLANGPATH"]
     #
     os.environ["MAYA_LOCATION"] = "C:/Program Files (x86)/Autodesk/Maya2012"
     os.environ["MAYA_PATH2012"] = "C:/Program Files (x86)/Autodesk/Maya2012"

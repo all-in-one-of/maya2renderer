@@ -189,5 +189,8 @@ LIQUID_EXPORT MString getVariableName(const MString &node,const MString &plug);
 //
 LIQUID_EXPORT MString getTextureExt();
 LIQUID_EXPORT bool isTextureTypeSupported(const MString &textureType);
+//
+LIQUID_EXPORT MString getLogFileDir();
+LIQUID_EXPORT MString getLogFileName();
 
 #endif

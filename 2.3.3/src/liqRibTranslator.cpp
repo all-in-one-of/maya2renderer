@@ -1897,7 +1897,7 @@ MStatus liqRibTranslator::doIt()
 			return MS::kFailure;
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->prologue();
-		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog(getLogFileDir()+"/"+getLogFileName());
 	}
 
 	if( canExport() )
@@ -7859,7 +7859,7 @@ void liqRibTranslator::IPRRenderBegin()
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->iprBegin();
 		liquid::RendererMgr::getInstancePtr()->prologue();
-		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog(getLogFileDir()+"/"+getLogFileName());
 	}
 }
 

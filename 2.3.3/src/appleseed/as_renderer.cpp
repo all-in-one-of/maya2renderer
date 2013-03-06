@@ -104,9 +104,9 @@ namespace appleseed
 
 	//	return MS::kSuccess;
 	//}
-	void Renderer::openLog()
+	void Renderer::openLog(const MString &imageFullPath)
 	{
-		CM_TRACE_FUNC("Renderer::openLog()(but do nothing now)");
+		CM_TRACE_FUNC("Renderer::openLog("<<imageFullPath.asChar()<<")(but do nothing now)");
 	}
 	void Renderer::closeLog()
 	{

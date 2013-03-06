@@ -52,7 +52,7 @@ namespace appleseed
 		virtual MStatus renderAll_local(const MString& ribFileName);
 		virtual MStatus renderAll_remote(const MString& ribFileName);
 
-		virtual void openLog();
+		virtual void openLog(const MString &imageFullPath);
 		virtual void closeLog();
 
 		virtual MStatus render(const structJob& currentJob);

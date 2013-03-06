@@ -418,7 +418,7 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 		liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->prologue();
-		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog();
+		liquid::RendererMgr::getInstancePtr()->getRenderer()->openLog(getLogFileDir()+"/"+getLogFileName()+"_preview");
 	}
 
 	// clear shaders
