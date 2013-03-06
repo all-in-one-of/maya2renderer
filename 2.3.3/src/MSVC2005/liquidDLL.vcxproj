@@ -2250,6 +2250,7 @@
     <ClCompile Include="..\liqGetAttr.cpp" />
     <ClCompile Include="..\liqGetSloInfo.cpp" />
     <ClCompile Include="..\liqGlobalHelpers.cpp" />
+    <ClCompile Include="..\liqGlobalHelpers_refactor.cpp" />
     <ClCompile Include="..\liqGlobalNodeRenderer.cpp" />
     <ClCompile Include="..\liqGlobalsNode.cpp" />
     <ClCompile Include="..\liqGlobalVariable.cpp" />
@@ -2324,6 +2325,7 @@
     <ClCompile Include="..\..\..\dependence\trace\trace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\liqGlobalHelpers_refactor.h" />
     <ClInclude Include="..\..\include\liqIPRNodeMessageCmd.h" />
     <ClInclude Include="..\..\include\liqParseString.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />

@@ -295,6 +295,9 @@
     <ClCompile Include="..\liqIPRNodeMessageCmd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqGlobalHelpers_refactor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -583,6 +586,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\liqIPRNodeMessageCmd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\liqGlobalHelpers_refactor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
