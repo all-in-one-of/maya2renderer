@@ -20,13 +20,19 @@
 //float
 //luminance( color i_color );
 
+// Compute the CIE luminance (Rec. 709) of a given color.
+float CIEluminance(color c);
+
+// Compute the square of a given value.
+float sq(float x);
+
 color
 cabs( color i_color );
 
 /* Taken from ARMAN */
 float filteredpulse (float edge0, float edge1, float x, float dx);
 
-/* Taken from ARMAN */
+/* Taken from ARMAN and improved. */
 float filteredpulsetrain (float edge,float period,float x,float dx);
 
 /*

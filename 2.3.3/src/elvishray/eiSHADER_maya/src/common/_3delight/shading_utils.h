@@ -8,6 +8,10 @@
 
 #include <eiAPI/ei_shaderx.h>
 
+//#include "global_illumination.h"//not used for Elvishray
+
+#define NEW_BUMP
+
 #define SQR(i) ( (i) * (i) )
 
 #define GET_CL( CL ) { CL = Cl; }
@@ -394,7 +398,7 @@ void computeSurface(
 //	return reflected * ray_coloration;
 //}
 //
-//void doRefraction(
+//float doRefraction(
 //	normal i_N;
 //	vector i_I;
 //	uniform float i_refractions;

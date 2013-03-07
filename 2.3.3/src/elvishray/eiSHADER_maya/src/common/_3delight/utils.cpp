@@ -15,6 +15,21 @@
 // 		0.11f * i_color.z;
 // }
 
+// Compute the CIE luminance (Rec. 709) of a given color.
+float CIEluminance(color c)
+{
+	return
+	      c.x * 0.212671f
+	    + c.y * 0.715160f
+	    + c.z * 0.072169f;
+}
+
+// Compute the square of a given value.
+float sq(float x)
+{
+	return x * x;
+}
+
 color
 cabs( color i_color )
 {
@@ -30,7 +45,7 @@ float filteredpulse (float edge0, float edge1, float x, float dx)
     return max (0.0f, (min(x1,edge1)-max(x0,edge0)) / dx);
 }
 
-/* Taken from ARMAN */
+/* Taken from ARMAN and improved. */
 	/* Definite integral of normalized pulsetrain from 0 to t */
     float integral (float t, float nedge) { 
         return ((1.0f-nedge)*floor(t) + max(0.0f,t-floor(t)-nedge));
@@ -54,6 +69,14 @@ float filteredpulsetrain (float edge,float period,float x,float dx)
 	else
 	{
     	result = (integral(x1, nedge) - integral(x0, nedge)) / w;
+
+		/*
+			The above integral is subject to its own aliasing as we go beyond
+			where the pattern should be extinct. We try to avoid that by
+			switching to a constant value.
+		*/
+		float extinct = smoothstep( 0.4f, 0.5f, w );
+		result = result + extinct * (1.0f - nedge - result);
 	}
 
 	return result;
