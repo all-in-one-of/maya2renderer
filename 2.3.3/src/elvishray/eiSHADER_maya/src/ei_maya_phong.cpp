@@ -38,60 +38,38 @@
 
 
 SURFACE(maya_phong)
-	//Common Material Attributes
-	PARAM(color, color_);
-	PARAM(color, transparency);
-	PARAM(color, ambientColor);
-	PARAM(color, incandescence);
-	PARAM(normal, normalCamera);//bump
-	PARAM(scalar,diffuse);//
-	PARAM(scalar,translucence);//
-	PARAM(scalar,translucenceDepth);//
-	PARAM(scalar,translucenceFocus);//
-	//Specular Shading
-	PARAM(scalar,cosinePower);//
-	PARAM(color, specularColor);
-	PARAM(scalar,reflectivity);
-	PARAM(color, reflectedColor);
-	//Matte Opacity
-	PARAM(eiIndex,matteOpacityMode);
-	PARAM(scalar, matteOpacity);
-	//Raytrace Options
-	PARAM(eiIndex,reflectionLimit);
-	//output
-	PARAM(color, outColor);
-	PARAM(color, outTransparency);
+	DECLARE;
+	DECLARE_COLOR(	color_,						0.5f, 0.5f, 0.5f); //Common Material Attributes - begin
+	DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f); 
+	DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 1.0f); //bump
+	DECLARE_SCALAR(	diffuse,					0.8f);
+	DECLARE_SCALAR(	translucence,				0.0f); 
+	DECLARE_SCALAR(	translucenceDepth,			0.5f); 
+	DECLARE_SCALAR(	translucenceFocus,			0.5f); 
+	DECLARE_SCALAR(	cosinePower,				20.0f);				//Specular Shading - begin
+	DECLARE_COLOR(	specularColor,				0.5f, 0.5f, 0.5f);
+	DECLARE_SCALAR(	reflectivity,				0.5f);
+	DECLARE_COLOR(	reflectedColor,				0.0f, 0.0f, 0.0f);
+	DECLARE_INDEX( matteOpacityMode,			2);					//Matte Opacity - begin
+	DECLARE_SCALAR(	matteOpacity,				1.0f);
+	DECLARE_INDEX( reflectionLimit,				1);					//Raytrace Options - begin
+	DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f);	//output - begin
+	DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f);
+	END_DECLARE;
 
+	static void init()	{}
+	static void exit()	{}
 
-	void parameters(int pid)
+	void init_node()
 	{
-		//Common Material Attributes
-		DECLARE_COLOR(	color_,						0.5f, 0.5f, 0.5f); 
-		DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
-		DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
-		DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f); 
-		DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 0.0f); 
-		DECLARE_SCALAR(	diffuse,					0.8f);
-		DECLARE_SCALAR(	translucence,				0.0f); 
-		DECLARE_SCALAR(	translucenceDepth,			0.5f); 
-		DECLARE_SCALAR(	translucenceFocus,			0.5f); 
-		//Specular Shading
-		DECLARE_SCALAR(	cosinePower,				20.0f);
-		DECLARE_COLOR(	specularColor,				0.5f, 0.5f, 0.5f);
-		DECLARE_SCALAR(	reflectivity,				0.5f);
-		DECLARE_COLOR(	reflectedColor,				0.0f, 0.0f, 0.0f);
-		//Matte Opacity
-		DECLARE_INDEX( matteOpacityMode,			2);
-		DECLARE_SCALAR(	matteOpacity,				1.0f);
-		//Raytrace Options
-		DECLARE_INDEX( reflectionLimit,				1);
-		//output
-		DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f);
-		DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f);
-
 	}
-	void init()	{}
-	void exit()	{}
+
+	void exit_node()
+	{
+	}
+
 	color specularbrdf(const vector & vL, const normal & vN, const vector & V, scalar roughness)
 	{
 		vector	H = normalize(vL + V);
@@ -106,75 +84,75 @@ SURFACE(maya_phong)
 		main2(arg);
 
 	}
-	void main1(void *arg)
-	{
-		color Kd = color(diffuse(), diffuse(), diffuse());
+	//void main1(void *arg)
+	//{
+	//	color Kd = color(diffuse(), diffuse(), diffuse());
 
-		normal Nf = faceforward(normalize(N()), I());
-		vector V = -normalize(I());
+	//	normal Nf = faceforward(normalize(N()), I());
+	//	vector V = -normalize(I());
 
-		while (illuminance(P(), Nf, PI / 2.0f))
-		{
-			color	C = 0.0f;
-			color	last = 0.0f;
-			int		num_samples = 0;
+	//	while (illuminance(P(), Nf, PI / 2.0f))
+	//	{
+	//		color	C = 0.0f;
+	//		color	last = 0.0f;
+	//		int		num_samples = 0;
 
-			while (sample_light())
-			{
-				C += Cl() * (
-					color_() * Kd * (normalize(L()) % Nf) 
-					+ cosinePower() * specularColor() * specularbrdf(normalize(L()), Nf, V, 0.1f/*roughness()*/)
-					);
+	//		while (sample_light())
+	//		{
+	//			C += Cl() * (
+	//				color_() * Kd * (normalize(L()) % Nf) 
+	//				+ cosinePower() * specularColor() * specularbrdf(normalize(L()), Nf, V, 0.1f/*roughness()*/)
+	//				);
 
-				++ num_samples;
+	//			++ num_samples;
 
-				if ((num_samples % 4) == 0)
-				{
-					color	current = C * (1.0f / (scalar)num_samples);
+	//			if ((num_samples % 4) == 0)
+	//			{
+	//				color	current = C * (1.0f / (scalar)num_samples);
 
-					if (converged(current, last)){
-						break;
-					}
-					last = current;
-				}
-			}
+	//				if (converged(current, last)){
+	//					break;
+	//				}
+	//				last = current;
+	//			}
+	//		}
 
-			C *= (1.0f / (scalar)num_samples);
-			Ci() += C;
-		}
+	//		C *= (1.0f / (scalar)num_samples);
+	//		Ci() += C;
+	//	}
 
-		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
-		{//transparent
-			Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
-		}//else{ opacity }
-		setOutputForMaya();
-	}
-	void main1_3(void *arg)
-	{
-		color Kd = color(diffuse(), diffuse(), diffuse());
+	//	if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+	//	{//transparent
+	//		Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+	//	}//else{ opacity }
+	//	setOutputForMaya();
+	//}
+	//void main1_3(void *arg)
+	//{
+	//	color Kd = color(diffuse(), diffuse(), diffuse());
 
-		normal Nf = faceforward(normalize(N()), I());
-		vector V = -normalize(I());
+	//	normal Nf = faceforward(normalize(N()), I());
+	//	vector V = -normalize(I());
 
-		while (illuminance(P(), Nf, PI / 2.0f))
-		{
-			color C = 0.0f;
-			SAMPLE_LIGHT_2(color, C, 0.0f,
-				C += Cl() * (
-					color_() * Kd * (normalize(L()) % Nf) 
-					+ cosinePower() * specularColor() * specularbrdf(normalize(L()), Nf, V, 0.1f/*roughness()*/)
-					)
-				);
+	//	while (illuminance(P(), Nf, PI / 2.0f))
+	//	{
+	//		color C = 0.0f;
+	//		SAMPLE_LIGHT_2(color, C, 0.0f,
+	//			C += Cl() * (
+	//				color_() * Kd * (normalize(L()) % Nf) 
+	//				+ cosinePower() * specularColor() * specularbrdf(normalize(L()), Nf, V, 0.1f/*roughness()*/)
+	//				)
+	//			);
 
-			Ci() += C;
-		}
+	//		Ci() += C;
+	//	}
 
-		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
-		{//transparent
-			Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
-		}//else{ opacity }
-		setOutputForMaya();
-	}
+	//	if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+	//	{//transparent
+	//		Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+	//	}//else{ opacity }
+	//	setOutputForMaya();
+	//}
 	//////////////////////////////////////////////////////////////////////////
 	normal ShadingNormal(const normal& i_N)
 	{
@@ -183,7 +161,7 @@ SURFACE(maya_phong)
 		//const int sides = 2;
 		if( true/*sides == 2*/ )
 		{
-			Nf = faceforward(Nf, I());
+			Nf = faceforward(Nf, I);
 		}
 		return Nf;
 	}
@@ -193,12 +171,15 @@ SURFACE(maya_phong)
 		const eiBool unshadowed )
 	{
 		eiBool isKeyLight = eiTRUE;
-		color C = 0;
+		color C = 0.0f;
 
-		while ( illuminance( P(), i_N, PI/2.0f ) )
+		LightSampler	sampler;
+
+		while ( illuminance(sampler, P, i_N, PI/2.0f ) )
 		{
 			//if( keyLightsOnly != eiFALSE )
 			//{
+			//	isKeyLight = eiFALSE;
 			//	lightsource( "iskeylight", isKeyLight );
 			//}
 			if( isKeyLight != eiFALSE )
@@ -208,9 +189,14 @@ SURFACE(maya_phong)
 
 				if( nondiffuse < 1.0f )
 				{
-					SAMPLE_LIGHT_2(color, C, 0.0f,
-						C += Cl() * (normalize(L()) % i_N) * (1.0f-nondiffuse)						
-					);
+					//SAMPLE_LIGHT_2(color, C, 0.0f,
+					//	C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse)						
+					//);
+					while (sample_light())
+					{
+						C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse);
+					}
+					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
 		}
@@ -223,10 +209,11 @@ SURFACE(maya_phong)
 		const normal& i_N, const vector& i_V, const float cosinePower, 
 		const eiBool i_keyLightsOnly, const eiBool unshadowed)
 	{
-		color C = 0;
+		color C = 0.0f;
 		vector R = reflect( normalize(i_V), normalize(i_N) );
+		LightSampler	sampler;
 
-		while( illuminance( P(), i_N, PI/2.0f ) )
+		while( illuminance(sampler, P, i_N, PI/2.0f ) )
 		{
 			float isKeyLight = 1;
 			//if( i_keyLightsOnly != 0 )
@@ -239,45 +226,50 @@ SURFACE(maya_phong)
 				//lightsource( "__nonspecular", nonspecular );
 				if( nonspecular < 1 )
 				{
-					vector Ln = normalize(L());
-					SAMPLE_LIGHT_2(color, C, 0.0f,
-						C += Cl()*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
-					);
+					//SAMPLE_LIGHT_2(color, C, 0.0f,
+					//	C += Cl()*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
+					//);
+					while (sample_light())
+					{
+						vector Ln = normalize(L);
+						C += Cl*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
+					}
+					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
 		}
 		return C;
 	}
-	color getPhong2(
-		const vector& i_N, const vector& i_V, const float cosinePower, 
-		const eiBool i_keyLightsOnly, const eiBool unshadowed)
-	{
-		color C  = 0.0f;
-		vector R = reflect( normalize(i_V), normalize(i_N) );
-		vector H = normalize(normalize(L()) + i_V);
+	//color getPhong2(
+	//	const vector& i_N, const vector& i_V, const float cosinePower, 
+	//	const eiBool i_keyLightsOnly, const eiBool unshadowed)
+	//{
+	//	color C  = 0.0f;
+	//	vector R = reflect( normalize(i_V), normalize(i_N) );
+	//	vector H = normalize(normalize(L()) + i_V);
 
-		while( illuminance( P(), i_N, PI/2.0f ) )
-		{
-			const eiBool isKeyLight = eiTRUE;
-			//if( i_keyLightsOnly != 0 )
-			//{
-			//	lightsource( "iskeylight", isKeyLight );
-			//}
-			if( isKeyLight != eiFALSE )
-			{
-				const float nonspecular = 0.0f;
-				//lightsource( "__nonspecular", nonspecular );
-				if( nonspecular < 1.0f )
-				{
-					vector Ln = normalize(L());
-					SAMPLE_LIGHT_2(color, C, 0.0f,
-						C += Cl()*pow(max<float>(0.0f,i_N%H),cosinePower)*(1.0f-nonspecular);
-					);
-				}
-			}
-		}
-		return C;
-	}
+	//	while( illuminance( P(), i_N, PI/2.0f ) )
+	//	{
+	//		const eiBool isKeyLight = eiTRUE;
+	//		//if( i_keyLightsOnly != 0 )
+	//		//{
+	//		//	lightsource( "iskeylight", isKeyLight );
+	//		//}
+	//		if( isKeyLight != eiFALSE )
+	//		{
+	//			const float nonspecular = 0.0f;
+	//			//lightsource( "__nonspecular", nonspecular );
+	//			if( nonspecular < 1.0f )
+	//			{
+	//				vector Ln = normalize(L());
+	//				SAMPLE_LIGHT_2(color, C, 0.0f,
+	//					C += Cl()*pow(max<float>(0.0f,i_N%H),cosinePower)*(1.0f-nonspecular);
+	//				);
+	//			}
+	//		}
+	//	}
+	//	return C;
+	//}
 	color getTranslucence(const normal& i_N, 
 		const float i_translucence,
 		const float i_translucenceDepth,
@@ -290,21 +282,31 @@ SURFACE(maya_phong)
 		float focus = min( i_translucenceFocus, 0.99999f );
 		color C = 0.0f;
 
+		LightSampler	sampler;
+
 		if( i_translucence > 0.0f )
 		{
-			while( illuminance( P() ) )
+			while( illuminance(sampler, P ) )
 			{
 				float nondiffuse = 0.0f;
 				//lightsource( "__nondiffuse", nondiffuse );
 
 				if( nondiffuse < 1.0f )
 				{
-					SAMPLE_LIGHT_2(color, C, 0.0f,
-						float costheta = normalize(L()) % normalize(I());
+					//SAMPLE_LIGHT_2(color, C, 0.0f,
+					//	float costheta = normalize(L()) % normalize(I());
+					//	float a = (1.0f + costheta) * 0.5f;
+					//	float trs = pow( pow(a, focus), 1.0f/(1.0f-focus) );
+					//	C += Cl() * trs * (1.0f-nondiffuse);
+					//);
+					while (sample_light())
+					{
+						float costheta = normalize(L) % normalize(I);
 						float a = (1.0f + costheta) * 0.5f;
 						float trs = pow( pow(a, focus), 1.0f/(1.0f-focus) );
-						C += Cl() * trs * (1.0f-nondiffuse);
-					);
+						C += Cl * trs * (1.0f-nondiffuse);
+					}
+					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
 		}
@@ -345,10 +347,10 @@ SURFACE(maya_phong)
 	}
 	void main2(void *arg)
 	{
-		color Kd = color(diffuse(), diffuse(), diffuse());
+		color Kd = diffuse();
 
-		vector In = normalize( I() );
-		normal Nn = normalize( normalCamera() );
+		vector In = normalize( I );
+		normal Nn = normalize( N );
 		normal Nf = ShadingNormal(Nn);
 		
 		vector V = -In;
@@ -367,15 +369,15 @@ SURFACE(maya_phong)
  			reflectionLimit() );
 
 		//outColor() = color_()  * Ci();
-		Ci() = color_();
-		Oi() = transparency();	
+		out->Ci = color_();
+		out->Oi = transparency();	
 		computeSurface(
-			Ci(),//outColor(),
-			Oi(),//transparency(),
+			out->Ci,//outColor(),
+			out->Oi,//transparency(),
 			matteOpacityMode(),
 			matteOpacity(),
-			Ci(),//outColor(),
-			Oi()//outTransparency()
+			out->Ci,//outColor(),
+			out->Oi//outTransparency()
 		);
 
 
@@ -392,12 +394,12 @@ SURFACE(maya_phong)
 		//	refraction );
 
 		//Ci() += Kd * irradiance();
-		Ci() *= (Cdiffuse + Cambient + Ctransl);
-		Ci() += Creflect +  Cspecular + incandescence() + refraction;
+		out->Ci *= (Cdiffuse + Cambient + Ctransl);
+		out->Ci += Creflect +  Cspecular + incandescence() + refraction;
 
 		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
 		{//transparent
-			Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 		}//else{ opacity }
 
 		//computeShadowPass(Nf);
@@ -406,8 +408,8 @@ SURFACE(maya_phong)
 	}
 	void setOutputForMaya()
 	{
-		outColor() = Ci();
-		outTransparency() = Oi();
+		outColor() = out->Ci;
+		outTransparency() = out->Oi;
 	}
 
 END(maya_phong)
