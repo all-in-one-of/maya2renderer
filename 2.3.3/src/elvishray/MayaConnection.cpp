@@ -417,17 +417,6 @@ static void maya_connection_update_tile(
 		frameBuffers, left, right, top, bottom);
 }
 
-static void maya_connection_draw_pixel(
-									  eiConnection *connection, 
-									  const eiInt x, 
-									  const eiInt y, 
-									  const eiVector *color)
-{
-	MayaConnection *con = ((eiMayaConnection *)connection)->object;
-
-	con->DrawPixel(x, y, color);
-}
-
 static void maya_connection_update_sub_window(
 	eiConnection *connection, 
 	const eiInt left, 
@@ -448,7 +437,6 @@ void MayaConnection::setConnection()
 	connection.base.progress = maya_connection_progress;
 	connection.base.clear_tile = maya_connection_clear_tile;
 	connection.base.update_tile = maya_connection_update_tile;
-	connection.base.draw_pixel = maya_connection_draw_pixel;
 	connection.base.update_sub_window = maya_connection_update_sub_window;
 
 }
