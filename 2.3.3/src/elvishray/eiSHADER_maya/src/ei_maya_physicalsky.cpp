@@ -22,6 +22,7 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
+#include <eiCORE/ei_fast_sincos.h>
 
 // Borrowed the idea from mia_physicalsky, but need to be improved.
 //
@@ -36,15 +37,15 @@ static scalar get_sun_intensity(
 	scalar   sun_glow_falloff)
 {
 	sun_disk_size *= 0.0465f;
-	sun_glow_size *= 0.0465f;;
+	sun_glow_size *= 0.0465f;
 	scalar sun_total_size = sun_disk_size + sun_glow_size;
 
 	scalar intensity = 1;
-	scalar gamma = acosf(dot(ray_dir, sun_dir));
+	scalar gamma = q_acos(dot(ray_dir, sun_dir));
 	if (gamma < sun_total_size)
 	{
 		scalar r = 1 - gamma / sun_total_size;
-		intensity += sun_disk_intensity * smoothstep(0, haze * 2, r) + sun_glow_intensity * powf(r, sun_glow_falloff * haze);
+		intensity += sun_disk_intensity * smoothstep(0, haze * 2, r) + sun_glow_intensity * fastpow(r, sun_glow_falloff * haze);
 		if (gamma < sun_disk_size)
 		{
 			intensity += sun_disk_intensity;
@@ -70,17 +71,17 @@ static scalar get_sky_luminance(
 	{
 		cos_gamma = 2 - cos_gamma;
 	}
-	scalar gamma         = acos(cos_gamma);
+	scalar gamma         = q_acos(cos_gamma);
 	scalar cos_theta     = ray_dir.y;
 	scalar cos_theta_sun = sun_dir.y;
-	scalar theta_sun     = acos(cos_theta_sun);
+	scalar theta_sun     = q_acos(cos_theta_sun);
 
 	scalar a =   0.178721f * t - 1.463037f;
 	scalar b = - 0.355402f * t + 0.427494f;
 	scalar c = - 0.022669f * t + 5.325056f;
 	scalar d =   0.120647f * t - 2.577052f;
 	scalar e = - 0.066967f * t + 0.370275f;
-	scalar ratio = ((1 + a * expf(b / cos_theta)) * ((1 + c * expf(d * gamma)) + (e * cos_gamma) * cos_gamma)) / ((1 + a * expf(b / 1)) * ((1 + c * expf(d * theta_sun)) + (e * cos_theta_sun) * cos_theta_sun));
+	scalar ratio = ((1 + a * fastexp(b / cos_theta)) * ((1 + c * fastexp(d * gamma)) + (e * cos_gamma) * cos_gamma)) / ((1 + a * fastexp(b / 1)) * ((1 + c * fastexp(d * theta_sun)) + (e * cos_theta_sun) * cos_theta_sun));
 	return ratio;
 }
 
@@ -98,14 +99,14 @@ static color get_haze_driven_sky_color(
 	{
 		cos_gamma = 2 - cos_gamma;
 	}
-	scalar gamma = acos(cos_gamma);
+	scalar gamma = q_acos(cos_gamma);
 
 	scalar cos_theta     = ray_dir.y;
 	scalar cos_theta_sun = sun_dir.y;
 
 	scalar t2 = t * t;
 
-	scalar theta_sun  = acos(cos_theta_sun);
+	scalar theta_sun  = q_acos(cos_theta_sun);
 	scalar theta_sun2 = theta_sun * theta_sun;
 	scalar theta_sun3 = theta_sun * theta_sun2;
 
@@ -113,26 +114,26 @@ static color get_haze_driven_sky_color(
 	scalar zenith_y = ((((0.002759f * theta_sun3 - 0.006105f * theta_sun2) + 0.003162f * theta_sun) + 0) * t2 + (((-0.042149f * theta_sun3 + 0.089701f * theta_sun2) - 0.041536f * theta_sun) + 0.005158f) * t) + (((+0.153467f * theta_sun3 - 0.267568f * theta_sun2) + 0.066698f * theta_sun) + 0.266881f);
 
 	scalar chi = (4.0f / 9.0f - t / 120.0f) * (static_cast<scalar>(eiPI) - 2 * theta_sun);
-	scalar zenith_Y = ((1000 * (4.0453f * t - 4.9710f)) * tanf(chi) - 0.2155f * t) + 2.4192f;
+	scalar zenith_Y = ((1000 * (4.0453f * t - 4.9710f)) * fastertanfull(chi) - 0.2155f * t) + 2.4192f;
 	zenith_Y *= get_sky_luminance(ray_dir, sun_dir, t);
 
 	//
 	scalar a, b, c, d, e;
-	a = - 0.019257f * t - (0.29f - powf(cos_theta_sun, 0.5f) * 0.09f);
+	a = - 0.019257f * t - (0.29f - Fast_sqrt(cos_theta_sun) * 0.09f);
 	b = - 0.066513f * t + 0.000818f;
 	c = - 0.000417f * t + 0.212479f;
 	d = - 0.064097f * t - 0.898875f;
 	e = - 0.003251f * t + 0.045178f;
-	scalar ratio_x = ((1 + a * expf(b / cos_theta)) * (1 + c * expf(d * gamma) + e * cos_gamma * cos_gamma)) /
-	                  ((1 + a * expf(b)) * (1 + c * expf(d * theta_sun) + e * cos_theta_sun * cos_theta_sun));
+	scalar ratio_x = ((1 + a * fastexp(b / cos_theta)) * (1 + c * fastexp(d * gamma) + e * cos_gamma * cos_gamma)) /
+	                  ((1 + a * fastexp(b)) * (1 + c * fastexp(d * theta_sun) + e * cos_theta_sun * cos_theta_sun));
 
 	a = - 0.016698f * t - 0.260787f;
 	b = - 0.094958f * t + 0.009213f;
 	c = - 0.007928f * t + 0.210230f;
 	d = - 0.044050f * t - 1.653694f;
 	e = - 0.010922f * t + 0.052919f;
-	scalar ratio_y = ((1 + a * expf(b / cos_theta)) * (1 + c * expf(d * gamma) + e * cos_gamma * cos_gamma)) /
-	                  ((1 + a * exp(b)) * (1 + c * expf(d * theta_sun) + e * cos_theta_sun * cos_theta_sun));
+	scalar ratio_y = ((1 + a * fastexp(b / cos_theta)) * (1 + c * fastexp(d * gamma) + e * cos_gamma * cos_gamma)) /
+	                  ((1 + a * fastexp(b)) * (1 + c * fastexp(d * theta_sun) + e * cos_theta_sun * cos_theta_sun));
 	scalar chromaticity_x = zenith_x * ratio_x;
 	scalar chromaticity_y = zenith_y * ratio_y;
 
@@ -163,26 +164,26 @@ static color get_cie_standard_sky_color(
 	scalar   e)
 {
 	eiVector2 ray_pos;
-	ray_pos.x =  acosf(ray_dir.y);
-	ray_pos.y = atan2f(ray_dir.z, ray_dir.x);
+	ray_pos.x = q_acos(ray_dir.y);
+	ray_pos.y = q_atan2(ray_dir.z, ray_dir.x);
 
 	eiVector2 sun_pos;
-	sun_pos.x =  acosf(sun_dir.y);
-	sun_pos.y = atan2f(sun_dir.z, sun_dir.x);
+	sun_pos.x = q_acos(sun_dir.y);
+	sun_pos.y = q_atan2(sun_dir.z, sun_dir.x);
 
-	scalar cos_z_sun = cosf(sun_pos.x);
-	scalar cos_z = cosf(ray_pos.x);
-	scalar sin_z_sun = sinf(sun_pos.x);
-	scalar sin_z = sinf(ray_pos.x);
+	scalar cos_z_sun = fastercosfull(sun_pos.x);
+	scalar cos_z = fastercosfull(ray_pos.x);
+	scalar sin_z_sun = fastersinfull(sun_pos.x);
+	scalar sin_z = fastersinfull(ray_pos.x);
 
-	scalar chi = acosf(cos_z_sun * cos_z + sin_z_sun * sin_z * cosf(fabs(ray_pos.y - sun_pos.y)));
-	scalar cos_chi = cosf(chi);
+	scalar chi = q_acos(cos_z_sun * cos_z + sin_z_sun * sin_z * fastercosfull(absf(ray_pos.y - sun_pos.y)));
+	scalar cos_chi = fastercosfull(chi);
 
-	static const scalar pi_over_2 = static_cast<scalar>(eiPI / 2.0f);
-	scalar f_chi   = 1 + c * (expf(d * chi) - expf(d * pi_over_2)) + e * cos_chi * cos_chi;
-	scalar phi_z   = 1 + a * expf(b / cos_z);
-	scalar f_z_sun = 1 + c * (expf(d * sun_pos.x) - expf(d * pi_over_2)) + e * cos_z_sun * cos_z_sun;
-	scalar phi_0   = 1 + a * expf(b);
+	const scalar pi_over_2 = static_cast<scalar>(eiPI / 2.0f);
+	scalar f_chi   = 1 + c * (fastexp(d * chi) - fastexp(d * pi_over_2)) + e * cos_chi * cos_chi;
+	scalar phi_z   = 1 + a * fastexp(b / cos_z);
+	scalar f_z_sun = 1 + c * (fastexp(d * sun_pos.x) - fastexp(d * pi_over_2)) + e * cos_z_sun * cos_z_sun;
+	scalar phi_0   = 1 + a * fastexp(b);
 	scalar ratio   = (f_chi * phi_z) / (f_z_sun * phi_0);
 
 	color ray_color = zenith_color * ratio;
@@ -259,7 +260,7 @@ ENVIRONMENT(maya_physicalsky)
 	void main(void *arg)
 	{
 		if ((visibility_to_camera() == eiFALSE) &&
-			(ray_type == eiRAY_EYE))
+			(ray_type == EI_RAY_EYE))
 		{
 			return;
 		}
