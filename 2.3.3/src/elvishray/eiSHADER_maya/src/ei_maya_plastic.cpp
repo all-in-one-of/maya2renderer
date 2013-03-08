@@ -16,129 +16,114 @@
 #include <eiAPI/ei_shaderx.h>
 
 SURFACE(maya_lambert)
+	DECLARE;
+	DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(Ks, 0.5f);
+	DECLARE_SCALAR(roughness, 0.1f);
+	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
+	DECLARE_TAG(Cs_tex, eiNULL_TAG);
+	END_DECLARE;
 
-	PARAM(color, Cs);
-	PARAM(color, Kd);
-	PARAM(scalar, Ks);
-	PARAM(scalar, roughness);
-	PARAM(color, specularcolor);
-	PARAM(eiTag, Cs_tex);
-
-	void parameters(int pid)
+	static void init()
 	{
-		DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
-		DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
-		DECLARE_SCALAR(Ks, 0.5f);
-		DECLARE_SCALAR(roughness, 0.1f);
-		DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
-		DECLARE_TAG(Cs_tex, eiNULL_TAG);
+	}
+
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
+	{
 	}
 
 	color specularbrdf(const vector & vL, const normal & vN, const vector & V, scalar roughness)
 	{
 		vector	H = normalize(vL + V);
 		scalar	dotNH = vN % H;
-		return pow(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
-	}
-
-	void init()
-	{
-	}
-
-	void exit()
-	{
+		return powf(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
 	}
 
 	void main(void *arg)
 	{
-		normal Nf = faceforward(normalize(N()), I());
-		vector V = -normalize(I());
+		vector V = -normalize(I);
 
-		Ci() = 0.0f;
+		out->Ci = 0.0f;
 
 		eiTag tex = Cs_tex();
 
 		if (tex != eiNULL_TAG)
 		{
-			Cs() = color_texture(tex, 0, get_state()->bary.x, get_state()->bary.y);
+			Cs() = color_texture(tex, 0, bary.x, bary.y);
 		}
-		
-		while (illuminance(P(), Nf, PI / 2.0f))
+
+		color kd = Cs() * Kd();
+		color ks = Ks() * specularcolor();
+		scalar rough = roughness();
+
+		LightSampler	sampler;
+
+		while (illuminance(sampler, P, N, PI / 2.0f))
 		{
-			color	lastC = 0.0f;
-			color	localC = 0.0f;
-			int		num_samples = 0;
+			color	sum = 0.0f;
 			
 			while (sample_light())
 			{
-				localC += Cl() * (
-					Cs() * Kd() * (normalize(L()) % Nf) 
-					+ Ks() * specularcolor() * specularbrdf(normalize(L()), Nf, V, roughness()));
-
-				++ num_samples;
-				
-				if ((num_samples % 4) == 0)
-				{
-					color	thisC = localC * (1.0f / (scalar)num_samples);
-					
-					if (converged(thisC, lastC))
-					{
-						break;
-					}
-
-					lastC = thisC;
-				}
+				sum += Cl * (
+					kd * (normalize(L) % N) 
+					+ ks * specularbrdf(normalize(L), N, V, rough));
 			}
 
-			localC *= (1.0f / (scalar)num_samples);
-			Ci() += localC;
+			out->Ci += sum * (1.0f / (scalar)light_sample_count());
 		}
 
-		Oi() = color(1.0f);
+		out->Oi = color(1.0f);
 	}
 
 END(maya_lambert)
 
 SURFACE(maya_lambert_uv)
-
-	PARAM(color, Cs);
-	PARAM(color, Kd);
-	PARAM(scalar, Ks);
-	PARAM(scalar, roughness);
-	PARAM(color, specularcolor);
-	PARAM(eiTag, Cs_tex);
-
-	void parameters(int pid)
-	{
-		DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
-		DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
-		DECLARE_SCALAR(Ks, 0.5f);
-		DECLARE_SCALAR(roughness, 0.1f);
-		DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
-		DECLARE_TAG(Cs_tex, eiNULL_TAG);
-	}
+	DECLARE;
+	DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(Ks, 0.5f);
+	DECLARE_SCALAR(roughness, 0.1f);
+	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
+	DECLARE_TAG(Cs_tex, eiNULL_TAG);
+	END_DECLARE;
 
 	color specularbrdf(const vector & vL, const normal & vN, const vector & V, scalar roughness)
 	{
 		vector	H = normalize(vL + V);
 		scalar	dotNH = vN % H;
-		return pow(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
+		return powf(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
 	}
 
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
 	void main(void *arg)
 	{
-		normal Nf = faceforward(normalize(N()), I());
-		vector V = -normalize(I());
+		vector V = -normalize(I);
 
-		Ci() = 0.0f;
+		out->Ci = 0.0f;
 
 		eiTag tex = Cs_tex();
 
@@ -146,11 +131,12 @@ SURFACE(maya_lambert_uv)
 		{
 			const scalar tiling = 4.0f;
 
-			scalar s = fmodf(u() * tiling, 1.0f);
-			scalar t = fmodf(v() * tiling, 1.0f);
-			scalar dsdx, dsdy, dtdx, dtdy;
-			Dxy(u, dsdx, dsdy);
-			Dxy(v, dtdx, dtdy);
+			scalar s = fmod1(u * tiling);
+			scalar t = fmod1(v * tiling);
+			scalar dsdx = Dx(u);
+			scalar dsdy = Dy(u);
+			scalar dtdx = Dx(v);
+			scalar dtdy = Dy(v);
 			dsdx = dsdx * tiling;
 			dsdy = dsdy * tiling;
 			dtdx = dtdx * tiling;
@@ -168,132 +154,111 @@ SURFACE(maya_lambert_uv)
 				Cs() = color(0.0f, 0.0f, absf(dsdy));
 			}*/
 		}
-		
-		while (illuminance(P(), Nf, PI / 2.0f))
+
+		color kd = Cs() * Kd();
+		color ks = Ks() * specularcolor();
+		scalar rough = roughness();
+
+		LightSampler	sampler;
+
+		while (illuminance(sampler, P, N, PI / 2.0f))
 		{
-			color	lastC = 0.0f;
-			color	localC = 0.0f;
-			int		num_samples = 0;
+			color	sum = 0.0f;
 			
 			while (sample_light())
 			{
-				localC += Cl() * (
-					Cs() * Kd() * (normalize(L()) % Nf) 
-					+ Ks() * specularcolor() * specularbrdf(normalize(L()), Nf, V, roughness()));
-
-				++ num_samples;
-				
-				if ((num_samples % 4) == 0)
-				{
-					color	thisC = localC * (1.0f / (scalar)num_samples);
-					
-					if (converged(thisC, lastC))
-					{
-						break;
-					}
-
-					lastC = thisC;
-				}
+				sum += Cl * (
+					kd * (normalize(L) % N) 
+					+ ks * specularbrdf(normalize(L), N, V, rough));
 			}
 
-			localC *= (1.0f / (scalar)num_samples);
-			Ci() += localC;
+			out->Ci += sum * (1.0f / (scalar)light_sample_count());
 		}
 
-		Oi() = color(1.0f);
+		out->Oi = color(1.0f);
 	}
 
 END(maya_lambert_uv)
 
 SURFACE(simple_hair)
+	DECLARE;
+	DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(Ks, 0.5f);
+	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(specularpower, 60.0f);
+	END_DECLARE;
 
-	PARAM(color, Cs);
-	PARAM(color, Kd);
-	PARAM(scalar, Ks);
-	PARAM(color, specularcolor);
-	PARAM(scalar, specularpower);
-
-	void parameters(int pid)
-	{
-		DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
-		DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
-		DECLARE_SCALAR(Ks, 0.5f);
-		DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
-		DECLARE_SCALAR(specularpower, 60.0f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
 	void main(void *arg)
 	{
-		normal Nf = faceforward(normalize(N()), I());
-		vector V = -normalize(I());
+		vector V = -normalize(I);
 
-		Ci() = 0.0f;
-		vector tangent = normalize(dPdu());
-		
-		while (illuminance(P(), Nf, PI))
+		out->Ci = 0.0f;
+		vector tangent = normalize(dPdu);
+		scalar spec_n = specularpower();
+		color kd = Kd();
+		color ks = Ks() * specularcolor();
+
+		LightSampler	sampler;
+
+		while (illuminance(sampler, P, N, PI))
 		{
-			color	lastC = 0.0f;
-			color	localC = 0.0f;
-			int		num_samples = 0;
+			color	sum = 0.0f;
 			
 			while (sample_light())
 			{
-				vector lightVector = normalize(L());
-				scalar diff = sin(acos(tangent % lightVector));
-				scalar spec = pow((tangent % lightVector) * (tangent % V) 
-					+ sin(acos(lightVector % tangent)) * sin(acos(tangent % V)), specularpower());
+				vector lightVector = normalize(L);
+				scalar diff = sinf(acosf(tangent % lightVector));
+				scalar spec = powf((tangent % lightVector) * (tangent % V) 
+					+ sinf(acosf(lightVector % tangent)) * sinf(acosf(tangent % V)), spec_n);
 
-				localC += Cl() * (Kd() * diff + Ks() * specularcolor() * spec);
-
-				++ num_samples;
-				
-				if ((num_samples % 4) == 0)
-				{
-					color	thisC = localC * (1.0f / (scalar)num_samples);
-					
-					if (converged(thisC, lastC))
-					{
-						break;
-					}
-
-					lastC = thisC;
-				}
+				sum += Cl * (kd * diff + ks * spec);
 			}
 
-			localC *= (1.0f / (scalar)num_samples);
-			Ci() += localC;
+			out->Ci += sum * (1.0f / (scalar)light_sample_count());
 		}
 
-		Ci() *= Cs();
-		Oi() = color(1.0f);
+		out->Ci *= Cs();
+		out->Oi = color(1.0f);
 	}
 
 END(simple_hair)
 
 DISPLACEMENT(simple_displace)
+	DECLARE;
+	DECLARE_TAG(disp_tex, eiNULL_TAG);
+	DECLARE_SCALAR(disp_dist, 1.0f);
+	END_DECLARE;
 
-	PARAM(eiTag, disp_tex);
-	PARAM(scalar, disp_dist);
-
-	void parameters(int pid)
-	{
-		DECLARE_TAG(disp_tex, eiNULL_TAG);
-		DECLARE_SCALAR(disp_dist, 1.0f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
@@ -305,34 +270,41 @@ DISPLACEMENT(simple_displace)
 
 		//if (tex != eiNULL_TAG)
 		//{
-			//offset = scalar_texture(tex, 0, get_state()->bary.x, get_state()->bary.y);
+		//offset = scalar_texture(tex, 0, bary.x, bary.y);
 		//}
 
-		//P() = P() + dist * offset * N();
-		P() = P() + dist * noise(P());
+		//P = P + dist * offset * N;
+		P = P + dist * noise(P);
 	}
 
 END(simple_displace)
 
 
 SURFACE(maya_lambert_transparent)
-	PARAM(color, Cs);//color 
-	PARAM(color, Kd);//diffuse float
-	PARAM(scalar, Ks);//specular float(Cosine Power)
-	PARAM(scalar, roughness);
-	PARAM(color, specularcolor);//specular color
-	PARAM(scalar, transparency);//transparency
-	PARAM(eiTag, Cs_tex);
+	DECLARE;
+	DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(Ks, 0.5f);
+	DECLARE_SCALAR(roughness, 0.1f);
+	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(transparency, 0.5f);
+	DECLARE_TAG(Cs_tex, eiNULL_TAG);
+	END_DECLARE;
 
-	void parameters(int pid)
+	static void init()
 	{
-		DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
-		DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
-		DECLARE_SCALAR(Ks, 0.5f);
-		DECLARE_SCALAR(roughness, 0.1f);
-		DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
-		DECLARE_SCALAR(transparency, 0.5f);
-		DECLARE_TAG(Cs_tex, eiNULL_TAG);
+	}
+
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
+	{
 	}
 
 	color specularbrdf(const vector & vL, const normal & vN, const vector & V, scalar roughness)
@@ -342,20 +314,11 @@ SURFACE(maya_lambert_transparent)
 		return pow(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
 	}
 
-	void init()
-	{
-	}
-
-	void exit()
-	{
-	}
-
 	void main(void *arg)
 	{
-		normal Nf = faceforward(normalize(N()), I());
-		vector V = -normalize(I());
+		vector V = -normalize(I);
 
-		Ci() = 0.0f;
+		out->Ci = 0.0f;
 
 		eiTag tex = Cs_tex();
 
@@ -363,11 +326,12 @@ SURFACE(maya_lambert_transparent)
 		{
 			const scalar tiling = 4.0f;
 
-			scalar s = fmodf(u() * tiling, 1.0f);
-			scalar t = fmodf(v() * tiling, 1.0f);
-			scalar dsdx, dsdy, dtdx, dtdy;
-			Dxy(u, dsdx, dsdy);
-			Dxy(v, dtdx, dtdy);
+			scalar s = fmod1(u * tiling);
+			scalar t = fmod1(v * tiling);
+			scalar dsdx = Dx(u);
+			scalar dsdy = Dy(u);
+			scalar dtdx = Dx(v);
+			scalar dtdy = Dy(v);
 			dsdx = dsdx * tiling;
 			dsdy = dsdy * tiling;
 			dtdx = dtdx * tiling;
@@ -386,42 +350,31 @@ SURFACE(maya_lambert_transparent)
 			}*/
 		}
 
-		while (illuminance(P(), Nf, PI / 2.0f))
+		color kd = Cs() * Kd();
+		color ks = Ks() * specularcolor();
+		scalar rough = roughness();
+		LightSampler	sampler;
+
+		while (illuminance(sampler, P, N, PI / 2.0f))
 		{
-			color	lastC = 0.0f;
-			color	localC = 0.0f;
-			int		num_samples = 0;
+			color	sum = 0.0f;
 
 			while (sample_light())
 			{
-				localC += Cl() * (
-					Cs() * Kd() * (normalize(L()) % Nf) 
-					+ Ks() * specularcolor() * specularbrdf(normalize(L()), Nf, V, roughness()));
-
-				++ num_samples;
-
-				if ((num_samples % 4) == 0)
-				{
-					color	thisC = localC * (1.0f / (scalar)num_samples);
-
-					if (converged(thisC, lastC))
-					{
-						break;
-					}
-
-					lastC = thisC;
-				}
+				sum += Cl * (
+					kd * (normalize(L) % N) 
+					+ ks * specularbrdf(normalize(L), N, V, rough));
 			}
 
-			localC *= (1.0f / (scalar)num_samples);
-			Ci() += localC;
+			out->Ci += sum * (1.0f / (scalar)light_sample_count());
 		}
 
 		if ( transparency() > 0.0f )
 		{
-			Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 		}
-		Oi() = color(1.0f);
+
+		out->Oi = color(1.0f);
 	}
 
 END(maya_lambert_transparent)
