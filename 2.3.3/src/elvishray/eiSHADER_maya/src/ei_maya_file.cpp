@@ -3,54 +3,39 @@
 #include "common/_3delight/utils.h"
 
 SURFACE(maya_file)
- 	//input
- 	PARAM(scalar,	alphaGain);
- 	PARAM(bool,		alphaIsLuminance);
- 	PARAM(scalar,	alphaOffset);
- 	PARAM(color,	colorGain);
- 	PARAM(color,	colorOffset);
- 	PARAM(color,	defaultColor);
- 	PARAM(eiTag,	fileTextureName);
- 	PARAM(uint,		filterType);//?
- 	PARAM(scalar,	filter);
- 	PARAM(scalar,	filterOffset);
- 	PARAM(bool,		invert);
- 	PARAM(vector,	uvCoord);//only unCoord[0] and unCoord[1] is used
- 	PARAM(bool,		fileHasAlpha);
- 	//PARAM(uint,	num_channels);//added from 3delight
- 	//output
- 	PARAM(scalar,	outAlpha);
-	PARAM(color,	outColor);
-	PARAM(color,	outTransparency);
+	DECLARE;
+	DECLARE_SCALAR(alphaGain, 1.0f);//input begin
+	DECLARE_BOOL(alphaIsLuminance, eiFALSE);
+	DECLARE_SCALAR(alphaOffset, 0.0f);
+	DECLARE_COLOR(colorGain, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(colorOffset, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(defaultColor, 0.5f, 0.5f, 0.5f);
+	DECLARE_TAG(fileTextureName, eiNULL_TAG);
+	DECLARE_INDEX(filterType, 3);//Quadratic
+	DECLARE_SCALAR(filter, 1.0f);
+	DECLARE_SCALAR(filterOffset, 0.0f);
+	DECLARE_BOOL(invert, eiFALSE);
+	DECLARE_VECTOR(uvCoord, 0.0f, 0.0f, 0.0f);//only unCoord[0] and unCoord[1] is used
+	DECLARE_BOOL(fileHasAlpha, eiFALSE);
+	DECLARE_SCALAR(outAlpha, 1.0f);//output begin
+	DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(outTransparency, 0.0f, 0.0f, 0.0f);  
+	END_DECLARE;
+	//DECLARE_INDEX(num_channels, 3);//added from 3delight
 
-	void parameters(int pid)
-	{
-		//input
- 		DECLARE_SCALAR(alphaGain, 1.0f);
- 		DECLARE_BOOL(alphaIsLuminance, eiFALSE);
- 		DECLARE_SCALAR(alphaOffset, 0.0f);
- 		DECLARE_COLOR(colorGain, 1.0f, 1.0f, 1.0f);
- 		DECLARE_COLOR(colorOffset, 0.0f, 0.0f, 0.0f);
- 		DECLARE_COLOR(defaultColor, 0.5f, 0.5f, 0.5f);
- 		DECLARE_TAG(fileTextureName, eiNULL_TAG);
- 		DECLARE_INDEX(filterType, 3);//Quadratic
- 		DECLARE_SCALAR(filter, 1.0f);
- 		DECLARE_SCALAR(filterOffset, 0.0f);
- 		DECLARE_BOOL(invert, eiFALSE);
- 		DECLARE_VECTOR(uvCoord, 0.0f, 0.0f, 0.0f);
- 		DECLARE_BOOL(fileHasAlpha, eiFALSE);
- 		//DECLARE_INDEX(num_channels, 3);
- 		//output
- 		DECLARE_SCALAR(outAlpha, 1.0f);
-		DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
-		DECLARE_COLOR(outTransparency, 0.0f, 0.0f, 0.0f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
