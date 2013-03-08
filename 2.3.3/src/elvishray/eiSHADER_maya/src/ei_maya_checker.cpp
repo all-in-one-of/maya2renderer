@@ -17,50 +17,37 @@
 #include "common/_3delight/utils.h"
 
 SURFACE(maya_checker)
-	// Inputs:
-	PARAM(scalar, alphaGain);
-	PARAM(eiBool, alphaIsLuminance);
-	PARAM(scalar, alphaOffset);
-	PARAM(color,  color1);
-	PARAM(color,  color2);
-	PARAM(color,  colorGain);
-	PARAM(color,  colorOffset);
-	PARAM(scalar, contrast);
-	PARAM(color,  defaultColor);
-	PARAM(scalar, filter);
-	PARAM(scalar, filterOffset);
-	PARAM(eiBool, invert);
-	PARAM(vector, uvCoord);//only uvCoord[0],uvCoord[1] are used.
-	// Outputs:
-	PARAM(scalar, outAlpha);
-	PARAM(color,  outColor);
+	DECLARE;
+	DECLARE_SCALAR(alphaGain,		1.0f);	// Inputs - begin
+	DECLARE_BOOL(alphaIsLuminance,	eiFALSE);
+	DECLARE_SCALAR(alphaOffset,		0.0f);
+	DECLARE_COLOR(color1,			1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(color2,			0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(colorGain,		1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(colorOffset,		0.0f, 0.0f, 0.0f);
+	DECLARE_SCALAR(contrast,		1.0f);
+	DECLARE_COLOR(defaultColor,		0.5, 0.5f, 0.5f);
+	DECLARE_SCALAR(filter,			1.0f);
+	DECLARE_SCALAR(filterOffset,	0.0f);
+	DECLARE_BOOL(invert,			eiFALSE);
+	DECLARE_VECTOR(uvCoord_,			0.0f, 0.0f, 0.0f);//only uvCoord[0],uvCoord[1] are used.
+	DECLARE_SCALAR(outAlpha,		0.5f);// Outputs - begin
+	DECLARE_COLOR(outColor,			0.5f, 0.5f, 0.5f);
+	END_DECLARE;
 
-	void parameters(int pid)
-	{
- 		// Inputs:
- 		DECLARE_SCALAR(alphaGain,		1.0f);
- 		DECLARE_BOOL(alphaIsLuminance,	eiFALSE);
- 		DECLARE_SCALAR(alphaOffset,		0.0f);
- 		DECLARE_COLOR(color1,			1.0f, 1.0f, 1.0f);
- 		DECLARE_COLOR(color2,			0.0f, 0.0f, 0.0f);
- 		DECLARE_COLOR(colorGain,		1.0f, 1.0f, 1.0f);
- 		DECLARE_COLOR(colorOffset,		0.0f, 0.0f, 0.0f);
- 		DECLARE_SCALAR(contrast,		1.0f);
- 		DECLARE_COLOR(defaultColor,		0.5, 0.5f, 0.5f);
- 		DECLARE_SCALAR(filter,			1.0f);
- 		DECLARE_SCALAR(filterOffset,	0.0f);
- 		DECLARE_BOOL(invert,			eiFALSE);
- 		DECLARE_VECTOR(uvCoord,			0.0f, 0.0f, 0.0f);
- 		// Outputs:
- 		DECLARE_SCALAR(outAlpha,		0.5f);
- 		DECLARE_COLOR(outColor,			0.5f, 0.5f, 0.5f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
@@ -68,14 +55,17 @@ SURFACE(maya_checker)
 	{
 		scalar alpha = outAlpha();
 
-		if(ISUVDEFINED(uvCoord().x, uvCoord().y))
+		float ss = uvCoord().x;
+		float tt = uvCoord().y;
+
+		if(ISUVDEFINED(ss, tt))
 		{
-			uvCoord().x = fmodf(uvCoord().x, WRAPMAX);
-			uvCoord().y = fmodf(uvCoord().y, WRAPMAX);
+			ss = fmodf(ss, WRAPMAX);
+			tt = fmodf(tt, WRAPMAX);
 
 			/* compute 'ss' and 'tt' filter widths */
 			vector dUVdu, dUVdv;
-			Duv(uvCoord, dUVdu, dUVdv);
+			Duv(vector(ss, tt, 0.0f), dUVdu, dUVdv);
 			float dss = abs(dUVdu.x * du()) + abs(dUVdv.x * dv());
 			float dtt = abs(dUVdu.y * du()) + abs(dUVdv.y * dv());
 
@@ -87,8 +77,8 @@ SURFACE(maya_checker)
 
 			/* compute separation: 0 for half the squares, 1 for the others. */
 			float f = 0.5f - 2.0f *
-				(filteredpulsetrain(0.5f, 1.0f, uvCoord().x, dss) - 0.5f) *
-				(filteredpulsetrain(0.5f, 1.0f, uvCoord().y, dtt) - 0.5f);
+				(filteredpulsetrain(0.5f, 1.0f, ss, dss) - 0.5f) *
+				(filteredpulsetrain(0.5f, 1.0f, tt, dtt) - 0.5f);
 
 			/* contrast interpolates the separation from 0.5 to its normal value. */
 			f = 0.5f + (f - 0.5f) * contrast();
