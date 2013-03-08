@@ -60,15 +60,15 @@ SURFACE(maya_checker)
 
 		if(ISUVDEFINED(ss, tt))
 		{
-			ss = fmodf(ss, WRAPMAX);
-			tt = fmodf(tt, WRAPMAX);
 
 			/* compute 'ss' and 'tt' filter widths */
 			vector dUVdu, dUVdv;
 			Duv(vector(ss, tt, 0.0f), dUVdu, dUVdv);
 			float dss = abs(dUVdu.x * du()) + abs(dUVdv.x * dv());
 			float dtt = abs(dUVdu.y * du()) + abs(dUVdv.y * dv());
-
+			
+			ss = fmodf(ss, WRAPMAX);
+			tt = fmodf(tt, WRAPMAX);
 
 			/* Add in "Effects" filter values. We multiplie the i_filterOffset
 			variable by 2 to match Maya's look */ 
