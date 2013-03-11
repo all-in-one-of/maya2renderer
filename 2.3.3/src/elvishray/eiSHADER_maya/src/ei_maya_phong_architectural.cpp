@@ -120,10 +120,8 @@ SURFACE(maya_phong_architectural)
 	}
 
 	eiFORCEINLINE color integrate_direct_lighting(
-		const color & Kd, 
-		const color & Ks, 
-		BSDF & Rd, 
-		BSDF & Rs, 
+		const color & K, 
+		BSDF & R, 
 		const vector & wo)
 	{
 		LightSampler	sampler;
@@ -131,34 +129,18 @@ SURFACE(maya_phong_architectural)
 
 		while (illuminance(sampler, P, N, PI / 2.0f))
 		{
-			color	sum0(0.0f);
+			color	sum(0.0f);
 			//
 			while (sample_light())
 			{
 				const vector wi(to_local(normalize(L)));
 
-				if (!almost_black(Kd))
+				if (!almost_black(K))
 				{
-					sum0 += Kd * eval_light_sample(wo, wi, Rd);
+					sum += K * eval_light_sample(wo, wi, R);
 				}
 			}
-			result += (sum0) * (1.0f / (scalar)light_sample_count());
-		}
-		//
-		while (illuminance(sampler, P, N, PI / 2.0f))
-		{
-			color	sum1(0.0f);
-			//
-			while (sample_light())
-			{
-				const vector wi(to_local(normalize(L)));
-
-				if (!almost_black(Ks))
-				{
-					sum1 += Ks * eval_light_sample(wo, wi, Rs);
-				}
-			}
-			result += (sum1) * (1.0f / (scalar)light_sample_count());
+			result += (sum) * (1.0f / (scalar)light_sample_count());
 		}
 
 		return result;
@@ -434,7 +416,8 @@ SURFACE(maya_phong_architectural)
 		if (dot_nd < 0.0f)
 		{
 			// integrate direct lighting from the front side
-			out->Ci += integrate_direct_lighting(Kd, Ks, Rd, *Rs, wo);
+			out->Ci += integrate_direct_lighting(Kd, Rd, wo);
+			out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
 		}
 
 		// integrate for translucency from the back side
@@ -459,7 +442,8 @@ SURFACE(maya_phong_architectural)
 			}
 			
 			// integrate direct lighting from the back side
-			out->Ci += Kc * integrate_direct_lighting(Kd, Ks, Rd, *Rs, new_wo);
+			out->Ci += Kc * integrate_direct_lighting(Kd, Rd, new_wo);
+			out->Ci += Kc * integrate_direct_lighting(Ks, *Rs, new_wo);
 			
 			N = old_N;
 			u_axis = old_u_axis;
