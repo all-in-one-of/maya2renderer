@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A6EB4722-EA01-48DE-B43C-E33589EE9CDD}</ProjectGuid>
+    <RootNamespace>elvishraysdk</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\r274\include\eiAPI\ei.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_api.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_approx.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_attributes.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_base_bucket.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_buffer.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_camera.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_connection.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_data_buffer.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_disc_object.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_element.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_hair_object.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_image.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_instance.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_instgroup.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_light.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_map.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_material.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_nodesys.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_noise.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_object.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_options.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_output.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_parser_context.hpp" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_poly_object.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_proc_object.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_qbvh.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_rayhair.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_raytracer.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_renderer.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_sampler.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_scenemgr.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_shader.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_shaderx.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_shaderx_types.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_shaderx_util.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_shadesys.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_state.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_texmake.h" />
+    <ClInclude Include="..\r274\include\eiAPI\ei_texture.h" />
+    <ClInclude Include="..\r274\include\eiCOMMON\ei_common.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_algorithm.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_array.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_assert.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_atomic.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_atomic_ops.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_backoff.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_base.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_bound.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_bound4.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_btree.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_config.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_core.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_dataflow.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_dataflowx.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_data_array.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_data_gen.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_data_table.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_dbg_canvas.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_filesys.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_fixed_pool.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_list.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_matrix.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_matrix2.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_matrix3.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_message.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_network.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_platform.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_plugsys.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_polynomial.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_pool.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_qmc.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_random.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_range.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_rect.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_rgbe.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_rwlock.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_sincos.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_slist.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_stats.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_symbol.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_table.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_timer.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_ts_queue.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_types.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_util.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_vector.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_vector2.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_vector4.h" />
+    <ClInclude Include="..\r274\include\eiCORE\ei_verbose.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_approx_grid_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_approx_stitch_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_approx_viewdep_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_checker_uv_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_displace_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_dof_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_env_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_face_color_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_hair_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_ibl_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_imager_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_instancing_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_light_category_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_motion_blur_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_procedural_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_raytracer_hair_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_raytracer_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_scene_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_shader_graph_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_texture_filter_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_texture_hdr_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_texture_jpeg_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_texture_tiff_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_texture_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_vertex_color_unittest.h" />
+    <ClInclude Include="..\r274\samples\scenes\ei_volume_unittest.h" />
+    <ClInclude Include="..\r274\samples\shaders\ei_shader.h" />
+    <ClInclude Include="..\r274\samples\shaders\ei_sph_tri.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\r274\include\eiAPI\ei_noise_table.txt" />
+    <None Include="..\r274\include\eiCORE\ei_qmc_data.txt" />
+    <None Include="..\r274\samples\scenes\rtdump_rel.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\r274\samples\shaders\ei_amb_occ.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_architectural.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_bump.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_checker.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_directlight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_dof.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_env.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_face_plastic.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_imager.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_opaque.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_physicalsky.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_plastic.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_pointlight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_procedural.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_quadlight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_shader.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_skylight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_spherelight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_sph_tri.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_spotlight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_tonemap.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_transparent.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_volume.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
