@@ -131,23 +131,34 @@ SURFACE(maya_phong_architectural)
 
 		while (illuminance(sampler, P, N, PI / 2.0f))
 		{
-			color	sum(0.0f);
-
+			color	sum0(0.0f);
+			//
 			while (sample_light())
 			{
 				const vector wi(to_local(normalize(L)));
 
 				if (!almost_black(Kd))
 				{
-					sum += Kd * eval_light_sample(wo, wi, Rd);
-				}
-				if (!almost_black(Ks))
-				{
-					sum += Ks * eval_light_sample(wo, wi, Rs);
+					sum0 += Kd * eval_light_sample(wo, wi, Rd);
 				}
 			}
+			result += (sum0) * (1.0f / (scalar)light_sample_count());
+		}
+		//
+		while (illuminance(sampler, P, N, PI / 2.0f))
+		{
+			color	sum1(0.0f);
+			//
+			while (sample_light())
+			{
+				const vector wi(to_local(normalize(L)));
 
-			result += sum * (1.0f / (scalar)light_sample_count());
+				if (!almost_black(Ks))
+				{
+					sum1 += Ks * eval_light_sample(wo, wi, Rs);
+				}
+			}
+			result += (sum1) * (1.0f / (scalar)light_sample_count());
 		}
 
 		return result;
