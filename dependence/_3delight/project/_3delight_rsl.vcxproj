@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\addDoubleLinear.h" />
+    <ClInclude Include="..\ambientLight.h" />
+    <ClInclude Include="..\anisotropic.h" />
+    <ClInclude Include="..\areaLight.h" />
+    <ClInclude Include="..\blendColors.h" />
+    <ClInclude Include="..\blinn.h" />
+    <ClInclude Include="..\brownian.h" />
+    <ClInclude Include="..\bulge.h" />
+    <ClInclude Include="..\bump2d.h" />
+    <ClInclude Include="..\bump3d.h" />
+    <ClInclude Include="..\checker.h" />
+    <ClInclude Include="..\clamp.h" />
+    <ClInclude Include="..\clearCoat.h" />
+    <ClInclude Include="..\cloth.h" />
+    <ClInclude Include="..\cloud.h" />
+    <ClInclude Include="..\condition.h" />
+    <ClInclude Include="..\contrast.h" />
+    <ClInclude Include="..\directionalLight.h" />
+    <ClInclude Include="..\displacementShader.h" />
+    <ClInclude Include="..\distanceBetween.h" />
+    <ClInclude Include="..\doubleShadingSwitch.h" />
+    <ClInclude Include="..\envChrome.h" />
+    <ClInclude Include="..\envCube.h" />
+    <ClInclude Include="..\envSphere.h" />
+    <ClInclude Include="..\file.h" />
+    <ClInclude Include="..\fractal.h" />
+    <ClInclude Include="..\gammaCorrect.h" />
+    <ClInclude Include="..\global_illumination.h" />
+    <ClInclude Include="..\granite.h" />
+    <ClInclude Include="..\grid.h" />
+    <ClInclude Include="..\hsvToRgb.h" />
+    <ClInclude Include="..\lambert.h" />
+    <ClInclude Include="..\layeredShader.h" />
+    <ClInclude Include="..\layeredTexture.h" />
+    <ClInclude Include="..\leather.h" />
+    <ClInclude Include="..\lightInfo.h" />
+    <ClInclude Include="..\light_utils.h" />
+    <ClInclude Include="..\luminance.h" />
+    <ClInclude Include="..\marble.h" />
+    <ClInclude Include="..\mia_material.h" />
+    <ClInclude Include="..\mia_material_x.h" />
+    <ClInclude Include="..\mia_material_x_passes.h" />
+    <ClInclude Include="..\mia_physicalsky.h" />
+    <ClInclude Include="..\mib_amb_occlusion.h" />
+    <ClInclude Include="..\mib_glossy_reflection.h" />
+    <ClInclude Include="..\mib_glossy_refraction.h" />
+    <ClInclude Include="..\mib_illum_cooktorr.h" />
+    <ClInclude Include="..\mib_illum_lambert.h" />
+    <ClInclude Include="..\mib_illum_phong.h" />
+    <ClInclude Include="..\misss_fast_shader.h" />
+    <ClInclude Include="..\misss_fast_simple_maya.h" />
+    <ClInclude Include="..\misss_fast_skin_maya.h" />
+    <ClInclude Include="..\misss_set_normal.h" />
+    <ClInclude Include="..\misss_skin_specular.h" />
+    <ClInclude Include="..\mi_bump_flakes.h" />
+    <ClInclude Include="..\mi_car_paint_phen.h" />
+    <ClInclude Include="..\mi_metallic_paint.h" />
+    <ClInclude Include="..\multDoubleLinear.h" />
+    <ClInclude Include="..\multiplyDivide.h" />
+    <ClInclude Include="..\noise.h" />
+    <ClInclude Include="..\noise_utils.h" />
+    <ClInclude Include="..\ocean.h" />
+    <ClInclude Include="..\oceanShader.h" />
+    <ClInclude Include="..\ocean_utils.h" />
+    <ClInclude Include="..\particleSamplerInfo.h" />
+    <ClInclude Include="..\phong.h" />
+    <ClInclude Include="..\phongE.h" />
+    <ClInclude Include="..\place2dTexture.h" />
+    <ClInclude Include="..\place3dTexture.h" />
+    <ClInclude Include="..\plusMinusAverage.h" />
+    <ClInclude Include="..\pointLight.h" />
+    <ClInclude Include="..\projection.h" />
+    <ClInclude Include="..\psdFileTex.h" />
+    <ClInclude Include="..\quadShadingSwitch.h" />
+    <ClInclude Include="..\ramp.h" />
+    <ClInclude Include="..\rampShader.h" />
+    <ClInclude Include="..\ramp_utils.h" />
+    <ClInclude Include="..\remapColor.h" />
+    <ClInclude Include="..\remapHsv.h" />
+    <ClInclude Include="..\remapValue.h" />
+    <ClInclude Include="..\reverse.h" />
+    <ClInclude Include="..\rgbToHsv.h" />
+    <ClInclude Include="..\rock.h" />
+    <ClInclude Include="..\samplerInfo.h" />
+    <ClInclude Include="..\setRange.h" />
+    <ClInclude Include="..\shadingMap.h" />
+    <ClInclude Include="..\shading_utils-old.h" />
+    <ClInclude Include="..\shading_utils.h" />
+    <ClInclude Include="..\singleShadingSwitch.h" />
+    <ClInclude Include="..\smear.h" />
+    <ClInclude Include="..\snow.h" />
+    <ClInclude Include="..\solidFractal.h" />
+    <ClInclude Include="..\spotLight.h" />
+    <ClInclude Include="..\stencil.h" />
+    <ClInclude Include="..\stucco.h" />
+    <ClInclude Include="..\studioClearCoat.h" />
+    <ClInclude Include="..\surfaceLuminance.h" />
+    <ClInclude Include="..\surfaceShader.h" />
+    <ClInclude Include="..\texture3d.h" />
+    <ClInclude Include="..\tripleShadingSwitch.h" />
+    <ClInclude Include="..\useBackground.h" />
+    <ClInclude Include="..\utils.h" />
+    <ClInclude Include="..\uvChooser.h" />
+    <ClInclude Include="..\vectorProduct.h" />
+    <ClInclude Include="..\volumeLight.h" />
+    <ClInclude Include="..\volumeNoise.h" />
+    <ClInclude Include="..\wood.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0BCB361F-B050-47DE-B611-901652F8BDA9}</ProjectGuid>
+    <RootNamespace>_3delight_rsl</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
