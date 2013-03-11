@@ -212,7 +212,11 @@ SURFACE(maya_phong_architectural)
 		eiTag bump_shader = eiNULL_TAG;
 		scalar bump_factor= 0.3f;
 		//-----------------------------------------
-
+		vector In = normalize( I );
+		normal Nn = normalize( N );
+		normal Nf = ShadingNormal(Nn);
+		vector V = -In;
+		//-----------------------------------------
 
 
 
@@ -243,8 +247,6 @@ SURFACE(maya_phong_architectural)
 		{
 			call_bump_shader(shader, bump_factor);
 		}
-
-		const vector V(-normalize(I));
 
 		color Kc(refraction_color * (spec * refr * trans));
 		// non-reflected energy is absorbed
@@ -416,8 +418,11 @@ SURFACE(maya_phong_architectural)
 		if (dot_nd < 0.0f)
 		{
 			// integrate direct lighting from the front side
-			out->Ci += integrate_direct_lighting(Kd, Rd, wo);
-			out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
+			out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
+			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+
+			//out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
+			out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
 		}
 
 		// integrate for translucency from the back side
@@ -442,8 +447,11 @@ SURFACE(maya_phong_architectural)
 			}
 			
 			// integrate direct lighting from the back side
-			out->Ci += Kc * integrate_direct_lighting(Kd, Rd, new_wo);
+			out->Ci += Kc * integrate_direct_lighting(/*Kd*/diffuse(), Rd, new_wo);
+			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+
 			out->Ci += Kc * integrate_direct_lighting(Ks, *Rs, new_wo);
+			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
 			
 			N = old_N;
 			u_axis = old_u_axis;
@@ -515,7 +523,94 @@ SURFACE(maya_phong_architectural)
 		Rs->~BSDF();
 		Rts->~BSDF();
 	}
+	//
+	color getDiffuse(
+		const normal& i_N,
+		const eiBool keyLightsOnly,
+		const eiBool unshadowed )
+	{
+		eiBool isKeyLight = eiTRUE;
+		color C = 0.0f;
 
+		LightSampler	sampler;
+
+		while ( illuminance(sampler, P, i_N, PI/2.0f ) )
+		{
+			//if( keyLightsOnly != eiFALSE )
+			//{
+			//	isKeyLight = eiFALSE;
+			//	lightsource( "iskeylight", isKeyLight );
+			//}
+			if( isKeyLight != eiFALSE )
+			{
+				float nondiffuse = 0.0f;
+				//lightsource( "__nondiffuse", nondiffuse );
+
+				if( nondiffuse < 1.0f )
+				{
+					//SAMPLE_LIGHT_2(color, C, 0.0f,
+					//	C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse)						
+					//);
+					while (sample_light())
+					{
+						C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse);
+					}
+					C *= (1.0f / (scalar)light_sample_count());
+				}
+			}
+		}
+
+		return C;
+	}
+	//
+	color getPhong(
+		const normal& i_N, const vector& i_V, const float cosinePower, 
+		const eiBool i_keyLightsOnly, const eiBool unshadowed)
+	{
+		color C = 0.0f;
+		vector R = reflect( normalize(i_V), normalize(i_N) );
+		LightSampler	sampler;
+
+		while( illuminance(sampler, P, i_N, PI/2.0f ) )
+		{
+			float isKeyLight = 1;
+			//if( i_keyLightsOnly != 0 )
+			//{
+			//	lightsource( "iskeylight", isKeyLight );
+			//}
+			if( isKeyLight != 0 )
+			{
+				const float nonspecular = 0.0f;
+				//lightsource( "__nonspecular", nonspecular );
+				if( nonspecular < 1 )
+				{
+					//SAMPLE_LIGHT_2(color, C, 0.0f,
+					//	C += Cl()*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
+					//);
+					while (sample_light())
+					{
+						vector Ln = normalize(L);
+						C += Cl*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
+					}
+					C *= (1.0f / (scalar)light_sample_count());
+				}
+			}
+		}
+		return C;
+	}
+	//
+	normal ShadingNormal(const normal& i_N)
+	{
+		normal Nf = i_N;
+
+		//const int sides = 2;
+		if( true/*sides == 2*/ )
+		{
+			Nf = faceforward(Nf, I);
+		}
+		return Nf;
+	}
+	//
 END(maya_phong_architectural)
 
 const char *maya_phong_architectural::u_result = NULL;
