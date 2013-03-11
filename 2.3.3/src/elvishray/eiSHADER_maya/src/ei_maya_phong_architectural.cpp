@@ -17,172 +17,12 @@
  *************************************************************************/
 
 #include <eiAPI/ei_shaderx.h>
+#include "common/_3delight/shading_utils.h"
+#include "common/my_utils.h"
 #include <new>
 
 
-class FresnelByIOR : public Fresnel {
-public:
-	FresnelByIOR(const scalar ior)
-	{
-		m_ior = ior;
-	}
 
-	virtual scalar eval(const scalar WOdotWh)
-	{
-		return fresnel_dielectric(WOdotWh, 1.0f, m_ior);
-	}
-
-private:
-	scalar		m_ior;
-};
-
-class FresnelSchlick : public Fresnel {
-public:
-	FresnelSchlick(
-		const scalar fresnel_0_degree_refl, 
-		const scalar fresnel_90_degree_refl, 
-		const scalar fresnel_curve)
-	{
-		m_fresnel_r1 = clamp(fresnel_0_degree_refl, 0.0f, 1.0f);
-		m_fresnel_r2 = clamp(fresnel_90_degree_refl - fresnel_0_degree_refl, 0.0f, 1.0f);
-		m_fresnel_curve = max(eiSCALAR_EPS, fresnel_curve);
-	}
-
-	virtual scalar eval(const scalar WOdotWh)
-	{
-		// a modified Schlick fresnel approximation is used here
-		return (m_fresnel_r1 + m_fresnel_r2 * fastpow(1.0f - WOdotWh, m_fresnel_curve));
-	}
-
-private:
-	scalar			m_fresnel_r1;
-	scalar			m_fresnel_r2;
-	scalar			m_fresnel_curve;
-};
-
-class InvFresnelByIOR : public Fresnel {
-public:
-	InvFresnelByIOR(const scalar ior)
-	{
-		m_ior = ior;
-	}
-
-	virtual scalar eval(const scalar WOdotWh)
-	{
-		return 1.0f - fresnel_dielectric(WOdotWh, 1.0f, m_ior);
-	}
-
-private:
-	scalar		m_ior;
-};
-
-class InvFresnelSchlick : public Fresnel {
-public:
-	InvFresnelSchlick(
-		const scalar fresnel_0_degree_refl, 
-		const scalar fresnel_90_degree_refl, 
-		const scalar fresnel_curve)
-	{
-		m_fresnel_r1 = clamp(fresnel_0_degree_refl, 0.0f, 1.0f);
-		m_fresnel_r2 = clamp(fresnel_90_degree_refl - fresnel_0_degree_refl, 0.0f, 1.0f);
-		m_fresnel_curve = max(eiSCALAR_EPS, fresnel_curve);
-	}
-
-	virtual scalar eval(const scalar WOdotWh)
-	{
-		// a modified Schlick fresnel approximation is used here
-		return 1.0f - (m_fresnel_r1 + m_fresnel_r2 * fastpow(1.0f - WOdotWh, m_fresnel_curve));
-	}
-
-private:
-	scalar			m_fresnel_r1;
-	scalar			m_fresnel_r2;
-	scalar			m_fresnel_curve;
-};
-
-class BRDFtoBTDF : public BSDF {
-public:
-	BRDFtoBTDF(
-		BSDF *brdf, 
-		const scalar ior, 
-		const scalar thickness, 
-		eiState *state)
-		: BSDF(NULL)
-	{
-		m_brdf = brdf;
-		m_ior = ior;
-		m_thickness = thickness;
-		m_state = state;
-		// record original P
-		m_originalP = m_state->P;
-	}
-
-	virtual ~BRDFtoBTDF()
-	{
-		// restore the P
-		m_state->P = m_originalP;
-	}
-
-	virtual color bsdf(const vector & wo, const vector & wi)
-	{
-		// reflect wo about H
-		const vector R(reflect(wo, m_cached_halfvector));
-
-		return m_brdf->bsdf(wo, R);
-	}
-
-	virtual eiBool sample_bsdf(const vector & wo, vector & wi, scalar u1, scalar u2)
-	{
-		// BRDFs usually guarantee that the sideness of wi is the same as wo
-		eiBool result = m_brdf->sample_bsdf(wo, wi, u1, u2);
-
-		const vector H(normalize(wo + wi));
-
-		// figure out the relative IOR
-		scalar ior = m_ior;
-		if (wo.z > 0.0f) // if entering
-		{
-			ior = 1.0f / ior;
-		}
-
-		// refract wo about H
-		wi = refract(wo, H, ior);
-
-		// cache the half vector because we don't know how to compute 
-		// fresnel for BTDF just from wo, wi
-		m_cached_halfvector = H;
-
-		// handle two-sided mode
-		if (m_thickness > eiSCALAR_EPS)
-		{
-			vector D((void *)NULL);
-			ei_from_local((eiVector *)(&D), &wi, m_state);
-
-			// move the ray origin
-			m_state->P = m_originalP + D * (m_thickness / absf(dot(m_state->N, D)));
-			// the ray direction does not change
-			wi = -wo;
-		}
-
-		return result;
-	}
-
-	virtual scalar pdf(const vector & wo, const vector & wi)
-	{
-		// reflect wo about H
-		const vector R(reflect(wo, m_cached_halfvector));
-
-		return m_brdf->pdf(wo, R);
-	}
-
-private:
-	BSDF			*m_brdf;
-	eiState			*m_state;
-	scalar			m_ior;
-	scalar			m_thickness;
-	point			m_originalP;
-	vector			m_cached_halfvector;
-};
 
 SURFACE(maya_phong_architectural)
 
@@ -348,25 +188,25 @@ SURFACE(maya_phong_architectural)
 	void main(void *arg)
 	{
 		//-----------------------------------------
-		color surface_color(1.0f, 1.0f, 1.0f);
+		color surface_color(color_());
 		color diffuse_color(1.0f, 1.0f, 1.0f);
-		scalar diffuse_weight = 1.0f;
-		color specular_color(1.0f, 1.0f, 1.0f);
-		scalar specular_weight= 0.2f;
+		scalar diffuse_weight = diffuse();
+		color specular_color(specularColor());
+		scalar specular_weight= 0.2f;//cosinePower
 		scalar roughness = 0.0f;
-		int specular_mode = 0;
+//		int specular_mode = 1;
 		scalar glossiness = 1.0f;
-		color reflection_color(1.0f, 1.0f, 1.0f);
+		color reflection_color(reflectedColor());
 		scalar reflection_weight = 0.0f;
 		color  refraction_color(1.0f, 1.0f, 1.0f);
 		scalar refraction_weight= 0.0f;
 		scalar refraction_glossiness = 0.0f;
-		scalar refraction_thickness= 0.0f;
-		color  translucency_color(1.0f, 1.0f, 1.0f);
-		scalar translucency_weight = 0.0f;
+		scalar refraction_thickness= 0.0f;//surfaceThickness
+		color  translucency_color(transparency());
+		scalar translucency_weight = translucence();
 		scalar anisotropy = 1.0f;
 		scalar rotation = 0.0f;
-		scalar ior = 1.5f;
+		scalar ior = 1.5f;//refractiveIndex
 		bool fresnel_by_ior = eiFALSE;
 		scalar fresnel_0_degree_refl = 0.2f;
 		scalar fresnel_90_degree_refl = 1.0f;
@@ -375,7 +215,7 @@ SURFACE(maya_phong_architectural)
 		int diffuse_samples = 8;
 		int reflection_samples= 4;
 		int refraction_samples= 4;
-		scalar cutoff_threshold = 0.01f;
+		scalar cutoff_threshold = LIQ_SCALAR_ALMOST_ZERO;
 		eiTag bump_shader = eiNULL_TAG;
 		scalar bump_factor= 0.3f;
 		//-----------------------------------------
@@ -427,9 +267,18 @@ SURFACE(maya_phong_architectural)
 			Kc *= Cs;
 		}
 		const color Kd(Cs *((1.0f - spec) * diff));
-		const int spec_mode = clamp(specular_mode, 0, 3);
+//		const int spec_mode = clamp(specular_mode, 0, 3);
 
-		out->Ci = 0.0f;
+		computeSurface(
+			color_(),//outColor(),//out->Ci,//
+			transparency(),//out->Oi,//
+			matteOpacityMode(),
+			matteOpacity(),
+			outColor(),//out->Ci,//
+			outTransparency()//out->Oi//
+		);
+		out->Ci = outColor();
+		out->Oi = outTransparency();
 
 		// apply rotation
 		scalar deg = rotation;
@@ -443,18 +292,18 @@ SURFACE(maya_phong_architectural)
 
 		// set the glossiness scale based on the chosen BSDF
 		scalar glossiness_scale = 370.37f;
-		if (spec_mode == 1)
-		{
+//		if (specular_mode == 1)
+//		{
 			glossiness_scale = 125.0f;
-		}
-		else if (spec_mode == 3)
-		{
-			// scale to make the same glossiness parameter 
-			// results in similar lobe for different BSDFs
-			glossiness_scale = 22.88f;
-		}
+//		}
+// 		else if (specular_mode == 3)
+// 		{
+// 			// scale to make the same glossiness parameter 
+// 			// results in similar lobe for different BSDFs
+// 			glossiness_scale = 22.88f;
+// 		}
 
-		scalar aniso = anisotropy;
+//		scalar aniso = anisotropy;
 		int refl_samples = reflection_samples;
 		int refr_samples = refraction_samples;
 
@@ -469,7 +318,7 @@ SURFACE(maya_phong_architectural)
 			refl_samples = 1;
 		}
 		shiny_u = max(0.0f, glossiness_scale / shiny_u);
-		scalar shiny_v = max(0.0f, shiny_u * aniso);
+		scalar shiny_v = max(0.0f, shiny_u * anisotropy);
 		
 		scalar IOR = ior;
 		eiBool fresn_by_ior = fresnel_by_ior;
@@ -514,21 +363,21 @@ SURFACE(maya_phong_architectural)
 		} Rs_storage;
 
 		BSDF *Rs = NULL;
-		switch (spec_mode)
-		{
-		case 0:
-			Rs = new (Rs_storage.ward) Ward(F, shiny_u, shiny_v);
-			break;
-		case 1:
+//		switch (spec_mode)
+//		{
+// 		case 0:
+// 			Rs = new (Rs_storage.ward) Ward(F, shiny_u, shiny_v);
+// 			break;
+//		case 1:
 			Rs = new (Rs_storage.phong) StretchedPhong(F, shiny_u);
-			break;
-		case 2:
-			Rs = new (Rs_storage.blinn) Blinn(F, shiny_u);
-			break;
-		case 3:
-			Rs = new (Rs_storage.cooktorrance) CookTorrance(F, 1.0f / shiny_u);
-			break;
-		}
+//			break;
+// 		case 2:
+// 			Rs = new (Rs_storage.blinn) Blinn(F, shiny_u);
+// 			break;
+// 		case 3:
+// 			Rs = new (Rs_storage.cooktorrance) CookTorrance(F, 1.0f / shiny_u);
+// 			break;
+//		}
 
 		SpecularReflection Rr(F);
 
@@ -539,7 +388,7 @@ SURFACE(maya_phong_architectural)
 			refr_samples = 1;
 		}
 		refr_shiny_u = max(0.0f, glossiness_scale / refr_shiny_u);
-		scalar refr_shiny_v = max(0.0f, shiny_u * aniso);
+		scalar refr_shiny_v = max(0.0f, shiny_u * anisotropy);
 
 		union {
 			eiByte ward[sizeof(Ward)];
@@ -549,21 +398,21 @@ SURFACE(maya_phong_architectural)
 		} Rts_storage;
 
 		BSDF *Rts = NULL;
-		switch (spec_mode)
-		{
-		case 0:
-			Rts = new (Rts_storage.ward) Ward(invF, refr_shiny_u, refr_shiny_v);
-			break;
-		case 1:
+// 		switch (spec_mode)
+// 		{
+// 		case 0:
+// 			Rts = new (Rts_storage.ward) Ward(invF, refr_shiny_u, refr_shiny_v);
+// 			break;
+// 		case 1:
 			Rts = new (Rts_storage.phong) StretchedPhong(invF, refr_shiny_u);
-			break;
-		case 2:
-			Rts = new (Rts_storage.blinn) Blinn(invF, refr_shiny_u);
-			break;
-		case 3:
-			Rts = new (Rts_storage.cooktorrance) CookTorrance(invF, 1.0f / refr_shiny_u);
-			break;
-		}
+// 			break;
+// 		case 2:
+// 			Rts = new (Rts_storage.blinn) Blinn(invF, refr_shiny_u);
+// 			break;
+// 		case 3:
+// 			Rts = new (Rts_storage.cooktorrance) CookTorrance(invF, 1.0f / refr_shiny_u);
+// 			break;
+// 		}
 
 		scalar refr_thickness = refraction_thickness;
 
@@ -663,7 +512,10 @@ SURFACE(maya_phong_architectural)
 			out->Ci += Kt * integrate(wo, Rt, opt);
 		}
 
-		out->Oi = color(1.0f);
+		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		{//transparent
+			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+		}//else{ opacity }
 
 		Rs->~BSDF();
 		Rts->~BSDF();
