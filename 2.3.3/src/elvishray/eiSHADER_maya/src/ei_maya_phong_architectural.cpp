@@ -190,17 +190,17 @@ SURFACE(maya_phong_architectural)
 //		int specular_mode = 1;
 		scalar glossiness = 1.0f;
 		color reflection_color(reflectedColor());
-		scalar reflection_weight = 0.0f;
+		scalar reflection_weight = 0.5f;
 		color  refraction_color(1.0f, 1.0f, 1.0f);
-		scalar refraction_weight= 0.0f;
+		scalar refraction_weight= 0.5f;
 		scalar refraction_glossiness = 0.0f;
-		scalar refraction_thickness= 0.0f;//surfaceThickness
+		scalar refraction_thickness= 2.0f;//surfaceThickness
 		color  translucency_color(transparency());
 		scalar translucency_weight = translucence();
 		scalar anisotropy = 1.0f;
 		scalar rotation = 0.0f;
 		scalar ior = 1.5f;//refractiveIndex
-		bool fresnel_by_ior = eiFALSE;
+		bool fresnel_by_ior = eiTRUE;
 		scalar fresnel_0_degree_refl = 0.2f;
 		scalar fresnel_90_degree_refl = 1.0f;
 		scalar fresnel_curve= 5.0f;
@@ -415,15 +415,15 @@ SURFACE(maya_phong_architectural)
 		BRDFtoBTDF Rt(Rts, IOR, refr_thickness * 0.1f, this);
 		
 		// don't integrate direct lighting if the ray hits the back face
-		if (dot_nd < 0.0f)
-		{
-			// integrate direct lighting from the front side
-			out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
-			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+ 		if (dot_nd < 0.0f)
+ 		{
+ 			// integrate direct lighting from the front side
+ 			out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
+ 			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
-			//out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
-			out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
-		}
+ 			//out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
+ 			out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+ 		}
 
 		// integrate for translucency from the back side
 		if (!almost_black(Kc) && 
@@ -462,41 +462,41 @@ SURFACE(maya_phong_architectural)
 
 		scalar cutoff_thresh = cutoff_threshold;
 
-		// integrate indirect specular lighting
-		if (!almost_black(Ks) && dot_nd < 0.0f)
-		{
-			IntegrateOptions opt;
-			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
-			opt.min_samples = opt.max_samples = refl_samples;
-			opt.cutoff_threshold = cutoff_thresh;
-
-			out->Ci += Ks * integrate(wo, *Rs, opt);
-		}
+//  		// integrate indirect specular lighting
+// 			if (!almost_black(Ks) && dot_nd < 0.0f)
+//  		{
+//  			IntegrateOptions opt;
+//  			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
+//  			opt.min_samples = opt.max_samples = refl_samples;
+//  			opt.cutoff_threshold = cutoff_thresh;
+// 
+//  			out->Ci += Ks * integrate(wo, *Rs, opt);
+//  		}
 
 		// integrate perfect specular reflection
-		if (!almost_black(Kr) && dot_nd < 0.0f)
-		{
-			IntegrateOptions opt;
-			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
-			opt.min_samples = opt.max_samples = 1; // force one sample for reflection
-			opt.cutoff_threshold = cutoff_thresh;
-			// the direct lighting of this BRDF is not accounted, 
-			// so we trace lights here to compensate
-			opt.trace_lights = eiTRUE;
+// 		if (!almost_black(Kr) && dot_nd < 0.0f)
+// 		{
+// 			IntegrateOptions opt;
+// 			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
+// 			opt.min_samples = opt.max_samples = 1; // force one sample for reflection
+// 			opt.cutoff_threshold = cutoff_thresh;
+// 			// the direct lighting of this BRDF is not accounted, 
+// 			// so we trace lights here to compensate
+// 			opt.trace_lights = eiTRUE;
+// 
+// 			out->Ci += Kr * integrate(wo, Rr, opt);
+// 		}
 
-			out->Ci += Kr * integrate(wo, Rr, opt);
-		}
-
-		// integrate indirect diffuse lighting
-		if (!almost_black(Kd) && dot_nd < 0.0f)
-		{
-			IntegrateOptions opt;
-			opt.ray_type = EI_RAY_REFLECT_DIFFUSE;
-			opt.min_samples = opt.max_samples = diffuse_samples;
-			opt.cutoff_threshold = cutoff_thresh;
-
-			out->Ci += Kd * integrate(wo, Rd, opt);
-		}
+		// integrate indirect diffuse lighting (color bleeding)
+// 		if (!almost_black(Kd) && dot_nd < 0.0f)
+// 		{
+// 			IntegrateOptions opt;
+// 			opt.ray_type = EI_RAY_REFLECT_DIFFUSE;
+// 			opt.min_samples = opt.max_samples = diffuse_samples;
+// 			opt.cutoff_threshold = cutoff_thresh;
+// 
+// 			out->Ci += Kd * integrate(wo, Rd, opt);
+// 		}
 
 		// integrate refraction
 		if (!almost_black(Kt))
