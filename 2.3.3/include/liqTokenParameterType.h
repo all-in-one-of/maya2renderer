@@ -27,4 +27,4 @@ enum DetailType
 	rFaceVertex   =  5
 };
 
-#endif/_TOKEN_PARAMETER_TYPE_
+#endif//_TOKEN_PARAMETER_TYPE_
