@@ -9,7 +9,7 @@
 #include <liqShaderFactory.h>
 #include <liqGlobalHelpers.h>
 #include "../common/mayacheck.h"
-#include "log_helper.h"
+#include "as_log_helper.h"
 #include "as_material3.h"
 #include "as_GlobalNodeHelper.h"
 //#include "as_visitorMgrForEnv.h"

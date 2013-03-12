@@ -31,7 +31,7 @@
 #include "../renderermgr.h"
 #include "../common/mayacheck.h"
 #include "as_connection.h"
-#include "log_helper.h"
+#include "as_log_helper.h"
 #include "as_GlobalNodeHelper.h"
 #include "as_helper.h"
 

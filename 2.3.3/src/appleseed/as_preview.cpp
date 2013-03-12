@@ -5,7 +5,7 @@
 #include <liqPreviewShader.h>
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
-#include "log_helper.h"
+#include "as_log_helper.h"
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
 

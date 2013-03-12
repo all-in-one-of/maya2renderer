@@ -5,7 +5,7 @@
 #include "../common/mayacheck.h"
 #include <trace/trace.hpp>
 #include "as_renderer.h"
-#include "log_helper.h"
+#include "as_log_helper.h"
 
 namespace appleseed
 {

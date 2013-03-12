@@ -5,7 +5,7 @@
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
 #include <liqRibLightData.h>
-#include "log_helper.h"
+#include "as_log_helper.h"
 #include "as_GlobalNodeHelper.h"
 #include <liqGlobalVariable.h>
 #include "../renderermgr.h"

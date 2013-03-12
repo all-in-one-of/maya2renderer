@@ -1,3 +1,5 @@
+#ifndef _AS_LOG_HELPER_H_
+#define _AS_LOG_HELPER_H_
 
 
 #define _s( _log_ )															\
@@ -22,3 +24,5 @@
 // #define _S(_call_)  \
 // 	Renderer::m_log.get()<<#_call_<<std::endl; my_##_call_ ; 
 #define _S(_call_)  my_##_call_ ; 
+
+#endif//_AS_LOG_HELPER_H_
