@@ -134,6 +134,11 @@ namespace elvishray
 		_s("ei_tab_add_vector("<<x<<","<<y<<","<<z<<")");
 		_e( ei_tab_add_vector( x, y, z ));
 	}
+	void my_ei_tab_add_vector2(const eiScalar x, const eiScalar y)
+	{
+		_s("ei_tab_add_vector2("<<x<<","<<y<<")");
+		_e( ei_tab_add_vector2( x, y ));
+	}
 	//void my_ei_tab_add_vector4(const eiScalar x, const eiScalar y, const eiScalar z, const eiScalar w);
 	//void my_ei_tab_add_tag(const eiTag value);
 	void my_ei_tab_add_index(const eiIndex value)

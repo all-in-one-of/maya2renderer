@@ -50,6 +50,7 @@ namespace elvishray
 	 //void my_ei_tab_add_int(const eiInt value);
 	 void my_ei_tab_add_scalar(const eiScalar value);
 	 void my_ei_tab_add_vector(const eiScalar x, const eiScalar y, const eiScalar z);
+	 void my_ei_tab_add_vector2(const eiScalar x, const eiScalar y);
 	 //void my_ei_tab_add_vector4(const eiScalar x, const eiScalar y, const eiScalar z, const eiScalar w);
 	 //void my_ei_tab_add_tag(const eiTag value);
 	 void my_ei_tab_add_index(const eiIndex value);
