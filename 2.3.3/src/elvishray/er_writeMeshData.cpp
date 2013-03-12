@@ -190,24 +190,14 @@ namespace elvishray
 
 			IfMErrorWarn( fnMesh.getUVs(u_coords,v_coords,&currentUVsetName) );
 			_s("//### UV("<<currentUVsetName.asChar()<<"), size="<< fnMesh.numUVs(currentUVsetName) );
-			// u
+			// uv
 			_d( tag = eiNULL_TAG );
-			_S( ei_declare("u", EI_VARYING, EI_TYPE_TAG, &tag) );
-			_d( tag = ei_tab(EI_TYPE_SCALAR, 1024) )
-			_S( ei_variable("u", &tag) );
+			_S( ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag) );
+			_d( tag = ei_tab(EI_TYPE_VECTOR2, 1024) )
+			_S( ei_variable("uv", &tag) );
 			for(size_t i = 0; i<fnMesh.numUVs(currentUVsetName); ++i)
 			{
-				_S( ei_tab_add_scalar(u_coords[i]) );
-			}
-			_S( ei_end_tab() );
-			// v
-			_d( tag = eiNULL_TAG );
-			_S( ei_declare("v", EI_VARYING, EI_TYPE_TAG, &tag) );
-			_d( tag = ei_tab(EI_TYPE_SCALAR, 1024) )
-			_S( ei_variable("v", &tag) );
-			for(size_t i = 0; i<fnMesh.numUVs(currentUVsetName); ++i)
-			{
-				_S( ei_tab_add_scalar(v_coords[i]) );
+				_S( ei_tab_add_vector2(u_coords[i], v_coords[i]) );
 			}
 			_S( ei_end_tab() );
 		}
