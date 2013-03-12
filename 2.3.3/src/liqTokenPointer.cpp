@@ -438,6 +438,14 @@ void liqTokenPointer::setTokenString( unsigned int i, const string& str )
 	m_tokenString[ i ] = str;
 }
 
+// void liqTokenPointer::setTokenInt( unsigned int i, liqInt val )
+// {
+// 	//CM_TRACE_FUNC("liqTokenPointer:setTokenInt(<<i<<","<<val<<")");
+// 
+// 	assert( m_tokenSize > i );
+// 	m_tokenFloats[i] = val;
+// }
+
 void liqTokenPointer::resetTokenString()
 {
 	//CM_TRACE_FUNC("liqTokenPointer:resetTokenString()");

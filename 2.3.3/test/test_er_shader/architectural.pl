@@ -12,7 +12,7 @@ specular_color|uniform|color|0|<<1.000000,1.000000,1.000000>>|-1
 specular_weight|uniform|float|0|0.2|-1
 
 roughness|uniform|float|0|0.0|-1
-specular_mode|uniform|float|0|0|-1
+specular_mode|uniform|int|0|0|-1
 glossiness|uniform|float|0|1.0|-1
 
 reflection_color|uniform|color|0|<<1.000000,1.000000,1.000000>>|-1
@@ -30,15 +30,15 @@ anisotropy|uniform|float|0|1.0|-1
 rotation|uniform|float|0|0.0|-1
 ior|uniform|float|0|1.5|-1
 
-fresnel_by_ior|uniform|float|0|0.0|-1
+#fresnel_by_ior|uniform|float|0|0.0|-1
 fresnel_0_degree_refl|uniform|float|0|0.2|-1
 fresnel_90_degree_refl|uniform|float|0|1.0|-1
 fresnel_curve|uniform|float|0|5.0|-1
 
-is_metal|uniform|float|0|1.0|-1
-diffuse_samples|uniform|float|0|8.0|-1
-reflection_samples|uniform|float|0|4.0|-1
-refraction_samples|uniform|float|0|4.0|-1
+is_metal|uniform|int|0|1|-1
+diffuse_samples|uniform|int|0|8|-1
+reflection_samples|uniform|int|0|4|-1
+refraction_samples|uniform|int|0|4|-1
 cutoff_threshold|uniform|float|0|0.01|-1
 #bump_shader|uniform|string|0|""|-1
 bump_factor|uniform|float|0|0.3|-1

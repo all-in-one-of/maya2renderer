@@ -6,6 +6,7 @@ typedef enum SHADER_TYPE {
 	SHADER_TYPE_POINT,
 	SHADER_TYPE_COLOR,
 	SHADER_TYPE_SCALAR,
+	SHADER_TYPE_INT,
 	SHADER_TYPE_STRING,
 	/* The following types are primarily used for shaders */
 	SHADER_TYPE_SURFACE,

@@ -13,7 +13,8 @@ enum ParameterType
 	rString = 5,
 	rHpoint = 6,
 	rMatrix = 7,
-	rShader = 8
+	rShader = 8,
+	rInt	= 9
 };
 
 enum DetailType 

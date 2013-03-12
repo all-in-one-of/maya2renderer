@@ -973,11 +973,26 @@ global proc float liquidSlDefaultToFloat( string $default )
     return $val;
 }
 
+global proc int liquidSlDefaultToInt( string $default )
+{
+    int $val = $default;
+    return $val;
+}
+
 global proc float[] liquidSlDefaultToFloatArray( string $default )
 {
 	liqPushIdent();
 	liqlog("liquidSlDefaultToFloatArray("+$default+")");
     float $val[] = eval( "float $foo_Farray[] = " + $default );
+	liqPopIdent();
+    return $val;
+}
+
+global proc int[] liquidSlDefaultToIntArray( string $default )
+{
+	liqPushIdent();
+	liqlog("liquidSlDefaultToIntArray("+$default+")");
+    int $val[] = eval( "int $foo_Farray[] = " + $default );
 	liqPopIdent();
     return $val;
 }

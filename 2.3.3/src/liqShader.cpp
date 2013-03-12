@@ -306,6 +306,14 @@ liqShader::liqShader( MObject shaderObj )
 							tokenPointerArray.rbegin()->setTokenFloat( 0, x );
 							break;
 						}
+						case SHADER_TYPE_INT:
+						{
+							ParameterType parameterType = rInt;
+							int x = shaderInfo.getArgIntDefault( i, 0 );
+							tokenPointerArray.rbegin()->set( paramName.asChar(), parameterType );
+							tokenPointerArray.rbegin()->setTokenFloat( 0, x );//setTokenInt()
+							break;
+						}
 						case SHADER_TYPE_COLOR:
 						case SHADER_TYPE_POINT:
 						case SHADER_TYPE_VECTOR:
@@ -781,6 +789,122 @@ liqShader::liqShader( MObject shaderObj )
 						{
 							skipToken = true;
 							printf("[liqShader] error while building float param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						}
+					}
+					break;
+				}
+				case SHADER_TYPE_INT:
+				{
+					MPlug intPlug( shaderNode.findPlug( paramName, &status ) );
+					if ( MS::kSuccess != status )
+					{
+						skipToken = true;
+						printf("[liqShader] error while building int param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+					}
+					else
+					{
+						if( arraySize == 0 )    // dynamic array
+						{
+							MIntArray indices;
+							intPlug.getExistingArrayAttributeIndices(indices);
+							if( indices.length() == 0 )
+							{
+								skipToken = true;
+							}
+							else
+							{
+								int maxIndex = 0;
+								for(unsigned int kk( 0 ); kk<indices.length(); kk++)
+								{
+									if( indices[kk]>maxIndex )
+									{
+										maxIndex = indices[kk];
+									}
+								}
+								arraySize = maxIndex + 1;
+
+								tokenPointerArray.rbegin()->set( paramName.asChar(), rInt, false, true, arraySize );
+								for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+								{
+									bool existingIndex = false;
+									for(unsigned int kkk( 0 ); kkk<indices.length(); kkk++)
+									{
+										if(kk==indices[kkk])
+										{
+											existingIndex = true;
+											continue;
+										}
+									}
+									if( existingIndex )  // get plug value
+									{
+										MPlug argNameElement = intPlug.elementByLogicalIndex(kk);
+										int value = argNameElement.asInt();
+										tokenPointerArray.rbegin()->setTokenFloat( kk, value );//setTokenInt()
+									}
+									else  // don't mind about value
+									{
+										tokenPointerArray.rbegin()->setTokenFloat( kk, 0 );//setTokenInt()
+									}
+								}
+							}
+						}//if( arraySize == 0 ) 
+						else if( arraySize > 0 )    // static array
+						{
+							bool isArrayAttr( intPlug.isArray( &status ) );
+							if ( isArrayAttr )
+							{
+								MPlug plugObj;
+								// check default
+								int isDefault = 1;
+								for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+								{
+									plugObj = intPlug.elementByLogicalIndex( kk, &status );
+									int intDefault = shaderInfo.getArgIntDefault( i, kk );
+									if( plugObj.asInt() != intDefault )
+									{
+										isDefault = 0;
+										continue;
+									}
+								}
+								if( isDefault && !outputAllParameters ) // skip default
+								{
+									skipToken = true;
+								}
+								else  // build non default param
+								{
+									tokenPointerArray.rbegin()->set( paramName.asChar(), rInt, false, true, arraySize );
+									for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+									{
+										plugObj = intPlug.elementByLogicalIndex( kk, &status );
+										if ( MS::kSuccess == status )
+										{
+											int x;
+											plugObj.getValue( x );
+											tokenPointerArray.rbegin()->setTokenFloat( kk, x );//setTokenInt()
+										}
+									}
+								}
+							}
+						}//if( arraySize > 0 )
+						else if( arraySize == -1 )    // single value
+						{
+							int intPlugVal;
+							intPlug.getValue( intPlugVal );
+							int intDefault( shaderInfo.getArgIntDefault( i, 0 ) );
+							if( intPlugVal == intDefault && !outputAllParameters )  // skip default
+							{
+								skipToken = true;
+							}
+							else  // build non default param
+							{
+								tokenPointerArray.rbegin()->set( paramName.asChar(), rInt );
+								tokenPointerArray.rbegin()->setTokenFloat( 0, intPlugVal );//setTokenInt()
+							}
+						}//if( arraySize == -1 ) 
+						else    // unknown type
+						{
+							skipToken = true;
+							printf("[liqShader] error while building int param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;

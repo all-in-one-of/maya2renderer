@@ -59,6 +59,7 @@ class LIQUID_EXPORT liqTokenPointer
 	void           setTokenFloats( const boost::shared_array< liqFloat > floatVals ); // Warning! This method assumes ownership of the pointer is transferred to the TokenPointer!!!
     void           setTokenFloats( const liqFloat* floatVals ); // Use this one to copy the data
     void           setTokenString( unsigned int i, const std::string& str );
+//	void           setTokenInt( unsigned int i, liqInt val );
 
     const std::string&						getDetailedTokenName();
     DetailType								getDetailType() const;

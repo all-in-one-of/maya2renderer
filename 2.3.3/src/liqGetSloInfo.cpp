@@ -81,7 +81,7 @@
 //int SDRtoSLOMAP[7] = { 3, 11, 12, 1, 2, 13, 4 };
 //int SDRTypetoSLOTypeMAP[5] = { 5, 7, 8, 6, 10 };
 
-const unsigned int shaderTypeStrSize = 15;
+const unsigned int shaderTypeStrSize = 16;
 const char* shaderTypeStr[shaderTypeStrSize] = { "unknown",        //0
                                                   "point",          //1
                                                   "color",          //2
@@ -96,7 +96,9 @@ const char* shaderTypeStr[shaderTypeStrSize] = { "unknown",        //0
                                                   "vector",         //11
                                                   "normal",         //12
                                                   "matrix",         //13
-                                                  "shader" };       //14
+                                                  "shader",         //14
+												  "int"				//15
+};
 
 const char* shaderDetailStr[3] = {  "unknown",
                                      "varying",
@@ -109,6 +111,7 @@ liqGetSloInfo::liqGetSloInfo()
   shaderTypeMap["point"]          = SHADER_TYPE_POINT;
   shaderTypeMap["color"]          = SHADER_TYPE_COLOR;
   shaderTypeMap["float"]          = SHADER_TYPE_SCALAR;
+  shaderTypeMap["int"]			  = SHADER_TYPE_INT;
   shaderTypeMap["string"]         = SHADER_TYPE_STRING;
   shaderTypeMap["surface"]        = SHADER_TYPE_SURFACE;
   shaderTypeMap["light"]          = SHADER_TYPE_LIGHT;
@@ -226,6 +229,11 @@ float liqGetSloInfo::getArgFloatDefault( int num, int entry )
     return floats[ entry ];
 }
 
+int liqGetSloInfo::getArgIntDefault( int num, int entry )
+{
+	int *ints = ( int * )argDefault[ num ];
+	return ints[ entry ];
+}
 
 int liqGetSloInfo::isOutputParameter( unsigned int num )
 {
@@ -650,7 +658,26 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
           }
           break;
         }
-
+		case SHADER_TYPE_INT: 
+		{
+			if ( shaderArraySizes[k] > 0 ) {
+				// replace ';'by ':' before split shaderDefaults[k]
+				shaderDefaults[k] = replaceAll(shaderDefaults[k], ';', ':');
+				MStringArray tmp;
+				shaderDefaults[k].split( ':', tmp );
+				//assert(tmp.length()==shaderArraySizes[k]);
+				int *ints = ( int *)lmalloc( sizeof( int ) * shaderArraySizes[k] );
+				for (int kk = 0; kk < shaderArraySizes[k]; kk ++ ) {
+					ints[kk] = tmp[kk].asInt();
+				}
+				argDefault.push_back( ( void * )ints );
+			} else {
+				int *ints = ( int *)lmalloc( sizeof( int ) * 1 );
+				ints[0] = shaderDefaults[k].asInt();
+				argDefault.push_back( ( void * )ints );
+			}
+			break;
+		}
         case SHADER_TYPE_COLOR:
         case SHADER_TYPE_POINT:
         case SHADER_TYPE_VECTOR:
@@ -823,6 +850,21 @@ MStatus liqGetSloInfo::doIt( const MArgList& args )
           }
           break;
         }
+		case SHADER_TYPE_INT: 
+		{
+			if ( getArgArraySize( argNum ) > 0 ) {
+				for ( int kk = 0; kk < getArgArraySize( argNum ); kk++ ) {
+					char defaultTmp[256];
+					sprintf( defaultTmp, "%d", getArgIntDefault( argNum, kk ) );
+					defaults.append( defaultTmp );
+				}
+			} else {
+				char defaultTmp[256];
+				sprintf( defaultTmp, "%d", getArgIntDefault( argNum, 0 ) );
+				defaults.append( defaultTmp );
+			}
+			break;
+		}
           case SHADER_TYPE_COLOR:
           case SHADER_TYPE_POINT:
           case SHADER_TYPE_VECTOR:

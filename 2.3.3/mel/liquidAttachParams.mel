@@ -77,6 +77,7 @@ global proc liquidAttachShaderParams( string $currentNodeName, string $shaderFil
 
 		string $argDefaultS[];
 		float  $argDefaultF[];
+		int    $argDefaultI[];
 		vector $argDefaultV[];
 		float  $argDefaultFM[];
 
@@ -150,6 +151,30 @@ global proc liquidAttachShaderParams( string $currentNodeName, string $shaderFil
 					addAttr -hidden true -longName $argName -at double -k true $currentNodeName;
 					//liqlog("setAttr "+$cplug+" "+$argDefaultF[0]);
 					setAttr $plug $argDefaultF[0];
+				}
+				break;
+			case "int":
+				if ( $isArray )
+				{
+					// int array
+					$argDefaultI = liquidSlDefaultToIntArray( $paramDefault );
+					//trace ("[liquidAttachShaderParams]\taddAttr multi double "+$argName);
+					addAttr -hidden true -longName $argName -at "long" -keyable true -multi $currentNodeName;
+					for ( $k = 0; $k < $argArrayLen; $k++ )
+					{
+						$cplug = ($plug+"["+$k+"]");
+						//trace ("[liquidAttachShaderParams]\tsetAttr "+$cplug+" "+$argDefaultI[$k]);
+						setAttr -k true $cplug $argDefaultI[$k];
+					}
+				}
+				else
+				{
+					// simple float
+					$argDefaultI[0] = liquidSlDefaultToInt( $paramDefault );
+					//liqlog("addAttr double "+$argName);
+					addAttr -hidden true -longName $argName -at long -k true $currentNodeName;
+					//liqlog("setAttr "+$cplug+" "+$argDefaultI[0]);
+					setAttr $plug $argDefaultI[0];
 				}
 				break;
 			case "shader":

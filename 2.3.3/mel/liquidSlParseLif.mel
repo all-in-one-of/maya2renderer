@@ -1452,6 +1452,7 @@ global proc liquidSlBuildLifCmdList()
 				case "vector":
 				case "normal":
 				case "matrix":
+				case "int":
 					$lifCmd				= "liquidAE_LifParameter";				
 					$lifCmd				+= "( \""+$paramName+"\", \""+$index+"\", \""+$argType+"\"";
 					// TODO : pass the $accept string as separate argument? Will require reloading of old shaders though
@@ -1525,7 +1526,7 @@ global proc liquidSlBuildLifCmdList()
 					liquidLifSetParamAccept($i, $accept);					
 					break;
 				default:
-					warning ("[liquidSlBuildLifCmdList] >\""+$argType+"\" not handled yet !");
+					error ("[liquidSlBuildLifCmdList] >\""+$argType+"\" not handled yet !");
 					break;
 			}
 		}
