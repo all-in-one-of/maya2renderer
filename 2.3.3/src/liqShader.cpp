@@ -314,6 +314,14 @@ liqShader::liqShader( MObject shaderObj )
 							tokenPointerArray.rbegin()->setTokenFloat( 0, x );//setTokenInt()
 							break;
 						}
+						case SHADER_TYPE_BOOL:
+							{
+								ParameterType parameterType = rBool;
+								bool x = shaderInfo.getArgBoolDefault( i, 0 );
+								tokenPointerArray.rbegin()->set( paramName.asChar(), parameterType );
+								tokenPointerArray.rbegin()->setTokenFloat( 0, x );//setTokenBool()
+								break;
+							}
 						case SHADER_TYPE_COLOR:
 						case SHADER_TYPE_POINT:
 						case SHADER_TYPE_VECTOR:
@@ -909,6 +917,125 @@ liqShader::liqShader( MObject shaderObj )
 					}
 					break;
 				}
+				//////////////////////////////////////////////////////////////////////////
+				case SHADER_TYPE_BOOL:
+					{
+						MPlug boolPlug( shaderNode.findPlug( paramName, &status ) );
+						if ( MS::kSuccess != status )
+						{
+							skipToken = true;
+							printf("[liqShader] error while building bool param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						}
+						else
+						{
+							if( arraySize == 0 )    // dynamic array
+							{
+								MIntArray indices;
+								boolPlug.getExistingArrayAttributeIndices(indices);
+								if( indices.length() == 0 )
+								{
+									skipToken = true;
+								}
+								else
+								{
+									int maxIndex = 0;
+									for(unsigned int kk( 0 ); kk<indices.length(); kk++)
+									{
+										if( indices[kk]>maxIndex )
+										{
+											maxIndex = indices[kk];
+										}
+									}
+									arraySize = maxIndex + 1;
+
+									tokenPointerArray.rbegin()->set( paramName.asChar(), rBool, false, true, arraySize );
+									for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+									{
+										bool existingIndex = false;
+										for(unsigned int kkk( 0 ); kkk<indices.length(); kkk++)
+										{
+											if(kk==indices[kkk])
+											{
+												existingIndex = true;
+												continue;
+											}
+										}
+										if( existingIndex )  // get plug value
+										{
+											MPlug argNameElement = boolPlug.elementByLogicalIndex(kk);
+											bool value = argNameElement.asBool();
+											tokenPointerArray.rbegin()->setTokenFloat( kk, value );//setTokenBool()
+										}
+										else  // don't mind about value
+										{
+											tokenPointerArray.rbegin()->setTokenFloat( kk, 0 );//setTokenBool()
+										}
+									}
+								}
+							}//if( arraySize == 0 ) 
+							else if( arraySize > 0 )    // static array
+							{
+								bool isArrayAttr( boolPlug.isArray( &status ) );
+								if ( isArrayAttr )
+								{
+									MPlug plugObj;
+									// check default
+									int isDefault = 1;
+									for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+									{
+										plugObj = boolPlug.elementByLogicalIndex( kk, &status );
+										bool boolDefault = shaderInfo.getArgBoolDefault( i, kk );
+										if( plugObj.asBool() != boolDefault )
+										{
+											isDefault = 0;
+											continue;
+										}
+									}
+									if( isDefault && !outputAllParameters ) // skip default
+									{
+										skipToken = true;
+									}
+									else  // build non default param
+									{
+										tokenPointerArray.rbegin()->set( paramName.asChar(), rBool, false, true, arraySize );
+										for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
+										{
+											plugObj = boolPlug.elementByLogicalIndex( kk, &status );
+											if ( MS::kSuccess == status )
+											{
+												bool x;
+												plugObj.getValue( x );
+												tokenPointerArray.rbegin()->setTokenFloat( kk, x );//setTokenBool()
+											}
+										}
+									}
+								}
+							}//if( arraySize > 0 )
+							else if( arraySize == -1 )    // single value
+							{
+								bool boolPlugVal;
+								boolPlug.getValue( boolPlugVal );
+								bool boolDefault( shaderInfo.getArgBoolDefault( i, 0 ) );
+								if( boolPlugVal == boolDefault && !outputAllParameters )  // skip default
+								{
+									skipToken = true;
+								}
+								else  // build non default param
+								{
+									tokenPointerArray.rbegin()->set( paramName.asChar(), rBool );
+									tokenPointerArray.rbegin()->setTokenFloat( 0, boolPlugVal );//setTokenBool()
+								}
+							}//if( arraySize == -1 ) 
+							else    // unknown type
+							{
+								skipToken = true;
+								printf("[liqShader] error while building bool param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							}
+						}
+						break;
+					}				
+				//////////////////////////////////////////////////////////////////////////
+				
 				case SHADER_TYPE_COLOR:
 				case SHADER_TYPE_POINT:
 				case SHADER_TYPE_VECTOR:

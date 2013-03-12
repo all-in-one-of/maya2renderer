@@ -65,6 +65,7 @@ public:
   MString       getArgStringDefault( int num, int entry );
   float         getArgFloatDefault( int num, int entry );
   int           getArgIntDefault( int num, int entry );
+  bool			getArgBoolDefault( int num, int entry );
   int           getArgArraySize( int num );
   int           isOutputParameter( unsigned int num );
   MString       getArgAccept( unsigned int num );

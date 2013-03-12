@@ -255,6 +255,30 @@ proc string liquidSl_getParamDefaultI( string $value)
     return $result;
 }
 
+proc string liquidSl_getParamDefaultB( string $value)
+{
+	liqPushIdent();
+	liqlog("liquidSlParsePL.mel::liquidSl_getParamDefaultB("+$value+")");
+    string $result = "0";
+
+    // First check for "Unknown" or null for shaders
+    if ( ($value == "") || ($value == "Unknown") ) {
+		liqPopIdent();
+		error("unkown value \""+$value+"\"\n");
+        return $result;
+    }
+
+    // Check we don't have an overflow value
+    $result = int($value);
+    if ( size(match("inf", $result)) ) {
+    	warning( "[liquidSlParsePL.mel::liquidSl_getParamDefaultI] float overflow value \""+$value+"\" was set to 0.0");
+    	$result = "0";
+    }
+	
+	liqPopIdent();
+    return $result;
+}
+
 proc string liquidSl_getParamDefaultS( string $value )
 {
   liqPushIdent();
@@ -359,6 +383,9 @@ proc string liquidSl_getParamDefault( string $line, string $paramType )
     		break;
 		case "int":
     		$value = liquidSl_getParamDefaultI( $value );
+    		break;
+		case "bool":
+    		$value = liquidSl_getParamDefaultB( $value );
     		break;
 		case "matrix":
     		$value = liquidSl_getParamDefaultM( $value );

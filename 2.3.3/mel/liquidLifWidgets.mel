@@ -577,6 +577,52 @@ global proc string liquidAE_LifInt( string $paramName, string $attr, string $sub
 	return $resultCtl;
 }
 
+
+/********************************************************************
+	Bools
+********************************************************************/
+
+global proc string liquidAE_LifBool( string $paramName, string $attr, string $subtype, string $label, string $range[], string $description, int $state )
+{
+	liqPushIdent();
+	liqlog ("liquidAE_LifBool( "+$paramName+","+$attr+",UI type:"+$subtype+","+$label+",["+stringArrayToString($range, " ")+"],"+$description+","+$state+")");
+
+	global string	$gLiquid_currentAEParent;
+	global string	$gLiquid_currentAENode;
+	global string	$gLiquid_currentAEShader;
+	string			$resultCtl;
+					
+	string	$subtypes[]	= stringToStringArray( $subtype, "|");
+ 	string	$stype		= $subtypes[0];
+
+	// save UI parent
+	string	$saveParent	= $gLiquid_currentAEParent;
+	setParent $gLiquid_currentAEParent;
+		
+	switch( $stype )
+	{
+		case "checkbox":
+		case "bool":
+			$resultCtl = liquidAE_LifFloat_bool( $paramName, $attr, $label, $range, $description, $state );
+ 			break; 
+		case "selector":
+		case "field": 
+		case "int": 
+		case "slider":
+		default :
+			error("[liquidAE_LifInt()] for subtype \""+$stype+"\" is not implemented yet.");
+			break;
+	}
+
+	// restore saved parent
+	$gLiquid_currentAEParent = $saveParent;
+	setParent $gLiquid_currentAEParent;
+		
+	liqPopIdent();
+	return $resultCtl;
+}
+
+
 /********************************************************************
 	Colors
 ********************************************************************/
@@ -1183,6 +1229,9 @@ global proc string liquidAE_LifParameter(	string $paramName, int $index, string 
 			break;
 		case "int":
 			$createdControl = liquidAE_LifInt( $ename, $eattr, $esubtype, $elabel, $range, $description, $state );
+			break;
+		case "bool":
+			$createdControl = liquidAE_LifBool( $ename, $eattr, $esubtype, $elabel, $range, $description, $state );
 			break;
 		case "color":
 			if( objExists($eplug+"."+$baseattr+"R") )  // maybe not a compound

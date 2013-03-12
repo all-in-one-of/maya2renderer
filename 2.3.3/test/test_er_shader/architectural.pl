@@ -30,7 +30,7 @@ anisotropy|uniform|float|0|1.0|-1
 rotation|uniform|float|0|0.0|-1
 ior|uniform|float|0|1.5|-1
 
-#fresnel_by_ior|uniform|float|0|0.0|-1
+fresnel_by_ior|uniform|float|0|0.0|-1
 fresnel_0_degree_refl|uniform|float|0|0.2|-1
 fresnel_90_degree_refl|uniform|float|0|1.0|-1
 fresnel_curve|uniform|float|0|5.0|-1

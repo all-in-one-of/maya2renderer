@@ -71,6 +71,13 @@ namespace elvishray
 					ei_shader_param_int( vp->getTokenName().c_str(), (liqInt)v[0] );
 				}
 				break;
+			case rBool:
+				{
+					const liqFloat *v = vp->getTokenFloatArray();
+					_s("ei_shader_param_bool(\""<<vp->getTokenName()<<"\"," <<(bool)v[0]<<");");
+					ei_shader_param_bool( vp->getTokenName().c_str(), (bool)v[0] );
+				}
+				break;
 			case rFloat:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();

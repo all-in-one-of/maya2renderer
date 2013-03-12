@@ -997,6 +997,15 @@ global proc int[] liquidSlDefaultToIntArray( string $default )
     return $val;
 }
 
+global proc int[] liquidSlDefaultToBoolArray( string $default )
+{
+	liqPushIdent();
+	liqlog("liquidSlDefaultToBoolArray("+$default+")");
+    int $val[] = eval( "int $foo_Barray[] = " + $default );
+	liqPopIdent();
+    return $val;
+}
+
 global proc vector liquidSlDefaultToVector( string $default )
 {
     vector $val = $default;

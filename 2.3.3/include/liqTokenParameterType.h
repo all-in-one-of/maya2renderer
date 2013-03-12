@@ -14,7 +14,8 @@ enum ParameterType
 	rHpoint = 6,
 	rMatrix = 7,
 	rShader = 8,
-	rInt	= 9
+	rInt	= 9,
+	rBool	= 10
 };
 
 enum DetailType 

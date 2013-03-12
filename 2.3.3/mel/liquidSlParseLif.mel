@@ -1453,6 +1453,7 @@ global proc liquidSlBuildLifCmdList()
 				case "normal":
 				case "matrix":
 				case "int":
+				case "bool":
 					$lifCmd				= "liquidAE_LifParameter";				
 					$lifCmd				+= "( \""+$paramName+"\", \""+$index+"\", \""+$argType+"\"";
 					// TODO : pass the $accept string as separate argument? Will require reloading of old shaders though
