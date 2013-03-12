@@ -191,9 +191,6 @@
     <ClInclude Include="..\appleseed\as_shaderOutputCall.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\appleseed\log_helper.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\appleseed\objExport.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -211,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\appleseed\toFloat.h">
       <Filter>dependences</Filter>
+    </ClInclude>
+    <ClInclude Include="..\appleseed\as_log_helper.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2301,6 +2301,7 @@
     <ClInclude Include="..\appleseed\as_GlobalNodeHelper.h" />
     <ClInclude Include="..\appleseed\as_helper.h" />
     <ClInclude Include="..\appleseed\as_helper5.h" />
+    <ClInclude Include="..\appleseed\as_log_helper.h" />
     <ClInclude Include="..\appleseed\as_material.h" />
     <ClInclude Include="..\appleseed\as_material2.h" />
     <ClInclude Include="..\appleseed\as_material3.h" />
@@ -2308,7 +2309,6 @@
     <ClInclude Include="..\appleseed\as_renderer.h" />
     <ClInclude Include="..\appleseed\as_shaderOutput.h" />
     <ClInclude Include="..\appleseed\as_shaderOutputCall.h" />
-    <ClInclude Include="..\appleseed\log_helper.h" />
     <ClInclude Include="..\appleseed\objExport.h" />
     <ClInclude Include="..\appleseed\prerequest_as.h" />
     <ClInclude Include="..\appleseed\qttilecallbackfactory.h" />
