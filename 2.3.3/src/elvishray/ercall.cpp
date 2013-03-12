@@ -3,6 +3,7 @@
 
 #include "ercall.h"
 #include "er_renderer.h"
+#include "log_helper.h"
 
 #define _USE_ER_LIB_
 
@@ -21,9 +22,6 @@
 	elvishray::Renderer::m_log.get()<< "// "<< #_call_<<" is not called. You should define _USE_ER_LIB_." <<std::endl;
 #endif
 
-#define _s( _log_ )										\
-	assert(elvishray::Renderer::m_log.get().is_open());	\
-	elvishray::Renderer::m_log.get()<< _log_ <<";"<<std::endl;
 
 
 
