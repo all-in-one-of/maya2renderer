@@ -34,7 +34,7 @@
 #include "ercall.h"
 #include "MayaConnection.h"
 #include "er_groupmgr.h"
-#include "log_helper.h"
+#include "er_log_helper.h"
 #include "er_GlobalNodeHelper.h"
 #include "er_iprMgr.h"
 

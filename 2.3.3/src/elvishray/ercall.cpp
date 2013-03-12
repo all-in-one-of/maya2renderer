@@ -3,7 +3,7 @@
 
 #include "ercall.h"
 #include "er_renderer.h"
-#include "log_helper.h"
+#include "er_log_helper.h"
 
 #define _USE_ER_LIB_
 

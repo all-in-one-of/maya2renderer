@@ -6,7 +6,7 @@
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
 #include "ercall.h"
-#include "log_helper.h"
+#include "er_log_helper.h"
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
 #include <liqGlobalHelpers.h>

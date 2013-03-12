@@ -143,9 +143,6 @@
     <ClInclude Include="..\elvishray\ercall.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\elvishray\log_helper.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\elvishray\MayaConnection.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -156,6 +153,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_iprMgr.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\er_log_helper.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

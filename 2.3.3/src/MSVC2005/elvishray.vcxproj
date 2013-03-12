@@ -2284,9 +2284,9 @@
     <ClInclude Include="..\elvishray\er_group.h" />
     <ClInclude Include="..\elvishray\er_groupmgr.h" />
     <ClInclude Include="..\elvishray\er_iprMgr.h" />
+    <ClInclude Include="..\elvishray\er_log_helper.h" />
     <ClInclude Include="..\elvishray\er_renderer.h" />
     <ClInclude Include="..\elvishray\ercall.h" />
-    <ClInclude Include="..\elvishray\log_helper.h" />
     <ClInclude Include="..\elvishray\MayaConnection.h" />
     <ClInclude Include="..\elvishray\shaderOutputER.h" />
     <ClInclude Include="..\elvishray\shaderOutputERCall.h" />
