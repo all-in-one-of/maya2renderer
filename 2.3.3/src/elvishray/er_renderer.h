@@ -85,6 +85,7 @@ namespace elvishray
 			const liqFloat & intensity,
 			const liqColor & color,
 			const liqMatrix &transform);
+		virtual liqLightHandle exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob);
 		virtual liqLightHandle exportDistantLight(
 			const std::string &shadertype, 
 			const std::string &shaderinstance, 

@@ -87,6 +87,37 @@ namespace elvishray
 
 		return (liqLightHandle)(0);
 	}
+	liqLightHandle Renderer::exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+
+		assert(0&&"skylight leads to a crash. i dont know why.");
+		_s("\n// Renderer::exportAmbientLight()");
+		_s("// NOTE: I export maya ambient light to sky light temporarily, but how to deal with the \"resolution\",\"max_dist\" parameters.");
+		
+		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
+		const liqMatrix &t = lightdata->transformationMatrix;
+
+		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
+		_S( ei_shader( "skylight", sShaderInstanceName.c_str() ) ); 
+		_S( ei_shader_param_int("resolution", 1000 ) );
+		_S( ei_shader_param_scalar("max_dist", 10000.0f ) );
+		_S( ei_end_shader() );
+
+		std::string sLightObjectName(shaderinstanceFullPath+"_object");
+		_S( ei_light(  sLightObjectName.c_str() ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
+		_S( ei_origin( 0.0, 0.0, 0.0 ) );
+		_S( ei_end_light() );
+
+		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
+		_S( ei_element(	 sLightObjectName.c_str() ) );
+		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		addLightGroupForLight(shaderinstanceFullPath.c_str());
+		_S( ei_end_instance() );
+
+		return (liqLightHandle)(0);
+	}
 	//
 	liqLightHandle Renderer::exportDistantLight(
 		const std::string &shadertype, 
@@ -317,6 +348,8 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
 
 		_s("\n// Renderer::exportAreaLight()");
+		_s("// NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
+
 		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
 		const liqMatrix &t = lightdata->transformationMatrix;
 
@@ -401,8 +434,9 @@ namespace elvishray
 			switch ( pData->lightType ) 
 			{
 			case MRLT_Ambient:
-				pData->handle = liquid::RendererMgr::getInstancePtr()->
-					getRenderer()->exportAmbientLight("???", pData->lightName.asChar(), pData->intensity, pData->color, pData->transformationMatrix);
+				//pData->handle = liquid::RendererMgr::getInstancePtr()->
+				//	getRenderer()->exportAmbientLight("???", pData->lightName.asChar(), pData->intensity, pData->color, pData->transformationMatrix);
+				liquid::RendererMgr::getInstancePtr()->getRenderer()->exportAmbientLight(pData, currentJob__);
 				break;
         
 			case MRLT_Distant:

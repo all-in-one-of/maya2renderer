@@ -94,6 +94,7 @@ public:
 		const liqFloat & intensity,
 		const liqColor & color,
 		const liqMatrix &transform) = 0;
+	virtual liqLightHandle exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob) = 0;
 	virtual liqLightHandle exportDistantLight(
 		const std::string &shadertype, 
 		const std::string &shaderinstance, 
