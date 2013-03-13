@@ -276,8 +276,10 @@ namespace elvishray
 		_S( ei_shader( "spotlight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) ); 
 		_S( ei_shader_param_scalar("intensity", i_intensity ) );
+		//deltaangle = penumbra_angle_of_the_spot_light - panorama_angle_of_the_spot_light,(unit:radian),
 		_S( ei_shader_param_scalar("deltaangle", (i_penumbraangle*0.5f) ) );
 		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f ) ); 
+		//spread = 0.5 * cone_angle_of_the_spot_light,(unit:radian)
 		_S( ei_shader_param_scalar("spread", (i_coneangle*0.5f) ) );  
 		_S( ei_end_shader() );
 
