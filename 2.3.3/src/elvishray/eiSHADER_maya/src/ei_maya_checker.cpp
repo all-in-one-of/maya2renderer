@@ -30,7 +30,7 @@ SURFACE(maya_checker)
 	DECLARE_SCALAR(filter,			1.0f);
 	DECLARE_SCALAR(filterOffset,	0.0f);
 	DECLARE_BOOL(invert,			eiFALSE);
-	DECLARE_VECTOR(uvCoord_,			0.0f, 0.0f, 0.0f);//only uvCoord[0],uvCoord[1] are used.
+	DECLARE_VECTOR(uvCoord,			0.0f, 0.0f, 0.0f);//only uvCoord[0],uvCoord[1] are used.
 	DECLARE_SCALAR(outAlpha,		0.5f);// Outputs - begin
 	DECLARE_COLOR(outColor,			0.5f, 0.5f, 0.5f);
 	END_DECLARE;
@@ -60,13 +60,16 @@ SURFACE(maya_checker)
 
 		if(ISUVDEFINED(ss, tt))
 		{
-
 			/* compute 'ss' and 'tt' filter widths */
-			vector dUVdu, dUVdv;
-			Duv(vector(ss, tt, 0.0f), dUVdu, dUVdv);
-			float dss = abs(dUVdu.x * du()) + abs(dUVdv.x * dv());
-			float dtt = abs(dUVdu.y * du()) + abs(dUVdv.y * dv());
+// 			vector dUVdu, dUVdv;
+// 			Duv(vector(ss, tt, 0.0f), dUVdu, dUVdv);
+// 			float dss = abs(dUVdu.x * du()) + abs(dUVdv.x * dv());
+// 			float dtt = abs(dUVdu.y * du()) + abs(dUVdv.y * dv());
 			
+			float dss = abs(Du(uvCoord).x * du) + abs(Dv(uvCoord).x * dv);
+			float dtt = abs(Du(uvCoord).y * du) + abs(Dv(uvCoord).y * dv);
+
+
 			ss = fmodf(ss, WRAPMAX);
 			tt = fmodf(tt, WRAPMAX);
 
@@ -85,9 +88,9 @@ SURFACE(maya_checker)
 
 			/* Compute final values. */
 			alpha = 1.0f - f;
-			Ci() = color1() + (color2() - color1()) * f;
+			out->Ci = color1() + (color2() - color1()) * f;
 
-			colorBalance(Ci(), 
+			colorBalance(out->Ci, 
 				alpha,
 				alphaIsLuminance(),
 				alphaGain(),
@@ -98,12 +101,12 @@ SURFACE(maya_checker)
 		}
 		else
 		{
-			Ci() = defaultColor();
+			out->Ci = defaultColor();
 			alpha = luminance( defaultColor() );
 		}
 
 		// set output
-		outColor() = Ci();
+		outColor() = out->Ci;
 		outAlpha() = alpha;
 	}
 
@@ -111,25 +114,26 @@ SURFACE(maya_checker)
 END(maya_checker)
 
 SURFACE(maya_checker_uv)
+	DECLARE;
+	DECLARE_COLOR(color1, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(color2, 1.0f, 1.0f, 1.0f);
+	DECLARE_VECTOR(uvCoord, 2.0f, 2.0f, 0.0f);
+	DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
+	END_DECLARE;
 
-	PARAM(color, color1);
-	PARAM(color, color2);
-	PARAM(vector,uvCoord);
-	PARAM(color, outColor);
-
-	void parameters(int pid)
-	{
-		DECLARE_COLOR(color1, 0.0f, 0.0f, 0.0f);
-		DECLARE_COLOR(color2, 1.0f, 1.0f, 1.0f);
-		DECLARE_VECTOR(uvCoord, 2.0f, 2.0f, 0.0f);
-		DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
-	}
-
-	void init()
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
@@ -144,8 +148,8 @@ SURFACE(maya_checker_uv)
 		//x = fmodf( u() * uvCoord().x, 1.0f);
 		//y = fmodf( v() * uvCoord().y, 1.0f);
 		//3
-		x =  u() * uvCoord().x;
-		y =  v() * uvCoord().y;
+		x =  u * uvCoord().x;
+		y =  v * uvCoord().y;
 
 		//if ( floor( x * 2 ) == floor( y * 2 ) )
 		if ((((eiInt)x + (eiInt)y) % 2) == 0)
@@ -161,21 +165,24 @@ SURFACE(maya_checker_uv)
 END(maya_checker_uv)
 
 SURFACE(maya_simple_texture)
-
-	PARAM(eiTag, texture);
-	PARAM(color, outColor);
-
-	void parameters(int pid)
-	{
-		DECLARE_TAG(texture, eiNULL_TAG);
-		DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
-	}
-
-	void init()
+	DECLARE;
+	DECLARE_TAG(texture, eiNULL_TAG);
+	DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
+	END_DECLARE;
+ 
+	static void init()
 	{
 	}
 
-	void exit()
+	static void exit()
+	{
+	}
+
+	void init_node()
+	{
+	}
+
+	void exit_node()
 	{
 	}
 
@@ -187,7 +194,7 @@ SURFACE(maya_simple_texture)
 
 		if (tex != eiNULL_TAG)
 		{
-			outColor() = color_texture(tex, 0, get_state()->bary.x, get_state()->bary.y);
+			outColor() = color_texture(tex, 0, u, v);
 		}
 	}
 
