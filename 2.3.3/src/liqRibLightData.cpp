@@ -50,6 +50,7 @@
 #include <maya/MTransformationMatrix.h>
 #include <maya/MFnSpotLight.h>
 #include <maya/MFnAreaLight.h>
+#include <maya/MFnVolumeLight.h>
 #include <maya/MColor.h>
 #include <maya/MString.h>
 #include <maya/MStringArray.h>
@@ -474,6 +475,46 @@ liqRibLightData::liqRibLightData( const MDagPath & light )
 	  if ( liquidGetPlugValue(lightDepNode, "liqLightMapSaturation", lightMapSaturation, status) != MS::kSuccess )
 		  lightMapSaturation = 1.0;
     }
+	else if( light.hasFn( MFn::kVolumeLight) )
+	{
+		MFnVolumeLight fnVolumeLight( light );
+		lightType      = MRLT_Volume;
+		decay          = fnVolumeLight.decayRate();
+		shadowSamples  = 64.0f;
+		if ( liqglo.liqglo_doShadows && usingShadow ) 
+		{
+			if ( !rayTraced ) 
+			{
+				if ( ( shadowName == "" ) || ( shadowName.substring( 0, 9 ).toLowerCase() == "autoshadow" ) ) {
+					shadowName   = autoShadowName();
+				}
+			} else {
+				shadowName = "raytrace";
+			}
+
+// 			shadowFilterSize = fnAreaLight.depthMapFilterSize( &status );
+// 			shadowBias       = fnAreaLight.depthMapBias( &status );
+// 			shadowSamples    = fnAreaLight.numShadowSamples( &status );
+// 			shadowRadius     = fnAreaLight.shadowRadius( &status );
+		}
+		bool bothsides = false;
+		liquidGetPlugValue(lightDepNode, "liqBothSidesEmit", bothsides, status);
+		bothSidesEmit = ( bothsides == true ) ? 1.0 : 0.0;
+
+		if ( liquidGetPlugValue(lightDepNode, "__category", lightCategory, status) != MS::kSuccess )
+			lightCategory = "";
+		if ( liquidGetPlugValue(lightDepNode, "lightID", lightID, status) != MS::kSuccess )
+			lightID = 0;
+//		if ( liquidGetPlugValue(lightDepNode, "liqAreaHitmode", hitmode, status) != MS::kSuccess )
+//			hitmode = 1;
+		if ( liquidGetPlugValue(lightDepNode, "liqLightMap", lightMap, status) == MS::kSuccess )
+			lightMap = parseString( lightMap, false );  
+		else 
+			lightMap = "";
+
+		if ( liquidGetPlugValue(lightDepNode, "liqLightMapSaturation", lightMapSaturation, status) != MS::kSuccess )
+			lightMapSaturation = 1.0;
+	}
   //}//if ( rmanLight ) else
 }
 

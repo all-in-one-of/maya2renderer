@@ -177,7 +177,8 @@ enum LightType {
   MRLT_Point    = 3,
   MRLT_Spot     = 4,
   MRLT_Rman     = 5,
-  MRLT_Area     = 6
+  MRLT_Area     = 6,
+  MRLT_Volume	= 7
 };
 
 enum AnimType {

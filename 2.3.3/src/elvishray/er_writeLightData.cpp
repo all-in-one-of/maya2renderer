@@ -378,7 +378,73 @@ namespace elvishray
 
 		return (liqLightHandle)(0);
 	}
-		//////////////////////////////////////////////////////////////////////////
+	liqLightHandle Renderer::exportVolumeLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportVolumeLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+		
+		MStatus status;
+
+		_s("\n// Renderer::exportVolumeLight()");
+
+		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
+		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
+		const liqMatrix &t = lightdata->transformationMatrix;
+		
+		MFnVolumeLight fnLight( lightdata->objDagPath, &status);
+		IfMErrorWarn(status);
+
+		MFnVolumeLight::MLightShape shape = fnLight.lightShape();
+		
+		//export shader
+		if( MFnVolumeLight::kBoxVolume == shape )
+		{
+			_s("\n// volume light for box shape is not implemented yet. "<<lightdata->getName());
+			assert(0&&"volume light for box shape is not implemented yet.");
+			return (liqLightHandle)(-1);
+		}
+		else if( MFnVolumeLight::kSphereVolume == shape )
+		{
+			_S( ei_shader( "spherelight", sShaderInstanceName.c_str() ) ); 
+			_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
+			_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
+			_S( ei_shader_param_scalar("radius", t[0][0] ) );//use scale.x for the radius
+			_S( ei_end_shader() );
+		}
+		else if( MFnVolumeLight::kCylinderVolume == shape )
+		{
+			_s("\n// volume light for cylinder shape is not implemented yet. "<<lightdata->getName());
+			assert(0&&"volume light for cylinder shape is not implemented yet.");
+			return (liqLightHandle)(-1);
+		}
+		else if( MFnVolumeLight::kConeVolume == shape )
+		{
+			_s("\n// volume light for cone shape is not implemented yet. "<<lightdata->getName());
+			assert(0&&"volume light for cone shape is not implemented yet.");
+			return (liqLightHandle)(-1);
+		}
+		else{
+			_s("\n// volume light for unknow shape is not implemented yet. "<<lightdata->getName()<<", shape="<<shape);
+			assert(0&&"volume light for unown shape is not implemented yet.");
+			return (liqLightHandle)(-1);
+		}
+
+		//object
+		std::string sLightObjectName(shaderinstanceFullPath+"_object");
+		_S( ei_light(  sLightObjectName.c_str() ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
+		_S( ei_origin( 0.0, 0.0, 0.0 ) );
+		_S( ei_end_light() );
+
+		//instance
+		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
+		_S( ei_element(	 sLightObjectName.c_str() ) );
+		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		addLightGroupForLight(shaderinstanceFullPath.c_str());
+		_S( ei_end_instance() );
+
+		return (liqLightHandle)(0);
+	}
+	//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
 	void Renderer::write(
@@ -900,6 +966,12 @@ namespace elvishray
 // 					);
 				pData->handle = liquid::RendererMgr::getInstancePtr()->
 					getRenderer()->exportAreaLight(pData, currentJob__);
+				break;
+			}
+			case MRLT_Volume:
+			{
+				pData->handle = liquid::RendererMgr::getInstancePtr()->
+					getRenderer()->exportVolumeLight(pData, currentJob__);
 				break;
 			}
 			case MRLT_Unknown: {

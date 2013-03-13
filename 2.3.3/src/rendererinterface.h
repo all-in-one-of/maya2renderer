@@ -211,6 +211,7 @@ public:
 		const liqFloat &o_arealightIntensity,
 		const liqColor &o_arealightColor,
 		const liqMatrix &transform) = 0;
+	virtual liqLightHandle exportVolumeLight(const liqRibLightData *lightdata, const structJob &currentJob) = 0;
 	virtual void transform_(const liqMatrix& transform) = 0;
 	//
 	// Object
