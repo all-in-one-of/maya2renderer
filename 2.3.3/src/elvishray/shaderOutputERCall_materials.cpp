@@ -251,6 +251,16 @@ void Visitor::visit_liquidShader(const char* node)
 				paramType = "float";
 			}
 			break;
+		case rInt:
+			{
+				paramType = "int";
+			}
+			break;
+		case rBool:
+			{
+				paramType = "bool";
+			}
+			break;
 		case rPoint: case rVector: case rNormal: case rColor:
 			{
 				paramType = "vector";
