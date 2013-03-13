@@ -59,6 +59,18 @@ namespace appleseed
 
 		return (liqLightHandle)(0);
 	}
+	liqLightHandle Renderer::exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+
+		_s("\n// Renderer::exportAmbientLight()");
+		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
+
+		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
+		//todo
+
+		return (liqLightHandle)(0);
+	}
 	//
 	liqLightHandle Renderer::exportDistantLight(
 		const std::string &shadertype, 
@@ -270,6 +282,23 @@ namespace appleseed
 
 		return (liqLightHandle)(0);
 	}
+	liqLightHandle Renderer::exportAreaLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+
+		_s("\n// Renderer::exportAreaLight()");
+		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
+
+		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
+		//todo
+
+		return (liqLightHandle)(0);
+	}
+	liqLightHandle Renderer::exportVolumeLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportVolumeLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+		return (liqLightHandle)(0);
+	}
 		//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
@@ -328,7 +357,7 @@ namespace appleseed
 			{
 			case MRLT_Ambient:
 				pData->handle = liquid::RendererMgr::getInstancePtr()->
-					getRenderer()->exportAmbientLight("???", pData->lightName.asChar(), pData->intensity, pData->color, pData->transformationMatrix);
+					getRenderer()->exportAmbientLight(pData, currentJob__);
 				break;
         
 			case MRLT_Distant:
@@ -792,6 +821,12 @@ namespace appleseed
 					);
 				break;
 			}
+			case MRLT_Volume:
+				{
+					pData->handle = liquid::RendererMgr::getInstancePtr()->
+						getRenderer()->exportVolumeLight(pData, currentJob__);
+					break;
+				}
 			case MRLT_Unknown: {
 //				RiConcatTransform( * const_cast< RtMatrix* >( &pData->transformationMatrix ) );
 				break;
