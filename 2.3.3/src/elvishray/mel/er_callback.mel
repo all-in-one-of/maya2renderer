@@ -8,6 +8,7 @@ global proc int isValidShaderTypeForPL_elvishray(string $shaderType)
 
 	if ( isSurfaceShader_elvishray( $shaderType )		||
 		 $shaderType == "displace"      ||
+		 $shaderType == "light"         ||
 		 $shaderType == "volume"        ||
 		 $shaderType == "shadow"        ||
 		 $shaderType == "environment"   ||
