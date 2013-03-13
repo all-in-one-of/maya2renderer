@@ -186,6 +186,7 @@ public:
 		const liqFloat &o_nondiffuse,
 		const liqFloat &o_nonspecular,
 		const liqMatrix &transform) = 0;
+	virtual liqLightHandle exportAreaLight(const liqRibLightData *lightdata, const structJob &currentJob) = 0;
 	virtual liqLightHandle exportAreaLight(
 		const std::string &shadertype, 
 		const std::string &shaderinstance, 

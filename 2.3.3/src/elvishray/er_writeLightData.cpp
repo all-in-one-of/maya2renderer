@@ -312,6 +312,39 @@ namespace elvishray
 
 		return (liqLightHandle)(0);
 	}
+	liqLightHandle Renderer::exportAreaLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+
+		_s("\n// Renderer::exportAreaLight()");
+		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
+		const liqMatrix &t = lightdata->transformationMatrix;
+
+		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
+		_S( ei_shader( "quadlight", sShaderInstanceName.c_str() ) ); 
+		_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
+		_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
+		_S( ei_shader_param_scalar("deltaangle", (eiScalar)eiPI / 2.0f ) );
+		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f) );
+		_S( ei_shader_param_scalar("spread", 0.0f) );
+		_S( ei_shader_param_scalar("width", 1.0f) );
+		_S( ei_shader_param_scalar("height", 1.0f) );
+		_S( ei_end_shader() );
+
+		std::string sLightObjectName(shaderinstanceFullPath+"_object");
+		_S( ei_light(  sLightObjectName.c_str() ) );
+		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
+		_S( ei_origin( 0.0, 0.0, 0.0 ) );
+		_S( ei_end_light() );
+
+		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
+		_S( ei_element(	 sLightObjectName.c_str() ) );
+		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		addLightGroupForLight(shaderinstanceFullPath.c_str());
+		_S( ei_end_instance() );
+
+		return (liqLightHandle)(0);
+	}
 		//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
@@ -805,32 +838,34 @@ namespace elvishray
 					i_category = cat;
 				}
 
+// 				pData->handle = liquid::RendererMgr::getInstancePtr()->
+// 					getRenderer()->exportAreaLight(
+// 					"arealight", 
+// 					pData->lightName.asChar(),
+// 					i_intensity,
+// 					i_lightcolor,
+// 					i_decay,
+// 					i_coordsys,
+// 					i_lightsamples,
+// 					i_doublesided,
+// 					i_shadowname,
+// 					i_shadowcolor,
+// 					i_hitmode,
+// 					i_lightmap,
+// 					i_lightmapsaturation,
+// 					i_lightID,
+// 					i_category,
+// 
+// 					o_nonspecular,
+// 					o_shadowF, 
+// 					o_shadowC,
+// 					o_unshadowed_Cl,
+// 					o_arealightIntensity,
+// 					o_arealightColor,
+// 					pData->transformationMatrix
+// 					);
 				pData->handle = liquid::RendererMgr::getInstancePtr()->
-					getRenderer()->exportAreaLight(
-					"arealight", 
-					pData->lightName.asChar(),
-					i_intensity,
-					i_lightcolor,
-					i_decay,
-					i_coordsys,
-					i_lightsamples,
-					i_doublesided,
-					i_shadowname,
-					i_shadowcolor,
-					i_hitmode,
-					i_lightmap,
-					i_lightmapsaturation,
-					i_lightID,
-					i_category,
-
-					o_nonspecular,
-					o_shadowF, 
-					o_shadowC,
-					o_unshadowed_Cl,
-					o_arealightIntensity,
-					o_arealightColor,
-					pData->transformationMatrix
-					);
+					getRenderer()->exportAreaLight(pData, currentJob__);
 				break;
 			}
 			case MRLT_Unknown: {
