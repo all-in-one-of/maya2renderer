@@ -64,6 +64,7 @@ namespace renderman
 			const liqFloat & intensity,
 			const liqColor & color,
 			const liqMatrix &transform);
+		virtual liqLightHandle exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob);
 		virtual liqLightHandle exportDistantLight(
 			const std::string &shadertype, 
 			const std::string &shaderinstance, 
@@ -156,6 +157,7 @@ namespace renderman
 			const liqFloat &o_nondiffuse,
 			const liqFloat &o_nonspecular,
 			const liqMatrix &transform);
+		virtual liqLightHandle exportAreaLight(const liqRibLightData *lightdata, const structJob &currentJob);
 		virtual liqLightHandle exportAreaLight(
 			const std::string &shadertype, 
 			const std::string &shaderinstance, 
@@ -179,6 +181,7 @@ namespace renderman
 			const liqFloat &o_arealightIntensity,
 			const liqColor &o_arealightColor,
 			const liqMatrix &transform);
+		virtual liqLightHandle exportVolumeLight(const liqRibLightData *lightdata, const structJob &currentJob);
 		virtual void transform_(const liqMatrix& transform);
 		//
 		//

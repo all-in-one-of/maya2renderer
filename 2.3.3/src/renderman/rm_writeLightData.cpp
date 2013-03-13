@@ -100,6 +100,22 @@ namespace renderman
 			"lightcolor", color,
 			RI_NULL );
 	}
+	liqLightHandle Renderer::exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+				
+		const liqMatrix &t = lightdata->transformationMatrix;
+
+		liqMatrix transformationMatrixScaledZ;
+		liqRibLightData::scaleZ_forRenderman(
+			transformationMatrixScaledZ, t
+			);
+		RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
+		return RiLightSource( "ambientlight",
+			"intensity",  &lightdata->intensity,
+			"lightcolor", lightdata->color,
+			RI_NULL );
+	}
 	//
 	liqLightHandle Renderer::exportDistantLight(
 		const std::string &shadertype, 
@@ -370,6 +386,23 @@ namespace renderman
 			"color __arealightColor",		&o_arealightColor,
 			RI_NULL );
 	}
+	liqLightHandle Renderer::exportAreaLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+		const liqMatrix &t = lightdata->transformationMatrix;
+
+		liqMatrix transformationMatrixScaledZ;
+		liqRibLightData::scaleZ_forRenderman(
+			transformationMatrixScaledZ, t
+			);
+		RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );		return RiLightSource( "liquidarea_dummy", RI_NULL );
+	}
+	liqLightHandle Renderer::exportVolumeLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportVolumeLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+			
+		return RiLightSource( "liquidvolumelight_dummy", RI_NULL );
+	}
 	//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
@@ -431,7 +464,7 @@ namespace renderman
 			{
 			case MRLT_Ambient:
 				pData->handle = liquid::RendererMgr::getInstancePtr()->
-					getRenderer()->exportAmbientLight("???", pData->lightName.asChar(), pData->intensity, pData->color, pData->transformationMatrix);
+					getRenderer()->exportAmbientLight(pData, currentJob__);
 				break;
         
 			case MRLT_Distant:
@@ -895,6 +928,12 @@ namespace renderman
 					);
 				break;
 			}
+			case MRLT_Volume:
+				{
+					pData->handle = liquid::RendererMgr::getInstancePtr()->
+						getRenderer()->exportVolumeLight(pData, currentJob__);
+					break;
+				}
 			case MRLT_Unknown: {
 				RiConcatTransform( * const_cast< RtMatrix* >( &pData->transformationMatrix ) );
 				break;
