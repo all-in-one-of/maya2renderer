@@ -357,9 +357,13 @@ namespace elvishray
 		_S( ei_shader( "quadlight", sShaderInstanceName.c_str() ) ); 
 		_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
 		_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
+		//deltaangle = penumbra_angle_of_the_spot_light - panorama_angle_of_the_spot_light,(unit:radian),
+		_s("//Maya doesn't has \"deltaangle\" for area light, so we feed a dummy value to ER");
 		_S( ei_shader_param_scalar("deltaangle", (eiScalar)eiPI / 2.0f ) );
 		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f) );
-		_S( ei_shader_param_scalar("spread", 0.0f) );
+		//spread = 0.5 * cone_angle_of_the_spot_light,(unit:radian)
+		_s("//Maya doesn't has \"spread\" for area light, so we feed a dummy value to ER");
+		_S( ei_shader_param_scalar("spread", (eiScalar)eiPI / 4.0f) );
 		_S( ei_shader_param_scalar("width", 1.0f) );
 		_S( ei_shader_param_scalar("height", 1.0f) );
 		_S( ei_end_shader() );
