@@ -146,7 +146,7 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - (done)编译prman ,测试liqShaderPreview，编译appleseed工程,
 - (done)openLog() --> openLog(filenamebase)
 - UI的自动化测试，节点连接的自动化测试。渲染器在制作流程里的自动化测试
-- pl文件里增加int，bool类型
+- (done)pl文件里增加int，bool类型
 
 prman
 ------------
@@ -173,6 +173,8 @@ prman
 ------------
 - bug: test\test_particle\particle2.ma 里sphere particle大小不正确
 - bug: test\test_particle\particleColorChangeOnCollisionMethod1.ma，绿色的粒子显示不出绿色
+- test arealight,volumelight
+- 测试mesh light
 
 elvishray
 ------------
@@ -238,7 +240,6 @@ elvishray
   - EI_MAX_NODE_NAME_LEN=1024时，渲染MoxMotionMeetsFBIK_NoAux.ma（长名），崩溃
     再渲染MoxMotionMeetsFBIK_NoAux_shortname.rib.er,还是崩溃，说明EI_MAX_NODE_NAME_LEN改为1024后产生了bug
 - 哪里有cg制作规范
-- displacement shader 测试不正确
 - er里凡是与名字长度相关的，都应该加上eiAssert()
 - test case 里更新contrast为0.01|0.01|0.01|0.01，samples为0|16
 - 更新ei_trace_depth接口，ercall里的，mel globalnode里的
@@ -253,6 +254,10 @@ elvishray
 - (done)（liquid） pl文件里增加int，bool类型
 - aov
 - 检查skylight 里shader参数不为空
+- displacement shader 测试不正确
+- (done)自定义light shader
+- （bug）skylight shader里env_shader参数未赋值，导致skylight shader崩溃。
+  liquid里应该检查该参数，如果其为空的话，提示用户。
 
 appleseed
 -------------
