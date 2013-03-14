@@ -176,7 +176,7 @@ enum LightType {
   MRLT_Distant  = 2,
   MRLT_Point    = 3,
   MRLT_Spot     = 4,
-  MRLT_Rman     = 5,
+  MRLT_Rman     = 5,//user defined light shader
   MRLT_Area     = 6,
   MRLT_Volume	= 7
 };

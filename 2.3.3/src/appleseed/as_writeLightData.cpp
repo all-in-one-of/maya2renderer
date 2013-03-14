@@ -299,6 +299,14 @@ namespace appleseed
 		CM_TRACE_FUNC("Renderer::exportVolumeLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
 		return (liqLightHandle)(0);
 	}
+	liqLightHandle Renderer::exportUserDefinedLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportUserDefinedLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+
+		lightdata->rmanLightShader->write();
+
+		return (liqLightHandle)(0);
+	}
 		//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
@@ -697,36 +705,24 @@ namespace appleseed
 				  
 				}
 				break;
-//			case MRLT_Rman: 
-//			{
-//				/*
-//				unsigned numTokens( tokenPointerArray.size() );
-//				scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-//				scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-//				assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-//
-//				if ( liqglo_shortShaderNames ) 
-//				assignedRManShader = basename( const_cast< char* >( assignedRManShader.asChar() ) );
-//         
-//				liqString shaderName = const_cast< liqString >( assignedRManShader.asChar() );
-//				handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
-//				*/
-//				liqMatrix transformationMatrixScaledZ;
-//				liqRibLightData::scaleZ_forRenderman(
-//					transformationMatrixScaledZ, pData->transformationMatrix
-//					);
-//				RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
-//				pData->rmanLightShader->write();
-//#ifdef RIBLIB_AQSIS
-// 				pData->handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(pData->rmanLightShader->shaderHandler.asInt()));
-//#else
-//				/* !!!! In Generic libRib light handle is unsigned int */
-//				LIQDEBUGPRINTF( "-> assigning light handle: " );
-//				pData->handle = (const RtLightHandle)(const void *)( pData->rmanLightShader->shaderHandler.asUnsigned() );
-//				LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
-//#endif
-//				break;
-//			}
+			case MRLT_Rman: 
+			{
+				/*
+				unsigned numTokens( tokenPointerArray.size() );
+				scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+				scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+				assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+
+				if ( liqglo_shortShaderNames ) 
+				assignedRManShader = basename( const_cast< char* >( assignedRManShader.asChar() ) );
+         
+				liqString shaderName = const_cast< liqString >( assignedRManShader.asChar() );
+				handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
+				*/
+				pData->handle = liquid::RendererMgr::getInstancePtr()->
+					getRenderer()->exportAreaLight(pData, currentJob__);
+				break;
+			}
 			case MRLT_Area: 
 			{
 				liqFloat   i_intensity     = 1.0;
