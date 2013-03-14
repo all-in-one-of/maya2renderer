@@ -403,6 +403,27 @@ namespace renderman
 			
 		return RiLightSource( "liquidvolumelight_dummy", RI_NULL );
 	}
+	liqLightHandle Renderer::exportUserDefinedLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportUserDefinedLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+		const liqMatrix &t = lightdata->transformationMatrix;
+
+		liqMatrix transformationMatrixScaledZ;
+		liqRibLightData::scaleZ_forRenderman(
+			transformationMatrixScaledZ, t
+			);
+		RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );		lightdata->rmanLightShader->write();
+		
+#ifdef RIBLIB_AQSIS
+		return reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(lightdata->rmanLightShader->shaderHandler.asInt()));
+#else
+		/* !!!! In Generic libRib light handle is unsigned int */
+		LIQDEBUGPRINTF( "-> assigning light handle: " );
+		return (const RtLightHandle)(const void *)( lightdata->rmanLightShader->shaderHandler.asUnsigned() );
+		//LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
+#endif
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
@@ -818,20 +839,9 @@ namespace renderman
 				RtString shaderName = const_cast< RtString >( assignedRManShader.asChar() );
 				handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
 				*/
-				liqMatrix transformationMatrixScaledZ;
-				liqRibLightData::scaleZ_forRenderman(
-					transformationMatrixScaledZ, pData->transformationMatrix
-					);
-				RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
-				pData->rmanLightShader->write();
-#ifdef RIBLIB_AQSIS
- 				pData->handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(pData->rmanLightShader->shaderHandler.asInt()));
-#else
-				/* !!!! In Generic libRib light handle is unsigned int */
-				LIQDEBUGPRINTF( "-> assigning light handle: " );
-				pData->handle = (const RtLightHandle)(const void *)( pData->rmanLightShader->shaderHandler.asUnsigned() );
-				LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
-#endif
+				
+				pData->handle = liquid::RendererMgr::getInstancePtr()->
+					getRenderer()->exportUserDefinedLight(pData, currentJob__);
 				break;
 			}
 			case MRLT_Area: 
