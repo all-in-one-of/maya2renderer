@@ -450,6 +450,39 @@ namespace elvishray
 
 		return (liqLightHandle)(0);
 	}
+	liqLightHandle Renderer::exportUserDefinedLight(const liqRibLightData *lightdata, const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+
+		_s("\n// Renderer::exportAreaLight()");
+		_s("// NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
+
+		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
+		const liqMatrix &t = lightdata->transformationMatrix;
+
+		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
+
+		//export shader
+		assert(lightdata->rmanLightShader);
+		liquid::RendererMgr::getInstancePtr()->
+			getRenderer()->shader_UserDefinedShader(lightdata->rmanLightShader);
+
+		//object
+		std::string sLightObjectName(shaderinstanceFullPath+"_object");
+		_S( ei_light(  sLightObjectName.c_str() ) );
+		_S( ei_light_shader(	lightdata->rmanLightShader->getName().c_str() ) );
+		_S( ei_origin( 0.0, 0.0, 0.0 ) );
+		_S( ei_end_light() );
+
+		//instance
+		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
+		_S( ei_element(	 sLightObjectName.c_str() ) );
+		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		addLightGroupForLight(shaderinstanceFullPath.c_str());
+		_S( ei_end_instance() );
+
+		return (liqLightHandle)(0);
+	}
 	//////////////////////////////////////////////////////////////////////////
 	static void _write(liqRibLightData* pData, const structJob &currentJob);
 	//
@@ -848,36 +881,24 @@ namespace elvishray
 				  
 				}
 				break;
-//			case MRLT_Rman: 
-//			{
-//				/*
-//				unsigned numTokens( tokenPointerArray.size() );
-//				scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
-//				scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
-//				assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
-//
-//				if ( liqglo_shortShaderNames ) 
-//				assignedRManShader = basename( const_cast< char* >( assignedRManShader.asChar() ) );
-//         
-//				liqString shaderName = const_cast< liqString >( assignedRManShader.asChar() );
-//				handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
-//				*/
-//				liqMatrix transformationMatrixScaledZ;
-//				liqRibLightData::scaleZ_forRenderman(
-//					transformationMatrixScaledZ, pData->transformationMatrix
-//					);
-//				RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );
-//				pData->rmanLightShader->write();
-//#ifdef RIBLIB_AQSIS
-// 				pData->handle = reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(pData->rmanLightShader->shaderHandler.asInt()));
-//#else
-//				/* !!!! In Generic libRib light handle is unsigned int */
-//				LIQDEBUGPRINTF( "-> assigning light handle: " );
-//				pData->handle = (const RtLightHandle)(const void *)( pData->rmanLightShader->shaderHandler.asUnsigned() );
-//				LIQDEBUGPRINTF( "%u\n", (unsigned int)(long)(const void *)handle );
-//#endif
-//				break;
-//			}
+			case MRLT_Rman: 
+			{
+				/*
+				unsigned numTokens( tokenPointerArray.size() );
+				scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
+				scoped_array< RtPointer > pointerArray( new RtPointer[ numTokens ] );
+				assignTokenArraysV( tokenPointerArray, tokenArray.get(), pointerArray.get() );
+
+				if ( liqglo_shortShaderNames ) 
+				assignedRManShader = basename( const_cast< char* >( assignedRManShader.asChar() ) );
+         
+				liqString shaderName = const_cast< liqString >( assignedRManShader.asChar() );
+				handle = RiLightSourceV( shaderName, numTokens, tokenArray.get(), pointerArray.get() );
+				*/
+				pData->handle = liquid::RendererMgr::getInstancePtr()->
+					getRenderer()->exportUserDefinedLight(pData, currentJob__);
+				break;
+			}
 			case MRLT_Area: 
 			{
 				liqFloat   i_intensity     = 1.0;

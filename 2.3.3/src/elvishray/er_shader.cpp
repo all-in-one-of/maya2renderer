@@ -241,7 +241,7 @@ namespace elvishray
 		}
 
 		// write shader
-		char* shaderFileName = const_cast<char*>(liqshader->getShaderFileName().c_str());
+		std::string shaderFileName(liqshader->getShaderFileName());
 		if( liqshader->shaderSpace != "" )
 		{
 			this->shader_transformBegin((const liqString)liqshader->shaderSpace.asChar());

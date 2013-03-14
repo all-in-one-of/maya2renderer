@@ -203,6 +203,7 @@ namespace elvishray
 			const liqColor &o_arealightColor,
 			const liqMatrix &transform);
 		virtual liqLightHandle exportVolumeLight(const liqRibLightData *lightdata, const structJob &currentJob);
+		virtual liqLightHandle exportUserDefinedLight(const liqRibLightData *lightdata, const structJob &currentJob);
 		virtual void transform_(const liqMatrix& transform);
 		//
 		//
