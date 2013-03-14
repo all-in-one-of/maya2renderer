@@ -53,7 +53,7 @@ void test_liquid2er()
 //#include "./liq_er_displace_good.er"
 //#include "E:/MyDocuments/maya/projects/default/rib/er_pointlight_perspShape.0001..rib.er"
 //#include "E:/MyDocuments/maya/projects/default/rib/er_env_physicalsky_cameraShape2.0001..rib.er"
-#include "E:/MyDocuments/maya/projects/default/rmanpix/output_standalone_test.er"
+//#include "E:/MyDocuments/maya/projects/default/rmanpix/output_standalone_test.er"
 
 //#include"ei_scene_unittest.esa"//<----- use your own elvishender api script file here.
 //#include"ei_scene_unittest.h"
@@ -62,6 +62,8 @@ void test_liquid2er()
 	//ei_shader_link_test(false, "suffix");
 	//ei_checker_uv();
 	//er_shader_transparent_test();
+#include "E:/MyDocuments/maya/projects/default/rib/er_displace.perspShape.1.elvishray.bmp.er"
+
 	//ei_displace_unittest();
 	//ei_volume_unittest();
 	//ei_dof_unittest();
@@ -74,18 +76,18 @@ void test_liquid2er()
 //
 void test_ipr()
 {
-		ei_context();
-#include "E:/MyDocuments/maya/projects/default/rmanpix/output.er"
-#include "E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er"
-		ei_end_context();
+// 		ei_context();
+// #include "E:/MyDocuments/maya/projects/default/rmanpix/output.er"
+// #include "E:/MyDocuments/maya/projects/default/rmanpix/output-ipr.er"
+// 		ei_end_context();
 }
 int main()
 {
 	cout << "Launching elvish ray Renderer..." << endl;
 
  
-	//test_liquid2er();
-	test_ipr();
+	test_liquid2er();
+	//test_ipr();
 
 
 	cout << "all tests done." << endl;

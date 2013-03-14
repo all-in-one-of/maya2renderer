@@ -476,21 +476,77 @@ namespace elvishray
  			_S( ei_max_displace(max_displace) );
 			
 			eiApprox	approx;
-			approx.method	= m_gnode->getInt("approx_method") ;//EI_APPROX_METHOD_LENGTH
-			approx.any		= m_gnode->getInt("approx_any");
-			approx.view_dep = m_gnode->getInt("approx_view_dep");//eiTRUE
-			MFloatPoint args(m_gnode->getVector("approx_args"));
-			approx.args[0]	= args.x;//2.0f
-			approx.args[1]	= args.y;
-			approx.args[2]	= args.z;
-			approx.args[3]	= args.w;
-			approx.sharp	= m_gnode->getFloat("approx_sharp");
-			approx.min_subdiv		= m_gnode->getInt("approx_min_subdiv");
-			approx.max_subdiv		= m_gnode->getInt("approx_max_subdiv");
-			approx.max_grid_size	= m_gnode->getInt("approx_max_grid_size");
-			approx.motion_factor	= m_gnode->getFloat("approx_motion_factor");//16.0f
-			
-			_S( ei_approx(&approx) );
+			_s( "eiApprox	approx" );
+
+			//output the default
+			     ei_approx_set_defaults(&approx);
+			_s( "ei_approx_set_defaults(&approx);" );
+			{
+				char buf[1024];
+				sprintf_s(buf, 1024,
+					"//method=%d,any=%x,view_dep=%x,args=[%f,%f,%f,%f],\n"\
+					"//sharp=%f,min_subdiv=%d,max_subdiv=%d,max_grid_size=%d,motion_factor=%f",
+					approx.method, approx.any, approx.view_dep, approx.args[0],approx.args[1],approx.args[2],approx.args[3],
+					approx.sharp,  approx.min_subdiv, approx.max_subdiv, approx.max_grid_size, approx.motion_factor);
+				_s( "//default approx:\n"<<buf );
+			}
+
+			//set approx
+			if(true)
+			{
+				approx.method	= m_gnode->getInt("approx_method") ;//EI_APPROX_METHOD_LENGTH
+				approx.any		= m_gnode->getInt("approx_any");
+				approx.view_dep = m_gnode->getInt("approx_view_dep");//eiTRUE
+				MFloatPoint args(m_gnode->getVector("approx_args"));
+				approx.args[0]	= args.x;
+				approx.args[1]	= args.y;
+				approx.args[2]	= args.z;
+				approx.args[3]	= args.w;
+				approx.sharp	= m_gnode->getFloat("approx_sharp");
+				approx.min_subdiv		= m_gnode->getInt("approx_min_subdiv");
+				approx.max_subdiv		= m_gnode->getInt("approx_max_subdiv");
+				approx.max_grid_size	= m_gnode->getInt("approx_max_grid_size");
+				approx.motion_factor	= m_gnode->getFloat("approx_motion_factor");//16.0f
+
+				char buf_any[16],buf_view_dep[16];
+				sprintf_s(buf_any,      16, "%x", approx.any);
+				sprintf_s(buf_view_dep, 16, "%x", approx.view_dep);
+
+				_s( "approx.method        = "<<approx.method );
+				_s( "approx.any           = "<<buf_any );
+				_s( "approx.view_dep      = "<<buf_view_dep );
+				_s( "approx.args[0]       = "<<approx.args[0] );
+				_s( "approx.args[1]       = "<<approx.args[1] );
+				_s( "approx.args[2]       = "<<approx.args[2] );
+				_s( "approx.args[3]       = "<<approx.args[3] );
+				_s( "approx.sharp         = "<<approx.sharp );
+				_s( "approx.min_subdiv    = "<<approx.min_subdiv );
+				_s( "approx.max_subdiv    = "<<approx.max_subdiv );
+				_s( "approx.max_grid_size = "<<approx.max_grid_size );
+				_s( "approx.motion_factor = "<<approx.motion_factor );
+			}
+			else{//for test only - beg	
+
+					 approx.method = EI_APPROX_METHOD_REGULAR;
+				_s( "approx.method = EI_APPROX_METHOD_REGULAR;" );
+
+					 approx.view_dep = eiFALSE;
+				_s( "approx.view_dep = eiFALSE;" );
+
+					 approx.args[ EI_APPROX_U ] = 8.0f;
+				_s( "approx.args[ EI_APPROX_U ] = 8.0f;" );
+
+					 approx.args[ EI_APPROX_V ] = 8.0f;
+				_s( "approx.args[ EI_APPROX_V ] = 8.0f;" );
+
+					 approx.motion_factor = 16.0f;
+				_s( "approx.motion_factor = 16.0f;" );
+				//for test only - end
+			}
+
+			     ei_approx(&approx);			
+			_s( "ei_approx(&approx);" );
+
 		}
 
 

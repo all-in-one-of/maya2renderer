@@ -25,7 +25,7 @@ global string $gGlobalValue_elvishray[]=
 	,"approx_sharp",			"float",	"0.0"//,
 	,"approx_min_subdiv",		"long",		"0"//,
 	,"approx_max_subdiv",		"long",		"5"//,
-	,"approx_max_grid_size",	"long",		"4096"//,
+	,"approx_max_grid_size",	"long",		"65536"//,
 	,"approx_motion_factor",	"float",	"16.0"//,
 	//,"testBool1",            "bool",			false
 	//,"testString0",            "string",		"string_test_value0"
