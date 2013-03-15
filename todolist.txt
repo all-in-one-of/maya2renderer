@@ -252,12 +252,13 @@ elvishray
 - 自定义shader的preview
 - 用新的ei api改写er shader(bump,checker,)，很多地方需要请教Elvic
 - (done)（liquid） pl文件里增加int，bool类型
-- aov
-- 检查skylight 里shader参数不为空
-- displacement shader 测试不正确
+- (done)displacement shader 测试不正确
 - (done)自定义light shader
 - （bug）skylight shader里env_shader参数未赋值，导致skylight shader崩溃。
   liquid里应该检查该参数，如果其为空的话，提示用户。
+- aov
+- procedural
+- volume shader, image shader, geometry shader
 
 appleseed
 -------------

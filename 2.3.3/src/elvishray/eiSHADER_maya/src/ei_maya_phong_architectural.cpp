@@ -17,6 +17,7 @@
  *************************************************************************/
 
 #include <eiAPI/ei_shaderx.h>
+#include "ei_AOVMacroDef.h"
 #include "common/_3delight/shading_utils.h"
 #include "common/my_utils.h"
 #include <new>
@@ -45,6 +46,9 @@ SURFACE(maya_phong_architectural)
 	DECLARE_INDEX( reflectionLimit,				1);					//Raytrace Options - begin
 	DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f);	//output - begin
 	DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(aov_ambient,				0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(aov_diffuse,				0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(aov_specular,				0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static const char *u_result;
@@ -402,20 +406,20 @@ SURFACE(maya_phong_architectural)
 		// internal scale for refraction thickness, make it smaller
 		BRDFtoBTDF Rt(Rts, IOR, refr_thickness * 0.1f, this);
 		
-		color dif(1.0f);
-		color spc(0.0f);
-		color outCi_old(out->Ci);
+		color Cdiffuse(0.0f);
+		color Cspecular(0.0f);
+
 		// don't integrate direct lighting if the ray hits the back face
  		if (dot_nd < 0.0f)
  		{
  			// integrate direct lighting from the front side
  			//out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
  			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
-			dif *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			Cdiffuse += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
  			//out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
  			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
-			spc += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+			Cspecular += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
 
 		}
 
@@ -443,11 +447,11 @@ SURFACE(maya_phong_architectural)
 			// integrate direct lighting from the back side
 			//out->Ci += Kc * integrate_direct_lighting(/*Kd*/diffuse(), Rd, new_wo);
 			//out->Ci += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
-			dif *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			Cdiffuse += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
 			//out->Ci += Kc * integrate_direct_lighting(Ks, *Rs, new_wo);
 			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
-			spc += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+			Cspecular += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
 
 			N = old_N;
 			u_axis = old_u_axis;
@@ -456,10 +460,10 @@ SURFACE(maya_phong_architectural)
 			dPdv = old_dPdv;
 		}
 
-		out->Ci = outCi_old * dif + spc;
 
 		scalar cutoff_thresh = cutoff_threshold;
-
+				
+		color CReflectSpecular(0.0f);
  		// integrate indirect specular lighting
 		if (!almost_black( specular_color * (specular_weight * (1.0f - reflection_weight))*(is_metal?Cs:WHITE) ) && dot_nd < 0.0f)//almost_black(Ks)
  		{
@@ -468,9 +472,10 @@ SURFACE(maya_phong_architectural)
  			opt.min_samples = opt.max_samples = refl_samples;
  			opt.cutoff_threshold = cutoff_thresh;
 
- 			out->Ci += specular_color * (specular_weight * (1.0f - reflection_weight))*(is_metal?Cs:WHITE) * integrate(wo, *Rs, opt);//Ks
+			CReflectSpecular = integrate(wo, *Rs, opt);
   		}
 
+		color CSpecularReflection(0.0f);
 		// integrate perfect specular reflection
 		if (!almost_black(reflection_color * (specular_weight * reflection_weight) * (is_metal?Cs:WHITE)) && dot_nd < 0.0f)//almost_black(Kr)
 		{
@@ -481,10 +486,11 @@ SURFACE(maya_phong_architectural)
 			// the direct lighting of this BRDF is not accounted, 
 			// so we trace lights here to compensate
 			opt.trace_lights = eiTRUE;
-
-			out->Ci += reflection_color * (specular_weight * reflection_weight) * (is_metal?Cs:WHITE) * integrate(wo, Rr, opt);//Kr
+			
+			CSpecularReflection = integrate(wo, Rr, opt);
 		}
 
+		color CReflectDiffuse(0.0f);
 		// integrate indirect diffuse lighting (color bleeding)
 		if (!almost_black( Cs *(1.0f - specular_weight) * diffuse_weight ) && dot_nd < 0.0f)//almost_black(Kd)
 		{
@@ -493,9 +499,10 @@ SURFACE(maya_phong_architectural)
 			opt.min_samples = opt.max_samples = diffuse_samples;
 			opt.cutoff_threshold = cutoff_thresh;
 
-			out->Ci += Cs *(1.0f - specular_weight) * diffuse_weight * integrate(wo, Rd, opt);//Kd
+			CReflectDiffuse = integrate(wo, Rd, opt);
 		}
 
+		color CRefraction(0.0f);
 		// integrate refraction
 		if ( !almost_black(refraction_color * specular_weight * refraction_weight * (1.0f-translucency_weight)*(is_metal?Cs:WHITE)) ) //almost_black(Kt)
 		{
@@ -510,8 +517,50 @@ SURFACE(maya_phong_architectural)
 			// account for refractive caustics
 			opt.trace_lights = eiTRUE;
 
-			out->Ci += refraction_color * specular_weight * refraction_weight * (1.0f-translucency_weight) * (is_metal?Cs:WHITE) * integrate(wo, Rt, opt);
+			CRefraction = integrate(wo, Rt, opt);
 		}
+
+		out->Ci *= (Cdiffuse 
+
+					+ CReflectDiffuse *
+					  Cs *(1.0f - specular_weight) * diffuse_weight//Kd
+					);
+
+		out->Ci += (Cspecular 
+
+					+ CReflectSpecular* 
+					  specular_color   * specular_weight * (1.0f - reflection_weight)*(is_metal?Cs:WHITE)//Ks
+					
+					+ CSpecularReflection* 
+					  reflection_color * specular_weight * reflection_weight * (is_metal?Cs:WHITE)//Kr
+					
+					+ CRefraction*
+					  refraction_color * specular_weight * refraction_weight * (1.0f-translucency_weight) * (is_metal?Cs:WHITE)//Kt			
+					);
+
+#ifdef USE_AOV_aov_ambient
+		aov_ambient() += ( ambientColor() 
+							*(CReflectDiffuse *
+							  Cs *(1.0f - specular_weight) * diffuse_weight//Kd
+							 )
+						 ) * (1.0f - outTransparency());
+#endif
+#ifdef USE_AOV_aov_diffuse
+		aov_diffuse() += ( Cdiffuse * color_() ) * (1.0f - outTransparency());
+#endif
+#ifdef USE_AOV_aov_specular
+		aov_specular() += (Cspecular
+							+ CReflectSpecular* 
+							specular_color   * specular_weight * (1.0f - reflection_weight)*(is_metal?Cs:WHITE)//Ks
+
+							+ CSpecularReflection* 
+							reflection_color * specular_weight * reflection_weight * (is_metal?Cs:WHITE)//Kr
+
+							+ CRefraction*
+							refraction_color * specular_weight * refraction_weight * (1.0f-translucency_weight) * (is_metal?Cs:WHITE)//Kt			
+							);
+#endif
+
 
 		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
 		{//transparent
