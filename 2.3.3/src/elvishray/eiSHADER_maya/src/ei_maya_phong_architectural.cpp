@@ -124,23 +124,17 @@ SURFACE(maya_phong_architectural)
 		BSDF & R, 
 		const vector & wo)
 	{
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, N, PI / 2.0f);
 		color			result(0.0f);
 
-		while (illuminance(sampler, P, N, PI / 2.0f))
+		while (sampler.sample())
 		{
-			color	sum(0.0f);
-			//
-			while (sample_light())
-			{
-				const vector wi(to_local(normalize(L)));
+			const vector wi(to_local(normalize(L)));
 
-				if (!almost_black(K))
-				{
-					sum += K * eval_light_sample(wo, wi, R);
-				}
+			if (!almost_black(K))
+			{
+				result += K * eval_light_sample(wo, wi, R);
 			}
-			result += (sum) * (1.0f / (scalar)light_sample_count());
 		}
 
 		return result;
@@ -542,10 +536,9 @@ SURFACE(maya_phong_architectural)
 		eiBool isKeyLight = eiTRUE;
 		color C = 0.0f;
 
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, i_N, PI/2.0f );
 
-		while ( illuminance(sampler, P, i_N, PI/2.0f ) )
-		{
+
 			//if( keyLightsOnly != eiFALSE )
 			//{
 			//	isKeyLight = eiFALSE;
@@ -561,14 +554,13 @@ SURFACE(maya_phong_architectural)
 					//SAMPLE_LIGHT_2(color, C, 0.0f,
 					//	C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse)						
 					//);
-					while (sample_light())
+					while (sampler.sample())
 					{
 						C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse);
 					}
-					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
-		}
+
 
 		return C;
 	}
@@ -579,10 +571,9 @@ SURFACE(maya_phong_architectural)
 	{
 		color C = 0.0f;
 		vector R = reflect( normalize(i_V), normalize(i_N) );
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, i_N, PI/2.0f );
 
-		while( illuminance(sampler, P, i_N, PI/2.0f ) )
-		{
+
 			float isKeyLight = 1;
 			//if( i_keyLightsOnly != 0 )
 			//{
@@ -597,15 +588,14 @@ SURFACE(maya_phong_architectural)
 					//SAMPLE_LIGHT_2(color, C, 0.0f,
 					//	C += Cl()*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
 					//);
-					while (sample_light())
+					while (sampler.sample())
 					{
 						vector Ln = normalize(L);
 						C += Cl*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
 					}
-					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
-		}
+
 		return C;
 	}
 	//

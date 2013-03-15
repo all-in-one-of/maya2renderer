@@ -198,10 +198,9 @@ SURFACE(maya_phong)
 		eiBool isKeyLight = eiTRUE;
 		color C = 0.0f;
 
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, i_N, PI/2.0f );
 
-		while ( illuminance(sampler, P, i_N, PI/2.0f ) )
-		{
+
 			//if( keyLightsOnly != eiFALSE )
 			//{
 			//	isKeyLight = eiFALSE;
@@ -217,14 +216,12 @@ SURFACE(maya_phong)
 					//SAMPLE_LIGHT_2(color, C, 0.0f,
 					//	C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse)						
 					//);
-					while (sample_light())
+					while (sampler.sample())
 					{
 						C += Cl * (normalize(L) % i_N) * (1.0f-nondiffuse);
 					}
-					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
-		}
 
 		return C;
 	}
@@ -236,10 +233,9 @@ SURFACE(maya_phong)
 	{
 		color C = 0.0f;
 		vector R = reflect( normalize(i_V), normalize(i_N) );
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, i_N, PI/2.0f );
 
-		while( illuminance(sampler, P, i_N, PI/2.0f ) )
-		{
+
 			float isKeyLight = 1;
 			//if( i_keyLightsOnly != 0 )
 			//{
@@ -254,15 +250,14 @@ SURFACE(maya_phong)
 					//SAMPLE_LIGHT_2(color, C, 0.0f,
 					//	C += Cl()*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
 					//);
-					while (sample_light())
+					while (sampler.sample())
 					{
 						vector Ln = normalize(L);
 						C += Cl*pow(max<float>(0.0f,R%Ln),cosinePower)*(1.0f-nonspecular);
 					}
-					C *= (1.0f / (scalar)light_sample_count());
 				}
 			}
-		}
+
 		return C;
 	}
 	//color getPhong2(
@@ -307,12 +302,10 @@ SURFACE(maya_phong)
 		float focus = min( i_translucenceFocus, 0.99999f );
 		color C = 0.0f;
 
-		LightSampler	sampler;
+		LightSampler	sampler(this, P );
 
 		if( i_translucence > 0.0f )
 		{
-			while( illuminance(sampler, P ) )
-			{
 				float nondiffuse = 0.0f;
 				//lightsource( "__nondiffuse", nondiffuse );
 
@@ -324,16 +317,14 @@ SURFACE(maya_phong)
 					//	float trs = pow( pow(a, focus), 1.0f/(1.0f-focus) );
 					//	C += Cl() * trs * (1.0f-nondiffuse);
 					//);
-					while (sample_light())
+					while (sampler.sample())
 					{
 						float costheta = normalize(L) % normalize(I);
 						float a = (1.0f + costheta) * 0.5f;
 						float trs = pow( pow(a, focus), 1.0f/(1.0f-focus) );
 						C += Cl * trs * (1.0f-nondiffuse);
 					}
-					C *= (1.0f / (scalar)light_sample_count());
 				}
-			}
 		}
 
 		return C * i_translucence;

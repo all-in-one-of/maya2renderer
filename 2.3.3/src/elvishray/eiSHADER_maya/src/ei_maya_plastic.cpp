@@ -65,21 +65,20 @@ SURFACE(maya_lambert)
 		color ks = Ks() * specularcolor();
 		scalar rough = roughness();
 
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, N, PI / 2.0f);
 
-		while (illuminance(sampler, P, N, PI / 2.0f))
-		{
+
 			color	sum = 0.0f;
 			
-			while (sample_light())
+			while (sampler.sample())
 			{
 				sum += Cl * (
 					kd * (normalize(L) % N) 
 					+ ks * specularbrdf(normalize(L), N, V, rough));
 			}
 
-			out->Ci += sum * (1.0f / (scalar)light_sample_count());
-		}
+			out->Ci += sum;
+
 
 		out->Oi = color(1.0f);
 	}
@@ -159,21 +158,20 @@ SURFACE(maya_lambert_uv)
 		color ks = Ks() * specularcolor();
 		scalar rough = roughness();
 
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, N, PI / 2.0f);
 
-		while (illuminance(sampler, P, N, PI / 2.0f))
-		{
+
 			color	sum = 0.0f;
 			
-			while (sample_light())
+			while (sampler.sample())
 			{
 				sum += Cl * (
 					kd * (normalize(L) % N) 
 					+ ks * specularbrdf(normalize(L), N, V, rough));
 			}
 
-			out->Ci += sum * (1.0f / (scalar)light_sample_count());
-		}
+			out->Ci += sum;
+
 
 		out->Oi = color(1.0f);
 	}
@@ -215,13 +213,12 @@ SURFACE(simple_hair)
 		color kd = Kd();
 		color ks = Ks() * specularcolor();
 
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, N, PI);
 
-		while (illuminance(sampler, P, N, PI))
-		{
+
 			color	sum = 0.0f;
 			
-			while (sample_light())
+			while (sampler.sample())
 			{
 				vector lightVector = normalize(L);
 				scalar diff = sinf(acosf(tangent % lightVector));
@@ -231,8 +228,8 @@ SURFACE(simple_hair)
 				sum += Cl * (kd * diff + ks * spec);
 			}
 
-			out->Ci += sum * (1.0f / (scalar)light_sample_count());
-		}
+			out->Ci += sum;
+
 
 		out->Ci *= Cs();
 		out->Oi = color(1.0f);
@@ -353,21 +350,20 @@ SURFACE(maya_lambert_transparent)
 		color kd = Cs() * Kd();
 		color ks = Ks() * specularcolor();
 		scalar rough = roughness();
-		LightSampler	sampler;
+		LightSampler	sampler(this, P, N, PI / 2.0f);
 
-		while (illuminance(sampler, P, N, PI / 2.0f))
-		{
+
 			color	sum = 0.0f;
 
-			while (sample_light())
+			while (sampler.sample())
 			{
 				sum += Cl * (
 					kd * (normalize(L) % N) 
 					+ ks * specularbrdf(normalize(L), N, V, rough));
 			}
 
-			out->Ci += sum * (1.0f / (scalar)light_sample_count());
-		}
+			out->Ci += sum;
+
 
 		if ( transparency() > 0.0f )
 		{
