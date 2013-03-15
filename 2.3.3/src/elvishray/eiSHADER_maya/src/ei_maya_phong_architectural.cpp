@@ -174,8 +174,9 @@ SURFACE(maya_phong_architectural)
 
 	void main(void *arg)
 	{
+		const color WHITE(1.0f);
 		//-----------------------------------------
-		color surface_color(color_());
+		const color Cs(color_());
 		color diffuse_color(1.0f, 1.0f, 1.0f);
 		scalar diffuse_weight = diffuse();
 		color specular_color(specularColor());
@@ -186,7 +187,7 @@ SURFACE(maya_phong_architectural)
 		color reflection_color(reflectedColor());
 		scalar reflection_weight = 0.5f;
 		color  refraction_color(1.0f, 1.0f, 1.0f);
-		scalar refraction_weight= 0.5f;
+		scalar refraction_weight= 0.0f;//zero will lead a dark image
 		scalar refraction_glossiness = 0.5f;
 		scalar refraction_thickness= 2.0f;//surfaceThickness
 		color  translucency_color(transparency());
@@ -216,24 +217,23 @@ SURFACE(maya_phong_architectural)
 
 		// specular is the percentage of specular lighting
 		// limit weights in range [0, 1]
-		const scalar spec = clamp(specular_weight, 0.0f, 1.0f);
-		const scalar refr = clamp(refraction_weight, 0.0f, 1.0f);
-		const scalar trans = clamp(translucency_weight, 0.0f, 1.0f);
+		specular_weight = clamp(specular_weight, 0.0f, 1.0f);
+		refraction_weight = clamp(refraction_weight, 0.0f, 1.0f);
+		translucency_weight = clamp(translucency_weight, 0.0f, 1.0f);
+		// automatically compute Kd, Ks, Kt in an energy conserving way
+		diffuse_weight = clamp(diffuse_weight, 0.0f, 1.0f);
+		reflection_weight = clamp(reflection_weight, 0.0f, 1.0f);
 		// the energy balancing between reflection and refraction is 
 		// dominated by Fresnel law
-		color Kt(refraction_color * (spec * refr * (1.0f - trans)));
+		//color Kt(refraction_color * (spec * refr * (1.0f - trans)) * (is_metal?Cs:WHITE));
 		
 		// this is a monolithic shader which also serves as shadow shader
 		if (ray_type == EI_RAY_SHADOW)
 		{
-			main_shadow(arg, Kt, 
+			main_shadow(arg, refraction_color * (specular_weight * refraction_weight * (1.0f - translucency_weight)), 
 				refraction_thickness, cutoff_threshold);
 			return;
 		}
-
-		// automatically compute Kd, Ks, Kt in an energy conserving way
-		const scalar diff = clamp(diffuse_weight, 0.0f, 1.0f);
-		const scalar refl = clamp(reflection_weight, 0.0f, 1.0f);
 
 		// for surface shader, we call bump shader
 		eiTag shader = bump_shader;
@@ -242,20 +242,14 @@ SURFACE(maya_phong_architectural)
 			call_bump_shader(shader, bump_factor);
 		}
 
-		color Kc(refraction_color * (spec * refr * trans));
+		//color Kc(refraction_color * (spec * refr * trans) * (is_metal?Cs:WHITE));
 		// non-reflected energy is absorbed
-		color Ks(specular_color * (spec * (1.0f - refl)));
-		color Kr(reflection_color * (spec * refl));
+		//color Ks(specular_color * spec * (1.0f - refl) * (is_metal?Cs:WHITE));
+		//color Kr(reflection_color * (spec * refl) * (is_metal?Cs:WHITE));
 		// surface color will impact specular for metal material
-		const color Cs(surface_color);
-		if (is_metal)
-		{
-			Ks *= Cs;
-			Kr *= Cs;
-			Kt *= Cs;
-			Kc *= Cs;
-		}
-		const color Kd(Cs *((1.0f - spec) * diff));
+		//const color Cs(surface_color);
+
+//		const color Kd( Cs *(1.0f - spec) * diff );
 //		const int spec_mode = clamp(specular_mode, 0, 3);
 
 		computeSurface(
@@ -426,7 +420,7 @@ SURFACE(maya_phong_architectural)
 		}
 
 		// integrate for translucency from the back side
-		if (!almost_black(Kc) && 
+		if (!almost_black( refraction_color * (specular_weight * refraction_weight * translucency_weight)*(is_metal?Cs:WHITE) ) && //almost_black(Kc)
 			(refr_thickness > 0.0f || dot_nd > 0.0f))
 		{
 			vector old_dPdu(dPdu);
@@ -467,18 +461,18 @@ SURFACE(maya_phong_architectural)
 		scalar cutoff_thresh = cutoff_threshold;
 
  		// integrate indirect specular lighting
-		if (!almost_black(Ks) && dot_nd < 0.0f)
+		if (!almost_black( specular_color * (specular_weight * (1.0f - reflection_weight))*(is_metal?Cs:WHITE) ) && dot_nd < 0.0f)//almost_black(Ks)
  		{
  			IntegrateOptions opt;
  			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
  			opt.min_samples = opt.max_samples = refl_samples;
  			opt.cutoff_threshold = cutoff_thresh;
 
- 			out->Ci += Ks * integrate(wo, *Rs, opt);
+ 			out->Ci += specular_color * (specular_weight * (1.0f - reflection_weight))*(is_metal?Cs:WHITE) * integrate(wo, *Rs, opt);//Ks
   		}
 
 		// integrate perfect specular reflection
-		if (!almost_black(Kr) && dot_nd < 0.0f)
+		if (!almost_black(reflection_color * (specular_weight * reflection_weight) * (is_metal?Cs:WHITE)) && dot_nd < 0.0f)//almost_black(Kr)
 		{
 			IntegrateOptions opt;
 			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
@@ -488,22 +482,22 @@ SURFACE(maya_phong_architectural)
 			// so we trace lights here to compensate
 			opt.trace_lights = eiTRUE;
 
-			out->Ci += Kr * integrate(wo, Rr, opt);
+			out->Ci += reflection_color * (specular_weight * reflection_weight) * (is_metal?Cs:WHITE) * integrate(wo, Rr, opt);//Kr
 		}
 
 		// integrate indirect diffuse lighting (color bleeding)
-		if (!almost_black(Kd) && dot_nd < 0.0f)
+		if (!almost_black( Cs *(1.0f - specular_weight) * diffuse_weight ) && dot_nd < 0.0f)//almost_black(Kd)
 		{
 			IntegrateOptions opt;
 			opt.ray_type = EI_RAY_REFLECT_DIFFUSE;
 			opt.min_samples = opt.max_samples = diffuse_samples;
 			opt.cutoff_threshold = cutoff_thresh;
 
-			out->Ci += Kd * integrate(wo, Rd, opt);
+			out->Ci += Cs *(1.0f - specular_weight) * diffuse_weight * integrate(wo, Rd, opt);//Kd
 		}
 
 		// integrate refraction
-		if (!almost_black(Kt))
+		if ( !almost_black(refraction_color * specular_weight * refraction_weight * (1.0f-translucency_weight)*(is_metal?Cs:WHITE)) ) //almost_black(Kt)
 		{
 			IntegrateOptions opt;
 			opt.ray_type = EI_RAY_REFRACT_GLOSSY;
@@ -516,7 +510,7 @@ SURFACE(maya_phong_architectural)
 			// account for refractive caustics
 			opt.trace_lights = eiTRUE;
 
-			out->Ci += Kt * integrate(wo, Rt, opt);
+			out->Ci += refraction_color * specular_weight * refraction_weight * (1.0f-translucency_weight) * (is_metal?Cs:WHITE) * integrate(wo, Rt, opt);
 		}
 
 		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
