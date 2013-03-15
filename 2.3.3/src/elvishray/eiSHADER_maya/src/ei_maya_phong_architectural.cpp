@@ -187,13 +187,13 @@ SURFACE(maya_phong_architectural)
 		color specular_color(specularColor());
 		scalar specular_weight= 0.2f;//cosinePower
 		scalar roughness = 0.0f;
-//		int specular_mode = 1;
+		int specular_mode = 1;//[0,3]
 		scalar glossiness = 1.0f;
 		color reflection_color(reflectedColor());
 		scalar reflection_weight = 0.5f;
 		color  refraction_color(1.0f, 1.0f, 1.0f);
 		scalar refraction_weight= 0.5f;
-		scalar refraction_glossiness = 0.0f;
+		scalar refraction_glossiness = 0.5f;
 		scalar refraction_thickness= 2.0f;//surfaceThickness
 		color  translucency_color(transparency());
 		scalar translucency_weight = translucence();
@@ -287,16 +287,16 @@ SURFACE(maya_phong_architectural)
 
 		// set the glossiness scale based on the chosen BSDF
 		scalar glossiness_scale = 370.37f;
-//		if (specular_mode == 1)
-//		{
+		if (specular_mode == 1)
+		{
 			glossiness_scale = 125.0f;
-//		}
-// 		else if (specular_mode == 3)
-// 		{
-// 			// scale to make the same glossiness parameter 
-// 			// results in similar lobe for different BSDFs
-// 			glossiness_scale = 22.88f;
-// 		}
+		}
+		else if (specular_mode == 3)
+		{
+			// scale to make the same glossiness parameter 
+			// results in similar lobe for different BSDFs
+			glossiness_scale = 22.88f;
+		}
 
 //		scalar aniso = anisotropy;
 		int refl_samples = reflection_samples;
@@ -358,21 +358,21 @@ SURFACE(maya_phong_architectural)
 		} Rs_storage;
 
 		BSDF *Rs = NULL;
-//		switch (spec_mode)
-//		{
-// 		case 0:
-// 			Rs = new (Rs_storage.ward) Ward(F, shiny_u, shiny_v);
-// 			break;
-//		case 1:
+		switch (specular_mode)
+		{
+		case 0:
+ 			Rs = new (Rs_storage.ward) Ward(F, shiny_u, shiny_v);
+			break;
+		case 1:
 			Rs = new (Rs_storage.phong) StretchedPhong(F, shiny_u);
-//			break;
-// 		case 2:
-// 			Rs = new (Rs_storage.blinn) Blinn(F, shiny_u);
-// 			break;
-// 		case 3:
-// 			Rs = new (Rs_storage.cooktorrance) CookTorrance(F, 1.0f / shiny_u);
-// 			break;
-//		}
+			break;
+		case 2:
+			Rs = new (Rs_storage.blinn) Blinn(F, shiny_u);
+			break;
+		case 3:
+			Rs = new (Rs_storage.cooktorrance) CookTorrance(F, 1.0f / shiny_u);
+			break;
+		}
 
 		SpecularReflection Rr(F);
 
@@ -393,37 +393,43 @@ SURFACE(maya_phong_architectural)
 		} Rts_storage;
 
 		BSDF *Rts = NULL;
-// 		switch (spec_mode)
-// 		{
-// 		case 0:
-// 			Rts = new (Rts_storage.ward) Ward(invF, refr_shiny_u, refr_shiny_v);
-// 			break;
-// 		case 1:
+		switch (specular_mode)
+		{
+		case 0:
+			Rts = new (Rts_storage.ward) Ward(invF, refr_shiny_u, refr_shiny_v);
+			break;
+		case 1:
 			Rts = new (Rts_storage.phong) StretchedPhong(invF, refr_shiny_u);
-// 			break;
-// 		case 2:
-// 			Rts = new (Rts_storage.blinn) Blinn(invF, refr_shiny_u);
-// 			break;
-// 		case 3:
-// 			Rts = new (Rts_storage.cooktorrance) CookTorrance(invF, 1.0f / refr_shiny_u);
-// 			break;
-// 		}
+			break;
+		case 2:
+			Rts = new (Rts_storage.blinn) Blinn(invF, refr_shiny_u);
+			break;
+		case 3:
+			Rts = new (Rts_storage.cooktorrance) CookTorrance(invF, 1.0f / refr_shiny_u);
+			break;
+		}
 
 		scalar refr_thickness = refraction_thickness;
 
 		// internal scale for refraction thickness, make it smaller
 		BRDFtoBTDF Rt(Rts, IOR, refr_thickness * 0.1f, this);
 		
+		color dif(1.0f);
+		color spc(0.0f);
+		color outCi_old(out->Ci);
 		// don't integrate direct lighting if the ray hits the back face
  		if (dot_nd < 0.0f)
  		{
  			// integrate direct lighting from the front side
- 			out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
+ 			//out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
  			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			dif *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
  			//out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
- 			out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
- 		}
+ 			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+			spc += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+
+		}
 
 		// integrate for translucency from the back side
 		if (!almost_black(Kc) && 
@@ -447,12 +453,14 @@ SURFACE(maya_phong_architectural)
 			}
 			
 			// integrate direct lighting from the back side
-			out->Ci += Kc * integrate_direct_lighting(/*Kd*/diffuse(), Rd, new_wo);
-			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			//out->Ci += Kc * integrate_direct_lighting(/*Kd*/diffuse(), Rd, new_wo);
+			//out->Ci += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			dif *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
-			out->Ci += Kc * integrate_direct_lighting(Ks, *Rs, new_wo);
+			//out->Ci += Kc * integrate_direct_lighting(Ks, *Rs, new_wo);
 			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
-			
+			spc += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+
 			N = old_N;
 			u_axis = old_u_axis;
 			v_axis = old_v_axis;
@@ -460,43 +468,45 @@ SURFACE(maya_phong_architectural)
 			dPdv = old_dPdv;
 		}
 
+		out->Ci = outCi_old * dif + spc;
+
 		scalar cutoff_thresh = cutoff_threshold;
 
-//  		// integrate indirect specular lighting
-// 			if (!almost_black(Ks) && dot_nd < 0.0f)
-//  		{
-//  			IntegrateOptions opt;
-//  			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
-//  			opt.min_samples = opt.max_samples = refl_samples;
-//  			opt.cutoff_threshold = cutoff_thresh;
-// 
-//  			out->Ci += Ks * integrate(wo, *Rs, opt);
-//  		}
+ 		// integrate indirect specular lighting
+		if (!almost_black(Ks) && dot_nd < 0.0f)
+ 		{
+ 			IntegrateOptions opt;
+ 			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
+ 			opt.min_samples = opt.max_samples = refl_samples;
+ 			opt.cutoff_threshold = cutoff_thresh;
+
+ 			out->Ci += Ks * integrate(wo, *Rs, opt);
+  		}
 
 		// integrate perfect specular reflection
-// 		if (!almost_black(Kr) && dot_nd < 0.0f)
-// 		{
-// 			IntegrateOptions opt;
-// 			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
-// 			opt.min_samples = opt.max_samples = 1; // force one sample for reflection
-// 			opt.cutoff_threshold = cutoff_thresh;
-// 			// the direct lighting of this BRDF is not accounted, 
-// 			// so we trace lights here to compensate
-// 			opt.trace_lights = eiTRUE;
-// 
-// 			out->Ci += Kr * integrate(wo, Rr, opt);
-// 		}
+		if (!almost_black(Kr) && dot_nd < 0.0f)
+		{
+			IntegrateOptions opt;
+			opt.ray_type = EI_RAY_REFLECT_GLOSSY;
+			opt.min_samples = opt.max_samples = 1; // force one sample for reflection
+			opt.cutoff_threshold = cutoff_thresh;
+			// the direct lighting of this BRDF is not accounted, 
+			// so we trace lights here to compensate
+			opt.trace_lights = eiTRUE;
+
+			out->Ci += Kr * integrate(wo, Rr, opt);
+		}
 
 		// integrate indirect diffuse lighting (color bleeding)
-// 		if (!almost_black(Kd) && dot_nd < 0.0f)
-// 		{
-// 			IntegrateOptions opt;
-// 			opt.ray_type = EI_RAY_REFLECT_DIFFUSE;
-// 			opt.min_samples = opt.max_samples = diffuse_samples;
-// 			opt.cutoff_threshold = cutoff_thresh;
-// 
-// 			out->Ci += Kd * integrate(wo, Rd, opt);
-// 		}
+		if (!almost_black(Kd) && dot_nd < 0.0f)
+		{
+			IntegrateOptions opt;
+			opt.ray_type = EI_RAY_REFLECT_DIFFUSE;
+			opt.min_samples = opt.max_samples = diffuse_samples;
+			opt.cutoff_threshold = cutoff_thresh;
+
+			out->Ci += Kd * integrate(wo, Rd, opt);
+		}
 
 		// integrate refraction
 		if (!almost_black(Kt))
