@@ -30,12 +30,12 @@ anisotropy|uniform|float|0|1.0|-1
 rotation|uniform|float|0|0.0|-1
 ior|uniform|float|0|1.5|-1
 
-fresnel_by_ior|uniform|float|0|0.0|-1
+fresnel_by_ior|uniform|bool|0|0|-1
 fresnel_0_degree_refl|uniform|float|0|0.2|-1
 fresnel_90_degree_refl|uniform|float|0|1.0|-1
 fresnel_curve|uniform|float|0|5.0|-1
 
-is_metal|uniform|int|0|1|-1
+is_metal|uniform|bool|0|1|-1
 diffuse_samples|uniform|int|0|8|-1
 reflection_samples|uniform|int|0|4|-1
 refraction_samples|uniform|int|0|4|-1
