@@ -486,6 +486,7 @@ void tHeroRibWriterMgr::framePrologue_display(const structJob &currentJob)
 					}
 
 					RiArchiveRecord( RI_COMMENT, "Display 8");
+					RiArchiveRecord( RI_COMMENT, "make sure the specific aov macro is defined in liquidAOVMacroDef.h, and recomplie the shader again.");
 					RiArchiveRecord( RI_VERBATIM, "DisplayChannel \"%s %s\"\n",
 						m_displays_iterator->ddParamType.asChar(), 
 						m_displays_iterator->mode.asChar() );
