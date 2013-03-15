@@ -79,9 +79,34 @@ SURFACE(maya_phong)
 
 	void main(void *arg)
 	{
+		// prepare outgoing direction in local frame
+		const vector V(-normalize(I));
+		const vector wo(to_local(V));
+
+		scalar fresn_0_degree_refl = 0.2f;//fresnel_0_degree_refl();//
+		scalar fresn_90_degree_refl = 1.0f;//fresnel_90_degree_refl();//
+		scalar fresn_curve = 5.0f;//fresnel_curve();//
+
+		union {
+			eiByte by_ior[sizeof(FresnelByIOR)];
+			eiByte schlick[sizeof(FresnelSchlick)];
+		} F_storage;
+		//
+// 		union {
+// 			eiByte by_ior[sizeof(FresnelByIOR)];
+// 			eiByte schlick[sizeof(FresnelSchlick)];
+// 		} invF_storage;
+
+		Fresnel *F = new (F_storage.schlick) FresnelSchlick(
+			fresn_0_degree_refl, 
+			fresn_90_degree_refl, 
+			fresn_curve);
+
+		const scalar cutoff_thresh = 0.01f;//cutoff_threshold();//
+
 		//main1(arg);
 		//main1_3(arg);
-		main2(arg);
+		main2(arg, wo, F, cutoff_thresh);
 
 	}
 	//void main1(void *arg)
@@ -321,14 +346,16 @@ SURFACE(maya_phong)
 		const float i_reflectivity,
 		const color& i_reflectedColor,
 		//const float i_maxDistance, const float i_samples, const float i_blur, const float i_noiseAmp, const float i_noiseFreq,
-		const eiIndex i_reflectionLimit )
+		const eiIndex i_reflectionLimit,
+		const vector &wo, Fresnel *F, const scalar cutoff_thresh)
 	{
 		color ray_coloration = i_specularColor * i_reflectivity;
 		color reflected = i_reflectedColor;
 
-		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_ALMOST_ZERO) &&
-			/*raySpecularDepth() < i_reflectionLimit*/eiTRUE )
-		{
+// 		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_ALMOST_ZERO) 
+// 			&&
+// 			/*raySpecularDepth() < i_reflectionLimit*/eiTRUE )
+// 		{
 //			vector R = reflect( i_I, i_N );
 
 			//if( i_noiseAmp != 0 && i_noiseFreq != 0)
@@ -342,12 +369,58 @@ SURFACE(maya_phong)
 // 
 // 			reflected *= trs;
 // 			reflected += rc;
-		}
+
+			//color Kr(i_reflectedColor * (/*spec*/1.0f * i_reflectivity));
+			//color Kr(ray_coloration);
+
+			SpecularReflection Rr(F);
+
+			// integrate perfect specular reflection
+			if (dot_nd < 0.0f)
+			{
+				IntegrateOptions opt;
+				opt.ray_type = EI_RAY_REFLECT_GLOSSY;
+				opt.min_samples = opt.max_samples = 1; // force one sample for reflection
+				opt.cutoff_threshold = cutoff_thresh;
+				// the direct lighting of this BRDF is not accounted, 
+				// so we trace lights here to compensate
+				opt.trace_lights = eiTRUE;
+
+				reflected += integrate(wo, Rr, opt);
+			}
+		//}
 		return reflected * ray_coloration;
 	}
-	void main2(void *arg)
+	void main2(void *arg, const vector &wo, Fresnel *F, const scalar cutoff_thresh)
 	{
-		color Kd = diffuse();
+// 		color refraction_color(1.0f);
+// 		const scalar diffuse_weight = diffuse();
+// 		const scalar specular_weight = 0.2f;
+// 		const scalar reflection_weight = reflectivity();//0.0f for er
+// 		const scalar refraction_weight = 0.0f;
+// 		const scalar translucency_weight = 0.0f;
+// 		const scalar diff = clamp(diffuse_weight, 0.0f, 1.0f);
+// 		const scalar spec = clamp(specular_weight, 0.0f, 1.0f);
+// 		const scalar refl = clamp(reflection_weight, 0.0f, 1.0f);
+// 		const scalar refr = clamp(refraction_weight, 0.0f, 1.0f);
+// 		const scalar trans = clamp(translucency_weight, 0.0f, 1.0f);
+// 		const scalar refraction_thickness = 0.0f;
+// 		// the energy balancing between reflection and refraction is 
+// 		// dominated by Fresnel law
+// 		color Kt(refraction_color * (spec * refr * (1.0f - trans)));
+// 		color Kc(refraction_color * (spec * refr * trans));
+// 		// non-reflected energy is absorbed
+// 		color Ks(specularColor() * (spec * (1.0f - refl)));
+// 		color Kr(reflectedColor() * (spec * refl));
+		//if (ray_type == EI_RAY_SHADOW)
+		//{
+		//	main_shadow(arg, Kt, refraction_thickness, cutoff_thresh);
+		//	return;
+		//}
+
+		outColor() = color_() * out->Ci;
+
+
 
 		vector In = normalize( I );
 		normal Nn = normalize( N );
@@ -363,43 +436,58 @@ SURFACE(maya_phong)
 		//color Cspecular   = specularColor() * getPhong2(Nf, V, cosinePower(), eiFALSE, eiFALSE);
 		
 		color Ctransl = getTranslucence(Nf, translucence(), translucenceDepth(), translucenceFocus());
- 		color Creflect = getReflection(
- 			Nf, In, specularColor(), reflectivity(), reflectedColor(),
- 			//i_reflectionMaxDistance, i_reflectionSamples, i_reflectionBlur, i_reflectionNoiseAmplitude, i_reflectionNoiseFrequency,
- 			reflectionLimit() );
 
-		//outColor() = color_()  * Ci();
-		out->Ci = color_();
-		out->Oi = transparency();	
+
+		//out->Ci = color_();
+		//out->Oi = transparency();	
 		computeSurface(
-			out->Ci,//outColor(),
-			out->Oi,//transparency(),
+			color_(),//outColor(),//out->Ci,//
+			transparency(),//out->Oi,//
 			matteOpacityMode(),
 			matteOpacity(),
-			out->Ci,//outColor(),
-			out->Oi//outTransparency()
+			outColor(),//out->Ci,//
+			outTransparency()//out->Oi//
 		);
 
+// 		if (true/*is_metal()*/)
+// 		{
+// 			Ks *= color_();
+// 			Kr *= color_();
+// 			Kt *= color_();
+// 			Kc *= color_();
+// 		}
+// 		color Kd = color_() *((1.0f - spec) * diff);
 
-		color refraction;
-		//doRefraction(
-		//	Nn(),
-		//	I(),
-		//	refractions,
-		//	refractiveIndex,
-		//	refractionLimit,
-		//	lightAbsorbance,
-		//	shadowAttenuation,
-		//	outTransparency(),
-		//	refraction );
+
+		color Creflect(0.0f);
+// 		if( !almost_black(Kr) )
+		{
+			Creflect = /*Kr **/ getReflection(
+			Nf, In, specularColor(), reflectivity(), reflectedColor(),
+			//i_reflectionMaxDistance, i_reflectionSamples, i_reflectionBlur, i_reflectionNoiseAmplitude, i_reflectionNoiseFrequency,
+			reflectionLimit(),
+			wo, F, cutoff_thresh);
+		}
+
+		color refraction(0.0f);
+// 		doRefraction(
+// 			Nn(),
+// 			I(),
+// 			refractions,
+// 			refractiveIndex,
+// 			refractionLimit,
+// 			lightAbsorbance,
+// 			shadowAttenuation,
+// 			outTransparency(),
+// 			refraction );
 
 		//Ci() += Kd * irradiance();
-		out->Ci *= (Cdiffuse + Cambient + Ctransl);
-		out->Ci += Creflect +  Cspecular + incandescence() + refraction;
+		outColor() *= (Cdiffuse + Cambient + Ctransl);
+		outColor() += Creflect +  Cspecular + incandescence() + refraction;
 
 		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
 		{//transparent
-			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+			outColor() = outColor() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 		}//else{ opacity }
 
 		//computeShadowPass(Nf);
@@ -408,8 +496,40 @@ SURFACE(maya_phong)
 	}
 	void setOutputForMaya()
 	{
-		outColor() = out->Ci;
-		outTransparency() = out->Oi;
+		//outColor() = out->Ci;
+		//outTransparency() = out->Oi;
+		out->Ci = outColor();
+		out->Oi = outTransparency();
 	}
+	void main_shadow(void *arg, const color & Kt, 
+		const scalar &refraction_thickness, 
+		const scalar &cutoff_threshold)
+	{
+		// the light has falled off to almost black, 
+		// no need to trace
+		if (almost_black(Cl))
+		{
+			return;
+		}
 
+		scalar transp = average(&Kt);
+
+		// we are less transparent if the surface is treated as two sided
+		if (refraction_thickness > 0.0f)
+		{
+			transp = transp * transp;
+		}
+
+		// the same with opaque shader
+		if (almost_zero(transp, cutoff_threshold))
+		{
+			Cl = color(0.0f);
+			Ol = color(1.0f);
+			return;
+		}
+
+		// reduce the length of ray direction to limit the maximum distance
+		Cl = trace_shadow(P, I - (P - E), Cl) * transp;
+		Ol = (1.0f - transp);
+	}
 END(maya_phong)
