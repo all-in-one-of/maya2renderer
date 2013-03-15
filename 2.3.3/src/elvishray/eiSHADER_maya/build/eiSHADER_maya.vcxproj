@@ -177,7 +177,7 @@
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Debug";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -234,7 +234,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Debug";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -292,7 +292,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Debug";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -350,7 +350,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Release";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -404,7 +404,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="MinSizeRel";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -458,7 +458,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="RelWithDebInfo";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -514,7 +514,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Release";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -568,7 +568,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Debug";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -666,6 +666,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     <ClCompile Include="..\src\common\_3delight\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\ei_AOVMacroDef.h" />
     <ClInclude Include="..\src\ei_shader_maya.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">true</ExcludedFromBuild>

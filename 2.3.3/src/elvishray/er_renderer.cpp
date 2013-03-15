@@ -672,7 +672,9 @@ namespace elvishray
 			//_S( ei_output( "d:/_cameraShape1.0001.bmp", "bmp", EI_IMG_DATA_RGB ) );
 			_S( ei_output_variable("color", EI_TYPE_VECTOR));
 			_S( ei_end_output());
-			 
+			
+			outputAOV(currentJob);
+
 			_S( ei_focal( focal ) );
 			_S( ei_aperture( aperture ) );
 			_S( ei_aspect( aspect ) );
@@ -712,6 +714,75 @@ namespace elvishray
 		m_groupMgr->addObjectInstance(currentJob.name.asChar(), currentJob.camera[0].name.asChar(), GIT_Camera);//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
 
 		return MStatus::kSuccess;
+	}
+	void Renderer::outputAOV(const structJob &currentJob)
+	{
+		CM_TRACE_FUNC("Renderer::outputAOV("<<currentJob.name.asChar()<<")");
+	
+		_s("// AOV");
+
+		//refactor 19
+		for(std::size_t i = 0; i < liqglo.m_displays.size(); ++i)
+		{
+			MString imageName;
+			std::string imageType;
+			std::string imageMode;
+
+			// check if additionnal displays are enabled
+			// if not, call it off after the 1st iteration.
+			if( liqglo.m_ignoreAOVDisplays && i > 0 ) 
+				break;
+
+			// This is the override for the primary DD
+			// when you render to maya's renderview.
+			if( i == 0 && liqglo.m_renderView ) 
+			{
+				//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+				imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false );
+				
+				// in this case, override the launch render settings
+				if( liqglo.launchRender == false ) 
+					liqglo.launchRender = true;
+			} else {
+				// check if display is enabled
+				if( !liqglo.m_displays[i].enabled ) 
+				{
+					_s("//"<<liqglo.m_displays[i].name.asChar() <<" channel is disabled.");
+					continue;
+				}
+
+// 				if ( i == 0 ) {
+// 					//imageName << liqRibTranslator::getInstancePtr()->generateImageName( "", currentJob, currentJob.format );  
+// 					//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+//					imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[i].name, false );					
+// 					if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )
+// 						imageName += ".left.tif";
+// 				}else{
+// 					//imageName << "+" << liqRibTranslator::getInstancePtr()->generateImageName( (*m_displays_iterator).name, currentJob, imageType.c_str() ) ;
+// 					//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+// 					imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[i].name, false );
+// 					if( liqRibTranslator::getInstancePtr()->m_isStereoCamera )
+// 						imageName += ".right.tif";
+//				}
+
+// 				// get display type ( tiff, openexr, etc )
+// 				if( !isBatchMode() ){
+// 					imageType = (liqglo.m_displays[i].type == "")? 
+// 						"framebuffer" : liqglo.m_displays[i].type.asChar();
+// 				}else {// if in batch mode, we always use "file" -by yaoyansi
+// 					imageType = liqglo.m_displays[i].type.asChar();
+// 				}
+				_s( "//make sure the specific aov macro is defined in liquidAOVMacroDef.h, and recomplie the shader again.");
+
+				imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[i].name, false );
+				_S( ei_output(imageName.asChar(), liqglo.m_displays[i].type.asChar(), EI_IMG_DATA_RGB) );
+				_S( ei_output_variable(liqglo.m_displays[i].mode.asChar(), EI_TYPE_VECTOR) );
+				_S( ei_end_output() );
+				_s( "//");
+			}
+
+		}//for
+		//refactor 19
 	}
 	//
 	MStatus Renderer::frameEpilogue(const long scanTime)

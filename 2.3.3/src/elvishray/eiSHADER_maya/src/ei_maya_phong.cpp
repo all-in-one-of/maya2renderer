@@ -14,6 +14,7 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
+#include "ei_AOVMacroDef.h"
 #include "common/_3delight/shading_utils.h"
 #include "common/_3delight/utils.h"
 #include "common/my_utils.h"
@@ -57,6 +58,9 @@ SURFACE(maya_phong)
 	DECLARE_INDEX( reflectionLimit,				1);					//Raytrace Options - begin
 	DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f);	//output - begin
 	DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(aov_ambient,				0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(aov_diffuse,				0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(aov_specular,				0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()	{}
@@ -439,6 +443,16 @@ SURFACE(maya_phong)
 			outColor(),//out->Ci,//
 			outTransparency()//out->Oi//
 		);
+
+#ifdef USE_AOV_aov_ambient
+		aov_ambient() += Cambient * color_() * (1.0f - outTransparency());
+#endif
+#ifdef USE_AOV_aov_diffuse
+		aov_diffuse() += Cdiffuse * color_() * (1.0f - outTransparency());
+#endif
+#ifdef USE_AOV_aov_specular
+		aov_specular() += Cspecular;
+#endif
 
 // 		if (true/*is_metal()*/)
 // 		{
