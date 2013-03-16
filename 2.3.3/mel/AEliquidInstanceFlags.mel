@@ -471,8 +471,13 @@ global proc AEliquidInstanceFlags( string $node )
     editorTemplate -endLayout;
 
 	editorTemplate -beginLayout "Procedural" -collapse true;
-      editorTemplate -label "attribute"    -addDynamicControl "liqProceduralAttribute";
-    editorTemplate -endLayout;
+      //editorTemplate -label "liqGeoShader"    -addDynamicControl "liqGeoShader";
+      editorTemplate 
+		  -callCustom 
+			"AEliqInstanceFlagsGeometryNew"
+			"AEliqInstanceFlagsGeometryReplace"
+			"message";
+	editorTemplate -endLayout;
 
 	editorTemplate -beginLayout "CustomShader" -collapse true;
 //    editorTemplate -label "SurfaceShader"			-addDynamicControl "liqSurfaceShader";
@@ -493,3 +498,104 @@ global proc AEliquidInstanceFlags( string $node )
   liqPopIdent();
 }
 
+// ===========================================================================
+proc int liqGeoShaderExist(string $node)
+{
+	liqPushIdent();
+	liqlog("liqGeoShaderExist("+$node+")");
+
+	int $bPlugExist = `attributeQuery -node $node -ex "liqGeoShader"`;
+	liqlog($node+".liqGeoShader exist? "+$bPlugExist);
+
+	liqPopIdent();
+	return $bPlugExist;
+}
+global proc liqCreateRenderNodeWindow(string $attr)
+{
+	liqPushIdent();
+	liqlog("liqCreateRenderNodeWindow("+$attr+")");
+
+	string $cmd = "defaultNavigation -connectToExisting -destination " + $attr + " -source %node.message ";
+	
+	liqlog("$cmd="+$cmd);
+	createRenderNode -all $cmd "";
+	
+	liqPopIdent();
+}
+
+global proc AEliqInstanceFlagsGeometryActivate(string $node)
+{
+	liqPushIdent();
+	liqlog("AEliqInstanceFlagsGeometryActivate("+$node+")");
+
+	int $bPlugExist = liqGeoShaderExist($node);
+	//if( $bPlugExist == 0 ){
+	//	liqPopIdent();
+	//	return;
+	//}
+
+	if( $bPlugExist && `attrNavigationControlGrp -ex liqGeometryShaderCtrl`)
+	{
+		attrNavigationControlGrp -edit -enable $bPlugExist
+			liqGeometryShaderCtrl;
+	}
+
+	liqPopIdent();
+}
+
+global proc AEliqInstanceFlagsGeometryNew(string $messagePlug)
+{
+	liqPushIdent();
+	liqlog("AEliqInstanceFlagsGeometryNew("+$messagePlug+")");
+		
+	string $node;
+	string $buffer[];
+	tokenize($messagePlug, ".", $buffer);
+	$node = (size($buffer) > 0) ? $buffer[0] : "";
+
+	//int $bPlugExist = liqGeoShaderExist($node);
+	//if( $bPlugExist == 0 ){
+	//	liqPopIdent();
+	//	return;
+	//}
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	    text -label "Note: add procedural atribute before you use it";
+		attrNavigationControlGrp -label ("liqGeoShader")  liqGeometryShaderCtrl;
+	setUITemplate -popTemplate;
+	
+	AEliqInstanceFlagsGeometryReplace($messagePlug);
+
+	liqPopIdent();
+}
+
+global proc AEliqInstanceFlagsGeometryReplace(string $messagePlug)
+{
+	liqPushIdent();
+	liqlog("AEliqInstanceFlagsGeometryReplace("+$messagePlug+")");
+
+	string $node;
+	string $buffer[];
+	tokenize($messagePlug, ".", $buffer);
+	$node = (size($buffer) > 0) ? $buffer[0] : "";
+
+	//int $bPlugExist = liqGeoShaderExist($node);
+	//if( $bPlugExist == 0 ){
+	//	liqPopIdent();
+	//	return;
+	//}
+
+	//string $createNewCmd = "mrCreateRenderNodeWindow (\"" + $node + ".liqGeoShader" + "\")";
+	string $createNewCmd = "liqCreateRenderNodeWindow(\"" + $node + ".liqGeoShader" + "\")";
+	
+	attrNavigationControlGrp
+			-edit -attribute ($node + ".liqGeoShader") 
+			-createNew $createNewCmd
+			liqGeometryShaderCtrl;
+
+	AEliqInstanceFlagsGeometryActivate($node);
+
+	liqPopIdent();
+}
+
+// ===========================================================================
