@@ -186,7 +186,8 @@ liqRibNode::liqRibNode( liqRibNodePtr instanceOfNode,
   derivatives.centered    = true;
   derivatives.extrapolate = true;
 
-  procedural.attribute	  = "";
+//  procedural.attribute	  = "";
+  liqGeoShaderNodeName = "";
 
   invisible                 = false;
   ignoreShapes              = false;
@@ -515,8 +516,14 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 	  liquidGetPlugValue( nodePeeker, "liqDerivativesExtrapolate",	(int&)derivatives.extrapolate, status );
 
 	  // procedural -------------------------------------------------------
-	  liquidGetPlugValue( nodePeeker, "liqProceduralAttribute",     procedural.attribute, status );
-
+	  //liquidGetPlugValue( nodePeeker, "liqProceduralAttribute",     procedural.attribute, status );
+	  liquidGetPlugValue( nodePeeker, "liqGeoShader",     liqGeoShaderNodeName, status );
+	  MString getSouceNode("listConnections -d true \""+getTransformNodeFullPath()+".liqGeoShader\"");
+	  MStringArray sourceNodes;
+	  IfMErrorWarn( MGlobal::executeCommand(getSouceNode, sourceNodes, true, true));
+	  if( sourceNodes.length()>0 ){
+		  liqGeoShaderNodeName = sourceNodes[ 0 ];
+	  }
       // RIB group ---------------------------------------------------------
 
       if( rib.box == "" ) 

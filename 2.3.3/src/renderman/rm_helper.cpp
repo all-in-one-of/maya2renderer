@@ -4,6 +4,7 @@
 #include "rm_helper.h"
 
 #include "../common/prerequest_maya.h"
+#include "../common/mayacheck.h"
 #include "liqGlobalHelpers.h"
 #include <liqRibTranslator.h>
 #include "ri_interface.h"
@@ -710,9 +711,28 @@ namespace renderman
 
 		//procedural
 		{
-			if( ribNode__->procedural.attribute.length()>0 ){
-				liqString attribute = const_cast<char*>(ribNode__->procedural.attribute.asChar());
-				RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
+// 			if( ribNode__->procedural.attribute.length()>0 ){
+// 				liqString attribute = const_cast<char*>(ribNode__->procedural.attribute.asChar());
+// 				RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
+// 			}
+			if( ribNode__->liqGeoShaderNodeName.length()>0 )
+			{
+				//query $liqGeoShaderNodeName.procedural exist or not
+				MString queryProceduralExist("attributeQuery -node "+ribNode__->liqGeoShaderNodeName+" -ex \"procedural\"");
+				int bProceduralExist;
+				IfMErrorWarn( MGlobal::executeCommand(queryProceduralExist, bProceduralExist, true, true) );
+				if( bProceduralExist != 0 )
+				{
+					//get procedural data
+					MString getProcedural("getAttr (\""+ribNode__->liqGeoShaderNodeName+".procedural\")");
+					MString proceduralString;
+					IfMErrorWarn( MGlobal::executeCommand(getProcedural, proceduralString, true, true) );
+					//output procedural
+					liqString attribute = const_cast<char*>(proceduralString.asChar());
+					RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
+				}else{
+					liquidMessage2(messageError,"\"%s.procedural\" not exist.",ribNode__->liqGeoShaderNodeName.asChar());
+				}
 			}
 		}//procedural
 

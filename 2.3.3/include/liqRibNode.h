@@ -345,9 +345,10 @@ class LIQUID_EXPORT liqRibNode {
 		bool extrapolate;
 	} derivatives;
 
-	struct procedural{
-		MString attribute;
-	} procedural;
+	//struct procedural{
+	//	MString attribute;
+	//} procedural;
+	MString liqGeoShaderNodeName;
 
     bool    instanceInheritPPColor;
     bool    invisible;
