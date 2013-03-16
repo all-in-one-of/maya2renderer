@@ -13,7 +13,9 @@ global proc int isValidShaderTypeForPL_elvishray(string $shaderType)
 		 $shaderType == "shadow"        ||
 		 $shaderType == "environment"   ||
 		 //$shaderType == "photon"		||
-		 $shaderType == "lens"			)
+		 $shaderType == "lens"			||
+		 $shaderType == "geometry"		
+		 )
 	{
 		liqPopIdent();
 		return 1;

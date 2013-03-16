@@ -201,6 +201,12 @@ namespace elvishray
 
 	//	Objects:
 	 void my_ei_object( const char *type, const char *name );
+	 void my_ei_box(eiScalar xmin, eiScalar ymin, eiScalar zmin, 
+		 eiScalar xmax, eiScalar ymax, eiScalar zmax);
+	 void my_ei_motion_box(eiScalar xmin, eiScalar ymin, eiScalar zmin, 
+		 eiScalar xmax, eiScalar ymax, eiScalar zmax);
+	 /* procedural objects */
+	 void my_ei_geometry_shader(const char *shader_name);
 	 /* polygon objects */
 	 void my_ei_pos_list(const eiTag tab);
 	 void my_ei_motion_pos_list(const eiTag tab);
@@ -319,6 +325,7 @@ void my_ei_degree(const eiInt degree);
 
 //extion for liq
 void my_set_eiVector4(const char* vname, eiVector4 &v, const eiScalar x, const eiScalar y, const eiScalar z, const eiScalar w );
+
 
 }
 #endif

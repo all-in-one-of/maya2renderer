@@ -458,6 +458,11 @@ namespace elvishray
 
 		void outputAOV(const structJob &currentJob);
 
+		void exportOneObject_procedural(
+			const liqRibNodePtr &ribNode__,  
+			const structJob &currentJob__
+			);
+
 		liqGlobalNodeHelper *m_gnode;
 
 		eiContext *CONTEXT;

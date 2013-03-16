@@ -257,6 +257,12 @@ namespace elvishray
 			&& ( ribNode__->object(0)->type != MRT_RibGen );
 
 		//exportOneGeometry_Mesh(ribNode__, currentJob__ , sample_first, bGeometryMotion?sample_last:sample_first);
+		
+		if( ribNode__->liqGeoShaderNodeName.length()>0 )//has procedural object
+		{
+			exportOneObject_procedural(ribNode__, currentJob__);
+		}
+
 
 		_s("//--------------------------");
 		{
@@ -287,10 +293,15 @@ namespace elvishray
 		// 		ei_shadow( on );
 		// 		ei_trace( on );
 #ifdef TRANSFORM_SHAPE_PAIR
-		const std::string objectName(ribNode__->name.asChar());//shape
+		std::string objectName(ribNode__->name.asChar());//shape
 #else// SHAPE SHAPE_object PAIR
-		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
-#endif
+		std::string objectName(getObjectName(ribNode__->name.asChar()));
+#endif	
+		if( ribNode__->liqGeoShaderNodeName.length()>0 )//has procedural object
+		{
+			objectName = getProceduralObjectName(objectName.c_str());//shape+"_object_procedural"
+		}
+
 		{//material
 			MStringArray shadingGroupNodes;
 			{
@@ -330,6 +341,7 @@ namespace elvishray
 		_s("//ribNode->doDef="<<ribNode__->doDef<<", ribNode->doMotion="<<ribNode__->doMotion);
 		_S( ei_motion( bMotion ) );
 
+		//light links
 		_s("{//light group(light-link group)");
 		const char* lg = getLightGroupName(instanceName.c_str()).asChar();
 		_d( const char *tag = NULL );
@@ -342,6 +354,55 @@ namespace elvishray
 		_s("//");
 		//
 		m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Geometry );//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
+	}
+	//
+	void Renderer::exportOneObject_procedural(
+			const liqRibNodePtr &ribNode__,  
+			const structJob &currentJob__)
+	{
+		CM_TRACE_FUNC("Renderer::exportOneObject_procedural("<<ribNode__->name.asChar()<<","<<currentJob__.name.asChar()<<")");
+
+		//phong1
+		liqShader &geometryShader = liqShaderFactory::instance().getShader( ribNode__->liqGeoShaderNodeName.asChar() );
+		geometryShader.write();
+
+#ifdef TRANSFORM_SHAPE_PAIR
+		std::string objectName(ribNode__->name.asChar());//shape
+#else// SHAPE SHAPE_object PAIR
+		std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
+#endif
+		objectName = getProceduralObjectName(objectName.c_str());
+
+		
+		MVector BBoxMin, BBoxMax;
+		{
+			MDoubleArray tmp;
+
+			MString getBBoxMin("getAttr "+ribNode__->getTransformNodeFullPath()+".boundingBoxMin");
+			IfMErrorWarn( MGlobal::executeCommand(getBBoxMin, tmp, true, true));
+			BBoxMin.x = tmp[0]; BBoxMin.y = tmp[1]; BBoxMin.z = tmp[2];
+
+			MString getBBoxMax("getAttr "+ribNode__->getTransformNodeFullPath()+".boundingBoxMax");
+			IfMErrorWarn( MGlobal::executeCommand(getBBoxMax, tmp, true, true));
+			BBoxMax.x = tmp[0]; BBoxMax.y = tmp[1]; BBoxMax.z = tmp[2];
+		}
+
+		eiBound bbox;
+		bbox.xmin = BBoxMin.x;
+		bbox.ymin = BBoxMin.y;
+		bbox.zmin = BBoxMin.z;
+		bbox.xmax = BBoxMax.x;
+		bbox.ymax = BBoxMax.y;
+		bbox.zmax = BBoxMax.z;
+		// add the bound for max displacement
+		addbf(&bbox, 1.0f);
+
+		_S( ei_object("proc", objectName.c_str()) );
+			// define the bounding box of the procedural object
+			_S( ei_box(bbox.xmin, bbox.ymin, bbox.zmin, bbox.xmax, bbox.ymax, bbox.zmax) );
+			// assign a geometry shader to create procedural geometry on-demand
+			_S( ei_geometry_shader( geometryShader.getName().c_str() ) );
+		_S( ei_end_object() );
 	}
 	//
 	void Renderer::ribPrologue_comment(const char* liqversion, 

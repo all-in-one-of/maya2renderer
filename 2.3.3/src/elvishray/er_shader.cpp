@@ -276,6 +276,9 @@ namespace elvishray
 		}else if(liqshader->shader_type_ex == "lens"){
 			//outputIndentation(indentLevel);
 			this->shader_lens( *liqshader,   liqshader->tokenPointerArray );
+		}else if(liqshader->shader_type_ex == "geometry"){
+			//outputIndentation(indentLevel);
+			_UserDefinedShader(*liqshader, liqshader->tokenPointerArray);
 		}
 		else{
 			char errorMsg[512];

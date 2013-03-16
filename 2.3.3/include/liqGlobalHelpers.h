@@ -162,6 +162,7 @@ LIQUID_EXPORT MString toFullDagPath(const MString& name);
 LIQUID_EXPORT void toFullDagPath(MStringArray& array);
 
 LIQUID_EXPORT std::string getObjectName(const char *ribDataName);
+LIQUID_EXPORT std::string getProceduralObjectName(const char *ribDataName);
 
 LIQUID_EXPORT void printFrameSequence(const char* prefix);
 

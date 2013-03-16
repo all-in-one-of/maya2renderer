@@ -1689,7 +1689,11 @@ std::string getObjectName(const char *ribDataName)
 	return std::string(ribDataName)+"_object";
 
 }
+std::string getProceduralObjectName(const char *objectName)
+{
+	return std::string(objectName)+"_procedural";
 
+}
 void printFrameSequence(const char* prefix)
 {
 	std::stringstream sstr;

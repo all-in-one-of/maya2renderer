@@ -636,6 +636,25 @@ namespace elvishray
 		_s("ei_object(\""<< type <<"\",\""<<name<<"\")" ); 
 		_e( ei_object(type, name));
 	}
+	void my_ei_box(eiScalar xmin, eiScalar ymin, eiScalar zmin, 
+		eiScalar xmax, eiScalar ymax, eiScalar zmax)
+	{
+		_s("ei_box("<< xmin<<","<<ymin<<","<<zmin<<", "<<xmax<<","<<ymax<<","<<zmax<<")");
+		_e( ei_box(xmin,ymin,zmin,xmax,ymax,zmax));
+
+	}
+	void my_ei_motion_box(eiScalar xmin, eiScalar ymin, eiScalar zmin, 
+		eiScalar xmax, eiScalar ymax, eiScalar zmax)
+	{
+		_s("ei_motion_box("<< xmin<<","<<ymin<<","<<zmin<<", "<<xmax<<","<<ymax<<","<<zmax<<")");
+		_e( ei_motion_box(xmin,ymin,zmin, xmax,ymax,zmax));
+	}
+	/* procedural objects */
+	void my_ei_geometry_shader(const char *shader_name)
+	{
+		_s("ei_geometry_shader(\""<<shader_name<<"\")");
+		_e( ei_geometry_shader(shader_name));
+	}
 	void my_ei_pos_list(const eiTag tab)
 	{
 		_s("ei_pos_list(tag)" ); 
