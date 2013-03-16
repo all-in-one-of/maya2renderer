@@ -147,6 +147,8 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - (done)openLog() --> openLog(filenamebase)
 - UI的自动化测试，节点连接的自动化测试。渲染器在制作流程里的自动化测试
 - (done)pl文件里增加int，bool类型
+- er geometry shader 应该在object导出之前导出。但rm的procedural却是在每个object instance内导出。
+  应该设计一个方案，能够解决这两个情况
 
 prman
 ------------

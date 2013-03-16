@@ -726,15 +726,8 @@ namespace elvishray
 		std::string sCameraObjectName(std::string(currentJob.camera[0].name.asChar())+"_object");
 		_S( ei_camera( sCameraObjectName.c_str() ) );
 			//_S( ei_frame( lframe, off ) );
-			MString imageName(
-				liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false )
-			);
- 			_S( ei_output( imageName.asChar(), "bmp", EI_IMG_DATA_RGB ) );
-			//_S( ei_output( "d:/_cameraShape1.0001.bmp", "bmp", EI_IMG_DATA_RGB ) );
-			_S( ei_output_variable("color", EI_TYPE_VECTOR));
-			_S( ei_end_output());
 			
-			outputAOV(currentJob);
+			cameraOutput(currentJob);
 
 			_S( ei_focal( focal ) );
 			_S( ei_aperture( aperture ) );
@@ -776,14 +769,39 @@ namespace elvishray
 
 		return MStatus::kSuccess;
 	}
-	void Renderer::outputAOV(const structJob &currentJob)
+	void Renderer::cameraOutput(const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::outputAOV("<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("Renderer::cameraOutput("<<currentJob.name.asChar()<<")");
 	
-		_s("// AOV");
+		//beauty channel
+		_s("//beauty channel");
+		const std::size_t i = 0;
+		{
+			MString imageName;
+			std::string imageType;
+			std::string imageMode;
 
+			if( liqglo.m_renderView ) 
+			{
+				//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
+				imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ i ].name, false );
+
+				// in this case, override the launch render settings
+				if( liqglo.launchRender == false ) 
+					liqglo.launchRender = true;
+			}
+
+			imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ i ].name, false );
+			_S( ei_output( imageName.asChar(), liqglo.m_displays[i].type.asChar(), EI_IMG_DATA_RGB ) );
+			_s( "//mode="<<liqglo.m_displays[i].mode.asChar() );
+			_S( ei_output_variable("color", EI_TYPE_VECTOR));
+			_S( ei_end_output());
+		}
+
+		//AOV channels
+		_s("// AOVs");
 		//refactor 19
-		for(std::size_t i = 0; i < liqglo.m_displays.size(); ++i)
+		for(std::size_t i = 1; i < liqglo.m_displays.size(); ++i)
 		{
 			MString imageName;
 			std::string imageType;
@@ -796,15 +814,7 @@ namespace elvishray
 
 			// This is the override for the primary DD
 			// when you render to maya's renderview.
-			if( i == 0 && liqglo.m_renderView ) 
 			{
-				//I use liqglo.m_displays[ 0 ].name for maya2renderer - yaoyansi
-				imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ 0 ].name, false );
-				
-				// in this case, override the launch render settings
-				if( liqglo.launchRender == false ) 
-					liqglo.launchRender = true;
-			} else {
 				// check if display is enabled
 				if( !liqglo.m_displays[i].enabled ) 
 				{
