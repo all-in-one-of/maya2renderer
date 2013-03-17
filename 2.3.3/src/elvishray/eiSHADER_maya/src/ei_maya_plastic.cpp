@@ -14,6 +14,10 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
+#include "ei_AOVMacroDef.h"
+#include "common/_3delight/shading_utils.h"
+#include "common/_3delight/utils.h"
+#include "common/my_utils.h"
 
 SURFACE(maya_lambert)
 	DECLARE;
@@ -284,8 +288,13 @@ SURFACE(maya_lambert_transparent)
 	DECLARE_SCALAR(Ks, 0.5f);
 	DECLARE_SCALAR(roughness, 0.1f);
 	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
-	DECLARE_SCALAR(transparency, 0.5f);
+	DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f); 
+	DECLARE_SCALAR(diffusion, 0.8f);
 	DECLARE_TAG(Cs_tex, eiNULL_TAG);
+	DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f); 
 	END_DECLARE;
 
 	static void init()
@@ -365,7 +374,7 @@ SURFACE(maya_lambert_transparent)
 			out->Ci += sum;
 
 
-		if ( transparency() > 0.0f )
+		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
 		{
 			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 		}
