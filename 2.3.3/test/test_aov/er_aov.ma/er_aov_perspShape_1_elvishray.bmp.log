@@ -1,2 +1,0 @@
->0 liqRibTranslator::doIt()-->if(checkSettings()==true)
-  >1 RendererMgr::setFactory(elvishray)
