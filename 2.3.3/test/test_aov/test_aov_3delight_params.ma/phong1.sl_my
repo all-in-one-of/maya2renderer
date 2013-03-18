@@ -1,6 +1,6 @@
 #include <liquidAOVMacroDef.h>
-//surface shader name: phong8
-surface phong8
+//surface shader name: phong1
+surface phong1
 (
 #ifdef USE_AOV_aov_ambient
 		output varying color aov_ambient = 0;
@@ -91,21 +91,23 @@ surface phong8
 
 // define some extern variables which are used in 3delight shaders -----------------------------
  color __transparency = color (1,1,1);
+ uniform float __reflects = 0;
+ uniform float __refracts = 0;
 
 
 
 // define the shaders --------------------------------------------------------------------------
 #include "phong.h"
-//shader name: phong8
-void phong8 (
+//shader name: phong1
+void phong1 (
 )
 {
   color ambientColor = color (0,0,0);
-  color i_color = color (0,0.574001,1);
-  float cosinePower = float 20;
+  color i_color = color (0,0,1);
+  float cosinePower = float 51.403999;
   float diffuse = float 0.8;
   color incandescence = color (0,0,0);
-  float matteOpacity = float 1;
+  float matteOpacity = float 0.95042;
   float matteOpacityMode = float 2;
  normal normalCamera = N;
   color specularColor = color (0.5,0.5,0.5);
@@ -167,8 +169,8 @@ void phong8 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //phong8
- phong8();
+ //phong1
+ phong1();
 //input: 
 //output:
 
