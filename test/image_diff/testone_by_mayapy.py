@@ -5,6 +5,7 @@ import maya.OpenMaya as OpenMaya
 import maya.cmds as cmds
 import liqGlobalHelpers as gHelper
 import liqTestLog as mLiqlog
+import render_tester as rt
 
 def parseString(strdata):
     import maya.cmds as cmds
@@ -103,12 +104,28 @@ def _test(mayaFile, liqRenderer):
 
 def test_one_scene(mayaFile, liqRenderer):
     mLiqlog.scene_beg(mayaFile)
+
+    #create tester
+    tester = rt.createTestFactory( liqRenderer )
+    tester.setFile( mayaFile )
+    tester.setProjectDirectory( getProjectDirectory(mayaFile) )
+
     if liqRenderer == "":
         _test(mayaFile, "elvishray")
         _test(mayaFile, "renderman")
         _test(mayaFile, "appleseed")
     else:
         _test(mayaFile, liqRenderer)
+    
+    #DEBUG
+    #import pdb 
+    #pdb.set_trace() 
+
+    #clean resources
+    import time
+    time.sleep(2)
+    tester.cutResources()
+
     mLiqlog.scene_end()
 
 
