@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: er_liquidshader_quadlight.ma
-//Last modified: Thu, Mar 14, 2013 06:05:19 PM
+//Last modified: Mon, Mar 18, 2013 05:38:17 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -110,10 +110,11 @@ createNode shadingEngine -n "liquidDisplacement1SG";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo1";
 createNode liquidGlobals -n "liquidGlobals";
+	addAttr -ci true -sn "displayList" -ln "displayList" -dt "stringArray";
 	setAttr ".rc" -type "string" "perspShape";
 	setAttr ".ddin[0]" -type "string" "$SCN.$CAM.$F.$RND.bmp";
-	setAttr ".ddim[0]" -type "string" "rgba";
-	setAttr ".ddit[0]" -type "string" "it";
+	setAttr ".ddim[0]" -type "string" "rgb";
+	setAttr ".ddit[0]" -type "string" "bmp";
 	setAttr ".ddbd[0]"  8;
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
@@ -141,6 +142,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
 	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".displayList" -type "stringArray" 18 "bmp" "cineon" "dsm" "eps" "exr" "framebuffer" "idisplay" "iff" "jpeg" "liqmaya-" "liqmaya" "memory" "pic" "png" "psd" "radiance" "tiff" "zfile"  ;
 createNode script -n "uiConfigurationScriptNode";
 	setAttr ".b" -type "string" (
 		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `modelPanel -unParent -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels `;\n\t\t\t$editorName = $panelName;\n            modelEditor -e \n                -camera \"top\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n"
