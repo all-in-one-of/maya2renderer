@@ -641,7 +641,7 @@ liqShader::liqShader( MObject shaderObj )
 							if(stat == MS::kSuccess)
 							{
 								// [2/1/2012 yaoyansi]
-								// This is a restriction in liquid(maya2renderer).
+								// This is a limitation in liquid(maya2renderer).
 								// - If the attribute name starts with 'texname',(e.g. texname, texname0, texname_0, and etc.)
 								//   it is a texture name or texture full path, 
 								//   so we MUST append '.tex' to the plug value.
@@ -655,10 +655,10 @@ liqShader::liqShader( MObject shaderObj )
 										// It is a ".tex", so we don't have to append ".tex" to value.
 									}else{
 										stringPlugVal += "."+getTextureExt(); // append ".tex" to value.
-										//why do this? Because this way can store the original image type information.
+										//why do this? Because, in this way, we can store the original image type information.
 										//e.g. the original image is testB.bmp, if we replaced "bmp" with "tex" here,
-										//the problem would occur when we run "txmake testB.? testB.tex" later,
-										//how we know the image type of the original testB? the type "bmp" is replaced by "tex" here and lost.
+										//the problem would occur when we run "txmake testB.* testB.tex" later,
+										//how we know the image type of the original testB.* ?  the type "bmp" is replaced by "tex" here and lost.
 									}
 								}else{
 									//this attribute is not a texture, keep the value unchanged.
