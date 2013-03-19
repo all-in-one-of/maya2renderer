@@ -67,7 +67,7 @@ def getFileDirectory(mayaFile):
 def getStanderImage(mayaFile, liqRenderer):
     directory=getFileDirectory(mayaFile)
     imageName=getOutputImageName(mayaFile, liqRenderer)
-    return (directory+"/output_img_std/"+imageName)
+    return (directory+"/"+imageName)
 
 
 def _render(mayaFile, liqRenderer):
