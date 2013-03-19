@@ -1869,3 +1869,34 @@ MString getLogFileName()
 	IfMErrorWarn(MGlobal::executeCommand("getAttr \"liquidGlobals.ddImageName[0]\";", tmp));		
 	return parseString_refactor(tmp);
 }
+MString evaluateTheTextureNameValue(const MString &plugName, const MString &plugValue)
+{
+	MString newValue(plugValue);
+
+	MStringArray textureTokensString;
+	MStatus stat = plugValue.split('.', textureTokensString);
+	// [2/1/2012 yaoyansi]
+	// This is a limitation in liquid(maya2renderer).
+	// - If the attribute name starts with 'texname',(e.g. texname, texname0, texname_0, and etc.)
+	//   it is a texture name or texture full path, 
+	//   so we MUST append '.tex' to the plug value.
+	// - If the plug is not a texture name or texture full path,
+	//   DO NOT let the attribute name starts with 'texname'.
+	if( plugName.substring(0,6) == "texname" )
+	{
+		MString textureExten(textureTokensString[textureTokensString.length()-1]);
+		if(getTextureExt()==textureExten.toLowerCase()){
+			// It is a ".tex", so we don't have to append ".tex" to value.
+		}else{
+			newValue += "."+getTextureExt(); // append ".tex" to value.
+			//why do this? Because, in this way, we can store the original image type information.
+			//e.g. the original image is testB.bmp, if we replaced "bmp" with "tex" here,
+			//the problem would occur when we run "txmake testB.* testB.tex" later,
+			//how we know the image type of the original testB.* ?  the type "bmp" is replaced by "tex" here and lost.
+		}
+	}else{
+		//this attribute is not a texture, keep the value unchanged.
+	}
+
+	return newValue;
+}

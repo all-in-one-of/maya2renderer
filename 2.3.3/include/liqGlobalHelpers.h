@@ -193,5 +193,6 @@ LIQUID_EXPORT bool isTextureTypeSupported(const MString &textureType);
 //
 LIQUID_EXPORT MString getLogFileDir();
 LIQUID_EXPORT MString getLogFileName();
-
+//
+LIQUID_EXPORT MString evaluateTheTextureNameValue(const MString &plugName, const MString &plugValue);
 #endif
