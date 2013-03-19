@@ -4,12 +4,12 @@ import testone_by_mayapy as MyTestOne
 
 def test_all_scene():
     LIQUID_ROOT= os.environ["LIQUID_ROOT"]
-
+    '''
     testFile=LIQUID_ROOT+"/2.3.3/test/test_motionblur/transform/deform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     MyTestOne.test_one_scene(testFile, "elvichray")
     MyTestOne.test_one_scene(testFile, "appleseed")
-    '''
+
     testFile=LIQUID_ROOT+"/2.3.3/test/test_motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -161,6 +161,60 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/2.3.3/test/test_particle/TextureBaseParticleRamp.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
+    #-----------------------------------------
     testFile=LIQUID_ROOT+"/2.3.3/test/test_shader_graph/er_rm_shader_graph_phong_simple.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_aov/er_aov.ma/er_aov.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_aov/test_aov_3delight_params.ma/test_aov_3delight_params.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_procedural/test_procedural.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_shader/phong_reflect.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_shader/architectural.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_shader/phong.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_shader/er_displace.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    #testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_liquidshader_skylight.ma"
+    #MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_liquidshader_spherelight.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_liquidshader_quadlight.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_lightshader.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_rm_light/rm_liquidShader.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_volumelight.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    #testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_ambientlight.ma"
+    #MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/2.3.3/test/test_er_light/er_quardlight.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
+    testFile=LIQUID_ROOT+"/test/unittest/er/light/quardlight/er_quardlight.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+    '''    
+
+
+
+
+
