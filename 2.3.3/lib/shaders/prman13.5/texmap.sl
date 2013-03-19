@@ -37,6 +37,8 @@
  * Ka, Kd, Ks, roughness, specularcolor - the usual meaning
  *---------------------------------------------------------------------------*/
 
+#include "texmap.impl"
+
 surface
 texmap(string texname = "";
 	float maptype=3;
@@ -48,63 +50,25 @@ texmap(string texname = "";
 	color specularcolor = 1)
 
 {
-	uniform float ssize, tsize;
-	varying normal Nf, NN;
-	varying vector NI;
-	varying point PP,O,X,Y,Z;
-	varying color ctx;
-	varying float ss,tt,ds,dsu,dsv,dt,dtu,dtv;
-
-	/* calculate size of st space for boundary check and correction */
-	if(s1 < s2) ssize = s2 - s1;
-	else        ssize = s1 - s2;
-	if(t1 < t2) tsize = t2 - t1;
-	else        tsize = t1 - t2;
-
-	/* do projection in shader space */
-	PP=transform("shader",P);
-	O=transform("shader",maporigin);
-	X=transform("shader",xaxis);
-	Y=transform("shader",yaxis);
-	Z=transform("shader",zaxis);
-	NN=normalize(ntransform("shader",N));
-	decalmap(PP,s,t,ss,tt,maptype,O,X,Y,Z,s1,t1,s2,t2,s3,t3,s4,t4,NN);
-
-	Nf = faceforward( normalize(N), I);
-
-	/*
-	 * If we allow the texture coordinates to wrap around we will get
-	 * incorrect behavior at the boundaries between max and min value.
-	 * To avoid this we correct for the boundary crossing condition.  We
-	 * compute the texture coordinate and check if we cross the boundary.
-	 * The current check is a kludge which relies on the "fact" that
-	 * the size of a micropolygon is less than half the total texture
-	 * space size, but if the coordinates warp around the delta
-         * is greater than half the total texture space size.  If we have
-	 * crossed the boundary we adjust the filter width accordingly.
-	 */
-	dsu = abs(Du(ss)*du);
-	if((2*dsu) > ssize) dsu = ssize - dsu;
-	dsv = abs(Dv(ss)*dv);
-	if((2*dsv) > ssize) dsv = ssize - dsv;
-	ds = dsu + dsv;
-	dtu = abs(Du(tt)*du);
-	if((2*dtu) > tsize) dtu = tsize - dtu;
-	dtv = abs(Dv(tt)*dv);
-	if((2*dtv) > tsize) dtv = tsize - dtv;
-	dt = dtu + dtv;
-
-	if (texname == "")
-		ctx = 1;
-	else
-		ctx = texture(texname,ss,tt, ss+ds,tt, ss,tt+dt, ss+ds,tt+dt);
-
-	Ci = (Ka*ambient() + Kd*diffuse(Nf)) * ctx;
-	if (Ks != 0.0)
-	{
-		NI = normalize(-I);
-		Ci += Ks*specularcolor*specular(Nf,NI,roughness);
-	}
-	Oi = Os;
-	Ci = Ci * Oi;
+  texmap(
+	texname,
+	maptype,
+	maporigin,
+	xaxis,
+	yaxis,
+	zaxis,
+	s1,
+	t1,
+	s2,
+	t2,
+	s3,
+	t3,
+	s4,
+	t4,
+	Ka,
+	Kd,
+	Ks,
+	roughness,
+	specularcolor
+  );
 }

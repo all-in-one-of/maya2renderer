@@ -63,11 +63,23 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 		MString rslTypeSizeStr;
 		rslTypeSizeStr.set(rslTypeSize);
 		// Write out the description of the variable.
+		//left side of the equator
 		rslShaderBody += (" "+inputQualifier + " " + rslType + " " + rslName);
-		rslShaderBody += ( rslTypeSize != 1 )?
-							 ( "[" + rslTypeSizeStr + "] = " )
-							:( " = " + rslType + " " );
+		rslShaderBody += ( rslTypeSize != 1 )? ( "[" + rslTypeSizeStr + "]" ) :"";
+		//equater
+		rslShaderBody += " = ";
 
+		//right side of the equator - 1
+		if( rslType == "string")
+		{
+			//do nothing. avoid to generate things like this: 
+			//string s0 = string "d:/a.tex";
+			// which is can't be compiled in 3delight
+		}else{
+			rslShaderBody += rslType +" ";//e.g. point p0 = point (1,0,0);
+		}
+
+		//right side of the equator - 2
 		// Write out the value of the variable.
 		if(   rslType=="color"
 			||rslType=="point"
@@ -330,7 +342,7 @@ void Visitor::postOutput()
 	//NOTE:
 	//     the include directory can't contain '.', so I move _3delight to %LIQUID_ROOT%\dependence
 	//"shader.exe -o \"outSLO\" -I\"%LIQUID_ROOT%\dependence\_3delight" \"srcSL\""
-	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" \\\""+srcSL+"\\\"\")", result, true));
+	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" \\\""+srcSL+"\\\"\")", result, true));
 
 	//show the error if there is.
 	std::string strRes(result.toLowerCase().asChar());
