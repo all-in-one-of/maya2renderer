@@ -91,6 +91,8 @@ surface lambert1
 
 // define some extern variables which are used in 3delight shaders -----------------------------
  color __transparency = color (1,1,1);
+ uniform float __reflects = 0;
+ uniform float __refracts = 0;
 
 
 
