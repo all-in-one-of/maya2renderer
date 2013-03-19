@@ -669,7 +669,7 @@ namespace renderman
 		if( user )
 			RiArchiveRecord( RI_COMMENT, "    User  : %s", user );
 
-		RiArchiveRecord( RI_COMMENT, "    Time  : %s", ctime(&now) );
+		//RiArchiveRecord( RI_COMMENT, "    Time  : %s", ctime(&now) );
 		//[refactor 5] end 
 	}
 	//

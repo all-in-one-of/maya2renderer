@@ -418,7 +418,7 @@ namespace elvishray
 		if( user )
 			_s("//    User  : "<< user );
 
-		_s("//    Time  : "<< ctime(&now) );
+		//_s("//    Time  : "<< ctime(&now) );
 
 	}
 	//
