@@ -36,7 +36,7 @@ def compare(filenameA, filenameB):
     if _compare(filenameA, filenameB)==True:
         mLiqlog.flog("two images are equal.")
     else:
-        diffFileName = getDiffImageName(filenameA)
+        diffFileName = getDiffImageName(filenameB)
         doDiff( filenameA, filenameB, diffFileName )
 
         mLiqlog.imgdiff_beg("WARNING: Two images are NOT equal! see the diff-image:", diffFileName)
