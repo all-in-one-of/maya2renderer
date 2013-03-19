@@ -12,7 +12,7 @@ def getDiffImageName(fileFullPath):
     return (fileFullPath_withoutExt+diff_postfix+"."+fileExt)
 
 def doDiff(filenameA, filenameB, diffFileName):
-    cmd=".\\ImageMagick_6.7.5_Q16\\compare.exe "+filenameA+' '+filenameB+' '+diffFileName
+    cmd=".\\ImageMagick\\compare.exe "+filenameA+' '+filenameB+' '+diffFileName
     #print("cmd="+cmd+"\n")
     os.system(cmd)
 
