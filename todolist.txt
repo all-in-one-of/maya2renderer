@@ -260,7 +260,8 @@ elvishray
   liquid里应该检查该参数，如果其为空的话，提示用户。
 - aov
 - procedural
-- volume shader, image shader, geometry shader
+- stereoCamera
+- volume shader, image shader, geometry shader, caustic shader
 
 appleseed
 -------------
