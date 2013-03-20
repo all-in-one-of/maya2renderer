@@ -106,12 +106,15 @@ void Visitor::visitFile(const char* node)
 	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);
 	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);
 	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);
-	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",node);
 	//texName
 	o.addRSLVariable("uniform", "float", "filterType",		"filterType",	node);
 	o.addRSLVariable("uniform", "float", "filter",			"filter",		node);
 	o.addRSLVariable(       "", "float", "filterOffset",	"filterOffset",	node);
+	o.addRSLVariable("uniform", "float", "frameExtension",	"frameExtension",node);
+	o.addRSLVariable("uniform", "float", "frameOffset",		"frameOffset",	node);
 	o.addRSLVariable("uniform", "float", "invert",			"invert",		node);
+	o.addRSLVariable("uniform", "float", "useFrameExtension","useFrameExtension",node);
+	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",node);
 	o.addRSLVariable("uniform", "float", "fileHasAlpha",	"fileHasAlpha",	node);
 	//o.addRSLVariable("index", "num_channels",	"num_channels",	node);
 	//output
@@ -131,7 +134,10 @@ void Visitor::visitFile(const char* node)
 						"filterType,        \n\t"
 						"filter,            \n\t"
 						"filterOffset,      \n\t"
+						"frameExtension,	\n\t"
+						"frameOffset,		\n\t"
 						"invert,            \n\t"
+						"useFrameExtension,	\n\t"
 						"uvCoord,           \n\t"
 						//Outputs
 						"outAlpha,          \n\t"
