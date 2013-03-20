@@ -21,6 +21,9 @@ SURFACE(maya_file)
 	DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
 	DECLARE_COLOR(outTransparency, 0.0f, 0.0f, 0.0f);  
 	END_DECLARE;
+	//DECLARE_INT(frameExtension, 0);
+	//DECLARE_INT(frameOffset, 0);
+	//DECLARE_BOOL(useFrameExtension, eiFALSE);
 	//DECLARE_INDEX(num_channels, 3);//added from 3delight
 
 	static void init()
@@ -41,6 +44,48 @@ SURFACE(maya_file)
 
 	void main(void *arg)
 	{
+// The following code is added in 3delight 10.0.50, 
+// but this code should be move to Visitor::visitFile() to cook the "fileName" parameter.
+// 		uniform string fileName = i_fileName;
+// 
+// 		// If there is a "spriteNumPP" primitive variable, file node must use this as
+// 		// an additional offset, and automatically wrap if the resulting image index
+// 		// is larger than the frame sequence length.
+// 		//
+// 		uniform float spriteNumPP = 0;	
+// 		float has_spriteNumPP = getvar( null, "spriteNumPP", spriteNumPP );
+// 
+// 		// ugly capitalization but fits with what is produced by the "sprite wizard"
+// 		uniform float spriteCycleLength = 0;	
+// 		float has_spriteCycleLength = 
+// 			getvar( null, "SpriteCycleLength", spriteCycleLength );
+// 
+// 		uniform float spriteAnimation = 1;
+// 		getvar( null, "SpriteAnimation", spriteAnimation );
+// 
+// 		if( i_useFrameExtension > 0 )
+// 		{
+// 			float curr_texture_frame = i_frameExtension + i_frameOffset;
+// 
+// 			// SpriteNumPP overrides the current frame (and discards the frame offset)
+// 			// This is the Maya behaviour.
+// 			//
+// 			if( spriteAnimation > 0 )
+// 			{
+// 				if( has_spriteNumPP > 0 )
+// 				{
+// 					curr_texture_frame = floor( spriteNumPP );
+// 				}
+// 
+// 				if( has_spriteCycleLength > 0 && spriteCycleLength > 0 )
+// 				{
+// 					curr_texture_frame = 
+// 						1 + mod( curr_texture_frame, floor(spriteCycleLength) - 1 );
+// 				}
+// 			}
+// 
+// 			fileName = format(i_fileName, curr_texture_frame);
+// 		}
 		if(1)//ISUVDEFINED(uvCoord().x, uvCoord().y)
 		{
 			if (fileTextureName() != eiNULL_TAG)
@@ -49,7 +94,7 @@ SURFACE(maya_file)
 
 				scalar filterWidth = filterType()>0.0f ? filter() : 0.0f;
 
-				// we ingore single-channel case
+				// liquid ingore single-channel case
 				//if( num_channels() == 1 )
 				//{
 				//	/* We must read single-channel files as float or only the red

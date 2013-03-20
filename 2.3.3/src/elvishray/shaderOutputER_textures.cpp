@@ -67,6 +67,48 @@ void Visitor::visitFile(const char* node)
 	//generate texture and construct texture node
 	MString fileImageName(getFileNodeImageName(node));
 	{
+		uniform string fileName = i_fileName;
+
+		// If there is a "spriteNumPP" primitive variable, file node must use this as
+		// an additional offset, and automatically wrap if the resulting image index
+		// is larger than the frame sequence length.
+		//
+		uniform float spriteNumPP = 0;	
+		float has_spriteNumPP = getvar( null, "spriteNumPP", spriteNumPP );
+
+		// ugly capitalization but fits with what is produced by the "sprite wizard"
+		uniform float spriteCycleLength = 0;	
+		float has_spriteCycleLength = 
+			getvar( null, "SpriteCycleLength", spriteCycleLength );
+
+		uniform float spriteAnimation = 1;
+		getvar( null, "SpriteAnimation", spriteAnimation );
+
+		if( i_useFrameExtension > 0 )
+		{
+			float curr_texture_frame = i_frameExtension + i_frameOffset;
+
+			// SpriteNumPP overrides the current frame (and discards the frame offset)
+			// This is the Maya behaviour.
+			//
+			if( spriteAnimation > 0 )
+			{
+				if( has_spriteNumPP > 0 )
+				{
+					curr_texture_frame = floor( spriteNumPP );
+				}
+
+				if( has_spriteCycleLength > 0 && spriteCycleLength > 0 )
+				{
+					curr_texture_frame = 
+						1 + mod( curr_texture_frame, floor(spriteCycleLength) - 1 );
+				}
+			}
+
+			fileName = format(i_fileName, curr_texture_frame);
+		}
+	}
+	{
 		//test "fileImageName" exist or not.
 		if( _access(fileImageName.asChar(), 0) != 0){
 			liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
