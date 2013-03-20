@@ -45,7 +45,7 @@ SURFACE(maya_file)
 	void main(void *arg)
 	{
 // The following code is added in 3delight 10.0.50, 
-// but this code should be move to Visitor::visitFile() to cook the "fileName" parameter.
+// but this code should be move to getFileNodeImageName() to cook the "fileName" parameter.
 // 		uniform string fileName = i_fileName;
 // 
 // 		// If there is a "spriteNumPP" primitive variable, file node must use this as

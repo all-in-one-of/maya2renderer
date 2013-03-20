@@ -1788,6 +1788,12 @@ bool liqAssert(const MString &title, const MString & msg, const MString &bYes, c
 	return true;
 }
 //
+bool getvar(const std::string &coshader, const std::string &paramname, std::size_t &value_)
+{
+	//not implemented yet.
+	return false;//param exist or not
+}
+//
 MString getFileNodeImageName(const MString &node)
 {
 	MStatus status;
@@ -1798,15 +1804,57 @@ MString getFileNodeImageName(const MString &node)
 	MString fileImageName;
 	IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".fileTextureName\"", fileImageName));
 
-	if(0==useFrameExtension)
+	if( useFrameExtension > 0)
+	{
+		int frameExtension;
+		IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".frameExtension\"", frameExtension));
+
+		int frameOffset;
+		IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".frameOffset\"", frameOffset));
+
+
+
+		int curr_texture_frame = frameExtension + frameOffset;
+
+		// If there is a "spriteNumPP" primitive variable, file node must use this as
+		// an additional offset, and automatically wrap if the resulting image index
+		// is larger than the frame sequence length.
+		//
+		/*uniform*/ std::size_t spriteNumPP = 0;	
+		bool has_spriteNumPP = getvar( "null", "spriteNumPP", spriteNumPP );
+
+		// ugly capitalization but fits with what is produced by the "sprite wizard"
+		/*uniform*/ std::size_t spriteCycleLength = 0;	
+		bool has_spriteCycleLength = 
+			getvar( "null", "SpriteCycleLength", spriteCycleLength );
+
+		/*uniform*/ std::size_t spriteAnimation = 1;
+		getvar( "null", "SpriteAnimation", spriteAnimation );
+
+		// SpriteNumPP overrides the current frame (and discards the frame offset)
+		// This is the Maya behaviour.
+		//
+		if( spriteAnimation > 0 )
+		{
+			if( has_spriteNumPP > 0 )
+			{
+				curr_texture_frame = floor( (float)spriteNumPP );
+			}
+
+			if( has_spriteCycleLength > 0 && spriteCycleLength > 0 )
+			{
+				curr_texture_frame = 1 + fmodf( curr_texture_frame, floor((float)spriteCycleLength) - 1 );
+			}
+		}
+		
+
+		MString curr_texture_frame_str;
+		curr_texture_frame_str.set(curr_texture_frame);
+		IfMErrorWarn(MGlobal::executeCommand("source GetPossibleTextures.mel; GetFrameFile(\""+fileImageName+"\","+curr_texture_frame_str+")", fileImageName));
+
+	}
 		return fileImageName;
 	
-	int frameExtension;
-	IfMErrorWarn(MGlobal::executeCommand("getAttr \""+MString(node)+".frameExtension\"", frameExtension));
-	MString currentFrameExt;
-	currentFrameExt.set(frameExtension);
-
-	IfMErrorWarn(MGlobal::executeCommand("source GetPossibleTextures.mel; GetFrameFile(\""+fileImageName+"\","+currentFrameExt+")", fileImageName));
 
 	return fileImageName;
 }

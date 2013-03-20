@@ -2239,6 +2239,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\elvishray\er_helper.cpp" />
     <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
     <ClCompile Include="..\elvishray\er_plug.cpp" />
     <ClCompile Include="..\elvishray\er_preview.cpp" />
@@ -2283,6 +2284,7 @@
     <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
     <ClInclude Include="..\elvishray\er_group.h" />
     <ClInclude Include="..\elvishray\er_groupmgr.h" />
+    <ClInclude Include="..\elvishray\er_helper.h" />
     <ClInclude Include="..\elvishray\er_iprMgr.h" />
     <ClInclude Include="..\elvishray\er_log_helper.h" />
     <ClInclude Include="..\elvishray\er_renderer.h" />
