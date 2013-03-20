@@ -1851,10 +1851,7 @@ MString getFileNodeImageName(const MString &node)
 		MString curr_texture_frame_str;
 		curr_texture_frame_str.set(curr_texture_frame);
 		IfMErrorWarn(MGlobal::executeCommand("source GetPossibleTextures.mel; GetFrameFile(\""+fileImageName+"\","+curr_texture_frame_str+")", fileImageName));
-
 	}
-		return fileImageName;
-	
 
 	return fileImageName;
 }
