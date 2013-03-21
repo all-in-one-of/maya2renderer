@@ -76,7 +76,11 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 			//string s0 = string "d:/a.tex";
 			// which is can't be compiled in 3delight
 		}else{
-			rslShaderBody += rslType +" ";//e.g. point p0 = point (1,0,0);
+			if( rslTypeSize == 1 ){
+				rslShaderBody += rslType +" ";//e.g. point p0 = point (1,0,0);
+			}else{
+				rslShaderBody += " ";//e.g. float f[2] = {1.0, 2.0};
+			}
 		}
 
 		//right side of the equator - 2
