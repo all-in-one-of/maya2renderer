@@ -70,7 +70,7 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 		rslShaderBody += " = ";
 
 		//right side of the equator - 1
-		if( rslType == "string")
+		if( rslType == "string" || rslType == "matrix" )
 		{
 			//do nothing. avoid to generate things like this: 
 			//string s0 = string "d:/a.tex";
@@ -128,6 +128,23 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 				}
 				rslShaderBody += " }";
 			}
+		}else if(rslType=="matrix"){
+			MDoubleArray val; val.setLength(16);
+			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+			//val(double) --> valStr(string)
+			MStringArray valStr; valStr.setLength(16);
+			valStr[0].set(val[0]);   valStr[1].set(val[1]);  valStr[2].set(val[2]);    valStr[3].set(val[3]);
+			valStr[4].set(val[4]);   valStr[5].set(val[5]);  valStr[6].set(val[6]);    valStr[7].set(val[7]);
+			valStr[8].set(val[8]);   valStr[9].set(val[9]);   valStr[10].set(val[10]); valStr[11].set(val[11]);
+			valStr[12].set(val[12]); valStr[13].set(val[13]); valStr[14].set(val[14]); valStr[15].set(val[15]);
+			rslShaderBody +="("+
+				valStr[0] +","+valStr[1] +","+valStr[2] +","+valStr[3] +","+
+				valStr[4] +","+valStr[5] +","+valStr[6] +","+valStr[7] +","+
+				valStr[8] +","+valStr[9] +","+valStr[10]+","+valStr[11]+","+
+				valStr[12]+","+valStr[13]+","+valStr[14]+","+valStr[15]+
+				")";
+		}else{
+			liquidMessage2(messageError, "rsl type \"%s\" is unhandled.", rslType.asChar());
 		}
 		rslShaderBody += ";\n";
 	}//if( $connected == 0 )
