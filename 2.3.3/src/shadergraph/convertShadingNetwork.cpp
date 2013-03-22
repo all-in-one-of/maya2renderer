@@ -310,8 +310,8 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 		IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+node+".rmanDetails\""),		rmanDetails ));
 
 		plugtype  = rmanTypes[paramIndex];
-		detail    = rmanArraySizes[paramIndex];
-		arraysize = rmanDetails[paramIndex].asInt();
+		arraysize = rmanArraySizes[paramIndex];
+		detail    = rmanDetails[paramIndex].asInt();
 	}//if("liquidShader"...)
 	// for Maya Shaders(e.g. lambert, blinn, ...)
 	else{
