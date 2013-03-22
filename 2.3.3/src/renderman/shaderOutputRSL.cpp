@@ -166,6 +166,99 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 		}
 		rslShaderHeader += ";\n";
 
+		// Note if it's connected as an output. set the value
+		if(connected == 2)
+		{
+			//rslTypeSize(int) --> rslTypeSizeStr(string)
+			MString rslTypeSizeStr;
+			rslTypeSizeStr.set(rslTypeSize);
+			// Write out the description of the variable.
+			//left side of the equator
+			rslShaderBody += (" " + rslName);//no inputQualifier and rslType
+			rslShaderBody += ( rslTypeSize != 1 )? ( "[" + rslTypeSizeStr + "]" ) :"";
+			//equater
+			rslShaderBody += " = ";
+
+			//right side of the equator - 1
+			if( rslType == "string" || rslType == "matrix" )
+			{
+				//do nothing. avoid to generate things like this: 
+				//string s0 = string "d:/a.tex";
+				// which is can't be compiled in 3delight
+			}else{
+				if( rslTypeSize == 1 ){
+					rslShaderBody += rslType +" ";//e.g. point p0 = point (1,0,0);
+				}else{
+					rslShaderBody += " ";//e.g. float f[2] = {1.0, 2.0};
+				}
+			}
+
+			//right side of the equator - 2
+			// Write out the value of the variable.
+			if(   rslType=="color"
+				||rslType=="point"
+				||rslType=="normal"
+				||rslType=="vector")
+			{
+				MDoubleArray val; val.setLength(3);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				//val(double) --> valStr(string)
+				MStringArray valStr; valStr.setLength(3);
+				valStr[0].set(val[0]);
+				valStr[1].set(val[1]);
+				valStr[2].set(val[2]);
+				rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
+			}else if(rslType=="string"){
+				MString val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+
+				val = evaluateTheTextureNameValue(mayaName, val);
+
+				rslShaderBody +="\""+val+"\"";
+			}else if(rslType=="float"){
+				if(rslTypeSize == 1){
+					double val;
+					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					//val(double) --> valStr(string)
+					MString valStr;
+					valStr.set(val);
+					rslShaderBody += valStr;
+				}else{
+					rslShaderBody += "{ ";
+					MDoubleArray val; val.setLength(rslTypeSize);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					for(int i=0; i<rslTypeSize; ++i){
+						if( i != 0 ){
+							rslShaderBody += ", ";
+						}
+						//val[i](double) --> valStr(string)
+						MString valStr;
+						valStr.set(val[i]);
+						rslShaderBody += valStr;
+					}
+					rslShaderBody += " }";
+				}
+			}else if(rslType=="matrix"){
+				MDoubleArray val; val.setLength(16);
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				//val(double) --> valStr(string)
+				MStringArray valStr; valStr.setLength(16);
+				valStr[0].set(val[0]);   valStr[1].set(val[1]);  valStr[2].set(val[2]);    valStr[3].set(val[3]);
+				valStr[4].set(val[4]);   valStr[5].set(val[5]);  valStr[6].set(val[6]);    valStr[7].set(val[7]);
+				valStr[8].set(val[8]);   valStr[9].set(val[9]);   valStr[10].set(val[10]); valStr[11].set(val[11]);
+				valStr[12].set(val[12]); valStr[13].set(val[13]); valStr[14].set(val[14]); valStr[15].set(val[15]);
+				rslShaderBody +="("+
+					valStr[0] +","+valStr[1] +","+valStr[2] +","+valStr[3] +","+
+					valStr[4] +","+valStr[5] +","+valStr[6] +","+valStr[7] +","+
+					valStr[8] +","+valStr[9] +","+valStr[10]+","+valStr[11]+","+
+					valStr[12]+","+valStr[13]+","+valStr[14]+","+valStr[15]+
+					")";
+			}else{
+				liquidMessage2(messageError, "rsl type \"%s\" is unhandled.", rslType.asChar());
+			}
+			rslShaderBody += ";\n";
+		}//
+
 		//
 		if(connected == 1)
 		{

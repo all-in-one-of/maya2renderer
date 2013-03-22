@@ -149,6 +149,9 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - (done)pl文件里增加int，bool类型
 - er geometry shader 应该在object导出之前导出。但rm的procedural却是在每个object instance内导出。
   应该设计一个方案，能够解决这两个情况
+- limitation:
+  - If a plug of liquidShader is input AND output,
+  - If colorR instead of color in connected.
 
 prman
 ------------

@@ -384,6 +384,10 @@ RenderMan (R) is a registered trademark of Pixar
   lif的解析有bug，避免这个bug的一个方法是让lif文件以空行结尾
   见test_as_simple下test.lif和test_bad.lif的差异
 
+- limitation:
+  - If a plug of liquidShader is input AND output,
+  - If colorR instead of color in connected.
+
   ---------------------------------------------------------------------
                               F.A.Q.
   ---------------------------------------------------------------------
