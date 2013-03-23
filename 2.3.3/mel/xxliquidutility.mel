@@ -265,3 +265,17 @@ global proc myDeleteAttr(string $node, string $attr, int $loop)
 	
 	liqPopIdent();
 }
+// e.g. getChildren("phong1", "color")
+// Result: colorR colorG colorB
+global proc string[] getChildren(string $node, string $plug)
+{
+	liqPushIdent();
+	liqlog("getChildren("+$node+","+$plug+")");
+
+	string $child[] = `listAttr -multi ($node+"."+$plug)`;
+	string $item[] = {$plug};
+	$child = stringArrayRemove($item, $child);
+	
+	liqPopIdent();
+	return $child;
+}

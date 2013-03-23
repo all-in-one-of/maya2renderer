@@ -72,6 +72,9 @@ void ShaderValidConnection::setValidConnection()
 
 	//phong
 	validConnection.clear();
+	validConnection.append("colorR");
+	validConnection.append("colorG");
+	validConnection.append("colorB");
 	validConnection.append("color");
 	validConnection.append("transparency");
 	validConnection.append("ambientColor");

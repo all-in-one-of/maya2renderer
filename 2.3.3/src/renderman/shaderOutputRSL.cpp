@@ -34,6 +34,34 @@ OutputHelper::~OutputHelper()
 }
 //
 void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType, const MString& rslName,
+	const MString& mayaName, const MString& mayaNode)
+{
+	//process the children of the plug
+	MStringArray child;
+	IfMErrorWarn(MGlobal::executeCommand("getChildren(\""+mayaNode+"\", \""+mayaName+"\")", child));
+
+	for(std::size_t i = 0; i<child.length(); ++i)
+	{
+		// if this child plug is not connected, skip it.
+		MStringArray connections;
+		IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination true (\""+mayaNode+"."+child[i]+"\")", connections));
+		if( connections.length() == 0 )
+		{
+			continue;
+		}
+
+		//get child type
+		MString childType;
+		IfMErrorWarn(MGlobal::executeCommand("getAttr -type (\""+mayaNode+"."+child[i]+"\")", childType));
+		// process this child plug
+		_addRSLVariable(inputQualifier, childType, child[i], child[i], mayaNode);
+	}
+
+	//process the plug itself
+	_addRSLVariable(inputQualifier, rslType, rslName, mayaName, mayaNode);
+
+}
+void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslType, const MString& rslName,
 					const MString& mayaName, const MString& mayaNode)
 {
 	MString cmd;
