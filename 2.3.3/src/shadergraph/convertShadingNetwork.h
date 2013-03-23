@@ -33,12 +33,16 @@ public:
 	// Check to see if a plug (node and attribute) is connected to a node
 	// that we're able to convert to RSL and, if so, what the type of
 	// connection is. Preference is given to outgoing connections.
-	//
-	// 2 = outgoing (and possible incoming) connection
-	// 1 = incoming connection
-	// 0 = no connection
 	//--------------------------------------------------------------------
-	int convertibleConnection(const MString& plug) const;
+	enum ConnectionType
+	{
+		CT_None		= 0,//the plug is not connected 
+		CT_In		= 1,//the plug is connected as an input only
+		CT_Out		= 2,//the plug is connected as an output only
+		CT_InOut	= 3,//the plug is connected as both input and output
+		CT_Num
+	};
+	ConnectionType convertibleConnection(const MString& plug) const;
 
 	//--------------------------------------------------------------------
 	// Generate a list of upstream nodes that we can convert to RSL, and
@@ -122,6 +126,8 @@ protected:
 private:
 	ConvertShadingNetwork(const ConvertShadingNetwork&);
 	ConvertShadingNetwork& operator=(const ConvertShadingNetwork&);
+
+
 };
 
 }//namespace liquidmaya

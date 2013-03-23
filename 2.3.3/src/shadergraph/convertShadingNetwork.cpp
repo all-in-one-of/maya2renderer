@@ -93,14 +93,19 @@ bool ConvertShadingNetwork::ensurePlugExists(const MString& plug) const
 	return true;
 }
 //
-int ConvertShadingNetwork::convertibleConnection(const MString& plug) const
+ConvertShadingNetwork::ConnectionType 
+ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::convertibleConnection("<<plug.asChar()<<")");
 
 	// Check to see if the plug even exists!
-	if( !ensurePlugExists(plug) )
-		return 0;
+	if( !ensurePlugExists(plug) ){
+		liquidMessage2(messageError, "plug \"%s\" not exist.", plug.asChar());
+		return (ConnectionType)0;
+	}
 	
+	ConnectionType connectionType = CT_None;
+
 	MStringArray connections;
 
 	// Check to see if the plug is connected as an output
@@ -111,8 +116,10 @@ int ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 	
 	for(size_t i=0; i<connections.length(); ++i)
 	{
-		if( nodeIsConvertible(connections[i]) )
-			return 2;
+		if( nodeIsConvertible(connections[i]) ){
+			connectionType = CT_Out;
+			return connectionType;
+		}
 	}
 	
 	// Check to see if the plug is connected as an input from any
@@ -122,12 +129,14 @@ int ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 	
 	for(size_t i=0; i<connections.length(); ++i)
 	{
-		if( nodeIsConvertible(connections[i]) )
-			return 1;
+		if( nodeIsConvertible(connections[i]) ){
+			connectionType = CT_In;
+			return connectionType;
+		}
 	}
 
 	// Otherwise, return "no convertible connection".
-	return 0;
+	return connectionType;
 }
 //addRSLVariable()
 //addToRSL
@@ -176,7 +185,7 @@ int ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentN
 		const MString validConnection( validConnections[i] );
 		const MString plug(currentNode+"."+validConnection);
 		
-		if( convertibleConnection(plug) != 0 )
+		if( convertibleConnection(plug) != CT_None )
 		{
 			MStringArray connection;
 			IfMErrorWarn(MGlobal::executeCommand( ("listConnections -source on -destination off \""+plug+"\""), connection));
@@ -413,27 +422,25 @@ void ConvertShadingNetwork::getNodeVariables(
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::getNodeVariables("<<node.asChar()<<", validConnections, inputVars, outputVars)");
 
-	int connectionType = 0;
-
 	for( std::size_t i = 0; i<validConnections.length(); ++i )
 	{
 		const MString validConnection(validConnections[i]);
 		const MString plug(node+"."+validConnection);
-		connectionType = convertibleConnection(plug);
+		ConnectionType connectionType = convertibleConnection(plug);
 		
 		// If the connection is neither an input or output connection
-		if( connectionType != 1 && connectionType != 2 )
+		if( connectionType != CT_In && connectionType != CT_Out )
 		{
 			continue;
 		}
 
 		// Get input variable
-		if( connectionType == 1 )
+		if( connectionType == CT_In )
 		{
 			addNodeInputVariable( plug, inputVars );
 		}
 		// Get output variable
-		else if( connectionType == 2 ){
+		else if( connectionType == CT_Out ){
 			addNodeOutputVariable( node, validConnection, plug,
 				outputVars );
 		}
