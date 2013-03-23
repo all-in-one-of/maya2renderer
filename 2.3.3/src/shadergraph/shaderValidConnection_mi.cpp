@@ -9,7 +9,13 @@ namespace liquidmaya
 		//mib_amb_occlusion
 		validConnectionMap.begin("mib_amb_occlusion");
 		validConnectionMap.append("samples");
+		validConnectionMap.append("brightR");
+		validConnectionMap.append("brightG");
+		validConnectionMap.append("brightB");
 		validConnectionMap.append("bright");
+		validConnectionMap.append("darkR");
+		validConnectionMap.append("darkG");
+		validConnectionMap.append("darkB");
 		validConnectionMap.append("dark");
 		validConnectionMap.append("spread");
 		validConnectionMap.append("max_distance");
@@ -19,6 +25,9 @@ namespace liquidmaya
 // 		validConnectionMap.append("falloff");
 // 		validConnectionMap.append("id_inclexcl");
 // 		validConnectionMap.append("id_nonself");
+		validConnectionMap.append("outValueR");
+		validConnectionMap.append("outValueG");
+		validConnectionMap.append("outValueB");
 		validConnectionMap.append("outValue");
 		validConnectionMap.end();	
 

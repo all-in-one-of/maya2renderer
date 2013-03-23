@@ -78,16 +78,37 @@ void ShaderValidConnection::setValidConnection()
 
 	//lambert
 	validConnectionMap.begin("lambert");
+	validConnectionMap.append("colorR");
+	validConnectionMap.append("colorG");
+	validConnectionMap.append("colorB");
 	validConnectionMap.append("color");
+	validConnectionMap.append("transparencyR");
+	validConnectionMap.append("transparencyG");
+	validConnectionMap.append("transparencyB");
 	validConnectionMap.append("transparency");
+	validConnectionMap.append("ambientColorR");
+	validConnectionMap.append("ambientColorG");
+	validConnectionMap.append("ambientColorB");
 	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("incandescenceR");
+	validConnectionMap.append("incandescenceG");
+	validConnectionMap.append("incandescenceB");
 	validConnectionMap.append("incandescence");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
 	validConnectionMap.append("normalCamera");
 	validConnectionMap.append("diffuse");
 	validConnectionMap.append("translucence");
 	validConnectionMap.append("translucenceDepth");
 	validConnectionMap.append("translucenceFocus");
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
 	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparencyR");
+	validConnectionMap.append("outTransparencyG");
+	validConnectionMap.append("outTransparencyB");
 	validConnectionMap.append("outTransparency");
 	validConnectionMap.end();
 
@@ -95,10 +116,25 @@ void ShaderValidConnection::setValidConnection()
 
 	//blinn
 	validConnectionMap.begin("blinn");
+	validConnectionMap.append("colorR");
+	validConnectionMap.append("colorG");
+	validConnectionMap.append("colorB");
 	validConnectionMap.append("color");
+	validConnectionMap.append("transparencyR");
+	validConnectionMap.append("transparencyG");
+	validConnectionMap.append("transparencyB");
 	validConnectionMap.append("transparency");
+	validConnectionMap.append("ambientColorR");
+	validConnectionMap.append("ambientColorG");
+	validConnectionMap.append("ambientColorB");
 	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("incandescenceR");
+	validConnectionMap.append("incandescenceG");
+	validConnectionMap.append("incandescenceB");
 	validConnectionMap.append("incandescence");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
 	validConnectionMap.append("normalCamera");
 	validConnectionMap.append("diffuse");
 	validConnectionMap.append("translucence");
@@ -106,10 +142,22 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("translucenceFocus");
 	validConnectionMap.append("eccentricity");
 	validConnectionMap.append("specularRollOff");
+	validConnectionMap.append("specularColorR");
+	validConnectionMap.append("specularColorG");
+	validConnectionMap.append("specularColorB");
 	validConnectionMap.append("specularColor");
 	validConnectionMap.append("reflectivity");
+	validConnectionMap.append("reflectedColorR");
+	validConnectionMap.append("reflectedColorG");
+	validConnectionMap.append("reflectedColorB");
 	validConnectionMap.append("reflectedColor");
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
 	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparencyR");
+	validConnectionMap.append("outTransparencyG");
+	validConnectionMap.append("outTransparencyB");
 	validConnectionMap.append("outTransparency");
 	validConnectionMap.end();
 
@@ -121,22 +169,46 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("colorG");
 	validConnectionMap.append("colorB");
 	validConnectionMap.append("color");
+	validConnectionMap.append("transparencyR");
+	validConnectionMap.append("transparencyG");
+	validConnectionMap.append("transparencyB");
 	validConnectionMap.append("transparency");
+	validConnectionMap.append("ambientColorR");
+	validConnectionMap.append("ambientColorG");
+	validConnectionMap.append("ambientColorB");
 	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("incandescenceR");
+	validConnectionMap.append("incandescenceG");
+	validConnectionMap.append("incandescenceB");
 	validConnectionMap.append("incandescence");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
 	validConnectionMap.append("normalCamera");
 	validConnectionMap.append("diffuse");
 	validConnectionMap.append("translucence");
 	validConnectionMap.append("translucenceDepth");
 	validConnectionMap.append("translucenceFocus");
 	validConnectionMap.append("cosinePower");
+	validConnectionMap.append("specularColorR");
+	validConnectionMap.append("specularColorG");
+	validConnectionMap.append("specularColorB");
 	validConnectionMap.append("specularColor");
 	validConnectionMap.append("reflectivity");
+	validConnectionMap.append("reflectedColorR");
+	validConnectionMap.append("reflectedColorG");
+	validConnectionMap.append("reflectedColorB");
 	validConnectionMap.append("reflectedColor");
 	validConnectionMap.append("matteOpacityMode");
 	validConnectionMap.append("matteOpacity");
 	validConnectionMap.append("reflectionLimit");
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
 	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparencyR");
+	validConnectionMap.append("outTransparencyG");
+	validConnectionMap.append("outTransparencyB");
 	validConnectionMap.append("outTransparency");
 	validConnectionMap.end();
 
@@ -174,29 +246,38 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("alphaGain");
 	validConnectionMap.append("alphaIsLuminance");
 	validConnectionMap.append("alphaOffset");
-	validConnectionMap.append("color1");//color1
 	validConnectionMap.append("color1R");
 	validConnectionMap.append("color1G");
 	validConnectionMap.append("color1B");
-	validConnectionMap.append("color2");//color2
+	validConnectionMap.append("color1");//color1
 	validConnectionMap.append("color2R");
 	validConnectionMap.append("color2G");
 	validConnectionMap.append("color2B");
+	validConnectionMap.append("color2");//color2
+	validConnectionMap.append("colorGainR");
+	validConnectionMap.append("colorGainG");
+	validConnectionMap.append("colorGainB");
 	validConnectionMap.append("colorGain");
+	validConnectionMap.append("colorOffsetR");
+	validConnectionMap.append("colorOffsetG");
+	validConnectionMap.append("colorOffsetB");
 	validConnectionMap.append("colorOffset");
 	validConnectionMap.append("contrast");
+	validConnectionMap.append("defaultColorR");
+	validConnectionMap.append("defaultColorG");
+	validConnectionMap.append("defaultColorB");
 	validConnectionMap.append("defaultColor");
 	validConnectionMap.append("filter");
 	validConnectionMap.append("filterOffset");
 	validConnectionMap.append("invert");
-	validConnectionMap.append("uvCoord");//uvCoord
 	validConnectionMap.append("uCoord");
 	validConnectionMap.append("vCoord");
+	validConnectionMap.append("uvCoord");//uvCoord
 	validConnectionMap.append("outAlpha");
-	validConnectionMap.append("outColor");//outColor
 	validConnectionMap.append("outColorR");
 	validConnectionMap.append("outColorG");
 	validConnectionMap.append("outColorB");
+	validConnectionMap.append("outColor");//outColor
 	validConnectionMap.end();
 
 	//cloth
@@ -206,18 +287,35 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("alphaGain");
 	validConnectionMap.append("alphaIsLuminance");
 	validConnectionMap.append("alphaOffset");
+	validConnectionMap.append("colorGainR");
+	validConnectionMap.append("colorGainG");
+	validConnectionMap.append("colorGainB");
 	validConnectionMap.append("colorGain");
+	validConnectionMap.append("colorOffsetR");
+	validConnectionMap.append("colorOffsetG");
+	validConnectionMap.append("colorOffsetB");
 	validConnectionMap.append("colorOffset");
+	validConnectionMap.append("defaultColorR");
+	validConnectionMap.append("defaultColorG");
+	validConnectionMap.append("defaultColorB");
 	validConnectionMap.append("defaultColor");
 	validConnectionMap.append("fileTextureName");
 	validConnectionMap.append("filterType");
 	validConnectionMap.append("filter");
 	validConnectionMap.append("filterOffset");
 	validConnectionMap.append("invert");
+	validConnectionMap.append("uCoord");
+	validConnectionMap.append("vCoord");
 	validConnectionMap.append("uvCoord");
 	validConnectionMap.append("fileHasAlpha");
 	validConnectionMap.append("outAlpha");
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
 	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparencyR");
+	validConnectionMap.append("outTransparencyG");
+	validConnectionMap.append("outTransparencyB");
 	validConnectionMap.append("outTransparency");
 	validConnectionMap.end();
 
@@ -271,14 +369,31 @@ void ShaderValidConnection::setValidConnection()
 	/// Env Textures ///
 	//envBall
 	validConnectionMap.begin("envBall");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
 	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("rayDirectionX");
+	validConnectionMap.append("rayDirectionY");
+	validConnectionMap.append("rayDirectionZ");
 	validConnectionMap.append("rayDirection");
+	validConnectionMap.append("filterSizeX");
+	validConnectionMap.append("filterSizeY");
+	validConnectionMap.append("filterSizeZ");
 	validConnectionMap.append("filterSize");
+	validConnectionMap.append("uvFilterSizeX");
+	validConnectionMap.append("uvFilterSizeY");
 	validConnectionMap.append("uvFilterSize");
+	validConnectionMap.append("imageR");
+	validConnectionMap.append("imageG");
+	validConnectionMap.append("imageB");
 	validConnectionMap.append("image");
+	validConnectionMap.append("uCoord");
+	validConnectionMap.append("vCoord");
 	validConnectionMap.append("uvCoord");
-	validConnectionMap.append("outAlpha");
-	validConnectionMap.append("outColor");
+	validConnectionMap.append("pointCameraX");
+	validConnectionMap.append("pointCameraY");
+	validConnectionMap.append("pointCameraZ");
 	validConnectionMap.append("pointCamera");
 	validConnectionMap.append("inclination");
 	validConnectionMap.append("elevation");
@@ -292,6 +407,11 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("reflect");
 	validConnectionMap.append("eyeSpace");
 	validConnectionMap.append("infoBits");
+	validConnectionMap.append("outAlpha");
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
+	validConnectionMap.append("outColor");
 	validConnectionMap.end();
 	//envChrome
 
@@ -327,8 +447,14 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("bumpInterp");
 	validConnectionMap.append("bumpFilter");
 	validConnectionMap.append("bumpFilterOffset");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
 	validConnectionMap.append("normalCamera");
 	validConnectionMap.append("bumpNormal");
+	validConnectionMap.append("outNormalX");
+	validConnectionMap.append("outNormalY");
+	validConnectionMap.append("outNormalZ");
 	validConnectionMap.append("outNormal");
 	validConnectionMap.end();
 
@@ -338,7 +464,13 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("bumpDepth");
 	validConnectionMap.append("bumpFilter");
 	validConnectionMap.append("bumpFilterOffset");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
 	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("outNormalX");
+	validConnectionMap.append("outNormalY");
+	validConnectionMap.append("outNormalZ");
 	validConnectionMap.append("outNormal");
 	validConnectionMap.end();
 
@@ -354,6 +486,8 @@ void ShaderValidConnection::setValidConnection()
 
 	//place2dTexture
 	validConnectionMap.begin("place2dTexture");
+	validConnectionMap.append("uCoord");
+	validConnectionMap.append("vCoord");
 	validConnectionMap.append("uvCoord");
 	validConnectionMap.append("coverageU");
 	validConnectionMap.append("coverageV");
@@ -377,6 +511,8 @@ void ShaderValidConnection::setValidConnection()
 	validConnectionMap.append("translateFrame");
 	validConnectionMap.append("wrapU");
 	validConnectionMap.append("wrapV");
+	validConnectionMap.append("outU");
+	validConnectionMap.append("outV");
 	validConnectionMap.append("outUV");
 	validConnectionMap.end();	
 
