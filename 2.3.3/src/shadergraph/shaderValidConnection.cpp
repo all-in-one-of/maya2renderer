@@ -6,6 +6,51 @@
 
 namespace liquidmaya
 {
+	ShaderConnectionMap::ShaderConnectionMap()
+	{
+
+	}
+	ShaderConnectionMap::~ShaderConnectionMap()
+	{
+
+	}
+	void ShaderConnectionMap::begin(const MString &shadertype)
+	{
+		currentShaderType = shadertype;
+		validConnection.clear();
+	}
+	void ShaderConnectionMap::append(const MString &plug)
+	{
+		validConnection.append(plug);
+	}
+	void ShaderConnectionMap::end()
+	{
+		validConnectionMap.insert(std::make_pair(currentShaderType.asChar(), validConnection));	
+	}
+	bool ShaderConnectionMap::hasShaderType(const char* shadertype)const
+	{
+		return (validConnectionMap.find(shadertype) != validConnectionMap.end());
+	}
+	void ShaderConnectionMap::getValidConnection(const char* nodename, MStringArray& connections) const
+	{
+		MString shadertype;
+		IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+MString(nodename)+"\""), shadertype));
+
+		if( hasShaderType(shadertype.asChar()) ){
+			if(strcmp("liquidShader",shadertype.asChar())==0)
+			{
+				liqShader& liqshader = liqShaderFactory::instance().getShader( nodename );
+				liqshader.getValidConnection(connections);
+			}else{
+				connections = validConnectionMap.find(shadertype.asChar())->second;
+			}
+		}else{
+			liquidMessage2(messageError, "shader type \"%s\" is not supported.", shadertype.asChar());
+			assert(0&&"shader type is not supported.");
+			connections = validConnectionMap.find("null")->second;
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////
 ShaderValidConnection::ShaderValidConnection()
 {
 	setValidConnection();
@@ -21,9 +66,9 @@ void ShaderValidConnection::setValidConnection()
 	MStringArray validConnection;
 	
 	//null (dummy shader)
-	validConnection.clear();
-	validConnection.append("");
-	validConnectionMap.insert(std::make_pair("null", validConnection));	
+	validConnectionMap.begin("null");
+	validConnectionMap.append("");
+	validConnectionMap.end();	
 
 	// MATERIAL -----------------------------------
 	/// surface ///
@@ -32,68 +77,68 @@ void ShaderValidConnection::setValidConnection()
 	//hairTubeShader
 
 	//lambert
-	validConnection.clear();
-	validConnection.append("color");
-	validConnection.append("transparency");
-	validConnection.append("ambientColor");
-	validConnection.append("incandescence");
-	validConnection.append("normalCamera");
-	validConnection.append("diffuse");
-	validConnection.append("translucence");
-	validConnection.append("translucenceDepth");
-	validConnection.append("translucenceFocus");
-	validConnection.append("outColor");
-	validConnection.append("outTransparency");
-	validConnectionMap.insert(std::make_pair("lambert", validConnection));	
+	validConnectionMap.begin("lambert");
+	validConnectionMap.append("color");
+	validConnectionMap.append("transparency");
+	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("incandescence");
+	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("diffuse");
+	validConnectionMap.append("translucence");
+	validConnectionMap.append("translucenceDepth");
+	validConnectionMap.append("translucenceFocus");
+	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparency");
+	validConnectionMap.end();
 
 	//layered shader
 
 	//blinn
-	validConnection.clear();
-	validConnection.append("color");
-	validConnection.append("transparency");
-	validConnection.append("ambientColor");
-	validConnection.append("incandescence");
-	validConnection.append("normalCamera");
-	validConnection.append("diffuse");
-	validConnection.append("translucence");
-	validConnection.append("translucenceDepth");
-	validConnection.append("translucenceFocus");
-	validConnection.append("eccentricity");
-	validConnection.append("specularRollOff");
-	validConnection.append("specularColor");
-	validConnection.append("reflectivity");
-	validConnection.append("reflectedColor");
-	validConnection.append("outColor");
-	validConnection.append("outTransparency");
-	validConnectionMap.insert(std::make_pair("blinn", validConnection));	
+	validConnectionMap.begin("blinn");
+	validConnectionMap.append("color");
+	validConnectionMap.append("transparency");
+	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("incandescence");
+	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("diffuse");
+	validConnectionMap.append("translucence");
+	validConnectionMap.append("translucenceDepth");
+	validConnectionMap.append("translucenceFocus");
+	validConnectionMap.append("eccentricity");
+	validConnectionMap.append("specularRollOff");
+	validConnectionMap.append("specularColor");
+	validConnectionMap.append("reflectivity");
+	validConnectionMap.append("reflectedColor");
+	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparency");
+	validConnectionMap.end();
 
 	//oceanShader 
 
 	//phong
-	validConnection.clear();
-	validConnection.append("colorR");
-	validConnection.append("colorG");
-	validConnection.append("colorB");
-	validConnection.append("color");
-	validConnection.append("transparency");
-	validConnection.append("ambientColor");
-	validConnection.append("incandescence");
-	validConnection.append("normalCamera");
-	validConnection.append("diffuse");
-	validConnection.append("translucence");
-	validConnection.append("translucenceDepth");
-	validConnection.append("translucenceFocus");
-	validConnection.append("cosinePower");
-	validConnection.append("specularColor");
-	validConnection.append("reflectivity");
-	validConnection.append("reflectedColor");
-	validConnection.append("matteOpacityMode");
-	validConnection.append("matteOpacity");
-	validConnection.append("reflectionLimit");
-	validConnection.append("outColor");
-	validConnection.append("outTransparency");
-	validConnectionMap.insert(std::make_pair("phong", validConnection));	
+	validConnectionMap.begin("phong");
+	validConnectionMap.append("colorR");
+	validConnectionMap.append("colorG");
+	validConnectionMap.append("colorB");
+	validConnectionMap.append("color");
+	validConnectionMap.append("transparency");
+	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("incandescence");
+	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("diffuse");
+	validConnectionMap.append("translucence");
+	validConnectionMap.append("translucenceDepth");
+	validConnectionMap.append("translucenceFocus");
+	validConnectionMap.append("cosinePower");
+	validConnectionMap.append("specularColor");
+	validConnectionMap.append("reflectivity");
+	validConnectionMap.append("reflectedColor");
+	validConnectionMap.append("matteOpacityMode");
+	validConnectionMap.append("matteOpacity");
+	validConnectionMap.append("reflectionLimit");
+	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparency");
+	validConnectionMap.end();
 
 	//phongE
 
@@ -125,56 +170,56 @@ void ShaderValidConnection::setValidConnection()
 	//bulge
 
 	//checker
-	validConnection.clear();
-	validConnection.append("alphaGain");
-	validConnection.append("alphaIsLuminance");
-	validConnection.append("alphaOffset");
-	validConnection.append("color1");//color1
-	validConnection.append("color1R");
-	validConnection.append("color1G");
-	validConnection.append("color1B");
-	validConnection.append("color2");//color2
-	validConnection.append("color2R");
-	validConnection.append("color2G");
-	validConnection.append("color2B");
-	validConnection.append("colorGain");
-	validConnection.append("colorOffset");
-	validConnection.append("contrast");
-	validConnection.append("defaultColor");
-	validConnection.append("filter");
-	validConnection.append("filterOffset");
-	validConnection.append("invert");
-	validConnection.append("uvCoord");//uvCoord
-	validConnection.append("uCoord");
-	validConnection.append("vCoord");
-	validConnection.append("outAlpha");
-	validConnection.append("outColor");//outColor
-	validConnection.append("outColorR");
-	validConnection.append("outColorG");
-	validConnection.append("outColorB");
-	validConnectionMap.insert(std::make_pair("checker", validConnection));	
+	validConnectionMap.begin("checker");
+	validConnectionMap.append("alphaGain");
+	validConnectionMap.append("alphaIsLuminance");
+	validConnectionMap.append("alphaOffset");
+	validConnectionMap.append("color1");//color1
+	validConnectionMap.append("color1R");
+	validConnectionMap.append("color1G");
+	validConnectionMap.append("color1B");
+	validConnectionMap.append("color2");//color2
+	validConnectionMap.append("color2R");
+	validConnectionMap.append("color2G");
+	validConnectionMap.append("color2B");
+	validConnectionMap.append("colorGain");
+	validConnectionMap.append("colorOffset");
+	validConnectionMap.append("contrast");
+	validConnectionMap.append("defaultColor");
+	validConnectionMap.append("filter");
+	validConnectionMap.append("filterOffset");
+	validConnectionMap.append("invert");
+	validConnectionMap.append("uvCoord");//uvCoord
+	validConnectionMap.append("uCoord");
+	validConnectionMap.append("vCoord");
+	validConnectionMap.append("outAlpha");
+	validConnectionMap.append("outColor");//outColor
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
+	validConnectionMap.end();
 
 	//cloth
 
 	// file
-	validConnection.clear();
-	validConnection.append("alphaGain");
-	validConnection.append("alphaIsLuminance");
-	validConnection.append("alphaOffset");
-	validConnection.append("colorGain");
-	validConnection.append("colorOffset");
-	validConnection.append("defaultColor");
-	validConnection.append("fileTextureName");
-	validConnection.append("filterType");
-	validConnection.append("filter");
-	validConnection.append("filterOffset");
-	validConnection.append("invert");
-	validConnection.append("uvCoord");
-	validConnection.append("fileHasAlpha");
-	validConnection.append("outAlpha");
-	validConnection.append("outColor");
-	validConnection.append("outTransparency");
-	validConnectionMap.insert(std::make_pair("file", validConnection));	
+	validConnectionMap.begin("file");
+	validConnectionMap.append("alphaGain");
+	validConnectionMap.append("alphaIsLuminance");
+	validConnectionMap.append("alphaOffset");
+	validConnectionMap.append("colorGain");
+	validConnectionMap.append("colorOffset");
+	validConnectionMap.append("defaultColor");
+	validConnectionMap.append("fileTextureName");
+	validConnectionMap.append("filterType");
+	validConnectionMap.append("filter");
+	validConnectionMap.append("filterOffset");
+	validConnectionMap.append("invert");
+	validConnectionMap.append("uvCoord");
+	validConnectionMap.append("fileHasAlpha");
+	validConnectionMap.append("outAlpha");
+	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparency");
+	validConnectionMap.end();
 
 	//fluidTexture2D
 
@@ -225,29 +270,29 @@ void ShaderValidConnection::setValidConnection()
 
 	/// Env Textures ///
 	//envBall
-	validConnection.clear();
-	validConnection.append("normalCamera");
-	validConnection.append("rayDirection");
-	validConnection.append("filterSize");
-	validConnection.append("uvFilterSize");
-	validConnection.append("image");
-	validConnection.append("uvCoord");
-	validConnection.append("outAlpha");
-	validConnection.append("outColor");
-	validConnection.append("pointCamera");
-	validConnection.append("inclination");
-	validConnection.append("elevation");
-	validConnection.append("skyRadius");
-	validConnection.append("bottom");
-	validConnection.append("top");
-	validConnection.append("left");
-	validConnection.append("right");
-	validConnection.append("front");
-	validConnection.append("back");
-	validConnection.append("reflect");
-	validConnection.append("eyeSpace");
-	validConnection.append("infoBits");
-	validConnectionMap.insert(std::make_pair("envBall", validConnection));	
+	validConnectionMap.begin("envBall");
+	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("rayDirection");
+	validConnectionMap.append("filterSize");
+	validConnectionMap.append("uvFilterSize");
+	validConnectionMap.append("image");
+	validConnectionMap.append("uvCoord");
+	validConnectionMap.append("outAlpha");
+	validConnectionMap.append("outColor");
+	validConnectionMap.append("pointCamera");
+	validConnectionMap.append("inclination");
+	validConnectionMap.append("elevation");
+	validConnectionMap.append("skyRadius");
+	validConnectionMap.append("bottom");
+	validConnectionMap.append("top");
+	validConnectionMap.append("left");
+	validConnectionMap.append("right");
+	validConnectionMap.append("front");
+	validConnectionMap.append("back");
+	validConnectionMap.append("reflect");
+	validConnectionMap.append("eyeSpace");
+	validConnectionMap.append("infoBits");
+	validConnectionMap.end();
 	//envChrome
 
 	//envCube
@@ -276,26 +321,26 @@ void ShaderValidConnection::setValidConnection()
 	//arrayMapper
 
 	//bump2d
-	validConnection.clear();
-	validConnection.append("bumpValue");
-	validConnection.append("bumpDepth");
-	validConnection.append("bumpInterp");
-	validConnection.append("bumpFilter");
-	validConnection.append("bumpFilterOffset");
-	validConnection.append("normalCamera");
-	validConnection.append("bumpNormal");
-	validConnection.append("outNormal");
-	validConnectionMap.insert(std::make_pair("bump2d", validConnection));
+	validConnectionMap.begin("bump2d");
+	validConnectionMap.append("bumpValue");
+	validConnectionMap.append("bumpDepth");
+	validConnectionMap.append("bumpInterp");
+	validConnectionMap.append("bumpFilter");
+	validConnectionMap.append("bumpFilterOffset");
+	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("bumpNormal");
+	validConnectionMap.append("outNormal");
+	validConnectionMap.end();
 
 	//bump3d
-	validConnection.clear();
-	validConnection.append("bumpValue");
-	validConnection.append("bumpDepth");
-	validConnection.append("bumpFilter");
-	validConnection.append("bumpFilterOffset");
-	validConnection.append("normalCamera");
-	validConnection.append("outNormal");
-	validConnectionMap.insert(std::make_pair("bump3d", validConnection));
+	validConnectionMap.begin("bump3d");
+	validConnectionMap.append("bumpValue");
+	validConnectionMap.append("bumpDepth");
+	validConnectionMap.append("bumpFilter");
+	validConnectionMap.append("bumpFilterOffset");
+	validConnectionMap.append("normalCamera");
+	validConnectionMap.append("outNormal");
+	validConnectionMap.end();
 
 	//condition
 
@@ -308,32 +353,32 @@ void ShaderValidConnection::setValidConnection()
 	//multiplyDivide
 
 	//place2dTexture
-	validConnection.clear();
-	validConnection.append("uvCoord");
-	validConnection.append("coverageU");
-	validConnection.append("coverageV");
-	validConnection.append("coverage");
-	validConnection.append("mirrorU");
-	validConnection.append("mirrorV");
-	validConnection.append("noiseU");
-	validConnection.append("noiseV");
-	validConnection.append("noiseUV");
-	validConnection.append("offsetU");
-	validConnection.append("offsetV");
-	validConnection.append("offset");
-	validConnection.append("repeatU");
-	validConnection.append("repeatV");
-	validConnection.append("repeatUV");
-	validConnection.append("rotateFrame");
-	validConnection.append("rotateUV");
-	validConnection.append("stagger");
-	validConnection.append("translateFrameU");
-	validConnection.append("translateFrameV");
-	validConnection.append("translateFrame");
-	validConnection.append("wrapU");
-	validConnection.append("wrapV");
-	validConnection.append("outUV");
-	validConnectionMap.insert(std::make_pair("place2dTexture", validConnection));	
+	validConnectionMap.begin("place2dTexture");
+	validConnectionMap.append("uvCoord");
+	validConnectionMap.append("coverageU");
+	validConnectionMap.append("coverageV");
+	validConnectionMap.append("coverage");
+	validConnectionMap.append("mirrorU");
+	validConnectionMap.append("mirrorV");
+	validConnectionMap.append("noiseU");
+	validConnectionMap.append("noiseV");
+	validConnectionMap.append("noiseUV");
+	validConnectionMap.append("offsetU");
+	validConnectionMap.append("offsetV");
+	validConnectionMap.append("offset");
+	validConnectionMap.append("repeatU");
+	validConnectionMap.append("repeatV");
+	validConnectionMap.append("repeatUV");
+	validConnectionMap.append("rotateFrame");
+	validConnectionMap.append("rotateUV");
+	validConnectionMap.append("stagger");
+	validConnectionMap.append("translateFrameU");
+	validConnectionMap.append("translateFrameV");
+	validConnectionMap.append("translateFrame");
+	validConnectionMap.append("wrapU");
+	validConnectionMap.append("wrapV");
+	validConnectionMap.append("outUV");
+	validConnectionMap.end();	
 
 	//place3dTexture
 
@@ -401,36 +446,21 @@ void ShaderValidConnection::setValidConnection()
 	setValidConnection_mi();
 
 	///  liquidShader  ///
-	validConnection.clear();
-	validConnection.append("");
-	validConnectionMap.insert(std::make_pair("liquidShader", validConnection));	
+	validConnectionMap.begin("liquidShader");
+	validConnectionMap.append("");
+	validConnectionMap.end();	
 
 
 }
 //
 bool ShaderValidConnection::hasShaderType(const char* shadertype)const
 {
-	return (validConnectionMap.find(shadertype) != validConnectionMap.end());
+	return validConnectionMap.hasShaderType(shadertype);
 }
 //
 void ShaderValidConnection::getValidConnection(const char* nodename, MStringArray& connections) const
 {
-	MString shadertype;
-	IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+MString(nodename)+"\""), shadertype));
-
-	if( hasShaderType(shadertype.asChar()) ){
-		if(strcmp("liquidShader",shadertype.asChar())==0)
-		{
-			liqShader& liqshader = liqShaderFactory::instance().getShader( nodename );
-			liqshader.getValidConnection(connections);
-		}else{
-			connections = validConnectionMap.find(shadertype.asChar())->second;
-		}
-	}else{
-		liquidMessage2(messageError, "shader type \"%s\" is not supported.", shadertype.asChar());
-		assert(0&&"shader type is not supported.");
-		connections = validConnectionMap.find("null")->second;
-	}
+	return validConnectionMap.getValidConnection(nodename, connections);
 }
 
 }//namespace liquidmaya

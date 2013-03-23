@@ -6,22 +6,21 @@ namespace liquidmaya
 
 	void ShaderValidConnection::setValidConnection_mi()
 	{
-		MStringArray validConnection;
 		//mib_amb_occlusion
-		validConnection.clear();
-		validConnection.append("samples");
-		validConnection.append("bright");
-		validConnection.append("dark");
-		validConnection.append("spread");
-		validConnection.append("max_distance");
-		validConnection.append("reflective");
-// 		validConnection.append("output_mode");
-// 		validConnection.append("occlusion_in_alpha");
-// 		validConnection.append("falloff");
-// 		validConnection.append("id_inclexcl");
-// 		validConnection.append("id_nonself");
-		validConnection.append("outValue");
-		validConnectionMap.insert(std::make_pair("mib_amb_occlusion", validConnection));	
+		validConnectionMap.begin("mib_amb_occlusion");
+		validConnectionMap.append("samples");
+		validConnectionMap.append("bright");
+		validConnectionMap.append("dark");
+		validConnectionMap.append("spread");
+		validConnectionMap.append("max_distance");
+		validConnectionMap.append("reflective");
+// 		validConnectionMap.append("output_mode");
+// 		validConnectionMap.append("occlusion_in_alpha");
+// 		validConnectionMap.append("falloff");
+// 		validConnectionMap.append("id_inclexcl");
+// 		validConnectionMap.append("id_nonself");
+		validConnectionMap.append("outValue");
+		validConnectionMap.end();	
 
 	}
 }//namespace liquidmaya
