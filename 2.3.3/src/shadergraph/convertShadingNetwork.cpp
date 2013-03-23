@@ -93,7 +93,7 @@ bool ConvertShadingNetwork::ensurePlugExists(const MString& plug) const
 	return true;
 }
 //
-ConvertShadingNetwork::ConnectionType 
+ConnectionType 
 ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::convertibleConnection("<<plug.asChar()<<")");
@@ -105,6 +105,7 @@ ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 	}
 	
 	ConnectionType connectionType = CT_None;
+	bool isIn = false, isOut = false;
 
 	MStringArray connections;
 
@@ -117,8 +118,8 @@ ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 	for(size_t i=0; i<connections.length(); ++i)
 	{
 		if( nodeIsConvertible(connections[i]) ){
-			connectionType = CT_Out;
-			return connectionType;
+			isOut = true;
+			break;
 		}
 	}
 	
@@ -130,11 +131,20 @@ ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 	for(size_t i=0; i<connections.length(); ++i)
 	{
 		if( nodeIsConvertible(connections[i]) ){
-			connectionType = CT_In;
-			return connectionType;
+			isIn = true;
+			break;
 		}
 	}
 
+	if( isOut && isIn ){
+		connectionType = CT_InOut;
+	} else if( isOut && !isIn ){
+		connectionType = CT_Out;
+	} else if( !isOut && isIn ){
+		connectionType = CT_In;
+	} else if( !isOut && !isIn ){
+		connectionType = CT_None;
+	}
 	// Otherwise, return "no convertible connection".
 	return connectionType;
 }
@@ -429,7 +439,7 @@ void ConvertShadingNetwork::getNodeVariables(
 		ConnectionType connectionType = convertibleConnection(plug);
 		
 		// If the connection is neither an input or output connection
-		if( connectionType != CT_In && connectionType != CT_Out )
+		if( connectionType == CT_None )
 		{
 			continue;
 		}
@@ -440,7 +450,7 @@ void ConvertShadingNetwork::getNodeVariables(
 			addNodeInputVariable( plug, inputVars );
 		}
 		// Get output variable
-		else if( connectionType == CT_Out ){
+		else if( connectionType == CT_Out || connectionType == CT_InOut ){
 			addNodeOutputVariable( node, validConnection, plug,
 				outputVars );
 		}

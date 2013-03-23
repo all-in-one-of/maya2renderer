@@ -24,7 +24,7 @@ namespace liquidmaya
 		void exportShaderGraph();
 
 		//
-		int convertibleConnection(const char*plugname);
+		ConnectionType convertibleConnection(const char*plugname);
 
 		// @nodename	e.g. "lambert1","blinn1",...
 		void getValidConnection(const char* nodename, MStringArray& connections) const;

@@ -7,7 +7,14 @@
 
 namespace liquidmaya
 {
-
+	enum ConnectionType
+	{
+		CT_None		= 0,//the plug is not connected 
+		CT_In		= 1,//the plug is connected as an input only
+		CT_Out		= 2,//the plug is connected as an output only
+		CT_InOut	= 3,//the plug is connected as both input and output
+		CT_Num
+	};
 class LIQUID_EXPORT ConvertShadingNetwork
 {
 public:
@@ -34,14 +41,6 @@ public:
 	// that we're able to convert to RSL and, if so, what the type of
 	// connection is. Preference is given to outgoing connections.
 	//--------------------------------------------------------------------
-	enum ConnectionType
-	{
-		CT_None		= 0,//the plug is not connected 
-		CT_In		= 1,//the plug is connected as an input only
-		CT_Out		= 2,//the plug is connected as an output only
-		CT_InOut	= 3,//the plug is connected as both input and output
-		CT_Num
-	};
 	ConnectionType convertibleConnection(const MString& plug) const;
 
 	//--------------------------------------------------------------------

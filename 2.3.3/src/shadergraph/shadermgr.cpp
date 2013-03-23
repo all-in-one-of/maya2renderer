@@ -31,7 +31,7 @@ void ShaderMgr::exportShaderGraph()
 	shadingnetwork.exportShaderGraph();
 }
 //
-int ShaderMgr::convertibleConnection(const char*plugname)
+ConnectionType ShaderMgr::convertibleConnection(const char*plugname)
 {
 	CM_TRACE_FUNC("ShaderMgr::convertibleConnection("<<plugname<<")");
 	return shadingnetwork.convertibleConnection(plugname);
