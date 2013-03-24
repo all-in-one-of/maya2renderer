@@ -137,7 +137,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				}
 				rslShaderBody += " }";
 			}
-		}
+		}//if(rslType=="float")
 		rslShaderBody += ";\n";
 	}//if( $connected == liquidmaya::CT_None )
 	// Otherwise, we have a convertible connection, so we'll be
@@ -146,7 +146,8 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 		rslShaderHeader += " ";
 
 		// Note if it's connected as an output.
-		if(connected == liquidmaya::CT_Out){
+		if(connected == liquidmaya::CT_Out)
+		{
 			rslShaderHeader += "output ";
 			if(   rslType=="color"
 				||rslType=="point"
@@ -162,8 +163,74 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				valStr[2].set(val[2]);
 				rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
 				file<<"ei_shader_param_vector(\""<< rslName.asChar()<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
+			}else if(rslType=="string"){
+				MString val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				rslShaderBody +="\""+val+"\"";
+				file<<"ei_shader_param_string(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
+			}else if(rslType=="texture"){
+				MString val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				rslShaderBody +="\""+val+"\"";
+				file<<"ei_shader_param_texture(\""<<rslName<<"\", \""<<val<<"\");"<<endl;
 			}
-		}
+			else if(rslType=="int"){
+				int val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				MString sVal; sVal.set(val);
+				rslShaderBody +="\""+sVal+"\"";
+				file<<"ei_shader_param_int(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+			}
+			else if(rslType=="index"){
+				int val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				MString sVal; sVal.set(val);
+				rslShaderBody +="\""+sVal+"\"";
+				file<<"ei_shader_param_index(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+			}
+			else if(rslType=="bool"){
+				int val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				MString sVal; sVal.set(val);
+				rslShaderBody +="\""+sVal+"\"";
+				file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+			}
+			else if(rslType=="tag"){
+				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			}
+			else if(rslType=="node"){
+				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			}
+			else if(rslType=="vector4"){
+				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			}
+			else if(rslType=="float"){
+				if(rslTypeSize == 1){
+					double val;
+					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					//val(double) --> valStr(string)
+					MString valStr;
+					valStr.set(val);
+					rslShaderBody += valStr;
+					file<<"ei_shader_param_scalar(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+				}else{
+					rslShaderBody += "{ ";
+					MDoubleArray val; val.setLength(rslTypeSize);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					for(int i=0; i<rslTypeSize; ++i){
+						if( i != 0 ){
+							rslShaderBody += ", ";
+						}
+						//val[i](double) --> valStr(string)
+						MString valStr;
+						valStr.set(val[i]);
+						rslShaderBody += valStr;
+					}
+					rslShaderBody += " }";
+				}
+			}//if(rslType=="float")
+			rslShaderBody += ";\n";
+		}//if(connected == liquidmaya::CT_Out)
 
 		// Write out the description.
 		rslShaderHeader += ( rslType + " " + rslName );
@@ -174,10 +241,11 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 		rslShaderHeader += ";\n";
 
 		//
-		if(connected == liquidmaya::CT_In)
+		if(connected == liquidmaya::CT_In || connected == liquidmaya::CT_InOut)
 		{
 			MStringArray srcPlug;
-			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+plug+"\"", srcPlug));
+			//we only care about the input of this plug
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs true \""+plug+"\"", srcPlug));
 			assert(srcPlug.length()==1);
 			MStringArray src;
 			srcPlug[0].split('.',src);
