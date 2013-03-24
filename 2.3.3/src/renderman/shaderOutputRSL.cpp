@@ -200,49 +200,36 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			//rslTypeSize(int) --> rslTypeSizeStr(string)
 			MString rslTypeSizeStr;
 			rslTypeSizeStr.set(rslTypeSize);
-			// Write out the description of the variable.
-			//left side of the equator
-			rslShaderBody += (" " + rslName);//no inputQualifier and rslType
-			rslShaderBody += ( rslTypeSize != 1 )? ( "[" + rslTypeSizeStr + "]" ) :"";
-			//equater
-			rslShaderBody += " = ";
 
-			//right side of the equator - 1
-			if( rslType == "string" || rslType == "matrix" )
-			{
-				//do nothing. avoid to generate things like this: 
-				//string s0 = string "d:/a.tex";
-				// which is can't be compiled in 3delight
-			}else{
-				if( rslTypeSize == 1 ){
-					rslShaderBody += rslType +" ";//e.g. point p0 = point (1,0,0);
-				}else{
-					rslShaderBody += " ";//e.g. float f[2] = {1.0, 2.0};
-				}
-			}
-
-			//right side of the equator - 2
 			// Write out the value of the variable.
 			if(   rslType=="color"
 				||rslType=="point"
 				||rslType=="normal"
 				||rslType=="vector")
 			{
-				MDoubleArray val; val.setLength(3);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
-				//val(double) --> valStr(string)
-				MStringArray valStr; valStr.setLength(3);
-				valStr[0].set(val[0]);
-				valStr[1].set(val[1]);
-				valStr[2].set(val[2]);
-				rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
+				if(rslTypeSize == 1){
+					MDoubleArray val; val.setLength(3);
+					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					//val(double) --> valStr(string)
+					MStringArray valStr; valStr.setLength(3);
+					valStr[0].set(val[0]);
+					valStr[1].set(val[1]);
+					valStr[2].set(val[2]);
+					rslShaderBody += " "+rslName+" = "+rslType+" ("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
+				}else{
+					rslShaderBody += " "+rslName+"["+rslTypeSizeStr+"] is an array of "+rslType+", not implemented yet.";
+				}
 			}else if(rslType=="string"){
-				MString val;
-				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				if(rslTypeSize == 1){
+					MString val;
+					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 
-				val = evaluateTheTextureNameValue(mayaName, val);
+					val = evaluateTheTextureNameValue(mayaName, val);
 
-				rslShaderBody +="\""+val+"\"";
+					rslShaderBody += " "+rslName+" = "+rslType+"\""+val+"\"";
+				}else{
+					rslShaderBody += " "+rslName+"["+rslTypeSizeStr+"] is an array of "+rslType+", not implemented yet.";
+				}
 			}else if(rslType=="float"){
 				if(rslTypeSize == 1){
 					double val;
@@ -250,23 +237,22 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 					//val(double) --> valStr(string)
 					MString valStr;
 					valStr.set(val);
-					rslShaderBody += valStr;
+					rslShaderBody += " "+rslName+" = "+rslType+" "+valStr;
 				}else{
-					rslShaderBody += "{ ";
 					MDoubleArray val; val.setLength(rslTypeSize);
 					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 					for(int i=0; i<rslTypeSize; ++i){
-						if( i != 0 ){
-							rslShaderBody += ", ";
-						}
+						MString I;
+						I.set(i);
 						//val[i](double) --> valStr(string)
 						MString valStr;
 						valStr.set(val[i]);
-						rslShaderBody += valStr;
+						//rslShaderBody += valStr;
+						rslShaderBody += " "+rslName+"["+I+"]"+" = "+rslType+" "+valStr+"; ";
 					}
-					rslShaderBody += " }";
 				}
 			}else if(rslType=="matrix"){
+				if(rslTypeSize == 1){
 				MDoubleArray val; val.setLength(16);
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				//val(double) --> valStr(string)
@@ -281,6 +267,9 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 					valStr[8] +","+valStr[9] +","+valStr[10]+","+valStr[11]+","+
 					valStr[12]+","+valStr[13]+","+valStr[14]+","+valStr[15]+
 					")";
+				}else{
+					rslShaderBody += " "+rslName+"["+rslTypeSizeStr+"] is an array of "+rslType+", not implemented yet.";
+				}
 			}else{
 				liquidMessage2(messageError, "rsl type \"%s\" is unhandled.", rslType.asChar());
 			}

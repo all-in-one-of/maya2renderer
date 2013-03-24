@@ -1,0 +1,177 @@
+#include <liquidAOVMacroDef.h>
+//surface shader name: phong6
+surface phong6
+(
+#ifdef USE_AOV_aov_ambient
+		output varying color aov_ambient = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse
+		output varying color aov_diffuse = 0;
+#endif
+#ifdef USE_AOV_aov_specular
+		output varying color aov_specular = 0;
+#endif
+#ifdef USE_AOV_aov_reflection
+		output varying color aov_reflection = 0;
+#endif
+#ifdef USE_AOV_aov_rt_reflection
+		output varying color aov_rt_reflection = 0;
+#endif
+#ifdef USE_AOV_aov_rt_reflection_alpha
+		output varying float aov_rt_reflection_alpha = 0;
+#endif
+#ifdef USE_AOV_aov_env_reflection
+		output varying color aov_env_reflection = 0;
+#endif
+#ifdef USE_AOV_aov_refraction
+		output varying color aov_refraction = 0;
+#endif
+#ifdef USE_AOV_aov_shadow
+		output varying float aov_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_incandescence
+		output varying color aov_incandescence = 0;
+#endif
+#ifdef USE_AOV_aov_translucence
+		output varying color aov_translucence = 0;
+#endif
+#ifdef USE_AOV_aov_ambient_no_shadow
+		output varying color aov_ambient_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse_no_shadow
+		output varying color aov_diffuse_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse_intensity
+		output varying color aov_diffuse_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse_intensity_no_shadow
+		output varying color aov_diffuse_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_diffuse_intensity
+		output varying color aov_key_lights_diffuse_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_diffuse_intensity_no_shadow
+		output varying color aov_key_lights_diffuse_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_luminance_depth
+		output varying color aov_luminance_depth = 0;
+#endif
+#ifdef USE_AOV_aov_specular_no_shadow
+		output varying color aov_specular_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_specular_intensity
+		output varying color aov_specular_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_specular_intensity_no_shadow
+		output varying color aov_specular_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_specular_intensity
+		output varying color aov_key_lights_specular_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_specular_intensity_no_shadow
+		output varying color aov_key_lights_specular_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_color_no_shadow
+		output varying color aov_color_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_surface_color
+		output varying color aov_surface_color = 0;
+#endif
+#ifdef USE_AOV_aov_camera_space_normal
+		output varying normal aov_camera_space_normal = 0;
+#endif
+#ifdef USE_AOV_aov_facing_ratio
+		output varying float aov_facing_ratio = 0;
+#endif
+
+)
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+ uniform float __reflects = 0;
+ uniform float __refracts = 0;
+
+
+
+// define the shaders --------------------------------------------------------------------------
+#include "phong.h"
+//shader name: phong6
+void phong6 (
+)
+{
+  color ambientColor = color (0,0,0);
+  color i_color = color (1,1,0);
+  float cosinePower = float 20;
+  float diffuse = float 0.8;
+  color incandescence = color (0,0,0);
+  float matteOpacity = float 1;
+  float matteOpacityMode = float 2;
+ normal normalCamera = N;
+  color specularColor = color (0.5,0.5,0.5);
+  float reflectivity = float 0.5;
+  color reflectedColor = color (0,0,0);
+ uniform float refractions = float 0;
+  float refractiveIndex = float 1;
+ uniform float refractionLimit = float 6;
+  float lightAbsorbance = float 0;
+  float shadowAttenuation = float 0.5;
+ uniform float reflectionLimit = float 1;
+  float translucence = float 0;
+  float translucenceDepth = float 0.5;
+  float translucenceFocus = float 0.5;
+  color transparency = color (0,0,0);
+ uniform float i_reflectionMaxDistance   =0;
+ uniform float i_reflectionSamples       =0;
+ uniform float i_reflectionBlur          =0;
+ uniform float i_reflectionNoiseAmplitude=0;
+ uniform float i_reflectionNoiseFrequency=0;
+  color outColor = color (0,0,0);
+  color outTransparency = color (0,0,0);
+   maya_phong(						
+	ambientColor,				
+	i_color,					
+	cosinePower,				
+	diffuse,					
+	incandescence,				
+	matteOpacity,				
+	matteOpacityMode,			
+	normalCamera,				
+	specularColor,				
+	reflectivity,				
+	reflectedColor,			
+	refractions,				
+	refractiveIndex,			
+	refractionLimit,			
+	lightAbsorbance,			
+	shadowAttenuation,			
+	reflectionLimit,			
+	translucence,				
+	translucenceDepth,			
+	translucenceFocus,			
+	transparency,				
+	i_reflectionMaxDistance,	
+	i_reflectionSamples,		
+	i_reflectionBlur,			
+	i_reflectionNoiseAmplitude,
+	i_reflectionNoiseFrequency,
+	outColor,					
+	outTransparency			
+   );
+    Ci             = Os * outColor;
+    Oi             = Os * ( 1.0 - outTransparency );
+}
+
+
+
+
+// call the shaders ----------------------------------------------------------------------------
+
+ //phong6
+ phong6();
+//input: 
+//output:
+
+}
