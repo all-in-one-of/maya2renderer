@@ -83,7 +83,7 @@ def _test(mayaFile, liqRenderer):
     mLiqlog.renderer_beg(liqRenderer)
 
     output_image_fullpath = getImageOutputDirectory(mayaFile)+getOutputImageName(mayaFile, liqRenderer)
-    mLiqlog.output_img_beg(output_image_fullpath)
+    mLiqlog.output_img_beg(getStanderImage(mayaFile, liqRenderer))
     mLiqlog.output_img_end()
 
     _render(mayaFile, liqRenderer)
