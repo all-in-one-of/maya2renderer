@@ -291,7 +291,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 		if(connected == liquidmaya::CT_In)
 		{
 			MStringArray srcPlug;
-			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+plug+"\"", srcPlug));
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs true \""+plug+"\"", srcPlug));
 			assert(srcPlug.length()==1);
 			rslShaderBody +="//"+plug+" <-- "+srcPlug[0]+"\n";
 		}
