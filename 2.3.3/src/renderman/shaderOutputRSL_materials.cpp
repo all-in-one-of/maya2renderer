@@ -259,9 +259,9 @@ void Visitor::visitLambert(const char* node)
 						"outColor,					\n\t"
 						"outTransparency			\n"
 			"   );");
-	o.addToRSL("   Ci             = Os * outColor;");
-	o.addToRSL("   Oi             = Os * ( 1.0 - outTransparency );");
 
+	o.addToRSL("   Oi = Os * ( 1.0 - outTransparency );");
+	o.addToRSL("   Ci = Cs * Oi * outColor;");
 	o.endRSL();
 #endif
 }
