@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: spotlight.ma
-//Last modified: Thu, Mar 14, 2013 10:50:44 AM
+//Last modified: Sun, Mar 24, 2013 10:11:16 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -14,7 +14,7 @@ fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service P
 createNode transform -s -n "persp";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" 22.95781529530781 13.273862309176041 11.496417521586306 ;
-	setAttr ".r" -type "double3" -27.338352729615252 63.400000000002898 -7.103272201164348e-015 ;
+	setAttr ".r" -type "double3" -27.338352729615256 63.400000000002898 -7.103272201164348e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
@@ -112,8 +112,8 @@ createNode materialInfo -n "materialInfo1";
 createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".rc" -type "string" "perspShape";
 	setAttr ".ddin[0]" -type "string" "$SCN.$CAM.$F.$RND.bmp";
-	setAttr ".ddim[0]" -type "string" "rgba";
-	setAttr ".ddit[0]" -type "string" "it";
+	setAttr ".ddim[0]" -type "string" "rgb";
+	setAttr ".ddit[0]" -type "string" "bmp";
 	setAttr ".ddbd[0]"  8;
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
