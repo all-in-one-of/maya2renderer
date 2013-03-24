@@ -42,11 +42,11 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 
 	// Create the plug's name, and check for convertible connections.
 	MString plug(mayaNode+"."+mayaName);
-	int connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(plug.asChar());
+	liquidmaya::ConnectionType  connected = liquidmaya::ShaderMgr::getSingletonPtr()->convertibleConnection(plug.asChar());
 
 	// If there are no convertible connections, then we have to
 	// write out the variable into the shader's body.
-	if( connected == 0 )
+	if( connected == liquidmaya::CT_None )
 	{
 		//rslTypeSize(int) --> rslTypeSizeStr(string)
 		MString rslTypeSizeStr;
@@ -139,14 +139,14 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			}
 		}
 		rslShaderBody += ";\n";
-	}//if( $connected == 0 )
+	}//if( $connected == liquidmaya::CT_None )
 	// Otherwise, we have a convertible connection, so we'll be
 	// adding the variable to the block's header.
 	else{
 		rslShaderHeader += " ";
 
 		// Note if it's connected as an output.
-		if(connected == 2){
+		if(connected == liquidmaya::CT_Out){
 			rslShaderHeader += "output ";
 			if(   rslType=="color"
 				||rslType=="point"
@@ -174,7 +174,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 		rslShaderHeader += ";\n";
 
 		//
-		if(connected == 1)
+		if(connected == liquidmaya::CT_In)
 		{
 			MStringArray srcPlug;
 			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -plugs true \""+plug+"\"", srcPlug));
