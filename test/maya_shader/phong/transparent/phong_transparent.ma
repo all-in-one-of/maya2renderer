@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
-//Name: lambert_transparent.ma
-//Last modified: Sun, Mar 24, 2013 08:40:51 PM
+//Name: phong_transparent.ma
+//Last modified: Sun, Mar 24, 2013 08:45:16 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -231,9 +231,11 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
 	setAttr ".osg" yes;
+	setAttr ".xres" 200;
+	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/lambert_transparent2291.xml";
+	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/phong_transparent2259.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -252,7 +254,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "renderman";
+	setAttr ".rnd" -type "string" "elvishray";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode polyPlane -n "polyPlane2";
 	setAttr ".w" 3.0944287097721492;
@@ -260,8 +262,6 @@ createNode polyPlane -n "polyPlane2";
 	setAttr ".sw" 1;
 	setAttr ".sh" 1;
 	setAttr ".cuv" 2;
-createNode lambert -n "lambert2";
-	setAttr ".it" -type "float3" 0.32232001 0.32232001 0.32232001 ;
 createNode shadingEngine -n "lambert2SG";
 	setAttr ".ihi" 0;
 	setAttr -s 2 ".dsm";
@@ -449,13 +449,15 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 	setAttr ".export_mesh_materials" yes;
 	setAttr ".export_mesh_smoothing" yes;
 	setAttr ".export_mesh_normals" yes;
-createNode lambert -n "lambert3";
-	setAttr ".it" -type "float3" 0.69918364 0.69918364 0.69918364 ;
 createNode shadingEngine -n "lambert3SG";
 	setAttr ".ihi" 0;
 	setAttr -s 2 ".dsm";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo2";
+createNode phong -n "phong1";
+	setAttr ".it" -type "float3" 0.69918364 0.69918364 0.69918364 ;
+createNode phong -n "phong2";
+	setAttr ".it" -type "float3" 0.32232001 0.32232001 0.32232001 ;
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
@@ -569,6 +571,8 @@ select -ne :defaultRenderGlobals;
 select -ne :defaultResolution;
 	setAttr -k on ".cch";
 	setAttr -k on ".nds";
+	setAttr ".w" 200;
+	setAttr ".h" 150;
 	setAttr ".pa" 1;
 	setAttr -k on ".al";
 	setAttr -k on ".off";
@@ -658,21 +662,21 @@ relationship "shadowLink" ":lightLinker1" "lambert2SG.message" ":defaultLightSet
 relationship "shadowLink" ":lightLinker1" "lambert3SG.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
-connectAttr "lambert2.oc" "lambert2SG.ss";
+connectAttr "phong2.oc" "lambert2SG.ss";
 connectAttr "pPlaneShape3.iog" "lambert2SG.dsm" -na;
 connectAttr "pPlaneShape2.iog" "lambert2SG.dsm" -na;
 connectAttr "lambert2SG.msg" "materialInfo1.sg";
-connectAttr "lambert2.msg" "materialInfo1.m";
-connectAttr "lambert3.oc" "lambert3SG.ss";
+connectAttr "phong2.msg" "materialInfo1.m";
+connectAttr "phong1.oc" "lambert3SG.ss";
 connectAttr "pCubeShape2.iog" "lambert3SG.dsm" -na;
 connectAttr "pPlaneShape4.iog" "lambert3SG.dsm" -na;
 connectAttr "lambert3SG.msg" "materialInfo2.sg";
-connectAttr "lambert3.msg" "materialInfo2.m";
+connectAttr "phong1.msg" "materialInfo2.m";
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert3SG.pa" ":renderPartition.st" -na;
-connectAttr "lambert2.msg" ":defaultShaderList1.s" -na;
-connectAttr "lambert3.msg" ":defaultShaderList1.s" -na;
+connectAttr "phong2.msg" ":defaultShaderList1.s" -na;
+connectAttr "phong1.msg" ":defaultShaderList1.s" -na;
 connectAttr "pointLightShape1.ltd" ":lightList1.l" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "pointLight1.iog" ":defaultLightSet.dsm" -na;
-// End of lambert_transparent.ma
+// End of phong_transparent.ma
