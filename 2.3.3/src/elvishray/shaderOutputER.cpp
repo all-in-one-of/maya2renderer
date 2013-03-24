@@ -105,13 +105,13 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 		}
 		else if(rslType=="tag"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			file<<"//ei_shader_param_tag(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
 		}
 		else if(rslType=="node"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			file<<"//ei_shader_param_node(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
 		}
 		else if(rslType=="vector4"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			file<<"//ei_shader_param_vector4(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
 		}
 		else if(rslType=="float"){
 			if(rslTypeSize == 1){
@@ -196,13 +196,13 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 			}
 			else if(rslType=="tag"){
-				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+				file<<"//ei_shader_param_tag(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
 			}
 			else if(rslType=="node"){
-				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+				file<<"//ei_shader_param_node(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
 			}
 			else if(rslType=="vector4"){
-				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+				file<<"//ei_shader_param_vector4(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
 			}
 			else if(rslType=="float"){
 				if(rslTypeSize == 1){

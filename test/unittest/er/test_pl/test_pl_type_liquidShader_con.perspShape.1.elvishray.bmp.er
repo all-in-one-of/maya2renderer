@@ -57,10 +57,13 @@ ei_transform(0.999263,0,-0.0383878,0,   -0.0371378,0.25311,-0.966724,0,   0.0097
 ei_end_instance();
 //;
 ei_shader("test_type_pl", "test_pl_type_liquidShader_liquidShader1");
+ei_shader_param_int("int_name", 0);
+ei_shader_param_scalar("scalar_name", 1);
 ei_shader_param_vector("vector_name", 3, 3, 3);
 ei_shader_param_vector("point_name", 2, 2, 2);
 ei_shader_param_vector("normal_name", 4, 4, 4);
 ei_shader_param_vector("color_name", 0, 1, 0);
+ei_shader_param_bool("bool_name", 1);
 ei_end_shader();
 
 ei_shader("test_type_pl", "test_pl_type_liquidShader_liquidShader2");
