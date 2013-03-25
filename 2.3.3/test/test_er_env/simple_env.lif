@@ -1,0 +1,9 @@
+environment "simple_env";
+desc "Elvishray physical surface shader";
+
+param "env_color";
+name "environment color";
+desc "";
+
+
+
