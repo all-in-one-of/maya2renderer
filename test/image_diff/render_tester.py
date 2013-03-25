@@ -56,6 +56,8 @@ class RendermanTest(TestBase):
         self.cutFiles(logdir, "*.log", desdir)
         self.cutFiles(logdir, "*.bmp", desdir)
         self.cutFiles(logdir, "*.png", desdir)
+        self.cutFiles(logdir, "*.jpg", desdir)
+	self.cutFiles(logdir, "*.jpeg", desdir)
 
         #shaders
         shaderdir = self.getProjectDirectory()+"/generatedShader"
@@ -78,6 +80,8 @@ class ElvishrayTest(TestBase):
         self.cutFiles(logdir, "*.log", desdir)
         self.cutFiles(logdir, "*.bmp", desdir)
         self.cutFiles(logdir, "*.png", desdir)
+        self.cutFiles(logdir, "*.jpg", desdir)
+	self.cutFiles(logdir, "*.jpeg", desdir)
 
 #-----------------
 def createTestFactory ( renderer_ ):

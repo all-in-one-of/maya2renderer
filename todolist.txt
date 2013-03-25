@@ -265,6 +265,7 @@ elvishray
 - procedural
 - stereoCamera
 - volume shader, image shader, geometry shader, caustic shader
+- animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
 
 appleseed
 -------------

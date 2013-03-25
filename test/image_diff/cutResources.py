@@ -34,6 +34,8 @@ def _test (mayaFile):
     cutFiles(logdir, "*.log", desdir)
     cutFiles(logdir, "*.bmp", desdir)
     cutFiles(logdir, "*.png", desdir)
+    cutFiles(logdir, "*.jpg", desdir)
+    cutFiles(logdir, "*.jpeg", desdir)
 
     #shaders
     shaderdir = getProjectDir()+"/generatedShader"
