@@ -309,9 +309,16 @@ namespace elvishray
 				cmd = "listConnections -type \"shadingEngine\" -destination on (\""+MString(ribNode__->name.asChar())+"\" + \".instObjGroups\")";
 				IfMErrorWarn(MGlobal::executeCommand( cmd, shadingGroupNodes));
 			}
-			_S( ei_mtl( shadingGroupNodes[0].asChar() ) );
-			// add test shader,must removed when the shader export is done.
-			//_S( ei_mtl("phong_mtl_for_test") );
+			if( shadingGroupNodes.length()==0 )
+			{
+				_s( "//shadingGroupNodes is empty, use \"phong_mtl_for_test\" to avoid crash" );
+				_S( ei_mtl("phong_mtl_for_test") );
+			} else if( shadingGroupNodes[0].length()==0 ){
+				_s( "//shadingGroupNodes[0] is empty, use \"phong_mtl_for_test\" to avoid crash" );
+				_S( ei_mtl("phong_mtl_for_test") );
+			} else {
+				_S( ei_mtl( shadingGroupNodes[0].asChar() ) );
+			}
 		}
 		
 		//element
