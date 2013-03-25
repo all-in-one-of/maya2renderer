@@ -117,9 +117,9 @@ global proc liquidCreateColorAttribute()
 	if ( !`attributeQuery -node $currentNode -ex "liqColor"` ) 
     {
       addAttr -ln "liqColor" -uac -at "float3" -k true $currentNode;
-      addAttr -ln "red" -at "float"  -dv 1 -k true -parent "liqColor" $currentNode;
-      addAttr -ln "green" -at "float" -dv 1 -k true -parent "liqColor" $currentNode;
-      addAttr -ln "blue" -at "float" -dv 1 -k true -parent "liqColor" $currentNode;
+      addAttr -ln "liqColorR" -at "float" -dv 1 -k true -parent "liqColor" $currentNode;
+      addAttr -ln "liqColorG" -at "float" -dv 1 -k true -parent "liqColor" $currentNode;
+      addAttr -ln "liqColorB" -at "float" -dv 1 -k true -parent "liqColor" $currentNode;
     }
   }
 
@@ -138,9 +138,9 @@ global proc liquidCreateOpacityAttribute()
 	if ( !`attributeQuery -node $currentNode -ex "liqOpacity"` ) 
     {
       addAttr -ln "liqOpacity" -uac -at "float3" $currentNode;
-      addAttr -ln "red1" -at "float" -dv 1 -parent "liqOpacity" $currentNode;
-      addAttr -ln "green1" -at "float" -dv 1 -parent "liqOpacity" $currentNode;
-      addAttr -ln "blue1" -at "float" -dv 1 -parent "liqOpacity" $currentNode;
+      addAttr -ln "liqOpacityR" -at "float" -dv 1 -parent "liqOpacity" $currentNode;
+      addAttr -ln "liqOpacityG" -at "float" -dv 1 -parent "liqOpacity" $currentNode;
+      addAttr -ln "liqOpacityB" -at "float" -dv 1 -parent "liqOpacity" $currentNode;
     }
   }
 
@@ -2577,39 +2577,39 @@ global proc liquidCreateCustomShaderAttributes()
 		for( $sg in $shadingGroup){
 // 			if ( !`attributeQuery -node $sg -ex "liqSurfaceShader"` ) {
 // 			  addAttr -ln "liqSurfaceShader" -usedAsColor -at "float3" -k true $sg;
-// 			  addAttr -ln "liqSurfaceShaderred"   -at "float" -dv 1 -k true -parent "liqSurfaceShader" $sg;
-// 			  addAttr -ln "liqSurfaceShadergreen" -at "float" -dv 1 -k true -parent "liqSurfaceShader" $sg;
-// 			  addAttr -ln "liqSurfaceShaderblue"  -at "float" -dv 1 -k true -parent "liqSurfaceShader" $sg;
+// 			  addAttr -ln "liqSurfaceShaderR" -at "float" -dv 1 -k true -parent "liqSurfaceShader" $sg;
+// 			  addAttr -ln "liqSurfaceShaderG" -at "float" -dv 1 -k true -parent "liqSurfaceShader" $sg;
+// 			  addAttr -ln "liqSurfaceShaderB" -at "float" -dv 1 -k true -parent "liqSurfaceShader" $sg;
 // 			}
 // 			if ( !`attributeQuery -node $sg -ex "liqDisplacementShader"` ) {
 // 			  addAttr -ln "liqDisplacementShader" -usedAsColor -at "float3" -k true $sg;
-// 			  addAttr -ln "liqDisplacementShaderred"   -at "float" -dv 1 -k true -parent "liqDisplacementShader" $sg;
-// 			  addAttr -ln "liqDisplacementShadergreen" -at "float" -dv 1 -k true -parent "liqDisplacementShader" $sg;
-// 			  addAttr -ln "liqDisplacementShaderblue"  -at "float" -dv 1 -k true -parent "liqDisplacementShader" $sg;
+// 			  addAttr -ln "liqDisplacementShaderR" -at "float" -dv 1 -k true -parent "liqDisplacementShader" $sg;
+// 			  addAttr -ln "liqDisplacementShaderG" -at "float" -dv 1 -k true -parent "liqDisplacementShader" $sg;
+// 			  addAttr -ln "liqDisplacementShaderB" -at "float" -dv 1 -k true -parent "liqDisplacementShader" $sg;
 // 			}
 			if ( !`attributeQuery -node $sg -ex "liqShadowShader"` ) {
 			  addAttr -ln "liqShadowShader" -usedAsColor -at "float3" -k true $sg;
-			  addAttr -ln "liqShadowShaderred"   -at "float" -dv 1 -k true -parent "liqShadowShader" $sg;
-			  addAttr -ln "liqShadowShadergreen" -at "float" -dv 1 -k true -parent "liqShadowShader" $sg;
-			  addAttr -ln "liqShadowShaderblue"  -at "float" -dv 1 -k true -parent "liqShadowShader" $sg;
+			  addAttr -ln "liqShadowShaderR" -at "float" -dv 1 -k true -parent "liqShadowShader" $sg;
+			  addAttr -ln "liqShadowShaderG" -at "float" -dv 1 -k true -parent "liqShadowShader" $sg;
+			  addAttr -ln "liqShadowShaderB" -at "float" -dv 1 -k true -parent "liqShadowShader" $sg;
 			}
 // 			if ( !`attributeQuery -node $sg -ex "liqVolumeShader"` ) {
 // 			  addAttr -ln "liqVolumeShader" -usedAsColor -at "float3" -k true $sg;
-// 			  addAttr -ln "liqVolumeShaderred"   -at "float" -dv 1 -k true -parent "liqVolumeShader" $sg;
-// 			  addAttr -ln "liqVolumeShadergreen" -at "float" -dv 1 -k true -parent "liqVolumeShader" $sg;
-// 			  addAttr -ln "liqVolumeShaderblue"  -at "float" -dv 1 -k true -parent "liqVolumeShader" $sg;
+// 			  addAttr -ln "liqVolumeShaderR" -at "float" -dv 1 -k true -parent "liqVolumeShader" $sg;
+// 			  addAttr -ln "liqVolumeShaderG" -at "float" -dv 1 -k true -parent "liqVolumeShader" $sg;
+// 			  addAttr -ln "liqVolumeShaderB" -at "float" -dv 1 -k true -parent "liqVolumeShader" $sg;
 // 			}
 			if ( !`attributeQuery -node $sg -ex "liqEnvironmentShader"` ) {
 			  addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $sg;
-			  addAttr -ln "liqEnvironmentShaderred"   -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $sg;
-			  addAttr -ln "liqEnvironmentShadergreen" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $sg;
-			  addAttr -ln "liqEnvironmentShaderblue"  -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $sg;
+			  addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $sg;
+			  addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $sg;
+			  addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $sg;
 			}
 			//if ( !`attributeQuery -node $sg -ex "liqPhotonShader"` ) {
 			//  addAttr -ln "liqPhotonShader" -usedAsColor -at "float3" -k true $sg;
-			//  addAttr -ln "liqPhotonShaderred"   -at "float" -dv 1 -k true -parent "liqPhotonShader" $sg;
-			//  addAttr -ln "liqPhotonShadergreen" -at "float" -dv 1 -k true -parent "liqPhotonShader" $sg;
-			//  addAttr -ln "liqPhotonShaderblue"  -at "float" -dv 1 -k true -parent "liqPhotonShader" $sg;
+			//  addAttr -ln "liqPhotonShaderR" -at "float" -dv 1 -k true -parent "liqPhotonShader" $sg;
+			//  addAttr -ln "liqPhotonShaderG" -at "float" -dv 1 -k true -parent "liqPhotonShader" $sg;
+			//  addAttr -ln "liqPhotonShaderB" -at "float" -dv 1 -k true -parent "liqPhotonShader" $sg;
 			//}
 		}
   }
@@ -2672,21 +2672,21 @@ global proc liquidCreateCustomShaderAttributesForERCamera()
   for ( $currentShape in $shapes ) {
  	if ( !`attributeQuery -node $currentShape -ex "liqVolumeShader"` ) {
  	  addAttr -ln "liqVolumeShader" -usedAsColor -at "float3" -k true $currentShape;
- 	  addAttr -ln "liqVolumeShaderred"   -at "float" -dv 1 -k true -parent "liqVolumeShader" $currentShape;
- 	  addAttr -ln "liqVolumeShadergreen" -at "float" -dv 1 -k true -parent "liqVolumeShader" $currentShape;
- 	  addAttr -ln "liqVolumeShaderblue"  -at "float" -dv 1 -k true -parent "liqVolumeShader" $currentShape;
+ 	  addAttr -ln "liqVolumeShaderR" -at "float" -dv 1 -k true -parent "liqVolumeShader" $currentShape;
+ 	  addAttr -ln "liqVolumeShaderG" -at "float" -dv 1 -k true -parent "liqVolumeShader" $currentShape;
+ 	  addAttr -ln "liqVolumeShaderB" -at "float" -dv 1 -k true -parent "liqVolumeShader" $currentShape;
  	}
 	if ( !`attributeQuery -node $currentShape -ex "liqEnvironmentShader"` ) {
 	  addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $currentShape;
-	  addAttr -ln "liqEnvironmentShaderred"   -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $currentShape;
-	  addAttr -ln "liqEnvironmentShadergreen" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $currentShape;
-	  addAttr -ln "liqEnvironmentShaderblue"  -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $currentShape;
+	  addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $currentShape;
+	  addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $currentShape;
+	  addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $currentShape;
 	}
 	if ( !`attributeQuery -node $currentShape -ex "liqLensShader"` ) {
 	  addAttr -ln "liqLensShader" -usedAsColor -at "float3" -k true $currentShape;
-	  addAttr -ln "liqLensShaderred"   -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
-	  addAttr -ln "liqLensShadergreen" -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
-	  addAttr -ln "liqLensShaderblue"  -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
+	  addAttr -ln "liqLensShaderR" -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
+	  addAttr -ln "liqLensShaderG" -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
+	  addAttr -ln "liqLensShaderB" -at "float" -dv 1 -k true -parent "liqLensShader" $currentShape;
 	}
   }
 
