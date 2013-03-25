@@ -989,7 +989,8 @@ namespace elvishray
 				cmd = "nodeType \""+startingNode+"\"";
 				IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
 
-				if(nodetype=="liquidSurface"){
+				if(nodetype=="liquidSurface" || nodetype=="liquidShader")
+				{
 					//liquidMessage2(messageInfo, (startingNode+"'s type is "+nodetype+", no need to convert").asChar());
 					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
 					currentShader.write();
@@ -997,7 +998,7 @@ namespace elvishray
 					IfMErrorWarn( cameraShaders.append(startingNode) );
 				}else{
 					//convertShadingNetworkToRSL(startingNode, node);
-					liquidMessage2(messageError,"%s.%s is not liquidSurface.",node.asChar(), plug_.c_str());
+					liquidMessage2(messageError,"%s.%s is not liquidSurface and liquidShader.",node.asChar(), plug_.c_str());
 				}
 			}
 		}
