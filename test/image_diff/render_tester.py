@@ -59,6 +59,10 @@ class RendermanTest(TestBase):
         self.cutFiles(logdir, "*.jpg", desdir)
 	self.cutFiles(logdir, "*.jpeg", desdir)
 
+        # copy tex
+        logdir = self.getProjectDirectory()+"/rmantex"
+        self.cutFiles(logdir, "*.tdl", desdir)
+
         #shaders
         shaderdir = self.getProjectDirectory()+"/generatedShader"
         self.cutFiles(shaderdir, "*.sl_my", desdir)
