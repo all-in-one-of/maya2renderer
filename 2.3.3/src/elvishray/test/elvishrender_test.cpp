@@ -46,6 +46,7 @@ extern void spotlight_test2();
 extern void ei_img_uv(const eiBool texturing, const char *suffix);
 extern void ei_env_test(const char *env_shader_name);
 extern void ei_scene_unittest(bool useIBL);
+extern void ei_context_unittest();
 
 void test_liquid2er()
 {
@@ -62,8 +63,9 @@ void test_liquid2er()
 	//ei_shader_link_test(false, "suffix");
 	//ei_checker_uv();
 	//er_shader_transparent_test();
-#include "E:/MyDocuments/maya/projects/default/rib/test_pl_type_liquidShader.perspShape.1.elvishray.bmp.er"
+//#include "E:/MyDocuments/maya/projects/default/rib/test_pl_type_liquidShader.perspShape.1.elvishray.bmp.er"
 
+	ei_context_unittest();
 	//ei_displace_unittest();
 	//ei_volume_unittest();
 	//ei_dof_unittest();

@@ -234,15 +234,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\er_context_test.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\er_displace_test.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\er_dof_test.cpp"
