@@ -149,14 +149,14 @@ namespace elvishray
 			assert(0&&"can't open file. see script editor for more details.");
 		}
 		//////////////////////////////////////////////////////////////////////////
-		_s("//### SCENE BEGIN ###");
-		_S( ei_context() );
+		//_s("//### SCENE BEGIN ###");
+		//_S( ei_context() );
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
 
-		_S( ei_end_context() );
+		//_S( ei_end_context() );
 
 		//////////////////////////////////////////////////////////////////////////
 		//close script log file
@@ -437,7 +437,8 @@ namespace elvishray
 
 		currentJob.ribFileName;
 
-		
+		_S( ei_context() );
+
 		//verbose
 		_S( ei_verbose(	m_gnode->getInt("verbose") ) );
 
@@ -466,6 +467,8 @@ namespace elvishray
 		assert(!m_option.empty());
 
 		render( currentJob );
+
+		_S( ei_end_context() );
 
 		return MS::kSuccess;
 	}
