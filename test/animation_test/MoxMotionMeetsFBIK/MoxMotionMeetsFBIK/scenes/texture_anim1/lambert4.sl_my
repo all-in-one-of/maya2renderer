@@ -1,0 +1,322 @@
+#include <liquidAOVMacroDef.h>
+//surface shader name: lambert4
+surface lambert4
+(
+#ifdef USE_AOV_aov_ambient
+		output varying color aov_ambient = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse
+		output varying color aov_diffuse = 0;
+#endif
+#ifdef USE_AOV_aov_specular
+		output varying color aov_specular = 0;
+#endif
+#ifdef USE_AOV_aov_reflection
+		output varying color aov_reflection = 0;
+#endif
+#ifdef USE_AOV_aov_rt_reflection
+		output varying color aov_rt_reflection = 0;
+#endif
+#ifdef USE_AOV_aov_rt_reflection_alpha
+		output varying float aov_rt_reflection_alpha = 0;
+#endif
+#ifdef USE_AOV_aov_env_reflection
+		output varying color aov_env_reflection = 0;
+#endif
+#ifdef USE_AOV_aov_refraction
+		output varying color aov_refraction = 0;
+#endif
+#ifdef USE_AOV_aov_shadow
+		output varying float aov_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_incandescence
+		output varying color aov_incandescence = 0;
+#endif
+#ifdef USE_AOV_aov_translucence
+		output varying color aov_translucence = 0;
+#endif
+#ifdef USE_AOV_aov_ambient_no_shadow
+		output varying color aov_ambient_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse_no_shadow
+		output varying color aov_diffuse_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse_intensity
+		output varying color aov_diffuse_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_diffuse_intensity_no_shadow
+		output varying color aov_diffuse_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_diffuse_intensity
+		output varying color aov_key_lights_diffuse_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_diffuse_intensity_no_shadow
+		output varying color aov_key_lights_diffuse_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_luminance_depth
+		output varying color aov_luminance_depth = 0;
+#endif
+#ifdef USE_AOV_aov_specular_no_shadow
+		output varying color aov_specular_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_specular_intensity
+		output varying color aov_specular_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_specular_intensity_no_shadow
+		output varying color aov_specular_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_specular_intensity
+		output varying color aov_key_lights_specular_intensity = 0;
+#endif
+#ifdef USE_AOV_aov_key_lights_specular_intensity_no_shadow
+		output varying color aov_key_lights_specular_intensity_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_color_no_shadow
+		output varying color aov_color_no_shadow = 0;
+#endif
+#ifdef USE_AOV_aov_surface_color
+		output varying color aov_surface_color = 0;
+#endif
+#ifdef USE_AOV_aov_camera_space_normal
+		output varying normal aov_camera_space_normal = 0;
+#endif
+#ifdef USE_AOV_aov_facing_ratio
+		output varying float aov_facing_ratio = 0;
+#endif
+
+)
+{
+
+
+
+// define some extern variables which are used in 3delight shaders -----------------------------
+ color __transparency = color (1,1,1);
+ uniform float __reflects = 0;
+ uniform float __refracts = 0;
+
+
+
+// define the shaders --------------------------------------------------------------------------
+#include "place2dTexture.h"
+//shader name: place2dTexture1
+void place2dTexture1 (
+ output float coverage[];
+ output float mirrorU;
+ output float mirrorV;
+ output float noiseUV[];
+ output float offset[];
+ output float repeatUV[];
+ output float rotateFrame;
+ output float rotateUV;
+ output float stagger;
+ output float translateFrame[];
+ output float wrapU;
+ output float wrapV;
+ output float outUV[];
+)
+{
+ extern float s, t;
+ float uvCoord[2];
+ uvCoord[0] = s;
+ uvCoord[1] = 1 - t;
+ coverage[0] = float 1;  coverage[1] = float 1; ;
+ mirrorU = float 0;
+ mirrorV = float 0;
+ noiseUV[0] = float 0;  noiseUV[1] = float 0; ;
+ offset[0] = float 0;  offset[1] = float 0; ;
+ repeatUV[0] = float 1;  repeatUV[1] = float 1; ;
+ rotateFrame = float 0;
+ rotateUV = float 0;
+ stagger = float 0;
+ translateFrame[0] = float 0;  translateFrame[1] = float 0; ;
+ wrapU = float 1;
+ wrapV = float 1;
+ outUV[0] = float 0;  outUV[1] = float 0; ;
+ {
+ uniform float i_coverageU=1;
+ uniform float i_coverageV=1;
+ uniform float i_mirrorU=0;
+ uniform float i_mirrorV=0;
+ uniform float i_noiseU=0;
+ uniform float i_noiseV=0;
+ uniform float i_repeatU=1;
+ uniform float i_repeatV=1;
+ uniform float i_rotateFrame=0;
+ uniform float i_rotateUV=0;
+ uniform float i_stagger=0;
+ uniform float i_translateFrameU=0;
+ uniform float i_translateFrameV=0;
+ uniform float i_wrapU=1;
+ uniform float i_wrapV=1;
+   maya_place2dTexture(uvCoord,			
+	i_coverageU,       
+	i_coverageV,		
+	i_mirrorU,			
+	i_mirrorV,			
+	i_noiseU,			
+	i_noiseV,			
+	0,			
+	0,			
+	i_repeatU,			
+	i_repeatV,			
+	i_rotateFrame,		
+	i_rotateUV,		
+	i_stagger,			
+	i_translateFrameU,	
+	i_translateFrameV,	
+	i_wrapU,			
+	i_wrapV,			
+	outUV   
+   );
+ }
+ coverage[0]=1;
+ coverage[1]=1;
+ mirrorU=0;
+ mirrorV=0;
+ noiseUV[0]=0;
+ noiseUV[1]=0;
+ offset[0]=0;
+ offset[1]=0;
+ repeatUV[0]=1;
+ repeatUV[1]=1;
+ rotateFrame=0;
+ rotateUV=0;
+ stagger=0;
+ translateFrame[0]=0;
+ translateFrame[1]=0;
+ wrapU=1;
+ wrapV=1;
+}
+
+#include "file.h"
+//shader name: file1
+void file1 (
+ float uvCoord[];
+ output color outColor;
+ output color outTransparency;
+)
+{
+  float alphaGain = float 1;
+ uniform float alphaIsLuminance = float 0;
+  float alphaOffset = float 0;
+  color colorGain = color (1,1,1);
+  color colorOffset = color (0,0,0);
+  color defaultColor = color (0.5,0.5,0.5);
+ uniform float filterType = float 3;
+ uniform float filter = float 1;
+  float filterOffset = float 0;
+ uniform float frameExtension = float 3;
+ uniform float frameOffset = float 0;
+ uniform float invert = float 0;
+ uniform float useFrameExtension = float 1;
+//file1.uvCoord <-- place2dTexture1.outUV
+ uniform float fileHasAlpha = float 0;
+  float outAlpha = float 1;
+ outColor = color (0,0,0);
+ outTransparency = color (0,0,0);
+   maya_file(alphaGain,         
+	alphaIsLuminance,  
+	alphaOffset,       
+	colorGain,         
+	colorOffset,       
+	defaultColor,      
+	"E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0003.tif.tif",   
+	filterType,        
+	filter,            
+	filterOffset,      
+	frameExtension,	
+	frameOffset,		
+	invert,            
+	useFrameExtension,	
+	uvCoord,           
+	outAlpha,          
+	outColor,          
+	outTransparency    
+  );
+}
+
+#include "lambert.h"
+//shader name: lambert4
+void lambert4 (
+ color i_color;
+ color transparency;
+)
+{
+  color ambientColor = color (0,0,0);
+//lambert4.color <-- file1.outColor
+  float diffuse = float 1;
+  color incandescence = color (0,0,0);
+  float matteOpacityMode = float 2;
+  float matteOpacity = float 1;
+ uniform float refractions = float 0;
+  float refractiveIndex = float 1;
+ uniform float refractionLimit = float 6;
+  float lightAbsorbance = float 0;
+  float shadowAttenuation = float 0.5;
+ normal normalCamera = N;
+//lambert4.transparency <-- file1.outTransparency
+  float translucence = float 0;
+  float translucenceDepth = float 0.5;
+  float translucenceFocus = float 0.5;
+  color outColor = color (0,0,0);
+  color outTransparency = color (0,0,0);
+   maya_lambert(						
+	ambientColor,				
+	i_color,					
+	diffuse,					
+	incandescence,				
+	matteOpacityMode,			
+	matteOpacity,				
+	refractions,				
+	refractiveIndex,			
+	refractionLimit,			
+	lightAbsorbance,			
+	shadowAttenuation,			
+	normalCamera,				
+	transparency,				
+	translucence,				
+	translucenceDepth,			
+	translucenceFocus,			
+	outColor,					
+	outTransparency			
+   );
+    Oi = Os * ( 1.0 - outTransparency );
+    Ci = Cs * Oi * outColor;
+}
+
+
+
+
+// call the shaders ----------------------------------------------------------------------------
+ float place2dTexture1_coverage[2];
+ float place2dTexture1_mirrorU;
+ float place2dTexture1_mirrorV;
+ float place2dTexture1_noiseUV[2];
+ float place2dTexture1_offset[2];
+ float place2dTexture1_repeatUV[2];
+ float place2dTexture1_rotateFrame;
+ float place2dTexture1_rotateUV;
+ float place2dTexture1_stagger;
+ float place2dTexture1_translateFrame[2];
+ float place2dTexture1_wrapU;
+ float place2dTexture1_wrapV;
+ float place2dTexture1_outUV[2];
+ color file1_outColor;
+ color file1_outTransparency;
+
+ //place2dTexture1
+ place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
+//input: 
+//output:place2dTexture1_coverage,place2dTexture1_mirrorU,place2dTexture1_mirrorV,place2dTexture1_noiseUV,place2dTexture1_offset,place2dTexture1_repeatUV,place2dTexture1_rotateFrame,place2dTexture1_rotateUV,place2dTexture1_stagger,place2dTexture1_translateFrame,place2dTexture1_wrapU,place2dTexture1_wrapV,place2dTexture1_outUV,
+
+ //file1
+ file1(place2dTexture1_outUV, file1_outColor, file1_outTransparency);
+//input: place2dTexture1_outUV,
+//output:file1_outColor,file1_outTransparency,
+
+ //lambert4
+ lambert4(file1_outColor, file1_outTransparency);
+//input: file1_outColor,file1_outTransparency,
+//output:
+
+}
