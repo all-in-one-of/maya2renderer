@@ -152,6 +152,7 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - (done)limitation:
   - (done)If a plug of liquidShader is input AND output,
   - (done)If colorR instead of color in connected.
+- pfxhair 的material如何做
 
 prman
 ------------
@@ -266,6 +267,8 @@ elvishray
 - stereoCamera
 - volume shader, image shader, geometry shader, caustic shader
 - animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
+- pfxhair shader
+
 
 appleseed
 -------------

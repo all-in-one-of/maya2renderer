@@ -311,9 +311,11 @@ namespace elvishray
 			}
 			if( shadingGroupNodes.length()==0 )
 			{
+				liquidMessage2(messageError, "%s's shading group is empty, so I use \"phong_mtl_for_test\" to avoid crash", ribNode__->name.asChar());
 				_s( "//shadingGroupNodes is empty, use \"phong_mtl_for_test\" to avoid crash" );
 				_S( ei_mtl("phong_mtl_for_test") );
 			} else if( shadingGroupNodes[0].length()==0 ){
+				liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"phong_mtl_for_test\" to avoid crash", ribNode__->name.asChar());
 				_s( "//shadingGroupNodes[0] is empty, use \"phong_mtl_for_test\" to avoid crash" );
 				_S( ei_mtl("phong_mtl_for_test") );
 			} else {
