@@ -19,16 +19,14 @@
 SURFACE(maya_bump2d)
 
 	DECLARE;
-	// Inputs
-	DECLARE_SCALAR(bumpValue,			0.0f);
+	DECLARE_SCALAR(bumpValue,			0.0f);	// Inputs - begin
 	DECLARE_SCALAR(bumpDepth,			1.0f);
 	DECLARE_INDEX(bumpInterp,			0);
 	DECLARE_SCALAR(bumpFilter,			1.0f);
 	DECLARE_SCALAR(bumpFilterOffset,	0.0f);
 	DECLARE_NORMAL(normalCamera,		0.0f, 0.0f, 1.0f);
 	DECLARE_NORMAL(bumpNormal,			-1.0f, -1.0f, -1.0f);
-	// Outputs		
-	DECLARE_NORMAL(outNormal,			0.0f, 0.0f, 1.0f);
+	DECLARE_NORMAL(outNormal,			0.0f, 0.0f, 1.0f);	// Outputs		
 	END_DECLARE;
 
 	static void init()
@@ -60,10 +58,10 @@ SURFACE(maya_bump2d)
 		eiScalar Du_offset, Dv_offset;
 		eiScalar DbumpValue_du, DbumpValue_dv;
 		eiScalar DbumpDepth_du, DbumpDepth_dv;		
-		Du(bumpValue, DbumpValue_du);
-		Dv(bumpValue, DbumpValue_dv);
-		Du(bumpDepth, DbumpDepth_du);
-		Dv(bumpDepth, DbumpDepth_dv);
+		DbumpValue_du = Du(bumpValue);
+		DbumpValue_dv = Dv(bumpValue);
+		DbumpDepth_du = Du(bumpDepth);
+		DbumpDepth_dv = Dv(bumpDepth);
 		Du_offset = D_clamp(bumpValue(), LOW,HEIGHT) * DbumpValue_du      * abs(bumpDepth()) 
 			        + clamp(bumpValue(), LOW,HEIGHT) * D_abs(bumpDepth()) * DbumpDepth_du;
 		Dv_offset = D_clamp(bumpValue(), LOW,HEIGHT) * DbumpValue_dv      * abs(bumpDepth()) 
@@ -77,17 +75,16 @@ SURFACE(maya_bump2d)
 		be slightly broken since an enlarged sphere will have the same bump as
 		a sphere with its control points moved outwards by a scale, somehow.
 		*/
-		matrix toLocal = to_object();
-		eiScalar uscale = 1.0f / len(&(dPdu() * toLocal)) * 6.0f;
-		eiScalar vscale = 1.0f / len(&(dPdv() * toLocal)) * 6.0f;
+		eiScalar uscale = 1.0f / len( &(vto_object(dPdu)) ) * 6.0f;
+		eiScalar vscale = 1.0f / len( &(vto_object(dPdv)) ) * 6.0f;
 
 		vector gu = vector(1.0f, 0.0f, Du_offset * uscale);
 		vector gv = vector(0.0f, 1.0f, Dv_offset * vscale);
 		normal n = normal(gu ^ gv);
 
 		vector basisz = normalize(i_normalCamera);
-		vector basisx = normalize((basisz ^ dPdu()) ^ basisz);
-		vector basisy = normalize((basisz ^ dPdv()) ^ basisz);
+		vector basisx = normalize((basisz ^ dPdu) ^ basisz);
+		vector basisy = normalize((basisz ^ dPdv) ^ basisz);
 
 		o_outNormal = normal(
 			n.x * basisx + n.y * basisy + n.z * basisz);
@@ -145,8 +142,7 @@ SURFACE(maya_bump2d)
 			/* Object Space Normals. This needs some work. */
 			//outNormal() = ntransform( "object", "current", bumpNormal() - 0.5f );
 			//outNormal() = normalize(outNormal());
-			matrix toObject = to_object();
-			vector tmp = (bumpNormal() - normal(0.5f,0.5f,0.5f)) * toObject;
+			vector tmp = nto_object(bumpNormal() - normal(0.5f,0.5f,0.5f));
 			outNormal() = normalize(tmp);
 		}
 	}
