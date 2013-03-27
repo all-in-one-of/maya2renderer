@@ -588,7 +588,11 @@ if( liqglo.liquidRenderer.renderName == MString("3Delight") )
                                     false,
                                     0);
         constantwidthParameter.setDetailType( rConstant );
-		constantwidthParameter.setTokenFloat( 0, radius /30.48f * 2.0f );// 1 foot = 30.48 cm
+		if(liqglo.liquidRenderer.renderName == MString("PRMan") ){
+			constantwidthParameter.setTokenFloat( 0, radius /30.48f * 2.0f );// 1 foot = 30.48 cm
+		}else{
+			constantwidthParameter.setTokenFloat( 0, radius * 2.0f );
+		}
 
         tokenPointerArray.push_back( constantwidthParameter );
       }
