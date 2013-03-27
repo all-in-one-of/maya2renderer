@@ -3,7 +3,7 @@
 
 void
 test_displacement(
-	string texturename;
+	string texname;
 	float sstart , sscale;
 	float tstart , tscale;
 	float amp , amp2;
@@ -15,8 +15,8 @@ test_displacement(
 	float x;
 	color move;
 	if( texturename!="" ){
-		x = float texture( texturename[0], ss, tt, ss+EPS, tt, ss, tt+EPS, ss+EPS, tt+EPS );
-		move = color texture( texturename, ss, tt, ss+EPS, tt, ss, tt+EPS, ss+EPS, tt+EPS );
+		x = float texture( texname[0], ss, tt, ss+EPS, tt, ss, tt+EPS, ss+EPS, tt+EPS );
+		move = color texture( texname, ss, tt, ss+EPS, tt, ss, tt+EPS, ss+EPS, tt+EPS );
 	}else{
 		x = 1.0;
 		move = color(1, 1, 1);

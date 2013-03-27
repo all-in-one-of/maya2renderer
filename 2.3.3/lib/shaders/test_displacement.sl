@@ -3,14 +3,14 @@
 
 displacement 
 test_displacement(
-	string texturename = "";
+	string texname = "";
 	float sstart = 0, sscale = 1;
 	float tstart = 0, tscale = 1;
 	float amp = 1, amp2=1;
 )
 {
 	test_displacement(
-		texturename,
+		texname,
 		sstart , sscale,
 		tstart , tscale,
 		amp , amp2
