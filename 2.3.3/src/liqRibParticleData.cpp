@@ -314,7 +314,7 @@ liqRibParticleData::liqRibParticleData( MObject partobj )
   MDoubleArray radiusArray;
   MPlug radiusPPPlug( fnNode.findPlug( "radiusPP", &status ) );
   bool haveRadiusArray = false;
-  float radius = 1.0;
+  float radius = 0.5f;
 
   // check if there's a per-particle radius attribute
   if ( MS::kSuccess == status ) 
@@ -484,6 +484,13 @@ if( liqglo.liquidRenderer.renderName == MString("3Delight") )
       typeParameter.set( "type", rString );
       typeParameter.setTokenString( 0, "sphere" );
       tokenPointerArray.push_back( typeParameter );
+
+	  liqTokenPointer constantwidthParameter;
+	  constantwidthParameter.set( "constantwidth", rFloat, false, false, 0);
+	  constantwidthParameter.setDetailType( rConstant );
+	  constantwidthParameter.setTokenFloat( 0, radius * 2.0f );
+
+	  tokenPointerArray.push_back( constantwidthParameter );
 }else{
 	  // Write real spheres
       liqTokenPointer Pparameter;
@@ -513,8 +520,8 @@ if( liqglo.liquidRenderer.renderName == MString("3Delight") )
 
     }
 
-    case MPTMultiPoint:
-    case MPTPoints:
+	case MPTMultiPoint:
+	case MPTPoints:
     {
       liqTokenPointer Pparameter;
       Pparameter.set( "P", rPoint, true, false, m_numValidParticles*m_multiCount );
@@ -587,11 +594,18 @@ if( liqglo.liquidRenderer.renderName == MString("3Delight") )
                                     false,
                                     false,
                                     0);
-        constantwidthParameter.setDetailType( rConstant );
+		constantwidthParameter.setDetailType( rConstant );
+
 		if(liqglo.liquidRenderer.renderName == MString("PRMan") ){
 			constantwidthParameter.setTokenFloat( 0, radius /30.48f * 2.0f );// 1 foot = 30.48 cm
-		}else{
-			constantwidthParameter.setTokenFloat( 0, radius * 2.0f );
+		} else if(liqglo.liquidRenderer.renderName == MString("3Delight") ){
+			if( particleType == MPTPoints){
+				constantwidthParameter.setTokenFloat( 0, radius /42.0f );
+			} else{//MPTMultiPoint
+				constantwidthParameter.setTokenFloat( 0, radius /40.0f );
+			}
+		} else {
+			constantwidthParameter.setTokenFloat( 0, radius * 2.0f );//How to deal with other renderers? // [3/27/2013 yaoyansi]
 		}
 
         tokenPointerArray.push_back( constantwidthParameter );
