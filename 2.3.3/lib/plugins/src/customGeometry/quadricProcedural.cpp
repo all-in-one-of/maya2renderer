@@ -20,9 +20,13 @@ const char *token="use liquid rib";
 
 
 const char *token="use aqsis rib";
+#elif defined(USE_DELIGHT_RIB)
+#	pragma comment(lib, "3Delight.lib")
+const char *token="use delight rib";
 #else
 #	pragma comment(lib, "E:/dev/tools/pixar/renderman/13.5/lib/prman.lib")
 const char *token="use prman rib";
+
 #endif
 
 #ifdef USE_LIQUID_RIB
