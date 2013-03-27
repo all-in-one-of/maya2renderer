@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <math.h>
 
+#define __RI_CONST 
 #include <ri.h>
 #include <RslPlugin.h>
+
 
 
 #define PI 3.14159265

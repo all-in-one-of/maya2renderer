@@ -8,8 +8,10 @@
 #include <cstring>						
 #include <fstream>	
 
-#include <RifPlugin.h>
 #include <ri.h>
+//#include <RifPlugin.h>//prman
+#include <rif.h>//3delight
+
 
 #include <bruteNN.hpp>
 #include <dpoint.hpp>
