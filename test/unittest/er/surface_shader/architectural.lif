@@ -1,0 +1,127 @@
+surface "architectural";
+desc "Elvishray Architectural Shader\n";
+
+param "surface_color";
+name "surface_color";
+
+
+param "diffuse_color";
+name "diffuse_color";
+
+param "diffuse_weight";
+name "diffuse_weight";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+
+param "specular_color";
+name "specular_color";
+
+param "specular_weight";
+name "specular_weight";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+
+param "roughness";
+name "roughness";
+
+param "specular_mode";
+name "specular_mode";
+desc "";
+type "selector";
+range [ "Ward" 0 "StretchedPhong" 1 "Blinn" 2 "CookTorrance" 3 ];
+
+param "glossiness";
+name "glossiness";
+
+
+param "reflection_color";
+name "reflection_color";
+
+param "reflection_weight";
+name "reflection_weight";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+
+param "refraction_color";
+name "refraction_color";
+
+param "refraction_weight";
+name "refraction_weight";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+param "refraction_glossiness";
+name "refraction_glossiness";
+
+param "refraction_thickness";
+name "refraction_thickness";
+
+
+param "translucency_color";
+name "translucency_color";
+
+param "translucency_weight";
+name "translucency_weight";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+
+param "anisotropy";
+name "anisotropy";
+
+param "rotation";
+name "rotation";
+
+param "ior";
+name "ior";
+
+
+param "fresnel_by_ior";
+name "fresnel_by_ior";
+type "bool";
+
+param "fresnel_0_degree_refl";
+name "fresnel_0_degree_refl";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+param "fresnel_90_degree_refl";
+name "fresnel_90_degree_refl";
+desc "";
+type "slider";
+range [ 0 1 ];
+
+param "fresnel_curve";
+name "fresnel_curve";
+
+
+param "is_metal";
+name "is_metal";
+type "bool";
+
+param "diffuse_samples";
+name "diffuse_samples";
+
+param "reflection_samples";
+name "reflection_samples";
+
+param "refraction_samples";
+name "refraction_samples";
+
+param "cutoff_threshold";
+name "cutoff_threshold";
+
+#param "bump_shader";
+#name "bump_shader";
+
+#param "bump_factor";
+#name "bump_factor";
