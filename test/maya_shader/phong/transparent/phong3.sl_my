@@ -1,6 +1,6 @@
 #include <liquidAOVMacroDef.h>
-//surface shader name: phong2
-surface phong2
+//surface shader name: phong3
+surface phong3
 (
 #ifdef USE_AOV_aov_ambient
 		output varying color aov_ambient = 0;
@@ -98,12 +98,12 @@ surface phong2
 
 // define the shaders --------------------------------------------------------------------------
 #include "phong.h"
-//shader name: phong2
-void phong2 (
+//shader name: phong3
+void phong3 (
 )
 {
   color ambientColor = color (0,0,0);
-  color i_color = color (0.5,0.5,0.5);
+  color i_color = color (0.197,0.197,1);
   float cosinePower = float 20;
   float diffuse = float 0.8;
   color incandescence = color (0,0,0);
@@ -122,14 +122,14 @@ void phong2 (
   float translucence = float 0;
   float translucenceDepth = float 0.5;
   float translucenceFocus = float 0.5;
-  color transparency = color (0,0,0);
+  color transparency = color (0.577234,0.577234,0.577234);
  uniform float i_reflectionMaxDistance   =0;
  uniform float i_reflectionSamples       =0;
  uniform float i_reflectionBlur          =0;
  uniform float i_reflectionNoiseAmplitude=0;
  uniform float i_reflectionNoiseFrequency=0;
   color outColor = color (0,0,0);
-  color outTransparency = color (0,0,0);
+  color outTransparency = color (0.577234,0.577234,0.577234);
    maya_phong(						
 	ambientColor,				
 	i_color,					
@@ -169,8 +169,8 @@ void phong2 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //phong2
- phong2();
+ //phong3
+ phong3();
 //input: 
 //output:
 

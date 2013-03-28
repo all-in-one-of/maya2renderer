@@ -103,7 +103,7 @@ void phong2 (
 )
 {
   color ambientColor = color (0,0,0);
-  color i_color = color (0.5,0.5,0.5);
+  color i_color = color (0.09,1,0.09);
   float cosinePower = float 20;
   float diffuse = float 0.8;
   color incandescence = color (0,0,0);
@@ -122,14 +122,14 @@ void phong2 (
   float translucence = float 0;
   float translucenceDepth = float 0.5;
   float translucenceFocus = float 0.5;
-  color transparency = color (0.32232,0.32232,0.32232);
+  color transparency = color (0.398367,0.398367,0.398367);
  uniform float i_reflectionMaxDistance   =0;
  uniform float i_reflectionSamples       =0;
  uniform float i_reflectionBlur          =0;
  uniform float i_reflectionNoiseAmplitude=0;
  uniform float i_reflectionNoiseFrequency=0;
   color outColor = color (0,0,0);
-  color outTransparency = color (0.32232,0.32232,0.32232);
+  color outTransparency = color (0.398367,0.398367,0.398367);
    maya_phong(						
 	ambientColor,				
 	i_color,					
