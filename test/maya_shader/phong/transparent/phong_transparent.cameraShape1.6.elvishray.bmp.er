@@ -44,7 +44,7 @@ ei_output_variable("color",11);
 ei_end_output();
 // AOVs;
 ei_focal(35);
-ei_aperture(46.8);
+ei_aperture(36);
 ei_aspect(1.33333);
 ei_resolution(200,150);
 ei_clip(0.1,10000);
