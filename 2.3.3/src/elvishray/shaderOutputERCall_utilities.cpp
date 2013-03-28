@@ -27,12 +27,12 @@ void Visitor::visitBump2d(const char* node)
 	o.beginRSL("maya_bump2d", node);
 
 	//input
-	o.addRSLVariable("scalar",  "bumpValue",		"bumpValue",	node);
-	o.addRSLVariable("scalar",  "bumpDepth",		"bumpDepth",	node);
+	o.addRSLVariable("float",	"bumpValue",		"bumpValue",	node);
+	o.addRSLVariable("float",	"bumpDepth",		"bumpDepth",	node);
 	o.addRSLVariable("index",	"bumpInterp",		"bumpInterp",	node);
-	o.addRSLVariable("scalar",  "bumpFilter",		"bumpFilter",	node);
-	o.addRSLVariable("scalar",  "bumpFilterOffset",	"bumpFilterOffset",	node);
-	o.addRSLVariable("normal",  "normalCamera",		"normalCamera",	node);
+	o.addRSLVariable("float",	"bumpFilter",		"bumpFilter",	node);
+	o.addRSLVariable("float",	"bumpFilterOffset",	"bumpFilterOffset",	node);
+	o.addRSLVariable("normal",	"normalCamera",		"normalCamera",	node);
 	if(doesPlugExist(node, "bumpNormal")){
 		o.addRSLVariable("normal",  "bumpNormal",	"bumpNormal",	node);
 	}

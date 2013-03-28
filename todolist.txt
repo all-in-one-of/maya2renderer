@@ -153,6 +153,7 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
   - (done)If a plug of liquidShader is input AND output,
   - (done)If colorR instead of color in connected.
 - pfxhair 的material如何做
+- 重构：tRibCameraMgr::gatherDataForJob（）有返回值。相机选择不正确时（相机不存在），退出
 
 prman
 ------------
@@ -268,7 +269,7 @@ elvishray
 - volume shader, image shader, geometry shader, caustic shader
 - animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
 - pfxhair shader
-
+- 新加的camera和maya渲染效果不符，见phong.ma
 
 appleseed
 -------------
