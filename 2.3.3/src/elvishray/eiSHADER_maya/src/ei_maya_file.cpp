@@ -115,6 +115,14 @@ SURFACE(maya_file)
 				}
 				
 			}
+			colorBalance(outColor(), 
+				outAlpha(),
+				alphaIsLuminance(),
+				alphaGain(),
+				alphaOffset(),
+				colorGain(),
+				colorOffset(),
+				invert());
 		}
 		else
 		{
