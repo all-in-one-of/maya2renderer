@@ -189,7 +189,9 @@
     <ClCompile Include="..\r274\samples\shaders\ei_architectural.cpp" />
     <ClCompile Include="..\r274\samples\shaders\ei_bump.cpp" />
     <ClCompile Include="..\r274\samples\shaders\ei_checker.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_cylinderlight.cpp" />
     <ClCompile Include="..\r274\samples\shaders\ei_directlight.cpp" />
+    <ClCompile Include="..\r274\samples\shaders\ei_disclight.cpp" />
     <ClCompile Include="..\r274\samples\shaders\ei_dof.cpp" />
     <ClCompile Include="..\r274\samples\shaders\ei_env.cpp" />
     <ClCompile Include="..\r274\samples\shaders\ei_face_plastic.cpp" />
