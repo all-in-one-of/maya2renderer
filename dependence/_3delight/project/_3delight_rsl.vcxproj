@@ -198,7 +198,6 @@
     <ClInclude Include="..\samplerInfo.h" />
     <ClInclude Include="..\setRange.h" />
     <ClInclude Include="..\shadingMap.h" />
-    <ClInclude Include="..\shading_utils-old.h" />
     <ClInclude Include="..\shading_utils.h" />
     <ClInclude Include="..\singleShadingSwitch.h" />
     <ClInclude Include="..\smear.h" />
