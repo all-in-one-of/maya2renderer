@@ -32,7 +32,7 @@ SURFACE(maya_phong_architectural)
 	DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
 	DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
 	DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f); 
-	DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 1.0f); //bump
+	DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 0.0f); //bump
 	DECLARE_SCALAR(	diffuse,					0.8f);
 	DECLARE_SCALAR(	translucence,				0.0f); 
 	DECLARE_SCALAR(	translucenceDepth,			0.5f); 
@@ -210,9 +210,15 @@ SURFACE(maya_phong_architectural)
 		scalar cutoff_threshold = LIQ_SCALAR_ALMOST_ZERO;
 		eiTag bump_shader = eiNULL_TAG;
 		scalar bump_factor= 0.3f;
+
+		if( less_than( &normalCamera(), LIQ_SCALAR_ALMOST_ZERO ) )
+		{
+			//normalCamera is not linked in, so 'N' should be used
+			normalCamera() = N;
+		}
 		//-----------------------------------------
 		vector In = normalize( I );
-		normal Nn = normalize( N );
+		normal Nn = normalize( normalCamera() );
 		normal Nf = ShadingNormal(Nn);
 		vector V = -In;
 		//-----------------------------------------
