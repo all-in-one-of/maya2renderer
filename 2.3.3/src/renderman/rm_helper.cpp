@@ -85,6 +85,8 @@ namespace renderman
 	{
 		CM_TRACE_FUNC("exportJobCamera("<<job.name.asChar()<<","<<",)");
 
+		RiArchiveRecord( RI_COMMENT, "camera: %s", camera[0].name.asChar() );
+
 		if ( camera[0].isOrtho )
 		{
 			liqFloat frameWidth, frameHeight;
