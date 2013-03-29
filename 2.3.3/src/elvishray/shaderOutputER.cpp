@@ -77,6 +77,13 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
 			file<<"ei_shader_param_string(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
+		}else if(rslType=="shader"){
+			MStringArray srcNode;
+			//we only care about the input of this plug
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+plug+"\"", srcNode));
+			assert(srcNode.length()==1);
+			rslShaderBody +="\""+srcNode[0]+"\"";
+			file<<"ei_shader_param_token(\""<<rslName.asChar()<<"\", ei_token(\""<<srcNode[0].asChar()<<"\") );"<<endl;
 		}else if(rslType=="texture"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
@@ -168,6 +175,13 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				rslShaderBody +="\""+val+"\"";
 				file<<"ei_shader_param_string(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
+			}else if(rslType=="shader"){
+				MStringArray srcNode;
+				//we only care about the input of this plug
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+plug+"\"", srcNode));
+				assert(srcNode.length()==1);
+				rslShaderBody +="\""+srcNode[0]+"\"";
+				file<<"ei_shader_param_token(\""<<rslName.asChar()<<"\", ei_token(\""<<srcNode[0].asChar()<<"\") );"<<endl;
 			}else if(rslType=="texture"){
 				MString val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));

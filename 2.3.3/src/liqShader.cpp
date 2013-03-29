@@ -287,8 +287,11 @@ liqShader::liqShader( MObject shaderObj )
 					{
 						case SHADER_TYPE_SHADER:
 						{
-							liquidMessage2(messageError,"[liqShader] warning cannot write output shader parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
-							continue;
+							ParameterType parameterType = rShader;
+							MString s = shaderInfo.getArgStringDefault( i, 0 );
+							tokenPointerArray.rbegin()->set( paramName.asChar(), parameterType );
+							tokenPointerArray.rbegin()->setTokenString( 0, s.asChar() );
+							break;
 						}
 						case SHADER_TYPE_STRING:
 						{
@@ -375,6 +378,7 @@ liqShader::liqShader( MObject shaderObj )
 			{
 				case SHADER_TYPE_SHADER:
 				{
+					liquidMessage2(messageError,"[liqShader] rShader is replace by rString to avoid the bug, need to be fixed.");
 					ParameterType parameterType = rString;  // rShader
 					MPlug coShaderPlug = shaderNode.findPlug( paramName, &status );
 					if ( MS::kSuccess != status )
@@ -429,7 +433,13 @@ liqShader::liqShader( MObject shaderObj )
 												
 											MObject coshader = connectedPlugArray[0].node();
 											appendCoShader(coshader, connectedPlugArray[0]);
+#if 0
 											coShaderHandler = liqShaderFactory::instance().getShaderId(coshader);
+#else
+											MFnDependencyNode fnObject(coshader);
+											coShaderHandler = fnObject.name();
+											liquidMessage2(messageWarning, "I use shader name \"%s\" for coShaderHandler in plug \"%s\"", coShaderHandler.asChar(), coShaderPlug.name().asChar());
+#endif
 										}
 										else
 										{
@@ -461,7 +471,13 @@ liqShader::liqShader( MObject shaderObj )
 										
 									MObject coshader = connectedPlugArray[0].node();
 									appendCoShader(coshader, connectedPlugArray[0]);
+#if 0
 									coShaderHandler = liqShaderFactory::instance().getShaderId(coshader);
+#else
+									MFnDependencyNode fnObject(coshader);
+									coShaderHandler = fnObject.name();
+									liquidMessage2(messageWarning, "I use shader name \"%s\" for coShaderHandler in plug \"%s\"", coShaderHandler.asChar(), coShaderPlug.name().asChar());
+#endif
 								}
 								else
 								{
@@ -507,7 +523,13 @@ liqShader::liqShader( MObject shaderObj )
 								MPlug connectedPlug = connectionArray[0];
 								MObject coshader = connectedPlug.node();
 								appendCoShader(coshader, coShaderPlug);
+#if 0
 								MString coShaderId = liqShaderFactory::instance().getShaderId(coshader);
+#else
+								MFnDependencyNode fnObject(coshader);
+								MString coShaderId(fnObject.name());
+								liquidMessage2(messageWarning, "I use shader name \"%s\" for coShaderId in plug \"%s\"", coShaderId.asChar(), coShaderPlug.name().asChar());
+#endif
 								if( coShaderId == "" )
 								{
 									skipToken = true;
@@ -1460,10 +1482,16 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 		if( depNodeId==liqSurfaceNodeId || 
 		  depNodeId==liqDisplacementNodeId || 
 		  depNodeId==liqVolumeNodeId || 
-		  depNodeId==liqCoShaderNodeId )
+		  depNodeId==liqCoShaderNodeId ||
+		  depNodeId==liqShaderNodeId 
+		  )
 		{
 			isLiquidShader = 1;
+		}else{
+			liquidMessage2(messageError,"\"%s\"'s coshader is not a liquid shader", getName().c_str() );
 		}
+	}else{
+		liquidMessage2(messageError,"\"%s\"'s coshader is not a MFn::kPluginDependNode", getName().c_str() );
 	}
 	if( isLiquidShader )
 	{

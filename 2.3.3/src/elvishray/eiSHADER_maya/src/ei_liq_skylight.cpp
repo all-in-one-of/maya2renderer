@@ -96,10 +96,11 @@ LIGHT(liq_skylight)
 		Globals *g = new Globals;
 		glob = (void *)g;
 
-		const eiTag shader = ei_find_node( "liquidShader2"/*env_shader().str*/ ) ;
+		const eiTag shader = ei_find_node( env_shader().str ) ;
 		if (shader == eiNULL_TAG)
 		{
-			assert(0 && "liq_skylight's env_shader node is not found");
+			printf("ERROR> liq_skylight, env_shader().str=\"%s\", it can't be found\n", env_shader().str);
+			assert(0 && "liq_skylight's env_shader() node is not found");
 			return;
 		}
 

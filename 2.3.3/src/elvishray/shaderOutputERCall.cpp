@@ -80,6 +80,15 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			{
 				ei_shader_param_token( rslName.asChar(), val.asChar());
 			}
+		}else if(rslType=="shader"){
+			MStringArray srcNode;
+			//we only care about the input of this plug
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+plug+"\"", srcNode));
+			assert(srcNode.length()==1);
+			rslShaderBody +="\""+srcNode[0]+"\"";
+			{
+				ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
+			}
 		}else if(rslType=="texture"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
@@ -186,6 +195,15 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				rslShaderBody +="\""+val+"\"";
 				{
 					ei_shader_param_token( rslName.asChar(), val.asChar());
+				}
+			}else if(rslType=="shader"){
+				MStringArray srcNode;
+				//we only care about the input of this plug
+				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+plug+"\"", srcNode));
+				assert(srcNode.length()==1);
+				rslShaderBody +="\""+srcNode[0]+"\"";
+				{
+					ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
 				}
 			}else if(rslType=="texture"){
 				MString val;

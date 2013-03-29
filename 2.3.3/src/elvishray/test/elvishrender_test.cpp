@@ -63,9 +63,9 @@ void test_liquid2er()
 	//ei_shader_link_test(false, "suffix");
 	//ei_checker_uv();
 	//er_shader_transparent_test();
-//#include "E:/MyDocuments/maya/projects/default/rib/test_pl_type_liquidShader.perspShape.1.elvishray.bmp.er"
+#include "R:/MyDocuments/maya/projects/default/rib/liquidshader_liq_skylight.cameraShape1.1.elvishray.bmp.er"
 
-	ei_context_unittest();
+	//ei_context_unittest();
 	//ei_displace_unittest();
 	//ei_volume_unittest();
 	//ei_dof_unittest();

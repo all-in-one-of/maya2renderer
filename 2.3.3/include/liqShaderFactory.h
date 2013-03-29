@@ -55,7 +55,7 @@ public:
 
 	liqShader &getShader(MObject shaderObj);
 	liqShader &getShader(const char* shaderNodeName);
-	MString getShaderId( MObject shaderObj );
+//	MString getShaderId( MObject shaderObj );
 
 	MString getUniqueShaderHandler();
 

@@ -95,8 +95,8 @@ namespace elvishray
 			case rString: case rShader:
 				{
 					const std::string &v = vp->getTokenString();
-					_s("ei_shader_param_token(\""<<vp->getTokenName()<<"\"," <<v<<");");
-					ei_shader_param_token( vp->getTokenName().c_str(), v.c_str() );
+					_s("ei_shader_param_token(\""<<vp->getTokenName()<<"\", ei_token(\""<<v.c_str()<<"\") );");
+					ei_shader_param_token( vp->getTokenName().c_str(), ei_token(v.c_str()) );
 				}
 				break; 
 			case rHpoint:
@@ -235,7 +235,7 @@ namespace elvishray
 			}
 			else
 			{
-				assert(0&&"er has not coShader.");
+				coShader.write();
 				//coShader.writeAsCoShader(/*shortShaderNames, indentLevel*/);
 			}
 		}

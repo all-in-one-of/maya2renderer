@@ -397,9 +397,14 @@ void Visitor::visit_liquidShader(const char* node)
 				paramType = "color";
 			}
 			break;
-		case rString: case rShader:
+		case rString:
 			{
 				paramType = "string";
+			}
+			break; 		
+		case rShader:
+			{
+				paramType = "shader";
 			}
 			break; 
 		case rHpoint:

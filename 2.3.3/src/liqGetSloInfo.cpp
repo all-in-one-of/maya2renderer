@@ -791,9 +791,27 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 			break;
         }
 
-		case SHADER_TYPE_SHADER:{
-			liquidMessage2(messageError,"[liqGetloInfo] type %s is not supported.", shaderTypes[k].asChar() );
-			argDefault.push_back( NULL );
+		case SHADER_TYPE_SHADER:
+		{
+			int len = shaderArraySizes[k];
+			if ( shaderArraySizes[k] > 0 ) 
+			{
+				liquidMessage2(messageError, "SHADER_TYPE_SHADER for array is not implemented yet.");
+// 				// replace ';'by ':' before split shaderDefaults[k]
+// 				shaderDefaults[k] = replaceAll(shaderDefaults[k], ';', ':');
+// 				MStringArray tmp;
+// 				shaderDefaults[k].split( ':', tmp );
+// 				//assert(tmp.length()==shaderArraySizes[k]);
+// 				MString *strings = ( MString *)lmalloc( sizeof( MString ) * shaderArraySizes[k] );
+// 				for (int kk = 0; kk < shaderArraySizes[k]; kk ++ ) {
+// 					strings[kk] = tmp[kk];
+// 				}
+// 				argDefault.push_back( ( void * )strings );
+			} else {
+				char *strings = ( char * )lmalloc( sizeof( char ) * strlen( shaderDefaults[k].asChar() ) + 1 );
+				strcpy( strings, shaderDefaults[k].asChar() );
+				argDefault.push_back( ( void * )strings );
+			}
 			break;
 		}
         default: {
@@ -933,7 +951,23 @@ MStatus liqGetSloInfo::doIt( const MArgList& args )
             }
             break;
           }
+		  case SHADER_TYPE_SHADER: 
+			  {
+				  if ( getArgArraySize( argNum ) > 0 ) {
+					  for ( int kk = 0; kk < getArgArraySize( argNum ); kk++ ) {
+						  char defaultTmp[256];
+						  sprintf( defaultTmp, "%s", getArgStringDefault( argNum, kk ) );
+						  defaults.append( defaultTmp );
+					  }
+				  } else {
+					  char defaultTmp[256];
+					  sprintf( defaultTmp, "%s", getArgStringDefault( argNum, 0 ) );
+					  defaults.append( defaultTmp );
+				  }
+				  break;
+			  }
           default: {
+			  liquidMessage2(messageError,"[liqGetsloInfo] type \"%s\" is not supported.", getArgType( argNum ) );
             defaults.append( MString( "unknown" ) );
             break;
           }

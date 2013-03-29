@@ -103,14 +103,14 @@ liqShader &liqShaderFactory::getShader( MObject shaderObj )
 	return *(m_shaders.back());
 }
 
-
-MString liqShaderFactory::getShaderId( MObject shaderObj )
-{
-	CM_TRACE_FUNC("liqShaderFactory::getShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
-
-	liqShader &shader = liqShaderFactory::getShader( shaderObj );
-	return shader.shaderHandler;
-}
+// 
+// MString liqShaderFactory::getShaderId( MObject shaderObj )
+// {
+// 	CM_TRACE_FUNC("liqShaderFactory::getShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
+// 
+// 	liqShader &shader = liqShaderFactory::getShader( shaderObj );
+// 	return shader.shaderHandler;
+// }
 
 
 MString liqShaderFactory::getUniqueShaderHandler()
