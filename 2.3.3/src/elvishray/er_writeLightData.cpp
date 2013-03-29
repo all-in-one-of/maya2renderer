@@ -418,9 +418,12 @@ namespace elvishray
 		}
 		else if( MFnVolumeLight::kCylinderVolume == shape )
 		{
-			_s("\n// volume light for cylinder shape is not implemented yet. "<<lightdata->getName());
-			assert(0&&"volume light for cylinder shape is not implemented yet.");
-			return (liqLightHandle)(-1);
+			_S( ei_shader( "cylinderlight", sShaderInstanceName.c_str() ) ); 
+			_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
+			_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
+			_S( ei_shader_param_scalar("radius", t[0][0] ) );//use scale.x for the radius
+			_S( ei_shader_param_scalar("height", t[1][1] ) );//use scale.y for the height
+			_S( ei_end_shader() );
 		}
 		else if( MFnVolumeLight::kConeVolume == shape )
 		{
