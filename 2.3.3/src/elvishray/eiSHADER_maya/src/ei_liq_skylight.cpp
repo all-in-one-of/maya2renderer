@@ -19,11 +19,12 @@
 #include <eiAPI/ei_shaderx.h>
 #include <eiCORE/ei_timer.h>
 #include <algorithm> // upper_bound
+#include <cassert>
 
 LIGHT(liq_skylight)
 
 	DECLARE;
-	DECLARE_TAG(env_shader, eiNULL_TAG);
+	DECLARE_TOKEN(env_shader, NULL);
 	DECLARE_INT(resolution, 1000);
 	DECLARE_SCALAR(max_dist, 10000.0f);
 	END_DECLARE;
@@ -95,9 +96,10 @@ LIGHT(liq_skylight)
 		Globals *g = new Globals;
 		glob = (void *)g;
 
-		const eiTag shader = env_shader();
+		const eiTag shader = ei_find_node( "liquidShader2"/*env_shader().str*/ ) ;
 		if (shader == eiNULL_TAG)
 		{
+			assert(0 && "liq_skylight's env_shader node is not found");
 			return;
 		}
 
