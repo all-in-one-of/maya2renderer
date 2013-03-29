@@ -287,7 +287,7 @@ liqShader::liqShader( MObject shaderObj )
 					{
 						case SHADER_TYPE_SHADER:
 						{
-							printf("[liqShader] warning cannot write output shader parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] warning cannot write output shader parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
 							continue;
 						}
 						case SHADER_TYPE_STRING:
@@ -353,19 +353,19 @@ liqShader::liqShader( MObject shaderObj )
 						}
 						case SHADER_TYPE_MATRIX:
 						{
-							printf("[liqShader] warning cannot write output matrix parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] warning cannot write output matrix parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
 							continue;
 						}
 						default:
 						{
-							printf("[liqShader] warning unhandled parameters type. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] warning unhandled parameters type. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
 							continue;
 						}
 					}//if( arraySize == -1 ){ switch ( shaderParameterType )
 				}//if( arraySize == -1 )
 				else
 				{
-					printf("[liqShader] warning cannot write output array parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
+					liquidMessage2(messageError,"[liqShader] warning cannot write output array parameters yet. skip param %s on %s\n", paramName.asChar(), shaderNode.name().asChar() );
 					continue;
 				}
 			}
@@ -380,7 +380,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						printf("[liqShader] error while building shader param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building shader param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -523,7 +523,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							printf("[liqShader] error while building shader param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building shader param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;				
@@ -534,7 +534,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						printf("[liqShader] error while building string param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building string param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -647,7 +647,7 @@ liqShader::liqShader( MObject shaderObj )
 							else  // build non default param
 							{
 								MString stringVal( parseString( stringPlugVal ) );
-								LIQDEBUGPRINTF("[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
+								liquidMessage2(messageError,"[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
 								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
 								tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
 							}
@@ -655,7 +655,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							printf("[liqShader] error while building string param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building string param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}//status == MS::kSuccess
 					break;
@@ -666,7 +666,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						printf("[liqShader] error while building float param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building float param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -771,7 +771,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							printf("[liqShader] error while building float param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building float param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;
@@ -782,7 +782,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						printf("[liqShader] error while building int param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building int param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -887,7 +887,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							printf("[liqShader] error while building int param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building int param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;
@@ -899,7 +899,7 @@ liqShader::liqShader( MObject shaderObj )
 						if ( MS::kSuccess != status )
 						{
 							skipToken = true;
-							printf("[liqShader] error while building bool param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] error while building bool param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 						}
 						else
 						{
@@ -1004,7 +1004,7 @@ liqShader::liqShader( MObject shaderObj )
 							else    // unknown type
 							{
 								skipToken = true;
-								printf("[liqShader] error while building bool param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+								liquidMessage2(messageError,"[liqShader] error while building bool param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 							}
 						}
 						break;
@@ -1038,7 +1038,7 @@ liqShader::liqShader( MObject shaderObj )
 					if( status != MS::kSuccess )
 					{
 						skipToken = true;
-						printf("[liqShader] error while building float[3] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building float[3] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -1154,7 +1154,7 @@ liqShader::liqShader( MObject shaderObj )
 					else    // unknown type//arraySize
 					{
 						skipToken = true;
-						printf("[liqShader] error while building float[3] param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						liquidMessage2(messageError,"[liqShader] error while building float[3] param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 					}
 					}//if( status
 					break;
@@ -1166,7 +1166,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						printf("[liqShader] error while building float[16] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building float[16] param %s on %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -1210,7 +1210,7 @@ liqShader::liqShader( MObject shaderObj )
 										if(status!=MS::kSuccess)
 										{
 											skipToken = true;
-											printf("[liqShader] error while initializing MFnMatrixData on param[?] %s on shader %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+											liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param[?] %s on shader %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 											continue;
 										}
 										else
@@ -1258,7 +1258,7 @@ liqShader::liqShader( MObject shaderObj )
 								if(status!=MS::kSuccess)
 								{
 									skipToken = true;
-									printf("[liqShader] error while initializing MFnMatrixData on param[] %s on shader %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+									liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param[] %s on shader %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 								}
 								else
 								{
@@ -1332,7 +1332,7 @@ liqShader::liqShader( MObject shaderObj )
 							if(status!=MS::kSuccess)
 							{
 								skipToken = true;
-								printf("[liqShader] error while initializing MFnMatrixData on param %s on shader %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
+								liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param %s on shader %s ...\n", paramName.asChar(), shaderNode.name().asChar() );
 							}
 							else
 							{
@@ -1389,7 +1389,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type//arraySize
 						{
 							skipToken = true;
-							printf("[liqShader] error while building float[16] param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building float[16] param %s on %s : undefined array size %d \n", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 				    }
 					break;
@@ -1430,9 +1430,7 @@ liqShader::liqShader( MObject shaderObj )
 				// skip parameter : parameter will not be written inside rib
 				if( outputAllParameters )
 				{
-					char tmp[512];
-					sprintf(tmp, "[liqShader] skipping shader parameter %s on %s (probably an empty dynamic array)\n", paramName.asChar(), shaderNode.name().asChar() );
-					liquidMessage( tmp, messageWarning );
+					liquidMessage2(messageError,"[liqShader] skipping shader parameter %s on %s (probably an empty dynamic array)\n", paramName.asChar(), shaderNode.name().asChar() );
 				}
 			}
 		}//for
