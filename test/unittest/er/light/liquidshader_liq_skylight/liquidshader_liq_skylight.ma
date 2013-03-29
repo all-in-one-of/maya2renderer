@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: liquidshader_liq_skylight.ma
-//Last modified: Fri, Mar 29, 2013 08:15:32 PM
+//Last modified: Sat, Mar 30, 2013 01:27:08 AM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -476,7 +476,7 @@ createNode liquidShader -n "liquidShader3";
 	setAttr ".rpr" -type "stringArray" 3 "env_shader" "resolution" "max_dist"  ;
 	setAttr ".rdt" -type "stringArray" 3 "uniform" "uniform" "uniform"  ;
 	setAttr ".rty" -type "stringArray" 3 "shader" "int" "float"  ;
-	setAttr ".rdf" -type "stringArray" 3 "null" "1000" "10000.0"  ;
+	setAttr ".rdf" -type "stringArray" 3 "" "1000" "10000.0"  ;
 	setAttr ".ras" -type "Int32Array" 3 -1 -1 -1 ;
 	setAttr ".rlc" -type "stringArray" 3 "liquidAE_LifParameter( \"env_shader\", \"-1\", \"shader\", \"shader\", \"env_shader\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"resolution\", \"-1\", \"int\", \"int\", \"resolution\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"max_dist\", \"-1\", \"float\", \"float\", \"max_dist\", {\"\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
