@@ -473,7 +473,7 @@ global proc liquidSlSetShader( string $shaderFile )
     global string $gLiquidSLifFile[];
 
     if ( $shaderFile == $gLiquidSlShaderFile ) {
-      //liqlog ("     - shader already parsed >> EXIT");
+      liqlog ("     - shader already parsed >> EXIT");
       liqPopIdent();
       return;
     }else {

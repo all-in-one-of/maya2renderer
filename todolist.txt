@@ -154,6 +154,8 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
   - (done)If colorR instead of color in connected.
 - pfxhair 的material如何做
 - 重构：tRibCameraMgr::gatherDataForJob（）有返回值。相机选择不正确时（相机不存在），退出
+- C++代码里替换printf， mel代码里替换print
+- liqShader UI里的shader type参数的UI有问题（点击链接到目的node时总是报错）
 
 prman
 ------------
@@ -269,7 +271,7 @@ elvishray
 - volume shader, image shader, geometry shader, caustic shader
 - animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
 - pfxhair shader
-- 新加的camera和maya渲染效果不符，见phong.ma
+- (done)新加的camera和maya渲染效果不符，见phong.ma,因为overscan
 
 appleseed
 -------------

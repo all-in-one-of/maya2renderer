@@ -950,8 +950,10 @@ global proc string liquidAE_LifString_browser( string $paramName, string $attr, 
 // Doesn't seem to ever be called ?
 global proc string liquidAE_LifString_shaderNodeDrop (string $sourceNode, string $destNode) 
 {
-	print ("Shader Node Drop! "+$sourceNode+", dest node"+$destNode+"\n");
-
+	liqPushIdent();
+	liqlog ("liquidAE_LifString_shaderNodeDrop("+$sourceNode+","+$destNode+")");
+	warning ("Shader Node Drop! "+$sourceNode+", dest node"+$destNode+", but do nothing\n");
+	liqPopIdent();
 	return "connect to node";
 	
 }
@@ -959,8 +961,10 @@ global proc string liquidAE_LifString_shaderNodeDrop (string $sourceNode, string
 // Doesn't seem to ever be called ?
 global proc string liquidAE_LifString_shaderAttrDrop (string $sourceNode, string $destAttr) 
 {
-	print ("Shader Attr Drop! "+$sourceNode+", dest attr"+$destAttr+"\n");
-
+	liqPushIdent();
+	liqlog ("liquidAE_LifString_shaderAttrDrop("+$sourceNode+","+$destAttr+")");
+	warning ("Shader Attr Drop! "+$sourceNode+", dest attr"+$destAttr+", but do nothing\n");
+	liqPopIdent();
 	return "connect to attr";
 	
 }
@@ -983,7 +987,9 @@ global proc string liquidAE_LifString_shaderCreateNew (string $plug)
 	liqlog ("liquidAE_LifString_shaderCreateNew("+$plug+")");
 
 	// print ("Shader Create New: "+$plug+"\n");
-	string $node = `shadingNode -asUtility liquidCoShader`;	
+	//string $node = `shadingNode -asUtility liquidCoShader`;	
+	string $node = `shadingNode -asUtility liquidShader`;	
+	warning("liquidAE_LifString_shaderCreateNew(), modified for maya2renderer. create liquidShader node instead of liquidCoShader node\n");
 	connectAttr ($node+".message") $plug;
 	
 	liqPopIdent();
@@ -1003,7 +1009,9 @@ global proc string liquidAE_LifString_shaderDefaultTraversal (string $plug)
 		liqPopIdent();
 		return "";
 	}
-	string $conn[]		= `listConnections -t liquidCoShader -s true -d false -p true $plug`;
+	//string $conn[]		= `listConnections -t liquidCoShader -s true -d false -p true $plug`;
+	string $conn[]		= `listConnections -s true -d false -p true $plug`;
+	warning ("liquidAE_LifString_shaderDefaultTraversal(), modified for maya2renderer. listConnection of all types instead of liquidCoShader\n");
 	if ( size($conn) ) {
 		string $sourcePlug	= $conn[0];
 		if ($sourcePlug != "") {
@@ -1062,7 +1070,7 @@ global proc string liquidAE_LifString_shader( string $paramName, string $attr, s
 		string $attrNavCtl	=	`attrNavigationControlGrp
 									-p $gLiquid_currentAEParent
 									-at $plug
-									-and $plug "liquidCoShader"	
+									-and $plug "liquidCoShader__but_it_should_be_liquidShader_in_maya2renderer"	
 									-cw 2 195 -cw 3 32						
 									-label $label -ann $description
 									-visible $visible -enable $enable
@@ -1075,7 +1083,7 @@ global proc string liquidAE_LifString_shader( string $paramName, string $attr, s
 	} else {
 		attrNavigationControlGrp	-e -label $label -ann $description
 									-at $plug
-									-and $plug "liquidCoShader"
+									-and $plug "liquidCoShader__but_it_should_be_liquidShader_in_maya2renderer"
 									-dtv ("liquidAE_LifString_shaderDefaultTraversal "+$plug)
 									-ce ("liquidAE_LifString_shaderConnectToExisting "+$plug)
 									-cn ("liquidAE_LifString_shaderCreateNew "+$plug)
