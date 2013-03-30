@@ -98,7 +98,7 @@ liqTokenPointer::liqTokenPointer( const liqTokenPointer &src )
 		set( src.m_tokenName, src.m_pType, src.m_arraySize );
 	m_dType = src.m_dType;
 
-	if( m_pType != rString ) {
+	if( m_pType != rString && m_pType != rShader ) {
 		//setTokenFloats( src.m_tokenFloats.get() );
 		m_tokenFloats = src.m_tokenFloats; // Superfast: just increase shared_array's reference counter. However, ownership is shared now! Test if this works everywhere accross Liquid.
 	} else {
@@ -119,7 +119,7 @@ liqTokenPointer & liqTokenPointer::operator=( const liqTokenPointer &src)
 	else
 		set( src.m_tokenName, src.m_pType, src.m_arraySize );
 	m_dType = src.m_dType;
-	if( m_pType != rString ) {
+	if( m_pType != rString && m_pType != rShader ) {
 		//setTokenFloats( src.m_tokenFloats.get() );
 		m_tokenFloats = src.m_tokenFloats; // Superfast: just increase shared_array's reference counter. However, ownership is shared now! Test if this works everywhere accross Liquid.
 	} else {
@@ -283,7 +283,7 @@ int liqTokenPointer::reserve( unsigned int size )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:reserve("<<size<<")");
 
-	if( m_pType != rString ) {
+	if( m_pType != rString && m_pType != rShader ) {
 
 		if( m_arraySize != size )
 		{
@@ -490,7 +490,7 @@ const string& liqTokenPointer::getDetailedTokenName()
 const liqPointer liqTokenPointer::getRtPointer()
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getRtPointer()");
-	if( m_pType == rString ) {
+	if( m_pType == rString || m_pType == rShader ) {
 		m_tokenStringArray = shared_array< liqString >( new liqString[ m_tokenString.size() ] );
 
 		for( unsigned i( 0 ); i < m_tokenString.size(); i++ ) {
@@ -507,7 +507,7 @@ const liqPointer liqTokenPointer::getRtPointer()
 const liqPointer liqTokenPointer::getIthRtPointer( unsigned int i )
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getIthRtPointer("<<i<<")");
-	if( m_pType == rString ) {
+	if( m_pType == rString || m_pType == rShader ) {
 		assert( m_arraySize > i );
 		m_tokenStringArray = shared_array< liqString >( new liqString[ 1 ] );
 		m_tokenStringArray[ 0 ] = const_cast< liqString >( m_tokenString[ i ].c_str() );

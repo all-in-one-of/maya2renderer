@@ -378,8 +378,7 @@ liqShader::liqShader( MObject shaderObj )
 			{
 				case SHADER_TYPE_SHADER:
 				{
-					liquidMessage2(messageError,"[liqShader] rShader is replace by rString to avoid the bug, need to be fixed.");
-					ParameterType parameterType = rString;  // rShader
+					ParameterType parameterType = rShader;  // rString
 					MPlug coShaderPlug = shaderNode.findPlug( paramName, &status );
 					if ( MS::kSuccess != status )
 					{
@@ -456,6 +455,9 @@ liqShader::liqShader( MObject shaderObj )
 						}//if( arraySize==0 )
 						else if ( arraySize > 0 )    // static array
 						{
+							bool isArrayAttr( coShaderPlug.isArray( &status ) );
+							if ( isArrayAttr )
+							{
 							std::vector<MString> coShaderHandlers;
 
 							for( unsigned int kk( 0 ); kk < (unsigned int)arraySize; kk++ )
@@ -507,6 +509,11 @@ liqShader::liqShader( MObject shaderObj )
 									tokenPointerArray.rbegin()->setTokenString( kk, coShaderHandlers[kk].asChar() );
 								}
 							}
+							}//if ( isArrayAttr )
+							else
+							{
+								liquidMessage2(messageError, "[liqShader] error while building coshader param %s assumed as an array but wasn't...\n", coShaderPlug.name().asChar() );
+							}
 						}//if ( arraySize > 0 )
 						else if ( arraySize == -1 )    // single value
 						{
@@ -517,6 +524,7 @@ liqShader::liqShader( MObject shaderObj )
 							if( connectionArray.length() == 0 )
 							{
 								skipToken = true;
+								liquidMessage2(messageWarning, "[liqShader] warning:  coshader param %s is not connected in.\n", coShaderPlug.name().asChar() );
 							}
 							else
 							{
@@ -533,6 +541,7 @@ liqShader::liqShader( MObject shaderObj )
 								if( coShaderId == "" )
 								{
 									skipToken = true;
+									liquidMessage2(messageWarning, "[liqShader] warning:  coshader param %s 's source is empty.\n", coShaderPlug.name().asChar() );
 								}
 								else
 								{
