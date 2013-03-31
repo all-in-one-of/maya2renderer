@@ -162,10 +162,10 @@ namespace elvishray
 		// get normal for each vertex
 		// but the render result seems very weird, see test/test_er_light/output_img_std/er_pointlight.perspShape.1.elvishray_vertex_normal.bmp
 		// so I ommit this section temporarily.
-		_s("//vertex normals are not output temporarily.");
+		_s("//### N ###");
 		if(fnMesh.numVertices() == fnMesh.numNormals())//smooth normal, like a sphere
 		{
-			_s("//### N");
+
 			_d( tag = eiNULL_TAG );
 			_S( ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag) );
 			_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
@@ -181,7 +181,9 @@ namespace elvishray
 			// in this case, like a cube, a vertex has a specified normal corresponding to each adjacent polygon.
 			// but elvishray's only allow a vertex to be assigned only one normal.
 			// so I can't generate the normal list for this case.
+			_s("//numNormals != numPoints, ER doesn't support this case now");
 		}
+		_s("//### N ### end");
 
 		if( currentUVsetName.length() != 0 )//there is a current uv set
 		{
