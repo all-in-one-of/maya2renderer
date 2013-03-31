@@ -365,6 +365,9 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
         else 
           data = liqRibDataPtr( new liqRibImplicitSphereData( skip ) );
       }
+	  else{
+		  liquidMessage2(messageWarning, "the type(%s) of \"%s\" is not supported in maya2renderer now.", obj.apiTypeStr(), pathName.asChar());
+	  }
     }
     data->objDagPath = path;
   } 
