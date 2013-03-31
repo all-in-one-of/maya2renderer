@@ -42,7 +42,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("er_writeParticleData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
-		_s("//particle "<<pData->getFullPathName());
+		_s("//particle "<<pData->getFullPathName()<<" is not implemented yet.");
+		liquidMessage2(messageError, "Particle type is not implemented yet.");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

@@ -42,7 +42,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("er_writeMayaSubdData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
-		_s("//maya subd "<<pData->getFullPathName());
+		_s("//maya subd "<<pData->getFullPathName()<<" is not implemented yet.");
+		liquidMessage2(messageError, "MeshSubd type is not implemented yet.");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

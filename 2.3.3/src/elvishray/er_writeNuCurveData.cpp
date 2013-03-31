@@ -42,7 +42,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("er_writeNuCurveData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
-		_s("//NuCurve "<<pData->getFullPathName());
+		_s("//NuCurve "<<pData->getFullPathName()<<" is not implemented yet.");
+		liquidMessage2(messageError, "Nurbs curve type is not implemented yet.");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

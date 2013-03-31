@@ -42,7 +42,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("er_writeClipPlaneData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
-		_s("//Subd "<<pData->getFullPathName());
+		_s("//Subd "<<pData->getFullPathName()<<" is not implemented yet.");
+		liquidMessage2(messageError, "Subd type is not implemented yet.");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

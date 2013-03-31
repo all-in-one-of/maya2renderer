@@ -42,7 +42,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("er_writePfxToonData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
-		_s("//PfxToon "<<pData->getFullPathName());
+		_s("//PfxToon "<<pData->getFullPathName()<<" is not implemented yet.");
+		liquidMessage2(messageError, "PfxToon type is not implemented yet.");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_
