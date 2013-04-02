@@ -42,8 +42,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("er_writeSurfaceData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
-		_s("//surface "<<pData->getFullPathName()<<" is not implemented yet.");
-		liquidMessage2(messageError, "Nurbs surface type is not implemented yet.");
+		_s("//Nurbs surface \""<<pData->getFullPathName()<<"\" is not implemented yet.");
+		liquidMessage2(messageError, "Nurbs surface \"%s\" is not implemented yet.", pData->getFullPathName());
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

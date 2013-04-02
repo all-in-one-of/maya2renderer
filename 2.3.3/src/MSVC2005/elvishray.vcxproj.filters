@@ -184,5 +184,11 @@
     <None Include="..\elvishray\mel\er_callback.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\elvishray\mel\er_UserCallbackInterface.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\er_ConvertNurbs.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -2300,7 +2300,9 @@
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
+    <None Include="..\elvishray\mel\er_ConvertNurbs.mel" />
     <None Include="..\elvishray\mel\er_CreateMenus.mel" />
+    <None Include="..\elvishray\mel\er_UserCallbackInterface.mel" />
     <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel" />
     <None Include="..\elvishray\mel\userSetup.mel" />
   </ItemGroup>

@@ -1,0 +1,101 @@
+source xxliquidutility.mel;
+
+global string $g_MeshTransformNodesConvertedFromNurbsSurface[];
+global string $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[];
+
+// convert nurbs surface to polygon mesh, 
+// and return the polygon mesh's transform node
+proc string convertNurbsToPoly(string $nurbsSurfaceShape)
+{
+	liqPushIdent();
+	liqlog("convertNurbsToPoly("+$nurbsSurfaceShape+")");
+
+	string $meshTransformNode[] = `nurbsToPoly 
+		-mnd 1  -ch 1 -f 1 -pt 0 -pc 200 -chr 0.9 -ft 0.01 -mel 0.001 
+		-d 0.1 -ut 1 -un 3 -vt 1 -vn 3 -uch 0 -ucr 0 -cht 1 -es 0 -ntr 0
+		-mrt 0 -uss 1  $nurbsSurfaceShape`;
+
+	liqPopIdent();
+	return $meshTransformNode[0];
+}
+//
+global proc er_deleteConvertedPoly(string $meshTransformNode)
+{
+	liqPushIdent();
+	liqlog("er_deleteConertedPoly("+$meshTransformNode+")");
+
+	delete $meshTransformNode;
+
+	liqPopIdent();
+}
+
+//
+global proc er_generateMeshFromNurbsSurface()
+{
+	global string $g_MeshTransformNodesConvertedFromNurbsSurface[];
+	global string $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[];
+
+	liqPushIdent();
+	liqlog("er_generateMeshFromNurbsSurface()");
+
+	clear $g_MeshTransformNodesConvertedFromNurbsSurface;
+	clear $g_MeshTransformNodesConvertedFromNurbsSurface_postaction;
+
+	//get nurbs shapes nodes
+	string $nurbsShape[] = lsType("nurbsSurface");
+
+	//append nurbs transform node
+	int $i = 0;
+	for( $i = 0; $i <size($nurbsShape); $i++ )
+	{
+		//lsType always contains <done> as the tail, so skip it
+		if( "<done>"==$nurbsShape[ $i ] )
+			continue;
+		//if this node is hidden, skip it
+		string $nurbsTransformNode = xxu_getTransform($nurbsShape[ $i ]);
+		if( `getAttr ($nurbsTransformNode+".visibility")` == 0 )
+		{
+			liqWarn($nurbsTransformNode +" is hidden, skip it.");
+			continue;
+		}
+
+		string $postaction = "";
+		//convert to polygon mesh
+		$g_MeshTransformNodesConvertedFromNurbsSurface[ $i ] 
+			= convertNurbsToPoly( $nurbsShape[ $i ] );
+		//record the post-action cmd(delete the polymesh)
+		$postaction += "er_deleteConvertedPoly(\""
+				+ $g_MeshTransformNodesConvertedFromNurbsSurface[ $i ] +
+			  "\");";
+
+		//copy some attributes from nurbs to ploygon mesh
+		connectAttr ($nurbsTransformNode+".visibility") 
+			($g_MeshTransformNodesConvertedFromNurbsSurface[ $i ]+".visibility");
+		
+		//
+		$g_MeshTransformNodesConvertedFromNurbsSurface_postaction[ $i ] = $postaction;
+
+	}//for
+
+	liqPopIdent();
+}
+//
+global proc er_deleteMeshWhichConvertedFromNurbsSurface()
+{
+	liqPushIdent();
+	liqlog("er_deleteMeshWhichConvertedFromNurbsSurface()");
+
+	global string $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[];
+
+	int $size = size($g_MeshTransformNodesConvertedFromNurbsSurface_postaction);
+	int $i = $size - 1;
+	//execute the cmd with reversed order
+	for( ; $i>=0; $i--)
+	{
+		string $cmd = $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[ $i ];
+		liqlog("cmd="+$cmd);
+		eval $cmd;
+	}
+
+	liqPopIdent();
+}

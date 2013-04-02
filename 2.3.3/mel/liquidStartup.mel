@@ -163,7 +163,8 @@ global proc liquidLoadScripts()
     "liquidAttributeManager.mel",
     "liqGlobalsNodeRenderer.mel",
     "GetPossibleTextures.mel",
-    "liquidliquidShaderNodes.mel"
+    "liquidliquidShaderNodes.mel",
+	"liquidUserCallbackInterface.mel"
 	
   };
 
@@ -705,11 +706,13 @@ global proc liquidRemoveMenus()
 global proc liquidRender()
 { 
 	liqPushIdent();
-	liqlog("liquidRender(...)");
+	liqlog("liquidRender()");
   if ( !`liquidGlobalsExists` ) {
     liquidCreateGlobals;
   }
+  LIQUID_userPreRenderMel("");
   liquid -GL;
+  LIQUID_userPostRenderMel("");
   liqPushIdent();
 }
 //===========================================================================================
@@ -791,7 +794,9 @@ global proc liquidmayaCmdlineRender( string $options )
   liqPushIdent();
 	liqlog("liquidmayaCmdlineRender("+$options+")");
   string $cmd = ( "liquid -GL " + $options );
+  LIQUID_userPreRenderMel("");
   eval $cmd;
+  LIQUID_userPostRenderMel("");
   liqPopIdent();
 }
 //===========================================================================================
@@ -804,7 +809,9 @@ global proc liquidmayaBatchRender( string $options )
   //if( ! `pluginInfo -q -l "liquid"` ) loadPlugin "liquid";
   if( ! `pluginInfo -q -l "liquid_2008x32d"` ) loadPlugin "liquid_2008x32d";
   string $cmd = ( "liquid -GL " + $options );
+  LIQUID_userPreRenderMel("");
   eval $cmd;
+  LIQUID_userPostRenderMel("");
   liqPopIdent();
 }
 //===========================================================================================
@@ -822,8 +829,10 @@ global proc liquidPreview()
   if ( ($mods / 1) % 2) {
     liquidPreviewSelected();
   } else {
+	LIQUID_userPreRenderMel("");
     int $imageSize[2] = liquidPreview_getRenderViewResolution();
     liquid -GL -renderView -x $imageSize[0] -y $imageSize[1];
+	LIQUID_userPostRenderMel("");
   }
   undoInfo -stateWithoutFlush 1;
 
@@ -843,7 +852,9 @@ global proc liquidCropPreview()
   //liqlog("$imageSize={"+$imageSize[0]+","+$imageSize[1]+"}");
   float $crop[] = liquidPreview_getRenderViewCropWindow();
   //liqlog("$crop={"+$crop[0]+","+$crop[1]+","+$crop[2]+","+$crop[3]+"}");
+  LIQUID_userPreRenderMel("");
   liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -cw $crop[0] $crop[1] $crop[2] $crop[3];
+  LIQUID_userPostRenderMel("");
   liqPopIdent();
 }
 //===========================================================================================
@@ -856,8 +867,9 @@ global proc liquidRenderSelected()
   if ( !`liquidGlobalsExists` ) {
     liquidCreateGlobals;
   }
-
+  LIQUID_userPreRenderMel("");
   liquid -GL -sel;
+  LIQUID_userPostRenderMel("");
   liqPopIdent();
 }
 //===========================================================================================
@@ -871,8 +883,10 @@ global proc liquidPreviewSelected()
     liquidCreateGlobals;
   }
   liqShowRV();
+  LIQUID_userPreRenderMel("");  
   int $imageSize[2] = liquidPreview_getRenderViewResolution();
   liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -sel;
+  LIQUID_userPostRenderMel("");  
   liqPopIdent();
 }
 
