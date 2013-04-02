@@ -1,0 +1,105 @@
+source xxliquidutility.mel;
+
+global string $g_MeshShapeNodesConvertedFromSubdivsSurface[];
+global string $g_MeshShapeNodesConvertedFromSubdivsSurface_postaction[];
+//------------------------------------------------------------------------
+global proc string er_getSubdivsToPolyName(string $SubdivsSurfaceShape)
+{
+	return $SubdivsSurfaceShape+"_liq_";
+}
+// convert Subdivs surface to polygon mesh, 
+// and return the polygon mesh's transform node
+proc string convertSubdivsToPoly(string $SubdivsSurfaceShape)
+{
+	liqPushIdent();
+	liqlog("convertSubdivsToPoly("+$SubdivsSurfaceShape+")");
+
+	string $convertedName = er_getSubdivsToPolyName($SubdivsSurfaceShape);
+
+	string $meshShapeNode[] = `subdToPoly 
+		-ch off -aut on -format 1 -depth 0 -sampleCount 3 
+		-maxPolys 1 -extractPointPosition 0 -shareUVs 1 -subdNormals 0 
+		-name $convertedName  $SubdivsSurfaceShape`;
+		
+	$meshShapeNode = `ls -long $meshShapeNode[0]`;
+	liqPopIdent();
+	return $meshShapeNode[0];
+}
+//
+global proc er_deleteMeshWhichConvertedFromSubdivsSurface(string $meshTransformNode)
+{
+	liqPushIdent();
+	liqlog("er_deleteMeshWhichConvertedFromSubdivsSurface("+$meshTransformNode+")");
+
+	delete $meshTransformNode;
+
+	liqPopIdent();
+}
+//
+global proc er_generateMeshFromSubdivsSurface()
+{
+	global string $g_MeshShapeNodesConvertedFromSubdivsSurface[];
+	global string $g_MeshShapeNodesConvertedFromSubdivsSurface_postaction[];
+
+	liqPushIdent();
+	liqlog("er_generateMeshFromSubdivsSurface()");
+
+	clear $g_MeshShapeNodesConvertedFromSubdivsSurface;
+	clear $g_MeshShapeNodesConvertedFromSubdivsSurface_postaction;
+
+	//get subd shapes nodes
+	string $SubdivsShape[] = lsType("subdiv");
+
+	int $i = 0;
+	for( $i = 0; $i <size($SubdivsShape); $i++ )
+	{
+		//lsType always contains <done> as the tail, so skip it
+		if( "<done>"==$SubdivsShape[ $i ] )
+			continue;
+		//if this node is hidden, skip it
+		string $SubdivsTransformNode = xxu_getTransform($SubdivsShape[ $i ]);
+		if( `getAttr ($SubdivsTransformNode+".visibility")` == 0 )
+		{
+			liqWarn($SubdivsTransformNode +" is hidden, skip it.");
+			continue;
+		}
+
+		string $postaction = "";
+		//convert to polygon mesh
+		$g_MeshShapeNodesConvertedFromSubdivsSurface[ $i ] 
+			= convertSubdivsToPoly( $SubdivsShape[ $i ] );
+		//record the post-action cmd(delete the polymesh)
+		$postaction += "er_deleteMeshWhichConvertedFromSubdivsSurface(\""
+				+ $g_MeshShapeNodesConvertedFromSubdivsSurface[ $i ] +
+			  "\");";
+
+		//copy some attributes from nurbs to ploygon mesh
+		//todo...
+		
+		//
+		$g_MeshShapeNodesConvertedFromSubdivsSurface_postaction[ $i ] = $postaction;
+
+	}//for
+
+	liqPopIdent();
+}
+//
+global proc er_deleteMeshesWhichConvertedFromSubdivsSurface()
+{
+	liqPushIdent();
+	liqlog("er_deleteMeshesWhichConvertedFromSubdivsSurface()");
+
+	global string $g_MeshShapeNodesConvertedFromSubdivsSurface_postaction[];
+
+	int $size = size($g_MeshShapeNodesConvertedFromSubdivsSurface_postaction);
+	int $i = $size - 1;
+	//execute the cmd in reversed order
+	for( ; $i>=0; $i--)
+	{
+		string $cmd = $g_MeshShapeNodesConvertedFromSubdivsSurface_postaction[ $i ];
+		liqlog("cmd="+$cmd);
+		eval $cmd;
+	}
+
+	liqPopIdent();
+}

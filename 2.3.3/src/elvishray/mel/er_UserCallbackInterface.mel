@@ -1,5 +1,6 @@
 source xxliquidutility.mel;
 source er_ConvertNurbs.mel;
+source er_ConvertSubdivs.mel;
 //------------------------------------------------------------
 //     General User Defined MEL Procedures
 //------------------------------------------------------------
@@ -71,8 +72,11 @@ global proc LIQUID_userPreRenderMel_elvishray (string $render_pass)
 	liqPushIdent();
 	liqlog("LIQUID_userPreRenderMel_elvishray("+$render_pass+")");
 	
-	//liquid can't process nurbs surface now, so the nurbs surface is converted to polygon mesh
+	//ER can't process nurbs surface now, so the nurbs surface is converted to polygon mesh
 	er_generateMeshFromNurbsSurface();
+
+	//ER can't process subd surface now, so the nurbs surface is converted to polygon mesh
+	er_generateMeshFromSubdivsSurface();
 	
 	liqPopIdent();
 }
@@ -82,7 +86,10 @@ global proc LIQUID_userPostRenderMel_elvishray (string $render_pass)
 {
 	liqPushIdent();
 	liqlog("LIQUID_userPostRenderMel_elvishray("+$render_pass+")");
-	
+
+	//subd
+	er_deleteMeshesWhichConvertedFromSubdivsSurface();	
+	//nurbs
 	er_deleteMeshesWhichConvertedFromNurbsSurface();
 	
 	liqPopIdent();
