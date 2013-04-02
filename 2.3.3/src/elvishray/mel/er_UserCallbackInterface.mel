@@ -83,7 +83,7 @@ global proc LIQUID_userPostRenderMel_elvishray (string $render_pass)
 	liqPushIdent();
 	liqlog("LIQUID_userPostRenderMel_elvishray("+$render_pass+")");
 	
-	er_deleteMeshWhichConvertedFromNurbsSurface();
+	er_deleteMeshesWhichConvertedFromNurbsSurface();
 	
 	liqPopIdent();
 }

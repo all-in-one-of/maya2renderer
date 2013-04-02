@@ -25,16 +25,15 @@ proc string convertNurbsToPoly(string $nurbsSurfaceShape)
 	return $meshTransformNode[0];
 }
 //
-global proc er_deleteConvertedPoly(string $meshTransformNode)
+global proc er_deleteMeshWhichConvertedFromNurbsSurface(string $meshTransformNode)
 {
 	liqPushIdent();
-	liqlog("er_deleteConertedPoly("+$meshTransformNode+")");
+	liqlog("er_deleteMeshWhichConvertedFromNurbsSurface("+$meshTransformNode+")");
 
 	delete $meshTransformNode;
 
 	liqPopIdent();
 }
-
 //
 global proc er_generateMeshFromNurbsSurface()
 {
@@ -70,7 +69,7 @@ global proc er_generateMeshFromNurbsSurface()
 		$g_MeshTransformNodesConvertedFromNurbsSurface[ $i ] 
 			= convertNurbsToPoly( $nurbsShape[ $i ] );
 		//record the post-action cmd(delete the polymesh)
-		$postaction += "er_deleteConvertedPoly(\""
+		$postaction += "er_deleteMeshWhichConvertedFromNurbsSurface(\""
 				+ $g_MeshTransformNodesConvertedFromNurbsSurface[ $i ] +
 			  "\");";
 
@@ -86,16 +85,16 @@ global proc er_generateMeshFromNurbsSurface()
 	liqPopIdent();
 }
 //
-global proc er_deleteMeshWhichConvertedFromNurbsSurface()
+global proc er_deleteMeshesWhichConvertedFromNurbsSurface()
 {
 	liqPushIdent();
-	liqlog("er_deleteMeshWhichConvertedFromNurbsSurface()");
+	liqlog("er_deleteMeshesWhichConvertedFromNurbsSurface()");
 
 	global string $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[];
 
 	int $size = size($g_MeshTransformNodesConvertedFromNurbsSurface_postaction);
 	int $i = $size - 1;
-	//execute the cmd with reversed order
+	//execute the cmd in reversed order
 	for( ; $i>=0; $i--)
 	{
 		string $cmd = $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[ $i ];
