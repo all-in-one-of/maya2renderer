@@ -8,7 +8,7 @@
 namespace elvishray
 {	
 	//MString getGroupName(const MString& objname);
-
+	int isBumpMapConnected(const char* nodename);
 }
 
 #endif//_ER_HELPER_H_

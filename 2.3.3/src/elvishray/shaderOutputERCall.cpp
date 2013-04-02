@@ -8,6 +8,7 @@
 #include "../shadergraph/shadermgr.h"
 
 #include <eiAPI/ei.h>
+#include "er_helper.h"
 
 namespace ERCall
 {
@@ -340,6 +341,13 @@ void OutputHelper::endRSL ()
 	CM_TRACE_FUNC("OutputHelper::endRSL()");
 
 	ei_end_shader();
+}
+//
+void OutputHelper::add_liq_UserDefinedNormal(const char* node)
+{
+	CM_TRACE_FUNC("OutputHelper::add_liq_UserDefinedNormal("<<node<<")");
+
+	ei_shader_param_int( "liq_UserDefinedNormal", elvishray::isBumpMapConnected(node) );
 }
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()

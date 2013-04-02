@@ -85,14 +85,15 @@ void Visitor::visitPhong(const char* node)
 	CM_TRACE_FUNC("Visitor::visitPhong("<<node<<")");
 
 	OutputHelper o;
-	//o.beginRSL("maya_phong", node);
-	o.beginRSL("maya_phong_architectural", node);
+	o.beginRSL("maya_phong", node);
+	//o.beginRSL("maya_phong_architectural", node);
 
 	//Common Material Attributes
 	o.addRSLVariable("vector", "color_",		"color",		node);
 	o.addRSLVariable("vector", "transparency",	"transparency", node);
 	o.addRSLVariable("vector", "ambientColor",	"ambientColor", node);
 	o.addRSLVariable("vector", "incandescence",	"incandescence",node);
+	o.add_liq_UserDefinedNormal(node);
 	o.addRSLVariable("normal", "normalCamera",	"normalCamera",	node);
 	o.addRSLVariable("float",  "diffuse",		"diffuse",		node);
 	o.addRSLVariable("float",  "translucence",			"translucence",		node);

@@ -45,6 +45,8 @@ public:
 	//--------------------------------------------------------------------
 	void endRSL ();
 
+	void add_liq_UserDefinedNormal(const char* node);
+
 protected:
 	MString rslShaderHeader;
 	MString rslShaderBody;

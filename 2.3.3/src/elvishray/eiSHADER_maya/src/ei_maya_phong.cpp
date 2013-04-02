@@ -44,6 +44,7 @@ SURFACE(maya_phong)
 	DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
 	DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
 	DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f); 
+	DECLARE_INT(	liq_UserDefinedNormal,		0);// use user defined normal or not, 1:yes, 0:no
 	DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 1.0f); //bump
 	DECLARE_SCALAR(	diffuse,					0.8f);
 	DECLARE_SCALAR(	translucence,				0.0f); 
@@ -416,9 +417,13 @@ SURFACE(maya_phong)
 		outColor() = color_() * out->Ci;
 
 
+  		if( liq_UserDefinedNormal() == 0 )
+  		{
+  			normalCamera() = N;
+  		}
 
 		vector In = normalize( I );
-		normal Nn = normalize( N );
+		normal Nn = normalize( normalCamera() );
 		normal Nf = ShadingNormal(Nn);
 		
 		vector V = -In;

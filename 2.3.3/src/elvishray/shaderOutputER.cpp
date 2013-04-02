@@ -7,6 +7,7 @@
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 #include "er_renderer.h"
+#include "er_helper.h"
 
 namespace ER
 {
@@ -305,6 +306,14 @@ void OutputHelper::endRSL ()
 
 	file<< "ei_end_shader();"<< std::endl;
 	file<<std::endl;
+}
+//
+void OutputHelper::add_liq_UserDefinedNormal(const char* node)
+{
+	CM_TRACE_FUNC("OutputHelper::add_liq_UserDefinedNormal("<<node<<")");
+
+	MString s; s.set( elvishray::isBumpMapConnected(node) );
+	file<<"ei_shader_param_int(\"liq_UserDefinedNormal\", "<<s.asChar()<<");"<<endl;
 }
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
