@@ -2,7 +2,11 @@ source xxliquidutility.mel;
 
 global string $g_MeshTransformNodesConvertedFromNurbsSurface[];
 global string $g_MeshTransformNodesConvertedFromNurbsSurface_postaction[];
-
+//------------------------------------------------------------------------
+global proc string er_getNurbsToPolyName(string $nurbsSurfaceShape)
+{
+	return $nurbsSurfaceShape+"_liq_";
+}
 // convert nurbs surface to polygon mesh, 
 // and return the polygon mesh's transform node
 proc string convertNurbsToPoly(string $nurbsSurfaceShape)
@@ -10,10 +14,12 @@ proc string convertNurbsToPoly(string $nurbsSurfaceShape)
 	liqPushIdent();
 	liqlog("convertNurbsToPoly("+$nurbsSurfaceShape+")");
 
+	string $convertedName = er_getNurbsToPolyName($nurbsSurfaceShape);
+
 	string $meshTransformNode[] = `nurbsToPoly 
 		-mnd 1  -ch 1 -f 1 -pt 0 -pc 200 -chr 0.9 -ft 0.01 -mel 0.001 
 		-d 0.1 -ut 1 -un 3 -vt 1 -vn 3 -uch 0 -ucr 0 -cht 1 -es 0 -ntr 0
-		-mrt 0 -uss 1  $nurbsSurfaceShape`;
+		-mrt 0 -uss 1 -name $convertedName  $nurbsSurfaceShape`;
 
 	liqPopIdent();
 	return $meshTransformNode[0];
