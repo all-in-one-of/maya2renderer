@@ -4,3 +4,4 @@ print "This is renderman /2.3.3/src/renderman/mel/usersetup.mel.\n";
 source liqGlobalsNoderenderman.mel;
 source AEliquidShaderTemplate_renderman.mel;
 source rm_callback.mel;
+source rm_UserCallbackInterface.mel;
