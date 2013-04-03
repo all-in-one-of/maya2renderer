@@ -400,9 +400,10 @@ void Visitor::outputShaderMethod()
 void  Visitor::addShaderMethodBody(
 						 const MString &currentNode,
 						 const MStringArray& inputSrc,
+						 const MStringArray& inputDes,
 						 const MStringArray& outputSrc)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(outputSrc)<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(inputDes)<<","<<liqM(outputSrc)<<")");
 
 	MString varString;
 	{
@@ -426,12 +427,15 @@ void  Visitor::addShaderMethodBody(
 	
 	// test the input and output of currentNode
 	{	
-		MString inputVarsStr; 
-		MString outputVarsStr;
-		connectMStringArray(inputVarsStr, inputSrc);
-		connectMStringArray(outputVarsStr, outputSrc);
-		shaderData[ SHADER_METHOD_BODY_I ] += "//inputSrc: " + inputVarsStr +"\n";
-		shaderData[ SHADER_METHOD_BODY_I ] += "//outputSrc:" + outputVarsStr +"\n\n";
+		MString inputSrcStr; 
+		MString inputDesStr; 
+		MString outputSrcStr;
+		connectMStringArray(inputSrcStr, inputSrc);
+		connectMStringArray(inputDesStr, inputDes);
+		connectMStringArray(outputSrcStr, outputSrc);
+		shaderData[ SHADER_METHOD_BODY_I ] += "//inputSrc: " + inputSrcStr +"\n";
+		shaderData[ SHADER_METHOD_BODY_I ] += "//inputDes: " + inputDesStr +"\n";
+		shaderData[ SHADER_METHOD_BODY_I ] += "//outputSrc:" + outputSrcStr +"\n\n";
 	}
 }
 void Visitor::addShaderMethodVariavles(

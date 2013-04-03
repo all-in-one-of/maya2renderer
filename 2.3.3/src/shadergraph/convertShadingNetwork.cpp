@@ -227,9 +227,9 @@ int ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentN
 	return 1;
 }
 //
-void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArray& inputSrc)
+void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArray& inputSrc, MStringArray& inputDes)
 {
-	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeInputVariable("<<plug.asChar()<<", inputSrc)");
+	CM_TRACE_FUNC("ConvertShadingNetwork::addNodeInputVariable("<<plug.asChar()<<", inputSrc, inputDes)");
 
 	MString cmd;
 
@@ -238,6 +238,7 @@ void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArr
 	MString varName;
 	MString inputNode;
 	int inputIndex = inputSrc.length();
+	assert(inputSrc.length() == inputDes.length());
 
 	for(size_t i=0; i<inputPlugs.length(); ++i)
 	{
@@ -274,8 +275,10 @@ void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArr
 			
 			if( inputSrc.length()<(inputIndex+1) ){
 				inputSrc.setLength(inputIndex+1);
+				inputDes.setLength(inputIndex+1);
 			}
 			inputSrc[inputIndex] = inputPlug.asChar();
+			inputDes[inputIndex] = plug.asChar();
 			inputIndex++;
 		}
 	}
@@ -427,9 +430,9 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 //
 void ConvertShadingNetwork::getNodeVariables(
 	const MString& node, const MStringArray& validConnections, 
-	MStringArray&  inputSrc, MStringArray& outputSrc)
+	MStringArray&  inputSrc, MStringArray&  inputDes, MStringArray& outputSrc)
 {
-	CM_TRACE_FUNC("ConvertShadingNetwork::getNodeVariables("<<node.asChar()<<", validConnections,  inputSrc, outputSrc)");
+	CM_TRACE_FUNC("ConvertShadingNetwork::getNodeVariables("<<node.asChar()<<", validConnections,  inputSrc, inputDes, outputSrc)");
 
 	for( std::size_t i = 0; i<validConnections.length(); ++i )
 	{
@@ -446,7 +449,7 @@ void ConvertShadingNetwork::getNodeVariables(
 		// Get input variable
 		if( connectionType == CT_In )
 		{
-			addNodeInputVariable( plug, inputSrc );
+			addNodeInputVariable( plug, inputSrc, inputDes );
 		}
 		// Get output variable
 		else if( connectionType == CT_Out || connectionType == CT_InOut ){
@@ -533,14 +536,16 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 				validConnections );
 
 			MStringArray inputSrc; 
+			MStringArray inputDes;
 			MStringArray outputSrc;
 			getNodeVariables( currentNode,
 				validConnections,
 				inputSrc,
+				inputDes,
 				outputSrc);
 
 			liquidmaya::ShaderOutputMgr::getSingletonPtr()->
-				addShaderMethodBody(currentNode, inputSrc, outputSrc);
+				addShaderMethodBody(currentNode, inputSrc, inputDes, outputSrc);
 
 
 

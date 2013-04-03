@@ -89,6 +89,7 @@ void ShaderOutputMgr::notify_outputShaderMethod()
 void ShaderOutputMgr::notify_addShaderMethodBody(
 	const MString &currentNode,
 	const MStringArray& inputSrc,
+	const MStringArray& inputDes,
 	const MStringArray& outputSrc
 	)
 {
@@ -99,6 +100,7 @@ void ShaderOutputMgr::notify_addShaderMethodBody(
 		(*i)->addShaderMethodBody(
 			currentNode,
 			inputSrc,
+			inputDes,
 			outputSrc);
 	}
 }
@@ -173,11 +175,13 @@ void ShaderOutputMgr::outputShaderMethod()
 void ShaderOutputMgr::addShaderMethodBody(
 						 const MString &currentNode,
 						 const MStringArray& inputSrc,
+						 const MStringArray& inputDes,
 						 const MStringArray& outputSrc)
 {
 	notify_addShaderMethodBody(
 		currentNode,
 		inputSrc,
+		inputDes,
 		outputSrc
 		);
 }
