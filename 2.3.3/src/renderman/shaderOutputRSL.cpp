@@ -390,7 +390,9 @@ void Visitor::outputUpstreamShader(const char* shaderNodeName)
 void Visitor::outputShaderMethod()
 {
 	CM_TRACE_FUNC("Visitor::outputShaderMethod()");
-	
+
+	m_NodePlugInfo.print("  ",">");
+
 	RSLfile << "\n\n\n// call the shaders ----------------------------------------------------------------------------\n";
 	RSLfile << shaderData[SHADER_METHOD_VARIAVLES_I].asChar();
 	RSLfile << "\n";
@@ -404,7 +406,7 @@ void  Visitor::addShaderMethodBody(
 						 const MStringArray& outputSrc)
 {
 	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(inputDes)<<","<<liqM(outputSrc)<<")");
-
+	
 	MString varString;
 	{
 		MStringArray vars;
@@ -464,6 +466,7 @@ void Visitor::outputEnd()
 void Visitor::postOutput()
 {
 	CM_TRACE_FUNC("Visitor::postOutput()");
+
 
 	//compile the shader
 	MString shaderdir(getShaderDirectory());

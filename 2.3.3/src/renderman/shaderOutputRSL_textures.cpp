@@ -32,24 +32,24 @@ void Visitor::visitChecker(const char* node)
 
 	o.addInclude("checker.h");
 
-	o.beginRSL(node);
+	o.beginRSL(node); m_NodePlugInfo.begin(node);
 	//input
-	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);
-	o.addRSLVariable("uniform", "float",  "alphaIsLuminance","alphaIsLuminance",node);
-	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);
-	o.addRSLVariable(       "", "color",  "color1",			"color1",		node);
-	o.addRSLVariable(       "", "color",  "color2",			"color2",		node);
-	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);
-	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);
-	o.addRSLVariable("uniform", "float",  "contrast",		"contrast",		node);
-	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);
-	o.addRSLVariable(       "", "float",  "filter",			"filter",		node);
-	o.addRSLVariable(       "", "float",  "filterOffset",	"filterOffset",	node);
-	o.addRSLVariable("uniform", "float",  "invert",			"invert",		node);
-	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",		node);
+	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);		m_NodePlugInfo.add("alphaGain",		"float");
+	o.addRSLVariable("uniform", "float",  "alphaIsLuminance","alphaIsLuminance",node);	m_NodePlugInfo.add("alphaIsLuminance","float");
+	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);		m_NodePlugInfo.add("alphaOffset",	"float");
+	o.addRSLVariable(       "", "color",  "color1",			"color1",		node);		m_NodePlugInfo.add("color1",		"color");
+	o.addRSLVariable(       "", "color",  "color2",			"color2",		node);		m_NodePlugInfo.add("color2",		"color");
+	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);		m_NodePlugInfo.add("colorGain",		"color");
+	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);		m_NodePlugInfo.add("colorOffset",	"color");
+	o.addRSLVariable("uniform", "float",  "contrast",		"contrast",		node);		m_NodePlugInfo.add("contrast",		"float");
+	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);		m_NodePlugInfo.add("defaultColor",	"color");
+	o.addRSLVariable(       "", "float",  "filter",			"filter",		node);		m_NodePlugInfo.add("filter",		"float");
+	o.addRSLVariable(       "", "float",  "filterOffset",	"filterOffset",	node);		m_NodePlugInfo.add("filterOffset",	"float");
+	o.addRSLVariable("uniform", "float",  "invert",			"invert",		node);		m_NodePlugInfo.add("invert",		"float");
+	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",		node);		m_NodePlugInfo.add("uvCoord",		"float2");
 	//Output
-	o.addRSLVariable(       "", "float",  "outAlpha",		"outAlpha",		node);
-	o.addRSLVariable(       "", "color",  "outColor",		"outColor",		node);
+	o.addRSLVariable(       "", "float",  "outAlpha",		"outAlpha",		node);		m_NodePlugInfo.add("outAlpha",		"float");
+	o.addRSLVariable(       "", "color",  "outColor",		"outColor",		node);		m_NodePlugInfo.add("outColor",		"color");
 
 	o.addToRSL("  maya_checker("
 					//Inputs
@@ -71,7 +71,7 @@ void Visitor::visitChecker(const char* node)
 					"outColor           \n"
 			"   );");
 
-	o.endRSL();
+	o.endRSL();	m_NodePlugInfo.end();
 }
 // @node	maya shader node name
 void Visitor::visitCloth(const char* node)
@@ -92,7 +92,7 @@ void Visitor::visitFile(const char* node)
 
 	o.addInclude("file.h");
 
-	o.beginRSL( node );
+	o.beginRSL( node );	m_NodePlugInfo.begin(node);
 
 	MString mayaTexName(getFileNodeImageName(node));
 	MString texName = mayaTexName + "."+ getTextureExt();
@@ -100,27 +100,27 @@ void Visitor::visitFile(const char* node)
 	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.textureMaker+" "+mayaTexName+" "+texName+"\")", true));
 	
 	//input
-	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);
-	o.addRSLVariable("uniform", "float",  "alphaIsLuminance",	"alphaIsLuminance",	node);
-	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);
-	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);
-	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);
-	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);
+	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);			m_NodePlugInfo.add("alphaGain",			"float");
+	o.addRSLVariable("uniform", "float",  "alphaIsLuminance",	"alphaIsLuminance",	node);	m_NodePlugInfo.add("alphaIsLuminance",	"float");
+	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);			m_NodePlugInfo.add("alphaOffset",		"float");
+	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);			m_NodePlugInfo.add("colorGain",			"color");
+	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);			m_NodePlugInfo.add("colorOffset",		"color");
+	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);			m_NodePlugInfo.add("defaultColor",		"color");
 	//texName
-	o.addRSLVariable("uniform", "float", "filterType",		"filterType",	node);
-	o.addRSLVariable("uniform", "float", "filter",			"filter",		node);
-	o.addRSLVariable(       "", "float", "filterOffset",	"filterOffset",	node);
-	o.addRSLVariable("uniform", "float", "frameExtension",	"frameExtension",node);
-	o.addRSLVariable("uniform", "float", "frameOffset",		"frameOffset",	node);
-	o.addRSLVariable("uniform", "float", "invert",			"invert",		node);
-	o.addRSLVariable("uniform", "float", "useFrameExtension","useFrameExtension",node);
-	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",node);
-	o.addRSLVariable("uniform", "float", "fileHasAlpha",	"fileHasAlpha",	node);
+	o.addRSLVariable("uniform", "float", "filterType",		"filterType",	node);			m_NodePlugInfo.add("filterType",		"float");
+	o.addRSLVariable("uniform", "float", "filter",			"filter",		node);			m_NodePlugInfo.add("filter",			"float");
+	o.addRSLVariable(       "", "float", "filterOffset",	"filterOffset",	node);			m_NodePlugInfo.add("filterOffset",		"float");
+	o.addRSLVariable("uniform", "float", "frameExtension",	"frameExtension",node);			m_NodePlugInfo.add("frameExtension",	"float");
+	o.addRSLVariable("uniform", "float", "frameOffset",		"frameOffset",	node);			m_NodePlugInfo.add("frameOffset",		"float");
+	o.addRSLVariable("uniform", "float", "invert",			"invert",		node);			m_NodePlugInfo.add("invert",			"float");
+	o.addRSLVariable("uniform", "float", "useFrameExtension","useFrameExtension",node);		m_NodePlugInfo.add("useFrameExtension",	"float");
+	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",node);				m_NodePlugInfo.add("uvCoord",			"float2");
+	o.addRSLVariable("uniform", "float", "fileHasAlpha",	"fileHasAlpha",	node);			m_NodePlugInfo.add("fileHasAlpha",		"float");
 	//o.addRSLVariable("index", "num_channels",	"num_channels",	node);
 	//output
-	o.addRSLVariable(       "", "float", "outAlpha",		"outAlpha",		node);
-	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);
-	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",	node);
+	o.addRSLVariable(       "", "float", "outAlpha",		"outAlpha",		node);			m_NodePlugInfo.add("outAlpha",			"float");
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);			m_NodePlugInfo.add("outColor",			"color");
+	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",	node);		m_NodePlugInfo.add("outTransparency",	"color");
 
 	o.addToRSL("  maya_file("
 						//Inputs
@@ -144,7 +144,7 @@ void Visitor::visitFile(const char* node)
 						"outColor,          \n\t"
 						"outTransparency    \n"
 			   "  );");
-	o.endRSL();
+	o.endRSL();	m_NodePlugInfo.end();
 }
 // @node	maya shader node name
 void Visitor::visitFluidTexture2D(const char* node)

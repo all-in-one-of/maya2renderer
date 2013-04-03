@@ -53,7 +53,7 @@ namespace renderman
 	MStatus objectNonShadowAttribute(const liqRibNodePtr &ribNode__);
 
 	//
-
+	int isBumpMapConnected(const char* nodename);
 }
 
 #endif//RM_HELPER_H

@@ -138,26 +138,26 @@ void Visitor::visitPlace2dTexture(const char* node)
 
 	o.addInclude("place2dTexture.h");
 
-	o.beginRSL(node);
+	o.beginRSL(node);	m_NodePlugInfo.begin(node);
 	// Inputs
 	o.addToRSL("extern float s, t;");
 	o.addToRSL("float uvCoord[2];");
 	o.addToRSL("uvCoord[0] = s;");
 	o.addToRSL("uvCoord[1] = 1 - t;");//adjust for Renderman
-	o.addRSLVariable("uniform", "float2", "coverage",		"coverage",		node);
-	o.addRSLVariable("uniform", "float",  "mirrorU",		"mirrorU",		node);
-	o.addRSLVariable("uniform", "float",  "mirrorV",		"mirrorV",		node);
-	o.addRSLVariable("uniform", "float2", "noiseUV",		"noiseUV",		node);
-	o.addRSLVariable(		"", "float2", "offset",			"offset",		node);
-	o.addRSLVariable("uniform", "float2", "repeatUV",		"repeatUV",		node);
-	o.addRSLVariable("uniform", "float",  "rotateFrame",	"rotateFrame",	node);
-	o.addRSLVariable("uniform", "float",  "rotateUV",		"rotateUV",		node);
-	o.addRSLVariable("uniform", "float",  "stagger",		"stagger",		node);
-	o.addRSLVariable("uniform", "float2", "translateFrame",	"translateFrame",node);
-	o.addRSLVariable("uniform", "float",  "wrapU",			"wrapU",		node);
-	o.addRSLVariable("uniform", "float",  "wrapV",			"wrapV",		node);
+	o.addRSLVariable("uniform", "float2", "coverage",		"coverage",		node);	m_NodePlugInfo.add("coverage",		"float2");
+	o.addRSLVariable("uniform", "float",  "mirrorU",		"mirrorU",		node);	m_NodePlugInfo.add("mirrorU",		"float");
+	o.addRSLVariable("uniform", "float",  "mirrorV",		"mirrorV",		node);	m_NodePlugInfo.add("mirrorV",		"float");
+	o.addRSLVariable("uniform", "float2", "noiseUV",		"noiseUV",		node);	m_NodePlugInfo.add("noiseUV",		"float2");
+	o.addRSLVariable(		"", "float2", "offset",			"offset",		node);	m_NodePlugInfo.add("offset",		"float2");
+	o.addRSLVariable("uniform", "float2", "repeatUV",		"repeatUV",		node);	m_NodePlugInfo.add("repeatUV",		"float2");
+	o.addRSLVariable("uniform", "float",  "rotateFrame",	"rotateFrame",	node);	m_NodePlugInfo.add("rotateFrame",	"float");
+	o.addRSLVariable("uniform", "float",  "rotateUV",		"rotateUV",		node);	m_NodePlugInfo.add("rotateUV",		"float");
+	o.addRSLVariable("uniform", "float",  "stagger",		"stagger",		node);	m_NodePlugInfo.add("stagger",		"float");
+	o.addRSLVariable("uniform", "float2", "translateFrame",	"translateFrame",node);	m_NodePlugInfo.add("translateFrame","float2");
+	o.addRSLVariable("uniform", "float",  "wrapU",			"wrapU",		node);	m_NodePlugInfo.add("wrapU",			"float");
+	o.addRSLVariable("uniform", "float",  "wrapV",			"wrapV",		node);	m_NodePlugInfo.add("wrapV",			"float");
 	// Outputs
-	o.addRSLVariable(       "", "float2", "outUV",		"outUV",	node);
+	o.addRSLVariable(       "", "float2", "outUV",		"outUV",	node);			m_NodePlugInfo.add("specularColor",	"float2");
 
 	o.addToRSL("{");
 	o.addToRSL("uniform float i_coverageU="+coverageU+";");
@@ -216,7 +216,7 @@ void Visitor::visitPlace2dTexture(const char* node)
 	o.addToRSL("translateFrame[1]="+translateFrameV+";");
 	o.addToRSL("wrapU="+wrapU+";");
 	o.addToRSL("wrapV="+wrapV+";");
-	o.endRSL();
+	o.endRSL();	m_NodePlugInfo.end();
 }
 // @node	maya shader node name
 void Visitor::visitPlace3dTexture(const char* node)

@@ -7,6 +7,7 @@
 #include "../common/prerequest_std.h"
 #include "../common/prerequest_maya.h"
 #include "../shadergraph/shaderOutput.h"
+#include "rm_nodePlugInfo.h"
 
 namespace RSL{
 
@@ -326,6 +327,8 @@ protected:
 	void defineAOVVariables();
 	std::string getSurfaceShaderAOVOutputParametersString()const;
 	std::string getAOVMacroDefineFileName()const;
+
+	renderman::NodePlugInfo m_NodePlugInfo;
 };
 //
 void _outputShadingGroup(const char* shadingGroupNode);

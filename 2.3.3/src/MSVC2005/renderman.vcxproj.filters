@@ -108,6 +108,9 @@
     <ClCompile Include="..\ri_interface.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_nodePlugInfo.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h">
       <Filter>src\aov</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_nodePlugInfo.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
