@@ -271,12 +271,11 @@ void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArr
 				continue;
 			}
 
-			const std::string varName(boost::replace_all_copy(std::string(inputPlug.asChar()),".","_"));
 			
 			if( inputVars.length()<(inputIndex+1) ){
 				inputVars.setLength(inputIndex+1);
 			}
-			inputVars[inputIndex] = varName.c_str();
+			inputVars[inputIndex] = inputPlug.asChar();
 			inputIndex++;
 		}
 	}
@@ -423,7 +422,7 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 	if( outputVars.length()<(outputIndex+1) ){
 		outputVars.setLength(outputIndex+1);
 	}
-	outputVars[outputIndex] = getVariableName(node, plug);
+	outputVars[outputIndex] = (node+"."+plug);
 }
 //
 void ConvertShadingNetwork::getNodeVariables(
