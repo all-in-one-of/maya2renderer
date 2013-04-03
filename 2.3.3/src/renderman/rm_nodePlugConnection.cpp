@@ -40,13 +40,16 @@ namespace renderman
 	}
 	std::string NodePlugConnection::cookRSLParametersList()const
 	{
-
-
 		std::vector<std::string> paramlist;
 		paramlist.reserve(inputSrc.size()+outputSrc.size());
 		for(std::size_t i=0; i<inputSrc.size(); ++i)
 		{
-			paramlist.push_back(inputSrc[ i ]) ;
+//			std::string inputSrc_rsltype =;
+//			std::string inputDes_rsltype =;
+//			if(inputSrc_rsltype == inputDes_rsltype)
+				paramlist.push_back(inputSrc[ i ]) ;
+//			else//type conversion
+//				paramlist.push_back(inputDes_rsltype+" "+inputSrc[ i ]) ;
 		}
 		for(std::size_t i=0; i<outputSrc.size(); ++i)
 		{
@@ -157,6 +160,48 @@ namespace renderman
 			i->print(indent, prefix);			
 		}
 		printf("\n");
+	}
+	//
+	std::string NodePlugConnectionMgr::cookRSLParametersList(const std::size_t I)const
+	{
+		const NodePlugConnection& node = get(I);
+
+		std::vector<std::string> paramlist;
+		paramlist.reserve(node.inputSrc.size()+node.outputSrc.size());
+		for(std::size_t i=0; i<node.inputSrc.size(); ++i)
+		{
+//			std::string inputSrc_rsltype =;
+//			std::string inputDes_rsltype =;
+//			if(inputSrc_rsltype == inputDes_rsltype)
+				paramlist.push_back(node.inputSrc[ i ]) ;
+// 			else//type conversion
+// 				paramlist.push_back(inputDes_rsltype+" "+node.inputSrc[ i ]) ;
+		}
+		for(std::size_t i=0; i<node.outputSrc.size(); ++i)
+		{
+			paramlist.push_back(node.outputSrc[ i ]);
+		}
+
+		//
+		std::string ret;
+		ret += getShaderName(node.m_node.c_str()).asChar();//shader name
+		ret += "(";
+
+		//parameter list
+		if( paramlist.size()>0 )
+			ret += paramlist[ 0 ];
+		for(std::size_t i=1; i<paramlist.size(); ++i)
+		{
+			ret += ", " + paramlist[ i ];
+		}
+
+		ret += ");";
+
+		return boost::replace_all_copy(ret, ".", "_");
+	}
+	std::string NodePlugConnectionMgr::log(const std::size_t I)const
+	{
+		return get(I).log();
 	}
 }
 #endif//_USE_RENDERMAN_

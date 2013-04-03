@@ -57,6 +57,9 @@ namespace renderman
 			const MStringArray& outputSrc);
 		void print(const std::string& indent, const std::string& prefix)const;
 		
+		std::string cookRSLParametersList(const std::size_t I)const;
+		std::string log(const std::size_t I)const;
+
 		std::size_t size(){ return m_data.size(); }
 		const NodePlugConnection&
 			get(std::size_t i)const { return m_data[ i ]; }

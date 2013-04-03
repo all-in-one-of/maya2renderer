@@ -400,8 +400,8 @@ void Visitor::outputShaderMethod()
 
 	for(std::size_t i = 0; i<m_NodePlugConnectionMgr.size(); ++i)
 	{
-		RSLfile << m_NodePlugConnectionMgr.get(i).cookRSLParametersList() <<std::endl;
-		RSLfile << m_NodePlugConnectionMgr.get(i).log() << std::endl;	
+		RSLfile << m_NodePlugConnectionMgr.cookRSLParametersList(i) <<std::endl;
+		RSLfile << m_NodePlugConnectionMgr.log(i) << std::endl;	
 	}
 //	RSLfile << shaderData[SHADER_METHOD_BODY_I].asChar();
 	RSLfile << "}\n";
