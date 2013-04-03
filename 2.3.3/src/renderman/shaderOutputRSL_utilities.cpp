@@ -157,7 +157,7 @@ void Visitor::visitPlace2dTexture(const char* node)
 	o.addRSLVariable("uniform", "float",  "wrapU",			"wrapU",		node);	m_NodePlugInfo.add("wrapU",			"float");
 	o.addRSLVariable("uniform", "float",  "wrapV",			"wrapV",		node);	m_NodePlugInfo.add("wrapV",			"float");
 	// Outputs
-	o.addRSLVariable(       "", "float2", "outUV",		"outUV",	node);			m_NodePlugInfo.add("specularColor",	"float2");
+	o.addRSLVariable(       "", "float2", "outUV",		"outUV",	node);			m_NodePlugInfo.add("outUV",	"float2");
 
 	o.addToRSL("{");
 	o.addToRSL("uniform float i_coverageU="+coverageU+";");

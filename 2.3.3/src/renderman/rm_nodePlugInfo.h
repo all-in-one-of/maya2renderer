@@ -44,6 +44,8 @@ namespace renderman
 		void swap(PlugInfoPairsT& o);
 
 		void print(const std::string& indent, const std::string& prefix);
+
+		const PlugInfoT* getPlugInfo(const std::string &plugname) const;
 	protected:
 		std::map<PlugNameT, PlugInfoT> m_data;
 	};
@@ -70,6 +72,9 @@ namespace renderman
 		void end();
 
 		void print(const std::string& indent, const std::string& prefix);
+
+		const PlugInfoT* getPlugInfo(const std::string &node, const std::string& plug) const;
+		const PlugInfoT* getPlugInfo(const std::string &nodeplug) const;
 
 	protected:
 

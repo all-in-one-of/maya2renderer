@@ -400,7 +400,7 @@ void Visitor::outputShaderMethod()
 
 	for(std::size_t i = 0; i<m_NodePlugConnectionMgr.size(); ++i)
 	{
-		RSLfile << m_NodePlugConnectionMgr.cookRSLParametersList(i) <<std::endl;
+		RSLfile << m_NodePlugConnectionMgr.cookRSLFunctionCallString(i) <<std::endl;
 		RSLfile << m_NodePlugConnectionMgr.log(i) << std::endl;	
 	}
 //	RSLfile << shaderData[SHADER_METHOD_BODY_I].asChar();
@@ -414,6 +414,8 @@ void  Visitor::addShaderMethodBody(
 {
 	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(inputDes)<<","<<liqM(outputSrc)<<")");
 	
+	m_NodePlugConnectionMgr.setNodePlugMgr( &m_NodePlugInfo );
+
 	m_NodePlugConnectionMgr.add(currentNode, inputSrc, inputDes, outputSrc);
 
 // 	MString varString;

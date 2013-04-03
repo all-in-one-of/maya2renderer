@@ -8,6 +8,7 @@
 #include "../common/prerequest_maya.h"
 namespace renderman
 {
+	class NodePlugInfo;
 	//////////////////////////////////////////////////////////////////////////
 	//
 
@@ -21,11 +22,11 @@ namespace renderman
 		NodePlugConnection& operator=(const NodePlugConnection& o);
 
 		void swap(NodePlugConnection& o);
-		std::string cookRSLParametersList()const;
+//		std::string cookRSLParametersList()const;
 		std::string log()const;
 		void print(const std::string& indent, const std::string& prefix)const;
 
-		std::string m_node;
+		std::string m_node;//node name
 		std::vector<std::string> inputSrc;
 		std::vector<std::string> inputDes;
 		std::vector<std::string> outputSrc;
@@ -57,15 +58,18 @@ namespace renderman
 			const MStringArray& outputSrc);
 		void print(const std::string& indent, const std::string& prefix)const;
 		
-		std::string cookRSLParametersList(const std::size_t I)const;
+		std::string cookRSLFunctionCallString(const std::size_t I)const;
 		std::string log(const std::size_t I)const;
 
 		std::size_t size(){ return m_data.size(); }
 		const NodePlugConnection&
 			get(std::size_t i)const { return m_data[ i ]; }
 
+		void setNodePlugMgr(NodePlugInfo *nodePlugInfo);
+
 	protected:
 		std::vector<NodePlugConnection> m_data;
+		NodePlugInfo *m_NodePlugInfoMgr;
 
 	private:
 		NodePlugConnectionMgr(const NodePlugConnectionMgr&);

@@ -155,7 +155,13 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - pfxhair 的material如何做
 - 重构：tRibCameraMgr::gatherDataForJob（）有返回值。相机选择不正确时（相机不存在），退出
 - C++代码里替换printf， mel代码里替换print
-- liqShader UI里的shader type参数的UI有问题（点击链接到目的node时总是报错）
+- (done)liqShader UI里的shader type参数的UI有问题（点击链接到目的node时总是报错）
+- bump2d, bump3d ,
+- add log(warn/error) at the coshader actions
+- affect_diffuse, affect_specular, see architectural's light loop
+- stereo camera
+- blinn
+
 
 prman
 ------------
@@ -184,6 +190,7 @@ prman
 - bug: test\test_particle\particleColorChangeOnCollisionMethod1.ma，绿色的粒子显示不出绿色
 - test arealight,volumelight
 - 测试mesh light
+- rm_nodePlugInfo 里不使用map
 
 elvishray
 ------------
@@ -272,6 +279,10 @@ elvishray
 - animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
 - pfxhair shader
 - (done)新加的camera和maya渲染效果不符，见phong.ma,因为overscan
+- Ultimate_Bony_v1.0.4_liq_hand.ma里mesh的硬边
+- (done) nurbs surface (converted to polymesh)
+- subd surface (converted to polymesh)
+- phong 里用一个变量标识是否使用normalCamera
 
 appleseed
 -------------

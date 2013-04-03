@@ -2,6 +2,7 @@
 #ifdef _USE_RENDERMAN_
 
 #include "rm_nodePlugInfo.h"
+#include <liqlog.h>
 
 namespace renderman
 {
@@ -44,6 +45,8 @@ namespace renderman
 	}
 	PlugInfoPairsT::PlugInfoPairsT(const PlugInfoPairsT& o)
 	{
+		m_data.clear();
+
 		std::map<PlugNameT, PlugInfoT>::const_iterator i = o.m_data.begin();
 		std::map<PlugNameT, PlugInfoT>::const_iterator e = o.m_data.end();
 		for(; i!=e; ++i)
@@ -83,6 +86,19 @@ namespace renderman
 		printf("\n");
 
 	}
+	const PlugInfoT* PlugInfoPairsT::getPlugInfo(const std::string &plugname) const
+	{
+		std::map<PlugNameT, PlugInfoT>::const_iterator 
+			i_plug = m_data.find(plugname);
+
+		if( i_plug == m_data.end() )
+		{
+			liquidMessage2(messageError, "plug \"%s\" not found.", plugname.c_str());
+			return NULL;
+		}else {
+			return &(i_plug->second);
+		}
+	}
 	void swap(PlugInfoPairsT& a, PlugInfoPairsT& b)
 	{
 		a.swap(b);
@@ -111,6 +127,7 @@ namespace renderman
 		n.rsltype = rsltype;
 
 		m_currentPairs.insert(plugname, n);
+		printf("node:%s, add %s\n", m_currentNode.c_str(), plugname );
 	}
 	void NodePlugInfo::end()
 	{
@@ -133,6 +150,29 @@ namespace renderman
 			i->second.print(indent+indent, prefix);
 		}
 		printf("\n");
+		_flushall();
+	}
+	const PlugInfoT* 
+		NodePlugInfo::getPlugInfo(const std::string &nodename, const std::string& plug) const
+	{
+		std::map<NodeNameT, PlugInfoPairsT>::const_iterator 
+			i_node = m_data.find(nodename);
+
+		if( i_node == m_data.end() )
+		{
+			liquidMessage2(messageError, "node \"%s\" not found.", nodename.c_str());
+			return NULL;
+		}
+
+		return i_node->second.getPlugInfo(plug);
+	}
+	const PlugInfoT* NodePlugInfo::getPlugInfo(const std::string &nodeplug) const
+	{
+		std::size_t i = nodeplug.find_first_of('.');
+		std::string node(nodeplug.substr(0, i));
+		std::string plug(nodeplug.substr(i+1));
+
+		return getPlugInfo(node, plug);
 	}
 }
 #endif//_USE_RENDERMAN_

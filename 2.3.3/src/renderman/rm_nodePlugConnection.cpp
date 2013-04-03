@@ -3,6 +3,7 @@
 
 #include "rm_nodePlugConnection.h"
 #include <liqGlobalHelpers.h>
+#include "rm_nodePlugInfo.h"
 
 namespace renderman
 {
@@ -38,41 +39,41 @@ namespace renderman
 		swap(this->inputDes,	o.inputDes);
 		swap(this->outputSrc,	o.outputSrc);
 	}
-	std::string NodePlugConnection::cookRSLParametersList()const
-	{
-		std::vector<std::string> paramlist;
-		paramlist.reserve(inputSrc.size()+outputSrc.size());
-		for(std::size_t i=0; i<inputSrc.size(); ++i)
-		{
-//			std::string inputSrc_rsltype =;
-//			std::string inputDes_rsltype =;
-//			if(inputSrc_rsltype == inputDes_rsltype)
-				paramlist.push_back(inputSrc[ i ]) ;
-//			else//type conversion
-//				paramlist.push_back(inputDes_rsltype+" "+inputSrc[ i ]) ;
-		}
-		for(std::size_t i=0; i<outputSrc.size(); ++i)
-		{
-			paramlist.push_back(outputSrc[ i ]);
-		}
-
-		//
-		std::string ret;
-		ret += getShaderName(m_node.c_str()).asChar();//shader name
-		ret += "(";
-
-		//parameter list
-		if( paramlist.size()>0 )
-			ret += paramlist[ 0 ];
-		for(std::size_t i=1; i<paramlist.size(); ++i)
-		{
-			ret += ", " + paramlist[ i ];
-		}
-
-		ret += ");";
-
-		return boost::replace_all_copy(ret, ".", "_");
-	}
+//	std::string NodePlugConnection::cookRSLParametersList()const
+//	{
+//		std::vector<std::string> paramlist;
+//		paramlist.reserve(inputSrc.size()+outputSrc.size());
+//		for(std::size_t i=0; i<inputSrc.size(); ++i)
+//		{
+////			std::string inputSrc_rsltype =;
+////			std::string inputDes_rsltype =;
+////			if(inputSrc_rsltype == inputDes_rsltype)
+//				paramlist.push_back(inputSrc[ i ]) ;
+////			else//type conversion
+////				paramlist.push_back(inputDes_rsltype+" "+inputSrc[ i ]) ;
+//		}
+//		for(std::size_t i=0; i<outputSrc.size(); ++i)
+//		{
+//			paramlist.push_back(outputSrc[ i ]);
+//		}
+//
+//		//
+//		std::string ret;
+//		ret += getShaderName(m_node.c_str()).asChar();//shader name
+//		ret += "(";
+//
+//		//parameter list
+//		if( paramlist.size()>0 )
+//			ret += paramlist[ 0 ];
+//		for(std::size_t i=1; i<paramlist.size(); ++i)
+//		{
+//			ret += ", " + paramlist[ i ];
+//		}
+//
+//		ret += ");";
+//
+//		return boost::replace_all_copy(ret, ".", "_");
+//	}
 	std::string NodePlugConnection::log()const
 	{
 		std::string ret;
@@ -113,6 +114,7 @@ namespace renderman
 	//////////////////////////////////////////////////////////////////////////
 	NodePlugConnectionMgr::NodePlugConnectionMgr()
 	{
+		m_NodePlugInfoMgr = NULL;
 	}
 	//
 	NodePlugConnectionMgr::~NodePlugConnectionMgr()
@@ -162,32 +164,45 @@ namespace renderman
 		printf("\n");
 	}
 	//
-	std::string NodePlugConnectionMgr::cookRSLParametersList(const std::size_t I)const
+	std::string NodePlugConnectionMgr::cookRSLFunctionCallString(const std::size_t I)const
 	{
+		//1.cook parameter list
 		const NodePlugConnection& node = get(I);
+
+		assert(m_NodePlugInfoMgr);
 
 		std::vector<std::string> paramlist;
 		paramlist.reserve(node.inputSrc.size()+node.outputSrc.size());
+		// add inputSrc to param list
 		for(std::size_t i=0; i<node.inputSrc.size(); ++i)
 		{
-//			std::string inputSrc_rsltype =;
-//			std::string inputDes_rsltype =;
-//			if(inputSrc_rsltype == inputDes_rsltype)
+ 			const PlugInfoT *pSrc 
+				= m_NodePlugInfoMgr->getPlugInfo(node.inputSrc[i]);
+ 			const PlugInfoT *pDes
+				= m_NodePlugInfoMgr->getPlugInfo(node.inputDes[i]);
+ 			
+ 			if(pSrc->rsltype == pDes->rsltype){
 				paramlist.push_back(node.inputSrc[ i ]) ;
-// 			else//type conversion
-// 				paramlist.push_back(inputDes_rsltype+" "+node.inputSrc[ i ]) ;
+ 			} else {
+ 				//type conversion
+ 				liquidMessage2(messageInfo, 
+ 					"\"%s\" is converted to \"%s\".",
+ 					node.inputSrc[i].c_str(), pDes->rsltype.c_str());
+  				paramlist.push_back(pDes->rsltype + " " + node.inputSrc[ i ]) ;
+ 			}
 		}
+		// add inputDes to param list
 		for(std::size_t i=0; i<node.outputSrc.size(); ++i)
 		{
 			paramlist.push_back(node.outputSrc[ i ]);
 		}
 
-		//
+		//2. add shader function name
 		std::string ret;
 		ret += getShaderName(node.m_node.c_str()).asChar();//shader name
 		ret += "(";
-
-		//parameter list
+		
+		//3. add ',' into parameter list
 		if( paramlist.size()>0 )
 			ret += paramlist[ 0 ];
 		for(std::size_t i=1; i<paramlist.size(); ++i)
@@ -197,11 +212,16 @@ namespace renderman
 
 		ret += ");";
 
+		//4. replace '.' with '_'
 		return boost::replace_all_copy(ret, ".", "_");
 	}
 	std::string NodePlugConnectionMgr::log(const std::size_t I)const
 	{
 		return get(I).log();
+	}
+	void NodePlugConnectionMgr::setNodePlugMgr(NodePlugInfo *nodePlugInfo)
+	{
+		m_NodePlugInfoMgr = nodePlugInfo;
 	}
 }
 #endif//_USE_RENDERMAN_

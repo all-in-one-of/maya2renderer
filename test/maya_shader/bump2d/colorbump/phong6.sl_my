@@ -331,7 +331,7 @@ file2(place2dTexture3_outUV, file2_outColor);
 //inputDes: file2.uvCoord, 
 //outputSrc: file2.outColor, 
 
-phong6(file2_outColor);
+phong6(normal file2_outColor);
 //inputSrc: file2.outColor, 
 //inputDes: phong6.normalCamera, 
 //outputSrc: 
