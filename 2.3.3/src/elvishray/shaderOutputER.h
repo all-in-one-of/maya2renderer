@@ -71,8 +71,8 @@ public:
 	virtual void outputShaderMethod();
 	virtual void addShaderMethodBody(
 		const MString &currentNode,
-		const MStringArray& inputVars,
-		const MStringArray& outputVars);
+		const MStringArray& inputSrc,
+		const MStringArray& outputSrc);
 	virtual void addShaderMethodVariavles(
 		const MString &node,
 		const MString &plug,

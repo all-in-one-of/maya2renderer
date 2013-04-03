@@ -23,8 +23,8 @@ namespace liquidmaya{
 		void outputShaderMethod();
 		void addShaderMethodBody(
 			const MString &currentNode,
-			const MStringArray& inputVars,
-			const MStringArray& outputVars);
+			const MStringArray& inputSrc,
+			const MStringArray& outputSrc);
 		void addShaderMethodVariavles(
 			const MString &node,
 			const MString &plug,
@@ -52,8 +52,8 @@ namespace liquidmaya{
 		void notify_outputShaderMethod();
 		void notify_addShaderMethodBody(
 			const MString &currentNode,
-			const MStringArray& inputVars,
-			const MStringArray& outputVars
+			const MStringArray& inputSrc,
+			const MStringArray& outputSrc
 			);
 		void notify_addShaderMethodVariavles(
 			const MString &node,

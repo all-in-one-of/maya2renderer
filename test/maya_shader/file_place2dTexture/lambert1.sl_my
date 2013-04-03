@@ -303,17 +303,17 @@ void lambert1 (
 
  //call shader place2dTexture1, var: place2dTexture1.coverage, place2dTexture1.mirrorU, place2dTexture1.mirrorV, place2dTexture1.noiseUV, place2dTexture1.offset, place2dTexture1.repeatUV, place2dTexture1.rotateFrame, place2dTexture1.rotateUV, place2dTexture1.stagger, place2dTexture1.translateFrame, place2dTexture1.wrapU, place2dTexture1.wrapV, place2dTexture1.outUV
  place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
-//input: 
-//output:place2dTexture1.coverage,place2dTexture1.mirrorU,place2dTexture1.mirrorV,place2dTexture1.noiseUV,place2dTexture1.offset,place2dTexture1.repeatUV,place2dTexture1.rotateFrame,place2dTexture1.rotateUV,place2dTexture1.stagger,place2dTexture1.translateFrame,place2dTexture1.wrapU,place2dTexture1.wrapV,place2dTexture1.outUV,
+//inputSrc: 
+//outputSrc:place2dTexture1.coverage,place2dTexture1.mirrorU,place2dTexture1.mirrorV,place2dTexture1.noiseUV,place2dTexture1.offset,place2dTexture1.repeatUV,place2dTexture1.rotateFrame,place2dTexture1.rotateUV,place2dTexture1.stagger,place2dTexture1.translateFrame,place2dTexture1.wrapU,place2dTexture1.wrapV,place2dTexture1.outUV,
 
  //call shader file1, var: place2dTexture1.outUV, file1.outColor
  file1(place2dTexture1_outUV, file1_outColor);
-//input: place2dTexture1.outUV,
-//output:file1.outColor,
+//inputSrc: place2dTexture1.outUV,
+//outputSrc:file1.outColor,
 
  //call shader lambert1, var: file1.outColor
  lambert1(file1_outColor);
-//input: file1.outColor,
-//output:
+//inputSrc: file1.outColor,
+//outputSrc:
 
 }

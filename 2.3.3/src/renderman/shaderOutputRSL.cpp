@@ -399,19 +399,19 @@ void Visitor::outputShaderMethod()
 }
 void  Visitor::addShaderMethodBody(
 						 const MString &currentNode,
-						 const MStringArray& inputNodePlug,
-						 const MStringArray& outputNodePlug)
+						 const MStringArray& inputSrc,
+						 const MStringArray& outputSrc)
 {
-	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputNodePlug)<<","<<liqM(outputNodePlug)<<")");
+	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(outputSrc)<<")");
 
 	MString varString;
 	{
 		MStringArray vars;
-		for(std::size_t i=0; i<inputNodePlug.length(); ++i){
-			vars.append( inputNodePlug[i] );
+		for(std::size_t i=0; i<inputSrc.length(); ++i){
+			vars.append( inputSrc[i] );
 		}
-		for(std::size_t i=0; i<outputNodePlug.length(); ++i){
-			vars.append( outputNodePlug[i] );
+		for(std::size_t i=0; i<outputSrc.length(); ++i){
+			vars.append( outputSrc[i] );
 		}
 
 		for(std::size_t index=0; index<vars.length(); ++index){
@@ -428,10 +428,10 @@ void  Visitor::addShaderMethodBody(
 	{	
 		MString inputVarsStr; 
 		MString outputVarsStr;
-		connectMStringArray(inputVarsStr, inputNodePlug);
-		connectMStringArray(outputVarsStr, outputNodePlug);
-		shaderData[ SHADER_METHOD_BODY_I ] += "//input: " + inputVarsStr +"\n";
-		shaderData[ SHADER_METHOD_BODY_I ] += "//output:" + outputVarsStr +"\n\n";
+		connectMStringArray(inputVarsStr, inputSrc);
+		connectMStringArray(outputVarsStr, outputSrc);
+		shaderData[ SHADER_METHOD_BODY_I ] += "//inputSrc: " + inputVarsStr +"\n";
+		shaderData[ SHADER_METHOD_BODY_I ] += "//outputSrc:" + outputVarsStr +"\n\n";
 	}
 }
 void Visitor::addShaderMethodVariavles(

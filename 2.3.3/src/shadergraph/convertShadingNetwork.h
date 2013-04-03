@@ -54,7 +54,7 @@ public:
 	// Adds all of the valid input nodes for the given plug to the input
 	// variable list.
 	//--------------------------------------------------------------------
-	void addNodeInputVariable(const MString& plug, MStringArray& inputVars);
+	void addNodeInputVariable(const MString& plug, MStringArray& inputSrc);
 	
 	//--------------------------------------------------------------------
 	// Adds all of the valid output nodes for the given plug to the output
@@ -63,7 +63,7 @@ public:
 	//--------------------------------------------------------------------
 	void addNodeOutputVariable(
 		const MString& node, const MString& validConnection, 
-		const MString& plug, MStringArray& outputVars);
+		const MString& plug, MStringArray& outputSrc);
 	
 	//--------------------------------------------------------------------
 	// Given a convertible node and a set of valid connections for that
