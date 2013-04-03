@@ -346,7 +346,7 @@ void Visitor::initShaderData(const MString& startingNode, const MString &mayaplu
 
 	shaderData.setLength(3);
 	shaderData[SHADER_METHOD_VARIAVLES_I] = "";// shader method variables
-	shaderData[SHADER_METHOD_BODY_I]      = "";// shader method body
+	shaderData[1]						  = "";// shader method body
 	shaderData[SHADER_NAME_I]             = startingNode;// shader name
 
 }
@@ -392,11 +392,18 @@ void Visitor::outputShaderMethod()
 	CM_TRACE_FUNC("Visitor::outputShaderMethod()");
 
 	m_NodePlugInfo.print("  ",">");
+	m_NodePlugConnectionMgr.print("  ", ">");
 
 	RSLfile << "\n\n\n// call the shaders ----------------------------------------------------------------------------\n";
 	RSLfile << shaderData[SHADER_METHOD_VARIAVLES_I].asChar();
 	RSLfile << "\n";
-	RSLfile << shaderData[SHADER_METHOD_BODY_I].asChar();
+
+	for(std::size_t i = 0; i<m_NodePlugConnectionMgr.size(); ++i)
+	{
+		RSLfile << m_NodePlugConnectionMgr.get(i).cookRSLParametersList() <<std::endl;
+		RSLfile << m_NodePlugConnectionMgr.get(i).log() << std::endl;	
+	}
+//	RSLfile << shaderData[SHADER_METHOD_BODY_I].asChar();
 	RSLfile << "}\n";
 }
 void  Visitor::addShaderMethodBody(
@@ -407,38 +414,40 @@ void  Visitor::addShaderMethodBody(
 {
 	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(inputDes)<<","<<liqM(outputSrc)<<")");
 	
-	MString varString;
-	{
-		MStringArray vars;
-		for(std::size_t i=0; i<inputSrc.length(); ++i){
-			vars.append( inputSrc[i] );
-		}
-		for(std::size_t i=0; i<outputSrc.length(); ++i){
-			vars.append( outputSrc[i] );
-		}
+	m_NodePlugConnectionMgr.add(currentNode, inputSrc, inputDes, outputSrc);
 
-		for(std::size_t index=0; index<vars.length(); ++index){
-			varString += (index == vars.length() - 1)?(vars[index]):(vars[index]+", ");
-		}
-	}
-
-	// Add the current node method to the shader body
-	shaderData[ SHADER_METHOD_BODY_I ] += " //call shader "+ getShaderName(currentNode) + ", var: "+varString+"\n";
-	varString = boost::replace_all_copy(std::string(varString.asChar()),".","_").c_str();
-	shaderData[ SHADER_METHOD_BODY_I ] += " " + getShaderName(currentNode) +"("+varString+");\n";
-	
-	// test the input and output of currentNode
-	{	
-		MString inputSrcStr; 
-		MString inputDesStr; 
-		MString outputSrcStr;
-		connectMStringArray(inputSrcStr, inputSrc);
-		connectMStringArray(inputDesStr, inputDes);
-		connectMStringArray(outputSrcStr, outputSrc);
-		shaderData[ SHADER_METHOD_BODY_I ] += "//inputSrc: " + inputSrcStr +"\n";
-		shaderData[ SHADER_METHOD_BODY_I ] += "//inputDes: " + inputDesStr +"\n";
-		shaderData[ SHADER_METHOD_BODY_I ] += "//outputSrc:" + outputSrcStr +"\n\n";
-	}
+// 	MString varString;
+// 	{
+// 		MStringArray vars;
+// 		for(std::size_t i=0; i<inputSrc.length(); ++i){
+// 			vars.append( inputSrc[i] );
+// 		}
+// 		for(std::size_t i=0; i<outputSrc.length(); ++i){
+// 			vars.append( outputSrc[i] );
+// 		}
+// 
+// 		for(std::size_t index=0; index<vars.length(); ++index){
+// 			varString += (index == vars.length() - 1)?(vars[index]):(vars[index]+", ");
+// 		}
+// 	}
+// 
+// 	// Add the current node method to the shader body
+// 	shaderData[ SHADER_METHOD_BODY_I ] += " //call shader "+ getShaderName(currentNode) + ", var: "+varString+"\n";
+// 	varString = boost::replace_all_copy(std::string(varString.asChar()),".","_").c_str();
+// 	shaderData[ SHADER_METHOD_BODY_I ] += " " + getShaderName(currentNode) +"("+varString+");\n";
+// 	
+// 	// test the input and output of currentNode
+// 	{	
+// 		MString inputSrcStr; 
+//		MString inputDesStr; 
+//		MString outputSrcStr;
+// 		connectMStringArray(inputSrcStr, inputSrc);
+// 		connectMStringArray(inputDesStr, inputDes);
+// 		connectMStringArray(outputSrcStr, outputSrc);
+//		shaderData[ SHADER_METHOD_BODY_I ] += "//inputSrc: " + inputSrcStr +"\n";
+//		shaderData[ SHADER_METHOD_BODY_I ] += "//inputDes: " + inputDesStr +"\n";
+//		shaderData[ SHADER_METHOD_BODY_I ] += "//outputSrc:" + outputSrcStr +"\n\n";
+// 	}
 }
 void Visitor::addShaderMethodVariavles(
 	const MString &node,

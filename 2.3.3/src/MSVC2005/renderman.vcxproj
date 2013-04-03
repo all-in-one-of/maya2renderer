@@ -2243,6 +2243,7 @@
     <ClCompile Include="..\renderman\rm_factory.cpp" />
     <ClCompile Include="..\renderman\rm_helper.cpp" />
     <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
+    <ClCompile Include="..\renderman\rm_nodePlugConnection.cpp" />
     <ClCompile Include="..\renderman\rm_nodePlugInfo.cpp" />
     <ClCompile Include="..\renderman\rm_plug.cpp" />
     <ClCompile Include="..\renderman\rm_preview.cpp" />
@@ -2292,6 +2293,7 @@
     <ClInclude Include="..\renderman\rm_factory.h" />
     <ClInclude Include="..\renderman\rm_helper.h" />
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
+    <ClInclude Include="..\renderman\rm_nodePlugConnection.h" />
     <ClInclude Include="..\renderman\rm_nodePlugInfo.h" />
     <ClInclude Include="..\renderman\rm_renderer.h" />
     <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />

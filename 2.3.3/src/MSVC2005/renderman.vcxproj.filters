@@ -111,6 +111,9 @@
     <ClCompile Include="..\renderman\rm_nodePlugInfo.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_nodePlugConnection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -158,6 +161,9 @@
       <Filter>src\aov</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_nodePlugInfo.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_nodePlugConnection.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

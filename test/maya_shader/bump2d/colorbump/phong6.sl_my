@@ -1,6 +1,6 @@
 #include <liquidAOVMacroDef.h>
-//surface shader name: lambert1
-surface lambert1
+//surface shader name: phong6
+surface phong6
 (
 #ifdef USE_AOV_aov_ambient
 		output varying color aov_ambient = 0;
@@ -98,8 +98,8 @@ surface lambert1
 
 // define the shaders --------------------------------------------------------------------------
 #include "place2dTexture.h"
-//shader name: place2dTexture1
-void place2dTexture1 (
+//shader name: place2dTexture3
+void place2dTexture3 (
  output float coverage[];
  output float mirrorU;
  output float mirrorV;
@@ -189,8 +189,8 @@ void place2dTexture1 (
 }
 
 #include "file.h"
-//shader name: file1
-void file1 (
+//shader name: file2
+void file2 (
  float uvCoord[];
  output color outColor;
 )
@@ -208,7 +208,7 @@ void file1 (
  uniform float frameOffset = float 0;
  uniform float invert = float 0;
  uniform float useFrameExtension = float 0;
-//file1.uvCoord <-- place2dTexture1.outUV
+//file2.uvCoord <-- place2dTexture3.outUV
  uniform float fileHasAlpha = float 0;
   float outAlpha = float 1;
  outColor = color (0,0,0);
@@ -219,7 +219,7 @@ void file1 (
 	colorGain,         
 	colorOffset,       
 	defaultColor,      
-	"E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check.14.jpg.tif",   
+	"E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/mold_normals.tif.tif",   
 	filterType,        
 	filter,            
 	filterOffset,      
@@ -234,86 +234,106 @@ void file1 (
   );
 }
 
-#include "lambert.h"
-//shader name: lambert1
-void lambert1 (
- color i_color;
+#include "phong.h"
+//shader name: phong6
+void phong6 (
+ normal normalCamera;
 )
 {
   color ambientColor = color (0,0,0);
-//lambert1.color <-- file1.outColor
+  color i_color = color (0.5,0.5,0.5);
+  float cosinePower = float 20;
   float diffuse = float 0.8;
   color incandescence = color (0,0,0);
-  float matteOpacityMode = float 2;
   float matteOpacity = float 1;
+  float matteOpacityMode = float 2;
+//phong6.normalCamera <-- file2.outColor
+  color specularColor = color (0.5,0.5,0.5);
+  float reflectivity = float 0.5;
+  color reflectedColor = color (0,0,0);
  uniform float refractions = float 0;
   float refractiveIndex = float 1;
  uniform float refractionLimit = float 6;
   float lightAbsorbance = float 0;
   float shadowAttenuation = float 0.5;
- normal normalCamera = N;
-  color transparency = color (0,0,0);
+ uniform float reflectionLimit = float 1;
   float translucence = float 0;
   float translucenceDepth = float 0.5;
   float translucenceFocus = float 0.5;
+  color transparency = color (0,0,0);
+ uniform float i_reflectionMaxDistance   =0;
+ uniform float i_reflectionSamples       =0;
+ uniform float i_reflectionBlur          =0;
+ uniform float i_reflectionNoiseAmplitude=0;
+ uniform float i_reflectionNoiseFrequency=0;
   color outColor = color (0,0,0);
   color outTransparency = color (0,0,0);
-   maya_lambert(						
+   maya_phong(						
 	ambientColor,				
 	i_color,					
+	cosinePower,				
 	diffuse,					
 	incandescence,				
-	matteOpacityMode,			
 	matteOpacity,				
+	matteOpacityMode,			
+	normalCamera,				
+	specularColor,				
+	reflectivity,				
+	reflectedColor,			
 	refractions,				
 	refractiveIndex,			
 	refractionLimit,			
 	lightAbsorbance,			
 	shadowAttenuation,			
-	normalCamera,				
-	transparency,				
+	reflectionLimit,			
 	translucence,				
 	translucenceDepth,			
 	translucenceFocus,			
+	transparency,				
+	i_reflectionMaxDistance,	
+	i_reflectionSamples,		
+	i_reflectionBlur,			
+	i_reflectionNoiseAmplitude,
+	i_reflectionNoiseFrequency,
 	outColor,					
 	outTransparency			
    );
-    Oi = Os * ( 1.0 - outTransparency );
-    Ci = Cs * Oi * outColor;
+    Ci             = Os * outColor;
+    Oi             = Os * ( 1.0 - outTransparency );
 }
 
 
 
 
 // call the shaders ----------------------------------------------------------------------------
- float place2dTexture1_coverage[2];
- float place2dTexture1_mirrorU;
- float place2dTexture1_mirrorV;
- float place2dTexture1_noiseUV[2];
- float place2dTexture1_offset[2];
- float place2dTexture1_repeatUV[2];
- float place2dTexture1_rotateFrame;
- float place2dTexture1_rotateUV;
- float place2dTexture1_stagger;
- float place2dTexture1_translateFrame[2];
- float place2dTexture1_wrapU;
- float place2dTexture1_wrapV;
- float place2dTexture1_outUV[2];
- color file1_outColor;
+ float place2dTexture3_coverage[2];
+ float place2dTexture3_mirrorU;
+ float place2dTexture3_mirrorV;
+ float place2dTexture3_noiseUV[2];
+ float place2dTexture3_offset[2];
+ float place2dTexture3_repeatUV[2];
+ float place2dTexture3_rotateFrame;
+ float place2dTexture3_rotateUV;
+ float place2dTexture3_stagger;
+ float place2dTexture3_translateFrame[2];
+ float place2dTexture3_wrapU;
+ float place2dTexture3_wrapV;
+ float place2dTexture3_outUV[2];
+ color file2_outColor;
 
-place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
+place2dTexture3(place2dTexture3_coverage, place2dTexture3_mirrorU, place2dTexture3_mirrorV, place2dTexture3_noiseUV, place2dTexture3_offset, place2dTexture3_repeatUV, place2dTexture3_rotateFrame, place2dTexture3_rotateUV, place2dTexture3_stagger, place2dTexture3_translateFrame, place2dTexture3_wrapU, place2dTexture3_wrapV, place2dTexture3_outUV);
 //inputSrc: 
 //inputDes: 
-//outputSrc: place2dTexture1.coverage, place2dTexture1.mirrorU, place2dTexture1.mirrorV, place2dTexture1.noiseUV, place2dTexture1.offset, place2dTexture1.repeatUV, place2dTexture1.rotateFrame, place2dTexture1.rotateUV, place2dTexture1.stagger, place2dTexture1.translateFrame, place2dTexture1.wrapU, place2dTexture1.wrapV, place2dTexture1.outUV, 
+//outputSrc: place2dTexture3.coverage, place2dTexture3.mirrorU, place2dTexture3.mirrorV, place2dTexture3.noiseUV, place2dTexture3.offset, place2dTexture3.repeatUV, place2dTexture3.rotateFrame, place2dTexture3.rotateUV, place2dTexture3.stagger, place2dTexture3.translateFrame, place2dTexture3.wrapU, place2dTexture3.wrapV, place2dTexture3.outUV, 
 
-file1(place2dTexture1_outUV, file1_outColor);
-//inputSrc: place2dTexture1.outUV, 
-//inputDes: file1.uvCoord, 
-//outputSrc: file1.outColor, 
+file2(place2dTexture3_outUV, file2_outColor);
+//inputSrc: place2dTexture3.outUV, 
+//inputDes: file2.uvCoord, 
+//outputSrc: file2.outColor, 
 
-lambert1(file1_outColor);
-//inputSrc: file1.outColor, 
-//inputDes: lambert1.color, 
+phong6(file2_outColor);
+//inputSrc: file2.outColor, 
+//inputDes: phong6.normalCamera, 
 //outputSrc: 
 
 }

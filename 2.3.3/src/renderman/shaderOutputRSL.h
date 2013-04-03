@@ -8,6 +8,7 @@
 #include "../common/prerequest_maya.h"
 #include "../shadergraph/shaderOutput.h"
 #include "rm_nodePlugInfo.h"
+#include "rm_nodePlugConnection.h"
 
 namespace RSL{
 
@@ -318,7 +319,7 @@ private:
 	std::string shaderNodeName;
 protected:
 	static const int SHADER_METHOD_VARIAVLES_I = 0;
-	static const int SHADER_METHOD_BODY_I      = 1;
+//	static const int SHADER_METHOD_BODY_I      = 1;
 	static const int SHADER_NAME_I             = 2;
 	MStringArray shaderData;
 	MString shaderType;
@@ -329,6 +330,7 @@ protected:
 	std::string getAOVMacroDefineFileName()const;
 
 	renderman::NodePlugInfo m_NodePlugInfo;
+	renderman::NodePlugConnectionMgr m_NodePlugConnectionMgr;
 };
 //
 void _outputShadingGroup(const char* shadingGroupNode);
