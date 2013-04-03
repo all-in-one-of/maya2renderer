@@ -48,8 +48,6 @@ public:
 
 	void addInclude(const MString& file);
 
-	bool isOutput(const MString& plugName);
-
 protected:
 	void _addRSLVariable(const MString& inputQualifier, MString rslType, const MString& rslName,
 		const MString& mayaName, const MString& mayaNode);

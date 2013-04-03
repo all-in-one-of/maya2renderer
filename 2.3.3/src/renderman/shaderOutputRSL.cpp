@@ -327,13 +327,6 @@ void OutputHelper::addInclude(const MString& file)
 	CM_TRACE_FUNC("OutputHelper::addInclude("<<file.asChar()<<")");
 	includedFiles.insert(file.asChar());
 }
-bool OutputHelper::isOutput(const MString& plugName)
-{
-	CM_TRACE_FUNC("OutputHelper::isOutput("<<plugName.asChar()<<")");
-	
-	return 	(2 == liquidmaya::ShaderMgr::getSingletonPtr()
-		->convertibleConnection(plugName.asChar()));
-}
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
 {
