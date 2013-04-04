@@ -66,6 +66,7 @@ namespace renderman
 			get(std::size_t i)const { return m_data[ i ]; }
 
 		void setNodePlugMgr(NodePlugInfo *nodePlugInfo);
+		void reset();
 
 	protected:
 		std::vector<NodePlugConnection> m_data;

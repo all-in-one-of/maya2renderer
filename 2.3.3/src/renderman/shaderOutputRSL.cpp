@@ -348,7 +348,9 @@ void Visitor::initShaderData(const MString& startingNode, const MString &mayaplu
 	shaderData[SHADER_METHOD_VARIAVLES_I] = "";// shader method variables
 	shaderData[1]						  = "";// shader method body
 	shaderData[SHADER_NAME_I]             = startingNode;// shader name
-
+	
+	m_NodePlugConnectionMgr.setNodePlugMgr( &m_NodePlugInfo );
+	m_NodePlugConnectionMgr.reset();
 }
 void Visitor::preOutput(const char* shaderNodeName)
 {
@@ -414,8 +416,6 @@ void  Visitor::addShaderMethodBody(
 {
 	CM_TRACE_FUNC("Visitor::addShaderMethodBody("<<currentNode.asChar()<<","<<liqM(inputSrc)<<","<<liqM(inputDes)<<","<<liqM(outputSrc)<<")");
 	
-	m_NodePlugConnectionMgr.setNodePlugMgr( &m_NodePlugInfo );
-
 	m_NodePlugConnectionMgr.add(currentNode, inputSrc, inputDes, outputSrc);
 
 // 	MString varString;

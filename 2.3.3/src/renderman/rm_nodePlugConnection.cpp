@@ -223,5 +223,9 @@ namespace renderman
 	{
 		m_NodePlugInfoMgr = nodePlugInfo;
 	}
+	void NodePlugConnectionMgr::reset()
+	{
+		m_data.clear();
+	}
 }
 #endif//_USE_RENDERMAN_

@@ -133,9 +133,9 @@ void test_pl_type_liquidShader_liquidShader2 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //test_pl_type_liquidShader_liquidShader2
- test_pl_type_liquidShader_liquidShader2();
-//input: 
-//output:
+test_pl_type_liquidShader_liquidShader2();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

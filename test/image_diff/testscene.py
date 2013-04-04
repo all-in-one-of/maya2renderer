@@ -25,22 +25,22 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture_liquidSurface_tif/texture_liquidSurface_tif.ma"
     MyTestOne.test_one_scene(testFile, "renderman")  
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/sequence/file_place2dTexture_seq.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_array.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_liquidShader.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     #test_pl_type_array_liquidShader.ma is BAD
     #testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_array_liquidShader.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
@@ -57,7 +57,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_liquidShader_conIO.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     # bad, it has a global displacement shader
     testFile=LIQUID_ROOT+"/test/unittest/rm/displacement/displacement.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
@@ -178,10 +178,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_surface/nurbs_surface.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    ''' 
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
 
     '''
 
