@@ -652,9 +652,12 @@ void Visitor::visit_liquidShader(const char* node)
 		std::string paramType;
 
 		liqTokenPointer* vp = const_cast< liqTokenPointer* >( &shader.tokenPointerArray[i] );
-		switch( shader.tokenPointerArray[i].getParameterType() )
+		ParameterType ptype = shader.tokenPointerArray[i].getParameterType();
+		switch( ptype )
 		{
-		case rFloat:	
+		case rFloat:
+		case rInt:
+		case rBool:
 			paramType = "float";
 			break;
 		case rPoint: 
@@ -680,7 +683,7 @@ void Visitor::visit_liquidShader(const char* node)
 			paramType = "matrix";	
 			break;
 		default :
-			assert(0);
+			liquidMessage2(messageError, "param type %d is unknown.", ptype);
 		}//switch
 		o.addRSLVariable("", paramType.c_str(),  vp->getTokenName().c_str(), vp->getTokenName().c_str(), node);
 		
