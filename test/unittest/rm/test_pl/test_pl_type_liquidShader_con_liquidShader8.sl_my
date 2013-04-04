@@ -197,14 +197,14 @@ void test_pl_type_liquidShader_con_liquidShader8 (
 // call the shaders ----------------------------------------------------------------------------
  float test_pl_type_liquidShader_con_phong1_diffuse;
 
- //test_pl_type_liquidShader_con_phong1
- test_pl_type_liquidShader_con_phong1(test_pl_type_liquidShader_con_phong1_diffuse);
-//input: 
-//output:test_pl_type_liquidShader_con_phong1_diffuse,
+test_pl_type_liquidShader_con_phong1(test_pl_type_liquidShader_con_phong1_diffuse);
+//inputSrc: 
+//inputDes: 
+//outputSrc: test_pl_type_liquidShader_con_phong1.diffuse, 
 
- //test_pl_type_liquidShader_con_liquidShader8
- test_pl_type_liquidShader_con_liquidShader8(test_pl_type_liquidShader_con_phong1_diffuse);
-//input: test_pl_type_liquidShader_con_phong1_diffuse,
-//output:
+test_pl_type_liquidShader_con_liquidShader8(test_pl_type_liquidShader_con_phong1_diffuse);
+//inputSrc: test_pl_type_liquidShader_con_phong1.diffuse, 
+//inputDes: test_pl_type_liquidShader_con_liquidShader8.frequency, 
+//outputSrc: 
 
 }

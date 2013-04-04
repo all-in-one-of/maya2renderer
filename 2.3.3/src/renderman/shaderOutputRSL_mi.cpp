@@ -53,15 +53,15 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	OutputHelper o(RSLfile);
 
 	o.addInclude("mib_amb_occlusion.h");
-	o.beginRSL(node); m_NodePlugInfo.begin(node);
+	o.beginRSL(node);
 
-	o.addRSLVariable(       "", "float",	"i_samples",	"samples",		node); m_NodePlugInfo.add("samples",		"float");
-	o.addRSLVariable(       "", "color",	"i_bright",		"bright",		node); m_NodePlugInfo.add("bright",			"color");
-	o.addRSLVariable(       "", "color",	"i_dark",		"dark",			node); m_NodePlugInfo.add("dark",			"color");
-	o.addRSLVariable(       "", "float",	"i_spread",		"spread",		node); m_NodePlugInfo.add("spread",			"float");
-	o.addRSLVariable(       "", "float",	"i_max_distance","max_distance",node); m_NodePlugInfo.add("max_distance",	"float");
-	o.addRSLVariable(       "", "float",	"i_reflective",	"reflective",	node); m_NodePlugInfo.add("reflective",		"float");
-	o.addRSLVariable(       "", "color",	"o_outValue",	"outValue",		node); m_NodePlugInfo.add("outValue",		"color");
+	o.addRSLVariable(       "", "float",	"i_samples",	"samples",		node); m_NodePlugInfo.add(node, "samples",		"float");
+	o.addRSLVariable(       "", "color",	"i_bright",		"bright",		node); m_NodePlugInfo.add(node, "bright",			"color");
+	o.addRSLVariable(       "", "color",	"i_dark",		"dark",			node); m_NodePlugInfo.add(node, "dark",			"color");
+	o.addRSLVariable(       "", "float",	"i_spread",		"spread",		node); m_NodePlugInfo.add(node, "spread",			"float");
+	o.addRSLVariable(       "", "float",	"i_max_distance","max_distance",node); m_NodePlugInfo.add(node, "max_distance",	"float");
+	o.addRSLVariable(       "", "float",	"i_reflective",	"reflective",	node); m_NodePlugInfo.add(node, "reflective",		"float");
+	o.addRSLVariable(       "", "color",	"o_outValue",	"outValue",		node); m_NodePlugInfo.add(node, "outValue",		"color");
 
 	o.addToRSL("{");
 
@@ -82,7 +82,7 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 					"o_outValue		\n"
 			"   );");
 	o.addToRSL("}");
-	o.endRSL(); m_NodePlugInfo.end();
+	o.endRSL();
 
 #endif
 }

@@ -20,7 +20,7 @@ namespace renderman
 
 		void swap(PlugInfoT& o);
 
-		void print(const std::string& indent, const std::string& prefix);
+		void print(const std::string& indent, const std::string& prefix)const;
 
 		std::string name;	//plug name, e.g. outColor, transparency, ...
 		std::string rsltype;//rsl type , e.g. color, float, float2, vector, normal, ...
@@ -28,28 +28,27 @@ namespace renderman
 	};
 	void swap(PlugInfoT& a, PlugInfoT& b);
 	//////////////////////////////////////////////////////////////////////////
-	//map plugname to PlugInfoT
-	typedef std::string NodeNameT;
-	typedef std::string PlugNameT;
-	class PlugInfoPairsT
+	//
+	class NodePlug
 	{
 	public:
-		PlugInfoPairsT();
-		PlugInfoPairsT(const PlugInfoPairsT& o);
-		~PlugInfoPairsT();
+		NodePlug();
+		NodePlug(const NodePlug& o);
+		~NodePlug();
 
-		PlugInfoPairsT& operator=(const PlugInfoPairsT& o);
-		void insert(const PlugNameT& key, const PlugInfoT& data);
+		NodePlug& operator=(const NodePlug& o);
+		void add(const char* plug, const char* rsltype);
 
-		void swap(PlugInfoPairsT& o);
+		void swap(NodePlug& o);
 
-		void print(const std::string& indent, const std::string& prefix);
+		void print(const std::string& indent, const std::string& prefix)const;
 
 		const PlugInfoT* getPlugInfo(const std::string &plugname) const;
-	protected:
-		std::map<PlugNameT, PlugInfoT> m_data;
+
+		std::string m_node;
+		std::vector<PlugInfoT> m_plugs;
 	};
-	void swap(PlugInfoPairsT& a, PlugInfoPairsT& b);
+	void swap(NodePlug& a, NodePlug& b);
 	//////////////////////////////////////////////////////////////////////////
 	//m_data
 	//    |
@@ -66,24 +65,16 @@ namespace renderman
 	public:
 		NodePlugInfo();
 		~NodePlugInfo();
-
-		void begin(const char* node);
-		void add(const char* plugname, const char* rsltype);
-		void end();
-
+		
+		void add(const char* node, const char* plug, const char* rsltype);
+		
 		void print(const std::string& indent, const std::string& prefix);
 
 		const PlugInfoT* getPlugInfo(const std::string &node, const std::string& plug) const;
-		const PlugInfoT* getPlugInfo(const std::string &nodeplug) const;
+		const PlugInfoT* getPlugInfo(const std::string &node_dot_plug) const;
 
 	protected:
-
-
-		std::map<NodeNameT, PlugInfoPairsT> m_data;
-		
-	private:
-		std::string    m_currentNode;
-		PlugInfoPairsT m_currentPairs;
+		std::vector<NodePlug> m_data;
 
 	private:
 		NodePlugInfo(const NodePlugInfo&);

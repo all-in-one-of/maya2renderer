@@ -225,19 +225,19 @@ void test_pl_type_liquidShader_conIO_liquidShader8 (
  float test_pl_type_liquidShader_conIO_phong1_colorR;
  float test_pl_type_liquidShader_conIO_liquidShader7_frequency;
 
- //test_pl_type_liquidShader_conIO_phong1
- test_pl_type_liquidShader_conIO_phong1(test_pl_type_liquidShader_conIO_phong1_colorR);
-//input: 
-//output:test_pl_type_liquidShader_conIO_phong1_colorR,
+test_pl_type_liquidShader_conIO_phong1(test_pl_type_liquidShader_conIO_phong1_colorR);
+//inputSrc: 
+//inputDes: 
+//outputSrc: test_pl_type_liquidShader_conIO_phong1.colorR, 
 
- //test_pl_type_liquidShader_conIO_liquidShader7
- test_pl_type_liquidShader_conIO_liquidShader7(test_pl_type_liquidShader_conIO_liquidShader7_frequency);
-//input: 
-//output:test_pl_type_liquidShader_conIO_liquidShader7_frequency,
+test_pl_type_liquidShader_conIO_liquidShader7(test_pl_type_liquidShader_conIO_liquidShader7_frequency);
+//inputSrc: 
+//inputDes: 
+//outputSrc: test_pl_type_liquidShader_conIO_liquidShader7.frequency, 
 
- //test_pl_type_liquidShader_conIO_liquidShader8
- test_pl_type_liquidShader_conIO_liquidShader8(test_pl_type_liquidShader_conIO_liquidShader7_frequency);
-//input: test_pl_type_liquidShader_conIO_liquidShader7_frequency,
-//output:
+test_pl_type_liquidShader_conIO_liquidShader8(test_pl_type_liquidShader_conIO_liquidShader7_frequency);
+//inputSrc: test_pl_type_liquidShader_conIO_liquidShader7.frequency, 
+//inputDes: test_pl_type_liquidShader_conIO_liquidShader8.frequency, 
+//outputSrc: 
 
 }

@@ -31,7 +31,7 @@ namespace renderman
 		swap(this->name,	o.name);
 		swap(this->rsltype, o.rsltype);
 	}
-	void PlugInfoT::print(const std::string& indent, const std::string& prefix)
+	void PlugInfoT::print(const std::string& indent, const std::string& prefix)const
 	{
 		printf("%s \t%s \t %s\n", indent.c_str(), name.c_str(), rsltype.c_str());
 	}
@@ -40,66 +40,84 @@ namespace renderman
 		a.swap(b);
 	}
 	//////////////////////////////////////////////////////////////////////////
-	PlugInfoPairsT::PlugInfoPairsT()
+	NodePlug::NodePlug()
 	{
 	}
-	PlugInfoPairsT::PlugInfoPairsT(const PlugInfoPairsT& o)
+	NodePlug::NodePlug(const NodePlug& o)
 	{
-		m_data.clear();
+		m_plugs.clear();
 
-		std::map<PlugNameT, PlugInfoT>::const_iterator i = o.m_data.begin();
-		std::map<PlugNameT, PlugInfoT>::const_iterator e = o.m_data.end();
-		for(; i!=e; ++i)
-		{
-			m_data[i->first] = i->second;
-		}
+		m_node = o.m_node;
+
+		this->m_plugs.resize(o.m_plugs.size());
+		std::copy( o.m_plugs.begin(), o.m_plugs.end(), this->m_plugs.begin() );
 	}
-	PlugInfoPairsT::~PlugInfoPairsT()
+	NodePlug::~NodePlug()
 	{
 	}
 
-	PlugInfoPairsT& PlugInfoPairsT::operator=(const PlugInfoPairsT& o)
+	NodePlug& NodePlug::operator=(const NodePlug& o)
 	{
-		PlugInfoPairsT t(o);
+		NodePlug t(o);
 		this->swap(t);
 		return *this;
 	}
-	void PlugInfoPairsT::insert(const PlugNameT& key, const PlugInfoT& data)
+	void NodePlug::add(const char* plug, const char* rsltype)
 	{
-		m_data[ key ] = data;
+		//try to update
+		std::vector<PlugInfoT>::reverse_iterator i = m_plugs.rbegin();
+		std::vector<PlugInfoT>::reverse_iterator e = m_plugs.rend();
+		for(; i!=e; ++i)
+		{
+			if( i->name == plug )//found and update
+			{
+				i->rsltype = rsltype;
+				return;
+			}
+		}
+
+		if( i == e )//not found, add a new one
+		{
+			PlugInfoT n;
+			n.name    = plug;
+			n.rsltype = rsltype;
+
+			m_plugs.push_back(n);
+		}
 	}
-	void PlugInfoPairsT::swap(PlugInfoPairsT& o)
+	void NodePlug::swap(NodePlug& o)
 	{
 		using std::swap;
 
-		swap(this->m_data,	o.m_data);
+		swap(this->m_node,		o.m_node);
+		swap(this->m_plugs,		o.m_plugs);
 	}
-	void PlugInfoPairsT::print(const std::string& indent, const std::string& prefix)
+	void NodePlug::print(const std::string& indent, const std::string& prefix)const
 	{
-		std::map<PlugNameT, PlugInfoT>::iterator i = m_data.begin();
-		std::map<PlugNameT, PlugInfoT>::iterator e = m_data.end();
+		printf("%s %s %s---------\n", indent.c_str(), prefix.c_str(), m_node.c_str() );
+		std::vector<PlugInfoT>::const_iterator i = m_plugs.begin();
+		std::vector<PlugInfoT>::const_iterator e = m_plugs.end();
 		for(; i!=e; ++i)
 		{
-			printf("%s \t%s:\t\t", indent.c_str(), i->first.c_str());
-			i->second.print(indent+indent, prefix);
+			i->print(indent+indent, prefix);
 		}
 		printf("\n");
-
 	}
-	const PlugInfoT* PlugInfoPairsT::getPlugInfo(const std::string &plugname) const
+	const PlugInfoT* NodePlug::getPlugInfo(const std::string &plugname) const
 	{
-		std::map<PlugNameT, PlugInfoT>::const_iterator 
-			i_plug = m_data.find(plugname);
-
-		if( i_plug == m_data.end() )
+		std::vector<PlugInfoT>::const_iterator i = m_plugs.begin();
+		std::vector<PlugInfoT>::const_iterator e = m_plugs.end();
+		for(; i!=e; ++i)
 		{
-			liquidMessage2(messageError, "plug \"%s\" not found.", plugname.c_str());
-			return NULL;
-		}else {
-			return &(i_plug->second);
+			if( i->name == plugname )//found
+			{
+				return  &(*i);
+			}
 		}
+		liquidMessage2(messageError, "plug \"%s\" not found.", plugname.c_str());
+		return NULL;
 	}
-	void swap(PlugInfoPairsT& a, PlugInfoPairsT& b)
+	void swap(NodePlug& a, NodePlug& b)
 	{
 		a.swap(b);
 	}
@@ -113,41 +131,38 @@ namespace renderman
 
 	}
 	//
-	void NodePlugInfo::begin(const char* node)
+	void NodePlugInfo::add(const char* node, const char* plug, const char* rsltype)
 	{
-		m_currentNode.clear();//reset
+		//try to find and update
+		std::vector<NodePlug>::reverse_iterator i = m_data.rbegin();
+		std::vector<NodePlug>::reverse_iterator e = m_data.rend();
+		for(; i!=e; ++i)
+		{
+			if( i->m_node == node )//found and update
+			{
+				i->add(plug, rsltype);
+				return;
+			}
+		}
+		
+		//not found, add a new one
+		if( i == e )
+		{
+			NodePlug n;
+			n.m_node = node;
+			n.add(plug, rsltype);
 
-		m_currentNode = node;
-
-	}
-	void NodePlugInfo::add(const char* plugname, const char* rsltype)
-	{
-		PlugInfoT n;
-		n.name    = plugname;
-		n.rsltype = rsltype;
-
-		m_currentPairs.insert(plugname, n);
-		printf("node:%s, add %s\n", m_currentNode.c_str(), plugname );
-	}
-	void NodePlugInfo::end()
-	{
-		assert( !m_currentNode.empty() );
-
-		m_data[ m_currentNode ] = m_currentPairs;
-
-
-
+			m_data.push_back(n);
+		}
 	}
 
 	void NodePlugInfo::print(const std::string& indent, const std::string& prefix)
 	{
-		std::map<NodeNameT, PlugInfoPairsT>::iterator i = m_data.begin();
-		std::map<NodeNameT, PlugInfoPairsT>::iterator e = m_data.end();
-	
+		std::vector<NodePlug>::iterator i = m_data.begin();
+		std::vector<NodePlug>::iterator e = m_data.end();
 		for(; i!=e; ++i)
 		{
-			printf("%s node:%s--------------\n", indent.c_str(), i->first.c_str());
-			i->second.print(indent+indent, prefix);
+			i->print(indent+indent, prefix);
 		}
 		printf("\n");
 		_flushall();
@@ -155,22 +170,25 @@ namespace renderman
 	const PlugInfoT* 
 		NodePlugInfo::getPlugInfo(const std::string &nodename, const std::string& plug) const
 	{
-		std::map<NodeNameT, PlugInfoPairsT>::const_iterator 
-			i_node = m_data.find(nodename);
+		std::vector<NodePlug>::const_iterator i = m_data.begin();
+		std::vector<NodePlug>::const_iterator e = m_data.end();
 
-		if( i_node == m_data.end() )
+		for(; i!=e; ++i)
 		{
-			liquidMessage2(messageError, "node \"%s\" not found.", nodename.c_str());
-			return NULL;
+			if( i->m_node == nodename )//found
+			{
+				return i->getPlugInfo(plug);
+			}
 		}
 
-		return i_node->second.getPlugInfo(plug);
+		liquidMessage2(messageError, "node \"%s\" not found.", nodename.c_str());
+		return NULL;
 	}
-	const PlugInfoT* NodePlugInfo::getPlugInfo(const std::string &nodeplug) const
+	const PlugInfoT* NodePlugInfo::getPlugInfo(const std::string &node_dot_plug) const
 	{
-		std::size_t i = nodeplug.find_first_of('.');
-		std::string node(nodeplug.substr(0, i));
-		std::string plug(nodeplug.substr(i+1));
+		std::size_t i = node_dot_plug.find_first_of('.');
+		std::string node(node_dot_plug.substr(0, i));
+		std::string plug(node_dot_plug.substr(i+1));
 
 		return getPlugInfo(node, plug);
 	}
