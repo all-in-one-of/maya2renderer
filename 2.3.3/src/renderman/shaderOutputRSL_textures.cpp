@@ -18,7 +18,7 @@ void Visitor::visitBulge(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBulge("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -28,28 +28,28 @@ void Visitor::visitChecker(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitChecker("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("checker.h");
 
 	o.beginRSL(node);
 	//input
-	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);		m_NodePlugInfo.add(node, "alphaGain",		"float");
-	o.addRSLVariable("uniform", "float",  "alphaIsLuminance","alphaIsLuminance",node);	m_NodePlugInfo.add(node, "alphaIsLuminance","float");
-	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);		m_NodePlugInfo.add(node, "alphaOffset",	"float");
-	o.addRSLVariable(       "", "color",  "color1",			"color1",		node);		m_NodePlugInfo.add(node, "color1",		"color");
-	o.addRSLVariable(       "", "color",  "color2",			"color2",		node);		m_NodePlugInfo.add(node, "color2",		"color");
-	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);		m_NodePlugInfo.add(node, "colorGain",		"color");
-	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);		m_NodePlugInfo.add(node, "colorOffset",	"color");
-	o.addRSLVariable("uniform", "float",  "contrast",		"contrast",		node);		m_NodePlugInfo.add(node, "contrast",		"float");
-	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);		m_NodePlugInfo.add(node, "defaultColor",	"color");
-	o.addRSLVariable(       "", "float",  "filter",			"filter",		node);		m_NodePlugInfo.add(node, "filter",		"float");
-	o.addRSLVariable(       "", "float",  "filterOffset",	"filterOffset",	node);		m_NodePlugInfo.add(node, "filterOffset",	"float");
-	o.addRSLVariable("uniform", "float",  "invert",			"invert",		node);		m_NodePlugInfo.add(node, "invert",		"float");
-	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",		node);		m_NodePlugInfo.add(node, "uvCoord",		"float2");
+	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);
+	o.addRSLVariable("uniform", "float",  "alphaIsLuminance","alphaIsLuminance",node);
+	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);
+	o.addRSLVariable(       "", "color",  "color1",			"color1",		node);
+	o.addRSLVariable(       "", "color",  "color2",			"color2",		node);
+	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);
+	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);
+	o.addRSLVariable("uniform", "float",  "contrast",		"contrast",		node);
+	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);
+	o.addRSLVariable(       "", "float",  "filter",			"filter",		node);
+	o.addRSLVariable(       "", "float",  "filterOffset",	"filterOffset",	node);
+	o.addRSLVariable("uniform", "float",  "invert",			"invert",		node);
+	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",		node);
 	//Output
-	o.addRSLVariable(       "", "float",  "outAlpha",		"outAlpha",		node);		m_NodePlugInfo.add(node, "outAlpha",		"float");
-	o.addRSLVariable(       "", "color",  "outColor",		"outColor",		node);		m_NodePlugInfo.add(node, "outColor",		"color");
+	o.addRSLVariable(       "", "float",  "outAlpha",		"outAlpha",		node);
+	o.addRSLVariable(       "", "color",  "outColor",		"outColor",		node);
 
 	o.addToRSL("  maya_checker("
 					//Inputs
@@ -78,7 +78,7 @@ void Visitor::visitCloth(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCloth("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -88,7 +88,7 @@ void Visitor::visitFile(const char* node)
 {	
 	CM_TRACE_FUNC("Visitor::visitFile("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("file.h");
 
@@ -100,27 +100,27 @@ void Visitor::visitFile(const char* node)
 	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.textureMaker+" "+mayaTexName+" "+texName+"\")", true));
 	
 	//input
-	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);			m_NodePlugInfo.add(node, "alphaGain",			"float");
-	o.addRSLVariable("uniform", "float",  "alphaIsLuminance",	"alphaIsLuminance",	node);	m_NodePlugInfo.add(node, "alphaIsLuminance",	"float");
-	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);			m_NodePlugInfo.add(node, "alphaOffset",		"float");
-	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);			m_NodePlugInfo.add(node, "colorGain",			"color");
-	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);			m_NodePlugInfo.add(node, "colorOffset",		"color");
-	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);			m_NodePlugInfo.add(node, "defaultColor",		"color");
+	o.addRSLVariable(       "", "float",  "alphaGain",		"alphaGain",	node);
+	o.addRSLVariable("uniform", "float",  "alphaIsLuminance",	"alphaIsLuminance",	node);
+	o.addRSLVariable(       "", "float",  "alphaOffset",	"alphaOffset",	node);
+	o.addRSLVariable(       "", "color",  "colorGain",		"colorGain",	node);
+	o.addRSLVariable(       "", "color",  "colorOffset",	"colorOffset",	node);
+	o.addRSLVariable(       "", "color",  "defaultColor",	"defaultColor",	node);
 	//texName
-	o.addRSLVariable("uniform", "float", "filterType",		"filterType",	node);			m_NodePlugInfo.add(node, "filterType",		"float");
-	o.addRSLVariable("uniform", "float", "filter",			"filter",		node);			m_NodePlugInfo.add(node, "filter",			"float");
-	o.addRSLVariable(       "", "float", "filterOffset",	"filterOffset",	node);			m_NodePlugInfo.add(node, "filterOffset",		"float");
-	o.addRSLVariable("uniform", "float", "frameExtension",	"frameExtension",node);			m_NodePlugInfo.add(node, "frameExtension",	"float");
-	o.addRSLVariable("uniform", "float", "frameOffset",		"frameOffset",	node);			m_NodePlugInfo.add(node, "frameOffset",		"float");
-	o.addRSLVariable("uniform", "float", "invert",			"invert",		node);			m_NodePlugInfo.add(node, "invert",			"float");
-	o.addRSLVariable("uniform", "float", "useFrameExtension","useFrameExtension",node);		m_NodePlugInfo.add(node, "useFrameExtension",	"float");
-	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",node);				m_NodePlugInfo.add(node, "uvCoord",			"float2");
-	o.addRSLVariable("uniform", "float", "fileHasAlpha",	"fileHasAlpha",	node);			m_NodePlugInfo.add(node, "fileHasAlpha",		"float");
+	o.addRSLVariable("uniform", "float", "filterType",		"filterType",	node);
+	o.addRSLVariable("uniform", "float", "filter",			"filter",		node);
+	o.addRSLVariable(       "", "float", "filterOffset",	"filterOffset",	node);
+	o.addRSLVariable("uniform", "float", "frameExtension",	"frameExtension",node);
+	o.addRSLVariable("uniform", "float", "frameOffset",		"frameOffset",	node);
+	o.addRSLVariable("uniform", "float", "invert",			"invert",		node);
+	o.addRSLVariable("uniform", "float", "useFrameExtension","useFrameExtension",node);
+	o.addRSLVariable(       "", "float2", "uvCoord",		"uvCoord",node);
+	o.addRSLVariable("uniform", "float", "fileHasAlpha",	"fileHasAlpha",	node);
 	//o.addRSLVariable("index", "num_channels",	"num_channels",	node);
 	//output
-	o.addRSLVariable(       "", "float", "outAlpha",		"outAlpha",		node);			m_NodePlugInfo.add(node, "outAlpha",			"float");
-	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);			m_NodePlugInfo.add(node, "outColor",			"color");
-	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",	node);		m_NodePlugInfo.add(node, "outTransparency",	"color");
+	o.addRSLVariable(       "", "float", "outAlpha",		"outAlpha",		node);
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",		node);
+	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",	node);
 
 	o.addToRSL("  maya_file("
 						//Inputs
@@ -151,7 +151,7 @@ void Visitor::visitFluidTexture2D(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFluidTexture2D("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -161,7 +161,7 @@ void Visitor::visitFractal(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFractal("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -171,7 +171,7 @@ void Visitor::visitGrid(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitGrid("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -181,7 +181,7 @@ void Visitor::visitMountain(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMountain("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -191,7 +191,7 @@ void Visitor::visitMovie(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMovie("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -201,7 +201,7 @@ void Visitor::visitNoise(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitNoise("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -211,7 +211,7 @@ void Visitor::visitOcean(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitOcean("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -221,7 +221,7 @@ void Visitor::visitPSDFileTex(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPSDFileTex("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -231,7 +231,7 @@ void Visitor::visitRamp(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRamp("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -241,7 +241,7 @@ void Visitor::visitWater(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitWater("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -252,7 +252,7 @@ void Visitor::visitBrownian(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBrownian("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -262,7 +262,7 @@ void Visitor::visitCloud(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCloud("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -272,7 +272,7 @@ void Visitor::visitCrater(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCrater("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -282,7 +282,7 @@ void Visitor::visitFluidTexture3D(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFluidTexture3D("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -292,7 +292,7 @@ void Visitor::visitGranite(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitGranite("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -302,7 +302,7 @@ void Visitor::visitLeather(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLeather("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -312,7 +312,7 @@ void Visitor::visitMarbler(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMarbler("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -322,7 +322,7 @@ void Visitor::visitRock(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRock("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -332,7 +332,7 @@ void Visitor::visitSnow(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSnow("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -342,7 +342,7 @@ void Visitor::visitSolidFractal(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSolidFractal("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -352,7 +352,7 @@ void Visitor::visitStucco(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitStucco("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -362,7 +362,7 @@ void Visitor::visitVolumeNoise(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVolumeNoise("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -372,7 +372,7 @@ void Visitor::visitWood(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitWood("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -383,7 +383,7 @@ void Visitor::visitEnvBall(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvBall("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -393,7 +393,7 @@ void Visitor::visitEnvChrome(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvChrome("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -403,7 +403,7 @@ void Visitor::visitEnvCube(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvCube("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -413,7 +413,7 @@ void Visitor::visitEnvSky(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvSky("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -423,7 +423,7 @@ void Visitor::visitEnvSphere(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvSphere("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -434,7 +434,7 @@ void Visitor::visitLayeredTexture(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLayeredTexture("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();

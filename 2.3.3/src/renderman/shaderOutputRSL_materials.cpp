@@ -20,7 +20,7 @@ void Visitor::visitAnisotropic(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitAnisotropic("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -30,7 +30,7 @@ void Visitor::visitBlinn(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBlinn("<<node<<")");
 #ifdef USE_LIQUID_RM_SHADE
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.beginRSL(node);
 
@@ -85,38 +85,38 @@ void Visitor::visitBlinn(const char* node)
 
 	o.endRSL();
 #else
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("blinn.h");
 
 	o.beginRSL(node); 
 	// Inputs:
-	o.addRSLVariable(       "", "color",  "ambientColor",		"ambientColor",		node);	 m_NodePlugInfo.add(node, "ambientColor",		"color");
-	o.addRSLVariable(       "", "color",  "i_color",			"color",			node);	 m_NodePlugInfo.add(node, "color",			"color");
-	o.addRSLVariable(       "", "float",  "diffuse",			"diffuse",			node);	 m_NodePlugInfo.add(node, "diffuse",			"float");
-	o.addRSLVariable(       "", "float",  "eccentricity",		"eccentricity",		node);	 m_NodePlugInfo.add(node, "eccentricity",		"float");
-	o.addRSLVariable(       "", "color",  "incandescence",		"incandescence",	node);	 m_NodePlugInfo.add(node, "incandescence",	"color");
-	o.addRSLVariable("uniform", "float",  "matteOpacityMode",	"matteOpacityMode",	node);	 m_NodePlugInfo.add(node, "matteOpacityMode",	"float");
-	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);	 m_NodePlugInfo.add(node, "matteOpacity",		"float");
-	o.addRSLVariable(       "", "color",  "specularColor",		"specularColor",	node);	 m_NodePlugInfo.add(node, "specularColor",	"color");
-	o.addRSLVariable(       "", "float",  "specularRollOff",	"specularRollOff",	node);	 m_NodePlugInfo.add(node, "specularRollOff",	"float");
-	o.addRSLVariable(       "", "float",  "reflectivity",		"reflectivity",		node);	 m_NodePlugInfo.add(node, "reflectivity",		"float");
-	o.addRSLVariable(       "", "color",  "reflectedColor",		"reflectedColor",	node);	 m_NodePlugInfo.add(node, "reflectedColor",	"color");
+	o.addRSLVariable(       "", "color",  "ambientColor",		"ambientColor",		node);
+	o.addRSLVariable(       "", "color",  "i_color",			"color",			node);
+	o.addRSLVariable(       "", "float",  "diffuse",			"diffuse",			node);
+	o.addRSLVariable(       "", "float",  "eccentricity",		"eccentricity",		node);
+	o.addRSLVariable(       "", "color",  "incandescence",		"incandescence",	node);
+	o.addRSLVariable("uniform", "float",  "matteOpacityMode",	"matteOpacityMode",	node);
+	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);
+	o.addRSLVariable(       "", "color",  "specularColor",		"specularColor",	node);
+	o.addRSLVariable(       "", "float",  "specularRollOff",	"specularRollOff",	node);
+	o.addRSLVariable(       "", "float",  "reflectivity",		"reflectivity",		node);
+	o.addRSLVariable(       "", "color",  "reflectedColor",		"reflectedColor",	node);
 	/* Refraction. */
-	o.addRSLVariable("uniform", "float", "refractions",			"refractions",		node);	 m_NodePlugInfo.add(node, "refractions",		"float");
-	o.addRSLVariable(       "", "float", "refractiveIndex",		"refractiveIndex",	node);	 m_NodePlugInfo.add(node, "refractiveIndex",	"float");
-	o.addRSLVariable("uniform", "float", "refractionLimit",		"refractionLimit",	node);	 m_NodePlugInfo.add(node, "refractionLimit",	"float");
-	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);	 m_NodePlugInfo.add(node, "lightAbsorbance",	"float");
-	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);	 m_NodePlugInfo.add(node, "shadowAttenuation","float");
+	o.addRSLVariable("uniform", "float", "refractions",			"refractions",		node);
+	o.addRSLVariable(       "", "float", "refractiveIndex",		"refractiveIndex",	node);
+	o.addRSLVariable("uniform", "float", "refractionLimit",		"refractionLimit",	node);
+	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);
+	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);
 	/* Reflection. */
-	o.addRSLVariable("uniform", "float", "reflectionLimit",		"reflectionLimit",	node);	 m_NodePlugInfo.add(node, "reflectionLimit",	"float");
+	o.addRSLVariable("uniform", "float", "reflectionLimit",		"reflectionLimit",	node);
 
-	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);	 m_NodePlugInfo.add(node, "translucence",		"float");
-	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);	 m_NodePlugInfo.add(node, "translucenceDepth","float");
-	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);	 m_NodePlugInfo.add(node, "translucenceFocus","float");
-	o.addRSLVariable(       "", "color", "transparency",		"transparency",		node);	 m_NodePlugInfo.add(node, "transparency",		"color");
+	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);
+	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);
+	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);
+	o.addRSLVariable(       "", "color", "transparency",		"transparency",		node);
 	if( renderman::isBumpMapConnected(node) ){
-		o.addRSLVariable(   "", "normal",  "normalCamera",		"normalCamera",		node);	 m_NodePlugInfo.add(node, "normalCamera",		"normal");
+		o.addRSLVariable(   "", "normal",  "normalCamera",		"normalCamera",		node);
 	} else {
 		o.addToRSL("normal normalCamera = N;");
 	}
@@ -126,8 +126,8 @@ void Visitor::visitBlinn(const char* node)
 	o.addToRSL("uniform float i_reflectionNoiseAmplitude=0;");
 	o.addToRSL("uniform float i_reflectionNoiseFrequency=0;");
 	// Outputs
-	o.addRSLVariable(       "", "color", "outColor",		"outColor",			node);	 m_NodePlugInfo.add(node, "outColor",				"color");
-	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",  node);	 m_NodePlugInfo.add(node, "outTransparency",		"color");
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",			node);
+	o.addRSLVariable(       "", "color", "outTransparency",	"outTransparency",  node);
 
 	o.addToRSL("  maya_blinn(						\n\t"
 						//Inputs
@@ -177,7 +177,7 @@ void Visitor::visitHairTubeShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitHairTubeShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -188,7 +188,7 @@ void Visitor::visitLambert(const char* node)
 	CM_TRACE_FUNC("Visitor::visitLambert("<<node<<")");
 
 #ifdef USE_LIQUID_RM_SHADE
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.beginRSL(node);
 
@@ -212,36 +212,36 @@ void Visitor::visitLambert(const char* node)
 
 	o.endRSL();
 #else
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("lambert.h");
 
 	o.beginRSL(node);
 	// Inputs:
-	o.addRSLVariable(       "", "color",  "ambientColor",		"ambientColor",		node);	 m_NodePlugInfo.add(node, "ambientColor",		"color");
-	o.addRSLVariable(       "", "color",  "i_color",			"color",			node);	 m_NodePlugInfo.add(node, "color",			"color");
-	o.addRSLVariable(       "", "float",  "diffuse",			"diffuse",			node);	 m_NodePlugInfo.add(node, "diffuse",			"float");
-	o.addRSLVariable(       "", "color",  "incandescence",		"incandescence",	node);	 m_NodePlugInfo.add(node, "incandescence",	"color");
-	o.addRSLVariable(       "", "float",  "matteOpacityMode",	"matteOpacityMode",	node);	 m_NodePlugInfo.add(node, "matteOpacityMode",	"float");
-	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);	 m_NodePlugInfo.add(node, "matteOpacity",		"float");
+	o.addRSLVariable(       "", "color",  "ambientColor",		"ambientColor",		node);
+	o.addRSLVariable(       "", "color",  "i_color",			"color",			node);
+	o.addRSLVariable(       "", "float",  "diffuse",			"diffuse",			node);
+	o.addRSLVariable(       "", "color",  "incandescence",		"incandescence",	node);
+	o.addRSLVariable(       "", "float",  "matteOpacityMode",	"matteOpacityMode",	node);
+	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);
 	/* Refraction. */
-	o.addRSLVariable("uniform", "float", "refractions",			"refractions",		node);	 m_NodePlugInfo.add(node, "refractions",		"float");
-	o.addRSLVariable(       "", "float", "refractiveIndex",		"refractiveIndex",	node);	 m_NodePlugInfo.add(node, "refractiveIndex",	"float");
-	o.addRSLVariable("uniform", "float", "refractionLimit",		"refractionLimit",	node);	 m_NodePlugInfo.add(node, "refractionLimit",	"float");
-	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);	 m_NodePlugInfo.add(node, "lightAbsorbance",	"float");
-	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);	 m_NodePlugInfo.add(node, "shadowAttenuation","float");
+	o.addRSLVariable("uniform", "float", "refractions",			"refractions",		node);
+	o.addRSLVariable(       "", "float", "refractiveIndex",		"refractiveIndex",	node);
+	o.addRSLVariable("uniform", "float", "refractionLimit",		"refractionLimit",	node);
+	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);
+	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);
 	if( renderman::isBumpMapConnected(node) ){
-		o.addRSLVariable(   "", "normal",  "normalCamera",		"normalCamera",		node);	 m_NodePlugInfo.add(node, "normalCamera",		"normal");
+		o.addRSLVariable(   "", "normal",  "normalCamera",		"normalCamera",		node);
 	} else {
 		o.addToRSL("normal normalCamera = N;");
 	}
-	o.addRSLVariable(       "", "color", "transparency",		"transparency",		node);	 m_NodePlugInfo.add(node, "transparency",		"color");
-	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);	 m_NodePlugInfo.add(node, "translucence",		"float");
-	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);	 m_NodePlugInfo.add(node, "translucenceDepth","float");
-	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);	 m_NodePlugInfo.add(node, "translucenceFocus","float");
+	o.addRSLVariable(       "", "color", "transparency",		"transparency",		node);
+	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);
+	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);
+	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);
 	// Outputs:
-	o.addRSLVariable(       "", "color", "outColor",		"outColor",				node);	 m_NodePlugInfo.add(node, "outColor",			"color");
-	o.addRSLVariable(       "", "color", "outTransparency", "outTransparency",		node);	 m_NodePlugInfo.add(node, "outTransparency",	"color");
+	o.addRSLVariable(       "", "color", "outColor",		"outColor",				node);
+	o.addRSLVariable(       "", "color", "outTransparency", "outTransparency",		node);
 
 	o.addToRSL("  maya_lambert(						\n\t"
 						//Inputs
@@ -278,7 +278,7 @@ void Visitor::visitLayeredShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLayeredShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -288,7 +288,7 @@ void Visitor::visitOceanShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitOceanShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -298,7 +298,7 @@ void Visitor::visitPhong(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPhong("<<node<<")");
 #ifdef USE_LIQUID_RM_SHADE
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 
 	o.addRSLVariable(       "", "color", "inColor",			"color",		node);
@@ -339,40 +339,40 @@ void Visitor::visitPhong(const char* node)
 
 	o.endRSL();
 #else
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("phong.h");
 
 	o.beginRSL(node); 
 	// Inputs:
-	o.addRSLVariable(       "", "color",  "ambientColor",		"ambientColor",		node);	 m_NodePlugInfo.add(node, "ambientColor",		"color");
-	o.addRSLVariable(       "", "color",  "i_color",			"color",			node);	 m_NodePlugInfo.add(node, "color",			"color");
-	o.addRSLVariable(       "", "float",  "cosinePower",		"cosinePower",		node);	 m_NodePlugInfo.add(node, "cosinePower",		"float");
-	o.addRSLVariable(       "", "float",  "diffuse",			"diffuse",			node);	 m_NodePlugInfo.add(node, "diffuse",			"float");
-	o.addRSLVariable(       "", "color",  "incandescence",		"incandescence",	node);	 m_NodePlugInfo.add(node, "incandescence",	"color");
-	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);	 m_NodePlugInfo.add(node, "matteOpacity",		"float");
-	o.addRSLVariable(       "", "float",  "matteOpacityMode",	"matteOpacityMode",	node);	 m_NodePlugInfo.add(node, "matteOpacityMode", "float");
+	o.addRSLVariable(       "", "color",  "ambientColor",		"ambientColor",		node);
+	o.addRSLVariable(       "", "color",  "i_color",			"color",			node);
+	o.addRSLVariable(       "", "float",  "cosinePower",		"cosinePower",		node);
+	o.addRSLVariable(       "", "float",  "diffuse",			"diffuse",			node);
+	o.addRSLVariable(       "", "color",  "incandescence",		"incandescence",	node);
+	o.addRSLVariable(       "", "float",  "matteOpacity",		"matteOpacity",		node);
+	o.addRSLVariable(       "", "float",  "matteOpacityMode",	"matteOpacityMode",	node);
 	if( renderman::isBumpMapConnected(node) ){
-		o.addRSLVariable(   "", "normal",  "normalCamera",		"normalCamera",		node);	 m_NodePlugInfo.add(node, "normalCamera",		"normal");
+		o.addRSLVariable(   "", "normal",  "normalCamera",		"normalCamera",		node);
 	} else {
 		o.addToRSL("normal normalCamera = N;");
 	}
-	o.addRSLVariable(       "", "color",  "specularColor",		"specularColor",	node);	 m_NodePlugInfo.add(node, "specularColor",	"color");
-	o.addRSLVariable(       "", "float",  "reflectivity",		"reflectivity",		node);	 m_NodePlugInfo.add(node, "reflectivity",		"float");
-	o.addRSLVariable(       "", "color",  "reflectedColor",		"reflectedColor",	node);	 m_NodePlugInfo.add(node, "reflectedColor",	"color");
+	o.addRSLVariable(       "", "color",  "specularColor",		"specularColor",	node);
+	o.addRSLVariable(       "", "float",  "reflectivity",		"reflectivity",		node);
+	o.addRSLVariable(       "", "color",  "reflectedColor",		"reflectedColor",	node);
 	/* Refraction. */
-	o.addRSLVariable("uniform", "float", "refractions",			"refractions",		node);	 m_NodePlugInfo.add(node, "refractions",		"float");
-	o.addRSLVariable(       "", "float", "refractiveIndex",		"refractiveIndex",	node);	 m_NodePlugInfo.add(node, "refractiveIndex",	"float");
-	o.addRSLVariable("uniform", "float", "refractionLimit",		"refractionLimit",	node);	 m_NodePlugInfo.add(node, "refractionLimit",	"float");
-	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);	 m_NodePlugInfo.add(node, "lightAbsorbance",	"float");
-	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);	 m_NodePlugInfo.add(node, "shadowAttenuation","float");
+	o.addRSLVariable("uniform", "float", "refractions",			"refractions",		node);
+	o.addRSLVariable(       "", "float", "refractiveIndex",		"refractiveIndex",	node);
+	o.addRSLVariable("uniform", "float", "refractionLimit",		"refractionLimit",	node);
+	o.addRSLVariable(       "", "float", "lightAbsorbance",		"lightAbsorbance",	node);
+	o.addRSLVariable(       "", "float", "shadowAttenuation",	"shadowAttenuation",node);
 	/* Reflection. */
-	o.addRSLVariable("uniform", "float", "reflectionLimit",		"reflectionLimit",	node);	 m_NodePlugInfo.add(node, "reflectionLimit",	"float");
+	o.addRSLVariable("uniform", "float", "reflectionLimit",		"reflectionLimit",	node);
 
-	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);	 m_NodePlugInfo.add(node, "translucence",		"float");
-	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);	 m_NodePlugInfo.add(node, "translucenceDepth","float");
-	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);	 m_NodePlugInfo.add(node, "translucenceFocus","float");
-	o.addRSLVariable(       "", "color", "transparency",		"transparency",		node);	 m_NodePlugInfo.add(node, "transparency",		"color");
+	o.addRSLVariable(       "", "float", "translucence",		"translucence",		node);
+	o.addRSLVariable(       "", "float", "translucenceDepth",	"translucenceDepth",node);
+	o.addRSLVariable(       "", "float", "translucenceFocus",	"translucenceFocus",node);
+	o.addRSLVariable(       "", "color", "transparency",		"transparency",		node);
 
 	o.addToRSL("uniform float i_reflectionMaxDistance   =0;");
 	o.addToRSL("uniform float i_reflectionSamples       =0;");
@@ -381,8 +381,8 @@ void Visitor::visitPhong(const char* node)
 	o.addToRSL("uniform float i_reflectionNoiseFrequency=0;");
 
 	// Outputs
-	o.addRSLVariable(       "", "color", "outColor",			"outColor",			node);	 m_NodePlugInfo.add(node, "outColor",			"color");
-	o.addRSLVariable(       "", "color", "outTransparency",		"outTransparency",  node);	 m_NodePlugInfo.add(node, "outTransparency",	"color");
+	o.addRSLVariable(       "", "color", "outColor",			"outColor",			node);
+	o.addRSLVariable(       "", "color", "outTransparency",		"outTransparency",  node);
 
 	o.addToRSL("  maya_phong(						\n\t"
 						//Inputs
@@ -432,7 +432,7 @@ void Visitor::visitPhongE(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPhongE("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -442,7 +442,7 @@ void Visitor::visitRampShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRampShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -452,7 +452,7 @@ void Visitor::visitShadingMap(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitShadingMap("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -462,7 +462,7 @@ void Visitor::visitSurfaceShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSurfaceShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -472,7 +472,7 @@ void Visitor::visitUseBackground(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitUseBackground("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -483,7 +483,7 @@ void Visitor::visitEnvFog(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvFog("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -493,7 +493,7 @@ void Visitor::visitFluidShape(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFluidShape("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -503,7 +503,7 @@ void Visitor::visitLightFog(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLightFog("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -513,7 +513,7 @@ void Visitor::visitParticleCloud(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitParticleCloud("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -523,7 +523,7 @@ void Visitor::visitVolumeFog(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVolumeFog("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -533,7 +533,7 @@ void Visitor::visitVolumeShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVolumeShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -544,7 +544,7 @@ void Visitor::visitCMuscleShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCMuscleShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -554,7 +554,7 @@ void Visitor::visitDisplacementShader(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitDisplacementShader("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -566,7 +566,7 @@ void Visitor::visitAmbientLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitAmbientLight("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -576,7 +576,7 @@ void Visitor::visitAreaLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitAreaLight("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -586,7 +586,7 @@ void Visitor::visitDirectionalLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitDirectionalLight("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -596,7 +596,7 @@ void Visitor::visitPointLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPointLight("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -606,7 +606,7 @@ void Visitor::visitSpotLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSpotLight("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -616,7 +616,7 @@ void Visitor::visitVolumeLight(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVolumeLight("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -632,7 +632,7 @@ void Visitor::visit_liquidShader(const char* node)
 	std::string const& rmSloFilePath=shader.getShaderFileName();
 	std::string const& mayaShaderName=rmSloFilePath.substr(rmSloFilePath.find_last_of('/')+1);//e.g."your_shader_dir/liquidchecker"
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.addInclude((rmSloFilePath+".impl").c_str());
 	o.beginRSL(node);
 
@@ -687,7 +687,6 @@ void Visitor::visit_liquidShader(const char* node)
 		}//switch
 		o.addRSLVariable("", paramType.c_str(),  vp->getTokenName().c_str(), vp->getTokenName().c_str(), node);
 		
-		m_NodePlugInfo.add(node, vp->getTokenName().c_str(),	paramType.c_str());
 	}//for
 
 	//call shader function

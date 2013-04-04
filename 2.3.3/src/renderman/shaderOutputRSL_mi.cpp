@@ -16,7 +16,7 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_mib_amb_occlusion("<<node<<")");
 #ifdef USE_LIQUID_RM_SHADE
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 
 	o.addRSLVariable(       "", "float",	"i_samples",	"samples",		node);
@@ -50,18 +50,18 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 
 	o.endRSL();
 #else
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("mib_amb_occlusion.h");
 	o.beginRSL(node);
 
-	o.addRSLVariable(       "", "float",	"i_samples",	"samples",		node); m_NodePlugInfo.add(node, "samples",		"float");
-	o.addRSLVariable(       "", "color",	"i_bright",		"bright",		node); m_NodePlugInfo.add(node, "bright",			"color");
-	o.addRSLVariable(       "", "color",	"i_dark",		"dark",			node); m_NodePlugInfo.add(node, "dark",			"color");
-	o.addRSLVariable(       "", "float",	"i_spread",		"spread",		node); m_NodePlugInfo.add(node, "spread",			"float");
-	o.addRSLVariable(       "", "float",	"i_max_distance","max_distance",node); m_NodePlugInfo.add(node, "max_distance",	"float");
-	o.addRSLVariable(       "", "float",	"i_reflective",	"reflective",	node); m_NodePlugInfo.add(node, "reflective",		"float");
-	o.addRSLVariable(       "", "color",	"o_outValue",	"outValue",		node); m_NodePlugInfo.add(node, "outValue",		"color");
+	o.addRSLVariable(       "", "float",	"i_samples",	"samples",		node);
+	o.addRSLVariable(       "", "color",	"i_bright",		"bright",		node);
+	o.addRSLVariable(       "", "color",	"i_dark",		"dark",			node);
+	o.addRSLVariable(       "", "float",	"i_spread",		"spread",		node);
+	o.addRSLVariable(       "", "float",	"i_max_distance","max_distance",node);
+	o.addRSLVariable(       "", "float",	"i_reflective",	"reflective",	node);
+	o.addRSLVariable(       "", "color",	"o_outValue",	"outValue",		node);
 
 	o.addToRSL("{");
 

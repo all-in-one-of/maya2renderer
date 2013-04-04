@@ -19,7 +19,7 @@ void Visitor::visitArrayMapper(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitArrayMapper("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -29,7 +29,7 @@ void Visitor::visitBump2d(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBump2d("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -39,7 +39,7 @@ void Visitor::visitBump3d(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBump3d("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -49,7 +49,7 @@ void Visitor::visitCondition(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCondition("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -59,7 +59,7 @@ void Visitor::visitDistanceBetween(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitDistanceBetween("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -69,7 +69,7 @@ void Visitor::visitHeightField(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitHeightField("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -79,7 +79,7 @@ void Visitor::visitLightInfo(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLightInfo("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -89,7 +89,7 @@ void Visitor::visitMultiplyDivide(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMultiplyDivide("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -134,7 +134,7 @@ void Visitor::visitPlace2dTexture(const char* node)
 		liquidGetPlugValue(m_node, "wrapV", fvalue, status);		wrapV.set(fvalue);
 	}
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 
 	o.addInclude("place2dTexture.h");
 
@@ -223,7 +223,7 @@ void Visitor::visitPlace3dTexture(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPlace3dTexture("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -233,7 +233,7 @@ void Visitor::visitPlusMinusAverage(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPlusMinusAverage("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -243,7 +243,7 @@ void Visitor::visitProjection(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitProjection("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -253,7 +253,7 @@ void Visitor::visitReverse(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitReverse("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -263,7 +263,7 @@ void Visitor::visitSamplerInfo(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSamplerInfo("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -273,7 +273,7 @@ void Visitor::visitSetRange(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSetRange("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -283,7 +283,7 @@ void Visitor::visitStencil(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitStencil("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -293,7 +293,7 @@ void Visitor::visitStudioClearCoat(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitStudioClearCoat("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -303,7 +303,7 @@ void Visitor::visitUVChooser(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitUVChooser("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -313,7 +313,7 @@ void Visitor::visitVectorProduct(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVectorProduct("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -324,7 +324,7 @@ void Visitor::visitBlendColors(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBlendColors("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -334,7 +334,7 @@ void Visitor::visitClamp(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitClamp("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -344,7 +344,7 @@ void Visitor::visitContrast(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitContrast("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -354,7 +354,7 @@ void Visitor::visitGammaCorrect(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitGammaCorrect("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -364,7 +364,7 @@ void Visitor::visitHsvToRgb(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitHsvToRgb("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -374,7 +374,7 @@ void Visitor::visitLuminance(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLuminance("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -384,7 +384,7 @@ void Visitor::visitRemapColor(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRemapColor("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -394,7 +394,7 @@ void Visitor::visitrRemapHsv(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitrRemapHsv("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -404,7 +404,7 @@ void Visitor::visitRemapValue(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRemapValue("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -414,7 +414,7 @@ void Visitor::visitRgbToHsv(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRgbToHsv("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -424,7 +424,7 @@ void Visitor::visitSmear(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSmear("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -434,7 +434,7 @@ void Visitor::visitSurfaceLuminance(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSurfaceLuminance("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -445,7 +445,7 @@ void Visitor::visitDoubleShadingSwitch(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitDoubleShadingSwitch("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -455,7 +455,7 @@ void Visitor::visitQuadShadingSwitch(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitQuadShadingSwitch("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -465,7 +465,7 @@ void Visitor::visitSingleShadingSwitch(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSingleShadingSwitch("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -475,7 +475,7 @@ void Visitor::visitTripleShadingSwitch(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitTripleShadingSwitch("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -486,7 +486,7 @@ void Visitor::visitParticleSamplerInfo(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitParticleSamplerInfo("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -497,7 +497,7 @@ void Visitor::visitImagePlane(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitImagePlane("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -508,7 +508,7 @@ void Visitor::visitOpticalFX(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitOpticalFX("<<node<<")");
 
-	OutputHelper o(RSLfile);
+	OutputHelper o(RSLfile, m_NodePlugInfo);
 	o.beginRSL(node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();

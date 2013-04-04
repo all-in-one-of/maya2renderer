@@ -22,8 +22,8 @@ namespace RSL
 		}
 	}
 //////////////////////////////////////////////////////////////////////////
-OutputHelper::OutputHelper(std::ofstream& RSLfile)
-:RSLfileRef(RSLfile)
+OutputHelper::OutputHelper(std::ofstream& RSLfile, renderman::NodePlugInfo& nodePlugMgr)
+:RSLfileRef(RSLfile), nodePlugMgrRef(nodePlugMgr)
 {
 	assert(RSLfileRef.is_open());
 }
@@ -55,10 +55,12 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 		IfMErrorWarn(MGlobal::executeCommand("getAttr -type (\""+mayaNode+"."+child[i]+"\")", childType));
 		// process this child plug
 		_addRSLVariable(inputQualifier, childType, child[i], child[i], mayaNode);
+		nodePlugMgrRef.add(mayaNode.asChar(), child[i].asChar(), childType.asChar());
 	}
 
 	//process the plug itself
 	_addRSLVariable(inputQualifier, rslType, rslName, mayaName, mayaNode);
+	nodePlugMgrRef.add(mayaNode.asChar(), mayaName.asChar(), rslType.asChar());
 
 }
 void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslType, const MString& rslName,

@@ -15,7 +15,7 @@ namespace RSL{
 class OutputHelper
 {
 public:
-	OutputHelper(std::ofstream& RSLfile);
+	OutputHelper(std::ofstream& RSLfile, renderman::NodePlugInfo& nodePlugMgr);
 	~OutputHelper();
 
 	//--------------------------------------------------------------------
@@ -59,6 +59,7 @@ protected:
 
 	std::ofstream& RSLfileRef;
 	std::set<std::string> includedFiles;
+	renderman::NodePlugInfo& nodePlugMgrRef;
 
 private:
 	OutputHelper(const OutputHelper&);
