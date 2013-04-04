@@ -39,41 +39,6 @@ namespace renderman
 		swap(this->inputDes,	o.inputDes);
 		swap(this->outputSrc,	o.outputSrc);
 	}
-//	std::string NodePlugConnection::cookRSLParametersList()const
-//	{
-//		std::vector<std::string> paramlist;
-//		paramlist.reserve(inputSrc.size()+outputSrc.size());
-//		for(std::size_t i=0; i<inputSrc.size(); ++i)
-//		{
-////			std::string inputSrc_rsltype =;
-////			std::string inputDes_rsltype =;
-////			if(inputSrc_rsltype == inputDes_rsltype)
-//				paramlist.push_back(inputSrc[ i ]) ;
-////			else//type conversion
-////				paramlist.push_back(inputDes_rsltype+" "+inputSrc[ i ]) ;
-//		}
-//		for(std::size_t i=0; i<outputSrc.size(); ++i)
-//		{
-//			paramlist.push_back(outputSrc[ i ]);
-//		}
-//
-//		//
-//		std::string ret;
-//		ret += getShaderName(m_node.c_str()).asChar();//shader name
-//		ret += "(";
-//
-//		//parameter list
-//		if( paramlist.size()>0 )
-//			ret += paramlist[ 0 ];
-//		for(std::size_t i=1; i<paramlist.size(); ++i)
-//		{
-//			ret += ", " + paramlist[ i ];
-//		}
-//
-//		ret += ");";
-//
-//		return boost::replace_all_copy(ret, ".", "_");
-//	}
 	std::string NodePlugConnection::log()const
 	{
 		std::string ret;
@@ -128,6 +93,7 @@ namespace renderman
 		const MStringArray& inputDes,
 		const MStringArray& outputSrc)
 	{
+		CM_TRACE_FUNC("NodePlugConnectionMgr::add("<<currentNode.asChar()<<")");
 		NodePlugConnection n;
 		m_data.push_back(n);
 		std::vector<NodePlugConnection>::reverse_iterator i = m_data.rbegin();
@@ -166,6 +132,7 @@ namespace renderman
 	//
 	std::string NodePlugConnectionMgr::cookRSLFunctionCallString(const std::size_t I)const
 	{
+		CM_TRACE_FUNC("NodePlugConnectionMgr::cookRSLFunctionCallString("<<I<<")");
 		//1.cook parameter list
 		const NodePlugConnection& node = get(I);
 
@@ -217,14 +184,18 @@ namespace renderman
 	}
 	std::string NodePlugConnectionMgr::log(const std::size_t I)const
 	{
+		CM_TRACE_FUNC("NodePlugConnectionMgr::log("<<I<<")");
 		return get(I).log();
 	}
 	void NodePlugConnectionMgr::setNodePlugMgr(NodePlugInfo *nodePlugInfo)
 	{
+		CM_TRACE_FUNC("NodePlugConnectionMgr::setNodePlugMgr(...)");
 		m_NodePlugInfoMgr = nodePlugInfo;
 	}
 	void NodePlugConnectionMgr::reset()
 	{
+		CM_TRACE_FUNC("NodePlugConnectionMgr::reset()");
+
 		m_data.clear();
 	}
 }

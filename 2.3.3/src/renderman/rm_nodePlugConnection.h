@@ -22,7 +22,7 @@ namespace renderman
 		NodePlugConnection& operator=(const NodePlugConnection& o);
 
 		void swap(NodePlugConnection& o);
-//		std::string cookRSLParametersList()const;
+
 		std::string log()const;
 		void print(const std::string& indent, const std::string& prefix)const;
 

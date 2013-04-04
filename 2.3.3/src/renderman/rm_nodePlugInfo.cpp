@@ -65,6 +65,7 @@ namespace renderman
 	}
 	void NodePlug::add(const char* plug, const char* rsltype)
 	{
+		CM_TRACE_FUNC("NodePlug::add("<<plug<<", "<<rsltype<<")");
 		//try to update
 		std::vector<PlugInfoT>::reverse_iterator i = m_plugs.rbegin();
 		std::vector<PlugInfoT>::reverse_iterator e = m_plugs.rend();
@@ -106,6 +107,7 @@ namespace renderman
 	}
 	const PlugInfoT* NodePlug::getPlugInfo(const std::string &plugname) const
 	{
+		CM_TRACE_FUNC("NodePlug::getPlugInfo("<<plugname<<")");
 		std::vector<PlugInfoT>::const_iterator i = m_plugs.begin();
 		std::vector<PlugInfoT>::const_iterator e = m_plugs.end();
 		for(; i!=e; ++i)
@@ -134,6 +136,7 @@ namespace renderman
 	//
 	void NodePlugInfo::add(const char* node, const char* plug, const char* rsltype)
 	{
+		CM_TRACE_FUNC("NodePlugInfo::add("<<node<<","<<plug<<","<<rsltype<<")");
 		//try to find and update
 		std::vector<NodePlug>::reverse_iterator i = m_data.rbegin();
 		std::vector<NodePlug>::reverse_iterator e = m_data.rend();
@@ -171,6 +174,7 @@ namespace renderman
 	const PlugInfoT* 
 		NodePlugInfo::getPlugInfo(const std::string &nodename, const std::string& plug) const
 	{
+		CM_TRACE_FUNC("NodePlugInfo::getPlugInfo("<<nodename<<","<<plug<<")");
 		std::vector<NodePlug>::const_iterator i = m_data.begin();
 		std::vector<NodePlug>::const_iterator e = m_data.end();
 
@@ -187,6 +191,7 @@ namespace renderman
 	}
 	const PlugInfoT* NodePlugInfo::getPlugInfo(const std::string &node_dot_plug) const
 	{
+		CM_TRACE_FUNC("NodePlugInfo::getPlugInfo("<<node_dot_plug<<")");
 		std::size_t i = node_dot_plug.find_first_of('.');
 		std::string node(node_dot_plug.substr(0, i));
 		std::string plug(node_dot_plug.substr(i+1));
