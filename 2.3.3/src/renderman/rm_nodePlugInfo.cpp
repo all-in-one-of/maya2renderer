@@ -2,6 +2,7 @@
 #ifdef _USE_RENDERMAN_
 
 #include "rm_nodePlugInfo.h"
+#include "liqGlobalHelpers.h"
 #include <liqlog.h>
 
 namespace renderman
@@ -71,7 +72,7 @@ namespace renderman
 		{
 			if( i->name == plug )//found and update
 			{
-				i->rsltype = rsltype;
+				i->rsltype = convertMayaTypeToRSLFloat(rsltype);
 				return;
 			}
 		}
@@ -80,7 +81,7 @@ namespace renderman
 		{
 			PlugInfoT n;
 			n.name    = plug;
-			n.rsltype = rsltype;
+			n.rsltype = convertMayaTypeToRSLFloat(rsltype);
 
 			m_plugs.push_back(n);
 		}

@@ -190,7 +190,8 @@ prman
 - bug: test\test_particle\particleColorChangeOnCollisionMethod1.ma，绿色的粒子显示不出绿色
 - test arealight,volumelight
 - 测试mesh light
-- rm_nodePlugInfo 里不使用map
+- (done) rm_nodePlugInfo 里不使用map
+- rm_nodePlugInfo 里添加functioncall
 
 elvishray
 ------------

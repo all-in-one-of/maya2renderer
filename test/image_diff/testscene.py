@@ -25,13 +25,13 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture_liquidSurface_tif/texture_liquidSurface_tif.ma"
     MyTestOne.test_one_scene(testFile, "renderman")  
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/sequence/file_place2dTexture_seq.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -51,11 +51,17 @@ def test_all_scene():
     # - If colorR instead of color in connected.
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_liquidShader_con.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_liquidShader_con_colorr.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_liquidShader_conIO.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_liquidShader_con_ry/test_pl_liquidShader_con_ry.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_liquidShader_con_tx/test_pl_liquidShader_con_tx.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     '''
     # bad, it has a global displacement shader

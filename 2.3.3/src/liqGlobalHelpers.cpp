@@ -1945,3 +1945,17 @@ MString evaluateTheTextureNameValue(const MString &plugName, const MString &plug
 
 	return newValue;
 }
+
+std::string convertMayaTypeToRSLFloat(const std::string &mayaTypeString)
+{
+	std::string tmp(mayaTypeString);
+
+	boost::replace_all(tmp, "bool",			"float");
+	boost::replace_all(tmp, "doubleAngle",	"float");
+	boost::replace_all(tmp, "doubleLinear",	"float");
+	boost::replace_all(tmp, "double",		"float");
+	//TODO: other types which can be considered as float
+	//...
+
+	return tmp;
+}

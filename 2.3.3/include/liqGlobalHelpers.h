@@ -195,4 +195,14 @@ LIQUID_EXPORT MString getLogFileDir();
 LIQUID_EXPORT MString getLogFileName();
 //
 LIQUID_EXPORT MString evaluateTheTextureNameValue(const MString &plugName, const MString &plugValue);
+//
+//convert Maya type string to RSL float,
+//e.g.
+//"bool"		-->"float" 
+//"doubleAngle"	-->"float"
+//"doubleLinear"-->"float"
+//"double"		-->"float"
+//"double3"		-->"float3"
+// ....
+LIQUID_EXPORT std::string convertMayaTypeToRSLFloat(const std::string &mayaTypeString);
 #endif

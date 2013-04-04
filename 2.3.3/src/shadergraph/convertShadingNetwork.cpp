@@ -373,14 +373,7 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 				MString mayaPlugType;
 				IfMErrorWarn(MGlobal::executeCommand( ("getAttr -type \""+node_plug+"\""), mayaPlugType ));
 
-				std::string strMayaPlugType(mayaPlugType.asChar());
-
-				boost::replace_all(strMayaPlugType, "bool",			"float");
-				boost::replace_all(strMayaPlugType, "doubleAngle",	"float");
-				boost::replace_all(strMayaPlugType, "double",		"float");
-				//TODO: other types which can be considered as float
-				//...
-				mayaPlugType_formated = strMayaPlugType.c_str();
+				mayaPlugType_formated = convertMayaTypeToRSLFloat(mayaPlugType.asChar()).c_str();
 			}
 
 			MString matchedStr;
