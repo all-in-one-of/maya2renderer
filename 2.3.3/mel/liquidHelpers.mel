@@ -603,6 +603,7 @@ global proc string liquidAutoShadowName( string $lightShape )
   $shadowname += "_";
 
   $shadowname += ( objExists(($lightShape+".deepShadows")) && `getAttr ($lightShape+".deepShadows")`)? "DSH":"SHD";
+  warning("liquid warning: It doesn't use (shadowType==stDeep) to judge the DeepShadow, it uses $lightShape.deepShadows.\n");
 
   if ( $isPointLight ) $shadowname += "_??";
 

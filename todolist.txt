@@ -191,7 +191,7 @@ prman
 - test arealight,volumelight
 - 测试mesh light
 - (done) rm_nodePlugInfo 里不使用map
-- rm_nodePlugInfo 里添加functioncall
+- (done) rm_nodePlugInfo 里添加functioncall
 - 推迟convertMayaTypeToRSLFloat的调用
 
 elvishray

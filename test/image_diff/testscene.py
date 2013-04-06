@@ -57,13 +57,13 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_liquidShader_conIO.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_liquidShader_con_ry/test_pl_liquidShader_con_ry.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_liquidShader_con_tx/test_pl_liquidShader_con_tx.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     # bad, it has a global displacement shader
     testFile=LIQUID_ROOT+"/test/unittest/rm/displacement/displacement.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
@@ -128,10 +128,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/vertex_normal/simple/vertex_normal.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/rm/deepshadow/deepshadow.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
 

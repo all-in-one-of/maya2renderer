@@ -1564,7 +1564,7 @@ MString liqRibTranslator::generateFileName( fileGenMode mode, const structJob& j
 	case fgm_shadow_rib:
 		//[refactor][shadowname] begin 
 		suffix = "_";
-		suffix += ( (job.shadowType == stDeep) ? "DSH" : "SHD");
+		suffix += ( ((job.shadowType == stDeep)||(job.shadowType == stMidPoint)) ? "DSH" : "SHD");
 		if ( job.isPoint && ( job.shadowType == stDeep || !job.shadowAggregation ) )
 		{
 			switch ( job.pointDir )

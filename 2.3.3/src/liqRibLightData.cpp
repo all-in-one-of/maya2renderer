@@ -1094,7 +1094,7 @@ MString liqRibLightData::autoShadowName( int PointLightDir ) const
     shadowName += sanitizeNodeName( lightName );
 	//[refactor][shadowname] begin 
 	shadowName += "_";
-    shadowName += ( shadowType == stDeep )? "DSH": "SHD";
+    shadowName += ( (shadowType == stDeep)||(shadowType == stMidPoint) )? "DSH": "SHD";//stMidPoint is one of deepshadow?
 
     if ( PointLightDir != -1 ) 
     {
