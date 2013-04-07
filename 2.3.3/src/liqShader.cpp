@@ -1674,7 +1674,7 @@ const std::string removeRedundentExtsion(std::string const& texturepath)//textur
 
 	std::size_t i_last2_dot = texname2.find_last_of('.');
 	if( i_last2_dot == std::string::npos ){
-		liquidMessage2(messageError,"%s is a tex texture", texturepath.c_str());
+		liquidMessage2(messageInfo, "%s is a texture, no need to convert.", texturepath.c_str());
 		return texturepath;
 	}else{
 		std::string imgext(texname2.substr(i_last2_dot+1));//imgext=bmp
