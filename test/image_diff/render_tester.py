@@ -58,6 +58,7 @@ class RendermanTest(TestBase):
         self.cutFiles(logdir, "*.png", desdir)
         self.cutFiles(logdir, "*.jpg", desdir)
 	self.cutFiles(logdir, "*.jpeg", desdir)
+	self.cutFiles(logdir, "*.tiff", desdir)
 
         # copy tex
         logdir = self.getProjectDirectory()+"/rmantex"
@@ -86,6 +87,7 @@ class ElvishrayTest(TestBase):
         self.cutFiles(logdir, "*.png", desdir)
         self.cutFiles(logdir, "*.jpg", desdir)
 	self.cutFiles(logdir, "*.jpeg", desdir)
+	self.cutFiles(logdir, "*.tiff", desdir)
 
 #-----------------
 def createTestFactory ( renderer_ ):
