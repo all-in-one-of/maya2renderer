@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: spotlight.ma
-//Last modified: Sun, Mar 24, 2013 10:11:16 PM
+//Last modified: Sun, Apr 07, 2013 10:20:13 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -118,6 +118,8 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
 	setAttr ".osg" yes;
+	setAttr ".xres" 200;
+	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
 	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/rm_liquidLight3033.xml";
@@ -502,8 +504,8 @@ select -ne :defaultRenderGlobals;
 select -ne :defaultResolution;
 	setAttr -k on ".cch";
 	setAttr -k on ".nds";
-	setAttr ".w" 768;
-	setAttr ".h" 576;
+	setAttr ".w" 200;
+	setAttr ".h" 150;
 	setAttr ".pa" 1;
 	setAttr -k on ".al";
 	setAttr ".dar" 1.3333333730697632;
