@@ -13,13 +13,13 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/deform_tex/deform_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform_tex/transform_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    ''''''
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -139,11 +139,11 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/deepshadow/deepshadow.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     # The dependence on mtomr.mll leads to a crash
     #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/object_hierarchy/object_hierarchy/object_hierarchy.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -163,7 +163,7 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/particle/simple/particle.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -196,7 +196,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+    '''
 
     '''
 
@@ -210,13 +213,13 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform_tex/deform_tex.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform_tex/transform_tex.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    ''''''
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
      
@@ -397,7 +400,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    ''' '''       
+    ''' 
+    testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+    '''       
 
 
     ------------------------ appleseed ----------------------------------
