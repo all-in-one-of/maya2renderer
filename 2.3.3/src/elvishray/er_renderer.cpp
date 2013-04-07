@@ -811,7 +811,7 @@ namespace elvishray
 		}
 
 		//AOV channels
-		_s("// AOVs");
+		_s("// AOV");
 		//refactor 19
 		for(std::size_t i = 1; i < liqglo.m_displays.size(); ++i)
 		{
@@ -865,6 +865,7 @@ namespace elvishray
 			}
 
 		}//for
+		_s("// AOV end");
 		//refactor 19
 	}
 	//
