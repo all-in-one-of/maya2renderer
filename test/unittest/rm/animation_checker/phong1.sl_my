@@ -293,19 +293,19 @@ void phong1 (
  float place2dTexture1_outUV[2];
  color checker1_outColor;
 
- //place2dTexture1
- place2dTexture1(place2dTexture1_outUV);
-//input: 
-//output:place2dTexture1_outUV,
+place2dTexture1(place2dTexture1_outUV);
+//inputSrc: 
+//inputDes: 
+//outputSrc: place2dTexture1.outUV, 
 
- //checker1
- checker1(place2dTexture1_outUV, checker1_outColor);
-//input: place2dTexture1_outUV,
-//output:checker1_outColor,
+checker1(place2dTexture1_outUV, checker1_outColor);
+//inputSrc: place2dTexture1.outUV, 
+//inputDes: checker1.uvCoord, 
+//outputSrc: checker1.outColor, 
 
- //phong1
- phong1(checker1_outColor);
-//input: checker1_outColor,
-//output:
+phong1(checker1_outColor);
+//inputSrc: checker1.outColor, 
+//inputDes: phong1.color, 
+//outputSrc: 
 
 }
