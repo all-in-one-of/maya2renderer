@@ -80,6 +80,10 @@ def _render(mayaFile, liqRenderer):
 
 
 def _test(mayaFile, liqRenderer):
+    print("\n\n\n\n\n\n")
+    print("----------------------------------------------------------\n")
+    print("test begin <"+mayaFile+">\n")
+    print("----------------------------------------------------------\n")
     mLiqlog.renderer_beg(liqRenderer)
 
     output_image_fullpath = getImageOutputDirectory(mayaFile)+getOutputImageName(mayaFile, liqRenderer)
