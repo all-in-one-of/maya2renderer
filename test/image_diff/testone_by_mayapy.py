@@ -99,8 +99,7 @@ def _test(mayaFile, liqRenderer):
     print("test <"+mayaFile+"> \nwith <"+liqRenderer+">  is done.\n")
     
     #raw_input("Press ENTER to continue.")
-    import time
-    time.sleep(1)
+
 
 def test_one_scene(mayaFile, liqRenderer):
     mLiqlog.scene_beg(mayaFile)
@@ -123,7 +122,7 @@ def test_one_scene(mayaFile, liqRenderer):
 
     #clean resources
     import time
-    time.sleep(2)
+    time.sleep(1)
     tester.cutResources()
 
     mLiqlog.scene_end()
