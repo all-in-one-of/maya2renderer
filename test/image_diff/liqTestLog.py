@@ -63,7 +63,7 @@ def output_img_beg(imgFullPath):
     gLiqTestLog.write("<pre>out put image</pre>")
     gLiqTestLog.write("<table>")
     gLiqTestLog.writeLocalFile(imgFullPath)
-    gLiqTestLog.write("<img src=\"file:///"+imgFullPath+"\" WIDTH=\"200\" HEIGHT=\"200\" BORDER=\"0\" ALT=\"\"/>")
+    gLiqTestLog.write("<img src=\"file:///"+imgFullPath+"\" WIDTH=\"200\" HEIGHT=\"150\" BORDER=\"0\" ALT=\"\"/>")
     gLiqTestLog.write("</table>")
 
 def output_img_end():
@@ -73,7 +73,7 @@ def output_img_end():
 def imgdiff_beg(msg, imgdiffFullPath):
     gLiqTestLog.write("<pre><font size=\"+1\" color=\"red\">"+msg+"</font></pre>")
     gLiqTestLog.writeLocalFile(imgdiffFullPath)
-    gLiqTestLog.write("<img src=\"file:///"+imgdiffFullPath+"\" WIDTH=\"200\" HEIGHT=\"200\" BORDER=\"0\" ALT=\"\"/>")
+    gLiqTestLog.write("<img src=\"file:///"+imgdiffFullPath+"\" WIDTH=\"200\" HEIGHT=\"150\" BORDER=\"0\" ALT=\"\"/>")
 
 def imgdiff_end():
     gLiqTestLog.write("")
