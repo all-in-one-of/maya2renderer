@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: file_place2dTexture_seq.ma
-//Last modified: Thu, Mar 21, 2013 01:16:01 AM
+//Last modified: Sun, Apr 07, 2013 05:44:34 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -113,6 +113,8 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
 	setAttr ".osg" yes;
+	setAttr ".xres" 200;
+	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
 	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/file_place2dTexture_seq2941.xml";
@@ -458,7 +460,6 @@ select -ne :lightList1;
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
 	setAttr -s 2 ".l";
-select -ne :lambert1;
 select -ne :postProcessList1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
@@ -523,6 +524,8 @@ select -ne :defaultRenderGlobals;
 select -ne :defaultResolution;
 	setAttr -k on ".cch";
 	setAttr -k on ".nds";
+	setAttr ".w" 200;
+	setAttr ".h" 150;
 	setAttr ".pa" 1;
 	setAttr -k on ".al";
 	setAttr -k on ".off";
