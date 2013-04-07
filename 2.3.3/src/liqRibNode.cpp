@@ -833,11 +833,11 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 		assignedDisp.setObject( findDisp() );
 		assignedVolume.setObject( findVolume() );
 		//color //modified by yaoyansi
-		AttributeState colorState = getColor( surfaceShader, color );
 		if( surfaceShader == MObject::kNullObj ){
 			// This is how we specify that the color was not found.
 			color.r = AS_NotEXist;
 		}else{
+			AttributeState colorState = getColor( surfaceShader, color );
 			if( AS_NotEXist==colorState || AS_ConnectedAsDes==colorState ){
 				color.r = color.g = color.b = colorState;
 			} else if ( AS_NotConnected==colorState ||  AS_ConnectedAsSrc==colorState){
@@ -847,11 +847,11 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 			}
 		}
 		//opacity //modified by yaoyansi
-		AttributeState opacityState = getOpacity( surfaceShader, opacity );
 		if( surfaceShader == MObject::kNullObj ){
 			// This is how we specify that the opacity was not found.
 			opacity.r = AS_NotEXist;
 		}else{
+			AttributeState opacityState = getOpacity( surfaceShader, opacity );
 			if( AS_NotEXist==opacityState || AS_ConnectedAsDes==opacityState ){
 				opacity.r = opacity.g = opacity.b = opacityState;
 			} else if ( AS_NotConnected==opacityState ||  AS_ConnectedAsSrc==opacityState){
@@ -1415,10 +1415,15 @@ AttributeState liqRibNode::getColor( MObject& shader, MColor& color )
   MStatus stat = MS::kSuccess;
 
   MFnDependencyNode fnNode( shader );
+  if( !doesPlugExist(fnNode.name(), plugName) )
+  {
+	  return AS_NotEXist;
+  }
+
   MPlug plug = fnNode.findPlug( plugName, true, &stat );
   IfMErrorMsgWarn(stat, fnNode.name()+"."+plugName);
   if(stat!=MS::kSuccess){
-	  return AS_NotEXist;
+  	return AS_NotEXist;
   }
 
   MPlugArray array;
@@ -1457,6 +1462,11 @@ AttributeState liqRibNode::getOpacity( MObject& shader, MColor& opacity )
   MStatus stat = MS::kSuccess;
 
   MFnDependencyNode fnNode( shader );
+  if( !doesPlugExist(fnNode.name(), plugName) )
+  {
+	  return AS_NotEXist;
+  }
+
   MPlug plug = fnNode.findPlug( plugName, true, &stat );
   IfMErrorMsgWarn(stat, fnNode.name()+"."+plugName);
   if(stat!=MS::kSuccess){
