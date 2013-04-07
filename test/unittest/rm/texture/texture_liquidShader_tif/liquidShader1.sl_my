@@ -102,7 +102,7 @@ surface liquidShader1
 void liquidShader1 (
 )
 {
-  string texname = "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/rm/texture/texture_liquidShader/check11.png.tif";
+  string texname = "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/rm/texture/texture_liquidShader_tif/check11.png.tif";
   float maptype = float 3;
   point maporigin = point (0,0,0);
   point xaxis = point (1,0,0);
@@ -149,9 +149,9 @@ void liquidShader1 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //liquidShader1
- liquidShader1();
-//input: 
-//output:
+liquidShader1();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }
