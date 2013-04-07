@@ -9,7 +9,7 @@ Option "limits" "texturememory" [ 65536 ]
 Option "limits" "eyesplits" [ 10 ] 
 Option "limits" "othreshold" [ 0.996000 0.996000 0.996000 ] 
 Option "limits" "zthreshold" [ 0.996000 0.996000 0.996000 ] 
-Option "searchpath" "shader" [ "//E/MyDocuments/maya/projects/default/xx://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/shaders" ] 
+Option "searchpath" "shader" [ "&:@:.:~:rmanshader://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/shaders://R/MyDocuments/maya/projects/default/:://E/MyDocuments/maya/projects/default/generatedShader://E/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/lib/shaders:" ] 
 Option "searchpath" "texture" [ "&:@:.:~://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/textures://R/MyDocuments/maya/projects/default/://R/MyDocuments/maya/projects/default/rmantex/" ] 
 Option "searchpath" "archive" [ "&:@:.:~://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/rib://R/MyDocuments/maya/projects/default/://R/MyDocuments/maya/projects/default/rib/" ] 
 Option "searchpath" "procedural" [ "&:@:.:~://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/plugins://R/MyDocuments/maya/projects/default/" ] 
@@ -21,9 +21,10 @@ Option "user" "string pass" [ "beauty" ]
 #Ray Tracing : OFF
 Option "trace" "int maxdepth" [ 0 ] 
 FrameBegin 1
-    Format 768 576 1.000000
+    Format 200 150 1.000000
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
+    #camera: |persp|perspShape
     Projection "perspective" "fov" [ 42.184677 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000
