@@ -6,29 +6,29 @@ def test_all_scene():
     LIQUID_ROOT= os.environ["LIQUID_ROOT"]
     '''
     ------------------------ renderman ----------------------------------
-    '''
-    '''
+    
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture_liquidShader_tif/texture_liquidShader_tif.ma"
     MyTestOne.test_one_scene(testFile, "renderman")    
-
+     
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture_liquidShader_png/texture_liquidShader_png.ma"
     MyTestOne.test_one_scene(testFile, "renderman")  
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture_liquidSurface_tif/texture_liquidSurface_tif.ma"
     MyTestOne.test_one_scene(testFile, "renderman")  
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/sequence/file_place2dTexture_seq.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -44,7 +44,7 @@ def test_all_scene():
     #test_pl_type_array_liquidShader.ma is BAD
     #testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type_array_liquidShader.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
-
+    
 
     # limitation:
     # - If  a plug of liquidShader is input AND output
@@ -60,20 +60,20 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_liquidShader_con_ry/test_pl_liquidShader_con_ry.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_liquidShader_con_tx/test_pl_liquidShader_con_tx.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     # bad, it has a global displacement shader
     testFile=LIQUID_ROOT+"/test/unittest/rm/displacement/displacement.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
-    testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph.ma"
+    
+    #testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph.ma"
+    #MyTestOne.test_one_scene(testFile, "renderman")
+    '''
+    testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong/shader_graph_phong.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
-    testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph_phong/shader_graph_phong.ma"
-    MyTestOne.test_one_scene(testFile, "renderman")
- 
+    ''' 
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong_transparent/shader_graph_phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -128,10 +128,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/vertex_normal/simple/vertex_normal.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/deepshadow/deepshadow.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -204,10 +204,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/sequence/file_place2dTexture_seq.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    ''''''
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/bmp.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
 
@@ -236,7 +236,10 @@ def test_all_scene():
     # maybe the lambert shader is not correct.
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    '''
+    testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong/shader_graph_phong.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+    '''
     # not correct
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong_transparent/shader_graph_phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
@@ -359,10 +362,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/aov/aov.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    ''' '''
     testFile=LIQUID_ROOT+"/test/unittest/er/procedural/simple_procedural/simple_procedural.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/surface_shader/architectural/architectural.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
 
