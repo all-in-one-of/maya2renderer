@@ -4,8 +4,19 @@
 - TODO List
 - DONE List
 
-
-
+- 回归测试， all test cases
+- liq| er|: 测试更多的场景
+- liq| er|: blinn
+- liq| er|: 完善maya_phong
+- liq| er|: stereoCamera
+- liq| er|: image shader, 
+- liq| er|: caustic shader
+- liq| rm|: 完善geometry shader的UI，对rm来说，geometry shader的pl文件里提供Runprogram/DynamicLoad
+- liq| er|: 启用新的进程渲染
+- liq|: 重构,各种变量的初始化位置
+- liq|: 重构,支持ipr
+- liq| er|: ipr更新shader，camera等数据
+- plugin load callback
 ===================================  TODO LIST  =============================================
 liquid
 ------------
@@ -68,7 +79,7 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - add log(warn/error) at the coshader actions
 - affect_diffuse, affect_specular, see architectural's light loop
 - stereo camera
-- blinn
+
 
 
 prman
@@ -99,8 +110,9 @@ prman
 - test arealight,volumelight
 - 测试mesh light
 - 推迟convertMayaTypeToRSLFloat的调用
-- Do I have to update the deepshadow judgement? like this:
+- liq| rm| shadowpass|: Do I have to update the deepshadow judgement? like this: 
 (shadowType == stDeep) --> (shadowType == stDeep)||(shadowType == stMidPoint)
+
 
 elvishray
 ------------
@@ -177,14 +189,10 @@ elvishray
 - 按照3delight10.0.5的.h文件修改eiSHADER_maya/common/_3delight里的文件
 - 自定义shader的preview
 - 用新的ei api改写er shader(bump,checker,)，很多地方需要请教Elvic
-- stereoCamera
-- image shader, 
-- caustic shader
 - animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
 - pfxhair shader
 - Ultimate_Bony_v1.0.4_liq_hand.ma里mesh的硬边
-- subd surface (converted to polymesh)
-- phong 里用一个变量标识是否使用normalCamera
+
 
 appleseed
 -------------
@@ -226,7 +234,7 @@ appleseed
 
 
 - run all test cases for rm
-- matrix array UI is not shown in AE
+- liq|: matrix array UI is not shown in AE
 - doc: pl file is used to set default value
 - adapt *.ma for pl/lif
 - (done)add liqPushIndent()/liqPopIndent() in mel
@@ -239,9 +247,8 @@ project/default/as_mesh目录不存在时,会提示错误。应该考虑自动建立该目录
 // Error: Liquid : The RMANTREE environment variable is not defined !!
 
 
-- 启用线程渲染
-- ipr更新shader，camera等数据
-- plugin load callback
+
+
 
 
 
@@ -312,6 +319,8 @@ prman
 
 elvishray
 ------------
+- (done)subd surface (converted to polymesh)
+- (done)phong 里用一个变量标识是否使用normalCamera
 - (done)更新er 1185，编译release版
 - (done)vertex normal 导出的时机，什么时候需要导出？参考rm mesh的导出；给Elvic提bug，关于vertex list可以和pos list不等长
 - (done)重构：使用er时，不输出rib文件
