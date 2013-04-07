@@ -395,8 +395,8 @@ void Visitor::outputShaderMethod()
 {
 	CM_TRACE_FUNC("Visitor::outputShaderMethod()");
 
-	m_NodePlugInfo.print("  ",">");
-	m_NodePlugConnectionMgr.print("  ", ">");
+//	m_NodePlugInfo.print("  ",">");
+//	m_NodePlugConnectionMgr.print("  ", ">");
 
 	RSLfile << "\n\n\n// call the shaders ----------------------------------------------------------------------------\n";
 	RSLfile << shaderData[SHADER_METHOD_VARIAVLES_I].asChar();
