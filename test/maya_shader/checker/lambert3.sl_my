@@ -271,19 +271,19 @@ void lambert3 (
  float place2dTexture2_outUV[2];
  color checker1_outColor;
 
- //place2dTexture2
- place2dTexture2(place2dTexture2_outUV);
-//input: 
-//output:place2dTexture2_outUV,
+place2dTexture2(place2dTexture2_outUV);
+//inputSrc: 
+//inputDes: 
+//outputSrc: place2dTexture2.outUV, 
 
- //checker1
- checker1(place2dTexture2_outUV, checker1_outColor);
-//input: place2dTexture2_outUV,
-//output:checker1_outColor,
+checker1(place2dTexture2_outUV, checker1_outColor);
+//inputSrc: place2dTexture2.outUV, 
+//inputDes: checker1.uvCoord, 
+//outputSrc: checker1.outColor, 
 
- //lambert3
- lambert3(checker1_outColor);
-//input: checker1_outColor,
-//output:
+lambert3(checker1_outColor);
+//inputSrc: checker1.outColor, 
+//inputDes: lambert3.color, 
+//outputSrc: 
 
 }

@@ -70,30 +70,31 @@ def test_all_scene():
     
     #testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong/shader_graph_phong.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    ''' 
+     
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong_transparent/shader_graph_phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/three_boxes/three_boxes.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/simple/lambert.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/transparent/lambert_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/simple/phong.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+     
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/transparent/phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/pointlight/pointlight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/spotlight/spotlight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -102,21 +103,22 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/maya_shader/ambientlight/ambientlight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     #Bad, it is black
+    #3DL WARNING P1165: undefined coordinate system '_areaLight1_areaLightShape1CoordSys' in shader (in shader 'liquidarea' on object '_pPlane2_pPlaneShape2')
     testFile=LIQUID_ROOT+"/test/maya_shader/arealight/arealight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/dof/dof.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/checker/checker.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+    '''
     #animation
     testFile=LIQUID_ROOT+"/test/unittest/rm/animation_checker/checker_anim.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/rm/pfxhair/onehair.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -236,10 +238,10 @@ def test_all_scene():
     # maybe the lambert shader is not correct.
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong/shader_graph_phong.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    ''' '''
     # not correct
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong_transparent/shader_graph_phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
