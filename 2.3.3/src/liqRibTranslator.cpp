@@ -7085,9 +7085,9 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 //								paramPlug.getValue( specularPower );
 //						}
 //						RiSurface(  "liquidpfxhair",
-//							"float specularpower", &specularPower,
+//							"float specularPower", &specularPower,
 //							"float translucence",  &translucence,
-//							"color specularcolor", &specularColor,
+//							"color specularColor", &specularColor,
 //							RI_NULL );
 //					} 
 //					else if( path.hasFn( MFn::kPfxToon ) ) {

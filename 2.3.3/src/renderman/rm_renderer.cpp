@@ -1523,9 +1523,9 @@ namespace renderman
 				liqRibTranslator::getInstancePtr()->getPfxHairData(path__, translucence, specularPower, specularColor);
 
 				RiSurface(  "liquidpfxhair",
-					"float specularpower", &specularPower,
+					"float specularPower", &specularPower,
 					"float translucence",  &translucence,
-					"color specularcolor", &specularColor,
+					"color specularColor", &specularColor,
 					RI_NULL );
 			} 
 			else if( path__.hasFn( MFn::kPfxToon ) ) {
@@ -1850,9 +1850,9 @@ namespace renderman
 			liqRibTranslator::getInstancePtr()->getPfxHairData(path__, translucence, specularPower, specularColor);
 
 			RiSurface(  "liquidpfxhair",
-				"float specularpower", &specularPower,
+				"float specularPower", &specularPower,
 				"float translucence",  &translucence,
-				"color specularcolor", &specularColor,
+				"color specularColor", &specularColor,
 				RI_NULL );
 		} 
 		else if( path__.hasFn( MFn::kPfxToon ) ) {

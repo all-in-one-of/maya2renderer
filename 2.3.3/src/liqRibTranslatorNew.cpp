@@ -2418,9 +2418,9 @@ MStatus liqRibTranslator::objectShadowAttribute(const liqRibNodePtr &ribNode__)
 //						getPfxHairData(path__, translucence, specularPower, specularColor);
 //
 //						RiSurface(  "liquidpfxhair",
-//							"float specularpower", &specularPower,
+//							"float specularPower", &specularPower,
 //							"float translucence",  &translucence,
-//							"color specularcolor", &specularColor,
+//							"color specularColor", &specularColor,
 //							RI_NULL );
 //					} 
 //					else if( path__.hasFn( MFn::kPfxToon ) ) {
@@ -3825,9 +3825,9 @@ MStatus liqRibTranslator::writeShader_forShadow(
 // 					getPfxHairData(path__, translucence, specularPower, specularColor);
 // 
 // 					RiSurface(  "liquidpfxhair",
-// 						"float specularpower", &specularPower,
+// 						"float specularPower", &specularPower,
 // 						"float translucence",  &translucence,
-// 						"color specularcolor", &specularColor,
+// 						"color specularColor", &specularColor,
 // 						RI_NULL );
 // 				} 
 // 				else if( path__.hasFn( MFn::kPfxToon ) ) {
