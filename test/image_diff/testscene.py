@@ -13,7 +13,13 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/deform_tex/deform_tex.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
     
+    testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform_tex/transform_tex.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -114,29 +120,30 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/checker/checker.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     #animation
     testFile=LIQUID_ROOT+"/test/unittest/rm/animation_checker/checker_anim.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/pfxhair/onehair.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/subd/simple/subd.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/subd/tex/subd_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/vertex_normal/simple/vertex_normal.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/deepshadow/deepshadow.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+    '''
+    # The dependence on mtomr.mll leads to a crash
     #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
     #MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/rm/object_hierarchy/object_hierarchy/object_hierarchy.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -145,7 +152,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/object_hierarchy/object_hierarchy_simple/object_hierarchy_simple.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/lightlink/lightlink.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
@@ -203,7 +210,13 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform_tex/deform_tex.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
     
+    testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform_tex/transform_tex.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+    '''
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
      

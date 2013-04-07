@@ -6,6 +6,10 @@
 
 - liq| er|: 希望er尽快支持png格式
 - 回归测试， all test cases
+- liq| rm|: test/unittest/rm/test_pl/test_pl_type_array_liquidShader.ma fail
+- liq| rm|: /test/unittest/rm/displacement/displacement.ma, bug: rib文件里有全局的displace shader。
+- liq| rm|: /test/maya_shader/arealight/arealight.ma, bug: 渲染不出效果，用3delight渲染rib文件，提示3DL WARNING P1165: undefined coordinate system '_areaLight1_areaLightShape1CoordSys' in shader (in shader 'liquidarea' on object '_pPlane2_pPlaneShape2')
+- liq| rm|: /test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma, batchrendering leads to a crash
 - liq| er|: 把er shader的pl/dll/lif整理到一个目录下
 - liq| er|: 测试更多的场景
 - liq| er|: blinn

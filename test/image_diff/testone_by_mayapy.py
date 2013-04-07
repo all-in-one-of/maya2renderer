@@ -82,7 +82,7 @@ def _render(mayaFile, liqRenderer):
 def _test(mayaFile, liqRenderer):
     print("\n\n\n\n\n\n")
     print("----------------------------------------------------------\n")
-    print("test begin <"+mayaFile+">\n")
+    print("test begin <"+mayaFile+">, <"+liqRenderer+">\n")
     print("----------------------------------------------------------\n")
     mLiqlog.renderer_beg(liqRenderer)
 
