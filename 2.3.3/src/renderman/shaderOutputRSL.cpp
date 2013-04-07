@@ -38,13 +38,13 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 {
 	//process the children of the plug
 	MStringArray child;
-	IfMErrorWarn(MGlobal::executeCommand("getChildren(\""+mayaNode+"\", \""+mayaName+"\")", child));
+	IfMErrorMsgWarn(MGlobal::executeCommand("getChildren(\""+mayaNode+"\", \""+mayaName+"\")", child), ("getChildren(\""+mayaNode+"\", \""+mayaName+"\")"));
 
 	for(std::size_t i = 0; i<child.length(); ++i)
 	{
 		// if this child plug is not connected, skip it.
 		MStringArray connections;
-		IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination true (\""+mayaNode+"."+child[i]+"\")", connections));
+		IfMErrorMsgWarn(MGlobal::executeCommand("listConnections -source true -destination true (\""+mayaNode+"."+child[i]+"\")", connections), ("listConnections -source true -destination true (\""+mayaNode+"."+child[i]+"\")"));
 		if( connections.length() == 0 )
 		{
 			continue;
@@ -52,7 +52,7 @@ void OutputHelper::addRSLVariable(const MString& inputQualifier, MString rslType
 
 		//get child type
 		MString childType;
-		IfMErrorWarn(MGlobal::executeCommand("getAttr -type (\""+mayaNode+"."+child[i]+"\")", childType));
+		IfMErrorMsgWarn(MGlobal::executeCommand("getAttr -type (\""+mayaNode+"."+child[i]+"\")", childType), ("getAttr -type (\""+mayaNode+"."+child[i]+"\")"));
 		// process this child plug
 		_addRSLVariable(inputQualifier, childType, child[i], child[i], mayaNode);
 		nodePlugMgrRef.add(mayaNode.asChar(), child[i].asChar(), childType.asChar());
@@ -121,7 +121,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			||rslType=="vector")
 		{
 			MDoubleArray val; val.setLength(3);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+			IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\""));
 			//val(double) --> valStr(string)
 			MStringArray valStr; valStr.setLength(3);
 			valStr[0].set(val[0]);
@@ -130,7 +130,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
 		}else if(rslType=="string"){
 			MString val;
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+			IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\""));
 
 			val = evaluateTheTextureNameValue(mayaName, val);
 
@@ -138,7 +138,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 		}else if(rslType=="float"){
 			if(rslTypeSize == 1){
 				double val;
-				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\"") );
 				//val(double) --> valStr(string)
 				MString valStr;
 				valStr.set(val);
@@ -146,7 +146,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			}else{
 				rslShaderBody += "{ ";
 				MDoubleArray val; val.setLength(rslTypeSize);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\"") );
 				for(int i=0; i<rslTypeSize; ++i){
 					if( i != 0 ){
 						rslShaderBody += ", ";
@@ -160,7 +160,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			}
 		}else if(rslType=="matrix"){
 			MDoubleArray val; val.setLength(16);
-			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+			IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\"") );
 			//val(double) --> valStr(string)
 			MStringArray valStr; valStr.setLength(16);
 			valStr[0].set(val[0]);   valStr[1].set(val[1]);  valStr[2].set(val[2]);    valStr[3].set(val[3]);
@@ -211,7 +211,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			{
 				if(rslTypeSize == 1){
 					MDoubleArray val; val.setLength(3);
-					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\"") );
 					//val(double) --> valStr(string)
 					MStringArray valStr; valStr.setLength(3);
 					valStr[0].set(val[0]);
@@ -224,7 +224,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			}else if(rslType=="string"){
 				if(rslTypeSize == 1){
 					MString val;
-					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\""));
 
 					val = evaluateTheTextureNameValue(mayaName, val);
 
@@ -235,14 +235,14 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			}else if(rslType=="float"){
 				if(rslTypeSize == 1){
 					double val;
-					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\""));
 					//val(double) --> valStr(string)
 					MString valStr;
 					valStr.set(val);
 					rslShaderBody += " "+rslName+" = "+rslType+" "+valStr;
 				}else{
 					MDoubleArray val; val.setLength(rslTypeSize);
-					IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+					IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\"") );
 					for(int i=0; i<rslTypeSize; ++i){
 						MString I;
 						I.set(i);
@@ -256,7 +256,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 			}else if(rslType=="matrix"){
 				if(rslTypeSize == 1){
 				MDoubleArray val; val.setLength(16);
-				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				IfMErrorMsgWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val), ("getAttr \""+plug+"\"") );
 				//val(double) --> valStr(string)
 				MStringArray valStr; valStr.setLength(16);
 				valStr[0].set(val[0]);   valStr[1].set(val[1]);  valStr[2].set(val[2]);    valStr[3].set(val[3]);
@@ -282,7 +282,8 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 		if(connected == liquidmaya::CT_In)
 		{
 			MStringArray srcPlug;
-			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs true \""+plug+"\"", srcPlug));
+			IfMErrorMsgWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs true \""+plug+"\"", srcPlug),
+												   ("listConnections -source true -destination off -plugs true \""+plug+"\""));
 			assert(srcPlug.length()==1);
 			rslShaderBody +="//"+plug+" <-- "+srcPlug[0]+"\n";
 		}
@@ -387,7 +388,7 @@ void Visitor::outputUpstreamShader(const char* shaderNodeName)
 	CM_TRACE_FUNC("Visitor::outputUpstreamShader("<<shaderNodeName<<")");
 
 	MString nodetype;
-	IfMErrorWarn(MGlobal::executeCommand( ("nodeType \""+MString(shaderNodeName)+"\""), nodetype));
+	IfMErrorMsgWarn(MGlobal::executeCommand( ("nodeType \""+MString(shaderNodeName)+"\""), nodetype), ("nodeType \""+MString(shaderNodeName)+"\""));
 
 	_outputUpstreamShader(shaderNodeName, nodetype.asChar());
 }
