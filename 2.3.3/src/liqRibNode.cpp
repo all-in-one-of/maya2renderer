@@ -517,13 +517,16 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
 
 	  // procedural -------------------------------------------------------
 	  //liquidGetPlugValue( nodePeeker, "liqProceduralAttribute",     procedural.attribute, status );
-	  liquidGetPlugValue( nodePeeker, "liqGeoShader",     liqGeoShaderNodeName, status );
-	  MString getSouceNode("listConnections -d true \""+getTransformNodeFullPath()+".liqGeoShader\"");
-	  MStringArray sourceNodes;
-	  IfMErrorWarn( MGlobal::executeCommand(getSouceNode, sourceNodes, true, true));
-	  if( sourceNodes.length()>0 ){
-		  liqGeoShaderNodeName = sourceNodes[ 0 ];
+	  if( doesPlugExist( getTransformNodeFullPath(), "liqGeoShader" ) )//exist?
+	  {
+		MString getSouceNode("listConnections -s true \""+getTransformNodeFullPath()+".liqGeoShader\"");
+		MStringArray sourceNodes;
+		IfMErrorWarn( MGlobal::executeCommand(getSouceNode, sourceNodes, true, true));
+		if( sourceNodes.length()>0 ){
+			liqGeoShaderNodeName = sourceNodes[ 0 ];
+		}
 	  }
+
       // RIB group ---------------------------------------------------------
 
       if( rib.box == "" ) 
