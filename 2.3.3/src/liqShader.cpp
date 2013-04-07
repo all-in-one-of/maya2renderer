@@ -1666,7 +1666,7 @@ const std::string removeRedundentExtsion(std::string const& texturepath)//textur
 
 	std::size_t i_last_dot = texname.find_last_of('.');
 	if( i_last_dot == std::string::npos ){
-		liquidMessage2(messageError,"%s has no extention!", texturepath.c_str());
+		liquidMessage2(messageError,"removeRedundentExtsion():\"%s\" has no extention!", texturepath.c_str());
 		return texturepath;
 	}
 
@@ -1731,7 +1731,7 @@ void liqShader::processExpression( liqTokenPointer *token, const liqRibLightData
 						//skip
 						std::size_t loc = strValue.find_last_of('.');
 						if( loc == std::string::npos )
-							liquidMessage2(messageError,"%s has no extention!", strValue.c_str());
+							liquidMessage2(messageError,"liqShader::processExpression():\"%s\" has no extention!", strValue.c_str());
 						std::string extention;
 						if( *(strValue.rbegin())==']' ){//if the strValue end with ']', extention should exclude the ']'
 							extention = strValue.substr(loc+1, strValue.size()-loc-2);
