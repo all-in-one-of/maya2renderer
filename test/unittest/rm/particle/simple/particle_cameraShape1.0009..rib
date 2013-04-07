@@ -21,10 +21,11 @@ Option "user" "string pass" [ "beauty" ]
 #Ray Tracing : OFF
 Option "trace" "int maxdepth" [ 0 ] 
 FrameBegin 9
-    Format 640 480 1.000000
+    Format 200 150 1.000000
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
-    Projection "perspective" "fov" [ 37.894367 ] 
+    #camera: |camera1|cameraShape1
+    Projection "perspective" "fov" [ 37.994007 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000
     Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 -0.000000 0.000000 -1.226522 -0.000000 17.082293 1.000000 ]

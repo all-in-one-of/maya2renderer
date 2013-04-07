@@ -149,9 +149,9 @@ void lambert2 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //lambert2
- lambert2();
-//input: 
-//output:
+lambert2();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

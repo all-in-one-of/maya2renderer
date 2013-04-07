@@ -171,9 +171,9 @@ void npCloudBlinn (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //npCloudBlinn
- npCloudBlinn();
-//input: 
-//output:
+npCloudBlinn();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }
