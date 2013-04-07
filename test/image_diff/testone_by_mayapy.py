@@ -122,7 +122,7 @@ def test_one_scene(mayaFile, liqRenderer):
 
     #clean resources
     import time
-    time.sleep(1)
+    time.sleep(2)
     tester.cutResources()
 
     mLiqlog.scene_end()
