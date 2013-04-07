@@ -36,6 +36,15 @@ liquid
 - (done)重构convertShaderGraph。convertShadingNetwork.cpp 里的shaderData放到Visitor里，这样不同的Visitor可以输出各自的shader文本
 （如果该渲染器定义了自己的shader language的话；对于象er这样使用DSO的渲染器，则不需要输出shader文本）
 - (done)设置新project路径后，用er渲染会崩溃，原因是rib，generatedShader，rmanpix等目录未创建
+- (done)编译prman ,测试liqShaderPreview，编译appleseed工程,
+- (done)openLog() --> openLog(filenamebase)
+- (done)pl文件里增加int，bool类型
+- (done)limitation:
+  - (done)If a plug of liquidShader is input AND output,
+  - (done)If colorR instead of color in connected.
+- (done)liqShader UI里的shader type参数的UI有问题（点击链接到目的node时总是报错）
+- （done）project/default/rmanpix目录不存在时，tracelog报错
+
 
 prman
 ------------
@@ -48,6 +57,13 @@ prman
 - (done)blinn shader无法编译
 - (done)mib_ambient_occ, 测试Trex场景
 - (done)rmsg文件内容写入main rib里
+
+3delight
+------------
+- (done) rm_nodePlugInfo 里不使用map
+- (done) rm_nodePlugInfo 里添加functioncall
+
+
 
 elvishray
 ------------
@@ -84,6 +100,18 @@ elvishray
 - (done)ei_instance 使用trasform node name，而不是shape ndoe name
 - (done)由于使用progressive rendering， tile更新不明显。应该把正在更新的tile用红框标出来。
 - (done)physicalsky需要修改为maya可用的
+- (done)（liquid） pl文件里增加int，bool类型
+- (done)displacement shader 测试不正确
+- (done)自定义light shader
+- (done)skylight shader里env_shader参数未赋值，导致skylight shader崩溃。
+  liquid里应该检查该参数，如果其为空的话，提示用户。
+- (done)aov
+- (done)procedural
+- (done)volume shader, 
+- (done)geometry shader, 
+- (done)新加的camera和maya渲染效果不符，见phong.ma,因为overscan
+- (done) nurbs surface (converted to polymesh)
+- （done）使用er时，maya/bin目录下没有manager.ini时无提示。应该在载入elvishray.mll时检查之
 
 
 appleseed
@@ -143,19 +171,12 @@ liqShader::getName(),liqRibLightData::getName(),liqRibMeshData::getName(),liqGet
 - liquidShow*Global2()参数列表里加上$info,$cmd参数
 - parseString() 解析$F参数时，增加000前缀（比如，原先是1，现在变为0001）
   代码：ss << setfill('0') << setw( (liqglo.liqglo_doExtensionPadding)? liqglo.liqglo_outPadding : 0 )  << (int)liqglo.liqglo_lframe;
-- (done)编译prman ,测试liqShaderPreview，编译appleseed工程,
-- (done)openLog() --> openLog(filenamebase)
 - UI的自动化测试，节点连接的自动化测试。渲染器在制作流程里的自动化测试
-- (done)pl文件里增加int，bool类型
 - er geometry shader 应该在object导出之前导出。但rm的procedural却是在每个object instance内导出。
   应该设计一个方案，能够解决这两个情况
-- (done)limitation:
-  - (done)If a plug of liquidShader is input AND output,
-  - (done)If colorR instead of color in connected.
 - pfxhair 的material如何做
 - 重构：tRibCameraMgr::gatherDataForJob（）有返回值。相机选择不正确时（相机不存在），退出
 - C++代码里替换printf， mel代码里替换print
-- (done)liqShader UI里的shader type参数的UI有问题（点击链接到目的node时总是报错）
 - bump2d, bump3d ,
 - add log(warn/error) at the coshader actions
 - affect_diffuse, affect_specular, see architectural's light loop
@@ -190,9 +211,9 @@ prman
 - bug: test\test_particle\particleColorChangeOnCollisionMethod1.ma，绿色的粒子显示不出绿色
 - test arealight,volumelight
 - 测试mesh light
-- (done) rm_nodePlugInfo 里不使用map
-- (done) rm_nodePlugInfo 里添加functioncall
 - 推迟convertMayaTypeToRSLFloat的调用
+- Do I have to update the deepshadow judgement? like this:
+(shadowType == stDeep) --> (shadowType == stDeep)||(shadowType == stMidPoint)
 
 elvishray
 ------------
@@ -269,20 +290,12 @@ elvishray
 - 按照3delight10.0.5的.h文件修改eiSHADER_maya/common/_3delight里的文件
 - 自定义shader的preview
 - 用新的ei api改写er shader(bump,checker,)，很多地方需要请教Elvic
-- (done)（liquid） pl文件里增加int，bool类型
-- (done)displacement shader 测试不正确
-- (done)自定义light shader
-- （bug）skylight shader里env_shader参数未赋值，导致skylight shader崩溃。
-  liquid里应该检查该参数，如果其为空的话，提示用户。
-- aov
-- procedural
 - stereoCamera
-- volume shader, image shader, geometry shader, caustic shader
+- image shader, 
+- caustic shader
 - animation render  and ipr render 不兼容，ei_context()的位置不同，参见unittest/er\animation_checker
 - pfxhair shader
-- (done)新加的camera和maya渲染效果不符，见phong.ma,因为overscan
 - Ultimate_Bony_v1.0.4_liq_hand.ma里mesh的硬边
-- (done) nurbs surface (converted to polymesh)
 - subd surface (converted to polymesh)
 - phong 里用一个变量标识是否使用normalCamera
 
@@ -334,15 +347,13 @@ appleseed
 test_liqShaderNode_surface_as_lambertDiagnosticSS.ma , mode UI无法显示
 project/default/as_mesh目录不存在时,会提示错误。应该考虑自动建立该目录
 
-（done）project/default/rmanpix目录不存在时，tracelog报错
-（done）使用er时，maya/bin目录下没有manager.ini时无提示。应该在载入elvishray.mll时检查之
 
 未安装prman时，用er渲染，会提示：
 // Error: Liquid : The RMANTREE environment variable is not defined !!
 
 
 - 启用线程渲染
-- ipr，shader，camera等数据
+- ipr更新shader，camera等数据
 - plugin load callback
 
 
