@@ -5,6 +5,7 @@
 - DONE List
 
 - 回归测试， all test cases
+- liq| er|: 把er shader的pl/dll/lif整理到一个目录下
 - liq| er|: 测试更多的场景
 - liq| er|: blinn
 - liq| er|: 完善maya_phong
