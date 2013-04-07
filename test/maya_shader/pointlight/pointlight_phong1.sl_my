@@ -169,9 +169,9 @@ void pointlight_phong1 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //pointlight_phong1
- pointlight_phong1();
-//input: 
-//output:
+pointlight_phong1();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

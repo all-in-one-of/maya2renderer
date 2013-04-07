@@ -475,29 +475,29 @@ void phong4 (
  color file2_outColor;
  color file2_outTransparency;
 
- //place2dTexture1
- place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
-//input: 
-//output:place2dTexture1_coverage,place2dTexture1_mirrorU,place2dTexture1_mirrorV,place2dTexture1_noiseUV,place2dTexture1_offset,place2dTexture1_repeatUV,place2dTexture1_rotateFrame,place2dTexture1_rotateUV,place2dTexture1_stagger,place2dTexture1_translateFrame,place2dTexture1_wrapU,place2dTexture1_wrapV,place2dTexture1_outUV,
+place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
+//inputSrc: 
+//inputDes: 
+//outputSrc: place2dTexture1.coverage, place2dTexture1.mirrorU, place2dTexture1.mirrorV, place2dTexture1.noiseUV, place2dTexture1.offset, place2dTexture1.repeatUV, place2dTexture1.rotateFrame, place2dTexture1.rotateUV, place2dTexture1.stagger, place2dTexture1.translateFrame, place2dTexture1.wrapU, place2dTexture1.wrapV, place2dTexture1.outUV, 
 
- //file1
- file1(place2dTexture1_outUV, file1_outColor);
-//input: place2dTexture1_outUV,
-//output:file1_outColor,
+file1(place2dTexture1_outUV, file1_outColor);
+//inputSrc: place2dTexture1.outUV, 
+//inputDes: file1.uvCoord, 
+//outputSrc: file1.outColor, 
 
- //place2dTexture2
- place2dTexture2(place2dTexture2_coverage, place2dTexture2_mirrorU, place2dTexture2_mirrorV, place2dTexture2_noiseUV, place2dTexture2_offset, place2dTexture2_repeatUV, place2dTexture2_rotateFrame, place2dTexture2_rotateUV, place2dTexture2_stagger, place2dTexture2_translateFrame, place2dTexture2_wrapU, place2dTexture2_wrapV, place2dTexture2_outUV);
-//input: 
-//output:place2dTexture2_coverage,place2dTexture2_mirrorU,place2dTexture2_mirrorV,place2dTexture2_noiseUV,place2dTexture2_offset,place2dTexture2_repeatUV,place2dTexture2_rotateFrame,place2dTexture2_rotateUV,place2dTexture2_stagger,place2dTexture2_translateFrame,place2dTexture2_wrapU,place2dTexture2_wrapV,place2dTexture2_outUV,
+place2dTexture2(place2dTexture2_coverage, place2dTexture2_mirrorU, place2dTexture2_mirrorV, place2dTexture2_noiseUV, place2dTexture2_offset, place2dTexture2_repeatUV, place2dTexture2_rotateFrame, place2dTexture2_rotateUV, place2dTexture2_stagger, place2dTexture2_translateFrame, place2dTexture2_wrapU, place2dTexture2_wrapV, place2dTexture2_outUV);
+//inputSrc: 
+//inputDes: 
+//outputSrc: place2dTexture2.coverage, place2dTexture2.mirrorU, place2dTexture2.mirrorV, place2dTexture2.noiseUV, place2dTexture2.offset, place2dTexture2.repeatUV, place2dTexture2.rotateFrame, place2dTexture2.rotateUV, place2dTexture2.stagger, place2dTexture2.translateFrame, place2dTexture2.wrapU, place2dTexture2.wrapV, place2dTexture2.outUV, 
 
- //file2
- file2(place2dTexture2_outUV, file2_outColor, file2_outTransparency);
-//input: place2dTexture2_outUV,
-//output:file2_outColor,file2_outTransparency,
+file2(place2dTexture2_outUV, file2_outColor, file2_outTransparency);
+//inputSrc: place2dTexture2.outUV, 
+//inputDes: file2.uvCoord, 
+//outputSrc: file2.outColor, file2.outTransparency, 
 
- //phong4
- phong4(file1_outColor, file2_outColor);
-//input: file1_outColor,file2_outColor,
-//output:
+phong4(file1_outColor, file2_outColor);
+//inputSrc: file1.outColor, file2.outColor, 
+//inputDes: phong4.color, phong4.transparency, 
+//outputSrc: 
 
 }

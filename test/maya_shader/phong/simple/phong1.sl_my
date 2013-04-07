@@ -169,9 +169,9 @@ void phong1 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //call shader phong1, var: 
- phong1();
-//input: 
-//output:
+phong1();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

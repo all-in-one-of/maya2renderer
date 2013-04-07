@@ -169,9 +169,9 @@ void phong4 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //phong4
- phong4();
-//input: 
-//output:
+phong4();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

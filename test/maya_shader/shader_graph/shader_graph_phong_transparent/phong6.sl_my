@@ -169,9 +169,9 @@ void phong6 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //phong6
- phong6();
-//input: 
-//output:
+phong6();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }
