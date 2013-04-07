@@ -140,8 +140,8 @@ void lambert1 (
 	outColor,					
 	outTransparency			
    );
-    Ci             = Os * outColor;
-    Oi             = Os * ( 1.0 - outTransparency );
+    Oi = Os * ( 1.0 - outTransparency );
+    Ci = Cs * Oi * outColor;
 }
 
 
@@ -149,9 +149,9 @@ void lambert1 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //lambert1
- lambert1();
-//input: 
-//output:
+lambert1();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

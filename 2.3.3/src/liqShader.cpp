@@ -678,7 +678,7 @@ liqShader::liqShader( MObject shaderObj )
 							else  // build non default param
 							{
 								MString stringVal( parseString( stringPlugVal ) );
-								liquidMessage2(messageError,"[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
+								liquidMessage2(messageInfo,"[liqShader::liqShader] parsed string for param %s = %s \n", paramName.asChar(), stringVal.asChar() );
 								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
 								tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
 							}
