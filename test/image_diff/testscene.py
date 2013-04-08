@@ -554,7 +554,7 @@ def test_all_scene():
     - affect_diffuse, affect_specular, see architectural's light loop
     - stereo camera
     - blinn
-    - nurbs surface
+    - (done)nurbs surface
     '''   
 
 
