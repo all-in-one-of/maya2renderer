@@ -196,21 +196,21 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    ''''''
 
     '''
 
 
     '''
     ------------------------ elvishray ----------------------------------
-    '''
-    '''
+    
+    ''''''
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -225,7 +225,7 @@ def test_all_scene():
      
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/sequence/file_place2dTexture_seq.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    ''''''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/bmp.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
 
@@ -234,22 +234,22 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/tif.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/test_pl/test_pl_type.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    ''''''
     testFile=LIQUID_ROOT+"/test/unittest/er/test_pl/test_pl_type_liquidShader.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/test_pl/test_pl_type_liquidShader_con.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
 
     testFile=LIQUID_ROOT+"/test/unittest/er/test_pl/test_pl_type_liquidShader_conIO.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/displace/simple_displace.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     # it is different from /test\test_shader_graph\output_img_std/er_rm_shader_graph_perspShape_1_elvishray.bmp.
     # maybe the lambert shader is not correct.
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph/shader_graph.ma"
@@ -261,12 +261,13 @@ def test_all_scene():
     # not correct
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/shader_graph_phong_transparent/shader_graph_phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/shader_graph/three_boxes/three_boxes.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/simple/lambert.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
+
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/transparent/lambert_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -279,18 +280,19 @@ def test_all_scene():
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/maya_shader/spotlight/spotlight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/directionallight/directionallight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    # er use skylight for ambient light, but ambient light needs a env shader or it will lead a crash
+    
+    # er use skylight for ambient light, but skylight shader needs a env shader or it will lead a crash
     #testFile=LIQUID_ROOT+"/test/maya_shader/ambientlight/ambientlight.ma"
     #MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/arealight/arealight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/light/quardlight/quardlight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+     
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidlight/liquidlight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_pointlight/liquidshader_pointlight.ma"
@@ -310,7 +312,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/light/volumelight/simple/volumelight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/light/volumelight/liquidshader_spherelight/liquidshader_spherelight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
 
@@ -320,7 +322,7 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_liq_skylight/liquidshader_liq_skylight.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
-    #crash
+    #crash, use liquidshader_liq_skylight.ma as a substitute
     #testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_skylight/liquidshader_skylight.ma"
     # MyTestOne.test_one_scene(testFile, "elvishray")
 
@@ -329,7 +331,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/dof/dof_liquidShader/dof_liquidShader.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")   
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/env/physicalsky/physicalsky.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/env/simple_env/simple_env.ma"
@@ -341,35 +343,36 @@ def test_all_scene():
     #animation fail
     testFile=LIQUID_ROOT+"/test/unittest/er/animation_checker/checker_anim.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/pfxhair/onehair.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/vertex_normal/simple/vertex_normal.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/volume/simple/volume.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/volume/volume_liquidShader/volume_liquidShader.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/volume/animation/volume_liquidShader_anim.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
-    testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
-    MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
+    #it depends on mentralray, crash
+    #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
+    #MyTestOne.test_one_scene(testFile, "elvishray")
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy/object_hierarchy.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy_mb/object_hierarchy_mb.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy_simple/object_hierarchy_simple.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/lightlink/lightlink.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    '''
     # rendering hangs
     #testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
     #MyTestOne.test_one_scene(testFile, "elvishray")
@@ -400,10 +403,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    ''' 
+    
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''       
+    ''' '''       
 
 
     ------------------------ appleseed ----------------------------------
