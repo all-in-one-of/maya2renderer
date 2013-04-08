@@ -340,7 +340,6 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/maya_shader/checker/checker.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
-    #animation fail
     testFile=LIQUID_ROOT+"/test/unittest/er/animation_checker/checker_anim.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -367,23 +366,23 @@ def test_all_scene():
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy_simple/object_hierarchy_simple.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/lightlink/lightlink.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     '''
-    # rendering hangs
+    # rendering hangs, refer to bug list on google code
     #testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
     #MyTestOne.test_one_scene(testFile, "elvishray")
-    
+    '''
     #right side of the body is almost black
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/aov/aov.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    ''' '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/procedural/simple_procedural/simple_procedural.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -403,7 +402,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+    ''' ''' 
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     ''' '''       

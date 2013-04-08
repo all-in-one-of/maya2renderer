@@ -42,11 +42,12 @@ ei_output("R:/MyDocuments/maya/projects/default/rmanpix/nurbs_surface.perspShape
 //mode=rgb;
 ei_output_variable("color",11);
 ei_end_output();
-// AOVs;
+// AOV;
+// AOV end;
 ei_focal(35);
 ei_aperture(36);
 ei_aspect(1.33333);
-ei_resolution(400,300);
+ei_resolution(200,150);
 ei_clip(0.1,10000);
 ei_end_camera();
 //----------------------------------;

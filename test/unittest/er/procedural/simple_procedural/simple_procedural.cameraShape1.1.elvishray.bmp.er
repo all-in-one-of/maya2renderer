@@ -61,7 +61,8 @@ ei_output("R:/MyDocuments/maya/projects/default/rmanpix/simple_procedural.camera
 //mode=rgb;
 ei_output_variable("color",11);
 ei_end_output();
-// AOVs;
+// AOV;
+// AOV end;
 ei_focal(35);
 ei_aperture(32);
 ei_aspect(1.33333);
