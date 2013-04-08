@@ -42,7 +42,8 @@ ei_output("R:/MyDocuments/maya/projects/default/rmanpix/phong_transparent.camera
 //mode=rgb;
 ei_output_variable("color",11);
 ei_end_output();
-// AOVs;
+// AOV;
+// AOV end;
 ei_focal(35);
 ei_aperture(36);
 ei_aspect(1.33333);
