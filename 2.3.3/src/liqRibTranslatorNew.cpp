@@ -2715,15 +2715,15 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 
 
 		liqRenderScript jobScript;
-		// 		liqRenderScript::Job preJobInstance;
-		// 		preJobInstance.title = "liquid pre-job";
-		// 		preJobInstance.isInstance = true;
+// 		liqRenderScript::Job preJobInstance;
+// 		preJobInstance.title = "liquid pre-job";
+// 		preJobInstance.isInstance = true;
 		tJobScriptMgr jobScriptMgr(jobScript);
 
 		printFrameSequence("1");
 		// build the frame array
-		liquidMessage2(messageInfo, "liqglo.m_renderView=%d", liqglo.m_renderView );
-		liquidMessage2(messageInfo, "isBatchMode()=%d", isBatchMode() );
+		//liquidMessage2(messageInfo, "liqglo.m_renderView=%d", liqglo.m_renderView );
+		//liquidMessage2(messageInfo, "isBatchMode()=%d", isBatchMode() );
 		if( liqglo.m_renderView ) 
 		{
 			// if we are in renderView mode,
@@ -2735,12 +2735,16 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 		//
 		// start looping through the frames  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		//
-		liquidMessage( "Starting to loop through frames", messageInfo );
-		printFrameSequence("2");
+		//liquidMessage( "Starting to loop through frames", messageInfo );
+		//printFrameSequence("2");
 
 		unsigned frameIndex( 0 );
 		for ( ; frameIndex < liqglo.frameNumbers.size(); frameIndex++ ) 
 		{
+			liquidMessage2(messageInfo, "----------------------------------------");
+			liquidMessage2(messageInfo, "rendering progress: %d/%d ", frameIndex, liqglo.frameNumbers.size() );
+			liquidMessage2(messageInfo, "----------------------------------------");		
+			
 			int currentBlock( 0 );
 			//[refactor][1.7 begin] from _doIt() 
 			const MString framePreCommand(parseString( liqglo.m_preCommand, false));
