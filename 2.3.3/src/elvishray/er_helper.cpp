@@ -17,6 +17,15 @@ namespace elvishray
 		IfMErrorWarn(MGlobal::executeCommand("listConnections -source on -destination off -plugs off \""+MString(nodename)+".normalCamera\"", srcNode));
 		return (srcNode.length()>0)? 1 : 0;
 	}
+	//
+	MString getTestShaderName()
+	{
+		return "liquid_shader_for_test";
+	}
+	MString getTestMaterialName()
+	{
+		return "liquid_material_for_test";
+	}
 
 
 

@@ -9,6 +9,10 @@ namespace elvishray
 {	
 	//MString getGroupName(const MString& objname);
 	int isBumpMapConnected(const char* nodename);
+	//
+	MString getTestShaderName();
+	MString getTestMaterialName();
+	//
 }
 
 #endif//_ER_HELPER_H_

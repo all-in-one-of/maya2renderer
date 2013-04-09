@@ -12,7 +12,7 @@
 #include "../common/mayacheck.h"
 #include "ercall.h"
 #include "er_log_helper.h"
-
+#include "er_helper.h"
 
 namespace elvishray
 {
@@ -169,22 +169,15 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::dummyPhongShader()");
 
-		_s("//----------------phong_shader_for_test begin---");
-		_S( ei_shader("plastic", "phong_shader_for_test") );
-		_S( ei_shader_param_vector("Cs", 1.0f, 0.2f, 0.3f) );
-		_S( ei_shader_param_vector("Kd", 0.7f, 1.0f, 1.0f) );
-		_S( ei_shader_param_scalar("Ks", 1.0f) );
-		_S( ei_shader_param_scalar("roughness", 0.2f) );
+		_s("//----------------shader_for_test begin---");
+		_S( ei_shader("maya_surfaceShader", getTestShaderName().asChar()) );
+		_S( ei_shader_param_vector("outColor", 1.0f, 0.0f, 0.0f) );
 		_S( ei_end_shader() );
 
-		_S( ei_shader("opaque", "opaque_shadow_for_test") );
-		_S( ei_end_shader() );
-
-		_S( ei_material("phong_mtl_for_test") );
-		_S( ei_surface_shader("phong_shader_for_test") );
-		_S( ei_shadow_shader("opaque_shadow_for_test") );
+		_S( ei_material(getTestMaterialName().asChar()) );
+		_S( ei_surface_shader(getTestShaderName().asChar()) );
 		_S( ei_end_material() );
-		_s("//----------------phong_shader_for_test end ---");
+		_s("//----------------shader_for_test end ---");
 	}
 	//////////////////////////////////////////////////////////////////////////
 

@@ -37,6 +37,7 @@
 #include "er_log_helper.h"
 #include "er_GlobalNodeHelper.h"
 #include "er_iprMgr.h"
+#include "er_helper.h"
 
 namespace elvishray
 {
@@ -311,13 +312,13 @@ namespace elvishray
 			}
 			if( shadingGroupNodes.length()==0 )
 			{
-				liquidMessage2(messageError, "%s's shading group is empty, so I use \"phong_mtl_for_test\" to avoid crash", ribNode__->name.asChar());
-				_s( "//shadingGroupNodes is empty, use \"phong_mtl_for_test\" to avoid crash" );
-				_S( ei_mtl("phong_mtl_for_test") );
+				liquidMessage2(messageError, "%s's shading group is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
+				_s( "//shadingGroupNodes is empty, use \""<<getTestMaterialName().asChar()<<"\" to avoid crash" );
+				_S( ei_mtl(getTestMaterialName().asChar()) );
 			} else if( shadingGroupNodes[0].length()==0 ){
-				liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"phong_mtl_for_test\" to avoid crash", ribNode__->name.asChar());
-				_s( "//shadingGroupNodes[0] is empty, use \"phong_mtl_for_test\" to avoid crash" );
-				_S( ei_mtl("phong_mtl_for_test") );
+				liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
+				_s( "//shadingGroupNodes[0] is empty, use \""<<getTestMaterialName().asChar()<<"\" to avoid crash" );
+				_S( ei_mtl(getTestMaterialName().asChar()) );
 			} else {
 				_S( ei_mtl( shadingGroupNodes[0].asChar() ) );
 			}
