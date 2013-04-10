@@ -43,7 +43,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeCurvesData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
 		_s("//curves "<<pData->getFullPathName()<<" is not implemented yet.");
-		liquidMessage2(messageError, "Curve type is not implemented yet.");
+		liquidMessage2(messageError, "Curve type is not implemented yet.\n%s", pData->getFullPathName());
 
 	}
 }//namespace elvishray

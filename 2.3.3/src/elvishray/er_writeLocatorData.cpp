@@ -43,7 +43,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeLocatorData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 
 		_s("//locator "<<pData->getFullPathName()<<" is not implemented yet.");
-		liquidMessage2(messageError, "Locator type is not implemented yet.");
+		liquidMessage2(messageError, "Locator type is not implemented yet.\n%s", pData->getFullPathName());
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_
