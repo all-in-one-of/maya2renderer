@@ -353,10 +353,10 @@ namespace elvishray
 
 		//light links
 		_s("{//light group(light-link group)");
-		const char* lg = getLightGroupName(instanceName.c_str()).asChar();
+		const MString lg(getLightGroupName(instanceName.c_str()));
 		_d( const char *tag = NULL );
 		_S( ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &tag) );
-		tag = ei_token(lg);_s( "tag = ei_token(\""<<lg<<"\");" );
+		tag = ei_token(lg.asChar());_s( "tag = ei_token(\""<<lg.asChar()<<"\");" );
 		_S( ei_variable("lightgroup", &tag ) );
 		_s("}");
 
@@ -1371,7 +1371,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::_renderPreview("<<width<<","<<height<<","
 			<<doNotClearBackground<<","<<immediateFeedback<<","
-			<<renderGroup.asChar()<<","<<renderGroup.asChar()<<","<<optionName.asChar()<<")");
+			<<renderGroup.asChar()<<","<<cameraName.asChar()<<","<<optionName.asChar()<<")");
 
 		// start render - region render, don't clear background, don't immediate feedback
 		if (MayaConnection::getInstance()->startRender( width, height, doNotClearBackground, immediateFeedback) != MS::kSuccess)
