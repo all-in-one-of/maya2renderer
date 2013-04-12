@@ -4,6 +4,10 @@
 - TODO List
 - DONE List
 
+-liq|er|: mesh导出有改动，要做回归测试
+- liq| er|: er渲染时会写缓存数据吗？我发现第二次渲染比第一次渲染快很多
+-liq| er|: chicken_rig 渲染完毕时崩溃
+- liq| er|: update vertex normal test case
 -liq| er|: 重构，然后输出ess
 - liq|er: 需要triangluate模型后，uv才正确。这样会影响制作流程
 - liq| er|: Chicken_Rig_liq_phong_noramp_tri.ma 导致maya会崩溃
