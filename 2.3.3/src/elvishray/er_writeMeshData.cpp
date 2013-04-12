@@ -9,10 +9,10 @@
 #include "er_log_helper.h"
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
-
 namespace elvishray
 {
 	static void _write(liqRibMeshData* pData, const structJob &currentJob);
+	static void _exportUVFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample);
 
 	void Renderer::write(
 		/*const*/ liqRibMeshData* pData,
@@ -40,9 +40,10 @@ namespace elvishray
 	//
 	void _exportVertexFromNodePlug(
 		const liqRibNodePtr &ribNode__,
-		unsigned int sample)
+		unsigned int sample,
+		const MIntArray &triangleVertices)
 	{	
-		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<")");
+		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<", triangleVertices.size="<<triangleVertices.length()<<")");
 
 		MStatus status;
 
@@ -66,11 +67,19 @@ namespace elvishray
 		IfMErrorWarn(status);
 
 		// add vertex position to ER
+#ifdef _OLD_WAY_
 		for(size_t i=0; i<fnMesh.numVertices(); ++i)
 		{
 			_S( ei_tab_add_vector( vertex_buf[3*i+0],vertex_buf[3*i+1],vertex_buf[3*i+2] ) );
 		}
-
+#else
+		for(size_t i=0; i<triangleVertices.length(); ++i)
+		{
+			int vi = triangleVertices[i];
+			//_s("//"<<vi);
+			_S( ei_tab_add_vector( vertex_buf[3*vi+0],vertex_buf[3*vi+1],vertex_buf[3*vi+2] ) );
+		}
+#endif
 	}
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
@@ -135,7 +144,7 @@ namespace elvishray
 		_S( ei_pos_list( tag ) );
 
 		//_exportVertexFromDagNode(fnMesh);
-		_exportVertexFromNodePlug(ribNode__, sample_first);
+		_exportVertexFromNodePlug(ribNode__, sample_first, triangleVertices);
 
 		_S( ei_end_tab() );
 
@@ -146,7 +155,7 @@ namespace elvishray
 				_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
 				_S( ei_motion_pos_list( tag ) );
 
-				_exportVertexFromNodePlug(ribNode__, sample_last);
+				_exportVertexFromNodePlug(ribNode__, sample_last, triangleVertices);
 
 				_S( ei_end_tab() );
 			}
@@ -171,11 +180,23 @@ namespace elvishray
 			_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
 			_S( ei_variable("N", &tag) );
 			MVector nml;
+#ifdef _OLD_WAY_
 			for(size_t i = 0; i<fnMesh.numVertices(); ++i)
 			{
 				IfMErrorWarn(fnMesh.getVertexNormal(i, false, nml, MSpace::kObject));
 				_S( ei_tab_add_vector(nml.x, nml.y, nml.z) );
 			}
+#else
+			for(size_t i=0; i<triangleVertices.length(); ++i)
+			{
+				int vi = triangleVertices[i];
+				//_s("//"<<vi);
+				IfMErrorWarn(fnMesh.getVertexNormal(vi, false, nml, MSpace::kObject));
+				_S( ei_tab_add_vector(nml.x, nml.y, nml.z) );
+			}
+#endif
+
+
 			_S( ei_end_tab() );
 		}else{//sharp edge, like a cube
 			// in this case, like a cube, a vertex has a specified normal corresponding to each adjacent polygon.
@@ -192,30 +213,89 @@ namespace elvishray
 
 			IfMErrorWarn( fnMesh.getUVs(u_coords,v_coords,&currentUVsetName) );
 			_s("//### UV("<<currentUVsetName.asChar()<<"), size="<< fnMesh.numUVs(currentUVsetName) );
+
+			int numUVSets = fnMesh.numUVSets();
+			_s("//# numUVSets("<<numUVSets );
+			MStringArray uvsetNames;
+			IfMErrorWarn( fnMesh.getUVSetNames(uvsetNames) );
+			for(std::size_t i = 0; i< uvsetNames.length(); ++i){
+				_s("//# uvsetNames["<<i<<"]="<<uvsetNames[i].asChar() );
+			}
+			MStringArray uvsetFamilyNames;
+			IfMErrorWarn( fnMesh.getUVSetFamilyNames(uvsetFamilyNames) );
+			for(std::size_t i = 0; i< uvsetFamilyNames.length(); ++i){
+				_s("//# uvsetFamilyNames["<<i<<"]="<<uvsetFamilyNames[i].asChar() );
+			}
+
 			// uv
 			_d( tag = eiNULL_TAG );
 			_S( ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag) );
 			_d( tag = ei_tab(EI_TYPE_VECTOR2, 1024) )
 			_S( ei_variable("uv", &tag) );
+#ifdef _OLD_WAY_			
 			for(size_t i = 0; i<fnMesh.numUVs(currentUVsetName); ++i)
 			{
 				_S( ei_tab_add_vector2(u_coords[i], v_coords[i]) );
 			}
+#else
+			_exportUVFromNodePlug(ribNode__, sample_first);
+#endif
 			_S( ei_end_tab() );
 		}
 
 		_s("//### triangles, size="<< triangleCounts.length());
 		_d( tag = ei_tab(EI_TYPE_INDEX, 1024) )
 		_S( ei_triangle_list( tag ) );
+#ifdef _OLD_WAY_		
 		for(size_t i=0; i<triangleVertices.length(); i=i+3)
 		{
 			_S( ei_tab_add_index(triangleVertices[i])); 
 			_S( ei_tab_add_index(triangleVertices[i+1])); 
 			_S( ei_tab_add_index(triangleVertices[i+2])); 
 		}
+#else
+		for(size_t i=0; i<triangleVertices.length(); ++i)
+		{
+			_S( ei_tab_add_index(i));
+		}
+#endif
 		_S( ei_end_tab() );
 		_s("}//"<<objectName);
 		_S( ei_end_object() );
+	}
+	//
+	static void _exportUVFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample )
+	{	
+		CM_TRACE_FUNC("_exportUVFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<")");
+
+		MStatus status;
+
+		const liqRibDataPtr ribdata = ribNode__->object(sample)->getDataPtr();
+		liqRibMeshData* mesh = (liqRibMeshData*)(ribdata.get());
+		const std::vector<liqTokenPointer>& tokenPointerArray = mesh->tokenPointerArray;
+
+		liqTokenPointer uv;
+		for( std::vector< liqTokenPointer >::const_iterator iter( tokenPointerArray.begin() ); iter != tokenPointerArray.end(); ++iter ) 
+		{
+			if( "facevarying float[2] st" == const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName() )
+			{
+				uv = *iter;
+				break;
+			}
+		}
+		assert( !uv.empty() );
+		const liqFloat* uv_buf = uv.getTokenFloatArray();
+
+		MFnMesh fnMesh(mesh->objDagPath, &status);
+		IfMErrorWarn(status);
+
+		const unsigned numFaceVertices( fnMesh.numFaceVertices() );
+		// add uv to ER
+		for(size_t i=0; i<numFaceVertices; ++i)
+		{
+			_S( ei_tab_add_vector2( uv_buf[2*i+0], 1.0f - uv_buf[2*i+1] ) );
+		}
+
 	}
 }//namespace elvishray
 
