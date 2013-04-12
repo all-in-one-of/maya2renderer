@@ -15,6 +15,7 @@ namespace elvishray
 	static void _write1(liqRibMeshData* pData, const structJob &currentJob__);
 	static void _write(liqRibMeshData* pData, const structJob &currentJob);
 	static void _exportUVFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample);
+	static const liqFloat* _exportVertexFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample);
 	static int getVertexInexInPolygon( const int gvi, const MIntArray &polygonVertices);
 
 	void Renderer::write(
@@ -48,29 +49,13 @@ namespace elvishray
 	{	
 		CM_TRACE_FUNC("_exportVertexFromNodePlug("<<ribNode__->name.asChar()<<","<<sample<<", triangleVertices.size="<<triangleVertices.length()<<")");
 
-		MStatus status;
-
-		const liqRibDataPtr ribdata = ribNode__->object(sample)->getDataPtr();
-		liqRibMeshData* mesh = (liqRibMeshData*)(ribdata.get());
-		const std::vector<liqTokenPointer>& tokenPointerArray = mesh->tokenPointerArray;
-
-		liqTokenPointer vertex;
-		for( std::vector< liqTokenPointer >::const_iterator iter( tokenPointerArray.begin() ); iter != tokenPointerArray.end(); ++iter ) 
-		{
-			if( "P" == const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName() )// find the Position data
-			{
-				vertex = *iter;
-				break;
-			}
-		}
-		assert( !vertex.empty() );
-		const liqFloat* vertex_buf = vertex.getTokenFloatArray();
-
-		MFnMesh fnMesh(mesh->objDagPath, &status);
-		IfMErrorWarn(status);
+		const liqFloat* vertex_buf = _exportVertexFromNodePlug(ribNode__, sample);
 
 		// add vertex position to ER
 #ifdef _OLD_WAY_
+		MStatus status;
+		MFnMesh fnMesh(mesh->objDagPath, &status);
+		IfMErrorWarn(status);
 		for(size_t i=0; i<fnMesh.numVertices(); ++i)
 		{
 			_S( ei_tab_add_vector( vertex_buf[3*i+0],vertex_buf[3*i+1],vertex_buf[3*i+2] ) );
@@ -84,7 +69,7 @@ namespace elvishray
 		}
 #endif
 	}
-	const liqFloat* _exportVertexFromNodePlug(
+	static const liqFloat* _exportVertexFromNodePlug(
 		const liqRibNodePtr &ribNode__,
 		unsigned int sample)
 	{	
