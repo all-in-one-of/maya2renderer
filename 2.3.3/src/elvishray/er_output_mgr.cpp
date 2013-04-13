@@ -11,18 +11,20 @@ namespace elvishray
 {
 	OutputMgr::OutputMgr()
 	{
-
+		CM_TRACE_FUNC("OutputMgr::OutputMgr()");
 	}
 	OutputMgr::~OutputMgr()
 	{
-
+		CM_TRACE_FUNC("OutputMgr::~OutputMgr()");
 	}
 	void OutputMgr::setOutputImagePath(const std::string &output_image_path)
 	{
+		CM_TRACE_FUNC("OutputMgr::setOutputImagePath("<<output_image_path<<")");
 		m_output_image_path = output_image_path;
 	}
 	OutputBase* OutputMgr::createOutput(OutputType outputtype)
 	{
+		CM_TRACE_FUNC("OutputMgr::createOutput("<<outputtype<<")");
 		OutputBase* ret = NULL;
 
 		switch(outputtype)
@@ -45,6 +47,7 @@ namespace elvishray
 	}
 	int OutputMgr::add(OutputType outputtype)
 	{
+		CM_TRACE_FUNC("OutputMgr::add("<<outputtype<<")");
 		if(m_receiver_types.end() == std::find(m_receiver_types.begin(), m_receiver_types.end(), outputtype) )
 		{
 			m_receiver_types.push_back(outputtype);
@@ -56,6 +59,7 @@ namespace elvishray
 	}
 	int OutputMgr::init()
 	{
+		CM_TRACE_FUNC("OutputMgr::init()");
 		for(std::size_t i=0; i<m_receiver_types.size(); ++i)
 		{
 			OutputBase* newreceiver = createOutput( m_receiver_types[i] );
@@ -65,6 +69,7 @@ namespace elvishray
 	}
 	int OutputMgr::uninit()
 	{
+		CM_TRACE_FUNC("OutputMgr::uninit()");
 		//destruct m_receivers
 		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
 		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
@@ -84,6 +89,7 @@ namespace elvishray
 	//----------------------------------------------------
 	void OutputMgr::ei_context()
 	{
+		//CM_TRACE_FUNC("OutputMgr::ei_context()");
 		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
 		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
 		for(; i!=e; ++i)
@@ -93,6 +99,7 @@ namespace elvishray
 	}
 	void OutputMgr::ei_end_context()
 	{
+		//CM_TRACE_FUNC("OutputMgr::ei_end_context()");
 		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
 		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
 		for(; i!=e; ++i)
