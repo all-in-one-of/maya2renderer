@@ -6,6 +6,7 @@
 
 #include "../rendererinterface.h"
 #include "../common/logmgr.h"
+#include "er_output_mgr.h"
 
 namespace liquid{
 	class LogMgr;
@@ -388,6 +389,7 @@ namespace elvishray
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
+		OutputMgr m_outputmgr;
 
 	protected:
 		Renderer(const Renderer&);

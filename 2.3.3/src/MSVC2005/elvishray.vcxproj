@@ -2241,6 +2241,7 @@
   <ItemGroup>
     <ClCompile Include="..\elvishray\er_helper.cpp" />
     <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
+    <ClCompile Include="..\elvishray\er_output_mgr.cpp" />
     <ClCompile Include="..\elvishray\er_plug.cpp" />
     <ClCompile Include="..\elvishray\er_preview.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
@@ -2268,6 +2269,10 @@
     <ClCompile Include="..\elvishray\er_writeShaveData.cpp" />
     <ClCompile Include="..\elvishray\ercall.cpp" />
     <ClCompile Include="..\elvishray\MayaConnection.cpp" />
+    <ClCompile Include="..\elvishray\output\er_output_base.cpp" />
+    <ClCompile Include="..\elvishray\output\er_output_call.cpp" />
+    <ClCompile Include="..\elvishray\output\er_output_esa.cpp" />
+    <ClCompile Include="..\elvishray\output\er_output_ess.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_materials.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
@@ -2287,9 +2292,14 @@
     <ClInclude Include="..\elvishray\er_helper.h" />
     <ClInclude Include="..\elvishray\er_iprMgr.h" />
     <ClInclude Include="..\elvishray\er_log_helper.h" />
+    <ClInclude Include="..\elvishray\er_output_mgr.h" />
     <ClInclude Include="..\elvishray\er_renderer.h" />
     <ClInclude Include="..\elvishray\ercall.h" />
     <ClInclude Include="..\elvishray\MayaConnection.h" />
+    <ClInclude Include="..\elvishray\output\er_output_base.h" />
+    <ClInclude Include="..\elvishray\output\er_output_call.h" />
+    <ClInclude Include="..\elvishray\output\er_output_esa.h" />
+    <ClInclude Include="..\elvishray\output\er_output_ess.h" />
     <ClInclude Include="..\elvishray\shaderOutputER.h" />
     <ClInclude Include="..\elvishray\shaderOutputERCall.h" />
   </ItemGroup>

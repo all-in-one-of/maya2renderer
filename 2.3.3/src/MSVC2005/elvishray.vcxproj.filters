@@ -7,6 +7,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\output">
+      <UniqueIdentifier>{06192d00-48fa-4463-a4bd-684ea5592f93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\elvishray\er_factory.cpp">
@@ -126,6 +129,21 @@
     <ClCompile Include="..\elvishray\er_helper.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\er_output_mgr.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\output\er_output_base.cpp">
+      <Filter>src\output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\output\er_output_esa.cpp">
+      <Filter>src\output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\output\er_output_ess.cpp">
+      <Filter>src\output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\output\er_output_call.cpp">
+      <Filter>src\output</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
@@ -163,6 +181,21 @@
     </ClInclude>
     <ClInclude Include="..\elvishray\er_helper.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\er_output_mgr.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\output\er_output_base.h">
+      <Filter>src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\output\er_output_esa.h">
+      <Filter>src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\output\er_output_ess.h">
+      <Filter>src\output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\output\er_output_call.h">
+      <Filter>src\output</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -149,17 +149,29 @@ namespace elvishray
 			liquidMessage2(messageError,"can't open file: %s.\n", logFileName.asChar() );
 			assert(0&&"can't open file. see script editor for more details.");
 		}
+
+		//construct output mgr
+		m_outputmgr.setOutputImagePath(imageFullPath.asChar());
+		m_outputmgr.add(OutputMgr::OT_CALL);
+		m_outputmgr.add(OutputMgr::OT_ESS);
+		m_outputmgr.add(OutputMgr::OT_ESA);
+		m_outputmgr.init();
+
 		//////////////////////////////////////////////////////////////////////////
 		//_s("//### SCENE BEGIN ###");
 		//_S( ei_context() );
+		m_outputmgr.ei_context();
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
 
 		//_S( ei_end_context() );
+		m_outputmgr.ei_end_context();
 
 		//////////////////////////////////////////////////////////////////////////
+		//destruct output mgr
+		m_outputmgr.uninit();
 		//close script log file
 		m_log.close();
 		//////////////////////////////////////////////////////////////////////////
