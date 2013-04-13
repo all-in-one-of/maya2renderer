@@ -93,6 +93,16 @@ namespace elvishray
 	//----------------------------------------------------
 	// ER API interfaces
 	//----------------------------------------------------
+	void OutputMgr::annotation(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputMgr::annotation()");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->annotation(msg);
+		}
+	}
 	void OutputMgr::ei_context()
 	{
 		//CM_TRACE_FUNC("OutputMgr::ei_context()");

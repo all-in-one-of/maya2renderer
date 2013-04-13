@@ -27,6 +27,11 @@ namespace elvishray
 	//----------------------------------------------------
 	// ER API interfaces
 	//----------------------------------------------------
+	void OutputESA::annotation(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputESA::annotation("<<msg<<")");
+		m_outputfile<<"//"<<msg<<std::endl;
+	}
 	void OutputESA::ei_context()
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_context()");

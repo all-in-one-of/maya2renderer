@@ -41,10 +41,13 @@ namespace elvishray
 		std::string m_output_image_path;
 
 
+
 		//----------------------------------------------------
 		// ER API interfaces
 		//----------------------------------------------------
 	public:
+		void annotation(const std::string &msg);
+
 		void ei_context();
 		void ei_end_context();
 

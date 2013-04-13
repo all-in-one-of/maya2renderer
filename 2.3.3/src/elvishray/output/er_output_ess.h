@@ -26,6 +26,8 @@ namespace elvishray
 		// ER API interfaces
 		//----------------------------------------------------
 	public:
+		virtual void annotation(const std::string &msg);
+
 		virtual void ei_context();
 		virtual void ei_end_context();
 
