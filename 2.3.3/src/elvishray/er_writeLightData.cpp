@@ -16,6 +16,7 @@ namespace elvishray
 	void addLightGroupForLight(const MString& lightTransformNode)
 	{
 		CM_TRACE_FUNC("addLightGroupForLight("<<lightTransformNode.asChar()<<")");
+		OutputMgr &o = Renderer::o;
 
 		MStringArray meshNodes;
 #ifdef TRANSFORM_SHAPE_PAIR
@@ -23,8 +24,7 @@ namespace elvishray
 #else// SHAPE SHAPE_object PAIR
 		IfMErrorWarn(MGlobal::executeCommand( "lightlink -q -set 0 -shapes 1 -transforms 0 -light "+lightTransformNode, meshNodes));//shape nodes
 #endif
-		_s("{");
-			_d( eiInt tag = 0 );
+		o.liq_lightgroup_in_light_instance_beg();
 			for(std::size_t i=0; i<meshNodes.length();++i)
 			{
 				MString fullPathName;
@@ -36,9 +36,9 @@ namespace elvishray
 				std::string instanceName(fullPathName.asChar());
 
 				const MString lightGroupName( getLightGroupName(instanceName.c_str()) );
-				_S( ei_declare(lightGroupName.asChar(), EI_CONSTANT, EI_TYPE_INT, &tag) );
+				o.liq_lightgroup_in_light_instance(lightGroupName.asChar());
 			}
-		_s("}");
+		o.liq_lightgroup_in_light_instance_end();
 	}
 	//
 	bool Renderer::writeLight_pre(const liqRibNodePtr& ribNode, const structJob &currentJob)
@@ -47,7 +47,8 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::writeLight_pre("<<ribNode->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
 		liqString RibNodeName = getLiquidRibName( ribNode->name.asChar() );
-		_s("\n// Renderer::exportLight(\""+std::string(RibNodeName)+"\");");
+		o.ln();
+		o.a(" Renderer::exportLight(\""+std::string(RibNodeName)+"\");");
 
 		return true;
 	}
@@ -66,24 +67,25 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<shadertype<<","<<shaderinstance<<",...)");
 
-		_s("\n// Renderer::exportAmbientLight()");
+		o.ln();
+		o.a(" Renderer::exportAmbientLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "ambientlight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_scalar("intensity", 3.0 ) );
-		_S( ei_end_shader() );
+		o.ei_shader( "ambientlight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_scalar("intensity", 3.0 );
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
-		_S( ei_origin( t[3][0],t[3][1],t[3][2] ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str() );
+		o.ei_origin( t[3][0],t[3][1],t[3][2] );
+		o.ei_end_light();
 
-		_S( ei_instance(  shaderinstanceFullPath.c_str()) );
-		_S( ei_element(	 sLightObjectName.c_str()));
+		o.ei_instance(  shaderinstanceFullPath.c_str());
+		o.ei_element(	 sLightObjectName.c_str());
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -92,29 +94,31 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
 
 		assert(0&&"skylight leads to a crash. i dont know why.");
-		_s("\n// Renderer::exportAmbientLight()");
-		_s("// NOTE: I export maya ambient light to sky light temporarily, but how to deal with the \"resolution\",\"max_dist\" parameters.");
+
+		o.ln();
+		o.a(" Renderer::exportAmbientLight()");
+		o.a(" NOTE: I export maya ambient light to sky light temporarily, but how to deal with the \"resolution\",\"max_dist\" parameters.");
 		
 		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
 		const liqMatrix &t = lightdata->transformationMatrix;
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "skylight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_int("resolution", 1000 ) );
-		_S( ei_shader_param_scalar("max_dist", 10000.0f ) );
-		_S( ei_end_shader() );
+		o.ei_shader( "skylight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_int("resolution", 1000 );
+		o.ei_shader_param_scalar("max_dist", 10000.0f );
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str() );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	 sLightObjectName.c_str() ) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element(	 sLightObjectName.c_str() );
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -141,27 +145,28 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportDistantLight("<<shadertype<<","<<shaderinstance<<",...)");
 
-		_s("// Renderer::exportDistantLight()");
+		o.ln();
+		o.a(" Renderer::exportDistantLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "directlight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) ); 
-		_S( ei_shader_param_scalar("intensity", i_intensity ) );
-		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f ) ); 
-		_S( ei_end_shader() );
+		o.ei_shader( "directlight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ); 
+		o.ei_shader_param_scalar("intensity", i_intensity );
+		o.ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f ); 
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light( sLightObjectName.c_str()) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light( sLightObjectName.c_str());
+		o.ei_light_shader(	sShaderInstanceName.c_str() );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
-		_S( ei_instance( shaderinstanceFullPath.c_str()) );
-		_S( ei_element(	sLightObjectName.c_str()) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str());
+		o.ei_element(	sLightObjectName.c_str());
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -194,26 +199,27 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportPointLight("<<shadertype<<","<<shaderinstance<<",...)");
 
-		_s("\n// Renderer::exportPointLight()");
+		o.ln();
+		o.a(" Renderer::exportPointLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "pointlight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) );
-		_S( ei_shader_param_scalar("intensity", i_intensity) );
-		_S( ei_end_shader() );
+		o.ei_shader( "pointlight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] );
+		o.ei_shader_param_scalar("intensity", i_intensity);
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str()  ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str()  );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element( sLightObjectName.c_str() ) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element( sLightObjectName.c_str() );
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -269,31 +275,32 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportSpotLight("<<shadertype<<","<<shaderinstance<<",...)");
 
-		_s("\n// Renderer::exportSpotLight()");
+		o.ln();
+		o.a(" Renderer::exportSpotLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "spotlight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ) ); 
-		_S( ei_shader_param_scalar("intensity", i_intensity ) );
+		o.ei_shader( "spotlight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_vector("lightcolor", i_lightcolor[0], i_lightcolor[1], i_lightcolor[2] ); 
+		o.ei_shader_param_scalar("intensity", i_intensity );
 		//deltaangle = penumbra_angle_of_the_spot_light - panorama_angle_of_the_spot_light,(unit:radian),
-		_S( ei_shader_param_scalar("deltaangle", (i_penumbraangle*0.5f) ) );
-		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f ) ); 
+		o.ei_shader_param_scalar("deltaangle", (i_penumbraangle*0.5f) );
+		o.ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f ); 
 		//spread = 0.5 * cone_angle_of_the_spot_light,(unit:radian)
-		_S( ei_shader_param_scalar("spread", (i_coneangle*0.5f) ) );  
-		_S( ei_end_shader() );
+		o.ei_shader_param_scalar("spread", (i_coneangle*0.5f) );  
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light( sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str()  ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light( sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str()  );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	sLightObjectName.c_str() ) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element(	sLightObjectName.c_str() );
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -324,24 +331,25 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<shadertype<<","<<shaderinstance<<",...)");
 
-		_s("\n// Renderer::exportAreaLight()");
+		o.ln();
+		o.a(" Renderer::exportAreaLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "arealight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_scalar("intensity", 3.0 ) );
-		_S( ei_end_shader() );
+		o.ei_shader( "arealight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_scalar("intensity", 3.0 );
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
-		_S( ei_origin( t[3][0],t[3][1],t[3][2]  ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str() );
+		o.ei_origin( t[3][0],t[3][1],t[3][2]  );
+		o.ei_end_light();
 
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	 sLightObjectName.c_str() ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element(	 sLightObjectName.c_str() );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -349,38 +357,39 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
 
-		_s("\n// Renderer::exportAreaLight()");
-		_s("// NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
+		o.ln();
+		o.a(" Renderer::exportAreaLight()");
+		o.a(" NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
 
 		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
 		const liqMatrix &t = lightdata->transformationMatrix;
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "quadlight", sShaderInstanceName.c_str() ) ); 
-		_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
-		_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
+		o.ei_shader( "quadlight", sShaderInstanceName.c_str() ); 
+		o.ei_shader_param_scalar("intensity", lightdata->intensity );
+		o.ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]);
 		//deltaangle = penumbra_angle_of_the_spot_light - panorama_angle_of_the_spot_light,(unit:radian),
-		_s("//Maya doesn't has \"deltaangle\" for area light, so we feed a dummy value to ER");
-		_S( ei_shader_param_scalar("deltaangle", (eiScalar)eiPI / 2.0f ) );
-		_S( ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f) );
+		o.a("Maya doesn't has \"deltaangle\" for area light, so we feed a dummy value to ER");
+		o.ei_shader_param_scalar("deltaangle", (eiScalar)eiPI / 2.0f );
+		o.ei_shader_param_vector("direction", 0.0f, 0.0f, -1.0f);
 		//spread = 0.5 * cone_angle_of_the_spot_light,(unit:radian)
-		_s("//Maya doesn't has \"spread\" for area light, so we feed a dummy value to ER");
-		_S( ei_shader_param_scalar("spread", (eiScalar)eiPI / 4.0f) );
-		_S( ei_shader_param_scalar("width", 1.0f) );
-		_S( ei_shader_param_scalar("height", 1.0f) );
-		_S( ei_end_shader() );
+		o.a("Maya doesn't has \"spread\" for area light, so we feed a dummy value to ER");
+		o.ei_shader_param_scalar("spread", (eiScalar)eiPI / 4.0f);
+		o.ei_shader_param_scalar("width", 1.0f);
+		o.ei_shader_param_scalar("height", 1.0f);
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str() );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	 sLightObjectName.c_str() ) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element(	 sLightObjectName.c_str() );
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -390,7 +399,8 @@ namespace elvishray
 		
 		MStatus status;
 
-		_s("\n// Renderer::exportVolumeLight()");
+		o.ln();
+		o.a(" Renderer::exportVolumeLight()");
 
 		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
@@ -404,52 +414,55 @@ namespace elvishray
 		//export shader
 		if( MFnVolumeLight::kBoxVolume == shape )
 		{
-			_s("\n// volume light for box shape is not implemented yet. "<<lightdata->getName());
+			o.ln();
+			o.a(boost::str(boost::format(" volume light for box shape is not implemented yet. %s")%lightdata->getName()));
 			assert(0&&"volume light for box shape is not implemented yet.");
 			return (liqLightHandle)(-1);
 		}
 		else if( MFnVolumeLight::kSphereVolume == shape )
 		{
-			_S( ei_shader( "spherelight", sShaderInstanceName.c_str() ) ); 
-			_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
-			_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
-			_S( ei_shader_param_scalar("radius", t[0][0] ) );//use scale.x for the radius
-			_S( ei_end_shader() );
+			o.ei_shader( "spherelight", sShaderInstanceName.c_str() ); 
+			o.ei_shader_param_scalar("intensity", lightdata->intensity );
+			o.ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]);
+			o.ei_shader_param_scalar("radius", t[0][0] );//use scale.x for the radius
+			o.ei_end_shader();
 		}
 		else if( MFnVolumeLight::kCylinderVolume == shape )
 		{
-			_S( ei_shader( "cylinderlight", sShaderInstanceName.c_str() ) ); 
-			_S( ei_shader_param_scalar("intensity", lightdata->intensity ) );
-			_S( ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]) );
-			_S( ei_shader_param_scalar("radius", t[0][0] ) );//use scale.x for the radius
-			_S( ei_shader_param_scalar("height", t[1][1] ) );//use scale.y for the height
-			_S( ei_end_shader() );
+			o.ei_shader( "cylinderlight", sShaderInstanceName.c_str() ); 
+			o.ei_shader_param_scalar("intensity", lightdata->intensity );
+			o.ei_shader_param_vector("lightcolor", lightdata->color[0], lightdata->color[1], lightdata->color[2]);
+			o.ei_shader_param_scalar("radius", t[0][0] );//use scale.x for the radius
+			o.ei_shader_param_scalar("height", t[1][1] );//use scale.y for the height
+			o.ei_end_shader();
 		}
 		else if( MFnVolumeLight::kConeVolume == shape )
 		{
-			_s("\n// volume light for cone shape is not implemented yet. "<<lightdata->getName());
+			o.ln();
+			o.a(boost::str(boost::format(" volume light for cone shape is not implemented yet. %s")%lightdata->getName()));
 			assert(0&&"volume light for cone shape is not implemented yet.");
 			return (liqLightHandle)(-1);
 		}
 		else{
-			_s("\n// volume light for unknow shape is not implemented yet. "<<lightdata->getName()<<", shape="<<shape);
-			assert(0&&"volume light for unown shape is not implemented yet.");
+			o.ln();
+			o.a(boost::str(boost::format(" volume light for unknow shape is not implemented yet. %s, shape=%d")%lightdata->getName()%shape));
+			assert(0&&"volume light for unknown shape is not implemented yet.");
 			return (liqLightHandle)(-1);
 		}
 
 		//object
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	sShaderInstanceName.c_str() );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
 		//instance
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	 sLightObjectName.c_str() ) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element(	 sLightObjectName.c_str() );
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -457,8 +470,9 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
 
-		_s("\n// Renderer::exportAreaLight()");
-		_s("// NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
+		o.ln();
+		o.a(" Renderer::exportAreaLight()");
+		o.a(" NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
 
 		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
 		const liqMatrix &t = lightdata->transformationMatrix;
@@ -472,17 +486,17 @@ namespace elvishray
 
 		//object
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light(  sLightObjectName.c_str() ) );
-		_S( ei_light_shader(	lightdata->rmanLightShader->getName().c_str() ) );
-		_S( ei_origin( 0.0, 0.0, 0.0 ) );
-		_S( ei_end_light() );
+		o.ei_light(  sLightObjectName.c_str() );
+		o.ei_light_shader(	lightdata->rmanLightShader->getName().c_str() );
+		o.ei_origin( 0.0, 0.0, 0.0 );
+		o.ei_end_light();
 
 		//instance
-		_S( ei_instance( shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	 sLightObjectName.c_str() ) );
-		_S( ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] ) );
+		o.ei_instance( shaderinstanceFullPath.c_str() );
+		o.ei_element(	 sLightObjectName.c_str() );
+		o.ei_transform( t[0][0], t[0][1], t[0][2], t[0][3],   t[1][0], t[1][1], t[1][2], t[1][3],   t[2][0], t[2][1], t[2][2], t[2][3],   t[3][0], t[3][1], t[3][2], t[3][3] );
 		addLightGroupForLight(shaderinstanceFullPath.c_str());
-		_S( ei_end_instance() );
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -516,7 +530,6 @@ namespace elvishray
 	static void _write(liqRibLightData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeLightData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
-
 		
 		if ( !pData->excludeFromRib ) 
 		{

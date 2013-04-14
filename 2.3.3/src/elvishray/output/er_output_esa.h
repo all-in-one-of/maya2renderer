@@ -14,6 +14,8 @@ namespace elvishray
 		OutputESA(const std::string &filefullpath);
 		~OutputESA();
 
+		virtual void init();
+
 	protected:
 		OutputESA();
 		OutputESA(const OutputESA &o);
@@ -26,7 +28,9 @@ namespace elvishray
 		// ER API interfaces
 		//----------------------------------------------------
 	public:
-		virtual void annotation(const std::string &msg);
+		virtual void ln();//'\n'
+		virtual void s(const std::string &msg);
+		virtual void a(const std::string &msg);
 
 		virtual void ei_context();
 		virtual void ei_end_context();
@@ -161,7 +165,9 @@ namespace elvishray
 		//	Textures:
 		virtual void ei_make_texture( const char *picturename, const char *texturename, 
 			int swrap, int twrap, int filter, float swidth, float twidth );
-
+		virtual void ei_texture(const char *name);
+		virtual void ei_file_texture(const char *filename, const eiBool local);
+		virtual void ei_end_texture();
 
 		//	Materials:
 		virtual void ei_material( const char *name );
@@ -244,9 +250,9 @@ namespace elvishray
 		virtual void ei_shader_param(
 			const char *param_name, 
 			const void *param_value);
-		// virtual void ei_shader_param_string(
-		// 								  const char *param_name, 
-		// 								  const char *param_value);
+		virtual void ei_shader_param_token(
+			const char *param_name, 
+			const char *param_value);
 		virtual void ei_shader_param_int(
 			const char *param_name, 
 			const eiInt param_value);
@@ -278,12 +284,27 @@ namespace elvishray
 
 		virtual void ei_end_shader();
 
-		virtual void ei_declare(const char *name, const eiInt storage_class, const eiInt type, const void *default_value);
+		virtual void ei_declare(const char *name, const eiInt storage_class, const eiInt type/*, const void *default_value*/);
 		virtual void ei_variable(const char *name, const void *value);
 		virtual void ei_degree(const eiInt degree);
 
 
-
+	public:
+		//----------------------------------------------------
+		// Warped ER API interfaces
+		//----------------------------------------------------
+		virtual void liq_lightgroup_in_object_instance(const char *light_group_name);
+		virtual void liq_lightgroup_in_light_instance_beg();
+		virtual void liq_lightgroup_in_light_instance(const char *light_group_name);
+		virtual void liq_lightgroup_in_light_instance_end();
+		virtual void liq_object(
+			const std::string &objname,
+			const std::vector<MVector> &POSITION,
+			const std::vector<MVector> &POSITION_mb,//motion blur position
+			const std::vector<std::size_t> &INDEX,//global vertex index
+			const std::vector<MVector> &NORMAL,
+			const std::vector<MVector> &UV
+			);
 	};
 }
 

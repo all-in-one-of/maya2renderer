@@ -69,7 +69,8 @@ namespace elvishray
 		unsigned int sample_first = 0;
 		unsigned int sample_last = bGeometryMotion? (liqglo.liqglo_motionSamples - 1):sample_first;
 
-		_s("\n// Renderer::exportOneGeometry_Mesh("<<ribNode__->name.asChar()<<","<<sample_first<<","<<sample_last<<")");
+		o.ln();
+		o.a(boost::str(boost::format(" Renderer::exportOneGeometry_Mesh(%s,%d,%d")%ribNode__->name.asChar()%sample_first%sample_last));
 
 		const liqRibDataPtr data = ribNode__->object(sample_first)->getDataPtr();
 
@@ -81,13 +82,16 @@ namespace elvishray
 		IfErrorWarn(status);
 
 		// geometry data (shape)
-		_s("\n//############################### shave hair #");
-		_s("//shape full path name="<<data->getFullPathName());
+		o.ln();
+		o.a("############################### shave hair #");
+		o.a(boost::str(boost::format("shape full path name=%s")%data->getFullPathName()));
 #ifdef TRANSFORM_SHAPE_PAIR
 		const std::string objectName(ribNode__->name.asChar());//shape
 #else// SHAPE SHAPE_object PAIR
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
+		liquidMessage2(messageError, "shaveHair is ommited now");
+/*	
 		const eiIndex degree = 3;
 		_S( ei_object( "hair", objectName.c_str() ) );
 		_s("{");
@@ -95,11 +99,12 @@ namespace elvishray
 			this->generate_shavehair(ribNode__, pData, degree);
 		_s("}//"<<objectName);
 		_S( ei_end_object() );
+*/
 	}
 	//
 	void Renderer::generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree)
 	{
-		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
+/*		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
 
 		MStatus status;
 
@@ -155,6 +160,7 @@ namespace elvishray
 		}//for lineon
 		_d( ei_vertex_list(vtx_list) );
 		_d( ei_hair_list(hair_list) );
+*/
 	}
 
 }//namespace elvishray

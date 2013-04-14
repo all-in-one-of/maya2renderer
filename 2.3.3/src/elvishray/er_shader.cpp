@@ -40,10 +40,10 @@ namespace elvishray
 		std::string const& liquidShaderName=shader.getName();
 		std::string const& rmSloFilePath=shader.getShaderFileName();
 		std::string const& mayaShaderName=rmSloFilePath.substr(rmSloFilePath.find_last_of('/')+1);
-		_s( "// shader("<<mayaShaderName<<","<<", ...)" );//Renderman slo file name, e.g."your_shader_dir/test_type2"
+		o.a(boost::str(boost::format(" shader(%s,...)") %mayaShaderName) );//Renderman slo file name, e.g."your_shader_dir/test_type2"
 		//_s( "// shader("<<liquidShaderName<<","<<", ...)" );//e.g."lambert1", or "liquidSurface1", NOTE: it is liquidShader, not maya shader.
 
-		_S( ei_shader(mayaShaderName.c_str(), liquidShaderName.c_str()) );
+		o.ei_shader(mayaShaderName.c_str(), liquidShaderName.c_str());
 
 
 		//tokenPointerArray only store parameters of user-defined shader
@@ -67,62 +67,58 @@ namespace elvishray
 			case rInt:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();
-					_s("ei_shader_param_int(\""<<vp->getTokenName()<<"\"," <<(liqInt)v[0]<<");");
-					ei_shader_param_int( vp->getTokenName().c_str(), (liqInt)v[0] );
+					o.ei_shader_param_int( vp->getTokenName().c_str(), (liqInt)v[0] );
 				}
 				break;
 			case rBool:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();
-					_s("ei_shader_param_bool(\""<<vp->getTokenName()<<"\"," <<(bool)v[0]<<");");
-					ei_shader_param_bool( vp->getTokenName().c_str(), (bool)v[0] );
+					o.ei_shader_param_bool( vp->getTokenName().c_str(), v[0] );
 				}
 				break;
 			case rFloat:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();
-					_s("ei_shader_param_scalar(\""<<vp->getTokenName()<<"\"," <<v[0]<<");");
-					ei_shader_param_scalar( vp->getTokenName().c_str(), v[0] );
+					o.ei_shader_param_scalar( vp->getTokenName().c_str(), v[0] );
 				}
 				break;
 			case rPoint: case rVector: case rNormal: case rColor:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();
-					_s("ei_shader_param_vector(\""<<vp->getTokenName()<<"\"," <<v[0]<<","<<v[1]<<","<<v[2]<<");");
-					ei_shader_param_vector( vp->getTokenName().c_str(), v[0] ,v[1], v[2] );
+					o.ei_shader_param_vector( vp->getTokenName().c_str(), v[0] ,v[1], v[2] );
 				}
 				break;
 			case rString: case rShader:
 				{
 					const std::string &v = vp->getTokenString();
-					_s("ei_shader_param_token(\""<<vp->getTokenName()<<"\", ei_token(\""<<v.c_str()<<"\") );");
-					ei_shader_param_token( vp->getTokenName().c_str(), ei_token(v.c_str()) );
+					//ei_shader_param_token( vp->getTokenName().c_str(), ei_token(v.c_str()) );
+					o.ei_shader_param_token( vp->getTokenName().c_str(), v.c_str() );
 				}
 				break; 
 			case rHpoint:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();
-					_s("ei_shader_param_vector4(\""<<vp->getTokenName()<<"\"," <<v[0]<<","<<v[1]<<","<<v[2]<<","<<v[3]<<");");
-					ei_shader_param_vector4( vp->getTokenName().c_str(), v[0] ,v[1], v[2], v[3] );
+					o.ei_shader_param_vector4( vp->getTokenName().c_str(), v[0] ,v[1], v[2], v[3] );
 				}
 				break;
 			case rMatrix:
 				{
 					const liqFloat *v = vp->getTokenFloatArray();
-					_s("//matrix:"
-						<<v[0]<<","<<v[1]<<","<<v[2]<<","<<v[3]
-						<<v[4]<<","<<v[5]<<","<<v[6]<<","<<v[7]
-						<<v[8]<<","<<v[9]<<","<<v[10]<<","<<v[11]
-						<<v[12]<<","<<v[13]<<","<<v[14]<<","<<v[15]
+					o.a(boost::str(boost::format("//matrix parameter is not implemented, value:"
+						"%f,%f,%f,%f,  %f,%f,%f,%f,  %f,%f,%f,%f,  %f,%f,%f,%f")
+						%v[0] %v[1] %v[2] %v[3]
+						%v[4] %v[5] %v[6] %v[7]
+						%v[8] %v[9] %v[10]%v[11]
+						%v[12]%v[13]%v[14]%v[15])
 					);
 				}
 				;break;
 			default :
-				assert(0);
+				liquidMessage2(messageError, "shader parameter type %d is unknown", tokenPointerArray[i].getParameterType());
 			}
 
 		}//for
-		_S( ei_end_shader() );
+		o.ei_end_shader();
 
 
 	}
@@ -169,15 +165,15 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::dummyPhongShader()");
 
-		_s("//----------------shader_for_test begin---");
-		_S( ei_shader("maya_surfaceShader", getTestShaderName().asChar()) );
-		_S( ei_shader_param_vector("outColor", 1.0f, 0.0f, 0.0f) );
-		_S( ei_end_shader() );
+		o.a("----------------shader_for_test begin---");
+		o.ei_shader("maya_surfaceShader", getTestShaderName().asChar());
+		o.ei_shader_param_vector("outColor", 1.0f, 0.0f, 0.0f);
+		o.ei_end_shader();
 
-		_S( ei_material(getTestMaterialName().asChar()) );
-		_S( ei_surface_shader(getTestShaderName().asChar()) );
-		_S( ei_end_material() );
-		_s("//----------------shader_for_test end ---");
+		o.ei_material(getTestMaterialName().asChar());
+		o.ei_surface_shader(getTestShaderName().asChar());
+		o.ei_end_material();
+		o.a("----------------shader_for_test end ---");
 	}
 	//////////////////////////////////////////////////////////////////////////
 

@@ -41,8 +41,9 @@ namespace elvishray
 	static void _write(liqRibNuCurveData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeNuCurveData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		OutputMgr &o = Renderer::o;
 
-		_s("//NuCurve "<<pData->getFullPathName()<<" is not implemented yet.");
+		o.a(boost::str(boost::format("NuCurve %s is not implemented yet.")%pData->getFullPathName() ) );
 		liquidMessage2(messageError, "Nurbs curve type is not implemented yet.\n%s", pData->getFullPathName());
 	}
 }//namespace elvishray

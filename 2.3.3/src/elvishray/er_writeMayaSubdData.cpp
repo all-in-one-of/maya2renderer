@@ -41,6 +41,7 @@ namespace elvishray
 	static void _write(liqRibMayaSubdivisionData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeMayaSubdData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		OutputMgr &o = Renderer::o;
 
 		_s("//maya subd "<<pData->getFullPathName()<<" is not implemented yet.");
 		liquidMessage2(messageError, "MeshSubd type is not implemented yet.\n%s", pData->getFullPathName());

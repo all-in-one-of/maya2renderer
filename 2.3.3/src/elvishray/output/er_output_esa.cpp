@@ -24,12 +24,31 @@ namespace elvishray
 
 		m_outputfile.close();
 	}
+	void OutputESA::init()
+	{
+		CM_TRACE_FUNC("OutputESA::init()");
+		a("------------------------------------------------");
+		m_outputfile<<"char *null_token = NULL;"<<std::endl;
+		m_outputfile<<"eiInt defaultInt = 0;"<<std::endl;
+		a("------------------------------------------------");
+		ln();
+	}
 	//----------------------------------------------------
 	// ER API interfaces
 	//----------------------------------------------------
-	void OutputESA::annotation(const std::string &msg)
+	void OutputESA::ln()
 	{
-		//CM_TRACE_FUNC("OutputESA::annotation("<<msg<<")");
+		//CM_TRACE_FUNC("OutputCall::ln()");
+		m_outputfile<<std::endl;
+	}
+	void OutputESA::s(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputESA::s("<<msg<<")");
+		m_outputfile<<msg<<std::endl;
+	}
+	void OutputESA::a(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputESA::a("<<msg<<")");
 		m_outputfile<<"//"<<msg<<std::endl;
 	}
 	void OutputESA::ei_context()
@@ -211,16 +230,25 @@ namespace elvishray
 	}
 	void OutputESA::ei_approx(const eiApprox *approx)
 	{
-		char buf[1024];
-		sprintf_s(buf, 1024,
-			"//method=%d,any=%x,view_dep=%x,args=[%f,%f,%f,%f],\n"\
-			"//sharp=%f,min_subdiv=%d,max_subdiv=%d,max_grid_size=%d,motion_factor=%f",
-			approx->method,approx->any,approx->view_dep,approx->args[0],approx->args[1],approx->args[2],approx->args[3],
-			approx->sharp,approx->min_subdiv,approx->max_subdiv,approx->max_grid_size,approx->motion_factor);
-
 		//CM_TRACE_FUNC("OutputESA::ei_approx(approx)");
 		liquidMessage2(messageError, "OutputESA::ei_approx()");
-		m_outputfile<<"ei_approx(approx);"<<std::endl;
+		
+		char buf_any[16],buf_view_dep[16];
+		sprintf_s(buf_any,      16, "%x", approx->any);
+		sprintf_s(buf_view_dep, 16, "%x", approx->view_dep);
+
+		m_outputfile<<"approx.method        = "<<approx->method			<<";"<<std::endl;
+		m_outputfile<<"approx.any           = "<<buf_any				<<";"<<std::endl;
+		m_outputfile<<"approx.view_dep      = "<<buf_view_dep			<<";"<<std::endl;
+		m_outputfile<<"approx.args[0]       = "<<approx->args[0]		<<";"<<std::endl;
+		m_outputfile<<"approx.args[1]       = "<<approx->args[1]		<<";"<<std::endl;
+		m_outputfile<<"approx.args[2]       = "<<approx->args[2]		<<";"<<std::endl;
+		m_outputfile<<"approx.args[3]       = "<<approx->args[3]		<<";"<<std::endl;
+		m_outputfile<<"approx.sharp         = "<<approx->sharp			<<";"<<std::endl;
+		m_outputfile<<"approx.min_subdiv    = "<<approx->min_subdiv		<<";"<<std::endl;
+		m_outputfile<<"approx.max_subdiv    = "<<approx->max_subdiv		<<";"<<std::endl;
+		m_outputfile<<"approx.max_grid_size = "<<approx->max_grid_size	<<";"<<std::endl;
+		m_outputfile<<"approx.motion_factor = "<<approx->motion_factor	<<";"<<std::endl;
 	}
 	void OutputESA::ei_end_options()
 	{
@@ -301,6 +329,21 @@ namespace elvishray
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_make_texture(\""<<picturename<<"\", \""<< texturename<<"\","<<swrap<<","<< twrap<<","<<filter<<", "<<swidth<<", "<<twidth<<")");
 		m_outputfile<<"ei_make_texture(\""<<picturename<<"\", \""<< texturename<<"\","<<swrap<<","<< twrap<<","<<filter<<", "<<swidth<<", "<<twidth<<");"<<std::endl;
+	}
+	void OutputESA::ei_texture(const char *name)
+	{
+		//CM_TRACE_FUNC("OutputESA::ei_texture("<<name<<")");
+		m_outputfile<<"ei_texture(\""<<name<<"\");"<<std::endl;
+	}
+	void OutputESA::ei_file_texture(const char *filename, const eiBool local)
+	{
+		//CM_TRACE_FUNC("OutputESA::ei_file_texture("<<filename<<","<<local<<")");
+		m_outputfile<<"ei_file_texture(\""<<filename<<"\", "<<local<<");"<<std::endl;
+	}
+	void OutputESA::ei_end_texture()
+	{
+		//CM_TRACE_FUNC("OutputESA::ei_end_texture()");
+		m_outputfile<<"ei_end_texture();"<<std::endl;
 	}
 	//	Materials:
 	void OutputESA::ei_material( const char *name )
@@ -490,6 +533,14 @@ namespace elvishray
 		liquidMessage2(messageError, "OutputESA::ei_shader_param() not implemented");
 		m_outputfile<<"ei_shader_param(\""<<param_name<<"\", \""<<param_value<<"\");"<<std::endl;
 	}
+	void OutputESA::ei_shader_param_token(
+		const char *param_name, 
+		const char *param_value)
+	{
+		//CM_TRACE_FUNC("OutputESA::ei_shader_param_token(\""<<param_name<<"\", \""<<param_value<<"\") not implemented");
+		liquidMessage2(messageError, "OutputESA::ei_shader_param() not implemented");
+		m_outputfile<<"ei_shader_param_token(\""<<param_name<<"\", ei_token(\""<<param_value<<"\") );"<<std::endl;
+	}
 	void OutputESA::ei_shader_param_int(
 		const char *param_name, 
 		const eiInt param_value)
@@ -560,10 +611,11 @@ namespace elvishray
 		m_outputfile<<"ei_end_shader();"<<std::endl;
 	}
 
-	void OutputESA::ei_declare(const char *name, const eiInt storage_class, const eiInt type, const void *tag)
+	void OutputESA::ei_declare(const char *name, const eiInt storage_class, const eiInt type/*, const void *tag*/)
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_declare(\""<<name<<"\","<<storage_class<<","<<type<<", &tag)");
 		liquidMessage2(messageError, "OutputESA::ei_declare(&tag)");
+		m_outputfile<<"const char *tag = NULL"<<std::endl;
 		m_outputfile<<"ei_declare(\""<<name<<"\","<<storage_class<<","<<type<<", &tag);"<<std::endl;
 	}
 	void OutputESA::ei_variable(const char *name, const void *tag)
@@ -576,6 +628,120 @@ namespace elvishray
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_degree("<<degree<<")");
 		m_outputfile<<"ei_degree("<<degree<<");"<<std::endl;
+	}
+
+	//----------------------------------------------------
+	// Warped ER API interfaces
+	//----------------------------------------------------
+	void OutputESA::liq_lightgroup_in_object_instance(const char *light_group_name)
+	{
+		//CM_TRACE_FUNC("OutputESA::liq_lightgroup_in_object_instance("<<light_group_name<<")");
+		s("{//light group(light-link group)");
+		s("const char *null_token = NULL;");
+		s("ei_declare(\"lightgroup\", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);");
+		s("const char *lightgroup_token = ei_token(\""+std::string(light_group_name)+"\");");
+		s("ei_variable(\"lightgroup\", &lightgroup_token );");
+		s("}");
+	}
+	void OutputESA::liq_lightgroup_in_light_instance_beg()
+	{
+		//CM_TRACE_FUNC("OutputESA::liq_lightgroup_in_light_instance_beg()");
+	}
+	void OutputESA::liq_lightgroup_in_light_instance(const char *light_group_name)
+	{
+		//CM_TRACE_FUNC("OutputESA::liq_lightgroup_in_light_instance("<<light_group_name<<")");
+		//s("{");
+		s("ei_declare(\""+std::string(light_group_name)+"\", EI_CONSTANT, EI_TYPE_INT, &defaultInt);");
+		//s("}");
+	}
+	void OutputESA::liq_lightgroup_in_light_instance_end()
+	{
+		//CM_TRACE_FUNC("OutputESA::liq_lightgroup_in_light_instance_end()");
+	}
+	void OutputESA::liq_object(
+		const std::string &objname,
+		const std::vector<MVector> &POSITION,
+		const std::vector<MVector> &POSITION_mb,//motion blur position
+		const std::vector<std::size_t> &INDEX,//global vertex index
+		const std::vector<MVector> &NORMAL,
+		const std::vector<MVector> &UV
+		)
+	{
+		//CM_TRACE_FUNC("OutputESA::liq_object("<<light_group_name<<")");
+
+		s("ei_object( \"poly\", \""+objname+"\" );" );
+		s("{");
+		s("eiTag tag;");
+
+		a(boost::str(boost::format("vertex positions(required), size=%d")%POSITION.size()));
+		s("tag = ei_tab(EI_TYPE_VECTOR, 1024);");
+		s("ei_pos_list( tag );");
+		for(std::size_t i=0; i<POSITION.size(); ++i)
+		{
+			s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%POSITION[i].x %POSITION[i].y %POSITION[i].z ) );
+		}
+		s("ei_end_tab();");
+
+
+		a("### vertex deform positions(optional)");
+		if( POSITION_mb.size() > 0 )
+		{
+			s("tag = ei_tab(EI_TYPE_VECTOR, 1024);");
+			s("ei_motion_pos_list( tag );");
+			for(std::size_t i=0; i<POSITION_mb.size(); ++i)
+			{
+				s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%POSITION_mb[i].x %POSITION_mb[i].y %POSITION_mb[i].z ) );
+			}
+			s("ei_end_tab();");
+		}
+
+
+
+		a("### N ###(optional)");
+		if( NORMAL.size() >0 )
+		{
+			s("tag = eiNULL_TAG;");
+			s("ei_declare(\"N\", EI_VARYING, EI_TYPE_TAG, &tag);");
+			s("tag = ei_tab(EI_TYPE_VECTOR, 1024);");
+			s("ei_variable(\"N\", &tag);");
+			for(size_t i=0; i<NORMAL.size(); ++i)
+			{
+				s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%NORMAL[i].x %NORMAL[i].y %NORMAL[i].z ) );
+			}
+			s("ei_end_tab();");
+		}
+		a("### N ### end");
+
+
+
+		a("### UV (optional)");
+		if( UV.size() >0 )
+		{
+			s("tag = eiNULL_TAG;");
+			s("ei_declare(\"uv\", EI_VARYING, EI_TYPE_TAG, &tag);");
+			s("tag = ei_tab(EI_TYPE_VECTOR2, 1024);");
+			s("ei_variable(\"uv\", &tag);");
+			for(size_t i = 0; i<UV.size(); ++i)
+			{
+				s(boost::str(boost::format("ei_tab_add_vector2( %f, %f );")%UV[i].x %UV[i].y ) );
+			}
+			s("ei_end_tab();");
+		}
+
+
+		a(boost::str(boost::format("### triangles(required) size=%d") %INDEX.size()));
+		if( INDEX.size()>0 )
+		{
+			s("tag = ei_tab(EI_TYPE_INDEX, 1024);");
+			s("ei_triangle_list( tag );");
+			for(size_t i=0; i<INDEX.size(); ++i)
+			{
+				s(boost::str(boost::format("ei_tab_add_index(%d);")%INDEX[i]));
+			}
+			s("ei_end_tab();");
+		}
+		s("}//"+objname);
+		s("ei_end_object();");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

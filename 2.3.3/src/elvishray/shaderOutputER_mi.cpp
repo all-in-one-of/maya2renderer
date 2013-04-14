@@ -16,7 +16,7 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visit_mib_amb_occlusion("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_mib_amb_occlusion", node);
 
 	o.addRSLVariable("index",	"samples",		"samples",		node);

@@ -3,6 +3,7 @@
 
 #ifndef _ER_OUTPUT_BASE_H_
 #define _ER_OUTPUT_BASE_H_
+#include "../../common/prerequest_maya.h"
 #include "../../common/prerequest_std.h"
 #include <eiAPI/ei.h>
 
@@ -14,16 +15,21 @@ namespace elvishray
 		OutputBase();
 		virtual ~OutputBase();
 
+		virtual void init() = 0;
+
 	protected:
 		OutputBase(const OutputBase &o);
 		OutputBase& operator=(const OutputBase &o);
+
 
 
 		//----------------------------------------------------
 		// ER API interfaces
 		//----------------------------------------------------
 	public:
-		virtual void annotation(const std::string &msg) = 0;
+		virtual void ln() = 0;//'\n'
+		virtual void s(const std::string &msg) = 0;
+		virtual void a(const std::string &msg) = 0;
 
 		virtual void ei_context() = 0;
 		virtual void ei_end_context() = 0;
@@ -125,7 +131,9 @@ namespace elvishray
 		//	Textures:
 		virtual void ei_make_texture( const char *picturename, const char *texturename, 
 			int swrap, int twrap, int filter, float swidth, float twidth ) = 0;
-
+		virtual void ei_texture(const char *name) = 0;
+		virtual void ei_file_texture(const char *filename, const eiBool local) = 0;
+		virtual void ei_end_texture() = 0;
 
 		//	Materials:
 		virtual void ei_material( const char *name ) = 0;
@@ -207,9 +215,9 @@ namespace elvishray
 		virtual void ei_shader_param(
 			const char *param_name, 
 			const void *param_value) = 0;
-		// virtual void ei_shader_param_string(
-		// 								  const char *param_name, 
-		// 								  const char *param_value) = 0;
+		virtual void ei_shader_param_token(
+			const char *param_name, 
+			const char *param_value) = 0;
 		virtual void ei_shader_param_int(
 			const char *param_name, 
 			const eiInt param_value) = 0;
@@ -241,9 +249,30 @@ namespace elvishray
 
 		virtual void ei_end_shader() = 0;
 
-		virtual void ei_declare(const char *name, const eiInt storage_class, const eiInt type, const void *default_value) = 0;
+		virtual void ei_declare(const char *name, const eiInt storage_class, const eiInt type/*, const void *default_value*/) = 0;
 		virtual void ei_variable(const char *name, const void *value) = 0;
 		virtual void ei_degree(const eiInt degree) = 0;
+	
+
+	public:
+		//----------------------------------------------------
+		// Warped ER API interfaces
+		//----------------------------------------------------
+		virtual void liq_lightgroup_in_object_instance(const char *light_group_name) = 0;
+		virtual void liq_lightgroup_in_light_instance_beg() = 0;
+		virtual void liq_lightgroup_in_light_instance(const char *light_group_name) = 0;
+		virtual void liq_lightgroup_in_light_instance_end() = 0;
+		
+		virtual void liq_object(
+			const std::string &objname,
+			const std::vector<MVector> &POSITION,
+			const std::vector<MVector> &POSITION_mb,//motion blur position
+			const std::vector<std::size_t> &INDEX,//global vertex index
+			const std::vector<MVector> &NORMAL,
+			const std::vector<MVector> &UV
+			) = 0;
+
+
 
 	};
 }

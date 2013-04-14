@@ -41,8 +41,9 @@ namespace elvishray
 	static void _write(liqRibSurfaceData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeSurfaceData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		OutputMgr &o = Renderer::o;
 
-		_s("//Nurbs surface \""<<pData->getFullPathName()<<"\" is not implemented yet.");
+		o.a(boost::str(boost::format("Nurbs surface %s is not implemented yet.")%pData->getFullPathName()));
 		liquidMessage2(messageError, "Nurbs surface \"%s\" is not implemented yet.", pData->getFullPathName());
 	}
 }//namespace elvishray

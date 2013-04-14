@@ -17,6 +17,7 @@ class e_Connection;
 
 namespace elvishray
 {
+/*
 	void my_ei_context();
 	void my_ei_end_context();
 
@@ -205,9 +206,9 @@ namespace elvishray
 		 eiScalar xmax, eiScalar ymax, eiScalar zmax);
 	 void my_ei_motion_box(eiScalar xmin, eiScalar ymin, eiScalar zmin, 
 		 eiScalar xmax, eiScalar ymax, eiScalar zmax);
-	 /* procedural objects */
+	 // procedural objects
 	 void my_ei_geometry_shader(const char *shader_name);
-	 /* polygon objects */
+	 // polygon objects 
 	 void my_ei_pos_list(const eiTag tab);
 	 void my_ei_motion_pos_list(const eiTag tab);
 	 void my_ei_triangle_list(const eiTag tab);
@@ -322,7 +323,7 @@ void my_ei_declare(const char *name, const eiInt storage_class, const eiInt type
 void my_ei_variable(const char *name, const void *value);
 void my_ei_degree(const eiInt degree);
 
-
+*/
 //extion for liq
 void my_set_eiVector4(const char* vname, eiVector4 &v, const eiScalar x, const eiScalar y, const eiScalar z, const eiScalar w );
 

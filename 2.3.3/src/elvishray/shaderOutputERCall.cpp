@@ -7,13 +7,15 @@
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 
-#include <eiAPI/ei.h>
+//#include <eiAPI/ei.h>
 #include "er_helper.h"
+#include "er_renderer.h"
 
 namespace ERCall
 {
 
 OutputHelper::OutputHelper()
+	:out(elvishray::Renderer::o)
 {
 }
 //
@@ -64,6 +66,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			||rslType=="vector")
 		{
 			MDoubleArray val; val.setLength(3);
+			val[0] = val[1] = val[2] = 0.0;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			//val(double) --> valStr(string)
 			MStringArray valStr; valStr.setLength(3);
@@ -72,14 +75,14 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			valStr[2].set(val[2]);
 			rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
 			{
-				ei_shader_param_vector( rslName.asChar(), val[0], val[1], val[2]);
+				out.ei_shader_param_vector( rslName.asChar(), val[0], val[1], val[2]);
 			}
 		}else if(rslType=="string"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
 			{
-				ei_shader_param_token( rslName.asChar(), val.asChar());
+				out.ei_shader_param_token( rslName.asChar(), val.asChar());
 			}
 		}else if(rslType=="shader"){
 			MStringArray srcNode;
@@ -88,14 +91,14 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			assert(srcNode.length()==1);
 			rslShaderBody +="\""+srcNode[0]+"\"";
 			{
-				ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
+				out.ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
 			}
 		}else if(rslType=="texture"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
 			{
-				ei_shader_param_texture(rslName.asChar(),val.asChar());
+				out.ei_shader_param_texture(rslName.asChar(),val.asChar());
 			}
 		}
 		else if(rslType=="int"){
@@ -104,7 +107,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
 			{
-				ei_shader_param_int(rslName.asChar(),val);
+				out.ei_shader_param_int(rslName.asChar(),val);
 			}
 		}
 		else if(rslType=="index"){
@@ -114,7 +117,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			rslShaderBody +="\""+sVal+"\"";
 			{
 				eiIndex iVal = val;
-				ei_shader_param_index(rslName.asChar(), iVal);
+				out.ei_shader_param_index(rslName.asChar(), iVal);
 			}
 		}
 		else if(rslType=="bool"){
@@ -124,7 +127,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			rslShaderBody +="\""+sVal+"\"";
 			{
 				eiBool bVal = val;
-				ei_shader_param_bool(rslName.asChar(), bVal );
+				out.ei_shader_param_bool(rslName.asChar(), bVal );
 			}
 		}
 		else if(rslType=="tag"){
@@ -145,7 +148,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				valStr.set(val);
 				rslShaderBody += valStr;
 				{
-					ei_shader_param_scalar( rslName.asChar(), val );
+					out.ei_shader_param_scalar( rslName.asChar(), val );
 				}
 			}else{
 				rslShaderBody += "{ ";
@@ -180,6 +183,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				||rslType=="vector")
 			{
 				MDoubleArray val; val.setLength(3);
+				val[0] = val[1] = val[2] = 0.0;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				//val(double) --> valStr(string)
 				MStringArray valStr; valStr.setLength(3);
@@ -188,14 +192,14 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				valStr[2].set(val[2]);
 				rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
 				{
-					ei_shader_param_vector( rslName.asChar(), val[0], val[1], val[2]);
+					out.ei_shader_param_vector( rslName.asChar(), val[0], val[1], val[2]);
 				}
 			}else if(rslType=="string"){
 				MString val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				rslShaderBody +="\""+val+"\"";
 				{
-					ei_shader_param_token( rslName.asChar(), val.asChar());
+					out.ei_shader_param_token( rslName.asChar(), val.asChar());
 				}
 			}else if(rslType=="shader"){
 				MStringArray srcNode;
@@ -204,14 +208,14 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				assert(srcNode.length()==1);
 				rslShaderBody +="\""+srcNode[0]+"\"";
 				{
-					ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
+					out.ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
 				}
 			}else if(rslType=="texture"){
 				MString val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				rslShaderBody +="\""+val+"\"";
 				{
-					ei_shader_param_texture(rslName.asChar(),val.asChar());
+					out.ei_shader_param_texture(rslName.asChar(),val.asChar());
 				}
 			}
 			else if(rslType=="int"){
@@ -220,7 +224,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				MString sVal; sVal.set(val);
 				rslShaderBody +="\""+sVal+"\"";
 				{
-					ei_shader_param_int(rslName.asChar(),val);
+					out.ei_shader_param_int(rslName.asChar(),val);
 				}
 			}
 			else if(rslType=="index"){
@@ -230,7 +234,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				rslShaderBody +="\""+sVal+"\"";
 				{
 					eiIndex iVal = val;
-					ei_shader_param_index(rslName.asChar(), iVal);
+					out.ei_shader_param_index(rslName.asChar(), iVal);
 				}
 			}
 			else if(rslType=="bool"){
@@ -240,7 +244,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				rslShaderBody +="\""+sVal+"\"";
 				{
 					eiBool bVal = val;
-					ei_shader_param_bool(rslName.asChar(), bVal );
+					out.ei_shader_param_bool(rslName.asChar(), bVal );
 				}
 			}
 			else if(rslType=="tag"){
@@ -261,7 +265,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 					valStr.set(val);
 					rslShaderBody += valStr;
 					{
-						ei_shader_param_scalar( rslName.asChar(), val );
+						out.ei_shader_param_scalar( rslName.asChar(), val );
 					}
 				}else{
 					rslShaderBody += "{ ";
@@ -317,7 +321,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			//}
 			//else//the srcNode is NOT a texture
 			{
-				ei_shader_link_param( rslName.asChar(), srcNode.asChar(), srcAttr.asChar() );
+				out.ei_shader_link_param( rslName.asChar(), srcNode.asChar(), srcAttr.asChar() );
 			}
 		}
 
@@ -333,24 +337,26 @@ void OutputHelper::beginRSL (const MString &type_name, const MString &instance_n
 {
 	CM_TRACE_FUNC("OutputHelper::beginRSL("<<type_name.asChar()<<","<<instance_name.asChar()<<")");
 
-	ei_shader( type_name.asChar(), instance_name.asChar() );
+	out.ei_shader( type_name.asChar(), instance_name.asChar() );
 }
 //
 void OutputHelper::endRSL ()
 {
 	CM_TRACE_FUNC("OutputHelper::endRSL()");
 
-	ei_end_shader();
+	out.ei_end_shader();
+	out.ln();
 }
 //
 void OutputHelper::add_liq_UserDefinedNormal(const char* node)
 {
 	CM_TRACE_FUNC("OutputHelper::add_liq_UserDefinedNormal("<<node<<")");
 
-	ei_shader_param_int( "liq_UserDefinedNormal", elvishray::isBumpMapConnected(node) );
+	out.ei_shader_param_int( "liq_UserDefinedNormal", elvishray::isBumpMapConnected(node) );
 }
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
+	:out(elvishray::Renderer::o)
 {
 
 }
@@ -437,23 +443,23 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 		getlistConnections(shadingGroupNode, "liqEnvironmentShader", environmentShaders);
 	}
 
-	ei_material( shadingGroupNode );
+	out.ei_material( shadingGroupNode );
 	if( surfaceShaders[0].length() != 0 ){
-		ei_surface_shader( surfaceShaders[0].asChar() );
+		out.ei_surface_shader( surfaceShaders[0].asChar() );
 	}
 	if( volumeShaders[0].length() != 0 ){
-		ei_volume_shader( volumeShaders[0].asChar() );
+		out.ei_volume_shader( volumeShaders[0].asChar() );
 	}
 	if( displacementShaders[0].length() != 0 ){
-		ei_displace_shader( displacementShaders[0].asChar() );
+		out.ei_displace_shader( displacementShaders[0].asChar() );
 	}
 	if( shadowShaders[0].length() != 0 ){
-		ei_shadow_shader( shadowShaders[0].asChar() );
+		out.ei_shadow_shader( shadowShaders[0].asChar() );
 	}
 	if( environmentShaders[0].length() != 0 ){
-		ei_environment_shader( environmentShaders[0].asChar() );
+		out.ei_environment_shader( environmentShaders[0].asChar() );
 	}
-	ei_end_material();
+	out.ei_end_material();
 
 	
 }

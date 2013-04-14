@@ -42,6 +42,7 @@
 namespace elvishray
 {
 	liquid::LogMgr Renderer::m_log;
+	OutputMgr Renderer::o;
 
 	Renderer::Renderer()
 	{
@@ -86,7 +87,8 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::worldPrologue("<<currentJob.name.asChar()<<")");
 
-		_s("\n//worldPrologue");
+		o.ln();
+		o.a("worldPrologue");
 
 
 
@@ -96,7 +98,7 @@ namespace elvishray
 	MStatus Renderer::worldEpilogue()
 	{
 		CM_TRACE_FUNC("Renderer::worldEpilogue()");
-		_s("\n//Renderer::worldEpilogue()");
+		o.a("Renderer::worldEpilogue()");
 
 		return MS::kSuccess;
 	}
@@ -151,27 +153,26 @@ namespace elvishray
 		}
 
 		//construct output mgr
-		m_outputmgr.setOutputImagePath(imageFullPath.asChar());
-		m_outputmgr.add(OutputMgr::OT_CALL);
-		m_outputmgr.add(OutputMgr::OT_ESS);
-		m_outputmgr.add(OutputMgr::OT_ESA);
-		m_outputmgr.init();
+		o.setOutputImagePath(imageFullPath.asChar());
+		o.add(OutputMgr::OT_CALL);
+		o.add(OutputMgr::OT_ESS);
+		o.add(OutputMgr::OT_ESA);
+		o.init();
 
 		//////////////////////////////////////////////////////////////////////////
 		//_s("//### SCENE BEGIN ###");
 		//_S( ei_context() );
-		m_outputmgr.ei_context();
+		
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
 
 		//_S( ei_end_context() );
-		m_outputmgr.ei_end_context();
 
 		//////////////////////////////////////////////////////////////////////////
 		//destruct output mgr
-		m_outputmgr.uninit();
+		o.uninit();
 		//close script log file
 		m_log.close();
 		//////////////////////////////////////////////////////////////////////////
@@ -184,24 +185,24 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportShadowPassLight("<<shadertype<<","<<shaderinstance<<","<<shadowname<<",liqMatrix t)");
-		_s("\n// Renderer::exportShadowPassLight()");
+		o.a("Renderer::exportShadowPassLight()");
 
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
 
 		std::string sShaderInstanceName(shaderinstanceFullPath+"_shader");
-		_S( ei_shader( "shadowlight", sShaderInstanceName.c_str() ) );//shader 
-		_S( ei_shader_param_scalar("intensity", 3.0 ) );
-		_S( ei_end_shader() );
+		o.ei_shader( "shadowlight", sShaderInstanceName.c_str() );//shader 
+		o.ei_shader_param_scalar("intensity", 3.0 );
+		o.ei_end_shader();
 
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
-		_S( ei_light( sLightObjectName.c_str() ) );//object
-		_S( ei_light_shader(	sShaderInstanceName.c_str() ) );//shader
-		_S( ei_origin( t[3][0],t[3][1],t[3][2] ) );
-		_S( ei_end_light() );
+		o.ei_light( sLightObjectName.c_str() );//object
+		o.ei_light_shader(	sShaderInstanceName.c_str() );//shader
+		o.ei_origin( t[3][0],t[3][1],t[3][2] );
+		o.ei_end_light();
 
-		_S( ei_instance(  shaderinstanceFullPath.c_str() ) );
-		_S( ei_element(	 sLightObjectName.c_str() ) );//object
-		_S( ei_end_instance() );
+		o.ei_instance(  shaderinstanceFullPath.c_str() );
+		o.ei_element(	 sLightObjectName.c_str() );//object
+		o.ei_end_instance();
 
 		return (liqLightHandle)(0);
 	}
@@ -277,21 +278,21 @@ namespace elvishray
 		}
 
 
-		_s("//--------------------------");
+		o.a("--------------------------");
 		{
-			_s("//ribNode->name="<<ribNode__->name.asChar());
-			_s("//ribNode's transform node="<<ribNode__->getTransformNodeFullPath().asChar());
+			o.a("ribNode->name="+std::string(ribNode__->name.asChar()));
+			o.a("ribNode's transform node="+std::string(ribNode__->getTransformNodeFullPath().asChar()));
 			//print children
 			MStringArray childrenMsg(ribNode__->getChildrenMsgOfTransformNode());
 			unsigned int childCount = ribNode__->getChildrenCountOfTransformNode();
 			if( childCount != 1 )
 			{
-				_s("//childCount="<<childCount);
+				o.a(boost::str(boost::format("childCount=%d")%childCount));
 				for(int i=0; i<childCount; ++i){
-					_s( "//child("<<i<<"):"<<childrenMsg[i].asChar() );
+					o.a(boost::str(boost::format("child(%d):%s")%i %childrenMsg[i].asChar()) );
 				}
 			}
-			_s("//ribNode->object("<<sample_first<<")->getDataPtr()->getFullPathName()="<<ribNode__->object(sample_first)->getDataPtr()->getFullPathName());
+			o.a(boost::str(boost::format("ribNode->object(%d)->getDataPtr()->getFullPathName()=%s")%sample_first %ribNode__->object(sample_first)->getDataPtr()->getFullPathName()));
 		
 		}
 
@@ -301,7 +302,7 @@ namespace elvishray
 #else// SHAPE SHAPE_object PAIR
 		std::string instanceName(ribNode__->name.asChar());//shape
 #endif
-		_S( ei_instance( instanceName.c_str() ) );
+		o.ei_instance( instanceName.c_str() );
 		//_S( ei_visible( on ) );
 		// 		ei_shadow( on );
 		// 		ei_trace( on );
@@ -325,27 +326,27 @@ namespace elvishray
 			if( shadingGroupNodes.length()==0 )
 			{
 				liquidMessage2(messageError, "%s's shading group is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
-				_s( "//shadingGroupNodes is empty, use \""<<getTestMaterialName().asChar()<<"\" to avoid crash" );
-				_S( ei_mtl(getTestMaterialName().asChar()) );
+				o.a("shadingGroupNodes is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash");
+				o.ei_mtl(getTestMaterialName().asChar());
 			} else if( shadingGroupNodes[0].length()==0 ){
 				liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
-				_s( "//shadingGroupNodes[0] is empty, use \""<<getTestMaterialName().asChar()<<"\" to avoid crash" );
-				_S( ei_mtl(getTestMaterialName().asChar()) );
+				o.a("shadingGroupNodes[0] is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash" );
+				o.ei_mtl(getTestMaterialName().asChar());
 			} else {
-				_S( ei_mtl( shadingGroupNodes[0].asChar() ) );
+				o.ei_mtl( shadingGroupNodes[0].asChar() );
 			}
 		}
 		
 		//element
-		_s("//shape name="<<mesh->getFullPathName());
-		_s("//shape full path name="<<mesh->getFullPathName());
-		_S( ei_element( objectName.c_str() ) );
+		o.a("shape name="+std::string(mesh->getFullPathName()));
+		o.a("shape full path name="+std::string(mesh->getFullPathName()));
+		o.ei_element( objectName.c_str() );
 
 		MMatrix matrix;
 		matrix = ribNode__->object( sample_first )->matrix( ribNode__->path().instanceNumber() );
 		liqMatrix m;		
 		IfMErrorWarn(matrix.get(m));
-		_S( ei_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] ) );
+		o.ei_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] );
 		
 		//transform motion
 		const bool bMatrixMotionBlur = 
@@ -355,25 +356,19 @@ namespace elvishray
  		{
 			matrix = ribNode__->object( sample_last )->matrix( ribNode__->path().instanceNumber() );
 			IfMErrorWarn(matrix.get(m));
-			_S( ei_motion_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] ) );
+			o.ei_motion_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] );
  		}
 
 		//toggle motion on this instance
 		int bMotion = (ribNode__->doDef || ribNode__->doMotion);
-		_s("//ribNode->doDef="<<ribNode__->doDef<<", ribNode->doMotion="<<ribNode__->doMotion);
-		_S( ei_motion( bMotion ) );
+		o.a(boost::str(boost::format("ribNode->doDef=%f, ribNode->doMotion=%f")%ribNode__->doDef %ribNode__->doMotion));
+		o.ei_motion( bMotion );
 
 		//light links
-		_s("{//light group(light-link group)");
-		const MString lg(getLightGroupName(instanceName.c_str()));
-		_d( const char *tag = NULL );
-		_S( ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &tag) );
-		tag = ei_token(lg.asChar());_s( "tag = ei_token(\""<<lg.asChar()<<"\");" );
-		_S( ei_variable("lightgroup", &tag ) );
-		_s("}");
+		o.liq_lightgroup_in_object_instance(getLightGroupName(instanceName.c_str()).asChar());
 
-		_S( ei_end_instance() );
-		_s("//");
+		o.ei_end_instance();
+		o.ln();
 		//
 		m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Geometry );//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
 	}
@@ -419,12 +414,12 @@ namespace elvishray
 		// add the bound for max displacement
 		addbf(&bbox, 1.0f);
 
-		_S( ei_object("proc", objectName.c_str()) );
+		o.ei_object("proc", objectName.c_str());
 			// define the bounding box of the procedural object
-			_S( ei_box(bbox.xmin, bbox.ymin, bbox.zmin, bbox.xmax, bbox.ymax, bbox.zmax) );
+			o.ei_box(bbox.xmin, bbox.ymin, bbox.zmin, bbox.xmax, bbox.ymax, bbox.zmax);
 			// assign a geometry shader to create procedural geometry on-demand
-			_S( ei_geometry_shader( geometryShader.getName().c_str() ) );
-		_S( ei_end_object() );
+			o.ei_geometry_shader( geometryShader.getName().c_str() );
+		o.ei_end_object();
 	}
 	//
 	void Renderer::ribPrologue_comment(const char* liqversion, 
@@ -434,13 +429,13 @@ namespace elvishray
 
 		// general info for traceability
 		//
-		_s("//    Generated by Liquid v"<<liqversion );
-		_s("//    Scene : "<< scenename );
+		o.a("    Generated by Liquid v"+std::string(liqversion) );
+		o.a("    Scene : "+std::string(scenename) );
 
 		if( user )
-			_s("//    User  : "<< user );
+			o.a("    User  : "+std::string(user) );
 
-		//_s("//    Time  : "<< ctime(&now) );
+		//o.a("    Time  : "<< ctime(&now) );
 
 	}
 	//
@@ -450,16 +445,16 @@ namespace elvishray
 
 		currentJob.ribFileName;
 
-		_S( ei_context() );
+		o.ei_context();
 
 		//verbose
-		_S( ei_verbose(	m_gnode->getInt("verbose") ) );
+		o.ei_verbose(	m_gnode->getInt("verbose") );
 
 		//link
 		MStringArray link(m_gnode->getStringArray("link"));
 		for(std::size_t i=0; i< link.length(); ++i)
 		{
-			_S( ei_link( link[i].asChar() ) );
+			o.ei_link( link[i].asChar() );
 		}
 
 		m_root_group = currentJob.name.asChar();
@@ -481,7 +476,7 @@ namespace elvishray
 
 		render( currentJob );
 
-		_S( ei_end_context() );
+		o.ei_end_context();
 
 		return MS::kSuccess;
 	}
@@ -490,32 +485,33 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::ribPrologue_options("<<currentJob.name.asChar()<<")");
 
-		_s("\n//############################### option #");
+		o.ln();
+		o.a("############################### option #");
 		std::string tmp( currentJob.path.fullPathName().asChar() );//_s( (MString("// current job path = ")+).asChar() );
 
 		m_option = std::string(currentJob.name.asChar()) + "_option";
-		_S( ei_options( m_option.c_str() ) );
+		o.ei_options( m_option.c_str() );
 		//ei_incremental_options( const char *name );
 
 		//	Sampling Quality:
 		MFloatPoint contrast(m_gnode->getVector("contrast"));
-		_S( ei_contrast( contrast.x ) );
+		o.ei_contrast( contrast.x );
 		
 		if( currentJob.pass == rpShadowMap ){
-			_s("//this is a shadow pass, how to deal with the samples and filter?");
-			_S( ei_samples( currentJob.samples, currentJob.samples ) );
-			_S( ei_filter( EI_FILTER_BOX, 1 ) );
+			o.a("this is a shadow pass, how to deal with the samples and filter?");
+			o.ei_samples( currentJob.samples, currentJob.samples );
+			o.ei_filter( EI_FILTER_BOX, 1 );
 			//_S( ei_shading_rate( currentJob.shadingRateFactor ) );
 
 		}else{
 			//sample
 			MFloatPoint sample(m_gnode->getVector("samples"));
-			_S( ei_samples(sample.x, sample.y) );//_S("ei_Samples("<< liqglo.pixelSamples<<","<<liqglo.pixelSamples<<");");//4,4
+			o.ei_samples(sample.x, sample.y);//_S("ei_Samples("<< liqglo.pixelSamples<<","<<liqglo.pixelSamples<<");");//4,4
 			
 			//filter
 			eiInt filterType = m_gnode->getInt("filterType");
 			eiScalar filterSize = m_gnode->getFloat("filterSize");
-			_S( ei_filter( filterType, filterSize ) );
+			o.ei_filter( filterType, filterSize );
 			//_S( ei_shading_rate( liqglo.shadingRate ) );
 		}
 //		_S("ei_bucket_Size( int size );");
@@ -528,13 +524,13 @@ namespace elvishray
 
 		//	Motion Blur:
 //		_S("ei_Shutter( float open, float close );");
-		_s("//transform motion="<<liqglo.liqglo_doMotion<<", deform motion="<<liqglo.liqglo_doDef);
-		_S( ei_motion( liqglo.liqglo_doMotion||liqglo.liqglo_doDef ) );
+		o.a(boost::str(boost::format("transform motion=%d, deform motion=%d")%liqglo.liqglo_doMotion %liqglo.liqglo_doDef));
+		o.ei_motion( liqglo.liqglo_doMotion||liqglo.liqglo_doDef );
 //		_S("ei_motion_Segments( int num );");
 
 		//	Trace Depth:
 		MVector tracedepth(m_gnode->getVector("trace_depth"));
-		_S( ei_trace_depth(	tracedepth.x, tracedepth.y, tracedepth.z ) );
+		o.ei_trace_depth( tracedepth.x, tracedepth.y, tracedepth.z );
 
 		//	Shadow:
 //		_S("ei_Shadow( int type );");
@@ -555,26 +551,25 @@ namespace elvishray
 // 		_S("ei_geometry( int type );");
 
 		bool displace = m_gnode->getBool("displace");
- 		_S( ei_displace( displace ) );
+ 		o.ei_displace( displace );
 		if(displace)
 		{
 			float max_displace = m_gnode->getFloat("max_displace");
- 			_S( ei_max_displace(max_displace) );
+ 			o.ei_max_displace(max_displace);
 			
-			eiApprox	approx;
-			_s( "eiApprox	approx" );
+ 			eiApprox	approx;
+// 			_s( "eiApprox	approx" );
 
 			//output the default
-			     ei_approx_set_defaults(&approx);
-			_s( "ei_approx_set_defaults(&approx);" );
+			ei_approx_set_defaults(&approx);
 			{
 				char buf[1024];
 				sprintf_s(buf, 1024,
-					"//method=%d,any=%x,view_dep=%x,args=[%f,%f,%f,%f],\n"\
-					"//sharp=%f,min_subdiv=%d,max_subdiv=%d,max_grid_size=%d,motion_factor=%f",
+					"method=%d,any=%x,view_dep=%x,args=[%f,%f,%f,%f],\n"
+					"sharp=%f,min_subdiv=%d,max_subdiv=%d,max_grid_size=%d,motion_factor=%f",
 					approx.method, approx.any, approx.view_dep, approx.args[0],approx.args[1],approx.args[2],approx.args[3],
 					approx.sharp,  approx.min_subdiv, approx.max_subdiv, approx.max_grid_size, approx.motion_factor);
-				_s( "//default approx:\n"<<buf );
+				liquidMessage2(messageInfo, "default approx: %s", buf );
 			}
 
 			//set approx
@@ -593,45 +588,27 @@ namespace elvishray
 				approx.max_subdiv		= m_gnode->getInt("approx_max_subdiv");
 				approx.max_grid_size	= m_gnode->getInt("approx_max_grid_size");
 				approx.motion_factor	= m_gnode->getFloat("approx_motion_factor");//16.0f
-
-				char buf_any[16],buf_view_dep[16];
-				sprintf_s(buf_any,      16, "%x", approx.any);
-				sprintf_s(buf_view_dep, 16, "%x", approx.view_dep);
-
-				_s( "approx.method        = "<<approx.method );
-				_s( "approx.any           = "<<buf_any );
-				_s( "approx.view_dep      = "<<buf_view_dep );
-				_s( "approx.args[0]       = "<<approx.args[0] );
-				_s( "approx.args[1]       = "<<approx.args[1] );
-				_s( "approx.args[2]       = "<<approx.args[2] );
-				_s( "approx.args[3]       = "<<approx.args[3] );
-				_s( "approx.sharp         = "<<approx.sharp );
-				_s( "approx.min_subdiv    = "<<approx.min_subdiv );
-				_s( "approx.max_subdiv    = "<<approx.max_subdiv );
-				_s( "approx.max_grid_size = "<<approx.max_grid_size );
-				_s( "approx.motion_factor = "<<approx.motion_factor );
 			}
 			else{//for test only - beg	
 
 					 approx.method = EI_APPROX_METHOD_REGULAR;
-				_s( "approx.method = EI_APPROX_METHOD_REGULAR;" );
+				//_s( "approx.method = EI_APPROX_METHOD_REGULAR;" );
 
 					 approx.view_dep = eiFALSE;
-				_s( "approx.view_dep = eiFALSE;" );
+				//_s( "approx.view_dep = eiFALSE;" );
 
 					 approx.args[ EI_APPROX_U ] = 8.0f;
-				_s( "approx.args[ EI_APPROX_U ] = 8.0f;" );
+				//_s( "approx.args[ EI_APPROX_U ] = 8.0f;" );
 
 					 approx.args[ EI_APPROX_V ] = 8.0f;
-				_s( "approx.args[ EI_APPROX_V ] = 8.0f;" );
+				//_s( "approx.args[ EI_APPROX_V ] = 8.0f;" );
 
 					 approx.motion_factor = 16.0f;
-				_s( "approx.motion_factor = 16.0f;" );
+				//_s( "approx.motion_factor = 16.0f;" );
 				//for test only - end
 			}
 
-			     ei_approx(&approx);			
-			_s( "ei_approx(&approx);" );
+			o.ei_approx(&approx);
 
 		}
 
@@ -670,13 +647,13 @@ namespace elvishray
 		//	Miscellaneous:
 		int face = m_gnode->getInt("face");
 		assert( (face!=EI_FACE_NONE) && (face<EI_FACE_COUNT) );
-		_S( ei_face( face ) );
+		o.ei_face( face );
 //		_S( ei_memory( int size ) );
 		//_S( ei_ambient( 0.12f, 0.13f, 0.05f ) );
 		
 
 
-		_S( ei_end_options() );
+		o.ei_end_options();
 
 		return MStatus::kSuccess;
 	}
@@ -717,7 +694,7 @@ namespace elvishray
 		fnCamera.getPortFieldOfView(width, height, horizontalFOV,verticalFOV);
 		aperture = 2.0f * focal * tan(horizontalFOV /2.0f);
 		aspect = aperture / (2.0f * focal * tan(verticalFOV / 2.0f));
-		_s("// maya settings: focal="<<focal <<", aperture = "<<aperture<<", aspect="<<aspect );
+		o.a(boost::str(boost::format(" maya settings: focal=%f, aperture = %f, aspect=%f")%focal %aperture %aspect ));
 		//e.g. focal=35, aperture = 36, aspect=1.33333.
 
 		//get camera transform matrix
@@ -732,7 +709,7 @@ namespace elvishray
 
 		bool bDepthOfField;//enable DOF on this camera?
 		liquidGetPlugValue(fnCamera,"depthOfField", bDepthOfField, status);
-		_s("//Depth of Field on camera \""<<currentJob.camera[0].name.asChar()<<"\" is turned "<< (bDepthOfField?"on":"off")<<" in Maya");
+		o.a(boost::str(boost::format("Depth of Field on camera \"%s\" is turned %s in Maya") %currentJob.camera[0].name.asChar() %(bDepthOfField?"on":"off")));
 		bDepthOfField = bDepthOfField && liqglo.doDof && currentJob.pass != rpShadowMap;
 
 		MStringArray LensShaders, EnvironmentShaders;
@@ -747,49 +724,50 @@ namespace elvishray
 			gatherCameraShaders(EnvironmentShaders, currentJob.camera[0].name, "liqEnvironmentShader");
 		}
 
-		_s("\n//############################### camera #");
+		o.ln();
+		o.a("############################### camera #");
 		std::string sCameraObjectName(std::string(currentJob.camera[0].name.asChar())+"_object");
-		_S( ei_camera( sCameraObjectName.c_str() ) );
+		o.ei_camera( sCameraObjectName.c_str() );
 			//_S( ei_frame( lframe, off ) );
 			
 			cameraOutput(currentJob);
 
-			_S( ei_focal( focal ) );
-			_S( ei_aperture( aperture / fnCamera.overscan() ) );
-			_S( ei_aspect( aspect ) );
+			o.ei_focal( focal );
+			o.ei_aperture( aperture / fnCamera.overscan() );
+			o.ei_aspect( aspect );
 			if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true ) {
-				_S( ei_resolution(height, width) );
+				o.ei_resolution(height, width);
 			}else{ 
-				_S( ei_resolution(width, height) );
+				o.ei_resolution(width, height);
 			}
 
 			if( liqglo.m_renderViewCrop )
 			{
 				unsigned int left, right, bottom, top;
 				MRenderView::getRenderRegion(left, right, bottom, top);
-				_S( ei_window(left, right+1, height-top, height-bottom+1) );
+				o.ei_window(left, right+1, height-top, height-bottom+1);
 			} 
 
-			_S( ei_clip( currentJob.camera[0].neardb, currentJob.camera[0].fardb) );
+			o.ei_clip( currentJob.camera[0].neardb, currentJob.camera[0].fardb);
 			
 			//lens shader
 			for( std::size_t i = 0; i<LensShaders.length(); ++i)
 			{
-				_S( ei_lens_shader( LensShaders[i].asChar() ) );
+				o.ei_lens_shader( LensShaders[i].asChar() );
 			}
 			//env shader
 			for( std::size_t i = 0; i<EnvironmentShaders.length(); ++i)
 			{
-				_S( ei_environment_shader(EnvironmentShaders[i].asChar()) );
+				o.ei_environment_shader(EnvironmentShaders[i].asChar());
 			}
-		_S( ei_end_camera() );
-		_s("//----------------------------------");
-		_S( ei_instance( currentJob.camera[0].name.asChar()	) );
-			_S( ei_element(	sCameraObjectName.c_str() ) );
-			_S( ei_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] ) );
+		o.ei_end_camera();
+		o.a("----------------------------------");
+		o.ei_instance( currentJob.camera[0].name.asChar()	);
+			o.ei_element(	sCameraObjectName.c_str() );
+			o.ei_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] );
 			//_S( ei_transform(  1.0f, 0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f,  0.0f, 0.0f, 1.0f, 0.0f,  -1.95384,-2.76373,16.1852, 1.0f ) );
-		_S( ei_end_instance() );
-		_s("//");		
+		o.ei_end_instance();
+		o.ln();		
 		m_groupMgr->addObjectInstance(currentJob.name.asChar(), currentJob.camera[0].name.asChar(), GIT_Camera);//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
 
 		return MStatus::kSuccess;
@@ -799,7 +777,7 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::cameraOutput("<<currentJob.name.asChar()<<")");
 	
 		//beauty channel
-		_s("//beauty channel");
+		o.a("beauty channel");
 		const std::size_t i = 0;
 		{
 			MString imageName;
@@ -817,14 +795,14 @@ namespace elvishray
 			}
 
 			imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[ i ].name, false );
-			_S( ei_output( imageName.asChar(), liqglo.m_displays[i].type.asChar(), EI_IMG_DATA_RGB ) );
-			_s( "//mode="<<liqglo.m_displays[i].mode.asChar() );
-			_S( ei_output_variable("color", EI_TYPE_VECTOR));
-			_S( ei_end_output());
+			o.ei_output( imageName.asChar(), liqglo.m_displays[i].type.asChar(), EI_IMG_DATA_RGB );
+			o.a(boost::str(boost::format("mode=%s")%liqglo.m_displays[i].mode.asChar() ) );
+			o.ei_output_variable("color", EI_TYPE_VECTOR);
+			o.ei_end_output();
 		}
 
 		//AOV channels
-		_s("// AOV");
+		o.a(" AOV");
 		//refactor 19
 		for(std::size_t i = 1; i < liqglo.m_displays.size(); ++i)
 		{
@@ -843,7 +821,7 @@ namespace elvishray
 				// check if display is enabled
 				if( !liqglo.m_displays[i].enabled ) 
 				{
-					_s("//"<<liqglo.m_displays[i].name.asChar() <<" channel is disabled.");
+					o.a(boost::str(boost::format("%s channel is disabled.")%liqglo.m_displays[i].name.asChar()));
 					continue;
 				}
 
@@ -868,17 +846,17 @@ namespace elvishray
 // 				}else {// if in batch mode, we always use "file" -by yaoyansi
 // 					imageType = liqglo.m_displays[i].type.asChar();
 // 				}
-				_s( "//make sure the specific aov macro is defined in liquidAOVMacroDef.h, and recomplie the shader again.");
+				o.a( "make sure the specific aov macro is defined in liquidAOVMacroDef.h, and recomplie the shader again.");
 
 				imageName = liqglo.m_pixDir + parseString( liqglo.m_displays[i].name, false );
-				_S( ei_output(imageName.asChar(), liqglo.m_displays[i].type.asChar(), EI_IMG_DATA_RGB) );
-				_S( ei_output_variable(liqglo.m_displays[i].mode.asChar(), EI_TYPE_VECTOR) );
-				_S( ei_end_output() );
-				_s( "//");
+				o.ei_output(imageName.asChar(), liqglo.m_displays[i].type.asChar(), EI_IMG_DATA_RGB);
+				o.ei_output_variable(liqglo.m_displays[i].mode.asChar(), EI_TYPE_VECTOR);
+				o.ei_end_output();
+				o.ln();
 			}
 
 		}//for
-		_s("// AOV end");
+		o.a(" AOV end");
 		//refactor 19
 	}
 	//
@@ -923,35 +901,35 @@ namespace elvishray
 		for(; group_i!=group_e; ++group_i)
 		{
 			//each group
-			_S( ei_instgroup( group_i->first.name.c_str() ) );// not id
+			o.ei_instgroup( group_i->first.name.c_str() );// not id
 			{
 				Group &group = group_i->second;
 
 				//camera
-				_s("//camera");
-				_S( ei_add_instance( group.getCamera().c_str()) );
+				o.a("camera");
+				o.ei_add_instance( group.getCamera().c_str());
 				
 				//light(s)
-				_s("//light(s)");
+				o.a("light(s)");
 				elvishray::LightNames lights = group.gatherLights();
 				elvishray::LightNames::iterator l_i = lights.begin();
 				elvishray::LightNames::iterator l_e = lights.end();
 				for(; l_i != l_e; ++l_i)
 				{
-					_S( ei_add_instance( (*l_i).c_str()) );
+					o.ei_add_instance( (*l_i).c_str());
 				}
 
 				//mesh(s)
-				_s("//mesh(s)");
+				o.a("mesh(s)");
 				elvishray::MeshNames meshs = group.gatherMeshs();
 				elvishray::MeshNames::iterator m_i = meshs.begin();
 				elvishray::MeshNames::iterator m_e = meshs.end();
 				for(; m_i != m_e; ++m_i)
 				{
-					_S( ei_add_instance( (*m_i).c_str()) );
+					o.ei_add_instance( (*m_i).c_str());
 				}
 			}
-			_S( ei_end_instgroup() );
+			o.ei_end_instgroup();
 		}//for group
 
 	}
@@ -964,7 +942,7 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::exportLightLinks("<<currentJob__.name.asChar()<<","<<ribNode__->name.asChar()<<",lightedByWhichLightShapes.size="<<lightedByWhichLightShapes.length()<<")");
 
 		if(lightedByWhichLightShapes.length() == 0){
-			_s("//"<< ribNode__->name.asChar() << " is not lighted." );
+			o.a(boost::str(boost::format("%s is not lighted.") %ribNode__->name.asChar() ));
 			return;
 		}
 
@@ -1161,15 +1139,15 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::logFrame("<<msg<<")");
 
 		assert( m_log.get().is_open() );
-		_s("//"<<msg);
+		o.a(msg);
 	}
 	void Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RibBox(const char* msg)
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RibBox("<<msg<<")");
 
 		assert( m_log.get().is_open() );
-		_s("//writeShaderRibBox()");
-		_s(msg);
+		o.a("writeShaderRibBox()");
+		o.a(msg);
 	}
 	void Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RegularShader(
 		const liqRibNodePtr &ribNode__,
@@ -1321,11 +1299,11 @@ namespace elvishray
 		//
 		if( isBatchMode() )
 		{
-			_s("// in batch render mode");
-			_S( ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() ) );
+			o.a(" in batch render mode");
+			o.ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() );
 		}else{
 			//set callback function for ER
-			_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
+			o.ei_connection(&(MayaConnection::getInstance()->connection.base));
 
 			renderPreview(width, height, false, false, 
 				m_root_group.c_str(), cameraFullPath, m_option.c_str());
@@ -1348,7 +1326,7 @@ namespace elvishray
 		}
 
 		//set callback function for ER
-		_S( ei_connection(&(MayaConnection::getInstance()->connection.base)) );
+		o.ei_connection(&(MayaConnection::getInstance()->connection.base));
 
 		renderPreview(width, height, true, false, 
 			 m_root_group.c_str(), cameraFullPath, m_option.c_str());
@@ -1389,14 +1367,14 @@ namespace elvishray
 		if (MayaConnection::getInstance()->startRender( width, height, doNotClearBackground, immediateFeedback) != MS::kSuccess)
 		{
 			assert(0&&"MayaConnection: error occured in startRenderRegion.");
-			_s( "//MayaConnection: error occured in startRenderRegion." );
+			o.a("MayaConnection: error occured in startRenderRegion." );
 			//MayaConnection::delInstance();				
 			return /*MS::kFailure*/;
 		}
 
 		if( true )
 		{
-			_S( ei_render( renderGroup.asChar(), cameraName.asChar(), optionName.asChar() ) );
+			o.ei_render( renderGroup.asChar(), cameraName.asChar(), optionName.asChar() );
 		} else {
 			m_renderingThread = boost::thread(
 					boost::bind(&ei_render, 
@@ -1411,7 +1389,7 @@ namespace elvishray
 		if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
 		{
 			assert(0&&"MayaConnection: error occured in endRender.");
-			_s( "//MayaConnection: error occured in endRender." );
+			o.a( "MayaConnection: error occured in endRender." );
 			//MayaConnection::delInstance();
 			return /*MS::kFailure*/;
 		}
@@ -1442,8 +1420,11 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
 		liquidMessage2(messageInfo, "Renderer::IPR_AttributeChangedCallback()");
 		
-		_s("\n\n\n\n");
-		_s("// Renderer::IPR_AttributeChangedCallback");		
+		o.ln();
+		o.ln();
+		o.ln();
+		o.ln();
+		o.a(" Renderer::IPR_AttributeChangedCallback");		
 		
 		m_iprMgr->onAttributeChanged(msg, plug, otherPlug, userData );
 

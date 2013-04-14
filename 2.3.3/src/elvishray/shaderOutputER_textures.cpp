@@ -6,6 +6,7 @@
 #include "../common/mayacheck.h"
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
+#include "er_output_mgr.h"
 
 namespace ER
 {
@@ -15,7 +16,7 @@ void Visitor::visitBulge(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBulge("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_bulge", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -24,7 +25,7 @@ void Visitor::visitChecker(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitChecker("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 
 	o.beginRSL("maya_checker", node);
 
@@ -53,7 +54,7 @@ void Visitor::visitCloth(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCloth("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_cloth", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -62,7 +63,7 @@ void Visitor::visitFile(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFile("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 
 	//generate texture and construct texture node
 	MString fileImageName(getFileNodeImageName(node));
@@ -92,15 +93,15 @@ void Visitor::visitFile(const char* node)
 		//generate texture
 		if ( _access(fileTextureName.asChar(), 0) != 0 )//not exist
 		{
-			o.addToRSL( "ei_make_texture(\""+fileImageName+"\",\""+fileTextureName+"\","+
-				"EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f);" );
+			out.ei_make_texture(fileImageName.asChar(), fileTextureName.asChar(),
+				EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f);
 		}
 		//construct texture node
 		//if (ei_file_exists(fileTextureName))
 		{
-			o.addToRSL( "ei_texture(\""+fileImageName+"\");" );
-			o.addToRSL( "ei_file_texture(\""+fileTextureName+"\", eiFALSE);" );
-			o.addToRSL( "ei_end_texture();" );
+			out.ei_texture(fileImageName.asChar());
+			out.ei_file_texture(fileTextureName.asChar(), eiFALSE);
+			out.ei_end_texture();
 		}
 	}
 
@@ -115,7 +116,7 @@ void Visitor::visitFile(const char* node)
 	o.addRSLVariable("color",  "colorOffset",	"colorOffset",	node);
 	o.addRSLVariable("color",  "defaultColor",	"defaultColor",	node);
 	o.addRSLVariable("vector",  "uvCoord",	"uvCoord",	node);
-	o.addToRSL("ei_shader_param_texture(\"fileTextureName\", \""+fileImageName+"\");");
+	out.ei_shader_param_texture("fileTextureName", fileImageName.asChar());
 	o.addRSLVariable("index", "filterType",	"filterType",	node);
 	o.addRSLVariable("float",  "filter",	"filter",	node);
 	o.addRSLVariable("float",  "filterOffset",	"filterOffset",	node);
@@ -134,7 +135,7 @@ void Visitor::visitFluidTexture2D(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFluidTexture2D("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_fluidTexture2D", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -144,7 +145,7 @@ void Visitor::visitFractal(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFractal("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_fractal", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -154,7 +155,7 @@ void Visitor::visitGrid(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitGrid("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_grid", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -164,7 +165,7 @@ void Visitor::visitMountain(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMountain("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_mountain", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -174,7 +175,7 @@ void Visitor::visitMovie(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMovie("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_movie", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -184,7 +185,7 @@ void Visitor::visitNoise(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitNoise("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_noise", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -194,7 +195,7 @@ void Visitor::visitOcean(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitOcean("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_ocean", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -204,7 +205,7 @@ void Visitor::visitPSDFileTex(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPSDFileTex("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_psdFileTex", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -214,7 +215,7 @@ void Visitor::visitRamp(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRamp("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_ramp", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -224,7 +225,7 @@ void Visitor::visitWater(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitWater("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_water", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -235,7 +236,7 @@ void Visitor::visitBrownian(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitBrownian("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_brownian", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -245,7 +246,7 @@ void Visitor::visitCloud(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCloud("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_cloud", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -255,7 +256,7 @@ void Visitor::visitCrater(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitCrater("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_crater", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -265,7 +266,7 @@ void Visitor::visitFluidTexture3D(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitFluidTexture3D("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_fluidTexture3D", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -275,7 +276,7 @@ void Visitor::visitGranite(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitGranite("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_granite", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -285,7 +286,7 @@ void Visitor::visitLeather(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLeather("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_leather", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -295,7 +296,7 @@ void Visitor::visitMarbler(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitMarbler("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_marble", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -305,7 +306,7 @@ void Visitor::visitRock(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitRock("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_rock", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -315,7 +316,7 @@ void Visitor::visitSnow(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSnow("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_snow", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -325,7 +326,7 @@ void Visitor::visitSolidFractal(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitSolidFractal("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_solidFractal", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -335,7 +336,7 @@ void Visitor::visitStucco(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitStucco("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_stucco", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -345,7 +346,7 @@ void Visitor::visitVolumeNoise(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitVolumeNoise("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_volumeNoise", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -355,7 +356,7 @@ void Visitor::visitWood(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitWood("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_wood", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -366,7 +367,7 @@ void Visitor::visitEnvBall(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvBall("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_envBall", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -376,7 +377,7 @@ void Visitor::visitEnvChrome(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvChrome("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_envChrome", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -386,7 +387,7 @@ void Visitor::visitEnvCube(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvCube("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_envCube", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -396,7 +397,7 @@ void Visitor::visitEnvSky(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvSky("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_envSky", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -406,7 +407,7 @@ void Visitor::visitEnvSphere(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitEnvSphere("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_envSphere", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
@@ -417,7 +418,7 @@ void Visitor::visitLayeredTexture(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitLayeredTexture("<<node<<")");
 
-	OutputHelper o(file);
+	OutputHelper o;
 	o.beginRSL("maya_layeredTexture", node);
 	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();

@@ -41,8 +41,9 @@ namespace elvishray
 	static void _write(liqRibHierarchicalSubdivisionData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeHSubdData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		OutputMgr &o = Renderer::o;
 
-		_s("//Hierarchical Subdivision "<<pData->getFullPathName()<<" is not implemented yet.");
+		o.a(boost::str(boost::format("Hierarchical Subdivision %s is not implemented yet.")%pData->getFullPathName()));
 		liquidMessage2(messageError, "Hierarchical Subdivision type is not implemented yet.\n%s", pData->getFullPathName());
 	}
 }//namespace elvishray

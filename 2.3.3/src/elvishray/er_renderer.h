@@ -389,7 +389,7 @@ namespace elvishray
 		//
 		//std::ofstream& get() { return m_log.get(); }
  		static liquid::LogMgr m_log;
-		OutputMgr m_outputmgr;
+		static OutputMgr o;
 
 	protected:
 		Renderer(const Renderer&);

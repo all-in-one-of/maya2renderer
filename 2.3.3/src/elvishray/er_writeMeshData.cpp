@@ -74,6 +74,7 @@ namespace elvishray
 	static void _write1(liqRibMeshData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeMeshData.cpp::_write1("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
+		OutputMgr &o = Renderer::o;
 
 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
 			pData->objDagPath.fullPathName(), 
@@ -97,7 +98,8 @@ namespace elvishray
 		unsigned int sample_first = 0;
 		unsigned int sample_last = bGeometryMotion? (liqglo.liqglo_motionSamples - 1):sample_first;
 
-		_s("\n// Renderer::exportOneGeometry_Mesh("<<ribNode__->name.asChar()<<","<<sample_first<<","<<sample_last<<")");
+		o.ln();
+		o.a(boost::str(boost::format(" Renderer::exportOneGeometry_Mesh(%s, %d, %d")%ribNode__->name.asChar() %sample_first %sample_last));
 
 		const liqRibDataPtr mesh = ribNode__->object(sample_first)->getDataPtr();
 
@@ -199,8 +201,9 @@ namespace elvishray
 
 
 		// geometry data (shape)
-		_s("\n//############################### mesh #");
-		_s("//shape full path name="<<mesh->getFullPathName());
+		o.ln();
+		o.a("############################### mesh #");
+		o.a("shape full path name="+std::string(mesh->getFullPathName()));
 #ifdef TRANSFORM_SHAPE_PAIR
 		const std::string objectName(ribNode__->name.asChar());//shape
 #else// SHAPE SHAPE_object PAIR
@@ -208,103 +211,43 @@ namespace elvishray
 #endif
 
 
-		_S( ei_object( "poly", objectName.c_str() ) );
-		_s("{");
-		_d( eiTag tag );
-
-		//vertex position
-		_s("//### vertex positions, fnMesh.numVertices()="<<fnMesh.numVertices() );
-		_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
-		_S( ei_pos_list( tag ) );
-		for(std::size_t i=0; i<POSITION.size(); ++i)
-		{
-			_S( ei_tab_add_vector( POSITION[i].x, POSITION[i].y, POSITION[i].z ) );
-		}
-		_S( ei_end_tab() );
-
-		//deform motion
-		if( sample_first != sample_last )
-		{
-			_s("//### vertex deform positions, " );
-			_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
-			_S( ei_motion_pos_list( tag ) );
-			for(std::size_t i=0; i<POSITION_mb.size(); ++i)
-			{
-				_S( ei_tab_add_vector( POSITION_mb[i].x, POSITION_mb[i].y, POSITION_mb[i].z ) );
-			}
-			_S( ei_end_tab() );
-		}
-		
-
-// 		_s("//### vertex color");
-// 		for(int i=0; i<position.length(); i++)
-// 		{
-// 			_S( ei_vertex(i) );
-// 			//_S( ei_variable_color( "Cs", color( 1.0f, 0.0f, 1.0f ) ) );
-// 		}
-
 		// get normal for each vertex
 		// but the render result seems very weird, see test/test_er_light/output_img_std/er_pointlight.perspShape.1.elvishray_vertex_normal.bmp
 		// so I ommit this section temporarily.
-		_s("//### N ###");
 		if(fnMesh.numVertices() == fnMesh.numNormals())//smooth normal, like a sphere
 		{
-			_d( tag = eiNULL_TAG );
-			_S( ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag) );
-			_d( tag = ei_tab(EI_TYPE_VECTOR, 1024) )
-			_S( ei_variable("N", &tag) );
-			for(size_t i=0; i<NORMAL.size(); ++i)
-			{
-				_S( ei_tab_add_vector(NORMAL[i].x, NORMAL[i].y, NORMAL[i].z) );
-			}
-			_S( ei_end_tab() );
 		}else{//sharp edge, like a cube
 			// in this case, like a cube, a vertex has a specified normal corresponding to each adjacent polygon.
 			// but elvishray's only allow a vertex to be assigned only one normal.
 			// so I can't generate the normal list for this case.
-			_s("//numNormals != numPoints, ER doesn't support this case now");
+			o.a("numNormals != numPoints, ER doesn't support this case now");
+			NORMAL.clear();
 		}
-		_s("//### N ### end");
 
 		if( currentUVsetName.length() != 0 )//there is a current uv set
 		{
-			_s("//### UV("<<currentUVsetName.asChar()<<"), size="<< fnMesh.numUVs(currentUVsetName) );
+			o.a(boost::str(boost::format("### UV(%s), size=%d") %currentUVsetName.asChar() %fnMesh.numUVs(currentUVsetName) ) );
 
 			int numUVSets = fnMesh.numUVSets();
-			_s("//# numUVSets("<<numUVSets );
+			o.a(boost::str(boost::format("# numUVSets=%d")%numUVSets ));
 			MStringArray uvsetNames;
 			IfMErrorWarn( fnMesh.getUVSetNames(uvsetNames) );
 			for(std::size_t i = 0; i< uvsetNames.length(); ++i){
-				_s("//# uvsetNames["<<i<<"]="<<uvsetNames[i].asChar() );
+				o.a(boost::str(boost::format("# uvsetNames[%d]=%s")%i %uvsetNames[i].asChar() ) );
 			}
 			MStringArray uvsetFamilyNames;
 			IfMErrorWarn( fnMesh.getUVSetFamilyNames(uvsetFamilyNames) );
 			for(std::size_t i = 0; i< uvsetFamilyNames.length(); ++i){
-				_s("//# uvsetFamilyNames["<<i<<"]="<<uvsetFamilyNames[i].asChar() );
+				o.a(boost::str(boost::format("# uvsetFamilyNames[%d]=%s")%i %uvsetFamilyNames[i].asChar() ) );
 			}
-
-			// uv
-			_d( tag = eiNULL_TAG );
-			_S( ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag) );
-			_d( tag = ei_tab(EI_TYPE_VECTOR2, 1024) )
-			_S( ei_variable("uv", &tag) );
-			for(size_t i = 0; i<UV.size(); ++i)
-			{
-				_S( ei_tab_add_vector2(UV[i].x, UV[i].y) );
-			}
-			_S( ei_end_tab() );
+		}else{
+			o.a("no current UVSet");
+			UV.clear();
 		}
 
-		_s("//### triangles, size="<< INDEX.size());
-		_d( tag = ei_tab(EI_TYPE_INDEX, 1024) )
-		_S( ei_triangle_list( tag ) );
-		for(size_t i=0; i<INDEX.size(); ++i)
-		{
-			_S( ei_tab_add_index(INDEX[i]));
-		}
-		_S( ei_end_tab() );
-		_s("}//"<<objectName);
-		_S( ei_end_object() );
+		//
+		o.liq_object(objectName.c_str(),
+			POSITION, POSITION_mb, INDEX, NORMAL, UV);
 	}
 	//get face-relative/local vertex index from global/mesh vertex index
 	static int getVertexInexInPolygon( const int gvi, const MIntArray &polygonVertices)

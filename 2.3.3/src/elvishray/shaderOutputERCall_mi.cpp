@@ -7,8 +7,6 @@
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 
-#include <eiAPI/ei.h>
-
 namespace ERCall
 {
 // @node	mr shader node name

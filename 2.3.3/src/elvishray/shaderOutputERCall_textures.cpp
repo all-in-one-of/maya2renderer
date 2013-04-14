@@ -6,8 +6,8 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
-
-#include <eiAPI/ei.h>
+#include "er_output_mgr.h"
+//#include <eiAPI/ei.h>
 
 namespace ERCall
 {
@@ -83,15 +83,15 @@ void Visitor::visitFile(const char* node)
 		//generate texture
 		if ( _access(fileTextureName.asChar(), 0) != 0 )//not exist
 		{
-			ei_make_texture(fileImageName.asChar(), fileTextureName.asChar(),
+			out.ei_make_texture(fileImageName.asChar(), fileTextureName.asChar(),
 				EI_TEX_WRAP_CLAMP, EI_TEX_WRAP_CLAMP, EI_FILTER_BOX, 1.0f, 1.0f);
 		}
 		//construct texture node
 		//if (ei_file_exists(fileTextureName))
 		{
-			ei_texture(fileImageName.asChar());
-				ei_file_texture(fileTextureName.asChar(), eiFALSE);
-			ei_end_texture();
+			out.ei_texture(fileImageName.asChar());
+				out.ei_file_texture(fileTextureName.asChar(), eiFALSE);
+			out.ei_end_texture();
 		}
 	}
 
@@ -106,7 +106,7 @@ void Visitor::visitFile(const char* node)
 	o.addRSLVariable("color",  "colorOffset",	"colorOffset",	node);
 	o.addRSLVariable("color",  "defaultColor",	"defaultColor",	node);
 	o.addRSLVariable("vector",  "uvCoord",	"uvCoord",	node);
-	ei_shader_param_texture("fileTextureName", fileImageName.asChar());
+	out.ei_shader_param_texture("fileTextureName", fileImageName.asChar());
 	o.addRSLVariable("index", "filterType",	"filterType",	node);
 	o.addRSLVariable("float",  "filter",	"filter",	node);
 	o.addRSLVariable("float",  "filterOffset",	"filterOffset",	node);

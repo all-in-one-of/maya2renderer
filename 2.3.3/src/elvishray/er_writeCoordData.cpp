@@ -41,8 +41,9 @@ namespace elvishray
 	static void _write(liqRibCoordData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeCoordData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		OutputMgr &o = Renderer::o;
 
-		_s("//Locator(Coord) "<<pData->getFullPathName()<<" is not implemented yet.");
+		o.a(boost::str(boost::format("Locator(Coord) %s is not implemented yet.")%pData->getFullPathName()));
 		liquidMessage2(messageError, "Locator(Coord) type is not implemented yet.\n%s", pData->getFullPathName());
 	}
 }//namespace elvishray

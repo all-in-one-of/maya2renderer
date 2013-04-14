@@ -8,14 +8,14 @@
 #include "../shadergraph/shadermgr.h"
 #include "er_renderer.h"
 #include "er_helper.h"
+#include "er_renderer.h"
 
 namespace ER
 {
 
-OutputHelper::OutputHelper(std::ofstream& file_)
-:file(elvishray::Renderer::m_log.get())
+OutputHelper::OutputHelper()
+: out(elvishray::Renderer::o)
 {
-	assert(file.is_open());
 }
 //
 OutputHelper::~OutputHelper()
@@ -65,6 +65,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			||rslType=="vector")
 		{
 			MDoubleArray val; val.setLength(3);
+			val[0] = val[1] = val[2] = 0.0;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			//val(double) --> valStr(string)
 			MStringArray valStr; valStr.setLength(3);
@@ -72,54 +73,56 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			valStr[1].set(val[1]);
 			valStr[2].set(val[2]);
 			rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
-			file<<"ei_shader_param_vector(\""<< rslName.asChar()<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
+			out.ei_shader_param_vector(rslName.asChar(), val[0], val[1], val[2]);
 		}else if(rslType=="string"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
-			file<<"ei_shader_param_string(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
+			out.ei_shader_param_token( rslName.asChar(), val.asChar());
 		}else if(rslType=="shader"){
 			MStringArray srcNode;
 			//we only care about the input of this plug
 			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+plug+"\"", srcNode));
 			assert(srcNode.length()==1);
 			rslShaderBody +="\""+srcNode[0]+"\"";
-			file<<"ei_shader_param_token(\""<<rslName.asChar()<<"\", ei_token(\""<<srcNode[0].asChar()<<"\") );"<<endl;
+			out.ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
 		}else if(rslType=="texture"){
 			MString val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			rslShaderBody +="\""+val+"\"";
-			file<<"ei_shader_param_texture(\""<<rslName<<"\", \""<<val<<"\");"<<endl;
+			out.ei_shader_param_texture(rslName.asChar(),val.asChar());
 		}
 		else if(rslType=="int"){
 			int val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
-			file<<"ei_shader_param_int(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+			out.ei_shader_param_int(rslName.asChar(),val);
 		}
 		else if(rslType=="index"){
 			int val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
-			file<<"ei_shader_param_index(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+			eiIndex iVal = val;
+			out.ei_shader_param_index(rslName.asChar(), iVal);
 		}
 		else if(rslType=="bool"){
 			int val;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 			MString sVal; sVal.set(val);
 			rslShaderBody +="\""+sVal+"\"";
-			file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+			eiBool bVal = val;
+			out.ei_shader_param_bool(rslName.asChar(), bVal );
 		}
 		else if(rslType=="tag"){
-			file<<"//ei_shader_param_tag(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
+			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
 		}
 		else if(rslType=="node"){
-			file<<"//ei_shader_param_node(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
+			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
 		}
 		else if(rslType=="vector4"){
-			file<<"//ei_shader_param_vector4(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
+			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
 		}
 		else if(rslType=="float"){
 			if(rslTypeSize == 1){
@@ -129,7 +132,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				MString valStr;
 				valStr.set(val);
 				rslShaderBody += valStr;
-				file<<"ei_shader_param_scalar(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+				out.ei_shader_param_scalar( rslName.asChar(), val );
 			}else{
 				rslShaderBody += "{ ";
 				MDoubleArray val; val.setLength(rslTypeSize);
@@ -163,6 +166,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				||rslType=="vector")
 			{
 				MDoubleArray val; val.setLength(3);
+				val[0] = val[1] = val[2] = 0.0;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				//val(double) --> valStr(string)
 				MStringArray valStr; valStr.setLength(3);
@@ -170,54 +174,56 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				valStr[1].set(val[1]);
 				valStr[2].set(val[2]);
 				rslShaderBody +="("+valStr[0]+","+valStr[1]+","+valStr[2]+")";
-				file<<"ei_shader_param_vector(\""<< rslName.asChar()<<"\", "<<val[0]<<", "<<val[1]<<", "<<val[2]<<");"<<endl;
+				out.ei_shader_param_vector( rslName.asChar(), val[0], val[1], val[2]);
 			}else if(rslType=="string"){
 				MString val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				rslShaderBody +="\""+val+"\"";
-				file<<"ei_shader_param_string(\""<<rslName.asChar()<<"\", \""<<val.asChar()<<"\");"<<endl;
+				out.ei_shader_param_token( rslName.asChar(), val.asChar());
 			}else if(rslType=="shader"){
 				MStringArray srcNode;
 				//we only care about the input of this plug
 				IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+plug+"\"", srcNode));
 				assert(srcNode.length()==1);
 				rslShaderBody +="\""+srcNode[0]+"\"";
-				file<<"ei_shader_param_token(\""<<rslName.asChar()<<"\", ei_token(\""<<srcNode[0].asChar()<<"\") );"<<endl;
+				out.ei_shader_param_token( rslName.asChar(), ei_token(srcNode[0].asChar()) );
 			}else if(rslType=="texture"){
 				MString val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				rslShaderBody +="\""+val+"\"";
-				file<<"ei_shader_param_texture(\""<<rslName<<"\", \""<<val<<"\");"<<endl;
+				out.ei_shader_param_texture(rslName.asChar(),val.asChar());
 			}
 			else if(rslType=="int"){
 				int val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				MString sVal; sVal.set(val);
 				rslShaderBody +="\""+sVal+"\"";
-				file<<"ei_shader_param_int(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+				out.ei_shader_param_int(rslName.asChar(),val);
 			}
 			else if(rslType=="index"){
 				int val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				MString sVal; sVal.set(val);
 				rslShaderBody +="\""+sVal+"\"";
-				file<<"ei_shader_param_index(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+				eiIndex iVal = val;
+				out.ei_shader_param_index(rslName.asChar(), iVal);
 			}
 			else if(rslType=="bool"){
 				int val;
 				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
 				MString sVal; sVal.set(val);
 				rslShaderBody +="\""+sVal+"\"";
-				file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+				eiBool bVal = val;
+				out.ei_shader_param_bool(rslName.asChar(), bVal );
 			}
 			else if(rslType=="tag"){
-				file<<"//ei_shader_param_tag(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
+				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
 			}
 			else if(rslType=="node"){
-				file<<"//ei_shader_param_node(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
+				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
 			}
 			else if(rslType=="vector4"){
-				file<<"//ei_shader_param_vector4(\""<<rslName.asChar()<<"\", val); not implemented yet."<<endl;
+				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
 			}
 			else if(rslType=="float"){
 				if(rslTypeSize == 1){
@@ -227,7 +233,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 					MString valStr;
 					valStr.set(val);
 					rslShaderBody += valStr;
-					file<<"ei_shader_param_scalar(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
+					out.ei_shader_param_scalar( rslName.asChar(), val );
 				}else{
 					rslShaderBody += "{ ";
 					MDoubleArray val; val.setLength(rslTypeSize);
@@ -281,7 +287,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			//}
 			//else//the srcNode is NOT a texture
 			{
-				file<<"ei_shader_link_param(\""<<rslName.asChar()<<"\", \""<<srcNode.asChar()<<"\", \""<<srcAttr.asChar()<<"\");"<<std::endl;
+				out.ei_shader_link_param( rslName.asChar(), srcNode.asChar(), srcAttr.asChar() );
 			}
 		}
 
@@ -290,22 +296,22 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 //
 void OutputHelper::addToRSL(const MString& code)
 {
-	file<<code.asChar()<<std::endl;
+	out.s(code.asChar());
 }
 //
 void OutputHelper::beginRSL (const MString &type_name, const MString &instance_name)
 {
 	CM_TRACE_FUNC("OutputHelper::beginRSL("<<type_name.asChar()<<","<<instance_name.asChar()<<")");
 
-	file<< "ei_shader(\""<<type_name.asChar()<<"\", \""<<instance_name.asChar()<<"\");"<<std::endl;
+	out.ei_shader( type_name.asChar(), instance_name.asChar() );
 }
 //
 void OutputHelper::endRSL ()
 {
 	CM_TRACE_FUNC("OutputHelper::endRSL()");
 
-	file<< "ei_end_shader();"<< std::endl;
-	file<<std::endl;
+	out.ei_end_shader();
+	out.ln();
 }
 //
 void OutputHelper::add_liq_UserDefinedNormal(const char* node)
@@ -313,10 +319,11 @@ void OutputHelper::add_liq_UserDefinedNormal(const char* node)
 	CM_TRACE_FUNC("OutputHelper::add_liq_UserDefinedNormal("<<node<<")");
 
 	MString s; s.set( elvishray::isBumpMapConnected(node) );
-	file<<"ei_shader_param_int(\"liq_UserDefinedNormal\", "<<s.asChar()<<");"<<endl;
+	out.ei_shader_param_int( "liq_UserDefinedNormal", elvishray::isBumpMapConnected(node) );
 }
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
+	:out(elvishray::Renderer::o)
 {
 
 }
@@ -414,26 +421,26 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 
 // 	std::ofstream shadingGroupFile;
 // 	shadingGroupFile.open((shadingGroupFileName+".erapi").asChar());
-	std::ofstream &shadingGroupFile=elvishray::Renderer::m_log.get();
-	assert(shadingGroupFile.is_open());
 
-	shadingGroupFile<<"ei_material(\""<<shadingGroupNode<<"\");"<<std::endl;
+
+
+	out.ei_material( shadingGroupNode );
 	if( surfaceShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_surface_shader(\""<<surfaceShaders[0].asChar()<<"\");"<<std::endl;
+		out.ei_surface_shader( surfaceShaders[0].asChar() );
 	}
 	if( volumeShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_volume_shader(\""<<volumeShaders[0].asChar()<<"\");"<<std::endl;
+		out.ei_volume_shader( volumeShaders[0].asChar() );
 	}
 	if( displacementShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_displace_shader(\""<<displacementShaders[0].asChar()<<"\");"<<std::endl;
+		out.ei_displace_shader( displacementShaders[0].asChar() );
 	}
 	if( shadowShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_shadow_shader(\""<<shadowShaders[0].asChar()<<"\");"<<std::endl;
+		out.ei_shadow_shader( shadowShaders[0].asChar() );
 	}
 	if( environmentShaders[0].length() != 0 ){
-		shadingGroupFile<<"ei_environment_shader(\""<<environmentShaders[0].asChar()<<"\");"<<std::endl;
+		out.ei_environment_shader( environmentShaders[0].asChar() );
 	}
-	shadingGroupFile<<"ei_end_material();"<<std::endl;
+	out.ei_end_material();
 //	shadingGroupFile.close();
 
 	

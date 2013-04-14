@@ -966,7 +966,7 @@ namespace elvishray
 	//
 	void my_set_eiVector4(const char* vname, eiVector4 &v, const eiScalar x, const eiScalar y, const eiScalar z, const eiScalar w )
 	{
-		_s( vname<<".x="<<x<<"; "<<vname<<".y="<<y<<"; "<<vname<<".z="<<z<<";"<<vname<<".w="<<w<<";" );
+		//_s( vname<<".x="<<x<<"; "<<vname<<".y="<<y<<"; "<<vname<<".z="<<z<<";"<<vname<<".w="<<w<<";" );
 		v.x = x;
 		v.y = y;
 		v.z = z;

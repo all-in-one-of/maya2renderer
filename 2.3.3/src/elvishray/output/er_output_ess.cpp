@@ -24,13 +24,27 @@ namespace elvishray
 
 		m_outputfile.close();
 	}
+	void OutputESS::init()
+	{
+		CM_TRACE_FUNC("OutputESS::init()");
+	}
 	//----------------------------------------------------
 	// ER API interfaces
 	//----------------------------------------------------
-	void OutputESS::annotation(const std::string &msg)
+	void OutputESS::ln()
 	{
-		//CM_TRACE_FUNC("OutputESS::annotation("<<msg<<")");
-		m_outputfile<<"//"<<msg<<std::endl;
+		//CM_TRACE_FUNC("OutputESS::ln("<<msg<<")");
+		m_outputfile<<std::endl;
+	}
+	void OutputESS::s(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputESS::s("<<msg<<")");
+		m_outputfile<<msg<<std::endl;
+	}
+	void OutputESS::a(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputESS::a("<<msg<<")");
+		m_outputfile<<"##"<<msg<<std::endl;
 	}
 	void OutputESS::ei_context()
 	{		
@@ -302,6 +316,21 @@ namespace elvishray
 		//CM_TRACE_FUNC("OutputESS::ei_make_texture(\""<<picturename<<"\", \""<< texturename<<"\","<<swrap<<","<< twrap<<","<<filter<<", "<<swidth<<", "<<twidth<<")");
 		m_outputfile<<"ei_make_texture(\""<<picturename<<"\", \""<< texturename<<"\","<<swrap<<","<< twrap<<","<<filter<<", "<<swidth<<", "<<twidth<<");"<<std::endl;
 	}
+	void OutputESS::ei_texture(const char *name)
+	{
+		//CM_TRACE_FUNC("OutputESS::ei_texture("<<name<<")");
+		m_outputfile<<"ei_texture("<<name<<");"<<std::endl;
+	}
+	void OutputESS::ei_file_texture(const char *filename, const eiBool local)
+	{
+		//CM_TRACE_FUNC("OutputESS::ei_file_texture("<<filename<<","<<local<<")");
+		m_outputfile<<"ei_file_texture("<<filename<<", "<<local<<");"<<std::endl;
+	}
+	void OutputESS::ei_end_texture()
+	{
+		//CM_TRACE_FUNC("OutputESS::ei_end_texture()");
+		m_outputfile<<"ei_end_texture();"<<std::endl;
+	}
 	//	Materials:
 	void OutputESS::ei_material( const char *name )
 	{
@@ -490,6 +519,14 @@ namespace elvishray
 		liquidMessage2(messageError, "OutputESS::ei_shader_param() not implemented");
 		m_outputfile<<"ei_shader_param(\""<<param_name<<"\", \""<<param_value<<"\");"<<std::endl;
 	}
+	void OutputESS::ei_shader_param_token(
+		const char *param_name, 
+		const char *param_value)
+	{
+		//CM_TRACE_FUNC("OutputESS::ei_shader_param_token(\""<<param_name<<"\", \""<<param_value<<"\") not implemented");
+		liquidMessage2(messageError, "OutputESS::ei_shader_param() not implemented");
+		m_outputfile<<"ei_shader_param_token(\""<<param_name<<"\", \""<<param_value<<"\");"<<std::endl;
+	}
 	void OutputESS::ei_shader_param_int(
 		const char *param_name, 
 		const eiInt param_value)
@@ -560,7 +597,7 @@ namespace elvishray
 		m_outputfile<<"ei_end_shader();"<<std::endl;
 	}
 
-	void OutputESS::ei_declare(const char *name, const eiInt storage_class, const eiInt type, const void *tag)
+	void OutputESS::ei_declare(const char *name, const eiInt storage_class, const eiInt type/*, const void *tag*/)
 	{
 		//CM_TRACE_FUNC("OutputESS::ei_declare(\""<<name<<"\","<<storage_class<<","<<type<<", &tag)");
 		liquidMessage2(messageError, "OutputESS::ei_declare(&tag)");
@@ -576,6 +613,44 @@ namespace elvishray
 	{
 		//CM_TRACE_FUNC("OutputESS::ei_degree("<<degree<<")");
 		m_outputfile<<"ei_degree("<<degree<<");"<<std::endl;
+	}
+
+	//----------------------------------------------------
+	// Warped ER API interfaces
+	//----------------------------------------------------
+	void OutputESS::liq_lightgroup_in_object_instance(const char *light_group_name)
+	{
+		//CM_TRACE_FUNC("OutputESS::liq_lightgroup_in_object_instance("<<light_group_name<<")");
+
+	}
+	void OutputESS::liq_lightgroup_in_light_instance_beg()
+	{
+		//CM_TRACE_FUNC("OutputESS::liq_lightgroup_in_light_instance_beg()");
+
+	}
+	void OutputESS::liq_lightgroup_in_light_instance(const char *light_group_name)
+	{
+		//CM_TRACE_FUNC("OutputESS::liq_lightgroup_in_light_instance("<<light_group_name<<")");
+
+	}
+	void OutputESS::liq_lightgroup_in_light_instance_end()
+	{
+		//CM_TRACE_FUNC("OutputESS::liq_lightgroup_in_light_instance_end()");
+
+	}
+	void OutputESS::liq_object(
+		const std::string &objname,
+		const std::vector<MVector> &POSITION,
+		const std::vector<MVector> &POSITION_mb,//motion blur position
+		const std::vector<std::size_t> &INDEX,//global vertex index
+		const std::vector<MVector> &NORMAL,
+		const std::vector<MVector> &UV
+		)
+	{
+		//CM_TRACE_FUNC("OutputESS::liq_object("<<light_group_name<<")");
+
+
+
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

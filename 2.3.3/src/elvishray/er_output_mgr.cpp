@@ -3,6 +3,7 @@
 
 #include "er_output_mgr.h"
 #include <liqlog.h>
+#include "output/er_output_base.h"
 #include "output/er_output_call.h"
 #include "output/er_output_ess.h"
 #include "output/er_output_esa.h"
@@ -11,11 +12,11 @@ namespace elvishray
 {
 	OutputMgr::OutputMgr()
 	{
-		CM_TRACE_FUNC("OutputMgr::OutputMgr()");
+		//CM_TRACE_FUNC("OutputMgr::OutputMgr()");
 	}
 	OutputMgr::~OutputMgr()
 	{
-		CM_TRACE_FUNC("OutputMgr::~OutputMgr()");
+		//CM_TRACE_FUNC("OutputMgr::~OutputMgr()");
 	}
 	void OutputMgr::setOutputImagePath(const std::string &output_image_path)
 	{
@@ -60,6 +61,8 @@ namespace elvishray
 	int OutputMgr::init()
 	{
 		CM_TRACE_FUNC("OutputMgr::init()");
+
+		//create receivers
 		for(std::size_t i=0; i<m_receiver_types.size(); ++i)
 		{
 			OutputBase* newreceiver = createOutput( m_receiver_types[i] );
@@ -71,6 +74,13 @@ namespace elvishray
 			liquidMessage2(messageError, "OutputMgr::init(): m_receiver_types.size() != m_receivers.SIZE()");
 		}
 
+		//call init()
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->init();
+		}
 		return 0;
 	}
 	int OutputMgr::uninit()
@@ -93,14 +103,34 @@ namespace elvishray
 	//----------------------------------------------------
 	// ER API interfaces
 	//----------------------------------------------------
-	void OutputMgr::annotation(const std::string &msg)
+	void OutputMgr::ln()
 	{
 		//CM_TRACE_FUNC("OutputMgr::annotation()");
 		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
 		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
 		for(; i!=e; ++i)
 		{
-			(*i)->annotation(msg);
+			(*i)->ln();
+		}
+	}
+	void OutputMgr::s(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputMgr::annotation()");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->s(msg);
+		}
+	}
+	void OutputMgr::a(const std::string &msg)
+	{
+		//CM_TRACE_FUNC("OutputMgr::annotation()");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->a(msg);
 		}
 	}
 	void OutputMgr::ei_context()
@@ -601,6 +631,36 @@ namespace elvishray
 			(*i)->ei_make_texture(picturename,  texturename, swrap, twrap, filter, swidth, twidth);
 		}
 	}
+	void OutputMgr::ei_texture(const char *name)
+	{
+		//CM_TRACE_FUNC("OutputMgr::ei_texture("<<name<<")");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->ei_texture(name);
+		}
+	}
+	void OutputMgr::ei_file_texture(const char *filename, const eiBool local)
+	{
+		//CM_TRACE_FUNC("OutputMgr::ei_texture("<<filename<<","<<local<<")");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->ei_file_texture(filename, local);
+		}
+	}
+	void OutputMgr::ei_end_texture()
+	{
+		//CM_TRACE_FUNC("OutputMgr::ei_end_texture()");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->ei_end_texture();
+		}
+	}
 	//	Materials:
 	void OutputMgr::ei_material( const char *name )
 	{
@@ -940,6 +1000,18 @@ namespace elvishray
 			(*i)->ei_shader_param(param_name,param_value);
 		}
 	}
+	void OutputMgr::ei_shader_param_token(
+		const char *param_name, 
+		const char *param_value)
+	{
+		//CM_TRACE_FUNC("OutputMgr::ei_shader_param_token(\""<<param_name<<"\", \""<<param_value<<"\") not implemented");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->ei_shader_param_token(param_name,param_value);
+		}
+	}
 	void OutputMgr::ei_shader_param_int(
 		const char *param_name, 
 		const eiInt param_value)
@@ -1060,7 +1132,7 @@ namespace elvishray
 		}
 	}
 
-	void OutputMgr::ei_declare(const char *name, const eiInt storage_class, const eiInt type, const void *tag)
+	void OutputMgr::ei_declare(const char *name, const eiInt storage_class, const eiInt type/*, const void *tag*/)
 	{
 		//CM_TRACE_FUNC("OutputMgr::ei_declare(\""<<name<<"\","<<storage_class<<","<<type<<", &tag)");
 		liquidMessage2(messageError, "OutputMgr::ei_declare(&tag)");
@@ -1068,7 +1140,7 @@ namespace elvishray
 		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
 		for(; i!=e; ++i)
 		{
-			(*i)->ei_declare(name,storage_class,type, tag);
+			(*i)->ei_declare(name,storage_class,type/*, tag*/);
 		}
 	}
 	void OutputMgr::ei_variable(const char *name, const void *tag)
@@ -1093,5 +1165,64 @@ namespace elvishray
 		}
 	}
 
+	//----------------------------------------------------
+	// Warped ER API interfaces
+	//----------------------------------------------------
+	void OutputMgr::liq_lightgroup_in_object_instance(const char *light_group_name)
+	{
+		//CM_TRACE_FUNC("OutputMgr::liq_lightgroup_in_object_instance("<<light_group_name<<")");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->liq_lightgroup_in_object_instance(light_group_name);
+		}
+	}
+	void OutputMgr::liq_lightgroup_in_light_instance_beg()
+	{
+		//CM_TRACE_FUNC("OutputMgr::liq_lightgroup_in_light_instance_beg()");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->liq_lightgroup_in_light_instance_beg();
+		}
+	}
+	void OutputMgr::liq_lightgroup_in_light_instance(const char *light_group_name)
+	{
+		//CM_TRACE_FUNC("OutputMgr::liq_lightgroup_in_light_instance("<<light_group_name<<")");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->liq_lightgroup_in_light_instance(light_group_name);
+		}
+	}
+	void OutputMgr::liq_lightgroup_in_light_instance_end()
+	{
+		//CM_TRACE_FUNC("OutputMgr::liq_lightgroup_in_light_instance_end()");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->liq_lightgroup_in_light_instance_end();
+		}
+	}
+	void OutputMgr::liq_object(
+		const std::string &objname,
+		const std::vector<MVector> &POSITION,
+		const std::vector<MVector> &POSITION_mb,//motion blur position
+		const std::vector<std::size_t> &INDEX,//global vertex index
+		const std::vector<MVector> &NORMAL,
+		const std::vector<MVector> &UV)
+	{
+		//CM_TRACE_FUNC("OutputMgr::liq_object("<<light_group_name<<")");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->liq_object(objname, POSITION, POSITION_mb, INDEX, NORMAL, UV);
+		}
+	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

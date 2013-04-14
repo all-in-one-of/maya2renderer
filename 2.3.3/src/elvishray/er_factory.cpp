@@ -39,7 +39,7 @@ namespace elvishray
 	void Factory::createOutputReceiver()
 	{
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new ER::Visitor());
-		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new ERCall::Visitor());
+		//liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new ERCall::Visitor());
 	}
 	void Factory::deleteOutputReceiver()
 	{

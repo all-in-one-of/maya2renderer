@@ -41,8 +41,9 @@ namespace elvishray
 	static void _write(liqRibImplicitSphereData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeImplicitSphereData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		OutputMgr &o = Renderer::o;
 
-		_s("//Implicit Sphere "<<pData->getFullPathName()<<" is not implemented yet.");
+		o.a(boost::str(boost::format("Implicit Sphere %s is not implemented yet.")%pData->getFullPathName()));
 		liquidMessage2(messageError, "ImplicitSphere type is not implemented yet.\n%s", pData->getFullPathName());
 	}
 }//namespace elvishray

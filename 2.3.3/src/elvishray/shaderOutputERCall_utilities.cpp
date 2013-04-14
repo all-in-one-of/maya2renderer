@@ -7,7 +7,7 @@
 #include "../shadergraph/convertShadingNetwork.h"
 #include "../shadergraph/shadermgr.h"
 
-#include <eiAPI/ei.h>
+//#include <eiAPI/ei.h>
 
 namespace ERCall
 {

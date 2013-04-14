@@ -3,11 +3,13 @@
 
 #ifndef _ER_OUTPUT_MGR_H_
 #define _ER_OUTPUT_MGR_H_
-#include "output/er_output_base.h"
+#include "../common/prerequest_std.h"
+#include "../common/prerequest_maya.h"
+#include <eiAPI/ei.h>
 
 namespace elvishray
 {	
-	
+	class OutputBase;
 	//
 	class OutputMgr
 	{
@@ -41,12 +43,13 @@ namespace elvishray
 		std::string m_output_image_path;
 
 
-
 		//----------------------------------------------------
 		// ER API interfaces
 		//----------------------------------------------------
 	public:
-		void annotation(const std::string &msg);
+		void ln();//'\n'
+		void s(const std::string &msg);//string
+		void a(const std::string &msg);//annotation
 
 		void ei_context();
 		void ei_end_context();
@@ -180,7 +183,9 @@ namespace elvishray
 		//	Textures:
 		void ei_make_texture( const char *picturename, const char *texturename, 
 			int swrap, int twrap, int filter, float swidth, float twidth );
-
+		void ei_texture(const char *name);
+		void ei_file_texture(const char *filename, const eiBool local);
+		void ei_end_texture();
 
 		//	Materials:
 		void ei_material( const char *name );
@@ -261,9 +266,9 @@ namespace elvishray
 		void ei_shader_param(
 			const char *param_name, 
 			const void *param_value);
-		// void ei_shader_param_string(
-		// 								  const char *param_name, 
-		// 								  const char *param_value);
+		void ei_shader_param_token(
+		 	const char *param_name, 
+		 	const char *param_value);
 		void ei_shader_param_int(
 			const char *param_name, 
 			const eiInt param_value);
@@ -295,10 +300,27 @@ namespace elvishray
 
 		void ei_end_shader();
 
-		void ei_declare(const char *name, const eiInt storage_class, const eiInt type, const void *default_value);
+		void ei_declare(const char *name, const eiInt storage_class, const eiInt type/*, const void *default_value*/);
 		void ei_variable(const char *name, const void *value);
 		void ei_degree(const eiInt degree);
 
+
+	public:
+		//----------------------------------------------------
+		// Warped ER API interfaces
+		//----------------------------------------------------
+		void liq_lightgroup_in_object_instance(const char *light_group_name);
+		void liq_lightgroup_in_light_instance_beg();
+		void liq_lightgroup_in_light_instance(const char *light_group_name);
+		void liq_lightgroup_in_light_instance_end();
+		void liq_object(
+			const std::string &objname,
+			const std::vector<MVector> &POSITION,
+			const std::vector<MVector> &POSITION_mb,//motion blur position
+			const std::vector<std::size_t> &INDEX,//global vertex index
+			const std::vector<MVector> &NORMAL,
+			const std::vector<MVector> &UV
+			);
 	};
 	//
 }

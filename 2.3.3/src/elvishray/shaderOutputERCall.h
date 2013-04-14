@@ -7,6 +7,10 @@
 #include "../common/prerequest_maya.h"
 #include "../shadergraph/shaderOutput.h"
 
+namespace elvishray{
+	class OutputMgr;
+}
+
 namespace ERCall{
 
 class OutputHelper
@@ -50,6 +54,8 @@ public:
 protected:
 	MString rslShaderHeader;
 	MString rslShaderBody;
+	
+	elvishray::OutputMgr &out;
 
 private:
 	OutputHelper(const OutputHelper&);
@@ -299,7 +305,7 @@ public:
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
 protected:
-	//std::ofstream file;
+	elvishray::OutputMgr &out;
 private:
 	Visitor(const Visitor&);
 	Visitor& operator=(const Visitor&);
