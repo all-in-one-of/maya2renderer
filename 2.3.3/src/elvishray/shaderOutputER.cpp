@@ -294,11 +294,6 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 	}//else
 }
 //
-void OutputHelper::addToRSL(const MString& code)
-{
-	out.s(code.asChar());
-}
-//
 void OutputHelper::beginRSL (const MString &type_name, const MString &instance_name)
 {
 	CM_TRACE_FUNC("OutputHelper::beginRSL("<<type_name.asChar()<<","<<instance_name.asChar()<<")");

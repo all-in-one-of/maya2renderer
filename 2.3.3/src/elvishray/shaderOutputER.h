@@ -33,11 +33,6 @@ public:
 	//--------------------------------------------------------------------
 	void addRSLVariable(MString rslType, const MString& rslName,
 		const MString& mayaName, const MString& mayaNode);
-	
-	//--------------------------------------------------------------------
-	// Add a segment of code to the current RSL block (function).
-	//--------------------------------------------------------------------
-	void addToRSL(const MString& code);
 
 	//--------------------------------------------------------------------
 	// Begin a new block (function) of RSL code.

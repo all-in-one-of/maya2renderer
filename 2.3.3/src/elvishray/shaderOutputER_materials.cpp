@@ -10,6 +10,7 @@
 #include <liqShader.h>
 #include <liqShaderFactory.h>
 #include <liqTokenPointer.h>
+#include "er_output_mgr.h"
 
 namespace ER
 {
@@ -21,7 +22,7 @@ void Visitor::visitAnisotropic(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_anisotropic", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 void Visitor::visitBlinn(const char* node)
@@ -59,7 +60,7 @@ void Visitor::visitHairTubeShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_hairTubeShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 void Visitor::visitLambert(const char* node)
@@ -87,7 +88,7 @@ void Visitor::visitLayeredShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_layeredShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -97,7 +98,7 @@ void Visitor::visitOceanShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_oceanShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -143,7 +144,7 @@ void Visitor::visitPhongE(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_phongE", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -153,7 +154,7 @@ void Visitor::visitRampShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_rampShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -163,7 +164,7 @@ void Visitor::visitShadingMap(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_shadingMap", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -173,7 +174,7 @@ void Visitor::visitSurfaceShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_surfaceShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -183,7 +184,7 @@ void Visitor::visitUseBackground(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_useBackground", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 /// Volumetric ///
@@ -194,7 +195,7 @@ void Visitor::visitEnvFog(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_envFog", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -204,7 +205,7 @@ void Visitor::visitFluidShape(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_fluidShape", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -214,7 +215,7 @@ void Visitor::visitLightFog(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_lightFog", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -224,7 +225,7 @@ void Visitor::visitParticleCloud(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_particleCloud", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -234,7 +235,7 @@ void Visitor::visitVolumeFog(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_volumeFog", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -244,7 +245,7 @@ void Visitor::visitVolumeShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_volumeShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 /// DISPLACEMENT ///
@@ -255,7 +256,7 @@ void Visitor::visitCMuscleShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_cMuscleShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -265,7 +266,7 @@ void Visitor::visitDisplacementShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_displacementShader", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 
@@ -277,7 +278,7 @@ void Visitor::visitAmbientLight(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_ambientLight", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -287,7 +288,7 @@ void Visitor::visitAreaLight(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_areaLight", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -297,7 +298,7 @@ void Visitor::visitDirectionalLight(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_directionalLight", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -307,7 +308,7 @@ void Visitor::visitPointLight(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_pointLight", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -317,7 +318,7 @@ void Visitor::visitSpotLight(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_spotLight", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -327,7 +328,7 @@ void Visitor::visitVolumeLight(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_volumeLight", node);
-	o.addToRSL("//the type of node '"+MString(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
 	o.endRSL();
 }
 // @node	maya shader node name
