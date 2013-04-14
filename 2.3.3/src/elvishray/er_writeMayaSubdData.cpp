@@ -6,7 +6,7 @@
 #include "../common/prerequest_maya.h"
 #include "../common/mayacheck.h"
 #include "ercall.h"
-#include "er_log_helper.h"
+
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
 
@@ -43,7 +43,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeMayaSubdData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 		OutputMgr &o = Renderer::o;
 
-		_s("//maya subd "<<pData->getFullPathName()<<" is not implemented yet.");
+		o.a(boost::str(boost::format("maya subd %s is not implemented yet.")%pData->getFullPathName()));
 		liquidMessage2(messageError, "MeshSubd type is not implemented yet.\n%s", pData->getFullPathName());
 	}
 }//namespace elvishray

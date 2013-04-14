@@ -3,7 +3,7 @@
 
 #include "ercall.h"
 #include "er_renderer.h"
-#include "er_log_helper.h"
+
 
 #define _USE_ER_LIB_
 
@@ -27,7 +27,7 @@
 
 namespace elvishray
 {
-
+/*
 	//////////////////////////////////////////////////////////////////////////////////
 	void my_ei_context()
 	{
@@ -649,7 +649,7 @@ namespace elvishray
 		_s("ei_motion_box("<< xmin<<","<<ymin<<","<<zmin<<", "<<xmax<<","<<ymax<<","<<zmax<<")");
 		_e( ei_motion_box(xmin,ymin,zmin, xmax,ymax,zmax));
 	}
-	/* procedural objects */
+	// procedural objects
 	void my_ei_geometry_shader(const char *shader_name)
 	{
 		_s("ei_geometry_shader(\""<<shader_name<<"\")");
@@ -963,7 +963,7 @@ namespace elvishray
 		_s("ei_degree("<<degree<<")");
 		_e( ei_degree(degree) );
 	}
-	//
+*/
 	void my_set_eiVector4(const char* vname, eiVector4 &v, const eiScalar x, const eiScalar y, const eiScalar z, const eiScalar w )
 	{
 		//_s( vname<<".x="<<x<<"; "<<vname<<".y="<<y<<"; "<<vname<<".z="<<z<<";"<<vname<<".w="<<w<<";" );

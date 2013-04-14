@@ -6,7 +6,7 @@
 #include "../common/mayacheck.h"
 #include <trace/trace.hpp>
 #include <liqlog.h>
-#include "er_log_helper.h"
+
 #include "ercall.h"
 #include "er_renderer.h"
 

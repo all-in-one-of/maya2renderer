@@ -176,9 +176,6 @@
     <ClInclude Include="..\elvishray\er_iprMgr.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\elvishray\er_log_helper.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\elvishray\er_helper.h">
       <Filter>src</Filter>
     </ClInclude>

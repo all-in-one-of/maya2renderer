@@ -11,7 +11,7 @@
 #include <liqGlobalHelpers.h>
 #include "../common/mayacheck.h"
 #include "ercall.h"
-#include "er_log_helper.h"
+
 #include "er_helper.h"
 
 namespace elvishray

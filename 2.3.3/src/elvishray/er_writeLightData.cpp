@@ -6,7 +6,7 @@
 #include "../common/mayacheck.h"
 #include <liqRibLightData.h>
 #include "ercall.h"
-#include "er_log_helper.h"
+
 #include <liqGlobalVariable.h>
 #include "../renderermgr.h"
 
