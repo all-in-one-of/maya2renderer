@@ -5,7 +5,6 @@
 #define ER_Renderer_H
 
 #include "../rendererinterface.h"
-#include "../common/logmgr.h"
 #include "er_output_mgr.h"
 
 namespace liquid{
@@ -387,8 +386,6 @@ namespace elvishray
 		boost::thread m_renderingThread;
 
 		//
-		//std::ofstream& get() { return m_log.get(); }
- 		static liquid::LogMgr m_log;
 		static OutputMgr o;
 
 	protected:

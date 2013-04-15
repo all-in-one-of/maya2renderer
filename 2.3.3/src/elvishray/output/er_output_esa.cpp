@@ -234,8 +234,9 @@ namespace elvishray
 	void OutputESA::ei_approx(const eiApprox *approx)
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_approx(approx)");
-		liquidMessage2(messageError, "OutputESA::ei_approx()");
-		
+		s("eiApprox	approx;");
+		s("ei_approx_set_defaults(&approx);");
+
 		char buf_any[16],buf_view_dep[16];
 		sprintf_s(buf_any,      16, "%x", approx->any);
 		sprintf_s(buf_view_dep, 16, "%x", approx->view_dep);
@@ -252,6 +253,8 @@ namespace elvishray
 		m_outputfile<<"approx.max_subdiv    = "<<approx->max_subdiv		<<";"<<std::endl;
 		m_outputfile<<"approx.max_grid_size = "<<approx->max_grid_size	<<";"<<std::endl;
 		m_outputfile<<"approx.motion_factor = "<<approx->motion_factor	<<";"<<std::endl;
+	
+		s("ei_approx(&approx);");
 	}
 	void OutputESA::ei_end_options()
 	{

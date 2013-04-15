@@ -78,7 +78,8 @@ class ElvishrayTest(TestBase):
 
         #scene files
         ribdir = self.getProjectDirectory()+"/rib"
-        self.cutFiles(ribdir, "*.er", desdir)
+        self.cutFiles(ribdir, "*.esa", desdir)
+        self.cutFiles(ribdir, "*.ess", desdir)
 
         # copy logs
         logdir = self.getProjectDirectory()+"/rmanpix"

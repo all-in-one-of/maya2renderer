@@ -41,7 +41,6 @@
 
 namespace elvishray
 {
-	liquid::LogMgr Renderer::m_log;
 	OutputMgr Renderer::o;
 
 	Renderer::Renderer()
@@ -144,13 +143,6 @@ namespace elvishray
 		filename = liquidSanitizePath( filepath );
 		filename = getFullPathFromRelative ( filename );
 
-		MString logFileName(imageFullPath+".er");
-		m_log.open(logFileName.asChar(), std::ios_base::out);
-		if( !m_log.get().is_open() )
-		{
-			liquidMessage2(messageError,"can't open file: %s.\n", logFileName.asChar() );
-			assert(0&&"can't open file. see script editor for more details.");
-		}
 
 		//construct output mgr
 		o.setOutputImagePath(imageFullPath.asChar());
@@ -173,8 +165,6 @@ namespace elvishray
 		//////////////////////////////////////////////////////////////////////////
 		//destruct output mgr
 		o.uninit();
-		//close script log file
-		m_log.close();
 		//////////////////////////////////////////////////////////////////////////
 	}
 
@@ -566,11 +556,11 @@ namespace elvishray
 			{
 				char buf[1024];
 				sprintf_s(buf, 1024,
-					"method=%d,any=%x,view_dep=%x,args=[%f,%f,%f,%f],\n"
-					"sharp=%f,min_subdiv=%d,max_subdiv=%d,max_grid_size=%d,motion_factor=%f",
+					"default approx: method=%d,any=%x,view_dep=%x,args=[%f,%f,%f,%f],   sharp=%f,min_subdiv=%d,max_subdiv=%d,max_grid_size=%d,motion_factor=%f",
 					approx.method, approx.any, approx.view_dep, approx.args[0],approx.args[1],approx.args[2],approx.args[3],
 					approx.sharp,  approx.min_subdiv, approx.max_subdiv, approx.max_grid_size, approx.motion_factor);
 				liquidMessage2(messageInfo, "default approx: %s", buf );
+				o.a(buf);
 			}
 
 			//set approx
@@ -1139,14 +1129,12 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::logFrame("<<msg<<")");
 
-		assert( m_log.get().is_open() );
 		o.a(msg);
 	}
 	void Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RibBox(const char* msg)
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RibBox("<<msg<<")");
 
-		assert( m_log.get().is_open() );
 		o.a("writeShaderRibBox()");
 		o.a(msg);
 	}
@@ -1156,7 +1144,6 @@ namespace elvishray
 	{	
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_RegularShader("<<ribNode__->name.asChar()<<","<<currentJob.name.asChar()<<")");
 
-		assert( m_log.get().is_open() );
 
 	}
 	void Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(
@@ -1165,8 +1152,6 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface("
 			<<ribNode__->name.asChar()<<","<<path__.fullPathName().asChar()<<","<<m_shaderDebug<<")");
-
-		assert( m_log.get().is_open() );
 
 		//_s("//I bet it will never goes here.Renderer::writeShader_HasNoSurfaceShaderORIngoreSurface(ribNode="<<ribNode__->name <<",)" );
 		//assert(0 && "I bet it will never goes here.rm::Renderer::writeShader_HasNoSurfaceShaderORIngoreSurface()" );
