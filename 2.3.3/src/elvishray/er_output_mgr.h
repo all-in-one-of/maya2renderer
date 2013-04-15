@@ -110,7 +110,9 @@ namespace elvishray
 		void ei_motion( int type );
 
 		//	Trace Depth:
-		void ei_trace_depth( int reflect, int refract, int sum );
+		void ei_trace_depth(eiInt transp, 
+			eiInt glossy_reflect, eiInt diffuse_reflect, 
+			eiInt glossy_refract, eiInt diffuse_refract, eiInt sum);
 
 		//	Shadow:
 		void ei_shadow( int type );

@@ -77,7 +77,9 @@ namespace elvishray
 		virtual void ei_motion( int type ) = 0;
 
 		//	Trace Depth:
-		virtual void ei_trace_depth( int reflect, int refract, int sum ) = 0;
+		virtual void ei_trace_depth(eiInt transp, 
+			eiInt glossy_reflect, eiInt diffuse_reflect, 
+			eiInt glossy_refract, eiInt diffuse_refract, eiInt sum) = 0;
 
 		//	Shadow:
 		virtual void ei_shadow( int type ) = 0;

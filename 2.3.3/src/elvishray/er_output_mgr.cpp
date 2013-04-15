@@ -352,14 +352,18 @@ namespace elvishray
 	}
 
 	//	Trace Depth:
-	void OutputMgr::ei_trace_depth( int reflect, int refract, int sum )
+	void OutputMgr::ei_trace_depth(eiInt transp, 
+		eiInt glossy_reflect, eiInt diffuse_reflect, 
+		eiInt glossy_refract, eiInt diffuse_refract, eiInt sum)
 	{
 		//CM_TRACE_FUNC("OutputMgr::ei_trace_depth(4,4,4,"<<reflect<<","<<refract<<","<<sum<<")");
 		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
 		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
 		for(; i!=e; ++i)
 		{
-			(*i)->ei_trace_depth(reflect,refract,sum);
+			(*i)->ei_trace_depth(transp, 
+				glossy_reflect, diffuse_reflect, 
+				glossy_refract, diffuse_refract, sum);
 		}
 	}
 	//	Shadow:

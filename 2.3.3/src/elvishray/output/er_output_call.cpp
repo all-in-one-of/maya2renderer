@@ -152,11 +152,14 @@ namespace elvishray
 	}
 
 	//	Trace Depth:
-	void OutputCall::ei_trace_depth( int reflect, int refract, int sum )
+	void OutputCall::ei_trace_depth(eiInt transp, 
+		eiInt glossy_reflect, eiInt diffuse_reflect, 
+		eiInt glossy_refract, eiInt diffuse_refract, eiInt sum)
 	{
 		//CM_TRACE_FUNC("OutputCall::ei_trace_depth(4,4,4,"<<reflect<<","<<refract<<","<<sum<<")");
-		liquidMessage2(messageError, "OutputCall::ei_trace_depth() need feed the parameters");
-		::ei_trace_depth(4,4,4,reflect,refract,sum);
+		::ei_trace_depth(transp, 
+			glossy_reflect, diffuse_reflect, 
+			glossy_refract, diffuse_refract, sum);
 	}
 	//	Shadow:
 	void OutputCall::ei_shadow( int type )

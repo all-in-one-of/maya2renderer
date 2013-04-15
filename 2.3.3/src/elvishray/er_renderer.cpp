@@ -529,8 +529,9 @@ namespace elvishray
 //		_S("ei_motion_Segments( int num );");
 
 		//	Trace Depth:
+		liquidMessage2(messageError, "ei_trace_depth() need feed the parameters");
 		MVector tracedepth(m_gnode->getVector("trace_depth"));
-		o.ei_trace_depth( tracedepth.x, tracedepth.y, tracedepth.z );
+		o.ei_trace_depth( 4,4,4, tracedepth.x, tracedepth.y, tracedepth.z );
 
 		//	Shadow:
 //		_S("ei_Shadow( int type );");
