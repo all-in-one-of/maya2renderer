@@ -1228,5 +1228,19 @@ namespace elvishray
 			(*i)->liq_object(objname, POSITION, POSITION_mb, INDEX, NORMAL, UV);
 		}
 	}
+	void OutputMgr::liq_hair(
+		const std::string &objname,
+		MFnPfxGeometry &fnPfxGeometry,
+		int degree,
+		unsigned setOn)
+	{
+		//CM_TRACE_FUNC("OutputMgr::liq_hair("<<objname<<",...)");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->liq_hair(objname, fnPfxGeometry, degree, setOn);
+		}
+	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

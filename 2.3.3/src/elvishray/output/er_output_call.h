@@ -305,6 +305,12 @@ namespace elvishray
 			const std::vector<MVector> &NORMAL,
 			const std::vector<MVector> &UV
 			);
+		virtual void liq_hair(
+			const std::string &objname,
+			MFnPfxGeometry &fnPfxGeometry,
+			int degree,
+			unsigned setOn
+			);
 	protected:
 		char *null_token;
 		eiInt defaultInt;

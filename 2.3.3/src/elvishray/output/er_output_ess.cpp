@@ -643,8 +643,14 @@ namespace elvishray
 		)
 	{
 		//CM_TRACE_FUNC("OutputESS::liq_object("<<light_group_name<<")");
-
-
+	}
+	void OutputESS::liq_hair(
+		const std::string &objname,
+		MFnPfxGeometry &fnPfxGeometry,
+		int degree,
+		unsigned setOn)
+	{
+		//CM_TRACE_FUNC("OutputESS::liq_hair(objname)");
 
 	}
 }//namespace elvishray

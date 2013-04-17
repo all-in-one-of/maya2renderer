@@ -749,5 +749,14 @@ namespace elvishray
 		s("}//"+objname);
 		s("ei_end_object();");
 	}
+	void OutputESA::liq_hair(
+		const std::string &objname,
+		MFnPfxGeometry &fnPfxGeometry,
+		int degree,
+		unsigned setOn)
+	{
+		//CM_TRACE_FUNC("OutputESA::liq_hair(objname)");
+
+	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

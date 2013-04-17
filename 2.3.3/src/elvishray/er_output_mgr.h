@@ -323,6 +323,12 @@ namespace elvishray
 			const std::vector<MVector> &NORMAL,
 			const std::vector<MVector> &UV
 			);
+		void liq_hair(
+			const std::string &objname,
+			MFnPfxGeometry &fnPfxGeometry,
+			int degree,
+			unsigned setOn
+			);
 	};
 	//
 }
