@@ -87,20 +87,20 @@ namespace elvishray
 #else// SHAPE SHAPE_object PAIR
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
-		liquidMessage2(messageError, "pfxData is ommited now");
-/*
-		_S( ei_object( "hair", objectName.c_str() ) );
-		_s("{");
-			_S( ei_degree(degree) );
+		//liquidMessage2(messageError, "pfxData is ommited now");
+
+		ei_object( "hair", objectName.c_str() );
+		//_s("{");
+			ei_degree(degree);
 			this->generate_pfx(ribNode__, pData, degree);
-		_s("}//"<<objectName);
-		_S( ei_end_object() );
-*/
+		//_s("}//"<<objectName);
+		ei_end_object();
+
 	}
 	//
 	void Renderer::generate_pfx(liqRibNodePtr &ribNode__, liqRibPfxData* pData, const int degree)
 	{
-/*		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
+		CM_TRACE_FUNC("generate_pfxhair("<<ribNode__->getTransformNodeFullPath().asChar()<<")");
 
 		MStatus status;
 		MFnPfxGeometry pfx(pData->objDagPath, &status);
@@ -154,12 +154,12 @@ namespace elvishray
 		if( totalVarying )
 		{
 
-			_d( eiTag vtx_list );
-			_d( vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000) );
-			_d( ei_end_tab() );
-			_d( eiTag hair_list );
-			_d( hair_list = ei_tab(EI_TYPE_INDEX, 100000) );
-			_d( ei_end_tab() );
+			eiTag vtx_list;
+			vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000);
+			ei_end_tab();
+			eiTag hair_list;
+			hair_list = ei_tab(EI_TYPE_INDEX, 100000);
+			ei_end_tab();
 		
 			// read other attributes from the lines
 			boost::shared_array< liqFloat > uniformCurveWidth(  new liqFloat[ numLines ] );
@@ -174,9 +174,9 @@ namespace elvishray
 			//for each hair
 			for( unsigned lineOn( 0 ); lineOn < lines[ setOn ].length(); lineOn++ )
 			{
-				_d( eiInt index ); 
-				_d( index = ei_data_table_size(vtx_list) );
-				_d( ei_data_table_push_back(hair_list, &index) );//start vertex index of this hair in vtx_list
+				eiInt index; 
+				index = ei_data_table_size(vtx_list);
+				ei_data_table_push_back(hair_list, &index);//start vertex index of this hair in vtx_list
 
 
 				MRenderLine pfxLine( lines[ setOn ].renderLine( lineOn, &status ) );
@@ -184,11 +184,12 @@ namespace elvishray
 
 				const MVectorArray& pfxVerts( pfxLine.getLine() );
 				const MDoubleArray& pfxWidth( pfxLine.getWidth() );
-				_d( eiIndex num_segments );
-				num_segments = (pfxVerts.length() +2)/degree; _s("num_segments="<< num_segments);
-				_d( ei_data_table_push_back(hair_list, &num_segments) );//how many segments this hair contains 
+				eiIndex num_segments ;
+				num_segments = (pfxVerts.length() +2)/degree; 
+				//_s("num_segments="<< num_segments);
+				ei_data_table_push_back(hair_list, &num_segments);//how many segments this hair contains 
 				
-				_d( eiVector4 vtx );
+				eiVector4 vtx;
 				//for each vertex on this hair
 				unsigned pOn( 0 );
 				for( ; pOn < pfxVerts.length(); pOn++ )
@@ -208,7 +209,7 @@ namespace elvishray
 							pfxVerts[ pOn ].y, 
 							pfxVerts[ pOn ].z, 
 							pfxWidth[ pOn ] * 0.75);
-						_d( ei_data_table_push_back(vtx_list, &vtx) );
+						ei_data_table_push_back(vtx_list, &vtx);
 					}else{
 						// start vertices (pOn == 0)
  						if( 1 == setOn )
@@ -224,14 +225,14 @@ namespace elvishray
  							tmpVertex.y, 
  							tmpVertex.z, 
  							pfxWidth[ pOn ] * 0.75);
- 						_d( ei_data_table_push_back(vtx_list, &vtx) );
+ 						ei_data_table_push_back(vtx_list, &vtx);
 
 						my_set_eiVector4("vtx", vtx, 
 							pfxVerts[ 0 ].x, 
 							pfxVerts[ 0 ].y, 
 							pfxVerts[ 0 ].z, 
 							pfxWidth[ 0 ] * 0.75);
-						_d( ei_data_table_push_back(vtx_list, &vtx) );
+						ei_data_table_push_back(vtx_list, &vtx);
 					}
 				}//for( ; pOn < pfxVerts.length(); pOn++ ) 
 				// end vertex
@@ -244,11 +245,11 @@ namespace elvishray
 					tmpVertex.y, 
 					tmpVertex.z, 
 					width * 0.75);
-				_d( ei_data_table_push_back(vtx_list, &vtx) );
+				ei_data_table_push_back(vtx_list, &vtx);
 			}//for lineon
 
-			_d( ei_vertex_list(vtx_list) );
-			_d( ei_hair_list(hair_list) );
+			ei_vertex_list(vtx_list);
+			ei_hair_list(hair_list);
 
 		}//if( totalVarying ) 
 
@@ -261,7 +262,7 @@ namespace elvishray
 		lines[0].deleteArray();
 		lines[1].deleteArray();
 		lines[2].deleteArray();
-*/
+
 	}
 
 }//namespace elvishray
