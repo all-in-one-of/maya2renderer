@@ -4,7 +4,11 @@
 - TODO List
 - DONE List
 
-
+-liq| rm|: shader parameter 里如果有':'应该替换为‘_’,测试happywalk
+-liq| er| ess|: pfxhair
+- liq|er|: maya crash: maya_shader/shader_graph/shader_graph/shader_graph.ma
+- liq|er| ui|: trace_depth --> eiInt transp,  eiInt glossy_reflect, eiInt diffuse_reflect,  eiInt glossy_refract, eiInt diffuse_refract, eiInt sum
+- liq| er| ess|: 回归测试
 - liq| er|: er渲染时会写缓存数据吗？我发现第二次渲染比第一次渲染快很多
 -liq| er|: 重构，然后输出ess
 -liq| er|: chicken_rig 渲染完毕时崩溃
