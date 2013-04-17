@@ -690,17 +690,16 @@ namespace elvishray
 
 		//### triangles(required)
 		//size="<< INDEX.size();
+		tag = ::ei_tab(EI_TYPE_INDEX, 1024);
+		::ei_triangle_list( tag );
 		if( INDEX.size()>0 )
 		{
-			tag = ::ei_tab(EI_TYPE_INDEX, 1024);
-			::ei_triangle_list( tag );
 			for(size_t i=0; i<INDEX.size(); ++i)
 			{
 				::ei_tab_add_index(INDEX[i]);
 			}
-			::ei_end_tab();
 		}
-
+		::ei_end_tab();
 		::ei_end_object();
 
 	}

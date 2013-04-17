@@ -737,16 +737,16 @@ namespace elvishray
 
 
 		a(boost::str(boost::format("### triangles(required) size=%d") %INDEX.size()));
+		s("tag = ei_tab(EI_TYPE_INDEX, 1024);");
+		s("ei_triangle_list( tag );");		
 		if( INDEX.size()>0 )
 		{
-			s("tag = ei_tab(EI_TYPE_INDEX, 1024);");
-			s("ei_triangle_list( tag );");
 			for(size_t i=0; i<INDEX.size(); ++i)
 			{
 				s(boost::str(boost::format("ei_tab_add_index(%d);")%INDEX[i]));
 			}
-			s("ei_end_tab();");
 		}
+		s("ei_end_tab();");
 		s("}//"+objname);
 		s("ei_end_object();");
 	}
