@@ -467,6 +467,8 @@ namespace elvishray
 		render( currentJob );
 
 		o.ei_end_context();
+		o.a("------------------------------------------------");
+		o.ln();
 
 		return MS::kSuccess;
 	}
