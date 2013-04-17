@@ -1288,6 +1288,7 @@ namespace elvishray
 		if( isBatchMode() )
 		{
 			o.a(" in batch render mode");
+			o.a(boost::str(boost::format("ei_render( \"%s\", \"%s\", \"%s\" );")%m_root_group.c_str() %cameraFullPath.asChar() %m_option.c_str()));
 			o.ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() );
 		}else{
 			//set callback function for ER
@@ -1360,6 +1361,7 @@ namespace elvishray
 			return /*MS::kFailure*/;
 		}
 
+		o.a(boost::str(boost::format("ei_render( \"%s\", \"%s\", \"%s\" );")%renderGroup.asChar() %cameraName.asChar() %optionName.asChar()));
 		if( true )
 		{
 			o.ei_render( renderGroup.asChar(), cameraName.asChar(), optionName.asChar() );
