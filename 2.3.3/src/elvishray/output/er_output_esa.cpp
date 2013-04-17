@@ -3,6 +3,7 @@
 #include "er_output_esa.h"
 #include <liqlog.h>
 #include <trace/trace.hpp>
+#include "../../common/mayacheck.h"
 
 namespace elvishray
 {
@@ -756,7 +757,159 @@ namespace elvishray
 		unsigned setOn)
 	{
 		//CM_TRACE_FUNC("OutputESA::liq_hair(objname)");
+		MStatus status;
 
+		s("ei_object( \"hair\", \""+objname+"\" );");
+		s("{");
+		s(boost::str(boost::format("ei_degree(%d);")%degree));
+
+		bool uniformWidth[3] = { false, false, false };
+
+		MRenderLineArray lines[ 3 ];//main/leaf/flower lines
+
+		bool doLines          = true;
+		bool doTwist          = true;
+		bool doWidth          = true;
+		bool doFlatness       = false;
+		bool doParameter      = false;
+		bool doColor          = true;
+		bool doIncandescence  = false;
+		bool doTransparency   = true;
+		bool doWorldSpace     = false;
+
+		IfMErrorWarn(fnPfxGeometry.getLineData( lines[ 0 ], lines[ 1 ], lines[ 2 ],
+			true,  // lines
+			true,  // twist
+			true,  // width
+			true,  // flatness
+			false, // parameter
+			true,  // color
+			true,  // incandescence
+			true,  // transparency
+			false  // worldSpace
+			)
+			);
+		// default: MRT_PfxTube
+
+
+		unsigned totalVertex( 0 );
+		unsigned totalVarying( 0 );
+		unsigned numLines( lines[ setOn ].length() );
+
+		for( unsigned lineOn( 0 ); lineOn < numLines; lineOn++ )
+		{
+			MRenderLine pfxLine( lines[ setOn ].renderLine( lineOn, &status ) );
+			MVectorArray pfxVerts( pfxLine.getLine() );
+			totalVarying += pfxVerts.length();
+		}
+		totalVertex = totalVarying + ( 2 * numLines );
+
+		if( totalVarying )
+		{
+
+			s("eiTag vtx_list;");
+			s("vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000);");
+			s("ei_end_tab();");
+			s("eiTag hair_list;");
+			s("hair_list = ei_tab(EI_TYPE_INDEX, 100000);");
+			s("ei_end_tab();");
+
+			// read other attributes from the lines
+			boost::shared_array< liqFloat > uniformCurveWidth(  new liqFloat[ numLines ] );
+			boost::shared_array< liqFloat > curveWidth(         new liqFloat[ totalVarying ] );
+			liqFloat* uniformWidthPtr( uniformCurveWidth.get() );
+			liqFloat* widthPtr( curveWidth.get() );
+
+			bool hasUniformWidth( false );
+			bool hasWidth( false );
+
+
+			//for each hair
+			for( unsigned lineOn( 0 ); lineOn < lines[ setOn ].length(); lineOn++ )
+			{
+				s("eiInt index;");
+				s("index = ei_data_table_size(vtx_list);");
+				s("ei_data_table_push_back(hair_list, &index);");//start vertex index of this hair in vtx_list
+
+
+				MRenderLine pfxLine( lines[ setOn ].renderLine( lineOn, &status ) );
+				IfMErrorWarn(status);
+
+				const MVectorArray& pfxVerts( pfxLine.getLine() );
+				const MDoubleArray& pfxWidth( pfxLine.getWidth() );
+
+				eiIndex num_segments = (pfxVerts.length() +2)/degree;
+				s(boost::str(boost::format("eiIndex num_segments = %d;")%num_segments));
+				s("ei_data_table_push_back(hair_list, &num_segments);");//how many segments this hair contains 
+
+				s("eiVector4 vtx;");
+				//for each vertex on this hair
+				unsigned pOn( 0 );
+				for( ; pOn < pfxVerts.length(); pOn++ )
+				{
+					if( pOn )
+					{
+						// some vertex in between start and end (pOn > 0)
+						if( ( 1 == setOn ) && ( pOn ==  pfxVerts.length() - 1 ) )
+						{
+							// leaves need to be capped
+							MVector compensate( pfxVerts[ pOn ] - pfxVerts[ pOn - 1 ] );
+							compensate.normalize();
+							const_cast< MVectorArray& >( pfxVerts )[ pOn ] += *( widthPtr - 1 ) * compensate;
+						}
+						s(boost::str(boost::format("vtx.x = %f;")%pfxVerts[ pOn ].x));
+						s(boost::str(boost::format("vtx.y = %f;")%pfxVerts[ pOn ].y));
+						s(boost::str(boost::format("vtx.z = %f;")%pfxVerts[ pOn ].z));
+						s(boost::str(boost::format("vtx.w = %f;")%(pfxWidth[ pOn ] * 0.75)));
+						s("ei_data_table_push_back(vtx_list, &vtx);");
+					}else{
+						// start vertices (pOn == 0)
+						if( 1 == setOn )
+						{
+							// leaves need to be capped
+							MVector compensate( pfxVerts[ 1 ] - pfxVerts[ 0 ] );
+							compensate.normalize();
+							const_cast< MVectorArray& >( pfxVerts )[ 0 ] += -*( widthPtr - 1 ) * compensate;
+						}
+						const MVector tmpVertex( pfxVerts[ 0 ] - ( pfxVerts[ 1 ] - pfxVerts[ 0 ] ) );
+						s(boost::str(boost::format("vtx.x = %f;")%tmpVertex.x));
+						s(boost::str(boost::format("vtx.y = %f;")%tmpVertex.y));
+						s(boost::str(boost::format("vtx.z = %f;")%tmpVertex.z));
+						s(boost::str(boost::format("vtx.w = %f;")%(pfxWidth[ pOn ] * 0.75)));		
+
+						s("ei_data_table_push_back(vtx_list, &vtx);");
+
+						s(boost::str(boost::format("vtx.x = %f;")%pfxVerts[ 0 ].x));
+						s(boost::str(boost::format("vtx.y = %f;")%pfxVerts[ 0 ].y));
+						s(boost::str(boost::format("vtx.z = %f;")%pfxVerts[ 0 ].z));
+						s(boost::str(boost::format("vtx.w = %f;")%(pfxWidth[ 0 ] * 0.75)));
+
+						s("ei_data_table_push_back(vtx_list, &vtx);");
+					}
+				}//for( ; pOn < pfxVerts.length(); pOn++ ) 
+				// end vertex
+				// last vertex has already been pushed
+
+				const MVector tmpVertex( pfxVerts[ pOn - 1 ] + ( pfxVerts[ pOn - 1 ] - pfxVerts[ pOn - 2 ] ) );
+				const eiScalar width   ( pfxWidth[ pOn - 1 ] + ( pfxWidth[ pOn - 1 ] - pfxWidth[ pOn - 2 ] ) ); ;
+				s(boost::str(boost::format("vtx.x = %f;")%tmpVertex.x));
+				s(boost::str(boost::format("vtx.y = %f;")%tmpVertex.y));
+				s(boost::str(boost::format("vtx.z = %f;")%tmpVertex.z));
+				s(boost::str(boost::format("vtx.w = %f;")%(width * 0.75)));
+				s("ei_data_table_push_back(vtx_list, &vtx);");
+			}//for lineon
+
+			s("ei_vertex_list(vtx_list);");
+			s("ei_hair_list(hair_list);");
+
+		}//if( totalVarying ) 
+
+		// free memory for lines arrays, are not freed by pfx destructor - Alf
+		lines[0].deleteArray();
+		lines[1].deleteArray();
+		lines[2].deleteArray();
+		s("}//"+objname);
+		s("ei_end_object();");
 	}
 }//namespace elvishray
 #endif//_USE_ELVISHRAY_

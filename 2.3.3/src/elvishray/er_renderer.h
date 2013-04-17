@@ -451,7 +451,7 @@ namespace elvishray
 		void _write_pfxhair(liqRibPfxHairData* pData, const structJob &currentJob__);
 		void generate_pfxhair(liqRibNodePtr &ribNode__, liqRibPfxHairData* phair, const int degree);
 		void _write_pfx(liqRibPfxData* pData, const structJob &currentJob__);
-		void generate_pfx(liqRibNodePtr &ribNode__, liqRibPfxData* phair, const int degree);
+//		void generate_pfx(liqRibNodePtr &ribNode__, liqRibPfxData* phair, const int degree);
 		void _write_shavehair(liqRibShaveData* pData, const structJob &currentJob__);
 		void generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree);
 
