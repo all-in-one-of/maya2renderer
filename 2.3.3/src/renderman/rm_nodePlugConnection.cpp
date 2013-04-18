@@ -180,7 +180,10 @@ namespace renderman
 		ret += ");";
 
 		//4. replace '.' with '_'
-		return boost::replace_all_copy(ret, ".", "_");
+		ret = boost::replace_all_copy(ret, ".", "_");
+		ret = boost::replace_all_copy(ret, "|", "_" );
+		ret = boost::replace_all_copy(ret, ":", "_" );
+		return ret;
 	}
 	std::string NodePlugConnectionMgr::log(const std::size_t I)const
 	{
