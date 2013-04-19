@@ -117,8 +117,12 @@ void place2dTexture2 (
 {
  extern float s, t;
  float uvCoord[2];
+ {
+ //use renderman internal uv
  uvCoord[0] = s;
- uvCoord[1] = 1 - t;
+ uvCoord[1] = t;
+ }
+ uvCoord[1] = 1 - uvCoord[1];//adjust v for renderman
  coverage[0] = float 1;  coverage[1] = float 1; ;
  mirrorU = float 0;
  mirrorV = float 0;
@@ -301,19 +305,19 @@ void lambert5 (
  float place2dTexture2_outUV[2];
  color file2_outColor;
 
- //place2dTexture2
- place2dTexture2(place2dTexture2_coverage, place2dTexture2_mirrorU, place2dTexture2_mirrorV, place2dTexture2_noiseUV, place2dTexture2_offset, place2dTexture2_repeatUV, place2dTexture2_rotateFrame, place2dTexture2_rotateUV, place2dTexture2_stagger, place2dTexture2_translateFrame, place2dTexture2_wrapU, place2dTexture2_wrapV, place2dTexture2_outUV);
-//input: 
-//output:place2dTexture2_coverage,place2dTexture2_mirrorU,place2dTexture2_mirrorV,place2dTexture2_noiseUV,place2dTexture2_offset,place2dTexture2_repeatUV,place2dTexture2_rotateFrame,place2dTexture2_rotateUV,place2dTexture2_stagger,place2dTexture2_translateFrame,place2dTexture2_wrapU,place2dTexture2_wrapV,place2dTexture2_outUV,
+place2dTexture2(place2dTexture2_coverage, place2dTexture2_mirrorU, place2dTexture2_mirrorV, place2dTexture2_noiseUV, place2dTexture2_offset, place2dTexture2_repeatUV, place2dTexture2_rotateFrame, place2dTexture2_rotateUV, place2dTexture2_stagger, place2dTexture2_translateFrame, place2dTexture2_wrapU, place2dTexture2_wrapV, place2dTexture2_outUV);
+//inputSrc: 
+//inputDes: 
+//outputSrc: place2dTexture2.coverage, place2dTexture2.mirrorU, place2dTexture2.mirrorV, place2dTexture2.noiseUV, place2dTexture2.offset, place2dTexture2.repeatUV, place2dTexture2.rotateFrame, place2dTexture2.rotateUV, place2dTexture2.stagger, place2dTexture2.translateFrame, place2dTexture2.wrapU, place2dTexture2.wrapV, place2dTexture2.outUV, 
 
- //file2
- file2(place2dTexture2_outUV, file2_outColor);
-//input: place2dTexture2_outUV,
-//output:file2_outColor,
+file2(place2dTexture2_outUV, file2_outColor);
+//inputSrc: place2dTexture2.outUV, 
+//inputDes: file2.uvCoord, 
+//outputSrc: file2.outColor, 
 
- //lambert5
- lambert5(file2_outColor);
-//input: file2_outColor,
-//output:
+lambert5(file2_outColor);
+//inputSrc: file2.outColor, 
+//inputDes: lambert5.color, 
+//outputSrc: 
 
 }

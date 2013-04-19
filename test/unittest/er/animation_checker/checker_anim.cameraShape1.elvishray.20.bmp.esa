@@ -56,6 +56,9 @@ ei_transform(0.911118,0,-0.412145,0,   -0.367029,0.454918,-0.811381,0,   0.18749
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -246,8 +249,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -301,6 +307,9 @@ ei_transform(0.94628,0,-0.32335,0,   -0.290152,0.441358,-0.849126,0,   0.142713,
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -491,8 +500,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -546,6 +558,9 @@ ei_transform(0.998981,0,-0.0451325,0,   -0.0409102,0.422321,-0.905523,0,   0.019
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -736,8 +751,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -791,6 +809,9 @@ ei_transform(0.9335,2.77556e-017,0.358578,0,   0.320903,0.446204,-0.835418,0,   
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -981,8 +1002,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -1036,6 +1060,9 @@ ei_transform(0.745852,0,0.666112,0,   0.565108,0.529407,-0.632757,0,   -0.352644
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -1226,8 +1253,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -1281,6 +1311,9 @@ ei_transform(0.573452,0,0.819239,0,   0.636092,0.630188,-0.445253,0,   -0.516274
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -1471,8 +1504,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -1526,6 +1562,9 @@ ei_transform(0.458629,0,0.888628,0,   0.623711,0.712294,-0.321903,0,   -0.632965
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -1716,8 +1755,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -1771,6 +1813,9 @@ ei_transform(0.389188,0,0.921158,0,   0.590899,0.767145,-0.249654,0,   -0.706662
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -1961,8 +2006,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -2016,6 +2064,9 @@ ei_transform(0.351501,0,0.936188,0,   0.564201,0.798,-0.211835,0,   -0.747077,0.
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -2206,8 +2257,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -2261,6 +2315,9 @@ ei_transform(0.339123,0,0.940742,0,   0.553986,0.808219,-0.199703,0,   -0.760326
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -2451,8 +2508,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -2506,6 +2566,9 @@ ei_transform(0.357762,-5.55112e-017,0.933813,0,   0.546741,0.810677,-0.209467,0,
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -2696,8 +2759,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -2751,6 +2817,9 @@ ei_transform(0.544323,0,0.838876,0,   0.451203,0.84303,-0.292773,0,   -0.707197,
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -2941,8 +3010,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -2996,6 +3068,9 @@ ei_transform(0.712185,0,0.701992,0,   0.324596,0.886675,-0.329309,0,   -0.622439
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -3186,8 +3261,11 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+
 ei_context();
 ei_verbose(6);
 ei_link("eiIMG");
@@ -3241,6 +3319,9 @@ ei_transform(0.743412,2.77556e-017,0.668833,0,   0.296095,0.896668,-0.329111,0, 
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -3431,5 +3512,8 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
 ei_end_context();
+//------------------------------------------------
+

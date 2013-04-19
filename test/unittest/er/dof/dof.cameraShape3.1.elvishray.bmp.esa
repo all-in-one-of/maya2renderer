@@ -261,5 +261,8 @@ ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|pCube2");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "cameraShape3", "|camera3|cameraShape3", "cameraShape3_option" );
 ei_render( "cameraShape3", "|camera3|cameraShape3", "cameraShape3_option" );
 ei_end_context();
+//------------------------------------------------
+

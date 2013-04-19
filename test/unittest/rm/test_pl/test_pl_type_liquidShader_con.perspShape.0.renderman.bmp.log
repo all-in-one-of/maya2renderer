@@ -150,7 +150,7 @@
           >5 liqRibTranslatorNew::dealwithParticleInstancedObjects(0,1,4)
           >5 liqRibTranslatorNew::getCameraData(iter__,0)
             >6 liqRibTranslator::getCameraInfo(|persp|perspShape,)
-              >7 liqRibTranslator::portFieldOfView(768,576,&horizontal,&vertical,&fnCamera)
+              >7 liqRibTranslator::portFieldOfView(200,150,&horizontal,&vertical,&fnCamera)
                 >8 liqRibTranslator::computeViewingFrustum(1.33333,,&left,&right,&bottom,&top,|persp|perspShape)
             >6 liqRibTranslator::getCameraFilmOffset(|persp|perspShape,)
             >6 liqRibTranslator::getCameraTransform(|persp|perspShape,)

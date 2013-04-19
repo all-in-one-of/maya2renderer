@@ -117,8 +117,12 @@ void place2dTexture1 (
 {
  extern float s, t;
  float uvCoord[2];
+ {
+ //use renderman internal uv
  uvCoord[0] = s;
- uvCoord[1] = 1 - t;
+ uvCoord[1] = t;
+ }
+ uvCoord[1] = 1 - uvCoord[1];//adjust v for renderman
  coverage[0] = float 1;  coverage[1] = float 1; ;
  mirrorU = float 0;
  mirrorV = float 0;
@@ -254,8 +258,12 @@ void place2dTexture2 (
 {
  extern float s, t;
  float uvCoord[2];
+ {
+ //use renderman internal uv
  uvCoord[0] = s;
- uvCoord[1] = 1 - t;
+ uvCoord[1] = t;
+ }
+ uvCoord[1] = 1 - uvCoord[1];//adjust v for renderman
  coverage[0] = float 1;  coverage[1] = float 1; ;
  mirrorU = float 0;
  mirrorV = float 0;

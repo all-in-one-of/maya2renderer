@@ -1286,3 +1286,4 @@ ei_add_instance("|pCube5");
 ei_add_instance("|pCube6");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );

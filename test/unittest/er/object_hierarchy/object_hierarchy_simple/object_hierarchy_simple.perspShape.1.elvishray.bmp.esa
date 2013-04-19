@@ -615,6 +615,7 @@ ei_add_instance("|pCube1|group1|pPlane1");
 ei_add_instance("|pCube1|pCone1");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
 ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------

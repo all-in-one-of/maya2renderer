@@ -171,9 +171,9 @@ void blinn1 (
 
 // call the shaders ----------------------------------------------------------------------------
 
- //blinn1
- blinn1();
-//input: 
-//output:
+blinn1();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

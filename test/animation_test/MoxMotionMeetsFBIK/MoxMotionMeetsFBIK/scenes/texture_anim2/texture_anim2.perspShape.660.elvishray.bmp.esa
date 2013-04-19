@@ -56,6 +56,9 @@ ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -76,7 +79,6 @@ ei_shader_param_scalar("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
-ei_make_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0001.tif", "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0001.tif.tex",1,1,1, 1, 1);
 ei_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0001.tif");
 ei_file_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0001.tif.tex", 0);
 ei_end_texture();
@@ -198,6 +200,9 @@ ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -2844,6 +2849,9 @@ ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -2864,7 +2872,6 @@ ei_shader_param_scalar("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
-ei_make_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0002.tif", "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0002.tif.tex",1,1,1, 1, 1);
 ei_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0002.tif");
 ei_file_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0002.tif.tex", 0);
 ei_end_texture();
@@ -5491,6 +5498,9 @@ ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -8137,6 +8147,9 @@ ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);

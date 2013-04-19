@@ -56,6 +56,9 @@ ei_transform(0.99824,0,-0.0593064,0,   -0.0550414,0.372367,-0.926452,0,   0.0220
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture1");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
@@ -232,5 +235,8 @@ ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|pPlane1");
 ei_end_instgroup();
 // in batch render mode
+//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
 ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
 ei_end_context();
+//------------------------------------------------
+

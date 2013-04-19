@@ -56,6 +56,9 @@ ei_transform(0.999903,0,0.0139622,0,   0.0108507,0.62932,-0.77707,0,   -0.008786
 ei_end_instance();
 
 ei_shader("maya_place2dTexture", "place2dTexture3");
+ei_shader_param_int("liq_UserDefinedU",0);
+ei_shader_param_int("liq_UserDefinedV",0);
+ei_shader_param_vector("uvCoord",0,0,0);
 ei_shader_param_scalar("coverageU",1);
 ei_shader_param_scalar("coverageV",1);
 ei_shader_param_bool("mirrorU",0);
