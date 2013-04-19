@@ -144,20 +144,20 @@ void Visitor::visitPlace2dTexture(const char* node)
 	o.addToRSL("float uvCoord[2];");
 	o.addToRSL("uvCoord[0] = s;");
 	o.addToRSL("uvCoord[1] = 1 - t;");//adjust for Renderman
-	o.addRSLVariable("uniform", "float2", "coverage",		"coverage",		node);	m_NodePlugInfo.add(node, "coverage",		"float2");
-	o.addRSLVariable("uniform", "float",  "mirrorU",		"mirrorU",		node);	m_NodePlugInfo.add(node, "mirrorU",		"float");
-	o.addRSLVariable("uniform", "float",  "mirrorV",		"mirrorV",		node);	m_NodePlugInfo.add(node, "mirrorV",		"float");
-	o.addRSLVariable("uniform", "float2", "noiseUV",		"noiseUV",		node);	m_NodePlugInfo.add(node, "noiseUV",		"float2");
-	o.addRSLVariable(		"", "float2", "offset",			"offset",		node);	m_NodePlugInfo.add(node, "offset",		"float2");
-	o.addRSLVariable("uniform", "float2", "repeatUV",		"repeatUV",		node);	m_NodePlugInfo.add(node, "repeatUV",		"float2");
-	o.addRSLVariable("uniform", "float",  "rotateFrame",	"rotateFrame",	node);	m_NodePlugInfo.add(node, "rotateFrame",	"float");
-	o.addRSLVariable("uniform", "float",  "rotateUV",		"rotateUV",		node);	m_NodePlugInfo.add(node, "rotateUV",		"float");
-	o.addRSLVariable("uniform", "float",  "stagger",		"stagger",		node);	m_NodePlugInfo.add(node, "stagger",		"float");
-	o.addRSLVariable("uniform", "float2", "translateFrame",	"translateFrame",node);	m_NodePlugInfo.add(node, "translateFrame","float2");
-	o.addRSLVariable("uniform", "float",  "wrapU",			"wrapU",		node);	m_NodePlugInfo.add(node, "wrapU",			"float");
-	o.addRSLVariable("uniform", "float",  "wrapV",			"wrapV",		node);	m_NodePlugInfo.add(node, "wrapV",			"float");
+	o.addRSLVariable("uniform", "float2", "coverage",		"coverage",		node);
+	o.addRSLVariable("uniform", "float",  "mirrorU",		"mirrorU",		node);
+	o.addRSLVariable("uniform", "float",  "mirrorV",		"mirrorV",		node);
+	o.addRSLVariable("uniform", "float2", "noiseUV",		"noiseUV",		node);
+	o.addRSLVariable(		"", "float2", "offset",			"offset",		node);
+	o.addRSLVariable("uniform", "float2", "repeatUV",		"repeatUV",		node);
+	o.addRSLVariable("uniform", "float",  "rotateFrame",	"rotateFrame",	node);
+	o.addRSLVariable("uniform", "float",  "rotateUV",		"rotateUV",		node);
+	o.addRSLVariable("uniform", "float",  "stagger",		"stagger",		node);
+	o.addRSLVariable("uniform", "float2", "translateFrame",	"translateFrame",node);
+	o.addRSLVariable("uniform", "float",  "wrapU",			"wrapU",		node);
+	o.addRSLVariable("uniform", "float",  "wrapV",			"wrapV",		node);
 	// Outputs
-	o.addRSLVariable(       "", "float2", "outUV",		"outUV",	node);			m_NodePlugInfo.add(node, "outUV",	"float2");
+	o.addRSLVariable(       "", "float2", "outUV",		"outUV",	node);
 
 	o.addToRSL("{");
 	o.addToRSL("uniform float i_coverageU="+coverageU+";");
