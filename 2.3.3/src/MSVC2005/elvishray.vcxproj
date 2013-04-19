@@ -2278,11 +2278,6 @@
     <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_materials.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_mi.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_textures.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputERCall_utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h" />
@@ -2300,7 +2295,6 @@
     <ClInclude Include="..\elvishray\output\er_output_esa.h" />
     <ClInclude Include="..\elvishray\output\er_output_ess.h" />
     <ClInclude Include="..\elvishray\shaderOutputER.h" />
-    <ClInclude Include="..\elvishray\shaderOutputERCall.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">

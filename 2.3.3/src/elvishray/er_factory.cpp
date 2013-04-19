@@ -3,7 +3,6 @@
 
 #include "er_factory.h"
 #include "shaderOutputER.h"
-#include "shaderOutputERCall.h"
 #include "er_renderer.h"
 #include "../shadergraph/shaderOutputMgr.h"
 
@@ -39,7 +38,6 @@ namespace elvishray
 	void Factory::createOutputReceiver()
 	{
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new ER::Visitor());
-		//liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new ERCall::Visitor());
 	}
 	void Factory::deleteOutputReceiver()
 	{

@@ -69,21 +69,6 @@
     <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\elvishray\shaderOutputERCall.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\elvishray\shaderOutputERCall_materials.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\elvishray\shaderOutputERCall_mi.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\elvishray\shaderOutputERCall_textures.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\elvishray\shaderOutputERCall_utilities.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -168,9 +153,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\shaderOutputER.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\elvishray\shaderOutputERCall.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_iprMgr.h">
