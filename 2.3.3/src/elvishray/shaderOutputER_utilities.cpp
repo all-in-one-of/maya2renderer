@@ -7,6 +7,7 @@
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
 #include "er_output_mgr.h"
+#include "er_helper.h"
 
 namespace ER
 {
@@ -114,10 +115,31 @@ void Visitor::visitPlace2dTexture(const char* node)
 {
 	CM_TRACE_FUNC("Visitor::visitPlace2dTexture("<<node<<")");
 
-	OutputHelper o;
+	//check whether this node uses internal uv
+	int liq_UserDefinedU = 0;//0: use elvishray internal u.   1: use user defined u.
+	int liq_UserDefinedV = 0;//0: use elvishray internal v.   1: use user defined v.
 
+	if( elvishray::isPlugConnectedIn(node, "uvCoord") == 1 )
+	{
+		liq_UserDefinedU = 1;
+		liq_UserDefinedV = 1;
+	}
+	else if( elvishray::isPlugConnectedIn(node, "uCoord") == 1 )
+	{
+		liq_UserDefinedU = 1;
+	}
+	else if( elvishray::isPlugConnectedIn(node, "vCoord") == 1 )
+	{
+		liq_UserDefinedV = 1;
+	}
+
+	//
+	OutputHelper o;
 	o.beginRSL("maya_place2dTexture", node);
 
+	//liquid defined parameters
+	out.ei_shader_param_int( "liq_UserDefinedU", liq_UserDefinedU );
+	out.ei_shader_param_int( "liq_UserDefinedV", liq_UserDefinedV );
 	//Inputs
 	o.addRSLVariable("vector",  "uvCoord",		"uvCoord",		node);
 	o.addRSLVariable("float",	"coverageU",	"coverageU",	node);

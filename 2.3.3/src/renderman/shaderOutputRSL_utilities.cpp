@@ -10,6 +10,7 @@
 //#include "../shadergraph/shadermgr.h"
 #include "ri_interface.h"
 #include <liqGlobalHelpers.h>
+#include "rm_helper.h"
 
 namespace RSL
 {
@@ -142,8 +143,38 @@ void Visitor::visitPlace2dTexture(const char* node)
 	// Inputs
 	o.addToRSL("extern float s, t;");
 	o.addToRSL("float uvCoord[2];");
-	o.addToRSL("uvCoord[0] = s;");
-	o.addToRSL("uvCoord[1] = 1 - t;");//adjust for Renderman
+	o.addToRSL("{");
+	//get uvCoord plug value
+	if( renderman::isPlugConnectedIn(node, "uvCoord") == 1 )
+	{
+		o.addToRSL("//uvCoord is connected in");
+		o.addRSLVariable("uniform", "float2", "uvCoord_", "uvCoord", node);
+		o.addToRSL("uvCoord[0] = uCoord_[0];");
+		o.addToRSL("uvCoord[1] = uCoord_[1];");
+	}
+	else if( renderman::isPlugConnectedIn(node, "uCoord") == 1 )
+	{
+		o.addToRSL("//uCoord is connected in");
+		o.addRSLVariable("uniform", "float", "uCoord", "uCoord", node);
+		o.addToRSL("uvCoord[0] = uCoord;");
+		o.addToRSL("uvCoord[1] = t;");
+	}
+	else if( renderman::isPlugConnectedIn(node, "vCoord") == 1 )
+	{
+		o.addToRSL("//vCoord is connected in");
+		o.addRSLVariable("uniform", "float", "vCoord", "vCoord", node);
+		o.addToRSL("uvCoord[0] = s;");
+		o.addToRSL("uvCoord[1] = vCoord;");
+	}
+	else
+	{
+		o.addToRSL("//use renderman internal uv");
+		o.addToRSL("uvCoord[0] = s;");
+		o.addToRSL("uvCoord[1] = t;");
+	}
+	o.addToRSL("}");
+	o.addToRSL("uvCoord[1] = 1 - uvCoord[1];//adjust v for renderman");
+
 	o.addRSLVariable("uniform", "float2", "coverage",		"coverage",		node);
 	o.addRSLVariable("uniform", "float",  "mirrorU",		"mirrorU",		node);
 	o.addRSLVariable("uniform", "float",  "mirrorV",		"mirrorV",		node);

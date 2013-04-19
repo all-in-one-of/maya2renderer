@@ -52,8 +52,11 @@ namespace renderman
 	MStatus MaxtrixMotionBlur(const liqRibNodePtr ribNode__, MDagPath &path__, const bool bMotionBlur);
 	MStatus objectNonShadowAttribute(const liqRibNodePtr &ribNode__);
 
+	//If $nodename.$plugname is connected from other plug, return 1; else return 0;
+	int isPlugConnectedIn(const MString &nodename, const MString &plugname);
 	//
 	int isBumpMapConnected(const char* nodename);
+
 }
 
 #endif//RM_HELPER_H

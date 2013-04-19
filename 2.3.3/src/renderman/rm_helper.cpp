@@ -837,6 +837,13 @@ namespace renderman
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
+	int isPlugConnectedIn(const MString &nodename, const MString &plugname)
+	{
+		MStringArray srcNode;
+		//we assume this node has normalCamera plug
+		IfMErrorWarn(MGlobal::executeCommand("listConnections -source on -destination off -plugs off \""+nodename+"."+plugname+"\"", srcNode));
+		return (srcNode.length()>0)? 1 : 0;
+	}
 	int isBumpMapConnected(const char* nodename)
 	{
 		MStringArray srcNode;

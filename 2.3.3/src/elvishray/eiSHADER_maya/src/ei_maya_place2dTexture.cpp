@@ -23,6 +23,8 @@ SURFACE(maya_place2dTexture)
 	DECLARE_BOOL(wrapU, eiTRUE);
 	DECLARE_BOOL(wrapV, eiTRUE);
 	DECLARE_VECTOR(outUV,    0.0f, 0.0f, -1.0f); //float2
+	DECLARE_INT(liq_UserDefinedU, 0);//0: use elvishray internal u.   1: use user defined u.
+	DECLARE_INT(liq_UserDefinedV, 0);//0: use elvishray internal v.   1: use user defined v.
 	END_DECLARE;
 
 	static void init()
@@ -48,9 +50,16 @@ SURFACE(maya_place2dTexture)
 	}
 	void main_er0(void *arg)
 	{
-		//elvishray generates uv internally.
-		uvCoord().x = u;
-		uvCoord().y = v;
+		if( liq_UserDefinedU() == 0 ){
+			uvCoord().x = u;//elvishray generates u internally.
+		}else{
+			//u is connected in
+		}
+		if( liq_UserDefinedV() == 0 ){
+			uvCoord().y = v;//elvishray generates v internally.
+		}else{
+			//v is connected in
+		}
 
 		outUV().x = fmodf( uvCoord().x * repeatU(), 1.0f );
 		outUV().y = fmodf( uvCoord().y * repeatV(), 1.0f );
