@@ -4,6 +4,7 @@
 
 SURFACE(maya_place2dTexture)
 	DECLARE;
+	DECLARE_VECTOR(uvCoord, 0.0f, 0.0f, 0.0f);//float2,
 	DECLARE_SCALAR(coverageU, 1.0f);
 	DECLARE_SCALAR(coverageV, 1.0f);
 	DECLARE_BOOL(mirrorU, eiFALSE);
@@ -23,7 +24,6 @@ SURFACE(maya_place2dTexture)
 	DECLARE_BOOL(wrapV, eiTRUE);
 	DECLARE_VECTOR(outUV,    0.0f, 0.0f, -1.0f); //float2
 	END_DECLARE;
-	//DECLARE_VECTOR(uvCoord, 0.0f, 0.0f, 0.0f);//float2, //elvishray generates uv internally.
 
 	static void init()
 	{
@@ -48,8 +48,12 @@ SURFACE(maya_place2dTexture)
 	}
 	void main_er0(void *arg)
 	{
-		outUV().x = fmodf( u * repeatU(), 1.0f );
-		outUV().y = fmodf( v * repeatV(), 1.0f );
+		//elvishray generates uv internally.
+		uvCoord().x = u;
+		uvCoord().y = v;
+
+		outUV().x = fmodf( uvCoord().x * repeatU(), 1.0f );
+		outUV().y = fmodf( uvCoord().y * repeatV(), 1.0f );
  		outUV().y = 1.0f - outUV().y;//adjust v for elvishray
 	}
 	void main_3delight(void *arg)
