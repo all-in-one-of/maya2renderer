@@ -1657,6 +1657,9 @@ const std::string removeRedundentExtsion(std::string const& texturepath)//textur
 {
 	CM_TRACE_FUNC("removeRedundentExtsion("<<texturepath<<")");
 
+	if(texturepath.empty())
+		return "";
+
 	std::string texpath(texturepath);
 	std::replace(texpath.begin(), texpath.end(), '\\', '/');//texpath=e:/a.b/c.d.bmp.tex
 
@@ -1773,7 +1776,7 @@ void liqShader::processExpression( liqTokenPointer *token, const liqRibLightData
 				break;
 			}
 		}
-	}
+	}//if( token != NULL ) 
 }
 
 std::string liqShader::getName() const
