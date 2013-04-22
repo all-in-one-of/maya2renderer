@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: transform_tex.ma
-//Last modified: Mon, Apr 22, 2013 03:17:10 PM
+//Last modified: Mon, Apr 22, 2013 04:55:37 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -209,7 +209,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".db" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/transform_tex2964.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/transform_tex2794.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -274,6 +274,32 @@ createNode animCurveTU -n "pPlane1_scaleZ";
 createNode file -n "file1";
 	setAttr ".ftn" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check112.tif";
 createNode place2dTexture -n "place2dTexture1";
+createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_renderman";
+	addAttr -ci true -h true -sn "testBool0" -ln "testBool0" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "testBool1" -ln "testBool1" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "testString0" -ln "testString0" -dt "string";
+	addAttr -ci true -h true -sn "testString1" -ln "testString1" -dt "string";
+	addAttr -ci true -uac -h true -sn "testColor0" -ln "testColor0" -at "float3" -nc 
+		3;
+	addAttr -ci true -sn "testColor0R" -ln "testColor0R" -at "float" -p "testColor0";
+	addAttr -ci true -sn "testColor0G" -ln "testColor0G" -at "float" -p "testColor0";
+	addAttr -ci true -sn "testColor0B" -ln "testColor0B" -at "float" -p "testColor0";
+	addAttr -ci true -uac -h true -sn "testColor1" -ln "testColor1" -at "float3" -nc 
+		3;
+	addAttr -ci true -sn "testColor1R" -ln "testColor1R" -at "float" -p "testColor1";
+	addAttr -ci true -sn "testColor1G" -ln "testColor1G" -at "float" -p "testColor1";
+	addAttr -ci true -sn "testColor1B" -ln "testColor1B" -at "float" -p "testColor1";
+	addAttr -ci true -h true -sn "testInt0" -ln "testInt0" -at "long";
+	addAttr -ci true -h true -sn "testInt1" -ln "testInt1" -dv 10 -at "long";
+	addAttr -ci true -h true -sn "testFloat0" -ln "testFloat0" -at "float";
+	addAttr -ci true -h true -sn "testFloat1" -ln "testFloat1" -dv 10 -at "float";
+	addAttr -ci true -h true -sn "testIntMenu0" -ln "testIntMenu0" -at "long";
+	addAttr -ci true -h true -sn "testIntMenu1" -ln "testIntMenu1" -dv 1 -at "long";
+	setAttr ".testBool0" yes;
+	setAttr ".testString0" -type "string" "string_test_value0renderman";
+	setAttr ".testString1" -type "string" "string_test_value1renderman";
+	setAttr ".testColor0" -type "float3" 1 1 0 ;
+	setAttr ".testColor1" -type "float3" 1.9 9 2 ;
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
