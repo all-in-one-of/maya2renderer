@@ -574,8 +574,6 @@ namespace elvishray
 		const char *param_value)
 	{
 		//CM_TRACE_FUNC("OutputESS::ei_shader_param_token(\""<<param_name<<"\", \""<<param_value<<"\") not implemented");
-		liquidMessage2(messageError, "OutputESS::ei_shader_token() not implemented");
-		a("error: ei_shader_token(): OutputESS::ei_shader_token() not implemented");
 		m_outputfile<<"    param_token \""<<param_name<<"\" \""<<param_value<<"\" "<<std::endl;
 	}
 	void OutputESS::ei_shader_param_int(

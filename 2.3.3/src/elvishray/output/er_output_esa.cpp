@@ -538,6 +538,7 @@ namespace elvishray
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_shader_param(\""<<param_name<<"\", \""<<param_value<<"\") not implemented");
 		liquidMessage2(messageError, "OutputESA::ei_shader_param() not implemented");
+		a("error: ei_shader_param(): OutputESA::ei_shader_param() not implemented");
 		m_outputfile<<"ei_shader_param(\""<<param_name<<"\", \""<<param_value<<"\");"<<std::endl;
 	}
 	void OutputESA::ei_shader_param_token(
@@ -545,7 +546,6 @@ namespace elvishray
 		const char *param_value)
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_shader_param_token(\""<<param_name<<"\", \""<<param_value<<"\") not implemented");
-		liquidMessage2(messageError, "OutputESA::ei_shader_param() not implemented");
 		m_outputfile<<"ei_shader_param_token(\""<<param_name<<"\", ei_token(\""<<param_value<<"\") );"<<std::endl;
 	}
 	void OutputESA::ei_shader_param_int(
