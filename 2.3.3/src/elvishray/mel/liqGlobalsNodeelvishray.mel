@@ -13,7 +13,14 @@ global string $gGlobalValue_elvishray[]=
 	,"filterType",			"long",		"4"//,
 	,"filterSize",			"float",	"3.0"//,
 	//,"motion",			"bool",			"0"
-	,"trace_depth",			"string",		"4|4|4"//,
+	//trace_depth
+	,"trace_depth_transp",				"long",		"4"//,
+	,"trace_depth_glossy_reflect",		"long",		"4"//,
+	,"trace_depth_diffuse_reflect",		"long",		"4"//,
+	,"trace_depth_glossy_refract",		"long",		"4"//,
+	,"trace_depth_diffuse_refract",		"long",		"4"//,
+	,"trace_depth_sum",					"long",		"4"//,
+
 	,"displace",            "bool",			false
 	,"max_displace",        "float",		false
 	,"face",				"long",		"3"//,
@@ -111,7 +118,16 @@ proc liquidGlobalsTab_elvishray_AA( string $prefix )
         liquidShowFloatGlobal2($n, "filterSize", "filterSize");
 		//liquidShowBoolGlobal2($n, "motion", "motion", $prefix);
         liquidShowTextGlobal2($n, "motion", "see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
-        liquidShowStringGlobal2($n, "trace_depth",	"trace_depth",	$prefix);
+		frameLayout -bs "etchedIn" -l "trace_depth" -cll true -cl false;
+			columnLayout -adj true ;
+			liquidShowIntGlobal2($n,	"trace_depth_transp",			"transp");
+			liquidShowIntGlobal2($n,	"trace_depth_glossy_reflect",	"glossy_reflect");
+			liquidShowIntGlobal2($n,	"trace_depth_diffuse_reflect",	"diffuse_reflect");
+			liquidShowIntGlobal2($n,	"trace_depth_glossy_refract",	"glossy_refract");
+			liquidShowIntGlobal2($n,	"trace_depth_diffuse_refract",	"diffuse_refract");
+			liquidShowIntGlobal2($n,	"trace_depth_sum",				"sum");
+			setParent ..;
+		setParent ..;
 		liquidShowBoolGlobal2($n,	"displace",		"displace",		$prefix);
 		liquidShowFloatGlobal2($n,	"max_displace", "max_displace");
         liquidShowIntGlobalMenu2($n, "face", "face",

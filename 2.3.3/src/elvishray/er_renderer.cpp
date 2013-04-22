@@ -521,10 +521,14 @@ namespace elvishray
 //		_S("ei_motion_Segments( int num );");
 
 		//	Trace Depth:
-		liquidMessage2(messageError, "ei_trace_depth() need feed the parameters");
-		MVector tracedepth(m_gnode->getVector("trace_depth"));
-		o.ei_trace_depth( 4,4,4, tracedepth.x, tracedepth.y, tracedepth.z );
-
+		eiInt transp         = m_gnode->getInt("trace_depth_transp");
+		eiInt glossy_reflect = m_gnode->getInt("trace_depth_glossy_reflect");
+		eiInt diffuse_reflect= m_gnode->getInt("trace_depth_diffuse_reflect");
+		eiInt glossy_refract = m_gnode->getInt("trace_depth_glossy_refract");
+		eiInt diffuse_refract= m_gnode->getInt("trace_depth_diffuse_refract");
+		eiInt sum            = m_gnode->getInt("trace_depth_sum");
+		o.ei_trace_depth( transp,glossy_reflect,diffuse_reflect,
+			glossy_refract, diffuse_refract, sum );
 		//	Shadow:
 //		_S("ei_Shadow( int type );");
 
