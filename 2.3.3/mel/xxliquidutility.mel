@@ -1,5 +1,6 @@
 global int $g_IndentNum = 0;
 global int $g_ShowAELog = 1;
+global int $g_ShowliqLog = 0;
 
 global int $g_LogFileId = 0;
 global string $g_LogFileFullPath="d:/liquidDebug.log";
@@ -61,7 +62,10 @@ proc _liqError(string $prefix, string $log)
 }
 global proc liqlog(string $log)
 {
-	log2("", $log);
+	global int $g_ShowliqLog;
+	if( $g_ShowliqLog != 0 ){
+		log2("", $log);
+	}
 }
 
 global proc liqDebug(string $log)
