@@ -32,25 +32,42 @@ void Visitor::visitBlinn(const char* node)
 	OutputHelper o;
 
 	o.beginRSL("maya_blinn", node);
+	// Inputs:
+	o.addRSLVariable("color",	"i_ambientColor",	"ambientColor",	node);
+	o.addRSLVariable("color",	"i_color",			"color",		node);
+	o.addRSLVariable("float",	"i_diffuse",		"diffuse",		node);
+	o.addRSLVariable("float",	"i_eccentricity",	"eccentricity", node);
+	o.addRSLVariable("color",	"i_incandescence",	"incandescence",node);
+	o.addRSLVariable("index",	"i_matteOpacityMode","matteOpacityMode",node);//uniform
+	o.addRSLVariable("float",	"i_matteOpacity",	"matteOpacity",node);
+	o.addRSLVariable("color",	"i_specularColor",	"specularColor",node);
+	o.addRSLVariable("float",	"i_specularRollOff","specularRollOff",node);
+	o.addRSLVariable("float",	"i_reflectivity",	"reflectivity",node);
+	o.addRSLVariable("color",	"i_reflectedColor",	"reflectedColor",node);
+	/* Refraction. */
+	o.addRSLVariable("bool",	"i_refractions",	"refractions",node);//uniform
+	o.addRSLVariable("float",	"i_refractiveIndex","refractiveIndex",node);
+	o.addRSLVariable("index",	"i_refractionLimit","refractionLimit",node);//uniform
+	o.addRSLVariable("float",	"i_lightAbsorbance","lightAbsorbance",node);
+	o.addRSLVariable("float",	"i_shadowAttenuation","shadowAttenuation",node);
+	/* Reflection. */
+	o.addRSLVariable("index",	"i_reflectionLimit",	"reflectionLimit",node);//uniform
 
-	o.addRSLVariable("vector", "inColor",		"color",		node);
-	o.addRSLVariable("vector", "transparency", "transparency", node);
-	o.addRSLVariable("vector", "ambColor",		"ambientColor", node);
-	o.addRSLVariable("vector", "incandescence","incandescence",node);
-	o.addRSLVariable("float",  "diffusion",	"diffuse",		node);
-	o.addRSLVariable("float",  "eccentricity", "eccentricity", node);
-	o.addRSLVariable("float",  "specRollOff",	"specularRollOff",node);
-	o.addRSLVariable("vector", "specColor",	"specularColor",node);
-	o.addRSLVariable("vector", "outColor",		"outColor",		node);
-
-//	MStringArray con;
-//	IfMErrorWarn(MGlobal::executeCommand( ("listConnections(\""+MString(node)+"\" + \".reflectedColor\")"), con));
-//	if( con.length() != 0 )
-//	{
-//		o.addRSLVariable( "float", "reflectivity", "reflectivity", node);
-//		o.addRSLVariable( "vector", "refColor", "reflectedColor", node);
-//		o.addToRSL( "Cspecular += ( reflectivity * refColor );");
-//	}
+	o.addRSLVariable("float",	"i_translucence",	"translucence",node);
+	o.addRSLVariable("float",	"i_translucenceDepth",	"translucenceDepth",node);
+	o.addRSLVariable("float",	"i_translucenceFocus",	"translucenceFocus",node);
+	o.addRSLVariable("color",	"i_transparency",	"transparency",node);
+	o.add_liq_UserDefinedNormal(node);
+	o.addRSLVariable("normal",	"i_normalCamera",	"normalCamera",node);
+	//3delight defined parameter
+	out.ei_shader_param_scalar( "i_reflectionMaxDistance",		0.0f );
+	out.ei_shader_param_int(	"i_reflectionSamples",			0 );
+	out.ei_shader_param_scalar( "i_reflectionBlur",				0.0f );
+	out.ei_shader_param_scalar( "i_reflectionNoiseAmplitude",	0.0f );
+	out.ei_shader_param_scalar( "i_reflectionNoiseFrequency",	0.0f );
+	// Outputs:
+	o.addRSLVariable("color", "o_outColor",			"outColor",			node);
+	o.addRSLVariable("color", "o_outTransparency",	"outTransparency",	node);
 
 	o.endRSL();
 }

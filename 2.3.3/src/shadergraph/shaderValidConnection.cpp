@@ -116,41 +116,53 @@ void ShaderValidConnection::setValidConnection()
 
 	//blinn
 	validConnectionMap.begin("blinn");
-	validConnectionMap.append("colorR");
-	validConnectionMap.append("colorG");
-	validConnectionMap.append("colorB");
-	validConnectionMap.append("color");
-	validConnectionMap.append("transparencyR");
-	validConnectionMap.append("transparencyG");
-	validConnectionMap.append("transparencyB");
-	validConnectionMap.append("transparency");
 	validConnectionMap.append("ambientColorR");
 	validConnectionMap.append("ambientColorG");
 	validConnectionMap.append("ambientColorB");
 	validConnectionMap.append("ambientColor");
+	validConnectionMap.append("colorR");
+	validConnectionMap.append("colorG");
+	validConnectionMap.append("colorB");
+	validConnectionMap.append("color");
+	validConnectionMap.append("diffuse");
+	validConnectionMap.append("eccentricity");
 	validConnectionMap.append("incandescenceR");
 	validConnectionMap.append("incandescenceG");
 	validConnectionMap.append("incandescenceB");
 	validConnectionMap.append("incandescence");
-	validConnectionMap.append("normalCameraX");
-	validConnectionMap.append("normalCameraY");
-	validConnectionMap.append("normalCameraZ");
-	validConnectionMap.append("normalCamera");
-	validConnectionMap.append("diffuse");
-	validConnectionMap.append("translucence");
-	validConnectionMap.append("translucenceDepth");
-	validConnectionMap.append("translucenceFocus");
-	validConnectionMap.append("eccentricity");
-	validConnectionMap.append("specularRollOff");
+	validConnectionMap.append("matteOpacityMode");
+	validConnectionMap.append("matteOpacity");
 	validConnectionMap.append("specularColorR");
 	validConnectionMap.append("specularColorG");
 	validConnectionMap.append("specularColorB");
 	validConnectionMap.append("specularColor");
+	validConnectionMap.append("specularRollOff");
 	validConnectionMap.append("reflectivity");
 	validConnectionMap.append("reflectedColorR");
 	validConnectionMap.append("reflectedColorG");
 	validConnectionMap.append("reflectedColorB");
 	validConnectionMap.append("reflectedColor");
+	/* Refraction. */
+	validConnectionMap.append("refractions");
+	validConnectionMap.append("refractiveIndex");
+	validConnectionMap.append("refractionLimit");
+	validConnectionMap.append("lightAbsorbance");
+	validConnectionMap.append("shadowAttenuation");
+	/* Reflection. */
+	validConnectionMap.append("reflectionLimit");
+
+	validConnectionMap.append("translucence");
+	validConnectionMap.append("translucenceDepth");
+	validConnectionMap.append("translucenceFocus");
+	validConnectionMap.append("transparencyR");
+	validConnectionMap.append("transparencyG");
+	validConnectionMap.append("transparencyB");
+	validConnectionMap.append("transparency");
+	validConnectionMap.append("normalCameraX");
+	validConnectionMap.append("normalCameraY");
+	validConnectionMap.append("normalCameraZ");
+	validConnectionMap.append("normalCamera");
+	// Outputs:
 	validConnectionMap.append("outColorR");
 	validConnectionMap.append("outColorG");
 	validConnectionMap.append("outColorB");

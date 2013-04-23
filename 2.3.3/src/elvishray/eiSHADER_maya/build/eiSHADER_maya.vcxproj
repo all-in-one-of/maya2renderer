@@ -609,6 +609,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ei_liq_skylight.cpp" />
+    <ClCompile Include="..\src\ei_maya_blinn.cpp" />
     <ClCompile Include="..\src\ei_maya_bump2d.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">true</ExcludedFromBuild>
