@@ -254,6 +254,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\er_extern_file.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\er_shader_link_test.cpp"
 				>
 				<FileConfiguration
