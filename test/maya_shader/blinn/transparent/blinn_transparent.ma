@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: blinn_transparent.ma
-//Last modified: Tue, Apr 23, 2013 03:15:17 PM
+//Last modified: Tue, Apr 23, 2013 03:32:47 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -265,7 +265,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/blinn_transparent1612.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/blinn_transparent1472.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
