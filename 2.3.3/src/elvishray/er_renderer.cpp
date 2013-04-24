@@ -146,9 +146,23 @@ namespace elvishray
 
 		//construct output mgr
 		o.setOutputImagePath(imageFullPath.asChar());
-		o.add(OutputMgr::OT_CALL);
-		o.add(OutputMgr::OT_ESS);
-		o.add(OutputMgr::OT_ESA);
+
+		if(m_gnode->getBool("output_call"))
+		{
+			liquidMessage2(messageInfo,"Output::output_call");
+			o.add(OutputMgr::OT_CALL);
+		}
+		if(m_gnode->getBool("output_ess"))
+		{	
+			liquidMessage2(messageInfo,"Output::output_ess");
+			o.add(OutputMgr::OT_ESS);
+		}
+		if(m_gnode->getBool("output_esa"))
+		{
+			liquidMessage2(messageInfo,"Output::output_esa");
+			o.add(OutputMgr::OT_ESA);
+		}
+
 		o.init();
 
 		//////////////////////////////////////////////////////////////////////////
@@ -315,12 +329,12 @@ namespace elvishray
 			}
 			if( shadingGroupNodes.length()==0 )
 			{
-				liquidMessage2(messageError, "%s's shading group is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
-				o.a("shadingGroupNodes is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash");
+				//liquidMessage2(messageError, "%s's shading group is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
+				o.a(std::string(ribNode__->name.asChar())+"'s shading group is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash");
 				o.ei_mtl(getTestMaterialName().asChar());
 			} else if( shadingGroupNodes[0].length()==0 ){
-				liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
-				o.a("shadingGroupNodes[0] is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash" );
+				//liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
+				o.a(std::string(ribNode__->name.asChar())+"'s shadingGroupNodes[0] is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash" );
 				o.ei_mtl(getTestMaterialName().asChar());
 			} else {
 				o.ei_mtl( shadingGroupNodes[0].asChar() );

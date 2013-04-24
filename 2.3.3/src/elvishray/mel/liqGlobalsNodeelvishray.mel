@@ -5,7 +5,12 @@ global string $gWindow_elvishray="liqGlobalWindow_elvishray";
 global string $gGlobalNode_elvishray="liqGlobalsNodeRenderer_elvishray";
 global string $gGlobalValue_elvishray[]=
 {
-	"verbose",          "long",	"6"
+	//dev
+	"output_call",		"bool", true
+	,"output_esa",		"bool", true
+	,"output_ess",		"bool", true
+
+	,"verbose",         "long",			"6"
 	,"link",			"string",		"eiIMG|eiSHADER|eiSHADER_maya"//,
 	//options
 	,"contrast",		"string",		"0.05|0.05|0.05|0.05"//,
@@ -83,6 +88,26 @@ proc liquidGlobalsTab_elvishray_AA( string $prefix )
   string $previousParent = `setParent -q`;
 
   columnLayout -adj true -vis false ($prefix + "liquidGlobalsFrameSet"+liqGetRendererName());
+	//---------------------------- dev -----------------------------------------
+    frameLayout -bs "etchedIn" -l "dev" -cll true -cl true;
+      columnLayout -adj true ;
+	  //---------------------------- output
+      frameLayout -bs "etchedIn" -l "output" -cll true -cl true;
+        columnLayout -adj true ;
+		  liquidShowBoolGlobal2($n,	"output_call",		"call",		$prefix);
+		  liquidShowBoolGlobal2($n,	"output_esa",		"esa",		$prefix);
+		  liquidShowBoolGlobal2($n,	"output_ess",		"ess",		$prefix);
+	    setParent ..;
+      setParent ..;
+	  //---------------------------- others
+      frameLayout -bs "etchedIn" -l "others" -cll true -cl true;
+        columnLayout -adj true ;
+	    setParent ..;
+      setParent ..;
+
+	  setParent ..;//columnLayout dev
+    setParent ..;//frameLayout dev
+	//---------------------------- verbose & link ---------------------------------------
     frameLayout -bs "etchedIn" -l "verbose & link" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowIntGlobalMenu2($n, "verbose", "verbose", 
@@ -103,7 +128,7 @@ proc liquidGlobalsTab_elvishray_AA( string $prefix )
 
       setParent ..;
     setParent ..;
-
+	//---------------------------- options ------------------------------------
     frameLayout -bs "etchedIn" -l "options" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowStringGlobal2($n, "contrast",	"contrast",			$prefix);
@@ -118,6 +143,7 @@ proc liquidGlobalsTab_elvishray_AA( string $prefix )
         liquidShowFloatGlobal2($n, "filterSize", "filterSize");
 		//liquidShowBoolGlobal2($n, "motion", "motion", $prefix);
         liquidShowTextGlobal2($n, "motion", "see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
+		//---------------------------- trace_depth
 		frameLayout -bs "etchedIn" -l "trace_depth" -cll true -cl false;
 			columnLayout -adj true ;
 			liquidShowIntGlobal2($n,	"trace_depth_transp",			"transp");
@@ -128,6 +154,7 @@ proc liquidGlobalsTab_elvishray_AA( string $prefix )
 			liquidShowIntGlobal2($n,	"trace_depth_sum",				"sum");
 			setParent ..;
 		setParent ..;
+	    //-------------------------- displace
 		liquidShowBoolGlobal2($n,	"displace",		"displace",		$prefix);
 		liquidShowFloatGlobal2($n,	"max_displace", "max_displace");
         liquidShowIntGlobalMenu2($n, "face", "face",
@@ -137,7 +164,7 @@ proc liquidGlobalsTab_elvishray_AA( string $prefix )
 		"EI_FACE_BOTH"}, $prefix);
 	  setParent ..;
     setParent ..;
-
+	//-----------------------------approx------------------------------------
     frameLayout -bs "etchedIn" -l "approx" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowIntGlobalMenu2($n, "approx_method", "method",

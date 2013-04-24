@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: deform.ma
-//Last modified: Mon, Apr 22, 2013 04:51:58 PM
+//Last modified: Wed, Apr 24, 2013 01:45:04 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -183,7 +183,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".db" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/deform2771.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/deform2402.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -396,6 +396,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 	setAttr ".export_mesh_smoothing" yes;
 	setAttr ".export_mesh_normals" yes;
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
+	addAttr -ci true -h true -sn "output_call" -ln "output_call" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_esa" -ln "output_esa" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_ess" -ln "output_ess" -min 0 -max 1 -at "bool";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
 	addAttr -ci true -h true -sn "contrast" -ln "contrast" -dt "string";
@@ -427,6 +430,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 		65536 -at "long";
 	addAttr -ci true -h true -sn "approx_motion_factor" -ln "approx_motion_factor" -dv 
 		16 -at "float";
+	setAttr ".output_call" yes;
+	setAttr ".output_esa" yes;
+	setAttr ".output_ess" yes;
 	setAttr ".link" -type "string" "eiIMG|eiSHADER|eiSHADER_maya";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
