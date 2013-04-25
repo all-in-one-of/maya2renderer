@@ -7,8 +7,8 @@ global string $gGlobalValue_elvishray[]=
 {
 	//dev
 	"output_call",		"bool", true
-	,"output_esa",		"bool", true
-	,"output_ess",		"bool", true
+	,"output_esa",		"bool", false
+	,"output_ess",		"bool", false
 
 	,"verbose",         "long",			"6"
 	,"link",			"string",		"eiIMG|eiSHADER|eiSHADER_maya"//,
