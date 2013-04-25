@@ -19,14 +19,14 @@
 SURFACE(maya_bump2d)
 
 	DECLARE;
-	DECLARE_SCALAR(bumpValue,			0.0f);	// Inputs - begin
-	DECLARE_SCALAR(bumpDepth,			1.0f);
-	DECLARE_INDEX(bumpInterp,			0);
-	DECLARE_SCALAR(bumpFilter,			1.0f);
-	DECLARE_SCALAR(bumpFilterOffset,	0.0f);
-	DECLARE_NORMAL(normalCamera,		0.0f, 0.0f, 1.0f);
-	DECLARE_NORMAL(bumpNormal,			-1.0f, -1.0f, -1.0f);
-	DECLARE_NORMAL(outNormal,			0.0f, 0.0f, 1.0f);	// Outputs		
+	DECLARE_SCALAR(i_bumpValue,			0.0f);	// Inputs - begin
+	DECLARE_SCALAR(i_bumpDepth,			1.0f);
+	DECLARE_INDEX(i_bumpInterp,			0);
+	DECLARE_SCALAR(i_bumpFilter,		1.0f);
+	DECLARE_SCALAR(i_bumpFilterOffset,	0.0f);
+	DECLARE_NORMAL(i_normalCamera,		0.0f, 0.0f, 1.0f);
+	DECLARE_NORMAL(i_bumpNormal,		-1.0f, -1.0f, -1.0f);
+	DECLARE_NORMAL(o_outNormal,			0.0f, 0.0f, 1.0f);	// Outputs		
 	END_DECLARE;
 
 	static void init()
@@ -52,20 +52,20 @@ SURFACE(maya_bump2d)
 		normal& o_outNormal )
 	{
 		eiScalar LOW = -1.0f, HEIGHT=1.0f;
-		eiScalar offset = clamp(bumpValue(), LOW, HEIGHT) * abs(bumpDepth());
+		eiScalar offset = clamp(i_bumpValue(), LOW, HEIGHT) * abs(i_bumpDepth());
 
 		//Du_offset=d(offset)/du, Dv_offset=d(offset)/dv
 		eiScalar Du_offset, Dv_offset;
 		eiScalar DbumpValue_du, DbumpValue_dv;
 		eiScalar DbumpDepth_du, DbumpDepth_dv;		
-		DbumpValue_du = Du(bumpValue);
-		DbumpValue_dv = Dv(bumpValue);
-		DbumpDepth_du = Du(bumpDepth);
-		DbumpDepth_dv = Dv(bumpDepth);
-		Du_offset = D_clamp(bumpValue(), LOW,HEIGHT) * DbumpValue_du      * abs(bumpDepth()) 
-			        + clamp(bumpValue(), LOW,HEIGHT) * D_abs(bumpDepth()) * DbumpDepth_du;
-		Dv_offset = D_clamp(bumpValue(), LOW,HEIGHT) * DbumpValue_dv      * abs(bumpDepth()) 
-			        + clamp(bumpValue(), LOW,HEIGHT) * D_abs(bumpDepth()) * DbumpDepth_dv;
+		DbumpValue_du = Du(i_bumpValue);
+		DbumpValue_dv = Dv(i_bumpValue);
+		DbumpDepth_du = Du(i_bumpDepth);
+		DbumpDepth_dv = Dv(i_bumpDepth);
+		Du_offset = D_clamp(i_bumpValue(), LOW,HEIGHT) * DbumpValue_du      * abs(i_bumpDepth()) 
+			        + clamp(i_bumpValue(), LOW,HEIGHT) * D_abs(i_bumpDepth()) * DbumpDepth_du;
+		Dv_offset = D_clamp(i_bumpValue(), LOW,HEIGHT) * DbumpValue_dv      * abs(i_bumpDepth()) 
+			        + clamp(i_bumpValue(), LOW,HEIGHT) * D_abs(i_bumpDepth()) * DbumpDepth_dv;
 		/*
 		These scale factors are a bit experimental. The constant is to roughly
 		match maya's bump mapping. The part about dPdu/dPdv ensures that the
@@ -93,18 +93,18 @@ SURFACE(maya_bump2d)
 	}
 	void main_3delight(void *arg)
 	{
-		if( bumpInterp() == 0 )
+		if( i_bumpInterp() == 0 )
 		{
-			normal n = outNormal();
+			normal n = o_outNormal();
 			/* Bump. */
 			do_bump_map(
 				//bumpValue(),
 				//bumpDepth(),
-				normalCamera(),
+				i_normalCamera(),
 				n );
-			outNormal() = n;
+			o_outNormal() = n;
 		}
-		else if( bumpInterp() == 1 )
+		else if( i_bumpInterp() == 1 )
 		{
 			///* Tangent Space Normals. */
 			//vector udir, vdir;
@@ -142,100 +142,19 @@ SURFACE(maya_bump2d)
 			/* Object Space Normals. This needs some work. */
 			//outNormal() = ntransform( "object", "current", bumpNormal() - 0.5f );
 			//outNormal() = normalize(outNormal());
-			vector tmp = nto_object(bumpNormal() - normal(0.5f,0.5f,0.5f));
-			outNormal() = normalize(tmp);
+			vector tmp = nto_object(i_bumpNormal() - normal(0.5f,0.5f,0.5f));
+			o_outNormal() = normalize(tmp);
 		}
 	}
 	void main_hack(void *arg)
 	{
 		//outNormal() = normalCamera();
-		outNormal() = bumpNormal();
+		o_outNormal() = i_bumpNormal();
 	}
 	void main(void *arg)
 	{
-		//main_3delight(arg);
-		main_3delight_10_0_50(arg);
+		main_3delight(arg);
 		//main_hack(arg);
 	}
-	void main_3delight_10_0_50(void *arg)
-	{
-		extern varying vector dPdu, dPdv, I;
-		extern varying vector stangent;
-		extern float ss, tt;
-  
-		if( i_bumpInterp <= 1 )
-		{
-			normal bumpNormal;
-			if( i_bumpInterp == 0 )
-			{
-				/* 2D bump map. */
-				float depth = abs( i_bumpDepth );
-				float offset = clamp( i_bumpValue * i_bumpDepth, -depth, depth );
-				point pb = point( ss, tt, 0.04 * offset );
-				bumpNormal = normalize( calculatenormal( pb ) );
 
-				/*
-					Depending on the orientation of texture coordinates and
-					geometry, calculatenormal might return a normal which points
-					the wrong way.
-				*/
-				bumpNormal = -bumpNormal;
-				if( zcomp(bumpNormal) < 0 )
-				{
-					setzcomp( bumpNormal, -zcomp(bumpNormal) );
-				}
-				else
-				{
-					uniform float backfacing = 0;
-					attribute( "geometry:backfacing", backfacing );
-					backfacing = 1 - 2 * backfacing;
-
-					float flip = -sign( i_normalCamera.I ) * backfacing;
-					setxcomp( bumpNormal, flip * xcomp( bumpNormal ) );
-					setycomp( bumpNormal, flip * ycomp( bumpNormal ) );
-				}
-			}
-			else
-			{
-				/* Tangent Space Normals. */
-				bumpNormal = normal(i_bumpNormal - vector(0.5));
-			}
-
-			vector udir, vdir;
-
-			if( stangent != vector(0) )
-			{
-				vdir = stangent ^ i_normalCamera;
-			}
-			else
-			{
-				vdir = Du(tt) * dPdu + Dv(tt) * dPdv;
-				vdir = i_normalCamera ^ (vdir ^ i_normalCamera);
-			}
-
-			udir = i_normalCamera ^ vdir;
-			vector uorient = Du(ss) * dPdu + Dv(ss) * dPdv;
-			if( udir.uorient < 0 )
-			{
-				udir = -udir;
-			}
-
-			vector basisx = normalize(udir);
-			vector basisy = normalize(vdir);
-			vector basisz = normalize(i_normalCamera);
-
-			o_outNormal = normal(
-				xcomp(bumpNormal) * basisx +
-				ycomp(bumpNormal) * basisy +
-				zcomp(bumpNormal) * basisz );
-
-			o_outNormal = normalize(o_outNormal);
-		}
-		else
-		{
-			/* Object Space Normals. This needs some work. */
-			o_outNormal = ntransform( "object", "current", i_bumpNormal - 0.5 );
-			o_outNormal = normalize(o_outNormal);
-		}		
-	}
 END(maya_bump2d)

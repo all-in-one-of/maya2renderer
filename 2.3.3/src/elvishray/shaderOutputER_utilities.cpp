@@ -30,17 +30,17 @@ void Visitor::visitBump2d(const char* node)
 	OutputHelper o;
 	o.beginRSL("maya_bump2d", node);
 	//input
-	o.addRSLVariable("float",	"bumpValue",		"bumpValue",	node);
-	o.addRSLVariable("float",	"bumpDepth",		"bumpDepth",	node);
-	o.addRSLVariable("index",	"bumpInterp",		"bumpInterp",	node);
-	o.addRSLVariable("float",	"bumpFilter",		"bumpFilter",	node);
-	o.addRSLVariable("float",	"bumpFilterOffset",	"bumpFilterOffset",	node);
-	o.addRSLVariable("normal",	"normalCamera",		"normalCamera",	node);
+	o.addRSLVariable("float",	"i_bumpValue",		"bumpValue",	node);
+	o.addRSLVariable("float",	"i_bumpDepth",		"bumpDepth",	node);
+	o.addRSLVariable("index",	"i_bumpInterp",		"bumpInterp",	node);
+	o.addRSLVariable("float",	"i_bumpFilter",		"bumpFilter",	node);
+	o.addRSLVariable("float",	"i_bumpFilterOffset",	"bumpFilterOffset",	node);
+	o.addRSLVariable("normal",	"i_normalCamera",		"normalCamera",	node);
 	if(doesPlugExist(node, "bumpNormal")){
-		o.addRSLVariable("normal",  "bumpNormal",	"bumpNormal",	node);
+		o.addRSLVariable("normal",  "i_bumpNormal",	"bumpNormal",	node);
 	}
 	//output
-	o.addRSLVariable("normal",  "outNormal",		"outNormal",	node);
+	o.addRSLVariable("normal",  "o_outNormal",		"outNormal",	node);
 
 	o.endRSL();
 }
