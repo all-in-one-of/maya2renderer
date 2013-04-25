@@ -15,6 +15,7 @@
 
 #include <eiAPI/ei_shaderx.h>
 #include "common/my_math.h"
+#include "common/my_utils.h"
 
 SURFACE(maya_bump2d)
 
@@ -159,19 +160,20 @@ SURFACE(maya_bump2d)
 	}
 	void main_3delight_10_0_50(void *arg)
 	{
-		extern varying vector dPdu, dPdv, I;
-		extern varying vector stangent;
-		extern float ss, tt;
+		//extern varying vector dPdu, dPdv, I;
+		vector stangent(0.0f);
+		float ss = u;
+		float tt = 1.0f - v;
   
-		if( i_bumpInterp <= 1 )
+		if( i_bumpInterp() <= 1 )
 		{
 			normal bumpNormal;
-			if( i_bumpInterp == 0 )
+			if( i_bumpInterp() == 0 )
 			{
 				/* 2D bump map. */
-				float depth = abs( i_bumpDepth );
-				float offset = clamp( i_bumpValue * i_bumpDepth, -depth, depth );
-				point pb = point( ss, tt, 0.04 * offset );
+				float depth = abs( i_bumpDepth() );
+				float offset = clamp( i_bumpValue() * i_bumpDepth(), -depth, depth );
+				point pb = point( ss, tt, 0.04f * offset );
 				bumpNormal = normalize( calculatenormal( pb ) );
 
 				/*
@@ -180,62 +182,66 @@ SURFACE(maya_bump2d)
 					the wrong way.
 				*/
 				bumpNormal = -bumpNormal;
-				if( zcomp(bumpNormal) < 0 )
+				if( bumpNormal.z < 0.0f )
 				{
-					setzcomp( bumpNormal, -zcomp(bumpNormal) );
+					bumpNormal.z = -bumpNormal.z;
 				}
 				else
 				{
-					uniform float backfacing = 0;
-					attribute( "geometry:backfacing", backfacing );
-					backfacing = 1 - 2 * backfacing;
+					/*uniform */float backfacing = 0.0f;
+					//attribute( "geometry:backfacing", backfacing );
+					backfacing = 1.0f - 2.0f * backfacing;
 
-					float flip = -sign( i_normalCamera.I ) * backfacing;
-					setxcomp( bumpNormal, flip * xcomp( bumpNormal ) );
-					setycomp( bumpNormal, flip * ycomp( bumpNormal ) );
+					float flip = -sign( i_normalCamera()%I ) * backfacing;
+					bumpNormal.x = flip * bumpNormal.x;
+					bumpNormal.y = flip * bumpNormal.y;
 				}
 			}
 			else
 			{
 				/* Tangent Space Normals. */
-				bumpNormal = normal(i_bumpNormal - vector(0.5));
+				bumpNormal = normal(i_bumpNormal() - vector(0.5f));
 			}
 
 			vector udir, vdir;
 
-			if( stangent != vector(0) )
+			if( ! less_than(&stangent, LIQ_SCALAR_ALMOST_ZERO) )
 			{
-				vdir = stangent ^ i_normalCamera;
+				vdir = stangent ^ i_normalCamera();
 			}
 			else
 			{
-				vdir = Du(tt) * dPdu + Dv(tt) * dPdv;
-				vdir = i_normalCamera ^ (vdir ^ i_normalCamera);
+				float Dtt_Du =  0.0f;//Du(tt) = Du(1.0-v) = -Du(v); //; //-Du(v);
+				float Dtt_Dv = -1.0f;//Dv(tt) = Dv(1.0-v) = -Dv(v); //; //-Dv(v);
+				vdir = Dtt_Du * dPdu + Dtt_Dv * dPdv;
+				vdir = i_normalCamera() ^ (vdir ^ i_normalCamera());
 			}
 
-			udir = i_normalCamera ^ vdir;
-			vector uorient = Du(ss) * dPdu + Dv(ss) * dPdv;
-			if( udir.uorient < 0 )
+			udir = i_normalCamera() ^ vdir;
+			float Dss_Du = 1.0f;//Du(ss) = Du(u) = Du(u); //; //Du(u);
+			float Dss_Dv = 0.0f;//Dv(ss) = Dv(u) = Dv(u); //; //Dv(u);
+			vector uorient = Dss_Du * dPdu + Dss_Dv * dPdv;
+			if( udir % uorient < 0.0f )
 			{
 				udir = -udir;
 			}
 
 			vector basisx = normalize(udir);
 			vector basisy = normalize(vdir);
-			vector basisz = normalize(i_normalCamera);
+			vector basisz = normalize(i_normalCamera());
 
-			o_outNormal = normal(
-				xcomp(bumpNormal) * basisx +
-				ycomp(bumpNormal) * basisy +
-				zcomp(bumpNormal) * basisz );
+			o_outNormal() = normal(
+				bumpNormal.x * basisx +
+				bumpNormal.y * basisy +
+				bumpNormal.z * basisz );
 
-			o_outNormal = normalize(o_outNormal);
+			o_outNormal() = normalize(o_outNormal());
 		}
 		else
 		{
 			/* Object Space Normals. This needs some work. */
-			o_outNormal = ntransform( "object", "current", i_bumpNormal - 0.5 );
-			o_outNormal = normalize(o_outNormal);
+			o_outNormal() = nto_object(i_bumpNormal() - normal(0.5f));
+			o_outNormal() = normalize(o_outNormal());
 		}
 	}
 END(maya_bump2d)
