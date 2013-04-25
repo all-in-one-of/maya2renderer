@@ -321,23 +321,29 @@ namespace elvishray
 		}
 
 		{//material
-			MStringArray shadingGroupNodes;
-			{
-				MString cmd;
-				cmd = "listConnections -type \"shadingEngine\" -destination on (\""+MString(ribNode__->name.asChar())+"\" + \".instObjGroups\")";
-				IfMErrorWarn(MGlobal::executeCommand( cmd, shadingGroupNodes));
-			}
-			if( shadingGroupNodes.length()==0 )
+			std::vector<std::string> shadingGroupNodes;
+			getShadingGroups(ribNode__->name, shadingGroupNodes);
+
+			if( shadingGroupNodes.size()==0 )
 			{
 				//liquidMessage2(messageError, "%s's shading group is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
 				o.a(std::string(ribNode__->name.asChar())+"'s shading group is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash");
 				o.ei_mtl(getTestMaterialName().asChar());
-			} else if( shadingGroupNodes[0].length()==0 ){
-				//liquidMessage2(messageError, "%s's shadingGroupNode[0] is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
-				o.a(std::string(ribNode__->name.asChar())+"'s shadingGroupNodes[0] is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash" );
-				o.ei_mtl(getTestMaterialName().asChar());
-			} else {
-				o.ei_mtl( shadingGroupNodes[0].asChar() );
+			} 
+			else if( shadingGroupNodes[0].size()==1 ){
+				o.ei_mtl( shadingGroupNodes[0].c_str() );
+			}
+			else if( shadingGroupNodes[0].size()>1 )
+			{
+				//liquidMessage2(messageError, "%s has many shading groups. liquid only support one maertial per mesh, so I use the 1st material", ribNode__->name.asChar(), getTestMaterialName().asChar());
+				o.a(std::string(ribNode__->name.asChar())+" has many shading groups. liquid only support one martial per mesh, so I use the 1st material" );
+				std::string sShadingGroupNodes;
+				for(int i=0; i<shadingGroupNodes.size(); ++i)
+				{
+					sShadingGroupNodes += shadingGroupNodes[i]+",";
+				}
+				o.a("materials are: "+sShadingGroupNodes);
+				o.ei_mtl(shadingGroupNodes[0].c_str()  );
 			}
 		}
 		

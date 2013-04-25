@@ -1959,3 +1959,55 @@ std::string convertMayaTypeToRSLFloat(const std::string &mayaTypeString)
 
 	return tmp;
 }
+//
+LIQUID_EXPORT int getShadingGroups(const MString& shapeNode, std::vector<std::string> &ret)
+{
+	int instObjGroupsCount = 0;
+	IfMErrorWarn(MGlobal::executeCommand( 
+		"getAttr -size \""+shapeNode+".instObjGroups\"", instObjGroupsCount));
+
+	//process $shape.instObjGroups
+	for(int i = 0; i<instObjGroupsCount; ++i)
+	{
+		MString I; I.set(i);
+
+		//process $shape.instObjGroups[i]
+		MStringArray sgNodes;		
+		IfMErrorWarn(MGlobal::executeCommand( 
+			"listConnections -type \"shadingEngine\" -destination on \""+shapeNode+".instObjGroups["+I+"]\"", sgNodes));
+		//add to ret
+		for(int k=0; k<sgNodes.length(); ++k)
+		{
+			if( ret.end() != std::find(ret.begin(), ret.end(), std::string(sgNodes[k].asChar())) )
+				continue;//already exist
+
+			ret.push_back(sgNodes[k].asChar());
+		}
+
+
+		//process $shape.instObjGroup[i].objectGroups
+		int objectGroupsCount = 0;
+		IfMErrorWarn(MGlobal::executeCommand( 
+			"getAttr -size \""+shapeNode+".instObjGroups["+I+"].objectGroups\"", objectGroupsCount));
+		for(int j = 0; j<objectGroupsCount; ++j)
+		{
+			MString J; J.set(j);
+				
+			//process $shape.instObjGroup[i].objectGroups[j]
+			IfMErrorWarn(MGlobal::executeCommand( 
+				"listConnections -type \"shadingEngine\" -destination on \""+shapeNode+".instObjGroups["+I+"].objectGroups["+J+"]\""
+				, sgNodes));
+			//add to ret
+			for(int k=0; k<sgNodes.length(); ++k)
+			{
+				if( ret.end() != std::find(ret.begin(), ret.end(), std::string(sgNodes[k].asChar())) )
+					continue;//already exist
+
+				ret.push_back(sgNodes[k].asChar());
+			}
+		}
+
+	}
+
+	return ret.size();
+}

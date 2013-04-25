@@ -614,13 +614,12 @@ void ConvertShadingNetwork::__export()
 		const MString node(geometryArray[i]);
 
 		//string $sgNodes[] = `listConnections -type "shadingEngine" -destination on ( $node + ".instObjGroups" )`;//add -type "shadingEngine" for multy renderlayers
-		MStringArray sgNodes;		
-		cmd = "listConnections -type \"shadingEngine\" -destination on (\""+node+"\" + \".instObjGroups\")";
-		IfMErrorWarn(MGlobal::executeCommand( cmd, sgNodes));
+		std::vector<std::string> sgNodes;
+		getShadingGroups(node, sgNodes);
 
-		if( sgNodes.length() !=0 )
+		if( sgNodes.size() !=0 )
 		{
-			if( canShadingGroupExported(sgNodes[0]) )
+			if( canShadingGroupExported(sgNodes[0].c_str()) )
 			{
 				//1.shaders must be exported before shading group
 				{
@@ -630,15 +629,15 @@ void ConvertShadingNetwork::__export()
 						getRenderer()->getValidShaderPlugsInShadingGroup(plugs);
 					//export the plugs
 					for_each(plugs.begin(), plugs.end(),
-						boost::bind( &ConvertShadingNetwork::exportShaderInShadingGroup, this, sgNodes[0], _1 )
+						boost::bind( &ConvertShadingNetwork::exportShaderInShadingGroup, this, sgNodes[0].c_str(), _1 )
 					);
 				}
 				//2.begin
-				exportShadingGroupBegin(sgNodes[0]);
+				exportShadingGroupBegin(sgNodes[0].c_str());
 				//3.export shading group
-				outputShadingGroup(sgNodes[0]);
+				outputShadingGroup(sgNodes[0].c_str());
 				//4.end
-				exportShadingGroupEnd(sgNodes[0]);
+				exportShadingGroupEnd(sgNodes[0].c_str());
 			}
 		}else{
 			liquidMessage2(messageInfo, ("\""+node +"\" has not shading group, skip.").asChar() );

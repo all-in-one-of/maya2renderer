@@ -205,4 +205,7 @@ LIQUID_EXPORT MString evaluateTheTextureNameValue(const MString &plugName, const
 //"double3"		-->"float3"
 // ....
 LIQUID_EXPORT std::string convertMayaTypeToRSLFloat(const std::string &mayaTypeString);
+//get shadingGroup nodes name on shapeNode
+//return the shadingGroup nodes size.
+LIQUID_EXPORT int getShadingGroups(const MString& shapeNode, std::vector<std::string> &ret);
 #endif
