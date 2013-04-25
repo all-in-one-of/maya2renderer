@@ -217,10 +217,10 @@ def test_all_scene():
     '''
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform_tex/deform_tex.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -244,7 +244,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/tif.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/er/texture/jpg.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/test_pl/test_pl_type.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
