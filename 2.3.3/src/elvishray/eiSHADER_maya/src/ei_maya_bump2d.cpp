@@ -153,8 +153,89 @@ SURFACE(maya_bump2d)
 	}
 	void main(void *arg)
 	{
-		main_3delight(arg);
+		//main_3delight(arg);
 		//main_hack(arg);
+		main_3delight_10_0_50(arg);
 	}
+	void main_3delight_10_0_50(void *arg)
+	{
+		extern varying vector dPdu, dPdv, I;
+		extern varying vector stangent;
+		extern float ss, tt;
+  
+		if( i_bumpInterp <= 1 )
+		{
+			normal bumpNormal;
+			if( i_bumpInterp == 0 )
+			{
+				/* 2D bump map. */
+				float depth = abs( i_bumpDepth );
+				float offset = clamp( i_bumpValue * i_bumpDepth, -depth, depth );
+				point pb = point( ss, tt, 0.04 * offset );
+				bumpNormal = normalize( calculatenormal( pb ) );
 
+				/*
+					Depending on the orientation of texture coordinates and
+					geometry, calculatenormal might return a normal which points
+					the wrong way.
+				*/
+				bumpNormal = -bumpNormal;
+				if( zcomp(bumpNormal) < 0 )
+				{
+					setzcomp( bumpNormal, -zcomp(bumpNormal) );
+				}
+				else
+				{
+					uniform float backfacing = 0;
+					attribute( "geometry:backfacing", backfacing );
+					backfacing = 1 - 2 * backfacing;
+
+					float flip = -sign( i_normalCamera.I ) * backfacing;
+					setxcomp( bumpNormal, flip * xcomp( bumpNormal ) );
+					setycomp( bumpNormal, flip * ycomp( bumpNormal ) );
+				}
+			}
+			else
+			{
+				/* Tangent Space Normals. */
+				bumpNormal = normal(i_bumpNormal - vector(0.5));
+			}
+
+			vector udir, vdir;
+
+			if( stangent != vector(0) )
+			{
+				vdir = stangent ^ i_normalCamera;
+			}
+			else
+			{
+				vdir = Du(tt) * dPdu + Dv(tt) * dPdv;
+				vdir = i_normalCamera ^ (vdir ^ i_normalCamera);
+			}
+
+			udir = i_normalCamera ^ vdir;
+			vector uorient = Du(ss) * dPdu + Dv(ss) * dPdv;
+			if( udir.uorient < 0 )
+			{
+				udir = -udir;
+			}
+
+			vector basisx = normalize(udir);
+			vector basisy = normalize(vdir);
+			vector basisz = normalize(i_normalCamera);
+
+			o_outNormal = normal(
+				xcomp(bumpNormal) * basisx +
+				ycomp(bumpNormal) * basisy +
+				zcomp(bumpNormal) * basisz );
+
+			o_outNormal = normalize(o_outNormal);
+		}
+		else
+		{
+			/* Object Space Normals. This needs some work. */
+			o_outNormal = ntransform( "object", "current", i_bumpNormal - 0.5 );
+			o_outNormal = normalize(o_outNormal);
+		}
+	}
 END(maya_bump2d)
