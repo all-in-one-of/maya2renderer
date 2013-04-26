@@ -1986,25 +1986,16 @@ LIQUID_EXPORT int getShadingGroups(const MString& shapeNode, std::vector<std::st
 
 
 		//process $shape.instObjGroup[i].objectGroups
-		int objectGroupsCount = 0;
 		IfMErrorWarn(MGlobal::executeCommand( 
-			"getAttr -size \""+shapeNode+".instObjGroups["+I+"].objectGroups\"", objectGroupsCount));
-		for(int j = 0; j<objectGroupsCount; ++j)
+			"listConnections -type \"shadingEngine\" -destination on \""+shapeNode+".instObjGroups["+I+"].objectGroups\""
+			, sgNodes));
+		//add to ret
+		for(int k=0; k<sgNodes.length(); ++k)
 		{
-			MString J; J.set(j);
-				
-			//process $shape.instObjGroup[i].objectGroups[j]
-			IfMErrorWarn(MGlobal::executeCommand( 
-				"listConnections -type \"shadingEngine\" -destination on \""+shapeNode+".instObjGroups["+I+"].objectGroups["+J+"]\""
-				, sgNodes));
-			//add to ret
-			for(int k=0; k<sgNodes.length(); ++k)
-			{
-				if( ret.end() != std::find(ret.begin(), ret.end(), std::string(sgNodes[k].asChar())) )
-					continue;//already exist
+			if( ret.end() != std::find(ret.begin(), ret.end(), std::string(sgNodes[k].asChar())) )
+				continue;//already exist
 
-				ret.push_back(sgNodes[k].asChar());
-			}
+			ret.push_back(sgNodes[k].asChar());
 		}
 
 	}
