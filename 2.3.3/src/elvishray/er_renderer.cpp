@@ -337,12 +337,9 @@ namespace elvishray
 			{
 				//liquidMessage2(messageError, "%s has many shading groups. liquid only support one maertial per mesh, so I use the 1st material", ribNode__->name.asChar(), getTestMaterialName().asChar());
 				o.a(std::string(ribNode__->name.asChar())+" has many shading groups. liquid only support one martial per mesh, so I use the 1st material" );
-				std::string sShadingGroupNodes;
-				for(int i=0; i<shadingGroupNodes.size(); ++i)
-				{
-					sShadingGroupNodes += shadingGroupNodes[i]+",";
-				}
-				o.a("materials are: "+sShadingGroupNodes);
+				std::ostringstream s;
+				std::copy(shadingGroupNodes.begin(), shadingGroupNodes.end(), std::ostream_iterator<std::string>(s, ","));
+				o.a("materials are: "+s.str());
 				o.ei_mtl(shadingGroupNodes[0].c_str()  );
 			}
 		}
