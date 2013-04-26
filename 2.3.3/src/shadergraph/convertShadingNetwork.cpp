@@ -639,6 +639,12 @@ void ConvertShadingNetwork::__export()
 				//4.end
 				exportShadingGroupEnd(sgNodes[0].c_str());
 			}
+			if( sgNodes.size() > 1 )
+			{
+				std::ostringstream s;
+				std::copy(sgNodes.begin(), sgNodes.end(), std::ostream_iterator<std::string>(s, ","));
+				liquidMessage2(messageError, "%s has many shading groups[%s]. only the 1st is exported.", node.asChar(), s.str().c_str());
+			}
 		}else{
 			liquidMessage2(messageInfo, ("\""+node +"\" has not shading group, skip.").asChar() );
 		}
