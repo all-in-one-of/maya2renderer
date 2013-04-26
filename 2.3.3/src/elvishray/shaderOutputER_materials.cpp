@@ -191,7 +191,10 @@ void Visitor::visitSurfaceShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_surfaceShader", node);
-	out.a("the type of node '"+std::string(node)+"' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()");
+	o.addRSLVariable("color", "outColor",			"outColor",			node);
+	o.addRSLVariable("color", "outTransparency",	"outTransparency",	node);
+	o.addRSLVariable("color", "outMatteOpacity",	"outMatteOpacity",	node);
+	o.addRSLVariable("color", "outGlowColor",		"outGlowColor",		node);
 	o.endRSL();
 }
 // @node	maya shader node name

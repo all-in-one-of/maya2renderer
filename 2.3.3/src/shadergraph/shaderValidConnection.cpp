@@ -231,6 +231,24 @@ void ShaderValidConnection::setValidConnection()
 	//shadingMap
 
 	//surfaceShader
+	validConnectionMap.begin("surfaceShader");
+	validConnectionMap.append("outColorR");
+	validConnectionMap.append("outColorG");
+	validConnectionMap.append("outColorB");
+	validConnectionMap.append("outColor");
+	validConnectionMap.append("outTransparencyR");
+	validConnectionMap.append("outTransparencyG");
+	validConnectionMap.append("outTransparencyB");
+	validConnectionMap.append("outTransparency");
+	validConnectionMap.append("outMatteOpacityR");
+	validConnectionMap.append("outMatteOpacityG");
+	validConnectionMap.append("outMatteOpacityB");
+	validConnectionMap.append("outMatteOpacity");
+	validConnectionMap.append("outGlowColorR");
+	validConnectionMap.append("outGlowColorG");
+	validConnectionMap.append("outGlowColorB");
+	validConnectionMap.append("outGlowColor");
+	validConnectionMap.end();
 
 	//useBackground
 

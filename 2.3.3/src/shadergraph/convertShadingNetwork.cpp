@@ -66,8 +66,14 @@ bool ConvertShadingNetwork::nodeIsConvertible ( const MString& node ) const
 	MString nodetype;
 	cmd = "nodeType \""+node+"\"";
 	IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
-	
-	return ShaderMgr::getSingletonPtr()->hasShaderType(nodetype.asChar());
+
+	if( ShaderMgr::getSingletonPtr()->hasShaderType(nodetype.asChar()) )
+	{
+		return true;
+	}else{
+		//liquidMessage2(messageError, "node type \"%s\" (%s) is not supported", nodetype.asChar(), node.asChar());
+		return false;
+	}
 }
 //
 bool ConvertShadingNetwork::ensurePlugExists(const MString& plug) const
