@@ -157,8 +157,8 @@ void Visitor::visitPlace2dTexture(const char* node)
 	o.addRSLVariable("bool",	"stagger",		"stagger",		node);
 	o.addRSLVariable("float",	"translateFrameU",	"translateFrameU",	node);
 	o.addRSLVariable("float",	"translateFrameV",	"translateFrameV",	node);
-	o.addRSLVariable("float",	"wrapU",		"wrapU",		node);
-	o.addRSLVariable("float",	"wrapV",		"wrapV",		node);
+	o.addRSLVariable("bool",	"wrapU",		"wrapU",		node);
+	o.addRSLVariable("bool",	"wrapV",		"wrapV",		node);
 	//Outputs
 	o.addRSLVariable("vector",  "outUV",		"outUV",		node);
 

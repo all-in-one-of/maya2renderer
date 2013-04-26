@@ -7,6 +7,14 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq| er|: r580回归测试
+- liq|: 导出数据太慢
+- liq| er|: esa/ess 格式优化，
+-liq| er|: 更新sdk，验证toElvic\crash_after_renderin\Scout_testcase\*.esa，渲染后会崩溃的问题
+-liq| er|: 更新sdk，验证toElvic\rendering_hangs3\*.esa ,在27%时会僵死的问题
+-liq| er|: G:\tmp\d_tmp\maya_test\creativecrash\bit1.1.0\robot_bit_v1.1\×。ma 使用的nurbs建模。nurbs --》 polygon不正确，无法渲染
+-liq| er|: G:\tmp\d_tmp\maya_test\creativecrash\skybotXX\skybotX，很多物体渲染不出来
+- liq|: 渲染之前的导出太耗时。做UI选项，让ESS/ESA/CALL可选；让function call可选
 -liq|:mayabatch.exe  -batch -file时，打开文件花的时间太长（10s）,如何缩短这个时间？
 -liq| er| ess|: hair的ess格式
 - liq|er|: maya crash: maya_shader/shader_graph/shader_graph/shader_graph.ma

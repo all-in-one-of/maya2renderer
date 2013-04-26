@@ -115,12 +115,13 @@ void Visitor::visitFile(const char* node)
 	o.addRSLVariable("color",  "colorGain",	"colorGain",	node);
 	o.addRSLVariable("color",  "colorOffset",	"colorOffset",	node);
 	o.addRSLVariable("color",  "defaultColor",	"defaultColor",	node);
-	o.addRSLVariable("vector",  "uvCoord",	"uvCoord",	node);
+	//liquidMessage2(messageWarning,"visitFile(): ei_shader_param_texture() or ei_shader_param_tag() ?");
 	out.ei_shader_param_texture("fileTextureName", fileImageName.asChar());
 	o.addRSLVariable("index", "filterType",	"filterType",	node);
 	o.addRSLVariable("float",  "filter",	"filter",	node);
 	o.addRSLVariable("float",  "filterOffset",	"filterOffset",	node);
 	o.addRSLVariable("bool",  "invert",	"invert",	node);
+	o.addRSLVariable("vector",  "uvCoord",	"uvCoord",	node);
 	o.addRSLVariable("bool",  "fileHasAlpha",	"fileHasAlpha",	node);
 	//o.addRSLVariable("index", "num_channels",	"num_channels",	node);
 	//output

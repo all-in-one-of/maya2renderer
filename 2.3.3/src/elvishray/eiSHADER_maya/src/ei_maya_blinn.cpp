@@ -46,7 +46,7 @@ SURFACE(maya_blinn)
 	DECLARE_INT(	liq_UserDefinedNormal,		0);// use user defined normal or not, 1:yes, 0:no
 	DECLARE_NORMAL(	i_normalCamera,				0.0f, 0.0f, 1.0f); //bump
 	DECLARE_SCALAR(	i_reflectionMaxDistance,	0.0f);//3delight defined parameter
-	DECLARE_SCALAR(	i_reflectionSamples,		0.5f);//3delight defined parameter
+	DECLARE_INDEX(	i_reflectionSamples,		1);   //3delight defined parameter
 	DECLARE_SCALAR(	i_reflectionBlur,			0.5f);//3delight defined parameter
 	DECLARE_SCALAR(	i_reflectionNoiseAmplitude,	0.5f);//3delight defined parameter
 	DECLARE_SCALAR(	i_reflectionNoiseFrequency,	0.5f);//3delight defined parameter

@@ -7,6 +7,7 @@
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
 #include <trace/trace.hpp>
+#include <liqlog.h>
 #include "er_output_mgr.h"
 
 namespace ER
@@ -26,6 +27,7 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	o.addRSLVariable("float",	"spread",		"spread",		node);
 	o.addRSLVariable("float",	"max_distance",	"max_distance",	node);
 	o.addRSLVariable("bool",	"reflective",	"reflective",	node);
+	//liquidMessage2(messageWarning, "visit_mib_amb_occlusion(): outValue should be added?");
 	//o.addRSLVariable("color",	"outValue",		"outValue",		node);
 
 	o.endRSL();
