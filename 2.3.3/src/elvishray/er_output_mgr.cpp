@@ -207,13 +207,13 @@ namespace elvishray
 		}
 	}
 
-	eiTag OutputMgr::ei_tab(const eiInt type, const eiInt items_per_slot)
+	eiTag OutputMgr::ei_tab(const eiInt type, const eiUint nkeys, const eiInt items_per_slot)
 	{
 		//CM_TRACE_FUNC("OutputMgr::ei_tab("<<type<<","<<items_per_slot<<")");
 		eiTag ret = 0;
 		for(std::size_t i=0; i<m_receiver_types.size(); ++i)
 		{
-			eiTag tag = m_receivers[i]->ei_tab(type, items_per_slot);
+			eiTag tag = m_receivers[i]->ei_tab(type, nkeys, items_per_slot);
 			if( m_receiver_types[i] == OT_CALL)
 			{
 				ret = tag;
@@ -842,16 +842,6 @@ namespace elvishray
 		for(; i!=e; ++i)
 		{
 			(*i)->ei_pos_list(tab);
-		}
-	}
-	void OutputMgr::ei_motion_pos_list(const eiTag tab)
-	{
-		//CM_TRACE_FUNC("OutputMgr::ei_motion_pos_list(tag)" ); 
-		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
-		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
-		for(; i!=e; ++i)
-		{
-			(*i)->ei_motion_pos_list(tab);
 		}
 	}
 	void OutputMgr::ei_triangle_list(const eiTag tab)

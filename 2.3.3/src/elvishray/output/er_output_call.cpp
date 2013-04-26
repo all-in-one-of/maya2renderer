@@ -78,10 +78,10 @@ namespace elvishray
 		::ei_render( root_instgroup, camera_inst, options );
 	}
 
-	eiTag OutputCall::ei_tab(const eiInt type, const eiInt items_per_slot)
+	eiTag OutputCall::ei_tab(const eiInt type, const eiUint nkeys, const eiInt items_per_slot)
 	{
-		//CM_TRACE_FUNC("OutputCall::ei_tab("<<type<<","<<items_per_slot<<")");
-		return ::ei_tab( type, items_per_slot );
+		//CM_TRACE_FUNC("OutputCall::ei_tab("<<type<<","<<nkeys<<","<<items_per_slot<<")");
+		return ::ei_tab( type, nkeys, items_per_slot );
 	}
 	//void OutputCall::ei_tab_add(const void *value);
 	//void OutputCall::ei_tab_add_int(const eiInt value);
@@ -411,11 +411,6 @@ namespace elvishray
 		//CM_TRACE_FUNC("OutputCall::ei_pos_list(tag)" ); 
 		::ei_pos_list(tab);
 	}
-	void OutputCall::ei_motion_pos_list(const eiTag tab)
-	{
-		//CM_TRACE_FUNC("OutputCall::ei_motion_pos_list(tag)" ); 
-		::ei_motion_pos_list(tab);
-	}
 	void OutputCall::ei_triangle_list(const eiTag tab)
 	{
 		//CM_TRACE_FUNC("OutputCall::ei_triangle_list(tag)" ); 
@@ -638,32 +633,42 @@ namespace elvishray
 		::ei_object( "poly", objname.c_str() );
 
 		//vertex positions(required)
-		tag = ::ei_tab(EI_TYPE_VECTOR, 1024);
-		::ei_pos_list( tag );
-		for(std::size_t i=0; i<POSITION.size(); ++i)
+		if( POSITION_mb.size() == 0 )//no motion blur
 		{
-			::ei_tab_add_vector( POSITION[i].x, POSITION[i].y, POSITION[i].z );
-		}
-		::ei_end_tab();
-
-		//### vertex deform positions(optional)
-		if( POSITION_mb.size() > 0 )
-		{
-			tag = ::ei_tab(EI_TYPE_VECTOR, 1024);
-			::ei_motion_pos_list( tag );
-			for(std::size_t i=0; i<POSITION_mb.size(); ++i)
+			tag = ::ei_tab(EI_TYPE_VECTOR, 1, 1024);
+			::ei_pos_list( tag );
+			for(std::size_t i=0; i<POSITION.size(); ++i)
 			{
+				::ei_tab_add_vector( POSITION[i].x, POSITION[i].y, POSITION[i].z );
+			}
+			::ei_end_tab();
+		}
+		else{
+			//### vertex deform positions(optional)
+			if( POSITION.size() != POSITION_mb.size() )
+			{
+				assert( 0 && "POSITION.size() != POSITION_mb.size()" );
+				liquidMessage2(messageError, "POSITION.size()(%d) != POSITION_mb.size()(%d), \"%s\"",
+					POSITION.size(), POSITION_mb.size(), objname.c_str());
+			}
+
+			tag = ::ei_tab(EI_TYPE_VECTOR, 2, 1024);
+			::ei_pos_list( tag );
+			for(std::size_t i=0; i<POSITION.size(); ++i)
+			{
+				::ei_tab_add_vector( POSITION[i].x,    POSITION[i].y,    POSITION[i].z );
 				::ei_tab_add_vector( POSITION_mb[i].x, POSITION_mb[i].y, POSITION_mb[i].z );
 			}
 			::ei_end_tab();
 		}
+
 				
 		//### N ###"(optional)
 		if( NORMAL.size() >0 )
 		{
 			tag = eiNULL_TAG;
 			::ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-			tag = ::ei_tab(EI_TYPE_VECTOR, 1024);
+			tag = ::ei_tab(EI_TYPE_VECTOR, 1, 1024);
 			::ei_variable("N", &tag);
 			for(size_t i=0; i<NORMAL.size(); ++i)
 			{
@@ -678,7 +683,7 @@ namespace elvishray
 		{
 			tag = eiNULL_TAG;
 			::ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-			tag = ::ei_tab(EI_TYPE_VECTOR2, 1024);
+			tag = ::ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 			::ei_variable("uv", &tag);
 			for(size_t i = 0; i<UV.size(); ++i)
 			{
@@ -690,7 +695,7 @@ namespace elvishray
 
 		//### triangles(required)
 		//size="<< INDEX.size();
-		tag = ::ei_tab(EI_TYPE_INDEX, 1024);
+		tag = ::ei_tab(EI_TYPE_INDEX, 1, 1024);
 		::ei_triangle_list( tag );
 		if( INDEX.size()>0 )
 		{
@@ -761,10 +766,10 @@ namespace elvishray
 		{
 
 			eiTag vtx_list;
-			vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000);
+			vtx_list = ei_tab(EI_TYPE_VECTOR4, 1, 100000);
 			ei_end_tab();
 			eiTag hair_list;
-			hair_list = ei_tab(EI_TYPE_INDEX, 100000);
+			hair_list = ei_tab(EI_TYPE_INDEX, 1, 100000);
 			ei_end_tab();
 
 			// read other attributes from the lines

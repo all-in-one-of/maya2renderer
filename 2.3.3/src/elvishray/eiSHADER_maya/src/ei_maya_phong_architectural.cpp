@@ -79,7 +79,10 @@ SURFACE(maya_phong_architectural)
 		scalar	Dvdx = Dx(v);
 		scalar	Dvdy = Dy(v);
 
-		call_shader(shader, EI_TYPE_VECTOR, u_result, &C, NULL);
+		eiShaderOutput outputs[] = {
+			{EI_TYPE_VECTOR, u_result, &C}, 
+		};
+		call_shader(shader, 1, outputs, NULL);
 
 		point old_P = P;
 		scalar old_u = u;
@@ -88,12 +91,20 @@ SURFACE(maya_phong_architectural)
 		P = old_P + dPdx;
 		u = old_u + Dudx;
 		v = old_v + Dvdx;
-		call_shader(shader, EI_TYPE_VECTOR, u_result, &Cx, NULL);
+
+		eiShaderOutput outputs_x[] = {
+			{EI_TYPE_VECTOR, u_result, &Cx}, 
+		};
+		call_shader(shader, 1, outputs_x, NULL);
 
 		P = old_P + dPdy;
 		u = old_u + Dudy;
 		v = old_v + Dvdy;
-		call_shader(shader, EI_TYPE_VECTOR, u_result, &Cy, NULL);
+
+		eiShaderOutput outputs_y[] = {
+			{EI_TYPE_VECTOR, u_result, &Cy}, 
+		};
+		call_shader(shader, 1, outputs_y, NULL);
 
 		P = old_P;
 		u = old_u;

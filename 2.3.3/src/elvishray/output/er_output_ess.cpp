@@ -85,10 +85,10 @@ namespace elvishray
 		m_outputfile<<"render \""<<root_instgroup<<"\" \""<<camera_inst<<"\" \""<<options<<"\""<<std::endl;
 	}
 
-	eiTag OutputESS::ei_tab(const eiInt type, const eiInt items_per_slot)
+	eiTag OutputESS::ei_tab(const eiInt type, const eiUint nkeys, const eiInt items_per_slot)
 	{
-		//CM_TRACE_FUNC("OutputESS::ei_tab("<<type<<","<<items_per_slot<<")");
-		m_outputfile<<"##ei_tab( "<<type<<", "<<items_per_slot<<" );"<<std::endl;
+		//CM_TRACE_FUNC("OutputESS::ei_tab("<<type<<","<<nkeys<<","<<items_per_slot<<")");
+		m_outputfile<<"##ei_tab( "<<type<<", "<<nkeys<<","<<items_per_slot<<" );"<<std::endl;
 		liquidMessage2(messageError, "OutputESS::ei_tab(), return 0;");
 		return 0;
 	}
@@ -466,12 +466,6 @@ namespace elvishray
 		//CM_TRACE_FUNC("OutputESS::ei_pos_list(tag)" );
 		liquidMessage2(messageError,"OutputESS::ei_pos_list(tab)");
 		m_outputfile<<"pos_list size=?"<<std::endl;
-	}
-	void OutputESS::ei_motion_pos_list(const eiTag tab)
-	{
-		//CM_TRACE_FUNC("OutputESS::ei_motion_pos_list(tag)" ); 
-		liquidMessage2(messageError,"OutputESS::ei_motion_pos_list(tab)");
-		m_outputfile<<"motion_pos_list size=?"<<std::endl;
 	}
 	void OutputESS::ei_triangle_list(const eiTag tab)
 	{

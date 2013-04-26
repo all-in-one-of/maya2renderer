@@ -46,7 +46,7 @@ namespace elvishray
 		virtual void ei_delete( const char *element_name ) = 0;
 		virtual void ei_render( const char *root_instgroup, const char *camera_inst, const char *options ) = 0;
 
-		virtual eiTag ei_tab(const eiInt type, const eiInt items_per_slot) = 0;
+		virtual eiTag ei_tab(const eiInt type, const eiUint nkeys, const eiInt items_per_slot) = 0;
 		//virtual void ei_tab_add(const void *value) = 0;
 		//virtual void ei_tab_add_int(const eiInt value) = 0;
 		virtual void ei_tab_add_scalar(const eiScalar value) = 0;
@@ -173,7 +173,6 @@ namespace elvishray
 		virtual void ei_geometry_shader(const char *shader_name) = 0;
 		/* polygon objects */
 		virtual void ei_pos_list(const eiTag tab) = 0;
-		virtual void ei_motion_pos_list(const eiTag tab) = 0;
 		virtual void ei_triangle_list(const eiTag tab) = 0;
 
 

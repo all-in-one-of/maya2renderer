@@ -28,6 +28,8 @@ LIGHT(liq_skylight)
 	DECLARE_INT(resolution, 1000);
 	DECLARE_SCALAR(max_dist, 10000.0f);
 	END_DECLARE;
+		
+	static const char *u_result;
 
 	class Globals
 	{
@@ -56,6 +58,7 @@ LIGHT(liq_skylight)
 
 	static void init()
 	{
+		u_result = ei_token("result");
 	}
 
 	static void exit()
@@ -79,11 +82,19 @@ LIGHT(liq_skylight)
 
 	eiFORCEINLINE const color & cb(const vector & dir, const eiTag shader)
 	{
+		color	C;
+
 		I = dir;
 
 		const eiUshort prev_ray_type = ray_type;
 		ray_type = EI_RAY_ENVIRONMENT;
-		call_shader(shader, EI_TYPE_NONE, NULL, NULL, NULL);
+
+		eiShaderOutput outputs[] = {
+			{EI_TYPE_VECTOR, u_result, &C}, 
+		};
+
+		call_shader(shader, 1, outputs, NULL);
+
 		ray_type = prev_ray_type;
 
 		return out->Ci;
@@ -227,3 +238,5 @@ LIGHT(liq_skylight)
 	}
 
 END_LIGHT(liq_skylight)
+
+const char *liq_skylight::u_result = NULL;

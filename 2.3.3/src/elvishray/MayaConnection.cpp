@@ -162,7 +162,8 @@ void MayaConnection::ClearTile( const eiInt left, const eiInt right,
 }
 // Note:
 // the tile of elvishray range from [left right) to [top bottom)
-void MayaConnection::UpdateTile( eiFrameBufferCache *colorFrameBuffer, 
+void MayaConnection::UpdateTile( const eiInt job_state, 
+								eiFrameBufferCache *colorFrameBuffer, 
 								eiFrameBufferCache *opacityFrameBuffer, 
 								ei_array *frameBuffers, 
 								const eiInt left, const eiInt right, 
@@ -403,6 +404,7 @@ static void maya_connection_clear_tile(
 
 static void maya_connection_update_tile(
 									   eiConnection *connection, 
+									   const eiInt job_state,
 									   eiFrameBufferCache *colorFrameBuffer, 
 									   eiFrameBufferCache *opacityFrameBuffer, 
 									   ei_array *frameBuffers, 
@@ -413,7 +415,7 @@ static void maya_connection_update_tile(
 {
 	MayaConnection *con = ((eiMayaConnection *)connection)->object;
 
-	con->UpdateTile(colorFrameBuffer, opacityFrameBuffer, 
+	con->UpdateTile(job_state, colorFrameBuffer, opacityFrameBuffer, 
 		frameBuffers, left, right, top, bottom);
 }
 

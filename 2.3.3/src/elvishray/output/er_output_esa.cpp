@@ -91,10 +91,10 @@ namespace elvishray
 		m_outputfile<<"ei_render( \""<<root_instgroup<<"\", \""<<camera_inst<<"\", \""<<options<<"\" );"<<std::endl;
 	}
 
-	eiTag OutputESA::ei_tab(const eiInt type, const eiInt items_per_slot)
+	eiTag OutputESA::ei_tab(const eiInt type, const eiUint nkeys, const eiInt items_per_slot)
 	{
-		//CM_TRACE_FUNC("OutputESA::ei_tab("<<type<<","<<items_per_slot<<")");
-		m_outputfile<<"ei_tab( "<<type<<", "<<items_per_slot<<" );"<<std::endl;
+		//CM_TRACE_FUNC("OutputESA::ei_tab("<<type<<","<<nkeys<<","<<items_per_slot<<")");
+		m_outputfile<<"ei_tab( "<<type<<", "<<nkeys<<","<<items_per_slot<<" );"<<std::endl;
 		liquidMessage2(messageError, "OutputESA::ei_tab(), return 0;");
 		return 0;
 	}
@@ -447,12 +447,6 @@ namespace elvishray
 		liquidMessage2(messageError,"OutputESA::ei_pos_list(tab)");
 		m_outputfile<<"ei_pos_list(tab);"<<std::endl;
 	}
-	void OutputESA::ei_motion_pos_list(const eiTag tab)
-	{
-		//CM_TRACE_FUNC("OutputESA::ei_motion_pos_list(tag)" ); 
-		liquidMessage2(messageError,"OutputESA::ei_motion_pos_list(tab)");
-		m_outputfile<<"ei_motion_pos_list(tab);"<<std::endl;
-	}
 	void OutputESA::ei_triangle_list(const eiTag tab)
 	{
 		//CM_TRACE_FUNC("OutputESA::ei_triangle_list(tag)" );
@@ -681,25 +675,33 @@ namespace elvishray
 		s("eiTag tag;");
 
 		a(boost::str(boost::format("vertex positions(required), size=%d")%POSITION.size()));
-		s("tag = ei_tab(EI_TYPE_VECTOR, 1024);");
-		s("ei_pos_list( tag );");
-		for(std::size_t i=0; i<POSITION.size(); ++i)
+		if( POSITION_mb.size() == 0 )//no motion blur
 		{
-			s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%POSITION[i].x %POSITION[i].y %POSITION[i].z ) );
-		}
-		s("ei_end_tab();");
-
-
-		a("### vertex deform positions(optional)");
-		if( POSITION_mb.size() > 0 )
-		{
-			s("tag = ei_tab(EI_TYPE_VECTOR, 1024);");
-			s("ei_motion_pos_list( tag );");
-			for(std::size_t i=0; i<POSITION_mb.size(); ++i)
+			s("tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);");
+			s("ei_pos_list( tag );");
+			for(std::size_t i=0; i<POSITION.size(); ++i)
 			{
+				s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%POSITION[i].x %POSITION[i].y %POSITION[i].z ) );
+			}
+			s("ei_end_tab();");
+		}
+		else{
+			a("### vertex deform positions(optional)");
+			if( POSITION.size() != POSITION_mb.size() )
+			{
+				assert( 0 && "POSITION.size() != POSITION_mb.size()" );
+				liquidMessage2(messageError, "POSITION.size()(%d) != POSITION_mb.size()(%d), \"%s\"",
+					POSITION.size(), POSITION_mb.size(), objname.c_str());
+			}
+			s("tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);");
+			s("ei_pos_list( tag );");
+			for(std::size_t i=0; i<POSITION.size(); ++i)
+			{
+				s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%POSITION[i].x    %POSITION[i].y    %POSITION[i].z    ) );
 				s(boost::str(boost::format("ei_tab_add_vector( %f, %f, %f );")%POSITION_mb[i].x %POSITION_mb[i].y %POSITION_mb[i].z ) );
 			}
 			s("ei_end_tab();");
+			
 		}
 
 
@@ -709,7 +711,7 @@ namespace elvishray
 		{
 			s("tag = eiNULL_TAG;");
 			s("ei_declare(\"N\", EI_VARYING, EI_TYPE_TAG, &tag);");
-			s("tag = ei_tab(EI_TYPE_VECTOR, 1024);");
+			s("tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);");
 			s("ei_variable(\"N\", &tag);");
 			for(size_t i=0; i<NORMAL.size(); ++i)
 			{
@@ -726,7 +728,7 @@ namespace elvishray
 		{
 			s("tag = eiNULL_TAG;");
 			s("ei_declare(\"uv\", EI_VARYING, EI_TYPE_TAG, &tag);");
-			s("tag = ei_tab(EI_TYPE_VECTOR2, 1024);");
+			s("tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);");
 			s("ei_variable(\"uv\", &tag);");
 			for(size_t i = 0; i<UV.size(); ++i)
 			{
@@ -737,7 +739,7 @@ namespace elvishray
 
 
 		a(boost::str(boost::format("### triangles(required) size=%d") %INDEX.size()));
-		s("tag = ei_tab(EI_TYPE_INDEX, 1024);");
+		s("tag = ei_tab(EI_TYPE_INDEX, 1, 1024);");
 		s("ei_triangle_list( tag );");		
 		if( INDEX.size()>0 )
 		{
@@ -808,10 +810,10 @@ namespace elvishray
 		{
 
 			s("eiTag vtx_list;");
-			s("vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000);");
+			s("vtx_list = ei_tab(EI_TYPE_VECTOR4, 1, 100000);");
 			s("ei_end_tab();");
 			s("eiTag hair_list;");
-			s("hair_list = ei_tab(EI_TYPE_INDEX, 100000);");
+			s("hair_list = ei_tab(EI_TYPE_INDEX, 1, 100000);");
 			s("ei_end_tab();");
 
 			// read other attributes from the lines

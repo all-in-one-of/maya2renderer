@@ -62,7 +62,8 @@ public:
 	virtual void	ClearTile( const eiInt left, const eiInt right, 
 								const eiInt top, const eiInt bottom,
 								const eiHostID host );
-	virtual void	UpdateTile( eiFrameBufferCache *colorFrameBuffer, 
+	virtual void	UpdateTile( const eiInt job_state,
+								eiFrameBufferCache *colorFrameBuffer, 
 								eiFrameBufferCache *opacityFrameBuffer, 
 								ei_array *frameBuffers, 
 								const eiInt left, const eiInt right, 
