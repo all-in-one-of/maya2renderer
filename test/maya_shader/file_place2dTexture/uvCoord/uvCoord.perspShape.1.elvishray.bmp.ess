@@ -22,7 +22,7 @@ options "perspShape_option"
     filter 4 3 
 ##transform motion=0, deform motion=0
     motion 0 
-    trace_depth 4 4 4 4 4 4 
+    trace_depth -1869013519 -1869013519 -1869013519 -1869013519 -1869013519 -1869013519 
     displace 0 
     face 3 
 end options
@@ -69,8 +69,8 @@ shader "maya_place2dTexture" "place2dTexture1"
     param_bool "stagger" 0 
     param_scalar "translateFrameU" 0 
     param_scalar "translateFrameV" 0 
-    param_scalar "wrapU" 1 
-    param_scalar "wrapV" 1 
+    param_bool "wrapU" 1 
+    param_bool "wrapV" 1 
     param_vector "outUV" 0.353586 0.000000 0.000000
 end shader
 
@@ -84,12 +84,12 @@ shader "maya_file" "file1"
     param_vector "colorGain" 1.000000 1.000000 1.000000
     param_vector "colorOffset" 0.000000 0.000000 0.000000
     param_vector "defaultColor" 0.500000 0.500000 0.500000
-    link_param "uvCoord" "place2dTexture1" "outUV" 
     param_texture "fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check.14.jpg" 
     param_index "filterType" 3 
     param_scalar "filter" 1 
     param_scalar "filterOffset" 0 
     param_bool "invert" 0 
+    link_param "uvCoord" "place2dTexture1" "outUV" 
     param_bool "fileHasAlpha" 0 
     param_scalar "outAlpha" 1 
     param_vector "outColor" 0.000000 0.000000 0.000000
@@ -185,6 +185,8 @@ end object
 ##ribNode's transform node=|pPlane9
 ##ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane9|pPlaneShape18
 instance "|pPlane9" 
+##|pPlane9|pPlaneShape18 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+##materials are: initialShadingGroup,
 mtl "initialShadingGroup" 
 ##shape name=|pPlane9|pPlaneShape18
 ##shape full path name=|pPlane9|pPlaneShape18

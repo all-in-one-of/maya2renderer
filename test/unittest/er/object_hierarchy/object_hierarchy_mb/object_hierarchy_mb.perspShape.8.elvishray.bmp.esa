@@ -23,11 +23,11 @@ ei_end_material();
 //############################### option #
 ei_options("perspShape_option");
 ei_contrast(0.05);
-ei_samples(0,1);
+ei_samples(0,2);
 ei_filter(4,3);
 //transform motion=1, deform motion=1
 ei_motion(1);
-ei_trace_depth(4,4,4,2,2,2);
+ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -132,83 +132,80 @@ ei_object( "poly", "|pCube1|pCubeShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
-ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
-ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
-ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, 0.500000 );
+ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( 0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
+ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
 //### N ###(optional)
@@ -216,7 +213,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -256,7 +253,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -311,35 +308,32 @@ ei_object( "poly", "|pCube1|pCone1|pConeShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=12
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
-ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
-ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
-ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
-ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
-ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
-ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
-ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
-ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
-ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
-ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
-ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
 ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
+ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
+ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
 ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
 ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
+ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
+ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
 ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
+ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
+ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
 ei_tab_add_vector( -0.500000, -1.000000, 0.866025 );
 ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
+ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
+ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
+ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
 ei_tab_add_vector( 1.000000, -1.000000, 0.000000 );
 ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
+ei_tab_add_vector( -0.500000, -1.000000, -0.866026 );
+ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_end_tab();
 //### N ###(optional)
@@ -347,7 +341,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.033494 );
 ei_tab_add_vector2( 0.750000, 0.250000 );
@@ -363,7 +357,7 @@ ei_tab_add_vector2( 0.750000, 0.500000 );
 ei_tab_add_vector2( 0.500000, 1.000000 );
 ei_end_tab();
 //### triangles(required) size=12
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -393,29 +387,26 @@ ei_object( "poly", "|pCube1|pCone1|pPlane2|pPlaneShape2" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.949185, -0.000000, 0.274776 );
-ei_tab_add_vector( 0.949185, -0.000000, 0.274776 );
-ei_tab_add_vector( -0.949185, 0.000000, -0.274776 );
-ei_tab_add_vector( -0.949185, 0.000000, -0.274776 );
-ei_tab_add_vector( 0.949185, -0.000000, 0.274776 );
-ei_tab_add_vector( 0.949185, 0.000000, -0.274776 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -0.949185, -0.000000, 0.274776 );
 ei_tab_add_vector( 0.949185, -0.000000, 0.274776 );
+ei_tab_add_vector( 0.949185, -0.000000, 0.274776 );
+ei_tab_add_vector( -0.949185, 0.000000, -0.274776 );
+ei_tab_add_vector( -0.949185, 0.000000, -0.274776 );
 ei_tab_add_vector( -0.949185, 0.000000, -0.274776 );
 ei_tab_add_vector( -0.949185, 0.000000, -0.274776 );
 ei_tab_add_vector( 0.949185, -0.000000, 0.274776 );
+ei_tab_add_vector( 0.949185, -0.000000, 0.274776 );
+ei_tab_add_vector( 0.949185, 0.000000, -0.274776 );
 ei_tab_add_vector( 0.949185, 0.000000, -0.274776 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -428,7 +419,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -438,7 +429,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.289486 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -462,29 +453,26 @@ ei_object( "poly", "|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.552456, -0.000000, 0.210827 );
-ei_tab_add_vector( 0.552456, -0.000000, 0.210827 );
-ei_tab_add_vector( -0.552456, 0.000000, -0.210827 );
-ei_tab_add_vector( -0.552456, 0.000000, -0.210827 );
-ei_tab_add_vector( 0.552456, -0.000000, 0.210827 );
-ei_tab_add_vector( 0.552456, 0.000000, -0.210827 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -0.552456, -0.000000, 0.210827 );
 ei_tab_add_vector( 0.552456, -0.000000, 0.210827 );
+ei_tab_add_vector( 0.552456, -0.000000, 0.210827 );
+ei_tab_add_vector( -0.552456, 0.000000, -0.210827 );
+ei_tab_add_vector( -0.552456, 0.000000, -0.210827 );
 ei_tab_add_vector( -0.552456, 0.000000, -0.210827 );
 ei_tab_add_vector( -0.552456, 0.000000, -0.210827 );
 ei_tab_add_vector( 0.552456, -0.000000, 0.210827 );
+ei_tab_add_vector( 0.552456, -0.000000, 0.210827 );
+ei_tab_add_vector( 0.552456, 0.000000, -0.210827 );
 ei_tab_add_vector( 0.552456, 0.000000, -0.210827 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -497,7 +485,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -507,7 +495,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.381619 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -531,29 +519,26 @@ ei_object( "poly", "|pCube1|pCone1|pPlane3|pPlaneShape3" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.127537, -0.000000, 0.371106 );
-ei_tab_add_vector( 1.127537, -0.000000, 0.371106 );
-ei_tab_add_vector( -1.127537, 0.000000, -0.371106 );
-ei_tab_add_vector( -1.127537, 0.000000, -0.371106 );
-ei_tab_add_vector( 1.127537, -0.000000, 0.371106 );
-ei_tab_add_vector( 1.127537, 0.000000, -0.371106 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -1.127537, -0.000000, 0.371106 );
 ei_tab_add_vector( 1.127537, -0.000000, 0.371106 );
+ei_tab_add_vector( 1.127537, -0.000000, 0.371106 );
+ei_tab_add_vector( -1.127537, 0.000000, -0.371106 );
+ei_tab_add_vector( -1.127537, 0.000000, -0.371106 );
 ei_tab_add_vector( -1.127537, 0.000000, -0.371106 );
 ei_tab_add_vector( -1.127537, 0.000000, -0.371106 );
 ei_tab_add_vector( 1.127537, -0.000000, 0.371106 );
+ei_tab_add_vector( 1.127537, -0.000000, 0.371106 );
+ei_tab_add_vector( 1.127537, 0.000000, -0.371106 );
 ei_tab_add_vector( 1.127537, 0.000000, -0.371106 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -566,7 +551,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -576,7 +561,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.329130 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -600,29 +585,26 @@ ei_object( "poly", "|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.584879, -0.000000, 0.312833 );
-ei_tab_add_vector( 0.584879, -0.000000, 0.312833 );
-ei_tab_add_vector( -0.584879, 0.000000, -0.312833 );
-ei_tab_add_vector( -0.584879, 0.000000, -0.312833 );
-ei_tab_add_vector( 0.584879, -0.000000, 0.312833 );
-ei_tab_add_vector( 0.584879, 0.000000, -0.312833 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -0.584879, -0.000000, 0.312833 );
 ei_tab_add_vector( 0.584879, -0.000000, 0.312833 );
+ei_tab_add_vector( 0.584879, -0.000000, 0.312833 );
+ei_tab_add_vector( -0.584879, 0.000000, -0.312833 );
+ei_tab_add_vector( -0.584879, 0.000000, -0.312833 );
 ei_tab_add_vector( -0.584879, 0.000000, -0.312833 );
 ei_tab_add_vector( -0.584879, 0.000000, -0.312833 );
 ei_tab_add_vector( 0.584879, -0.000000, 0.312833 );
+ei_tab_add_vector( 0.584879, -0.000000, 0.312833 );
+ei_tab_add_vector( 0.584879, 0.000000, -0.312833 );
 ei_tab_add_vector( 0.584879, 0.000000, -0.312833 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -635,7 +617,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -645,7 +627,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.534868 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -670,83 +652,80 @@ ei_object( "poly", "|pCube1|pCube2|pCubeShape2" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
-ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
-ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
-ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, 0.523220 );
+ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( 2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, -0.523220 );
 ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, -0.546387, 0.523220 );
+ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
 ei_tab_add_vector( -2.358814, 0.546387, 0.523220 );
 ei_end_tab();
 //### N ###(optional)
@@ -754,7 +733,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -794,7 +773,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -848,29 +827,26 @@ ei_object( "poly", "|pCube1|group1|pPlane1|pPlaneShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( 2.082941, 0.000000, 0.936609 );
-ei_tab_add_vector( 2.082941, 0.000000, -0.936609 );
-ei_tab_add_vector( -2.082941, -0.000000, 0.936609 );
-ei_tab_add_vector( -2.082941, -0.000000, 0.936609 );
-ei_tab_add_vector( 2.082941, 0.000000, -0.936609 );
-ei_tab_add_vector( -2.725275, 0.000000, -2.616749 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( 2.082941, 0.000000, 0.936609 );
 ei_tab_add_vector( 2.082941, 0.000000, -0.936609 );
+ei_tab_add_vector( 2.082941, 0.000000, -0.936609 );
+ei_tab_add_vector( -2.082941, -0.000000, 0.936609 );
+ei_tab_add_vector( -2.082941, -0.000000, 0.936609 );
 ei_tab_add_vector( -2.082941, -0.000000, 0.936609 );
 ei_tab_add_vector( -2.082941, -0.000000, 0.936609 );
 ei_tab_add_vector( 2.082941, 0.000000, -0.936609 );
+ei_tab_add_vector( 2.082941, 0.000000, -0.936609 );
+ei_tab_add_vector( -2.725275, 0.000000, -2.616749 );
 ei_tab_add_vector( -2.466434, 0.000000, -2.395677 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( -0.000000, 1.000000, -0.000000 );
 ei_tab_add_vector( -0.000000, 1.000000, -0.000000 );
@@ -883,7 +859,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.449657 );
@@ -893,7 +869,7 @@ ei_tab_add_vector2( 1.000000, 0.449657 );
 ei_tab_add_vector2( 0.000000, 0.449657 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -917,29 +893,26 @@ ei_object( "poly", "|pCube1|group1|pPlane6|pPlaneShape6" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -2.013537, -0.000000, 0.850398 );
-ei_tab_add_vector( 2.013537, -0.000000, 0.850398 );
-ei_tab_add_vector( -2.013537, 0.000000, -0.850398 );
-ei_tab_add_vector( -2.013537, 0.000000, -0.850398 );
-ei_tab_add_vector( 2.013537, -0.000000, 0.850398 );
-ei_tab_add_vector( 2.013537, 0.000000, -0.850398 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -2.013537, -0.000000, 0.850398 );
 ei_tab_add_vector( 2.013537, -0.000000, 0.850398 );
+ei_tab_add_vector( 2.013537, -0.000000, 0.850398 );
+ei_tab_add_vector( -2.013537, 0.000000, -0.850398 );
+ei_tab_add_vector( -2.013537, 0.000000, -0.850398 );
 ei_tab_add_vector( -2.013537, 0.000000, -0.850398 );
 ei_tab_add_vector( -2.013537, 0.000000, -0.850398 );
 ei_tab_add_vector( 2.013537, -0.000000, 0.850398 );
+ei_tab_add_vector( 2.013537, -0.000000, 0.850398 );
+ei_tab_add_vector( 2.013537, 0.000000, -0.850398 );
 ei_tab_add_vector( 2.013537, 0.000000, -0.850398 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -952,7 +925,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -962,7 +935,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.422340 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -986,29 +959,26 @@ ei_object( "poly", "|pCube1|group2|pPlane7|pPlaneShape7" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -2.384680, -0.000000, 1.036602 );
-ei_tab_add_vector( 2.384680, -0.000000, 1.036602 );
-ei_tab_add_vector( -2.384680, 0.000000, -1.036602 );
-ei_tab_add_vector( -2.384680, 0.000000, -1.036602 );
-ei_tab_add_vector( 2.384680, -0.000000, 1.036602 );
-ei_tab_add_vector( 2.384680, 0.000000, -1.036602 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -2.384680, -0.000000, 1.036602 );
 ei_tab_add_vector( 2.384680, -0.000000, 1.036602 );
+ei_tab_add_vector( 2.384680, -0.000000, 1.036602 );
+ei_tab_add_vector( -2.384680, 0.000000, -1.036602 );
+ei_tab_add_vector( -2.384680, 0.000000, -1.036602 );
 ei_tab_add_vector( -2.384680, 0.000000, -1.036602 );
 ei_tab_add_vector( -2.384680, 0.000000, -1.036602 );
 ei_tab_add_vector( 2.384680, -0.000000, 1.036602 );
+ei_tab_add_vector( 2.384680, -0.000000, 1.036602 );
+ei_tab_add_vector( 2.384680, 0.000000, -1.036602 );
 ei_tab_add_vector( 2.384680, 0.000000, -1.036602 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -1021,7 +991,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -1031,7 +1001,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.434692 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -1055,29 +1025,26 @@ ei_object( "poly", "|pCube1|group2|group3|pPlane8|pPlaneShape8" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+//### vertex deform positions(optional)
+tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.501772, -0.000000, 0.423697 );
-ei_tab_add_vector( 1.501772, -0.000000, 0.423697 );
-ei_tab_add_vector( -1.501772, 0.000000, -0.423697 );
-ei_tab_add_vector( -1.501772, 0.000000, -0.423697 );
-ei_tab_add_vector( 1.501772, -0.000000, 0.423697 );
-ei_tab_add_vector( 1.501772, 0.000000, -0.423697 );
-ei_end_tab();
-//### vertex deform positions(optional)
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
-ei_motion_pos_list( tag );
 ei_tab_add_vector( -1.501772, -0.000000, 0.423697 );
 ei_tab_add_vector( 1.501772, -0.000000, 0.423697 );
+ei_tab_add_vector( 1.501772, -0.000000, 0.423697 );
+ei_tab_add_vector( -1.501772, 0.000000, -0.423697 );
+ei_tab_add_vector( -1.501772, 0.000000, -0.423697 );
 ei_tab_add_vector( -1.501772, 0.000000, -0.423697 );
 ei_tab_add_vector( -1.501772, 0.000000, -0.423697 );
 ei_tab_add_vector( 1.501772, -0.000000, 0.423697 );
+ei_tab_add_vector( 1.501772, -0.000000, 0.423697 );
+ei_tab_add_vector( 1.501772, 0.000000, -0.423697 );
 ei_tab_add_vector( 1.501772, 0.000000, -0.423697 );
 ei_end_tab();
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -1090,7 +1057,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -1100,7 +1067,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.282131 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -1122,6 +1089,8 @@ ei_end_object();
 //child(4):|pCube1|group2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCubeShape1
 ei_instance("|pCube1");
+//|pCube1|pCubeShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCubeShape1
 //shape full path name=|pCube1|pCubeShape1
@@ -1147,6 +1116,8 @@ ei_end_instance();
 //child(2):|pCube1|pCone1|pPlane3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCone1|pConeShape1
 ei_instance("|pCube1|pCone1");
+//|pCube1|pCone1|pConeShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pConeShape1
 //shape full path name=|pCube1|pCone1|pConeShape1
@@ -1171,6 +1142,8 @@ ei_end_instance();
 //child(1):|pCube1|pCone1|pPlane2|pPlane5
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCone1|pPlane2|pPlaneShape2
 ei_instance("|pCube1|pCone1|pPlane2");
+//|pCube1|pCone1|pPlane2|pPlaneShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pPlane2|pPlaneShape2
 //shape full path name=|pCube1|pCone1|pPlane2|pPlaneShape2
@@ -1192,6 +1165,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|pCone1|pPlane2|pPlane5
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5
 ei_instance("|pCube1|pCone1|pPlane2|pPlane5");
+//|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5
 //shape full path name=|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5
@@ -1216,6 +1191,8 @@ ei_end_instance();
 //child(1):|pCube1|pCone1|pPlane3|pPlane4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCone1|pPlane3|pPlaneShape3
 ei_instance("|pCube1|pCone1|pPlane3");
+//|pCube1|pCone1|pPlane3|pPlaneShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pPlane3|pPlaneShape3
 //shape full path name=|pCube1|pCone1|pPlane3|pPlaneShape3
@@ -1237,6 +1214,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|pCone1|pPlane3|pPlane4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4
 ei_instance("|pCube1|pCone1|pPlane3|pPlane4");
+//|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4
 //shape full path name=|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4
@@ -1258,6 +1237,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|pCube2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCube2|pCubeShape2
 ei_instance("|pCube1|pCube2");
+//|pCube1|pCube2|pCubeShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCube2|pCubeShape2
 //shape full path name=|pCube1|pCube2|pCubeShape2
@@ -1279,6 +1260,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|group1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|group1|pPlane1|pPlaneShape1
 ei_instance("|pCube1|group1|pPlane1");
+//|pCube1|group1|pPlane1|pPlaneShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|group1|pPlane1|pPlaneShape1
 //shape full path name=|pCube1|group1|pPlane1|pPlaneShape1
@@ -1300,6 +1283,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|group1|pPlane6
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|group1|pPlane6|pPlaneShape6
 ei_instance("|pCube1|group1|pPlane6");
+//|pCube1|group1|pPlane6|pPlaneShape6 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|group1|pPlane6|pPlaneShape6
 //shape full path name=|pCube1|group1|pPlane6|pPlaneShape6
@@ -1321,6 +1306,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|group2|pPlane7
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|group2|pPlane7|pPlaneShape7
 ei_instance("|pCube1|group2|pPlane7");
+//|pCube1|group2|pPlane7|pPlaneShape7 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|group2|pPlane7|pPlaneShape7
 //shape full path name=|pCube1|group2|pPlane7|pPlaneShape7
@@ -1342,6 +1329,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube1|group2|group3|pPlane8
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|group2|group3|pPlane8|pPlaneShape8
 ei_instance("|pCube1|group2|group3|pPlane8");
+//|pCube1|group2|group3|pPlane8|pPlaneShape8 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|group2|group3|pPlane8|pPlaneShape8
 //shape full path name=|pCube1|group2|group3|pPlane8|pPlaneShape8

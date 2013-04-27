@@ -74,8 +74,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -89,12 +89,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture3","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/mold_normals.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture3","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -158,7 +158,7 @@ ei_object( "poly", "|pPlane5|pPlaneShape5" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -5.343232, -0.000000, 6.589149 );
 ei_tab_add_vector( 5.343232, -0.000000, 6.589149 );
@@ -167,11 +167,10 @@ ei_tab_add_vector( -5.343232, 0.000000, -2.743776 );
 ei_tab_add_vector( 5.343232, -0.000000, 6.589149 );
 ei_tab_add_vector( 5.343232, 0.000000, -2.743776 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -184,7 +183,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.005871, 0.019660 );
 ei_tab_add_vector2( 0.996497, 0.021718 );
@@ -194,7 +193,7 @@ ei_tab_add_vector2( 0.996497, 0.021718 );
 ei_tab_add_vector2( 1.000000, 0.994130 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -210,6 +209,8 @@ ei_end_object();
 //ribNode's transform node=|pPlane5
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane5|pPlaneShape5
 ei_instance("|pPlane5");
+//|pPlane5|pPlaneShape5 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong6SG,
 ei_mtl("phong6SG");
 //shape name=|pPlane5|pPlaneShape5
 //shape full path name=|pPlane5|pPlaneShape5

@@ -75,7 +75,7 @@ shader "maya_blinn" "blinn1"
     param_int "liq_UserDefinedNormal" 0 
     param_vector "i_normalCamera" 1.000000 1.000000 1.000000
     param_scalar "i_reflectionMaxDistance" 0 
-    param_int "i_reflectionSamples" 0 
+    param_index "i_reflectionSamples" 1 
     param_scalar "i_reflectionBlur" 0 
     param_scalar "i_reflectionNoiseAmplitude" 0 
     param_scalar "i_reflectionNoiseFrequency" 0 
@@ -145,6 +145,8 @@ end object
 ##ribNode's transform node=|pPlane4
 ##ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane4|pPlaneShape4
 instance "|pPlane4" 
+##|pPlane4|pPlaneShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+##materials are: lambert3SG,
 mtl "lambert3SG" 
 ##shape name=|pPlane4|pPlaneShape4
 ##shape full path name=|pPlane4|pPlaneShape4

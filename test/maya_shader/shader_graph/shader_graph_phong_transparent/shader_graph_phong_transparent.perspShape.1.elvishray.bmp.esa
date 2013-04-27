@@ -74,8 +74,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -89,12 +89,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -120,8 +120,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -135,12 +135,12 @@ ei_shader_param_scalar("alphaOffset",0.16528);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture2","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check_diamond.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture2","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -191,8 +191,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -206,12 +206,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -237,8 +237,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -252,12 +252,12 @@ ei_shader_param_scalar("alphaOffset",0.16528);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture2","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check_diamond.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture2","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -374,7 +374,7 @@ ei_object( "poly", "|pPlane1|pPlaneShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -18.502369, -0.000000, 16.700991 );
 ei_tab_add_vector( 18.502369, -0.000000, 16.700991 );
@@ -383,11 +383,10 @@ ei_tab_add_vector( -18.502369, 0.000000, -16.700991 );
 ei_tab_add_vector( 18.502369, -0.000000, 16.700991 );
 ei_tab_add_vector( 18.502369, 0.000000, -16.700991 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -400,7 +399,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -410,7 +409,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 0.997722, 0.998778 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -434,7 +433,7 @@ ei_object( "poly", "|pPlane2|pPlaneShape2" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -16.678133, -0.000000, 11.541177 );
 ei_tab_add_vector( 16.678133, -0.000000, 11.541177 );
@@ -443,11 +442,10 @@ ei_tab_add_vector( -16.678133, 0.000000, -11.541177 );
 ei_tab_add_vector( 16.678133, -0.000000, 11.541177 );
 ei_tab_add_vector( 16.678133, 0.000000, -11.541177 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -460,7 +458,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -470,7 +468,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 0.998025, 0.998085 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -494,7 +492,7 @@ ei_object( "poly", "|pPlane3|pPlaneShape3" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -28.123953, -0.000000, 19.562426 );
 ei_tab_add_vector( 28.123953, -0.000000, 19.562426 );
@@ -503,11 +501,10 @@ ei_tab_add_vector( -28.123953, 0.000000, -19.562426 );
 ei_tab_add_vector( 28.123953, -0.000000, 19.562426 );
 ei_tab_add_vector( 28.123953, 0.000000, -19.562426 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -520,7 +517,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -530,7 +527,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.695579 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -554,7 +551,7 @@ ei_object( "poly", "|pPlane4|pPlaneShape4" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -30.707306, -0.000000, 20.895386 );
 ei_tab_add_vector( 30.707306, -0.000000, 20.895386 );
@@ -563,11 +560,10 @@ ei_tab_add_vector( -30.707306, 0.000000, -20.895386 );
 ei_tab_add_vector( 30.707306, -0.000000, 20.895386 );
 ei_tab_add_vector( 30.707306, 0.000000, -20.895386 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -580,7 +576,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -590,7 +586,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.680470 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -606,6 +602,8 @@ ei_end_object();
 //ribNode's transform node=|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane1|pPlaneShape1
 ei_instance("|pPlane1");
+//|pPlane1|pPlaneShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong1SG,
 ei_mtl("phong1SG");
 //shape name=|pPlane1|pPlaneShape1
 //shape full path name=|pPlane1|pPlaneShape1
@@ -626,6 +624,8 @@ ei_end_instance();
 //ribNode's transform node=|pPlane2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane2|pPlaneShape2
 ei_instance("|pPlane2");
+//|pPlane2|pPlaneShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong4SG,
 ei_mtl("phong4SG");
 //shape name=|pPlane2|pPlaneShape2
 //shape full path name=|pPlane2|pPlaneShape2
@@ -646,6 +646,8 @@ ei_end_instance();
 //ribNode's transform node=|pPlane3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane3|pPlaneShape3
 ei_instance("|pPlane3");
+//|pPlane3|pPlaneShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong5SG,
 ei_mtl("phong5SG");
 //shape name=|pPlane3|pPlaneShape3
 //shape full path name=|pPlane3|pPlaneShape3
@@ -666,6 +668,8 @@ ei_end_instance();
 //ribNode's transform node=|pPlane4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane4|pPlaneShape4
 ei_instance("|pPlane4");
+//|pPlane4|pPlaneShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong6SG,
 ei_mtl("phong6SG");
 //shape name=|pPlane4|pPlaneShape4
 //shape full path name=|pPlane4|pPlaneShape4

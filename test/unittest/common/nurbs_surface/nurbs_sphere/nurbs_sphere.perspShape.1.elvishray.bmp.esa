@@ -23,7 +23,7 @@ ei_end_material();
 //############################### option #
 ei_options("perspShape_option");
 ei_contrast(0.05);
-ei_samples(0,16);
+ei_samples(0,2);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
@@ -122,7 +122,7 @@ ei_object( "poly", "|nurbsSphereShape1_liq_|nurbsSphereShape1_liq_Shape" );
 {
 eiTag tag;
 //vertex positions(required), size=2520
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( 2.117385, 4.224763, -2.598611 );
 ei_tab_add_vector( 2.367548, 4.180485, -2.598611 );
@@ -2645,11 +2645,10 @@ ei_tab_add_vector( 2.367548, 4.180485, -2.598611 );
 ei_tab_add_vector( 2.615374, 4.050968, -2.598611 );
 ei_tab_add_vector( 2.592807, 4.050968, -2.745108 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( -0.128304, 0.991735, 0.000001 );
 ei_tab_add_vector( 0.351383, 0.936121, -0.014419 );
@@ -5176,7 +5175,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 1.000000, 1.000000 );
 ei_tab_add_vector2( 0.952905, 1.000000 );
@@ -7700,7 +7699,7 @@ ei_tab_add_vector2( 0.905811, 1.000000 );
 ei_tab_add_vector2( 0.905811, 0.952400 );
 ei_end_tab();
 //### triangles(required) size=2520
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -10230,6 +10229,8 @@ ei_end_object();
 //ribNode's transform node=|nurbsSphere1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|nurbsSphere1|nurbsSphereShape1
 ei_instance("|nurbsSphere1");
+//|nurbsSphere1|nurbsSphereShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|nurbsSphere1|nurbsSphereShape1
 //shape full path name=|nurbsSphere1|nurbsSphereShape1
@@ -10250,6 +10251,8 @@ ei_end_instance();
 //ribNode's transform node=|nurbsSphereShape1_liq_
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|nurbsSphereShape1_liq_|nurbsSphereShape1_liq_Shape
 ei_instance("|nurbsSphereShape1_liq_");
+//|nurbsSphereShape1_liq_|nurbsSphereShape1_liq_Shape has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|nurbsSphereShape1_liq_|nurbsSphereShape1_liq_Shape
 //shape full path name=|nurbsSphereShape1_liq_|nurbsSphereShape1_liq_Shape

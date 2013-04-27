@@ -11,9 +11,9 @@ sun_glow_intensity|uniform|float|0|1.0|-1
 sun_glow_falloff|uniform|float|0|5.0|-1
 ground_color|uniform|color|0|<<0.200000,0.200000,0.200000>>|-1
 ground_blur|uniform|float|0|0.01|-1
-visibility_to_camera|uniform|float|0|1|-1
-visibility_to_secondary|uniform|float|0|1|-1
-type|uniform|float|0|0|-1
+visibility_to_camera|uniform|bool|0|1|-1
+visibility_to_secondary|uniform|bool|0|1|-1
+type|uniform|int|0|0|-1
 haze|uniform|float|0|5.0|-1
 zenith_color|uniform|color|0|<<0.10900,0.10900,0.10900>>|-1
 a|uniform|float|0|-1.0|-1

@@ -75,7 +75,7 @@ shader "maya_blinn" "blinn3"
     param_int "liq_UserDefinedNormal" 0 
     param_vector "i_normalCamera" 1.000000 1.000000 1.000000
     param_scalar "i_reflectionMaxDistance" 0 
-    param_int "i_reflectionSamples" 0 
+    param_index "i_reflectionSamples" 1 
     param_scalar "i_reflectionBlur" 0 
     param_scalar "i_reflectionNoiseAmplitude" 0 
     param_scalar "i_reflectionNoiseFrequency" 0 
@@ -111,7 +111,7 @@ shader "maya_blinn" "blinn4"
     param_int "liq_UserDefinedNormal" 0 
     param_vector "i_normalCamera" 1.000000 1.000000 1.000000
     param_scalar "i_reflectionMaxDistance" 0 
-    param_int "i_reflectionSamples" 0 
+    param_index "i_reflectionSamples" 1 
     param_scalar "i_reflectionBlur" 0 
     param_scalar "i_reflectionNoiseAmplitude" 0 
     param_scalar "i_reflectionNoiseFrequency" 0 
@@ -147,7 +147,7 @@ shader "maya_blinn" "blinn2"
     param_int "liq_UserDefinedNormal" 0 
     param_vector "i_normalCamera" 1.000000 1.000000 1.000000
     param_scalar "i_reflectionMaxDistance" 0 
-    param_int "i_reflectionSamples" 0 
+    param_index "i_reflectionSamples" 1 
     param_scalar "i_reflectionBlur" 0 
     param_scalar "i_reflectionNoiseAmplitude" 0 
     param_scalar "i_reflectionNoiseFrequency" 0 
@@ -183,7 +183,7 @@ shader "maya_blinn" "blinn1"
     param_int "liq_UserDefinedNormal" 0 
     param_vector "i_normalCamera" 1.000000 1.000000 1.000000
     param_scalar "i_reflectionMaxDistance" 0 
-    param_int "i_reflectionSamples" 0 
+    param_index "i_reflectionSamples" 1 
     param_scalar "i_reflectionBlur" 0 
     param_scalar "i_reflectionNoiseAmplitude" 0 
     param_scalar "i_reflectionNoiseFrequency" 0 
@@ -445,6 +445,8 @@ end object
 ##ribNode's transform node=|pPlane2
 ##ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane2|pPlaneShape2
 instance "|pPlane2" 
+##|pPlane2|pPlaneShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+##materials are: phong4SG,
 mtl "phong4SG" 
 ##shape name=|pPlane2|pPlaneShape2
 ##shape full path name=|pPlane2|pPlaneShape2
@@ -461,6 +463,8 @@ end instance
 ##ribNode's transform node=|pCube2
 ##ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube2|pCubeShape2
 instance "|pCube2" 
+##|pCube2|pCubeShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+##materials are: phong3SG,
 mtl "phong3SG" 
 ##shape name=|pCube2|pCubeShape2
 ##shape full path name=|pCube2|pCubeShape2
@@ -477,6 +481,8 @@ end instance
 ##ribNode's transform node=|pPlane3
 ##ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane3|pPlaneShape3
 instance "|pPlane3" 
+##|pPlane3|pPlaneShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+##materials are: lambert2SG,
 mtl "lambert2SG" 
 ##shape name=|pPlane3|pPlaneShape3
 ##shape full path name=|pPlane3|pPlaneShape3
@@ -493,6 +499,8 @@ end instance
 ##ribNode's transform node=|pPlane4
 ##ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane4|pPlaneShape4
 instance "|pPlane4" 
+##|pPlane4|pPlaneShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+##materials are: lambert3SG,
 mtl "lambert3SG" 
 ##shape name=|pPlane4|pPlaneShape4
 ##shape full path name=|pPlane4|pPlaneShape4

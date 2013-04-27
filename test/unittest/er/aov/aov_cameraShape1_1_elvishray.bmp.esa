@@ -127,7 +127,7 @@ ei_object( "poly", "|pSphere1|pSphereShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=936
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( 0.657231, -3.011430, -0.344941 );
 ei_tab_add_vector( 0.421647, -3.011430, -0.610860 );
@@ -1066,11 +1066,10 @@ ei_tab_add_vector( 0.742251, 3.011430, 0.000000 );
 ei_tab_add_vector( 0.657231, 3.011430, -0.344941 );
 ei_tab_add_vector( 0.000000, 3.101556, 0.000000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.211728, -0.970991, -0.111123 );
 ei_tab_add_vector( 0.135834, -0.970991, -0.196790 );
@@ -2013,7 +2012,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.076923 );
 ei_tab_add_vector2( 0.076923, 0.076923 );
@@ -2953,7 +2952,7 @@ ei_tab_add_vector2( 1.000000, 0.923077 );
 ei_tab_add_vector2( 0.961538, 1.000000 );
 ei_end_tab();
 //### triangles(required) size=936
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3899,6 +3898,8 @@ ei_end_object();
 //ribNode's transform node=|pSphere1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pSphere1|pSphereShape1
 ei_instance("|pSphere1");
+//|pSphere1|pSphereShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong6SG,
 ei_mtl("phong6SG");
 //shape name=|pSphere1|pSphereShape1
 //shape full path name=|pSphere1|pSphereShape1

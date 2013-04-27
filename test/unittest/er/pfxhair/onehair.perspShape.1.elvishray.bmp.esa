@@ -101,7 +101,7 @@ ei_object( "poly", "|pPlane3|pPlaneShape3" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.627226, -0.000000, 1.026787 );
 ei_tab_add_vector( 0.627226, -0.000000, 1.026787 );
@@ -110,11 +110,10 @@ ei_tab_add_vector( -0.627226, 0.000000, -1.026787 );
 ei_tab_add_vector( 0.627226, -0.000000, 1.026787 );
 ei_tab_add_vector( 0.627226, 0.000000, -1.026787 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -127,7 +126,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 0.610863, 0.000000 );
@@ -137,7 +136,7 @@ ei_tab_add_vector2( 0.610863, 0.000000 );
 ei_tab_add_vector2( 0.610863, 1.000000 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -157,10 +156,10 @@ ei_object( "hair", "|pfxHair2|pfxHairShape2" );
 {
 ei_degree(2);
 eiTag vtx_list;
-vtx_list = ei_tab(EI_TYPE_VECTOR4, 100000);
+vtx_list = ei_tab(EI_TYPE_VECTOR4, 1, 100000);
 ei_end_tab();
 eiTag hair_list;
-hair_list = ei_tab(EI_TYPE_INDEX, 100000);
+hair_list = ei_tab(EI_TYPE_INDEX, 1, 100000);
 ei_end_tab();
 eiInt index;
 index = ei_data_table_size(vtx_list);
@@ -205,7 +204,7 @@ ei_object( "poly", "|pPlane4|pPlaneShape4" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.438215, -0.000000, 2.918313 );
 ei_tab_add_vector( 1.438215, -0.000000, 2.918313 );
@@ -214,11 +213,10 @@ ei_tab_add_vector( -1.438215, 0.000000, -2.918313 );
 ei_tab_add_vector( 1.438215, -0.000000, 2.918313 );
 ei_tab_add_vector( 1.438215, 0.000000, -2.918313 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -231,7 +229,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 0.492824, 0.000000 );
@@ -241,7 +239,7 @@ ei_tab_add_vector2( 0.492824, 0.000000 );
 ei_tab_add_vector2( 0.492824, 1.000000 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -257,6 +255,8 @@ ei_end_object();
 //ribNode's transform node=|pPlane3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane3|pPlaneShape3
 ei_instance("|pPlane3");
+//|pPlane3|pPlaneShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pPlane3|pPlaneShape3
 //shape full path name=|pPlane3|pPlaneShape3
@@ -278,7 +278,7 @@ ei_end_instance();
 //ribNode's transform node=|pfxHair2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pfxHair2|pfxHairShape2
 ei_instance("|pfxHair2");
-//shadingGroupNodes is empty, use "liquid_material_for_test" to avoid crash
+//|pfxHair2|pfxHairShape2's shading group is empty, use "liquid_material_for_test" to avoid crash
 ei_mtl("liquid_material_for_test");
 //shape name=|pfxHair2|pfxHairShape2
 //shape full path name=|pfxHair2|pfxHairShape2
@@ -299,6 +299,8 @@ ei_end_instance();
 //ribNode's transform node=|pPlane4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane4|pPlaneShape4
 ei_instance("|pPlane4");
+//|pPlane4|pPlaneShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pPlane4|pPlaneShape4
 //shape full path name=|pPlane4|pPlaneShape4

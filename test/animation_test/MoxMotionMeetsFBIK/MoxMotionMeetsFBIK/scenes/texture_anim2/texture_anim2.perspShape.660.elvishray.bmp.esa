@@ -27,7 +27,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(4,4,4,4,4,4);
+ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -74,8 +74,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -89,12 +89,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0001.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -171,7 +171,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(4,4,4,4,4,4);
+ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -218,8 +218,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -233,12 +233,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0001.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -286,15 +286,14 @@ ei_object( "poly", "|locator1|locatorShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=0
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 //### triangles(required) size=0
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_end_tab();
 }//|locator1|locatorShape1
@@ -312,7 +311,7 @@ ei_object( "poly", "|locator1|pPlane1|pPlaneShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=600
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -200.500000, -0.000000, 163.500000 );
 ei_tab_add_vector( -160.400009, -0.000000, 163.500000 );
@@ -915,11 +914,10 @@ ei_tab_add_vector( 160.400009, 0.000000, -163.500000 );
 ei_tab_add_vector( 200.500000, 0.000000, -130.800018 );
 ei_tab_add_vector( 200.500000, 0.000000, -163.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -1526,7 +1524,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 0.100000, 0.000000 );
@@ -2130,7 +2128,7 @@ ei_tab_add_vector2( 1.000000, 0.900000 );
 ei_tab_add_vector2( 1.000000, 0.998007 );
 ei_end_tab();
 //### triangles(required) size=600
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2744,7 +2742,7 @@ ei_end_object();
 //child(1):|locator1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|locator1|locatorShape1
 ei_instance("|locator1");
-//shadingGroupNodes is empty, use "liquid_material_for_test" to avoid crash
+//|locator1|locatorShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
 ei_mtl("liquid_material_for_test");
 //shape name=|locator1|locatorShape1
 //shape full path name=|locator1|locatorShape1
@@ -2765,6 +2763,8 @@ ei_end_instance();
 //ribNode's transform node=|locator1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|locator1|pPlane1|pPlaneShape1
 ei_instance("|locator1|pPlane1");
+//|locator1|pPlane1|pPlaneShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert4SG,
 ei_mtl("lambert4SG");
 //shape name=|locator1|pPlane1|pPlaneShape1
 //shape full path name=|locator1|pPlane1|pPlaneShape1
@@ -2820,7 +2820,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(4,4,4,4,4,4);
+ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -2867,8 +2867,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -2882,12 +2882,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0002.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -2935,15 +2935,14 @@ ei_object( "poly", "|locator1|locatorShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=0
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 //### triangles(required) size=0
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_end_tab();
 }//|locator1|locatorShape1
@@ -2961,7 +2960,7 @@ ei_object( "poly", "|locator1|pPlane1|pPlaneShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=600
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -200.500000, -0.000000, 163.500000 );
 ei_tab_add_vector( -160.400009, -0.000000, 163.500000 );
@@ -3564,11 +3563,10 @@ ei_tab_add_vector( 160.400009, 0.000000, -163.500000 );
 ei_tab_add_vector( 200.500000, 0.000000, -130.800018 );
 ei_tab_add_vector( 200.500000, 0.000000, -163.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -4175,7 +4173,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 0.100000, 0.000000 );
@@ -4779,7 +4777,7 @@ ei_tab_add_vector2( 1.000000, 0.900000 );
 ei_tab_add_vector2( 1.000000, 0.998007 );
 ei_end_tab();
 //### triangles(required) size=600
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5393,7 +5391,7 @@ ei_end_object();
 //child(1):|locator1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|locator1|locatorShape1
 ei_instance("|locator1");
-//shadingGroupNodes is empty, use "liquid_material_for_test" to avoid crash
+//|locator1|locatorShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
 ei_mtl("liquid_material_for_test");
 //shape name=|locator1|locatorShape1
 //shape full path name=|locator1|locatorShape1
@@ -5414,6 +5412,8 @@ ei_end_instance();
 //ribNode's transform node=|locator1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|locator1|pPlane1|pPlaneShape1
 ei_instance("|locator1|pPlane1");
+//|locator1|pPlane1|pPlaneShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert4SG,
 ei_mtl("lambert4SG");
 //shape name=|locator1|pPlane1|pPlaneShape1
 //shape full path name=|locator1|pPlane1|pPlaneShape1
@@ -5469,7 +5469,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(4,4,4,4,4,4);
+ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -5516,8 +5516,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -5531,12 +5531,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0003.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);
@@ -5584,15 +5584,14 @@ ei_object( "poly", "|locator1|locatorShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=0
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 //### triangles(required) size=0
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_end_tab();
 }//|locator1|locatorShape1
@@ -5610,7 +5609,7 @@ ei_object( "poly", "|locator1|pPlane1|pPlaneShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=600
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -200.500000, -0.000000, 163.500000 );
 ei_tab_add_vector( -160.400009, -0.000000, 163.500000 );
@@ -6213,11 +6212,10 @@ ei_tab_add_vector( 160.400009, 0.000000, -163.500000 );
 ei_tab_add_vector( 200.500000, 0.000000, -130.800018 );
 ei_tab_add_vector( 200.500000, 0.000000, -163.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -6824,7 +6822,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 0.100000, 0.000000 );
@@ -7428,7 +7426,7 @@ ei_tab_add_vector2( 1.000000, 0.900000 );
 ei_tab_add_vector2( 1.000000, 0.998007 );
 ei_end_tab();
 //### triangles(required) size=600
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -8042,7 +8040,7 @@ ei_end_object();
 //child(1):|locator1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|locator1|locatorShape1
 ei_instance("|locator1");
-//shadingGroupNodes is empty, use "liquid_material_for_test" to avoid crash
+//|locator1|locatorShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
 ei_mtl("liquid_material_for_test");
 //shape name=|locator1|locatorShape1
 //shape full path name=|locator1|locatorShape1
@@ -8063,6 +8061,8 @@ ei_end_instance();
 //ribNode's transform node=|locator1|pPlane1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|locator1|pPlane1|pPlaneShape1
 ei_instance("|locator1|pPlane1");
+//|locator1|pPlane1|pPlaneShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert4SG,
 ei_mtl("lambert4SG");
 //shape name=|locator1|pPlane1|pPlaneShape1
 //shape full path name=|locator1|pPlane1|pPlaneShape1
@@ -8118,7 +8118,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(4,4,4,4,4,4);
+ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -8165,8 +8165,8 @@ ei_shader_param_scalar("rotateUV",0);
 ei_shader_param_bool("stagger",0);
 ei_shader_param_scalar("translateFrameU",0);
 ei_shader_param_scalar("translateFrameV",0);
-ei_shader_param_scalar("wrapU",1);
-ei_shader_param_scalar("wrapV",1);
+ei_shader_param_bool("wrapU",1);
+ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
@@ -8180,12 +8180,12 @@ ei_shader_param_scalar("alphaOffset",0);
 ei_shader_param_vector("colorGain",1,1,1);
 ei_shader_param_vector("colorOffset",0,0,0);
 ei_shader_param_vector("defaultColor",0.5,0.5,0.5);
-ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_texture("fileTextureName","E:/dev/Autodesk/maya/myplugin/project/liquid_/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/sourceimages/FBIK.0003.tif");
 ei_shader_param_index("filterType",3);
 ei_shader_param_scalar("filter",1);
 ei_shader_param_scalar("filterOffset",0);
 ei_shader_param_bool("invert",0);
+ei_shader_link_param("uvCoord","place2dTexture1","outUV");
 ei_shader_param_bool("fileHasAlpha",0);
 ei_shader_param_scalar("outAlpha",1);
 ei_shader_param_vector("outColor",0,0,0);

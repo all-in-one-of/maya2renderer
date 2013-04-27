@@ -101,7 +101,7 @@ ei_object( "poly", "|subdivSphere1|subdivSphere1Shape_liq_Shape" );
 {
 eiTag tag;
 //vertex positions(required), size=1296
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.250766, -0.507493, 0.858136 );
 ei_tab_add_vector( -0.263948, -0.263948, 0.946798 );
@@ -1400,11 +1400,10 @@ ei_tab_add_vector( -0.658089, 0.658089, -0.457531 );
 ei_tab_add_vector( -0.858136, 0.507493, -0.250766 );
 ei_tab_add_vector( -0.710842, 0.710842, -0.243336 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( -0.227720, -0.463914, 0.856112 );
 ei_tab_add_vector( -0.230805, -0.230805, 0.945229 );
@@ -2707,7 +2706,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.458333, 0.041667 );
 ei_tab_add_vector2( 0.458333, 0.083333 );
@@ -4007,7 +4006,7 @@ ei_tab_add_vector2( 0.208333, 0.208333 );
 ei_tab_add_vector2( 0.208333, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=1296
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5316,6 +5315,8 @@ ei_end_object();
 //child(1):|subdivSphere1|subdivSphere1Shape_liq_Shape
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|subdivSphere1|subdivSphere1Shape
 ei_instance("|subdivSphere1");
+//|subdivSphere1|subdivSphere1Shape has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|subdivSphere1|subdivSphere1Shape
 //shape full path name=|subdivSphere1|subdivSphere1Shape
@@ -5339,6 +5340,8 @@ ei_end_instance();
 //child(1):|subdivSphere1|subdivSphere1Shape_liq_Shape
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|subdivSphere1|subdivSphere1Shape_liq_Shape
 ei_instance("|subdivSphere1");
+//|subdivSphere1|subdivSphere1Shape_liq_Shape has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|subdivSphere1|subdivSphere1Shape_liq_Shape
 //shape full path name=|subdivSphere1|subdivSphere1Shape_liq_Shape

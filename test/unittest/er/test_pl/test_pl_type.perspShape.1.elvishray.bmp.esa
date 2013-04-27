@@ -117,7 +117,7 @@ ei_object( "poly", "|pPlane2|pPlaneShape11" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.000000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.000000, 0.500000 );
@@ -126,11 +126,10 @@ ei_tab_add_vector( -0.500000, 0.000000, -0.500000 );
 ei_tab_add_vector( 0.500000, -0.000000, 0.500000 );
 ei_tab_add_vector( 0.500000, 0.000000, -0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -143,7 +142,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -153,7 +152,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 1.000000 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -169,6 +168,8 @@ ei_end_object();
 //ribNode's transform node=|pPlane2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane2|pPlaneShape11
 ei_instance("|pPlane2");
+//|pPlane2|pPlaneShape11 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: liquidSurface26SG,
 ei_mtl("liquidSurface26SG");
 //shape name=|pPlane2|pPlaneShape11
 //shape full path name=|pPlane2|pPlaneShape11

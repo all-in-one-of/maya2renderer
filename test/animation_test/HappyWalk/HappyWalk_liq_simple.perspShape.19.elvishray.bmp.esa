@@ -27,7 +27,7 @@ ei_samples(0,2);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(4,4,4,4,4,4);
+ei_trace_depth(-219519910,-219519910,-219519910,-219519910,-219519910,-219519910);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -359,7 +359,7 @@ ei_object( "poly", "|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26" );
 {
 eiTag tag;
 //vertex positions(required), size=84
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -31.089947, -0.854541, -31.537226 );
 ei_tab_add_vector( -30.113487, -3.505130, -31.552385 );
@@ -446,13 +446,12 @@ ei_tab_add_vector( -30.716320, -3.840710, -31.969694 );
 ei_tab_add_vector( -29.920082, -3.968532, -31.459469 );
 ei_tab_add_vector( -30.569536, -4.233626, -31.951761 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.625000, 0.250000 );
@@ -540,7 +539,7 @@ ei_tab_add_vector2( 0.625000, 0.250000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
 ei_end_tab();
 //### triangles(required) size=84
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -643,7 +642,7 @@ ei_object( "poly", "|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8" );
 {
 eiTag tag;
 //vertex positions(required), size=84
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( 22.826321, -5.156896, -25.414539 );
 ei_tab_add_vector( 22.840914, -5.162611, -24.670923 );
@@ -730,13 +729,12 @@ ei_tab_add_vector( 22.494526, -5.532921, -24.610361 );
 ei_tab_add_vector( 22.735283, -5.194823, -25.469656 );
 ei_tab_add_vector( 22.477713, -5.526335, -25.467154 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.625000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.250000 );
@@ -824,7 +822,7 @@ ei_tab_add_vector2( 0.625000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
 ei_end_tab();
 //### triangles(required) size=84
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -927,7 +925,7 @@ ei_object( "poly", "|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6" );
 {
 eiTag tag;
 //vertex positions(required), size=252
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( 10.589833, -0.913921, -11.484386 );
 ei_tab_add_vector( 10.445780, -0.045888, -11.477663 );
@@ -1182,13 +1180,12 @@ ei_tab_add_vector( 10.728857, -0.718531, -11.012601 );
 ei_tab_add_vector( 11.125998, -0.661856, -11.474043 );
 ei_tab_add_vector( 11.059576, -0.556177, -10.927998 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.437364, 0.000000 );
 ei_tab_add_vector2( 0.437364, 0.068201 );
@@ -1444,7 +1441,7 @@ ei_tab_add_vector2( 0.437364, 0.750000 );
 ei_tab_add_vector2( 0.561904, 0.750000 );
 ei_end_tab();
 //### triangles(required) size=252
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -1714,7 +1711,7 @@ ei_object( "poly", "|Man:JAP|Man:ground|Man:groundShape" );
 {
 eiTag tag;
 //vertex positions(required), size=72
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -33.988514, -4.938445, -0.782172 );
 ei_tab_add_vector( -33.988514, -4.755286, -1.545085 );
@@ -1789,11 +1786,10 @@ ei_tab_add_vector( 33.988514, -5.000000, 0.000000 );
 ei_tab_add_vector( -33.988514, -4.938445, -0.782172 );
 ei_tab_add_vector( 33.988514, -4.938445, -0.782172 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, -0.987689, -0.156432 );
 ei_tab_add_vector( 0.000000, -0.951057, -0.309017 );
@@ -1872,7 +1868,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.312500 );
 ei_tab_add_vector2( 0.381250, 0.312500 );
@@ -1948,7 +1944,7 @@ ei_tab_add_vector2( 0.625000, 0.312500 );
 ei_tab_add_vector2( 0.625000, 0.688440 );
 ei_end_tab();
 //### triangles(required) size=72
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2033,15 +2029,14 @@ ei_object( "poly", "|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1" 
 {
 eiTag tag;
 //vertex positions(required), size=0
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 //### triangles(required) size=0
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_end_tab();
 }//|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
@@ -2060,7 +2055,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2099,13 +2094,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2145,7 +2139,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2200,7 +2194,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2239,13 +2233,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2285,7 +2278,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2340,7 +2333,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2379,13 +2372,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2425,7 +2417,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2480,7 +2472,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2519,13 +2511,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2565,7 +2556,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2620,7 +2611,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2659,13 +2650,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2705,7 +2695,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2760,7 +2750,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2799,13 +2789,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2845,7 +2834,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -2900,7 +2889,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -2939,13 +2928,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -2985,7 +2973,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3040,7 +3028,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3079,13 +3067,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3125,7 +3112,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3180,7 +3167,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3219,13 +3206,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3265,7 +3251,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3320,7 +3306,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3359,13 +3345,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3405,7 +3390,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3460,7 +3445,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3499,13 +3484,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3545,7 +3529,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3600,7 +3584,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3639,13 +3623,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3685,7 +3668,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3740,7 +3723,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3779,13 +3762,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3825,7 +3807,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -3880,7 +3862,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -3919,13 +3901,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -3965,7 +3946,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4020,7 +4001,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -4059,13 +4040,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -4105,7 +4085,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4160,7 +4140,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.842577, -0.103886, 0.495231 );
 ei_tab_add_vector( 0.592331, -0.226678, 0.842749 );
@@ -4199,13 +4179,12 @@ ei_tab_add_vector( -0.842577, -0.103886, -0.459021 );
 ei_tab_add_vector( -0.874852, 1.800299, 0.490883 );
 ei_tab_add_vector( -0.874852, 1.800299, -0.463370 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -4245,7 +4224,7 @@ ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4300,7 +4279,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.363216, -0.409017, 1.125326 );
 ei_tab_add_vector( 0.552514, -0.408728, 1.278148 );
@@ -4339,13 +4318,12 @@ ei_tab_add_vector( -0.474810, 0.447864, -0.486425 );
 ei_tab_add_vector( -0.363216, -0.409017, 1.125326 );
 ei_tab_add_vector( -0.363216, 0.483861, 1.125326 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -4385,7 +4363,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4440,7 +4418,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 2.765728, -0.424468, 0.500000 );
@@ -4479,13 +4457,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -4525,7 +4502,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4580,7 +4557,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -4619,13 +4596,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -4665,7 +4641,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4720,7 +4696,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -4759,13 +4735,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -4805,7 +4780,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -4860,7 +4835,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -4899,13 +4874,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -4945,7 +4919,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5000,7 +4974,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5039,13 +5013,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5085,7 +5058,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5140,7 +5113,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5179,13 +5152,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5225,7 +5197,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5280,7 +5252,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5319,13 +5291,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5365,7 +5336,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5420,7 +5391,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5459,13 +5430,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5505,7 +5475,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5560,7 +5530,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5599,13 +5569,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5645,7 +5614,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5700,7 +5669,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5739,13 +5708,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5785,7 +5753,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5840,7 +5808,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -5879,13 +5847,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -5925,7 +5892,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -5980,7 +5947,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -6019,13 +5986,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6065,7 +6031,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6120,7 +6086,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -6159,13 +6125,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6205,7 +6170,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6260,7 +6225,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -6299,13 +6264,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6345,7 +6309,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6400,7 +6364,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -6439,13 +6403,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6485,7 +6448,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6540,7 +6503,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -6579,13 +6542,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6625,7 +6587,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6680,7 +6642,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.842577, -0.103886, 0.495231 );
 ei_tab_add_vector( -0.874852, 1.800299, 0.490883 );
@@ -6719,13 +6681,12 @@ ei_tab_add_vector( -0.842577, -0.103886, -0.459021 );
 ei_tab_add_vector( -0.874852, 1.800299, 0.490883 );
 ei_tab_add_vector( -0.842577, -0.103886, 0.495231 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6765,7 +6726,7 @@ ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6820,7 +6781,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.363216, -0.409017, 1.125326 );
 ei_tab_add_vector( -0.363216, 0.483861, 1.125326 );
@@ -6859,13 +6820,12 @@ ei_tab_add_vector( -0.363216, -0.409017, 1.125326 );
 ei_tab_add_vector( -0.474810, 0.447864, -0.486425 );
 ei_tab_add_vector( -0.363216, 0.483861, 1.125326 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -6905,7 +6865,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -6960,7 +6920,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:x
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
@@ -6999,13 +6959,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -7045,7 +7004,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7100,7 +7059,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.386265, -0.500000, 0.500000 );
@@ -7139,13 +7098,12 @@ ei_tab_add_vector( -0.500000, -0.500000, -0.553081 );
 ei_tab_add_vector( -0.500000, -0.030812, 0.429225 );
 ei_tab_add_vector( -0.500000, 0.013423, -0.544234 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -7185,7 +7143,7 @@ ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7240,7 +7198,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.386265, -0.500000, 0.500000 );
@@ -7279,13 +7237,12 @@ ei_tab_add_vector( -0.500000, 0.517694, -0.376144 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.048810, 0.517694 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -7325,7 +7282,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7380,7 +7337,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -2.607306, 0.596936 );
 ei_tab_add_vector( 0.500000, -2.607306, 0.596936 );
@@ -7419,13 +7376,12 @@ ei_tab_add_vector( -0.465926, 0.500000, -0.324443 );
 ei_tab_add_vector( -0.500000, -2.607306, 0.596936 );
 ei_tab_add_vector( -0.465926, 0.535387, 0.553081 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -7465,7 +7421,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7520,7 +7476,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|M
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -3.072600, 0.364290 );
 ei_tab_add_vector( 0.500000, -3.072600, 0.364290 );
@@ -7559,13 +7515,12 @@ ei_tab_add_vector( -0.500000, -3.072600, -0.473657 );
 ei_tab_add_vector( -0.738519, 0.089472, 0.547888 );
 ei_tab_add_vector( -0.738519, 0.089472, -0.835213 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -7605,7 +7560,7 @@ ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7660,7 +7615,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLe
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, -0.030812, 0.429225 );
@@ -7699,13 +7654,12 @@ ei_tab_add_vector( -0.500000, -0.500000, -0.553081 );
 ei_tab_add_vector( -0.500000, -0.030812, 0.429225 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -7745,7 +7699,7 @@ ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7800,7 +7754,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLe
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.048810, 0.517694 );
@@ -7839,13 +7793,12 @@ ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.517694, -0.376144 );
 ei_tab_add_vector( -0.500000, 0.048810, 0.517694 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -7885,7 +7838,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -7940,7 +7893,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLe
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -2.607306, 0.596936 );
 ei_tab_add_vector( -0.465926, 0.535387, 0.553081 );
@@ -7979,13 +7932,12 @@ ei_tab_add_vector( -0.500000, -2.607306, 0.596936 );
 ei_tab_add_vector( -0.465926, 0.500000, -0.324443 );
 ei_tab_add_vector( -0.465926, 0.535387, 0.553081 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -8025,7 +7977,7 @@ ei_tab_add_vector2( 0.125000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -8080,7 +8032,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -3.072600, 0.364290 );
 ei_tab_add_vector( -0.738519, 0.089472, 0.547888 );
@@ -8119,13 +8071,12 @@ ei_tab_add_vector( -0.500000, -3.072600, -0.473657 );
 ei_tab_add_vector( -0.738519, 0.089472, 0.547888 );
 ei_tab_add_vector( -0.500000, -3.072600, 0.364290 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
@@ -8165,7 +8116,7 @@ ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -8220,7 +8171,7 @@ ei_object( "poly", "|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 {
 eiTag tag;
 //vertex positions(required), size=60
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( 0.000001, -0.591495, 0.305625 );
 ei_tab_add_vector( 0.000000, 0.511225, 0.197223 );
@@ -8283,13 +8234,12 @@ ei_tab_add_vector( 0.816592, -0.338332, 0.305625 );
 ei_tab_add_vector( 0.000000, -0.591495, -0.472984 );
 ei_tab_add_vector( 0.816592, -0.338332, -0.472984 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.497950, 0.000000 );
 ei_tab_add_vector2( 0.497722, 0.250000 );
@@ -8353,7 +8303,7 @@ ei_tab_add_vector2( 0.497950, 0.750000 );
 ei_tab_add_vector2( 0.625000, 0.750000 );
 ei_end_tab();
 //### triangles(required) size=60
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -8426,6 +8376,8 @@ ei_end_object();
 //child(1):|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26Orig
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26
 ei_instance("|Man:JAP|Man:JapMod|Man:pCube26");
+//|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26
 //shape full path name=|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26
@@ -8449,6 +8401,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8Orig
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8
 ei_instance("|Man:JAP|Man:JapMod|Man:pCube8");
+//|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8
 //shape full path name=|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8
@@ -8472,6 +8426,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6Orig
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6
 ei_instance("|Man:JAP|Man:JapMod|Man:pCube6");
+//|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6
 //shape full path name=|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6
@@ -8492,6 +8448,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:ground
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:ground|Man:groundShape
 ei_instance("|Man:JAP|Man:ground");
+//|Man:JAP|Man:ground|Man:groundShape has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert4SG,
 ei_mtl("Man:lambert4SG");
 //shape name=|Man:JAP|Man:ground|Man:groundShape
 //shape full path name=|Man:JAP|Man:ground|Man:groundShape
@@ -8513,7 +8471,7 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapCnt|Man:HipsEff
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
 ei_instance("|Man:JAP|Man:JapCnt|Man:HipsEff");
-//shadingGroupNodes is empty, use "liquid_material_for_test" to avoid crash
+//|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1's shading group is empty, use "liquid_material_for_test" to avoid crash
 ei_mtl("liquid_material_for_test");
 //shape name=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
 //shape full path name=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
@@ -8534,6 +8492,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
@@ -8554,6 +8514,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
@@ -8574,6 +8536,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
@@ -8594,6 +8558,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
@@ -8614,6 +8580,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
@@ -8634,6 +8602,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
@@ -8654,6 +8624,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
@@ -8674,6 +8646,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
@@ -8694,6 +8668,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
@@ -8714,6 +8690,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
@@ -8734,6 +8712,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
@@ -8754,6 +8734,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
@@ -8774,6 +8756,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
@@ -8794,6 +8778,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
@@ -8814,6 +8800,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
@@ -8834,6 +8822,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
@@ -8854,6 +8844,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
@@ -8874,6 +8866,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
@@ -8897,6 +8891,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|polySurfaceShape5
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
@@ -8920,6 +8916,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|polySurfaceShape6
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
@@ -8943,6 +8941,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|polySurfaceShape7
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
@@ -8966,6 +8966,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|polySurfaceShape8
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
@@ -8989,6 +8991,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|polySurfaceShape9
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
@@ -9012,6 +9016,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|polySurfaceShape10
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
@@ -9035,6 +9041,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|polySurfaceShape11
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
@@ -9058,6 +9066,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|polySurfaceShape12
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
@@ -9081,6 +9091,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|polySurfaceShape13
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
@@ -9104,6 +9116,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|polySurfaceShape14
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
@@ -9127,6 +9141,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|polySurfaceShape15
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
@@ -9150,6 +9166,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|polySurfaceShape16
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
@@ -9173,6 +9191,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|polySurfaceShape17
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
@@ -9196,6 +9216,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|polySurfaceShape18
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
@@ -9219,6 +9241,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|polySurfaceShape19
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
@@ -9242,6 +9266,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|polySurfaceShape20
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
@@ -9265,6 +9291,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|polySurfaceShape21
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
@@ -9288,6 +9316,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|polySurfaceShape4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
@@ -9308,6 +9338,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
@@ -9328,6 +9360,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
@@ -9348,6 +9382,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
@@ -9368,6 +9404,8 @@ ei_end_instance();
 //ribNode's transform node=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
@@ -9391,6 +9429,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|polySurfaceShape3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
@@ -9414,6 +9454,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|polySurfaceShape22
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
@@ -9437,6 +9479,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|polySurfaceShape1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
@@ -9460,6 +9504,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|polySurfaceShape2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
@@ -9483,6 +9529,8 @@ ei_end_instance();
 //child(1):|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:polySurfaceShape5
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 ei_instance("|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5");
+//|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: Man:lambert3SG,
 ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5

@@ -80,7 +80,7 @@ ei_shader_param_vector("i_transparency",0.577234,0.577234,0.577234);
 ei_shader_param_int("liq_UserDefinedNormal",0);
 ei_shader_param_vector("i_normalCamera",1,1,1);
 ei_shader_param_scalar("i_reflectionMaxDistance",0);
-ei_shader_param_int("i_reflectionSamples",0);
+ei_shader_param_index("i_reflectionSamples",1);
 ei_shader_param_scalar("i_reflectionBlur",0);
 ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
 ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
@@ -116,7 +116,7 @@ ei_shader_param_vector("i_transparency",0.658534,0.658534,0.658534);
 ei_shader_param_int("liq_UserDefinedNormal",0);
 ei_shader_param_vector("i_normalCamera",1,1,1);
 ei_shader_param_scalar("i_reflectionMaxDistance",0);
-ei_shader_param_int("i_reflectionSamples",0);
+ei_shader_param_index("i_reflectionSamples",1);
 ei_shader_param_scalar("i_reflectionBlur",0);
 ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
 ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
@@ -152,7 +152,7 @@ ei_shader_param_vector("i_transparency",0.398367,0.398367,0.398367);
 ei_shader_param_int("liq_UserDefinedNormal",0);
 ei_shader_param_vector("i_normalCamera",1,1,1);
 ei_shader_param_scalar("i_reflectionMaxDistance",0);
-ei_shader_param_int("i_reflectionSamples",0);
+ei_shader_param_index("i_reflectionSamples",1);
 ei_shader_param_scalar("i_reflectionBlur",0);
 ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
 ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
@@ -188,7 +188,7 @@ ei_shader_param_vector("i_transparency",0.0894331,0.0894331,0.0894331);
 ei_shader_param_int("liq_UserDefinedNormal",0);
 ei_shader_param_vector("i_normalCamera",1,1,1);
 ei_shader_param_scalar("i_reflectionMaxDistance",0);
-ei_shader_param_int("i_reflectionSamples",0);
+ei_shader_param_index("i_reflectionSamples",1);
 ei_shader_param_scalar("i_reflectionBlur",0);
 ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
 ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
@@ -254,7 +254,7 @@ ei_object( "poly", "|pPlane2|pPlaneShape2" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.547214, -0.000000, 0.939920 );
 ei_tab_add_vector( 1.547214, -0.000000, 0.939920 );
@@ -263,11 +263,10 @@ ei_tab_add_vector( -1.547214, 0.000000, -0.939920 );
 ei_tab_add_vector( 1.547214, -0.000000, 0.939920 );
 ei_tab_add_vector( 1.547214, 0.000000, -0.939920 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -280,7 +279,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -290,7 +289,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.607492 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -315,7 +314,7 @@ ei_object( "poly", "|pCube2|pCubeShape2" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.870591, -0.500000, 1.058162 );
 ei_tab_add_vector( 1.870591, -0.500000, 1.058162 );
@@ -354,13 +353,12 @@ ei_tab_add_vector( -1.870591, 0.500000, -1.058162 );
 ei_tab_add_vector( -1.870591, -0.500000, 1.058162 );
 ei_tab_add_vector( -1.870591, 0.500000, 1.058162 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -400,7 +398,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -454,7 +452,7 @@ ei_object( "poly", "|pPlane3|pPlaneShape3" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.407982, -0.000000, 1.079315 );
 ei_tab_add_vector( 1.407982, -0.000000, 1.079315 );
@@ -463,11 +461,10 @@ ei_tab_add_vector( -1.407982, 0.000000, -1.079315 );
 ei_tab_add_vector( 1.407982, -0.000000, 1.079315 );
 ei_tab_add_vector( 1.407982, 0.000000, -1.079315 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -480,7 +477,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -490,7 +487,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.766569 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -514,7 +511,7 @@ ei_object( "poly", "|pPlane4|pPlaneShape4" );
 {
 eiTag tag;
 //vertex positions(required), size=6
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -1.290118, -0.000000, 0.897752 );
 ei_tab_add_vector( 1.290118, -0.000000, 0.897752 );
@@ -523,11 +520,10 @@ ei_tab_add_vector( -1.290118, 0.000000, -0.897752 );
 ei_tab_add_vector( 1.290118, -0.000000, 0.897752 );
 ei_tab_add_vector( 1.290118, 0.000000, -0.897752 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 tag = eiNULL_TAG;
 ei_declare("N", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_variable("N", &tag);
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
 ei_tab_add_vector( 0.000000, 1.000000, 0.000000 );
@@ -540,7 +536,7 @@ ei_end_tab();
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.000000 );
@@ -550,7 +546,7 @@ ei_tab_add_vector2( 1.000000, 0.000000 );
 ei_tab_add_vector2( 1.000000, 0.695868 );
 ei_end_tab();
 //### triangles(required) size=6
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -566,6 +562,8 @@ ei_end_object();
 //ribNode's transform node=|pPlane2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane2|pPlaneShape2
 ei_instance("|pPlane2");
+//|pPlane2|pPlaneShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong4SG,
 ei_mtl("phong4SG");
 //shape name=|pPlane2|pPlaneShape2
 //shape full path name=|pPlane2|pPlaneShape2
@@ -586,6 +584,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube2|pCubeShape2
 ei_instance("|pCube2");
+//|pCube2|pCubeShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: phong3SG,
 ei_mtl("phong3SG");
 //shape name=|pCube2|pCubeShape2
 //shape full path name=|pCube2|pCubeShape2
@@ -606,6 +606,8 @@ ei_end_instance();
 //ribNode's transform node=|pPlane3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane3|pPlaneShape3
 ei_instance("|pPlane3");
+//|pPlane3|pPlaneShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert2SG,
 ei_mtl("lambert2SG");
 //shape name=|pPlane3|pPlaneShape3
 //shape full path name=|pPlane3|pPlaneShape3
@@ -626,6 +628,8 @@ ei_end_instance();
 //ribNode's transform node=|pPlane4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pPlane4|pPlaneShape4
 ei_instance("|pPlane4");
+//|pPlane4|pPlaneShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert3SG,
 ei_mtl("lambert3SG");
 //shape name=|pPlane4|pPlaneShape4
 //shape full path name=|pPlane4|pPlaneShape4

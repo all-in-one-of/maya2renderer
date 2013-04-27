@@ -112,81 +112,207 @@ ei_material("lambert6SG");
 ei_surface_shader("lambert6");
 ei_end_material();
 ei_shader("maya_blinn", "blinn1");
-ei_shader_param_vector("inColor",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_scalar("eccentricity",0.3);
-ei_shader_param_scalar("specRollOff",0.7);
-ei_shader_param_vector("specColor",0.5,0.5,0.5);
-ei_shader_param_vector("outColor",0,0,0);
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_scalar("i_eccentricity",0.3);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_vector("i_specularColor",0.5,0.5,0.5);
+ei_shader_param_scalar("i_specularRollOff",0.7);
+ei_shader_param_scalar("i_reflectivity",0.5);
+ei_shader_param_vector("i_reflectedColor",0,0,0);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_index("i_reflectionLimit",1);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_scalar("i_reflectionMaxDistance",0);
+ei_shader_param_index("i_reflectionSamples",1);
+ei_shader_param_scalar("i_reflectionBlur",0);
+ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
+ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("blinn1SG");
 ei_surface_shader("blinn1");
 ei_end_material();
 ei_shader("maya_blinn", "blinn3");
-ei_shader_param_vector("inColor",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_scalar("eccentricity",0.3);
-ei_shader_param_scalar("specRollOff",0.7);
-ei_shader_param_vector("specColor",0.5,0.5,0.5);
-ei_shader_param_vector("outColor",0,0,0);
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_scalar("i_eccentricity",0.3);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_vector("i_specularColor",0.5,0.5,0.5);
+ei_shader_param_scalar("i_specularRollOff",0.7);
+ei_shader_param_scalar("i_reflectivity",0.5);
+ei_shader_param_vector("i_reflectedColor",0,0,0);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_index("i_reflectionLimit",1);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_scalar("i_reflectionMaxDistance",0);
+ei_shader_param_index("i_reflectionSamples",1);
+ei_shader_param_scalar("i_reflectionBlur",0);
+ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
+ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_shader("maya_blinn", "blinn4");
-ei_shader_param_vector("inColor",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_scalar("eccentricity",0.3);
-ei_shader_param_scalar("specRollOff",0.7);
-ei_shader_param_vector("specColor",0.5,0.5,0.5);
-ei_shader_param_vector("outColor",0,0,0);
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_scalar("i_eccentricity",0.3);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_vector("i_specularColor",0.5,0.5,0.5);
+ei_shader_param_scalar("i_specularRollOff",0.7);
+ei_shader_param_scalar("i_reflectivity",0.5);
+ei_shader_param_vector("i_reflectedColor",0,0,0);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_index("i_reflectionLimit",1);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_scalar("i_reflectionMaxDistance",0);
+ei_shader_param_index("i_reflectionSamples",1);
+ei_shader_param_scalar("i_reflectionBlur",0);
+ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
+ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_shader("maya_blinn", "blinn5");
-ei_shader_param_vector("inColor",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_scalar("eccentricity",0.3);
-ei_shader_param_scalar("specRollOff",0.7);
-ei_shader_param_vector("specColor",0.5,0.5,0.5);
-ei_shader_param_vector("outColor",0,0,0);
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_scalar("i_eccentricity",0.3);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_vector("i_specularColor",0.5,0.5,0.5);
+ei_shader_param_scalar("i_specularRollOff",0.7);
+ei_shader_param_scalar("i_reflectivity",0.5);
+ei_shader_param_vector("i_reflectedColor",0,0,0);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_index("i_reflectionLimit",1);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_scalar("i_reflectionMaxDistance",0);
+ei_shader_param_index("i_reflectionSamples",1);
+ei_shader_param_scalar("i_reflectionBlur",0);
+ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
+ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_shader("maya_blinn", "blinn2");
-ei_shader_param_vector("inColor",0.5,0.5,0.5);
-ei_shader_link_param("transparency","blinn3","outColor");
-ei_shader_link_param("ambColor","blinn4","outColor");
-ei_shader_link_param("incandescence","blinn5","outColor");
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_scalar("eccentricity",0.3);
-ei_shader_param_scalar("specRollOff",0.7);
-ei_shader_param_vector("specColor",0.5,0.5,0.5);
-ei_shader_param_vector("outColor",0,0,0);
+ei_shader_link_param("i_ambientColor","blinn4","outColor");
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_scalar("i_eccentricity",0.3);
+ei_shader_link_param("i_incandescence","blinn5","outColor");
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_vector("i_specularColor",0.5,0.5,0.5);
+ei_shader_param_scalar("i_specularRollOff",0.7);
+ei_shader_param_scalar("i_reflectivity",0.5);
+ei_shader_param_vector("i_reflectedColor",0,0,0);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_index("i_reflectionLimit",1);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_link_param("i_transparency","blinn3","outColor");
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_scalar("i_reflectionMaxDistance",0);
+ei_shader_param_index("i_reflectionSamples",1);
+ei_shader_param_scalar("i_reflectionBlur",0);
+ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
+ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("blinn2SG");
 ei_surface_shader("blinn2");
 ei_end_material();
 ei_shader("maya_blinn", "blinn6");
-ei_shader_param_vector("inColor",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_scalar("eccentricity",0.3);
-ei_shader_param_scalar("specRollOff",0.7);
-ei_shader_param_vector("specColor",0.5,0.5,0.5);
-ei_shader_param_vector("outColor",0,0,0);
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_scalar("i_eccentricity",0.3);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_vector("i_specularColor",0.5,0.5,0.5);
+ei_shader_param_scalar("i_specularRollOff",0.7);
+ei_shader_param_scalar("i_reflectivity",0.5);
+ei_shader_param_vector("i_reflectedColor",0,0,0);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_index("i_reflectionLimit",1);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_scalar("i_reflectionMaxDistance",0);
+ei_shader_param_index("i_reflectionSamples",1);
+ei_shader_param_scalar("i_reflectionBlur",0);
+ei_shader_param_scalar("i_reflectionNoiseAmplitude",0);
+ei_shader_param_scalar("i_reflectionNoiseFrequency",0);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_shader("maya_lambert_transparent", "lambert8");
@@ -324,7 +450,7 @@ ei_object( "poly", "|pCube1|pCubeShape1" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -6.417892, -2.949552, 4.295626 );
 ei_tab_add_vector( 6.417892, -2.949552, 4.295626 );
@@ -363,13 +489,12 @@ ei_tab_add_vector( -6.417892, 2.949552, -4.295626 );
 ei_tab_add_vector( -6.417892, -2.949552, 4.295626 );
 ei_tab_add_vector( -6.417892, 2.949552, 4.295626 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -409,7 +534,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -464,7 +589,7 @@ ei_object( "poly", "|pCube2|pCubeShape2" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -503,13 +628,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -549,7 +673,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -604,7 +728,7 @@ ei_object( "poly", "|pCube3|pCubeShape3" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( 0.500000, -0.500000, 0.500000 );
@@ -643,13 +767,12 @@ ei_tab_add_vector( -0.500000, 0.500000, -0.500000 );
 ei_tab_add_vector( -0.500000, -0.500000, 0.500000 );
 ei_tab_add_vector( -0.500000, 0.500000, 0.500000 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -689,7 +812,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -744,7 +867,7 @@ ei_object( "poly", "|pCube4|pCubeShape4" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -4.171100, -1.595837, 1.702476 );
 ei_tab_add_vector( 4.171100, -1.595837, 1.702476 );
@@ -783,13 +906,12 @@ ei_tab_add_vector( -4.171100, 1.595837, -1.702476 );
 ei_tab_add_vector( -4.171100, -1.595837, 1.702476 );
 ei_tab_add_vector( -4.171100, 1.595837, 1.702476 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -829,7 +951,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -884,7 +1006,7 @@ ei_object( "poly", "|pCube5|pCubeShape5" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -2.984245, -2.337779, 8.021674 );
 ei_tab_add_vector( 2.984245, -2.337779, 8.021674 );
@@ -923,13 +1045,12 @@ ei_tab_add_vector( -2.984245, 2.337779, -8.021674 );
 ei_tab_add_vector( -2.984245, -2.337779, 8.021674 );
 ei_tab_add_vector( -2.984245, 2.337779, 8.021674 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -969,7 +1090,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -1024,7 +1145,7 @@ ei_object( "poly", "|pCube6|pCubeShape6" );
 {
 eiTag tag;
 //vertex positions(required), size=36
-tag = ei_tab(EI_TYPE_VECTOR, 1024);
+tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
 ei_tab_add_vector( -2.620972, -3.489138, 2.358684 );
 ei_tab_add_vector( 2.620972, -3.489138, 2.358684 );
@@ -1063,13 +1184,12 @@ ei_tab_add_vector( -2.620972, 3.489138, -2.358684 );
 ei_tab_add_vector( -2.620972, -3.489138, 2.358684 );
 ei_tab_add_vector( -2.620972, 3.489138, 2.358684 );
 ei_end_tab();
-//### vertex deform positions(optional)
 //### N ###(optional)
 //### N ### end
 //### UV (optional)
 tag = eiNULL_TAG;
 ei_declare("uv", EI_VARYING, EI_TYPE_TAG, &tag);
-tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 ei_variable("uv", &tag);
 ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.625000, 0.000000 );
@@ -1109,7 +1229,7 @@ ei_tab_add_vector2( 0.375000, 0.000000 );
 ei_tab_add_vector2( 0.375000, 0.250000 );
 ei_end_tab();
 //### triangles(required) size=36
-tag = ei_tab(EI_TYPE_INDEX, 1024);
+tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 ei_triangle_list( tag );
 ei_tab_add_index(0);
 ei_tab_add_index(1);
@@ -1155,6 +1275,8 @@ ei_end_object();
 //ribNode's transform node=|pCube1
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube1|pCubeShape1
 ei_instance("|pCube1");
+//|pCube1|pCubeShape1 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: initialShadingGroup,
 ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCubeShape1
 //shape full path name=|pCube1|pCubeShape1
@@ -1175,6 +1297,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube2
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube2|pCubeShape2
 ei_instance("|pCube2");
+//|pCube2|pCubeShape2 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert6SG,
 ei_mtl("lambert6SG");
 //shape name=|pCube2|pCubeShape2
 //shape full path name=|pCube2|pCubeShape2
@@ -1195,6 +1319,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube3
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube3|pCubeShape3
 ei_instance("|pCube3");
+//|pCube3|pCubeShape3 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: blinn1SG,
 ei_mtl("blinn1SG");
 //shape name=|pCube3|pCubeShape3
 //shape full path name=|pCube3|pCubeShape3
@@ -1215,6 +1341,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube4
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube4|pCubeShape4
 ei_instance("|pCube4");
+//|pCube4|pCubeShape4 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: blinn2SG,
 ei_mtl("blinn2SG");
 //shape name=|pCube4|pCubeShape4
 //shape full path name=|pCube4|pCubeShape4
@@ -1235,6 +1363,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube5
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube5|pCubeShape5
 ei_instance("|pCube5");
+//|pCube5|pCubeShape5 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert7SG,
 ei_mtl("lambert7SG");
 //shape name=|pCube5|pCubeShape5
 //shape full path name=|pCube5|pCubeShape5
@@ -1255,6 +1385,8 @@ ei_end_instance();
 //ribNode's transform node=|pCube6
 //ribNode->object(0)->getDataPtr()->getFullPathName()=|pCube6|pCubeShape6
 ei_instance("|pCube6");
+//|pCube6|pCubeShape6 has many shading groups. liquid only support one martial per mesh, so I use the 1st material
+//materials are: lambert9SG,
 ei_mtl("lambert9SG");
 //shape name=|pCube6|pCubeShape6
 //shape full path name=|pCube6|pCubeShape6
@@ -1287,3 +1419,7 @@ ei_add_instance("|pCube6");
 ei_end_instgroup();
 // in batch render mode
 //ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+ei_end_context();
+//------------------------------------------------
+

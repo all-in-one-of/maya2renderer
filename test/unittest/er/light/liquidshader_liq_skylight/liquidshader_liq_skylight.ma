@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: liquidshader_liq_skylight.ma
-//Last modified: Mon, Apr 22, 2013 04:30:37 PM
+//Last modified: Sat, Apr 27, 2013 12:37:11 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -154,7 +154,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/liquidshader_liq_skylight2572.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/liquidshader_liq_skylight2592.xml";
 	setAttr ".lrf" -type "string" "E:/MyDocuments/maya/projects/default/rib/_perspShape.0001.rib";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
@@ -375,12 +375,12 @@ createNode liquidShader -n "liquidShader2";
 	setAttr ".rml" -type "string" "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_er_env/maya_physicalsky.dll";
 	setAttr ".rpr" -type "stringArray" 19 "sun_dir" "sun_disk_size" "sun_disk_intensity" "sun_glow_size" "sun_glow_intensity" "sun_glow_falloff" "ground_color" "ground_blur" "visibility_to_camera" "visibility_to_secondary" "type" "haze" "zenith_color" "a" "b" "c" "d" "e" "intensity"  ;
 	setAttr ".rdt" -type "stringArray" 19 "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform" "uniform"  ;
-	setAttr ".rty" -type "stringArray" 19 "vector" "float" "float" "float" "float" "float" "color" "float" "float" "float" "float" "float" "color" "float" "float" "float" "float" "float" "float"  ;
+	setAttr ".rty" -type "stringArray" 19 "vector" "float" "float" "float" "float" "float" "color" "float" "bool" "bool" "int" "float" "color" "float" "float" "float" "float" "float" "float"  ;
 	setAttr ".rdf" -type "stringArray" 19 "0.577:0.577:0.577" "2.0" "7.0" "1.0" "1.0" "5.0" "0.2000000.2000000.200000" "0.01" "1" "1" "0" "5.0" "0.109000.109000.10900" "-1.0" "-0.32" "10.0" "-3.0" "0.45" "0.5"  ;
 	setAttr ".ras" -type "Int32Array" 19 -1 -1 -1 -1 -1 -1
 		 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 		 -1 ;
-	setAttr ".rlc" -type "stringArray" 19 "liquidAE_LifParameter( \"sun_dir\", \"-1\", \"vector\", \"vector\", \"sun_dir\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_disk_size\", \"-1\", \"float\", \"float\", \"sun_disk_size\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_disk_intensity\", \"-1\", \"float\", \"float\", \"sun_disk_intensity\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_glow_size\", \"-1\", \"float\", \"float\", \"sun_glow_size\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_glow_intensity\", \"-1\", \"float\", \"float\", \"sun_glow_intensity\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_glow_falloff\", \"-1\", \"float\", \"float\", \"sun_glow_falloff\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"ground_color\", \"-1\", \"color\", \"color\", \"ground_color\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"ground_blur\", \"-1\", \"float\", \"float\", \"ground_blur\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"visibility_to_camera\", \"-1\", \"float\", \"float\", \"visibility_to_camera\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"visibility_to_secondary\", \"-1\", \"float\", \"float\", \"visibility_to_secondary\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"type\", \"-1\", \"float\", \"float\", \"type\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"haze\", \"-1\", \"float\", \"float\", \"haze\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"zenith_color\", \"-1\", \"color\", \"color\", \"zenith_color\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"a\", \"-1\", \"float\", \"float\", \"a\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"b\", \"-1\", \"float\", \"float\", \"b\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"c\", \"-1\", \"float\", \"float\", \"c\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"d\", \"-1\", \"float\", \"float\", \"d\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"e\", \"-1\", \"float\", \"float\", \"e\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"intensity\", \"-1\", \"float\", \"float\", \"intensity\", {\"\"}, \"\", 14 );"  ;
+	setAttr ".rlc" -type "stringArray" 19 "liquidAE_LifParameter( \"sun_dir\", \"-1\", \"vector\", \"vector\", \"sun_dir\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_disk_size\", \"-1\", \"float\", \"float\", \"sun_disk_size\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_disk_intensity\", \"-1\", \"float\", \"float\", \"sun_disk_intensity\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_glow_size\", \"-1\", \"float\", \"float\", \"sun_glow_size\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_glow_intensity\", \"-1\", \"float\", \"float\", \"sun_glow_intensity\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"sun_glow_falloff\", \"-1\", \"float\", \"float\", \"sun_glow_falloff\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"ground_color\", \"-1\", \"color\", \"color\", \"ground_color\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"ground_blur\", \"-1\", \"float\", \"float\", \"ground_blur\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"visibility_to_camera\", \"-1\", \"bool\", \"bool\", \"visibility_to_camera\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"visibility_to_secondary\", \"-1\", \"bool\", \"bool\", \"visibility_to_secondary\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"type\", \"-1\", \"int\", \"int\", \"type\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"haze\", \"-1\", \"float\", \"float\", \"haze\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"zenith_color\", \"-1\", \"color\", \"color\", \"zenith_color\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"a\", \"-1\", \"float\", \"float\", \"a\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"b\", \"-1\", \"float\", \"float\", \"b\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"c\", \"-1\", \"float\", \"float\", \"c\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"d\", \"-1\", \"float\", \"float\", \"d\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"e\", \"-1\", \"float\", \"float\", \"e\", {\"\"}, \"\", 14 );" "liquidAE_LifParameter( \"intensity\", \"-1\", \"float\", \"float\", \"intensity\", {\"\"}, \"\", 14 );"  ;
 	setAttr ".rmt" -type "stringArray" 0  ;
 	setAttr ".rio" -type "Int32Array" 19 0 0 0 0 0 0
 		 0 0 0 0 0 0 0 0 0 0 0 0
@@ -464,6 +464,9 @@ createNode shadingEngine -n "liquidShader3SG";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo16";
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
+	addAttr -ci true -h true -sn "output_call" -ln "output_call" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_esa" -ln "output_esa" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_ess" -ln "output_ess" -min 0 -max 1 -at "bool";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
 	addAttr -ci true -h true -sn "contrast" -ln "contrast" -dt "string";
@@ -495,6 +498,7 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 		65536 -at "long";
 	addAttr -ci true -h true -sn "approx_motion_factor" -ln "approx_motion_factor" -dv 
 		16 -at "float";
+	setAttr ".output_call" yes;
 	setAttr ".link" -type "string" "eiIMG|eiSHADER|eiSHADER_maya";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
@@ -504,8 +508,8 @@ select -ne :time1;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr ".o" 1;
-	setAttr ".unw" 1;
+	setAttr ".o" 24;
+	setAttr ".unw" 24;
 select -ne :renderPartition;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
