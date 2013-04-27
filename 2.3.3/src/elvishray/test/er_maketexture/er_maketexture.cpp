@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include <boost/algorithm/string/replace.hpp>
 #include "eiAPI/ei.h"
 #include <eiCORE/ei_data_table.h>
 
@@ -45,7 +46,8 @@ void er_maketexture(const std::string &source_image_dir,
 {
 	char	tmp[ EI_MAX_FILE_NAME_LEN ];
 	ei_get_current_directory(tmp);
-	const std::string cur_dir(tmp);
+	std::string cur_dir(tmp);
+	cur_dir = boost::replace_all_copy( cur_dir, "\\", "/" );
 
 	char	output_filename[ EI_MAX_FILE_NAME_LEN ];
 
@@ -109,8 +111,8 @@ void er_maketexture(const std::string &source_image_dir,
 	ei_shader_param_bool("stagger", 0);
 	ei_shader_param_scalar("translateFrameU", 0);
 	ei_shader_param_scalar("translateFrameV", 0);
-	ei_shader_param_scalar("wrapU", 1);
-	ei_shader_param_scalar("wrapV", 1);
+	ei_shader_param_bool("wrapU", 1);
+	ei_shader_param_bool("wrapV", 1);
 	ei_shader_param_vector("outUV", 0, 0, 4.5499e+174);
 	ei_end_shader();
 
@@ -228,7 +230,7 @@ void er_maketexture(const std::string &source_image_dir,
 	{;
 	eiTag tag;
 	//### vertex positions, fnMesh.numVertices()=9;
-	tag = ei_tab(EI_TYPE_VECTOR, 1024);
+	tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 	ei_pos_list(tag);
 	ei_tab_add_vector(-0.5,-1.11022e-016,0.5);
 	ei_tab_add_vector(0,-1.11022e-016,0.5);
@@ -243,7 +245,7 @@ void er_maketexture(const std::string &source_image_dir,
 	//### N ###;
 	tag = eiNULL_TAG;
 	ei_declare("N",2,6, &tag);
-	tag = ei_tab(EI_TYPE_VECTOR, 1024);
+	tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 	ei_variable("N", &tag);
 	ei_tab_add_vector(0,1,2.22045e-016);
 	ei_tab_add_vector(0,1,2.22045e-016);
@@ -259,7 +261,7 @@ void er_maketexture(const std::string &source_image_dir,
 	//### UV(map1), size=9;
 	tag = eiNULL_TAG;
 	ei_declare("uv",2,6, &tag);
-	tag = ei_tab(EI_TYPE_VECTOR2, 1024);
+	tag = ei_tab(EI_TYPE_VECTOR2, 1, 1024);
 	ei_variable("uv", &tag);
 	ei_tab_add_vector2(0,0);
 	ei_tab_add_vector2(0.5,0);
@@ -272,7 +274,7 @@ void er_maketexture(const std::string &source_image_dir,
 	ei_tab_add_vector2(1,1);
 	ei_end_tab();
 	//### triangles, size=4;
-	tag = ei_tab(EI_TYPE_INDEX, 1024);
+	tag = ei_tab(EI_TYPE_INDEX, 1, 1024);
 	ei_triangle_list(tag);
 	ei_tab_add_index(0);
 	ei_tab_add_index(1);

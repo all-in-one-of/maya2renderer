@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../../../dependence/elvishray/r274/include"
+				AdditionalIncludeDirectories="../../../../../dependence/elvishray/r274/include;&quot;$(BOOST_ROOT)&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -59,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="eiAPI.lib eiCORE.lib eiIMG.lib eiSHADER.lib eiSHADER_maya.lib"
+				AdditionalDependencies="eiAPI.lib eiCORE.lib eiIMG.lib eiSHADER.lib "
 				AdditionalLibraryDirectories="../../../../../dependence/elvishray/r274/lib;&quot;$(ProjectDir)/../../eiSHADER_maya/bin/$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -113,7 +113,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../../../dependence/elvishray/r274/include"
+				AdditionalIncludeDirectories="../../../../../dependence/elvishray/r274/include;&quot;$(BOOST_ROOT)&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -131,7 +131,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="eiAPI.lib eiCORE.lib eiIMG.lib eiSHADER.lib eiSHADER_maya.lib"
+				AdditionalDependencies="eiAPI.lib eiCORE.lib eiIMG.lib eiSHADER.lib "
 				AdditionalLibraryDirectories="../../../../../dependence/elvishray/r274/lib;&quot;$(ProjectDir)/../../eiSHADER_maya/bin/$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
