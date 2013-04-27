@@ -93,7 +93,7 @@ void renderApprox(bool regular, const char *suffix)
 	ei_end_material();
 
 	ei_object("poly", "obj1");
-	ei_pos_list(ei_tab(EI_TYPE_VECTOR, 1024));
+	ei_pos_list(ei_tab(EI_TYPE_VECTOR, 1, 1024));
 	ei_tab_add_vector(-7.068787f, -4.155799f, -22.885710f);
 	ei_tab_add_vector(-0.179573f, -7.973234f, -16.724060f);
 	ei_tab_add_vector(-7.068787f, 4.344949f, -17.619093f);
@@ -103,7 +103,7 @@ void renderApprox(bool regular, const char *suffix)
 	ei_tab_add_vector(0.179573f, 7.973235f, -23.475441f);
 	ei_tab_add_vector(7.068787f, 4.155800f, -17.313791f);
 	ei_end_tab();
-	ei_triangle_list(ei_tab(EI_TYPE_INDEX, 1024));
+	ei_triangle_list(ei_tab(EI_TYPE_INDEX, 1, 1024));
 	ei_tab_add_index(0); ei_tab_add_index(1); ei_tab_add_index(3);
 	ei_tab_add_index(0); ei_tab_add_index(3); ei_tab_add_index(2);
 	ei_tab_add_index(1); ei_tab_add_index(5); ei_tab_add_index(7);
