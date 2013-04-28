@@ -62,6 +62,7 @@
 				AdditionalDependencies="eiAPI.lib eiCORE.lib eiIMG.lib eiSHADER.lib eiSHADER_maya.lib"
 				AdditionalLibraryDirectories="../../../../dependence/elvishray/r274/lib;&quot;$(ProjectDir)/../eiSHADER_maya/bin/M2R2012Debug&quot;"
 				GenerateDebugInformation="true"
+				AssemblyDebug="1"
 				TargetMachine="1"
 			/>
 			<Tool
