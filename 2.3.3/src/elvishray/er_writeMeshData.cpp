@@ -133,77 +133,89 @@ namespace elvishray
 		std::vector<MVector> UV;
 
 		int numPolygons = fnMesh.numPolygons();
-		for(int gpi = 0; gpi< numPolygons; ++gpi)//gpi: global polygon index
-		{
-			//  for one polygon
 
-			MIntArray vertexList;
-			fnMesh.getPolygonVertices(gpi, vertexList);
-			assert( vertexList.length() == fnMesh.polygonVertexCount( gpi ) );
-			// vertex index in polygon: i  <---> global vertex index: vertexList[i]
-
-			//int vertexCountInPolygon   = fnMesh.polygonVertexCount( gpi );
-			int triangleCountInPolygon = triangleCounts[ gpi ];
-			for(int ti = 0; ti<triangleCountInPolygon; ++ti)//ti: triangle index in a polygon
+		int gpi = 0;
+		int ti  = 0;
+		try{
+			for(gpi = 0; gpi< numPolygons; ++gpi)//gpi: global polygon index
 			{
-				//  for one triangle
-
-				int gvi[3];//global vertex index
-				fnMesh.getPolygonTriangleVertices(gpi, ti, gvi);
-
-				//position/triangle index list
-				std::size_t i_v0 = 3*gvi[0];// index of vertex0
-				INDEX.push_back(POSITION.size());
-				POSITION.push_back(MVector(P[i_v0+0], P[i_v0+1], P[i_v0+2]));//vertex0.x, vertex0.y, vertex0.z
-				
-				std::size_t i_v1 = 3*gvi[1];// index of vertex1
-				INDEX.push_back(POSITION.size());
-				POSITION.push_back(MVector(P[i_v1+0], P[i_v1+1], P[i_v1+2]));//vertex1.x, vertex1.y, vertex1.z
-				
-				std::size_t i_v2 = 3*gvi[2];// index of vertex2
-				INDEX.push_back(POSITION.size());
-				POSITION.push_back(MVector(P[i_v2+0], P[i_v2+1], P[i_v2+2]));//vertex2.x, vertex2.y, vertex2.z
-
-				//position motion blur
-				if( sample_first != sample_last )
-				{
-					POSITION_mb.push_back(MVector(P_mb[i_v0+0], P_mb[i_v0+1], P_mb[i_v0+2]));
-					POSITION_mb.push_back(MVector(P_mb[i_v1+0], P_mb[i_v1+1], P_mb[i_v1+2]));
-					POSITION_mb.push_back(MVector(P_mb[i_v2+0], P_mb[i_v2+1], P_mb[i_v2+2]));
+				//DEBUG:
+				if( gpi == 1328739 || gpi == 885826 || gpi == 1010048 ){
+					int dummuyForBreakPoint; dummuyForBreakPoint = 1;
+					//liquidMessage2(messageError, "DEBUG gpi=%d", gpi);
 				}
+				//  for one polygon
 
+				MIntArray vertexList;
+				fnMesh.getPolygonVertices(gpi, vertexList);
+				assert( vertexList.length() == fnMesh.polygonVertexCount( gpi ) );
+				// vertex index in polygon: i  <---> global vertex index: vertexList[i]
 
-				//normal
-				MVector normal0, normal1, normal2;
-				fnMesh.getVertexNormal(gvi[0], false, normal0);
-				fnMesh.getVertexNormal(gvi[1], false, normal1);
-				fnMesh.getVertexNormal(gvi[2], false, normal2);
+				//int vertexCountInPolygon   = fnMesh.polygonVertexCount( gpi );
+				int triangleCountInPolygon = triangleCounts[ gpi ];
+				for(ti = 0; ti<triangleCountInPolygon; ++ti)//ti: triangle index in a polygon
+				{
+					//  for one triangle
+
+					int gvi[3];//global vertex index
+					fnMesh.getPolygonTriangleVertices(gpi, ti, gvi);
+
+					//position/triangle index list
+					std::size_t i_v0 = 3*gvi[0];// index of vertex0
+					INDEX.push_back(POSITION.size());
+					POSITION.push_back(MVector(P[i_v0+0], P[i_v0+1], P[i_v0+2]));//vertex0.x, vertex0.y, vertex0.z
 				
-				NORMAL.push_back(normal0);
-				NORMAL.push_back(normal1);
-				NORMAL.push_back(normal2);
+					std::size_t i_v1 = 3*gvi[1];// index of vertex1
+					INDEX.push_back(POSITION.size());
+					POSITION.push_back(MVector(P[i_v1+0], P[i_v1+1], P[i_v1+2]));//vertex1.x, vertex1.y, vertex1.z
+				
+					std::size_t i_v2 = 3*gvi[2];// index of vertex2
+					INDEX.push_back(POSITION.size());
+					POSITION.push_back(MVector(P[i_v2+0], P[i_v2+1], P[i_v2+2]));//vertex2.x, vertex2.y, vertex2.z
+
+					//position motion blur
+					if( sample_first != sample_last )
+					{
+						POSITION_mb.push_back(MVector(P_mb[i_v0+0], P_mb[i_v0+1], P_mb[i_v0+2]));
+						POSITION_mb.push_back(MVector(P_mb[i_v1+0], P_mb[i_v1+1], P_mb[i_v1+2]));
+						POSITION_mb.push_back(MVector(P_mb[i_v2+0], P_mb[i_v2+1], P_mb[i_v2+2]));
+					}
 
 
-				//uv
-				float u0, v0;
-				float u1, v1;
-				float u2, v2;
-				int vi0, vi1, vi2;// vertex index in polygon
-				vi0 = getVertexInexInPolygon( gvi[0], vertexList);
-				vi1 = getVertexInexInPolygon( gvi[1], vertexList);
-				vi2 = getVertexInexInPolygon( gvi[2], vertexList);
-				fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName);
-				fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName);
-				fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName);
-
-				UV.push_back(MVector(u0, v0));
-				UV.push_back(MVector(u1, v1));
-				UV.push_back(MVector(u2, v2));
+					//normal
+					MVector normal0, normal1, normal2;
+					fnMesh.getVertexNormal(gvi[0], false, normal0);
+					fnMesh.getVertexNormal(gvi[1], false, normal1);
+					fnMesh.getVertexNormal(gvi[2], false, normal2);
+				
+					NORMAL.push_back(normal0);
+					NORMAL.push_back(normal1);
+					NORMAL.push_back(normal2);
 
 
-			}//for(int ti = 0; ti<triangleCountInPolygon; ++ti)
-		}//for(int gpi = 0; gpi< numPolygons; ++gpi)
+					//uv
+					float u0, v0;
+					float u1, v1;
+					float u2, v2;
+					int vi0, vi1, vi2;// vertex index in polygon
+					vi0 = getVertexInexInPolygon( gvi[0], vertexList);
+					vi1 = getVertexInexInPolygon( gvi[1], vertexList);
+					vi2 = getVertexInexInPolygon( gvi[2], vertexList);
+					fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName);
+					fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName);
+					fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName);
 
+					UV.push_back(MVector(u0, v0));
+					UV.push_back(MVector(u1, v1));
+					UV.push_back(MVector(u2, v2));
+
+
+				}//for(int ti = 0; ti<triangleCountInPolygon; ++ti)
+			}//for(int gpi = 0; gpi< numPolygons; ++gpi)
+		}catch(...){
+			liquidMessage2(messageError, "ERROR, er mesh write, gpi=%d, ti=%d", gpi, ti);
+			CM_TRACE_FUNC("gpi="<<gpi<<"£¬ ti="<<ti);
+		}
 
 
 		// geometry data (shape)
