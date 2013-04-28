@@ -65,6 +65,7 @@ class LIQUID_EXPORT liqTokenPointer
     DetailType								getDetailType() const;
 
     const liqFloat*							getTokenFloatArray() const;
+	const std::size_t						getTokenFloatArraySize()const;
 	const boost::shared_array< liqFloat >	getTokenFloatSharedArray() const;
     std::string								getTokenString() const;
 	std::string								getTokenName() const;

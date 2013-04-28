@@ -377,6 +377,26 @@ const liqFloat* liqTokenPointer::getTokenFloatArray() const
 	return m_tokenFloats.get();
 }
 
+const std::size_t liqTokenPointer::getTokenFloatArraySize()const
+{
+	CM_TRACE_FUNC("liqTokenPointer:getTokenFloatArraySize() \n"
+		<<",m_pType="<<m_pType<<"\n"
+		<<",m_dType="<<m_dType<<"\n"
+		<<",m_tokenName="<<m_tokenName<<"\n"
+		<<",detailedTokenName="<<detailedTokenName<<"\n"
+		<<",m_arraySize="<<m_arraySize<<"\n"
+		<<",m_uArraySize="<<m_uArraySize<<"\n"
+		<<",m_eltSize="<<m_eltSize<<"\n"
+		<<",m_isArray="<<m_isArray<<"\n"
+		<<",m_isUArray="<<m_isUArray<<"\n"
+		<<",m_isString="<<m_isString<<"\n"
+		<<",m_isFull="<<m_isFull<<"\n"
+		<<",m_stringSize="<<m_stringSize<<"\n"
+		<<",m_tokenSize="<<m_tokenSize<<"\n"
+		<<",m_tokenFloats.use_count()="<<m_tokenFloats.use_count()<<"\n"
+		);
+	return m_tokenSize;
+}
 const shared_array< liqFloat > liqTokenPointer::getTokenFloatSharedArray() const
 {
 	//CM_TRACE_FUNC("liqTokenPointer:getTokenFloatSharedArray()");
