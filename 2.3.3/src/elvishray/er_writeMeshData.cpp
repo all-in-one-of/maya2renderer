@@ -14,7 +14,7 @@ namespace elvishray
 	static void _write1(liqRibMeshData* pData, const structJob &currentJob__);
 	static void _write(liqRibMeshData* pData, const structJob &currentJob);
 	static void _exportUVFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample);
-	static const liqFloat* _exportVertexFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample);
+	static const liqTokenPointer* _exportVertexFromNodePlug( const liqRibNodePtr &ribNode__, unsigned int sample);
 	static int getVertexInexInPolygon( const int gvi, const MIntArray &polygonVertices);
 
 	void Renderer::write(
@@ -41,7 +41,7 @@ namespace elvishray
 		}
 	}
 	//
-	static const liqFloat* _exportVertexFromNodePlug(
+	static const liqTokenPointer* _exportVertexFromNodePlug(
 		const liqRibNodePtr &ribNode__,
 		unsigned int sample)
 	{	
@@ -53,17 +53,17 @@ namespace elvishray
 		liqRibMeshData* mesh = (liqRibMeshData*)(ribdata.get());
 		const std::vector<liqTokenPointer>& tokenPointerArray = mesh->tokenPointerArray;
 
-		liqTokenPointer vertex;
+		liqTokenPointer *token = NULL;
 		for( std::vector< liqTokenPointer >::const_iterator iter( tokenPointerArray.begin() ); iter != tokenPointerArray.end(); ++iter ) 
 		{
 			if( "P" == const_cast< liqTokenPointer* >( &( *iter ) )->getDetailedTokenName() )// find the Position data
 			{
-				vertex = *iter;
+				token = const_cast< liqTokenPointer* >( &( *iter ) );
 				break;
 			}
 		}
-		assert( !vertex.empty() );
-		return vertex.getTokenFloatArray();
+		assert( !token->empty() );
+		return token;
 	}
 	//
 	static void _write(liqRibMeshData* pData, const structJob &currentJob__)
@@ -118,13 +118,13 @@ namespace elvishray
 		IfMErrorWarn(fnMesh.getCurrentUVSetName(currentUVsetName));
 
 		//get position from liquid-cooked values
-		const liqFloat *P = _exportVertexFromNodePlug(ribNode__, sample_first);
-		liqFloat *tmp = NULL;
-		if( sample_first != sample_last )
-		{
-			tmp = const_cast<liqFloat*>(_exportVertexFromNodePlug(ribNode__, sample_last));
-		}
-		const liqFloat *P_mb = tmp;
+		const liqTokenPointer *token = _exportVertexFromNodePlug(ribNode__, sample_first);
+
+		const liqFloat *P = token->getTokenFloatArray();
+		const liqFloat *P_mb = ( sample_first != sample_last )?//has motion?
+								_exportVertexFromNodePlug(ribNode__, sample_last)->getTokenFloatArray()
+								: NULL;
+
 
 		std::vector<MVector> POSITION;
 		std::vector<MVector> POSITION_mb;//motion blur position
