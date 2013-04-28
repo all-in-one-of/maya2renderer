@@ -151,19 +151,25 @@ namespace elvishray
 				int gvi[3];//global vertex index
 				fnMesh.getPolygonTriangleVertices(gpi, ti, gvi);
 
-				//position, triangle index list
+				//position/triangle index list
+				std::size_t i_v0 = 3*gvi[0];// index of vertex0
 				INDEX.push_back(POSITION.size());
-				POSITION.push_back(MVector(P[3*gvi[0]+0], P[3*gvi[0]+1], P[3*gvi[0]+2]));
+				POSITION.push_back(MVector(P[i_v0+0], P[i_v0+1], P[i_v0+2]));//vertex0.x, vertex0.y, vertex0.z
+				
+				std::size_t i_v1 = 3*gvi[1];// index of vertex1
 				INDEX.push_back(POSITION.size());
-				POSITION.push_back(MVector(P[3*gvi[1]+0], P[3*gvi[1]+1], P[3*gvi[1]+2]));
+				POSITION.push_back(MVector(P[i_v1+0], P[i_v1+1], P[i_v1+2]));//vertex1.x, vertex1.y, vertex1.z
+				
+				std::size_t i_v2 = 3*gvi[2];// index of vertex2
 				INDEX.push_back(POSITION.size());
-				POSITION.push_back(MVector(P[3*gvi[2]+0], P[3*gvi[2]+1], P[3*gvi[2]+2]));
+				POSITION.push_back(MVector(P[i_v2+0], P[i_v2+1], P[i_v2+2]));//vertex2.x, vertex2.y, vertex2.z
+
 				//position motion blur
 				if( sample_first != sample_last )
 				{
-					POSITION_mb.push_back(MVector(P_mb[3*gvi[0]+0], P_mb[3*gvi[0]+1], P_mb[3*gvi[0]+2]));
-					POSITION_mb.push_back(MVector(P_mb[3*gvi[1]+0], P_mb[3*gvi[1]+1], P_mb[3*gvi[1]+2]));
-					POSITION_mb.push_back(MVector(P_mb[3*gvi[2]+0], P_mb[3*gvi[2]+1], P_mb[3*gvi[2]+2]));
+					POSITION_mb.push_back(MVector(P_mb[i_v0+0], P_mb[i_v0+1], P_mb[i_v0+2]));
+					POSITION_mb.push_back(MVector(P_mb[i_v1+0], P_mb[i_v1+1], P_mb[i_v1+2]));
+					POSITION_mb.push_back(MVector(P_mb[i_v2+0], P_mb[i_v2+1], P_mb[i_v2+2]));
 				}
 
 
