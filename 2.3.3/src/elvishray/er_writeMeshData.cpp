@@ -133,17 +133,13 @@ namespace elvishray
 		std::vector<MVector> UV;
 
 		int numPolygons = fnMesh.numPolygons();
+		std::size_t PBufferSize = token->getTokenFloatArraySize();
 
 		int gpi = 0;
 		int ti  = 0;
 		try{
 			for(gpi = 0; gpi< numPolygons; ++gpi)//gpi: global polygon index
 			{
-				//DEBUG:
-				if( gpi == 1328739 || gpi == 885826 || gpi == 1010048 ){
-					int dummuyForBreakPoint; dummuyForBreakPoint = 1;
-					//liquidMessage2(messageError, "DEBUG gpi=%d", gpi);
-				}
 				//  for one polygon
 
 				MIntArray vertexList;
@@ -161,14 +157,15 @@ namespace elvishray
 					fnMesh.getPolygonTriangleVertices(gpi, ti, gvi);
 
 					//position/triangle index list
+					//vertex0
 					std::size_t i_v0 = 3*gvi[0];// index of vertex0
 					INDEX.push_back(POSITION.size());
 					POSITION.push_back(MVector(P[i_v0+0], P[i_v0+1], P[i_v0+2]));//vertex0.x, vertex0.y, vertex0.z
-				
+					//vertex1
 					std::size_t i_v1 = 3*gvi[1];// index of vertex1
 					INDEX.push_back(POSITION.size());
 					POSITION.push_back(MVector(P[i_v1+0], P[i_v1+1], P[i_v1+2]));//vertex1.x, vertex1.y, vertex1.z
-				
+					//vertex2
 					std::size_t i_v2 = 3*gvi[2];// index of vertex2
 					INDEX.push_back(POSITION.size());
 					POSITION.push_back(MVector(P[i_v2+0], P[i_v2+1], P[i_v2+2]));//vertex2.x, vertex2.y, vertex2.z
@@ -212,7 +209,11 @@ namespace elvishray
 
 				}//for(int ti = 0; ti<triangleCountInPolygon; ++ti)
 			}//for(int gpi = 0; gpi< numPolygons; ++gpi)
-		}catch(...){
+		}
+		catch(std::bad_alloc& e){
+			liquidMessage2(messageError, "er_writeMeshData.cpp::_write1()> bad_alloc caught: %s", e.what());
+		}
+		catch(...){
 			liquidMessage2(messageError, "ERROR, er mesh write, gpi=%d, ti=%d", gpi, ti);
 			CM_TRACE_FUNC("gpi="<<gpi<<"£¬ ti="<<ti);
 		}
