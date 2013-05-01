@@ -27,7 +27,7 @@ ei_samples(0,2);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1869013519,-1869013519,-1869013519,-1869013519,-1869013519,-1869013519);
+ei_trace_depth(-1488720793,-1488720793,-1488720793,-1488720793,-1488720793,-1488720793);
 ei_displace(0);
 ei_face(3);
 ei_end_options();

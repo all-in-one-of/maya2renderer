@@ -27,7 +27,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
+ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -171,7 +171,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
+ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -2820,7 +2820,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
+ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -5469,7 +5469,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
+ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -8118,7 +8118,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1044417934,-1044417934,-1044417934,-1044417934,-1044417934,-1044417934);
+ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
 ei_displace(0);
 ei_face(3);
 ei_end_options();

@@ -4613,6 +4613,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube1|pCubeShape1,perspShape)
                             >14 liqRibHT::find(|pCube1|pCubeShape1,|pCube1|pCubeShape1,0)
                             >14 _exportVertexFromNodePlug(|pCube1|pCubeShape1,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pCube2|pCubeShape2,perspShape)
                 >8 Renderer::exportOneObject_data(|pCube2|pCubeShape2,perspShape)
@@ -4625,6 +4641,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube2|pCubeShape2,perspShape)
                             >14 liqRibHT::find(|pCube2|pCubeShape2,|pCube2|pCubeShape2,0)
                             >14 _exportVertexFromNodePlug(|pCube2|pCubeShape2,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pCube3|pCubeShape3,perspShape)
                 >8 Renderer::exportOneObject_data(|pCube3|pCubeShape3,perspShape)
@@ -4637,6 +4669,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube3|pCubeShape3,perspShape)
                             >14 liqRibHT::find(|pCube3|pCubeShape3,|pCube3|pCubeShape3,0)
                             >14 _exportVertexFromNodePlug(|pCube3|pCubeShape3,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pCube4|pCubeShape4,perspShape)
                 >8 Renderer::exportOneObject_data(|pCube4|pCubeShape4,perspShape)
@@ -4649,6 +4697,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube4|pCubeShape4,perspShape)
                             >14 liqRibHT::find(|pCube4|pCubeShape4,|pCube4|pCubeShape4,0)
                             >14 _exportVertexFromNodePlug(|pCube4|pCubeShape4,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pCube5|pCubeShape5,perspShape)
                 >8 Renderer::exportOneObject_data(|pCube5|pCubeShape5,perspShape)
@@ -4661,6 +4725,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube5|pCubeShape5,perspShape)
                             >14 liqRibHT::find(|pCube5|pCubeShape5,|pCube5|pCubeShape5,0)
                             >14 _exportVertexFromNodePlug(|pCube5|pCubeShape5,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pCube6|pCubeShape6,perspShape)
                 >8 Renderer::exportOneObject_data(|pCube6|pCubeShape6,perspShape)
@@ -4673,6 +4753,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube6|pCubeShape6,perspShape)
                             >14 liqRibHT::find(|pCube6|pCubeShape6,|pCube6|pCubeShape6,0)
                             >14 _exportVertexFromNodePlug(|pCube6|pCubeShape6,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(perspShape)
               >7 Renderer::objectBlock_reference_begin()

@@ -129,6 +129,7 @@ ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
+ei_make_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check12.tif", "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check12.tif.tex",1,1,1, 1, 1);
 ei_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check12.tif");
 ei_file_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check12.tif.tex", 0);
 ei_end_texture();

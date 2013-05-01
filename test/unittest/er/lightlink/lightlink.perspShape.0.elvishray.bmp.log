@@ -459,6 +459,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane1|pPlaneShape1,perspShape)
                             >14 liqRibHT::find(|pPlane1|pPlaneShape1,|pPlane1|pPlaneShape1,0)
                             >14 _exportVertexFromNodePlug(|pPlane1|pPlaneShape1,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pPlane2|pPlaneShape2,perspShape)
                 >8 Renderer::exportOneObject_data(|pPlane2|pPlaneShape2,perspShape)
@@ -471,6 +487,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane2|pPlaneShape2,perspShape)
                             >14 liqRibHT::find(|pPlane2|pPlaneShape2,|pPlane2|pPlaneShape2,0)
                             >14 _exportVertexFromNodePlug(|pPlane2|pPlaneShape2,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pPlane3|pPlaneShape3,perspShape)
                 >8 Renderer::exportOneObject_data(|pPlane3|pPlaneShape3,perspShape)
@@ -483,6 +515,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane3|pPlaneShape3,perspShape)
                             >14 liqRibHT::find(|pPlane3|pPlaneShape3,|pPlane3|pPlaneShape3,0)
                             >14 _exportVertexFromNodePlug(|pPlane3|pPlaneShape3,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pPlane4|pPlaneShape4,perspShape)
                 >8 Renderer::exportOneObject_data(|pPlane4|pPlaneShape4,perspShape)
@@ -495,6 +543,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane4|pPlaneShape4,perspShape)
                             >14 liqRibHT::find(|pPlane4|pPlaneShape4,|pPlane4|pPlaneShape4,0)
                             >14 _exportVertexFromNodePlug(|pPlane4|pPlaneShape4,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(perspShape)
               >7 Renderer::objectBlock_reference_begin()

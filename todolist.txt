@@ -7,8 +7,9 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
-- phong_trans 更新
--liq| er|: r580回归测试
+G:\tmp\d_tmp\maya_test\animium整理剩余模型
+- liq| er|: G:\tmp\d_tmp\maya_test\animium\Robot_Women\liq.ma导出时有异常(原因是内存不足，现在只能测试2百万 tris的场景)
+加了try-catch性能损失多少？
 - liq|: 导出数据太慢
 - liq| er|: esa/ess 格式优化，
 -liq| er|: 更新sdk，验证toElvic\crash_after_renderin\Scout_testcase\*.esa，渲染后会崩溃的问题

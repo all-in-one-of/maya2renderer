@@ -420,6 +420,22 @@
                             >14 liqRibHT::find(|pPlane1|pPlaneShape1,|pPlane1|pPlaneShape1,0)
                             >14 _exportVertexFromNodePlug(|pPlane1|pPlaneShape1,0)
                             >14 _exportVertexFromNodePlug(|pPlane1|pPlaneShape1,1)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(perspShape)
               >7 Renderer::objectBlock_reference_begin()

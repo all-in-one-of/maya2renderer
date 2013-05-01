@@ -1708,6 +1708,22 @@
                           >13 er_writeMeshData.cpp::_write1(|locator1|pPlane1|pPlaneShape1,perspShape)
                             >14 liqRibHT::find(|locator1|pPlane1|pPlaneShape1,|locator1|pPlane1|pPlaneShape1,0)
                             >14 _exportVertexFromNodePlug(|locator1|pPlane1|pPlaneShape1,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=121
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=363
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(perspShape)
               >7 Renderer::objectBlock_reference_begin()
@@ -2604,6 +2620,22 @@
                           >13 er_writeMeshData.cpp::_write1(|locator1|pPlane1|pPlaneShape1,perspShape)
                             >14 liqRibHT::find(|locator1|pPlane1|pPlaneShape1,|locator1|pPlane1|pPlaneShape1,0)
                             >14 _exportVertexFromNodePlug(|locator1|pPlane1|pPlaneShape1,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=121
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=363
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(perspShape)
               >7 Renderer::objectBlock_reference_begin()
@@ -3500,6 +3532,22 @@
                           >13 er_writeMeshData.cpp::_write1(|locator1|pPlane1|pPlaneShape1,perspShape)
                             >14 liqRibHT::find(|locator1|pPlane1|pPlaneShape1,|locator1|pPlane1|pPlaneShape1,0)
                             >14 _exportVertexFromNodePlug(|locator1|pPlane1|pPlaneShape1,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=121
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=363
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(perspShape)
               >7 Renderer::objectBlock_reference_begin()

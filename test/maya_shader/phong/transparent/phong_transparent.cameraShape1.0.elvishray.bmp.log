@@ -6,21 +6,11 @@
   >1 Renderer::openLog(R:/MyDocuments/maya/projects/default/rib/phong_transparent.cameraShape1.6.elvishray.bmp)
     >2 OutputMgr::setOutputImagePath(R:/MyDocuments/maya/projects/default/rib/phong_transparent.cameraShape1.6.elvishray.bmp)
     >2 OutputMgr::add(0)
-    >2 OutputMgr::add(1)
-    >2 OutputMgr::add(2)
     >2 OutputMgr::init()
       >3 OutputMgr::createOutput(0)
         >4 OutputBase::OutputBase()
         >4 OutputCall::OutputCall()
-      >3 OutputMgr::createOutput(1)
-        >4 OutputBase::OutputBase()
-        >4 OutputESS::OutputESS(R:/MyDocuments/maya/projects/default/rib/phong_transparent.cameraShape1.6.elvishray.bmp)
-      >3 OutputMgr::createOutput(2)
-        >4 OutputBase::OutputBase()
-        >4 OutputESA::OutputESA(R:/MyDocuments/maya/projects/default/rib/phong_transparent.cameraShape1.6.elvishray.bmp)
       >3 OutputCall::init()
-      >3 OutputESS::init()
-      >3 OutputESA::init()
   >1 Renderer::canExport()
   >1 liqRibTranslatorNew::_doItNew(args,defaultRenderLayer)
     >2 liqRibTranslatorNew::_doItNewWithoutRenderScript(arg,defaultRenderLayer)
@@ -1386,6 +1376,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane2|pPlaneShape2,cameraShape1)
                             >14 liqRibHT::find(|pPlane2|pPlaneShape2,|pPlane2|pPlaneShape2,0)
                             >14 _exportVertexFromNodePlug(|pPlane2|pPlaneShape2,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pCube2|pCubeShape2,cameraShape1)
                 >8 Renderer::exportOneObject_data(|pCube2|pCubeShape2,cameraShape1)
@@ -1398,6 +1404,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pCube2|pCubeShape2,cameraShape1)
                             >14 liqRibHT::find(|pCube2|pCubeShape2,|pCube2|pCubeShape2,0)
                             >14 _exportVertexFromNodePlug(|pCube2|pCubeShape2,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pPlane3|pPlaneShape3,cameraShape1)
                 >8 Renderer::exportOneObject_data(|pPlane3|pPlaneShape3,cameraShape1)
@@ -1410,6 +1432,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane3|pPlaneShape3,cameraShape1)
                             >14 liqRibHT::find(|pPlane3|pPlaneShape3,|pPlane3|pPlaneShape3,0)
                             >14 _exportVertexFromNodePlug(|pPlane3|pPlaneShape3,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::oneObjectBlock_data(|pPlane4|pPlaneShape4,cameraShape1)
                 >8 Renderer::exportOneObject_data(|pPlane4|pPlaneShape4,cameraShape1)
@@ -1422,6 +1460,22 @@
                           >13 er_writeMeshData.cpp::_write1(|pPlane4|pPlaneShape4,cameraShape1)
                             >14 liqRibHT::find(|pPlane4|pPlaneShape4,|pPlane4|pPlaneShape4,0)
                             >14 _exportVertexFromNodePlug(|pPlane4|pPlaneShape4,0)
+                            >14 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
                             >14 liqRibData::getFullPathName()
             >6 liqRibTranslatorNew::objectBlock_reference(cameraShape1)
               >7 Renderer::objectBlock_reference_begin()
@@ -1514,10 +1568,6 @@
   >1 Renderer::closeLog()(but do nothing now)
     >2 OutputMgr::uninit()
       >3 OutputCall::~OutputCall()
-      >3 OutputBase::~OutputBase()
-      >3 OutputESS::~OutputESS()
-      >3 OutputBase::~OutputBase()
-      >3 OutputESA::~OutputESA()
       >3 OutputBase::~OutputBase()
   >1 RendererMgr::epilogue()
   >1 RendererMgr::uninstall()
