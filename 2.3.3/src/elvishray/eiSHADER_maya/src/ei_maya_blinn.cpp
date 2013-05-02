@@ -121,6 +121,7 @@ SURFACE(maya_blinn)
 	}
 	//
 	color getDiffuse(
+		LightSampler &sampler, 
 		const normal& i_N,
 		const eiBool keyLightsOnly,
 		const eiBool unshadowed )
@@ -128,7 +129,7 @@ SURFACE(maya_blinn)
 		eiBool isKeyLight = eiTRUE;
 		color C = 0.0f;
 
-		LightSampler	sampler(this, P, i_N, PI/2.0f );
+		//LightSampler	sampler(this, P, i_N, PI/2.0f );
 		while (sampler.sample())
 		{
 			//if( keyLightsOnly != eiFALSE )
@@ -154,6 +155,7 @@ SURFACE(maya_blinn)
 	}
 	//
 	color getBlinn(
+		LightSampler &sampler, 
 		const normal& i_Nf, 
 		const float i_eccentricity,
 		const float i_specularRollOff, 
@@ -174,7 +176,7 @@ SURFACE(maya_blinn)
 		VN = V % i_Nf;
 
 		//vector R = reflect( normalize(i_V), normalize(i_N) );
-		LightSampler	sampler(this, P, i_Nf, PI/2.0f );
+		//LightSampler	sampler(this, P, i_Nf, PI/2.0f );
 		while (sampler.sample())
 		{
 			eiBool isKeyLight = eiTRUE;
@@ -328,10 +330,14 @@ SURFACE(maya_blinn)
 		Nn = normalize( i_normalCamera() );
 		Nf = ShadingNormal(Nn);
 		Ia = i_ambientColor() + getAmbient(Nf);
-		Id = i_diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+
+		// TODO: Only need to build this sampler when either i_diffuse or i_specularColor is non-zero
+		LightSampler	sampler(this, P, Nf, PI/2.0f );
+
+		Id = i_diffuse() * getDiffuse(sampler, Nf, eiFALSE, eiFALSE);
 		Itr = getTranslucence(
 			Nf, i_translucence(), i_translucenceDepth(), i_translucenceFocus() );
-		Is = i_specularColor() * getBlinn(Nf, i_eccentricity(), i_specularRollOff(), eiFALSE, eiFALSE);
+		Is = i_specularColor() * getBlinn(sampler, Nf, i_eccentricity(), i_specularRollOff(), eiFALSE, eiFALSE);
 		
 		computeSurface(
 			i_color(),
