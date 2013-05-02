@@ -382,12 +382,13 @@ SURFACE(maya_blinn)
 // 		}
 // 		else
  		{
- 			Ir = getReflection(
- 				Nf, I, i_specularColor(),
- 				i_reflectivity() * i_specularRollOff(), i_reflectedColor(),
- 				//i_reflectionMaxDistance, i_reflectionSamples, i_reflectionBlur, i_reflectionNoiseAmplitude, i_reflectionNoiseFrequency,
- 				i_reflectionLimit(),
- 				wo, F, cutoff_thresh);
+//  			Ir = getReflection(
+//  				Nf, I, i_specularColor(),
+//  				i_reflectivity() * i_specularRollOff(), i_reflectedColor(),
+//  				//i_reflectionMaxDistance, i_reflectionSamples, i_reflectionBlur, i_reflectionNoiseAmplitude, i_reflectionNoiseFrequency,
+//  				i_reflectionLimit(),
+//  				wo, F, cutoff_thresh);
+			Ir = color(0.0f);
  		}
 
 
