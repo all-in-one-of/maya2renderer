@@ -145,7 +145,7 @@ SURFACE(maya_phong_architectural)
 
 		while (sampler.sample())
 		{
-			const vector wi(to_local(normalize(L)));
+			const vector wi(normalize(to_local(L)));
 
 			if (!almost_black(K))
 			{
