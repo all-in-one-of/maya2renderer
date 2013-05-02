@@ -16,7 +16,8 @@ void test_liquid2er()
 	//ei_shader_link_test(false, "suffix");
 	//ei_checker_uv();
 	//er_shader_transparent_test();
-#include "R:/MyDocuments/maya/projects/default/rib/dinoRig_v2_liq_nobump.perspShape.1.elvishray.bmp.esa"
+//#include "R:/MyDocuments/maya/projects/default/rib/dinoRig_v2_liq_nobump.perspShape.1.elvishray.bmp.esa"
+#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/toElvic/lightleak2/lightleak.perspShape.1.elvishray.bad.er"
 
 	//ei_context_unittest();
 	//ei_displace_unittest();

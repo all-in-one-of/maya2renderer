@@ -86,7 +86,7 @@ SURFACE(maya_phong)
 	{
 		// prepare outgoing direction in local frame
 		const vector V(-normalize(I));
-		const vector wo(to_local(V));
+		const vector wo(normalize(to_local(V)));
 
 		scalar fresn_0_degree_refl = 0.2f;//fresnel_0_degree_refl();//
 		scalar fresn_90_degree_refl = 1.0f;//fresnel_90_degree_refl();//

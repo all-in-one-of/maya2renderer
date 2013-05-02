@@ -312,7 +312,7 @@ SURFACE(maya_phong_architectural)
 		int refr_samples = refraction_samples;
 
 		// prepare outgoing direction in local frame
-		const vector wo(to_local(V));
+		const vector wo(normalize(to_local(V)));
 		// construct BSDFs
 		OrenNayar Rd(roughness);
 		scalar shiny_u = glossiness;
