@@ -66,6 +66,18 @@ SURFACE(maya_lambert)
 
 	void main(void *arg)
 	{
+// 		if (almost_equal(raster.x, 149.0f, 0.5f) 
+// 			&& almost_equal(raster.y,  51.0f, 0.5f))
+// 		{
+// 			bool debugnow = true;
+// 		}
+// 
+// 		if (almost_equal(raster.x, 140.0f, 0.5f) 
+// 			&& almost_equal(raster.y,  67.0f, 0.5f))
+// 		{
+// 			bool debugnow = true;
+// 		}
+
 		// prepare outgoing direction in local frame
 		const vector V(-normalize(I));
 		const vector wo(normalize(to_local(V)));
@@ -177,58 +189,6 @@ SURFACE(maya_lambert)
 		return C * i_translucence;
 	}
 	//
-	color getReflection(
-		const normal& i_N,
-		const vector& i_I,
-		const color& i_specularColor,
-		const float i_reflectivity,
-		const color& i_reflectedColor,
-		//const float i_maxDistance, const float i_samples, const float i_blur, const float i_noiseAmp, const float i_noiseFreq,
-		const eiIndex i_reflectionLimit,
-		const vector &wo, Fresnel *F, const scalar cutoff_thresh)
-	{
-		color ray_coloration = i_specularColor * i_reflectivity;
-		color reflected = i_reflectedColor;
-
-// 		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_ALMOST_ZERO) 
-// 			&&
-// 			/*raySpecularDepth() < i_reflectionLimit*/eiTRUE )
-// 		{
-//			vector R = reflect( i_I, i_N );
-
-			//if( i_noiseAmp != 0 && i_noiseFreq != 0)
-			//{
-			//	point Pobj = transform("object", P);
-			//	R = mix( R, R * noise( Pobj * i_noiseFreq ), i_noiseAmp );
-			//}
-			//color rc = trace_probe(P(), R,i_maxDistance);
-// 			color rc = trace_reflection(R);
-// 			color trs = trace_transmission(R);
-// 
-// 			reflected *= trs;
-// 			reflected += rc;
-
-			//color Kr(i_reflectedColor * (/*spec*/1.0f * i_reflectivity));
-			//color Kr(ray_coloration);
-
-			SpecularReflection Rr(F);
-
-			// integrate perfect specular reflection
-			if (dot_nd < 0.0f)
-			{
-				IntegrateOptions opt;
-				opt.ray_type = EI_RAY_REFLECT_GLOSSY;
-				opt.min_samples = opt.max_samples = 1; // force one sample for reflection
-				opt.cutoff_threshold = cutoff_thresh;
-				// the direct lighting of this BRDF is not accounted, 
-				// so we trace lights here to compensate
-				opt.trace_lights = eiTRUE;
-
-				reflected += integrate(wo, Rr, opt);
-			}
-		//}
-		return reflected * ray_coloration;
-	}
 	void main2(void *arg, const vector &wo, Fresnel *F, const scalar cutoff_thresh)
 	{
 		o_outColor() = i_color() * out->Ci;

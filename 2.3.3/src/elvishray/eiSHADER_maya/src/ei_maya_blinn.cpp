@@ -77,6 +77,12 @@ SURFACE(maya_blinn)
 
 	void main(void *arg)
 	{
+		//if (almost_equal(raster.x, 140.0f, 0.5f) 
+		// && almost_equal(raster.y,  67.0f, 0.5f))
+		//{
+		//	bool debugnow = true;
+		//}
+
 		// prepare outgoing direction in local frame
 		const vector V(-normalize(I));
 		const vector wo(normalize(to_local(V)));
