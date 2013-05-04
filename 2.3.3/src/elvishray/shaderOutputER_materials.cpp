@@ -86,20 +86,29 @@ void Visitor::visitLambert(const char* node)
 
 	OutputHelper o;
 
-	o.beginRSL("maya_lambert_transparent", node);
-	
-	o.addRSLVariable("color", "Cs",		"color",		node);
-	//Kd
-	//Ks
-	//roughness
-	//specularcolor
-	o.addRSLVariable("color", "transparency", "transparency", node);
-	o.addRSLVariable("color", "ambientColor",	"ambientColor", node);
-	o.addRSLVariable("color", "incandescence","incandescence",node);
-	o.addRSLVariable("float",  "diffusion",	"diffuse",		node);
-	//Cs_tex
-	o.addRSLVariable("color", "outColor",		"outColor",		node);
-	o.addRSLVariable("color", "outTransparency","outTransparency",node);
+	o.beginRSL("maya_lambert", node);
+	// Inputs:
+	o.addRSLVariable("color",	"i_ambientColor",	"ambientColor",	node);
+	o.addRSLVariable("color",	"i_color",			"color",		node);
+	o.addRSLVariable("float",	"i_diffuse",		"diffuse",		node);
+	o.addRSLVariable("color",	"i_incandescence",	"incandescence",node);
+	o.addRSLVariable("index",	"i_matteOpacityMode","matteOpacityMode",node);//uniform
+	o.addRSLVariable("float",	"i_matteOpacity",	"matteOpacity",node);
+	/* Refraction. */
+	o.addRSLVariable("bool",	"i_refractions",	"refractions",node);//uniform
+	o.addRSLVariable("float",	"i_refractiveIndex","refractiveIndex",node);
+	o.addRSLVariable("index",	"i_refractionLimit","refractionLimit",node);//uniform
+	o.addRSLVariable("float",	"i_lightAbsorbance","lightAbsorbance",node);
+	o.addRSLVariable("float",	"i_shadowAttenuation","shadowAttenuation",node);
+	o.add_liq_UserDefinedNormal(node);
+	o.addRSLVariable("normal",	"i_normalCamera",	"normalCamera",node);
+	o.addRSLVariable("color",	"i_transparency",	"transparency",node);
+	o.addRSLVariable("float",	"i_translucence",	"translucence",node);
+	o.addRSLVariable("float",	"i_translucenceDepth",	"translucenceDepth",node);
+	o.addRSLVariable("float",	"i_translucenceFocus",	"translucenceFocus",node);
+	// Outputs:
+	o.addRSLVariable("color", "o_outColor",			"outColor",			node);
+	o.addRSLVariable("color", "o_outTransparency",	"outTransparency",	node);
 
 	o.endRSL();
 }

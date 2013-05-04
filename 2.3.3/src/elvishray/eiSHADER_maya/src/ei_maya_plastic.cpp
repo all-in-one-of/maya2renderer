@@ -19,75 +19,75 @@
 #include "common/_3delight/utils.h"
 #include "common/my_utils.h"
 
-SURFACE(maya_lambert)
-	DECLARE;
-	DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
-	DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
-	DECLARE_SCALAR(Ks, 0.5f);
-	DECLARE_SCALAR(roughness, 0.1f);
-	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
-	DECLARE_TAG(Cs_tex, eiNULL_TAG);
-	END_DECLARE;
-
-	static void init()
-	{
-	}
-
-	static void exit()
-	{
-	}
-
-	void init_node()
-	{
-	}
-
-	void exit_node()
-	{
-	}
-
-	color specularbrdf(const vector & vL, const normal & vN, const vector & V, scalar roughness)
-	{
-		vector	H = normalize(vL + V);
-		scalar	dotNH = vN % H;
-		return powf(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
-	}
-
-	void main(void *arg)
-	{
-		vector V = -normalize(I);
-
-		out->Ci = 0.0f;
-
-		eiTag tex = Cs_tex();
-
-		if (tex != eiNULL_TAG)
-		{
-			Cs() = color_texture(tex, 0, bary.x, bary.y);
-		}
-
-		color kd = Cs() * Kd();
-		color ks = Ks() * specularcolor();
-		scalar rough = roughness();
-
-		LightSampler	sampler(this, P, N, PI / 2.0f);
-
-
-			color	sum = 0.0f;
-			
-			while (sampler.sample())
-			{
-				sum += Cl * (
-					kd * (normalize(L) % N) 
-					+ ks * specularbrdf(normalize(L), N, V, rough));
-			}
-
-			out->Ci += sum;
-
-
-		out->Oi = color(1.0f);
-	}
-
-END(maya_lambert)
+//SURFACE(maya_lambert)
+//	DECLARE;
+//	DECLARE_COLOR(Cs, 1.0f, 1.0f, 1.0f);
+//	DECLARE_COLOR(Kd, 1.0f, 1.0f, 1.0f);
+//	DECLARE_SCALAR(Ks, 0.5f);
+//	DECLARE_SCALAR(roughness, 0.1f);
+//	DECLARE_COLOR(specularcolor, 1.0f, 1.0f, 1.0f);
+//	DECLARE_TAG(Cs_tex, eiNULL_TAG);
+//	END_DECLARE;
+//
+//	static void init()
+//	{
+//	}
+//
+//	static void exit()
+//	{
+//	}
+//
+//	void init_node()
+//	{
+//	}
+//
+//	void exit_node()
+//	{
+//	}
+//
+//	color specularbrdf(const vector & vL, const normal & vN, const vector & V, scalar roughness)
+//	{
+//		vector	H = normalize(vL + V);
+//		scalar	dotNH = vN % H;
+//		return powf(max(eiSCALAR_EPS, dotNH), 1.0f / roughness);
+//	}
+//
+//	void main(void *arg)
+//	{
+//		vector V = -normalize(I);
+//
+//		out->Ci = 0.0f;
+//
+//		eiTag tex = Cs_tex();
+//
+//		if (tex != eiNULL_TAG)
+//		{
+//			Cs() = color_texture(tex, 0, bary.x, bary.y);
+//		}
+//
+//		color kd = Cs() * Kd();
+//		color ks = Ks() * specularcolor();
+//		scalar rough = roughness();
+//
+//		LightSampler	sampler(this, P, N, PI / 2.0f);
+//
+//
+//			color	sum = 0.0f;
+//			
+//			while (sampler.sample())
+//			{
+//				sum += Cl * (
+//					kd * (normalize(L) % N) 
+//					+ ks * specularbrdf(normalize(L), N, V, rough));
+//			}
+//
+//			out->Ci += sum;
+//
+//
+//		out->Oi = color(1.0f);
+//	}
+//
+//END(maya_lambert)
 
 SURFACE(maya_lambert_uv)
 	DECLARE;
