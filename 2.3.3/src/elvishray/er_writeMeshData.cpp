@@ -246,7 +246,7 @@ namespace elvishray
 			// but elvishray's only allow a vertex to be assigned only one normal.
 			// so I can't generate the normal list for this case.
 			o.a("numNormals != numPoints, ER doesn't support this case now");
-			NORMAL.clear();
+			//liquidMessage2(messageError,"numNormals != numPoints. \"%s\"", objectName.c_str());
 		}
 
 		if( currentUVsetName.length() != 0 )//there is a current uv set
@@ -267,7 +267,7 @@ namespace elvishray
 			}
 		}else{
 			o.a("no current UVSet");
-			UV.clear();
+			//liquidMessage2(messageError, "no current UVSet. \"%s\"", objectName.c_str() );
 		}
 
 		//
