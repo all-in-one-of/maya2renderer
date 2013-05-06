@@ -109,13 +109,13 @@ namespace elvishray
 		//
 		MStatus status;
 		MFnMesh fnMesh(mesh->objDagPath, &status);
-		IfMErrorWarn(status);
+		IfMErrorMsgWarn(status, ribNode__->name);
 
 		MIntArray triangleCounts,triangleVertices;
-		IfMErrorWarn(fnMesh.getTriangles(triangleCounts, triangleVertices));
+		IfMErrorMsgWarn(fnMesh.getTriangles(triangleCounts, triangleVertices), ribNode__->name);
 
 		MString currentUVsetName;
-		IfMErrorWarn(fnMesh.getCurrentUVSetName(currentUVsetName));
+		IfMErrorMsgWarn(fnMesh.getCurrentUVSetName(currentUVsetName), ribNode__->name);
 
 		//get position from liquid-cooked values
 		const liqTokenPointer *token = _exportVertexFromNodePlug(ribNode__, sample_first);
@@ -143,7 +143,7 @@ namespace elvishray
 				//  for one polygon
 
 				MIntArray vertexList;
-				fnMesh.getPolygonVertices(gpi, vertexList);
+				IfMErrorMsgWarn(fnMesh.getPolygonVertices(gpi, vertexList), ribNode__->name);
 				assert( vertexList.length() == fnMesh.polygonVertexCount( gpi ) );
 				// vertex index in polygon: i  <---> global vertex index: vertexList[i]
 
@@ -154,7 +154,7 @@ namespace elvishray
 					//  for one triangle
 
 					int gvi[3]={-1, -1, -1};//global vertex index
-					fnMesh.getPolygonTriangleVertices(gpi, ti, gvi);
+					IfMErrorMsgWarn(fnMesh.getPolygonTriangleVertices(gpi, ti, gvi), ribNode__->name);
 
 					//position/triangle index list
 					//vertex0
@@ -183,9 +183,9 @@ namespace elvishray
 					MVector normal0(0.0f,0.0f,0.0f);
 					MVector normal1(0.0f,0.0f,0.0f);
 					MVector normal2(0.0f,0.0f,0.0f);
-					fnMesh.getVertexNormal(gvi[0], false, normal0);
-					fnMesh.getVertexNormal(gvi[1], false, normal1);
-					fnMesh.getVertexNormal(gvi[2], false, normal2);
+					IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[0], false, normal0), ribNode__->name);
+					IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[1], false, normal1), ribNode__->name);
+					IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[2], false, normal2), ribNode__->name);
 				
 					NORMAL.push_back(normal0);
 					NORMAL.push_back(normal1);
@@ -200,9 +200,12 @@ namespace elvishray
 					int vi0 = getVertexInexInPolygon( gvi[0], vertexList);
 					int vi1 = getVertexInexInPolygon( gvi[1], vertexList);
 					int vi2 = getVertexInexInPolygon( gvi[2], vertexList);
-					fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName);
-					fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName);
-					fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName);
+					status = fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName);
+					IfMErrorMsgWarn(status, ribNode__->name);
+					status = fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName);
+					IfMErrorMsgWarn(status, ribNode__->name);
+					status = fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName);
+					IfMErrorMsgWarn(status, ribNode__->name);
 
 					UV.push_back(MVector(u0, v0));
 					UV.push_back(MVector(u1, v1));
