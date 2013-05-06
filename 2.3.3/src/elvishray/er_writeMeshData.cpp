@@ -191,9 +191,9 @@ namespace elvishray
 
 
 					//uv
-					float u0, v0;
-					float u1, v1;
-					float u2, v2;
+					float u0=0.0f, v0=0.0f;
+					float u1=0.0f, v1=0.0f;
+					float u2=0.0f, v2=0.0f;
 					int vi0, vi1, vi2;// vertex index in polygon
 					vi0 = getVertexInexInPolygon( gvi[0], vertexList);
 					vi1 = getVertexInexInPolygon( gvi[1], vertexList);
