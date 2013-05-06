@@ -153,7 +153,7 @@ namespace elvishray
 				{
 					//  for one triangle
 
-					int gvi[3];//global vertex index
+					int gvi[3]={-1, -1, -1};//global vertex index
 					fnMesh.getPolygonTriangleVertices(gpi, ti, gvi);
 
 					//position/triangle index list
@@ -180,7 +180,9 @@ namespace elvishray
 
 
 					//normal
-					MVector normal0, normal1, normal2;
+					MVector normal0(0.0f,0.0f,0.0f);
+					MVector normal1(0.0f,0.0f,0.0f);
+					MVector normal2(0.0f,0.0f,0.0f);
 					fnMesh.getVertexNormal(gvi[0], false, normal0);
 					fnMesh.getVertexNormal(gvi[1], false, normal1);
 					fnMesh.getVertexNormal(gvi[2], false, normal2);
@@ -194,10 +196,10 @@ namespace elvishray
 					float u0=0.0f, v0=0.0f;
 					float u1=0.0f, v1=0.0f;
 					float u2=0.0f, v2=0.0f;
-					int vi0, vi1, vi2;// vertex index in polygon
-					vi0 = getVertexInexInPolygon( gvi[0], vertexList);
-					vi1 = getVertexInexInPolygon( gvi[1], vertexList);
-					vi2 = getVertexInexInPolygon( gvi[2], vertexList);
+					//vi0, vi1, vi2;// vertex index in polygon
+					int vi0 = getVertexInexInPolygon( gvi[0], vertexList);
+					int vi1 = getVertexInexInPolygon( gvi[1], vertexList);
+					int vi2 = getVertexInexInPolygon( gvi[2], vertexList);
 					fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName);
 					fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName);
 					fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName);
@@ -229,6 +231,10 @@ namespace elvishray
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
 
+		if( NORMAL.size() != POSITION.size() || UV.size() != POSITION.size() )
+		{
+			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, normal:%d, uv:%d), %s", POSITION.size(), NORMAL.size(), UV.size(), objectName.c_str());
+		}
 
 		// get normal for each vertex
 		// but the render result seems very weird, see test/test_er_light/output_img_std/er_pointlight.perspShape.1.elvishray_vertex_normal.bmp

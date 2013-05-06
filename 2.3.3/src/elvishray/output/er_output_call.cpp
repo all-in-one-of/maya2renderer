@@ -628,6 +628,12 @@ namespace elvishray
 		)
 	{
 		//CM_TRACE_FUNC("OutputCall::liq_object("<<light_group_name<<")");
+
+		if( NORMAL.size() != POSITION.size() || UV.size() != POSITION.size() )
+		{
+			liquidMessage2(messageError, "OutputCall::liq_object(), list size not equal(pos:%d, normal:%d, uv:%d), %s", POSITION.size(), NORMAL.size(), UV.size(), objname.c_str());
+		}
+
 		eiTag tag;
 
 		::ei_object( "poly", objname.c_str() );
