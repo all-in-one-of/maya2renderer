@@ -102,16 +102,16 @@
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\liqRiCommands.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ri_interface.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\renderman\rm_nodePlugInfo.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\renderman\rm_nodePlugConnection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\ri_interface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\liqRiCommands.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -151,12 +151,6 @@
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\liqRiCommands.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ri_interface.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h">
       <Filter>src\aov</Filter>
     </ClInclude>
@@ -164,6 +158,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_nodePlugConnection.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\ri_interface.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\liqRiCommands.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

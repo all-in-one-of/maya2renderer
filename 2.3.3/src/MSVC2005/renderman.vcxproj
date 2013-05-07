@@ -2391,7 +2391,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\liqRiCommands.cpp" />
+    <ClCompile Include="..\renderman\liqRiCommands.cpp" />
+    <ClCompile Include="..\renderman\ri_interface.cpp" />
     <ClCompile Include="..\renderman\rm_factory.cpp" />
     <ClCompile Include="..\renderman\rm_helper.cpp" />
     <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
@@ -2424,7 +2425,6 @@
     <ClCompile Include="..\renderman\shaderOutputRSL_mi.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_textures.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp" />
-    <ClCompile Include="..\ri_interface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
@@ -2440,8 +2440,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h" />
-    <ClInclude Include="..\..\include\liqRiCommands.h" />
-    <ClInclude Include="..\..\include\ri_interface.h" />
+    <ClInclude Include="..\renderman\liqRiCommands.h" />
+    <ClInclude Include="..\renderman\ri_interface.h" />
     <ClInclude Include="..\renderman\rm_factory.h" />
     <ClInclude Include="..\renderman\rm_helper.h" />
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />

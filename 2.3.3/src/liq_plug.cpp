@@ -67,7 +67,6 @@
 #include <liqGlobalsNode.h>
 #include "liqGlobalNodeRenderer.h"
 #include <liqJobList.h>
-#include <liqRiCommands.h>
 #include <liqBoundingBoxLocator.h>
 #include <liqCoShaderNode.h>
 #include <liqShaderFactory.h>

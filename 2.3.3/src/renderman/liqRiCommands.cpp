@@ -33,7 +33,7 @@
 ** ______________________________________________________________________
 ** 
 */
-#include <liqRiCommands.h>
+#include "liqRiCommands.h"
 
 #include <fstream>
 #include <boost/scoped_array.hpp>
@@ -43,7 +43,7 @@ using namespace std;
 
 // Renderman headers
 //extern "C" {
-#include "liqtypes.h"
+#include <liqtypes.h>
 #include "ri_interface.h"
 //}
 

@@ -1,5 +1,5 @@
 
-#include <ri_interface.h>
+#include "ri_interface.h"
 
 #define _POSIX_
 #include <limits.h>
