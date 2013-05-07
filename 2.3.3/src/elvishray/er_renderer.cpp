@@ -368,8 +368,8 @@ namespace elvishray
 
 		//toggle motion on this instance
 		int bMotion = (ribNode__->doDef || ribNode__->doMotion);
-		o.a(boost::str(boost::format("ribNode->doDef=%f, ribNode->doMotion=%f")%ribNode__->doDef %ribNode__->doMotion));
-		o.ei_motion( bMotion );
+		o.a(boost::str(boost::format("bMotionBlur=%f, bGeometryMotion=%f")%bMotionBlur %bGeometryMotion));
+		o.ei_motion( bMotionBlur || bGeometryMotion );
 
 		//light links
 		o.liq_lightgroup_in_object_instance(getLightGroupName(instanceName.c_str()).asChar());
