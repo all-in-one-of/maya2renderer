@@ -114,8 +114,6 @@ namespace elvishray
 		MIntArray triangleCounts,triangleVertices;
 		IfMErrorMsgWarn(fnMesh.getTriangles(triangleCounts, triangleVertices), ribNode__->name);
 
-		MString currentUVsetName;
-		IfMErrorMsgWarn(fnMesh.getCurrentUVSetName(currentUVsetName), ribNode__->name);
 
 		//get position from liquid-cooked values
 		const liqTokenPointer *token = _exportVertexFromNodePlug(ribNode__, sample_first);
@@ -124,8 +122,16 @@ namespace elvishray
 		const liqFloat *P_mb = ( sample_first != sample_last )?//has motion?
 								_exportVertexFromNodePlug(ribNode__, sample_last)->getTokenFloatArray()
 								: NULL;
+		//uv
+		MString currentUVsetName;
+		IfMErrorMsgWarn(fnMesh.getCurrentUVSetName(currentUVsetName), ribNode__->name);
+		const bool hasUV = currentUVsetName.length()>0 && fnMesh.numUVs(currentUVsetName)>0;
+
+		//normal 
+		const bool hasSmoothNormal = (fnMesh.numVertices() == fnMesh.numNormals());
 
 
+		//
 		std::vector<MVector> POSITION;
 		std::vector<MVector> POSITION_mb;//motion blur position
 		std::vector<std::size_t> INDEX;//global vertex index
@@ -180,37 +186,40 @@ namespace elvishray
 
 
 					//normal
-					MVector normal0(0.0f,0.0f,0.0f);
-					MVector normal1(0.0f,0.0f,0.0f);
-					MVector normal2(0.0f,0.0f,0.0f);
-					IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[0], false, normal0), ribNode__->name);
-					IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[1], false, normal1), ribNode__->name);
-					IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[2], false, normal2), ribNode__->name);
-				
-					NORMAL.push_back(normal0);
-					NORMAL.push_back(normal1);
-					NORMAL.push_back(normal2);
+					if( hasSmoothNormal )
+					{
+						MVector normal0(0.0f,0.0f,0.0f);
+						MVector normal1(0.0f,0.0f,0.0f);
+						MVector normal2(0.0f,0.0f,0.0f);
+						IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[0], false, normal0), ribNode__->name);
+						IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[1], false, normal1), ribNode__->name);
+						IfMErrorMsgWarn(fnMesh.getVertexNormal(gvi[2], false, normal2), ribNode__->name);
+
+						NORMAL.push_back(normal0);
+						NORMAL.push_back(normal1);
+						NORMAL.push_back(normal2);
+					}else{
+						//let ER calculate the normal internally.
+					}
 
 
 					//uv
-					float u0=0.0f, v0=0.0f;
-					float u1=0.0f, v1=0.0f;
-					float u2=0.0f, v2=0.0f;
-					//vi0, vi1, vi2;// vertex index in polygon
-					int vi0 = getVertexInexInPolygon( gvi[0], vertexList);
-					int vi1 = getVertexInexInPolygon( gvi[1], vertexList);
-					int vi2 = getVertexInexInPolygon( gvi[2], vertexList);
-					status = fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName);
-					IfMErrorMsgWarn(status, ribNode__->name);
-					status = fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName);
-					IfMErrorMsgWarn(status, ribNode__->name);
-					status = fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName);
-					IfMErrorMsgWarn(status, ribNode__->name);
-
-					UV.push_back(MVector(u0, v0));
-					UV.push_back(MVector(u1, v1));
-					UV.push_back(MVector(u2, v2));
-
+					if( hasUV )
+					{
+						float u0=0.0f, v0=0.0f;
+						float u1=0.0f, v1=0.0f;
+						float u2=0.0f, v2=0.0f;
+						//vi0, vi1, vi2;// vertex index in polygon
+						int vi0 = getVertexInexInPolygon( gvi[0], vertexList);
+						int vi1 = getVertexInexInPolygon( gvi[1], vertexList);
+						int vi2 = getVertexInexInPolygon( gvi[2], vertexList);
+						IfMErrorMsgWarn(fnMesh.getPolygonUV(gpi, vi0, u0, v0, &currentUVsetName), ribNode__->name);
+						IfMErrorMsgWarn(fnMesh.getPolygonUV(gpi, vi1, u1, v1, &currentUVsetName), ribNode__->name);
+						IfMErrorMsgWarn(fnMesh.getPolygonUV(gpi, vi2, u2, v2, &currentUVsetName), ribNode__->name);
+						UV.push_back(MVector(u0, v0));
+						UV.push_back(MVector(u1, v1));
+						UV.push_back(MVector(u2, v2));
+					}
 
 				}//for(int ti = 0; ti<triangleCountInPolygon; ++ti)
 			}//for(int gpi = 0; gpi< numPolygons; ++gpi)
@@ -234,23 +243,15 @@ namespace elvishray
 		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
 #endif
 
-		if( NORMAL.size() != POSITION.size() || UV.size() != POSITION.size() )
+		if( !NORMAL.empty() && NORMAL.size() != POSITION.size()  )
 		{
-			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, normal:%d, uv:%d), %s", POSITION.size(), NORMAL.size(), UV.size(), objectName.c_str());
+			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, normal:%d), %s", POSITION.size(), NORMAL.size(), objectName.c_str());
+		}
+		if( !UV.empty() && UV.size() != POSITION.size()  )
+		{
+			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, uv:%d), %s", POSITION.size(), UV.size(), objectName.c_str());
 		}
 
-		// get normal for each vertex
-		// but the render result seems very weird, see test/test_er_light/output_img_std/er_pointlight.perspShape.1.elvishray_vertex_normal.bmp
-		// so I ommit this section temporarily.
-		if(fnMesh.numVertices() == fnMesh.numNormals())//smooth normal, like a sphere
-		{
-		}else{//sharp edge, like a cube
-			// in this case, like a cube, a vertex has a specified normal corresponding to each adjacent polygon.
-			// but elvishray's only allow a vertex to be assigned only one normal.
-			// so I can't generate the normal list for this case.
-			o.a("numNormals != numPoints, ER doesn't support this case now");
-			//liquidMessage2(messageError,"numNormals != numPoints. \"%s\"", objectName.c_str());
-		}
 
 		if( currentUVsetName.length() != 0 )//there is a current uv set
 		{
@@ -270,7 +271,6 @@ namespace elvishray
 			}
 		}else{
 			o.a("no current UVSet");
-			//liquidMessage2(messageError, "no current UVSet. \"%s\"", objectName.c_str() );
 		}
 
 		//
