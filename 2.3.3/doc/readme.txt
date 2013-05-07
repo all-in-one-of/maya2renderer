@@ -54,14 +54,14 @@ RenderMan (R) is a registered trademark of Pixar
    - aqsis
      - open liquid_\dependence\aqsis\1.6.0\build\aqsis_all.sln, set 'Win32','DebugLib_liquid' in Configuration Manager,
      - build the following projects:
-        aqsis_core.lib,
-	aqsis_math.lib,
-	aqsis_ri2rib.lib,
-	aqsis_ribparse.lib,
-        aqsis_tex.lib,
-	aqsis_util.lib,
-	aqsis_riutil.lib,
-	aqsis_shadervm.lib,
+        build only aqsis_core project,
+	build only aqsis_math project,
+	build only aqsis_ri2rib project,
+	build only aqsis_ribparse project,
+        build only aqsis_tex project,
+	build only aqsis_util project,
+	build only aqsis_riutil project,
+	build only aqsis_shadervm project,
      - copy these libs from $(LiquidRoot)\dependence\aqsis\1.6.0\build\DebugLib_liquid\ to 
        $(LiquidRoot)\dependence\aqsis\1.6.0\build\DebugLib\
 - Build
