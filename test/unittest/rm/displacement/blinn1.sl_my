@@ -102,68 +102,68 @@ displacement blinn1
 void blinn1 (
 )
 {
-  color ambientColor = color (0,0,0);
+  color i_ambientColor = color (0,0,0);
   color i_color = color (0.5,0.5,0.5);
-  float diffuse = float 0.8;
-  float eccentricity = float 0.3;
-  color incandescence = color (0,0,0);
- uniform float matteOpacityMode = float 2;
-  float matteOpacity = float 1;
-  color specularColor = color (0.5,0.5,0.5);
-  float specularRollOff = float 0.7;
-  float reflectivity = float 0.5;
-  color reflectedColor = color (0,0,0);
- uniform float refractions = float 0;
-  float refractiveIndex = float 1;
- uniform float refractionLimit = float 6;
-  float lightAbsorbance = float 0;
-  float shadowAttenuation = float 0.5;
- uniform float reflectionLimit = float 1;
-  float translucence = float 0;
-  float translucenceDepth = float 0.5;
-  float translucenceFocus = float 0.5;
-  color transparency = color (0,0,0);
- normal normalCamera = N;
+  float i_diffuse = float 0.8;
+  float i_eccentricity = float 0.3;
+  color i_incandescence = color (0,0,0);
+ uniform float i_matteOpacityMode = float 2;
+  float i_matteOpacity = float 1;
+  color i_specularColor = color (0.5,0.5,0.5);
+  float i_specularRollOff = float 0.7;
+  float i_reflectivity = float 0.5;
+  color i_reflectedColor = color (0,0,0);
+ uniform float i_refractions = float 0;
+  float i_refractiveIndex = float 1;
+ uniform float i_refractionLimit = float 6;
+  float i_lightAbsorbance = float 0;
+  float i_shadowAttenuation = float 0.5;
+ uniform float i_reflectionLimit = float 1;
+  float i_translucence = float 0;
+  float i_translucenceDepth = float 0.5;
+  float i_translucenceFocus = float 0.5;
+  color i_transparency = color (0,0,0);
+ normal i_normalCamera = N;
  uniform float i_reflectionMaxDistance   =0;
  uniform float i_reflectionSamples       =0;
  uniform float i_reflectionBlur          =0;
  uniform float i_reflectionNoiseAmplitude=0;
  uniform float i_reflectionNoiseFrequency=0;
-  color outColor = color (0,0,0);
-  color outTransparency = color (0,0,0);
+  color o_outColor = color (0,0,0);
+  color o_outTransparency = color (0,0,0);
    maya_blinn(						
-	ambientColor,				
+	i_ambientColor,			
 	i_color,					
-	diffuse,					
-	eccentricity,				
-	incandescence,				
-	matteOpacityMode,			
-	matteOpacity,				
-	specularColor,				
-	specularRollOff,			
-	reflectivity,				
-	reflectedColor,			
-	refractions,				
-	refractiveIndex,			
-	refractionLimit,			
-	lightAbsorbance,			
-	shadowAttenuation,			
-	reflectionLimit,			
-	translucence,				
-	translucenceDepth,			
-	translucenceFocus,			
-	transparency,				
-	normalCamera,				
+	i_diffuse,					
+	i_eccentricity,			
+	i_incandescence,			
+	i_matteOpacityMode,		
+	i_matteOpacity,			
+	i_specularColor,			
+	i_specularRollOff,			
+	i_reflectivity,			
+	i_reflectedColor,			
+	i_refractions,				
+	i_refractiveIndex,			
+	i_refractionLimit,			
+	i_lightAbsorbance,			
+	i_shadowAttenuation,		
+	i_reflectionLimit,			
+	i_translucence,			
+	i_translucenceDepth,		
+	i_translucenceFocus,		
+	i_transparency,			
+	i_normalCamera,			
 	i_reflectionMaxDistance,	
 	i_reflectionSamples,		
 	i_reflectionBlur,			
 	i_reflectionNoiseAmplitude,
 	i_reflectionNoiseFrequency,
-	outColor,					
-	outTransparency			
+	o_outColor,				
+	o_outTransparency			
    );
-    Ci             = Os * outColor;
-    Oi             = Os * ( 1.0 - outTransparency );
+    Ci             = Os * o_outColor;
+    Oi             = Os * ( 1.0 - o_outTransparency );
 }
 
 

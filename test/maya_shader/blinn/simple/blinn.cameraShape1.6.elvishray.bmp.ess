@@ -152,8 +152,8 @@ mtl "lambert3SG"
 ##shape full path name=|pPlane4|pPlaneShape4
 element "|pPlane4|pPlaneShape4" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    0 0 0 1 
-##ribNode->doDef=205, ribNode->doMotion=205
-    motion 1 
+##ribNode->doDef=0, ribNode->doMotion=0
+    motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane4_lightgroup" 
 end instance

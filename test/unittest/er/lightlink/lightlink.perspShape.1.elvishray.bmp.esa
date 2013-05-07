@@ -55,14 +55,26 @@ ei_element("|persp|perspShape_object");
 ei_transform(-0.0104718,0,-0.999945,0,   -0.981368,0.191865,0.0102772,0,   0.191855,0.981421,-0.00200917,0,   3.05658,17.7641,0.0397885,1);
 ei_end_instance();
 
-ei_shader("maya_lambert_transparent", "lambert1");
-ei_shader_param_vector("Cs",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert1");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("initialShadingGroup");
@@ -355,8 +367,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(0.15796,0,0,0,   0,1,0,0,   0,0,1,0,   -1.96909,0,1.82272,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -377,8 +389,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane2|pPlaneShape2
 ei_element("|pPlane2|pPlaneShape2");
 ei_transform(0.15796,0,0,0,   0,1,0,0,   0,0,1,0,   -1.98653,0,-1.69105,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -399,8 +411,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane3|pPlaneShape3
 ei_element("|pPlane3|pPlaneShape3");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   1.30201,0,1.86028,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -421,8 +433,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane4|pPlaneShape4
 ei_element("|pPlane4|pPlaneShape4");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   1.35522,0,-1.71597,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

@@ -27,7 +27,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
+ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -101,14 +101,26 @@ ei_shader_param_vector("outColor",0,0,0);
 ei_shader_param_vector("outTransparency",0,0,0);
 ei_end_shader();
 
-ei_shader("maya_lambert_transparent", "lambert4");
-ei_shader_link_param("Cs","file1","outColor");
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",1);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert4");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_link_param("i_color","file1","outColor");
+ei_shader_param_scalar("i_diffuse",1);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("lambert4SG");
@@ -171,7 +183,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
+ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -245,14 +257,26 @@ ei_shader_param_vector("outColor",0,0,0);
 ei_shader_param_vector("outTransparency",0,0,0);
 ei_end_shader();
 
-ei_shader("maya_lambert_transparent", "lambert4");
-ei_shader_link_param("Cs","file1","outColor");
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",1);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert4");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_link_param("i_color","file1","outColor");
+ei_shader_param_scalar("i_diffuse",1);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("lambert4SG");
@@ -2748,7 +2772,7 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|locator1|locatorShape1
 ei_element("|locator1|locatorShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=24, ribNode->doMotion=50
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -2770,8 +2794,8 @@ ei_mtl("lambert4SG");
 //shape full path name=|locator1|pPlane1|pPlaneShape1
 ei_element("|locator1|pPlane1|pPlaneShape1");
 ei_transform(0.0343386,0,0,0,   0,0.0343386,0,0,   0,0,0.0343386,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -2820,7 +2844,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
+ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -2894,14 +2918,26 @@ ei_shader_param_vector("outColor",0,0,0);
 ei_shader_param_vector("outTransparency",0,0,0);
 ei_end_shader();
 
-ei_shader("maya_lambert_transparent", "lambert4");
-ei_shader_link_param("Cs","file1","outColor");
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",1);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert4");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_link_param("i_color","file1","outColor");
+ei_shader_param_scalar("i_diffuse",1);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("lambert4SG");
@@ -5397,8 +5433,8 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|locator1|locatorShape1
 ei_element("|locator1|locatorShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -5419,7 +5455,7 @@ ei_mtl("lambert4SG");
 //shape full path name=|locator1|pPlane1|pPlaneShape1
 ei_element("|locator1|pPlane1|pPlaneShape1");
 ei_transform(0.0343386,0,0,0,   0,0.0343386,0,0,   0,0,0.0343386,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=1, ribNode->doMotion=1
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -5469,7 +5505,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
+ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -5543,14 +5579,26 @@ ei_shader_param_vector("outColor",0,0,0);
 ei_shader_param_vector("outTransparency",0,0,0);
 ei_end_shader();
 
-ei_shader("maya_lambert_transparent", "lambert4");
-ei_shader_link_param("Cs","file1","outColor");
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",1);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert4");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_link_param("i_color","file1","outColor");
+ei_shader_param_scalar("i_diffuse",1);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("lambert4SG");
@@ -8046,7 +8094,7 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|locator1|locatorShape1
 ei_element("|locator1|locatorShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=112, ribNode->doMotion=220
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -8068,7 +8116,7 @@ ei_mtl("lambert4SG");
 //shape full path name=|locator1|pPlane1|pPlaneShape1
 ei_element("|locator1|pPlane1|pPlaneShape1");
 ei_transform(0.0343386,0,0,0,   0,0.0343386,0,0,   0,0,0.0343386,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=99, ribNode->doMotion=107
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -8118,7 +8166,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071110737,2071110737,2071110737,2071110737,2071110737,2071110737);
+ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -8192,14 +8240,26 @@ ei_shader_param_vector("outColor",0,0,0);
 ei_shader_param_vector("outTransparency",0,0,0);
 ei_end_shader();
 
-ei_shader("maya_lambert_transparent", "lambert4");
-ei_shader_link_param("Cs","file1","outColor");
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",1);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert4");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_link_param("i_color","file1","outColor");
+ei_shader_param_scalar("i_diffuse",1);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("lambert4SG");

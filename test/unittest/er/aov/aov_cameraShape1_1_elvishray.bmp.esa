@@ -3905,8 +3905,8 @@ ei_mtl("phong6SG");
 //shape full path name=|pSphere1|pSphereShape1
 ei_element("|pSphere1|pSphereShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -0.531859,0,-0.196035,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

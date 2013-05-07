@@ -79,7 +79,6 @@ ei_shader_param_bool("wrapV",1);
 ei_shader_param_vector("outUV",0,0,0);
 ei_end_shader();
 
-ei_make_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/mold_normals.tif", "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/mold_normals.tif.tex",1,1,1, 1, 1);
 ei_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/mold_normals.tif");
 ei_file_texture("E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/mold_normals.tif.tex", 0);
 ei_end_texture();
@@ -217,8 +216,8 @@ ei_mtl("phong6SG");
 //shape full path name=|pPlane5|pPlaneShape5
 ei_element("|pPlane5|pPlaneShape5");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   1.09173,0,4.44799,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

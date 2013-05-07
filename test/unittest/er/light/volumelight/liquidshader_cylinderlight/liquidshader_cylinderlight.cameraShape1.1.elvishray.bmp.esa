@@ -77,14 +77,26 @@ ei_end_shader();
 ei_material("liquidSurface4SG");
 ei_surface_shader("liquidSurface3");
 ei_end_material();
-ei_shader("maya_lambert_transparent", "lambert1");
-ei_shader_param_vector("Cs",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert1");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("initialShadingGroup");
@@ -120,7 +132,6 @@ ei_end_instance();
 
 //############################### mesh #
 //shape full path name=|pCube1|pCubeShape1
-//numNormals != numPoints, ER doesn't support this case now
 //### UV(map1), size=14
 //# numUVSets=1
 //# uvsetNames[0]=map1
@@ -502,8 +513,8 @@ ei_mtl("liquidSurface1SG");
 //shape full path name=|pCube1|pCubeShape1
 ei_element("|pCube1|pCubeShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,1,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -524,7 +535,7 @@ ei_mtl("liquidSurface4SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(0.950023,0,0,0,   0,0.950023,0,0,   0,0,2.32353,0,   0,-1.35239,4.38695,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=196, ribNode->doMotion=0
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -546,8 +557,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane2|pPlaneShape2
 ei_element("|pPlane2|pPlaneShape2");
 ei_transform(3.45983e-016,1.55817,0,0,   -1,2.22045e-016,0,0,   0,0,2.44576,0,   5.47095,3.03237,4.2678,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -568,8 +579,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane3|pPlaneShape3
 ei_element("|pPlane3|pPlaneShape3");
 ei_transform(3.45983e-016,-1.55817,-0,0,   1,2.22045e-016,0,0,   0,-0,2.44576,0,   -5.2279,3.06019,3.80176,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -590,8 +601,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane4|pPlaneShape4
 ei_element("|pPlane4|pPlaneShape4");
 ei_transform(1,0,0,0,   0,2.22045e-016,1,0,   0,-2.42249,5.37902e-016,0,   0.210817,3.35958,-7.22003,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

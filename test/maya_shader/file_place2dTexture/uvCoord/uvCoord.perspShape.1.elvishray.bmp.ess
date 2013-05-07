@@ -22,7 +22,7 @@ options "perspShape_option"
     filter 4 3 
 ##transform motion=0, deform motion=0
     motion 0 
-    trace_depth -1488720793 -1488720793 -1488720793 -1488720793 -1488720793 -1488720793 
+    trace_depth -846913222 -846913222 -846913222 -846913222 -846913222 -846913222 
     displace 0 
     face 3 
 end options
@@ -96,14 +96,26 @@ shader "maya_file" "file1"
     param_vector "outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-shader "maya_lambert_transparent" "lambert1" 
-    link_param "Cs" "file1" "outColor" 
-    param_vector "transparency" 0.000000 0.000000 0.000000
-    param_vector "ambientColor" 0.000000 0.000000 0.000000
-    param_vector "incandescence" 0.000000 0.000000 0.000000
-    param_scalar "diffusion" 0.8 
-    param_vector "outColor" 0.000000 0.000000 0.000000
-    param_vector "outTransparency" 0.000000 0.000000 0.000000
+shader "maya_lambert" "lambert1" 
+    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
+    link_param "i_color" "file1" "outColor" 
+    param_scalar "i_diffuse" 0.8 
+    param_vector "i_incandescence" 0.000000 0.000000 0.000000
+    param_index "i_matteOpacityMode" 2 
+    param_scalar "i_matteOpacity" 1 
+    param_bool "i_refractions" 0 
+    param_scalar "i_refractiveIndex" 1 
+    param_index "i_refractionLimit" 6 
+    param_scalar "i_lightAbsorbance" 0 
+    param_scalar "i_shadowAttenuation" 0.5 
+    param_int "liq_UserDefinedNormal" 0 
+    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
+    param_vector "i_transparency" 0.000000 0.000000 0.000000
+    param_scalar "i_translucence" 0 
+    param_scalar "i_translucenceDepth" 0.5 
+    param_scalar "i_translucenceFocus" 0.5 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
 material "initialShadingGroup" 
@@ -192,8 +204,8 @@ mtl "initialShadingGroup"
 ##shape full path name=|pPlane9|pPlaneShape18
 element "|pPlane9|pPlaneShape18" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    0.353586 0 0.256205 1 
-##ribNode->doDef=205, ribNode->doMotion=205
-    motion 1 
+##ribNode->doDef=0, ribNode->doMotion=0
+    motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane9_lightgroup" 
 end instance

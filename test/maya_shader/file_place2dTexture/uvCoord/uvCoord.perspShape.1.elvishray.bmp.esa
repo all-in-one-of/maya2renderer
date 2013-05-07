@@ -27,7 +27,7 @@ ei_samples(0,2);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1488720793,-1488720793,-1488720793,-1488720793,-1488720793,-1488720793);
+ei_trace_depth(-846913222,-846913222,-846913222,-846913222,-846913222,-846913222);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -101,14 +101,26 @@ ei_shader_param_vector("outColor",0,0,0);
 ei_shader_param_vector("outTransparency",0,0,0);
 ei_end_shader();
 
-ei_shader("maya_lambert_transparent", "lambert1");
-ei_shader_link_param("Cs","file1","outColor");
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert1");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_link_param("i_color","file1","outColor");
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("initialShadingGroup");
@@ -221,8 +233,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane9|pPlaneShape18
 ei_element("|pPlane9|pPlaneShape18");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0.353586,0,0.256205,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

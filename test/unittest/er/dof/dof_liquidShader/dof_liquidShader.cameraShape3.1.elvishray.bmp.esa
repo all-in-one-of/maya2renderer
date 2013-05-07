@@ -27,7 +27,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(494265368,494265368,494265368,494265368,494265368,494265368);
+ei_trace_depth(-129689698,-129689698,-129689698,-129689698,-129689698,-129689698);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -96,7 +96,6 @@ ei_end_instance();
 
 //############################### mesh #
 //shape full path name=|pCube2|pCubeShape2
-//numNormals != numPoints, ER doesn't support this case now
 //### UV(map1), size=14
 //# numUVSets=1
 //# uvsetNames[0]=map1
@@ -242,8 +241,8 @@ ei_mtl("liquidSurface1SG");
 //shape full path name=|pCube2|pCubeShape2
 ei_element("|pCube2|pCubeShape2");
 ei_transform(8.39692,1.03596,-9.72813,0,   0.00768363,0.502626,0.0601574,0,   9.78117,-1.1454,8.32073,0,   -1.13433,0.625132,-11.2255,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

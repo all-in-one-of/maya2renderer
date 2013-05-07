@@ -262,8 +262,8 @@ ei_mtl("phong2SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(3.46897,0,0,0,   0,3.46897,0,0,   0,0,3.46897,0,   0,-7.96804,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -284,8 +284,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape2
 ei_element("|pPlane2|pPlaneShape2");
 ei_transform(1,0,0,0,   0,-0.0251425,0.999684,0,   0,-2.46903,-0.0620971,0,   1.0872,0.798487,-0.521076,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

@@ -55,14 +55,26 @@ ei_element("|persp|perspShape_object");
 ei_transform(0.716911,0,-0.697165,0,   -0.333068,0.878498,-0.342502,0,   0.612458,0.477747,0.629804,0,   5.17492,4.03669,5.32148,1);
 ei_end_instance();
 
-ei_shader("maya_lambert_transparent", "lambert1");
-ei_shader_param_vector("Cs",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert1");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("initialShadingGroup");
@@ -5322,7 +5334,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|subdivSphere1|subdivSphere1Shape
 ei_element("|subdivSphere1|subdivSphere1Shape");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=76, ribNode->doMotion=0
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -5347,7 +5359,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|subdivSphere1|subdivSphere1Shape_liq_Shape
 ei_element("|subdivSphere1|subdivSphere1Shape_liq_Shape");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=196, ribNode->doMotion=0
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;

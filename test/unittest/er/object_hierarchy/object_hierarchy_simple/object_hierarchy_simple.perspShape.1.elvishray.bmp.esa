@@ -55,14 +55,26 @@ ei_element("|persp|perspShape_object");
 ei_transform(0.62388,0,0.78152,0,   0.705614,0.429907,-0.563284,0,   -0.335981,0.902873,0.26821,0,   -9.42968,25.3401,7.52761,1);
 ei_end_instance();
 
-ei_shader("maya_lambert_transparent", "lambert1");
-ei_shader_param_vector("Cs",0.5,0.5,0.5);
-ei_shader_param_vector("transparency",0,0,0);
-ei_shader_param_vector("ambientColor",0,0,0);
-ei_shader_param_vector("incandescence",0,0,0);
-ei_shader_param_scalar("diffusion",0.8);
-ei_shader_param_vector("outColor",0,0,0);
-ei_shader_param_vector("outTransparency",0,0,0);
+ei_shader("maya_lambert", "lambert1");
+ei_shader_param_vector("i_ambientColor",0,0,0);
+ei_shader_param_vector("i_color",0.5,0.5,0.5);
+ei_shader_param_scalar("i_diffuse",0.8);
+ei_shader_param_vector("i_incandescence",0,0,0);
+ei_shader_param_index("i_matteOpacityMode",2);
+ei_shader_param_scalar("i_matteOpacity",1);
+ei_shader_param_bool("i_refractions",0);
+ei_shader_param_scalar("i_refractiveIndex",1);
+ei_shader_param_index("i_refractionLimit",6);
+ei_shader_param_scalar("i_lightAbsorbance",0);
+ei_shader_param_scalar("i_shadowAttenuation",0.5);
+ei_shader_param_int("liq_UserDefinedNormal",0);
+ei_shader_param_vector("i_normalCamera",1,1,1);
+ei_shader_param_vector("i_transparency",0,0,0);
+ei_shader_param_scalar("i_translucence",0);
+ei_shader_param_scalar("i_translucenceDepth",0.5);
+ei_shader_param_scalar("i_translucenceFocus",0.5);
+ei_shader_param_vector("o_outColor",0,0,0);
+ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
 ei_material("initialShadingGroup");
@@ -114,7 +126,6 @@ ei_end_instance();
 
 //############################### mesh #
 //shape full path name=|pCube1|pCubeShape1
-//numNormals != numPoints, ER doesn't support this case now
 //### UV(map1), size=14
 //# numUVSets=1
 //# uvsetNames[0]=map1
@@ -253,7 +264,6 @@ ei_end_object();
 
 //############################### mesh #
 //shape full path name=|pCube1|pCone1|pConeShape1
-//numNormals != numPoints, ER doesn't support this case now
 //### UV(map1), size=8
 //# numUVSets=1
 //# uvsetNames[0]=map1
@@ -320,7 +330,6 @@ ei_end_object();
 
 //############################### mesh #
 //shape full path name=|pCube1|group1|pCube2|pCubeShape2
-//numNormals != numPoints, ER doesn't support this case now
 //### UV(map1), size=14
 //# numUVSets=1
 //# uvsetNames[0]=map1
@@ -529,8 +538,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pCube1|pCubeShape1
 ei_element("|pCube1|pCubeShape1");
 ei_transform(0.960593,0,0.277957,0,   -0,1,0,0,   -0.277957,-0,0.960593,0,   1.44025,0,-0.605115,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -551,8 +560,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pCube1|pCone1|pConeShape1
 ei_element("|pCube1|pCone1|pConeShape1");
 ei_transform(0.892513,-0.411749,0.184074,0,   0.158778,-0.0951586,-0.982718,0,   0.422149,0.906315,-0.0195535,0,   3.06106,0,-6.60509,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -573,8 +582,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pCube1|group1|pCube2|pCubeShape2
 ei_element("|pCube1|group1|pCube2|pCubeShape2");
 ei_transform(0.884621,0,0.466311,0,   0,1,0,0,   -0.466311,0,0.884621,0,   -3.3201,0.546387,-2.87988,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -595,7 +604,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pCube1|group1|pPlane1|pPlaneShape1
 ei_element("|pCube1|group1|pPlane1|pPlaneShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -1.34223,-1.23325e-016,1.38851,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=196, ribNode->doMotion=0
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;

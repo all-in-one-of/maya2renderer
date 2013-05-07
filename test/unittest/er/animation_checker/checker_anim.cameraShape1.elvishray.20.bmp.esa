@@ -229,8 +229,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   -2.76716,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -481,8 +481,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   -1.16903,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -733,8 +733,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   0.644579,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -985,7 +985,7 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   2.56593,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=32, ribNode->doMotion=107
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1237,7 +1237,7 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   4.48727,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=32, ribNode->doMotion=107
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1489,7 +1489,7 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   6.30088,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
+//ribNode->doDef=32, ribNode->doMotion=107
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1741,8 +1741,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   7.89901,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1993,8 +1993,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   9.17393,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -2245,8 +2245,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   10.0179,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -2497,8 +2497,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6133,0,0,0,   0,1,0,0,   0,0,8.02763,0,   10.3231,0,-0.566055,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -2749,8 +2749,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.6102,0.242169,-0.032364,0,   -0.0251501,0.999615,0.0116742,0,   0.0293761,-0.0930066,8.02704,0,   10.3231,0,-0.759547,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -3001,8 +3001,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(9.05542,3.19766,-0.435913,0,   -0.322163,0.933661,0.15649,0,   0.757727,-1.06607,7.92037,0,   10.3231,0,-3.17309,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -3253,8 +3253,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(6.34252,7.14253,-1.08274,0,   -0.662663,0.645903,0.37906,0,   2.84486,-1.40849,7.37332,0,   10.3231,0,-7.0531,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -3505,8 +3505,8 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane2|pPlaneShape11
 ei_element("|pPlane2|pPlaneShape11");
 ei_transform(4.99807,8.10765,-1.30415,0,   -0.725851,0.519906,0.450375,0,   3.61539,-1.08923,7.08416,0,   10.3231,0,-8.38717,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

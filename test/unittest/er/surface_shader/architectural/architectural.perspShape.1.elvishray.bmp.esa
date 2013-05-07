@@ -304,7 +304,6 @@ ei_end_object();
 
 //############################### mesh #
 //shape full path name=|pCube1|pCubeShape1
-//numNormals != numPoints, ER doesn't support this case now
 //### UV(map1), size=14
 //# numUVSets=1
 //# uvsetNames[0]=map1
@@ -450,8 +449,8 @@ ei_mtl("liquidShader1SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(0.952646,-0.00279103,0.304067,0,   0.00292975,0.999996,-5.42101e-020,0,   -0.304066,0.000890842,0.952651,0,   0,4,2.44344,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -472,8 +471,8 @@ ei_mtl("liquidSurface1SG");
 //shape full path name=|pPlane3|pPlaneShape3
 ei_element("|pPlane3|pPlaneShape3");
 ei_transform(1,0,0,0,   0,0.0120549,0.999927,0,   0,-0.999927,0.0120549,0,   0.108559,5.3649,-2.23816,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -494,8 +493,8 @@ ei_mtl("liquidShader2SG");
 //shape full path name=|pCube1|pCubeShape1
 ei_element("|pCube1|pCubeShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0.759772,2.7975,-1.50223,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);

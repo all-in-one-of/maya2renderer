@@ -276,7 +276,6 @@ end object
 
 ################################# mesh #
 ##shape full path name=|pCube2|pCubeShape2
-##numNormals != numPoints, ER doesn't support this case now
 ##### UV(map1), size=14
 ### numUVSets=1
 ### uvsetNames[0]=map1
@@ -452,8 +451,8 @@ mtl "phong4SG"
 ##shape full path name=|pPlane2|pPlaneShape2
 element "|pPlane2|pPlaneShape2" 
 transform 0.353079 0 0 0    0 0.966528 0.256559 0    0 -0.135426 0.510186 0    0.40562 1.05748 0.156221 1 
-##ribNode->doDef=205, ribNode->doMotion=205
-    motion 1 
+##ribNode->doDef=0, ribNode->doMotion=0
+    motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane2_lightgroup" 
 end instance
@@ -470,8 +469,8 @@ mtl "phong3SG"
 ##shape full path name=|pCube2|pCubeShape2
 element "|pCube2|pCubeShape2" 
 transform 0.373 0 0 0    0 9.66528e-013 2.5656e-013 0    0 -0.163775 0.616985 0    0.133373 0.269556 0.0315513 1 
-##ribNode->doDef=205, ribNode->doMotion=205
-    motion 1 
+##ribNode->doDef=0, ribNode->doMotion=0
+    motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pCube2_lightgroup" 
 end instance
@@ -488,8 +487,8 @@ mtl "lambert2SG"
 ##shape full path name=|pPlane3|pPlaneShape3
 element "|pPlane3|pPlaneShape3" 
 transform 0.641814 0 0 0    0 0.966528 0.256559 0    0 -0.198176 0.746582 0    -0.330467 -0.35302 -0.0576106 1 
-##ribNode->doDef=205, ribNode->doMotion=205
-    motion 1 
+##ribNode->doDef=0, ribNode->doMotion=0
+    motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane3_lightgroup" 
 end instance
@@ -506,8 +505,8 @@ mtl "lambert3SG"
 ##shape full path name=|pPlane4|pPlaneShape4
 element "|pPlane4|pPlaneShape4" 
 transform 0.743733 0 0 0    0 0.966528 0.256559 0    0 -0.307807 1.15959 0    -1.11642 -1.19762 -0.14171 1 
-##ribNode->doDef=205, ribNode->doMotion=205
-    motion 1 
+##ribNode->doDef=0, ribNode->doMotion=0
+    motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane4_lightgroup" 
 end instance

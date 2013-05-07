@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: transform.ma
-//Last modified: Mon, Apr 22, 2013 04:53:21 PM
+//Last modified: Mon, May 06, 2013 11:26:09 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -417,10 +417,15 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 		65536 -at "long";
 	addAttr -ci true -h true -sn "approx_motion_factor" -ln "approx_motion_factor" -dv 
 		16 -at "float";
+	addAttr -ci true -h true -sn "output_call" -ln "output_call" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_esa" -ln "output_esa" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_ess" -ln "output_ess" -min 0 -max 1 -at "bool";
 	setAttr ".link" -type "string" "eiIMG|eiSHADER|eiSHADER_maya";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+	setAttr ".output_call" yes;
+	setAttr ".output_esa" yes;
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

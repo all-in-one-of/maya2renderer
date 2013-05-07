@@ -185,8 +185,8 @@ ei_mtl("liquidShader2SG");
 //shape full path name=|pPlane3|pPlaneShape12
 ei_element("|pPlane3|pPlaneShape12");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   6.19167,0,-0.616652,1);
-//ribNode->doDef=205, ribNode->doMotion=205
-ei_motion(1);
+//ribNode->doDef=0, ribNode->doMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
