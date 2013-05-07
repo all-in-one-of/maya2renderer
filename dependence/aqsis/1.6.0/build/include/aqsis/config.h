@@ -26,11 +26,10 @@
 #ifndef AQSIS_CONFIG_H_INCLUDED
 #define AQSIS_CONFIG_H_INCLUDED
 
-#define __LIQUID__
 /*----------------------------------------------------------------------------*/
 /* Config from cmake system introspection */
 
-/* #undef AQSIS_HAVE_STDINT_H */
+#define AQSIS_HAVE_STDINT_H
 
 /* Define the system being compiled on. */
 #define AQSIS_SYSTEM_WIN32 1
@@ -95,7 +94,6 @@
  * build script should define the appropriate *_EXPORTS macro, for example,
  * AQSIS_MATH_EXPORTS.
  */
-#define AQSIS_STATIC_LINK
 #ifdef AQSIS_STATIC_LINK
 #	define AQSIS_CORE_SHARE
 #	define AQSIS_MATH_SHARE

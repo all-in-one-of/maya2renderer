@@ -120,10 +120,10 @@ Boost_DIR:PATH=Boost_DIR-NOTFOUND
 Boost_FILESYSTEM_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_filesystem-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_filesystem-vc100-mt-gd-1_47.lib
 
 //Boost filesystem library (debug)
-Boost_FILESYSTEM_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_filesystem-vc100-mt-gd-1_47.lib
+Boost_FILESYSTEM_LIBRARY_DEBUG:FILEPATH=Boost_FILESYSTEM_LIBRARY_DEBUG-NOTFOUND
 
 //Boost filesystem library (release)
-Boost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_filesystem-vc100-mt-1_47.lib
+Boost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=Boost_FILESYSTEM_LIBRARY_RELEASE-NOTFOUND
 
 //Path to a file.
 Boost_INCLUDE_DIR:PATH=E:/dev/boost/1_47
@@ -132,10 +132,10 @@ Boost_INCLUDE_DIR:PATH=E:/dev/boost/1_47
 Boost_IOSTREAMS_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_iostreams-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_iostreams-vc100-mt-gd-1_47.lib
 
 //Boost iostreams library (debug)
-Boost_IOSTREAMS_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_iostreams-vc100-mt-gd-1_47.lib
+Boost_IOSTREAMS_LIBRARY_DEBUG:FILEPATH=Boost_IOSTREAMS_LIBRARY_DEBUG-NOTFOUND
 
 //Boost iostreams library (release)
-Boost_IOSTREAMS_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_iostreams-vc100-mt-1_47.lib
+Boost_IOSTREAMS_LIBRARY_RELEASE:FILEPATH=Boost_IOSTREAMS_LIBRARY_RELEASE-NOTFOUND
 
 //Boost library directory
 Boost_LIBRARY_DIRS:FILEPATH=E:/dev/boost/1_47/stage/lib
@@ -147,46 +147,50 @@ Boost_LIB_DIAGNOSTIC_DEFINITIONS:STRING=-DBOOST_LIB_DIAGNOSTIC
 Boost_REGEX_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_regex-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_regex-vc100-mt-gd-1_47.lib
 
 //Boost regex library (debug)
-Boost_REGEX_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_regex-vc100-mt-gd-1_47.lib
+Boost_REGEX_LIBRARY_DEBUG:FILEPATH=Boost_REGEX_LIBRARY_DEBUG-NOTFOUND
 
 //Boost regex library (release)
-Boost_REGEX_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_regex-vc100-mt-1_47.lib
+Boost_REGEX_LIBRARY_RELEASE:FILEPATH=Boost_REGEX_LIBRARY_RELEASE-NOTFOUND
 
 //The Boost SYSTEM library
 Boost_SYSTEM_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_system-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_system-vc100-mt-gd-1_47.lib
 
 //Boost system library (debug)
-Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_system-vc100-mt-gd-1_47.lib
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=Boost_SYSTEM_LIBRARY_DEBUG-NOTFOUND
 
 //Boost system library (release)
-Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_system-vc100-mt-1_47.lib
+Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=Boost_SYSTEM_LIBRARY_RELEASE-NOTFOUND
 
 //The Boost THREAD library
 Boost_THREAD_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_thread-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_thread-vc100-mt-gd-1_47.lib
 
 //Boost thread library (debug)
-Boost_THREAD_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_thread-vc100-mt-gd-1_47.lib
+Boost_THREAD_LIBRARY_DEBUG:FILEPATH=Boost_THREAD_LIBRARY_DEBUG-NOTFOUND
 
 //Boost thread library (release)
-Boost_THREAD_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_thread-vc100-mt-1_47.lib
+Boost_THREAD_LIBRARY_RELEASE:FILEPATH=Boost_THREAD_LIBRARY_RELEASE-NOTFOUND
 
 //The Boost UNIT_TEST_FRAMEWORK library
 Boost_UNIT_TEST_FRAMEWORK_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_unit_test_framework-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_unit_test_framework-vc100-mt-gd-1_47.lib
 
 //Boost unit_test_framework library (debug)
-Boost_UNIT_TEST_FRAMEWORK_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_unit_test_framework-vc100-mt-gd-1_47.lib
+Boost_UNIT_TEST_FRAMEWORK_LIBRARY_DEBUG:FILEPATH=Boost_UNIT_TEST_FRAMEWORK_LIBRARY_DEBUG-NOTFOUND
 
 //Boost unit_test_framework library (release)
-Boost_UNIT_TEST_FRAMEWORK_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_unit_test_framework-vc100-mt-1_47.lib
+Boost_UNIT_TEST_FRAMEWORK_LIBRARY_RELEASE:FILEPATH=Boost_UNIT_TEST_FRAMEWORK_LIBRARY_RELEASE-NOTFOUND
 
 //The Boost WAVE library
 Boost_WAVE_LIBRARY:FILEPATH=optimized;E:/dev/boost/1_47/stage/lib/libboost_wave-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_wave-vc100-mt-gd-1_47.lib
 
 //Boost wave library (debug)
-Boost_WAVE_LIBRARY_DEBUG:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_wave-vc100-mt-gd-1_47.lib
+Boost_WAVE_LIBRARY_DEBUG:FILEPATH=Boost_WAVE_LIBRARY_DEBUG-NOTFOUND
 
 //Boost wave library (release)
-Boost_WAVE_LIBRARY_RELEASE:FILEPATH=E:/dev/boost/1_47/stage/lib/libboost_wave-vc100-mt-1_47.lib
+Boost_WAVE_LIBRARY_RELEASE:FILEPATH=Boost_WAVE_LIBRARY_RELEASE-NOTFOUND
+
+//Choose the type of build, options are: None(CMAKE_CXX_FLAGS or
+// CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.
+CMAKE_BUILD_TYPE:STRING=
 
 //Semicolon separated list of supported configuration types, only
 // supports Debug, Release, MinSizeRel, and RelWithDebInfo, anything
@@ -258,7 +262,7 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 CMAKE_INSTALL_PREFIX:PATH=C:/Program Files/aqsis_all
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=CMAKE_LINKER-NOTFOUND
+CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/bin/link.exe
 
 //make program
 CMAKE_MAKE_PROGRAM:FILEPATH=D:/PROGRA~1/MICROS~2.0/Common7/IDE/devenv.com
@@ -376,8 +380,8 @@ aqsis_all_BINARY_DIR:STATIC=E:/dev/Autodesk/maya/myplugin/project/liquid_/depend
 //Value Computed by CMake
 aqsis_all_SOURCE_DIR:STATIC=E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src
 
-//Dependencies for the target
-aqsis_core_LIB_DEPENDS:STATIC=general;aqsis_math;general;aqsis_ribparse;general;aqsis_shadervm;general;aqsis_tex;general;aqsis_util;general;aqsis_riutil;general;E:/dev/render/renderer/aqsis/trunk/win32libs/libtiff/lib/vc9_sp1/libtiff.lib;optimized;E:/dev/boost/1_47/stage/lib/libboost_thread-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_thread-vc100-mt-gd-1_47.lib;
+//Dependencies for target
+aqsis_core_LIB_DEPENDS:STATIC=
 
 //Enable unit testing
 aqsis_enable_testing:BOOL=OFF
@@ -388,14 +392,14 @@ aqsis_math_LIB_DEPENDS:STATIC=
 //Dependencies for target
 aqsis_ri2rib_LIB_DEPENDS:STATIC=
 
-//Dependencies for the target
-aqsis_ribparse_LIB_DEPENDS:STATIC=general;aqsis_riutil;optimized;E:/dev/boost/1_47/stage/lib/libboost_iostreams-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_iostreams-vc100-mt-gd-1_47.lib;
+//Dependencies for target
+aqsis_ribparse_LIB_DEPENDS:STATIC=
 
 //Dependencies for the target
 aqsis_riutil_LIB_DEPENDS:STATIC=general;aqsis_util;
 
-//Dependencies for the target
-aqsis_shadervm_LIB_DEPENDS:STATIC=general;aqsis_math;general;aqsis_util;general;aqsis_tex;optimized;E:/dev/boost/1_47/stage/lib/libboost_regex-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_regex-vc100-mt-gd-1_47.lib;
+//Dependencies for target
+aqsis_shadervm_LIB_DEPENDS:STATIC=
 
 //Dependencies for the target
 aqsis_slcomp_LIB_DEPENDS:STATIC=general;aqsis_util;
@@ -406,8 +410,8 @@ aqsis_slxargs_LIB_DEPENDS:STATIC=general;aqsis_shadervm;
 //Dependencies for target
 aqsis_tex_LIB_DEPENDS:STATIC=
 
-//Dependencies for the target
-aqsis_util_LIB_DEPENDS:STATIC=optimized;E:/dev/boost/1_47/stage/lib/libboost_filesystem-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_filesystem-vc100-mt-gd-1_47.lib;general;ws2_32;optimized;E:/dev/boost/1_47/stage/lib/libboost_system-vc100-mt-1_47.lib;debug;E:/dev/boost/1_47/stage/lib/libboost_system-vc100-mt-gd-1_47.lib;
+//Dependencies for target
+aqsis_util_LIB_DEPENDS:STATIC=
 
 //Value Computed by CMake
 aqsl_BINARY_DIR:STATIC=E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsl
@@ -658,7 +662,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=2
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=8
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=8
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=10
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=D:/Program Files/CMake 2.8/bin/cmake.exe
 //ADVANCED property for variable: CMAKE_CONFIGURATION_TYPES
@@ -669,7 +673,6 @@ CMAKE_CPACK_COMMAND:INTERNAL=D:/Program Files/CMake 2.8/bin/cpack.exe
 CMAKE_CTEST_COMMAND:INTERNAL=D:/Program Files/CMake 2.8/bin/ctest.exe
 //ADVANCED property for variable: CMAKE_CXX_COMPILER
 CMAKE_CXX_COMPILER-ADVANCED:INTERNAL=1
-CMAKE_CXX_COMPILER_WORKS:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS
 CMAKE_CXX_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_DEBUG
@@ -684,7 +687,6 @@ CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 CMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_COMPILER
 CMAKE_C_COMPILER-ADVANCED:INTERNAL=1
-CMAKE_C_COMPILER_WORKS:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_FLAGS
 CMAKE_C_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_FLAGS_DEBUG
@@ -703,6 +705,8 @@ CMAKE_DETERMINE_CXX_ABI_COMPILED:INTERNAL=TRUE
 CMAKE_DETERMINE_C_ABI_COMPILED:INTERNAL=TRUE
 //Path to cache edit program executable.
 CMAKE_EDIT_COMMAND:INTERNAL=D:/Program Files/CMake 2.8/bin/cmake-gui.exe
+//Executable file format
+CMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
 CMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG

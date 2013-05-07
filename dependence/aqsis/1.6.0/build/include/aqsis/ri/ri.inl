@@ -270,13 +270,3 @@
 		AQSIS_RI_SHARE RtVoid RiArchiveRecord( RtToken type, char * format,  ... );
 		AQSIS_RI_SHARE RtVoid RiReadArchive( RtToken name, RtArchiveCallback callback, ... );
 		AQSIS_RI_SHARE RtVoid RiReadArchiveV( RtToken name, RtArchiveCallback callback, RtInt count, RtToken tokens[], RtPointer values[] );
-
-		//for liquid
-		AQSIS_RI_SHARE RtVoid RiShaderV( RtToken type, RtToken name, RtInt count, RtToken tokens[], RtPointer values[] );
-		AQSIS_RI_SHARE RtVoid RiDisplayChannelV( RtToken channel, RtInt count, RtToken tokens[], RtPointer values[] );
-		AQSIS_RI_SHARE RtVoid RiHierarchicalSubdivisionMeshV(
-			RtToken mask, RtInt nf, RtInt nverts[],
-			RtInt verts[],
-			RtInt ntags, RtToken tags[], RtInt numargs[],
-			RtInt intargs[], RtFloat floatargs[], RtToken stringargs[],
-			RtInt n, RtToken tokens[], RtPointer parms[] );

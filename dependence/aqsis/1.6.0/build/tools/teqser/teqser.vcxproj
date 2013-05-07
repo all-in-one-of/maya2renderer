@@ -13,6 +13,10 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseLib_Liquid|Win32">
+      <Configuration>ReleaseLib_Liquid</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -39,6 +43,11 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
@@ -74,21 +83,27 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\Release\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">teqser.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">teqser.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">teqser.dir\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">teqser.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">teqser</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">teqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">teqser</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">teqser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">teqser.dir\Release\</IntDir>
@@ -194,6 +209,53 @@
       <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/teqser/Debug/teqser.lib</ImportLibrary>
       <LinkIncremental>true</LinkIncremental>
       <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/teqser/Debug/teqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/teqser/Release/teqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\Release\aqsis_util.lib;..\..\libs\core\Release\aqsis_core.lib;..\..\libs\ribparse\Release\aqsis_ribparse.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-1_47.lib;..\..\libs\shadervm\Release\aqsis_shadervm.lib;..\..\libs\math\Release\aqsis_math.lib;E:\dev\boost\1_47\stage\lib\libboost_regex-vc100-mt-1_47.lib;..\..\libs\tex\Release\aqsis_tex.lib;..\..\libs\riutil\Release\aqsis_riutil.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-1_47.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1\libtiff.lib;E:\dev\boost\1_47\stage\lib\libboost_thread-vc100-mt-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/teqser/Release/teqser.lib</ImportLibrary>
+      <LinkIncremental>true</LinkIncremental>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/teqser/Release/teqser.pdb</ProgramDataBaseFile>
       <StackReserveSize>10000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
       <Version>
@@ -392,6 +454,7 @@
     <CustomBuild Include="..\..\..\src\tools\teqser\CMakeLists.txt">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
@@ -413,6 +476,16 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\CMakeFiles\generate.stamp
@@ -425,9 +498,11 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\teqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\CMakeFiles\generate.stamp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\CMakeFiles\generate.stamp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\teqser\CMakeFiles\generate.stamp</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/teqser/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
