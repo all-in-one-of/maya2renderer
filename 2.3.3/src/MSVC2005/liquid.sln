@@ -50,6 +50,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appleseed_", "appleseed_", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eiSHADER_maya", "..\elvishray\eiSHADER_maya\build\eiSHADER_maya.vcxproj", "{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6A49F89-278C-473F-8DC8-F208A070AB7C}"
+	ProjectSection(SolutionItems) = preProject
+		Performance2.psess = Performance2.psess
+		Performance3.psess = Performance3.psess
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		3Delight Generic ribLib Release|Win32 = 3Delight Generic ribLib Release|Win32
@@ -94,6 +100,8 @@ Global
 		Prman2009Debug|x64 = Prman2009Debug|x64
 		PrmanDebug2008|Win32 = PrmanDebug2008|Win32
 		PrmanDebug2008|x64 = PrmanDebug2008|x64
+		ProfileDebug|Win32 = ProfileDebug|Win32
+		ProfileDebug|x64 = ProfileDebug|x64
 		Release_mayaDebug|Win32 = Release_mayaDebug|Win32
 		Release_mayaDebug|x64 = Release_mayaDebug|x64
 		Release|Win32 = Release|Win32
@@ -172,6 +180,8 @@ Global
 		{2C342CB8-4207-4594-8C09-74201C27A23C}.Prman2009Debug|x64.Build.0 = Prman2009Debug|x64
 		{2C342CB8-4207-4594-8C09-74201C27A23C}.PrmanDebug2008|Win32.ActiveCfg = PrmanDebug2008|x64
 		{2C342CB8-4207-4594-8C09-74201C27A23C}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
+		{2C342CB8-4207-4594-8C09-74201C27A23C}.ProfileDebug|Win32.ActiveCfg = Prman Release2008|Win32
+		{2C342CB8-4207-4594-8C09-74201C27A23C}.ProfileDebug|x64.ActiveCfg = Prman Release2008|Win32
 		{2C342CB8-4207-4594-8C09-74201C27A23C}.Release_mayaDebug|Win32.ActiveCfg = Release|x64
 		{2C342CB8-4207-4594-8C09-74201C27A23C}.Release_mayaDebug|x64.ActiveCfg = Release|x64
 		{2C342CB8-4207-4594-8C09-74201C27A23C}.Release|Win32.ActiveCfg = Release|Win32
@@ -250,6 +260,8 @@ Global
 		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.Prman2009Debug|x64.Build.0 = Prman2009Debug|x64
 		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.PrmanDebug2008|Win32.ActiveCfg = PrmanDebug2008|x64
 		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
+		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.ProfileDebug|Win32.ActiveCfg = Prman Release2008|x64
+		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.ProfileDebug|x64.ActiveCfg = Prman Release2008|x64
 		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.Release_mayaDebug|Win32.ActiveCfg = Prman2008Debug|Win32
 		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.Release_mayaDebug|x64.ActiveCfg = Prman2008Debug|Win32
 		{C819AC2D-82DD-4A79-A777-DE415CE09E11}.Release|Win32.ActiveCfg = 3Delight Release|Win32
@@ -328,6 +340,8 @@ Global
 		{BAED7037-8C31-41AB-897C-49A07BED17A5}.Prman2009Debug|x64.Build.0 = Prman2009Debug|x64
 		{BAED7037-8C31-41AB-897C-49A07BED17A5}.PrmanDebug2008|Win32.ActiveCfg = PrmanDebug2008|x64
 		{BAED7037-8C31-41AB-897C-49A07BED17A5}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
+		{BAED7037-8C31-41AB-897C-49A07BED17A5}.ProfileDebug|Win32.ActiveCfg = Prman Release2008|x64
+		{BAED7037-8C31-41AB-897C-49A07BED17A5}.ProfileDebug|x64.ActiveCfg = Prman Release2008|x64
 		{BAED7037-8C31-41AB-897C-49A07BED17A5}.Release_mayaDebug|Win32.ActiveCfg = Prman2008Debug|Win32
 		{BAED7037-8C31-41AB-897C-49A07BED17A5}.Release_mayaDebug|x64.ActiveCfg = Prman2008Debug|Win32
 		{BAED7037-8C31-41AB-897C-49A07BED17A5}.Release|Win32.ActiveCfg = Air Release|Win32
@@ -416,6 +430,10 @@ Global
 		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.ProfileDebug|Win32.ActiveCfg = ProfileDebug|Win32
+		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.ProfileDebug|Win32.Build.0 = ProfileDebug|Win32
+		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.ProfileDebug|x64.ActiveCfg = ProfileDebug|x64
+		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.ProfileDebug|x64.Build.0 = ProfileDebug|x64
 		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{74E7C4B8-B607-43A9-8CE3-21209CF2DA67}.Release_mayaDebug|x64.Build.0 = PrmanDebug2008|x64
@@ -496,6 +514,8 @@ Global
 		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.Prman2009Debug|x64.Build.0 = Prman2009Debug|x64
 		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.PrmanDebug2008|Win32.ActiveCfg = PrmanDebug2008|x64
 		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
+		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.ProfileDebug|Win32.ActiveCfg = Prman Release2008|x64
+		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.ProfileDebug|x64.ActiveCfg = Prman Release2008|x64
 		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.Release_mayaDebug|Win32.ActiveCfg = Prman2008Debug|Win32
 		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.Release_mayaDebug|x64.ActiveCfg = Prman2008Debug|Win32
 		{59A8A411-90E8-495F-BC45-3C60FF6E9B2F}.Release|Win32.ActiveCfg = Pixie Release|Win32
@@ -582,6 +602,8 @@ Global
 		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.ProfileDebug|Win32.ActiveCfg = PrmanDebug2008|Win32
+		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.ProfileDebug|x64.ActiveCfg = PrmanDebug2008|Win32
 		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{EC91D9D7-946F-4D42-AEA6-F607A1FBE4F5}.Release|Win32.ActiveCfg = Generic RibLib Release|Win32
@@ -660,6 +682,8 @@ Global
 		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.Prman2009Debug|x64.Build.0 = Prman2009Debug|x64
 		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.PrmanDebug2008|Win32.ActiveCfg = Prman2009Debug|x64
 		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.PrmanDebug2008|x64.ActiveCfg = Prman2009Debug|x64
+		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.ProfileDebug|Win32.ActiveCfg = Prman2008Debug|Win32
+		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.ProfileDebug|x64.ActiveCfg = Prman2008Debug|Win32
 		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.Release_mayaDebug|Win32.ActiveCfg = Prman2009Debug|x64
 		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.Release_mayaDebug|x64.ActiveCfg = Prman2009Debug|x64
 		{C72B3D60-A418-41EF-9B83-0F16430BC6CF}.Release|Win32.ActiveCfg = Generic ribLib Release|Win32
@@ -749,6 +773,10 @@ Global
 		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.ProfileDebug|Win32.ActiveCfg = ProfileDebug|Win32
+		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.ProfileDebug|Win32.Build.0 = ProfileDebug|Win32
+		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.ProfileDebug|x64.ActiveCfg = ProfileDebug|x64
+		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.ProfileDebug|x64.Build.0 = ProfileDebug|x64
 		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{162E401F-7F1D-4E7F-B783-868FFF572F6A}.Release_mayaDebug|x64.Build.0 = PrmanDebug2008|x64
@@ -836,6 +864,8 @@ Global
 		{CB478961-D65C-4232-8FE2-9C048096F352}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{CB478961-D65C-4232-8FE2-9C048096F352}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{CB478961-D65C-4232-8FE2-9C048096F352}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{CB478961-D65C-4232-8FE2-9C048096F352}.ProfileDebug|Win32.ActiveCfg = PrmanDebug2008|Win32
+		{CB478961-D65C-4232-8FE2-9C048096F352}.ProfileDebug|x64.ActiveCfg = PrmanDebug2008|Win32
 		{CB478961-D65C-4232-8FE2-9C048096F352}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{CB478961-D65C-4232-8FE2-9C048096F352}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{CB478961-D65C-4232-8FE2-9C048096F352}.Release|Win32.ActiveCfg = Prman Release|Win32
@@ -925,6 +955,10 @@ Global
 		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.ProfileDebug|Win32.ActiveCfg = ProfileDebug|Win32
+		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.ProfileDebug|Win32.Build.0 = ProfileDebug|Win32
+		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.ProfileDebug|x64.ActiveCfg = ProfileDebug|x64
+		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.ProfileDebug|x64.Build.0 = ProfileDebug|x64
 		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}.Release_mayaDebug|x64.Build.0 = PrmanDebug2008|x64
@@ -1016,6 +1050,10 @@ Global
 		{25151EBE-239A-4866-89A6-47C8D23636F6}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{25151EBE-239A-4866-89A6-47C8D23636F6}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{25151EBE-239A-4866-89A6-47C8D23636F6}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{25151EBE-239A-4866-89A6-47C8D23636F6}.ProfileDebug|Win32.ActiveCfg = ProfileDebug|Win32
+		{25151EBE-239A-4866-89A6-47C8D23636F6}.ProfileDebug|Win32.Build.0 = ProfileDebug|Win32
+		{25151EBE-239A-4866-89A6-47C8D23636F6}.ProfileDebug|x64.ActiveCfg = ProfileDebug|x64
+		{25151EBE-239A-4866-89A6-47C8D23636F6}.ProfileDebug|x64.Build.0 = ProfileDebug|x64
 		{25151EBE-239A-4866-89A6-47C8D23636F6}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{25151EBE-239A-4866-89A6-47C8D23636F6}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{25151EBE-239A-4866-89A6-47C8D23636F6}.Release_mayaDebug|x64.Build.0 = PrmanDebug2008|x64
@@ -1107,6 +1145,10 @@ Global
 		{BE787917-4AD1-4191-90B0-2848C8209142}.PrmanDebug2008|Win32.Build.0 = PrmanDebug2008|Win32
 		{BE787917-4AD1-4191-90B0-2848C8209142}.PrmanDebug2008|x64.ActiveCfg = PrmanDebug2008|x64
 		{BE787917-4AD1-4191-90B0-2848C8209142}.PrmanDebug2008|x64.Build.0 = PrmanDebug2008|x64
+		{BE787917-4AD1-4191-90B0-2848C8209142}.ProfileDebug|Win32.ActiveCfg = ProfileDebug|Win32
+		{BE787917-4AD1-4191-90B0-2848C8209142}.ProfileDebug|Win32.Build.0 = ProfileDebug|Win32
+		{BE787917-4AD1-4191-90B0-2848C8209142}.ProfileDebug|x64.ActiveCfg = ProfileDebug|x64
+		{BE787917-4AD1-4191-90B0-2848C8209142}.ProfileDebug|x64.Build.0 = ProfileDebug|x64
 		{BE787917-4AD1-4191-90B0-2848C8209142}.Release_mayaDebug|Win32.ActiveCfg = PrmanDebug2008|x64
 		{BE787917-4AD1-4191-90B0-2848C8209142}.Release_mayaDebug|x64.ActiveCfg = PrmanDebug2008|x64
 		{BE787917-4AD1-4191-90B0-2848C8209142}.Release_mayaDebug|x64.Build.0 = PrmanDebug2008|x64
@@ -1180,6 +1222,9 @@ Global
 		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.PrmanDebug2008|Win32.ActiveCfg = Debug|Win32
 		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.PrmanDebug2008|Win32.Build.0 = Debug|Win32
 		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.PrmanDebug2008|x64.ActiveCfg = Debug|Win32
+		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.ProfileDebug|Win32.ActiveCfg = ProfileDebug|Win32
+		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.ProfileDebug|Win32.Build.0 = ProfileDebug|Win32
+		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.ProfileDebug|x64.ActiveCfg = ProfileDebug|Win32
 		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.Release_mayaDebug|Win32.ActiveCfg = Release_mayaDebug|Win32
 		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.Release_mayaDebug|Win32.Build.0 = Release_mayaDebug|Win32
 		{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}.Release_mayaDebug|x64.ActiveCfg = Release_mayaDebug|Win32
