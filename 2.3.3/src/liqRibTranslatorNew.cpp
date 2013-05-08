@@ -2819,7 +2819,10 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 #endif
 				//if( !exitstat ){
 				liquidMessage( "Rendering hero pass... ", messageInfo );
-				cerr << "liquidBin = " <<  liqglo.liquidBin << endl << flush; 
+				if(liqglo.m_logMsgFlush)
+					cerr << "liquidBin = " <<  liqglo.liquidBin << endl <<flush; 
+				else
+					cerr << "liquidBin = " <<  liqglo.liquidBin << endl <<"(no flush)"; 
 
 // moved to ...
 // 				if( isBatchMode() )//batch mode

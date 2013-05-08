@@ -265,6 +265,7 @@ struct LIQUID_EXPORT liqGlobalVariable
 
 	//debug
 	bool m_logFunctionCall;//enable logFunctionCall
+	bool m_logMsgFlush;//enable logMsgFlush
 
 	bool m_ribFileOpen;//is the rib file open? for renderman only.
 	bool m_writeDataIntoMainRibFile;

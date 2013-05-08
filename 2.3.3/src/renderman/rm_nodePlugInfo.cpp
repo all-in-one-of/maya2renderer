@@ -169,7 +169,10 @@ namespace renderman
 			i->print(indent+indent, prefix);
 		}
 		printf("\n");
-		_flushall();
+		if(liqglo.m_logMsgFlush)
+		{
+			_flushall();
+		}
 	}
 	const PlugInfoT* 
 		NodePlugInfo::getPlugInfo(const std::string &nodename, const std::string& plug) const

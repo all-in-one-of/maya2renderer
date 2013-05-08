@@ -139,6 +139,7 @@ class liqGlobalsNode : public MPxNode
     static MObject aOutputShaderGraph;
     static MObject aOutputDebugMsgToRib;
     static MObject alogFunctionCall;
+    static MObject alogMsgFlush;
     static MObject aOutputShadowPass;
     static MObject aOutputHeroPass;
     static MObject aOutputComments;

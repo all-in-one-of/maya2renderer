@@ -10,7 +10,10 @@ void _logFunctionCall(const char* log)
 	if(liqglo.m_logFunctionCall)
 	{
 		printf("CALL:%s\n", log );
-		_flushall();
+		if(liqglo.m_logMsgFlush)
+		{
+			_flushall();
+		}
 	}
 }
 void _liqRIBMsg(const char* msg)

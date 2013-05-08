@@ -557,8 +557,10 @@ namespace renderman
 #endif
 */
   RiEnd();
-
-  fflush( NULL );
+  if(liqglo.m_logMsgFlush)
+  {
+	fflush( NULL );
+  }
 	}
 
 }//namespace renderman

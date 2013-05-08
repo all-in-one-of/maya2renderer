@@ -149,6 +149,7 @@ MObject liqGlobalsNode::aUseNewTranslator;
 MObject liqGlobalsNode::aOutputShaderGraph;
 MObject liqGlobalsNode::aOutputDebugMsgToRib;
 MObject liqGlobalsNode::alogFunctionCall;
+MObject liqGlobalsNode::alogMsgFlush;
 MObject liqGlobalsNode::aOutputShadowPass;
 MObject liqGlobalsNode::aOutputHeroPass;
 MObject liqGlobalsNode::aOutputComments;
@@ -613,6 +614,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_BOOL( nAttr,  aOutputShaderGraph,		  "outputShaderGraph",			  "osg",    false );
 	CREATE_BOOL( nAttr,  aOutputDebugMsgToRib,		  "outputDebugMsgToRib",		  "dtr",    false );
 	CREATE_BOOL( nAttr,  alogFunctionCall,			  "logFunctionCall",			  "lfc",    false );
+	CREATE_BOOL( nAttr,  alogMsgFlush,			      "logMsgFlush",				  "lmf",    false );
 	CREATE_BOOL( nAttr,  aOutputShadowPass,           "outputShadowPass",             "osp",    false );
 	CREATE_BOOL( nAttr,  aOutputHeroPass,             "outputHeroPass",               "ohp",    true  );
 	CREATE_BOOL( nAttr,  aOutputComments,             "outputComments",               "oc",     false );
