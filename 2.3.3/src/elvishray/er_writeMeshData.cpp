@@ -138,6 +138,12 @@ namespace elvishray
 		std::vector<MVector> NORMAL;
 		std::vector<MVector> UV;
 
+		POSITION.reserve(token->getTokenFloatArraySize());
+		POSITION_mb.reserve(token->getTokenFloatArraySize());
+		INDEX.reserve(token->getTokenFloatArraySize());
+		NORMAL.reserve(token->getTokenFloatArraySize());
+		UV.reserve(token->getTokenFloatArraySize());
+
 		int numPolygons = fnMesh.numPolygons();
 		std::size_t PBufferSize = token->getTokenFloatArraySize();
 
