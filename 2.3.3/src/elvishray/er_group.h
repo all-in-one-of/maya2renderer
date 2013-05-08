@@ -54,7 +54,8 @@ namespace elvishray
 		~Group();
 		void addMeshInstance(const std::string &instname);
 		void addCameraInstance(const std::string &instname);
-		const CameraName getCamera() const;
+		//const CameraName getCamera() const;
+		const std::set<CameraName>& Group::getCameras() const;
 
 		void addLightLink(const std::string &objInst, const std::string &lightInst);
 		LightNames gatherLights();

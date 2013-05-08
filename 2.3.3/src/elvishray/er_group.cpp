@@ -73,21 +73,25 @@ namespace elvishray
 	{
 		cameras.insert(instname);
 	}
-	const CameraName Group::getCamera() const
+// 	const CameraName Group::getCamera() const
+// 	{
+// 		if( cameras.empty() )
+// 		{
+// 			liquidMessage2(messageError, ("group["+id.toString()+"] has no camera.").c_str())
+// 			assert(0&&"group has no camera. see script window for more details.");
+// 		}
+// 		if( cameras.size()>1 )
+// 		{
+// 			std::stringstream ss;
+// 			std::copy(cameras.begin(), cameras.end(), std::ostream_iterator<CameraName>(ss, ","));
+// 			liquidMessage2(messageError, ("group["+id.toString()+"] has too many cameras:"+ss.str()).c_str())
+// 			assert(0&&"group has too many cameras. see script window for more details.");		
+// 		}
+// 		return *cameras.begin();
+// 	}
+	const std::set<CameraName>& Group::getCameras() const
 	{
-		if( cameras.empty() )
-		{
-			liquidMessage2(messageError, ("group["+id.toString()+"] has no camera.").c_str())
-			assert(0&&"group has no camera. see script window for more details.");
-		}
-		if( cameras.size()>1 )
-		{
-			std::stringstream ss;
-			std::copy(cameras.begin(), cameras.end(), std::ostream_iterator<CameraName>(ss, ","));
-			liquidMessage2(messageError, ("group["+id.toString()+"] has too many cameras:"+ss.str()).c_str())
-			assert(0&&"group has too many cameras. see script window for more details.");		
-		}
-		return *cameras.begin();
+		return cameras;
 	}
 	void Group::addLightLink(const std::string &objInst, 
 		const std::string &lightInst)

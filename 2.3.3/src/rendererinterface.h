@@ -31,6 +31,7 @@ class liqRibParticleData;
 class liqRibPfxToonData;
 class liqRibSubdivisionData;
 class liqRibSurfaceData;
+class liqRibCameraData;
 class liqPreviewShaderOptions;
 
 namespace liquid
@@ -324,7 +325,12 @@ public:
 		const MString &fileName, 
 		const structJob &currentJob,
 		const bool bReference) = 0;
-	
+	virtual void write(
+		liqRibCameraData* data,
+		const MString &fileName, 
+		const structJob &currentJob,
+		const bool bReference) = 0;
+
 	//preview
 	virtual int preview(const std::string& fileName, const liqPreviewShaderOptions& options) = 0;
 

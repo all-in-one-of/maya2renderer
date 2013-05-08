@@ -2567,6 +2567,9 @@ MStatus liqRibTranslator::objectBlock_data(const structJob &currentJob)
 		LIQ_CHECK_CANCEL_REQUEST;
 
 		liqRibNodePtr ribNode( rniter->second );
+		
+		//DEBUG
+		MString pathname(ribNode->path().fullPathName());
 
 		if( ( !ribNode ) || ( ribNode->object(0)->type == MRT_Light ) ) 
 			continue;

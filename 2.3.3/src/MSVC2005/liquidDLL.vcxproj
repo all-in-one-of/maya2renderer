@@ -2580,6 +2580,7 @@
     <ClCompile Include="..\liqRenderScript.cpp" />
     <ClCompile Include="..\liqRibboxNode.cpp" />
     <ClCompile Include="..\liqRibCamera.cpp" />
+    <ClCompile Include="..\liqRibCameraData.cpp" />
     <ClCompile Include="..\liqRibClipPlaneData.cpp" />
     <ClCompile Include="..\liqRibCoordData.cpp" />
     <ClCompile Include="..\liqRibCurvesData.cpp" />
@@ -2633,6 +2634,7 @@
     <ClInclude Include="..\..\include\liqGlobalHelpers_refactor.h" />
     <ClInclude Include="..\..\include\liqIPRNodeMessageCmd.h" />
     <ClInclude Include="..\..\include\liqParseString.h" />
+    <ClInclude Include="..\..\include\liqRibCameraData.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
     <ClInclude Include="..\..\include\liqtypes.h" />

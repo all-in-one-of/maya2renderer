@@ -4416,6 +4416,8 @@ void liqRibTranslator::getCameraInfo(const MFnCamera& cam, structCamera &camStru
 MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, float lframe, int sample, int &count, MStatus& returnStatus ) 
 {
 	CM_TRACE_FUNC("liqRibTranslator::scanSceneNodes(&currentNode, &path,"<<lframe<<","<<sample<<",&count)");
+	//Debug
+	MString pathname(path.fullPathName());
 
 	MFnDagNode dagNode;
 	returnStatus = dagNode.setObject( currentNode );
@@ -4449,22 +4451,22 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		}
 
 	}
-// 	liquidMessage2(messageInfo,"%s, %s,\t\t\t\t %d%d%d %d%d %d%d %d%d%d%d"
-// 		,path.fullPathName().asChar(), currentNode.apiTypeStr()
-// 		,currentNode.hasFn( MFn::kNurbsSurface )
-// 		,currentNode.hasFn( MFn::kMesh )
-// 		,currentNode.hasFn( MFn::kParticle )
-// 
-// 		,currentNode.hasFn( MFn::kLocator )
-// 		,currentNode.hasFn( MFn::kSubdiv )
-// 
-// 		,currentNode.hasFn( MFn::kPfxHair )
-// 		,currentNode.hasFn( MFn::kPfxGeometry )
-// 
-// 		,currentNode.hasFn( MFn::kPfxToon )
-// 		,currentNode.hasFn( MFn::kImplicitSphere )
-// 		,currentNode.hasFn( MFn::kPluginShape )
-// 		,currentNode.hasFn( MFn::kNurbsCurve ) );
+	liquidMessage2(messageInfo,"%s, %s,\t\t\t\t %d%d%d %d%d %d%d %d%d%d%d"
+		,path.fullPathName().asChar(), currentNode.apiTypeStr()
+		,currentNode.hasFn( MFn::kNurbsSurface )
+		,currentNode.hasFn( MFn::kMesh )
+		,currentNode.hasFn( MFn::kParticle )
+
+		,currentNode.hasFn( MFn::kLocator )
+		,currentNode.hasFn( MFn::kSubdiv )
+
+		,currentNode.hasFn( MFn::kPfxHair )
+		,currentNode.hasFn( MFn::kPfxGeometry )
+
+		,currentNode.hasFn( MFn::kPfxToon )
+		,currentNode.hasFn( MFn::kImplicitSphere )
+		,currentNode.hasFn( MFn::kPluginShape )
+		,currentNode.hasFn( MFn::kNurbsCurve ) );
 	
 	if(  currentNode.hasFn( MFn::kNurbsSurface )
 		|| currentNode.hasFn( MFn::kMesh )
@@ -4480,6 +4482,10 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		LIQDEBUGPRINTF( "==> inserting obj to htable %s\n", path.fullPathName().asChar() );
     	htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
 		LIQDEBUGPRINTF( "==> %s inserted\n", path.fullPathName().asChar() );
+	}
+	else if(currentNode.hasFn( MFn::kCamera ))
+	{
+    	htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
 	}
 	else if(currentNode.hasFn( MFn::kPfxHair ))//added by yaoyansi for maya2renderer
 	{

@@ -129,6 +129,9 @@
     <ClCompile Include="..\elvishray\output\er_output_call.cpp">
       <Filter>src\output</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\er_writeCameraData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">

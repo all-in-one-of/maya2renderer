@@ -367,7 +367,7 @@ namespace elvishray
  		}
 
 		//toggle motion on this instance
-		int bMotion = (ribNode__->doDef || ribNode__->doMotion);
+		//int bMotion = (ribNode__->doDef || ribNode__->doMotion);
 		o.a(boost::str(boost::format("bMotionBlur=%f, bGeometryMotion=%f")%bMotionBlur %bGeometryMotion));
 		o.ei_motion( bMotionBlur || bGeometryMotion );
 
@@ -377,7 +377,12 @@ namespace elvishray
 		o.ei_end_instance();
 		o.ln();
 		//
-		m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Geometry );//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
+		if(mesh->type() == MRT_Camera)
+		{
+			m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Camera );
+		}else{
+			m_groupMgr->addObjectInstance( currentJob__.name.asChar(), instanceName, GIT_Geometry );//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
+		}
 	}
 	//
 	void Renderer::exportOneObject_procedural(
@@ -676,7 +681,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::framePrologue("<<lframe<<","<<currentJob.name.asChar()<<")");
 
-		framePrologue_camera(lframe, currentJob);
+		//framePrologue_camera(lframe, currentJob);
 
 		return MStatus::kSuccess;
 	}
@@ -743,7 +748,7 @@ namespace elvishray
 		std::string sCameraObjectName(std::string(currentJob.camera[0].name.asChar())+"_object");
 		o.ei_camera( sCameraObjectName.c_str() );
 			//_S( ei_frame( lframe, off ) );
-			
+
 			cameraOutput(currentJob);
 
 			o.ei_focal( focal );
@@ -779,7 +784,7 @@ namespace elvishray
 		o.ei_instance( currentJob.camera[0].name.asChar()	);
 			o.ei_element(	sCameraObjectName.c_str() );
 			o.ei_transform( m[0][0], m[0][1], m[0][2], m[0][3],   m[1][0], m[1][1], m[1][2], m[1][3],   m[2][0], m[2][1], m[2][2], m[2][3],   m[3][0], m[3][1], m[3][2], m[3][3] );
-			//_S( ei_transform(  1.0f, 0.0f, 0.0f, 0.0f,  0.0f, 1.0f, 0.0f, 0.0f,  0.0f, 0.0f, 1.0f, 0.0f,  -1.95384,-2.76373,16.1852, 1.0f ) );
+// 			o.ei_motion( bMotionBlur || bGeometryMotion );
 		o.ei_end_instance();
 		o.ln();		
 		m_groupMgr->addObjectInstance(currentJob.name.asChar(), currentJob.camera[0].name.asChar(), GIT_Camera);//_S( ei_init_instance( currentJob.camera[0].name.asChar() ) );
@@ -921,7 +926,13 @@ namespace elvishray
 
 				//camera
 				o.a("camera");
-				o.ei_add_instance( group.getCamera().c_str());
+				const std::set<CameraName> cameras = group.getCameras();
+				std::set<CameraName>::const_iterator c_i = cameras.begin();
+				std::set<CameraName>::const_iterator c_e = cameras.end();
+				for(; c_i != c_e; ++c_i)
+				{
+					o.ei_add_instance( (*c_i).c_str());
+				}
 				
 				//light(s)
 				o.a("light(s)");
@@ -1295,12 +1306,12 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::render()");
 
-		MString cameraFullPath;
+		MString cameraTransformNode;
 		int width=0, height=0;
 		{
 			MStringArray cameraFullPaths;
 			IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`; ls -long $cam;", cameraFullPaths));
-			cameraFullPath = cameraFullPaths[0];
+			IfMErrorWarn(MGlobal::executeCommand("firstParentOf(\""+cameraFullPaths[0]+"\")", cameraTransformNode));
 			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.xResolution",width));
 			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.yResolution",height));
 		}
@@ -1309,14 +1320,14 @@ namespace elvishray
 		if( isBatchMode() )
 		{
 			o.a(" in batch render mode");
-			o.a(boost::str(boost::format("ei_render( \"%s\", \"%s\", \"%s\" );")%m_root_group.c_str() %cameraFullPath.asChar() %m_option.c_str()));
-			o.ei_render( m_root_group.c_str(), cameraFullPath.asChar(), m_option.c_str() );
+			o.a(boost::str(boost::format("ei_render( \"%s\", \"%s\", \"%s\" );")%m_root_group.c_str() %cameraTransformNode.asChar() %m_option.c_str()));
+			o.ei_render( m_root_group.c_str(), cameraTransformNode.asChar(), m_option.c_str() );
 		}else{
 			//set callback function for ER
 			o.ei_connection(&(MayaConnection::getInstance()->connection.base));
 
 			renderPreview(width, height, false, false, 
-				m_root_group.c_str(), cameraFullPath, m_option.c_str());
+				m_root_group.c_str(), cameraTransformNode, m_option.c_str());
 		}
 
 		return MS::kSuccess;
@@ -1325,12 +1336,12 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::render_ipr()");
 
-		MString cameraFullPath;
+		MString cameraTransformNode;
 		int width=0, height=0;
 		{
 			MStringArray cameraFullPaths;
 			IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`; ls -long $cam;", cameraFullPaths));
-			cameraFullPath = cameraFullPaths[0];
+			IfMErrorWarn(MGlobal::executeCommand("firstParentOf(\""+cameraFullPaths[0]+"\")", cameraTransformNode));
 			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.xResolution",width));
 			IfMErrorWarn(MGlobal::executeCommand("getAttr liquidGlobals.yResolution",height));
 		}
@@ -1339,7 +1350,7 @@ namespace elvishray
 		o.ei_connection(&(MayaConnection::getInstance()->connection.base));
 
 		renderPreview(width, height, true, false, 
-			 m_root_group.c_str(), cameraFullPath, m_option.c_str());
+			 m_root_group.c_str(), cameraTransformNode, m_option.c_str());
 
 		return MS::kSuccess;
 	}

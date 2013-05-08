@@ -167,7 +167,8 @@ enum ObjectType {
   MRT_PfxPetal        = 19,
   MRT_ImplicitSphere  = 20,
   MRT_Curves          = 21,
-  MRT_Shave			  = 22 //added in maya2renderer -yaoyansi
+  MRT_Shave			  = 22, //added in maya2renderer -yaoyansi
+  MRT_Camera		  = 23
 };
 
 enum LightType {

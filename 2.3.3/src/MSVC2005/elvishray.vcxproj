@@ -2551,6 +2551,7 @@
     <ClCompile Include="..\elvishray\er_output_mgr.cpp" />
     <ClCompile Include="..\elvishray\er_plug.cpp" />
     <ClCompile Include="..\elvishray\er_preview.cpp" />
+    <ClCompile Include="..\elvishray\er_writeCameraData.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCurvesData.cpp" />

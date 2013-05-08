@@ -66,6 +66,7 @@
 #ifdef _USE_SHAVE_
 #include <liqRibShaveData.h>
 #endif
+#include <liqRibCameraData.h>
 #include <liqRibData.h>
 #include <liqGlobalVariable.h>
 #include <liqGlobalHelpers.h>
@@ -357,14 +358,22 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
 					}
 		  } 
 	  }
-      else if( obj.hasFn( MFn::kImplicitSphere ) ) 
-      {
-        type = MRT_ImplicitSphere;
-        if( !ignoreShapes ) 
-          data = liqRibDataPtr( new liqRibImplicitSphereData( obj ) );
-        else 
-          data = liqRibDataPtr( new liqRibImplicitSphereData( skip ) );
-      }
+	  else if( obj.hasFn( MFn::kImplicitSphere ) ) 
+	  {
+		  type = MRT_ImplicitSphere;
+		  if( !ignoreShapes ) 
+			  data = liqRibDataPtr( new liqRibImplicitSphereData( obj ) );
+		  else 
+			  data = liqRibDataPtr( new liqRibImplicitSphereData( skip ) );
+	  }
+	  else if( obj.hasFn( MFn::kCamera ) ) 
+	  {
+		  type = MRT_Camera;
+		  if( !ignoreShapes ) 
+			  data = liqRibDataPtr( new liqRibCameraData( obj ) );
+		  else 
+			  data = liqRibDataPtr( new liqRibCameraData( skip ) );
+	  }
 	  else{
 		  liquidMessage2(messageWarning, "the type(%s) of \"%s\" is not supported in maya2renderer now.", obj.apiTypeStr(), pathName.asChar());
 	  }
