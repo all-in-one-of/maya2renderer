@@ -37,7 +37,7 @@ class's constructor and destructor. This rational is simple enough, but this way
 #define CM_TRACE_OPEN(trace_file)	cm::Trace::openFile(trace_file)
 #define CM_TRACE_CLOSE()			cm::Trace::closeFile()
 
-#define CM_TRACE_FUNC(func_name)    std::stringstream __CM_TRACE_SSTR; __CM_TRACE_SSTR<<func_name; cm::Trace __CM_TRACE__(__CM_TRACE_SSTR.str())
+#define CM_TRACE_FUNC(func_name)    std::stringstream __CM_TRACE_SSTR; __CM_TRACE_SSTR<<func_name; cm::Trace __CM_TRACE__; __CM_TRACE__.LogMsg(__CM_TRACE_SSTR.str());
 
 #ifdef _WIN32
 #	ifdef LIQUID_SEPARATE
@@ -58,13 +58,14 @@ namespace	cm
 	class TRACE_EXPORT Trace
 	{
 	public:
-		explicit Trace(std::string msg);
+		explicit Trace();
 		~Trace();
 
 		/// special the global log file.
 		void static openFile(const char *trace_file);
 		void static closeFile();
-
+		
+		void LogMsg(const std::string &msg);
 	private:
 		void LogMsg(int depth, int align, const char *msg);
 

@@ -9,9 +9,9 @@ namespace	cm
 
 	//////////////////////////////////////////////////////////////////////////
 
-	Trace::Trace(std::string msg)
+	Trace::Trace()
 	{
-		LogMsg(depth_, depth_ * 2, msg.c_str());
+		//LogMsg(depth_, depth_ * 2, msg.c_str());
 		++depth_;
 	}
 	Trace::~Trace()
@@ -46,5 +46,9 @@ namespace	cm
 		// only log the timestamp when the time changes
 		//unsigned int len = fprintf( fp, "%s>(%d)%s\n", indent.c_str(), depth, msg);
 		m_logfile<<indent<<">"<<depth<<" "<<msg<<std::endl;
+	}
+	void Trace::LogMsg(const std::string &msg)
+	{
+		LogMsg(depth_, depth_ * 2, msg.c_str());
 	}
 }
