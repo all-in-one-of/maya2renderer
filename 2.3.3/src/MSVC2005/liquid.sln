@@ -50,12 +50,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appleseed_", "appleseed_", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eiSHADER_maya", "..\elvishray\eiSHADER_maya\build\eiSHADER_maya.vcxproj", "{B468E0D1-9480-4C3C-A2D4-9EA3A8020159}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6A49F89-278C-473F-8DC8-F208A070AB7C}"
-	ProjectSection(SolutionItems) = preProject
-		Performance2.psess = Performance2.psess
-		Performance3.psess = Performance3.psess
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		3Delight Generic ribLib Release|Win32 = 3Delight Generic ribLib Release|Win32
