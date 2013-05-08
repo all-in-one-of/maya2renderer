@@ -176,6 +176,9 @@
     <ClInclude Include="..\elvishray\output\er_output_call.h">
       <Filter>src\output</Filter>
     </ClInclude>
+    <ClInclude Include="..\elvishray\er_log.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">

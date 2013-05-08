@@ -11,6 +11,7 @@
 
 #include <liquid.h>
 #include <liqRenderer.h>
+#include <liqGlobalHelpers.h>
 
 enum ShutterConfig {
 	OPEN_ON_FRAME         = 0,
@@ -266,6 +267,7 @@ struct LIQUID_EXPORT liqGlobalVariable
 	//debug
 	bool m_logFunctionCall;//enable logFunctionCall
 	bool m_logMsgFlush;//enable logMsgFlush
+	bool m_logTraceFunction;//enable logTraceFunction
 
 	bool m_ribFileOpen;//is the rib file open? for renderman only.
 	bool m_writeDataIntoMainRibFile;
@@ -277,7 +279,7 @@ struct LIQUID_EXPORT liqGlobalVariable
 };
 
 extern LIQUID_EXPORT struct liqGlobalVariable liqglo;
-extern LIQUID_EXPORT liquidVerbosityType liqglo_verbosity;
+extern LIQUID_EXPORT enum liquidVerbosityType liqglo_verbosity;
 
 void initHinderParameters();
 void getHinderParameters(const MFnDependencyNode& rGlobalNode);

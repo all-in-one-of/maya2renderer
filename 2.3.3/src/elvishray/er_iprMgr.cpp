@@ -4,8 +4,7 @@
 #include "er_iprMgr.h"
 
 #include "../common/mayacheck.h"
-#include <trace/trace.hpp>
-#include <liqlog.h>
+#include "er_log.h"
 
 #include "ercall.h"
 #include "er_renderer.h"

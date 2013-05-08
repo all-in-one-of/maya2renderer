@@ -2702,6 +2702,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //        liquidShowBoolGlobal "outputDebugMsgToRib" "OutputDebugMsgToRib(RM)" $prefix;
 //        liquidShowBoolGlobal "logFunctionCall" "logFunctionCall" $prefix;
 //        liquidShowBoolGlobal "logMsgFlush"     "logMsgFlush" $prefix;
+//        liquidShowBoolGlobal "logTraceFunction"     "logTraceFunction" $prefix;
 //      setParent ..;
 //    setParent ..;
 //

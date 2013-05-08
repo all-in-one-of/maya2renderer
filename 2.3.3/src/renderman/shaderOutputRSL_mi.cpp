@@ -4,7 +4,7 @@
 #include "shaderOutputRSL.h"
 #include "../common/mayacheck.h"
 #include "ri_interface.h"
-#include <trace/trace.hpp>
+#include "rm_log.h"
 
 namespace RSL
 {

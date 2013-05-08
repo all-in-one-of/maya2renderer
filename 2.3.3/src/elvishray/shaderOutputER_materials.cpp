@@ -2,15 +2,14 @@
 #ifdef _USE_ELVISHRAY_
 
 #include "shaderOutputER.h"
-//#include <liqlog.h>
 #include "../common/mayacheck.h"
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
-#include <trace/trace.hpp>
 #include <liqShader.h>
 #include <liqShaderFactory.h>
 #include <liqTokenPointer.h>
 #include "er_output_mgr.h"
+#include "er_log.h"
 
 namespace ER
 {

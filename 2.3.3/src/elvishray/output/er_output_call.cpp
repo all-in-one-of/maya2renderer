@@ -1,8 +1,7 @@
 #include <liqConfig.h>
 #ifdef _USE_ELVISHRAY_
 #include "er_output_call.h"
-#include <trace/trace.hpp>
-#include <liqlog.h>
+#include "../er_log.h"
 #include <eiCORE/ei_data_table.h>
 #include "../../common/mayacheck.h"
 

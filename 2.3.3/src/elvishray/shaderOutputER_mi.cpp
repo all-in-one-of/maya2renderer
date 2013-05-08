@@ -6,8 +6,7 @@
 #include "../common/mayacheck.h"
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
-#include <trace/trace.hpp>
-#include <liqlog.h>
+#include "er_log.h"
 #include "er_output_mgr.h"
 
 namespace ER

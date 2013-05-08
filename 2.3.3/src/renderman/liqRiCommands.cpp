@@ -37,7 +37,7 @@
 
 #include <fstream>
 #include <boost/scoped_array.hpp>
-#include <trace/trace.hpp>
+#include "rm_log.h"
 using namespace boost;
 using namespace std;
 

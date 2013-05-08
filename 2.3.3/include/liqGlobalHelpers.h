@@ -46,7 +46,8 @@
 #include <liquid.h>
 #include <liqTokenPointer.h>
 
-typedef enum liquidVerbosityType {
+enum liquidVerbosityType 
+{
   verbosityOff = 0,
   verbosityErrors = 1,
   messageError = 1,
@@ -54,7 +55,7 @@ typedef enum liquidVerbosityType {
   messageWarning = 2,
   verbosityAll = 3,
   messageInfo = 3
-} liquidVerbosityType;
+};
 
 // Moritz: basename() is missing in Windoze, we define our own in liqGlobalHelpers.cpp
 #ifdef _WIN32

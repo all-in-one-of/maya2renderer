@@ -38,7 +38,7 @@
 #include <maya/MPlugArray.h>
 #include <maya/MFnDagNode.h>
 #include <maya/MObjectArray.h>
-#include <trace/trace.hpp>
+#include <liqlog.h>
 
 
 liqLightNodeBehavior::liqLightNodeBehavior()

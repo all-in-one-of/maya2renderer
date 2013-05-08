@@ -39,7 +39,7 @@
 #include <maya/MArgList.h>
 #include <maya/MString.h>
 #include <maya/MSelectionList.h>
-#include <trace/trace.hpp>
+#include <liqlog.h>
 
 
 void* liqGetAttr::creator()

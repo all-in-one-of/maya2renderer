@@ -1,7 +1,7 @@
 #include <liqConfig.h>
 #ifdef _USE_ELVISHRAY_
 #include "er_output_base.h"
-#include <trace/trace.hpp>
+#include "../er_log.h"
 
 namespace elvishray
 {

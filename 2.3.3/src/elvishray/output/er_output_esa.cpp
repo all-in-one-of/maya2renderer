@@ -1,8 +1,7 @@
 #include <liqConfig.h>
 #ifdef _USE_ELVISHRAY_
 #include "er_output_esa.h"
-#include <liqlog.h>
-#include <trace/trace.hpp>
+#include "../er_log.h"
 #include "../../common/mayacheck.h"
 
 namespace elvishray

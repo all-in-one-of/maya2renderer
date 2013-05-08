@@ -34,10 +34,8 @@ class's constructor and destructor. This rational is simple enough, but this way
 #include <fstream>
 #include <sstream>
 
-#define CM_TRACE_OPEN(trace_file)	cm::Trace::openFile(trace_file)
-#define CM_TRACE_CLOSE()			cm::Trace::closeFile()
 
-#define CM_TRACE_FUNC(func_name)    std::stringstream __CM_TRACE_SSTR; __CM_TRACE_SSTR<<func_name; cm::Trace __CM_TRACE__; __CM_TRACE__.LogMsg(__CM_TRACE_SSTR.str());
+
 
 #ifdef _WIN32
 #	ifdef LIQUID_SEPARATE

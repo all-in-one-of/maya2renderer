@@ -1,6 +1,5 @@
 
 #include <liqlog.h>
-#include <liqGlobalVariable.h>
 #include "renderermgr.h"
 
 LIQUID_EXPORT char gLogBuffer[LOG_BUFFER_LEN];

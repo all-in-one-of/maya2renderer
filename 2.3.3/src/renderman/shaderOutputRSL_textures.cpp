@@ -5,7 +5,7 @@
 #include "../common/mayacheck.h"
 #include "../shadergraph/shadermgr.h"
 #include "ri_interface.h"
-#include <trace/trace.hpp>
+#include "rm_log.h"
 #include <liqGlobalHelpers.h>
 #include "rm_helper.h"
 #include <liqGlobalVariable.h>

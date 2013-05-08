@@ -11,7 +11,6 @@ namespace	cm
 
 	Trace::Trace()
 	{
-		//LogMsg(depth_, depth_ * 2, msg.c_str());
 		++depth_;
 	}
 	Trace::~Trace()

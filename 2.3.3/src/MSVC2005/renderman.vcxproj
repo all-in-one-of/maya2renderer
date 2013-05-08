@@ -2445,6 +2445,7 @@
     <ClInclude Include="..\renderman\rm_factory.h" />
     <ClInclude Include="..\renderman\rm_helper.h" />
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
+    <ClInclude Include="..\renderman\rm_log.h" />
     <ClInclude Include="..\renderman\rm_nodePlugConnection.h" />
     <ClInclude Include="..\renderman\rm_nodePlugInfo.h" />
     <ClInclude Include="..\renderman\rm_renderer.h" />

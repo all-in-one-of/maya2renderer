@@ -3,6 +3,20 @@
 
 #include <trace/trace.hpp>
 #include <liqGlobalHelpers.h>
+#include <liqGlobalVariable.h>
+
+// CM_TRACE - begin
+#define CM_TRACE_OPEN(trace_file)	cm::Trace::openFile(trace_file)
+#define CM_TRACE_CLOSE()			cm::Trace::closeFile()
+
+#define CM_TRACE_FUNC(func_name)	\
+	cm::Trace __CM_TRACE__;         \
+	if( liqglo.m_logTraceFunction ){\
+		std::stringstream __CM_TRACE_SSTR;  \
+		__CM_TRACE_SSTR<<func_name;         \
+		__CM_TRACE__.LogMsg(__CM_TRACE_SSTR.str());\
+	}
+// CM_TRACE - end
 
 
 #define LOG_BUFFER_LEN 1024

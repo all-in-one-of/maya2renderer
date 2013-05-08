@@ -4,7 +4,7 @@
 #include "shaderOutputRSL.h"
 #include "../common/mayacheck.h"
 #include "ri_interface.h"
-#include <trace/trace.hpp>
+#include "rm_log.h"
 #include <liqShader.h>
 #include <liqShaderFactory.h>
 #include <liqTokenPointer.h>
