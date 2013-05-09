@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: vertex_normal.ma
-//Last modified: Mon, May 06, 2013 11:18:38 PM
+//Last modified: Thu, May 09, 2013 01:40:03 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -12,11 +12,10 @@ fileInfo "version" "2012";
 fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
-	setAttr ".v" no;
 	setAttr ".t" -type "double3" -2.1680502456765849 7.7355201178185622 8.438589866536585 ;
 	setAttr ".r" -type "double3" -39.938352729610585 -15.799999999998477 -8.2636021744865959e-016 ;
 createNode camera -s -n "perspShape" -p "persp";
-	setAttr -k off ".v" no;
+	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".coi" 12.271927421964737;
 	setAttr ".imn" -type "string" "persp";

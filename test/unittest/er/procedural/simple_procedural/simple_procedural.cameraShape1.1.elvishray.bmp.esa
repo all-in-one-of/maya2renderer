@@ -48,30 +48,6 @@ approx.motion_factor = 16;
 ei_approx(&approx);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 41.599998, aspect=1.333333
-//Depth of Field on camera "|camera1_group|camera1|cameraShape1" is turned off in Maya
-
-//############################### camera #
-ei_camera("|camera1_group|camera1|cameraShape1_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/simple_procedural.cameraShape1.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(32);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.01,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|camera1_group|camera1|cameraShape1");
-ei_element("|camera1_group|camera1|cameraShape1_object");
-ei_transform(0.999999,0,0.00136493,0,   0.000506451,0.928614,-0.371046,0,   -0.00126749,0.371047,0.928613,0,   -0.0393797,22.1998,29.351,1);
-ei_end_instance();
-
 ei_shader("maya_phong", "phong1");
 ei_shader_param_vector("color_",1,0,0);
 ei_shader_param_vector("transparency",0,0,0);
@@ -278,6 +254,25 @@ ei_tab_add_index(5);
 ei_end_tab();
 }//|pPlane2|pPlaneShape2
 ei_end_object();
+
+// maya settings: focal=35.000000, aperture = 41.599998, aspect=1.333333
+//Depth of Field on camera "|camera1_group|camera1|cameraShape1" is turned off in Maya
+
+//############################### camera #
+ei_camera("|camera1_group|camera1|cameraShape1");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/simple_procedural.cameraShape1.1.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(32);
+ei_aspect(1.33333);
+ei_resolution(200,150);
+ei_clip(0.01,10000);
+ei_end_camera();
 // shader(simple_procedural,...)
 ei_shader("simple_procedural", "liquidShader1");
 ei_shader_param_scalar("disp_dist",1);
@@ -298,7 +293,7 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1_procedural");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,4,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -320,8 +315,8 @@ ei_mtl("phong2SG");
 //shape full path name=|pPlane2|pPlaneShape2
 ei_element("|pPlane2|pPlaneShape2");
 ei_transform(1.3536,0,0,0,   0,1.3536,0,0,   0,0,1.3536,0,   0,0,0,1);
-//ribNode->doDef=15, ribNode->doMotion=0
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -330,10 +325,32 @@ ei_variable("lightgroup", &lightgroup_token );
 }
 ei_end_instance();
 
+//|camera1_group|camera1|cameraShape1 is not lighted.
+//--------------------------
+//ribNode->name=|camera1_group|camera1|cameraShape1
+//ribNode's transform node=|camera1_group|camera1
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|camera1_group|camera1|cameraShape1
+ei_instance("|camera1_group|camera1");
+//|camera1_group|camera1|cameraShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|camera1_group|camera1|cameraShape1
+//shape full path name=|camera1_group|camera1|cameraShape1
+ei_element("|camera1_group|camera1|cameraShape1");
+ei_transform(0.999999,5.42101e-020,0.00136493,0,   0.000506451,0.928614,-0.371046,0,   -0.00126749,0.371047,0.928613,0,   -0.0393797,22.1998,29.351,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|camera1_group|camera1_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
 //Renderer::worldEpilogue()
 ei_instgroup("cameraShape1");
 //camera
-ei_add_instance("|camera1_group|camera1|cameraShape1");
+ei_add_instance("|camera1_group|camera1");
 //light(s)
 ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pointLight3|pointLightShape3");
@@ -342,8 +359,8 @@ ei_add_instance("|pPlane1");
 ei_add_instance("|pPlane2");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
-ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
+//ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
+ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
 ei_end_context();
 //------------------------------------------------
 

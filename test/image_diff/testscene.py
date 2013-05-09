@@ -216,7 +216,7 @@ def test_all_scene():
     ------------------------ elvishray ----------------------------------
     '''
 
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -426,7 +426,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/blur_camera/blur_camera.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     

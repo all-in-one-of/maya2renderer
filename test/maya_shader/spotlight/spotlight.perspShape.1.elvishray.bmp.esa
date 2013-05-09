@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/spotlight.perspShape.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.447759,-2.77556e-017,-0.894154,0,   -0.410635,0.88831,-0.205631,0,   0.794286,0.459244,0.397749,0,   22.9578,13.2739,11.4964,1);
-ei_end_instance();
-
 ei_shader("maya_phong", "phong1");
 ei_shader_param_vector("color_",0.5,0.5,0.5);
 ei_shader_param_vector("transparency",0,0,0);
@@ -173,7 +149,7 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -0.121393,0,0.44257,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -186,15 +162,14 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 ei_add_instance("|spotLight3|spotLightShape3");
 //mesh(s)
 ei_add_instance("|pPlane1");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

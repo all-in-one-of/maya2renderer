@@ -22,34 +22,10 @@ options "perspShape_option"
     filter 4 3 
 ##transform motion=0, deform motion=0
     motion 0 
-    trace_depth -846913222 -846913222 -846913222 -846913222 -846913222 -846913222 
+    trace_depth -1480037174 -1480037174 -1480037174 -1480037174 -1480037174 -1480037174 
     displace 0 
     face 3 
 end options
-## maya settings: focal=35.000000, aperture = 46.799999, aspect=1.333333
-##Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-################################# camera #
-camera "|persp|perspShape_object" 
-##beauty channel
-    output "R:/MyDocuments/maya/projects/default/rmanpix/uvCoord.perspShape.1.elvishray.bmp" "bmp" "rgb" 
-##mode=rgb
-    output_variable "color" "vector" 
-end output
-## AOV
-## AOV end
-    focal 35 
-    aperture 36 
-    aspect 1.33333 
-    resolution 200 150 
-    clip 0.1 10000 
-end camera
-##----------------------------------
-instance "|persp|perspShape" 
-element "|persp|perspShape_object" 
-transform 0.999994 0 -0.00349065 0    -0.0029964 0.512967 -0.858403 0    0.00179059 0.858408 0.512964 0    0.899189 1.94548 1.34345 1 
-end instance
-
 shader "maya_place2dTexture" "place2dTexture1" 
     param_int "liq_UserDefinedU" 1 
     param_int "liq_UserDefinedV" 0 
@@ -204,7 +180,7 @@ mtl "initialShadingGroup"
 ##shape full path name=|pPlane9|pPlaneShape18
 element "|pPlane9|pPlaneShape18" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    0.353586 0 0.256205 1 
-##ribNode->doDef=0, ribNode->doMotion=0
+##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane9_lightgroup" 
@@ -213,7 +189,6 @@ end instance
 ##Renderer::worldEpilogue()
 instgroup "perspShape" 
 ##camera
-add_instance "|persp|perspShape" 
 ##light(s)
 add_instance "|pointLight1|pointLightShape1" 
 add_instance "|pointLight2|pointLightShape2" 
@@ -221,8 +196,8 @@ add_instance "|pointLight2|pointLightShape2"
 add_instance "|pPlane9" 
 end instgroup
 ## in batch render mode
-##ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-render "perspShape" "|persp|perspShape" "perspShape_option"
+##ei_render( "perspShape", "|persp", "perspShape_option" );
+render "perspShape" "|persp" "perspShape_option"
 ##end context
 ##------------------------------------------------
 

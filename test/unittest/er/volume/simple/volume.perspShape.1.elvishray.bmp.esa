@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/volume.perspShape.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.995562,-3.46945e-018,-0.0941083,0,   -0.0314734,0.942418,-0.332954,0,   0.0886893,0.334438,0.938235,0,   -0.809297,5.22729,5.73945,1);
-ei_end_instance();
-
 // shader(volume_shell,...)
 ei_shader("volume_shell", "liquidSurface1");
 ei_end_shader();
@@ -121,6 +97,25 @@ ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,5.23026,0,1);
 ei_declare("|pCube1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pPlane1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
+
+// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
+//Depth of Field on camera "|persp|perspShape" is turned off in Maya
+
+//############################### camera #
+ei_camera("|persp|perspShape");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/volume.perspShape.1.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(36);
+ei_aspect(1.33333);
+ei_resolution(200,150);
+ei_clip(0.1,10000);
+ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pCube1|pCubeShape1, 0, 0
 
@@ -318,6 +313,28 @@ ei_tab_add_index(5);
 ei_end_tab();
 }//|pPlane1|pPlaneShape1
 ei_end_object();
+//|persp|perspShape is not lighted.
+//--------------------------
+//ribNode->name=|persp|perspShape
+//ribNode's transform node=|persp
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|persp|perspShape
+ei_instance("|persp");
+//|persp|perspShape's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|persp|perspShape
+//shape full path name=|persp|perspShape
+ei_element("|persp|perspShape");
+ei_transform(0.995562,0,-0.0941083,0,   -0.0314734,0.942418,-0.332954,0,   0.0886893,0.334438,0.938235,0,   -0.809297,5.22729,5.73945,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|persp_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
 //--------------------------
 //ribNode->name=|pCube1|pCubeShape1
 //ribNode's transform node=|pCube1
@@ -330,7 +347,7 @@ ei_mtl("liquidSurface1SG");
 //shape full path name=|pCube1|pCubeShape1
 ei_element("|pCube1|pCubeShape1");
 ei_transform(3.46703,0,0,0,   0,3.46703,0,0,   0,0,3.46703,0,   -1.34505,2.96559,0.0867107,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -352,7 +369,7 @@ ei_mtl("phong1SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -2.37309,0,-4.83679,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -365,7 +382,7 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
+ei_add_instance("|persp");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
@@ -373,8 +390,8 @@ ei_add_instance("|pCube1");
 ei_add_instance("|pPlane1");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

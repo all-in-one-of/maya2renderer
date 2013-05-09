@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/nurbs_cone.perspShape.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.884581,0,0.466387,0,   0.299403,0.766736,-0.567868,0,   -0.357595,0.641963,0.67824,0,   -5.40145,10.2614,10.3767,1);
-ei_end_instance();
-
 ei_shader("maya_lambert", "lambert1");
 ei_shader_param_vector("i_ambientColor",0,0,0);
 ei_shader_param_vector("i_color",0.5,0.5,0.5);
@@ -103,6 +79,25 @@ ei_declare("|nurbsCone1|bottomCap1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defau
 ei_declare("|nurbsConeShape1_liq__lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|bottomCapShape1_liq__lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
+
+// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
+//Depth of Field on camera "|persp|perspShape" is turned off in Maya
+
+//############################### camera #
+ei_camera("|persp|perspShape");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/nurbs_cone.perspShape.1.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(36);
+ei_aspect(1.33333);
+ei_resolution(200,150);
+ei_clip(0.1,10000);
+ei_end_camera();
 //Nurbs surface |nurbsCone1|nurbsConeShape1 is not implemented yet.
 //Nurbs surface |nurbsCone1|bottomCap1|bottomCapShape1 is not implemented yet.
 
@@ -8575,6 +8570,28 @@ ei_tab_add_index(899);
 ei_end_tab();
 }//|bottomCapShape1_liq_|bottomCapShape1_liq_Shape
 ei_end_object();
+//|persp|perspShape is not lighted.
+//--------------------------
+//ribNode->name=|persp|perspShape
+//ribNode's transform node=|persp
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|persp|perspShape
+ei_instance("|persp");
+//|persp|perspShape's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|persp|perspShape
+//shape full path name=|persp|perspShape
+ei_element("|persp|perspShape");
+ei_transform(0.884581,-2.77556e-017,0.466387,0,   0.299403,0.766736,-0.567868,0,   -0.357595,0.641963,0.67824,0,   -5.40145,10.2614,10.3767,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|persp_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
 //--------------------------
 //ribNode->name=|nurbsCone1|nurbsConeShape1
 //ribNode's transform node=|nurbsCone1
@@ -8590,7 +8607,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|nurbsCone1|nurbsConeShape1
 ei_element("|nurbsCone1|nurbsConeShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0.00949629,0,0.0370802,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -8612,8 +8629,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|nurbsCone1|bottomCap1|bottomCapShape1
 ei_element("|nurbsCone1|bottomCap1|bottomCapShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0.00949629,0,0.0370802,1);
-//ribNode->doDef=145, ribNode->doMotion=0
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -8634,8 +8651,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|nurbsConeShape1_liq_|nurbsConeShape1_liq_Shape
 ei_element("|nurbsConeShape1_liq_|nurbsConeShape1_liq_Shape");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=97, ribNode->doMotion=112
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -8656,7 +8673,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|bottomCapShape1_liq_|bottomCapShape1_liq_Shape
 ei_element("|bottomCapShape1_liq_|bottomCapShape1_liq_Shape");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -8669,7 +8686,7 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
+ei_add_instance("|persp");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
@@ -8679,8 +8696,8 @@ ei_add_instance("|nurbsCone1|bottomCap1");
 ei_add_instance("|nurbsConeShape1_liq_");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

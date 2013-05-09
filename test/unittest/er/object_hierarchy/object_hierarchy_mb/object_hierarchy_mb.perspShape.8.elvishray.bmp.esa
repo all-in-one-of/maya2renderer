@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/object_hierarchy_mb.perspShape.8.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.62388,0,0.78152,0,   0.705614,0.429907,-0.563284,0,   -0.335981,0.902873,0.26821,0,   -7.58127,20.3729,6.05205,1);
-ei_end_instance();
-
 ei_shader("maya_lambert", "lambert1");
 ei_shader_param_vector("i_ambientColor",0,0,0);
 ei_shader_param_vector("i_color",0.5,0.5,0.5);
@@ -130,6 +106,25 @@ ei_declare("|pCube1|group2|pPlane7_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defau
 ei_declare("|pCube1|group2|group3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pCube1|group2|group3|pPlane8_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
+
+// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
+//Depth of Field on camera "|persp|perspShape" is turned off in Maya
+
+//############################### camera #
+ei_camera("|persp|perspShape");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/object_hierarchy_mb.perspShape.8.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(36);
+ei_aspect(1.33333);
+ei_resolution(200,150);
+ei_clip(0.1,10000);
+ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pCube1|pCubeShape1, 0, 1
 
@@ -1087,6 +1082,28 @@ ei_tab_add_index(5);
 ei_end_tab();
 }//|pCube1|group2|group3|pPlane8|pPlaneShape8
 ei_end_object();
+//|persp|perspShape is not lighted.
+//--------------------------
+//ribNode->name=|persp|perspShape
+//ribNode's transform node=|persp
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|persp|perspShape
+ei_instance("|persp");
+//|persp|perspShape's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|persp|perspShape
+//shape full path name=|persp|perspShape
+ei_element("|persp|perspShape");
+ei_transform(0.62388,0,0.78152,0,   0.705614,0.429907,-0.563284,0,   -0.335981,0.902873,0.26821,0,   -7.58127,20.3729,6.05205,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|persp_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
 //--------------------------
 //ribNode->name=|pCube1|pCubeShape1
 //ribNode's transform node=|pCube1
@@ -1106,8 +1123,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCubeShape1");
 ei_transform(0.551348,0,-0.834275,0,   0,1,0,0,   0.834275,0,0.551348,0,   1.44025,0,-0.605115,1);
 ei_motion_transform(0.515836,0,-0.856687,0,   0,1,0,0,   0.856687,0,0.515836,0,   1.44025,0,-0.605115,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1133,8 +1150,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCone1|pConeShape1");
 ei_transform(0.441453,-0.411749,-0.797234,0,   -0.890879,-0.0951586,-0.444161,0,   0.107019,0.906315,-0.408827,0,   -3.80507,0,-3.93878,1);
 ei_motion_transform(0.407594,-0.411749,-0.815065,0,   -0.908741,-0.0951586,-0.406367,0,   0.0897608,0.906315,-0.412959,0,   -3.9404,0,-3.71563,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1159,8 +1176,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCone1|pPlane2|pPlaneShape2");
 ei_transform(0.297728,1.66533e-016,-0.954651,0,   9.71445e-017,1,1.66533e-016,0,   0.954651,1.38778e-017,0.297728,0,   -5.25887,1.11022e-016,-1.82917,1);
 ei_motion_transform(0.257387,1.66533e-016,-0.966309,0,   1.249e-016,1,1.66533e-016,0,   0.966309,1.38778e-017,0.257387,0,   -5.30436,1.11022e-016,-1.54684,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1182,8 +1199,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5");
 ei_transform(0.297728,1.66533e-016,-0.954651,0,   9.71445e-017,1,1.66533e-016,0,   0.954651,1.38778e-017,0.297728,0,   -6.0042,4.7926e-018,-2.15205,1);
 ei_motion_transform(0.257387,1.66533e-016,-0.966309,0,   1.249e-016,1,1.66533e-016,0,   0.966309,1.38778e-017,0.257387,0,   -6.06258,4.7926e-018,-1.83815,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1208,8 +1225,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCone1|pPlane3|pPlaneShape3");
 ei_transform(0.473804,4.44089e-016,-0.88063,0,   0,1,4.44089e-016,0,   0.88063,8.32667e-017,0.473804,0,   -3.41263,4.44089e-016,-6.1925,1);
 ei_motion_transform(0.436415,4.44089e-016,-0.899745,0,   1.38778e-017,1,4.44089e-016,0,   0.899745,8.32667e-017,0.436415,0,   -3.64292,4.44089e-016,-5.98383,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1231,8 +1248,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4");
 ei_transform(0.992067,2.37284e-016,0.125713,0,   0,1,4.44089e-016,0,   -0.125713,-3.84506e-016,0.992067,0,   -4.55054,-2.56776e-016,-6.16305,1);
 ei_motion_transform(0.99647,2.37284e-016,0.0839519,0,   1.38778e-017,1,4.44089e-016,0,   -0.0839519,-3.84506e-016,0.99647,0,   -4.7786,-2.56776e-016,-5.90663,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1254,8 +1271,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|pCube2|pCubeShape2");
 ei_transform(0.0222446,0,-0.999753,0,   0,1,0,0,   0.999753,0,0.0222446,0,   -2.14864,0.546387,3.2621,1);
 ei_motion_transform(-0.171927,0,-0.98511,0,   0,1,0,0,   0.98511,0,-0.171927,0,   -1.98312,0.546387,3.40936,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1277,7 +1294,7 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|group1|pPlane1|pPlaneShape1");
 ei_transform(0.297728,0,-0.954651,0,   0,1,0,0,   0.954651,0,0.297728,0,   2.26873,0,4.19052,1);
 ei_motion_transform(0.257387,0,-0.966309,0,   0,1,0,0,   0.966309,0,0.257387,0,   2.46933,0,4.15151,1);
-//ribNode->doDef=196, ribNode->doMotion=0
+//bMotionBlur=1, bGeometryMotion=1
 ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1300,8 +1317,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|group1|pPlane6|pPlaneShape6");
 ei_transform(0.297728,0,-0.954651,0,   0,1,0,0,   0.954651,0,0.297728,0,   4.39632,0,4.74188,1);
 ei_motion_transform(0.257387,0,-0.966309,0,   0,1,0,0,   0.966309,0,0.257387,0,   4.6182,0,4.61307,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1323,8 +1340,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|group2|pPlane7|pPlaneShape7");
 ei_transform(0.495168,0.434537,-0.752321,0,   -0.309719,0.89733,0.314441,0,   0.811716,0.0773074,0.578913,0,   4.89019,0.17767,-1.43509,1);
 ei_motion_transform(0.463146,0.434537,-0.772446,0,   -0.296245,0.89733,0.327166,0,   0.835305,0.0773074,0.544325,0,   4.8523,0.17767,-1.5792,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1346,8 +1363,8 @@ ei_mtl("initialShadingGroup");
 ei_element("|pCube1|group2|group3|pPlane8|pPlaneShape8");
 ei_transform(-0.550609,1.30815e-016,-0.834763,0,   1.73472e-016,1,4.16334e-017,0,   0.834763,-1.0673e-016,-0.550609,0,   7.31824,-6.93889e-018,-0.854931,1);
 ei_motion_transform(-0.695667,1.44799e-016,-0.718365,0,   1.80411e-016,1,4.16334e-017,0,   0.718365,-8.68156e-017,-0.695667,0,   7.30257,-6.93889e-018,-1.10149,1);
-//ribNode->doDef=0, ribNode->doMotion=0
-ei_motion(0);
+//bMotionBlur=1, bGeometryMotion=1
+ei_motion(1);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -1359,7 +1376,7 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
+ei_add_instance("|persp");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|pointLight2|pointLightShape2");
@@ -1377,8 +1394,8 @@ ei_add_instance("|pCube1|pCone1|pPlane3|pPlane4");
 ei_add_instance("|pCube1|pCube2");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

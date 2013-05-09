@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 41.599998, aspect=1.333333
-//Depth of Field on camera "|camera1|cameraShape1" is turned off in Maya
-
-//############################### camera #
-ei_camera("|camera1|cameraShape1_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/liquidshader_cylinderlight.cameraShape1.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(32);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|camera1|cameraShape1");
-ei_element("|camera1|cameraShape1_object");
-ei_transform(0.999781,1.0842e-019,0.0209424,0,   0.00175242,0.996493,-0.0836595,0,   -0.020869,0.0836778,0.996274,0,   -0.710755,3.37804,26.2825,1);
-ei_end_instance();
-
 // shader(plastic,...)
 ei_shader("plastic", "liquidSurface1");
 ei_shader_param_vector("Cs",1,0,0);
@@ -325,6 +301,25 @@ ei_end_tab();
 }//|pPlane1|pPlaneShape1
 ei_end_object();
 
+// maya settings: focal=35.000000, aperture = 41.599998, aspect=1.333333
+//Depth of Field on camera "|camera1|cameraShape1" is turned off in Maya
+
+//############################### camera #
+ei_camera("|camera1|cameraShape1");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/liquidshader_cylinderlight.cameraShape1.1.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(32);
+ei_aspect(1.33333);
+ei_resolution(200,150);
+ei_clip(0.1,10000);
+ei_end_camera();
+
 // Renderer::exportOneGeometry_Mesh(|pPlane2|pPlaneShape2, 0, 0
 
 //############################### mesh #
@@ -513,7 +508,7 @@ ei_mtl("liquidSurface1SG");
 //shape full path name=|pCube1|pCubeShape1
 ei_element("|pCube1|pCubeShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,1,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -535,12 +530,34 @@ ei_mtl("liquidSurface4SG");
 //shape full path name=|pPlane1|pPlaneShape1
 ei_element("|pPlane1|pPlaneShape1");
 ei_transform(0.950023,0,0,0,   0,0.950023,0,0,   0,0,2.32353,0,   0,-1.35239,4.38695,1);
-//ribNode->doDef=196, ribNode->doMotion=0
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
 const char *lightgroup_token = ei_token("|pPlane1_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
+//|camera1|cameraShape1 is not lighted.
+//--------------------------
+//ribNode->name=|camera1|cameraShape1
+//ribNode's transform node=|camera1
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|camera1|cameraShape1
+ei_instance("|camera1");
+//|camera1|cameraShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|camera1|cameraShape1
+//shape full path name=|camera1|cameraShape1
+ei_element("|camera1|cameraShape1");
+ei_transform(0.999781,1.0842e-019,0.0209424,0,   0.00175242,0.996493,-0.0836595,0,   -0.020869,0.0836778,0.996274,0,   -0.710755,3.37804,26.2825,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|camera1_lightgroup");
 ei_variable("lightgroup", &lightgroup_token );
 }
 ei_end_instance();
@@ -557,7 +574,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane2|pPlaneShape2
 ei_element("|pPlane2|pPlaneShape2");
 ei_transform(3.45983e-016,1.55817,0,0,   -1,2.22045e-016,0,0,   0,0,2.44576,0,   5.47095,3.03237,4.2678,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -579,7 +596,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane3|pPlaneShape3
 ei_element("|pPlane3|pPlaneShape3");
 ei_transform(3.45983e-016,-1.55817,-0,0,   1,2.22045e-016,0,0,   0,-0,2.44576,0,   -5.2279,3.06019,3.80176,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -601,7 +618,7 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane4|pPlaneShape4
 ei_element("|pPlane4|pPlaneShape4");
 ei_transform(1,0,0,0,   0,2.22045e-016,1,0,   0,-2.42249,5.37902e-016,0,   0.210817,3.35958,-7.22003,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -614,7 +631,7 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("cameraShape1");
 //camera
-ei_add_instance("|camera1|cameraShape1");
+ei_add_instance("|camera1");
 //light(s)
 ei_add_instance("|volumeLight1|volumeLightShape1");
 //mesh(s)
@@ -625,8 +642,8 @@ ei_add_instance("|pPlane3");
 ei_add_instance("|pPlane4");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "cameraShape1", "|camera1|cameraShape1", "cameraShape1_option" );
-ei_render( "cameraShape1", "|camera1|cameraShape1", "cameraShape1_option" );
+//ei_render( "cameraShape1", "|camera1", "cameraShape1_option" );
+ei_render( "cameraShape1", "|camera1", "cameraShape1_option" );
 ei_end_context();
 //------------------------------------------------
 

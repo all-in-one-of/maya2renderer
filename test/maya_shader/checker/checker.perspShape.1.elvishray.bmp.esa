@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/checker.perspShape.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.999994,0,-0.00349065,0,   -0.00343907,0.17127,-0.985218,0,   0.000597843,0.985224,0.171269,0,   -0.161758,21.785,-0.308291,1);
-ei_end_instance();
-
 ei_shader("maya_place2dTexture", "place2dTexture2");
 ei_shader_param_int("liq_UserDefinedU",0);
 ei_shader_param_int("liq_UserDefinedV",0);
@@ -229,7 +205,7 @@ ei_mtl("lambert2SG");
 //shape full path name=|pPlane10|pPlaneShape19
 ei_element("|pPlane10|pPlaneShape19");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -242,7 +218,6 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|pointLight2|pointLightShape2");
@@ -250,8 +225,8 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|pPlane10");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

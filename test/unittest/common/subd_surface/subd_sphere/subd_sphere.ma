@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: subd_sphere.ma
-//Last modified: Mon, Apr 22, 2013 04:04:47 PM
+//Last modified: Thu, May 09, 2013 01:36:04 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -12,11 +12,10 @@ fileInfo "version" "2012";
 fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
-	setAttr ".v" no;
 	setAttr ".t" -type "double3" 5.1749156928605249 4.0366862466768723 5.3214825852845999 ;
 	setAttr ".r" -type "double3" -28.53835272960297 44.199999999999939 -2.2182365887199554e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
-	setAttr -k off ".v" no;
+	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".coi" 8.4494239559753588;
 	setAttr ".imn" -type "string" "persp";
@@ -181,7 +180,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/subd_sphere2634.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/subd_sphere113.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";

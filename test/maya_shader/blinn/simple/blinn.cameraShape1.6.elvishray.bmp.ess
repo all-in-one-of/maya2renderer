@@ -26,30 +26,6 @@ options "cameraShape1_option"
     displace 0 
     face 3 
 end options
-## maya settings: focal=35.000000, aperture = 46.799999, aspect=1.333333
-##Depth of Field on camera "|camera1_group|camera1|cameraShape1" is turned off in Maya
-
-################################# camera #
-camera "|camera1_group|camera1|cameraShape1_object" 
-##beauty channel
-    output "R:/MyDocuments/maya/projects/default/rmanpix/blinn.cameraShape1.6.elvishray.bmp" "bmp" "rgb" 
-##mode=rgb
-    output_variable "color" "vector" 
-end output
-## AOV
-## AOV end
-    focal 35 
-    aperture 36 
-    aspect 1.33333 
-    resolution 200 150 
-    clip 0.1 10000 
-end camera
-##----------------------------------
-instance "|camera1_group|camera1|cameraShape1" 
-element "|camera1_group|camera1|cameraShape1_object" 
-transform 1 0 -0 0    -0 0.115229 -0.993339 0    0 0.993339 0.115229 0    0 2.64869 0.359816 1 
-end instance
-
 shader "maya_blinn" "blinn1" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
     param_vector "i_color" 0.000000 0.000000 1.000000
@@ -140,6 +116,25 @@ triangle_list 6
 0 1 2
 3 4 5
 end object
+
+## maya settings: focal=35.000000, aperture = 46.799999, aspect=1.333333
+##Depth of Field on camera "|camera1_group|camera1|cameraShape1" is turned off in Maya
+
+################################# camera #
+camera "|camera1_group|camera1|cameraShape1" 
+##beauty channel
+    output "R:/MyDocuments/maya/projects/default/rmanpix/blinn.cameraShape1.6.elvishray.bmp" "bmp" "rgb" 
+##mode=rgb
+    output_variable "color" "vector" 
+end output
+## AOV
+## AOV end
+    focal 35 
+    aperture 36 
+    aspect 1.33333 
+    resolution 200 150 
+    clip 0.1 10000 
+end camera
 ##--------------------------
 ##ribNode->name=|pPlane4|pPlaneShape4
 ##ribNode's transform node=|pPlane4
@@ -152,24 +147,42 @@ mtl "lambert3SG"
 ##shape full path name=|pPlane4|pPlaneShape4
 element "|pPlane4|pPlaneShape4" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    0 0 0 1 
-##ribNode->doDef=0, ribNode->doMotion=0
+##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
 variable "lightgroup" "|pPlane4_lightgroup" 
 end instance
 
+##|camera1_group|camera1|cameraShape1 is not lighted.
+##--------------------------
+##ribNode->name=|camera1_group|camera1|cameraShape1
+##ribNode's transform node=|camera1_group|camera1
+##ribNode->object(0)->getDataPtr()->getFullPathName()=|camera1_group|camera1|cameraShape1
+instance "|camera1_group|camera1" 
+##|camera1_group|camera1|cameraShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
+mtl "liquid_material_for_test" 
+##shape name=|camera1_group|camera1|cameraShape1
+##shape full path name=|camera1_group|camera1|cameraShape1
+element "|camera1_group|camera1|cameraShape1" 
+transform 1 0 0 0    0 0.115229 -0.993339 0    0 0.993339 0.115229 0    0 2.64869 0.359816 1 
+##bMotionBlur=0, bGeometryMotion=0
+    motion 0 
+declare "lightgroup"  "const"  "token" 
+variable "lightgroup" "|camera1_group|camera1_lightgroup" 
+end instance
+
 ##Renderer::worldEpilogue()
 instgroup "cameraShape1" 
 ##camera
-add_instance "|camera1_group|camera1|cameraShape1" 
+add_instance "|camera1_group|camera1" 
 ##light(s)
 add_instance "|pointLight1|pointLightShape1" 
 ##mesh(s)
 add_instance "|pPlane4" 
 end instgroup
 ## in batch render mode
-##ei_render( "cameraShape1", "|camera1_group|camera1|cameraShape1", "cameraShape1_option" );
-render "cameraShape1" "|camera1_group|camera1|cameraShape1" "cameraShape1_option"
+##ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
+render "cameraShape1" "|camera1_group|camera1" "cameraShape1_option"
 ##end context
 ##------------------------------------------------
 

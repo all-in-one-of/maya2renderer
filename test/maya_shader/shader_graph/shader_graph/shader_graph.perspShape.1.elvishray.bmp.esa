@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/shader_graph.perspShape.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.998971,0,-0.045363,0,   -0.0421007,0.372367,-0.92713,0,   0.0168917,0.928086,0.371983,0,   -7.07323,98.4438,38.089,1);
-ei_end_instance();
-
 ei_shader("maya_lambert", "lambert2");
 ei_shader_param_vector("i_ambientColor",0,0,0);
 ei_shader_param_vector("i_color",0.033884,0.82644,0.040885);
@@ -718,6 +694,25 @@ ei_tab_add_index(35);
 ei_end_tab();
 }//|pCube1|pCubeShape1
 ei_end_object();
+
+// maya settings: focal=35.000000, aperture = 32.000000, aspect=1.333333
+//Depth of Field on camera "|persp|perspShape" is turned off in Maya
+
+//############################### camera #
+ei_camera("|camera1|cameraShape1");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/shader_graph.perspShape.1.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(32);
+ei_aspect(1.33333);
+ei_resolution(200,150);
+ei_clip(0.1,10000);
+ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pCube2|pCubeShape2, 0, 0
 
@@ -1420,12 +1415,34 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pCube1|pCubeShape1
 ei_element("|pCube1|pCubeShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
 const char *lightgroup_token = ei_token("|pCube1_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
+//|camera1|cameraShape1 is not lighted.
+//--------------------------
+//ribNode->name=|camera1|cameraShape1
+//ribNode's transform node=|camera1
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|camera1|cameraShape1
+ei_instance("|camera1");
+//|camera1|cameraShape1's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|camera1|cameraShape1
+//shape full path name=|camera1|cameraShape1
+ei_element("|camera1|cameraShape1");
+ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,20.2125,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|camera1_lightgroup");
 ei_variable("lightgroup", &lightgroup_token );
 }
 ei_end_instance();
@@ -1442,7 +1459,7 @@ ei_mtl("lambert6SG");
 //shape full path name=|pCube2|pCubeShape2
 ei_element("|pCube2|pCubeShape2");
 ei_transform(5.0535,0,0,0,   0,2.47801,0,0,   0,0,6.72988,0,   -13.7389,0,-1.0655,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1464,7 +1481,7 @@ ei_mtl("blinn1SG");
 //shape full path name=|pCube3|pCubeShape3
 ei_element("|pCube3|pCubeShape3");
 ei_transform(3.31381,0,0,0,   0,3.31381,0,0,   0,0,3.31381,0,   -13.2322,0,13.5744,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1486,7 +1503,7 @@ ei_mtl("blinn2SG");
 //shape full path name=|pCube4|pCubeShape4
 ei_element("|pCube4|pCubeShape4");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -0.0562937,1.59584,13.4494,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1508,7 +1525,7 @@ ei_mtl("lambert7SG");
 //shape full path name=|pCube5|pCubeShape5
 ei_element("|pCube5|pCubeShape5");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   28.6422,2.33778,5.16394,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1530,7 +1547,7 @@ ei_mtl("lambert9SG");
 //shape full path name=|pCube6|pCubeShape6
 ei_element("|pCube6|pCubeShape6");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   14.6207,3.48914,0.494833,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -1543,7 +1560,7 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
+ei_add_instance("|camera1");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|pointLight2|pointLightShape2");
@@ -1556,8 +1573,8 @@ ei_add_instance("|pCube5");
 ei_add_instance("|pCube6");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

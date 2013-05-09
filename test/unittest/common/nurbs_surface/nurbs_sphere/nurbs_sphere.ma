@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: nurbs_sphere.ma
-//Last modified: Mon, Apr 22, 2013 04:03:08 PM
+//Last modified: Thu, May 09, 2013 01:38:06 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -12,11 +12,10 @@ fileInfo "version" "2012";
 fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
-	setAttr ".v" no;
 	setAttr ".t" -type "double3" -5.4014537650337919 10.261386694738022 10.376678910576114 ;
 	setAttr ".r" -type "double3" -39.938352729609363 -27.799999999997468 -7.19109899620009e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
-	setAttr -k off ".v" no;
+	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".coi" 16.206525712172404;
 	setAttr ".imn" -type "string" "persp";
@@ -138,7 +137,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/nurbs_sphere2696.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/nurbs_sphere214.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";

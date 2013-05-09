@@ -27,34 +27,10 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
+ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/texture_anim2.perspShape.629.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.01,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516,0,   -0.00344296,0.995122,0.0985936,0,   1.19645,17.8212,2.39937,1);
-ei_end_instance();
-
 ei_shader("maya_place2dTexture", "place2dTexture1");
 ei_shader_param_int("liq_UserDefinedU",0);
 ei_shader_param_int("liq_UserDefinedV",0);
@@ -149,13 +125,12 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 //mesh(s)
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 
@@ -183,34 +158,10 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
+ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/texture_anim2.perspShape.630.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.01,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516,0,   -0.00344296,0.995122,0.0985936,0,   1.19645,17.8212,2.39937,1);
-ei_end_instance();
-
 ei_shader("maya_place2dTexture", "place2dTexture1");
 ei_shader_param_int("liq_UserDefinedU",0);
 ei_shader_param_int("liq_UserDefinedV",0);
@@ -2772,8 +2723,8 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|locator1|locatorShape1
 ei_element("|locator1|locatorShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=24, ribNode->doMotion=50
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -2794,7 +2745,7 @@ ei_mtl("lambert4SG");
 //shape full path name=|locator1|pPlane1|pPlaneShape1
 ei_element("|locator1|pPlane1|pPlaneShape1");
 ei_transform(0.0343386,0,0,0,   0,0.0343386,0,0,   0,0,0.0343386,0,   0,0,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -2807,7 +2758,6 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
@@ -2815,8 +2765,8 @@ ei_add_instance("|locator1");
 ei_add_instance("|locator1|pPlane1");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 
@@ -2844,34 +2794,10 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
+ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/texture_anim2.perspShape.650.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.01,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516,0,   -0.00344296,0.995122,0.0985936,0,   1.19645,17.8212,2.39937,1);
-ei_end_instance();
-
 ei_shader("maya_place2dTexture", "place2dTexture1");
 ei_shader_param_int("liq_UserDefinedU",0);
 ei_shader_param_int("liq_UserDefinedV",0);
@@ -5433,7 +5359,7 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|locator1|locatorShape1
 ei_element("|locator1|locatorShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -5455,8 +5381,8 @@ ei_mtl("lambert4SG");
 //shape full path name=|locator1|pPlane1|pPlaneShape1
 ei_element("|locator1|pPlane1|pPlaneShape1");
 ei_transform(0.0343386,0,0,0,   0,0.0343386,0,0,   0,0,0.0343386,0,   0,0,0,1);
-//ribNode->doDef=1, ribNode->doMotion=1
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -5468,7 +5394,6 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
@@ -5476,8 +5401,8 @@ ei_add_instance("|locator1");
 ei_add_instance("|locator1|pPlane1");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 
@@ -5505,34 +5430,10 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
+ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/texture_anim2.perspShape.660.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.01,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516,0,   -0.00344296,0.995122,0.0985936,0,   1.19645,17.8212,2.39937,1);
-ei_end_instance();
-
 ei_shader("maya_place2dTexture", "place2dTexture1");
 ei_shader_param_int("liq_UserDefinedU",0);
 ei_shader_param_int("liq_UserDefinedV",0);
@@ -8094,8 +7995,8 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|locator1|locatorShape1
 ei_element("|locator1|locatorShape1");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,0,0,1);
-//ribNode->doDef=112, ribNode->doMotion=220
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -8116,8 +8017,8 @@ ei_mtl("lambert4SG");
 //shape full path name=|locator1|pPlane1|pPlaneShape1
 ei_element("|locator1|pPlane1|pPlaneShape1");
 ei_transform(0.0343386,0,0,0,   0,0.0343386,0,0,   0,0,0.0343386,0,   0,0,0,1);
-//ribNode->doDef=99, ribNode->doMotion=107
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -8129,7 +8030,6 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
@@ -8137,8 +8037,8 @@ ei_add_instance("|locator1");
 ei_add_instance("|locator1|pPlane1");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 
@@ -8166,34 +8066,10 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(2071735777,2071735777,2071735777,2071735777,2071735777,2071735777);
+ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/texture_anim2.perspShape.672.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(200,150);
-ei_clip(0.01,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(0.999391,-3.46945e-018,0.0348995,0,   0.0347292,0.0986537,-0.994516,0,   -0.00344296,0.995122,0.0985936,0,   1.19645,17.8212,2.39937,1);
-ei_end_instance();
-
 ei_shader("maya_place2dTexture", "place2dTexture1");
 ei_shader_param_int("liq_UserDefinedU",0);
 ei_shader_param_int("liq_UserDefinedV",0);
@@ -8288,13 +8164,12 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
 //light(s)
 //mesh(s)
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 

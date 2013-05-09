@@ -31,30 +31,6 @@ ei_trace_depth(4,4,4,4,4,4);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
-// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
-//Depth of Field on camera "|persp|perspShape" is turned off in Maya
-
-//############################### camera #
-ei_camera("|persp|perspShape_object");
-//beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/onehair.perspShape.1.elvishray.bmp","bmp",1);
-//mode=rgb
-ei_output_variable("color",11);
-ei_end_output();
-// AOV
-// AOV end
-ei_focal(35);
-ei_aperture(36);
-ei_aspect(1.33333);
-ei_resolution(768,576);
-ei_clip(0.1,10000);
-ei_end_camera();
-//----------------------------------
-ei_instance("|persp|perspShape");
-ei_element("|persp|perspShape_object");
-ei_transform(-0.928486,-1.14492e-016,-0.371368,0,   -0.0487197,0.991357,0.121808,0,   0.368158,0.13119,-0.920461,0,   1.41331,0.788518,-3.05829,1);
-ei_end_instance();
-
 ei_shader("maya_lambert", "lambert1");
 ei_shader_param_vector("i_ambientColor",0,0,0);
 ei_shader_param_vector("i_color",0.898,0.539042,0.132904);
@@ -100,6 +76,25 @@ ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   0,6.93427,0,1);
 ei_declare("|pPlane3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pPlane4_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
+
+// maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333
+//Depth of Field on camera "|persp|perspShape" is turned off in Maya
+
+//############################### camera #
+ei_camera("|persp|perspShape");
+//beauty channel
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/onehair.perspShape.1.elvishray.bmp","bmp",1);
+//mode=rgb
+ei_output_variable("color",11);
+ei_end_output();
+// AOV
+// AOV end
+ei_focal(35);
+ei_aperture(36);
+ei_aspect(1.33333);
+ei_resolution(768,576);
+ei_clip(0.1,10000);
+ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pPlane3|pPlaneShape3, 0, 0
 
@@ -262,6 +257,28 @@ ei_tab_add_index(5);
 ei_end_tab();
 }//|pPlane4|pPlaneShape4
 ei_end_object();
+//|persp|perspShape is not lighted.
+//--------------------------
+//ribNode->name=|persp|perspShape
+//ribNode's transform node=|persp
+//ribNode->object(0)->getDataPtr()->getFullPathName()=|persp|perspShape
+ei_instance("|persp");
+//|persp|perspShape's shading group is empty, use "liquid_material_for_test" to avoid crash
+ei_mtl("liquid_material_for_test");
+//shape name=|persp|perspShape
+//shape full path name=|persp|perspShape
+ei_element("|persp|perspShape");
+ei_transform(-0.928486,-3.46945e-018,-0.371368,0,   -0.0487197,0.991357,0.121808,0,   0.368158,0.13119,-0.920461,0,   1.41331,0.788518,-3.05829,1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
+{//light group(light-link group)
+const char *null_token = NULL;
+ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
+const char *lightgroup_token = ei_token("|persp_lightgroup");
+ei_variable("lightgroup", &lightgroup_token );
+}
+ei_end_instance();
+
 //--------------------------
 //ribNode->name=|pPlane3|pPlaneShape3
 //ribNode's transform node=|pPlane3
@@ -274,8 +291,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane3|pPlaneShape3
 ei_element("|pPlane3|pPlaneShape3");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -0.104414,0,1.59073,1);
-//ribNode->doDef=196, ribNode->doMotion=0
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -296,7 +313,7 @@ ei_mtl("liquid_material_for_test");
 //shape full path name=|pfxHair2|pfxHairShape2
 ei_element("|pfxHair2|pfxHairShape2");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -0.213447,0,-0.114497,1);
-//ribNode->doDef=0, ribNode->doMotion=0
+//bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
@@ -318,8 +335,8 @@ ei_mtl("initialShadingGroup");
 //shape full path name=|pPlane4|pPlaneShape4
 ei_element("|pPlane4|pPlaneShape4");
 ei_transform(1,0,-0,0,   -0,-0.00338668,-0.999994,0,   0,0.999994,-0.00338668,0,   -1.45353,0,4.93474,1);
-//ribNode->doDef=15, ribNode->doMotion=0
-ei_motion(1);
+//bMotionBlur=0, bGeometryMotion=0
+ei_motion(0);
 {//light group(light-link group)
 const char *null_token = NULL;
 ei_declare("lightgroup", EI_CONSTANT, EI_TYPE_TOKEN, &null_token);
@@ -331,7 +348,7 @@ ei_end_instance();
 //Renderer::worldEpilogue()
 ei_instgroup("perspShape");
 //camera
-ei_add_instance("|persp|perspShape");
+ei_add_instance("|persp");
 //light(s)
 ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
@@ -340,8 +357,8 @@ ei_add_instance("|pPlane4");
 ei_add_instance("|pfxHair2");
 ei_end_instgroup();
 // in batch render mode
-//ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
-ei_render( "perspShape", "|persp|perspShape", "perspShape_option" );
+//ei_render( "perspShape", "|persp", "perspShape_option" );
+ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
 //------------------------------------------------
 
