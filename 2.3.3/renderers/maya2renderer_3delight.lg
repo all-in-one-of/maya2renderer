@@ -87,7 +87,7 @@ proc setAttribute15() {
 	setAttr ".outputShaderGraph" true;
 	setAttr ".renderCamera"    -type "string" "perspShape";
 	setAttr ".shaderDirectory" -type "string" "generatedShader";
-	setAttr ".ddImageName[0]"  -type "string" "$SCN.$CAM.$F.$RND.bmp";
+	setAttr ".ddImageName[0]"  -type "string" "$SCN.$CAM.$RND.#.bmp";
 }
 proc setAttribute16() {
 	setAttr ".textureExt" -type "string" "tdl";
