@@ -263,6 +263,10 @@ namespace elvishray
 		unsigned int sample_first = 0;
 		unsigned int sample_last = liqglo.liqglo_motionSamples -1;
 
+		//Debug
+		//liquidMessage2(messageError, "%s, %d, %x",
+		//	ribNode__->name.asChar(), ribNode__->motion.transformationBlur, ribNode__->object( 1 ));
+
 		const bool bMotionBlur =
 			ribNode__->motion.transformationBlur &&
 			( ribNode__->object( 1 ) ) &&

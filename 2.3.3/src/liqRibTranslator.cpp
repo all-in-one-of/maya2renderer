@@ -4417,7 +4417,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 {
 	CM_TRACE_FUNC("liqRibTranslator::scanSceneNodes(&currentNode, &path,"<<lframe<<","<<sample<<",&count)");
 	//Debug
-	MString pathname(path.fullPathName());
+	//MString pathname(path.fullPathName());
 
 	MFnDagNode dagNode;
 	returnStatus = dagNode.setObject( currentNode );
@@ -4451,22 +4451,22 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		}
 
 	}
-	liquidMessage2(messageInfo,"%s, %s,\t\t\t\t %d%d%d %d%d %d%d %d%d%d%d"
-		,path.fullPathName().asChar(), currentNode.apiTypeStr()
-		,currentNode.hasFn( MFn::kNurbsSurface )
-		,currentNode.hasFn( MFn::kMesh )
-		,currentNode.hasFn( MFn::kParticle )
+	//liquidMessage2(messageInfo,"%s, %s,\t\t\t\t %d%d%d %d%d %d%d %d%d%d%d"
+	//	,path.fullPathName().asChar(), currentNode.apiTypeStr()
+	//	,currentNode.hasFn( MFn::kNurbsSurface )
+	//	,currentNode.hasFn( MFn::kMesh )
+	//	,currentNode.hasFn( MFn::kParticle )
 
-		,currentNode.hasFn( MFn::kLocator )
-		,currentNode.hasFn( MFn::kSubdiv )
+	//	,currentNode.hasFn( MFn::kLocator )
+	//	,currentNode.hasFn( MFn::kSubdiv )
 
-		,currentNode.hasFn( MFn::kPfxHair )
-		,currentNode.hasFn( MFn::kPfxGeometry )
+	//	,currentNode.hasFn( MFn::kPfxHair )
+	//	,currentNode.hasFn( MFn::kPfxGeometry )
 
-		,currentNode.hasFn( MFn::kPfxToon )
-		,currentNode.hasFn( MFn::kImplicitSphere )
-		,currentNode.hasFn( MFn::kPluginShape )
-		,currentNode.hasFn( MFn::kNurbsCurve ) );
+	//	,currentNode.hasFn( MFn::kPfxToon )
+	//	,currentNode.hasFn( MFn::kImplicitSphere )
+	//	,currentNode.hasFn( MFn::kPluginShape )
+	//	,currentNode.hasFn( MFn::kNurbsCurve ) );
 	
 	if(  currentNode.hasFn( MFn::kNurbsSurface )
 		|| currentNode.hasFn( MFn::kMesh )

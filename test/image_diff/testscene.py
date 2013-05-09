@@ -205,16 +205,16 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
-
     '''
+
+    
 
 
     '''
     ------------------------ elvishray ----------------------------------
     '''
 
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -244,10 +244,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/tif.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/jpg.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/test_pl/test_pl_type.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -424,6 +424,9 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/blur_camera/blur_camera.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
     
 
     '''
@@ -442,8 +445,12 @@ def test_all_scene():
     '''
     ------------------------ else ----------------------------------
     '''
-
-
+    
+    #testFile="G:/tmp/d_tmp/maya_test/tutorial/Transforming.Robot/8-Animation/scenes/transformingRobot_anim_liq.ma"
+    #MyTestOne.test_one_scene(testFile, "elvishray")
+    
+    #testFile="E:/dev/Autodesk/maya/myplugin/project/liquid_/tomaya/mayabatch_crash/test.ma"
+    #MyTestOne.test_one_scene(testFile, "mentalRay")
 
     '''
 

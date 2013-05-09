@@ -7,6 +7,13 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq|er|: camera 节点上设置了mb属性，但依然没有mb效果
+-(done)liq| er|:release版本 回归测试
+-(done) no CM_TRACE_FUNC
+-(done) no flush();
+-liq|rm :E:/dev/autodesk/maya/myplugin/project/liquid_/test/unittest/rm/displacement/displacement.ma
+-(done)liq| er|: 编译release版本(导出花了1:24s)
+
 G:\tmp\d_tmp\maya_test\animium整理剩余模型
 - liq| er|: G:\tmp\d_tmp\maya_test\animium\Robot_Women\liq.ma导出时有异常(原因是内存不足，现在只能测试2百万 tris的场景)
 加了try-catch性能损失多少？
