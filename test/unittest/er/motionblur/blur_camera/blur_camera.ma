@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: blur_camera.ma
-//Last modified: Thu, May 09, 2013 11:01:52 AM
+//Last modified: Thu, May 09, 2013 12:14:19 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -227,6 +227,8 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
 	setAttr ".osg" yes;
+	setAttr ".xres" 200;
+	setAttr ".yres" 150;
 	setAttr ".tb" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
@@ -310,6 +312,8 @@ select -ne :renderGlobalsList1;
 select -ne :defaultRenderGlobals;
 	setAttr ".ren" -type "string" "liquid";
 select -ne :defaultResolution;
+	setAttr ".w" 200;
+	setAttr ".h" 150;
 	setAttr ".pa" 1;
 select -ne :defaultLightSet;
 select -ne :hardwareRenderGlobals;

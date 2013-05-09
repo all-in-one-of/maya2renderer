@@ -229,7 +229,7 @@ ei_end_output();
 ei_focal(35);
 ei_aperture(32);
 ei_aspect(1.33333);
-ei_resolution(768,576);
+ei_resolution(200,150);
 ei_clip(0.1,10000);
 ei_end_camera();
 //--------------------------
