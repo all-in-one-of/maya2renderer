@@ -2555,6 +2555,7 @@
     <ClCompile Include="..\renderman\rm_renderer.cpp" />
     <ClCompile Include="..\renderman\rm_shader.cpp" />
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
+    <ClCompile Include="..\renderman\rm_writeCameraData.cpp" />
     <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCoordData.cpp" />
     <ClCompile Include="..\renderman\rm_writeCurvesData.cpp" />

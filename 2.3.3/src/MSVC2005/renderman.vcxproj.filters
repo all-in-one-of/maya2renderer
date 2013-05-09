@@ -114,6 +114,9 @@
     <ClCompile Include="..\renderman\liqRiCommands.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_writeCameraData.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">

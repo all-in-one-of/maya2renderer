@@ -295,6 +295,11 @@ namespace renderman
 			const MString &fileName, 
 			const structJob &currentJob,
 			const bool bReference);
+		virtual void write(
+			liqRibCameraData* data,
+			const MString &fileName, 
+			const structJob &currentJob,
+			const bool bReference);
 
 		//preview
 		virtual int preview( const std::string& fileName, const liqPreviewShaderOptions& options);

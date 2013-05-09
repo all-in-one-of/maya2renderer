@@ -205,8 +205,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+    
+    testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/blur_camera/blur_camera.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
     '''
-
     
 
 
