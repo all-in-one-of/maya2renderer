@@ -220,7 +220,7 @@ namespace elvishray
 			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
 
 			int adaptive = 0;
-			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_adaptive", adaptive, status));
 			o.ei_area_samples(adaptive);
 		}
 
