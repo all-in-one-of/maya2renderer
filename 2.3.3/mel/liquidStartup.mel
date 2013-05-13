@@ -533,6 +533,9 @@ global proc liquidCreateLightsAttributesMenu( string $prefix )
     menuItem -d true;
     menuItem -label "Add Z-Threshold" -command liquidAddZThres -ann "Add a z-threshold control to selected light(s)";
     menuItem -label "Delete Z-Threshold" -command liquidRemoveZThres -ann "Remove a z-threshold control from selected light(s)";
+    menuItem -d true;
+    menuItem -label "Add LightAtributesForER" -command liquidAddLightsAttributesForER -ann "Add Lights Attributes For ER";
+    menuItem -label "Delete LightAtributesForER" -command liquidDeleteLightsAttributesForER -ann "Delete Lights Attributes For ER";    
   setParent -menu ..;
   liqPopIdent();
 }
@@ -1067,6 +1070,4 @@ global proc string liquidmayaBatchRenderOptionsString()
 
 	liqPopIdent();
 	return " -r liquid ";
-
 }
-

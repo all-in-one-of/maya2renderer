@@ -429,7 +429,11 @@ namespace elvishray
 		//CM_TRACE_FUNC("OutputESS::ei_area_samples("<<samples<<" )");
 		m_outputfile<<"area_samples "<<samples<<" "<<std::endl;
 	}
-
+	void OutputESS::ei_adaptive(const eiBool adaptive)
+	{
+		//CM_TRACE_FUNC("OutputESS::ei_adaptive("<<adaptive<<" )");
+		m_outputfile<<"ei_adaptive "<<adaptive<<" "<<std::endl;
+	}
 	void OutputESS::ei_end_light()
 	{
 		//CM_TRACE_FUNC("OutputESS::ei_end_light()");

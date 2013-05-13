@@ -189,6 +189,8 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportShadowPassLight("<<shadertype<<","<<shaderinstance<<","<<shadowname<<",liqMatrix t)");
+		MStatus status;
+
 		o.a("Renderer::exportShadowPassLight()");
 
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
@@ -201,7 +203,29 @@ namespace elvishray
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
 		o.ei_light( sLightObjectName.c_str() );//object
 		o.ei_light_shader(	sShaderInstanceName.c_str() );//shader
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+			
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_area_samples(adaptive);
+		}
+
 		o.ei_origin( t[3][0],t[3][1],t[3][2] );
+
 		o.ei_end_light();
 
 		o.ei_instance(  shaderinstanceFullPath.c_str() );

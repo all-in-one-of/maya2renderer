@@ -193,7 +193,7 @@ namespace elvishray
 
 		//	Light Source Types:
 		virtual void ei_area_samples( eiInt samples );
-
+		virtual void ei_adaptive(const eiBool adaptive);
 		virtual void ei_end_light();
 
 

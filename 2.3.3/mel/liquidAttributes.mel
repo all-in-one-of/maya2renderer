@@ -2724,7 +2724,63 @@ global proc liquidDeleteCustomShaderAttributesForERCamera()
   } 
   liqPopIdent();
 }
+global proc liquidAddLightsAttributesForER()
+{
+	liqPushIdent();
+    liqlog("liquidAddLightsAttributesForER()");
 
+	string $shapes[] = `ls -selection -dag -type "light"`;
+	if( size($shapes) == 0)
+	{
+		liqError("Please select light(s).");
+		liqPopIdent();
+		return;
+	}
+	for ( $currentShape in $shapes ) 
+	{
+		if ( !`attributeQuery -node $currentShape -ex "ei_area_samples"` ) {
+			addAttr -ln "ei_area_samples" -at "long" -dv 16 -k true $currentShape;
+		}
+		if ( !`attributeQuery -node $currentShape -ex "ei_adaptive"` ) {
+			addAttr -ln "ei_adaptive" -at "bool" -dv 0 -k true $currentShape;
+		}
+	}
+	liqPopIdent();
+}
+global proc liquidDeleteLightsAttributesForER()
+{
+	liqPushIdent();
+    liqlog("liquidDeleteLightsAttributesForER()");
+
+	string $shapes[] = `ls -selection -dag -type "light"`;
+	if( size($shapes) == 0)
+	{
+		liqWarn("None light(s) is selected.");
+		liqPopIdent();
+		return;
+	}
+	string $attr[] = 
+	{ 
+		"ei_area_samples",
+		"ei_adaptive"
+	};
+
+	for ( $currentShape in $shapes ) 
+	{
+		for ( $a in $attr ) 
+		{
+			if ( `attributeQuery -node $currentShape -ex $a` ) 
+			{
+				//deleteAttr ( $currentShape + "."+$a );
+			
+				// philippe: this is a fix to deal with a bug with compound attributes
+				renameAttr ( $currentShape + "."+$a ) "TO_BE_DELETED";
+				deleteAttr ( $currentShape + ".TO_BE_DELETED" );
+			}
+		}
+	}
+	liqPopIdent();
+}
 //CustomShader-----------------------------------------------------
 global proc liquidCreateCustomShaderAttributesForAppleseed()
 {

@@ -778,7 +778,16 @@ namespace elvishray
 			(*i)->ei_area_samples(samples);
 		}
 	}
-
+	void OutputMgr::ei_adaptive(const eiBool adaptive)
+	{
+		//CM_TRACE_FUNC("OutputMgr::ei_adaptive("<<adaptive<<" )");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->ei_adaptive(adaptive);
+		}
+	}
 	void OutputMgr::ei_end_light()
 	{
 		//CM_TRACE_FUNC("OutputMgr::ei_end_light()");

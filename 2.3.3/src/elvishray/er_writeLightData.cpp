@@ -66,7 +66,7 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<shadertype<<","<<shaderinstance<<",...)");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportAmbientLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
@@ -80,6 +80,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str() );
 		o.ei_origin( t[3][0],t[3][1],t[3][2] );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance(  shaderinstanceFullPath.c_str());
@@ -92,7 +112,7 @@ namespace elvishray
 	liqLightHandle Renderer::exportAmbientLight(const liqRibLightData *lightdata, const structJob &currentJob)
 	{
 		CM_TRACE_FUNC("Renderer::exportAmbientLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
-
+		MStatus status;
 		assert(0&&"skylight leads to a crash. i dont know why.");
 
 		o.ln();
@@ -112,6 +132,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str() );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance( shaderinstanceFullPath.c_str() );
@@ -144,7 +184,7 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportDistantLight("<<shadertype<<","<<shaderinstance<<",...)");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportDistantLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
@@ -160,6 +200,26 @@ namespace elvishray
 		o.ei_light( sLightObjectName.c_str());
 		o.ei_light_shader(	sShaderInstanceName.c_str() );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance( shaderinstanceFullPath.c_str());
@@ -198,7 +258,7 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportPointLight("<<shadertype<<","<<shaderinstance<<",...)");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportPointLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
@@ -213,6 +273,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str()  );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance( shaderinstanceFullPath.c_str() );
@@ -274,7 +354,7 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportSpotLight("<<shadertype<<","<<shaderinstance<<",...)");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportSpotLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
@@ -294,6 +374,26 @@ namespace elvishray
 		o.ei_light( sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str()  );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance( shaderinstanceFullPath.c_str() );
@@ -330,7 +430,7 @@ namespace elvishray
 		const liqMatrix &t)
 	{
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<shadertype<<","<<shaderinstance<<",...)");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportAreaLight()");
 		std::string shaderinstanceFullPath( toFullDagPath(shaderinstance) );
@@ -344,6 +444,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str() );
 		o.ei_origin( t[3][0],t[3][1],t[3][2]  );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance( shaderinstanceFullPath.c_str() );
@@ -356,7 +476,7 @@ namespace elvishray
 	liqLightHandle Renderer::exportAreaLight(const liqRibLightData *lightdata, const structJob &currentJob)
 	{
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportAreaLight()");
 		o.a(" NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
@@ -383,6 +503,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str() );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		o.ei_instance( shaderinstanceFullPath.c_str() );
@@ -455,6 +595,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	sShaderInstanceName.c_str() );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		//instance
@@ -469,7 +629,7 @@ namespace elvishray
 	liqLightHandle Renderer::exportUserDefinedLight(const liqRibLightData *lightdata, const structJob &currentJob)
 	{
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
-
+		MStatus status;
 		o.ln();
 		o.a(" Renderer::exportAreaLight()");
 		o.a(" NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
@@ -489,6 +649,26 @@ namespace elvishray
 		o.ei_light(  sLightObjectName.c_str() );
 		o.ei_light_shader(	lightdata->rmanLightShader->getName().c_str() );
 		o.ei_origin( 0.0, 0.0, 0.0 );
+		//area_sample
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_area_samples"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int area_sample = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "ei_area_samples", area_sample, status));
+			o.ei_area_samples(area_sample);
+		}
+		//ei_adaptive
+		if(doesPlugExist(shaderinstanceFullPath.c_str(), "ei_adaptive"))
+		{
+			MObject depNode;
+			getDependNodeByName(depNode, shaderinstanceFullPath.c_str());
+
+			int adaptive = 0;
+			IfMErrorWarn(liquidGetPlugValue(depNode, "adaptive", adaptive, status));
+			o.ei_adaptive(adaptive);
+		}
 		o.ei_end_light();
 
 		//instance
