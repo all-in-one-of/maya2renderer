@@ -93,6 +93,8 @@ ei_end_shader();
 ei_light("|volumeLight1|volumeLightShape1_object");
 ei_light_shader("|volumeLight1|volumeLightShape1_shader");
 ei_origin(0,0,0);
+ei_area_samples(16);
+ei_adaptive(1);
 ei_end_light();
 ei_instance("|volumeLight1|volumeLightShape1");
 ei_element("|volumeLight1|volumeLightShape1_object");
