@@ -7,13 +7,13 @@ def test_all_scene():
     '''
     ------------------------ renderman ----------------------------------
     '''
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/deform_tex/deform_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -216,7 +216,7 @@ def test_all_scene():
     ------------------------ elvishray ----------------------------------
     '''
 
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -429,7 +429,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/blur_camera/blur_camera.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+    '''
 
     '''
     ------------------------ appleseed ----------------------------------

@@ -1,11 +1,12 @@
 import sys
 import os
 import maya.standalone
-import maya.OpenMaya as OpenMaya
-import maya.cmds as cmds
+import maya.OpenMaya    as OpenMaya
+import maya.cmds        as cmds
+import maya.mel         as mel
 import liqGlobalHelpers as gHelper
-import liqTestLog as mLiqlog
-import render_tester as rt
+import liqTestLog       as mLiqlog
+import render_tester    as rt
 
 def parseString(strdata):
     import maya.cmds as cmds
@@ -79,6 +80,14 @@ def _render(mayaFile, liqRenderer):
     os.system(cmd)
 
 
+def _render2(mayafile, liqRenderer):
+    cmds.file( mayafile, f=True,  options="v=0", typ="mayaAscii", o=True)
+    command = 'source "registerLiquidRenderer.mel"; registerLiquidRenderer(); catch(`loadPlugin '+liqRenderer+'`); setAttr -type "string" liquidGlobals.renderer '+liqRenderer+';'
+    mel.eval(command)
+    
+    mel.eval('mayaBatchRenderProcedure(0,"","","liquid","")')
+
+
 def _test(mayaFile, liqRenderer):
     print("\n\n\n\n\n\n")
     print("----------------------------------------------------------\n")
@@ -90,7 +99,8 @@ def _test(mayaFile, liqRenderer):
     mLiqlog.output_img_beg(getStanderImage(mayaFile, liqRenderer))
     mLiqlog.output_img_end()
 
-    _render(mayaFile, liqRenderer)
+    #_render(mayaFile, liqRenderer)
+    _render2(mayaFile, liqRenderer)
 
     #import time
     #time.sleep(4)

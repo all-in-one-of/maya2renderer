@@ -7,13 +7,8 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
--liq|er|: camera 节点上设置了mb属性，但依然没有mb效果
--(done)liq| er|:release版本 回归测试
--(done) no CM_TRACE_FUNC
--(done) no flush();
+-liq|er|:05_begin_liq_noIBL_03_truck_tex_noNurbs_softedge.shotCamShape.elvishray.0124 开启MB后，左手有是黑的 
 -liq|rm :E:/dev/autodesk/maya/myplugin/project/liquid_/test/unittest/rm/displacement/displacement.ma
--(done)liq| er|: 编译release版本(导出花了1:24s)
-
 G:\tmp\d_tmp\maya_test\animium整理剩余模型
 - liq| er|: G:\tmp\d_tmp\maya_test\animium\Robot_Women\liq.ma导出时有异常(原因是内存不足，现在只能测试2百万 tris的场景)
 加了try-catch性能损失多少？
@@ -39,19 +34,12 @@ G:\tmp\d_tmp\maya_test\animium整理剩余模型
 - liq| rm|: /test/unittest/rm/displacement/displacement.ma, bug: rib文件里有全局的displace shader。
 - liq| rm|: /test/maya_shader/arealight/arealight.ma, bug: 渲染不出效果，用3delight渲染rib文件，提示3DL WARNING P1165: undefined coordinate system '_areaLight1_areaLightShape1CoordSys' in shader (in shader 'liquidarea' on object '_pPlane2_pPlaneShape2')
 - liq| rm|: /test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma, batchrendering leads to a crash
--(done)liq| er|: Visitor::visitPlace2dTexture（），place2dTexture里的uvCoord还是应该加上
--(done) liq|er| ui|: trace_depth --> eiInt transp,  eiInt glossy_reflect, eiInt diffuse_reflect,  eiInt glossy_refract, eiInt diffuse_refract, eiInt sum
--(done)liq| rm|: shader parameter 里如果有':'应该替换为‘_’,测试happywalk
--(done) liq| er| ess|: 回归测试
--(done) liq| er|: er渲染时会写缓存数据吗？我发现第二次渲染比第一次渲染快很多
--(done) G:\tmp\d_tmp\maya_test\creativecrash\fox1.0\fox1_liq2.ma UV有问题
--(done) liq| er|: /test/animation_test/HappyWalk/HappyWalk_liq_simple.ma, bug:right side of the body is almost black
+
 - liq| er|: test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma, bug: rendering hangs, refer to bug list on google code
 - liq| er|: 有些场景在maya里渲染几次就崩溃了
 - liq|: ramp shader
 - liq| er|: 把er shader的pl/dll/lif整理到一个目录下
 - liq| er|: 测试更多的场景
--(done) liq| er|: blinn
 - liq| er|: 完善maya_phong
 - liq| er|: stereoCamera
 - liq| er|: image shader, 
@@ -62,6 +50,20 @@ G:\tmp\d_tmp\maya_test\animium整理剩余模型
 - liq|: 重构,支持ipr
 - liq| er|: ipr更新shader，camera等数据
 - plugin load callback
+-(done) liq| er|: blinn
+-(done)liq| er|: Visitor::visitPlace2dTexture（），place2dTexture里的uvCoord还是应该加上
+-(done) liq|er| ui|: trace_depth --> eiInt transp,  eiInt glossy_reflect, eiInt diffuse_reflect,  eiInt glossy_refract, eiInt diffuse_refract, eiInt sum
+-(done)liq| rm|: shader parameter 里如果有':'应该替换为‘_’,测试happywalk
+-(done) liq| er| ess|: 回归测试
+-(done) liq| er|: er渲染时会写缓存数据吗？我发现第二次渲染比第一次渲染快很多
+-(done) G:\tmp\d_tmp\maya_test\creativecrash\fox1.0\fox1_liq2.ma UV有问题
+-(done) liq| er|: /test/animation_test/HappyWalk/HappyWalk_liq_simple.ma, bug:right side of the body is almost black
+-(done)liq| er|: 编译release版本(导出花了1:24s)
+-(done)liq|er|: ei_light/ei_end_light之间加上ei_area_samples（）
+-(done)liq|er|: camera 节点上设置了mb属性，但依然没有mb效果
+-(done)liq| er|:release版本 回归测试
+-(done) no CM_TRACE_FUNC
+-(done) no flush();
 ===================================  TODO LIST  =============================================
 liquid
 ------------

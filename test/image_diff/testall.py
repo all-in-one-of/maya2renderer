@@ -5,7 +5,6 @@ import maya.OpenMaya as OpenMaya
 import maya.cmds as cmds
 
 import liqTestLog as mLiqlog
-import mayaenv
 import testscene
 
 def initialize():
@@ -17,10 +16,10 @@ def initialize():
 
 
 def main():
-    mayaenv.configMayaEnv()
-    mLiqlog.flog("configMayaEnv() done.")
-    initialize()
-    mLiqlog.flog("initialize() done.")
+    #mayaenv.configMayaEnv()
+    #mLiqlog.flog("configMayaEnv() done.")
+    #initialize()
+    #mLiqlog.flog("initialize() done.")
 
     mLiqlog.flog("test_all_scene() begin.")
     testscene.test_all_scene()

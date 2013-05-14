@@ -1,7 +1,7 @@
 import sys
 import os
 
-gLiqTestLogFile = './_liqTestLog.htm'
+gLiqTestLogFile = os.environ["LIQUID_AUTO_TEST_DIR"]+'/_liqTestLog.htm'
 
 class LiqTestLog:
     def __init__(self, logfileFullPath):
@@ -30,6 +30,9 @@ class LiqTestLog:
     def write2(self, data):
         LiqTestLog.__logFile.write(data)
 
+    def flush(self):
+        LiqTestLog.__logFile.flush()
+
 
 # instance of class LiqTestLog
 gLiqTestLog = LiqTestLog( gLiqTestLogFile )
@@ -44,6 +47,7 @@ def scene_beg(sceneName):
 
 def scene_end():
     gLiqTestLog.write("</blockquote>")
+    gLiqTestLog.flush()
 
 # renderer ----------------------------------------------
 def renderer_beg(rendererName):
