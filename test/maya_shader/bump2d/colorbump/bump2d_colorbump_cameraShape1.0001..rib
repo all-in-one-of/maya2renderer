@@ -51,6 +51,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/bump2d_colorbump.cameraSha
         AttributeEnd
         Illuminate 1 0
         AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 0.999903 0.000000 0.013962 0.000000 0.010851 0.629320 -0.777070 0.000000 -0.008787 0.777146 0.629259 0.000000 1.084740 11.706354 16.367168 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_pPlane5_pPlaneShape5" ] 
             Illuminate 1 1
             #mark14

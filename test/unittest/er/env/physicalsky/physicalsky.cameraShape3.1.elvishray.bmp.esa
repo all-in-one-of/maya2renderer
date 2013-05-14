@@ -294,7 +294,7 @@ ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
 ei_add_instance("|pCube2");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "cameraShape3", "|camera3", "cameraShape3_option" );
 ei_render( "cameraShape3", "|camera3", "cameraShape3_option" );
 ei_end_context();

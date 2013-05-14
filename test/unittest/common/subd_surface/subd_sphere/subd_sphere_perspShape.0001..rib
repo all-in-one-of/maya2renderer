@@ -51,6 +51,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/subd_sphere.perspShape.1.r
         AttributeEnd
         Illuminate 1 0
         AttributeBegin
+            Attribute "identifier" "name" [ "_persp_perspShape" ] 
+            #				[DEBUG] |persp|perspShape is not lighted.
+            #has no shadingEngine
+            Transform [ 0.716911 0.000000 -0.697165 0.000000 -0.333068 0.878498 -0.342502 0.000000 0.612458 0.477747 0.629804 0.000000 5.174916 4.036686 5.321483 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_subdivSphere1_subdivSphere1Shape" ] 
             Illuminate 1 1
             #mark14

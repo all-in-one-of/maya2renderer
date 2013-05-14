@@ -69,6 +69,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/deform_tex.cameraShape1.5.
             MotionEnd
         AttributeEnd
         AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_group_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1_group|camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 0.044625 0.000000 -0.999004 0.000000 -0.544041 0.838706 -0.024302 0.000000 0.837871 0.544584 0.037427 0.000000 3.891729 2.927720 0.350672 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_pPlane2_pPlaneShape2" ] 
             Illuminate 1 1
             Opacity [ 1.000000 1.000000 1.000000 ]

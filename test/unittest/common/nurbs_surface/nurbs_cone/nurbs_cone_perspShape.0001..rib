@@ -51,6 +51,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/nurbs_cone.perspShape.1.re
         AttributeEnd
         Illuminate 1 0
         AttributeBegin
+            Attribute "identifier" "name" [ "_persp_perspShape" ] 
+            #				[DEBUG] |persp|perspShape is not lighted.
+            #has no shadingEngine
+            Transform [ 0.884581 -0.000000 0.466387 0.000000 0.299403 0.766736 -0.567868 0.000000 -0.357595 0.641963 0.678240 0.000000 -5.401454 10.261387 10.376678 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_nurbsCone1_nurbsConeShape1" ] 
             Illuminate 1 1
             #mark14

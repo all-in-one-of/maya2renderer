@@ -63,6 +63,13 @@ Display "+R:/MyDocuments/maya/projects/default/rmanpix/aov_specular.tiff" "tiff"
         AttributeEnd
         Illuminate 1 0
         AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 10.424115 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_pSphere1_pSphereShape1" ] 
             Illuminate 1 1
             #mark14

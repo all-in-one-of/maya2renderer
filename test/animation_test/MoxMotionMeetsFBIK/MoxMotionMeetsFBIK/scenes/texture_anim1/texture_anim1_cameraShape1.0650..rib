@@ -79,5 +79,12 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/texture_anim1.cameraShape1
             Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 0.190484 0.981690 0.000000 0.000000 -0.981690 0.190484 0.000000 6.338474 9.147174 -10.364679 1.000000 ]
             PointsGeneralPolygons [ 1 ] [ 4 ] [ 0 1 3 2 ] "P" [ -5.819797 -0.000000 5.880287 5.819797 -0.000000 5.880287 -5.819797 0.000000 -5.880287 5.819797 0.000000 -5.880287 ] "vertex normal N" [ 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 ] "facevarying float[2] st" [ 0.000000 1.000000 0.989713 1.000000 0.989713 0.000000 0.000000 0.000000 ] 
         AttributeEnd
+        AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 0.895646 0.000000 0.444768 0.000000 -0.000000 1.000000 0.000000 0.000000 -0.444768 -0.000000 0.895646 0.000000 -10.442816 8.204264 6.227353 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
     WorldEnd
 FrameEnd

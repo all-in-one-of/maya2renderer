@@ -537,7 +537,7 @@ add_instance "|pPlane2"
 add_instance "|pPlane3" 
 add_instance "|pPlane4" 
 end instgroup
-## in batch render mode
+##ei_connection(con);
 ##ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
 render "cameraShape1" "|camera1_group|camera1" "cameraShape1_option"
 ##end context

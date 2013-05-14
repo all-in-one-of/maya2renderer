@@ -389,7 +389,7 @@ ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|pCube1");
 ei_add_instance("|pPlane1");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();

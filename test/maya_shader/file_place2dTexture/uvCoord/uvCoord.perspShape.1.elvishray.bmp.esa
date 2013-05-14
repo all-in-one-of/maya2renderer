@@ -27,7 +27,7 @@ ei_samples(0,2);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(-1480037174,-1480037174,-1480037174,-1480037174,-1480037174,-1480037174);
+ei_trace_depth(1041079751,1041079751,1041079751,1041079751,1041079751,1041079751);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -228,7 +228,7 @@ ei_add_instance("|pointLight2|pointLightShape2");
 //mesh(s)
 ei_add_instance("|pPlane9");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();

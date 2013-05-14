@@ -51,6 +51,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/shader_graph_phong_transpa
         AttributeEnd
         Illuminate 1 0
         AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 20.212521 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_pPlane1_pPlaneShape1" ] 
             Illuminate 1 1
             #shading group: phong1SG

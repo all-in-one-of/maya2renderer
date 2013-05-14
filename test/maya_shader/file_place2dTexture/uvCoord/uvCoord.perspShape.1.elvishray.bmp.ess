@@ -22,7 +22,7 @@ options "perspShape_option"
     filter 4 3 
 ##transform motion=0, deform motion=0
     motion 0 
-    trace_depth -1480037174 -1480037174 -1480037174 -1480037174 -1480037174 -1480037174 
+    trace_depth 1041079751 1041079751 1041079751 1041079751 1041079751 1041079751 
     displace 0 
     face 3 
 end options
@@ -195,7 +195,7 @@ add_instance "|pointLight2|pointLightShape2"
 ##mesh(s)
 add_instance "|pPlane9" 
 end instgroup
-## in batch render mode
+##ei_connection(con);
 ##ei_render( "perspShape", "|persp", "perspShape_option" );
 render "perspShape" "|persp" "perspShape_option"
 ##end context

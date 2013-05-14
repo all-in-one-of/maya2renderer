@@ -373,7 +373,7 @@ ei_add_instance("|areaLight1|areaLightShape1");
 ei_add_instance("|pCube1");
 ei_add_instance("|pPlane1");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "cameraShape1", "|camera1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1", "cameraShape1_option" );
 ei_end_context();

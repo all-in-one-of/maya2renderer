@@ -180,7 +180,7 @@ add_instance "|pointLight1|pointLightShape1"
 ##mesh(s)
 add_instance "|pPlane4" 
 end instgroup
-## in batch render mode
+##ei_connection(con);
 ##ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
 render "cameraShape1" "|camera1_group|camera1" "cameraShape1_option"
 ##end context

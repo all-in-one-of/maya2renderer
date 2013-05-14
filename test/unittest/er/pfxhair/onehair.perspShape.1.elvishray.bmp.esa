@@ -356,7 +356,7 @@ ei_add_instance("|pPlane3");
 ei_add_instance("|pPlane4");
 ei_add_instance("|pfxHair2");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();

@@ -27,7 +27,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
+ei_trace_depth(1041079751,1041079751,1041079751,1041079751,1041079751,1041079751);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -128,7 +128,7 @@ ei_instgroup("perspShape");
 //light(s)
 //mesh(s)
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
@@ -158,7 +158,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
+ei_trace_depth(1041079751,1041079751,1041079751,1041079751,1041079751,1041079751);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -2764,7 +2764,7 @@ ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|locator1");
 ei_add_instance("|locator1|pPlane1");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
@@ -2794,7 +2794,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
+ei_trace_depth(1041079751,1041079751,1041079751,1041079751,1041079751,1041079751);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -5400,7 +5400,7 @@ ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|locator1");
 ei_add_instance("|locator1|pPlane1");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
@@ -5430,7 +5430,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
+ei_trace_depth(1041079751,1041079751,1041079751,1041079751,1041079751,1041079751);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -8036,7 +8036,7 @@ ei_add_instance("|pointLight1|pointLightShape1");
 ei_add_instance("|locator1");
 ei_add_instance("|locator1|pPlane1");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();
@@ -8066,7 +8066,7 @@ ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
-ei_trace_depth(1823430386,1823430386,1823430386,1823430386,1823430386,1823430386);
+ei_trace_depth(1041079751,1041079751,1041079751,1041079751,1041079751,1041079751);
 ei_displace(0);
 ei_face(3);
 ei_end_options();
@@ -8167,7 +8167,7 @@ ei_instgroup("perspShape");
 //light(s)
 //mesh(s)
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();

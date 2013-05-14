@@ -206,7 +206,7 @@ ei_add_instance("|pointLight1|pointLightShape1");
 //mesh(s)
 ei_add_instance("|pPlane4");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1_group|camera1", "cameraShape1_option" );
 ei_end_context();

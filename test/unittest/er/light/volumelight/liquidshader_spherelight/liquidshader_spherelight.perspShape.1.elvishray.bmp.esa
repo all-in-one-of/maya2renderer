@@ -211,7 +211,7 @@ ei_add_instance("|spotLight3|spotLightShape3");
 //mesh(s)
 ei_add_instance("|pPlane1");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();

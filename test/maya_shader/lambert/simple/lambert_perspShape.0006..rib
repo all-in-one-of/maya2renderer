@@ -51,6 +51,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/lambert.perspShape.6.rende
         AttributeEnd
         Illuminate 1 0
         AttributeBegin
+            Attribute "identifier" "name" [ "_persp_perspShape" ] 
+            #				[DEBUG] |persp|perspShape is not lighted.
+            #has no shadingEngine
+            Transform [ -0.676876 -0.000000 -0.736097 0.000000 -0.615506 0.548463 0.565987 0.000000 0.403722 0.836175 -0.371242 0.000000 3.907120 7.534706 -3.855194 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
+        AttributeBegin
             Attribute "identifier" "name" [ "_pPlane2_pPlaneShape2" ] 
             Illuminate 1 1
             #mark14

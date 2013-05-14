@@ -645,7 +645,7 @@ ei_add_instance("|pPlane2");
 ei_add_instance("|pPlane3");
 ei_add_instance("|pPlane4");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "cameraShape1", "|camera1", "cameraShape1_option" );
 ei_render( "cameraShape1", "|camera1", "cameraShape1_option" );
 ei_end_context();

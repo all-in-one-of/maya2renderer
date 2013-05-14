@@ -10308,7 +10308,7 @@ ei_add_instance("|pointLight2|pointLightShape2");
 ei_add_instance("|nurbsSphere1");
 ei_add_instance("|nurbsSphereShape1_liq_");
 ei_end_instgroup();
-// in batch render mode
+//ei_connection(con);
 //ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_render( "perspShape", "|persp", "perspShape_option" );
 ei_end_context();

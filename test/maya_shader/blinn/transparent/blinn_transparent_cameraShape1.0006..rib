@@ -112,5 +112,12 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/blinn_transparent.cameraSh
             Transform [ 0.743733 0.000000 0.000000 0.000000 0.000000 0.966528 0.256559 0.000000 0.000000 -0.307807 1.159592 0.000000 -1.116416 -1.197625 -0.141710 1.000000 ]
             PointsGeneralPolygons [ 1 ] [ 4 ] [ 0 1 3 2 ] "P" [ -1.290118 -0.000000 0.897752 1.290118 -0.000000 0.897752 -1.290118 0.000000 -0.897752 1.290118 0.000000 -0.897752 ] "vertex normal N" [ 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 ] "facevarying float[2] st" [ 0.000000 1.000000 1.000000 1.000000 1.000000 0.304132 0.000000 0.304132 ] 
         AttributeEnd
+        AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_group_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1_group|camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 0.437722 -0.899110 0.000000 0.000000 0.899110 0.437722 0.000000 0.000000 3.095546 1.561491 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
     WorldEnd
 FrameEnd

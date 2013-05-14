@@ -77,5 +77,12 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/test_pl_liquidShader_con_t
             Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 3.000000 0.000000 6.000000 1.000000 ]
             Translate 0.000000 0.000000 0.000000
         AttributeEnd
+        AttributeBegin
+            Attribute "identifier" "name" [ "_camera1_group_camera1_cameraShape1" ] 
+            #				[DEBUG] |camera1_group|camera1|cameraShape1 is not lighted.
+            #has no shadingEngine
+            Transform [ 0.427550 0.000000 0.903992 0.000000 0.561847 0.783400 -0.265730 0.000000 -0.708187 0.621517 0.334943 0.000000 0.241674 1.461414 0.787573 1.000000 ]
+            #_write(liqRibCameraData*...) not implemented yet.
+        AttributeEnd
     WorldEnd
 FrameEnd
