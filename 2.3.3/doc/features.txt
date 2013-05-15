@@ -28,7 +28,7 @@ prman
 
 elvishray
 - the following shader graph nodes are supported now:
-  lambert, phong, placeTexture2d, file(image sequence supported),mib_ambient_occ
+  blinn, lambert, phong, surfaceShader, placeTexture2d, file(image sequence supported), mib_ambient_occ
 - define pl file to feed the parameters of liqSurfaceShader, liqDisplacementShader, liqVolumeShader to Maya UI.
 - translation motion blur, deform motion blur
 - vertex normal

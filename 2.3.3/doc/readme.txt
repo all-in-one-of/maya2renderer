@@ -113,6 +113,7 @@ RenderMan (R) is a registered trademark of Pixar
     make sure ELVISHRAY_BIN point to the ER's DLL directory which you are using.
   - open (My_Documents_DIR)\maya\2009\Maya.env, set LIQUID_ROOT to your liquid directory $(LiquidRoot),
      e.g.  LIQUID_ROOT = E:/dev/autodesk/maya/myplugin/project/liquid_
+  - copy $(LiquidRoot)\2.3.3\rendererDesc\liquidRenderer.xml to $(MayaRoot)\bin\rendererDesc\liquidRenderer.xml
   - (For Elvishray renderer only)
     you must copy manager.ini of Elvishray to $(MAYA_PATH2009)/bin/
      - copy $(LiquidRoot)\dependence\elvishray\bin\manager.ini to $(MAYA_PATH2009)/bin/
