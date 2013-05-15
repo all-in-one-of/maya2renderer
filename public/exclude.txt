@@ -1,0 +1,17 @@
+entries
+.obj
+.ncb
+.tmp
+.bak
+.exp
+.ilk
+.lib
+.idb
+.manifest
+.res
+.suo
+.user
+.svn-base
+.svn\
+
+
