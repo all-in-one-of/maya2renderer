@@ -141,6 +141,7 @@ class liqGlobalsNode : public MPxNode
     static MObject alogFunctionCall;
     static MObject alogMsgFlush;
     static MObject alogTraceFunction;
+    static MObject ashowMelCallStack;
     static MObject aOutputShadowPass;
     static MObject aOutputHeroPass;
     static MObject aOutputComments;

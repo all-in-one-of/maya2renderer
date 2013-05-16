@@ -2679,6 +2679,7 @@ global proc liquidGlobalsFrameTab( string $prefix )
         liquidShowBoolGlobal "logFunctionCall"		"logFunctionCall"			$prefix;
         liquidShowBoolGlobal "logMsgFlush"			"logMsgFlush"				$prefix;
         liquidShowBoolGlobal "logTraceFunction"		"logTraceFunction"			$prefix;
+        liquidShowBoolGlobal "showMelCallStack"		"showMelCallStack"			$prefix;
       setParent ..;
     setParent ..;
 

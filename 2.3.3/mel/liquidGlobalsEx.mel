@@ -2703,6 +2703,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //        liquidShowBoolGlobal "logFunctionCall" "logFunctionCall" $prefix;
 //        liquidShowBoolGlobal "logMsgFlush"     "logMsgFlush" $prefix;
 //        liquidShowBoolGlobal "logTraceFunction"     "logTraceFunction" $prefix;
+//        liquidShowBoolGlobal "showMelCallStack"     "showMelCallStack" $prefix;
 //      setParent ..;
 //    setParent ..;
 //
