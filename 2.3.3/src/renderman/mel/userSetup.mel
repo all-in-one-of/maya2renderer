@@ -1,7 +1,10 @@
 
 print "This is renderman /2.3.3/src/renderman/mel/usersetup.mel.\n";
 
+source rm_AEliquidInstanceFlags.mel;
 source liqGlobalsNoderenderman.mel;
 source AEliquidShaderTemplate_renderman.mel;
 source rm_callback.mel;
 source rm_UserCallbackInterface.mel;
+source rm_startup.mel;
+

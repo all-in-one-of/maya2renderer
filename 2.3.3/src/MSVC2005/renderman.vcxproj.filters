@@ -134,6 +134,12 @@
     <None Include="..\renderman\mel\rm_UserCallbackInterface.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\renderman\mel\rm_startup.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\renderman\rm_factory.h">

@@ -211,5 +211,8 @@
     <None Include="..\elvishray\mel\er_ConvertSubdivs.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\elvishray\mel\er_startup.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>

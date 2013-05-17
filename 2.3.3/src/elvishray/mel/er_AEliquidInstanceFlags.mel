@@ -13,3 +13,31 @@ global proc AEliquidInstanceFlags_elvishray( string $node )
 
 	liqPopIdent();
 }
+//
+global proc AEliquidCreateMenus_elvishray()
+{
+  liqPushIdent();
+  liqlog("AEliquidCreateMenus_elvishray()");
+
+  	liquidCreateObjectsAttributesMenu_elvishray( "attrEd" );
+	liquidCreateLightsAttributesMenu_elvishray( "attrEd" );
+
+  liqPopIdent();
+}
+//
+global proc liquidEditorTemplate_elvishray( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidEditorTemplate_elvishray("+$node+")");
+
+	editorTemplate -beginLayout "elvishray" -collapse true;
+		//
+		editorTemplate -beginLayout "Light" -collapse true;
+			editorTemplate -label "area samples" -addDynamicControl "ei_area_samples";
+			editorTemplate -label "adaptive"     -addDynamicControl "ei_adaptive";
+		editorTemplate -endLayout;//Light
+		//
+	editorTemplate -endLayout;//elvishray
+
+	liqPopIdent();
+}

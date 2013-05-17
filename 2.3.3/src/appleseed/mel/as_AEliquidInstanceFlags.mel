@@ -13,3 +13,25 @@ global proc AEliquidInstanceFlags_appleseed( string $node )
 
 	liqPopIdent();
 }
+//
+global proc AEliquidCreateMenus_appleseed()
+{
+  liqPushIdent();
+  liqAElog("AEliquidCreateMenus_appleseed()");
+
+  	liquidCreateObjectsAttributesMenu_appleseed( "attrEd" );
+	//liquidCreateLightsAttributesMenu_appleseed( "attrEd" );
+
+  liqPopIdent();
+}
+//
+global proc liquidEditorTemplate_appleseed( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidEditorTemplate_appleseed("+$node+")");
+
+	editorTemplate -beginLayout "appleseed" -collapse true;
+	editorTemplate -endLayout;//appleseed
+
+	liqPopIdent();
+}

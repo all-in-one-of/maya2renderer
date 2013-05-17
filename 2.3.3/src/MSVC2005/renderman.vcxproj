@@ -2586,6 +2586,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel" />
+    <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel" />
+    <None Include="..\renderman\mel\rm_startup.mel" />
     <None Include="..\renderman\mel\rm_UserCallbackInterface.mel" />
     <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel" />
     <None Include="..\renderman\mel\rm_callback.mel" />

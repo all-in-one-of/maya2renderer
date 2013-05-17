@@ -1,0 +1,59 @@
+
+source xxliquidutility.mel;
+
+global proc as_AddMenus()
+{
+	liqPushIdent();
+	liqlog("as_AddMenus()");
+
+	print("add as menus here.");
+
+	liqPopIdent();
+}
+
+
+global proc liquidCreateMenus_appleseed()
+{
+	liqPushIdent();
+	liqlog("liquidCreateMenus_appleseed()");
+
+	liquidCreateObjectsAttributesMenu_appleseed( "main" );
+	liquidCreateLightsAttributesMenu_appleseed( "main" );
+
+	menuItem -d true;
+    menuItem -label "Appleseed Menu" -command er_AddMenus;
+
+	liqPopIdent();
+}
+
+global proc liquidCreateObjectsAttributesMenu_appleseed( string $prefix )
+{
+	liqPushIdent();
+	liqlog("liquidCreateObjectsAttributesMenu_appleseed("+$prefix+")");
+	
+	//[refactor liq|ui|] 
+	menuItem -label "Object Attributes" -subMenu true -tearOff true;
+		menuItem -d true;
+		menuItem -label "Create CustomShaderForAS" -command liquidCreateCustomShaderAttributesForAppleseed -ann "Add Appleseed shader to selected node";
+		menuItem -label "Remove CustomShaderForAS" -command liquidDeleteCustomShaderAttributesForAppleseed -ann "Remove Appleseed shader from selected node";
+
+	setParent -menu ..;
+	//[refactor liq|ui|] 
+
+	liqPopIdent();
+
+}
+
+global proc liquidCreateLightsAttributesMenu_appleseed( string $prefix )
+{
+	liqPushIdent();
+	liqlog("liquidCreateLightsAttributesMenu_appleseed("+$prefix+")");
+
+	menuItem -label "Light Attributes" -subMenu true -tearOff true;
+    //menuItem -label "Add LightAtributesForER" -command liquidAddLightsAttributesForER -ann "Add Lights Attributes For ER";
+    //menuItem -label "Delete LightAtributesForER" -command liquidDeleteLightsAttributesForER -ann "Delete Lights Attributes For ER"; 
+    //menuItem -d true;
+	setParent -menu ..;
+
+	liqPopIdent();
+}

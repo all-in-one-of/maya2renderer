@@ -7,6 +7,9 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq|: UI不够友好
+-liq|ui|: bug: liqAE_renderman will appear on main menu bar.
+-（done）liq|ui|: bug: Cannot find procedure "liquidEditorTemplate_elvishray"，另一个同名的er_AEliquidInstanceFlags.mel文件里不包含liquidEditorTemplate_elvishray（）
 -liq|er|:05_begin_liq_noIBL_03_truck_tex_noNurbs_softedge.shotCamShape.elvishray.0124 开启MB后，左手有是黑的 
 -liq|rm :E:/dev/autodesk/maya/myplugin/project/liquid_/test/unittest/rm/displacement/displacement.ma
 G:\tmp\d_tmp\maya_test\animium整理剩余模型
@@ -18,13 +21,11 @@ G:\tmp\d_tmp\maya_test\animium整理剩余模型
 -liq| er|: 更新sdk，验证toElvic\rendering_hangs3\*.esa ,在27%时会僵死的问题
 -liq| er|: G:\tmp\d_tmp\maya_test\creativecrash\bit1.1.0\robot_bit_v1.1\×。ma 使用的nurbs建模。nurbs --》 polygon不正确，无法渲染
 -liq| er|: G:\tmp\d_tmp\maya_test\creativecrash\skybotXX\skybotX，很多物体渲染不出来
-- liq|: 渲染之前的导出太耗时。做UI选项，让ESS/ESA/CALL可选；让function call可选
--liq|:mayabatch.exe  -batch -file时，打开文件花的时间太长（10s）,如何缩短这个时间？
+
 -liq| er| ess|: hair的ess格式
 - liq|er|: maya crash: maya_shader/shader_graph/shader_graph/shader_graph.ma
 
--liq| er|: 重构，然后输出ess
--liq| er|: chicken_rig 渲染完毕时崩溃
+
 - liq|:G:\tmp\d_tmp\maya_test\ultimate_rigs\Ultimate_Walker_v1.0.1、Ultimate_Walker_v1.0.1_liq_Mesh_Flex_GrpShapeOrig.ma
 里Mesh_Flex_GrpShapeOrig为什么在outline window里看不到？
 - liq| er|: 希望er尽快支持jpg格式,
@@ -50,6 +51,9 @@ G:\tmp\d_tmp\maya_test\animium整理剩余模型
 - liq|: 重构,支持ipr
 - liq| er|: ipr更新shader，camera等数据
 - plugin load callback
+-(done)liq| er|: 重构，然后输出ess
+-(done)liq|: 渲染之前的导出太耗时。做UI选项，让ESS/ESA/CALL可选；让function call可选
+-(done)liq|:mayabatch.exe  -batch -file时，打开文件花的时间太长（10s）,如何缩短这个时间？
 -(done) liq| er|: blinn
 -(done)liq| er|: Visitor::visitPlace2dTexture（），place2dTexture里的uvCoord还是应该加上
 -(done) liq|er| ui|: trace_depth --> eiInt transp,  eiInt glossy_reflect, eiInt diffuse_reflect,  eiInt glossy_refract, eiInt diffuse_refract, eiInt sum

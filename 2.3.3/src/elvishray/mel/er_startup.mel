@@ -1,0 +1,59 @@
+
+source xxliquidutility.mel;
+
+global proc er_AddMenus()
+{
+	liqPushIdent();
+	liqlog("er_AddMenus()");
+
+	print("add er menus here.");
+
+	liqPopIdent();
+}
+
+
+global proc liquidCreateMenus_elvishray()
+{
+	liqPushIdent();
+	liqlog("liquidCreateMenus_elvishray()");
+
+	liquidCreateObjectsAttributesMenu_elvishray( "main" );
+	liquidCreateLightsAttributesMenu_elvishray( "main" );
+
+	menuItem -d true;
+    menuItem -label "Elvishray Menu" -command er_AddMenus;
+
+	liqPopIdent();
+}
+
+global proc liquidCreateObjectsAttributesMenu_elvishray( string $prefix )
+{
+	liqPushIdent();
+	liqlog("liquidCreateObjectsAttributesMenu_elvishray("+$prefix+")");
+	
+	//[refactor liq|ui|2-beg] 
+	menuItem -label "Object Attributes" -subMenu true -tearOff true;
+		menuItem -d true;
+		menuItem -label "Create CustomShaderForERCamera" -command liquidCreateCustomShaderAttributesForERCamera -ann "Add CustomShaderForERCamera to selected node";
+		menuItem -label "Remove CustomShaderForERCamera" -command liquidDeleteCustomShaderAttributesForERCamera -ann "Remove CustomShaderForERCamera from selected node";
+
+	setParent -menu ..;
+	//[refactor liq|ui|2-end] 
+
+	liqPopIdent();
+
+}
+
+global proc liquidCreateLightsAttributesMenu_elvishray( string $prefix )
+{
+	liqPushIdent();
+	liqlog("liquidCreateLightsAttributesMenu_elvishray("+$prefix+")");
+
+	menuItem -label "Light Attributes" -subMenu true -tearOff true;
+    menuItem -label "Add LightAtributesForER" -command liquidAddLightsAttributesForER -ann "Add Lights Attributes For ER";
+    menuItem -label "Delete LightAtributesForER" -command liquidDeleteLightsAttributesForER -ann "Delete Lights Attributes For ER"; 
+    //menuItem -d true;
+	setParent -menu ..;
+
+	liqPopIdent();
+}

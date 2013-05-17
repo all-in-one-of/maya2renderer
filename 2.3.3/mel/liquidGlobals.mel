@@ -3756,6 +3756,11 @@ global proc liquidUpdateRenderer( string $renderer )
 	setAttr -type "string" liquidGlobals.renderer $renderer;
 	//create global node for this renderer
 	liqGlobalsNodeRendererMain("create");
+
+	//update menu
+	liquidCreateMenus();
+	//AEliquidCreateMenu();
+
 	//update AETemplate UI for this renderer
 	liquidShaderNodes_AERefresh();
 

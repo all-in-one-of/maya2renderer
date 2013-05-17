@@ -238,5 +238,8 @@
     <None Include="..\appleseed\mel\userSetup.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\appleseed\mel\as_startup.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>

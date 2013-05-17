@@ -2623,6 +2623,7 @@
     <None Include="..\appleseed\mel\as_AEliquidInstanceFlags.mel" />
     <None Include="..\appleseed\mel\as_callback.mel" />
     <None Include="..\appleseed\mel\as_CreateMenus.mel" />
+    <None Include="..\appleseed\mel\as_startup.mel" />
     <None Include="..\appleseed\mel\as_util.mel" />
     <None Include="..\appleseed\mel\liqGlobalsNodeappleseed.mel" />
     <None Include="..\appleseed\mel\userSetup.mel" />
