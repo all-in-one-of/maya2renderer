@@ -2614,6 +2614,7 @@
       <FileType>Document</FileType>
     </CustomBuildStep>
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel" />
+    <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.res.mel" />
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />

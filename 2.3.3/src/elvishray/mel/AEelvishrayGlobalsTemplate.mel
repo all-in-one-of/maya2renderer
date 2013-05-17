@@ -1,5 +1,35 @@
 source xxliquidutility.mel;
 
+//- verbose --------------------------------------------------
+global proc AEEIVerboseNew( string $messageAttr )
+{
+	string $buffer[];
+    tokenize($messageAttr, ".", $buffer);
+    if (size($buffer) == 0) return;
+    string $node = $buffer[0];
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	attrEnumOptionMenuGrp
+				-label (uiRes("m_AEelvishrayGlobals.kVerbose"))
+				-at ($node+".verbose")
+				-ei 0 "EI_VERBOSE_NONE"
+				-ei 1 "EI_VERBOSE_FATAL"
+				-ei 2 "EI_VERBOSE_ERROR"
+				-ei 3 "EI_VERBOSE_WARNING"
+				-ei 4 "EI_VERBOSE_INFO"
+				-ei 5 "EI_VERBOSE_DEBUG"
+				-ei 6 "EI_VERBOSE_ALL"
+				EIVerboseMenu;
+    AEEIVerboseReplace($messageAttr);
+
+	setUITemplate -popTemplate;
+}
+
+global proc AEEIVerboseReplace( string $messageAttr )
+{
+}
+//------------------------------------------------------------
+//============================================================
 global proc AEelvishrayGlobalsTemplate( string $node )
 {
 	liqPushIdent();
@@ -15,7 +45,12 @@ global proc AEelvishrayGlobalsTemplate( string $node )
  		  editorTemplate -addDynamicControl "output_ess";
  		editorTemplate -endLayout;//dev
 // 		//--------------------------------------------------
-
+	 	editorTemplate -beginLayout "verbose&link" -collapse 1;
+			editorTemplate -callCustom AEEIVerboseNew AEEIVerboseReplace "message";
+			editorTemplate -addDynamicControl "eiIMG";
+			editorTemplate -addDynamicControl "eiSHADER";
+			editorTemplate -addDynamicControl "eiSHADER_maya";
+ 		editorTemplate -endLayout;//dev
 // 		//--------------------------------------------------
 
 // 		//--------------------------------------------------

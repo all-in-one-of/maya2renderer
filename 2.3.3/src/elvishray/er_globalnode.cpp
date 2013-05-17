@@ -7,10 +7,42 @@ namespace elvishray
 {
 const MTypeId GlobalNode::typeId(TI_GLOBAL_NODE);
 const MString GlobalNode::typeName(TN_GLOBAL_NODE);
-
+//dev
 MObject GlobalNode::aoutput_call;
 MObject GlobalNode::aoutput_esa;
 MObject GlobalNode::aoutput_ess;
+//verose&link
+MObject GlobalNode::averbose;
+MObject GlobalNode::alink_eiIMG;
+MObject GlobalNode::alink_eiSHADER;
+MObject GlobalNode::alink_eiSHADER_maya;
+//options
+MObject GlobalNode::acontrast;
+MObject GlobalNode::asamples;
+MObject GlobalNode::afilterType;
+MObject GlobalNode::afilterSize;
+//motion
+//trace_depth
+MObject GlobalNode::atrace_depth_transp;
+MObject GlobalNode::atrace_depth_glossy_reflect;
+MObject GlobalNode::atrace_depth_diffuse_reflect;
+MObject GlobalNode::atrace_depth_glossy_refract;
+MObject GlobalNode::atrace_depth_diffuse_refract;
+MObject GlobalNode::atrace_depth_sum;
+
+MObject GlobalNode::adisplace;
+MObject GlobalNode::amax_displace;
+MObject GlobalNode::aface;
+//approx
+MObject GlobalNode::aapprox_method;
+MObject GlobalNode::aapprox_any;
+MObject GlobalNode::aapprox_view_dep;
+MObject GlobalNode::aapprox_args;
+MObject GlobalNode::aapprox_sharp;
+MObject GlobalNode::aapprox_min_subdiv;
+MObject GlobalNode::aapprox_max_subdiv;
+MObject GlobalNode::aapprox_max_grid_size;
+MObject GlobalNode::aapprox_motion_factor;
 
 #define LIQ_GLOBALS_HIDE_ATTRIBUTES false
 
@@ -172,10 +204,45 @@ MStatus GlobalNode::initialize()
 
 	MFnStringData stringData;
 
-	// Create input attributes
+	//dev
 	CREATE_BOOL( nAttr,  aoutput_call,	"output_call",	"cal",    true  );
 	CREATE_BOOL( nAttr,  aoutput_esa,	"output_esa",	"esa",    false );
 	CREATE_BOOL( nAttr,  aoutput_ess,	"output_ess",	"ess",    false );
+	//verose&link
+	CREATE_INT(  nAttr,  averbose,				"verbose",		"vrb",	6);
+	CREATE_BOOL( nAttr,  alink_eiIMG,			"eiIMG",		"li",	true );
+	CREATE_BOOL( nAttr,  alink_eiSHADER,		"eiSHADER",		"ls",	true );
+	CREATE_BOOL( nAttr,  alink_eiSHADER_maya,	"eiSHADER_maya","lsm",	true );
+
+	//MObject GlobalNode::alink;
+	////options
+	//MObject GlobalNode::acontrast;
+	//MObject GlobalNode::asamples;
+	//MObject GlobalNode::afilterType;
+	//MObject GlobalNode::afilterSize;
+	////motion
+	////trace_depth
+	//MObject GlobalNode::atrace_depth_transp;
+	//MObject GlobalNode::atrace_depth_glossy_reflect;
+	//MObject GlobalNode::atrace_depth_diffuse_reflect;
+	//MObject GlobalNode::atrace_depth_glossy_refract;
+	//MObject GlobalNode::atrace_depth_diffuse_refract;
+	//MObject GlobalNode::atrace_depth_sum;
+
+	//MObject GlobalNode::adisplace;
+	//MObject GlobalNode::amax_displace;
+	//MObject GlobalNode::aface;
+	////approx
+	//MObject GlobalNode::aapprox_method;
+	//MObject GlobalNode::aapprox_any;
+	//MObject GlobalNode::aapprox_view_dep;
+	//MObject GlobalNode::aapprox_args;
+	//MObject GlobalNode::aapprox_sharp;
+	//MObject GlobalNode::aapprox_min_subdiv;
+	//MObject GlobalNode::aapprox_max_subdiv;
+	//MObject GlobalNode::aapprox_max_grid_size;
+	//MObject GlobalNode::aapprox_motion_factor;
+
 
 	return MS::kSuccess;
 }

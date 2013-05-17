@@ -229,5 +229,8 @@
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.res.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>
