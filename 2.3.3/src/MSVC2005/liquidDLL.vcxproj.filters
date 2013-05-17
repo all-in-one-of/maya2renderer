@@ -842,6 +842,9 @@
     <None Include="..\..\mel\liquidUserCallbackInterface.mel">
       <Filter>MEL Scripts</Filter>
     </None>
+    <None Include="..\..\mel\AEliquidGlobalsTemplate.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">

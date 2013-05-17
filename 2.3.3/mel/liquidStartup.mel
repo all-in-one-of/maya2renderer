@@ -93,6 +93,7 @@ global proc liquidLoadScripts()
     "AEliquidNurbsCurveShape.mel",
     "AEliquidSetFlags.mel",
     "AEliquidCamera.mel",
+	"AEliquidGlobalsTemplate.mel",
     "AEliquidPaintEffects.mel",
     "AEliquidShadowControls.mel",
     "AEliquidSubdivisionSurfaceShape.mel",

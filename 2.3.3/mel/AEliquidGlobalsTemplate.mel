@@ -1,0 +1,96 @@
+//
+//
+// The contents of this file are subject to the Mozilla Public License Version 1.1 (the
+// "License"); you may not use this file except in compliance with the License. You may
+// obtain a copy of the License at http://www.mozilla.org/MPL/
+//
+// Software distributed under the License is distributed on an "AS IS" basis, WITHOUT
+// WARRANTY OF ANY KIND, either express or implied. See the License for the specific
+// language governing rights and limitations under the License.
+//
+// The Original Code is the Liquid Rendering Toolkit.
+//
+// The Initial Developer of the Original Code is Colin Doncaster. Portions created by
+// Colin Doncaster are Copyright (C) 2002. All Rights Reserved.
+//
+// Contributor(s): Philippe Leprince.
+//
+//
+// The RenderMan (R) Interface Procedures and Protocol are:
+// Copyright 1988, 1989, Pixar
+// All Rights Reserved
+//
+//
+// RenderMan (R) is a registered trademark of Pixar
+//
+//  Creation Date:  February 13th, 2006
+//
+//
+//  Description:
+//      Attribute editor Template extension for the camera Node.
+//
+//  Input Arguments:
+//
+//  Returns:
+//
+source xxliquidutility.mel;
+
+global proc AEliquidGlobalsTemplate( string $node )
+{
+	liqPushIdent();
+	liqAElog("AEliquidGlobalsTemplate("+$node+")");
+   
+	AEswatchDisplay($node);
+
+	editorTemplate -beginScrollLayout;
+		//Frame
+		liquidGlobalsTemplateFrame( $node );
+		//
+		
+		// include/call base class/node attributes
+		AEdependNodeTemplate($node);
+		
+		editorTemplate -addExtraControls;
+
+	editorTemplate -endScrollLayout;
+
+	liqPopIdent();
+}
+//
+global proc liquidGlobalsTemplateFrame( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateFrame("+$node+")");
+
+	string $prefix = $node;
+
+	editorTemplate -beginLayout "Frame" -collapse true;
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Debug" -collapse true;
+			editorTemplate -label "UseNewTranslator(refactoring)" -addDynamicControl "useNewTranslator";
+			editorTemplate -label "OutputShaderGraph(ER)"	-addDynamicControl "outputShaderGraph";
+			editorTemplate -label "OutputDebugMsgToRib(RM)" -addDynamicControl "outputDebugMsgToRib";
+			editorTemplate -label "logFunctionCall"		-addDynamicControl "logFunctionCall";
+			editorTemplate -label "logMsgFlush"			-addDynamicControl "logMsgFlush";
+			editorTemplate -label "logTraceFunction"	-addDynamicControl "logTraceFunction";
+			editorTemplate -label "showMelCallStack"	-addDynamicControl "showMelCallStack";
+		editorTemplate -endLayout;//Debug
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Renderer" -collapse true;
+			editorTemplate -label "Renderer" -addDynamicControl "renderer";
+		editorTemplate -endLayout;//Renderer
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Output Passes" -collapse true;
+			editorTemplate -label "Hero"   -addDynamicControl "outputHeroPass";
+			editorTemplate -label "Shadow" -addDynamicControl "outputShadowPass";
+		editorTemplate -endLayout;//Output Passes
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Camera" -collapse true;
+			editorTemplate -label "Render Camera" -addDynamicControl "renderCamera";
+			editorTemplate -label "Rotate Camera" -addDynamicControl "rotateCamera";
+		editorTemplate -endLayout;//Camera
+		//-------------------------------------------------
+	editorTemplate -endLayout;//Frame
+
+	liqPopIdent();
+}

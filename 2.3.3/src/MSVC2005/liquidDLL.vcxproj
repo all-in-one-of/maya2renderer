@@ -2747,6 +2747,7 @@
     <None Include="..\..\mel\AEliquidCoShaderTemplate.mel" />
     <None Include="..\..\mel\AEliquidDisplacementTemplate.mel" />
     <None Include="..\..\mel\AEliquidFGGIOverrideFlags.mel" />
+    <None Include="..\..\mel\AEliquidGlobalsTemplate.mel" />
     <None Include="..\..\mel\AEliquidInstanceFlags.mel" />
     <None Include="..\..\mel\AEliquidLightTemplate.mel" />
     <None Include="..\..\mel\AEliquidNurbsCurveShape.mel" />
