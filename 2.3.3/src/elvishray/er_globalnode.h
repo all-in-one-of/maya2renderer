@@ -28,7 +28,8 @@ namespace elvishray
 		static MObject alink_eiSHADER_maya;
 		//options
 		static MObject acontrast;
-		static MObject asamples;
+		static MObject asamples_min;
+		static MObject asamples_max;
 		static MObject afilterType;
 		static MObject afilterSize;
 		//motion
@@ -47,7 +48,10 @@ namespace elvishray
 		static MObject aapprox_method;
 		static MObject aapprox_any;
 		static MObject aapprox_view_dep;
-		static MObject aapprox_args;
+		static MObject aapprox_args0;
+		static MObject aapprox_args1;
+		static MObject aapprox_args2;
+		static MObject aapprox_args3;
 		static MObject aapprox_sharp;
 		static MObject aapprox_min_subdiv;
 		static MObject aapprox_max_subdiv;

@@ -18,7 +18,8 @@ MObject GlobalNode::alink_eiSHADER;
 MObject GlobalNode::alink_eiSHADER_maya;
 //options
 MObject GlobalNode::acontrast;
-MObject GlobalNode::asamples;
+MObject GlobalNode::asamples_min;
+MObject GlobalNode::asamples_max;
 MObject GlobalNode::afilterType;
 MObject GlobalNode::afilterSize;
 //motion
@@ -37,7 +38,10 @@ MObject GlobalNode::aface;
 MObject GlobalNode::aapprox_method;
 MObject GlobalNode::aapprox_any;
 MObject GlobalNode::aapprox_view_dep;
-MObject GlobalNode::aapprox_args;
+MObject GlobalNode::aapprox_args0;
+MObject GlobalNode::aapprox_args1;
+MObject GlobalNode::aapprox_args2;
+MObject GlobalNode::aapprox_args3;
 MObject GlobalNode::aapprox_sharp;
 MObject GlobalNode::aapprox_min_subdiv;
 MObject GlobalNode::aapprox_max_subdiv;
@@ -214,34 +218,41 @@ MStatus GlobalNode::initialize()
 	CREATE_BOOL( nAttr,  alink_eiSHADER,		"eiSHADER",		"ls",	true );
 	CREATE_BOOL( nAttr,  alink_eiSHADER_maya,	"eiSHADER_maya","lsm",	true );
 
-	//MObject GlobalNode::alink;
-	////options
-	//MObject GlobalNode::acontrast;
-	//MObject GlobalNode::asamples;
-	//MObject GlobalNode::afilterType;
-	//MObject GlobalNode::afilterSize;
+
+	//options
+	CREATE_FLOAT( nAttr,	acontrast,	"contrast",	"ctr",	0.05f);
+	CREATE_INT( nAttr,	asamples_min,	"samples_min",	"smn",	0);
+	CREATE_INT( nAttr,	asamples_max,	"samples_max",	"smx",	16);
+	CREATE_INT( nAttr,  afilterType,	"filterType",	"ft",	4);
+	CREATE_FLOAT( nAttr,afilterSize,	"filterSize",	"fs",	3.0f);
+
 	////motion
 	////trace_depth
-	//MObject GlobalNode::atrace_depth_transp;
-	//MObject GlobalNode::atrace_depth_glossy_reflect;
-	//MObject GlobalNode::atrace_depth_diffuse_reflect;
-	//MObject GlobalNode::atrace_depth_glossy_refract;
-	//MObject GlobalNode::atrace_depth_diffuse_refract;
-	//MObject GlobalNode::atrace_depth_sum;
+	CREATE_INT( nAttr,	atrace_depth_transp,			"transp",			"trn",	4);
+	CREATE_INT( nAttr,	atrace_depth_glossy_reflect,	"glossy_reflect",	"grl",	4);
+	CREATE_INT( nAttr,	atrace_depth_diffuse_reflect,	"diffuse_reflect",	"drl",	4);
+	CREATE_INT( nAttr,	atrace_depth_glossy_refract,	"glossy_refract",	"grr",	4);
+	CREATE_INT( nAttr,	atrace_depth_diffuse_refract,	"diffuse_refract",	"drr",	4);
+	CREATE_INT( nAttr,	atrace_depth_sum,				"sum",				"sum",	4);
 
-	//MObject GlobalNode::adisplace;
-	//MObject GlobalNode::amax_displace;
-	//MObject GlobalNode::aface;
+	CREATE_BOOL( nAttr,  adisplace,			"displace",			"dis",	false);
+	CREATE_FLOAT( nAttr, amax_displace,		"max_displace",		"mdi",	false);
+	CREATE_INT(  nAttr,  aface,				"face",				"fac",	3);
+
 	////approx
-	//MObject GlobalNode::aapprox_method;
-	//MObject GlobalNode::aapprox_any;
-	//MObject GlobalNode::aapprox_view_dep;
+	CREATE_INT(  nAttr,	aapprox_method,		"approx_method",	"amd",	1);
+	CREATE_INT(  nAttr,	aapprox_any,		"approx_any",	"aay",	0);
+	CREATE_INT(  nAttr,	aapprox_view_dep,	"approx_view_dep",	"avd",	0);
 	//MObject GlobalNode::aapprox_args;
-	//MObject GlobalNode::aapprox_sharp;
-	//MObject GlobalNode::aapprox_min_subdiv;
-	//MObject GlobalNode::aapprox_max_subdiv;
-	//MObject GlobalNode::aapprox_max_grid_size;
-	//MObject GlobalNode::aapprox_motion_factor;
+	CREATE_INT(  nAttr,	aapprox_args0,		"approx_args0",	"ag0",	0);
+	CREATE_INT(  nAttr,	aapprox_args1,		"approx_args1",	"ag1",	0);
+	CREATE_INT(  nAttr,	aapprox_args2,		"approx_args2",	"ag2",	0);
+	CREATE_INT(  nAttr,	aapprox_args3,		"approx_args3",	"ag3",	0);
+	CREATE_FLOAT( nAttr, aapprox_sharp,		"approx_sharp",		"ash",	0.0f);
+	CREATE_INT(  nAttr,	aapprox_min_subdiv,		"approx_min_subdiv",	"ais",	0);
+	CREATE_INT(  nAttr,	aapprox_max_subdiv,		"approx_max_subdiv",	"aas",	5);
+	CREATE_INT(  nAttr,	aapprox_max_grid_size,	"approx_max_grid_size",	"aag",	65536);
+	CREATE_FLOAT( nAttr, aapprox_motion_factor,	"approx_motion_factor",	"amf",	16.0f);
 
 
 	return MS::kSuccess;

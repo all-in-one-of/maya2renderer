@@ -24,11 +24,82 @@ global proc AEEIVerboseNew( string $messageAttr )
 
 	setUITemplate -popTemplate;
 }
-
 global proc AEEIVerboseReplace( string $messageAttr )
 {
 }
-//------------------------------------------------------------
+// filter type -----------------------------------------------
+global proc AEEIFilterTypeNew( string $messageAttr )
+{
+	string $buffer[];
+    tokenize($messageAttr, ".", $buffer);
+    if (size($buffer) == 0) return;
+    string $node = $buffer[0];
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	attrEnumOptionMenuGrp
+				-label (uiRes("m_AEelvishrayGlobals.kFilterType"))
+				-at ($node+".filterType")
+				-ei 0 "EI_FILTER_NONE"
+				-ei 1 "EI_FILTER_BOX"
+				-ei 2 "EI_FILTER_TRIANGLE"
+				-ei 3 "EI_FILTER_CATMULLROM"
+				-ei 4 "EI_FILTER_GAUSSIAN"
+				-ei 5 "EI_FILTER_SINC"
+				EIFilterTypeMenu;
+    AEEIFilterTypeReplace($messageAttr);
+
+	setUITemplate -popTemplate;
+}
+global proc AEEIFilterTypeReplace( string $messageAttr )
+{
+}
+// face -----------------------------------------------
+global proc AEEIFaceNew( string $messageAttr )
+{
+	string $buffer[];
+    tokenize($messageAttr, ".", $buffer);
+    if (size($buffer) == 0) return;
+    string $node = $buffer[0];
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	attrEnumOptionMenuGrp
+				-label (uiRes("m_AEelvishrayGlobals.kFace"))
+				-at ($node+".face")
+				-ei 0 "EI_FACE_NONE"
+				-ei 1 "EI_FACE_FRONT"
+				-ei 2 "EI_FACE_BACK"
+				-ei 3 "EI_FACE_BOTH"
+				EIFaceMenu;
+    AEEIFaceReplace($messageAttr);
+
+	setUITemplate -popTemplate;
+}
+global proc AEEIFaceReplace( string $messageAttr )
+{
+}
+// approx method -----------------------------------------------
+global proc AEEIApproxMethodNew( string $messageAttr )
+{
+	string $buffer[];
+    tokenize($messageAttr, ".", $buffer);
+    if (size($buffer) == 0) return;
+    string $node = $buffer[0];
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	attrEnumOptionMenuGrp
+				-label (uiRes("m_AEelvishrayGlobals.kApproxMethod"))
+				-at ($node+".approx_method")
+				-ei 0 "EI_APPROX_METHOD_NONE"
+				-ei 1 "EI_APPROX_METHOD_REGULAR"
+				-ei 2 "EI_APPROX_METHOD_LENGTH"
+				EIApproxMethodMenu;
+    AEEIApproxMethodReplace($messageAttr);
+
+	setUITemplate -popTemplate;
+}
+global proc AEEIApproxMethodReplace( string $messageAttr )
+{
+}
 //============================================================
 global proc AEelvishrayGlobalsTemplate( string $node )
 {
@@ -38,23 +109,56 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 	AEswatchDisplay($node);
 
 	editorTemplate -beginScrollLayout;
-// 		//--------------------------------------------------
+ 		//--------------------------------------------------
 	 	editorTemplate -beginLayout "dev" -collapse 1;
  		  editorTemplate -addDynamicControl "output_call";
  		  editorTemplate -addDynamicControl "output_esa";
  		  editorTemplate -addDynamicControl "output_ess";
  		editorTemplate -endLayout;//dev
-// 		//--------------------------------------------------
+ 		//--------------------------------------------------
 	 	editorTemplate -beginLayout "verbose&link" -collapse 1;
 			editorTemplate -callCustom AEEIVerboseNew AEEIVerboseReplace "message";
 			editorTemplate -addDynamicControl "eiIMG";
 			editorTemplate -addDynamicControl "eiSHADER";
 			editorTemplate -addDynamicControl "eiSHADER_maya";
  		editorTemplate -endLayout;//dev
-// 		//--------------------------------------------------
-
-// 		//--------------------------------------------------
-
+ 		//--------------------------------------------------
+	 	editorTemplate -beginLayout "option" -collapse 1;
+			editorTemplate -addDynamicControl "contrast";
+			editorTemplate -addDynamicControl "samples_min";
+			editorTemplate -addDynamicControl "samples_max";
+			editorTemplate -callCustom AEEIFilterTypeNew AEEIFilterTypeReplace "message";
+ 			editorTemplate -addDynamicControl "filterSize";	
+			//editorTemplate -label ("motion:see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
+		editorTemplate -endLayout;//option
+ 		//--------------------------------------------------
+	 	editorTemplate -beginLayout "trace_depth" -collapse 1;
+			editorTemplate -addDynamicControl "transp";
+			editorTemplate -addDynamicControl "glossy_reflect";
+			editorTemplate -addDynamicControl "diffuse_reflect";
+			editorTemplate -addDynamicControl "glossy_refract";
+			editorTemplate -addDynamicControl "diffuse_refract";
+			editorTemplate -addDynamicControl "sum";
+		editorTemplate -endLayout;//trace_depth
+ 		//--------------------------------------------------
+		editorTemplate -addDynamicControl "displace";
+		editorTemplate -addDynamicControl "max_displace";
+		editorTemplate -callCustom AEEIFaceNew AEEIFaceReplace "message";
+ 		//--------------------------------------------------
+	 	editorTemplate -beginLayout "approx" -collapse 1;
+			editorTemplate-callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
+			editorTemplate -addDynamicControl "approx_any";
+			editorTemplate -addDynamicControl "aapprox_args0";
+			editorTemplate -addDynamicControl "aapprox_args1";
+			editorTemplate -addDynamicControl "aapprox_args2";
+			editorTemplate -addDynamicControl "aapprox_args3";
+			editorTemplate -addDynamicControl "approx_sharp";
+			editorTemplate -addDynamicControl "approx_min_subdiv";
+			editorTemplate -addDynamicControl "approx_max_subdiv";
+			editorTemplate -addDynamicControl "approx_max_grid_size";
+			editorTemplate -addDynamicControl "approx_motion_factor";
+		editorTemplate -endLayout;//approx
+ 		//--------------------------------------------------
 		// include/call base class/node attributes
 		AEdependNodeTemplate($node);
 		

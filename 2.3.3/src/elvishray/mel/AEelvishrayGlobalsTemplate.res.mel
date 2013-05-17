@@ -1,2 +1,5 @@
 
 displayString -replace -value "verbose" m_AEelvishrayGlobals.kVerbose;
+displayString -replace -value "filterType" m_AEelvishrayGlobals.kFilterType;
+displayString -replace -value "face" m_AEelvishrayGlobals.kFace;
+displayString -replace -value "approx_method" m_AEelvishrayGlobals.kApproxMethod;
