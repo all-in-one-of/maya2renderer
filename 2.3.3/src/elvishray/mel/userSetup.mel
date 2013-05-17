@@ -8,3 +8,4 @@ source AEliquidShaderTemplate_elvishray.mel;
 source er_callback.mel;
 source er_UserCallbackInterface.mel;
 source er_startup.mel;
+source AEelvishrayGlobalsTemplate.mel;

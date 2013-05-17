@@ -47,7 +47,7 @@
 
 #include "../renderermgr.h"
 #include "../elvishray/er_factory.h"
-
+#include "er_globalnode.h"
 
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
@@ -55,11 +55,19 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 //  Description:
 //      Register the command when the plug-in is loaded
 {
+	MStatus status;
+	MFnPlugin plugin( obj, "https://github.com/maya2renderer/maya2renderer", "0.0.1", "Any");
 	//_initializePlugin(obj);
 
-  //liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
+	// register the Globals node
+	status = plugin.registerNode( 
+		elvishray::GlobalNode::typeName, 
+		elvishray::GlobalNode::typeId, 
+		elvishray::GlobalNode::creator, elvishray::GlobalNode::initialize, MPxNode::kDependNode );
+	LIQCHECKSTATUS( status, "Can't register elvishray::GlobalNode node" );
+	status.clear();
+
   liquid::RendererMgr::registFactory("elvishray", new elvishray::Factory());
-  //liquid::RendererMgr::registFactory("appleseed", new appleseed::Factory());
   
   return MS::kSuccess;
 }
@@ -68,10 +76,13 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 //  Description:
 //      Deregister the command when the plug-in is unloaded
 {
-	//liquid::RendererMgr::unregistFactory("appleseed");
+	MStatus status;
+	MFnPlugin plugin(obj);
 	liquid::RendererMgr::unregistFactory("elvishray");
-	//liquid::RendererMgr::unregistFactory("renderman");
-	
+
+	status = plugin.deregisterNode( elvishray::GlobalNode::typeId );
+	LIQCHECKSTATUS( status, "Can't deregister elvishray::GlobalNode node" );
+
 	//_uninitializePlugin(obj);
 
   return MS::kSuccess;

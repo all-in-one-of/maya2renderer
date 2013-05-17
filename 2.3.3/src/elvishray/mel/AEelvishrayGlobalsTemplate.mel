@@ -1,0 +1,31 @@
+source xxliquidutility.mel;
+
+global proc AEelvishrayGlobalsTemplate( string $node )
+{
+	liqPushIdent();
+	liqAElog("AEelvishrayGlobalsTemplate("+$node+")");
+
+	AEswatchDisplay($node);
+
+	editorTemplate -beginScrollLayout;
+// 		//--------------------------------------------------
+	 	editorTemplate -beginLayout "dev" -collapse 1;
+ 		  editorTemplate -addDynamicControl "output_call";
+ 		  editorTemplate -addDynamicControl "output_esa";
+ 		  editorTemplate -addDynamicControl "output_ess";
+ 		editorTemplate -endLayout;//dev
+// 		//--------------------------------------------------
+
+// 		//--------------------------------------------------
+
+// 		//--------------------------------------------------
+
+		// include/call base class/node attributes
+		AEdependNodeTemplate($node);
+		
+		editorTemplate -addExtraControls;
+
+	editorTemplate -endScrollLayout;
+
+	liqPopIdent();
+}

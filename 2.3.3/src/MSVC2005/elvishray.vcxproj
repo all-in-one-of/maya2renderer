@@ -2546,11 +2546,13 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\elvishray\er_globalnode.cpp" />
     <ClCompile Include="..\elvishray\er_helper.cpp" />
     <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
     <ClCompile Include="..\elvishray\er_output_mgr.cpp" />
     <ClCompile Include="..\elvishray\er_plug.cpp" />
     <ClCompile Include="..\elvishray\er_preview.cpp" />
+    <ClCompile Include="..\elvishray\er_nodeId.cpp" />
     <ClCompile Include="..\elvishray\er_writeCameraData.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
@@ -2589,6 +2591,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h" />
+    <ClInclude Include="..\elvishray\er_globalnode.h" />
     <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
     <ClInclude Include="..\elvishray\er_group.h" />
     <ClInclude Include="..\elvishray\er_groupmgr.h" />
@@ -2598,6 +2601,7 @@
     <ClInclude Include="..\elvishray\er_output_mgr.h" />
     <ClInclude Include="..\elvishray\er_renderer.h" />
     <ClInclude Include="..\elvishray\ercall.h" />
+    <ClInclude Include="..\elvishray\er_nodeId.h" />
     <ClInclude Include="..\elvishray\MayaConnection.h" />
     <ClInclude Include="..\elvishray\output\er_output_base.h" />
     <ClInclude Include="..\elvishray\output\er_output_call.h" />
@@ -2609,6 +2613,7 @@
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
       <FileType>Document</FileType>
     </CustomBuildStep>
+    <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />

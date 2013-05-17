@@ -132,6 +132,12 @@
     <ClCompile Include="..\elvishray\er_writeCameraData.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\er_globalnode.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_nodeId.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
@@ -182,6 +188,12 @@
     <ClInclude Include="..\elvishray\er_log.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\elvishray\er_globalnode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\er_nodeId.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">
@@ -212,6 +224,9 @@
       <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\er_startup.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel">
       <Filter>mel</Filter>
     </None>
   </ItemGroup>
