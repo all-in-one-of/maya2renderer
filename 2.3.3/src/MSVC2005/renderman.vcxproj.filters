@@ -117,6 +117,12 @@
     <ClCompile Include="..\renderman\rm_writeCameraData.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_globalnode.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_nodeId.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -138,6 +144,12 @@
       <Filter>mel</Filter>
     </None>
     <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\renderman\mel\AErendermanGlobalsTemplate.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\renderman\mel\AErendermanGlobalsTemplate.res.mel">
       <Filter>mel</Filter>
     </None>
   </ItemGroup>
@@ -176,6 +188,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_log.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_nodeId.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_globalnode.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

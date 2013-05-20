@@ -2546,8 +2546,10 @@
     <ClCompile Include="..\renderman\liqRiCommands.cpp" />
     <ClCompile Include="..\renderman\ri_interface.cpp" />
     <ClCompile Include="..\renderman\rm_factory.cpp" />
+    <ClCompile Include="..\renderman\rm_globalnode.cpp" />
     <ClCompile Include="..\renderman\rm_helper.cpp" />
     <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
+    <ClCompile Include="..\renderman\rm_nodeId.cpp" />
     <ClCompile Include="..\renderman\rm_nodePlugConnection.cpp" />
     <ClCompile Include="..\renderman\rm_nodePlugInfo.cpp" />
     <ClCompile Include="..\renderman\rm_plug.cpp" />
@@ -2586,6 +2588,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel" />
+    <None Include="..\renderman\mel\AErendermanGlobalsTemplate.mel" />
+    <None Include="..\renderman\mel\AErendermanGlobalsTemplate.res.mel" />
     <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel" />
     <None Include="..\renderman\mel\rm_startup.mel" />
     <None Include="..\renderman\mel\rm_UserCallbackInterface.mel" />
@@ -2598,9 +2602,11 @@
     <ClInclude Include="..\renderman\liqRiCommands.h" />
     <ClInclude Include="..\renderman\ri_interface.h" />
     <ClInclude Include="..\renderman\rm_factory.h" />
+    <ClInclude Include="..\renderman\rm_globalnode.h" />
     <ClInclude Include="..\renderman\rm_helper.h" />
     <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
     <ClInclude Include="..\renderman\rm_log.h" />
+    <ClInclude Include="..\renderman\rm_nodeId.h" />
     <ClInclude Include="..\renderman\rm_nodePlugConnection.h" />
     <ClInclude Include="..\renderman\rm_nodePlugInfo.h" />
     <ClInclude Include="..\renderman\rm_renderer.h" />

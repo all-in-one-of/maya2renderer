@@ -1,0 +1,28 @@
+source xxliquidutility.mel;
+
+
+global proc AErendermanGlobalsTemplate( string $node )
+{
+	liqPushIdent();
+	liqAElog("AErendermanGlobalsTemplate("+$node+")");
+
+	AEswatchDisplay($node);
+
+	editorTemplate -beginScrollLayout;
+ 		//--------------------------------------------------
+	 	editorTemplate -beginLayout "verbose&link" -collapse 1;
+			//editorTemplate -callCustom AEEIVerboseNew AEEIVerboseReplace "message";
+			//editorTemplate -addDynamicControl "eiIMG";
+			//editorTemplate -addDynamicControl "eiSHADER";
+			//editorTemplate -addDynamicControl "eiSHADER_maya";
+ 		editorTemplate -endLayout;//verbose&link
+ 		//--------------------------------------------------
+		// include/call base class/node attributes
+		AEdependNodeTemplate($node);
+		
+		editorTemplate -addExtraControls;
+
+	editorTemplate -endScrollLayout;
+
+	liqPopIdent();
+}

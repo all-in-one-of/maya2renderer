@@ -7,4 +7,5 @@ source AEliquidShaderTemplate_renderman.mel;
 source rm_callback.mel;
 source rm_UserCallbackInterface.mel;
 source rm_startup.mel;
-
+source AErendermanGlobalsTemplate.mel;
+source AErendermanGlobalsTemplate.res.mel;
