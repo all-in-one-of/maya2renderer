@@ -167,7 +167,7 @@ namespace elvishray
 
 		o.a("----------------shader_for_test begin---");
 		o.ei_shader("maya_surfaceShader", getTestShaderName().asChar());
-		o.ei_shader_param_vector("outColor", 1.0f, 0.0f, 0.0f);
+		o.ei_shader_param_vector("o_outColor", 1.0f, 0.0f, 0.0f);
 		o.ei_end_shader();
 
 		o.ei_material(getTestMaterialName().asChar());

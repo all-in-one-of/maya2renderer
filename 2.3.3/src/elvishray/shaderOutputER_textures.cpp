@@ -30,22 +30,22 @@ void Visitor::visitChecker(const char* node)
 	o.beginRSL("maya_checker", node);
 
 	// Inputs:
-	o.addRSLVariable("float",	"alphaGain",		"alphaGain",		node);
-	o.addRSLVariable("bool",	"alphaIsLuminance",	"alphaIsLuminance",	node);
-	o.addRSLVariable("float",	"alphaOffset",		"alphaOffset",		node);
-	o.addRSLVariable("color",	"color1",			"color1",			node);
-	o.addRSLVariable("color",	"color2",			"color2",			node);
-	o.addRSLVariable("color",	"colorGain",		"colorGain",		node);
-	o.addRSLVariable("color",	"colorOffset",		"colorOffset",		node);
-	o.addRSLVariable("float",	"contrast",			"contrast",			node);
-	o.addRSLVariable("color",	"defaultColor",		"defaultColor",		node);
-	o.addRSLVariable("float",	"filter",			"filter",			node);
-	o.addRSLVariable("float",	"filterOffset",		"filterOffset",		node);
-	o.addRSLVariable("bool",	"invert",			"invert",			node);
-	o.addRSLVariable("vector",	"uvCoord",			"uvCoord",			node);
+	o.addRSLVariable("float",	"i_alphaGain",		"alphaGain",		node);
+	o.addRSLVariable("bool",	"i_alphaIsLuminance","alphaIsLuminance",	node);
+	o.addRSLVariable("float",	"i_alphaOffset",	"alphaOffset",		node);
+	o.addRSLVariable("color",	"i_color1",			"color1",			node);
+	o.addRSLVariable("color",	"i_color2",			"color2",			node);
+	o.addRSLVariable("color",	"i_colorGain",		"colorGain",		node);
+	o.addRSLVariable("color",	"i_colorOffset",	"colorOffset",		node);
+	o.addRSLVariable("float",	"i_contrast",		"contrast",			node);
+	o.addRSLVariable("color",	"i_defaultColor",	"defaultColor",		node);
+	o.addRSLVariable("float",	"i_filter",			"filter",			node);
+	o.addRSLVariable("float",	"i_filterOffset",	"filterOffset",		node);
+	o.addRSLVariable("bool",	"i_invert",			"invert",			node);
+	o.addRSLVariable("vector",	"i_uvCoord",		"uvCoord",			node);
 	// Outputs:
-	o.addRSLVariable("float",	"outAlpha",			"outAlpha",			node);
-	o.addRSLVariable("color",	"outColor",			"outColor",			node);
+	o.addRSLVariable("float",	"o_outAlpha",		"outAlpha",			node);
+	o.addRSLVariable("color",	"o_outColor",		"outColor",			node);
 
 
 	o.endRSL();
@@ -109,25 +109,25 @@ void Visitor::visitFile(const char* node)
 	o.beginRSL("maya_file", node);
 
 	//input
-	o.addRSLVariable("float",  "alphaGain",	"alphaGain",	node);
-	o.addRSLVariable("bool",  "alphaIsLuminance",	"alphaIsLuminance",	node);
-	o.addRSLVariable("float",  "alphaOffset",	"alphaOffset",	node);
-	o.addRSLVariable("color",  "colorGain",	"colorGain",	node);
-	o.addRSLVariable("color",  "colorOffset",	"colorOffset",	node);
-	o.addRSLVariable("color",  "defaultColor",	"defaultColor",	node);
+	o.addRSLVariable("float",	"i_alphaGain",		"alphaGain",	node);
+	o.addRSLVariable("bool",	"i_alphaIsLuminance",	"alphaIsLuminance",	node);
+	o.addRSLVariable("float",	"i_alphaOffset",	"alphaOffset",	node);
+	o.addRSLVariable("color",	"i_colorGain",		"colorGain",	node);
+	o.addRSLVariable("color",	"i_colorOffset",	"colorOffset",	node);
+	o.addRSLVariable("color",	"i_defaultColor",	"defaultColor",	node);
 	//liquidMessage2(messageWarning,"visitFile(): ei_shader_param_texture() or ei_shader_param_tag() ?");
-	out.ei_shader_param_texture("fileTextureName", fileImageName.asChar());
-	o.addRSLVariable("index", "filterType",	"filterType",	node);
-	o.addRSLVariable("float",  "filter",	"filter",	node);
-	o.addRSLVariable("float",  "filterOffset",	"filterOffset",	node);
-	o.addRSLVariable("bool",  "invert",	"invert",	node);
-	o.addRSLVariable("vector",  "uvCoord",	"uvCoord",	node);
-	o.addRSLVariable("bool",  "fileHasAlpha",	"fileHasAlpha",	node);
+	out.ei_shader_param_texture("i_fileTextureName", fileImageName.asChar());
+	o.addRSLVariable("index",	"i_filterType",		"filterType",	node);
+	o.addRSLVariable("float",	"i_filter",			"filter",	node);
+	o.addRSLVariable("float",	"i_filterOffset",	"filterOffset",	node);
+	o.addRSLVariable("bool",	"i_invert",			"invert",	node);
+	o.addRSLVariable("vector",  "i_uvCoord",		"uvCoord",	node);
+	o.addRSLVariable("bool",	"i_fileHasAlpha",	"fileHasAlpha",	node);
 	//o.addRSLVariable("index", "num_channels",	"num_channels",	node);
 	//output
-	o.addRSLVariable("float", "outAlpha",	"outAlpha",	node);
-	o.addRSLVariable("color", "outColor",	"outColor",	node);
-	o.addRSLVariable("color", "outTransparency",	"outTransparency",	node);
+	o.addRSLVariable("float", "o_outAlpha",	"outAlpha",	node);
+	o.addRSLVariable("color", "o_outColor",	"outColor",	node);
+	o.addRSLVariable("color", "o_outTransparency",	"outTransparency",	node);
 	o.endRSL();
 }
 //

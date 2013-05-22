@@ -40,25 +40,25 @@
 
 SURFACE(maya_phong)
 	DECLARE;
-	DECLARE_COLOR(	color_,						0.5f, 0.5f, 0.5f); //Common Material Attributes - begin
-	DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
-	DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
-	DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	i_ambientColor,				0.0f, 0.0f, 0.0f); 	
+	DECLARE_COLOR(	i_color,					0.5f, 0.5f, 0.5f); //Common Material Attributes - begin
+	DECLARE_SCALAR(	i_cosinePower,				20.0f);				//Specular Shading - begin
+	DECLARE_SCALAR(	i_diffuse,					0.8f);
+	DECLARE_COLOR(	i_incandescence,			0.0f, 0.0f, 0.0f); 
+	DECLARE_INDEX(  i_matteOpacityMode,			2);					//Matte Opacity - begin
+	DECLARE_SCALAR(	i_matteOpacity,				1.0f);
 	DECLARE_INT(	liq_UserDefinedNormal,		0);// use user defined normal or not, 1:yes, 0:no
-	DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 1.0f); //bump
-	DECLARE_SCALAR(	diffuse,					0.8f);
-	DECLARE_SCALAR(	translucence,				0.0f); 
-	DECLARE_SCALAR(	translucenceDepth,			0.5f); 
-	DECLARE_SCALAR(	translucenceFocus,			0.5f); 
-	DECLARE_SCALAR(	cosinePower,				20.0f);				//Specular Shading - begin
-	DECLARE_COLOR(	specularColor,				0.5f, 0.5f, 0.5f);
-	DECLARE_SCALAR(	reflectivity,				0.5f);
-	DECLARE_COLOR(	reflectedColor,				0.0f, 0.0f, 0.0f);
-	DECLARE_INDEX( matteOpacityMode,			2);					//Matte Opacity - begin
-	DECLARE_SCALAR(	matteOpacity,				1.0f);
-	DECLARE_INDEX( reflectionLimit,				1);					//Raytrace Options - begin
-	DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f);	//output - begin
-	DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f);
+	DECLARE_NORMAL(	i_normalCamera,				0.0f, 0.0f, 1.0f); //bump
+	DECLARE_COLOR(	i_specularColor,			0.5f, 0.5f, 0.5f);
+	DECLARE_SCALAR(	i_reflectivity,				0.5f);
+	DECLARE_COLOR(	i_reflectedColor,			0.0f, 0.0f, 0.0f);
+	DECLARE_INDEX(  i_reflectionLimit,			1);	//Raytrace Options - begin
+	DECLARE_SCALAR(	i_translucence,				0.0f); 
+	DECLARE_SCALAR(	i_translucenceDepth,		0.5f); 
+	DECLARE_SCALAR(	i_translucenceFocus,		0.5f); 
+	DECLARE_COLOR(	i_transparency,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	o_outColor,					0.0f, 0.0f, 0.0f);	//output - begin
+	DECLARE_COLOR(	o_outTransparency,			0.0f, 0.0f, 0.0f);
 	DECLARE_OUT_COLOR(aov_ambient,				0.0f, 0.0f, 0.0f);
 	DECLARE_OUT_COLOR(aov_diffuse,				0.0f, 0.0f, 0.0f);
 	DECLARE_OUT_COLOR(aov_specular,				0.0f, 0.0f, 0.0f);
@@ -414,46 +414,46 @@ SURFACE(maya_phong)
 		//	return;
 		//}
 
-		outColor() = color_() * out->Ci;
+		o_outColor() = i_color() * out->Ci;
 
 
   		if( liq_UserDefinedNormal() == 0 )
   		{
-  			normalCamera() = N;
+  			i_normalCamera() = N;
   		}
 
 		vector In = normalize( I );
-		normal Nn = normalize( normalCamera() );
+		normal Nn = normalize( i_normalCamera() );
 		normal Nf = ShadingNormal(Nn);
 		
 		vector V = -In;
 
 
 
-		color Cdiffuse = diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
-		color Cambient = ambientColor() + getAmbient(Nf);
-		color Cspecular = specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+		color Cdiffuse = i_diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+		color Cambient = i_ambientColor() + getAmbient(Nf);
+		color Cspecular = i_specularColor() * getPhong (Nf, V, i_cosinePower(), eiFALSE, eiFALSE);
 		//color Cspecular   = specularColor() * getPhong2(Nf, V, cosinePower(), eiFALSE, eiFALSE);
 		
-		color Ctransl = getTranslucence(Nf, translucence(), translucenceDepth(), translucenceFocus());
+		color Ctransl = getTranslucence(Nf, i_translucence(), i_translucenceDepth(), i_translucenceFocus());
 
 
 		//out->Ci = color_();
 		//out->Oi = transparency();	
 		computeSurface(
-			color_(),//outColor(),//out->Ci,//
-			transparency(),//out->Oi,//
-			matteOpacityMode(),
-			matteOpacity(),
-			outColor(),//out->Ci,//
-			outTransparency()//out->Oi//
+			i_color(),//outColor(),//out->Ci,//
+			i_transparency(),//out->Oi,//
+			i_matteOpacityMode(),
+			i_matteOpacity(),
+			o_outColor(),//out->Ci,//
+			o_outTransparency()//out->Oi//
 		);
 
 #ifdef USE_AOV_aov_ambient
-		aov_ambient() += Cambient * color_() * (1.0f - outTransparency());
+		aov_ambient() += Cambient * i_color() * (1.0f - o_outTransparency());
 #endif
 #ifdef USE_AOV_aov_diffuse
-		aov_diffuse() += Cdiffuse * color_() * (1.0f - outTransparency());
+		aov_diffuse() += Cdiffuse * i_color() * (1.0f - o_outTransparency());
 #endif
 #ifdef USE_AOV_aov_specular
 		aov_specular() += Cspecular;
@@ -461,21 +461,21 @@ SURFACE(maya_phong)
 
 // 		if (true/*is_metal()*/)
 // 		{
-// 			Ks *= color_();
-// 			Kr *= color_();
-// 			Kt *= color_();
-// 			Kc *= color_();
+// 			Ks *= i_color();
+// 			Kr *= i_color();
+// 			Kt *= i_color();
+// 			Kc *= i_color();
 // 		}
-// 		color Kd = color_() *((1.0f - spec) * diff);
+// 		color Kd = i_color() *((1.0f - spec) * diff);
 
 
 		color Creflect(0.0f);
 // 		if( !almost_black(Kr) )
 		{
 			Creflect = /*Kr **/ getReflection(
-			Nf, In, specularColor(), reflectivity(), reflectedColor(),
+			Nf, In, i_specularColor(), i_reflectivity(), i_reflectedColor(),
 			//i_reflectionMaxDistance, i_reflectionSamples, i_reflectionBlur, i_reflectionNoiseAmplitude, i_reflectionNoiseFrequency,
-			reflectionLimit(),
+			i_reflectionLimit(),
 			wo, F, cutoff_thresh);
 		}
 
@@ -492,12 +492,12 @@ SURFACE(maya_phong)
 // 			refraction );
 
 		//Ci() += Kd * irradiance();
-		outColor() *= (Cdiffuse + Cambient + Ctransl);
-		outColor() += Creflect +  Cspecular + incandescence() + refraction;
+		o_outColor() *= (Cdiffuse + Cambient + Ctransl);
+		o_outColor() += Creflect +  Cspecular + i_incandescence() + refraction;
 
-		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &i_transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
 		{//transparent
-			outColor() = outColor() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+			o_outColor() = o_outColor() * ( 1.0f - i_transparency() ) + trace_transparent() * i_transparency();
 		}//else{ opacity }
 
 		//computeShadowPass(Nf);
@@ -506,10 +506,10 @@ SURFACE(maya_phong)
 	}
 	void setOutputForMaya()
 	{
-		//outColor() = out->Ci;
-		//outTransparency() = out->Oi;
-		out->Ci = outColor();
-		out->Oi = outTransparency();
+		//o_outColor() = out->Ci;
+		//o_outTransparency() = out->Oi;
+		out->Ci = o_outColor();
+		out->Oi = o_outTransparency();
 	}
 	void main_shadow(void *arg, const color & Kt, 
 		const scalar &refraction_thickness, 

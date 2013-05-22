@@ -141,29 +141,36 @@ void Visitor::visitPhong(const char* node)
 	//o.beginRSL("maya_phong_architectural", node);
 
 	//Common Material Attributes
-	o.addRSLVariable("vector", "color_",		"color",		node);
-	o.addRSLVariable("vector", "transparency",	"transparency", node);
-	o.addRSLVariable("vector", "ambientColor",	"ambientColor", node);
-	o.addRSLVariable("vector", "incandescence",	"incandescence",node);
+	o.addRSLVariable("vector",	"i_ambientColor",	"ambientColor",			node);
+	o.addRSLVariable("vector",	"i_color",			"color",				node);
+	o.addRSLVariable("float",	"i_cosinePower",		"cosinePower",		node);
+	o.addRSLVariable("float",	"i_diffuse",			"diffuse",			node);	
+	o.addRSLVariable("vector",	"i_incandescence",		"incandescence",	node);
+	o.addRSLVariable("index",	"i_matteOpacityMode",	"matteOpacityMode",	node);
+	o.addRSLVariable("float",	"i_matteOpacity",		"matteOpacity",		node);
 	o.add_liq_UserDefinedNormal(node);
-	o.addRSLVariable("normal", "normalCamera",	"normalCamera",	node);
-	o.addRSLVariable("float",  "diffuse",		"diffuse",		node);
-	o.addRSLVariable("float",  "translucence",			"translucence",		node);
-	o.addRSLVariable("float",  "translucenceDepth",		"translucenceDepth",node);
-	o.addRSLVariable("float",  "translucenceFocus",		"translucenceFocus",node);
-	//Specular Shading
-	o.addRSLVariable("float",	"cosinePower",			"cosinePower",		node);
-	o.addRSLVariable("color",	"specularColor",		"specularColor",	node);
-	o.addRSLVariable("float",	"reflectivity",			"reflectivity",		node);
-	o.addRSLVariable("color",	"reflectedColor",		"reflectedColor",	node);
-	//Matte Opacity
-	o.addRSLVariable("index",	"matteOpacityMode",		"matteOpacityMode",	node);
-	o.addRSLVariable("float",	"matteOpacity",			"matteOpacity",		node);
-	//Raytrace Options
-	o.addRSLVariable("index",	"reflectionLimit",		"reflectionLimit",	node);
+	o.addRSLVariable("normal",	"i_normalCamera",	"normalCamera",		node);
+	o.addRSLVariable("color",	"i_specularColor",	"specularColor",	node);
+	o.addRSLVariable("float",	"i_reflectivity",	"reflectivity",		node);
+	o.addRSLVariable("color",	"i_reflectedColor",	"reflectedColor",	node);
+	//uniform float i_refractions;
+	//float i_refractiveIndex;
+	//uniform float i_refractionLimit;
+	//float i_lightAbsorbance;
+	//float i_shadowAttenuation;
+	o.addRSLVariable("index",	"i_reflectionLimit",	"reflectionLimit",	node);
+	o.addRSLVariable("float",	"i_translucence",		"translucence",		node);
+	o.addRSLVariable("float",	"i_translucenceDepth",	"translucenceDepth",node);
+	o.addRSLVariable("float",	"i_translucenceFocus",	"translucenceFocus",node);
+	o.addRSLVariable("vector",	"i_transparency",		"transparency",		node);
+	//uniform float i_reflectionMaxDistance;
+	//uniform float i_reflectionSamples;
+	//uniform float i_reflectionBlur;
+	//uniform float i_reflectionNoiseAmplitude;
+	//uniform float i_reflectionNoiseFrequency;
 	//output
-	o.addRSLVariable("color", "outColor",		"outColor",		node);
-	o.addRSLVariable("color", "outTransparency","outTransparency",node);
+	o.addRSLVariable("color", "o_outColor",			"outColor",			node);
+	o.addRSLVariable("color", "o_outTransparency",	"outTransparency",	node);
 
 	o.endRSL();
 }
@@ -204,10 +211,10 @@ void Visitor::visitSurfaceShader(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_surfaceShader", node);
-	o.addRSLVariable("color", "outColor",			"outColor",			node);
-	o.addRSLVariable("color", "outTransparency",	"outTransparency",	node);
-	o.addRSLVariable("color", "outMatteOpacity",	"outMatteOpacity",	node);
-	o.addRSLVariable("color", "outGlowColor",		"outGlowColor",		node);
+	o.addRSLVariable("color", "o_outColor",			"outColor",			node);
+	o.addRSLVariable("color", "o_outTransparency",	"outTransparency",	node);
+	o.addRSLVariable("color", "o_outMatteOpacity",	"outMatteOpacity",	node);
+	o.addRSLVariable("color", "o_outGlowColor",		"outGlowColor",		node);
 	o.endRSL();
 }
 // @node	maya shader node name

@@ -4,22 +4,22 @@
 
 SURFACE(maya_file)
 	DECLARE;
-	DECLARE_SCALAR(alphaGain, 1.0f);//input begin
-	DECLARE_BOOL(alphaIsLuminance, eiFALSE);
-	DECLARE_SCALAR(alphaOffset, 0.0f);
-	DECLARE_COLOR(colorGain, 1.0f, 1.0f, 1.0f);
-	DECLARE_COLOR(colorOffset, 0.0f, 0.0f, 0.0f);
-	DECLARE_COLOR(defaultColor, 0.5f, 0.5f, 0.5f);
-	DECLARE_TAG(fileTextureName, eiNULL_TAG);
-	DECLARE_INDEX(filterType, 3);//Quadratic
-	DECLARE_SCALAR(filter, 1.0f);
-	DECLARE_SCALAR(filterOffset, 0.0f);
-	DECLARE_BOOL(invert, eiFALSE);
-	DECLARE_VECTOR(uvCoord, 0.0f, 0.0f, 0.0f);//only unCoord[0] and unCoord[1] is used
-	DECLARE_BOOL(fileHasAlpha, eiFALSE);
-	DECLARE_SCALAR(outAlpha, 1.0f);//output begin
-	DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
-	DECLARE_COLOR(outTransparency, 0.0f, 0.0f, 0.0f);  
+	DECLARE_SCALAR(i_alphaGain, 1.0f);//input begin
+	DECLARE_BOOL(  i_alphaIsLuminance, eiFALSE);
+	DECLARE_SCALAR(i_alphaOffset, 0.0f);
+	DECLARE_COLOR( i_colorGain, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR( i_colorOffset, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR( i_defaultColor, 0.5f, 0.5f, 0.5f);
+	DECLARE_TAG(   i_fileTextureName, eiNULL_TAG);
+	DECLARE_INDEX( i_filterType, 3);//Quadratic
+	DECLARE_SCALAR(i_filter, 1.0f);
+	DECLARE_SCALAR(i_filterOffset, 0.0f);
+	DECLARE_BOOL(  i_invert, eiFALSE);
+	DECLARE_VECTOR(i_uvCoord, 0.0f, 0.0f, 0.0f);//only unCoord[0] and unCoord[1] is used
+	DECLARE_BOOL(  i_fileHasAlpha, eiFALSE);
+	DECLARE_SCALAR(o_outAlpha, 1.0f);//output begin
+	DECLARE_COLOR( o_outColor, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR( o_outTransparency, 0.0f, 0.0f, 0.0f);  
 	END_DECLARE;
 	//DECLARE_INT(frameExtension, 0);
 	//DECLARE_INT(frameOffset, 0);
@@ -88,11 +88,11 @@ SURFACE(maya_file)
 // 		}
 		if(1)//ISUVDEFINED(uvCoord().x, uvCoord().y)
 		{
-			if (fileTextureName() != eiNULL_TAG)
+			if (i_fileTextureName() != eiNULL_TAG)
 			{
-				eiTag tex = fileTextureName();
+				eiTag tex = i_fileTextureName();
 
-				scalar filterWidth = filterType()>0.0f ? filter() : 0.0f;
+				scalar filterWidth = i_filterType()>0.0f ? i_filter() : 0.0f;
 
 				// liquid ingore single-channel case
 				//if( num_channels() == 1 )
@@ -104,33 +104,33 @@ SURFACE(maya_file)
 				//}
 				//else
 				{
-					outColor() = color_texture(tex, 0, uvCoord().x, uvCoord().y);
+					o_outColor() = color_texture(tex, 0, i_uvCoord().x, i_uvCoord().y);
 				}
 
-				if( fileHasAlpha() )
+				if( i_fileHasAlpha() )
 				{
-					outAlpha() = scalar_texture(tex, 3, uvCoord().x, uvCoord().y);
+					o_outAlpha() = scalar_texture(tex, 3, i_uvCoord().x, i_uvCoord().y);
 				}else{
-					outAlpha() = luminance( outColor() );
+					o_outAlpha() = luminance( o_outColor() );
 				}
 				
 			}
-			colorBalance(outColor(), 
-				outAlpha(),
-				alphaIsLuminance(),
-				alphaGain(),
-				alphaOffset(),
-				colorGain(),
-				colorOffset(),
-				invert());
+			colorBalance(o_outColor(), 
+				o_outAlpha(),
+				i_alphaIsLuminance(),
+				i_alphaGain(),
+				i_alphaOffset(),
+				i_colorGain(),
+				i_colorOffset(),
+				i_invert());
 		}
 		else
 		{
-			outColor() = defaultColor();
-			outAlpha() = luminance( outColor() );
+			o_outColor() = i_defaultColor();
+			o_outAlpha() = luminance( o_outColor() );
 		}
-		outTransparency() = 
-			color(1.0f-outAlpha(),1.0f-outAlpha(),1.0f-outAlpha());
+		o_outTransparency() = 
+			color(1.0f-o_outAlpha(),1.0f-o_outAlpha(),1.0f-o_outAlpha());
 	}
 
 END(maya_file)

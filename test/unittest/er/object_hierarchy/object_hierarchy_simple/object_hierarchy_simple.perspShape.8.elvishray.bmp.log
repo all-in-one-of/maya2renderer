@@ -1,0 +1,1120 @@
+  >1 liqRibTranslator::doIt()-->if(checkSettings()==true)
+    >2 RendererMgr::setFactory(elvishray)
+    >2 RendererMgr::install()
+      >3 Renderer::Renderer()
+    >2 RendererMgr::prologue()
+    >2 Renderer::openLog(R:/MyDocuments/maya/projects/default/rib/object_hierarchy_simple.perspShape.1.elvishray.bmp)
+      >3 OutputMgr::setOutputImagePath(R:/MyDocuments/maya/projects/default/rib/object_hierarchy_simple.perspShape.1.elvishray.bmp)
+      >3 OutputMgr::add(0)
+      >3 OutputMgr::add(1)
+      >3 OutputMgr::add(2)
+      >3 OutputMgr::init()
+        >4 OutputMgr::createOutput(0)
+          >5 OutputBase::OutputBase()
+          >5 OutputCall::OutputCall()
+        >4 OutputMgr::createOutput(1)
+          >5 OutputBase::OutputBase()
+          >5 OutputESS::OutputESS(R:/MyDocuments/maya/projects/default/rib/object_hierarchy_simple.perspShape.1.elvishray.bmp)
+        >4 OutputMgr::createOutput(2)
+          >5 OutputBase::OutputBase()
+          >5 OutputESA::OutputESA(R:/MyDocuments/maya/projects/default/rib/object_hierarchy_simple.perspShape.1.elvishray.bmp)
+        >4 OutputCall::init()
+        >4 OutputESS::init()
+        >4 OutputESA::init()
+    >2 Renderer::canExport()
+    >2 liqRibTranslatorNew::_doItNew(args,defaultRenderLayer)
+      >3 liqRibTranslatorNew::_doItNewWithoutRenderScript(arg,defaultRenderLayer)
+        >4 liqRibTranslator::verifyOutputDirectories()
+          >5 liqRibTranslator::verifyResourceDir(RIB, rib, 0)
+          >5 liqRibTranslator::verifyResourceDir(Texture, rmantex, 0)
+          >5 liqRibTranslator::verifyResourceDir(Picture, rmanpix/, 0)
+          >5 liqRibTranslator::verifyResourceDir(Temp Files, rmantmp/, 0)
+        >4 liqRibTranslator::generateRenderScriptName()
+        >4 liqRibTranslator::generateTempMayaSceneName()
+        >4 tFrameScriptJobMgr::setCommonParameters(object_hierarchy_simpleFrame8)
+        >4 liqRibTranslatorNew::processOneFrame(0, liqglo__)
+          >5 liqRibTranslatorNew::buildJobs__()
+            >6 liqRibTranslatorNew::buildShadowJobs__()
+              >7 tJobScriptMgr::buildShadowJob(thisJob___, 0)
+              >7 tJobScriptMgr::buildShadowCameraJob(thisJob___, 0)
+            >6 tRibCameraMgr::gatherDataForJob(liqglo___, ,jobList__,0,1)
+            >6 liqRibTranslator::generateFileName(4,perspShape)
+            >6 liqRibTranslator::generateFileName(5,perspShape)
+              >7 liqRibTranslator::generateImageName(, job(perspShape)), 
+          >5 liqRibTranslatorNew::calaculateSamplingTime(1)
+          >5 liqRibTranslatorNew::scanScene__(1,0)
+            >6 tJobScriptMgr::scanScene(1,0, htable__, count, returnStatus__)
+              >7 liqRibHT::insert(|pointLight1|pointLightShape1,lframe,0,3,0,matrix,,-1)
+                >8 liqRibHT::hash(|pointLight1|pointLightShape1,0)
+                >8 liqRibHT::find(|pointLight1|pointLightShape1,|pointLight1|pointLightShape1,3)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|pointLight1|pointLightShape1,0,3,-1)
+                  >9 liqRibNode::parseVectorAttributes(pointLight1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pointLight1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pointLight1,,4)
+                  >9 liqRibNode::findShadingGroup(|pointLight1|pointLightShape1,3)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|pointLight1|pointLightShape1,3)
+                    >10 liqRibLightData::liqRibLightData(|pointLight1|pointLightShape1)
+                      >11 liqRibData::addAdditionalSurfaceParameters(pointLightShape1)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+              >7 liqRibHT::insert(|pointLight2|pointLightShape2,lframe,0,3,1,matrix,,-1)
+                >8 liqRibHT::hash(|pointLight2|pointLightShape2,1)
+                >8 liqRibHT::find(|pointLight2|pointLightShape2,|pointLight2|pointLightShape2,3)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|pointLight2|pointLightShape2,0,3,-1)
+                  >9 liqRibNode::parseVectorAttributes(pointLight2,,2)
+                  >9 liqRibNode::parseVectorAttributes(pointLight2,,3)
+                  >9 liqRibNode::parseVectorAttributes(pointLight2,,4)
+                  >9 liqRibNode::findShadingGroup(|pointLight2|pointLightShape2,3)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|pointLight2|pointLightShape2,3)
+                    >10 liqRibLightData::liqRibLightData(|pointLight2|pointLightShape2)
+                      >11 liqRibData::addAdditionalSurfaceParameters(pointLightShape2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+            >6 tLocatorMgr::scanScene(1,0,htable__,count__,returnStatus__)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|persp|perspShape,lframe,0,0,2,matrix,,-1)
+                >8 liqRibHT::hash(|persp|perspShape,2)
+                >8 liqRibHT::find(|persp|perspShape,|persp|perspShape,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|persp|perspShape,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(persp,,2)
+                  >9 liqRibNode::parseVectorAttributes(persp,,3)
+                  >9 liqRibNode::parseVectorAttributes(persp,,4)
+                  >9 liqRibNode::findShadingGroup(|persp|perspShape,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|persp|perspShape,0)
+                    >10 liqRibCameraData::liqRibCameraData(|persp|perspShape)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|top|topShape,lframe,0,0,3,matrix,,-1)
+                >8 liqRibHT::hash(|top|topShape,3)
+                >8 liqRibHT::find(|top|topShape,|top|topShape,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|top|topShape,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(top,,2)
+                  >9 liqRibNode::parseVectorAttributes(top,,3)
+                  >9 liqRibNode::parseVectorAttributes(top,,4)
+                  >9 liqRibNode::findShadingGroup(|top|topShape,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|top|topShape,0)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|front|frontShape,lframe,0,0,4,matrix,,-1)
+                >8 liqRibHT::hash(|front|frontShape,4)
+                >8 liqRibHT::find(|front|frontShape,|front|frontShape,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|front|frontShape,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(front,,2)
+                  >9 liqRibNode::parseVectorAttributes(front,,3)
+                  >9 liqRibNode::parseVectorAttributes(front,,4)
+                  >9 liqRibNode::findShadingGroup(|front|frontShape,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|front|frontShape,0)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|side|sideShape,lframe,0,0,5,matrix,,-1)
+                >8 liqRibHT::hash(|side|sideShape,5)
+                >8 liqRibHT::find(|side|sideShape,|side|sideShape,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|side|sideShape,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(side,,2)
+                  >9 liqRibNode::parseVectorAttributes(side,,3)
+                  >9 liqRibNode::parseVectorAttributes(side,,4)
+                  >9 liqRibNode::findShadingGroup(|side|sideShape,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|side|sideShape,0)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|pCube1|pCubeShape1,lframe,0,0,6,matrix,,-1)
+                >8 liqRibHT::hash(|pCube1|pCubeShape1,6)
+                >8 liqRibHT::find(|pCube1|pCubeShape1,|pCube1|pCubeShape1,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|pCube1|pCubeShape1,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,4)
+                  >9 liqRibNode::findShadingGroup(|pCube1|pCubeShape1,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getColor(&shader,&color)
+                  >9 liqRibNode::getOpacity(&shader,&color)
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|pCube1|pCubeShape1,0)
+                    >10 liqRibMeshData::liqRibMeshData(|pCube1|pCubeShape1)
+                      >11 liqRibData::addAdditionalSurfaceParameters(pCubeShape1)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|pCube1|pCone1|pConeShape1,lframe,0,0,7,matrix,,-1)
+                >8 liqRibHT::hash(|pCube1|pCone1|pConeShape1,7)
+                >8 liqRibHT::find(|pCube1|pCone1|pConeShape1,|pCube1|pCone1|pConeShape1,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|pCube1|pCone1|pConeShape1,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(pCone1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pCone1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pCone1,,4)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,4)
+                  >9 liqRibNode::findShadingGroup(|pCube1|pCone1|pConeShape1,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getColor(&shader,&color)
+                  >9 liqRibNode::getOpacity(&shader,&color)
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|pCube1|pCone1|pConeShape1,0)
+                    >10 liqRibMeshData::liqRibMeshData(|pCube1|pCone1|pConeShape1)
+                      >11 liqRibData::addAdditionalSurfaceParameters(pConeShape1)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|pCube1|group1|pCube2|pCubeShape2,lframe,0,0,8,matrix,,-1)
+                >8 liqRibHT::hash(|pCube1|group1|pCube2|pCubeShape2,8)
+                >8 liqRibHT::find(|pCube1|group1|pCube2|pCubeShape2,|pCube1|group1|pCube2|pCubeShape2,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|pCube1|group1|pCube2|pCubeShape2,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(pCube2,,2)
+                  >9 liqRibNode::parseVectorAttributes(pCube2,,3)
+                  >9 liqRibNode::parseVectorAttributes(pCube2,,4)
+                  >9 liqRibNode::parseVectorAttributes(group1,,2)
+                  >9 liqRibNode::parseVectorAttributes(group1,,3)
+                  >9 liqRibNode::parseVectorAttributes(group1,,4)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,4)
+                  >9 liqRibNode::findShadingGroup(|pCube1|group1|pCube2|pCubeShape2,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getColor(&shader,&color)
+                  >9 liqRibNode::getOpacity(&shader,&color)
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|pCube1|group1|pCube2|pCubeShape2,0)
+                    >10 liqRibMeshData::liqRibMeshData(|pCube1|group1|pCube2|pCubeShape2)
+                      >11 liqRibData::addAdditionalSurfaceParameters(pCubeShape2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|pCube1|group1|pPlane1|pPlaneShape1,lframe,0,0,9,matrix,,-1)
+                >8 liqRibHT::hash(|pCube1|group1|pPlane1|pPlaneShape1,9)
+                >8 liqRibHT::find(|pCube1|group1|pPlane1|pPlaneShape1,|pCube1|group1|pPlane1|pPlaneShape1,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|pCube1|group1|pPlane1|pPlaneShape1,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(pPlane1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pPlane1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pPlane1,,4)
+                  >9 liqRibNode::parseVectorAttributes(group1,,2)
+                  >9 liqRibNode::parseVectorAttributes(group1,,3)
+                  >9 liqRibNode::parseVectorAttributes(group1,,4)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,2)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,3)
+                  >9 liqRibNode::parseVectorAttributes(pCube1,,4)
+                  >9 liqRibNode::findShadingGroup(|pCube1|group1|pPlane1|pPlaneShape1,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getColor(&shader,&color)
+                  >9 liqRibNode::getOpacity(&shader,&color)
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|pCube1|group1|pPlane1|pPlaneShape1,0)
+                    >10 liqRibMeshData::liqRibMeshData(|pCube1|group1|pPlane1|pPlaneShape1)
+                      >11 liqRibData::addAdditionalSurfaceParameters(pPlaneShape1)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslatorNew::dealwithParticleInstancedObjects(0,1,10)
+            >6 liqRibTranslatorNew::getCameraData(iter__,0)
+              >7 liqRibTranslator::getCameraInfo(|persp|perspShape,)
+                >8 liqRibTranslator::portFieldOfView(200,150,&horizontal,&vertical,&fnCamera)
+                  >9 liqRibTranslator::computeViewingFrustum(1.33333,,&left,&right,&bottom,&top,|persp|perspShape)
+              >7 liqRibTranslator::getCameraFilmOffset(|persp|perspShape,)
+              >7 liqRibTranslator::getCameraTransform(|persp|perspShape,)
+          >5 liqRibTranslatorNew::doTextures(size=0)
+            >6 Renderer::frameEpilogue(txtList_.size=0)
+          >5 liqRibTranslatorNew::doShadows(size=0)
+            >6 Renderer::doShadows(shadowList_.size=0)
+          >5 Renderer::setRenderScriptFormatAndCompress(0,0)
+          >5 Renderer::isHeroPassReady(perspShape)
+          >5 Renderer::HeroPassBegin(perspShape)
+          >5 tHeroRibWriterMgr::write(liqglo___,perspShape,1,0)
+            >6 liqRibTranslatorNew::ribPrologue__(perspShape)
+              >7 Renderer::ribPrologue_begin(perspShape)
+                >8 Renderer::dummyPhongShader()
+              >7 Renderer::ribPrologue_comment(2.3.5 (buildtime=20:51:12.30),R:/MyDocuments/maya/projects/default/object_hierarchy_simple,yaoyansi,time)
+              >7 Renderer::ribPrologue_options(perspShape)
+            >6 liqRibTranslatorNew::framePrologue__(1,perspShape)
+              >7 Renderer::framePrologue(1,perspShape)
+            >6 ShaderMgr::exportShaderGraph()
+              >7 ConvertShadingNetwork::exportShaderGraph()
+                >8 ConvertShadingNetwork::beforeExport()
+                >8 ConvertShadingNetwork::__export()
+                  >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
+                  >9 Renderer::getValidShaderPlugsInShadingGroup()
+                  >9 ConvertShadingNetwork::exportShaderInShadingGroup(initialShadingGroup,surfaceShader)
+                    >10 ConvertShadingNetwork::canShaderExported(lambert1)
+                    >10 ConvertShadingNetwork::exportShaderBegin(lambert1)
+                    >10 ConvertShadingNetwork::convertShadingNetworkToRSL(lambert1,surfaceShader)
+                      >11 Visitor::initShaderData(lambert1,surfaceShader)
+                      >11 ConvertShadingNetwork::getUpstreamConvertibleNodes(lambert1, nodes, numConnections)
+                        >12 ConvertShadingNetwork::nodeIsConvertible(lambert1)
+                          >13 ShaderMgr::hasShaderType(lambert)
+                        >12 ShaderMgr::getValidConnection(lambert1)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.colorR)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.colorR)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.colorG)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.colorG)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.colorB)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.colorB)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.color)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.color)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.transparencyR)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.transparencyR)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.transparencyG)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.transparencyG)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.transparencyB)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.transparencyB)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.transparency)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.transparency)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColorR)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColorR)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColorG)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColorG)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColorB)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColorB)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColor)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColor)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.incandescenceR)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescenceR)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.incandescenceG)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescenceG)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.incandescenceB)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescenceB)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.incandescence)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescence)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.normalCameraX)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCameraX)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.normalCameraY)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCameraY)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.normalCameraZ)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCameraZ)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.normalCamera)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCamera)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.diffuse)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.diffuse)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.translucence)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.translucence)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.translucenceDepth)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.translucenceDepth)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.translucenceFocus)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.translucenceFocus)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outColorR)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outColorR)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outColorG)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outColorG)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outColorB)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outColorB)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outColor)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outColor)
+                          >13 ConvertShadingNetwork::nodeIsConvertible(initialParticleSE)
+                            >14 ShaderMgr::hasShaderType(shadingEngine)
+                          >13 ConvertShadingNetwork::nodeIsConvertible(initialShadingGroup)
+                            >14 ShaderMgr::hasShaderType(shadingEngine)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparencyR)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparencyR)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparencyG)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparencyG)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparencyB)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparencyB)
+                        >12 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparency)
+                          >13 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparency)
+                      >11 Visitor::preOutput(lambert1)
+                      >11 Visitor::outputBegin(lambert1)
+                      >11 ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions( nodes, numConnections)
+                        >12 Visitor::outputUpstreamShader(lambert1)
+                          >13 ShaderOutputVisitor::_outputUpstreamShader(lambert1,lambert)
+                            >14 Visitor::visitLambert(lambert1)
+                              >15 OutputHelper::beginRSL(maya_lambert,lambert1)
+                              >15 ShaderMgr::convertibleConnection(lambert1.ambientColor)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColor)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColor)
+                              >15 ShaderMgr::convertibleConnection(lambert1.color)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.color)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.color)
+                              >15 ShaderMgr::convertibleConnection(lambert1.diffuse)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.diffuse)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.diffuse)
+                              >15 ShaderMgr::convertibleConnection(lambert1.incandescence)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.incandescence)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescence)
+                              >15 ShaderMgr::convertibleConnection(lambert1.matteOpacityMode)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.matteOpacityMode)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.matteOpacityMode)
+                              >15 ShaderMgr::convertibleConnection(lambert1.matteOpacity)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.matteOpacity)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.matteOpacity)
+                              >15 ShaderMgr::convertibleConnection(lambert1.refractions)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.refractions)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.refractions)
+                              >15 ShaderMgr::convertibleConnection(lambert1.refractiveIndex)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.refractiveIndex)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.refractiveIndex)
+                              >15 ShaderMgr::convertibleConnection(lambert1.refractionLimit)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.refractionLimit)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.refractionLimit)
+                              >15 ShaderMgr::convertibleConnection(lambert1.lightAbsorbance)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.lightAbsorbance)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.lightAbsorbance)
+                              >15 ShaderMgr::convertibleConnection(lambert1.shadowAttenuation)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.shadowAttenuation)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.shadowAttenuation)
+                              >15 OutputHelper::add_liq_UserDefinedNormal(lambert1)
+                              >15 ShaderMgr::convertibleConnection(lambert1.normalCamera)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.normalCamera)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCamera)
+                              >15 ShaderMgr::convertibleConnection(lambert1.transparency)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.transparency)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.transparency)
+                              >15 ShaderMgr::convertibleConnection(lambert1.translucence)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.translucence)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.translucence)
+                              >15 ShaderMgr::convertibleConnection(lambert1.translucenceDepth)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.translucenceDepth)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.translucenceDepth)
+                              >15 ShaderMgr::convertibleConnection(lambert1.translucenceFocus)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.translucenceFocus)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.translucenceFocus)
+                              >15 ShaderMgr::convertibleConnection(lambert1.outColor)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.outColor)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.outColor)
+                                  >17 ConvertShadingNetwork::nodeIsConvertible(initialParticleSE)
+                                    >18 ShaderMgr::hasShaderType(shadingEngine)
+                                  >17 ConvertShadingNetwork::nodeIsConvertible(initialShadingGroup)
+                                    >18 ShaderMgr::hasShaderType(shadingEngine)
+                              >15 ShaderMgr::convertibleConnection(lambert1.outTransparency)
+                                >16 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparency)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparency)
+                              >15 OutputHelper::endRSL()
+                        >12 ShaderMgr::getValidConnection(lambert1)
+                        >12 ConvertShadingNetwork::decrementDownstreamConnections(lambert1, nodes, numConnections, validConnections)
+                        >12 ConvertShadingNetwork::getNodeVariables(lambert1, validConnections,  inputSrc, inputDes, outputSrc)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.colorR)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.colorR)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.colorG)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.colorG)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.colorB)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.colorB)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.color)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.color)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.transparencyR)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.transparencyR)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.transparencyG)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.transparencyG)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.transparencyB)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.transparencyB)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.transparency)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.transparency)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColorR)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColorR)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColorG)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColorG)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColorB)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColorB)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.ambientColor)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.ambientColor)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.incandescenceR)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescenceR)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.incandescenceG)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescenceG)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.incandescenceB)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescenceB)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.incandescence)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.incandescence)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.normalCameraX)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCameraX)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.normalCameraY)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCameraY)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.normalCameraZ)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCameraZ)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.normalCamera)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.normalCamera)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.diffuse)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.diffuse)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.translucence)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.translucence)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.translucenceDepth)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.translucenceDepth)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.translucenceFocus)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.translucenceFocus)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outColorR)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outColorR)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outColorG)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outColorG)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outColorB)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outColorB)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outColor)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outColor)
+                            >14 ConvertShadingNetwork::nodeIsConvertible(initialParticleSE)
+                              >15 ShaderMgr::hasShaderType(shadingEngine)
+                            >14 ConvertShadingNetwork::nodeIsConvertible(initialShadingGroup)
+                              >15 ShaderMgr::hasShaderType(shadingEngine)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparencyR)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparencyR)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparencyG)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparencyG)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparencyB)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparencyB)
+                          >13 ConvertShadingNetwork::convertibleConnection(lambert1.outTransparency)
+                            >14 ConvertShadingNetwork::ensurePlugExists(lambert1.outTransparency)
+                        >12 Visitor::addShaderMethodBody(lambert1,,,)
+                      >11 ConvertShadingNetwork::outputShaderMethod()
+                        >12 Visitor::outputShaderMethod()
+                      >11 Visitor::outputEnd()
+                      >11 Visitor::postOutput()
+                    >10 ConvertShadingNetwork::exportShaderEnd(lambert1)
+                  >9 ConvertShadingNetwork::exportShaderInShadingGroup(initialShadingGroup,displacementShader)
+                  >9 ConvertShadingNetwork::exportShaderInShadingGroup(initialShadingGroup,volumeShader)
+                  >9 ConvertShadingNetwork::exportShaderInShadingGroup(initialShadingGroup,liqShadowShader)
+                  >9 ConvertShadingNetwork::exportShaderInShadingGroup(initialShadingGroup,liqEnvironmentShader)
+                  >9 ConvertShadingNetwork::exportShadingGroupBegin(initialShadingGroup)
+                  >9 ConvertShadingNetwork::outputShadingGroup(initialShadingGroup)
+                    >10 Visitor::outputShadingGroup(initialShadingGroup)
+                  >9 ConvertShadingNetwork::exportShadingGroupEnd(initialShadingGroup)
+                  >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
+                  >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
+                  >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
+                >8  ConvertShadingNetwork::afterExport()
+            >6 liqRibTranslatorNew::worldPrologue__(perspShape)
+              >7 Renderer::worldPrologue(perspShape)
+            >6 liqRibTranslatorNew::lightBlock__(perspShape)
+              >7 Renderer::writeLight_pre(|pointLight1|pointLightShape1,perspShape)
+              >7 liqRibObj::writeObject(,perspShape,0)
+                >8 liqRibLightData::write(,job=perspShape,0)
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::write(|pointLight1|pointLightShape1,,perspShape,ref=0)
+                      >11 liqRibData::getFullPathName()
+                    >10 er_writeLightData.cpp::_write(|pointLight1|pointLightShape1,perspShape,...)
+                      >11 Renderer::exportPointLight(pointlight,pointLightShape1,...)
+                        >12 addLightGroupForLight(|pointLight1|pointLightShape1)
+              >7 Renderer::writeLight_post(|pointLight1|pointLightShape1,perspShape)
+              >7 Renderer::writeLight_pre(|pointLight2|pointLightShape2,perspShape)
+              >7 liqRibObj::writeObject(,perspShape,0)
+                >8 liqRibLightData::write(,job=perspShape,0)
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::write(|pointLight2|pointLightShape2,,perspShape,ref=0)
+                      >11 liqRibData::getFullPathName()
+                    >10 er_writeLightData.cpp::_write(|pointLight2|pointLightShape2,perspShape,...)
+                      >11 Renderer::exportPointLight(pointlight,pointLightShape2,...)
+                        >12 addLightGroupForLight(|pointLight2|pointLightShape2)
+              >7 Renderer::writeLight_post(|pointLight2|pointLightShape2,perspShape)
+            >6 liqRibTranslatorNew::coordSysBlock__(perspShape)
+              >7 Renderer::coordSysBlock__(perspShape)
+            >6 liqRibTranslatorNew::objectBlock__(perspShape)
+              >7 liqRibTranslatorNew::objectBlock_data(perspShape)
+                >8 liqRibTranslatorNew::getShadowSetObject(perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|persp|perspShape,perspShape)
+                  >9 Renderer::exportOneObject_data(|persp|perspShape,perspShape)
+                    >10 Renderer::_writeObject(|persp|perspShape,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_persp_perspShape.1.rib,perspShape,0)
+                        >12 liqRibCameraData::write(R:/MyDocuments/maya/projects/default/rib/_persp_perspShape.1.rib,job=perspShape,0)
+                            >14 liqRibData::getFullPathName()
+                          >13 Renderer::write(|persp|perspShape,R:/MyDocuments/maya/projects/default/rib/_persp_perspShape.1.rib,perspShape,ref=0)
+                              >15 liqRibData::getFullPathName()
+                            >14 er_writeCameraData.cpp::_write_camera(|persp|perspShape,perspShape)
+                              >15 liqRibHT::find(|persp|perspShape,|persp|perspShape,0)
+                              >15 Renderer::gatherCameraShaders(cameraShaders.size=0,|persp|perspShape,liqEnvironmentShader)
+                              >15 Renderer::cameraOutput(perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|pCube1|pCubeShape1,perspShape)
+                  >9 Renderer::exportOneObject_data(|pCube1|pCubeShape1,perspShape)
+                    >10 Renderer::_writeObject(|pCube1|pCubeShape1,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_pCube1_pCubeShape1.1.rib,perspShape,0)
+                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_pCube1_pCubeShape1.1.rib,job=perspShape,0)
+                            >14 liqRibData::getFullPathName()
+                          >13 Renderer::write(|pCube1|pCubeShape1,R:/MyDocuments/maya/projects/default/rib/_pCube1_pCubeShape1.1.rib,perspShape,ref=0)
+                              >15 liqRibData::getFullPathName()
+                            >14 er_writeMeshData.cpp::_write1(|pCube1|pCubeShape1,perspShape)
+                              >15 liqRibHT::find(|pCube1|pCubeShape1,|pCube1|pCubeShape1,0)
+                              >15 _exportVertexFromNodePlug(|pCube1|pCubeShape1,0)
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqRibData::getFullPathName()
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|pCube1|pCone1|pConeShape1,perspShape)
+                  >9 Renderer::exportOneObject_data(|pCube1|pCone1|pConeShape1,perspShape)
+                    >10 Renderer::_writeObject(|pCube1|pCone1|pConeShape1,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_pCube1_pCone1_pConeShape1.1.rib,perspShape,0)
+                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_pCube1_pCone1_pConeShape1.1.rib,job=perspShape,0)
+                            >14 liqRibData::getFullPathName()
+                          >13 Renderer::write(|pCube1|pCone1|pConeShape1,R:/MyDocuments/maya/projects/default/rib/_pCube1_pCone1_pConeShape1.1.rib,perspShape,ref=0)
+                              >15 liqRibData::getFullPathName()
+                            >14 er_writeMeshData.cpp::_write1(|pCube1|pCone1|pConeShape1,perspShape)
+                              >15 liqRibHT::find(|pCube1|pCone1|pConeShape1,|pCube1|pCone1|pConeShape1,0)
+                              >15 _exportVertexFromNodePlug(|pCube1|pCone1|pConeShape1,0)
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqRibData::getFullPathName()
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                  >9 Renderer::exportOneObject_data(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                    >10 Renderer::_writeObject(|pCube1|group1|pCube2|pCubeShape2,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_pCube1_group1_pCube2_pCubeShape2.1.rib,perspShape,0)
+                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_pCube1_group1_pCube2_pCubeShape2.1.rib,job=perspShape,0)
+                            >14 liqRibData::getFullPathName()
+                          >13 Renderer::write(|pCube1|group1|pCube2|pCubeShape2,R:/MyDocuments/maya/projects/default/rib/_pCube1_group1_pCube2_pCubeShape2.1.rib,perspShape,ref=0)
+                              >15 liqRibData::getFullPathName()
+                            >14 er_writeMeshData.cpp::_write1(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                              >15 liqRibHT::find(|pCube1|group1|pCube2|pCubeShape2,|pCube1|group1|pCube2|pCubeShape2,0)
+                              >15 _exportVertexFromNodePlug(|pCube1|group1|pCube2|pCubeShape2,0)
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=8
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=24
+,m_tokenFloats.use_count()=1
+
+                              >15 liqRibData::getFullPathName()
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                  >9 Renderer::exportOneObject_data(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                    >10 Renderer::_writeObject(|pCube1|group1|pPlane1|pPlaneShape1,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_pCube1_group1_pPlane1_pPlaneShape1.1.rib,perspShape,0)
+                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_pCube1_group1_pPlane1_pPlaneShape1.1.rib,job=perspShape,0)
+                            >14 liqRibData::getFullPathName()
+                          >13 Renderer::write(|pCube1|group1|pPlane1|pPlaneShape1,R:/MyDocuments/maya/projects/default/rib/_pCube1_group1_pPlane1_pPlaneShape1.1.rib,perspShape,ref=0)
+                              >15 liqRibData::getFullPathName()
+                            >14 er_writeMeshData.cpp::_write1(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                              >15 liqRibHT::find(|pCube1|group1|pPlane1|pPlaneShape1,|pCube1|group1|pPlane1|pPlaneShape1,0)
+                              >15 _exportVertexFromNodePlug(|pCube1|group1|pPlane1|pPlaneShape1,0)
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=4
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=12
+,m_tokenFloats.use_count()=1
+
+                              >15 liqRibData::getFullPathName()
+              >7 liqRibTranslatorNew::objectBlock_reference(perspShape)
+                >8 Renderer::objectBlock_reference_begin()
+                >8 liqRibTranslatorNew::preGeometryMel()
+                  >9 Renderer::preGeometryMel()
+                >8 liqRibTranslatorNew::getShadowSetObject(perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|persp|perspShape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|persp|perspShape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|persp|perspShape,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|persp|perspShape)
+                    >10 Renderer::exportLightLinks(perspShape,|persp|perspShape,lightedByWhichLightShapes.size=0)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|persp|perspShape,|persp|perspShape,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|persp|perspShape,|persp|perspShape,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|persp|perspShape,|persp|perspShape,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|persp|perspShape,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|persp|perspShape,v=0,s=0,c=0,,|persp|perspShape,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|persp|perspShape,|persp|perspShape,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|persp|perspShape)
+                  >9 Renderer::exportOneObject_reference(|persp|perspShape,perspShape)
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|persp|perspShape,perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|pCube1|pCubeShape1,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|pCube1|pCubeShape1,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|pCube1|pCubeShape1,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|pCube1|pCubeShape1)
+                    >10 Renderer::exportLightLinks(perspShape,|pCube1|pCubeShape1,lightedByWhichLightShapes.size=2)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|pCube1|pCubeShape1,|pCube1|pCubeShape1,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|pCube1|pCubeShape1,|pCube1|pCubeShape1,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|pCube1|pCubeShape1,|pCube1|pCubeShape1,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|pCube1|pCubeShape1,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|pCube1|pCubeShape1,v=0,s=0,c=0,,|pCube1|pCubeShape1,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|pCube1|pCubeShape1,|pCube1|pCubeShape1,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|pCube1|pCubeShape1)
+                  >9 Renderer::exportOneObject_reference(|pCube1|pCubeShape1,perspShape)
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|pCube1|pCubeShape1,perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|pCube1|pCone1|pConeShape1,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|pCube1|pCone1|pConeShape1,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|pCube1|pCone1|pConeShape1,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|pCube1|pCone1|pConeShape1)
+                    >10 Renderer::exportLightLinks(perspShape,|pCube1|pCone1|pConeShape1,lightedByWhichLightShapes.size=2)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|pCube1|pCone1|pConeShape1,|pCube1|pCone1|pConeShape1,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|pCube1|pCone1|pConeShape1,|pCube1|pCone1|pConeShape1,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|pCube1|pCone1|pConeShape1,|pCube1|pCone1|pConeShape1,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|pCube1|pCone1|pConeShape1,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|pCube1|pCone1|pConeShape1,v=0,s=0,c=0,,|pCube1|pCone1|pConeShape1,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|pCube1|pCone1|pConeShape1,|pCube1|pCone1|pConeShape1,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|pCube1|pCone1|pConeShape1)
+                  >9 Renderer::exportOneObject_reference(|pCube1|pCone1|pConeShape1,perspShape)
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|pCube1|pCone1|pConeShape1,perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|pCube1|group1|pCube2|pCubeShape2)
+                    >10 Renderer::exportLightLinks(perspShape,|pCube1|group1|pCube2|pCubeShape2,lightedByWhichLightShapes.size=1)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|pCube1|group1|pCube2|pCubeShape2,|pCube1|group1|pCube2|pCubeShape2,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|pCube1|group1|pCube2|pCubeShape2,|pCube1|group1|pCube2|pCubeShape2,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|pCube1|group1|pCube2|pCubeShape2,|pCube1|group1|pCube2|pCubeShape2,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|pCube1|group1|pCube2|pCubeShape2,v=0,s=0,c=0,,|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|pCube1|group1|pCube2|pCubeShape2,|pCube1|group1|pCube2|pCubeShape2,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|pCube1|group1|pCube2|pCubeShape2)
+                  >9 Renderer::exportOneObject_reference(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|pCube1|group1|pCube2|pCubeShape2,perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|pCube1|group1|pPlane1|pPlaneShape1)
+                    >10 Renderer::exportLightLinks(perspShape,|pCube1|group1|pPlane1|pPlaneShape1,lightedByWhichLightShapes.size=1)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|pCube1|group1|pPlane1|pPlaneShape1,|pCube1|group1|pPlane1|pPlaneShape1,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|pCube1|group1|pPlane1|pPlaneShape1,|pCube1|group1|pPlane1|pPlaneShape1,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|pCube1|group1|pPlane1|pPlaneShape1,|pCube1|group1|pPlane1|pPlaneShape1,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|pCube1|group1|pPlane1|pPlaneShape1,v=0,s=0,c=0,,|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|pCube1|group1|pPlane1|pPlaneShape1,|pCube1|group1|pPlane1|pPlaneShape1,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|pCube1|group1|pPlane1|pPlaneShape1)
+                  >9 Renderer::exportOneObject_reference(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|pCube1|group1|pPlane1|pPlaneShape1,perspShape)
+                >8 Renderer::objectBlock_reference_end()
+            >6 liqRibTranslatorNew::worldEpilogue__()
+              >7 liqRibTranslator::worldEpilogue()
+                >8 Renderer::worldEpilogue()
+            >6 liqRibTranslatorNew::frameEpilogue__(1)
+              >7 Renderer::frameEpilogue(1)
+            >6 liqRibTranslatorNew::ribEpilogue__(perspShape)
+              >7 Renderer::ribPrologue_end(perspShape)
+                >8 Renderer::cookInstanceGroup()
+                >8 Renderer::render()
+                  >9 Renderer::renderPreview(200,150,0,0,perspShape,perspShape,perspShape_option)
+                    >10 Renderer::_renderPreview(200,150,0,0,perspShape,|persp,perspShape_option)
+          >5 Renderer::HeroPassEnd(perspShape)
+        >4 liqRenderScript::addJob(job.title=object_hierarchy_simpleFrame8,0)
+          >5 liqRenderScript::popNextJobID()
+        >4 liqRibTranslatorNew::postActions(defaultRenderLayer)
+    >2 RendererMgr::test()
+    >2 Renderer::closeLog()(but do nothing now)
+      >3 OutputMgr::uninit()
+        >4 OutputCall::~OutputCall()
+        >4 OutputBase::~OutputBase()
+        >4 OutputESS::~OutputESS()
+        >4 OutputBase::~OutputBase()
+        >4 OutputESA::~OutputESA()
+        >4 OutputBase::~OutputBase()
+    >2 RendererMgr::epilogue()
+    >2 RendererMgr::uninstall()
+      >3 Renderer::~Renderer()
+    >2 RendererMgr::unsetFactory()

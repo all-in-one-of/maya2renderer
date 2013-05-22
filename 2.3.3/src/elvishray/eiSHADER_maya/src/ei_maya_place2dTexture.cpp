@@ -4,25 +4,25 @@
 
 SURFACE(maya_place2dTexture)
 	DECLARE;
-	DECLARE_VECTOR(uvCoord, 0.0f, 0.0f, 0.0f);//float2,
-	DECLARE_SCALAR(coverageU, 1.0f);
-	DECLARE_SCALAR(coverageV, 1.0f);
-	DECLARE_BOOL(mirrorU, eiFALSE);
-	DECLARE_BOOL(mirrorV, eiFALSE);
-	DECLARE_SCALAR(noiseU, 0.0f);
-	DECLARE_SCALAR(noiseV, 0.0f);
-	DECLARE_SCALAR(offsetU, 0.0f);
-	DECLARE_SCALAR(offsetV, 0.0f);
-	DECLARE_SCALAR(repeatU, 1.0f);
-	DECLARE_SCALAR(repeatV, 1.0f);
-	DECLARE_SCALAR(rotateFrame, 0.0f);//angle(deg)
-	DECLARE_SCALAR(rotateUV, 0.0f);//angle(deg)
-	DECLARE_BOOL(stagger, eiFALSE);
-	DECLARE_SCALAR(translateFrameU, 0.0f);
-	DECLARE_SCALAR(translateFrameV, 0.0f);
-	DECLARE_BOOL(wrapU, eiTRUE);
-	DECLARE_BOOL(wrapV, eiTRUE);
-	DECLARE_VECTOR(outUV,    0.0f, 0.0f, -1.0f); //float2
+	DECLARE_VECTOR(i_uvCoord, 0.0f, 0.0f, 0.0f);//float2,
+	DECLARE_SCALAR(i_coverageU, 1.0f);
+	DECLARE_SCALAR(i_coverageV, 1.0f);
+	DECLARE_BOOL(i_mirrorU, eiFALSE);
+	DECLARE_BOOL(i_mirrorV, eiFALSE);
+	DECLARE_SCALAR(i_noiseU, 0.0f);
+	DECLARE_SCALAR(i_noiseV, 0.0f);
+	DECLARE_SCALAR(i_offsetU, 0.0f);
+	DECLARE_SCALAR(i_offsetV, 0.0f);
+	DECLARE_SCALAR(i_repeatU, 1.0f);
+	DECLARE_SCALAR(i_repeatV, 1.0f);
+	DECLARE_SCALAR(i_rotateFrame, 0.0f);//angle(deg)
+	DECLARE_SCALAR(i_rotateUV, 0.0f);//angle(deg)
+	DECLARE_BOOL(i_stagger, eiFALSE);
+	DECLARE_SCALAR(i_translateFrameU, 0.0f);
+	DECLARE_SCALAR(i_translateFrameV, 0.0f);
+	DECLARE_BOOL(i_wrapU, eiTRUE);
+	DECLARE_BOOL(i_wrapV, eiTRUE);
+	DECLARE_VECTOR(o_outUV,    0.0f, 0.0f, -1.0f); //float2
 	DECLARE_INT(liq_UserDefinedU, 0);//0: use elvishray internal u.   1: use user defined u.
 	DECLARE_INT(liq_UserDefinedV, 0);//0: use elvishray internal v.   1: use user defined v.
 	END_DECLARE;
@@ -51,19 +51,19 @@ SURFACE(maya_place2dTexture)
 	void main_er0(void *arg)
 	{
 		if( liq_UserDefinedU() == 0 ){
-			uvCoord().x = u;//elvishray generates u internally.
+			i_uvCoord().x = u;//elvishray generates u internally.
 		}else{
 			//u is connected in
 		}
 		if( liq_UserDefinedV() == 0 ){
-			uvCoord().y = v;//elvishray generates v internally.
+			i_uvCoord().y = v;//elvishray generates v internally.
 		}else{
 			//v is connected in
 		}
 
-		outUV().x = fmodf( uvCoord().x * repeatU(), 1.0f );
-		outUV().y = fmodf( uvCoord().y * repeatV(), 1.0f );
- 		outUV().y = 1.0f - outUV().y;//adjust v for elvishray
+		o_outUV().x = fmodf( i_uvCoord().x * i_repeatU(), 1.0f );
+		o_outUV().y = fmodf( i_uvCoord().y * i_repeatV(), 1.0f );
+ 		o_outUV().y = 1.0f - o_outUV().y;//adjust v for elvishray
 	}
 	void main_3delight(void *arg)
 	{
@@ -73,98 +73,98 @@ SURFACE(maya_place2dTexture)
 		float outU = ss;
 		float outV = tt;
 
-		if(noiseU() > 0.0f)
+		if(i_noiseU() > 0.0f)
 		{
-			outU += 1.25f * noiseU() * (	pnoise( point(ss * 18.0f, tt * 18.0f, 0.0f), 
+			outU += 1.25f * i_noiseU() * (	pnoise( point(ss * 18.0f, tt * 18.0f, 0.0f), 
 													point(18.0f, 18.0f, 18.0f) 
 											) 
 											* 2.0f - 1.0f
 										);
 		}
 
-		if(noiseV() > 0.0f)
+		if(i_noiseV() > 0.0f)
 		{
-			outV += 1.25f * noiseV() * (	pnoise(	point(ss * 18.0f, tt * 18.0f, 1.0f), 
+			outV += 1.25f * i_noiseV() * (	pnoise(	point(ss * 18.0f, tt * 18.0f, 1.0f), 
 													point(18.0f, 18.0f, 18.0f)
 											) 
 											* 2.0f - 1.0f
 										);
 		}
 
-		if(rotateFrame() != 0.0f)
+		if(i_rotateFrame() != 0.0f)
 		{
 			point Q = point(outU, outV, 0.0);
 			point P1 = point(0.5, 0.5, 0.0);
 			point P2 = point(0.5, 0.5, 1.0);
 
-			matrix rotMatrix = rotate(rotateFrame(), P2-P1 ); //Q = rotate(Q, radians(rotateFrame()), P1, P2 );
+			matrix rotMatrix = rotate(i_rotateFrame(), P2-P1 ); //Q = rotate(Q, radians(rotateFrame()), P1, P2 );
 			Q = Q * rotMatrix;
 
 			outU = Q.x;
 			outV = Q.y;
 		}
 
-		outU -= translateFrameU();
-		outV -= translateFrameV();
+		outU -= i_translateFrameU();
+		outV -= i_translateFrameV();
 
-		if( fmodf(outU, WRAPMAX) - coverageU() > eiSCALAR_EPS || 
-			fmodf(outV, WRAPMAX) - coverageV() > eiSCALAR_EPS ||
-			(wrapU() == eiFALSE && (outU < 0.0f || (outU * repeatU()) - repeatU() > eiSCALAR_EPS)) ||
-			(wrapV() == eiFALSE && (outV < 0.0f || (outV * repeatV()) - repeatV() > eiSCALAR_EPS)))
+		if( fmodf(outU, WRAPMAX) - i_coverageU() > eiSCALAR_EPS || 
+			fmodf(outV, WRAPMAX) - i_coverageV() > eiSCALAR_EPS ||
+			(i_wrapU() == eiFALSE && (outU < 0.0f || (outU * i_repeatU()) - i_repeatU() > eiSCALAR_EPS)) ||
+			(i_wrapV() == eiFALSE && (outV < 0.0f || (outV * i_repeatV()) - i_repeatV() > eiSCALAR_EPS)))
 		{
-			outUV().x = UNDEFINED_UV;
-			outUV().y = UNDEFINED_UV;
+			o_outUV().x = UNDEFINED_UV;
+			o_outUV().y = UNDEFINED_UV;
 		}
 		else
 		{
-			if(coverageU() < 1.0f)
+			if(i_coverageU() < 1.0f)
 			{
 				outU = fmodf(outU, 1.0f);
 			}
 
-			if(coverageV() < 1.0f)
+			if(i_coverageV() < 1.0f)
 			{
 				outV = fmodf(outV, 1.0f);
 			}
 
-			outU = outU * repeatU() / coverageU() + offsetU();
-			outV = outV * repeatV() / coverageV() + offsetV();	
+			outU = outU * i_repeatU() / i_coverageU() + i_offsetU();
+			outV = outV * i_repeatV() / i_coverageV() + i_offsetV();	
 
 			if(fmodf(outV, 2.0f) >= 1.0f)
 			{
-				if(stagger() != eiFALSE)
+				if(i_stagger() != eiFALSE)
 				{
 					outU += 0.5f;
 				}
 
-				if(mirrorV() != eiFALSE)
+				if(i_mirrorV() != eiFALSE)
 				{
 					scalar axis = floor(outV) + 0.5f;
 					outV = axis - (outV - axis);
 				}
 			}
 
-			if(mirrorU() != eiFALSE && fmodf(outU, 2.0f) >= 1.0f)
+			if(i_mirrorU() != eiFALSE && fmodf(outU, 2.0f) >= 1.0f)
 			{
 				scalar axis = floor(outU) + 0.5f;
 				outU = axis - (outU - axis);
 			}
 
-			if(rotateUV() != 0.0f)
+			if(i_rotateUV() != 0.0f)
 			{
 				point Q = point(outU, outV, 0.0f);
 				point P1 = point(0.5f, 0.5f, 0.0f);
 				point P2 = point(0.5f, 0.5f, 1.0f);
 
-				matrix rotMatrix = rotate(rotateFrame(), P2-P1 );//Q = rotate(Q, radians(rotateUV()), P1, P2 ); 
+				matrix rotMatrix = rotate(i_rotateFrame(), P2-P1 );//Q = rotate(Q, radians(rotateUV()), P1, P2 ); 
 				Q = Q * rotMatrix;
 
-				outU = fmodf(Q.x, repeatU());
-				outV = fmodf(Q.y, repeatV());
+				outU = fmodf(Q.x, i_repeatU());
+				outV = fmodf(Q.y, i_repeatV());
 			}
 
-			outUV().x = outU;
-			outUV().y = outV;
+			o_outUV().x = outU;
+			o_outUV().y = outV;
 		}
 	}
 

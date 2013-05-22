@@ -52,13 +52,13 @@ void Visitor::visitBump3d(const char* node)
 	OutputHelper o;
 	o.beginRSL("maya_bump3d", node);
 	//input
-	o.addRSLVariable("scalar",  "bumpValue",		"bumpValue",	node);
-	o.addRSLVariable("scalar",  "bumpDepth",		"bumpDepth",	node);
-	o.addRSLVariable("scalar",  "bumpFilter",		"bumpFilter",	node);
-	o.addRSLVariable("scalar",  "bumpFilterOffset",	"bumpFilterOffset",	node);
-	o.addRSLVariable("normal",  "normalCamera",		"normalCamera",	node);
+	o.addRSLVariable("scalar",  "i_bumpValue",		"bumpValue",	node);
+	o.addRSLVariable("scalar",  "i_bumpDepth",		"bumpDepth",	node);
+	o.addRSLVariable("scalar",  "i_bumpFilter",		"bumpFilter",	node);
+	o.addRSLVariable("scalar",  "i_bumpFilterOffset",	"bumpFilterOffset",	node);
+	o.addRSLVariable("normal",  "i_normalCamera",		"normalCamera",	node);
 	//output
-	o.addRSLVariable("normal",  "outNormal",		"outNormal",	node);
+	o.addRSLVariable("normal",  "o_outNormal",		"outNormal",	node);
 	o.endRSL();
 }
 // @node	maya shader node name
@@ -141,26 +141,26 @@ void Visitor::visitPlace2dTexture(const char* node)
 	out.ei_shader_param_int( "liq_UserDefinedU", liq_UserDefinedU );
 	out.ei_shader_param_int( "liq_UserDefinedV", liq_UserDefinedV );
 	//Inputs
-	o.addRSLVariable("vector",  "uvCoord",		"uvCoord",		node);
-	o.addRSLVariable("float",	"coverageU",	"coverageU",	node);
-	o.addRSLVariable("float",	"coverageV",	"coverageV",	node);
-	o.addRSLVariable("bool",	"mirrorU",		"mirrorU",		node);
-	o.addRSLVariable("bool",	"mirrorV",		"mirrorV",		node);
-	o.addRSLVariable("float",	"noiseU",		"noiseU",		node);
-	o.addRSLVariable("float",	"noiseV",		"noiseV",		node);
-	o.addRSLVariable("float",	"offsetU",		"offsetU",		node);
-	o.addRSLVariable("float",	"offsetV",		"offsetV",		node);
-	o.addRSLVariable("float",	"repeatU",		"repeatU",		node);
-	o.addRSLVariable("float",	"repeatV",		"repeatV",		node);
-	o.addRSLVariable("float",	"rotateFrame",	"rotateFrame",	node);
-	o.addRSLVariable("float",	"rotateUV",		"rotateUV",		node);
-	o.addRSLVariable("bool",	"stagger",		"stagger",		node);
-	o.addRSLVariable("float",	"translateFrameU",	"translateFrameU",	node);
-	o.addRSLVariable("float",	"translateFrameV",	"translateFrameV",	node);
-	o.addRSLVariable("bool",	"wrapU",		"wrapU",		node);
-	o.addRSLVariable("bool",	"wrapV",		"wrapV",		node);
+	o.addRSLVariable("vector",  "i_uvCoord",	"uvCoord",		node);
+	o.addRSLVariable("float",	"i_coverageU",	"coverageU",	node);
+	o.addRSLVariable("float",	"i_coverageV",	"coverageV",	node);
+	o.addRSLVariable("bool",	"i_mirrorU",	"mirrorU",		node);
+	o.addRSLVariable("bool",	"i_mirrorV",	"mirrorV",		node);
+	o.addRSLVariable("float",	"i_noiseU",		"noiseU",		node);
+	o.addRSLVariable("float",	"i_noiseV",		"noiseV",		node);
+	o.addRSLVariable("float",	"i_offsetU",	"offsetU",		node);
+	o.addRSLVariable("float",	"i_offsetV",	"offsetV",		node);
+	o.addRSLVariable("float",	"i_repeatU",	"repeatU",		node);
+	o.addRSLVariable("float",	"i_repeatV",	"repeatV",		node);
+	o.addRSLVariable("float",	"i_rotateFrame","rotateFrame",	node);
+	o.addRSLVariable("float",	"i_rotateUV",	"rotateUV",		node);
+	o.addRSLVariable("bool",	"i_stagger",	"stagger",		node);
+	o.addRSLVariable("float",	"i_translateFrameU",	"translateFrameU",	node);
+	o.addRSLVariable("float",	"i_translateFrameV",	"translateFrameV",	node);
+	o.addRSLVariable("bool",	"i_wrapU",		"wrapU",		node);
+	o.addRSLVariable("bool",	"i_wrapV",		"wrapV",		node);
 	//Outputs
-	o.addRSLVariable("vector",  "outUV",		"outUV",		node);
+	o.addRSLVariable("vector",  "o_outUV",		"outUV",		node);
 
 	o.endRSL();
 }

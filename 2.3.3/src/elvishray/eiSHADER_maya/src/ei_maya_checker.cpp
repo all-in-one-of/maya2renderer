@@ -18,21 +18,21 @@
 
 SURFACE(maya_checker)
 	DECLARE;
-	DECLARE_SCALAR(alphaGain,		1.0f);	// Inputs - begin
-	DECLARE_BOOL(alphaIsLuminance,	eiFALSE);
-	DECLARE_SCALAR(alphaOffset,		0.0f);
-	DECLARE_COLOR(color1,			1.0f, 1.0f, 1.0f);
-	DECLARE_COLOR(color2,			0.0f, 0.0f, 0.0f);
-	DECLARE_COLOR(colorGain,		1.0f, 1.0f, 1.0f);
-	DECLARE_COLOR(colorOffset,		0.0f, 0.0f, 0.0f);
-	DECLARE_SCALAR(contrast,		1.0f);
-	DECLARE_COLOR(defaultColor,		0.5, 0.5f, 0.5f);
-	DECLARE_SCALAR(filter,			1.0f);
-	DECLARE_SCALAR(filterOffset,	0.0f);
-	DECLARE_BOOL(invert,			eiFALSE);
-	DECLARE_VECTOR(uvCoord,			0.0f, 0.0f, 0.0f);//only uvCoord[0],uvCoord[1] are used.
-	DECLARE_SCALAR(outAlpha,		0.5f);// Outputs - begin
-	DECLARE_COLOR(outColor,			0.5f, 0.5f, 0.5f);
+	DECLARE_SCALAR(i_alphaGain,		1.0f);	// Inputs - begin
+	DECLARE_BOOL(i_alphaIsLuminance,eiFALSE);
+	DECLARE_SCALAR(i_alphaOffset,	0.0f);
+	DECLARE_COLOR(i_color1,			1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(i_color2,			0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(i_colorGain,		1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(i_colorOffset,	0.0f, 0.0f, 0.0f);
+	DECLARE_SCALAR(i_contrast,		1.0f);
+	DECLARE_COLOR(i_defaultColor,	0.5, 0.5f, 0.5f);
+	DECLARE_SCALAR(i_filter,		1.0f);
+	DECLARE_SCALAR(i_filterOffset,	0.0f);
+	DECLARE_BOOL(i_invert,			eiFALSE);
+	DECLARE_VECTOR(i_uvCoord,		0.0f, 0.0f, 0.0f);//only uvCoord[0],uvCoord[1] are used.
+	DECLARE_SCALAR(o_outAlpha,		0.5f);// Outputs - begin
+	DECLARE_COLOR(o_outColor,		0.5f, 0.5f, 0.5f);
 	END_DECLARE;
 
 	static void init()
@@ -53,10 +53,10 @@ SURFACE(maya_checker)
 
 	void main(void *arg)
 	{
-		scalar alpha = outAlpha();
+		scalar alpha = o_outAlpha();
 
-		float ss = uvCoord().x;
-		float tt = uvCoord().y;
+		float ss = i_uvCoord().x;
+		float tt = i_uvCoord().y;
 
 		if(ISUVDEFINED(ss, tt))
 		{
@@ -66,8 +66,8 @@ SURFACE(maya_checker)
 // 			float dss = abs(dUVdu.x * du()) + abs(dUVdv.x * dv());
 // 			float dtt = abs(dUVdu.y * du()) + abs(dUVdv.y * dv());
 			
-			float dss = abs(Du(uvCoord).x * du) + abs(Dv(uvCoord).x * dv);
-			float dtt = abs(Du(uvCoord).y * du) + abs(Dv(uvCoord).y * dv);
+			float dss = abs(Du(i_uvCoord).x * du) + abs(Dv(i_uvCoord).x * dv);
+			float dtt = abs(Du(i_uvCoord).y * du) + abs(Dv(i_uvCoord).y * dv);
 
 
 			ss = fmodf(ss, WRAPMAX);
@@ -75,8 +75,8 @@ SURFACE(maya_checker)
 
 			/* Add in "Effects" filter values. We multiplie the i_filterOffset
 			variable by 2 to match Maya's look */ 
-			dss = dss * filter() + filterOffset()*2.0f; 
-			dtt = dtt * filter() + filterOffset()*2.0f; 
+			dss = dss * i_filter() + i_filterOffset()*2.0f; 
+			dtt = dtt * i_filter() + i_filterOffset()*2.0f; 
 
 			/* compute separation: 0 for half the squares, 1 for the others. */
 			float f = 0.5f - 2.0f *
@@ -84,30 +84,30 @@ SURFACE(maya_checker)
 				(filteredpulsetrain(0.5f, 1.0f, tt, dtt) - 0.5f);
 
 			/* contrast interpolates the separation from 0.5 to its normal value. */
-			f = 0.5f + (f - 0.5f) * contrast();
+			f = 0.5f + (f - 0.5f) * i_contrast();
 
 			/* Compute final values. */
 			alpha = 1.0f - f;
-			out->Ci = color1() + (color2() - color1()) * f;
+			out->Ci = i_color1() + (i_color2() - i_color1()) * f;
 
 			colorBalance(out->Ci, 
 				alpha,
-				alphaIsLuminance(),
-				alphaGain(),
-				alphaOffset(),
-				colorGain(),
-				colorOffset(),
-				invert() );
+				i_alphaIsLuminance(),
+				i_alphaGain(),
+				i_alphaOffset(),
+				i_colorGain(),
+				i_colorOffset(),
+				i_invert() );
 		}
 		else
 		{
-			out->Ci = defaultColor();
-			alpha = luminance( defaultColor() );
+			out->Ci = i_defaultColor();
+			alpha = luminance( i_defaultColor() );
 		}
 
 		// set output
-		outColor() = out->Ci;
-		outAlpha() = alpha;
+		o_outColor() = out->Ci;
+		o_outAlpha() = alpha;
 	}
 
 

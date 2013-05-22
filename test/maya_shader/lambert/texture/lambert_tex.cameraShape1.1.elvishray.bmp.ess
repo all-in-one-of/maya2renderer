@@ -5,7 +5,7 @@ link "eiSHADER"
 link "eiSHADER_maya"
 ##----------------shader_for_test begin---
 shader "maya_surfaceShader" "liquid_shader_for_test" 
-    param_vector "outColor" 1.000000 0.000000 0.000000
+    param_vector "o_outColor" 1.000000 0.000000 0.000000
 end shader
 material "liquid_material_for_test" 
 surface_shader "liquid_shader_for_test" 
@@ -29,52 +29,52 @@ end options
 shader "maya_place2dTexture" "place2dTexture1" 
     param_int "liq_UserDefinedU" 0 
     param_int "liq_UserDefinedV" 0 
-    param_vector "uvCoord" 0.000000 0.000000 0.000000
-    param_scalar "coverageU" 1 
-    param_scalar "coverageV" 1 
-    param_bool "mirrorU" 0 
-    param_bool "mirrorV" 0 
-    param_scalar "noiseU" 0 
-    param_scalar "noiseV" 0 
-    param_scalar "offsetU" 0 
-    param_scalar "offsetV" 0 
-    param_scalar "repeatU" 1 
-    param_scalar "repeatV" 1 
-    param_scalar "rotateFrame" 0 
-    param_scalar "rotateUV" 0 
-    param_bool "stagger" 0 
-    param_scalar "translateFrameU" 0 
-    param_scalar "translateFrameV" 0 
-    param_bool "wrapU" 1 
-    param_bool "wrapV" 1 
-    param_vector "outUV" 0.000000 0.000000 0.000000
+    param_vector "i_uvCoord" 0.000000 0.000000 0.000000
+    param_scalar "i_coverageU" 1 
+    param_scalar "i_coverageV" 1 
+    param_bool "i_mirrorU" 0 
+    param_bool "i_mirrorV" 0 
+    param_scalar "i_noiseU" 0 
+    param_scalar "i_noiseV" 0 
+    param_scalar "i_offsetU" 0 
+    param_scalar "i_offsetV" 0 
+    param_scalar "i_repeatU" 1 
+    param_scalar "i_repeatV" 1 
+    param_scalar "i_rotateFrame" 0 
+    param_scalar "i_rotateUV" 0 
+    param_bool "i_stagger" 0 
+    param_scalar "i_translateFrameU" 0 
+    param_scalar "i_translateFrameV" 0 
+    param_bool "i_wrapU" 1 
+    param_bool "i_wrapV" 1 
+    param_vector "o_outUV" 0.000000 0.000000 0.000000
 end shader
 
 texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check112.tif" 
 file_texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check112.tif.tex" 0 
 end texture
 shader "maya_file" "file1" 
-    param_scalar "alphaGain" 1 
-    param_bool "alphaIsLuminance" 0 
-    param_scalar "alphaOffset" 0 
-    param_vector "colorGain" 1.000000 1.000000 1.000000
-    param_vector "colorOffset" 0.000000 0.000000 0.000000
-    param_vector "defaultColor" 0.500000 0.500000 0.500000
-    param_texture "fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check112.tif" 
-    param_index "filterType" 3 
-    param_scalar "filter" 1 
-    param_scalar "filterOffset" 0 
-    param_bool "invert" 0 
-    link_param "uvCoord" "place2dTexture1" "outUV" 
-    param_bool "fileHasAlpha" 0 
-    param_scalar "outAlpha" 1 
-    param_vector "outColor" 0.000000 0.000000 0.000000
-    param_vector "outTransparency" 0.000000 0.000000 0.000000
+    param_scalar "i_alphaGain" 1 
+    param_bool "i_alphaIsLuminance" 0 
+    param_scalar "i_alphaOffset" 0 
+    param_vector "i_colorGain" 1.000000 1.000000 1.000000
+    param_vector "i_colorOffset" 0.000000 0.000000 0.000000
+    param_vector "i_defaultColor" 0.500000 0.500000 0.500000
+    param_texture "i_fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/check112.tif" 
+    param_index "i_filterType" 3 
+    param_scalar "i_filter" 1 
+    param_scalar "i_filterOffset" 0 
+    param_bool "i_invert" 0 
+    link_param "i_uvCoord" "place2dTexture1" "o_outUV" 
+    param_bool "i_fileHasAlpha" 0 
+    param_scalar "o_outAlpha" 1 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
 shader "maya_lambert" "lambert2" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
-    link_param "i_color" "file1" "outColor" 
+    link_param "i_color" "file1" "o_outColor" 
     param_scalar "i_diffuse" 0.8 
     param_vector "i_incandescence" 0.000000 0.000000 0.000000
     param_index "i_matteOpacityMode" 2 

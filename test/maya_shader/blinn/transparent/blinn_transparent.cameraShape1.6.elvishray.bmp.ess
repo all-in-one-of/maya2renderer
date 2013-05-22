@@ -5,7 +5,7 @@ link "eiSHADER"
 link "eiSHADER_maya"
 ##----------------shader_for_test begin---
 shader "maya_surfaceShader" "liquid_shader_for_test" 
-    param_vector "outColor" 1.000000 0.000000 0.000000
+    param_vector "o_outColor" 1.000000 0.000000 0.000000
 end shader
 material "liquid_material_for_test" 
 surface_shader "liquid_shader_for_test" 

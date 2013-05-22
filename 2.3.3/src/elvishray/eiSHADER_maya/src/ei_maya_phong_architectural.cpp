@@ -28,25 +28,25 @@
 SURFACE(maya_phong_architectural)
 
 	DECLARE;
-	DECLARE_COLOR(	color_,						0.5f, 0.5f, 0.5f); //Common Material Attributes - begin
-	DECLARE_COLOR(	transparency,				0.0f, 0.0f, 0.0f); 
-	DECLARE_COLOR(	ambientColor,				0.0f, 0.0f, 0.0f); 
-	DECLARE_COLOR(	incandescence,				0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(	i_ambientColor,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	i_color,					0.5f, 0.5f, 0.5f); //Common Material Attributes - begin
+	DECLARE_SCALAR(	i_cosinePower,				20.0f);	
+	DECLARE_SCALAR(	i_diffuse,					0.8f);
+	DECLARE_COLOR(	i_incandescence,				0.0f, 0.0f, 0.0f);
+	DECLARE_INDEX(  i_matteOpacityMode,			2);					//Matte Opacity - begin
+	DECLARE_SCALAR(	i_matteOpacity,				1.0f);
 	DECLARE_INT(	liq_UserDefinedNormal,		0);// use user defined normal or not, 1:yes, 0:no
-	DECLARE_NORMAL(	normalCamera,				0.0f, 0.0f, 0.0f); //bump
-	DECLARE_SCALAR(	diffuse,					0.8f);
-	DECLARE_SCALAR(	translucence,				0.0f); 
-	DECLARE_SCALAR(	translucenceDepth,			0.5f); 
-	DECLARE_SCALAR(	translucenceFocus,			0.5f); 
-	DECLARE_SCALAR(	cosinePower,				20.0f);				//Specular Shading - begin
-	DECLARE_COLOR(	specularColor,				0.5f, 0.5f, 0.5f);
-	DECLARE_SCALAR(	reflectivity,				0.5f);
-	DECLARE_COLOR(	reflectedColor,				0.0f, 0.0f, 0.0f);
-	DECLARE_INDEX( matteOpacityMode,			2);					//Matte Opacity - begin
-	DECLARE_SCALAR(	matteOpacity,				1.0f);
-	DECLARE_INDEX( reflectionLimit,				1);					//Raytrace Options - begin
-	DECLARE_COLOR(	outColor,					0.0f, 0.0f, 0.0f);	//output - begin
-	DECLARE_COLOR(	outTransparency,			0.0f, 0.0f, 0.0f);
+	DECLARE_NORMAL(	i_normalCamera,				0.0f, 0.0f, 0.0f); //bump
+	DECLARE_COLOR(	i_specularColor,				0.5f, 0.5f, 0.5f);
+	DECLARE_SCALAR(	i_reflectivity,				0.5f);
+	DECLARE_COLOR(	i_reflectedColor,				0.0f, 0.0f, 0.0f);
+	DECLARE_INDEX(  i_reflectionLimit,				1);					//Raytrace Options - begin
+	DECLARE_SCALAR(	i_translucence,				0.0f); 
+	DECLARE_SCALAR(	i_translucenceDepth,			0.5f); 
+	DECLARE_SCALAR(	i_translucenceFocus,			0.5f); 
+	DECLARE_COLOR(	i_transparency,				0.0f, 0.0f, 0.0f); 
+	DECLARE_COLOR(	o_outColor,					0.0f, 0.0f, 0.0f);	//output - begin
+	DECLARE_COLOR(	o_outTransparency,			0.0f, 0.0f, 0.0f);
 	DECLARE_OUT_COLOR(aov_ambient,				0.0f, 0.0f, 0.0f);
 	DECLARE_OUT_COLOR(aov_diffuse,				0.0f, 0.0f, 0.0f);
 	DECLARE_OUT_COLOR(aov_specular,				0.0f, 0.0f, 0.0f);
@@ -192,22 +192,22 @@ SURFACE(maya_phong_architectural)
 	{
 		const color WHITE(1.0f);
 		//-----------------------------------------
-		const color Cs(color_());
+		const color Cs(i_color());
 		color diffuse_color(1.0f, 1.0f, 1.0f);
-		scalar diffuse_weight = diffuse();
-		color specular_color(specularColor());
+		scalar diffuse_weight = i_diffuse();
+		color specular_color(i_specularColor());
 		scalar specular_weight= 0.2f;//cosinePower
 		scalar roughness = 0.0f;
 		int specular_mode = 1;//[0,3]
 		scalar glossiness = 1.0f;
-		color reflection_color(reflectedColor());
+		color reflection_color(i_reflectedColor());
 		scalar reflection_weight = 0.5f;
 		color  refraction_color(1.0f, 1.0f, 1.0f);
 		scalar refraction_weight= 0.0f;//zero will lead a dark image
 		scalar refraction_glossiness = 0.5f;
 		scalar refraction_thickness= 2.0f;//surfaceThickness
-		color  translucency_color(transparency());
-		scalar translucency_weight = translucence();
+		color  translucency_color(i_transparency());
+		scalar translucency_weight = i_translucence();
 		scalar anisotropy = 1.0f;
 		scalar rotation = 0.0f;
 		scalar ior = 1.5f;//refractiveIndex
@@ -225,11 +225,11 @@ SURFACE(maya_phong_architectural)
 
   		if( liq_UserDefinedNormal() == 0 )
   		{
-  			normalCamera() = N;
+  			i_normalCamera() = N;
   		}
 		//-----------------------------------------
 		vector In = normalize( I );
-		normal Nn = normalize( normalCamera() );
+		normal Nn = normalize( i_normalCamera() );
 		normal Nf = ShadingNormal(Nn);
 		vector V = -In;
 		//-----------------------------------------
@@ -274,15 +274,15 @@ SURFACE(maya_phong_architectural)
 //		const int spec_mode = clamp(specular_mode, 0, 3);
 
 		computeSurface(
-			color_(),//outColor(),//out->Ci,//
-			transparency(),//out->Oi,//
-			matteOpacityMode(),
-			matteOpacity(),
-			outColor(),//out->Ci,//
-			outTransparency()//out->Oi//
+			i_color(),//outColor(),//out->Ci,//
+			i_transparency(),//out->Oi,//
+			i_matteOpacityMode(),
+			i_matteOpacity(),
+			o_outColor(),//out->Ci,//
+			o_outTransparency()//out->Oi//
 		);
-		out->Ci = outColor();
-		out->Oi = outTransparency();
+		out->Ci = o_outColor();
+		out->Oi = o_outTransparency();
 
 		// apply rotation
 		scalar deg = rotation;
@@ -431,12 +431,12 @@ SURFACE(maya_phong_architectural)
  		{
  			// integrate direct lighting from the front side
  			//out->Ci += integrate_direct_lighting(/*Kd*/diffuse(), Rd, wo);
- 			//out->Ci *= diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
-			Cdiffuse += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+ 			//out->Ci *= i_diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			Cdiffuse += i_diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
  			//out->Ci += integrate_direct_lighting(Ks, *Rs, wo);
- 			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
-			Cspecular += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+ 			//out->Ci += i_specularColor() * getPhong (Nf, V, i_cosinePower(), eiFALSE, eiFALSE);
+			Cspecular += i_specularColor() * getPhong (Nf, V, i_cosinePower(), eiFALSE, eiFALSE);
 
 		}
 
@@ -462,13 +462,13 @@ SURFACE(maya_phong_architectural)
 			}
 			
 			// integrate direct lighting from the back side
-			//out->Ci += Kc * integrate_direct_lighting(/*Kd*/diffuse(), Rd, new_wo);
-			//out->Ci += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
-			Cdiffuse += diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			//out->Ci += Kc * integrate_direct_lighting(/*Kd*/i_diffuse(), Rd, new_wo);
+			//out->Ci += i_diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
+			Cdiffuse += i_diffuse() * getDiffuse(Nf, eiFALSE, eiFALSE);
 
 			//out->Ci += Kc * integrate_direct_lighting(Ks, *Rs, new_wo);
-			//out->Ci += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
-			Cspecular += specularColor() * getPhong (Nf, V, cosinePower(), eiFALSE, eiFALSE);
+			//out->Ci += i_specularColor() * getPhong (Nf, V, i_cosinePower(), eiFALSE, eiFALSE);
+			Cspecular += i_specularColor() * getPhong (Nf, V, i_cosinePower(), eiFALSE, eiFALSE);
 
 			N = old_N;
 			u_axis = old_u_axis;
@@ -556,14 +556,14 @@ SURFACE(maya_phong_architectural)
 					);
 
 #ifdef USE_AOV_aov_ambient
-		aov_ambient() += ( ambientColor() 
+		aov_ambient() += ( i_ambientColor() 
 							*(CReflectDiffuse *
 							  Cs *(1.0f - specular_weight) * diffuse_weight//Kd
 							 )
-						 ) * (1.0f - outTransparency());
+						 ) * (1.0f - o_outTransparency());
 #endif
 #ifdef USE_AOV_aov_diffuse
-		aov_diffuse() += ( Cdiffuse * color_() ) * (1.0f - outTransparency());
+		aov_diffuse() += ( Cdiffuse * i_color() ) * (1.0f - o_outTransparency());
 #endif
 #ifdef USE_AOV_aov_specular
 		aov_specular() += (Cspecular
@@ -579,9 +579,9 @@ SURFACE(maya_phong_architectural)
 #endif
 
 
-		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &i_transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
 		{//transparent
-			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
+			out->Ci = out->Ci * ( 1.0f - i_transparency() ) + trace_transparent() * i_transparency();
 		}//else{ opacity }
 
 		Rs->~BSDF();

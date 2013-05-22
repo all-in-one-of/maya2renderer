@@ -287,6 +287,17 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			//}
 			//else//the srcNode is NOT a texture
 			{
+				if( srcAttr.substring(0, 2)=="out"  )//src attribute is an output plug
+				{
+					srcAttr = "o_" + srcAttr;
+				}else{//src attribute is an input plug
+					 if(srcAttr.substring(0, 1) == "i_")
+					 {
+						 // do nothing
+					 }else{
+						srcAttr = "i_" + srcAttr;
+					 }
+				}
 				out.ei_shader_link_param( rslName.asChar(), srcNode.asChar(), srcAttr.asChar() );
 			}
 		}

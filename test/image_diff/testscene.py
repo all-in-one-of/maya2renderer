@@ -91,28 +91,28 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/simple/lambert.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/texture/lambert_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/transparent/lambert_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/simple/phong.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/texture/phong_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/transparent/phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/blinn/simple/blinn.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/blinn/texture/blinn_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/blinn/transparent/blinn_transparent.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -296,28 +296,28 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/simple/lambert.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/texture/lambert_tex.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/lambert/transparent/lambert_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/simple/phong.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/texture/phong_tex.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/phong/transparent/phong_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
     testFile=LIQUID_ROOT+"/test/maya_shader/blinn/simple/blinn.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/blinn/texture/blinn_tex.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/blinn/transparent/blinn_transparent.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -437,13 +437,13 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_surface/nurbs_surface.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-
+    '''
 
     
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"

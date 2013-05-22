@@ -20,14 +20,14 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 	OutputHelper o;
 	o.beginRSL("maya_mib_amb_occlusion", node);
 
-	o.addRSLVariable("index",	"samples",		"samples",		node);
-	o.addRSLVariable("color",	"bright",		"bright",		node);
-	o.addRSLVariable("color",	"dark",			"dark",			node);
-	o.addRSLVariable("float",	"spread",		"spread",		node);
-	o.addRSLVariable("float",	"max_distance",	"max_distance",	node);
-	o.addRSLVariable("bool",	"reflective",	"reflective",	node);
+	o.addRSLVariable("index",	"i_samples",		"samples",		node);
+	o.addRSLVariable("color",	"i_bright",			"bright",		node);
+	o.addRSLVariable("color",	"i_dark",			"dark",			node);
+	o.addRSLVariable("float",	"i_spread",			"spread",		node);
+	o.addRSLVariable("float",	"i_max_distance",	"max_distance",	node);
+	o.addRSLVariable("bool",	"i_reflective",		"reflective",	node);
 	//liquidMessage2(messageWarning, "visit_mib_amb_occlusion(): outValue should be added?");
-	//o.addRSLVariable("color",	"outValue",		"outValue",		node);
+	//o.addRSLVariable("color",	"o_outValue",		"outValue",		node);
 
 	o.endRSL();
 }

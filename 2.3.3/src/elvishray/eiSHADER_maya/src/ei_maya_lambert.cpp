@@ -26,7 +26,7 @@ SURFACE(maya_lambert)
 	DECLARE_COLOR(	i_color,					0.5f, 0.5f, 0.5f); 
 	DECLARE_SCALAR(	i_diffuse,					0.8f);	
 	DECLARE_COLOR(	i_incandescence,			0.0f, 0.0f, 0.0f); 
-	DECLARE_INDEX( i_matteOpacityMode,			2);	//Matte Opacity - begin
+	DECLARE_INDEX(  i_matteOpacityMode,			2);	//Matte Opacity - begin
 	DECLARE_SCALAR(	i_matteOpacity,				1.0f);
 	DECLARE_BOOL(	i_refractions,				0);/* Refraction. */
 	DECLARE_SCALAR(	i_refractiveIndex,			1.0f);

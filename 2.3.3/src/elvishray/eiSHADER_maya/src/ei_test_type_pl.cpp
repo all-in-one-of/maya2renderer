@@ -17,16 +17,16 @@
 
 SURFACE(test_type_pl)
 	DECLARE;
-	DECLARE_TOKEN(token_name,	"");
-	DECLARE_INT(int_name,		0);
-	DECLARE_SCALAR(scalar_name, 0.0f);
-	DECLARE_VECTOR(vector_name, 0.5f, 0.5f, 0.5f);
-	DECLARE_POINT(point_name,	0.5f, 0.5f, 0.5f);
-	DECLARE_NORMAL(normal_name, 0.5f, 0.5f, 0.5f);
-	DECLARE_COLOR(color_name,	0.5f, 0.5f, 0.5f);
-	DECLARE_TAG(tag_name,		eiNULL_TAG);
-	DECLARE_INDEX(index_name,	0);
-	DECLARE_BOOL(bool_name,		eiTRUE);
+	DECLARE_TOKEN(i_token_name,	"");
+	DECLARE_INT(i_int_name,		0);
+	DECLARE_SCALAR(i_scalar_name, 0.0f);
+	DECLARE_VECTOR(i_vector_name, 0.5f, 0.5f, 0.5f);
+	DECLARE_POINT(i_point_name,	0.5f, 0.5f, 0.5f);
+	DECLARE_NORMAL(i_normal_name, 0.5f, 0.5f, 0.5f);
+	DECLARE_COLOR(i_color_name,	0.5f, 0.5f, 0.5f);
+	DECLARE_TAG(i_tag_name,		eiNULL_TAG);
+	DECLARE_INDEX(i_index_name,	0);
+	DECLARE_BOOL(i_bool_name,		eiTRUE);
 	END_DECLARE;
 
 	static void init()	{}
@@ -42,8 +42,8 @@ SURFACE(test_type_pl)
 
 	void main(void *arg)
 	{
-		out->Ci = clamp(color_name(), color(0.0f, 0.0f, 0.0f), color(1.0f, 1.0f, 1.0f));
-		out->Oi = clamp(scalar_name(), 0.0f, 1.0f);
+		out->Ci = clamp(i_color_name(), color(0.0f, 0.0f, 0.0f), color(1.0f, 1.0f, 1.0f));
+		out->Oi = clamp(i_scalar_name(), 0.0f, 1.0f);
 	}
 
 END(test_type_pl)

@@ -21,10 +21,10 @@
 
 SURFACE(maya_surfaceShader)
 	DECLARE;
-	DECLARE_COLOR(outColor, 0.0f, 0.0f, 0.0f);
-	DECLARE_COLOR(outTransparency, 0.0f, 0.0f, 0.0f);
-	DECLARE_COLOR(outMatteOpacity, 1.0f, 1.0f, 1.0f);
-	DECLARE_COLOR(outGlowColor, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(o_outColor, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(o_outTransparency, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(o_outMatteOpacity, 1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(o_outGlowColor, 0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -45,8 +45,8 @@ SURFACE(maya_surfaceShader)
 
 	void main(void *arg)
 	{
-		out->Ci = outColor();
-		out->Oi = outTransparency();
+		out->Ci = o_outColor();
+		out->Oi = o_outTransparency();
 	}
 
 END(maya_surfaceShader)

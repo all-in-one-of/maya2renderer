@@ -19,13 +19,13 @@
 
 SURFACE(maya_mib_amb_occlusion)
 	DECLARE;
-	DECLARE_INDEX(	samples,			16); 
-	DECLARE_COLOR(	bright,				1.0f, 1.0f, 1.0f); 
-	DECLARE_COLOR(	dark,				0.0f, 0.0f, 0.0f); 
-	DECLARE_SCALAR(	spread,				0.8f); 
-	DECLARE_SCALAR(	max_distance,		0.0f);
-	DECLARE_BOOL(	reflective,			eiFALSE); 
-	DECLARE_COLOR(	outValue,			0.0f, 0.0f, 0.0f);
+	DECLARE_INDEX(	i_samples,			16); 
+	DECLARE_COLOR(	i_bright,			1.0f, 1.0f, 1.0f); 
+	DECLARE_COLOR(	i_dark,				0.0f, 0.0f, 0.0f); 
+	DECLARE_SCALAR(	i_spread,			0.8f); 
+	DECLARE_SCALAR(	i_max_distance,		0.0f);
+	DECLARE_BOOL(	i_reflective,		eiFALSE); 
+	DECLARE_COLOR(	o_outValue,			0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -70,12 +70,12 @@ SURFACE(maya_mib_amb_occlusion)
 
 	void main_er(void *arg)
 	{
-		if(max_distance() < eiSCALAR_EPS)//If it is zero, the entire scene is sampled
-			max_distance() = eiMAX_SCALAR;
+		if(i_max_distance() < eiSCALAR_EPS)//If it is zero, the entire scene is sampled
+			i_max_distance() = eiMAX_SCALAR;
 
 		normal Nf = faceforward(normalize(N), I);
 
-		uint num_rays = max<int>(samples(), 1);
+		uint num_rays = max<int>(i_samples(), 1);
 		int num_misses = 0;
 
 		UniformSampler<2> sampler(this, num_rays);
@@ -83,39 +83,39 @@ SURFACE(maya_mib_amb_occlusion)
 		while (sampler.sample())
 		{
 			vector dir = sample_cosine_hemisphere(point(0.0f), Nf, 1.0f, sampler[0], sampler[1]);
-			if (!trace_probe(P, dir, max_distance()))
+			if (!trace_probe(P, dir, i_max_distance()))
 			{
 				++ num_misses;
 			}
 		}
 
-		outValue() = color( (scalar)num_misses / (scalar)num_rays );
+		o_outValue() = color( (scalar)num_misses / (scalar)num_rays );
 		
 		//
-		out->Ci = outValue();
+		out->Ci = o_outValue();
 		out->Oi = color(1.0f);
 
 	}
 	void main_3delight(void *arg)
 	{	
-		if(max_distance() < eiSCALAR_EPS)//If it is zero, the entire scene is sampled
-			max_distance() = eiMAX_SCALAR;
+		if(i_max_distance() < eiSCALAR_EPS)//If it is zero, the entire scene is sampled
+			i_max_distance() = eiMAX_SCALAR;
 
 		normal Nf = faceforward(normalize(N), I);
 		normal Nn = normalize(Nf);
 
-		if(reflective() != eiFALSE)
+		if(i_reflective() != eiFALSE)
 			Nn = reflect( -I, Nn );
 
 		const scalar occ = 1.0f - occlusion(P, Nn, 
-									samples(),
-									max_distance(),
-									spread()
+									i_samples(),
+									i_max_distance(),
+									i_spread()
 								);
 
-		outValue() = mix( dark(), bright(), occ );
+		o_outValue() = mix( i_dark(), i_bright(), occ );
 		//
-		out->Ci = outValue();
+		out->Ci = o_outValue();
 		out->Oi = color(1.0f);
 	}
 
