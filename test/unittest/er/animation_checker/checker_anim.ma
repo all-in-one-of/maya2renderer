@@ -1,6 +1,6 @@
 //Maya ASCII 2012 scene
 //Name: checker_anim.ma
-//Last modified: Mon, Apr 22, 2013 04:09:33 PM
+//Last modified: Thu, May 23, 2013 12:55:42 AM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
@@ -142,7 +142,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/checker_anim2595.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/checker_anim32042.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -283,32 +283,6 @@ createNode animCurveTU -n "pPlane2_scaleZ";
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  1 8.0276311165390233 10 8.0276311165390233
 		 20 8.0276311165390233;
-createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_renderman";
-	addAttr -ci true -h true -sn "testBool0" -ln "testBool0" -min 0 -max 1 -at "bool";
-	addAttr -ci true -h true -sn "testBool1" -ln "testBool1" -min 0 -max 1 -at "bool";
-	addAttr -ci true -h true -sn "testString0" -ln "testString0" -dt "string";
-	addAttr -ci true -h true -sn "testString1" -ln "testString1" -dt "string";
-	addAttr -ci true -uac -h true -sn "testColor0" -ln "testColor0" -at "float3" -nc 
-		3;
-	addAttr -ci true -sn "testColor0R" -ln "testColor0R" -at "float" -p "testColor0";
-	addAttr -ci true -sn "testColor0G" -ln "testColor0G" -at "float" -p "testColor0";
-	addAttr -ci true -sn "testColor0B" -ln "testColor0B" -at "float" -p "testColor0";
-	addAttr -ci true -uac -h true -sn "testColor1" -ln "testColor1" -at "float3" -nc 
-		3;
-	addAttr -ci true -sn "testColor1R" -ln "testColor1R" -at "float" -p "testColor1";
-	addAttr -ci true -sn "testColor1G" -ln "testColor1G" -at "float" -p "testColor1";
-	addAttr -ci true -sn "testColor1B" -ln "testColor1B" -at "float" -p "testColor1";
-	addAttr -ci true -h true -sn "testInt0" -ln "testInt0" -at "long";
-	addAttr -ci true -h true -sn "testInt1" -ln "testInt1" -dv 10 -at "long";
-	addAttr -ci true -h true -sn "testFloat0" -ln "testFloat0" -at "float";
-	addAttr -ci true -h true -sn "testFloat1" -ln "testFloat1" -dv 10 -at "float";
-	addAttr -ci true -h true -sn "testIntMenu0" -ln "testIntMenu0" -at "long";
-	addAttr -ci true -h true -sn "testIntMenu1" -ln "testIntMenu1" -dv 1 -at "long";
-	setAttr ".testBool0" yes;
-	setAttr ".testString0" -type "string" "string_test_value0renderman";
-	setAttr ".testString1" -type "string" "string_test_value1renderman";
-	setAttr ".testColor0" -type "float3" 1 1 0 ;
-	setAttr ".testColor1" -type "float3" 1.9 9 2 ;
 createNode animCurveTL -n "camera1_aim_translateX";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
@@ -371,6 +345,9 @@ createNode animCurveTU -n "place2dTexture1_repeatV";
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  1 1 10 5;
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
+	addAttr -ci true -h true -sn "output_call" -ln "output_call" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_esa" -ln "output_esa" -min 0 -max 1 -at "bool";
+	addAttr -ci true -h true -sn "output_ess" -ln "output_ess" -min 0 -max 1 -at "bool";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
 	addAttr -ci true -h true -sn "contrast" -ln "contrast" -dt "string";
@@ -402,6 +379,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 		65536 -at "long";
 	addAttr -ci true -h true -sn "approx_motion_factor" -ln "approx_motion_factor" -dv 
 		16 -at "float";
+	setAttr ".output_call" yes;
+	setAttr ".output_esa" yes;
+	setAttr ".output_ess" yes;
 	setAttr ".link" -type "string" "eiIMG|eiSHADER|eiSHADER_maya";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";

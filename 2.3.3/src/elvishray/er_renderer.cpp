@@ -1489,8 +1489,11 @@ namespace elvishray
 		m_iprMgr->onAttributeChanged(msg, plug, otherPlug, userData );
 
 
-		m_root_group = "perspShape";
-		m_option     = "perspShape_option";
+		MString renderCamera;
+		IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`;", renderCamera));
+
+		m_root_group = renderCamera.asChar();
+		m_option     = (renderCamera+"_option").asChar();
 
 		render_ipr();
 
