@@ -68,7 +68,7 @@ global proc liquidmayaStartIprRender(string $editor, int $resolutionX, int $reso
 	liqlog("liquidmayaStartIprRender("+$editor+","+$resolutionX+","+$resolutionY+","+$camera+")");
 	   
 	//we take a rendering to initlize liquid parameters
-    liquid -GL -initGlobalsOnly;//init globals data only, not export data.
+    liquid -GL -initGlobalsOnly -ipr;//init globals data only, not export data.
 	
 	//register callback functions
 	liqIPRNodeMessage -rgt;

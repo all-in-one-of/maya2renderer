@@ -166,16 +166,21 @@ namespace elvishray
 		o.init();
 
 		//////////////////////////////////////////////////////////////////////////
-		//_s("//### SCENE BEGIN ###");
-		//_S( ei_context() );
+		if( liqglo.iprRendering )
+		{
+			o.a("### SCENE BEGIN ###");
+			o.ei_context();
+		}
 		
 	}
 	void Renderer::closeLog()
 	{
 		CM_TRACE_FUNC("Renderer::closeLog()(but do nothing now)");
 
-		//_S( ei_end_context() );
-
+		if( liqglo.iprRendering )
+		{
+			o.ei_end_context();
+		}
 		//////////////////////////////////////////////////////////////////////////
 		//destruct output mgr
 		o.uninit();
@@ -485,8 +490,10 @@ namespace elvishray
 
 		currentJob.ribFileName;
 
-		o.ei_context();
-
+		if( !liqglo.iprRendering )
+		{
+			o.ei_context();
+		}
 		//verbose
 		o.ei_verbose(	m_gnode->getInt("verbose") );
 
@@ -516,7 +523,10 @@ namespace elvishray
 
 		render( currentJob );
 
-		o.ei_end_context();
+		if( !liqglo.iprRendering )
+		{
+			o.ei_end_context();
+		}
 		o.a("------------------------------------------------");
 		o.ln();
 

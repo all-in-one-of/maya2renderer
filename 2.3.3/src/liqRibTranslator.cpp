@@ -7911,6 +7911,8 @@ void liqRibTranslator::setGlobals0()
 	MGlobal::executeCommand( MELCommand, MELReturn );
 	liqglo.liqglo_projectDir = MELReturn;
 	//[refactor 42] end,
+
+	liqglo.iprRendering = 0;
 }
 void liqRibTranslator::setGlobals1()
 {
