@@ -7,6 +7,7 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq| ipr|: 选择mesh，把mesh相关的shader加入更新列表
 -liq|: UI不够友好
 -liq|ui|: bug: liqAE_renderman will appear on main menu bar.
 -（done）liq|ui|: bug: Cannot find procedure "liquidEditorTemplate_elvishray"，另一个同名的er_AEliquidInstanceFlags.mel文件里不包含liquidEditorTemplate_elvishray（）

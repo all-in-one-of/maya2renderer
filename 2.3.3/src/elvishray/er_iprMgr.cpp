@@ -85,8 +85,8 @@ namespace elvishray
 		IfMErrorWarn(m0.asMatrix().get(m));
 
 		// render region
-		unsigned int left, right, bottom, top;
-		MRenderView::getRenderRegion(left, right, bottom, top);
+		unsigned int left=0, right=0, bottom=0, top=0;
+		IfMErrorWarn(MRenderView::getRenderRegion(left, right, bottom, top));
 
 
 		o.ei_camera( sCameraObjectName.c_str() );
