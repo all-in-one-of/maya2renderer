@@ -39,7 +39,7 @@ namespace elvishray
 	MString convertMayaPlugNameToERShaderParameterName(const MString& attr)
 	{
 		MString shaderParameterName(attr);
-		if( shaderParameterName.substring(0, 2)=="out"  )//src attribute is an output plug
+		if( shaderParameterName.substring(0, 2)=="out"  )//attr is an output plug
 		{
 			shaderParameterName = "o_" + shaderParameterName;
 		}else{//src attribute is an input plug
