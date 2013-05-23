@@ -8,6 +8,7 @@
 
 #include "ercall.h"
 #include "er_renderer.h"
+#include "er_helper.h"
 
 namespace elvishray
 {
@@ -135,7 +136,7 @@ namespace elvishray
 						plug.child(0).getValue(r);
 						plug.child(1).getValue(g);
 						plug.child(2).getValue(b);
-						o.ei_shader_param_vector(("i_"+plugName).asChar(),r,g,b);
+						o.ei_shader_param_vector(convertMayaPlugNameToERShaderParameterName(plugName).asChar(),r,g,b);
 						liquidMessage2(messageInfo, "%f, %f, %f", r,g,b );
 					}break;
 				case 4:
@@ -145,14 +146,14 @@ namespace elvishray
 						plug.child(1).getValue(g);
 						plug.child(2).getValue(b);
 						plug.child(3).getValue(a);
-						o.ei_shader_param_vector4(("i_"+plugName).asChar(),r,g,b,a);
+						o.ei_shader_param_vector4(convertMayaPlugNameToERShaderParameterName(plugName).asChar(),r,g,b,a);
 						liquidMessage2(messageInfo, "%f, %f, %f, %f", r,g,b,a );
 					}break;
 				}
 			} else {
 				float v;
 				plug.child(0).getValue(v);
-				o.ei_shader_param_scalar(("i_"+plugName).asChar(), v);
+				o.ei_shader_param_scalar(convertMayaPlugNameToERShaderParameterName(plugName).asChar(), v);
 				liquidMessage2(messageInfo, "%f", v );
 			}
 			o.ei_end_shader();

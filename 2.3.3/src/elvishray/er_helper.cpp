@@ -35,7 +35,23 @@ namespace elvishray
 	{
 		return "liquid_material_for_test";
 	}
-
+	//
+	MString convertMayaPlugNameToERShaderParameterName(const MString& attr)
+	{
+		MString shaderParameterName(attr);
+		if( shaderParameterName.substring(0, 2)=="out"  )//src attribute is an output plug
+		{
+			shaderParameterName = "o_" + shaderParameterName;
+		}else{//src attribute is an input plug
+			if(shaderParameterName.substring(0, 1) == "i_")
+			{
+				// do nothing
+			}else{
+				shaderParameterName = "i_" + shaderParameterName;
+			}
+		}
+		return shaderParameterName;
+	}
 
 
 

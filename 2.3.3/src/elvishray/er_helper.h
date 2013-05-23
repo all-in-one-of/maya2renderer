@@ -17,6 +17,7 @@ namespace elvishray
 	MString getTestShaderName();
 	MString getTestMaterialName();
 	//
+	MString convertMayaPlugNameToERShaderParameterName(const MString& attr);
 }
 
 #endif//_ER_HELPER_H_
