@@ -44,7 +44,7 @@ void ShaderMgr::getValidConnection(const char* nodename, MStringArray& connectio
 }
 bool ShaderMgr::hasShaderType(const char* shadertype)const
 {
-	CM_TRACE_FUNC("ShaderMgr::hasShaderType("<<shadertype<<")");
+	//CM_TRACE_FUNC("ShaderMgr::hasShaderType("<<shadertype<<")");
 	return shaderValidConnection.hasShaderType(shadertype);
 }
 

@@ -309,7 +309,7 @@ namespace elvishray
 	}
 	void Renderer::getValidShaderPlugsInShadingGroup(std::vector<std::string>& plugs)const
 	{
-		CM_TRACE_FUNC("Renderer::getValidShaderPlugsInShadingGroup()");
+//		CM_TRACE_FUNC("Renderer::getValidShaderPlugsInShadingGroup()");
 
 		plugs.clear();
 		plugs.push_back("surfaceShader");

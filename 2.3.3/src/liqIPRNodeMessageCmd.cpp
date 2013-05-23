@@ -4,6 +4,7 @@
 #include "common/mayacheck.h"
 #include "renderermgr.h"
 #include "liqRibTranslator.h"
+#include "shadergraph/shadermgr.h"
 
 #define kRegisterFlagLong		"-register"
 #define kRegisterFlag			"-rgt"
@@ -104,7 +105,6 @@ void liquidIPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData )
 static int isRunningIPR = 0;// 1 - is running, 0 - is not running.
 liqIPRNodeMessage::liqIPRNodeMessage()
 {
-
 }
 liqIPRNodeMessage::~liqIPRNodeMessage()
 {
@@ -152,33 +152,37 @@ MStatus liqIPRNodeMessage::doIt( const MArgList& args)
 
 	return MS::kSuccess;
 }
-
+//
 MStatus liqIPRNodeMessage::registerCallback()
 {
 	//MGlobal::displayInfo( "liqIPRNodeMessage::registerCallback()");
 
 	MStatus 		stat;
-	MObject 		node;
-	MSelectionList 	list;
+	std::vector<MString> updateObjectName;
     MCallbackId     id;
     
-	// Register node callbacks for all nodes on the active list.
-	//
-	IfMErrorWarn(MGlobal::getActiveSelectionList( list ));
+	gatherUpdateObjects(updateObjectName);
 
-    for ( unsigned int i=0; i<list.length(); i++ )
+    for ( unsigned int i=0; i<updateObjectName.size(); i++ )
     {
-        IfMErrorWarn(list.getDependNode( i, node ));
-		MFnDependencyNode nodeFn(node);
-		MGlobal::displayInfo(MString("add callback for node: ") + nodeFn.name());
+		MSelectionList selection;
+		IfMErrorWarn(MGlobal::getSelectionListByName(updateObjectName[i], selection));
+
+		if( selection.length() == 0 )//not found
+			continue;
+
+		MObject obj;
+		IfMErrorWarn(selection.getDependNode( 0, obj ));
+
+		MGlobal::displayInfo(MString("add callback for node: ") + updateObjectName[i]);
 
         //AttributeChangedCallback
-	    id = MNodeMessage::addAttributeChangedCallback( node, liquidIPR_AttributeChangedCallback, NULL,  &stat);
+	    id = MNodeMessage::addAttributeChangedCallback( obj, liquidIPR_AttributeChangedCallback, NULL,  &stat);
 		IfMErrorWarn(stat);
 	    if ( stat ) {
 		    callbackIds.append( id );
     	} else {
-	    	cout << "MNodeMessage.addAttributeChangedCallback failed\n";
+	    	cout << "MNodeMessage.addAttributeChangedCallback("<<updateObjectName[i]<<") failed\n";
     	}
 
 		//AttributeAddedOrRemovedCallback
@@ -226,4 +230,142 @@ MStatus liqIPRNodeMessage::unregisterCallback()
 		}
 	}
 	return MS::kSuccess;
+}
+void liqIPRNodeMessage::gatherUpdateObjects(std::vector<MString>& objects)
+{
+	MStatus status;
+
+	//get selection list
+	MSelectionList 	selection;
+	IfMErrorWarn(MGlobal::getActiveSelectionList( selection ));
+
+	for ( unsigned int i=0; i<selection.length(); i++ )
+	{
+		MObject node;
+		IfMErrorWarn(selection.getDependNode( i, node ));
+
+		MFnDependencyNode nodeFn(node, &status);
+		IfMErrorWarn(status);
+
+		const MString nodeName(nodeFn.name());
+		objects.push_back(nodeName);//record current node
+
+		if( isShaderNode(nodeName) )
+		{
+			onShaderNode(nodeName, objects);
+		}
+		else{
+			onOtherNode(nodeName, objects);
+		}
+
+
+
+
+	}
+}
+//
+bool liqIPRNodeMessage::isShaderNode(const MString &node)const 
+{
+	MString cmd;
+
+	MString nodetype;
+	cmd = "nodeType \""+node+"\"";
+	IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
+
+	if( liquidmaya::ShaderMgr::getSingletonPtr()->hasShaderType(nodetype.asChar()) )
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+//
+void liqIPRNodeMessage::onShaderNode(const MString &shadernode, std::vector<MString> &updateObjectName)
+{
+	MString cmd;
+
+	//1. on shader node itself
+	addUpdateObject(updateObjectName, shadernode);//record source shader
+
+	//2. on upstream shaders
+	//get the upstream shaders of the shader node
+	MStringArray upstreamShaders;
+	cmd = "hyperShade -listUpstreamNodes \""+shadernode+"\"";
+	IfMErrorMsgWarn(MGlobal::executeCommand( cmd, upstreamShaders), cmd);
+	//record upstream shaders of the shader node
+	for(std::size_t i=0; i<upstreamShaders.length(); ++i)
+	{
+		addUpdateObject(updateObjectName, upstreamShaders[i]);
+	}
+}
+//
+void liqIPRNodeMessage::onOtherNode(const MString &node, std::vector<MString> &updateObjectName)
+{
+	MStringArray descendents;
+	MString cmd("listRelatives -allDescendents "+node);
+	MGlobal::executeCommand(cmd, descendents);
+
+	for(int i=0; i<descendents.length(); ++i)
+	{
+		addUpdateObject(updateObjectName, descendents[i]);//record descendents[i]
+		
+		MDagPath dagPath;
+		getDagPathByName(dagPath, descendents[i].asChar());
+
+		if( dagPath.node().hasFn(MFn::kTransform) )
+		{
+			onOtherNode(descendents[i], updateObjectName);//visit descendents[i]
+		}
+		else if( dagPath.node().hasFn(MFn::kMesh) )
+		{
+			std::vector<std::string> shaderPlugs;
+			//liquid::RendererMgr::getInstancePtr()->
+			//	getRenderer()->getValidShaderPlugsInShadingGroup(shaderPlugs);
+			shaderPlugs.push_back("surfaceShader");
+			shaderPlugs.push_back("displacementShader");
+			shaderPlugs.push_back("volumeShader");
+			shaderPlugs.push_back("liqShadowShader");
+			shaderPlugs.push_back("liqEnvironmentShader");
+
+
+			IfMErrorWarn(dagPath.extendToShape());//extend to shape
+
+			std::vector<std::string> shadingGroups;
+			getShadingGroups(dagPath.fullPathName(), shadingGroups);
+			for(std::size_t j=0; j<shadingGroups.size(); ++j)//for each shading group
+			{
+				MString shadingGroup(shadingGroups[j].c_str());
+
+				for(std::size_t k=0; k<shaderPlugs.size(); ++k)//for each shader plug
+				{
+					MString shaderPlug(shaderPlugs[k].c_str());
+
+					int isShaderPlugExist;
+					cmd = "attributeQuery -node \""+shadingGroup+"\" -ex \""+shaderPlug+"\"";
+					IfMErrorMsgWarn(MGlobal::executeCommand( cmd, isShaderPlugExist), cmd);
+					if( isShaderPlugExist )
+					{
+						//get the source shade node of $shadingGroup.$shaderPlug
+						MStringArray shaders;
+						cmd = "listConnections -s true -d false -plugs false (\""+shadingGroup+"\" + \"."+shaderPlug+"\")";
+						IfMErrorMsgWarn(MGlobal::executeCommand( cmd, shaders), cmd);
+						
+						if( shaders.length() > 0 )//has source shader node
+						{
+							onShaderNode(shaders[0], updateObjectName);
+						}//if( shaders.length() > 0 )//has source shader node
+
+					}//if( isShaderPlugExist )
+				}//for each shader plug
+
+
+			}//for each shading group
+		}//kMesh
+	}//for(int i=0; i<descendents.length(); ++i)
+
+}
+//
+void liqIPRNodeMessage::addUpdateObject(std::vector<MString> &updateObjectName, const MString& objectname)
+{
+	updateObjectName.push_back(objectname);
 }

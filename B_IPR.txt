@@ -1,0 +1,27 @@
+void Renderer::getValidShaderPlugsInShadingGroup(std::vector<std::string>& plugs)const
+{
+//		CM_TRACE_FUNC("Renderer::getValidShaderPlugsInShadingGroup()");
+
+
+bool ShaderMgr::hasShaderType(const char* shadertype)const
+{
+	//CM_TRACE_FUNC("ShaderMgr::hasShaderType("<<shadertype<<")");
+ 
+
+void liqIPRNodeMessage::onOtherNode(const MString &node, std::vector<MString> &updateObjectName)
+{
+...
+	//liquid::RendererMgr::getInstancePtr()->
+	//	getRenderer()->getValidShaderPlugsInShadingGroup(shaderPlugs);
+	shaderPlugs.push_back("surfaceShader");
+	shaderPlugs.push_back("displacementShader");
+	shaderPlugs.push_back("volumeShader");
+	shaderPlugs.push_back("liqShadowShader");
+	shaderPlugs.push_back("liqEnvironmentShader");
+
+
+
+
+
+
+
