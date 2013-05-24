@@ -31,17 +31,17 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 	MPlug & plug, MPlug & otherPlug, void *userData )
 {
 	MGlobal::displayInfo( "liquidIPR_AttributeChangedCallback(msg, "+ plug.name()+","+otherPlug.name()+", userData)");
-	liquidMessage2(messageInfo, "msg=%0x", msg);
+	//liquidMessage2(messageInfo, "msg=%0x", msg);
 
 	static std::size_t iHowMantThreadEnters = 0;
 	iHowMantThreadEnters++;
-	liquidMessage2(messageInfo, "HowMantThreadEnters=%d", iHowMantThreadEnters);
+	//liquidMessage2(messageInfo, "HowMantThreadEnters=%d", iHowMantThreadEnters);
 
 	if ( msg & MNodeMessage::kConnectionMade ) {
-		cout << "Connection made ";
+		MGlobal::displayInfo("Connection made ");
 	}
 	else if ( msg & MNodeMessage::kConnectionBroken ) {
-		cout << "Connection broken ";
+		MGlobal::displayInfo("Connection broken ");
 	}
 	else if ( msg & MNodeMessage::kAttributeEval ) {
 		MGlobal::displayInfo("kAttributeEval");
@@ -60,6 +60,7 @@ void liquidIPR_AttributeChangedCallback( MNodeMessage::AttributeMessage msg,
 		//liqRibTranslator::getInstancePtr()->IPRRenderEnd();
 	}
 	else {
+		liquidMessage2(messageInfo, "else: msg=%0x", msg);
 	}
 
 // 	cout << plug.info();
@@ -130,9 +131,9 @@ MStatus liqIPRNodeMessage::doIt( const MArgList& args)
 		IfMErrorWarn(stat);
 
 		if( (arg == kRegisterFlag) || (arg == kRegisterFlagLong) ){
-			IfMErrorWarn(registerCallback());
 			isRunningIPR = 1;
 			liqRibTranslator::getInstancePtr()->IPRRenderBegin();
+			IfMErrorWarn(registerCallback());
 			//liqRibTranslator::getInstancePtr()->IPRDoIt();
 		}
 		else if( (arg == kUnregisterFlag) || (arg == kUnregisterFlagLong) ){
@@ -319,13 +320,8 @@ void liqIPRNodeMessage::onOtherNode(const MString &node, std::vector<MString> &u
 		else if( dagPath.node().hasFn(MFn::kMesh) )
 		{
 			std::vector<std::string> shaderPlugs;
-			//liquid::RendererMgr::getInstancePtr()->
-			//	getRenderer()->getValidShaderPlugsInShadingGroup(shaderPlugs);
-			shaderPlugs.push_back("surfaceShader");
-			shaderPlugs.push_back("displacementShader");
-			shaderPlugs.push_back("volumeShader");
-			shaderPlugs.push_back("liqShadowShader");
-			shaderPlugs.push_back("liqEnvironmentShader");
+			liquid::RendererMgr::getInstancePtr()->
+				getRenderer()->getValidShaderPlugsInShadingGroup(shaderPlugs);
 
 
 			IfMErrorWarn(dagPath.extendToShape());//extend to shape

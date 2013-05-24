@@ -66,15 +66,18 @@ global proc liquidmayaStartIprRender(string $editor, int $resolutionX, int $reso
 {
 	liqPushIdent();
 	liqlog("liquidmayaStartIprRender("+$editor+","+$resolutionX+","+$resolutionY+","+$camera+")");
-	   
+	
+	liqlog("liquid -GL -initGlobalsOnly -ipr;");
 	//we take a rendering to initlize liquid parameters
     liquid -GL -initGlobalsOnly -ipr;//init globals data only, not export data.
-	
-	//register callback functions
+
+	liqlog("liqIPRNodeMessage -rgt;");
+	//register callback functions and objects
 	liqIPRNodeMessage -rgt;
 
 	//ipr rendering
 	int $imageSize[2] = liquidPreview_getRenderViewResolution();
+	liqlog("liquid -GL -renderView -x "+$imageSize[0]+" -y "+$imageSize[1]+" -ipr;");
     liquid -GL -renderView -x $imageSize[0] -y $imageSize[1] -ipr;	
 
 	liqPopIdent();
