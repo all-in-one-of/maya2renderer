@@ -152,6 +152,7 @@ MObject liqGlobalsNode::alogFunctionCall;
 MObject liqGlobalsNode::alogMsgFlush;
 MObject liqGlobalsNode::alogTraceFunction;
 MObject liqGlobalsNode::ashowMelCallStack;
+MObject liqGlobalsNode::ashowliquidMessage;
 MObject liqGlobalsNode::aOutputShadowPass;
 MObject liqGlobalsNode::aOutputHeroPass;
 MObject liqGlobalsNode::aOutputComments;
@@ -619,6 +620,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_BOOL( nAttr,  alogMsgFlush,			      "logMsgFlush",				  "lmf",    false );
 	CREATE_BOOL( nAttr,  alogTraceFunction,			  "logTraceFunction",			  "ltf",    true );
 	CREATE_BOOL( nAttr,  ashowMelCallStack,			  "showMelCallStack",			  "mcs",    false );
+	CREATE_BOOL( nAttr,  ashowliquidMessage,		  "showliquidMessage",			  "slm",    true );
 	CREATE_BOOL( nAttr,  aOutputShadowPass,           "outputShadowPass",             "osp",    false );
 	CREATE_BOOL( nAttr,  aOutputHeroPass,             "outputHeroPass",               "ohp",    true  );
 	CREATE_BOOL( nAttr,  aOutputComments,             "outputComments",               "oc",     false );

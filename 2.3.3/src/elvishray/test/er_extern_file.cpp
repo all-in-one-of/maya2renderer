@@ -17,7 +17,8 @@ void test_liquid2er()
 	//ei_checker_uv();
 	//er_shader_transparent_test();
 //#include "R:/MyDocuments/maya/projects/default/rib/dinoRig_v2_liq_nobump.perspShape.1.elvishray.bmp.esa"
-#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/toElvic/lightleak2/lightleak.perspShape.1.elvishray.bad.er"
+//#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/toElvic/r647/simple_procedural/simple_procedural.cameraShape1.1.elvishray.bmp.esa"
+#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/toElvic/r647/blinn_transparent.ma/blinn_transparent.cameraShape1.6.elvishray.bmp.esa"
 
 	//ei_context_unittest();
 	//ei_displace_unittest();

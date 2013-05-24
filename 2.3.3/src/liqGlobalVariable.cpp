@@ -303,6 +303,7 @@ void initOtherParameters()
 	liqglo.m_logFunctionCall = false;
 	liqglo.m_logMsgFlush     = false;
 	liqglo.m_logTraceFunction= true;
+	liqglo.m_showliquidMessage= true;
 
 	liqglo.m_ribFileOpen     = false;
 	liqglo.m_writeDataIntoMainRibFile = true;
@@ -334,6 +335,8 @@ void getOtherParameters(const MFnDependencyNode& rGlobalNode)
 	liquidGetPlugValue( rGlobalNode, "logFunctionCall", liqglo.m_logFunctionCall, gStatus );
 	liquidGetPlugValue( rGlobalNode, "logMsgFlush",     liqglo.m_logMsgFlush,     gStatus );
 	liquidGetPlugValue( rGlobalNode, "logTraceFunction",liqglo.m_logTraceFunction,gStatus );
+	liquidGetPlugValue( rGlobalNode, "showliquidMessage",  liqglo.m_showliquidMessage,gStatus );
+
 }
 //
 void initCameraParameters()

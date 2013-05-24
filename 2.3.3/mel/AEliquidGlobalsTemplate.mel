@@ -74,6 +74,7 @@ global proc liquidGlobalsTemplateFrame( string $node )
 			editorTemplate -label "logMsgFlush"			-addDynamicControl "logMsgFlush";
 			editorTemplate -label "logTraceFunction"	-addDynamicControl "logTraceFunction";
 			editorTemplate -label "showMelCallStack"	-addDynamicControl "showMelCallStack";
+			editorTemplate -label "showliquidMessage"	-addDynamicControl "showliquidMessage";
 		editorTemplate -endLayout;//Debug
 		//-------------------------------------------------
 		editorTemplate -beginLayout "Renderer" -collapse true;

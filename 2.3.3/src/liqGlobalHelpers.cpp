@@ -1224,6 +1224,9 @@ liqString& getLiquidRibName( const std::string& name )
  */
 void liquidMessage( const MString &msg, liquidVerbosityType type ) 
 {
+	if( !liqglo.m_showliquidMessage )
+		return;
+
   if ( liqglo_verbosity >= type || liqglo.liquidBin ) 
   {
     if ( !liqglo.liquidBin ) 
