@@ -764,6 +764,9 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     <CustomBuildStep Include="..\src\common\_3delight\shading_utils.h" />
     <ClInclude Include="..\src\common\_3delight\utils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\readme.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
