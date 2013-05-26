@@ -1224,9 +1224,6 @@ liqString& getLiquidRibName( const std::string& name )
  */
 void liquidMessage( const MString &msg, liquidVerbosityType type ) 
 {
-	if( !liqglo.m_showliquidMessage )
-		return;
-
   if ( liqglo_verbosity >= type || liqglo.liquidBin ) 
   {
     if ( !liqglo.liquidBin ) 
@@ -1756,7 +1753,10 @@ void Msgbox(const char* title, const char* msg)
 //
 void liquidMessageBox(const MString& msg, const MString& title, int uType)
 {
-	IfMErrorWarn(MGlobal::executeCommand( "liqAssert1(\""+title+"\", \""+msg+"\", \"Yes\");"));
+	if( liqglo.m_showliquidMessageBox )
+	{
+		IfMErrorWarn(MGlobal::executeCommand( "liqAssert1(\""+title+"\", \""+msg+"\", \"Yes\");"));
+	}
 }
 //
 bool liqAssert(const MString & msg)
