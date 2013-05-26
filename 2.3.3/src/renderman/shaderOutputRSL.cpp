@@ -497,7 +497,7 @@ void Visitor::postOutput()
 	std::string strRes(result.toLowerCase().asChar());
 	if(strRes.find("error") != std::string::npos)
 	{
-		liqAssert(strRes.c_str());
+		liquidMessage2(messageError, "%s", strRes.c_str());
 	}
 
 

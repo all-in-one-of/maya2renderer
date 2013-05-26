@@ -1754,16 +1754,17 @@ void Msgbox(const char* title, const char* msg)
 #endif
 }
 //
+void liquidMessageBox(const MString& msg, const MString& title, int uType)
+{
+	IfMErrorWarn(MGlobal::executeCommand( "liqAssert1(\""+title+"\", \""+msg+"\", \"Yes\");"));
+}
+//
 bool liqAssert(const MString & msg)
 {
 // 	int ret;
 // 	IfMErrorWarn(MGlobal::executeCommand( "liqAssert0("+msg+");", ret));
 // 	return (ret==1);
-#if  defined(_WIN32) || defined(WINDOWS)
-	MessageBox(0, msg.asChar(), "Assert", MB_OK);
-#else
-#error "messagebox on *nux is not implemented."
-#endif
+	liquidMessageBox(msg.asChar(), "Assert", MB_OK);
 	return true;
 }
 bool liqAssert(const MString &title, const MString & msg, const MString &bYes)
@@ -1771,11 +1772,7 @@ bool liqAssert(const MString &title, const MString & msg, const MString &bYes)
 // 	int ret;
 // 	IfMErrorWarn(MGlobal::executeCommand( "liqAssert1("+title+","+msg+","+bYes+");", ret));
 // 	return (ret==1);
-#if  defined(_WIN32) || defined(WINDOWS)
-	MessageBox(0, msg.asChar(), title.asChar(), MB_OK);
-#else
-#error "messagebox on *nux is not implemented."
-#endif
+	liquidMessageBox(msg.asChar(), title.asChar(), MB_OK);
 	return true;
 }
 bool liqAssert(const MString &title, const MString & msg, const MString &bYes, const MString &bNo)
@@ -1783,11 +1780,7 @@ bool liqAssert(const MString &title, const MString & msg, const MString &bYes, c
 // 	int ret;
 // 	IfMErrorWarn(MGlobal::executeCommand( "liqAssert2("+title+","+msg+","+bYes+","+bNo+");", ret));
 // 	return (ret==1);
-#if  defined(_WIN32) || defined(WINDOWS)
-	MessageBox(0, msg.asChar(), title.asChar(), MB_YESNO);
-#else
-#error "messagebox on *nux is not implemented."
-#endif
+	liquidMessageBox(msg.asChar(), title.asChar(), MB_YESNO);
 	return true;
 }
 //
