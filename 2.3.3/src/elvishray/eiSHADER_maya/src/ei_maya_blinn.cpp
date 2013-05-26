@@ -84,33 +84,33 @@ SURFACE(maya_blinn)
 		//}
 
 		// prepare outgoing direction in local frame
-		const vector V(-normalize(I));
-		const vector wo(normalize(to_local(V)));
-
-		scalar fresn_0_degree_refl = 0.2f;//fresnel_0_degree_refl();//
-		scalar fresn_90_degree_refl = 1.0f;//fresnel_90_degree_refl();//
-		scalar fresn_curve = 5.0f;//fresnel_curve();//
-
-		union {
-			eiByte by_ior[sizeof(FresnelByIOR)];
-			eiByte schlick[sizeof(FresnelSchlick)];
-		} F_storage;
-		//
-// 		union {
-// 			eiByte by_ior[sizeof(FresnelByIOR)];
-// 			eiByte schlick[sizeof(FresnelSchlick)];
-// 		} invF_storage;
-
-		Fresnel *F = new (F_storage.schlick) FresnelSchlick(
-			fresn_0_degree_refl, 
-			fresn_90_degree_refl, 
-			fresn_curve);
-
-		const scalar cutoff_thresh = 0.01f;//cutoff_threshold();//
-
+//		const vector V(-normalize(I));
+//		const vector wo(normalize(to_local(V)));
+//
+//		scalar fresn_0_degree_refl = 0.2f;//fresnel_0_degree_refl();//
+//		scalar fresn_90_degree_refl = 1.0f;//fresnel_90_degree_refl();//
+//		scalar fresn_curve = 5.0f;//fresnel_curve();//
+//
+//		union {
+//			eiByte by_ior[sizeof(FresnelByIOR)];
+//			eiByte schlick[sizeof(FresnelSchlick)];
+//		} F_storage;
+//		//
+//// 		union {
+//// 			eiByte by_ior[sizeof(FresnelByIOR)];
+//// 			eiByte schlick[sizeof(FresnelSchlick)];
+//// 		} invF_storage;
+//
+//		Fresnel *F = new (F_storage.schlick) FresnelSchlick(
+//			fresn_0_degree_refl, 
+//			fresn_90_degree_refl, 
+//			fresn_curve);
+//
+//		const scalar cutoff_thresh = 0.01f;//cutoff_threshold();//
+//
 		//main1(arg);
 		//main1_3(arg);
-		main2(arg, wo, F, cutoff_thresh);
+		main2(arg/*, wo, F, cutoff_thresh*/);
 
 	}
 	//
@@ -322,7 +322,7 @@ SURFACE(maya_blinn)
 		//}
 		return reflected * ray_coloration;
 	}
-	void main2(void *arg, const vector &wo, Fresnel *F, const scalar cutoff_thresh)
+	void main2(void *arg/*, const vector &wo, Fresnel *F, const scalar cutoff_thresh*/)
 	{
 		normal Nf, Nn;
 		color Ia, Id, Itr, Is, Ir, Isr;
