@@ -201,6 +201,9 @@ SURFACE(maya_blinn)
 					NH = i_Nf % H;
 					NHSQR = SQR(NH);
 					NH2 = NH * 2.0f;
+					if( abs(NHSQR + E) < LIQ_SCALAR_ALMOST_ZERO ){//avoid dividing zero
+						continue;
+					}
 					Dd = (E + 1.0f) / (NHSQR + E);
 					Dd *= Dd;
 					VH = V % H;
