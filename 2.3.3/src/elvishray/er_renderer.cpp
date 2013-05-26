@@ -28,6 +28,7 @@
 #include <liqHeroRibWriterMgr.h>
 #include <liqRibCamera.h>
 #include <liqRibTranslator.h>
+#include "../liq_math.h"
 
 #include "../renderermgr.h"
 #include "../common/mayacheck.h"
@@ -38,6 +39,7 @@
 #include "er_GlobalNodeHelper.h"
 #include "er_iprMgr.h"
 #include "er_helper.h"
+
 
 namespace elvishray
 {
@@ -1274,6 +1276,20 @@ namespace elvishray
 			liquidMessage2(messageError,"face(%d), must in scope (%d,%d).", face, EI_FACE_NONE, EI_FACE_COUNT);
 			assert( 0 && "face is invalid." );
 			return false;
+		}
+		//-------------------------------------
+		//check blinn's eccentricity > 0
+		MStringArray blinns;
+		MGlobal::executeCommand("ls -type blinn", blinns);
+		for(std::size_t i=0; i<blinns.length(); ++i)
+		{
+			double eccentricity;
+			MGlobal::executeCommand("getAttr "+blinns[i]+".eccentricity", eccentricity);
+			if( eccentricity < LIQ_SCALAR_ALMOST_ZERO )
+			{
+				liquidMessage2(messageError,"blinn.eccentricity should not be 0, or the maya_blinn shader may generate black points. (%s)", blinns[i].asChar());
+				return false;
+			}
 		}
 
 		return true;

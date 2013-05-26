@@ -597,6 +597,9 @@
     <ClInclude Include="..\..\include\liqRibCameraData.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\liq_math.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">
