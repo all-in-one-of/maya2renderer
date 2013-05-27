@@ -1288,6 +1288,55 @@ namespace elvishray
 				return false;
 			}
 		}
+		//-------------------------------------
+		//transform scalar >0
+		MStringArray transforms;
+		MGlobal::executeCommand("ls -type transform", transforms);
+		for(std::size_t i=0; i<transforms.length(); ++i)
+		{
+			MStringArray srcNodes;
+			MVector scale;
+
+			MGlobal::executeCommand("listConnections -s true -shapes false"+transforms[i]+".scale", srcNodes);
+			if( srcNodes.length() >0 )//scale is connected in, I ignore this case
+			{
+				continue;
+			}
+			
+			//scaleX
+			MGlobal::executeCommand("listConnections -s true -shapes false"+transforms[i]+".scaleX", srcNodes);
+			if( srcNodes.length() == 0 )
+			{
+				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleX", scale.x);
+				if( scale.x < LIQ_SCALAR_ALMOST_ZERO )
+				{
+					liquidMessage2(messageError,"transfrom.scaleX should not be 0, or degenerated polygon will occur. (%s)", transforms[i].asChar());
+					return false;
+				}
+			}
+			//scaleY
+			MGlobal::executeCommand("listConnections -s true -shapes false"+transforms[i]+".scaleY", srcNodes);
+			if( srcNodes.length() == 0 )
+			{
+				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleY", scale.y);
+				if( scale.y < LIQ_SCALAR_ALMOST_ZERO )
+				{
+					liquidMessage2(messageError,"transfrom.scaleY should not be 0, or degenerated polygon will occur. (%s)", transforms[i].asChar());
+					return false;
+				}
+			}
+			//scaleZ
+			MGlobal::executeCommand("listConnections -s true -shapes false"+transforms[i]+".scaleZ", srcNodes);
+			if( srcNodes.length() == 0 )
+			{
+				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleZ", scale.z);
+				if( scale.z < LIQ_SCALAR_ALMOST_ZERO )
+				{
+					liquidMessage2(messageError,"transfrom.scaleZ should not be 0, or degenerated polygon will occur. (%s)", transforms[i].asChar());
+					return false;
+				}
+			}
+		}
 
 		return true;
 	}
