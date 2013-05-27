@@ -2149,10 +2149,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">
     <PreBuildEvent>
-      <Message>
-      </Message>
-      <Command>
-      </Command>
+      <Message>Print build time to LiquidRoot\2.3.3\buildtime.txt</Message>
+      <Command>echo " (buildtime=%time%)" &gt; ..\..\buildtime.txt </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -2270,10 +2268,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">
     <PreBuildEvent>
-      <Message>
-      </Message>
-      <Command>
-      </Command>
+      <Message>Print build time to LiquidRoot\2.3.3\buildtime.txt</Message>
+      <Command>echo " (buildtime=%time%)" &gt; ..\..\buildtime.txt </Command>
     </PreBuildEvent>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
