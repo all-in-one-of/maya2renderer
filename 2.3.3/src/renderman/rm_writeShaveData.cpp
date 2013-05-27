@@ -1,9 +1,6 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-#ifdef _USE_SHAVE_
-
 #include "rm_renderer.h"
 #include <liqRibShaveData.h>
+#ifdef _USE_SHAVE_
 #include <liqGlobalVariable.h>
 #include "rm_helper.h"
 #include "../common/prerequest_maya.h"
@@ -46,4 +43,3 @@ namespace renderman
 
 }//namespace renderman
 #endif// _USE_SHAVE_
-#endif//_USE_RENDERMAN_

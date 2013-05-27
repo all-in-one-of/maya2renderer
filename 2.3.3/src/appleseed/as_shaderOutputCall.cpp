@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_shaderOutputCall.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -539,4 +536,3 @@ bool Visitor::hasNormalMap(const char* node, std::string *textureNode)
 //
 }//namespace call
 }//namespace appleseed
-#endif//_USE_APPLESEED_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #pragma once
 #include "prerequest_as.h"
 
@@ -88,6 +85,3 @@ namespace appleseed
 		std::string m_nodename;
 	};
 }//namespace appleseed
-
-
-#endif//_USE_APPLESEED_

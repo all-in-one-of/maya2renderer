@@ -1,5 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
 #include "er_output_esa.h"
 #include "../er_log.h"
 #include "../../common/mayacheck.h"
@@ -917,4 +915,3 @@ namespace elvishray
 		s("ei_end_object();");
 	}
 }//namespace elvishray
-#endif//_USE_ELVISHRAY_

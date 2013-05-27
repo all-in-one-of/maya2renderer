@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibImplicitSphereData.h>
 #include "rm_helper.h"
@@ -60,5 +57,3 @@ namespace renderman
 		LIQDEBUGPRINTF( "-> writing locator" );
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

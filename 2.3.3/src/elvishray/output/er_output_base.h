@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #ifndef _ER_OUTPUT_BASE_H_
 #define _ER_OUTPUT_BASE_H_
 #include "../../common/prerequest_maya.h"
@@ -284,4 +281,3 @@ namespace elvishray
 }
 
 #endif//_ER_OUTPUT_BASE_H_
-#endif//_USE_ELVISHRAY_

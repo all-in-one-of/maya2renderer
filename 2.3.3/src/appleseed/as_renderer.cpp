@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_renderer.h"
 
 #include "boost/format.hpp"
@@ -1127,5 +1124,3 @@ namespace appleseed
 	}
 
 }//namespace appleseed
-
-#endif//_USE_APPLESEED_

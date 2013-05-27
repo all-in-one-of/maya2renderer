@@ -1,5 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
 #include "../common/mayacheck.h"
 #include "er_helper.h"
 
@@ -56,4 +54,3 @@ namespace elvishray
 
 
 }//namespace elvishray
-#endif//_USE_ELVISHRAY_

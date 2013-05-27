@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #pragma once
 #include "prerequest_as.h"
 #include "as_material.h"
@@ -56,5 +53,3 @@ namespace appleseed
 
 
 }//namespace appleseed
-
-#endif//_USE_APPLESEED_

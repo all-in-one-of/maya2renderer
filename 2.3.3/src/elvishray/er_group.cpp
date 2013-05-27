@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "er_group.h"
 #include "liqlog.h"
 
@@ -138,5 +135,3 @@ namespace elvishray
 		return lightlink[mesh];
 	}
 }
-
-#endif//_USE_ELVISHRAY_

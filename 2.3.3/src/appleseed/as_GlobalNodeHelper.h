@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #pragma once
 //#ifndef _NR_GlobalNodeHelper_H
 //#define _NR_GlobalNodeHelper_H
@@ -42,4 +39,3 @@ private:
 
 }//namespace appleseed
 //#endif//_ER_GlobalNodeHelper_H
-#endif//_USE_APPLESEED_

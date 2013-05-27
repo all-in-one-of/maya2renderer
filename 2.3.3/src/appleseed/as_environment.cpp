@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_renderer.h"
 // Maya headers
 #include "../common/prerequest_maya.h"
@@ -34,4 +31,3 @@ namespace appleseed
 		//VisitorMgrForEnv::getSingletonPtr()->deleteReceivers();
 	}
 }//namespace appleseed
-#endif//_USE_APPLESEED_

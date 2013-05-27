@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #pragma once
 //#ifndef _AS_Helper_H
 //#define _AS_Helper_H
@@ -63,5 +60,3 @@ namespace appleseed
 //#endif//_AS_Helper_H
 
 #include "as_helper.inl"
-
-#endif//_USE_APPLESEED_

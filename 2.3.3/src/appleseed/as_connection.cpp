@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_connection.h"
 #include "../common/mayacheck.h"
 #include <trace/trace.hpp>
@@ -206,4 +203,3 @@ namespace appleseed
 	}
 
 }//namespace appleseed
-#endif//_USE_APPLESEED_

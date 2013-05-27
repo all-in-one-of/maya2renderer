@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "shaderOutputRSL.h"
 #include "../common/mayacheck.h"
 #include "../shadergraph/shadermgr.h"
@@ -441,5 +438,3 @@ void Visitor::visitLayeredTexture(const char* node)
 }
 
 }//namespace RSL
-
-#endif//_USE_RENDERMAN_

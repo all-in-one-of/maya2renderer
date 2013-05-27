@@ -242,7 +242,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
 					type = MRT_Shave;
 					data = liqRibDataPtr( new liqRibShaveData( ignoreShapes? skip : obj ) );
 #else
-					assert(0 &&"_USE_SHAVE_ is not defined (in liqConfig.h)");
+					assert(0 &&"_USE_SHAVE_ is not defined (in liqRibShaveData.h)");
 #endif
 				}else{
 					type = MRT_Weirdo; // lets use this at least once :)

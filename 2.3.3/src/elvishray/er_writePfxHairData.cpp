@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "er_renderer.h"
 #include <liqRibPfxHairData.h>
 #include "../common/prerequest_maya.h"
@@ -309,5 +306,3 @@ namespace elvishray
 */
 	}
 }//namespace elvishray
-
-#endif//_USE_ELVISHRAY_

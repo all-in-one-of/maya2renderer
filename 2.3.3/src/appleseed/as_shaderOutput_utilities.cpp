@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_shaderOutput.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -440,4 +437,3 @@ void Visitor::visitOpticalFX(const char* node)
 	o.end();
 }
 }//namespace appleseed
-#endif//_USE_APPLESEED_

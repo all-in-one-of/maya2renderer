@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #ifndef _SHADER_OUTPUT_RSL_H_
 #define _SHADER_OUTPUT_RSL_H_
 
@@ -342,5 +339,3 @@ void _outputShadingGroup(const char* shadingGroupNode);
 
 }//namespace RSL
 #endif//_SHADER_OUTPUT_RSL_H_
-
-#endif//_USE_RENDERMAN_

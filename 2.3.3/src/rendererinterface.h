@@ -10,7 +10,6 @@
 #include <liqRibHT.h>
 #include "liqtypes.h"
 #include "./common/prerequest_std.h"
-#include <liqConfig.h>
 
 struct structJob;
 class liqRibLightData;

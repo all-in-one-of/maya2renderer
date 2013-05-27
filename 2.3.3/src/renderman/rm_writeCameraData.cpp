@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibCameraData.h>
 #include <liqGlobalVariable.h>
@@ -56,5 +53,3 @@ namespace renderman
 		RiArchiveRecord( RI_COMMENT, "_write(liqRibCameraData*...) not implemented yet." );
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

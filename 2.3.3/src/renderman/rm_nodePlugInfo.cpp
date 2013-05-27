@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_nodePlugInfo.h"
 #include "liqGlobalHelpers.h"
 #include <liqlog.h>
@@ -202,4 +199,3 @@ namespace renderman
 		return getPlugInfo(node, plug);
 	}
 }
-#endif//_USE_RENDERMAN_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "er_output_mgr.h"
 #include <liqlog.h>
 #include "output/er_output_base.h"
@@ -1242,4 +1239,3 @@ namespace elvishray
 		}
 	}
 }//namespace elvishray
-#endif//_USE_ELVISHRAY_

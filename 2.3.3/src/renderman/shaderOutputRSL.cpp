@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "shaderOutputRSL.h"
 #include <liqlog.h>
 #include <liqShader.h>
@@ -958,5 +955,3 @@ std::string Visitor::getAOVMacroDefineFileName()const
 }
 //
 }//namespace RSL
-
-#endif//_USE_RENDERMAN_

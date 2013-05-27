@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_shaderOutput.h"
 #include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -349,4 +346,3 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 }
 //
 }//namespace appleseed
-#endif//_USE_APPLESEED_

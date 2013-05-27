@@ -1,5 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
 #include "er_output_ess.h"
 #include "../er_log.h"
 
@@ -797,4 +795,3 @@ namespace elvishray
 		a("OutputESS::liq_hair() is not implemented.");
 	}
 }//namespace elvishray
-#endif//_USE_ELVISHRAY_

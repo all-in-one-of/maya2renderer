@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_shaderOutput.h"
 //#include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -32,4 +29,3 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 }
 
 }//namespace appleseed
-#endif//_USE_APPLESEED_

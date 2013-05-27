@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #ifndef _ER_FACTORY_H_
 #define _ER_FACTORY_H_
 
@@ -31,4 +28,3 @@ namespace elvishray
 }
 
 #endif//_ER_FACTORY_H_
-#endif//_USE_ELVISHRAY_

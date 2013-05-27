@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #ifndef RM_Renderer_H
 #define RM_Renderer_H
 
@@ -420,4 +417,3 @@ namespace renderman
 
 
 #endif//RM_Renderer_H
-#endif//_USE_RENDERMAN_

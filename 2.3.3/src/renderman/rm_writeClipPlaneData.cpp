@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibClipPlaneData.h>
 #include "rm_helper.h"
@@ -55,5 +52,3 @@ namespace renderman
 		RiArchiveRecord( RI_VERBATIM, "ClippingPlane 0 0 -1 0 0 0\n" );
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

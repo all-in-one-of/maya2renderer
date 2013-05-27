@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibHierarchicalSubdivisionData.h>
 #include "rm_helper.h"
@@ -72,5 +69,3 @@ namespace renderman
 			pointerArray.get() );
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

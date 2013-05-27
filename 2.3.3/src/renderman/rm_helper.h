@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #ifndef RM_HELPER_H
 #define RM_HELPER_H
 
@@ -60,5 +57,3 @@ namespace renderman
 }
 
 #endif//RM_HELPER_H
-
-#endif//_USE_RENDERMAN_

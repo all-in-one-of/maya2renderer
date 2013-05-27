@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_nodePlugConnection.h"
 #include <liqGlobalHelpers.h>
 #include "rm_nodePlugInfo.h"
@@ -202,4 +199,3 @@ namespace renderman
 		m_data.clear();
 	}
 }
-#endif//_USE_RENDERMAN_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #pragma once
 //#ifndef NR_Renderer_H//macro guard for your newrenderer
 //#define NR_Renderer_H
@@ -468,4 +465,3 @@ namespace appleseed
 
 }//namespace appleseed
 //#endif//NR_Renderer_H
-#endif//_USE_APPLESEED_

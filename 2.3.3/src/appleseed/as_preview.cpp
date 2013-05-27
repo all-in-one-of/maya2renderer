@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_renderer.h"
 #include <liqPreviewShader.h>
 #include "../common/prerequest_maya.h"
@@ -19,5 +16,3 @@ namespace appleseed
 	}
 	//
 }//namespace appleseed
-
-#endif//_USE_APPLESEED_

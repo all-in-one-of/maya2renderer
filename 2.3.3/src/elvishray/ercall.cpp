@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "ercall.h"
 #include "er_renderer.h"
 
@@ -973,4 +970,3 @@ namespace elvishray
 		v.w = w;
 	}
 }
-#endif//_USE_ELVISHRAY_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #pragma once
 //#ifndef _NR_FACTORY_H_
 //#define _NR_FACTORY_H_
@@ -32,4 +29,3 @@ namespace appleseed
 }//namespace appleseed
 
 //#endif//_NR_FACTORY_H_
-#endif//_USE_APPLESEED_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "shaderOutputER.h"
 #include "../common/mayacheck.h"
 //#include "../shadergraph/convertShadingNetwork.h"
@@ -468,4 +465,3 @@ void Visitor::visit_liquidShader(const char* node)
 	o.endRSL();
 }
 }//namespace ER
-#endif//_USE_ELVISHRAY_

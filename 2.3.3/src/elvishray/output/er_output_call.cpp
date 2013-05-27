@@ -1,5 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
 #include "er_output_call.h"
 #include "../er_log.h"
 #include <eiCORE/ei_data_table.h>
@@ -884,4 +882,3 @@ namespace elvishray
 		ei_end_object();
 	}
 }//namespace elvishray
-#endif//_USE_ELVISHRAY_

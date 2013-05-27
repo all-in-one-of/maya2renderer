@@ -2,7 +2,6 @@
 #define liqRiInterface_H
 
 // use aqsis for rib exportion
-#include <liqConfig.h>
 #include <liqtypes.h>
 //-------------------------------------------------------
 #define RIBLIB_AQSIS

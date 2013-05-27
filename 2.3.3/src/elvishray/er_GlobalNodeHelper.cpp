@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include"er_GlobalNodeHelper.h"
 #include "../common/prerequest_std.h"
 #include "../common/mayacheck.h"
@@ -127,4 +124,3 @@ MStringArray GlobalNodeHelper::getStringArray(const MString& attrName )
 }
 
 }
-#endif//_USE_ELVISHRAY_

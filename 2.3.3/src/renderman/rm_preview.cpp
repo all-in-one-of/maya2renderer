@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include <maya/MGlobal.h>
 #include <maya/MSelectionList.h>
 #include <maya/MPlug.h>
@@ -564,5 +561,3 @@ namespace renderman
 	}
 
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

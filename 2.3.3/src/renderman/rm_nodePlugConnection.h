@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #ifndef RM_NODE_PLUG_CONNECTION_H
 #define RM_NODE_PLUG_CONNECTION_H
 
@@ -81,5 +78,3 @@ namespace renderman
 }
 
 #endif//RM_NODE_PLUG_CONNECTION_H
-
-#endif//_USE_RENDERMAN_

@@ -15,9 +15,6 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------------*/
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 /*---------------------------------------------------------------------------------------------
 
 File		:	MayaConnection.h
@@ -100,4 +97,3 @@ protected:
 };
 
 #endif //_MAYA_CONNECTION_
-#endif//_USE_ELVISHRAY_

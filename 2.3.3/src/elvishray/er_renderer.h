@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #ifndef ER_Renderer_H
 #define ER_Renderer_H
 
@@ -482,8 +479,6 @@ namespace elvishray
 //			ei_add_element(shape node name+"_object");
 
 }//namespace elvishray
-
-#endif//_USE_ELVISHRAY_
 
 
 

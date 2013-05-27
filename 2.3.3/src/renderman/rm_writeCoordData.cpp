@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibCoordData.h>
 #include "rm_helper.h"
@@ -55,5 +52,3 @@ namespace renderman
 		RiCoordinateSystem( const_cast<char *> ( pData->getName().asChar() ) );
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #ifndef _SHADER_OUTPUT_ER_H_
 #define _SHADER_OUTPUT_ER_H_
 
@@ -309,4 +306,3 @@ private:
 
 }//namespace ER
 #endif//_SHADER_OUTPUT_ER_H_
-#endif//_USE_ELVISHRAY_

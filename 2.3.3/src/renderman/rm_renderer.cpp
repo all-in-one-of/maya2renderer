@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 
 #include "../common/prerequest_std.h"
@@ -1967,5 +1964,3 @@ namespace renderman
 		return MS::kSuccess;
 	}
 }//namespace
-
-#endif//_USE_RENDERMAN_

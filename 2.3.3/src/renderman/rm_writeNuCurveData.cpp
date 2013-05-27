@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibNuCurveData.h>
 #include "rm_helper.h"
@@ -62,5 +59,3 @@ namespace renderman
 
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_

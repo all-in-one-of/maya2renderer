@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "shaderOutputER.h"
 //#include <liqlog.h>
 #include "../common/mayacheck.h"
@@ -33,4 +30,3 @@ void Visitor::visit_mib_amb_occlusion(const char* node)
 }
 
 }//namespace ER
-#endif//_USE_ELVISHRAY_

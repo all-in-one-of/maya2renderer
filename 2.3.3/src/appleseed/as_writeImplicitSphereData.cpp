@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_APPLESEED_
-
 #include "as_renderer.h"
 #include <liqRibImplicitSphereData.h>
 #include "../common/prerequest_maya.h"
@@ -44,5 +41,3 @@ namespace appleseed
 		//_s("// Clip Plane "<<pData->getFullPathName());
 	}
 }//namespace appleseed
-
-#endif//_USE_APPLESEED_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_helper.h"
 
 #include "../common/prerequest_maya.h"
@@ -853,4 +850,3 @@ namespace renderman
 	}
 
 }
-#endif//_USE_RENDERMAN_

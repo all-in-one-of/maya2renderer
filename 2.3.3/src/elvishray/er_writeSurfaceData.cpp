@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "er_renderer.h"
 #include <liqRibSurfaceData.h>
 #include "../common/prerequest_maya.h"
@@ -47,4 +44,3 @@ namespace elvishray
 		liquidMessage2(messageError, "Nurbs surface \"%s\" is not implemented yet.", pData->getFullPathName());
 	}
 }//namespace elvishray
-#endif//_USE_ELVISHRAY_

@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #include "er_renderer.h"
 
 #include "boost/format.hpp"
@@ -1531,5 +1528,3 @@ namespace elvishray
 	}
 
 }//namespace
-
-#endif//_USE_ELVISHRAY_

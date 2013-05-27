@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_ELVISHRAY_
-
 #ifndef _ER_IPRMGR_H_
 #define _ER_IPRMGR_H_
 
@@ -30,4 +27,3 @@ namespace elvishray
 }
 
 #endif//_ER_IPRMGR_H_
-#endif//_USE_ELVISHRAY_

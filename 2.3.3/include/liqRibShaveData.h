@@ -29,7 +29,7 @@
 #ifndef liqRibShaveData_H
 #define liqRibShaveData_H
 
-#include "liqConfig.h"
+//#define _USE_SHAVE_
 #ifdef _USE_SHAVE_
 /* ______________________________________________________________________
 **

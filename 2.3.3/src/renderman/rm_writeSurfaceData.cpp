@@ -1,6 +1,3 @@
-#include <liqConfig.h>
-#ifdef _USE_RENDERMAN_
-
 #include "rm_renderer.h"
 #include <liqRibSurfaceData.h>
 #include "rm_helper.h"
@@ -99,5 +96,3 @@ namespace renderman
 		LIQDEBUGPRINTF( "-> done writing nurbs surface\n" );
 	}
 }//namespace renderman
-
-#endif//_USE_RENDERMAN_
