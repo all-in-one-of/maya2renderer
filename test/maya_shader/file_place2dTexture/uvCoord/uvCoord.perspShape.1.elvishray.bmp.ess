@@ -22,7 +22,7 @@ options "perspShape_option"
     filter 4 3 
 ##transform motion=0, deform motion=0
     motion 0 
-    trace_depth 1908750958 1908750958 1908750958 1908750958 1908750958 1908750958 
+    trace_depth 1749735372 1749735372 1749735372 1749735372 1749735372 1749735372 
     displace 0 
     face 3 
 end options
