@@ -226,11 +226,7 @@ namespace appleseed
 		{
 			//outputIndentation(indentLevel);
 			liqLightHandle ret = this->shader_light( *liqshader,  liqshader->tokenPointerArray );
-#ifdef RIBLIB_AQSIS
 			(const_cast<liqShader*>(liqshader))->shaderHandler.set( reinterpret_cast<ptrdiff_t>(static_cast<liqLightHandle>(ret)) );
-#else
-			liqshader->shaderHandler.set( ret );
-#endif
 		}else if(liqshader->shader_type_ex == "surface"){
 			//outputIndentation(indentLevel);
 			this->shader_surface( *liqshader,  liqshader->tokenPointerArray );
