@@ -301,7 +301,7 @@
             >6 liqRibTranslatorNew::ribPrologue__(cameraShape1)
               >7 Renderer::ribPrologue_begin(cameraShape1)
                 >8 Renderer::dummyPhongShader()
-              >7 Renderer::ribPrologue_comment(2.3.5 (buildtime=20:51:12.30),R:/MyDocuments/maya/projects/default/blinn_transparent,yaoyansi,time)
+              >7 Renderer::ribPrologue_comment(2.3.5 (buildtime=18:34:02.96),R:/MyDocuments/maya/projects/default/blinn_transparent,yaoyansi,time)
               >7 Renderer::ribPrologue_options(cameraShape1)
             >6 liqRibTranslatorNew::framePrologue__(6,cameraShape1)
               >7 Renderer::framePrologue(6,cameraShape1)
@@ -1722,6 +1722,8 @@
 ,m_tokenFloats.use_count()=1
 
                               >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
                 >8 liqRibTranslatorNew::oneObjectBlock_data(|pCube2|pCubeShape2,cameraShape1)
                   >9 Renderer::exportOneObject_data(|pCube2|pCubeShape2,cameraShape1)
                     >10 Renderer::_writeObject(|pCube2|pCubeShape2,cameraShape1,0,0,0)
@@ -1829,6 +1831,18 @@
 ,m_tokenSize=24
 ,m_tokenFloats.use_count()=1
 
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
                               >15 liqRibData::getFullPathName()
                 >8 liqRibTranslatorNew::oneObjectBlock_data(|pPlane3|pPlaneShape3,cameraShape1)
                   >9 Renderer::exportOneObject_data(|pPlane3|pPlaneShape3,cameraShape1)
@@ -1938,6 +1952,8 @@
 ,m_tokenFloats.use_count()=1
 
                               >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
                 >8 liqRibTranslatorNew::oneObjectBlock_data(|pPlane4|pPlaneShape4,cameraShape1)
                   >9 Renderer::exportOneObject_data(|pPlane4|pPlaneShape4,cameraShape1)
                     >10 Renderer::_writeObject(|pPlane4|pPlaneShape4,cameraShape1,0,0,0)
@@ -2045,6 +2061,8 @@
 ,m_tokenSize=12
 ,m_tokenFloats.use_count()=1
 
+                              >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
                               >15 liqRibData::getFullPathName()
                 >8 liqRibTranslatorNew::oneObjectBlock_data(|camera1_group|camera1|cameraShape1,cameraShape1)
                   >9 Renderer::exportOneObject_data(|camera1_group|camera1|cameraShape1,cameraShape1)
