@@ -5,6 +5,8 @@
 #include <liqConfig.h>
 #include <liqtypes.h>
 //-------------------------------------------------------
+#define RIBLIB_AQSIS
+
 #ifdef RIBLIB_AQSIS
 
 //typedef int RtLightHandle;
