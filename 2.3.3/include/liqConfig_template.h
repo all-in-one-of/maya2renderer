@@ -14,6 +14,5 @@
 
 #define _USE_NEWRENDERER_//for your new renderer
 
-//#define RIBLIB_AQSIS
 
 #endif//_LIQ_CONFIG_H_
