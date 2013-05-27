@@ -2188,7 +2188,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\Prman\win32/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/prman/win32/appleseed.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -2310,7 +2310,7 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\Prman\win32/M2R2012Release/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/prman/win32/appleseed.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
