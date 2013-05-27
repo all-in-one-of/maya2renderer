@@ -71,25 +71,29 @@ RenderMan (R) is a registered trademark of Pixar
                  +---2.3.3\
                  +---dependence\
 	         ...
-  - check out Elvishray http://elvishrender.googlecode.com/svn/trunk (r1117 for now) to $(LiquidRoot)/dependence/elvishray/trunk/
+  - copy ER SDK to $(LiquidRoot)\dependence\elvishray\r274\
     The directory structure should be:
        $(LiquidRoot)\
                  +---2.3.3\
-                 +---dependence/elvishray/trunk/
-                                            +-- eiAPI/
-                                            +-- eiCOMMON/
-                                            +-- eiCORE/
+                 +---dependence/elvishray/r274/
+                                            +-- bin/
+                                                  +-- er.exe
+                                                  +-- eiAPI.dll
+                                                  ...
+                                            +-- include/
+                                            +-- lib/
                                             ...
   - build ER. 
     - When you configure cmake for ER, set CMAKE_INSTALL_PREFIX to $(LiquidRoot)\dependence\elvishray, so ER will copy *.dll to $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)
-    - select a ConfigurationName, e.g. Release. 
+    - select a ConfigurationName, e.g. M2R2012Release. 
+    - copy $(LiquidRoot)\2.3.3\include\liqConfig_template.h to liqConfig.h, open #define _USE_ELVISHRAY_ in liqConfig.h
     - build ER, and copy generated *.lib to $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)
   - build $(LiquidRoot)\2.3.3\src\elvishray\eiSHADER_maya\build\eiSHADER_maya.sln. eiSHADER_maya.dll will be generated at $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)
     NOTE: you'd better set the ConfigurationName same with ER project. e.g. Release.
   - copy $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)\*.* to $(LiquidRoot)\dependence\elvishray\bin\$(ConfigurationName)\*.*
     e.g. you can choose Release as the ConfigurationName.
   - open $(LiquidRoot)\2.3.3\include\liqConfig.h, set _USE_SHAVE_ to 1 if shave(v61 or later) is installed, or set _USE_SHAVE_ to 0 if shave isn't installed.
-  - open $(LiquidRoot)\2.3.3\src\MSVC2005\liquid.sln, choose ¡°Win32¡± and ¡°M2R2012Debug¡± in Configuration Manager£¬
+  - open $(LiquidRoot)\2.3.3\src\MSVC2005\liquid.sln, choose ¡°Win32¡± and ¡°M2R2012Release¡± in Configuration Manager£¬
     - (For renderman renderer only)
       - if you use PRman:
          - make sure $(RMANTREE) is set(e.g. RMANTREE=D:\Program Files\Pixar\RenderManProServer-13.5.2),
