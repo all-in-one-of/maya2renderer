@@ -80,7 +80,7 @@ LIGHT(liq_skylight)
 			sinf(theta));
     }
 
-	eiFORCEINLINE const color & cb(const vector & dir, const eiTag shader)
+	eiFORCEINLINE const color cb(const vector & dir, const eiTag shader)
 	{
 		color	C;
 
@@ -97,7 +97,7 @@ LIGHT(liq_skylight)
 
 		ray_type = prev_ray_type;
 
-		return out->Ci;
+		return C;
 	}
 
 	void init_node()

@@ -196,8 +196,6 @@ ENVIRONMENT(maya_physicalsky)
 	DECLARE_SCALAR(sun_glow_falloff, 5.0f);
 	DECLARE_COLOR(ground_color, 0.2f, 0.2f, 0.2f);
 	DECLARE_SCALAR(ground_blur, 0.01f);
-	DECLARE_BOOL(visibility_to_camera, eiTRUE);
-	DECLARE_BOOL(visibility_to_secondary, eiTRUE);
 	DECLARE_INT(type, 0);
 	DECLARE_SCALAR(haze, 5.0f);
 	DECLARE_COLOR(zenith_color, 0.109f, 0.109f, 0.109f);
@@ -207,6 +205,7 @@ ENVIRONMENT(maya_physicalsky)
 	DECLARE_SCALAR(d, -3.0f);
 	DECLARE_SCALAR(e, 0.45f);
 	DECLARE_SCALAR(intensity, 0.5f);
+	DECLARE_OUT_COLOR(result, 0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -253,22 +252,6 @@ ENVIRONMENT(maya_physicalsky)
 
 	void main(void *arg)
 	{
-		if (ray_type == EI_RAY_EYE)
-		{
-			if (!visibility_to_camera())
-			{
-				return;
-			}
-		}
-		else if (ray_type == EI_RAY_REFLECT_GLOSSY || 
-			ray_type == EI_RAY_REFLECT_DIFFUSE)
-		{
-			if (!visibility_to_secondary())
-			{
-				return;
-			}
-		}
-
 		// the shading space of physical sky should be in world space
 		vector Iw(normalize(vto_world(I)));
 		vector ray_dir = Iw;
@@ -281,11 +264,11 @@ ENVIRONMENT(maya_physicalsky)
 		scalar blur = ground_blur();
 		if (ray_dir.y >= blur)
 		{
-			out->Ci = physicalsky_color(ray_dir);
+			result() = physicalsky_color(ray_dir);
 		}
 		else if (ray_dir.y <= 0.0f)
 		{
-			out->Ci = ground_color();
+			result() = ground_color();
 		}
 		else
 		{
@@ -293,9 +276,9 @@ ENVIRONMENT(maya_physicalsky)
 			color ground_c(ground_color());
 
 			scalar factor = curve(ray_dir.y / blur);
-			out->Ci = ground_c * (1.0f - factor) + sky_c * factor;
+			result() = ground_c * (1.0f - factor) + sky_c * factor;
 		}
-
+		out->Ci = result();
 		out->Oi = color(0.0f);
 	}
 
