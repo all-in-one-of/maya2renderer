@@ -7,6 +7,10 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-done liq|:liquidMessage2(里的‘\n’去掉
+-liq|: bug:maya_physicalsky.type的UI无法显示
+-liq：渲染时scriptEditor提示：Error while parsing arguments
+-liq|er|: bug:ERROR> Cannot find instance |light:liq_skylight_group
 -liq|er|: bug:toElvic\r647\blinn_transparent.ma\, 由于pCube2 scale.y为0导致的
 -liq|： LIQ_SCALAR_ALMOST_ZERO --》 LIQ_EPSILON
 -done liq|： liqAssert 里用liqglo.m_showliquidMessage屏蔽
