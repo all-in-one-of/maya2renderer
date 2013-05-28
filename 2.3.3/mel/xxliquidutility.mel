@@ -206,7 +206,7 @@ global proc string xxu_getTransform( string $shape )
 // assert window 0
 global proc int liqAssert0(string $msg )
 {
-	string $ret= `confirmDialog -message ($msg+"\n\nNOTE:\nPress <ESC> is the same as press \"Confirm\"")`;
+	string $ret= `confirmDialog -message $msg`;
 	if($ret=="Confirm"){
 		return 1;
 	}else if($ret=="dismiss"){
@@ -223,7 +223,7 @@ global proc int liqAssert1(string $title, string $msg, string $bYes )
 
 	string $ret= `confirmDialog 
 				-title $title 
-				-message ($msg+"\n\nNOTE:\nPress <ESC> is the same as press \""+$bYes+"\"")
+				-message $msg
 				-button $bYes 
 				//-defaultButton $bYes
 				//-cancelButton  "liqAssert_dismiss" 
