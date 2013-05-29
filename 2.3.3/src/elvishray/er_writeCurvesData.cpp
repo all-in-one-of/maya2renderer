@@ -41,7 +41,7 @@ namespace elvishray
 		OutputMgr &o = Renderer::o;
 
 		o.a(boost::str(boost::format("curves %s is not implemented yet.") %pData->getFullPathName() ));
-		liquidMessage2(messageError, "Curve type is not implemented yet.\n%s", pData->getFullPathName());
+		liquidMessage2(messageError, "Curve type is not implemented yet. [%s]", pData->getFullPathName());
 
 	}
 }//namespace elvishray

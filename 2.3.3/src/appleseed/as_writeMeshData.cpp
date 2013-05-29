@@ -288,8 +288,8 @@ namespace appleseed
 				boost::filesystem::create_directories( p );
 			}
 		}catch(...){
-			liquidMessage2(messageError, "fail to create dir: %s", get_mesh_dirname(meshFullPathName).c_str() );
-			liquidMessage2(messageInfo, "mesh: %s",meshFullPathName.c_str() );
+			liquidMessage2(messageError, "fail to create dir: [%s]", get_mesh_dirname(meshFullPathName).c_str() );
+			liquidMessage2(messageInfo, "mesh: [%s]",meshFullPathName.c_str() );
 			return;
 		}
 

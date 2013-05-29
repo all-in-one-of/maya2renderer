@@ -31,7 +31,7 @@ namespace renderman
 			//2)call shave command to write the rib file(not support motion blur)
 			MString cmd("shaveWriteRib -hairNode \""+pData->objDagPath.partialPathName()+"\" \""+pData->getRibFileFullPath()+"\";");
 			if( MFAIL(MGlobal::executeCommand(cmd, true) )){
-				liquidMessage2(messageError,"write shave rib file fail:%s", cmd.asChar());
+				liquidMessage2(messageError,"write shave rib file fail: [%s]", cmd.asChar());
 			}
 	 	}else{
 	 		//write the reference

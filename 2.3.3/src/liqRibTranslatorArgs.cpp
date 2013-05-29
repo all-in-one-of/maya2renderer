@@ -237,7 +237,7 @@ MStatus liqRibTranslator::liquidDoArgs( MArgList args )
 				//liquidMessage2(messageInfo, ">>> render frames: ");
 				//for( unsigned i(0) ; i < frameNumbers.size() ; i++ )
 				//  liquidMessage2(messageInfo, "%d ", frameNumbers[i] );
-				//liquidMessage2(messageInfo, "\n");
+				//liquidMessage2(messageInfo, ".");
 			}
 		} 
 		else if((arg == "-m") || (arg == "-mbSamples")) 

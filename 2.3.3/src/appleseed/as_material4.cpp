@@ -87,7 +87,7 @@ namespace appleseed
 				);
 			}
 			else{
-				liquidMessage2( messageError, "\"%s\" is not implemented yet.", m_bsdf_model.c_str() );
+				liquidMessage2( messageError, "[%s] is not implemented yet.", m_bsdf_model.c_str() );
 
 			}
 		}
@@ -122,7 +122,7 @@ namespace appleseed
 				param_value = strVal0.asChar();
 			}
 			else {
-				liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in BSDF. "
+				liquidMessage2(messageWarning,"only [color],[scalar] are handled for an unconnected plug in BSDF. "
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
@@ -142,7 +142,7 @@ namespace appleseed
 					//visitFile(srcNode.asChar());
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
+					liquidMessage2(messageWarning,"type of [%s] is unhandled.(not 2Dtexture and 3Dtexture). [%s]", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
@@ -162,7 +162,7 @@ namespace appleseed
 				param_value = srcNode.asChar();
 			}
 			else{
-				liquidMessage2(messageWarning,"only \"texture_instance\",\"bsdf\" are handled for a connected-in plug in BSDF."
+				liquidMessage2(messageWarning,"only [texture_instance],[bsdf] are handled for a connected-in plug in BSDF."
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
@@ -232,18 +232,18 @@ namespace appleseed
 						//visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
+						liquidMessage2(messageWarning,"type of [%s] is unhandled.(not 2Dtexture and 3Dtexture). [%s]", srcNode.asChar(), fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}
 				else {
-					liquidMessage2(messageWarning,"only \"color\",\"scalar\",\"texture_instance\" are handled for an connected-out plug in BSDF. "
+					liquidMessage2(messageWarning,"only [color],[scalar],[texture_instance] are handled for an connected-out plug in BSDF. "
 						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}//if( nodetype=="bsdf_mix" && (desPlug=="bsdf0" ||desPlug=="bsdf1") )
 			else {
-				liquidMessage2(messageWarning,"%s is connected out. But not connected to brdf node, or not brdf0/brdf1 of a brdf node."
+				liquidMessage2(messageWarning,"[%s] is connected out. But not connected to brdf node, or not brdf0/brdf1 of a brdf node."
 					" So I don't create the value for this plug.", fullPlugName.asChar());
 			}
 		}
@@ -311,7 +311,7 @@ namespace appleseed
 				param_value = strVal0.asChar();
 			}
 			else {
-				liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in EDF. "
+				liquidMessage2(messageWarning,"only [color],[scalar] are handled for an unconnected plug in EDF. "
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
@@ -332,17 +332,17 @@ namespace appleseed
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}
 				else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
+					liquidMessage2(messageWarning,"type of [%s] is unhandled.(not 2Dtexture and 3Dtexture). [%s]", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
 			else{
-				liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in EDF."
+				liquidMessage2(messageWarning,"only [texture_instance] is handled for a connected-in plug in EDF."
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
 		}else{
-			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
+			liquidMessage2(messageWarning,"[%s] is connected out.", fullPlugName.asChar());
 		}
 		//
 		addVariableEDF(param_name_as, param_value);
@@ -409,7 +409,7 @@ namespace appleseed
 			//
 			else 
 			{
-				liquidMessage2(messageError, "surface model \"%s\" is not supported.",m_ss_model.c_str() );
+				liquidMessage2(messageError, "surface model [%s] is not supported.",m_ss_model.c_str() );
 			}
 		}
 	}
@@ -453,7 +453,7 @@ namespace appleseed
 					param_value = val.asChar();
 				}
 				else {
-					liquidMessage2(messageWarning,"only \"color\",\"scalar\",\"string\" are handled for an unconnected plug in Surface Shader. "
+					liquidMessage2(messageWarning,"only [color],[scalar],[string] are handled for an unconnected plug in Surface Shader. "
 						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
@@ -474,18 +474,18 @@ namespace appleseed
 						//visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"only \"texture2D\",\"texture3D\" are handled for a texture_instance connected-in plug in Surface Shader."
+						liquidMessage2(messageWarning,"only [texture2D],[texture3D] are handled for a texture_instance connected-in plug in Surface Shader."
 							"the plug of %s is unhandled.", fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}
 				else{
-					liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in Surface Shader."
+					liquidMessage2(messageWarning,"only [texture_instance] is handled for a connected-in plug in Surface Shader."
 						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}else{
-				liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
+				liquidMessage2(messageWarning,"[%s] is connected out.", fullPlugName.asChar());
 			}
 			//
 			addVariableSS(param_name_as, param_value);

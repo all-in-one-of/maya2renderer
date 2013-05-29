@@ -91,7 +91,7 @@ namespace renderman
 #endif
   } 
 	else {
-	liquidMessage2(messageInfo,"preview rib file: %s", fileName.c_str());
+	liquidMessage2(messageInfo,"preview rib file: [%s]", fileName.c_str());
     RiBegin_liq( (RtToken)fileName.c_str() );
   }
 

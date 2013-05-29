@@ -302,8 +302,8 @@ struct liqGlobalVariable &liqglo___,
 //						MString pixFilter( liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ] );
 //						filter = ( char* )pixFilter.asChar();
 //
-//						liquidMessage2(messageInfo, ">>  m_channels_iterator->pixelFilter = %s\n", liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ].asChar() );
-//						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s\n", pixFilter.asChar() );
+//						liquidMessage2(messageInfo, ">>  m_channels_iterator->pixelFilter = %s", liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ].asChar() );
+//						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s", pixFilter.asChar() );
 //
 //						tokens[ numTokens ] = "string filter";
 //						values[ numTokens ] = ( liqPointer )&filter;

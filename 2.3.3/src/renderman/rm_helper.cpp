@@ -730,7 +730,7 @@ namespace renderman
 					liqString attribute = const_cast<char*>(proceduralString.asChar());
 					RiAttribute("procedural",(liqToken)"string attribute", &attribute, RI_NULL);
 				}else{
-					liquidMessage2(messageError,"\"%s.procedural\" not exist.",ribNode__->liqGeoShaderNodeName.asChar());
+					liquidMessage2(messageError,"[%s.procedural] not exist.",ribNode__->liqGeoShaderNodeName.asChar());
 				}
 			}
 		}//procedural

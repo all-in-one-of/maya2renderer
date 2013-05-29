@@ -41,6 +41,6 @@ namespace elvishray
 		OutputMgr &o = Renderer::o;
 
 		o.a(boost::str(boost::format("Subd %s is not implemented yet.")%pData->getFullPathName()));
-		liquidMessage2(messageError, "Subd type is not implemented yet.\n%s", pData->getFullPathName());
+		liquidMessage2(messageError, "Subd type is not implemented yet.[%s]", pData->getFullPathName());
 	}
 }//namespace elvishray

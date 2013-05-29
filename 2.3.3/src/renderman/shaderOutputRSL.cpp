@@ -171,7 +171,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 				valStr[12]+","+valStr[13]+","+valStr[14]+","+valStr[15]+
 				")";
 		}else{
-			liquidMessage2(messageError, "rsl type \"%s\" is unhandled.", rslType.asChar());
+			liquidMessage2(messageError, "rsl type [%s] is unhandled.", rslType.asChar());
 		}
 		rslShaderBody += ";\n";
 	}//if( $connected == CT_None )
@@ -270,7 +270,7 @@ void OutputHelper::_addRSLVariable(const MString& inputQualifier, MString rslTyp
 					rslShaderBody += " "+rslName+"["+rslTypeSizeStr+"] is an array of "+rslType+", not implemented yet.";
 				}
 			}else{
-				liquidMessage2(messageError, "rsl type \"%s\" is unhandled.", rslType.asChar());
+				liquidMessage2(messageError, "rsl type [%s] is unhandled.", rslType.asChar());
 			}
 			rslShaderBody += ";\n";
 		}//
@@ -494,7 +494,7 @@ void Visitor::postOutput()
 	std::string strRes(result.toLowerCase().asChar());
 	if(strRes.find("error") != std::string::npos)
 	{
-		liquidMessage2(messageError, "%s", strRes.c_str());
+		liquidMessage2(messageError, "[%s]", strRes.c_str());
 	}
 
 
@@ -600,7 +600,7 @@ MString Visitor::getRSLShaderType(const MString &mayaplug)
 	}else if(mayaplug=="volumeShader"){
 		shaderType = "volume";
 	}else{
-		liquidMessage2(messageError,"unkown shader type for plug %s", mayaplug.asChar());
+		liquidMessage2(messageError,"unkown shader type for plug [%s]", mayaplug.asChar());
 	}
 	return shaderType;
 }

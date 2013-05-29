@@ -41,6 +41,6 @@ namespace elvishray
 		OutputMgr &o = Renderer::o;
 
 		o.a(boost::str(boost::format("Nurbs surface %s is not implemented yet.")%pData->getFullPathName()));
-		liquidMessage2(messageError, "Nurbs surface \"%s\" is not implemented yet.", pData->getFullPathName());
+		liquidMessage2(messageError, "Nurbs surface [%s] is not implemented yet.", pData->getFullPathName());
 	}
 }//namespace elvishray

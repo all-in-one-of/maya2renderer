@@ -113,13 +113,13 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			out.ei_shader_param_bool(rslName.asChar(), bVal );
 		}
 		else if(rslType=="tag"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="node"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="vector4"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="float"){
 			if(rslTypeSize == 1){
@@ -214,13 +214,13 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				out.ei_shader_param_bool(rslName.asChar(), bVal );
 			}
 			else if(rslType=="tag"){
-				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+				liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 			}
 			else if(rslType=="node"){
-				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+				liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 			}
 			else if(rslType=="vector4"){
-				liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+				liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 			}
 			else if(rslType=="float"){
 				if(rslTypeSize == 1){

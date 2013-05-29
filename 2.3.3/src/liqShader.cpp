@@ -356,19 +356,19 @@ liqShader::liqShader( MObject shaderObj )
 						}
 						case SHADER_TYPE_MATRIX:
 						{
-							liquidMessage2(messageError,"[liqShader] warning cannot write output matrix parameters yet. skip param %s on %s", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] warning cannot write output matrix parameters yet. skip param [%s] on [%s]", paramName.asChar(), shaderNode.name().asChar() );
 							continue;
 						}
 						default:
 						{
-							liquidMessage2(messageError,"[liqShader] warning unhandled parameters type. skip param %s on %s", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] warning unhandled parameters type. skip param [%s] on [%s]", paramName.asChar(), shaderNode.name().asChar() );
 							continue;
 						}
 					}//if( arraySize == -1 ){ switch ( shaderParameterType )
 				}//if( arraySize == -1 )
 				else
 				{
-					liquidMessage2(messageError,"[liqShader] warning cannot write output array parameters yet. skip param %s on %s", paramName.asChar(), shaderNode.name().asChar() );
+					liquidMessage2(messageError,"[liqShader] warning cannot write output array parameters yet. skip param [%s] on [%s]", paramName.asChar(), shaderNode.name().asChar() );
 					continue;
 				}
 			}
@@ -383,7 +383,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building shader param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building shader param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -437,7 +437,7 @@ liqShader::liqShader( MObject shaderObj )
 #else
 											MFnDependencyNode fnObject(coshader);
 											coShaderHandler = fnObject.name();
-											liquidMessage2(messageWarning, "I use shader name \"%s\" for coShaderHandler in plug \"%s\"", coShaderHandler.asChar(), coShaderPlug.name().asChar());
+											liquidMessage2(messageWarning, "I use shader name [%s] for coShaderHandler in plug [%s]", coShaderHandler.asChar(), coShaderPlug.name().asChar());
 #endif
 										}
 										else
@@ -478,7 +478,7 @@ liqShader::liqShader( MObject shaderObj )
 #else
 									MFnDependencyNode fnObject(coshader);
 									coShaderHandler = fnObject.name();
-									liquidMessage2(messageWarning, "I use shader name \"%s\" for coShaderHandler in plug \"%s\"", coShaderHandler.asChar(), coShaderPlug.name().asChar());
+									liquidMessage2(messageWarning, "I use shader name [%s] for coShaderHandler in plug [%s]", coShaderHandler.asChar(), coShaderPlug.name().asChar());
 #endif
 								}
 								else
@@ -512,7 +512,7 @@ liqShader::liqShader( MObject shaderObj )
 							}//if ( isArrayAttr )
 							else
 							{
-								liquidMessage2(messageError, "[liqShader] error while building coshader param %s assumed as an array but wasn't...", coShaderPlug.name().asChar() );
+								liquidMessage2(messageError, "[liqShader] error while building coshader param [%s] assumed as an array but wasn't...", coShaderPlug.name().asChar() );
 							}
 						}//if ( arraySize > 0 )
 						else if ( arraySize == -1 )    // single value
@@ -524,7 +524,7 @@ liqShader::liqShader( MObject shaderObj )
 							if( connectionArray.length() == 0 )
 							{
 								skipToken = true;
-								liquidMessage2(messageWarning, "[liqShader] warning:  coshader param %s is not connected in.", coShaderPlug.name().asChar() );
+								liquidMessage2(messageWarning, "[liqShader] warning:  coshader param [%s] is not connected in.", coShaderPlug.name().asChar() );
 							}
 							else
 							{
@@ -536,12 +536,12 @@ liqShader::liqShader( MObject shaderObj )
 #else
 								MFnDependencyNode fnObject(coshader);
 								MString coShaderId(fnObject.name());
-								liquidMessage2(messageWarning, "I use shader name \"%s\" for coShaderId in plug \"%s\"", coShaderId.asChar(), coShaderPlug.name().asChar());
+								liquidMessage2(messageWarning, "I use shader name [%s] for coShaderId in plug [%s]", coShaderId.asChar(), coShaderPlug.name().asChar());
 #endif
 								if( coShaderId == "" )
 								{
 									skipToken = true;
-									liquidMessage2(messageWarning, "[liqShader] warning:  coshader param %s 's source is empty.", coShaderPlug.name().asChar() );
+									liquidMessage2(messageWarning, "[liqShader] warning:  coshader param [%s]'s source is empty.", coShaderPlug.name().asChar() );
 								}
 								else
 								{
@@ -554,7 +554,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							liquidMessage2(messageError,"[liqShader] error while building shader param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building shader param [%s] on [%s] : undefined array size [%d] ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;				
@@ -565,7 +565,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building string param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building string param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -653,14 +653,14 @@ liqShader::liqShader( MObject shaderObj )
 									}
 									else
 									{
-										liquidMessage2(messageError, "[liqShader] error while building param %d : %s ", kk, stringPlug.name().asChar() );
+										liquidMessage2(messageError, "[liqShader] error while building param [%d] : [%s] ", kk, stringPlug.name().asChar() );
 									}
 								}
 								}
 							}
 							else
 							{
-								liquidMessage2(messageError, "[liqShader] error while building string param %s assumed as an array but wasn't...", stringPlug.name().asChar() );
+								liquidMessage2(messageError, "[liqShader] error while building string param [%s] assumed as an array but wasn't...", stringPlug.name().asChar() );
 							}
 						}//if( arraySize > 0 )
 						else if( arraySize == -1 )    // single value
@@ -678,7 +678,7 @@ liqShader::liqShader( MObject shaderObj )
 							else  // build non default param
 							{
 								MString stringVal( parseString( stringPlugVal ) );
-								liquidMessage2(messageInfo,"[liqShader::liqShader] parsed string for param %s = %s ", paramName.asChar(), stringVal.asChar() );
+								liquidMessage2(messageInfo,"[liqShader::liqShader] parsed string for param [%s] = [%s] ", paramName.asChar(), stringVal.asChar() );
 								tokenPointerArray.rbegin()->set( paramName.asChar(), rString );
 								tokenPointerArray.rbegin()->setTokenString( 0, stringVal.asChar() );
 							}
@@ -686,7 +686,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							liquidMessage2(messageError,"[liqShader] error while building string param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building string param [%s] on [%s] : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}//status == MS::kSuccess
 					break;
@@ -697,7 +697,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building float param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building float param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -802,7 +802,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							liquidMessage2(messageError,"[liqShader] error while building float param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building float param [%s] on [%s] : undefined array size [%d] ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;
@@ -813,7 +813,7 @@ liqShader::liqShader( MObject shaderObj )
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building int param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building int param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -918,7 +918,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type
 						{
 							skipToken = true;
-							liquidMessage2(messageError,"[liqShader] error while building int param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building int param [%s] on [%s] : undefined array size [%d] ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 					}
 					break;
@@ -930,7 +930,7 @@ liqShader::liqShader( MObject shaderObj )
 						if ( MS::kSuccess != status )
 						{
 							skipToken = true;
-							liquidMessage2(messageError,"[liqShader] error while building bool param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+							liquidMessage2(messageError,"[liqShader] error while building bool param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 						}
 						else
 						{
@@ -1035,7 +1035,7 @@ liqShader::liqShader( MObject shaderObj )
 							else    // unknown type
 							{
 								skipToken = true;
-								liquidMessage2(messageError,"[liqShader] error while building bool param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+								liquidMessage2(messageError,"[liqShader] error while building bool param [%s] on [%s] : undefined array size [%d] ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 							}
 						}
 						break;
@@ -1069,7 +1069,7 @@ liqShader::liqShader( MObject shaderObj )
 					if( status != MS::kSuccess )
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building float[3] param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building float[3] param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -1185,19 +1185,19 @@ liqShader::liqShader( MObject shaderObj )
 					else    // unknown type//arraySize
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building float[3] param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+						liquidMessage2(messageError,"[liqShader] error while building float[3] param [%s] on [%s] : undefined array size [%d] ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 					}
 					}//if( status
 					break;
 				}
 				case SHADER_TYPE_MATRIX:
 				{
-					liquidMessage2(messageInfo,  "[liqShader]  %s.%s arraySize=%d", shaderNode.name().asChar(), paramName.asChar(), arraySize );
+					liquidMessage2(messageInfo,  "[liqShader]  [%s.%s] arraySize=[%d]", shaderNode.name().asChar(), paramName.asChar(), arraySize );
 					MPlug matrixPlug( shaderNode.findPlug( paramName, &status ) );
 					if ( MS::kSuccess != status )
 					{
 						skipToken = true;
-						liquidMessage2(messageError,"[liqShader] error while building float[16] param %s on %s ...", paramName.asChar(), shaderNode.name().asChar() );
+						liquidMessage2(messageError,"[liqShader] error while building float[16] param [%s] on [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 					}
 					else
 					{
@@ -1241,7 +1241,7 @@ liqShader::liqShader( MObject shaderObj )
 										if(status!=MS::kSuccess)
 										{
 											skipToken = true;
-											liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param[?] %s on shader %s ...", paramName.asChar(), shaderNode.name().asChar() );
+											liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param[?] [%s] on shader [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 											continue;
 										}
 										else
@@ -1289,7 +1289,7 @@ liqShader::liqShader( MObject shaderObj )
 								if(status!=MS::kSuccess)
 								{
 									skipToken = true;
-									liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param[] %s on shader %s ...", paramName.asChar(), shaderNode.name().asChar() );
+									liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param[] [%s] on shader [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 								}
 								else
 								{
@@ -1363,7 +1363,7 @@ liqShader::liqShader( MObject shaderObj )
 							if(status!=MS::kSuccess)
 							{
 								skipToken = true;
-								liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param %s on shader %s ...", paramName.asChar(), shaderNode.name().asChar() );
+								liquidMessage2(messageError,"[liqShader] error while initializing MFnMatrixData on param [%s] on shader [%s] ...", paramName.asChar(), shaderNode.name().asChar() );
 							}
 							else
 							{
@@ -1420,7 +1420,7 @@ liqShader::liqShader( MObject shaderObj )
 						else    // unknown type//arraySize
 						{
 							skipToken = true;
-							liquidMessage2(messageError,"[liqShader] error while building float[16] param %s on %s : undefined array size %d ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
+							liquidMessage2(messageError,"[liqShader] error while building float[16] param [%s] on [%s] : undefined array size [%d] ", paramName.asChar(), shaderNode.name().asChar(), arraySize );
 						}
 				    }
 					break;
@@ -1461,7 +1461,7 @@ liqShader::liqShader( MObject shaderObj )
 				// skip parameter : parameter will not be written inside rib
 				if( outputAllParameters )
 				{
-					liquidMessage2(messageError,"[liqShader] skipping shader parameter %s on %s (probably an empty dynamic array)", paramName.asChar(), shaderNode.name().asChar() );
+					liquidMessage2(messageError,"[liqShader] skipping shader parameter [%s] on [%s] (probably an empty dynamic array)", paramName.asChar(), shaderNode.name().asChar() );
 				}
 			}
 		}//for
@@ -1487,7 +1487,7 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 	{
 		MFnDependencyNode fnObject(coshader);
 		MTypeId depNodeId = fnObject.typeId();
-		//liquidMessage2(messageInfo, "liqSurfaceNodeId=%d  liqDisplacementNodeId=%d  liqVolumeNodeId=%d  liqCoShaderNodeId=%d\n", liqSurfaceNodeId, liqDisplacementNodeId, liqVolumeNodeId, liqCoShaderNodeId);
+		//liquidMessage2(messageInfo, "liqSurfaceNodeId=[%d]  liqDisplacementNodeId=[%d]  liqVolumeNodeId=[%d]  liqCoShaderNodeId=[%d]\n", liqSurfaceNodeId, liqDisplacementNodeId, liqVolumeNodeId, liqCoShaderNodeId);
 		if( depNodeId==liqSurfaceNodeId || 
 		  depNodeId==liqDisplacementNodeId || 
 		  depNodeId==liqVolumeNodeId || 
@@ -1497,10 +1497,10 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 		{
 			isLiquidShader = 1;
 		}else{
-			liquidMessage2(messageError,"\"%s\"'s coshader is not a liquid shader", getName().c_str() );
+			liquidMessage2(messageError,"[%s]'s coshader is not a liquid shader", getName().c_str() );
 		}
 	}else{
-		liquidMessage2(messageError,"\"%s\"'s coshader is not a MFn::kPluginDependNode", getName().c_str() );
+		liquidMessage2(messageError,"[%s]'s coshader is not a MFn::kPluginDependNode", getName().c_str() );
 	}
 	if( isLiquidShader )
 	{
@@ -1509,7 +1509,7 @@ void liqShader::appendCoShader(MObject coshader, MPlug plug)
 	}
 	else
 	{
-		liquidMessage2(messageError, "[liqShader::appendCoShader] Error unsupported connection in plug '%s', abort co-shading for this plug.\n", plug.name().asChar());
+		liquidMessage2(messageError, "[liqShader::appendCoShader] Error unsupported connection in plug [%s], abort co-shading for this plug", plug.name().asChar());
 	}
 }
 
@@ -1574,7 +1574,7 @@ void liqShader::write(/*, */)
 	MFnDependencyNode node(m_mObject);
 	if( hasErrors )
 	{
-		liquidMessage2(messageError,"[liqShader::write] Erros occured while initializing shader '%s', won't export shader", node.name().asChar());
+		liquidMessage2(messageError,"[liqShader::write] Erros occured while initializing shader [%s], won't export shader", node.name().asChar());
 		return;
 	}
 
@@ -1669,7 +1669,7 @@ const std::string removeRedundentExtsion(std::string const& texturepath)//textur
 
 	std::size_t i_last_dot = texname.find_last_of('.');
 	if( i_last_dot == std::string::npos ){
-		liquidMessage2(messageError,"removeRedundentExtsion():\"%s\" has no extention!", texturepath.c_str());
+		liquidMessage2(messageError,"removeRedundentExtsion():[%s] has no extention!", texturepath.c_str());
 		return texturepath;
 	}
 
@@ -1677,13 +1677,13 @@ const std::string removeRedundentExtsion(std::string const& texturepath)//textur
 
 	std::size_t i_last2_dot = texname2.find_last_of('.');
 	if( i_last2_dot == std::string::npos ){
-		liquidMessage2(messageInfo, "%s is a texture, no need to convert.", texturepath.c_str());
+		liquidMessage2(messageInfo, "[%s] is a texture, no need to convert.", texturepath.c_str());
 		return texturepath;
 	}else{
 		std::string imgext(texname2.substr(i_last2_dot+1));//imgext=bmp
 		std::transform(imgext.begin(),imgext.end(),imgext.begin(),tolower);
 		if( imgext!="bmp" && imgext!="jpg" && imgext!="png" ){
-			liquidMessage2(messageWarning,"%s 'type %s maybe not supported.", texname2.c_str(), imgext.c_str());
+			liquidMessage2(messageWarning,"[%s]'type [%s] maybe not supported.", texname2.c_str(), imgext.c_str());
 		}
 		return basepath+"/"+texname2;//return "e:/a.b/c.d.bmp"
 	}
@@ -1734,7 +1734,7 @@ void liqShader::processExpression( liqTokenPointer *token, const liqRibLightData
 						//skip
 						std::size_t loc = strValue.find_last_of('.');
 						if( loc == std::string::npos )
-							liquidMessage2(messageError,"liqShader::processExpression():\"%s\" has no extention!", strValue.c_str());
+							liquidMessage2(messageError,"liqShader::processExpression():[%s] has no extention!", strValue.c_str());
 						std::string extention;
 						if( *(strValue.rbegin())==']' ){//if the strValue end with ']', extention should exclude the ']'
 							extention = strValue.substr(loc+1, strValue.size()-loc-2);

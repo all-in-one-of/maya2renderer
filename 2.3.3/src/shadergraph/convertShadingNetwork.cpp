@@ -71,7 +71,7 @@ bool ConvertShadingNetwork::nodeIsConvertible ( const MString& node ) const
 	{
 		return true;
 	}else{
-		//liquidMessage2(messageError, "node type \"%s\" (%s) is not supported", nodetype.asChar(), node.asChar());
+		//liquidMessage2(messageError, "node type [%s] (%s) is not supported", nodetype.asChar(), node.asChar());
 		return false;
 	}
 }
@@ -106,7 +106,7 @@ ConvertShadingNetwork::convertibleConnection(const MString& plug) const
 
 	// Check to see if the plug even exists!
 	if( !ensurePlugExists(plug) ){
-		liquidMessage2(messageError, "plug \"%s\" not exist.", plug.asChar());
+		liquidMessage2(messageError, "plug [%s] not exist.", plug.asChar());
 		return (ConnectionType)0;
 	}
 	
@@ -328,7 +328,7 @@ void ConvertShadingNetwork::addNodeOutputVariable(
 			}
 		}
 		if(paramIndex==-1){
-			liquidMessage2(messageError, "can't find parameter %s in %s.rmanParams.", plug.asChar(), node.asChar());
+			liquidMessage2(messageError, "can't find parameter [%s] in [%s.rmanParams]", plug.asChar(), node.asChar());
 			return;
 		}
 
@@ -649,10 +649,10 @@ void ConvertShadingNetwork::__export()
 // 			{
 // 				std::ostringstream s;
 // 				std::copy(sgNodes.begin(), sgNodes.end(), std::ostream_iterator<std::string>(s, ","));
-// 				liquidMessage2(messageError, "%s has many shading groups[%s]. only the 1st is exported.", node.asChar(), s.str().c_str());
+// 				liquidMessage2(messageError, "[%s] has many shading groups[%s]. only the 1st is exported.", node.asChar(), s.str().c_str());
 // 			}
 		}else{
-			liquidMessage2(messageInfo, ("\""+node +"\" has not shading group, skip.").asChar() );
+			liquidMessage2(messageInfo, ("["+node +"] has not shading group, skip.").asChar() );
 		}
 	}
 
@@ -699,7 +699,7 @@ void ConvertShadingNetwork::exportShaderInShadingGroup(
 				IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
 
 				if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
-					//liquidMessage2(messageInfo, (startingNode+"'s type is "+nodetype+", no need to convert").asChar());
+					//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
 					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
 					currentShader.write();
 				}else{
@@ -724,7 +724,7 @@ bool ConvertShadingNetwork::canShaderExported(const MString& shaderName)
 	}
 	if(exportedShader.end() != std::find(exportedShader.begin(), exportedShader.end(), shaderName) )
 	{
-		liquidMessage2(messageInfo, ("\""+shaderName+"\" is already exported, skip.").asChar() );
+		liquidMessage2(messageInfo, ("["+shaderName+"] is already exported, skip.").asChar() );
 		return false;
 	}
 
@@ -754,7 +754,7 @@ bool ConvertShadingNetwork::canShadingGroupExported(const MString& shadingGroupN
 	}
 	if(exportedShadingGroup.end() != std::find(exportedShadingGroup.begin(), exportedShadingGroup.end(), shadingGroupName) )
 	{
-		liquidMessage2(messageInfo, ("\""+shadingGroupName+"\" is already exported, skip.").asChar() );
+		liquidMessage2(messageInfo, ("["+shadingGroupName+"] is already exported, skip.").asChar() );
 		return false;
 	}
 

@@ -81,7 +81,7 @@ liqRibShaveData::liqRibShaveData( MObject obj )
 	IfErrorWarn(status);
 	IfErrorWarn(fnDagPath.getPath(objDagPath));
 
-	liquidMessage2( messageInfo, "-> shavehair path %s\n", this->getFullPathName() );
+	liquidMessage2( messageInfo, "-> shavehair path [%s]", this->getFullPathName() );
 
 	//test();
 }

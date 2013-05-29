@@ -45,7 +45,7 @@ namespace liquidmaya
 				connections = validConnectionMap.find(shadertype.asChar())->second;
 			}
 		}else{
-			liquidMessage2(messageError, "shader type \"%s\" is not supported.", shadertype.asChar());
+			liquidMessage2(messageError, "shader type [%s] is not supported.", shadertype.asChar());
 			assert(0&&"shader type is not supported.");
 			connections = validConnectionMap.find("null")->second;
 		}

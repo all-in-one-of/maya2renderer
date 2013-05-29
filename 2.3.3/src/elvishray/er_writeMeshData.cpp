@@ -228,7 +228,7 @@ namespace elvishray
 			}//for(int gpi = 0; gpi< numPolygons; ++gpi)
 		}
 		catch(std::bad_alloc& e){
-			liquidMessage2(messageError, "er_writeMeshData.cpp::_write1()> bad_alloc caught: %s", e.what());
+			liquidMessage2(messageError, "er_writeMeshData.cpp::_write1()> bad_alloc caught: [%s]", e.what());
 		}
 		catch(...){
 			liquidMessage2(messageError, "ERROR, er mesh write, gpi=%d, ti=%d", gpi, ti);
@@ -248,11 +248,11 @@ namespace elvishray
 
 		if( !NORMAL.empty() && NORMAL.size() != POSITION.size()  )
 		{
-			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, normal:%d), %s", POSITION.size(), NORMAL.size(), objectName.c_str());
+			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, normal:%d), [%s]", POSITION.size(), NORMAL.size(), objectName.c_str());
 		}
 		if( !UV.empty() && UV.size() != POSITION.size()  )
 		{
-			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, uv:%d), %s", POSITION.size(), UV.size(), objectName.c_str());
+			liquidMessage2(messageError, "er_writeMeshData(), list size not equal(pos:%d, uv:%d), [%s]", POSITION.size(), UV.size(), objectName.c_str());
 		}
 
 
@@ -290,7 +290,7 @@ namespace elvishray
 				return i;
 			}
 		}
-		liquidMessage2(messageError, "global vertex index \"%d\" not found", gvi);
+		liquidMessage2(messageError, "global vertex index [%d] not found", gvi);
 		return -1;
 	}
 }//namespace elvishray

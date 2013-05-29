@@ -670,7 +670,7 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // 				//liquidMessage2(messageInfo, ">>> render frames: ");
 // 				//for( unsigned i(0) ; i < frameNumbers.size() ; i++ )
 // 				//  liquidMessage2(messageInfo, "%d ", frameNumbers[i] );
-// 				//liquidMessage2(messageInfo, "\n");
+// 				//liquidMessage2(messageInfo, ".");
 // 			}
 // 		} 
 // 		else if((arg == "-m") || (arg == "-mbSamples")) 
@@ -2166,13 +2166,13 @@ MStatus liqRibTranslator::doIt()
 //
 //						unsigned lastGenFrame( ( frameIndex + liqglo.m_deferredBlockSize ) < liqglo.frameNumbers.size() ? frameIndex + liqglo.m_deferredBlockSize : liqglo.frameNumbers.size() );
 //
-//						//liquidMessage2(messageInfo, ">>> frameIndex = %d m_deferredBlockSize = %d frameNumbers.size = %d lastGenFrame = %d\n",frameIndex,m_deferredBlockSize,frameNumbers.size(),lastGenFrame );
+//						//liquidMessage2(messageInfo, ">>> frameIndex = %d m_deferredBlockSize = %d frameNumbers.size = %d lastGenFrame = %d",frameIndex,m_deferredBlockSize,frameNumbers.size(),lastGenFrame );
 //
 //						for( unsigned outputFrame( frameIndex ); outputFrame < lastGenFrame; outputFrame++ )
 //						{  
 //							ribGenExtras << liqglo.frameNumbers[ outputFrame ];
 //							ribGenExtras << (( outputFrame != ( lastGenFrame - 1 ) )? ", " : " ");
-//							// liquidMessage2(messageInfo, "\t outputFrame = %d\n", outputFrame );
+//							// liquidMessage2(messageInfo, "\t outputFrame = %d", outputFrame );
 //						}
 //#else					// r773
 //						//ribGenExtras << " -progress -noDef -nop -noalfred -projectDir " << liqglo_projectDir.asChar() << " -ribName " << liqglo_sceneName.asChar() << " -mf " << tempDefname.asChar() << " -t ";
@@ -5532,8 +5532,8 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 //						MString pixFilter( liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ] );
 //						filter = ( char* )pixFilter.asChar();
 //
-//						liquidMessage2(messageInfo, ">>  m_channels_iterator->pixelFilter = %s\n", liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ].asChar() );
-//						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s\n", pixFilter.asChar() );
+//						liquidMessage2(messageInfo, ">>  m_channels_iterator->pixelFilter = %s", liqglo.liquidRenderer.pixelFilterNames[ m_channels_iterator->pixelFilter ].asChar() );
+//						liquidMessage2(messageInfo, ">>  pixFilter.asChar() = %s", pixFilter.asChar() );
 //
 //						tokens[ numTokens ] = "string filter";
 //						values[ numTokens ] = ( liqPointer )&filter;

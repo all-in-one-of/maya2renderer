@@ -767,7 +767,7 @@ void ObjTranslator::initializeSetsAndLookupTables( bool exportAll, const MString
 		}else{
 			///DEBUG
 			//std::cerr <<       "ERROR> ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is not malloc-ed, "<< meshFullPathName.asChar()<<std::endl;
-			liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is not malloc-ed, %s", meshFullPathName.asChar() );
+			liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is not malloc-ed, [%s]", meshFullPathName.asChar() );
 		}
 	}
 
@@ -954,7 +954,7 @@ if ( compIdx >= polygonCounts[o] ) {
 	if(objectGroupsTablePtr==NULL){
 		///DEBUG
 		//std::cerr        <<"ERROR> ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is NULL, return.  "<< meshFullPathName.asChar()<<std::endl;
-		liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is NULL, return.  %s",meshFullPathName.asChar());
+		liquidMessage2(messageError,"ObjTranslator::initializeSetsAndLookupTables(), objectGroupsTablePtr is NULL, return.  [%s]",meshFullPathName.asChar());
 		return;
 	}else{
 		///DEBUG

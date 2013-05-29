@@ -13,7 +13,7 @@ namespace elvishray
 		m_outputfile.open(logFileName.c_str(), std::ios_base::out);
 		if( !m_outputfile.is_open() )
 		{
-			liquidMessage2(messageError,"can't open file: %s.\n", logFileName.c_str() );
+			liquidMessage2(messageError,"can't open file: [%s]", logFileName.c_str() );
 		}
 	}
 	OutputESA::~OutputESA()
@@ -691,7 +691,7 @@ namespace elvishray
 			if( POSITION.size() != POSITION_mb.size() )
 			{
 				assert( 0 && "POSITION.size() != POSITION_mb.size()" );
-				liquidMessage2(messageError, "POSITION.size()(%d) != POSITION_mb.size()(%d), \"%s\"",
+				liquidMessage2(messageError, "POSITION.size()(%d) != POSITION_mb.size()(%d), [%s]",
 					POSITION.size(), POSITION_mb.size(), objname.c_str());
 			}
 			s("tag = ei_tab(EI_TYPE_VECTOR, 2, 1024);");

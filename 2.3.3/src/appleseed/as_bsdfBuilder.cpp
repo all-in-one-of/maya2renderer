@@ -100,7 +100,7 @@ namespace appleseed
 			else
 				return createPlugBRDF(plug, bsdfmodel);//create the BSDF for this plug
 		}else{
-			liquidMessage2(messageError,"\"%s.%s\"'s connection state is unhandled.", m_nodename.c_str(), plug.c_str());
+			liquidMessage2(messageError,"[%s.%s]'s connection state is unhandled.", m_nodename.c_str(), plug.c_str());
 			return "";
 		}
 	}
@@ -278,7 +278,7 @@ namespace appleseed
 				)
 			);
 		}else{
-			liquidMessage2( messageError, "\"%s\" is not implemented yet.", model.c_str() );
+			liquidMessage2( messageError, "[%s] is not implemented yet.", model.c_str() );
 
 		}
 	}

@@ -40,7 +40,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeClipPlaneData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 		OutputMgr &o = Renderer::o;
 
-		o.a(boost::str(boost::format("Locator(ClipPlane) %s is not implemented yet.")%pData->getFullPathName()));
-		liquidMessage2(messageError, "Locator(ClipPlane) is not implemented yet.\n%s", pData->getFullPathName());
+		o.a(boost::str(boost::format("Locator(ClipPlane) is not implemented yet. [%s]")%pData->getFullPathName()));
+		liquidMessage2(messageError, "Locator(ClipPlane) is not implemented yet. [%s]", pData->getFullPathName());
 	}
 }//namespace elvishray

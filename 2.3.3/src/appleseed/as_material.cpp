@@ -55,7 +55,7 @@ namespace appleseed
 		}else if("specular_btdf"==modelname){
 			createBSDF(specular_btdf);
 		}else{
-			liquidMessage2(messageError, "BSDF type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "BSDF type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	void MaterialFactory::createEDF(const std::string &modelname)
@@ -63,7 +63,7 @@ namespace appleseed
 		if("diffuse_edf"==modelname){
 			createEDF(diffuse_edf);
 		}else{
-			liquidMessage2(messageError, "EDF type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "EDF type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	void MaterialFactory::createSurfaceShader(const std::string &modelname)
@@ -83,7 +83,7 @@ namespace appleseed
 		}else if("voxel_ao_surface_shader"==modelname){
 			createSurfaceShader(voxel_ao_surface_shader);
 		}else{
-			liquidMessage2(messageError, "SurfaceShader type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "SurfaceShader type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ namespace appleseed
 		case specular_brdf:		createBSDF_specular_brdf();	break;
 		case specular_btdf:		createBSDF_specular_btdf();	break;
 		default:
-			liquidMessage2(messageError, "BSDF type %d is unknown.", model);
+			liquidMessage2(messageError, "BSDF type [%d] is unknown.", model);
 		}
 	}
 	void MaterialFactory::createEDF(EDF_Model model)
@@ -108,7 +108,7 @@ namespace appleseed
 		{
 		case diffuse_edf:	createEDF_diffuse_edf();	break;
 		default:
-			liquidMessage2(messageError, "EDF type %d is unknown.", model);
+			liquidMessage2(messageError, "EDF type [%d] is unknown.", model);
 		}
 	}
 	void MaterialFactory::createSurfaceShader(SurfaceShader_Model model)
@@ -124,7 +124,7 @@ namespace appleseed
 		case smoke_surface_shader:		createSurfaceShader_smoke();	break;
 		case voxel_ao_surface_shader:	createSurfaceShader_voxel_ao();	break;
 		default:
-			liquidMessage2(messageError, "SurfaceShader type %d is unknown.", model);
+			liquidMessage2(messageError, "SurfaceShader type [%d] is unknown.", model);
 			ret = "";
 		}
 	}

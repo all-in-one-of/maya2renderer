@@ -680,7 +680,7 @@ void Visitor::visit_liquidShader(const char* node)
 			paramType = "matrix";	
 			break;
 		default :
-			liquidMessage2(messageError, "param type %d is unknown.", ptype);
+			liquidMessage2(messageError, "param type [%d] is unknown.", ptype);
 		}//switch
 		o.addRSLVariable("", paramType.c_str(),  vp->getTokenName().c_str(), vp->getTokenName().c_str(), node);
 		

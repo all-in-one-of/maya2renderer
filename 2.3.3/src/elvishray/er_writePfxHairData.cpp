@@ -41,7 +41,7 @@ namespace elvishray
 		//
 		if( pData->isEmpty() ) 
 		{
-			liquidMessage2(messageWarning, "pfxHair is empty: %s",  pData->getFullPathName());
+			liquidMessage2(messageWarning, "pfxHair is empty: [%s]",  pData->getFullPathName());
 			return;
 		}
 

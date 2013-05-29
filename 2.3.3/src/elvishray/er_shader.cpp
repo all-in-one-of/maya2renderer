@@ -110,7 +110,7 @@ namespace elvishray
 				}
 				;break;
 			default :
-				liquidMessage2(messageError, "shader parameter type %d is unknown", tokenPointerArray[i].getParameterType());
+				liquidMessage2(messageError, "shader parameter type [%d] is unknown", tokenPointerArray[i].getParameterType());
 			}
 
 		}//for

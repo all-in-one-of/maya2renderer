@@ -24,7 +24,7 @@ namespace	cm
 		m_logfile.open(trace_file_.c_str());
 		if( !m_logfile.is_open() )
 		{
-			liquidMessage2(messageError,"[cm::Trace] can't open file: %s.\n", trace_file_.c_str() );
+			liquidMessage2(messageError,"[cm::Trace] can't open file: [%s]", trace_file_.c_str() );
 			assert(0&&"[cm::Trace] can't open file. see script editor for more details.");
 		}
 	}
@@ -38,7 +38,7 @@ namespace	cm
 	{
 		if( !m_logfile.is_open() )
 		{
-			liquidMessage2(messageError,"[cm::Trace] can't open file: %s.\n", trace_file_.c_str() );
+			liquidMessage2(messageError,"[cm::Trace] can't open file: [%s]", trace_file_.c_str() );
 			assert(m_logfile.is_open()&&"[cm::Trace] file is not open. see script editor for more details.");
 		}
 		std::string indent(2*depth, ' ');

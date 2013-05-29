@@ -25,7 +25,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("IprMgr::onAttributeChanged("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
 
-		liquidMessage2(messageInfo, "%s, %s, ", plug.name().asChar(), plug.partialName(true, true, true, true, true, true) );
+		liquidMessage2(messageInfo, "[%s], [%s], ", plug.name().asChar(), plug.partialName(true, true, true, true, true, true) );
 
 		MStringArray strarray;
 		IfMErrorWarn( plug.name().split('.', strarray) );

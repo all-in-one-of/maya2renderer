@@ -57,7 +57,7 @@ namespace appleseed
 		}else if("specular_btdf"==modelname){
 			createBSDF(specular_btdf);
 		}else{
-			liquidMessage2(messageError, "BSDF type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "BSDF type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	void MaterialFactory2::createEDF(const std::string &modelname)
@@ -67,7 +67,7 @@ namespace appleseed
 		if("diffuse_edf"==modelname){
 			createEDF(diffuse_edf);
 		}else{
-			liquidMessage2(messageError, "EDF type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "EDF type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	void MaterialFactory2::createSurfaceShader(const std::string &modelname)
@@ -89,7 +89,7 @@ namespace appleseed
 		}else if("voxel_ao_surface_shader"==modelname){
 			createSurfaceShader(voxel_ao_surface_shader);
 		}else{
-			liquidMessage2(messageError, "SurfaceShader type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "SurfaceShader type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ namespace appleseed
 			m_bsdf_model = "specular_btdf";
 			createBSDF_specular_btdf();	break;
 		default:
-			liquidMessage2(messageError, "BSDF type %d is unknown.", model);
+			liquidMessage2(messageError, "BSDF type [%d] is unknown.", model);
 		}
 	}
 	void MaterialFactory2::createEDF(EDF_Model model)
@@ -130,7 +130,7 @@ namespace appleseed
 			m_edf_model = "diffuse_edf";
 			createEDF_diffuse_edf();	break;
 		default:
-			liquidMessage2(messageError, "EDF type %d is unknown.", model);
+			liquidMessage2(messageError, "EDF type [%d] is unknown.", model);
 		}
 	}
 	void MaterialFactory2::createSurfaceShader(SurfaceShader_Model model)
@@ -160,7 +160,7 @@ namespace appleseed
 			m_surface_shader_model = "voxel_ao_surface_shader";
 			createSurfaceShader_voxel_ao();	break;
 		default:
-			liquidMessage2(messageError, "SurfaceShader type %d is unknown.", model);
+			liquidMessage2(messageError, "SurfaceShader type [%d] is unknown.", model);
 			ret = "";
 		}
 	}
@@ -423,7 +423,7 @@ namespace appleseed
 		{
 			//test "fileImageName" exist or not.
 			if( access(fileImageName.asChar(), 0) != 0){
-				liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
+				liquidMessage2(messageError,"[%s] not exist!", fileImageName.asChar());
 				assert(0&&"image not exist.");
 			}
 
@@ -432,7 +432,7 @@ namespace appleseed
 				std::string fileImageName_(fileImageName.asChar());
 				std::size_t i_last_dot = fileImageName_.find_last_of('.');
 				if( i_last_dot == std::string::npos ){
-					liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
+					liquidMessage2(messageWarning,"[%s] has no extention!", fileImageName_.c_str());
 					assert(0&&"warrning: texture name has not extention.");
 				}
 				std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr
@@ -573,7 +573,7 @@ namespace appleseed
 				);
 			}	
 			else{
-				liquidMessage2( messageError, "\"%s\" is not implemented yet.", m_bsdf_model.c_str() );
+				liquidMessage2( messageError, "[%s] is not implemented yet.", m_bsdf_model.c_str() );
 
 			}
 		}
@@ -608,7 +608,7 @@ namespace appleseed
 				param_value = strVal0.asChar();
 			}
 			else {
-				liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in BSDF. "
+				liquidMessage2(messageWarning,"only [color],[scalar] are handled for an unconnected plug in BSDF. "
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
@@ -628,7 +628,7 @@ namespace appleseed
 					visitFile(srcNode.asChar());
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
+					liquidMessage2(messageWarning,"type of [%s] is unhandled.(not 2Dtexture and 3Dtexture). [%s]", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
@@ -648,13 +648,13 @@ namespace appleseed
 				param_value = getBSDFName(srcNode.asChar(), srcBSDFModel.asChar());
 			}
 			else{
-				liquidMessage2(messageWarning,"only \"texture_instance\",\"bsdf\" are handled for a connected-in plug in BSDF."
+				liquidMessage2(messageWarning,"only [texture_instance],[bsdf] are handled for a connected-in plug in BSDF."
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
 
 		}else{
-			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
+			liquidMessage2(messageWarning,"[%s] is connected out.", fullPlugName.asChar());
 		}
 		//
 		m_bsdf_params.insert(param_name.c_str(), param_value.c_str());
@@ -673,7 +673,7 @@ namespace appleseed
 		{
 			//test "fileImageName" exist or not.
 			if( access(fileImageName.asChar(), 0) != 0){
-				liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
+				liquidMessage2(messageError,"[%s] not exist!", fileImageName.asChar());
 				assert(0&&"image not exist.");
 			}
 
@@ -682,7 +682,7 @@ namespace appleseed
 				std::string fileImageName_(fileImageName.asChar());
 				std::size_t i_last_dot = fileImageName_.find_last_of('.');
 				if( i_last_dot == std::string::npos ){
-					liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
+					liquidMessage2(messageWarning,"[%s] has no extention!", fileImageName_.c_str());
 					assert(0&&"warrning: texture name has not extention.");
 				}
 				std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr
@@ -800,7 +800,7 @@ namespace appleseed
 				param_value = strVal0.asChar();
 			}
 			else {
-				liquidMessage2(messageWarning,"only \"color\",\"scalar\" are handled for an unconnected plug in EDF. "
+				liquidMessage2(messageWarning,"only [color],[scalar] are handled for an unconnected plug in EDF. "
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
@@ -821,17 +821,17 @@ namespace appleseed
 					param_value = getTextureInstanceName(srcNode.asChar());
 				}
 				else{
-					liquidMessage2(messageWarning,"type of %s is unhandled.(not 2Dtexture and 3Dtexture). %s", srcNode.asChar(), fullPlugName.asChar());
+					liquidMessage2(messageWarning,"type of [%s] is unhandled.(not 2Dtexture and 3Dtexture). [%s]", srcNode.asChar(), fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}
 			else{
-				liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in EDF."
+				liquidMessage2(messageWarning,"only [texture_instance] is handled for a connected-in plug in EDF."
 					"the plug of %s is unhandled.", fullPlugName.asChar());
 				param_value = "unhandled";
 			}
 		}else{
-			liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
+			liquidMessage2(messageWarning,"[%s] is connected out.", fullPlugName.asChar());
 		}
 		//
 		m_edf_params.insert(param_name.c_str(), param_value.c_str());
@@ -894,7 +894,7 @@ namespace appleseed
 			//
 			else 
 			{
-				liquidMessage2(messageError, "surface model \"%s\" is not supported.",m_ss_model.c_str() );
+				liquidMessage2(messageError, "surface model [%s] is not supported.",m_ss_model.c_str() );
 			}
 		}
 	}
@@ -938,7 +938,7 @@ namespace appleseed
 					param_value = val.asChar();
 				}
 				else {
-					liquidMessage2(messageWarning,"only \"color\",\"scalar\",\"string\" are handled for an unconnected plug in Surface Shader. "
+					liquidMessage2(messageWarning,"only [color],[scalar],[string] are handled for an unconnected plug in Surface Shader. "
 						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
@@ -959,18 +959,18 @@ namespace appleseed
 						visitFile(srcNode.asChar());
 						param_value = getTextureInstanceName(srcNode.asChar());
 					}else{
-						liquidMessage2(messageWarning,"only \"texture2D\",\"texture3D\" are handled for a texture_instance connected-in plug in Surface Shader."
+						liquidMessage2(messageWarning,"only [texture2D],[texture3D] are handled for a texture_instance connected-in plug in Surface Shader."
 							"the plug of %s is unhandled.", fullPlugName.asChar());
 						param_value = "unhandled";
 					}
 				}
 				else{
-					liquidMessage2(messageWarning,"only \"texture_instance\" is handled for a connected-in plug in Surface Shader."
+					liquidMessage2(messageWarning,"only [texture_instance] is handled for a connected-in plug in Surface Shader."
 						"the plug of %s is unhandled.", fullPlugName.asChar());
 					param_value = "unhandled";
 				}
 			}else{
-				liquidMessage2(messageWarning,"%s is connected out.", fullPlugName.asChar());
+				liquidMessage2(messageWarning,"[%s] is connected out.", fullPlugName.asChar());
 			}
 			//
 			m_ss_params.insert(param_name.c_str(), param_value.c_str());

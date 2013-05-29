@@ -150,7 +150,7 @@ namespace renderman
  			} else {
  				//type conversion
  				liquidMessage2(messageInfo, 
- 					"\"%s\" is converted to \"%s\".",
+ 					"[%s] is converted to [%s].",
  					node.inputSrc[i].c_str(), pDes->rsltype.c_str());
   				paramlist.push_back(pDes->rsltype + " " + node.inputSrc[ i ]) ;
  			}

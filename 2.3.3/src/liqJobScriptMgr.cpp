@@ -103,13 +103,13 @@ void tJobScriptMgr::addDefferedJob(
 
 	unsigned lastGenFrame( ( frameIndex__ + liqglo.m_deferredBlockSize ) < liqglo.frameNumbers.size() ? frameIndex__ + liqglo.m_deferredBlockSize : liqglo.frameNumbers.size() );
 
-	//liquidMessage2(messageInfo, ">>> frameIndex = %d m_deferredBlockSize = %d frameNumbers.size = %d lastGenFrame = %d\n",frameIndex,m_deferredBlockSize,frameNumbers.size(),lastGenFrame );
+	//liquidMessage2(messageInfo, ">>> frameIndex = %d m_deferredBlockSize = %d frameNumbers.size = %d lastGenFrame = %d",frameIndex,m_deferredBlockSize,frameNumbers.size(),lastGenFrame );
 
 	for( unsigned outputFrame( frameIndex__ ); outputFrame < lastGenFrame; outputFrame++ )
 	{  
 		ribGenExtras << liqglo.frameNumbers[ outputFrame ];
 		ribGenExtras << (( outputFrame != ( lastGenFrame - 1 ) )? ", " : " ");
-		// liquidMessage2(messageInfo, "\t outputFrame = %d\n", outputFrame );
+		// liquidMessage2(messageInfo, "\t outputFrame = %d", outputFrame );
 	}
 #else					// r773
 	//ribGenExtras << " -progress -noDef -nop -noalfred -projectDir " << liqglo_projectDir.asChar() << " -ribName " << liqglo_sceneName.asChar() << " -mf " << tempDefname.asChar() << " -t ";

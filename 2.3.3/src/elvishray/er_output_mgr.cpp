@@ -37,7 +37,7 @@ namespace elvishray
 			ret = new OutputESA(m_output_image_path);
 			break;
 		default:
-			liquidMessage2(messageError, "OutputMgr::createOutput()> unknown output type \"%d\"", outputtype);
+			liquidMessage2(messageError, "OutputMgr::createOutput()> unknown output type [%d]", outputtype);
 			ret = NULL;
 			break;	
 		}
@@ -52,7 +52,7 @@ namespace elvishray
 			return 0;
 		}
 
-		liquidMessage2(messageError, "OutputMgr::add()> output type \"%d\" already exists.", outputtype);
+		liquidMessage2(messageError, "OutputMgr::add()> output type [%d] already exists.", outputtype);
 		return -1;//already exist.
 	}
 	int OutputMgr::init()

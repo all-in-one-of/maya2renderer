@@ -55,7 +55,7 @@ namespace elvishray
 			i->second.addMeshInstance( objInstanceName );
 			break;
 		default:
-			liquidMessage2(messageError, "group instance type %d is unknown.",type);
+			liquidMessage2(messageError, "group instance type [%d] is unknown.",type);
 			assert(0&&"group instance type is unknown. see script window for more details.");
 		}
 

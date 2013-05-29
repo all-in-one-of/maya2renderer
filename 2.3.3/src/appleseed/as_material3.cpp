@@ -44,7 +44,7 @@ namespace appleseed
 		if("generic_environment"==modelname){
 			createEnvironment(generic_environment);
 		}else{
-			liquidMessage2(messageError, "Environment type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "Environment type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	void MaterialFactory3::createEnvironmentEDF(const std::string &modelname)
@@ -62,7 +62,7 @@ namespace appleseed
 		}else if("mirrorball_map_environment_edf"==modelname){
 			createEnvironmentEDF(mirrorball_map_environment_edf);
 		}else{
-			liquidMessage2(messageError, "EnvironmentEDF type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "EnvironmentEDF type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	void MaterialFactory3::createEnvironmentShader(const std::string &modelname)
@@ -72,7 +72,7 @@ namespace appleseed
 		if("edf_environment_shader"==modelname){
 			createEnvironmentShader(edf_environment_shader);
 		}else{
-			liquidMessage2(messageError, "EnvironmentShader type %s is unknown.", modelname.c_str());
+			liquidMessage2(messageError, "EnvironmentShader type [%s] is unknown.", modelname.c_str());
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ namespace appleseed
 			createEnvironment_generic();
 			break;
 		default:
-			liquidMessage2(messageError, "Environment type %d is unknown.", model);
+			liquidMessage2(messageError, "Environment type [%d] is unknown.", model);
 		}
 	}
 	void MaterialFactory3::createEnvironmentEDF(EnvironmentEDFModel model)
@@ -113,7 +113,7 @@ namespace appleseed
 			createEnvironmentEDF_mirrorball_map();	
 			break;
 		default:
-			liquidMessage2(messageError, "EnvironmentEDF type %d is unknown.", model);
+			liquidMessage2(messageError, "EnvironmentEDF type [%d] is unknown.", model);
 		}
 	}
 	void MaterialFactory3::createEnvironmentShader(EnvironmentShaderModel model)
@@ -126,7 +126,7 @@ namespace appleseed
 			createEnvironmentShader_edf();
 			break;
 		default:
-			liquidMessage2(messageError, "EnvironmentShader type %d is unknown.", model);
+			liquidMessage2(messageError, "EnvironmentShader type [%d] is unknown.", model);
 			ret = "";
 		}
 	}
@@ -250,7 +250,7 @@ namespace appleseed
 		IfMErrorWarn(MGlobal::executeCommand("objExists "+nodeName, bExist, false, true));
 		if( !bExist )
 		{
-			liquidMessage2( messageError, "%s not exist.", nodeName.asChar() );
+			liquidMessage2( messageError, "[%s] not exist", nodeName.asChar() );
 			return;
 		}
 
@@ -269,7 +269,7 @@ namespace appleseed
 		IfMErrorWarn(MGlobal::executeCommand("objExists "+nodeName, bExist, false, true));
 		if( !bExist )
 		{
-			liquidMessage2( messageError, "%s not exist.", nodeName.asChar() );
+			liquidMessage2( messageError, "[%s] not exist", nodeName.asChar() );
 			return;
 		}
 
@@ -403,7 +403,7 @@ namespace appleseed
 		{
 			//test "fileImageName" exist or not.
 			if( access(fileImageName.asChar(), 0) != 0){
-				liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
+				liquidMessage2(messageError,"[%s] not exist!", fileImageName.asChar());
 				assert(0&&"image not exist.");
 			}
 
@@ -412,7 +412,7 @@ namespace appleseed
 				std::string fileImageName_(fileImageName.asChar());
 				std::size_t i_last_dot = fileImageName_.find_last_of('.');
 				if( i_last_dot == std::string::npos ){
-					liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
+					liquidMessage2(messageWarning,"[%s] has no extention!", fileImageName_.c_str());
 					assert(0&&"warrning: texture name has not extention.");
 				}
 				std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr

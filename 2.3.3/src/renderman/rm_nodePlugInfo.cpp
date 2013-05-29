@@ -114,7 +114,7 @@ namespace renderman
 				return  &(*i);
 			}
 		}
-		liquidMessage2(messageError, "plug \"%s\" not found.", plugname.c_str());
+		liquidMessage2(messageError, "plug [%s] not found.", plugname.c_str());
 		return NULL;
 	}
 	void swap(NodePlug& a, NodePlug& b)
@@ -186,7 +186,7 @@ namespace renderman
 			}
 		}
 
-		liquidMessage2(messageError, "node \"%s\" not found.", nodename.c_str());
+		liquidMessage2(messageError, "node [%s] not found.", nodename.c_str());
 		return NULL;
 	}
 	const PlugInfoT* NodePlugInfo::getPlugInfo(const std::string &node_dot_plug) const

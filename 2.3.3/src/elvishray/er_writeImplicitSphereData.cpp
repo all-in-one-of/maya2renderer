@@ -40,7 +40,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeImplicitSphereData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
 		OutputMgr &o = Renderer::o;
 
-		o.a(boost::str(boost::format("Implicit Sphere %s is not implemented yet.")%pData->getFullPathName()));
-		liquidMessage2(messageError, "ImplicitSphere type is not implemented yet.\n%s", pData->getFullPathName());
+		o.a(boost::str(boost::format("Implicit Sphere [%s] is not implemented yet.")%pData->getFullPathName()));
+		liquidMessage2(messageError, "ImplicitSphere type is not implemented yet. [%s]", pData->getFullPathName());
 	}
 }//namespace elvishray

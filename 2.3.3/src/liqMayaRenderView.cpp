@@ -267,7 +267,7 @@ MStatus liqMayaRenderCmd::redoIt()
 				return MS::kFailure;
 			}
 
-			//liquidMessage2(messageInfo, "[liqMayaRenderView] imgInfo: %d %d   %d %d   %d %d (%d)\n", imgInfo.width,imgInfo.height, imgInfo.xo, imgInfo.yo, imgInfo.wo,imgInfo.ho, imgInfo.channels ); 
+			//liquidMessage2(messageInfo, "[liqMayaRenderView] imgInfo: %d %d   %d %d   %d %d (%d)", imgInfo.width,imgInfo.height, imgInfo.xo, imgInfo.yo, imgInfo.wo,imgInfo.ho, imgInfo.channels ); 
 
 			if ( !m_bDoRegionRender ) 
 				MRenderView::startRender (imgInfo.wo,imgInfo.ho, false, true );

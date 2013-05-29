@@ -321,7 +321,7 @@ void Visitor::visitLambert(const char* node)
 				);
 			}
 		}else{
-			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
+			liquidMessage2(messageError, "[%s]'s alphamap type [%d] is unhandled", node, amt);
 		}
 	}else{// this material is opacity
 		//BRDF
@@ -602,7 +602,7 @@ void Visitor::visitPhong(const char* node)
 				);
 			}
 		}else{
-			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled", node, amt);
+			liquidMessage2(messageError, "[%s]'s alphamap type [%d] is unhandled", node, amt);
 		}
 	}else{// this material is opacity
 		//BRDF
@@ -763,7 +763,7 @@ void Visitor::visit_liquidShader(const char* node)
 	else if( shader.shader_type_ex == "diffuse_edf" )
 		createEDF_diffuse_edf(node);
 	else {
-		liquidMessage2(messageError, "shader type %s is unknown.", shader.shader_type_ex.asChar() );
+		liquidMessage2(messageError, "shader type [%s] is unknown.", shader.shader_type_ex.asChar() );
 	}
 }
 //

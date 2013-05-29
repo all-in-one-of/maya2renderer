@@ -197,7 +197,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
       else if( obj.hasFn(MFn::kPfxGeometry) ) 
       {
 	      type = objType;
-		  liquidMessage2(messageInfo, "liqRibObj(MFn kPfxGeometry) type = %d\n", (int)objType);
+		  liquidMessage2(messageInfo, "liqRibObj(MFn kPfxGeometry) type = %d", (int)objType);
         if( !ignoreShapes ) 
           data = liqRibDataPtr( new liqRibPfxData( obj, objType ) );
         else 
@@ -234,7 +234,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
 			{
 				MString nodeType;
 				MGlobal::executeCommand(("nodeType "+pathName), nodeType);
-				liquidMessage2(messageInfo, "liqRibObj(MFn::kPluginShape) %s, type=%s\n", pathName.asChar(), nodeType.asChar());
+				liquidMessage2(messageInfo, "liqRibObj(MFn::kPluginShape) %s, type=%s", pathName.asChar(), nodeType.asChar());
 				
 				if(nodeType=="shaveHair")
 				{
@@ -375,7 +375,7 @@ liqRibObj::liqRibObj( const MDagPath &path, ObjectType objType )
 			  data = liqRibDataPtr( new liqRibCameraData( skip ) );
 	  }
 	  else{
-		  liquidMessage2(messageWarning, "the type(%s) of \"%s\" is not supported in maya2renderer now.", obj.apiTypeStr(), pathName.asChar());
+		  liquidMessage2(messageWarning, "the type(%s) of [%s] is not supported in maya2renderer now.", obj.apiTypeStr(), pathName.asChar());
 	  }
     }
     data->objDagPath = path;

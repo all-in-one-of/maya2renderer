@@ -27,7 +27,7 @@ namespace elvishray
 				MString fullPathName;
 				IfMErrorWarn(MGlobal::executeCommand( "longNameOf(\""+meshNodes[i]+"\")", fullPathName));
 				if(fullPathName.length()==0){
-					liquidMessage2(messageError,"longNameOf(\"%s\") is empty.", meshNodes[i].asChar());
+					liquidMessage2(messageError,"longNameOf([%s]) is empty.", meshNodes[i].asChar());
 				}
 
 				std::string instanceName(fullPathName.asChar());

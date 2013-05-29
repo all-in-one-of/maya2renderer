@@ -177,7 +177,7 @@ int liqGetSloInfo::getNumParam()
 // {
 // 	if( (unsigned int)type > shaderTypeStrSize )
 // 	{
-// 		liquidMessage2( messageError, "[liqGetSloInfo::getTypeStr] error index out of range %d \n", (int)type);
+// 		liquidMessage2( messageError, "[liqGetSloInfo::getTypeStr] error index out of range [%d]", (int)type);
 // 		return MString("??");
 // 	}
 //     return MString( shaderTypeStr[ type ] );
@@ -292,7 +292,7 @@ int liqGetSloInfo::setShader( MString shaderFileName )
   resetIt();
 
   if ( !fileExists( shaderFileName ) ) {
-    liquidMessage2(messageError, "[liqGetSloInfo::setShader] Error : Can not find shader '%s'\n", shaderFileName.asChar() );
+    liquidMessage2(messageError, "[liqGetSloInfo::setShader] Error : Can not find shader [%s]", shaderFileName.asChar() );
     resetIt();
     return 0;
   } else {
@@ -471,7 +471,7 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
   // cout << "checking on " << shaderName << endl;
   if ( !fileExists( shaderName ) ) 
   {
-		liquidMessage2(messageError, "[liqGetSloInfo::setShaderNode] : Can not find shader '%s'\n", shaderName.asChar() );
+		liquidMessage2(messageError, "[liqGetSloInfo::setShaderNode] : Can not find shader [%s]", shaderName.asChar() );
 		resetIt();
 		return 0;
   } 
@@ -556,13 +556,13 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 		intArrayData.copyTo( shaderOutputs );
 		if ( shaderOutputs.length() != numParam )
 		{
-			liquidMessage2(messageError, "[liqGetSloInfo::setShaderNode] error reading %s.rmanIsOutput ...\n", shaderNode.name().asChar() );
+			liquidMessage2(messageError, "[liqGetSloInfo::setShaderNode] error reading [%s.rmanIsOutput] ...", shaderNode.name().asChar() );
 		}
 	}
 	else
 	{
-		//liquidMessage2(messageError, "[liqGetSloInfo::setShaderNode] error plug %s.rmanIsOutput doesn't exist\n", shaderNode.name().asChar());
-		liquidMessage2(messageWarning, "[liqGetSloInfo::setShaderNode] error plug %s.rmanIsOutput doesn't exist\n", shaderNode.name().asChar());
+		//liquidMessage2(messageError, "[liqGetSloInfo::setShaderNode] error plug [%s.rmanIsOutput] doesn't exist", shaderNode.name().asChar());
+		liquidMessage2(messageWarning, "[liqGetSloInfo::setShaderNode] error plug [%s.rmanIsOutput] doesn't exist", shaderNode.name().asChar());
 	
 	}
 
@@ -816,7 +816,7 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
 		}
         default: {
           //cout <<"setShaderNode:     + DEFAULT CASE REACHED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-			liquidMessage2(messageError,"[liqGetloInfo] type %s is not supported.", shaderTypes[k].asChar() );
+			liquidMessage2(messageError,"[liqGetloInfo] type [%s] is not supported.", shaderTypes[k].asChar() );
           argDefault.push_back( NULL );
           break;
         }
@@ -967,7 +967,7 @@ MStatus liqGetSloInfo::doIt( const MArgList& args )
 				  break;
 			  }
           default: {
-			  liquidMessage2(messageError,"[liqGetsloInfo] type \"%s\" is not supported.", getArgType( argNum ) );
+			  liquidMessage2(messageError,"[liqGetsloInfo] type [%s] is not supported.", getArgType( argNum ) );
             defaults.append( MString( "unknown" ) );
             break;
           }

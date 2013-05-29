@@ -204,7 +204,7 @@ namespace appleseed
 		getlistConnections(shadingGroupNode.c_str(), "surfaceShader", surfaceShaders);
 
 		if( surfaceShaders[0].length() == 0){
-			liquidMessage2(messageError,"\"%s\" has no surface shader", shadingGroupNode.c_str());
+			liquidMessage2(messageError,"[%s] has no surface shader", shadingGroupNode.c_str());
 			return false;
 		}
 

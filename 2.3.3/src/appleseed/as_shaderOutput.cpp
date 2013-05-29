@@ -102,13 +102,13 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 			file<<"ei_shader_param_bool(\""<<rslName.asChar()<<"\", "<<val<<");"<<endl;
 		}
 		else if(rslType=="tag"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="node"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="vector4"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="float"){
 			if(rslTypeSize == 1){

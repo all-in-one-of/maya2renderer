@@ -358,7 +358,7 @@ namespace elvishray
 
 			if( shadingGroupNodes.size()==0 )
 			{
-				//liquidMessage2(messageError, "%s's shading group is empty, so I use \"%s\" to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
+				//liquidMessage2(messageError, "[%s]'s shading group is empty, so I use [%s] to avoid crash", ribNode__->name.asChar(), getTestMaterialName().asChar());
 				o.a(std::string(ribNode__->name.asChar())+"'s shading group is empty, use \""+std::string(getTestMaterialName().asChar())+"\" to avoid crash");
 				o.ei_mtl(getTestMaterialName().asChar());
 			} 
@@ -1064,7 +1064,7 @@ namespace elvishray
 					IfMErrorWarn( cameraShaders.append(startingNode) );
 				}else{
 					//convertShadingNetworkToRSL(startingNode, node);
-					liquidMessage2(messageError,"%s.%s is not liquidSurface and liquidShader.",node.asChar(), plug_.c_str());
+					liquidMessage2(messageError,"[%s.%s] is not liquidSurface and liquidShader.",node.asChar(), plug_.c_str());
 				}
 			}
 		}
@@ -1138,14 +1138,14 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::BaseShadowBegin("<<currentJob___.name.asChar()<<")");
 
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
-		liquidMessage2(messageInfo, "open base shadow file %s\n", baseShadowName__.asChar());
+		liquidMessage2(messageInfo, "open base shadow file %s", baseShadowName__.asChar());
 	}
 	void Renderer::BaseShadowEnd(const structJob &currentJob___)
 	{
 		CM_TRACE_FUNC("Renderer::BaseShadowEnd("<<currentJob___.name.asChar()<<")");
 	
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
-		liquidMessage2(messageInfo, "close base shadow file %s\n", baseShadowName__.asChar());
+		liquidMessage2(messageInfo, "close base shadow file %s", baseShadowName__.asChar());
 
 	}
 
@@ -1158,13 +1158,13 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::ShadowPassBegin("<<currentJob___.name.asChar()<<")");
 	
-		liquidMessage2(messageInfo, "open shadow pass file %s\n", currentJob___.ribFileName.asChar() );
+		liquidMessage2(messageInfo, "open shadow pass file %s", currentJob___.ribFileName.asChar() );
 	}
 	void Renderer::ShadowPassEnd(const structJob &currentJob___)
 	{
 		CM_TRACE_FUNC("Renderer::ShadowPassEnd("<<currentJob___.name.asChar()<<")");
 
-		liquidMessage2(messageInfo, "close shadow pass file %s\n", currentJob___.ribFileName.asChar() );
+		liquidMessage2(messageInfo, "close shadow pass file %s", currentJob___.ribFileName.asChar() );
 	}
 	void Renderer::readBaseShadow(const structJob &currentJob___)
 	{
@@ -1283,7 +1283,7 @@ namespace elvishray
 			MGlobal::executeCommand("getAttr "+blinns[i]+".eccentricity", eccentricity);
 			if( eccentricity < LIQ_SCALAR_ALMOST_ZERO )
 			{
-				liquidMessage2(messageError,"blinn.eccentricity should not be 0, or the maya_blinn shader may generate black points. (%s)", blinns[i].asChar());
+				liquidMessage2(messageError,"blinn.eccentricity should not be 0, or the maya_blinn shader may generate black points. [%s]", blinns[i].asChar());
 				return false;
 			}
 		}
@@ -1309,7 +1309,7 @@ namespace elvishray
 				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleX", scale.x);
 				if( scale.x < LIQ_SCALAR_ALMOST_ZERO )
 				{
-					liquidMessage2(messageError,"transfrom.scaleX should not be 0, or degenerated polygon will occur. (%s)", transforms[i].asChar());
+					liquidMessage2(messageError,"transfrom.scaleX should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
 				}
 			}
@@ -1320,7 +1320,7 @@ namespace elvishray
 				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleY", scale.y);
 				if( scale.y < LIQ_SCALAR_ALMOST_ZERO )
 				{
-					liquidMessage2(messageError,"transfrom.scaleY should not be 0, or degenerated polygon will occur. (%s)", transforms[i].asChar());
+					liquidMessage2(messageError,"transfrom.scaleY should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
 				}
 			}
@@ -1331,7 +1331,7 @@ namespace elvishray
 				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleZ", scale.z);
 				if( scale.z < LIQ_SCALAR_ALMOST_ZERO )
 				{
-					liquidMessage2(messageError,"transfrom.scaleZ should not be 0, or degenerated polygon will occur. (%s)", transforms[i].asChar());
+					liquidMessage2(messageError,"transfrom.scaleZ should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
 				}
 			}

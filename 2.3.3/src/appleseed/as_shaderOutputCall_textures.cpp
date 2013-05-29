@@ -59,7 +59,7 @@ void Visitor::visitFile(const char* node)
 	{
 		//test "fileImageName" exist or not.
 		if( access(fileImageName.asChar(), 0) != 0){
-			liquidMessage2(messageError,"%s not exist!", fileImageName.asChar());
+			liquidMessage2(messageError,"[%s] not exist!", fileImageName.asChar());
 			assert(0&&"image not exist.");
 		}
 
@@ -68,7 +68,7 @@ void Visitor::visitFile(const char* node)
 			std::string fileImageName_(fileImageName.asChar());
 			std::size_t i_last_dot = fileImageName_.find_last_of('.');
 			if( i_last_dot == std::string::npos ){
-				liquidMessage2(messageWarning,"%s has no extention!", fileImageName_.c_str());
+				liquidMessage2(messageWarning,"[%s] has no extention!", fileImageName_.c_str());
 				assert(0&&"warrning: texture name has not extention.");
 			}
 			std::string imgext(fileImageName_.substr(i_last_dot+1));//imgext=exr

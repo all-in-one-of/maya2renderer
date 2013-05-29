@@ -146,7 +146,7 @@ MStatus liqIPRNodeMessage::doIt( const MArgList& args)
 			setResult(isRunningIPR);
 		}
 		else{
-			liquidMessage2(messageError,"Parameter '%s' is undefined in liqIPRNodeMessage.", arg.asChar());
+			liquidMessage2(messageError,"Parameter [%s] is undefined in liqIPRNodeMessage.", arg.asChar());
 			return MS::kUnknownParameter;
 		}
 	}

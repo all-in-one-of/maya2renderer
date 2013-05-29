@@ -96,7 +96,7 @@ namespace appleseed
 		shaveAPI::HairInfo hairInfo;
 		status = shaveAPI::exportAllHair(&hairInfo);
 		if(MFAIL(status)){
-			liquidMessage2(messageError,"shaveAPI::exportAllHair(&hairInfo)=%s", status.errorString().asChar());
+			liquidMessage2(messageError,"shaveAPI::exportAllHair(&hairInfo)=[%s]", status.errorString().asChar());
 			return;
 		}
 

@@ -272,7 +272,7 @@ namespace renderman
 // 		MFnDependencyNode node(liqshader->m_mObject);
 // 		if( liqshader->hasErrors )
 // 		{
-// 			liquidMessage2(messageError, "[liqShader::write] Erros occured while initializing shader '%s', won't export shader", node.name().asChar());
+// 			liquidMessage2(messageError, "[liqShader::write] Erros occured while initializing shader [%s], won't export shader", node.name().asChar());
 // 			return;
 // 		}
 // 		// write up co-shaders before

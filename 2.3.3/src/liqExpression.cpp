@@ -167,10 +167,10 @@ MString	liqExpression::CalcValue( )
       break;
 
     case exp_EnvMap:
-      liquidMessage2(messageError,"Liquid -> EnvMap is not implemented yet\n");
+      liquidMessage2(messageError,"Liquid -> EnvMap is not implemented yet");
       break;
     case exp_CubeEnvMap:
-      liquidMessage2(messageError,"Liquid -> CubeEnvMap is not implemented yet\n");
+      liquidMessage2(messageError,"Liquid -> CubeEnvMap is not implemented yet");
       break;
     case exp_None:
     default:

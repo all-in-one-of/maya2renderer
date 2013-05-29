@@ -52,7 +52,7 @@ namespace renderman
 		if( pData->isEmpty() ) 
 		{
 			RiIdentity(); // In case we're in a motion block!
-			liquidMessage2(messageWarning, "pfxHair is empty %s",  pData->getFullPathName());
+			liquidMessage2(messageWarning, "pfxHair is empty. [%s]",  pData->getFullPathName());
 			return;
 		}
 

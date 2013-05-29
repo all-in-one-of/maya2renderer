@@ -12,7 +12,7 @@ namespace elvishray
 		m_outputfile.open(logFileName.c_str(), std::ios_base::out);
 		if( !m_outputfile.is_open() )
 		{
-			liquidMessage2(messageError,"can't open file: %s.\n", logFileName.c_str() );
+			liquidMessage2(messageError,"can't open file: [%s]", logFileName.c_str() );
 		}
 	}
 	OutputESS::~OutputESS()
@@ -251,8 +251,8 @@ namespace elvishray
 		case EI_IMG_DATA_RGBA:	str_datatype = "rgba";	break;
 		case EI_IMG_DATA_RGBAZ: str_datatype = "rgbaz";	break;
 		default:
-			liquidMessage2(messageError, "error: ei_output(): image data type '%d' is unknown", datatype);
-			a( boost::str(boost::format("error: ei_output(): image data type '%d' is unknown")%datatype) );
+			liquidMessage2(messageError, "error: ei_output(): image data type [%d] is unknown", datatype);
+			a( boost::str(boost::format("error: ei_output(): image data type [%d] is unknown")%datatype) );
 			break;
 		}
 		m_outputfile<<"    output \""<< filename <<"\" \""<<fileformat<<"\" \""<<str_datatype<<"\" "<<std::endl;
@@ -290,8 +290,8 @@ namespace elvishray
 		case EI_TYPE_BLOCK:		str_datatype = "block";		break;
 		case EI_TYPE_USER:		str_datatype = "user";		break;
 		default:
-			liquidMessage2(messageError, "error: ei_output_variable(): image data type '%d' is unknown", datatype);
-			a( boost::str(boost::format("error: ei_output_variable(): image data type '%d' is unknown")%datatype) );
+			liquidMessage2(messageError, "error: ei_output_variable(): image data type [%d] is unknown", datatype);
+			a( boost::str(boost::format("error: ei_output_variable(): image data type [%d] is unknown")%datatype) );
 			break;
 		}
 		m_outputfile<<"    output_variable \""<< name <<"\" \""<<str_datatype<<"\" "<<std::endl;

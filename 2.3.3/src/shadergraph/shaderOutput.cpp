@@ -345,7 +345,7 @@ namespace liquidmaya{
 			visit_liquidShader(shaderNodeName);
 		}
 		else{
-			liquidMessage2(messageError, ("shader type <"+std::string(nodetype)+"> is not supported.").c_str() );
+			liquidMessage2(messageError, ("shader type ["+std::string(nodetype)+"] is not supported.").c_str() );
 			assert( 0 && "shader type is not support.");
 		}
 	}

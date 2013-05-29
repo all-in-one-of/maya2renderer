@@ -116,13 +116,13 @@ void OutputHelper::addVariable(MString rslType, const MString& rslName,
 			}
 		}
 		else if(rslType=="tag"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="node"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="vector4"){
-			liquidMessage2(messageError,MString(rslType+" is not implemented yet.").asChar() );
+			liquidMessage2(messageError,MString("["+rslType+"] is not implemented yet.").asChar() );
 		}
 		else if(rslType=="float"){
 			if(rslTypeSize == 1){
@@ -341,7 +341,7 @@ void Visitor::createMaterial(const char* shadingGroupNode, bool front)
 	}
 	if( surfaceShaders[0].length() == 0)
 	{
-		liquidMessage2(messageError,"surface shader not exist in \"%s\", return.", shadingGroupNode);
+		liquidMessage2(messageError,"surface shader not exist in [%s], return.", shadingGroupNode);
 		return;
 	}
 
@@ -423,7 +423,7 @@ void Visitor::buildMaterialWithMayaShaderNode(asr::ParamArray& material_params, 
 // 		}else if(AMT_Texture==amt){
 // 			material_params.insert( "alpha_map", getTextureInstanceName(fileNode).c_str() );
 // 		}else{
-// 			liquidMessage2(messageError, "\"%s\"'s alphamap type\"%d\" is unhandled",surfaceShaderNode.asChar(), amt);
+// 			liquidMessage2(messageError, "[%s]'s alphamap type [%d] is unhandled",surfaceShaderNode.asChar(), amt);
 // 		}
 // 	}
 

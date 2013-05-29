@@ -269,7 +269,7 @@ namespace appleseed
 			boost::filesystem::path objOSFullFileName(get_filesys_fullPathName(mesh->getFullPathName()));
 			if( ! boost::filesystem::exists( objOSFullFileName ) )
 			{
-				liquidMessage2(messageError, "mesh file not exist: %s", objOSFullFileName.string().c_str() );
+				liquidMessage2(messageError, "mesh file not exist: [%s]", objOSFullFileName.string().c_str() );
 				return;
 			}
 			
@@ -304,7 +304,7 @@ namespace appleseed
 			if( ! asr::MeshObjectReader::read( search_paths, 
 				mesh->getFullPathName(), objFileNameParam, objects) )
 			{
-				liquidMessage2( messageError, "read mesh:%s",  );
+				liquidMessage2( messageError, "read mesh:[%s]",  );
 				return;
 			}
 			
@@ -747,14 +747,14 @@ namespace appleseed
 				IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
 
 				if(nodetype=="liquidSurface"){
-					//liquidMessage2(messageInfo, (startingNode+"'s type is "+nodetype+", no need to convert").asChar());
+					//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is "+nodetype+", no need to convert").asChar());
 					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
 					currentShader.write();
 
 					IfMErrorWarn( cameraShaders.append(startingNode) );
 				}else{
 					//convertShadingNetworkToRSL(startingNode, node);
-					liquidMessage2(messageError,"%s.%s is not liquidSurface.",node.asChar(), plug_.c_str());
+					liquidMessage2(messageError,"[%s.%s] is not liquidSurface.",node.asChar(), plug_.c_str());
 				}
 			}
 		}
@@ -828,14 +828,14 @@ namespace appleseed
 		CM_TRACE_FUNC("Renderer::BaseShadowBegin("<<currentJob___.name.asChar()<<")");
 
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
-		liquidMessage2(messageInfo, "open base shadow file %s\n", baseShadowName__.asChar());
+		liquidMessage2(messageInfo, "open base shadow file [%s]", baseShadowName__.asChar());
 	}
 	void Renderer::BaseShadowEnd(const structJob &currentJob___)
 	{
 		CM_TRACE_FUNC("Renderer::BaseShadowEnd("<<currentJob___.name.asChar()<<")");
 	
 		MString     baseShadowName__(getBaseShadowName(currentJob___));
-		liquidMessage2(messageInfo, "close base shadow file %s\n", baseShadowName__.asChar());
+		liquidMessage2(messageInfo, "close base shadow file [%s]", baseShadowName__.asChar());
 
 	}
 
@@ -848,13 +848,13 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("Renderer::ShadowPassBegin("<<currentJob___.name.asChar()<<")");
 	
-		liquidMessage2(messageInfo, "open shadow pass file %s\n", currentJob___.ribFileName.asChar() );
+		liquidMessage2(messageInfo, "open shadow pass file [%s]", currentJob___.ribFileName.asChar() );
 	}
 	void Renderer::ShadowPassEnd(const structJob &currentJob___)
 	{
 		CM_TRACE_FUNC("Renderer::ShadowPassEnd("<<currentJob___.name.asChar()<<")");
 
-		liquidMessage2(messageInfo, "close shadow pass file %s\n", currentJob___.ribFileName.asChar() );
+		liquidMessage2(messageInfo, "close shadow pass file [%s]", currentJob___.ribFileName.asChar() );
 	}
 	void Renderer::readBaseShadow(const structJob &currentJob___)
 	{
@@ -947,7 +947,7 @@ namespace appleseed
 		int loadObjExportSucess;
 		IfMErrorWarn(MGlobal::executeCommand( "catch(`loadPlugin \""+objExport+"\"`)", loadObjExportSucess));
 		if( loadObjExportSucess != 0 ){
-			liquidMessage2(messageError,"load plugin fail: %s ",objExport.asChar());
+			liquidMessage2(messageError,"load plugin fail: [%s] ",objExport.asChar());
 			return false;
 		}
 		// .export_mesh_to
