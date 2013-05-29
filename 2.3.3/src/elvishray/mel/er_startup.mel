@@ -21,8 +21,22 @@ global proc liquidCreateMenus_elvishray()
 	liquidCreateLightsAttributesMenu_elvishray( "main" );
 
 	menuItem -d true;
-    menuItem -label "Elvishray Menu" -command er_AddMenus;
-
+	menuItem -label "Add Render Pass"
+               -subMenu true
+               -tearOff false
+               -postMenuCommand 
+                ("elvishrayBuildAddRenderPassMenu elvishrayAddRenderPassMenu")
+               elvishrayAddRenderPassMenu;
+    setParent -menu ..; // from submenu 
+	//
+	$cmd = "elvishrayBuildRenderPassMenu(\"Select\", \"select\", 1)";
+    menuItem -label "Select Render Pass"
+               -subMenu true
+               -tearOff false
+               -postMenuCommand $cmd
+               elvishraySelectRenderPassMenu;
+    setParent -menu ..; // from submenu
+	//
 	liqPopIdent();
 }
 
@@ -56,4 +70,125 @@ global proc liquidCreateLightsAttributesMenu_elvishray( string $prefix )
 	setParent -menu ..;
 
 	liqPopIdent();
+}
+
+//
+global int $gMaxNumOptionMenuItems = 30;
+//
+global proc
+elvishrayBuildRenderPassMenu(
+  string $partial_menu_name, 
+  string $command, 
+  int $add_last_rendered_item)
+{
+  string $menu_name = "elvishray" + $partial_menu_name + "RenderPassMenu";
+  
+  // Delete all existing items from the menu, since we are going to rebuild it
+  // completely.
+  //
+  menu -edit -deleteAllItems $menu_name;
+
+  // Get a list of all render pass nodes that exist in the scene.
+  //
+  string $render_passes[] = LRP_getAllRenderPasses();
+  
+  if (size($render_passes) > 0)
+  {
+    if ($add_last_rendered_item)
+    {
+      // Add to the menu a menu item that lets the user re-render the most 
+      // recently rendered pass.
+      //
+      //addLastRenderedMenuItem($menu_name, $command);
+    }
+    
+    global int $gMaxNumOptionMenuItems;
+
+    if (size($render_passes) < $gMaxNumOptionMenuItems)
+    {
+      // Add to the menu a menu item for each render pass in the scene.
+      //
+      for ($render_pass in $render_passes)
+      {
+        menuItem 
+          -label $render_pass
+          -parent $menu_name
+          -annotation ($partial_menu_name + " " + $render_pass)
+          -command ($command + " " + $render_pass);
+      }
+    }
+    else
+    {
+      // There are too many items in the scene to put in one menu. 
+      // Instead, we offer the user the option of opening a dialog 
+      // from which they can choose one
+      //
+      //menuItem
+      //  -enableCommandRepeat false
+      //  -label "Too many items. Choose from dialog..."
+      //  -parent $menu_name
+      //  -command
+      //    ("DL_optionMenuChoiceDlg "
+      //      + DL_stringArrayAsString($render_passes)
+      //      + " \"" + $partial_menu_name + "\""
+      //      + " \"" + $command + "\"");
+    }
+  }
+  else
+  {
+    // No render passes exist in the scene. Add only one item to the menu,
+    // which tells the user there are no render passes.
+    //
+    menuItem 
+      -label "<no render passes>"
+      -enable false
+      -annotation "No 3Delight render passes in scene"
+      -parent $menu_name;
+  }
+}
+//
+global proc
+elvishrayBuildAddRenderPassMenu(string $menu)
+{
+  // Delete all existing items from the menu, since we are going to rebuild it
+  // completely.
+  //
+  menu -edit -deleteAllItems $menu;
+
+  menuItem -label "Full"
+    -annotation "Add new render pass with all possible attributes"
+    -command "select `ER_createFullRenderPassNode`"
+    -parent $menu;
+  //menuItem -label "Basic"
+  //  -annotation "Add new render pass with basic attributes"
+  //  -command "select `DL_createBasicRenderPassNode`"
+  //  -parent $menu;
+
+  menuItem -divider true -parent $menu;
+  
+  //delightBuildRenderPassTemplatesMenuItems($menu);
+}
+//
+global proc string[]
+LRP_getAllRenderPasses()
+{
+  string $render_passes[] = `ls -type "elvishrayGlobals"`;
+
+  return $render_passes;
+}
+//
+global proc string
+ER_createFullRenderPassNode()
+{
+  // Create an render pass node with all attributes and call the user's init 
+  // procedure with it.
+  //
+  //string $node = DRP_createNode();
+  //DL_addAttributeGroup($node, "mainAttrGrp");
+  //$node = `rename $node "fullRenderPass"`;
+
+  //if (`delightExists -user "DL_userRenderPassInit"`)
+  //  eval("DL_userRenderPassInit \"" + $node + "\"");
+  string $node = `createNode elvishrayGlobals`;
+  return $node;
 }
