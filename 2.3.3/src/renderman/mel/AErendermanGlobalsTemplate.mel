@@ -6,7 +6,7 @@ global proc AErendermanGlobalsTemplate( string $node )
 	liqPushIdent();
 	liqAElog("AErendermanGlobalsTemplate("+$node+")");
 
-	AEswatchDisplay($node);
+	//AEswatchDisplay($node);
 
 	editorTemplate -beginScrollLayout;
  		//--------------------------------------------------

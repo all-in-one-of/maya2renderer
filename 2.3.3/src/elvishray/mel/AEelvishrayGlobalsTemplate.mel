@@ -106,7 +106,7 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 	liqPushIdent();
 	liqAElog("AEelvishrayGlobalsTemplate("+$node+")");
 
-	AEswatchDisplay($node);
+	//AEswatchDisplay($node);
 
 	editorTemplate -beginScrollLayout;
  		//--------------------------------------------------
@@ -148,10 +148,11 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 	 	editorTemplate -beginLayout "approx" -collapse 1;
 			editorTemplate-callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
 			editorTemplate -addDynamicControl "approx_any";
-			editorTemplate -addDynamicControl "aapprox_args0";
-			editorTemplate -addDynamicControl "aapprox_args1";
-			editorTemplate -addDynamicControl "aapprox_args2";
-			editorTemplate -addDynamicControl "aapprox_args3";
+			editorTemplate -addDynamicControl "approx_view_dep";
+			editorTemplate -addDynamicControl "approx_args0";
+			editorTemplate -addDynamicControl "approx_args1";
+			editorTemplate -addDynamicControl "approx_args2";
+			editorTemplate -addDynamicControl "approx_args3";
 			editorTemplate -addDynamicControl "approx_sharp";
 			editorTemplate -addDynamicControl "approx_min_subdiv";
 			editorTemplate -addDynamicControl "approx_max_subdiv";

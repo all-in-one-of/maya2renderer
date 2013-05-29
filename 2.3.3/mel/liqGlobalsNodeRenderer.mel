@@ -81,5 +81,14 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 		error($errmsg);
 	} 
 
+	// select $rndGlobalNode node
+	string $rndGlobalNode = $rnd +"Globals";
+	if(`objExists $rndGlobalNode`)
+	{
+		select -r $rndGlobalNode ;
+	}else{
+		createNode $rndGlobalNode;
+	}
+
 	liqPopIdent();
 }
