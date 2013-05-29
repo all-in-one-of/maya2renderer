@@ -255,10 +255,16 @@ global proc registerLiquidRenderer()
 		"renderer  -rendererUIName                        \"Liquid\" "                    +
 				  "-addGlobalsNode                        \"liquidGlobals\" "             +
 				  "-renderProcedure                       \"liquidmayaRender\" "          +
+				  "-renderDiagnosticsProcedure			  \"liquidDiagnostic\" "		  +
 				  "-commandRenderProcedure                \"liquidmayaCmdlineRender\" "   +
 				  "-batchRenderProcedure                  \"liquidmayaBatchRender\" "     +
 				  "-batchRenderOptionsProcedure           \"liquidmayaBatchRenderOptions\" "      +
 				  "-batchRenderOptionsStringProcedure     \"liquidmayaBatchRenderOptionsString\" "+//if not setted, it will be rendered in mayasoftware mode.
+				  "-cancelBatchRenderProcedure			  \"batchRender\" "					+
+				  "-showBatchRenderProcedure			  \"batchRender -showImage true\" "	+
+				  "-showRenderLogProcedure				  \"liquidShowRenderLog\" "			+
+				  "-showBatchRenderLogProcedure		      \"liquidShowBatchRenderLog\" "	+
+
 				  "-renderRegionProcedure                 \"liquidmayaRenderRegion\" "    +
 				  "-logoImageName                         \"" + $icon + "\" "             +
 				  "-logoCallbackProcedure                 \"liquidRenderLogoCallback\" "  +
@@ -274,6 +280,10 @@ global proc registerLiquidRenderer()
 					"-stopIprRenderProcedure				\"liquidmayaStopIprRender\" "			+
 					"-refreshIprRenderProcedure				\"liquidmayaRefreshIprImage\" "			+
 					"-pauseIprRenderProcedure				\"liquidmayaPauseIprRender\" "			+
+					
+					"-textureBakingProcedure				\"liquidBakeToTexture\" "				+
+					"-polyPrelightProcedure					\"liquidBakeToVertices\" "				+
+					"-renderingEditorsSubMenuProcedure		\"liquidRenderingEditorsSubMenu\" "		+
 
 				  "liquid;");
 		break;

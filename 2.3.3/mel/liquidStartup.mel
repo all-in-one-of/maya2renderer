@@ -1089,3 +1089,80 @@ global proc string liquidmayaBatchRenderOptionsString()
 	liqPopIdent();
 	return " -r liquid ";
 }
+
+//
+global proc liquidDiagnostic()
+{
+	liqPushIdent();
+	liqlog("liquidDiagnostic()");
+
+	liqError("renderDiagnosticsProcedure for liquid is not implemented yet. take a look at mentalrayDiagnostic() in mentalrayDiagnostic.mel for reference.");
+
+	liqPopIdent();
+	return;
+}
+
+//reference mentalrayRuntimeCommands.mel MentalRayLogfileRender
+global proc liquidShowRenderLog()
+{
+	liqPushIdent();
+	liqlog("liquidShowRenderLog()");
+
+	liqError("showRenderLogProcedure for liquid is not implemented yet.");
+
+	liqPopIdent();
+	return;
+}
+
+//rference mentalrayRuntimeCommands.mel MentalRayLogfileBatch
+global proc liquidShowBatchRenderLog()
+{
+	liqPushIdent();
+	liqlog("liquidShowBatchRenderLog()");
+
+	liqError("showBatchRenderLogProcedure for liquid is not implemented yet.");
+
+	liqPopIdent();
+	return;
+}
+
+//
+global proc liquidBakeToTexture()
+{
+	liqPushIdent();
+	liqlog("liquidBakeToTexture()");
+
+	liqError("textureBakingProcedure for liquid is not implemented yet.");
+
+	liqPopIdent();
+	return;
+}
+
+//
+global proc liquidBakeToVertices()
+{
+	liqPushIdent();
+	liqlog("liquidBakeToVertices()");
+
+	liqError("polyPrelightProcedure for liquid is not implemented yet.");
+
+	liqPopIdent();
+	return;
+}
+
+//
+global proc liquidRenderingEditorsSubMenu(string $parentMenuItem)
+{
+	liqPushIdent();
+	liqlog("liquidRenderingEditorsSubMenu("+$parentMenuItem+")");
+
+	popupMenu -e -deleteAllItems $parentMenuItem;
+	setParent -m $parentMenuItem;
+
+	menuItem -ecr false -label ("test")
+		-annotation ("test")
+		-c "print \"this is liquidRenderingEditorsSubMenu(...)\"";
+
+	liqPopIdent();
+	return;
+}
