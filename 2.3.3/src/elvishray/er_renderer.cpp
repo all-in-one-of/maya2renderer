@@ -1274,7 +1274,7 @@ namespace elvishray
 		//-------------------------------------
 		int face = m_gnode->getInt("face");
 		if( face<=EI_FACE_NONE || EI_FACE_COUNT<=face ){
-			liquidMessage2(messageError,"face(%d), must in scope (%d,%d).", face, EI_FACE_NONE, EI_FACE_COUNT);
+			liquidMessage2(messageError,"face(%d), must in scope (%d,%d). make sure elvishrayGlobal1 is created.", face, EI_FACE_NONE, EI_FACE_COUNT);
 			assert( 0 && "face is invalid." );
 			return false;
 		}
@@ -1312,7 +1312,7 @@ namespace elvishray
 			if( srcNodes.length() == 0 )
 			{
 				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleX", scale.x, true);
-				if( scale.x < LIQ_SCALAR_ALMOST_ZERO )
+				if( fabs(scale.x) < LIQ_SCALAR_ALMOST_ZERO )
 				{
 					liquidMessage2(messageError,"transfrom.scaleX should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
@@ -1323,7 +1323,7 @@ namespace elvishray
 			if( srcNodes.length() == 0 )
 			{
 				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleY", scale.y, true);
-				if( scale.y < LIQ_SCALAR_ALMOST_ZERO )
+				if( fabs(scale.y) < LIQ_SCALAR_ALMOST_ZERO )
 				{
 					liquidMessage2(messageError,"transfrom.scaleY should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
@@ -1334,7 +1334,7 @@ namespace elvishray
 			if( srcNodes.length() == 0 )
 			{
 				MGlobal::executeCommand("getAttr "+transforms[i]+".scaleZ", scale.z, true);
-				if( scale.z < LIQ_SCALAR_ALMOST_ZERO )
+				if( fabs(scale.z) < LIQ_SCALAR_ALMOST_ZERO )
 				{
 					liquidMessage2(messageError,"transfrom.scaleZ should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
