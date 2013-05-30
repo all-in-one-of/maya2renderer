@@ -128,9 +128,6 @@
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
       <Filter>mel</Filter>
     </None>
-    <None Include="..\renderman\mel\liqGlobalsNoderenderman.mel">
-      <Filter>mel</Filter>
-    </None>
     <None Include="..\renderman\mel\rm_callback.mel">
       <Filter>mel</Filter>
     </None>
