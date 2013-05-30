@@ -588,6 +588,7 @@ global proc liquidCreateMenus()
       menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
       menuItem -d true;
 
+	  menuItem -d true;//------------------------------------
 
 	  if( liquidGlobalsExists() )
 	  {
@@ -597,6 +598,7 @@ global proc liquidCreateMenus()
 			  eval $cmd;
 		  }
 	  }
+
 	  //[refactor liq|ui|1 -beg]  moved to liquidCreateMenus_renderman()
       //menuItem -label "Attribute Manager..."   -command liquidAttributeManager -ann "Liquid attributes manager";
       //liquidCreateObjectsAttributesMenu( "main" );
@@ -666,7 +668,6 @@ global proc liquidCreateMenus()
      //     menuItem -ob true -command liquidAddEnvironmentUI -ann "Add liquid Environment map generator.";
      //   setParent -menu ..;
      //   menuItem -d true;
-
      //   menuItem -label "View Last Generated RIB" -command liquidViewLastRib -image ($iconPath+"liquidViewLastRib.xpm");
      //   menuItem -label "View Last Render Script" -command liquidViewLastRenderScript;
      //   menuItem -d true;
@@ -696,6 +697,7 @@ global proc liquidCreateMenus()
      //   menuItem -label "Export Selected as RIB Archive Without Shaders" -enable false -ann "Write a RIB file for selected object only without shaders";
      // setParent -menu ..;
 	 //[refactor liq|ui|1 -end]
+	  menuItem -d true;//------------------------------------
 	  
       menuItem -label "Clear Liquid..." -ann "Remove all Liquid nodes from the current scene" -command "liquidCleanup( 1 )";
       menuItem -d true;

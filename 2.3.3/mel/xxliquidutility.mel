@@ -302,3 +302,27 @@ global proc string[] getChildren(string $node, string $plug)
 	liqPopIdent();
 	return $child;
 }
+//
+global proc int isRendererLoaded(string $renderer)
+{
+	return `pluginInfo -q -loaded -name $renderer`;
+}
+//
+global proc int isRendererValid()
+{
+	  string $rnd = liqGetRendererName();
+
+	return isRendererLoaded($rnd);
+}
+//
+global proc string getValidRenderer()
+{
+	string $rnd = liqGetRendererName();
+
+	if( isRendererLoaded($rnd) ){
+		return $rnd;
+	}else{
+		liqError("renderer ["+$rnd+"] is not loaded.");
+		return "";
+	}
+}

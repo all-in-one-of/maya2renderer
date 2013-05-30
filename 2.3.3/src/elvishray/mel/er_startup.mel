@@ -17,10 +17,7 @@ global proc liquidCreateMenus_elvishray()
 	liqPushIdent();
 	liqlog("liquidCreateMenus_elvishray()");
 
-	liquidCreateObjectsAttributesMenu_elvishray( "main" );
-	liquidCreateLightsAttributesMenu_elvishray( "main" );
-
-	menuItem -d true;
+	menuItem -d true;//------------------------------------
 	menuItem -label "Add Render Pass"
                -subMenu true
                -tearOff false
@@ -28,7 +25,7 @@ global proc liquidCreateMenus_elvishray()
                 ("elvishrayBuildAddRenderPassMenu elvishrayAddRenderPassMenu")
                elvishrayAddRenderPassMenu;
     setParent -menu ..; // from submenu 
-	//
+
 	$cmd = "elvishrayBuildRenderPassMenu(\"Select\", \"select\", 1)";
     menuItem -label "Select Render Pass"
                -subMenu true
@@ -36,6 +33,13 @@ global proc liquidCreateMenus_elvishray()
                -postMenuCommand $cmd
                elvishraySelectRenderPassMenu;
     setParent -menu ..; // from submenu
+
+	menuItem -d true;//------------------------------------
+	liquidCreateObjectsAttributesMenu_elvishray( "main" );
+	liquidCreateLightsAttributesMenu_elvishray( "main" );
+
+	menuItem -d true;//------------------------------------
+
 	//
 	liqPopIdent();
 }
@@ -172,7 +176,7 @@ elvishrayBuildAddRenderPassMenu(string $menu)
 global proc string[]
 LRP_getAllRenderPasses()
 {
-  string $render_passes[] = `ls -type "elvishrayGlobals"`;
+  string $render_passes[] = `ls -type (getValidRenderer()+"Globals")`;
 
   return $render_passes;
 }
