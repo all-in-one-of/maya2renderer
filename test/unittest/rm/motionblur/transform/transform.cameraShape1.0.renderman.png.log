@@ -311,7 +311,7 @@
             >6 liqRibTranslatorNew::ribPrologue__(cameraShape1)
               >7 Renderer::ribPrologue_begin(cameraShape1)
                 >8 RiBegin_liq(R:/MyDocuments/maya/projects/default/rib/transform_cameraShape1.0001..rib(strlen=73)
-              >7 Renderer::ribPrologue_comment(2.3.5 (buildtime=20:51:12.30),R:/MyDocuments/maya/projects/default/transform,yaoyansi,time)
+              >7 Renderer::ribPrologue_comment(2.3.5,R:/MyDocuments/maya/projects/default/transform,yaoyansi,time)
               >7 Renderer::ribPrologue_options(cameraShape1)
                 >8 Renderer::ribPrologue_writeSearthPath()
                 >8 tHeroRibWriterMgr::ribPrologue_hider(0)

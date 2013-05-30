@@ -1,9 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: test_pl_liquidShader_con_ry.ma
-//Last modified: Wed, May 15, 2013 12:57:09 AM
+//Last modified: Thu, May 30, 2013 03:36:55 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "renderman" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -144,7 +145,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/test_pl_liquidShader_con_ry4029.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/test_pl_liquidShader_con_ry192.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -518,6 +519,7 @@ createNode unitConversion -n "unitConversion1";
 	setAttr ".cf" 57.295779513082323;
 createNode unitConversion -n "unitConversion2";
 	setAttr ".cf" 57.295779513082323;
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";

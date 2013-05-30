@@ -1,9 +1,11 @@
 //Maya ASCII 2012 scene
 //Name: shader_graph_phong.ma
-//Last modified: Mon, Apr 22, 2013 03:47:52 PM
+//Last modified: Thu, May 30, 2013 04:35:48 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "renderman" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -12,11 +14,10 @@ fileInfo "version" "2012";
 fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
-	setAttr ".v" no;
 	setAttr ".t" -type "double3" 8.4393836939862439 87.589096609246894 47.018788394623037 ;
 	setAttr ".r" -type "double3" -68.138352729606041 3.4000000000001918 0 ;
 createNode camera -s -n "perspShape" -p "persp";
-	setAttr -k off ".v" no;
+	setAttr -k off ".v";
 	setAttr ".rnd" no;
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".coi" 96.890349287815681;
@@ -195,7 +196,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/shader_graph_phong2732.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/shader_graph_phong3421.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -328,6 +329,10 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

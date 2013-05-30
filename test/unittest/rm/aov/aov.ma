@@ -1,9 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: aov.ma
-//Last modified: Wed, May 15, 2013 01:22:02 AM
+//Last modified: Thu, May 30, 2013 07:04:23 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "renderman" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -241,7 +242,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/aov3859.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/aov3970.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -386,6 +387,7 @@ createNode shadingEngine -n "phong10SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo12";
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

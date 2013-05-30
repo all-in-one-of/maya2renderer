@@ -1,9 +1,12 @@
 //Maya ASCII 2012 scene
 //Name: pointlight.ma
-//Last modified: Mon, Apr 22, 2013 03:45:04 PM
+//Last modified: Thu, May 30, 2013 05:40:55 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "Mayatomr" "2012.0m - 3.9.1.36 ";
+requires "renderman" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -12,11 +15,10 @@ fileInfo "version" "2012";
 fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
-	setAttr ".v" no;
 	setAttr ".t" -type "double3" -2.7172561037245813 7.0252413335137778 8.8474734940397077 ;
 	setAttr ".r" -type "double3" -35.738352729612714 -18.199999999998749 -8.3701269852067732e-016 ;
 createNode camera -s -n "perspShape" -p "persp";
-	setAttr -k off ".v" no;
+	setAttr -k off ".v";
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".coi" 12.271927421964737;
 	setAttr ".imn" -type "string" "persp";
@@ -126,7 +128,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/pointlight2752.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/pointlight5645.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -462,6 +464,10 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

@@ -200,14 +200,14 @@ void phong1 (
 // call the shaders ----------------------------------------------------------------------------
  color mib_amb_occlusion1_outValue;
 
- //mib_amb_occlusion1
- mib_amb_occlusion1(mib_amb_occlusion1_outValue);
-//input: 
-//output:mib_amb_occlusion1_outValue,
+mib_amb_occlusion1(mib_amb_occlusion1_outValue);
+//inputSrc: 
+//inputDes: 
+//outputSrc: mib_amb_occlusion1.outValue, 
 
- //phong1
- phong1(mib_amb_occlusion1_outValue);
-//input: mib_amb_occlusion1_outValue,
-//output:
+phong1(mib_amb_occlusion1_outValue);
+//inputSrc: mib_amb_occlusion1.outValue, 
+//inputDes: phong1.ambientColor, 
+//outputSrc: 
 
 }

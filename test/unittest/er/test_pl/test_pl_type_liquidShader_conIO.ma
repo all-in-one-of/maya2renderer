@@ -1,9 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: test_pl_type_liquidShader_conIO.ma
-//Last modified: Wed, May 22, 2013 11:56:12 PM
+//Last modified: Thu, May 30, 2013 07:56:44 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -112,7 +113,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/test_pl_type_liquidShader_conIO3963.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/test_pl_type_liquidShader_conIO4845.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -574,6 +575,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";

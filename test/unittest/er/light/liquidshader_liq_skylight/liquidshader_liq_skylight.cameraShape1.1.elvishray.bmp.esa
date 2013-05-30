@@ -23,7 +23,7 @@ ei_end_material();
 //############################### option #
 ei_options("cameraShape1_option");
 ei_contrast(0.05);
-ei_samples(0,2);
+ei_samples(0,16);
 ei_filter(4,3);
 //transform motion=0, deform motion=0
 ei_motion(0);
@@ -127,7 +127,7 @@ ei_end_shader();
 //############################### camera #
 ei_camera("|camera1|cameraShape1");
 //beauty channel
-ei_output("R:/MyDocuments/maya/projects/default/rmanpix/liquidshader_liq_skylight.cameraShape1.24.elvishray.bmp","bmp",1);
+ei_output("R:/MyDocuments/maya/projects/default/rmanpix/liquidshader_liq_skylight.cameraShape1.1.elvishray.bmp","bmp",1);
 //mode=rgb
 ei_output_variable("color",11);
 ei_end_output();

@@ -7,6 +7,7 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq| er|: blinn 透明材质不透明
 -done)liq|: cancle batch rendering
 -liq|er|: 资源（test texture，pl,dll,lif）整理
 -done)liq|:liquidMessage2(里的‘\n’，\"\"去掉

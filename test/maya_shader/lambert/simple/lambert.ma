@@ -1,10 +1,12 @@
 //Maya ASCII 2012 scene
 //Name: lambert.ma
-//Last modified: Wed, May 15, 2013 01:00:22 AM
+//Last modified: Thu, May 30, 2013 10:05:42 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
+requires "renderman" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -87,7 +89,7 @@ createNode mesh -n "pPlaneShape2" -p "pPlane2";
 	setAttr ".bnr" 0;
 createNode transform -n "pCube2";
 	setAttr ".t" -type "double3" -0.23568438508337053 0.25293900305269157 -0.0084823528444244456 ;
-	setAttr ".s" -type "double3" 0.37299975577647632 9.9999999999999998e-013 0.63835129682457725 ;
+	setAttr ".s" -type "double3" 0.37299975577647632 0.001 0.63835129682457725 ;
 createNode mesh -n "pCubeShape2" -p "pCube2";
 	addAttr -ci true -sn "mso" -ln "miShadingSamplesOverride" -min 0 -max 1 -at "bool";
 	addAttr -ci true -sn "msh" -ln "miShadingSamples" -min 0 -smx 8 -at "float";
@@ -223,7 +225,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/lambert195.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/lambert3676.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -242,7 +244,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "renderman";
+	setAttr ".rnd" -type "string" "elvishray";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode polyPlane -n "polyPlane2";
 	setAttr ".w" 3.0944287097721492;
@@ -453,6 +455,10 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";

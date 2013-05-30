@@ -1,9 +1,11 @@
 //Maya ASCII 2012 scene
 //Name: shader_graph_phong_transparent.ma
-//Last modified: Mon, Apr 22, 2013 03:48:38 PM
+//Last modified: Thu, May 30, 2013 04:37:09 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "renderman" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -12,11 +14,10 @@ fileInfo "version" "2012";
 fileInfo "cutIdentifier" "001200000000-796618";
 fileInfo "osv" "Microsoft Windows 7 Ultimate Edition, 64-bit Windows 7 Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
-	setAttr ".v" no;
 	setAttr ".t" -type "double3" 4.7050719621719495 112.26981652105225 76.250996084912202 ;
 	setAttr ".r" -type "double3" -60.338352729608182 -1.3999999999997605 2.9826603684712963e-016 ;
 createNode camera -s -n "perspShape" -p "persp";
-	setAttr -k off ".v" no;
+	setAttr -k off ".v";
 	setAttr ".rnd" no;
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".coi" 131.88510107333542;
@@ -237,7 +238,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".osg" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/shader_graph_phong_transparent2667.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/shader_graph_phong_transparent3291.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -417,6 +418,10 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

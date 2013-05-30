@@ -1,9 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: liquidshader_quadlight.ma
-//Last modified: Mon, May 13, 2013 07:24:25 PM
+//Last modified: Thu, May 30, 2013 08:09:59 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -125,7 +126,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/liquidshader_quadlight103.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/liquidshader_quadlight4747.xml";
 	setAttr ".lrf" -type "string" "E:/MyDocuments/maya/projects/default/rib/_perspShape.0001.rib";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
@@ -495,12 +496,15 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr ".o" 1;
+	setAttr -k on ".o" 1;
 	setAttr -av ".unw" 1;
 select -ne :renderPartition;
 	setAttr -k on ".cch";
@@ -642,11 +646,11 @@ select -ne :defaultResolution;
 	setAttr -k on ".ihi";
 	setAttr -av -k on ".nds";
 	setAttr -k on ".bnm";
-	setAttr ".w" 200;
-	setAttr ".h" 150;
+	setAttr -av ".w" 200;
+	setAttr -av ".h" 150;
 	setAttr -av ".pa" 1;
 	setAttr -av -k on ".al";
-	setAttr ".dar" 1.3333333730697632;
+	setAttr -av ".dar" 1.3333333730697632;
 	setAttr -av -k on ".ldar";
 	setAttr -k on ".dpi";
 	setAttr -av -k on ".off";
@@ -687,6 +691,7 @@ select -ne :hardwareRenderGlobals;
 	setAttr -k off -cb on ".mbs";
 	setAttr -k off -cb on ".trm";
 	setAttr -k off -cb on ".tshc";
+	setAttr -k off ".enpt";
 	setAttr -k off -cb on ".clmt";
 	setAttr -k off -cb on ".tcov";
 	setAttr -k off -cb on ".lith";

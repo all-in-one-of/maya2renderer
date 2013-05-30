@@ -19,7 +19,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/transform_tex/transform_tex.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    ''''''
+
+    testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/blur_camera/blur_camera.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/texture/texture.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -159,8 +162,8 @@ def test_all_scene():
     MyTestOne.test_one_scene(testFile, "renderman")
     
     # The dependence on mtomr.mll leads to a crash
-    #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
-    #MyTestOne.test_one_scene(testFile, "renderman")
+    testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/object_hierarchy/object_hierarchy/object_hierarchy.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
@@ -218,10 +221,9 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
-    testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/blur_camera/blur_camera.ma"
-    MyTestOne.test_one_scene(testFile, "renderman")
     '''
+
+    
     
 
 
@@ -402,8 +404,8 @@ def test_all_scene():
     #MyTestOne.test_one_scene(testFile, "elvishray")
     
     #it depends on mentralray, crash
-    #testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
-    #MyTestOne.test_one_scene(testFile, "elvishray")
+    testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
     
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy/object_hierarchy.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
@@ -418,9 +420,8 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
-    # rendering hangs, refer to bug list on google code
-    #testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
-    #MyTestOne.test_one_scene(testFile, "elvishray")
+    testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
     
     #right side of the body is almost black
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
@@ -440,10 +441,10 @@ def test_all_scene():
     '''
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_surface/nurbs_surface.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
 
     
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"

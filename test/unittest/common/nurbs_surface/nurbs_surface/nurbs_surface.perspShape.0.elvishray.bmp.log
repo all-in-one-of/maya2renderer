@@ -145,6 +145,9 @@
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
               >7 liqRibHT::insert(|persp|perspShape,lframe,0,0,5,matrix,,-1)
                 >8 liqRibHT::hash(|persp|perspShape,5)
                 >8 liqRibHT::find(|persp|perspShape,|persp|perspShape,0)
@@ -349,8 +352,31 @@
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
-              >7 liqRibHT::insert(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,lframe,0,0,15,matrix,,-1)
-                >8 liqRibHT::hash(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,15)
+              >7 liqRibHT::insert(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,lframe,0,0,15,matrix,,-1)
+                >8 liqRibHT::hash(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,15)
+                >8 liqRibHT::find(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                >8 liqRibNode::liqRibNode(instanceOfNode,)
+                >8 liqRibNode::set(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_,,2)
+                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_,,3)
+                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_,,4)
+                  >9 liqRibNode::findShadingGroup(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                  >9 liqRibNode::findShader()
+                  >9 liqRibNode::findDisp()
+                  >9 liqRibNode::findVolume()
+                  >9 liqRibNode::getColor(&shader,&color)
+                  >9 liqRibNode::getOpacity(&shader,&color)
+                  >9 liqRibNode::getMatteMode(&shader)
+                  >9 liqRibObj::liqRibObj(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                    >10 liqRibMeshData::liqRibMeshData(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape)
+                      >11 liqRibData::addAdditionalSurfaceParameters(nurbs_sphere:nurbsSphereShape1_liq_Shape)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
+                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
+              >7 liqRibHT::insert(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,lframe,0,0,16,matrix,,-1)
+                >8 liqRibHT::hash(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,16)
                 >8 liqRibHT::find(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,0)
                 >8 liqRibNode::liqRibNode(instanceOfNode,)
                 >8 liqRibNode::set(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,0,0,-1)
@@ -372,8 +398,8 @@
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
-              >7 liqRibHT::insert(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,lframe,0,0,16,matrix,,-1)
-                >8 liqRibHT::hash(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,16)
+              >7 liqRibHT::insert(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,lframe,0,0,17,matrix,,-1)
+                >8 liqRibHT::hash(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,17)
                 >8 liqRibHT::find(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,0)
                 >8 liqRibNode::liqRibNode(instanceOfNode,)
                 >8 liqRibNode::set(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,0,0,-1)
@@ -395,28 +421,28 @@
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
             >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
-              >7 liqRibHT::insert(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,lframe,0,0,17,matrix,,-1)
-                >8 liqRibHT::hash(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,17)
-                >8 liqRibHT::find(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+              >7 liqRibHT::insert(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,lframe,0,0,18,matrix,,-1)
+                >8 liqRibHT::hash(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,18)
+                >8 liqRibHT::find(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0)
                 >8 liqRibNode::liqRibNode(instanceOfNode,)
-                >8 liqRibNode::set(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0,0,-1)
-                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_,,2)
-                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_,,3)
-                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_,,4)
-                  >9 liqRibNode::findShadingGroup(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                >8 liqRibNode::set(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0,0,-1)
+                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_1,,2)
+                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_1,,3)
+                  >9 liqRibNode::parseVectorAttributes(nurbs_sphere:nurbsSphereShape1_liq_1,,4)
+                  >9 liqRibNode::findShadingGroup(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0)
                   >9 liqRibNode::findShader()
                   >9 liqRibNode::findDisp()
                   >9 liqRibNode::findVolume()
                   >9 liqRibNode::getColor(&shader,&color)
                   >9 liqRibNode::getOpacity(&shader,&color)
                   >9 liqRibNode::getMatteMode(&shader)
-                  >9 liqRibObj::liqRibObj(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
-                    >10 liqRibMeshData::liqRibMeshData(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape)
-                      >11 liqRibData::addAdditionalSurfaceParameters(nurbs_sphere:nurbsSphereShape1_liq_Shape)
+                  >9 liqRibObj::liqRibObj(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0)
+                    >10 liqRibMeshData::liqRibMeshData(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape)
+                      >11 liqRibData::addAdditionalSurfaceParameters(nurbs_sphere:nurbsSphereShape1_liq_1Shape)
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
-            >6 liqRibTranslatorNew::dealwithParticleInstancedObjects(0,1,18)
+            >6 liqRibTranslatorNew::dealwithParticleInstancedObjects(0,1,19)
             >6 liqRibTranslatorNew::getCameraData(iter__,0)
               >7 liqRibTranslator::getCameraInfo(|persp|perspShape,)
                 >8 liqRibTranslator::portFieldOfView(200,150,&horizontal,&vertical,&fnCamera)
@@ -434,7 +460,7 @@
             >6 liqRibTranslatorNew::ribPrologue__(perspShape)
               >7 Renderer::ribPrologue_begin(perspShape)
                 >8 Renderer::dummyPhongShader()
-              >7 Renderer::ribPrologue_comment(2.3.5 (buildtime=20:51:12.30),R:/MyDocuments/maya/projects/default/nurbs_surface,yaoyansi,time)
+              >7 Renderer::ribPrologue_comment(2.3.5,R:/MyDocuments/maya/projects/default/nurbs_surface,yaoyansi,time)
               >7 Renderer::ribPrologue_options(perspShape)
             >6 liqRibTranslatorNew::framePrologue__(1,perspShape)
               >7 Renderer::framePrologue(1,perspShape)
@@ -681,6 +707,7 @@
                   >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
                   >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
                   >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
+                  >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
                 >8  ConvertShadingNetwork::afterExport()
             >6 liqRibTranslatorNew::worldPrologue__(perspShape)
               >7 Renderer::worldPrologue(perspShape)
@@ -784,6 +811,114 @@
                               >15 liqRibData::getFullPathName()
                             >14 er_writeSurfaceData.cpp::write(|nurbs_sphere:nurbsSphere1|nurbs_sphere:nurbsSphereShape1,perspShape,...)
                               >15 liqRibData::getFullPathName()
+                              >15 liqRibData::getFullPathName()
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                  >9 Renderer::exportOneObject_data(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                    >10 Renderer::_writeObject(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq__nurbs_sphere_nurbsSphereShape1_liq_Shape.1.rib,perspShape,0)
+                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq__nurbs_sphere_nurbsSphereShape1_liq_Shape.1.rib,job=perspShape,0)
+                            >14 liqRibData::getFullPathName()
+                          >13 Renderer::write(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq__nurbs_sphere_nurbsSphereShape1_liq_Shape.1.rib,perspShape,ref=0)
+                              >15 liqRibData::getFullPathName()
+                            >14 er_writeMeshData.cpp::_write1(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                              >15 liqRibHT::find(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                              >15 _exportVertexFromNodePlug(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=422
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=1266
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=422
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=1266
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=422
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=1266
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=422
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=1266
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=422
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=1266
+,m_tokenFloats.use_count()=1
+
+                              >15 liqTokenPointer:getTokenFloatArraySize() 
+,m_pType=1
+,m_dType=2
+,m_tokenName=P
+,detailedTokenName=P
+,m_arraySize=422
+,m_uArraySize=0
+,m_eltSize=3
+,m_isArray=1
+,m_isUArray=0
+,m_isString=0
+,m_isFull=0
+,m_stringSize=0
+,m_tokenSize=1266
+,m_tokenFloats.use_count()=1
+
                               >15 liqRibData::getFullPathName()
                 >8 liqRibTranslatorNew::oneObjectBlock_data(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,perspShape)
                   >9 Renderer::exportOneObject_data(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,perspShape)
@@ -1001,17 +1136,17 @@
 ,m_tokenFloats.use_count()=1
 
                               >15 liqRibData::getFullPathName()
-                >8 liqRibTranslatorNew::oneObjectBlock_data(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                  >9 Renderer::exportOneObject_data(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                    >10 Renderer::_writeObject(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape,0,0,0)
-                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq__nurbs_sphere_nurbsSphereShape1_liq_Shape.1.rib,perspShape,0)
-                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq__nurbs_sphere_nurbsSphereShape1_liq_Shape.1.rib,job=perspShape,0)
+                >8 liqRibTranslatorNew::oneObjectBlock_data(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                  >9 Renderer::exportOneObject_data(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                    >10 Renderer::_writeObject(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape,0,0,0)
+                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq_1_nurbs_sphere_nurbsSphereShape1_liq_1Shape.1.rib,perspShape,0)
+                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq_1_nurbs_sphere_nurbsSphereShape1_liq_1Shape.1.rib,job=perspShape,0)
                             >14 liqRibData::getFullPathName()
-                          >13 Renderer::write(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq__nurbs_sphere_nurbsSphereShape1_liq_Shape.1.rib,perspShape,ref=0)
+                          >13 Renderer::write(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,R:/MyDocuments/maya/projects/default/rib/_nurbs_sphere_nurbsSphereShape1_liq_1_nurbs_sphere_nurbsSphereShape1_liq_1Shape.1.rib,perspShape,ref=0)
                               >15 liqRibData::getFullPathName()
-                            >14 er_writeMeshData.cpp::_write1(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                              >15 liqRibHT::find(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
-                              >15 _exportVertexFromNodePlug(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                            >14 er_writeMeshData.cpp::_write1(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                              >15 liqRibHT::find(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0)
+                              >15 _exportVertexFromNodePlug(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0)
                               >15 liqTokenPointer:getTokenFloatArraySize() 
 ,m_pType=1
 ,m_dType=2
@@ -1182,6 +1317,23 @@
                     >10 liqRibData::getFullPathName()
                     >10 liqRibData::getFullPathName()
                   >9 Renderer::oneObjectBlock_reference_attribute_end(|nurbs_sphere:nurbsSphere1|nurbs_sphere:nurbsSphereShape1,perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape)
+                    >10 Renderer::exportLightLinks(perspShape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,lightedByWhichLightShapes.size=5)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,v=0,s=0,c=0,,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape)
+                  >9 Renderer::exportOneObject_reference(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                    >10 liqRibData::getFullPathName()
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
                 >8 liqRibTranslatorNew::oneObjectBlock_reference(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,perspShape)
                   >9 Renderer::oneObjectBlock_reference_attribute_begin(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,perspShape)
                   >9 Renderer::oneObjectBlock_reference_attribute_block0(|nurbs_cone:nurbsConeShape1_liq_|nurbs_cone:nurbsConeShape1_liq_Shape,perspShape)
@@ -1216,23 +1368,23 @@
                     >10 liqRibData::getFullPathName()
                     >10 liqRibData::getFullPathName()
                   >9 Renderer::oneObjectBlock_reference_attribute_end(|nurbs_cone:bottomCapShape1_liq_|nurbs_cone:bottomCapShape1_liq_Shape,perspShape)
-                >8 liqRibTranslatorNew::oneObjectBlock_reference(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape)
-                    >10 Renderer::exportLightLinks(perspShape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,lightedByWhichLightShapes.size=5)
-                  >9 liqRibTranslatorNew::checkSurfaceShader(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,,,)
-                  >9 liqRibTranslatorNew::checkDisplacementShader(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,,,)
-                  >9 liqRibTranslatorNew::checkVolumeShader(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,,,)
-                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                  >9 liqRibTranslatorNew::writeShader_(1,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,v=0,s=0,c=0,,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
-                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,0)
-                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape)
-                  >9 Renderer::exportOneObject_reference(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                >8 liqRibTranslatorNew::oneObjectBlock_reference(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape)
+                    >10 Renderer::exportLightLinks(perspShape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,lightedByWhichLightShapes.size=5)
+                  >9 liqRibTranslatorNew::checkSurfaceShader(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,,,)
+                  >9 liqRibTranslatorNew::checkDisplacementShader(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,,,)
+                  >9 liqRibTranslatorNew::checkVolumeShader(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,,,)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                  >9 liqRibTranslatorNew::writeShader_(1,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,v=0,s=0,c=0,,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
+                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,0)
+                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape)
+                  >9 Renderer::exportOneObject_reference(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
                     >10 liqRibData::getFullPathName()
                     >10 liqRibData::getFullPathName()
                     >10 liqRibData::getFullPathName()
-                  >9 Renderer::oneObjectBlock_reference_attribute_end(|nurbs_sphere:nurbsSphereShape1_liq_|nurbs_sphere:nurbsSphereShape1_liq_Shape,perspShape)
+                  >9 Renderer::oneObjectBlock_reference_attribute_end(|nurbs_sphere:nurbsSphereShape1_liq_1|nurbs_sphere:nurbsSphereShape1_liq_1Shape,perspShape)
                 >8 Renderer::objectBlock_reference_end()
             >6 liqRibTranslatorNew::worldEpilogue__()
               >7 liqRibTranslator::worldEpilogue()
@@ -1243,6 +1395,8 @@
               >7 Renderer::ribPrologue_end(perspShape)
                 >8 Renderer::cookInstanceGroup()
                 >8 Renderer::render()
+                  >9 Renderer::renderPreview(200,150,0,0,perspShape,perspShape,perspShape_option)
+                    >10 Renderer::_renderPreview(200,150,0,0,perspShape,|persp,perspShape_option)
           >5 Renderer::HeroPassEnd(perspShape)
         >4 liqRenderScript::addJob(job.title=nurbs_surfaceFrame0,0)
           >5 liqRenderScript::popNextJobID()

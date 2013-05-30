@@ -218,7 +218,7 @@
             >6 liqRibTranslatorNew::ribPrologue__(perspShape)
               >7 Renderer::ribPrologue_begin(perspShape)
                 >8 Renderer::dummyPhongShader()
-              >7 Renderer::ribPrologue_comment(2.3.5 (buildtime=20:51:12.30),R:/MyDocuments/maya/projects/default/liquidshader_quadlight,yaoyansi,time)
+              >7 Renderer::ribPrologue_comment(2.3.5,R:/MyDocuments/maya/projects/default/liquidshader_quadlight,yaoyansi,time)
               >7 Renderer::ribPrologue_options(perspShape)
             >6 liqRibTranslatorNew::framePrologue__(1,perspShape)
               >7 Renderer::framePrologue(1,perspShape)

@@ -1,9 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: deform.ma
-//Last modified: Mon, May 13, 2013 06:29:00 PM
+//Last modified: Thu, May 30, 2013 07:40:44 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "liquid_2012x32d" "2.3.5";
+requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -182,7 +183,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".db" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/deform211.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/deform5492.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -436,12 +437,15 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
+createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr ".o" 6;
+	setAttr -k on ".o" 6;
 	setAttr -av ".unw" 6;
 select -ne :renderPartition;
 	setAttr -k on ".cch";
@@ -628,6 +632,7 @@ select -ne :hardwareRenderGlobals;
 	setAttr -k off -cb on ".mbs";
 	setAttr -k off -cb on ".trm";
 	setAttr -k off -cb on ".tshc";
+	setAttr -k off ".enpt";
 	setAttr -k off -cb on ".clmt";
 	setAttr -k off -cb on ".tcov";
 	setAttr -k off -cb on ".lith";

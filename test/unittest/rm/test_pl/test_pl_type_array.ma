@@ -1,9 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: test_pl_type_array.ma
-//Last modified: Wed, May 15, 2013 12:55:14 AM
+//Last modified: Thu, May 30, 2013 03:32:52 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime=20:51:12.30)";
+requires "renderman" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -138,7 +139,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "E:/MyDocuments/maya/projects/default/rmantmp/test_pl_type_array3927.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/test_pl_type_array179.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -329,14 +330,14 @@ createNode liquidSurface -n "liquidSurface17";
 	setAttr ".a_s[0]" -type "string" "AB0";
 	setAttr ".a_s[1]" -type "string" "CDE";
 	setAttr -s 4 ".a_vf[0:3]"  3.14 2.17 0 -1;
-	setAttr ".a_v[1]" -type "double3" 7 8 9;
-	setAttr ".a_n[1]" -type "double3" 1 2 3;
-	setAttr ".a_p[1]" -type "double3" 4 5 6;
-	setAttr ".a_c[1]" -type "float3"  1 0 1;
+	setAttr -s 2 ".a_v[1]" -type "double3" 7 8 9;
+	setAttr -s 2 ".a_n[1]" -type "double3" 1 2 3;
+	setAttr -s 2 ".a_p[1]" -type "double3" 4 5 6;
+	setAttr -s 2 ".a_c[1]" -type "float3"  1 0 1;
 	setAttr -s 2 ".a_vv[0:1]" -type "double3" 1 0 0 2 2 3;
 	setAttr -s 2 ".a_vn[0:1]" -type "double3" 1 0 0 3 2 3;
 	setAttr -s 2 ".a_vp[0:1]" -type "double3" 1 0 0 4 2 3;
-	setAttr ".a_vc__[1]" -type "float3"  1 0 1;
+	setAttr -s 2 ".a_vc__[1]" -type "float3"  1 0 1;
 	setAttr -s 2 ".a_vm";
 	setAttr ".a_vm[0]" -type "matrix" 31.100000000000001 32.5 33.900002000000001 34.299999
 		 35.200001 36.599997999999999 37 38.040000999999997 39.299999 40.700001 41.009998000000003 42.049999
@@ -514,6 +515,7 @@ createNode shadingEngine -n "rampShader1SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo12";
+createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";
