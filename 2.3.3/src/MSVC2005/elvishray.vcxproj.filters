@@ -202,9 +202,6 @@
     <None Include="..\elvishray\mel\er_CreateMenus.mel">
       <Filter>mel</Filter>
     </None>
-    <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel">
-      <Filter>mel</Filter>
-    </None>
     <None Include="..\elvishray\mel\userSetup.mel">
       <Filter>mel</Filter>
     </None>

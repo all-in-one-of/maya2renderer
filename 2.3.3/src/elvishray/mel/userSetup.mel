@@ -3,7 +3,6 @@ print "This is elvishray /2.3.3/src/elvishray/mel/usersetup.mel.\n";
 
 source er_AEliquidInstanceFlags.mel;
 source er_CreateMenus.mel;
-source liqGlobalsNodeelvishray.mel;
 source AEliquidShaderTemplate_elvishray.mel;
 source er_callback.mel;
 source er_UserCallbackInterface.mel;

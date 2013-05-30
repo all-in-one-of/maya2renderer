@@ -72,23 +72,21 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 	liqlog("liqGlobalsNodeRendererMain("+$cmd+")");
 
 	$rnd = liqGetRendererName();
-
-	if(catch(eval("liqGlobalsNode_"+$rnd+"(\""+$cmd+"\")"))) 
+	if ( `pluginInfo -q -loaded -name ($rnd)` )
 	{
-		string $errmsg;
-		$errmsg +=("ERROE>liqGlobalsNode_"+$rnd+"(\""+$cmd+"\")");
-			
-		error($errmsg);
-	} 
-
-	// select $rndGlobalNode node
-	string $rndGlobalNode = $rnd +"Globals";
-	if(`objExists $rndGlobalNode`)
-	{
-		select -r $rndGlobalNode ;
+		// select $rndGlobalNode node
+		string $rndGlobalNodeType = $rnd +"Globals";
+		string $rndGlobalNodeInst = $rndGlobalNodeType+"1";
+		if(`objExists $rndGlobalNodeInst`)
+		{
+			select -r $rndGlobalNodeInst ;
+		}else{
+			createNode -name $rndGlobalNodeInst $rndGlobalNodeType;
+		}
 	}else{
-		createNode $rndGlobalNode;
+		liqError($rnd+" plugin is not loaded.");
 	}
+
 
 	liqPopIdent();
 }

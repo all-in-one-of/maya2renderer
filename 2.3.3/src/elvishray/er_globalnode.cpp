@@ -228,12 +228,12 @@ MStatus GlobalNode::initialize()
 
 	////motion
 	////trace_depth
-	CREATE_INT( nAttr,	atrace_depth_transp,			"transp",			"trn",	4);
-	CREATE_INT( nAttr,	atrace_depth_glossy_reflect,	"glossy_reflect",	"grl",	4);
-	CREATE_INT( nAttr,	atrace_depth_diffuse_reflect,	"diffuse_reflect",	"drl",	4);
-	CREATE_INT( nAttr,	atrace_depth_glossy_refract,	"glossy_refract",	"grr",	4);
-	CREATE_INT( nAttr,	atrace_depth_diffuse_refract,	"diffuse_refract",	"drr",	4);
-	CREATE_INT( nAttr,	atrace_depth_sum,				"sum",				"sum",	4);
+	CREATE_INT( nAttr,	atrace_depth_transp,			"trace_depth_transp",			"trn",	4);
+	CREATE_INT( nAttr,	atrace_depth_glossy_reflect,	"trace_depth_glossy_reflect",	"grl",	4);
+	CREATE_INT( nAttr,	atrace_depth_diffuse_reflect,	"trace_depth_diffuse_reflect",	"drl",	4);
+	CREATE_INT( nAttr,	atrace_depth_glossy_refract,	"trace_depth_glossy_refract",	"grr",	4);
+	CREATE_INT( nAttr,	atrace_depth_diffuse_refract,	"trace_depth_diffuse_refract",	"drr",	4);
+	CREATE_INT( nAttr,	atrace_depth_sum,				"trace_depth_sum",				"sum",	4);
 
 	CREATE_BOOL( nAttr,  adisplace,			"displace",			"dis",	false);
 	CREATE_FLOAT( nAttr, amax_displace,		"max_displace",		"mdi",	false);

@@ -50,7 +50,7 @@ namespace elvishray
 // 		liquid::RendererMgr::getInstancePtr()->registerRenderer(
 // 			"elvishray", this
 // 			);
-		m_gnode = new GlobalNodeHelper("liqGlobalsNodeRenderer_elvishray");
+		m_gnode = new GlobalNodeHelper("elvishrayGlobals1");
 		m_iprMgr = NULL;
 
 		//ei_context();
@@ -497,11 +497,16 @@ namespace elvishray
 		o.ei_verbose(	m_gnode->getInt("verbose") );
 
 		//link
-		MStringArray link(m_gnode->getStringArray("link"));
-		for(std::size_t i=0; i< link.length(); ++i)
-		{
-			o.ei_link( link[i].asChar() );
+		if(m_gnode->getBool("eiIMG")){
+			o.ei_link( "eiIMG" );
 		}
+		if(m_gnode->getBool("eiSHADER")){
+			o.ei_link( "eiSHADER" );
+		}
+		if(m_gnode->getBool("eiSHADER_maya")){
+			o.ei_link( "eiSHADER_maya" );
+		}
+
 
 		m_root_group = currentJob.name.asChar();
 		m_groupMgr->createGroup(m_root_group);//
@@ -545,8 +550,8 @@ namespace elvishray
 		//ei_incremental_options( const char *name );
 
 		//	Sampling Quality:
-		MFloatPoint contrast(m_gnode->getVector("contrast"));
-		o.ei_contrast( contrast.x );
+		float contrast(m_gnode->getFloat("contrast"));
+		o.ei_contrast( contrast );
 		
 		if( currentJob.pass == rpShadowMap ){
 			o.a("this is a shadow pass, how to deal with the samples and filter?");
@@ -556,8 +561,9 @@ namespace elvishray
 
 		}else{
 			//sample
-			MFloatPoint sample(m_gnode->getVector("samples"));
-			o.ei_samples(sample.x, sample.y);//_S("ei_Samples("<< liqglo.pixelSamples<<","<<liqglo.pixelSamples<<");");//4,4
+			eiInt samples_min(m_gnode->getInt("samples_min"));
+			eiInt samples_max(m_gnode->getInt("samples_max"));
+			o.ei_samples(samples_min, samples_max);//_S("ei_Samples("<< liqglo.pixelSamples<<","<<liqglo.pixelSamples<<");");//4,4
 			
 			//filter
 			eiInt filterType = m_gnode->getInt("filterType");
@@ -634,11 +640,10 @@ namespace elvishray
 				approx.method	= m_gnode->getInt("approx_method") ;//EI_APPROX_METHOD_LENGTH
 				approx.any		= m_gnode->getInt("approx_any");
 				approx.view_dep = m_gnode->getInt("approx_view_dep");//eiTRUE
-				MFloatPoint args(m_gnode->getVector("approx_args"));
-				approx.args[0]	= args.x;
-				approx.args[1]	= args.y;
-				approx.args[2]	= args.z;
-				approx.args[3]	= args.w;
+				approx.args[0]	= m_gnode->getFloat("approx_args0");
+				approx.args[1]	= m_gnode->getFloat("approx_args1");
+				approx.args[2]	= m_gnode->getFloat("approx_args2");
+				approx.args[3]	= m_gnode->getFloat("approx_args3");
 				approx.sharp	= m_gnode->getFloat("approx_sharp");
 				approx.min_subdiv		= m_gnode->getInt("approx_min_subdiv");
 				approx.max_subdiv		= m_gnode->getInt("approx_max_subdiv");

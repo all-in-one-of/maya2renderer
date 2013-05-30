@@ -2623,7 +2623,6 @@
     <None Include="..\elvishray\mel\er_CreateMenus.mel" />
     <None Include="..\elvishray\mel\er_startup.mel" />
     <None Include="..\elvishray\mel\er_UserCallbackInterface.mel" />
-    <None Include="..\elvishray\mel\liqGlobalsNodeelvishray.mel" />
     <None Include="..\elvishray\mel\userSetup.mel" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -133,12 +133,12 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 		editorTemplate -endLayout;//option
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout "trace_depth" -collapse 1;
-			editorTemplate -addDynamicControl "transp";
-			editorTemplate -addDynamicControl "glossy_reflect";
-			editorTemplate -addDynamicControl "diffuse_reflect";
-			editorTemplate -addDynamicControl "glossy_refract";
-			editorTemplate -addDynamicControl "diffuse_refract";
-			editorTemplate -addDynamicControl "sum";
+			editorTemplate -label "transp"			-addDynamicControl "trace_depth_transp";
+			editorTemplate -label "glossy_reflect"	-addDynamicControl "trace_depth_glossy_reflect";
+			editorTemplate -label "diffuse_reflect"	-addDynamicControl "trace_depth_diffuse_reflect";
+			editorTemplate -label "glossy_refract"	-addDynamicControl "trace_depth_glossy_refract";
+			editorTemplate -label "diffuse_refract"	-addDynamicControl "trace_depth_diffuse_refract";
+			editorTemplate -label "sum"				-addDynamicControl "trace_depth_sum";
 		editorTemplate -endLayout;//trace_depth
  		//--------------------------------------------------
 		editorTemplate -addDynamicControl "displace";
