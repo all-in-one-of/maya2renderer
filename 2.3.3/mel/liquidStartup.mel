@@ -82,6 +82,32 @@ global proc string liquidGetPluginName()
 //===========================================================================================
 //
 //===========================================================================================
+global proc string[] liquidGatherValidRenderers()
+{
+	liqPushIdent();
+	liqlog("liquidGatherValidRenderers()");
+
+	string $ret[];
+
+
+	string $LIQUID_MLL = getenv("LIQUID_MLL")+"/";
+	string $all_mlls[] = `getFileList -folder ($LIQUID_MLL) -filespec "*.mll"`;
+	for($mll in $all_mlls)
+	{
+		if( `gmatch $mll "liquid*"` )
+		{
+			//skip "liquid*.mll"
+		}else{
+			$ret[size($ret)] = substring($mll, 1, (size($mll)-4));//trim ".mll"
+		}
+	}
+	
+	liqPopIdent();
+	return $ret;
+}
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidLoadScripts()
 {
   liqPushIdent();
@@ -584,6 +610,14 @@ global proc liquidCreateMenus()
   {
     setParent $gMainWindow;
     menu -label "Liquid" -tearOff true liquidMainWindowMenu;
+	  	menuItem -label "Load Renderer"
+               -subMenu true
+               -tearOff false
+               -postMenuCommand 
+                ("liquidBuildLoadRendererMenu liquidLoadRendererMenu")
+               liquidLoadRendererMenu;
+		setParent -menu ..; // from submenu 
+
       menuItem -label "Render" -ann "Render" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
       menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
       menuItem -d true;
@@ -1167,4 +1201,53 @@ global proc liquidRenderingEditorsSubMenu(string $parentMenuItem)
 
 	liqPopIdent();
 	return;
+}
+
+//
+global proc
+liquidBuildLoadRendererMenu(string $parent_menu)
+{
+	liqPushIdent();
+	liqlog("liquidBuildLoadRendererMenu("+$parent_menu+")");
+		
+	menu -edit -deleteAllItems $parent_menu;
+
+	//get renderers
+	string $renderer[] = liquidGatherValidRenderers();
+
+	//build menu items
+	for($rnd in $renderer)
+	{
+		menuItem 
+			-label $rnd
+			-checkBox (`pluginInfo -q -loaded -name $rnd`)
+			-command ("liquidBuildLoadRendererMenuCB(\""+$rnd+"\")")
+			-parent $parent_menu;
+	}
+	menuItem -divider true -parent $parent_menu;//----------------------
+  
+  //delightBuildRenderPassTemplatesMenuItems($menu);
+	liqPopIdent();
+}
+global proc
+liquidBuildLoadRendererMenuCB(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liquidBuildLoadRendererMenuCB("+$renderer+")");
+		
+	if(`pluginInfo -q -loaded -name $renderer`)//already loaded
+	{
+		if(catch(`unloadPlugin $renderer`)){
+			//unloadPlugin fails
+		}else{
+			unregisterLiquidSubRenderer($renderer);
+		}
+	}else{
+		if(catch(`loadPlugin $renderer`)){
+			//loadPlugin fails
+		}else{
+			registerLiquidSubRenderer($renderer);		
+		}
+	}
+	liqPopIdent();
 }
