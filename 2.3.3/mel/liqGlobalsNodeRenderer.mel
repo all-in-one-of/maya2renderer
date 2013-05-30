@@ -77,12 +77,11 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 		// select $rndGlobalNode node
 		string $rndGlobalNodeType = $rnd +"Globals";
 		string $rndGlobalNodeInst = $rndGlobalNodeType+"1";
-		if(`objExists $rndGlobalNodeInst`)
+		if( !`objExists $rndGlobalNodeInst`)
 		{
-			select -r $rndGlobalNodeInst ;
-		}else{
 			createNode -name $rndGlobalNodeInst $rndGlobalNodeType;
 		}
+		select -r $rndGlobalNodeInst ;
 	}else{
 		liqError($rnd+" plugin is not loaded.");
 	}
