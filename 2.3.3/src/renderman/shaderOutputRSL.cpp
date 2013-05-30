@@ -490,11 +490,16 @@ void Visitor::postOutput()
 	//"shader.exe -o \"outSLO\" -I\"%LIQUID_ROOT%\dependence\_3delight" \"srcSL\""
 	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" \\\""+srcSL+"\\\"\")", result, true));
 
+	MGlobal::displayInfo( "-------------------compile shader message begin ("+srcSL+")-------------------" );
+	MGlobal::displayError( result );
+	MGlobal::displayInfo( "-------------------compile shader message end   ("+srcSL+")-------------------" );
+
 	//show the error if there is.
 	std::string strRes(result.toLowerCase().asChar());
 	if(strRes.find("error") != std::string::npos)
 	{
-		liquidMessage2(messageError, "[%s]", strRes.c_str());
+		//don't use liquidMessage2() here, because the message buffer is not large enough.
+		liqAssert("Error", "compile shader: "+srcSL+", see scriptEditor for more details.", "Yes");
 	}
 
 
