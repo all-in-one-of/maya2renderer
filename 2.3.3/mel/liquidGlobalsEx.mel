@@ -1635,16 +1635,16 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //
 //global proc liquidBuildRendererMenu( string $prefix )
 //{
-//  global string $renderer[];
+//  global string $g_liqRenderer[];
 //
 //  liqPushIdent();
 //	liqlog("liquidBuildRendererMenu()");
 //  popupMenu -e -deleteAllItems ($prefix + "LG_RendererMenuCtl");
 //  int $i;
 //
-//  for ( $i=0; $i<size($renderer); $i++ ) {
-//    menuItem -parent ($prefix+"LG_RendererMenuCtl") -label $renderer[$i] 
-//	         -c ("{setAttr -type \"string\" liquidGlobals.renderer "+$renderer[$i]+";}");
+//  for ( $i=0; $i<size($g_liqRenderer); $i++ ) {
+//    menuItem -parent ($prefix+"LG_RendererMenuCtl") -label $g_liqRenderer[$i] 
+//	         -c ("{setAttr -type \"string\" liquidGlobals.renderer "+$g_liqRenderer[$i]+";}");
 //  }
 //  liqPopIdent();
 //}

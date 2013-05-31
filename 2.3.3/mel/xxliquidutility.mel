@@ -305,24 +305,53 @@ global proc string[] getChildren(string $node, string $plug)
 //
 global proc int isRendererLoaded(string $renderer)
 {
-	return `pluginInfo -q -loaded -name $renderer`;
+	liqPushIdent();
+	liqlog("isRendererLoaded("+$renderer+")");
+
+	int $ret = `pluginInfo -q -loaded -name $renderer`;
+
+	liqPopIdent();
+	return $ret;
 }
 //
 global proc int isRendererValid()
 {
-	  string $rnd = liqGetRendererName();
+	liqPushIdent();
+	liqlog("isRendererValid()");
 
-	return isRendererLoaded($rnd);
+	string $rnd = liqGetRendererName();
+	int $ret = isRendererLoaded($rnd);
+
+	liqPopIdent();
+	return $ret;
 }
 //
 global proc string getValidRenderer()
 {
+	liqPushIdent();
+	liqlog("getValidRenderer()");
+
 	string $rnd = liqGetRendererName();
 
 	if( isRendererLoaded($rnd) ){
+		liqPopIdent();
 		return $rnd;
 	}else{
 		liqError("renderer ["+$rnd+"] is not loaded.");
+		liqPopIdent();
 		return "";
 	}
+
+	liqPopIdent();
+}
+//
+global proc int isCurrentRenderer(string $renderer)
+{
+	liqPushIdent();
+	liqlog("isCurrentRenderer("+$renderer+")");
+
+	string $currentRenderer = `getAttr liquidGlobals.renderer`;
+
+	liqPopIdent();
+	return ($currentRenderer == $renderer);
 }

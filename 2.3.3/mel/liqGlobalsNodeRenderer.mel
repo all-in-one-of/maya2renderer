@@ -72,7 +72,7 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 	liqlog("liqGlobalsNodeRendererMain("+$cmd+")");
 
 	$rnd = liqGetRendererName();
-	if ( `pluginInfo -q -loaded -name ($rnd)` )
+	if ( isRendererLoaded($rnd) )
 	{
 		// select $rndGlobalNode node
 		string $rndGlobalNodeType = $rnd +"Globals";

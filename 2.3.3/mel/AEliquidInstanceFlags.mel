@@ -8,7 +8,7 @@ global proc AEliquidCreateMenu()
   global string $gAERootLayoutName;
 
 //	if( liquidGlobalsExists() ) {
-//		if ( `pluginInfo -q -loaded -name (liqGetRendererName())` ) {
+//		if ( isRendererLoaded(liqGetRendererName()) ) {
 
   if ( $gAERootLayoutName == "" ) {  liqPopIdent(); return ; }
 

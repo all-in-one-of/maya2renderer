@@ -205,9 +205,9 @@ global proc liquidLoadScripts()
   }
 
   //source mels for each renderer
-  global string $renderer[];
+  global string $g_liqRenderer[];
   string $liquidHome = liquidGetHome();
-  for( $r in $renderer )
+  for( $r in $g_liqRenderer )
   {
 	  $usersetup = $liquidHome+"/src/"+$r+"/mel/userSetup.mel";
 	  if( `filetest -e $usersetup` ){
@@ -626,7 +626,7 @@ global proc liquidCreateMenus()
 
 	  if( liquidGlobalsExists() )
 	  {
-		  if ( `pluginInfo -q -loaded -name (liqGetRendererName())` )
+		  if ( isRendererLoaded(liqGetRendererName()) )
 		  {
 			  string $cmd = "liquidCreateMenus_"+liqGetRendererName()+"()";
 			  eval $cmd;
@@ -1054,7 +1054,7 @@ global proc liquidCreateScriptJobs()
 global proc liquidStartup()
 {
   liqPushIdent();
-	liqlog("liquidStartup(...)");
+	liqlog("liquidStartup()");
   // BT: the module manager takes care of sourcing so we dont want to be sourcing this lot twice
   // MM: We need to add code that checks the environment to see if we are at RSP.
   // We can't just break Liquid for everyone but ourselves -- particularly not if we really have
@@ -1220,7 +1220,7 @@ liquidBuildChooseRendererMenu(string $parent_menu)
 	{
 		menuItem 
 			-label $rnd
-			-radioButton (`pluginInfo -q -loaded -name $rnd`)
+			-radioButton (isCurrentRenderer($rnd))
 			-command ("liquidBuildChooseRendererMenuCB(\""+$rnd+"\")")
 			-parent $parent_menu;
 	}
@@ -1237,7 +1237,7 @@ liquidBuildChooseRendererMenuCB(string $renderer)
 		
 	setAttr -type "string" liquidGlobals.renderer "";//clear
 
-	if( !`pluginInfo -q -loaded -name $renderer` )
+	if( !isRendererLoaded($renderer) )
 	{
 		if(catch(`loadPlugin $renderer`)){
 			liqError("load "+$renderer+" fails");

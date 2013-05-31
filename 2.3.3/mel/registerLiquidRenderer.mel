@@ -9,7 +9,7 @@
 source xxliquidutility.mel;
 //source liquidIpr.mel;
 
-global  string $renderer[] = {
+global  string $g_liqRenderer[] = {
 // 	"renderman"
 // 	,"elvishray"
 // 	,"luxrenderer"
@@ -342,13 +342,13 @@ global proc registerLiquidSubRenderer(string $rnd)
 {
 	liqPushIdent();
 	liqlog("registerLiquidSubRenderer("+$rnd+")");
-	global  string $renderer[];
+	global  string $g_liqRenderer[];
   
-	int $found = stringArrayContains($rnd, $renderer);
+	int $found = stringArrayContains($rnd, $g_liqRenderer);
 	if( $found == 0 )//not exist
 	{
-		int $i = size($renderer);
-		$renderer[$i] = $rnd;//append value
+		int $i = size($g_liqRenderer);
+		$g_liqRenderer[$i] = $rnd;//append value
 	}
 
 	string $file = getenv("LIQUID_ROOT")+"/2.3.3/src/"+$rnd+"/mel/usersetup.mel";
@@ -360,18 +360,18 @@ global proc unregisterLiquidSubRenderer(string $rnd)
 {
 	liqPushIdent();
 	liqlog("unregisterLiquidSubRenderer("+$rnd+")");
-	global  string $renderer[];
+	global  string $g_liqRenderer[];
 
-	int $found = stringArrayContains($rnd, $renderer);
+	int $found = stringArrayContains($rnd, $g_liqRenderer);
 	if( $found == 1 )//already exist
 	{
-		int $length = size($renderer);
+		int $length = size($g_liqRenderer);
 		int $i;
 		for($i = 0; $i<$length; $i++)
 		{
-			if($renderer[$i] == $rnd)
+			if($g_liqRenderer[$i] == $rnd)
 			{
-				stringArrayRemoveAtIndex($i, $renderer);
+				stringArrayRemoveAtIndex($i, $g_liqRenderer);
 			}
 		}
 	}

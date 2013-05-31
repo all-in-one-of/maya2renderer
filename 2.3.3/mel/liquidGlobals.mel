@@ -1588,19 +1588,19 @@ global proc liquidBuildRenderCameraMenu( string $prefix )
 
 global proc liquidBuildRendererMenu( string $prefix )
 {
-  global string $renderer[];
+  global string $g_liqRenderer[];
 
   liqPushIdent();
 	liqlog("liquidBuildRendererMenu()");
   popupMenu -e -deleteAllItems ($prefix + "LG_RendererMenuCtl");
   int $i;
 
-  for ( $i=0; $i<size($renderer); $i++ ) 
+  for ( $i=0; $i<size($g_liqRenderer); $i++ ) 
   {
 		menuItem	
 			-parent ($prefix+"LG_RendererMenuCtl") 
-			-label   $renderer[$i]
-			-c      ("liquidUpdateRenderer "+$renderer[$i]);
+			-label   $g_liqRenderer[$i]
+			-c      ("liquidUpdateRenderer "+$g_liqRenderer[$i]);
   }
   liqPopIdent();
 }
@@ -2684,7 +2684,7 @@ global proc liquidGlobalsFrameTab( string $prefix )
         liquidShowBoolGlobal "showliquidMessageBox"	"showliquidMessageBox"		$prefix;
       setParent ..;
     setParent ..;
-
+/*
     frameLayout -bs "etchedIn" -l "Renderer" -cll true -cl false;
       columnLayout -adj true ;
         rowLayout -nc 2 -cw2 362 20 -ct2 left left -cl2 left center LG_renderer;
@@ -2700,7 +2700,7 @@ global proc liquidGlobalsFrameTab( string $prefix )
 		  button -label "show global node panel"  -rs true -c "liqGlobalsNodeRendererMain(\"show\")";
       setParent ..;
     setParent ..;
-
+*/
     frameLayout -bs "etchedIn" -l "Output Passes" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowBoolGlobal "outputHeroPass" "Hero" $prefix;
