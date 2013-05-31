@@ -78,6 +78,9 @@ global proc LIQUID_userPreRenderMel_elvishray (string $render_pass)
 	//ER can't process subd surface now, so the nurbs surface is converted to polygon mesh
 	er_generateMeshFromSubdivsSurface();
 	
+	//
+	er_storeCurrentCameraInfo();
+
 	liqPopIdent();
 }
 
@@ -86,6 +89,9 @@ global proc LIQUID_userPostRenderMel_elvishray (string $render_pass)
 {
 	liqPushIdent();
 	liqlog("LIQUID_userPostRenderMel_elvishray("+$render_pass+")");
+
+	//
+	er_restoreCurrentCameraInfo();
 
 	//subd
 	er_deleteMeshesWhichConvertedFromSubdivsSurface();	

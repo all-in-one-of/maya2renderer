@@ -1,0 +1,51 @@
+source xxliquidutility.mel;
+
+global int $liq_gCurrentCameraShapeVisibility = 1;
+global int $liq_gCurrentCameraXformVisibility = 1;
+//
+global proc er_storeCurrentCameraInfo()
+{
+	liqPushIdent();
+	liqlog("er_storeCurrentCameraInfo()");
+
+	global int $liq_gCurrentCameraShapeVisibility;
+	global int $liq_gCurrentCameraXformVisibility;
+
+	string $currentRenderCameraShape =
+		`getAttr liquidGlobals.renderCamera`;
+	string $currentRenderCameraXform =
+		xxu_getTransform($currentRenderCameraShape);
+
+	//store
+	$liq_gCurrentCameraShapeVisibility = 
+		`getAttr ($currentRenderCameraShape+".visibility")`;
+	$liq_gCurrentCameraXformVisibility = 
+		`getAttr ($currentRenderCameraXform+".visibility")`;
+
+	//set visibility to 1
+	setAttr ($currentRenderCameraShape+".visibility") 1;
+	setAttr ($currentRenderCameraXform+".visibility") 1;
+
+	liqPopIdent();
+}
+//
+global proc er_restoreCurrentCameraInfo()
+{
+	liqPushIdent();
+	liqlog("er_restoreCurrentCameraInfo()");
+
+	global int $liq_gCurrentCameraShapeVisibility;
+	global int $liq_gCurrentCameraXformVisibility;
+
+	string $currentRenderCameraShape =
+		`getAttr liquidGlobals.renderCamera`;
+	string $currentRenderCameraXform =
+		xxu_getTransform($currentRenderCameraShape);
+
+	//restore visibility
+	setAttr ($currentRenderCameraShape+".visibility") $liq_gCurrentCameraShapeVisibility;
+	setAttr ($currentRenderCameraXform+".visibility") $liq_gCurrentCameraXformVisibility;
+
+	liqPopIdent();
+}
+//

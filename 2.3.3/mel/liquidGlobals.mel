@@ -1593,7 +1593,7 @@ global proc liquidBuildRenderCameraMenu( string $prefix )
 	liqlog("liquidBuildRenderCameraMenu()");
   popupMenu -e -deleteAllItems ($prefix + "LG_RenderCameraMenuCtl");
   int $i;
-  string $cameras[] = `ls -cameras -visible`;
+  string $cameras[] = `ls -cameras`;
   for ( $i=0; $i<size($cameras); $i++ ) {
     menuItem -parent ($prefix+"LG_RenderCameraMenuCtl") -label $cameras[$i] 
 	         -c ("{setAttr -type \"string\" liquidGlobals.renderCamera "+$cameras[$i]+";}");
