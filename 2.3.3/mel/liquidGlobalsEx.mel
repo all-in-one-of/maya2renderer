@@ -121,12 +121,12 @@
 //  liqPopIdent();
 //}
 //
-proc liquidShowBoolGlobalPlus2( string $node, string $name, string $label, string $info, string $prefix )
+global proc liquidShowBoolGlobalPlus2( string $node, string $name, string $label, string $info, string $prefix, string $cmd )
 {
   liqPushIdent();
-	liqlog("liquidShowBoolGlobalPlus2("+$node+","+$name+","+$label+","+$info+","+$prefix+")");
-  string $onCommand  = ("setAttr "+$node+"." + $name + " true; ");
-  string $offCommand = ("setAttr "+$node+"." + $name + " false; ");
+	liqlog("liquidShowBoolGlobalPlus2("+$node+","+$name+","+$label+","+$info+","+$prefix+","+$cmd+")");
+  string $onCommand  = ("setAttr "+$node+"." + $name + " true; "+$cmd);
+  string $offCommand = ("setAttr "+$node+"." + $name + " false; "+$cmd);
 
   //omitted by mesh
 //  if ( $name == "netRManRender" ) {
@@ -190,7 +190,7 @@ global proc liquidShowBoolGlobal2(string $node, string $name, string $label, str
 {
   liqPushIdent();
 	liqlog("liquidShowBoolGlobal2(...)");
-  liquidShowBoolGlobalPlus2( $node, $name, $label, "", $prefix );
+  liquidShowBoolGlobalPlus2( $node, $name, $label, "", $prefix, "" );
   liqPopIdent();
 }
 //

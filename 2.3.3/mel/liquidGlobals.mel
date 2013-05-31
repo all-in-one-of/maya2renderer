@@ -2669,6 +2669,7 @@ global proc liquidGlobalsFrameTab( string $prefix )
 	liqlog("liquidGlobalsFrameTab("+$prefix+")");
   ////setUITemplate -pushTemplate attributeEditorTemplate;
   string $previousParent = `setParent -q`;
+  string $n = "liquidGlobals";
 
   columnLayout -adj true -vis false ($prefix + "liquidGlobalsFrameSet" );
     frameLayout -bs "etchedIn" -l "Debug" -cll true -cl false;
@@ -2679,7 +2680,7 @@ global proc liquidGlobalsFrameTab( string $prefix )
         liquidShowBoolGlobal "logFunctionCall"		"logFunctionCall"			$prefix;
         liquidShowBoolGlobal "logMsgFlush"			"logMsgFlush"				$prefix;
         liquidShowBoolGlobal "logTraceFunction"		"logTraceFunction"			$prefix;
-        liquidShowBoolGlobal "showMelCallStack"		"showMelCallStack"			$prefix;
+		liquidShowBoolGlobalPlus2($n, "showMelCallStack", "showMelCallStack", "", $prefix, " liquidUpdateShowliqlog();");
         liquidShowBoolGlobal "showliquidMessageBox"	"showliquidMessageBox"		$prefix;
       setParent ..;
     setParent ..;
@@ -3764,6 +3765,16 @@ global proc liquidUpdateRenderer( string $renderer )
 
 	//update AETemplate UI for this renderer
 	liquidShaderNodes_AERefresh();
+
+	liqPopIdent();
+}
+global proc liquidUpdateShowliqlog()
+{
+	liqPushIdent();
+	liqlog("liquidUpdateShowliqlog()");
+
+	global int $g_ShowliqLog;
+	$g_ShowliqLog=`getAttr liquidGlobals.showMelCallStack`;
 
 	liqPopIdent();
 }
