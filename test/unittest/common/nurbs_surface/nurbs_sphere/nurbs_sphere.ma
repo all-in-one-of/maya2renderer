@@ -3,7 +3,6 @@
 //Last modified: Thu, May 30, 2013 07:10:47 PM
 //Codeset: 936
 requires maya "2012";
-requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "renderman" "0.0.1";
 requires "liquid_2012x32d" "2.3.5";
 requires "elvishray" "0.0.1";

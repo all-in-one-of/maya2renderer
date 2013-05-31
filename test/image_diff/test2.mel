@@ -1,3 +1,7 @@
+loadPlugin liquid_2012x32d;
+loadPlugin elvishray;
+loadPlugin renderman;
+
 python( "import sys" );
 python( "import os" );
 python("sys.path.append(os.environ['LIQUID_AUTO_TEST_DIR'])");
