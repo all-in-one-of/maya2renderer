@@ -610,12 +610,12 @@ global proc liquidCreateMenus()
   {
     setParent $gMainWindow;
     menu -label "Liquid" -tearOff true liquidMainWindowMenu;
-	  	menuItem -label "Load Renderer"
+	  	menuItem -label "Choose Renderer"
                -subMenu true
                -tearOff false
                -postMenuCommand 
-                ("liquidBuildLoadRendererMenu liquidLoadRendererMenu")
-               liquidLoadRendererMenu;
+                ("liquidBuildChooseRendererMenu liquidChooseRendererMenu")
+               liquidChooseRendererMenu;
 		setParent -menu ..; // from submenu 
 
       menuItem -label "Render" -ann "Render" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
@@ -1205,10 +1205,10 @@ global proc liquidRenderingEditorsSubMenu(string $parentMenuItem)
 
 //
 global proc
-liquidBuildLoadRendererMenu(string $parent_menu)
+liquidBuildChooseRendererMenu(string $parent_menu)
 {
 	liqPushIdent();
-	liqlog("liquidBuildLoadRendererMenu("+$parent_menu+")");
+	liqlog("liquidBuildChooseRendererMenu("+$parent_menu+")");
 		
 	menu -edit -deleteAllItems $parent_menu;
 
@@ -1220,8 +1220,8 @@ liquidBuildLoadRendererMenu(string $parent_menu)
 	{
 		menuItem 
 			-label $rnd
-			-checkBox (`pluginInfo -q -loaded -name $rnd`)
-			-command ("liquidBuildLoadRendererMenuCB(\""+$rnd+"\")")
+			-radioButton (`pluginInfo -q -loaded -name $rnd`)
+			-command ("liquidBuildChooseRendererMenuCB(\""+$rnd+"\")")
 			-parent $parent_menu;
 	}
 	menuItem -divider true -parent $parent_menu;//----------------------
@@ -1230,24 +1230,24 @@ liquidBuildLoadRendererMenu(string $parent_menu)
 	liqPopIdent();
 }
 global proc
-liquidBuildLoadRendererMenuCB(string $renderer)
+liquidBuildChooseRendererMenuCB(string $renderer)
 {
 	liqPushIdent();
-	liqlog("liquidBuildLoadRendererMenuCB("+$renderer+")");
+	liqlog("liquidBuildChooseRendererMenuCB("+$renderer+")");
 		
-	if(`pluginInfo -q -loaded -name $renderer`)//already loaded
+	setAttr -type "string" liquidGlobals.renderer "";//clear
+
+	if( !`pluginInfo -q -loaded -name $renderer` )
 	{
-		if(catch(`unloadPlugin $renderer`)){
-			//unloadPlugin fails
-		}else{
-			unregisterLiquidSubRenderer($renderer);
-		}
-	}else{
 		if(catch(`loadPlugin $renderer`)){
-			//loadPlugin fails
-		}else{
-			registerLiquidSubRenderer($renderer);		
+			liqError("load "+$renderer+" fails");
+			liqPopIdent();
+			return;
 		}
 	}
+
+	setAttr -type "string" liquidGlobals.renderer $renderer;
+	registerLiquidSubRenderer($renderer);
+
 	liqPopIdent();
 }

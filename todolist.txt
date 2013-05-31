@@ -7,6 +7,7 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq| ui|: 集成3de的mel
 -liq| mel|: global string $renderer[]改成$liq_gRenderer[]
 -liq| er|: blinn 透明材质不透明
 -done)liq|: cancle batch rendering
