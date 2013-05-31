@@ -1063,6 +1063,9 @@ global proc liquidStartup()
   // everything in there anyway.
   liquidLoadScripts();
   liquidMayaVersionOverwrite();
+  if ( !liquidGlobalsExists() ) {
+    liquidCreateGlobals();
+  }
   //liquidRegisterSlLib();
   liquidCreateMenus();
   liquidCreateScriptNode();
@@ -1248,6 +1251,11 @@ liquidBuildChooseRendererMenuCB(string $renderer)
 
 	setAttr -type "string" liquidGlobals.renderer $renderer;
 	registerLiquidSubRenderer($renderer);
+
+	//string $prefix = `liquidGetCurrentRenderLayerName`;
+	//liquidBuildRendererMenu("");
+	liquidUpdateRenderer($renderer);
+
 
 	liqPopIdent();
 }

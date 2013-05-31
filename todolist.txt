@@ -7,9 +7,10 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq:加载后，切换至liquid，
 -liq|: 打开有些场景的时候，先加载renderman，后加载liquid，所以提示renderman加载不了
 -liq| ui|: 集成3de的mel
--liq| mel|: global string $renderer[]改成$liq_gRenderer[]
+-liq| mel|: global string $renderer[]改成$g_liqRenderer[]
 -liq| er|: blinn 透明材质不透明
 -done)liq|: cancle batch rendering
 -liq|er|: 资源（test texture，pl,dll,lif）整理

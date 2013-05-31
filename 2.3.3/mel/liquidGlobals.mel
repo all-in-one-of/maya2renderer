@@ -962,7 +962,7 @@ global proc liquidCreateGlobals()
     setAttr liquidGlobals.ddPixelFilterY[0]   2.0;
   }
 
-  liquidLoadGlobals( "default", "global" );
+  liquidLoadGlobals2();//liquidLoadGlobals( "default", "renderer"/*"global"*/ );
 
   liqPopIdent();
 
@@ -1437,7 +1437,22 @@ global proc int liquidLoadGlobals( string $name, string $presetType )
   liqPopIdent();
   return false;
 }
+//
+global proc liquidLoadGlobals2() 
+{
+	liqPushIdent();
+	liqlog("liquidLoadGlobals2()");
 
+	string $oldSel[] = `ls -sl`;
+
+	select "liquidGlobals";
+	string $file=getenv("LIQUID_ROOT")+"/2.3.3/renderers/maya2renderer_3delight.lg";
+	evalEcho("source \""+$file+"\"");
+
+	select $oldSel;
+
+	liqPopIdent();
+}
 /**
  * loads a preset file and rebuilds the render global window
  */
@@ -2684,23 +2699,23 @@ global proc liquidGlobalsFrameTab( string $prefix )
         liquidShowBoolGlobal "showliquidMessageBox"	"showliquidMessageBox"		$prefix;
       setParent ..;
     setParent ..;
-/*
-    frameLayout -bs "etchedIn" -l "Renderer" -cll true -cl false;
-      columnLayout -adj true ;
-        rowLayout -nc 2 -cw2 362 20 -ct2 left left -cl2 left center LG_renderer;
-          liquidShowStringGlobal "renderer" "Renderer" $prefix;
-          iconTextButton -style "iconOnly" -w 19 -h 18 -mw 0 -mh 0 
-			  -image (liquidGetHome()+"/icons/liquidMenuButton.xpm") 
-			  ($prefix + "LG_RendererButtonCtl");
-          setParent ..;
-          popupMenu 
-			  -parent ($prefix + "LG_RendererButtonCtl") -b 1 
-			  -pmc ( "liquidBuildRendererMenu \""+$prefix+"\"" ) 
-			  ($prefix+"LG_RendererMenuCtl");
-		  button -label "show global node panel"  -rs true -c "liqGlobalsNodeRendererMain(\"show\")";
-      setParent ..;
-    setParent ..;
-*/
+
+//    frameLayout -bs "etchedIn" -l "Renderer" -cll true -cl false;
+//      columnLayout -adj true ;
+//        rowLayout -nc 2 -cw2 362 20 -ct2 left left -cl2 left center LG_renderer;
+//         liquidShowStringGlobal "renderer" "Renderer" $prefix;
+//          iconTextButton -style "iconOnly" -w 19 -h 18 -mw 0 -mh 0 
+//			  -image (liquidGetHome()+"/icons/liquidMenuButton.xpm") 
+//			  ($prefix + "LG_RendererButtonCtl");
+//          setParent ..;
+//          popupMenu 
+//			  -parent ($prefix + "LG_RendererButtonCtl") -b 1 
+//			  -pmc ( "liquidBuildRendererMenu \""+$prefix+"\"" ) 
+//			  ($prefix+"LG_RendererMenuCtl");
+//		  button -label "show global node panel"  -rs true -c "liqGlobalsNodeRendererMain(\"show\")";
+//      setParent ..;
+//    setParent ..;
+
     frameLayout -bs "etchedIn" -l "Output Passes" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowBoolGlobal "outputHeroPass" "Hero" $prefix;
