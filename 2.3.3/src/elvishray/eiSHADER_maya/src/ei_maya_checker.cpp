@@ -85,6 +85,7 @@ SURFACE(maya_checker)
 
 			/* contrast interpolates the separation from 0.5 to its normal value. */
 			f = 0.5f + (f - 0.5f) * i_contrast();
+			f = 1.0f - f;//adjust v for elvishray
 
 			/* Compute final values. */
 			alpha = 1.0f - f;
