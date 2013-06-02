@@ -45,8 +45,8 @@ SURFACE(maya_place2dTexture)
 
 	void main(void *arg)
 	{
-		main_er0(arg);
-		//main_3delight(arg);
+		//main_er0(arg);
+		main_3delight(arg);
 	}
 	void main_er0(void *arg)
 	{
@@ -67,8 +67,19 @@ SURFACE(maya_place2dTexture)
 	}
 	void main_3delight(void *arg)
 	{
-		float ss = u;
-		float tt = 1.0f - v;//adjust v for elvishray
+		if( liq_UserDefinedU() == 0 ){
+			i_uvCoord().x = u;//elvishray generates u internally.
+		}else{
+			//u is connected in
+		}
+		if( liq_UserDefinedV() == 0 ){
+			i_uvCoord().y = v;//elvishray generates v internally.
+		}else{
+			//v is connected in
+		}
+
+		float ss = i_uvCoord().x;
+		float tt = i_uvCoord().y;
 
 		float outU = ss;
 		float outV = tt;
@@ -97,7 +108,7 @@ SURFACE(maya_place2dTexture)
 			point P1 = point(0.5, 0.5, 0.0);
 			point P2 = point(0.5, 0.5, 1.0);
 
-			matrix rotMatrix = rotate(i_rotateFrame(), P2-P1 ); //Q = rotate(Q, radians(rotateFrame()), P1, P2 );
+			matrix rotMatrix = rotate(i_rotateFrame()/(180.0f/eiPI), P2-P1 ); //Q = rotate(Q, radians(rotateFrame()), P1, P2 );
 			Q = Q * rotMatrix;
 
 			outU = Q.x;
@@ -156,7 +167,7 @@ SURFACE(maya_place2dTexture)
 				point P1 = point(0.5f, 0.5f, 0.0f);
 				point P2 = point(0.5f, 0.5f, 1.0f);
 
-				matrix rotMatrix = rotate(i_rotateFrame(), P2-P1 );//Q = rotate(Q, radians(rotateUV()), P1, P2 ); 
+				matrix rotMatrix = rotate(i_rotateFrame()/(180.0f/eiPI), P2-P1 );//Q = rotate(Q, radians(rotateUV()), P1, P2 ); 
 				Q = Q * rotMatrix;
 
 				outU = fmodf(Q.x, i_repeatU());
@@ -164,7 +175,7 @@ SURFACE(maya_place2dTexture)
 			}
 
 			o_outUV().x = outU;
-			o_outUV().y = outV;
+			o_outUV().y = 1.0f - outV;//adjust v for elvishray
 		}
 	}
 
