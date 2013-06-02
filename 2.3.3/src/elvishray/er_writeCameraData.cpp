@@ -92,8 +92,21 @@ namespace elvishray
 		fnCamera.getPortFieldOfView(width, height, horizontalFOV,verticalFOV);
 		aperture = 2.0f * focal * tan(horizontalFOV /2.0f);
 		aspect = aperture / (2.0f * focal * tan(verticalFOV / 2.0f));
+		double aspectRatio = fnCamera.aspectRatio();
+		double filmApertureX = fnCamera.horizontalFilmAperture();
+		double filmApertureY = fnCamera.verticalFilmAperture();
+		
+		double apertureX, apertureY;
+		double offsetX, offsetY;
+		fnCamera.getViewParameters(
+			width/height, 
+			apertureX, apertureY, 
+			offsetX, offsetY
+		);
 		o.a(boost::str(boost::format(" maya settings: focal=%f, aperture = %f, aspect=%f")%focal %aperture %aspect ));
 		//e.g. focal=35, aperture = 36, aspect=1.33333.
+		const double INCHES_TO_MM = 25.4f;// 1inches = 25.4mm
+		const double CM_TO_MM = 10.0f;//
 
 		//get camera transform matrix
 		//currentJob.camera[0].mat.get( m ) );
@@ -136,8 +149,8 @@ namespace elvishray
 		cameraOutput(currentJob);
 
 		o.ei_focal( focal );
-		o.ei_aperture( aperture / fnCamera.overscan() );
-		o.ei_aspect( aspect );
+		o.ei_aperture( apertureX * INCHES_TO_MM/ fnCamera.overscan() );
+		o.ei_aspect( width/height );
 		if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true ) {
 			o.ei_resolution(height, width);
 		}else{ 
@@ -151,7 +164,7 @@ namespace elvishray
 			o.ei_window(left, right+1, height-top, height-bottom+1);
 		} 
 
-		o.ei_clip( currentJob.camera[0].neardb, currentJob.camera[0].fardb);
+		o.ei_clip( currentJob.camera[0].neardb*CM_TO_MM, currentJob.camera[0].fardb*CM_TO_MM);
 
 		//lens shader
 		for( std::size_t i = 0; i<LensShaders.length(); ++i)
