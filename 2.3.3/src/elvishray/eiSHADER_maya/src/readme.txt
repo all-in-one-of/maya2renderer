@@ -1,5 +1,14 @@
 
 -debug
+
+		//debug
+		if (   almost_equal(raster.x, 70.0f, 0.5f) 
+			&& almost_equal(raster.y,  90.0f, 0.5f))
+		{
+			bool debugnow = true;
+		}
+
+
 		int pass_id = this->AA_seed/4 + 1;
 		//debug
 		if ( ( this->AA_seed == 9 )

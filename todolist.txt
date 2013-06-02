@@ -7,6 +7,9 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-done)liq|rm|:简化place2dTexture里的rsl参数传递
+-liq|:优化编译速度，整理#include文件（liqGlobalHelpers.h ）
+-done)liq| er| place2dTexture|: maya是按（0.5，0.5）旋转的，er现在是按（0，0）旋转的
 -liq|er|: top,side,front,渲染不出图像
 -liq:加载后，切换至liquid，
 -liq|: 打开有些场景的时候，先加载renderman，后加载liquid，所以提示renderman加载不了
