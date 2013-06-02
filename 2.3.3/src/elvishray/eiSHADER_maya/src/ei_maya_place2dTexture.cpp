@@ -109,7 +109,7 @@ SURFACE(maya_place2dTexture)
 			point P2 = point(0.5, 0.5, 1.0);
 
 			matrix rotMatrix = rotate(radians(i_rotateFrame()), P2-P1 ); //Q = rotate(Q, radians(rotateFrame()), P1, P2 );
-			Q = Q * rotMatrix;
+			Q = (Q - P1) * rotMatrix + P1;
 
 			outU = Q.x;
 			outV = Q.y;
@@ -168,7 +168,7 @@ SURFACE(maya_place2dTexture)
 				point P2 = point(0.5f, 0.5f, 1.0f);
 
 				matrix rotMatrix = rotate(radians(i_rotateUV()), P2-P1 );//Q = rotate(Q, radians(rotateUV()), P1, P2 ); 
-				Q = Q * rotMatrix;
+				Q = (Q - P1) * rotMatrix + P1;
 
 				outU = fmodf(Q.x, i_repeatU());
 				outV = fmodf(Q.y, i_repeatV());
