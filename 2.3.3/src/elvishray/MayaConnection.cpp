@@ -331,7 +331,8 @@ void MayaConnection::getMin(unsigned int &min_x, unsigned int &min_y,
 			unsigned int left, unsigned int right,
 			unsigned int bottom, unsigned int top)
 {
-#if ELIMINATE_OFFSET
+#define ELIMINATE_OFFSET
+#if defined(ELIMINATE_OFFSET)
 	//motivation:
 	// image A : the scene rendered by elvishray;
 	// image B : the scene renderer by Maya software;
@@ -349,7 +350,7 @@ void MayaConnection::getMin(unsigned int &min_x, unsigned int &min_y,
 
 	// But we fail again, because the pixels on the edge of column 0 and column 1 are not continuous any more.
 	// (see test\discontinuesPixel.jpg for details)
-	int _min_x = left-1;
+	int _min_x = left;
 	int _min_y = height - (bottom - 1)-1;
 
 	min_x = _min_x>=0 ? _min_x : 0;
