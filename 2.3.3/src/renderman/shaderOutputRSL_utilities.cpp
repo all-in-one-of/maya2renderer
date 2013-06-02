@@ -123,8 +123,8 @@ void Visitor::visitPlace2dTexture(const char* node)
 		liquidGetPlugValue(m_node, "repeatV", fvalue, status);  repeatV.set(fvalue);
 		liquidGetPlugValue(m_node, "mirrorU", fvalue, status);  mirrorU.set(fvalue);
 		liquidGetPlugValue(m_node, "mirrorV", fvalue, status);  mirrorV.set(fvalue);
-		liquidGetPlugValue(m_node, "rotateFrame", fvalue, status);  rotateFrame.set(fvalue);
-		liquidGetPlugValue(m_node, "rotateUV", fvalue, status);		rotateUV.set(fvalue);
+		liquidGetPlugValue(m_node, "rotateFrame", fvalue, status);  rotateFrame.set(fvalue*(180.0f/M_PI));
+		liquidGetPlugValue(m_node, "rotateUV", fvalue, status);		rotateUV.set(fvalue*(180.0f/M_PI));
 		liquidGetPlugValue(m_node, "stagger", fvalue, status);		stagger.set(fvalue);
 		liquidGetPlugValue(m_node, "translateFrameU", fvalue, status);	translateFrameU.set(fvalue);
 		liquidGetPlugValue(m_node, "translateFrameV", fvalue, status);	translateFrameV.set(fvalue);
