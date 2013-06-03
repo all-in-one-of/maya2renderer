@@ -138,6 +138,11 @@ namespace elvishray
 		//CM_TRACE_FUNC("OutputCall::ei_filter("<<filter<<","<<size<<")");
 		::ei_filter(filter,size);
 	}
+	void OutputCall::ei_progressive( eiBool progressive )
+	{
+		//CM_TRACE_FUNC("OutputCall::ei_progressive("<<progressive<<")");
+		::ei_progressive(progressive);
+	}
 	//	Motion Blur:
 	void OutputCall::ei_shutter( float open, float close )
 	{

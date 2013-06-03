@@ -129,6 +129,7 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 			editorTemplate -addDynamicControl "samples_max";
 			editorTemplate -callCustom AEEIFilterTypeNew AEEIFilterTypeReplace "message";
  			editorTemplate -addDynamicControl "filterSize";	
+ 			editorTemplate -addDynamicControl "progressive";	
 			//editorTemplate -label ("motion:see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
 		editorTemplate -endLayout;//option
  		//--------------------------------------------------

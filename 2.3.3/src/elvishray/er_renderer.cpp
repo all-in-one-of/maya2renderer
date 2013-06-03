@@ -569,6 +569,9 @@ namespace elvishray
 			eiInt filterType = m_gnode->getInt("filterType");
 			eiScalar filterSize = m_gnode->getFloat("filterSize");
 			o.ei_filter( filterType, filterSize );
+			//progressive
+			eiBool progressive = m_gnode->getBool("progressive");
+			o.ei_progressive( progressive );
 			//_S( ei_shading_rate( liqglo.shadingRate ) );
 		}
 //		_S("ei_bucket_Size( int size );");

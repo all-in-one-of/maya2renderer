@@ -96,6 +96,7 @@ namespace elvishray
 		void ei_samples( int _min, int _max );
 		void ei_bucket_size( int size );
 		void ei_filter( int filter, float size );
+		void ei_progressive( eiBool progressive );
 
 		//	Tessellation Quality:
 		// void ei_shading_rate( float rate );

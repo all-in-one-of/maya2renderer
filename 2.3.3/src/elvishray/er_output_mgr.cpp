@@ -326,6 +326,16 @@ namespace elvishray
 			(*i)->ei_filter(filter,size);
 		}
 	}
+	void OutputMgr::ei_progressive( eiBool progressive )
+	{
+		//CM_TRACE_FUNC("OutputMgr::ei_progressive("<<progressive<<")");
+		std::vector<elvishray::OutputBase*>::iterator i= m_receivers.begin();
+		std::vector<elvishray::OutputBase*>::iterator e= m_receivers.end();
+		for(; i!=e; ++i)
+		{
+			(*i)->ei_progressive(progressive);
+		}
+	}
 	//	Motion Blur:
 	void OutputMgr::ei_shutter( float open, float close )
 	{

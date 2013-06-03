@@ -22,6 +22,7 @@ MObject GlobalNode::asamples_min;
 MObject GlobalNode::asamples_max;
 MObject GlobalNode::afilterType;
 MObject GlobalNode::afilterSize;
+MObject GlobalNode::aprogressive;
 //motion
 //trace_depth
 MObject GlobalNode::atrace_depth_transp;
@@ -225,6 +226,7 @@ MStatus GlobalNode::initialize()
 	CREATE_INT( nAttr,	asamples_max,	"samples_max",	"smx",	16);
 	CREATE_INT( nAttr,  afilterType,	"filterType",	"ft",	4);
 	CREATE_FLOAT( nAttr,afilterSize,	"filterSize",	"fs",	3.0f);
+	CREATE_BOOL( nAttr,  aprogressive,	"progressive",	"prg",	true );
 
 	////motion
 	////trace_depth

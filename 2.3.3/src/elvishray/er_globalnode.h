@@ -32,6 +32,7 @@ namespace elvishray
 		static MObject asamples_max;
 		static MObject afilterType;
 		static MObject afilterSize;
+		static MObject aprogressive;
 		//motion
 		//trace_depth
 		static MObject atrace_depth_transp;

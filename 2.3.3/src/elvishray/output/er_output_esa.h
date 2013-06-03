@@ -78,6 +78,7 @@ namespace elvishray
 		virtual void ei_samples( int _min, int _max );
 		virtual void ei_bucket_size( int size );
 		virtual void ei_filter( int filter, float size );
+		virtual void ei_progressive( eiBool progressive );
 
 		//	Tessellation Quality:
 		// virtual void ei_shading_rate( float rate );

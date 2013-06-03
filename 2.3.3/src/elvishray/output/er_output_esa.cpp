@@ -153,6 +153,11 @@ namespace elvishray
 		//CM_TRACE_FUNC("OutputESA::ei_filter("<<filter<<","<<size<<")");
 		m_outputfile<<"ei_filter("<<filter<<","<<size<<");"<<std::endl;
 	}
+	void OutputESA::ei_progressive( eiBool progressive )
+	{
+		//CM_TRACE_FUNC("OutputESA::ei_progressive("<<progressive<<")");
+		m_outputfile<<"ei_progressive("<<progressive<<");"<<std::endl;
+	}
 	//	Motion Blur:
 	void OutputESA::ei_shutter( float open, float close )
 	{
