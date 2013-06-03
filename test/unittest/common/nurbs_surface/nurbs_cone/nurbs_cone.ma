@@ -1,11 +1,11 @@
 //Maya ASCII 2012 scene
 //Name: nurbs_cone.ma
-//Last modified: Thu, May 30, 2013 10:21:42 PM
+//Last modified: Mon, Jun 03, 2013 07:25:19 PM
 //Codeset: 936
 requires maya "2012";
-requires "renderman" "0.0.1";
-requires "liquid_2012x32d" "2.3.5";
 requires "elvishray" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
+requires "renderman" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -114,6 +114,7 @@ createNode transform -n "pointLight1";
 	setAttr ".t" -type "double3" 0 3.0337773674138244 1.4234978856711358 ;
 createNode pointLight -n "pointLightShape1" -p "pointLight1";
 	setAttr -k off ".v";
+	setAttr ".us" no;
 createNode lightLinker -s -n "lightLinker1";
 	setAttr -s 7 ".lnk";
 	setAttr -s 7 ".slnk";
@@ -138,7 +139,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/nurbs_cone31395.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/nurbs_cone31941.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";

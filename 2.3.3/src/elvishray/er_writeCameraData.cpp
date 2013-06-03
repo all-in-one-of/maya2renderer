@@ -149,8 +149,8 @@ namespace elvishray
 		cameraOutput(currentJob);
 
 		o.ei_focal( focal );
-		o.ei_aperture( apertureX * INCHES_TO_MM/ fnCamera.overscan() );
-		o.ei_aspect( width/height );
+		o.ei_aperture( aperture / fnCamera.overscan() );
+		o.ei_aspect( aspect );
 		if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true ) {
 			o.ei_resolution(height, width);
 		}else{ 

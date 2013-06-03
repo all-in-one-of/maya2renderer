@@ -136,60 +136,27 @@ void place2dTexture2 (
  wrapU = float 1;
  wrapV = float 1;
  outUV[0] = float 0;  outUV[1] = float 0; ;
- {
- uniform float i_coverageU=1;
- uniform float i_coverageV=1;
- uniform float i_mirrorU=0;
- uniform float i_mirrorV=0;
- uniform float i_noiseU=0;
- uniform float i_noiseV=0;
- uniform float i_repeatU=1;
- uniform float i_repeatV=1;
- uniform float i_rotateFrame=0;
- uniform float i_rotateUV=0;
- uniform float i_stagger=0;
- uniform float i_translateFrameU=0;
- uniform float i_translateFrameV=0;
- uniform float i_wrapU=1;
- uniform float i_wrapV=1;
-   maya_place2dTexture(uvCoord,			
-	i_coverageU,       
-	i_coverageV,		
-	i_mirrorU,			
-	i_mirrorV,			
-	i_noiseU,			
-	i_noiseV,			
-	0,			
-	0,			
-	i_repeatU,			
-	i_repeatV,			
-	i_rotateFrame,		
-	i_rotateUV,		
-	i_stagger,			
-	i_translateFrameU,	
-	i_translateFrameV,	
-	i_wrapU,			
-	i_wrapV,			
+   maya_place2dTexture(
+	uvCoord,			
+	coverage[0],		
+	coverage[1],		
+	mirrorU,			
+	mirrorV,			
+	noiseUV[0],		
+	noiseUV[1],		
+	offset[0],			
+	offset[1],			
+	repeatUV[0],		
+	repeatUV[1],		
+	rotateFrame,		
+	rotateUV,			
+	stagger,			
+	translateFrame[0],	
+	translateFrame[1],	
+	wrapU,				
+	wrapV,				
 	outUV   
    );
- }
- coverage[0]=1;
- coverage[1]=1;
- mirrorU=0;
- mirrorV=0;
- noiseUV[0]=0;
- noiseUV[1]=0;
- offset[0]=0;
- offset[1]=0;
- repeatUV[0]=1;
- repeatUV[1]=1;
- rotateFrame=0;
- rotateUV=0;
- stagger=0;
- translateFrame[0]=0;
- translateFrame[1]=0;
- wrapU=1;
- wrapV=1;
 }
 
 #include "file.h"

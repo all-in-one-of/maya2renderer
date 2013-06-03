@@ -1,15 +1,15 @@
 //Maya ASCII 2012 scene
 //Name: nurbs_surface.ma
-//Last modified: Thu, May 30, 2013 07:11:32 PM
+//Last modified: Mon, Jun 03, 2013 01:17:11 AM
 //Codeset: 936
 file -rdi 1 -ns "nurbs_cone" -rfn "nurbs_coneRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma";
 file -rdi 1 -ns "nurbs_sphere" -rfn "nurbs_sphereRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma";
 file -r -ns "nurbs_cone" -dr 1 -rfn "nurbs_coneRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma";
 file -r -ns "nurbs_sphere" -dr 1 -rfn "nurbs_sphereRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma";
 requires maya "2012";
-requires "renderman" "0.0.1";
-requires "liquid_2012x32d" "2.3.5";
 requires "elvishray" "0.0.1";
+requires "liquid_2012x32d" "2.3.5";
+requires "renderman" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -123,7 +123,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/nurbs_surface3963.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/nurbs_surface192.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";

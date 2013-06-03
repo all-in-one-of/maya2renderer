@@ -161,7 +161,7 @@ ei_focal(35);
 ei_aperture(36);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.01,10000);
+ei_clip(0.1,100000);
 ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pCube1|pCubeShape1, 0, 0
@@ -318,7 +318,7 @@ ei_focal(35);
 ei_aperture(32);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.01,10000);
+ei_clip(0.1,100000);
 ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pCube2|pCubeShape2, 0, 0

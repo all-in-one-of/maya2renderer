@@ -43,6 +43,9 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/uvCoord/uvCoord.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+
+    testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture_con/file_place2dTexture_con.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/test_pl/test_pl_type.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
@@ -252,7 +255,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/uvCoord/uvCoord.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
+
+    testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture_con/file_place2dTexture_con.ma"
+    MyTestOne.test_one_scene(testFile, "elvishray")
+
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/bmp.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
 
@@ -438,15 +444,13 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_surface/nurbs_surface.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    
-
-    
+    '''
     testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
     
@@ -455,7 +459,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/blur_camera/blur_camera.ma"
     MyTestOne.test_one_scene(testFile, "elvishray")
-    '''
+    
 
     '''
     ------------------------ appleseed ----------------------------------

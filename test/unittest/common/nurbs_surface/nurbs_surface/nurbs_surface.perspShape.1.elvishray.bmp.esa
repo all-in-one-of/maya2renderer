@@ -205,7 +205,7 @@ ei_focal(35);
 ei_aperture(36);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.1,10000);
+ei_clip(1,100000);
 ei_end_camera();
 //Nurbs surface |nurbs_cone:nurbsCone1|nurbs_cone:nurbsConeShape1 is not implemented yet.
 //Nurbs surface |nurbs_cone:nurbsCone1|nurbs_cone:bottomCap1|nurbs_cone:bottomCapShape1 is not implemented yet.

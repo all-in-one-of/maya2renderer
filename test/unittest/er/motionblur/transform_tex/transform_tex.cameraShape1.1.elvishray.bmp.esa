@@ -206,7 +206,7 @@ ei_focal(35);
 ei_aperture(32);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.1,10000);
+ei_clip(1,100000);
 ei_end_camera();
 //--------------------------
 //ribNode->name=|pPlane1|pPlaneShape1

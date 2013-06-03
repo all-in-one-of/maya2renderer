@@ -133,7 +133,7 @@ end output
     aperture 36 
     aspect 1.33333 
     resolution 200 150 
-    clip 0.1 10000 
+    clip 1 100000 
 end camera
 ##--------------------------
 ##ribNode->name=|pPlane4|pPlaneShape4

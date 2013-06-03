@@ -121,9 +121,9 @@ ei_end_light();
 ei_instance("|pointLight1|pointLightShape1");
 ei_element("|pointLight1|pointLightShape1_object");
 ei_transform(0.900048,0,-0.43579,0,   0,1,0,0,   0.43579,0,0.900048,0,   3.797,1.83843,-2.34971,1);
-ei_declare("|pPlane1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pPlane2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pPlane3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|pPlane1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
 
 // Renderer::exportOneGeometry_Mesh(|pPlane1|pPlaneShape1, 0, 1
@@ -208,7 +208,7 @@ ei_focal(35);
 ei_aperture(32);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.1,10000);
+ei_clip(1,100000);
 ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pPlane2|pPlaneShape2, 0, 1

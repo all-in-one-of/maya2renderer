@@ -174,7 +174,7 @@ ei_focal(35);
 ei_aperture(36);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.1,10000);
+ei_clip(1,100000);
 ei_end_camera();
 
 // maya settings: focal=35.000000, aperture = 32.000000, aspect=1.333333
@@ -193,7 +193,7 @@ ei_focal(35);
 ei_aperture(32);
 ei_aspect(1.33333);
 ei_resolution(200,150);
-ei_clip(0.1,10000);
+ei_clip(1,100000);
 ei_end_camera();
 
 // Renderer::exportOneGeometry_Mesh(|pPlane1|pPlaneShape1, 0, 0
