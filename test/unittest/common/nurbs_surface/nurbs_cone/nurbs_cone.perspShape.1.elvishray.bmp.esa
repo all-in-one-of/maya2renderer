@@ -8581,7 +8581,7 @@ ei_mtl("liquid_material_for_test");
 //shape name=|persp|perspShape
 //shape full path name=|persp|perspShape
 ei_element("|persp|perspShape");
-ei_transform(0.884581,-2.77556e-017,0.466387,0,   0.299403,0.766736,-0.567868,0,   -0.357595,0.641963,0.67824,0,   -5.40145,10.2614,10.3767,1);
+ei_transform(0.884581,-2.77556e-017,0.466387,0,   0.299403,0.766736,-0.567868,0,   -0.357595,0.641963,0.67824,0,   -7.22328,13.532,13.8321,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
