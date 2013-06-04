@@ -105,6 +105,7 @@ MStatus tCameraMgr::getCameraTransform(const MFnCamera& cam, structCamera &camSt
 	MStatus status;
 	MDagPath cameraPath;
 	cam.getPath(cameraPath);
+	//MString fullpathname(cameraPath.fullPathName());
 	MTransformationMatrix xform( cameraPath.inclusiveMatrix(&status) );
 	if ( status != MS::kSuccess ) // error ?!... set identity...
 	{
@@ -726,6 +727,7 @@ MStatus tCameraMgr::getCameraData( structJob &job__ , const int sample__)
 			return MS::kFailure;
 		}
 		/////////////////////////////
+		//left camera data
 		getCameraInfo( fnLeftCam, job__.leftCamera[sample__] );
 		job__.leftCamera[sample__].orthoWidth     = fnLeftCam.orthoWidth();
 		job__.leftCamera[sample__].orthoHeight    = fnLeftCam.orthoWidth() * ((float)job__.camera[sample__].height / (float)job__.camera[sample__].width);
@@ -747,7 +749,8 @@ MStatus tCameraMgr::getCameraData( structJob &job__ , const int sample__)
 		job__.leftCamera[sample__].hFOV   = job__.camera[sample__].hFOV;
 		job__.leftCamera[sample__].neardb = job__.camera[sample__].neardb;
 		job__.leftCamera[sample__].fardb  = job__.camera[sample__].fardb;
-
+		
+		//right camera data
 		getCameraInfo( fnRightCam, job__.rightCamera[sample__] );
 		job__.rightCamera[sample__].orthoWidth	= fnRightCam.orthoWidth();
 		job__.rightCamera[sample__].orthoHeight	= fnRightCam.orthoWidth() * ((float)job__.camera[sample__].height / (float)job__.camera[sample__].width);
