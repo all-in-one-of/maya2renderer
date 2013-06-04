@@ -85,11 +85,11 @@ private: // Methods
 	MStatus scanSceneNodes( MObject&, MDagPath &, float, int, int &, MStatus& ); 
 	MStatus scanScene(float, int );
 
-	void portFieldOfView( int width, int height, double& horizontal, double& vertical, const MFnCamera& fnCamera );
-	void computeViewingFrustum( double window_aspect, double& left, double& right, double& bottom, double& top, const MFnCamera& cam );
-	void getCameraInfo( const MFnCamera &cam, structCamera &camStruct );//r773
-	MStatus getCameraTransform( const MFnCamera& cam, structCamera &camStruct );//r773
-	void getCameraFilmOffset( const MFnCamera& cam, structCamera &camStruct );//r773
+//	void portFieldOfView( int width, int height, double& horizontal, double& vertical, const MFnCamera& fnCamera );
+//	void computeViewingFrustum( double window_aspect, double& left, double& right, double& bottom, double& top, const MFnCamera& cam );
+//	void getCameraInfo( const MFnCamera &cam, structCamera &camStruct );//r773
+//	MStatus getCameraTransform( const MFnCamera& cam, structCamera &camStruct );//r773
+//	void getCameraFilmOffset( const MFnCamera& cam, structCamera &camStruct );//r773
 	void setSearchPaths();
 	void setOutDirs();
 #ifdef Refactoring 
@@ -447,7 +447,7 @@ public:
 	void dealwithParticleInstancedObjects(
 		const float lframe__, const int sample__,
 		int &count__ );
-	MStatus getCameraData( std::vector<structJob>::iterator &iter__ , const int sample__);
+//	MStatus getCameraData( std::vector<structJob>::iterator &iter__ , const int sample__);
 	void getLightData( std::vector<structJob>::iterator &iter__ , const int sample__);
 
 

@@ -52,8 +52,10 @@
 #include <liqCustomNode.h>
 #include <liqShaderFactory.h>
 #include <liqExpression.h>
+#include <liqCameraMgr.h>
 #include "renderermgr.h"
 #include "shadergraph/shadermgr.h"
+
 
 using namespace boost;
 using namespace std;
@@ -3034,88 +3036,88 @@ MStatus liqRibTranslator::doIt()
 /**
 * Calculate the port field of view for the camera.
 */
-void liqRibTranslator::portFieldOfView( int port_width, int port_height,
-									   double& horizontal,
-									   double& vertical,
-									   const MFnCamera& fnCamera )
-{
-	CM_TRACE_FUNC("liqRibTranslator::portFieldOfView("<<port_width<<","<<port_height<<",&horizontal,&vertical,&fnCamera)");
-	// note : works well - api tested
-	double left, right, bottom, top;
-	double aspect = (double) port_width / port_height;
-	computeViewingFrustum(aspect,left,right,bottom,top,fnCamera);
-
-	double neardb = fnCamera.nearClippingPlane();
-	horizontal    = atan( ( ( right - left ) * 0.5 ) / neardb ) * 2.0;
-	vertical      = atan( ( ( top - bottom ) * 0.5 ) / neardb ) * 2.0;
-}
+// void liqRibTranslator::portFieldOfView( int port_width, int port_height,
+// 									   double& horizontal,
+// 									   double& vertical,
+// 									   const MFnCamera& fnCamera )
+// {
+// 	CM_TRACE_FUNC("liqRibTranslator::portFieldOfView("<<port_width<<","<<port_height<<",&horizontal,&vertical,&fnCamera)");
+// 	// note : works well - api tested
+// 	double left, right, bottom, top;
+// 	double aspect = (double) port_width / port_height;
+// 	computeViewingFrustum(aspect,left,right,bottom,top,fnCamera);
+// 
+// 	double neardb = fnCamera.nearClippingPlane();
+// 	horizontal    = atan( ( ( right - left ) * 0.5 ) / neardb ) * 2.0;
+// 	vertical      = atan( ( ( top - bottom ) * 0.5 ) / neardb ) * 2.0;
+// }
 
 /**
 * Calculate the viewing frustrum for the camera.
 */
-void liqRibTranslator::computeViewingFrustum ( double     window_aspect,
-											  double&    left,
-											  double&    right,
-											  double&    bottom,
-											  double&    top,
-											  const MFnCamera& cam )
-{
-	CM_TRACE_FUNC("liqRibTranslator::computeViewingFrustum("<<window_aspect<<","<<",&left,&right,&bottom,&top,"<<cam.fullPathName().asChar()<<")");
-
-	double film_aspect   = cam.aspectRatio();
-	double aperture_x    = cam.horizontalFilmAperture();
-	double aperture_y    = cam.verticalFilmAperture();
-	double offset_x      = cam.horizontalFilmOffset();
-	double offset_y      = cam.verticalFilmOffset();
-	double focal_to_near = cam.nearClippingPlane() / (cam.focalLength() * MM_TO_INCH);
-
-	focal_to_near *= cam.cameraScale();
-
-	double scale_x = 1.0;
-	double scale_y = 1.0;
-	double translate_x = 0.0;
-	double translate_y = 0.0;
-
-	switch ( cam.filmFit() ) 
-	{
-	case MFnCamera::kFillFilmFit:
-		if( window_aspect < film_aspect ) 
-			scale_x = window_aspect / film_aspect;
-		else 
-			scale_y = film_aspect / window_aspect;
-		break;
-	case MFnCamera::kHorizontalFilmFit:
-		scale_y = film_aspect / window_aspect;
-		if( scale_y > 1.0 ) 
-			translate_y = cam.filmFitOffset() * ( aperture_y - ( aperture_y * scale_y ) ) / 2.0;
-		break;
-	case MFnCamera::kVerticalFilmFit:
-		scale_x = window_aspect / film_aspect;
-		if(scale_x > 1.0 ) 
-			translate_x = cam.filmFitOffset() * ( aperture_x - ( aperture_x * scale_x ) ) / 2.0;
-		break;
-	case MFnCamera::kOverscanFilmFit:
-		if( window_aspect < film_aspect ) 
-			scale_y = film_aspect / window_aspect;
-		else 
-			scale_x = window_aspect / film_aspect;
-		break;
-	case MFnCamera::kInvalid:
-		break;
-	}
-
-	left   = focal_to_near * (-.5 * aperture_x * scale_x + offset_x + translate_x );
-	right  = focal_to_near * ( .5 * aperture_x * scale_x + offset_x + translate_x );
-	bottom = focal_to_near * (-.5 * aperture_y * scale_y + offset_y + translate_y );
-	top    = focal_to_near * ( .5 * aperture_y * scale_y + offset_y + translate_y );
-
-	// NOTE :
-	//      all the code above could be replaced by :
-	//
-	//      cam.getRenderingFrustum( window_aspect, left, right, bottom, top );
-	//
-	//      should we keep this for educationnal purposes or use the API call ??
-}
+//void liqRibTranslator::computeViewingFrustum ( double     window_aspect,
+//											  double&    left,
+//											  double&    right,
+//											  double&    bottom,
+//											  double&    top,
+//											  const MFnCamera& cam )
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::computeViewingFrustum("<<window_aspect<<","<<",&left,&right,&bottom,&top,"<<cam.fullPathName().asChar()<<")");
+//
+//	double film_aspect   = cam.aspectRatio();
+//	double aperture_x    = cam.horizontalFilmAperture();
+//	double aperture_y    = cam.verticalFilmAperture();
+//	double offset_x      = cam.horizontalFilmOffset();
+//	double offset_y      = cam.verticalFilmOffset();
+//	double focal_to_near = cam.nearClippingPlane() / (cam.focalLength() * MM_TO_INCH);
+//
+//	focal_to_near *= cam.cameraScale();
+//
+//	double scale_x = 1.0;
+//	double scale_y = 1.0;
+//	double translate_x = 0.0;
+//	double translate_y = 0.0;
+//
+//	switch ( cam.filmFit() ) 
+//	{
+//	case MFnCamera::kFillFilmFit:
+//		if( window_aspect < film_aspect ) 
+//			scale_x = window_aspect / film_aspect;
+//		else 
+//			scale_y = film_aspect / window_aspect;
+//		break;
+//	case MFnCamera::kHorizontalFilmFit:
+//		scale_y = film_aspect / window_aspect;
+//		if( scale_y > 1.0 ) 
+//			translate_y = cam.filmFitOffset() * ( aperture_y - ( aperture_y * scale_y ) ) / 2.0;
+//		break;
+//	case MFnCamera::kVerticalFilmFit:
+//		scale_x = window_aspect / film_aspect;
+//		if(scale_x > 1.0 ) 
+//			translate_x = cam.filmFitOffset() * ( aperture_x - ( aperture_x * scale_x ) ) / 2.0;
+//		break;
+//	case MFnCamera::kOverscanFilmFit:
+//		if( window_aspect < film_aspect ) 
+//			scale_y = film_aspect / window_aspect;
+//		else 
+//			scale_x = window_aspect / film_aspect;
+//		break;
+//	case MFnCamera::kInvalid:
+//		break;
+//	}
+//
+//	left   = focal_to_near * (-.5 * aperture_x * scale_x + offset_x + translate_x );
+//	right  = focal_to_near * ( .5 * aperture_x * scale_x + offset_x + translate_x );
+//	bottom = focal_to_near * (-.5 * aperture_y * scale_y + offset_y + translate_y );
+//	top    = focal_to_near * ( .5 * aperture_y * scale_y + offset_y + translate_y );
+//
+//	// NOTE :
+//	//      all the code above could be replaced by :
+//	//
+//	//      cam.getRenderingFrustum( window_aspect, left, right, bottom, top );
+//	//
+//	//      should we keep this for educationnal purposes or use the API call ??
+//}
 //void liqRibTranslator::exportJobCamera(const structJob &job, const structCamera camera[])
 //{
 //	CM_TRACE_FUNC("liqRibTranslator::exportJobCamera("<<job.name.asChar()<<","<<",)");
@@ -3207,198 +3209,198 @@ void liqRibTranslator::computeViewingFrustum ( double     window_aspect,
 /**
  * getCameraTransform
  */
-MStatus liqRibTranslator::getCameraTransform(const MFnCamera& cam, structCamera &camStruct )
-{
-	CM_TRACE_FUNC("liqRibTranslator::getCameraTransform("<<cam.fullPathName().asChar()<<",)");
-	MStatus status;
-	MDagPath cameraPath;
-	cam.getPath(cameraPath);
-	MTransformationMatrix xform( cameraPath.inclusiveMatrix(&status) );
-	if ( status != MS::kSuccess ) // error ?!... set identity...
-	{
-		char errorMsg[512];
-		sprintf(errorMsg, "Cannot get transfo matrix for camera '%s' \n", cam.name().asChar());
-		//liquidMessage(errorMsg, messageError );
-		printf(errorMsg);
-		MMatrix id;
-		camStruct.mat = id;
-		return MS::kFailure;
-	}
-	// MMatrix mxform = xform.asMatrix();
-	// printf("CAM MATRIX '%s' : \n", cam.name().asChar() );
-	// printf("%f %f %f %f \n", mxform(0, 0), mxform(0, 1), mxform(0, 2), mxform(0, 3));
-	// printf("%f %f %f %f \n", mxform(1, 0), mxform(1, 1), mxform(1, 2), mxform(1, 3));
-	// printf("%f %f %f %f \n", mxform(2, 0), mxform(2, 1), mxform(2, 2), mxform(2, 3));
-	// printf("%f %f %f %f \n", mxform(3, 0), mxform(3, 1), mxform(3, 2), mxform(3, 3));
-
-	// the camera is pointing toward negative Z
-	double scale[] = { 1, 1, -1 };
-	xform.setScale( scale, MSpace::kTransform );
-
-	// scanScene:
-	// philippe : rotate the main camera 90 degrees around Z-axis if necessary
-	// ( only in main camera )
-	MMatrix camRotMatrix;
-	if ( liqglo.liqglo_rotateCamera == true )
-	{
-		float crm[4][4] =	{	{  0.0,  1.0,  0.0,  0.0 },
-								{ -1.0,  0.0,  0.0,  0.0 },
-								{  0.0,  0.0,  1.0,  0.0 },
-								{  0.0,  0.0,  0.0,  1.0 }	};
-		camRotMatrix = crm;
-	}
-	camStruct.mat = xform.asMatrixInverse() * camRotMatrix;
-	return MS::kSuccess;
-}
+//MStatus liqRibTranslator::getCameraTransform(const MFnCamera& cam, structCamera &camStruct )
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::getCameraTransform("<<cam.fullPathName().asChar()<<",)");
+//	MStatus status;
+//	MDagPath cameraPath;
+//	cam.getPath(cameraPath);
+//	MTransformationMatrix xform( cameraPath.inclusiveMatrix(&status) );
+//	if ( status != MS::kSuccess ) // error ?!... set identity...
+//	{
+//		char errorMsg[512];
+//		sprintf(errorMsg, "Cannot get transfo matrix for camera '%s' \n", cam.name().asChar());
+//		//liquidMessage(errorMsg, messageError );
+//		printf(errorMsg);
+//		MMatrix id;
+//		camStruct.mat = id;
+//		return MS::kFailure;
+//	}
+//	// MMatrix mxform = xform.asMatrix();
+//	// printf("CAM MATRIX '%s' : \n", cam.name().asChar() );
+//	// printf("%f %f %f %f \n", mxform(0, 0), mxform(0, 1), mxform(0, 2), mxform(0, 3));
+//	// printf("%f %f %f %f \n", mxform(1, 0), mxform(1, 1), mxform(1, 2), mxform(1, 3));
+//	// printf("%f %f %f %f \n", mxform(2, 0), mxform(2, 1), mxform(2, 2), mxform(2, 3));
+//	// printf("%f %f %f %f \n", mxform(3, 0), mxform(3, 1), mxform(3, 2), mxform(3, 3));
+//
+//	// the camera is pointing toward negative Z
+//	double scale[] = { 1, 1, -1 };
+//	xform.setScale( scale, MSpace::kTransform );
+//
+//	// scanScene:
+//	// philippe : rotate the main camera 90 degrees around Z-axis if necessary
+//	// ( only in main camera )
+//	MMatrix camRotMatrix;
+//	if ( liqglo.liqglo_rotateCamera == true )
+//	{
+//		float crm[4][4] =	{	{  0.0,  1.0,  0.0,  0.0 },
+//								{ -1.0,  0.0,  0.0,  0.0 },
+//								{  0.0,  0.0,  1.0,  0.0 },
+//								{  0.0,  0.0,  0.0,  1.0 }	};
+//		camRotMatrix = crm;
+//	}
+//	camStruct.mat = xform.asMatrixInverse() * camRotMatrix;
+//	return MS::kSuccess;
+//}
 /**
  * getCameraFilmOffset
  */
-void liqRibTranslator::getCameraFilmOffset(const MFnCamera& cam, structCamera &camStruct )
-{
-	CM_TRACE_FUNC("liqRibTranslator::getCameraFilmOffset("<<cam.fullPathName().asChar()<<",)");
-	// film back offsets
-	double hSize, vSize, hOffset, vOffset;
-	cam.getFilmFrustum( cam.focalLength(), hSize, vSize, hOffset, vOffset );
-
-	double imr = ((float)camStruct.width / (float)camStruct.height);
-	double fbr = hSize / vSize;
-	double ho, vo;
-
-	// convert inches to mm !
-	hOffset *= 25.4;
-	vOffset *= 25.4;
-	switch( cam.filmFit() )
-	{
-	case MFnCamera::kVerticalFilmFit:
-	case MFnCamera::kFillFilmFit:
-		{
-			ho = hOffset / vSize * 2.0;
-			vo = vOffset / vSize * 2.0;
-			break;
-		}
-	case MFnCamera::kHorizontalFilmFit:
-	case MFnCamera::kOverscanFilmFit:
-		{
-			ho = hOffset / ( vSize * fbr / imr ) * 2.0;
-			vo = vOffset / ( vSize * fbr / imr ) * 2.0;
-			break;
-		}
-	default:
-		{
-			ho = 0;
-			vo = 0;
-			break;
-		}
-	}
-	camStruct.horizontalFilmOffset = ho;
-	camStruct.verticalFilmOffset   = vo;
-}
+//void liqRibTranslator::getCameraFilmOffset(const MFnCamera& cam, structCamera &camStruct )
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::getCameraFilmOffset("<<cam.fullPathName().asChar()<<",)");
+//	// film back offsets
+//	double hSize, vSize, hOffset, vOffset;
+//	cam.getFilmFrustum( cam.focalLength(), hSize, vSize, hOffset, vOffset );
+//
+//	double imr = ((float)camStruct.width / (float)camStruct.height);
+//	double fbr = hSize / vSize;
+//	double ho, vo;
+//
+//	// convert inches to mm !
+//	hOffset *= 25.4;
+//	vOffset *= 25.4;
+//	switch( cam.filmFit() )
+//	{
+//	case MFnCamera::kVerticalFilmFit:
+//	case MFnCamera::kFillFilmFit:
+//		{
+//			ho = hOffset / vSize * 2.0;
+//			vo = vOffset / vSize * 2.0;
+//			break;
+//		}
+//	case MFnCamera::kHorizontalFilmFit:
+//	case MFnCamera::kOverscanFilmFit:
+//		{
+//			ho = hOffset / ( vSize * fbr / imr ) * 2.0;
+//			vo = vOffset / ( vSize * fbr / imr ) * 2.0;
+//			break;
+//		}
+//	default:
+//		{
+//			ho = 0;
+//			vo = 0;
+//			break;
+//		}
+//	}
+//	camStruct.horizontalFilmOffset = ho;
+//	camStruct.verticalFilmOffset   = vo;
+//}
 /**
 * Get information about the given camera.
 */
-void liqRibTranslator::getCameraInfo(const MFnCamera& cam, structCamera &camStruct )
-{
-	CM_TRACE_FUNC("liqRibTranslator::getCameraInfo("<<cam.fullPathName().asChar()<<",)");
-
-	// Resolution can change if camera film-gate clips image
-	// so we must keep camera width/height separate from render
-	// globals width/height.
-	//
-	camStruct.width  = width;
-	camStruct.height = height;
-
-	// If we are using a film-gate then we may need to
-	// adjust the resolution to simulate the 'letter-boxed'
-	// effect.
-	if( cam.filmFit() == MFnCamera::kHorizontalFilmFit ) 
-	{
-		if( !ignoreFilmGate ) 
-		{
-			double new_height = camStruct.width / ( cam.horizontalFilmAperture() / cam.verticalFilmAperture() );
-			if( new_height < camStruct.height ) 
-				camStruct.height = ( int )new_height;
-		}
-
-		double hfov, vfov;
-		portFieldOfView( camStruct.width, camStruct.height, hfov, vfov, cam );
-		camStruct.fov_ratio = hfov / vfov;
-	}
-	else if( cam.filmFit() == MFnCamera::kVerticalFilmFit ) 
-	{
-		double new_width = camStruct.height / ( cam.verticalFilmAperture() / cam.horizontalFilmAperture() );
-		double hfov, vfov;
-
-		// case 1 : film-gate smaller than resolution
-		//         film-gate on
-		if( ( new_width < camStruct.width ) && ( !ignoreFilmGate ) ) 
-		{
-			camStruct.width = ( int )new_width;
-			camStruct.fov_ratio = 1.0;
-		}
-		// case 2 : film-gate smaller than resolution
-		//         film-gate off
-		else if( ( new_width < camStruct.width ) && ( ignoreFilmGate ) ) 
-		{
-			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
-			camStruct.fov_ratio = hfov / vfov;
-		}
-		// case 3 : film-gate larger than resolution
-		//         film-gate on
-		else if( !ignoreFilmGate ) 
-		{
-			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
-			camStruct.fov_ratio = hfov / vfov;
-		}
-		// case 4 : film-gate larger than resolution
-		//         film-gate off
-		else if( ignoreFilmGate ) 
-		{
-			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
-			camStruct.fov_ratio = hfov / vfov;
-		}
-	}
-	else if( cam.filmFit() == MFnCamera::kOverscanFilmFit ) 
-	{
-		double new_height = camStruct.width / ( cam.horizontalFilmAperture() / cam.verticalFilmAperture() );
-		double new_width = camStruct.height / ( cam.verticalFilmAperture() / cam.horizontalFilmAperture() );
-
-		if( new_width < camStruct.width ) 
-		{
-			if( !ignoreFilmGate ) {
-				camStruct.width = ( int ) new_width;
-				camStruct.fov_ratio = 1.0;
-			}
-			else 
-			{
-				double hfov, vfov;
-				portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
-				camStruct.fov_ratio = hfov / vfov;
-			}
-		}
-		else {
-			if( !ignoreFilmGate )
-				camStruct.height = ( int ) new_height;
-			double hfov, vfov;
-			portFieldOfView( camStruct.width, camStruct.height, hfov, vfov, cam );
-			camStruct.fov_ratio = hfov / vfov;
-		}
-	}
-	else if( cam.filmFit() == MFnCamera::kFillFilmFit ) 
-	{
-		double new_width = camStruct.height / ( cam.verticalFilmAperture() / cam.horizontalFilmAperture() );
-		double hfov, vfov;
-		if( new_width >= camStruct.width ) 
-		{
-			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
-			camStruct.fov_ratio = hfov / vfov;
-		}
-		else 
-		{
-			portFieldOfView( camStruct.width, camStruct.height, hfov, vfov, cam );
-			camStruct.fov_ratio = hfov / vfov;
-		}
-	}
-}
+//void liqRibTranslator::getCameraInfo(const MFnCamera& cam, structCamera &camStruct )
+//{
+//	CM_TRACE_FUNC("liqRibTranslator::getCameraInfo("<<cam.fullPathName().asChar()<<",)");
+//
+//	// Resolution can change if camera film-gate clips image
+//	// so we must keep camera width/height separate from render
+//	// globals width/height.
+//	//
+//	camStruct.width  = width;
+//	camStruct.height = height;
+//
+//	// If we are using a film-gate then we may need to
+//	// adjust the resolution to simulate the 'letter-boxed'
+//	// effect.
+//	if( cam.filmFit() == MFnCamera::kHorizontalFilmFit ) 
+//	{
+//		if( !ignoreFilmGate ) 
+//		{
+//			double new_height = camStruct.width / ( cam.horizontalFilmAperture() / cam.verticalFilmAperture() );
+//			if( new_height < camStruct.height ) 
+//				camStruct.height = ( int )new_height;
+//		}
+//
+//		double hfov, vfov;
+//		portFieldOfView( camStruct.width, camStruct.height, hfov, vfov, cam );
+//		camStruct.fov_ratio = hfov / vfov;
+//	}
+//	else if( cam.filmFit() == MFnCamera::kVerticalFilmFit ) 
+//	{
+//		double new_width = camStruct.height / ( cam.verticalFilmAperture() / cam.horizontalFilmAperture() );
+//		double hfov, vfov;
+//
+//		// case 1 : film-gate smaller than resolution
+//		//         film-gate on
+//		if( ( new_width < camStruct.width ) && ( !ignoreFilmGate ) ) 
+//		{
+//			camStruct.width = ( int )new_width;
+//			camStruct.fov_ratio = 1.0;
+//		}
+//		// case 2 : film-gate smaller than resolution
+//		//         film-gate off
+//		else if( ( new_width < camStruct.width ) && ( ignoreFilmGate ) ) 
+//		{
+//			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
+//			camStruct.fov_ratio = hfov / vfov;
+//		}
+//		// case 3 : film-gate larger than resolution
+//		//         film-gate on
+//		else if( !ignoreFilmGate ) 
+//		{
+//			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
+//			camStruct.fov_ratio = hfov / vfov;
+//		}
+//		// case 4 : film-gate larger than resolution
+//		//         film-gate off
+//		else if( ignoreFilmGate ) 
+//		{
+//			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
+//			camStruct.fov_ratio = hfov / vfov;
+//		}
+//	}
+//	else if( cam.filmFit() == MFnCamera::kOverscanFilmFit ) 
+//	{
+//		double new_height = camStruct.width / ( cam.horizontalFilmAperture() / cam.verticalFilmAperture() );
+//		double new_width = camStruct.height / ( cam.verticalFilmAperture() / cam.horizontalFilmAperture() );
+//
+//		if( new_width < camStruct.width ) 
+//		{
+//			if( !ignoreFilmGate ) {
+//				camStruct.width = ( int ) new_width;
+//				camStruct.fov_ratio = 1.0;
+//			}
+//			else 
+//			{
+//				double hfov, vfov;
+//				portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
+//				camStruct.fov_ratio = hfov / vfov;
+//			}
+//		}
+//		else {
+//			if( !ignoreFilmGate )
+//				camStruct.height = ( int ) new_height;
+//			double hfov, vfov;
+//			portFieldOfView( camStruct.width, camStruct.height, hfov, vfov, cam );
+//			camStruct.fov_ratio = hfov / vfov;
+//		}
+//	}
+//	else if( cam.filmFit() == MFnCamera::kFillFilmFit ) 
+//	{
+//		double new_width = camStruct.height / ( cam.verticalFilmAperture() / cam.horizontalFilmAperture() );
+//		double hfov, vfov;
+//		if( new_width >= camStruct.width ) 
+//		{
+//			portFieldOfView( ( int )new_width, camStruct.height, hfov, vfov, cam );
+//			camStruct.fov_ratio = hfov / vfov;
+//		}
+//		else 
+//		{
+//			portFieldOfView( camStruct.width, camStruct.height, hfov, vfov, cam );
+//			camStruct.fov_ratio = hfov / vfov;
+//		}
+//	}
+//}
 
 /**
 * Set up data for the current job.
@@ -4790,6 +4792,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 
 			if( iter->pass != rpShadowMap ) 
 			{
+				tCameraMgr camera_mgr;
 				//[refactor 12] begin to liqRibTranslator::getCameraData()
 				MDagPath path;
 				MFnCamera   fnCamera( iter->path );
@@ -4801,7 +4804,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					cPlug.getValue( iter->jobOptions );
 					iter->gotJobOptions = true;
 				}
-				getCameraInfo( fnCamera, iter->camera[sample] );
+				camera_mgr.getCameraInfo( fnCamera, iter->camera[sample] );
 				iter->width = iter->camera[sample].width;
 				iter->height = iter->camera[sample].height;
 				// scanScene: Renderman specifies shutter by time open
@@ -4838,14 +4841,14 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				iter->camera[sample].fStop          = fnCamera.fStop();
 				iter->camera[sample].isOrtho		= fnCamera.isOrtho();
 				//iter->camera[sample].name           = fnCamera.fullPathName();//r773 ommit this?
-				getCameraFilmOffset( fnCamera, iter->camera[sample] );
+				camera_mgr.getCameraFilmOffset( fnCamera, iter->camera[sample] );
 
 				// convert focal length to scene units
 				liquidMessage2(messageWarning,"// r775 use iter->leftCamera");
 				MDistance flenDist(iter->camera[sample].focalLength,MDistance::kMillimeters);
 				iter->camera[sample].focalLength = flenDist.as(MDistance::uiUnit());
 				
-				getCameraTransform( fnCamera, iter->camera[sample] );
+				camera_mgr.getCameraTransform( fnCamera, iter->camera[sample] );
 				//////////////////////////////////////////////////////////////////////////
 				//[refactor 12.1] begin to liqRibTranslator::getCameraData()
 				// check stereo
@@ -4958,7 +4961,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 						return MS::kFailure;
 					}
 
-					getCameraInfo( fnLeftCam, iter->leftCamera[sample] );
+					camera_mgr.getCameraInfo( fnLeftCam, iter->leftCamera[sample] );
 					iter->leftCamera[sample].orthoWidth     = fnLeftCam.orthoWidth();
 					iter->leftCamera[sample].orthoHeight    = fnLeftCam.orthoWidth() * ((float)iter->camera[sample].height / (float)iter->camera[sample].width);
 					iter->leftCamera[sample].focalLength    = fnLeftCam.focalLength();
@@ -4966,11 +4969,11 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					iter->leftCamera[sample].fStop          = fnLeftCam.fStop();
 					iter->leftCamera[sample].isOrtho		= fnLeftCam.isOrtho();
 					iter->leftCamera[sample].name			= fnLeftCam.name();
-					getCameraFilmOffset( fnLeftCam, iter->leftCamera[sample] );
+					camera_mgr.getCameraFilmOffset( fnLeftCam, iter->leftCamera[sample] );
 					// convert focal length to scene units
 					MDistance flenLDist(iter->leftCamera[sample].focalLength, MDistance::kMillimeters);
 					iter->leftCamera[sample].focalLength = flenLDist.as(MDistance::uiUnit());
-					getCameraTransform( fnLeftCam, iter->leftCamera[sample] );
+					camera_mgr.getCameraTransform( fnLeftCam, iter->leftCamera[sample] );
 					// scanScene: The camera's fov may not match the rendered image in Maya
 					// if a film-fit is used. 'fov_ratio' is used to account for
 					// this.
@@ -4980,7 +4983,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					iter->leftCamera[sample].neardb = iter->camera[sample].neardb;
 					iter->leftCamera[sample].fardb = iter->camera[sample].fardb;
 
-					getCameraInfo( fnRightCam, iter->rightCamera[sample] );
+					camera_mgr.getCameraInfo( fnRightCam, iter->rightCamera[sample] );
 					iter->rightCamera[sample].orthoWidth	= fnRightCam.orthoWidth();
 					iter->rightCamera[sample].orthoHeight	= fnRightCam.orthoWidth() * ((float)iter->camera[sample].height / (float)iter->camera[sample].width);
 					iter->rightCamera[sample].focalLength	= fnRightCam.focalLength();
@@ -4988,11 +4991,11 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 					iter->rightCamera[sample].fStop			= fnRightCam.fStop();
 					iter->rightCamera[sample].isOrtho		= fnRightCam.isOrtho();
 					iter->rightCamera[sample].name			= fnRightCam.name();
-					getCameraFilmOffset( fnRightCam, iter->rightCamera[sample] );
+					camera_mgr.getCameraFilmOffset( fnRightCam, iter->rightCamera[sample] );
 					// convert focal length to scene units
 					MDistance flenRDist(iter->rightCamera[sample].focalLength, MDistance::kMillimeters);
 					iter->rightCamera[sample].focalLength = flenRDist.as(MDistance::uiUnit());
-					getCameraTransform( fnRightCam, iter->rightCamera[sample] );
+					camera_mgr.getCameraTransform( fnRightCam, iter->rightCamera[sample] );
 					// scanScene: The camera's fov may not match the rendered image in Maya
 					// if a film-fit is used. 'fov_ratio' is used to account for
 					// this.
