@@ -28,7 +28,7 @@ void tLightMgr::scanScene(const float lframe__, const int sample__,
 						  int &count__,
 						  MStatus &returnStatus__)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::scanScene("<<lframe__<<","<<sample__<<", htable__, count, returnStatus__)");
+	CM_TRACE_FUNC("tLightMgr::scanScene("<<lframe__<<","<<sample__<<", htable__, count, returnStatus__)");
 	//[refactor 9] begin from scanScene()
 	MItDag dagLightIterator( MItDag::kDepthFirst, MFn::kLight, &returnStatus__);
 
@@ -111,7 +111,7 @@ MStatus tLightMgr::buildShadowJob(
 	structJob &thisJob___, bool m_lazyCompute__
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob(thisJob___, "<<m_lazyCompute__<<")");
+	CM_TRACE_FUNC("tLightMgr::buildShadowJob(thisJob___, "<<m_lazyCompute__<<")");
 
 	MStatus returnStatus__;
 	MStatus status__;
@@ -368,7 +368,7 @@ MStatus tLightMgr::buildShadowCameraJob(
 	structJob &thisJob___, bool m_lazyCompute__
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::buildShadowCameraJob(thisJob___, "<<m_lazyCompute__<<")");
+	CM_TRACE_FUNC("tLightMgr::buildShadowCameraJob(thisJob___, "<<m_lazyCompute__<<")");
 
 	MStatus returnStatus__ = MS::kSuccess;
 	MStatus status__;
@@ -466,7 +466,7 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 	bool &lightHasShadowCam
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_SpotAndDirectionLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
+	CM_TRACE_FUNC("tLightMgr::buildShadowJob_SpotAndDirectionLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
 
 	MStatus status__;
 	//[refactor 2.1.1] begin
@@ -589,7 +589,7 @@ void tLightMgr::buildShadowJob_PointLight(
 	bool &lightHasShadowCam
 	)
 {
-	CM_TRACE_FUNC("tJobScriptMgr::buildShadowJob_PointLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
+	CM_TRACE_FUNC("tLightMgr::buildShadowJob_PointLight(thisJob___, shadowCamPath, "<<fnLightNode.name().asChar()<<","<<lightPath__.fullPathName().asChar()<<","<<m_lazyCompute__<<")");
 
 	MStatus status__;
 
