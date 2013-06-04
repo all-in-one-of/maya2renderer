@@ -725,7 +725,7 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 			if( iter->pass != rpShadowMap ) 
 			{
 				tCameraMgr camera_mgr;
-				if ( MS::kSuccess != camera_mgr.getCameraData( iter , sample) )
+				if ( MS::kSuccess != camera_mgr.getCameraData( *iter , sample) )
 					return MS::kFailure;
 			} //if( !iter->isShadow )  
 			else 

@@ -556,64 +556,64 @@ MStatus tCameraMgr::getCameraData( std::vector<structJob>::iterator &iter__ , co
 	return MS::kSuccess;
 }
 //
-MStatus tCameraMgr::getCameraData( structJob &iter__ , const int sample__)
+MStatus tCameraMgr::getCameraData( structJob &job__ , const int sample__)
 {
-	CM_TRACE_FUNC("tCameraMgr::getCameraData(iter__,"<<sample__<<")");
+	CM_TRACE_FUNC("tCameraMgr::getCameraData("<<job__.name.asChar()<<","<<sample__<<")");
 	MStatus status;
 	//[refactor 12] begin from  liqRibTranslator::scanScene()
 	MDagPath path;
-	MFnCamera   fnCamera( iter__.path );
-	iter__.gotJobOptions = false;
+	MFnCamera   fnCamera( job__.path );
+	job__.gotJobOptions = false;
 	status.clear();
 	MPlug cPlug = fnCamera.findPlug( MString( "ribOptions" ), &status );
 	if( status == MS::kSuccess ) 
 	{
-		cPlug.getValue( iter__.jobOptions );
-		iter__.gotJobOptions = true;
+		cPlug.getValue( job__.jobOptions );
+		job__.gotJobOptions = true;
 	}
-	getCameraInfo( fnCamera, iter__.camera[sample__] );
-	iter__.width = iter__.camera[sample__].width;
-	iter__.height = iter__.camera[sample__].height;
+	getCameraInfo( fnCamera, job__.camera[sample__] );
+	job__.width = job__.camera[sample__].width;
+	job__.height = job__.camera[sample__].height;
 	// scanScene: Renderman specifies shutter by time open
 	// so we need to convert shutterAngle to time.
 	// To do this convert shutterAngle to degrees and
 	// divide by 360.
 	//
-	iter__.camera[sample__].shutter = fnCamera.shutterAngle() * 0.5 / M_PI;
-	liqglo.liqglo_shutterTime = iter__.camera[sample__].shutter;
-	iter__.camera[sample__].motionBlur     = fnCamera.isMotionBlur();				
+	job__.camera[sample__].shutter = fnCamera.shutterAngle() * 0.5 / M_PI;
+	liqglo.liqglo_shutterTime = job__.camera[sample__].shutter;
+	job__.camera[sample__].motionBlur     = fnCamera.isMotionBlur();				
 
 	// scanScene: The camera's fov may not match the rendered image in Maya
 	// if a film-fit is used. 'fov_ratio' is used to account for
 	// this.
 	//
-	iter__.camera[sample__].hFOV = fnCamera.horizontalFieldOfView()/iter__.camera[sample__].fov_ratio;
+	job__.camera[sample__].hFOV = fnCamera.horizontalFieldOfView()/job__.camera[sample__].fov_ratio;
 
 	if ( fnCamera.isClippingPlanes() )
 	{
-		iter__.camera[sample__].neardb   = fnCamera.nearClippingPlane();
-		iter__.camera[sample__].fardb    = fnCamera.farClippingPlane();
+		job__.camera[sample__].neardb   = fnCamera.nearClippingPlane();
+		job__.camera[sample__].fardb    = fnCamera.farClippingPlane();
 	}
 	else
 	{
-		iter__.camera[sample__].neardb    = 0.001;    // TODO: these values are duplicated elsewhere in this file
-		iter__.camera[sample__].fardb    = 250000.0; // TODO: these values are duplicated elsewhere in this file
+		job__.camera[sample__].neardb    = 0.001;    // TODO: these values are duplicated elsewhere in this file
+		job__.camera[sample__].fardb    = 250000.0; // TODO: these values are duplicated elsewhere in this file
 	}
 
-	iter__.camera[sample__].orthoWidth     = fnCamera.orthoWidth();
-	iter__.camera[sample__].orthoHeight    = fnCamera.orthoWidth() * ((float)iter__.camera[sample__].height / (float)iter__.camera[sample__].width);
+	job__.camera[sample__].orthoWidth     = fnCamera.orthoWidth();
+	job__.camera[sample__].orthoHeight    = fnCamera.orthoWidth() * ((float)job__.camera[sample__].height / (float)job__.camera[sample__].width);
 
-	iter__.camera[sample__].focalLength    = fnCamera.focalLength();
-	iter__.camera[sample__].focalDistance  = fnCamera.focusDistance();
-	iter__.camera[sample__].fStop          = fnCamera.fStop();
-	iter__.camera[sample__].isOrtho		= fnCamera.isOrtho();
-	iter__.camera[sample__].name           = fnCamera.fullPathName();
-	getCameraFilmOffset( fnCamera, iter__.camera[sample__] );
+	job__.camera[sample__].focalLength    = fnCamera.focalLength();
+	job__.camera[sample__].focalDistance  = fnCamera.focusDistance();
+	job__.camera[sample__].fStop          = fnCamera.fStop();
+	job__.camera[sample__].isOrtho		= fnCamera.isOrtho();
+	job__.camera[sample__].name           = fnCamera.fullPathName();
+	getCameraFilmOffset( fnCamera, job__.camera[sample__] );
 
 	// convert focal length to scene units
-	MDistance flenDist(iter__.camera[sample__].focalLength,MDistance::kMillimeters);
-	iter__.camera[sample__].focalLength = flenDist.as(MDistance::uiUnit());
-	getCameraTransform( fnCamera, iter__.camera[sample__] );
+	MDistance flenDist(job__.camera[sample__].focalLength,MDistance::kMillimeters);
+	job__.camera[sample__].focalLength = flenDist.as(MDistance::uiUnit());
+	getCameraTransform( fnCamera, job__.camera[sample__] );
 	//////////////////////////////////////////////////////////////////////////
 	//[refactor 12.1] begin from liqRibTranslator::scanScene()
 	// check stereo
@@ -622,7 +622,7 @@ MStatus tCameraMgr::getCameraData( structJob &iter__ , const int sample__)
 	if( camType == "stereoRigCamera" )
 	{
 		isStereoCamera = true;
-		structCamera centralCameraPath = iter__.camera[sample__];
+		structCamera centralCameraPath = job__.camera[sample__];
 		// look for right and left cams
 		MObject camTransform = fnCamera.parent(0, &status);
 		if(status!=MS::kSuccess)
@@ -726,61 +726,61 @@ MStatus tCameraMgr::getCameraData( structJob &iter__ , const int sample__)
 			return MS::kFailure;
 		}
 		/////////////////////////////
-		getCameraInfo( fnLeftCam, iter__.leftCamera[sample__] );
-		iter__.leftCamera[sample__].orthoWidth     = fnLeftCam.orthoWidth();
-		iter__.leftCamera[sample__].orthoHeight    = fnLeftCam.orthoWidth() * ((float)iter__.camera[sample__].height / (float)iter__.camera[sample__].width);
-		iter__.leftCamera[sample__].focalLength    = fnLeftCam.focalLength();
-		iter__.leftCamera[sample__].focalDistance  = fnLeftCam.focusDistance();
-		iter__.leftCamera[sample__].fStop          = fnLeftCam.fStop();
-		iter__.leftCamera[sample__].isOrtho		= fnLeftCam.isOrtho();
-		iter__.leftCamera[sample__].name			= fnLeftCam.name();
-		getCameraFilmOffset( fnLeftCam, iter__.leftCamera[sample__] );
+		getCameraInfo( fnLeftCam, job__.leftCamera[sample__] );
+		job__.leftCamera[sample__].orthoWidth     = fnLeftCam.orthoWidth();
+		job__.leftCamera[sample__].orthoHeight    = fnLeftCam.orthoWidth() * ((float)job__.camera[sample__].height / (float)job__.camera[sample__].width);
+		job__.leftCamera[sample__].focalLength    = fnLeftCam.focalLength();
+		job__.leftCamera[sample__].focalDistance  = fnLeftCam.focusDistance();
+		job__.leftCamera[sample__].fStop          = fnLeftCam.fStop();
+		job__.leftCamera[sample__].isOrtho		= fnLeftCam.isOrtho();
+		job__.leftCamera[sample__].name			= fnLeftCam.name();
+		getCameraFilmOffset( fnLeftCam, job__.leftCamera[sample__] );
 		// convert focal length to scene units
-		MDistance flenLDist(iter__.leftCamera[sample__].focalLength, MDistance::kMillimeters);
-		iter__.leftCamera[sample__].focalLength = flenLDist.as(MDistance::uiUnit());
-		getCameraTransform( fnLeftCam, iter__.leftCamera[sample__] );
+		MDistance flenLDist(job__.leftCamera[sample__].focalLength, MDistance::kMillimeters);
+		job__.leftCamera[sample__].focalLength = flenLDist.as(MDistance::uiUnit());
+		getCameraTransform( fnLeftCam, job__.leftCamera[sample__] );
 		// scanScene: The camera's fov may not match the rendered image in Maya
 		// if a film-fit is used. 'fov_ratio' is used to account for
 		// this.
 		//
 		//iter->leftCamera[sample].hFOV = fnLeftCam.horizontalFieldOfView()/iter->leftCamera[sample].fov_ratio;
-		iter__.leftCamera[sample__].hFOV   = iter__.camera[sample__].hFOV;
-		iter__.leftCamera[sample__].neardb = iter__.camera[sample__].neardb;
-		iter__.leftCamera[sample__].fardb  = iter__.camera[sample__].fardb;
+		job__.leftCamera[sample__].hFOV   = job__.camera[sample__].hFOV;
+		job__.leftCamera[sample__].neardb = job__.camera[sample__].neardb;
+		job__.leftCamera[sample__].fardb  = job__.camera[sample__].fardb;
 
-		getCameraInfo( fnRightCam, iter__.rightCamera[sample__] );
-		iter__.rightCamera[sample__].orthoWidth	= fnRightCam.orthoWidth();
-		iter__.rightCamera[sample__].orthoHeight	= fnRightCam.orthoWidth() * ((float)iter__.camera[sample__].height / (float)iter__.camera[sample__].width);
-		iter__.rightCamera[sample__].focalLength	= fnRightCam.focalLength();
-		iter__.rightCamera[sample__].focalDistance	= fnRightCam.focusDistance();
-		iter__.rightCamera[sample__].fStop			= fnRightCam.fStop();
-		iter__.rightCamera[sample__].isOrtho		= fnRightCam.isOrtho();
-		iter__.rightCamera[sample__].name			= fnRightCam.name();
-		getCameraFilmOffset( fnRightCam, iter__.rightCamera[sample__] );
+		getCameraInfo( fnRightCam, job__.rightCamera[sample__] );
+		job__.rightCamera[sample__].orthoWidth	= fnRightCam.orthoWidth();
+		job__.rightCamera[sample__].orthoHeight	= fnRightCam.orthoWidth() * ((float)job__.camera[sample__].height / (float)job__.camera[sample__].width);
+		job__.rightCamera[sample__].focalLength	= fnRightCam.focalLength();
+		job__.rightCamera[sample__].focalDistance	= fnRightCam.focusDistance();
+		job__.rightCamera[sample__].fStop			= fnRightCam.fStop();
+		job__.rightCamera[sample__].isOrtho		= fnRightCam.isOrtho();
+		job__.rightCamera[sample__].name			= fnRightCam.name();
+		getCameraFilmOffset( fnRightCam, job__.rightCamera[sample__] );
 		// convert focal length to scene units
-		MDistance flenRDist(iter__.rightCamera[sample__].focalLength, MDistance::kMillimeters);
-		iter__.rightCamera[sample__].focalLength = flenRDist.as(MDistance::uiUnit());
-		getCameraTransform( fnRightCam, iter__.rightCamera[sample__] );
+		MDistance flenRDist(job__.rightCamera[sample__].focalLength, MDistance::kMillimeters);
+		job__.rightCamera[sample__].focalLength = flenRDist.as(MDistance::uiUnit());
+		getCameraTransform( fnRightCam, job__.rightCamera[sample__] );
 		// scanScene: The camera's fov may not match the rendered image in Maya
 		// if a film-fit is used. 'fov_ratio' is used to account for
 		// this.
 		//
 		//iter->rightCamera[sample].hFOV = fnRightCam.horizontalFieldOfView()/iter->rightCamera[sample].fov_ratio;
-		iter__.rightCamera[sample__].hFOV   = iter__.camera[sample__].hFOV;
-		iter__.rightCamera[sample__].neardb = iter__.camera[sample__].neardb;
-		iter__.rightCamera[sample__].fardb  = iter__.camera[sample__].fardb;
+		job__.rightCamera[sample__].hFOV   = job__.camera[sample__].hFOV;
+		job__.rightCamera[sample__].neardb = job__.camera[sample__].neardb;
+		job__.rightCamera[sample__].fardb  = job__.camera[sample__].fardb;
 
-		iter__.camera[sample__].rightCam = &(iter__.rightCamera[sample__]);
-		iter__.camera[sample__].leftCam  = &(iter__.leftCamera[sample__]);
+		job__.camera[sample__].rightCam = &(job__.rightCamera[sample__]);
+		job__.camera[sample__].leftCam  = &(job__.leftCamera[sample__]);
 	}//if( camType == "stereoRigCamera" ) 
-	iter__.isStereoPass = isStereoCamera;
-	iter__.aspectRatio  = liqglo.aspectRatio;
+	job__.isStereoPass = isStereoCamera;
+	job__.aspectRatio  = liqglo.aspectRatio;
 	//[refactor 12.1] end 
 	//////////////////////////////////////////////////////////////////////////
 
 	// scanScene: Determine what information to write out (RGB, alpha, zbuffer)
 	//
-	iter__.imageMode.clear();
+	job__.imageMode.clear();
 
 	bool isOn;
 	MPlug boolPlug;
@@ -791,8 +791,8 @@ MStatus tCameraMgr::getCameraData( structJob &iter__ , const int sample__)
 	{
 		// We are writing RGB info
 		//
-		iter__.imageMode = "rgb";
-		iter__.format = liqglo.outFormat;
+		job__.imageMode = "rgb";
+		job__.format = liqglo.outFormat;
 	}
 	boolPlug = fnCamera.findPlug( "mask" );
 	boolPlug.getValue( isOn );
@@ -800,8 +800,8 @@ MStatus tCameraMgr::getCameraData( structJob &iter__ , const int sample__)
 	{
 		// We are writing alpha channel info
 		//
-		iter__.imageMode += "a";
-		iter__.format = liqglo.outFormat;
+		job__.imageMode += "a";
+		job__.format = liqglo.outFormat;
 	}
 	boolPlug = fnCamera.findPlug( "depth" );
 	boolPlug.getValue( isOn );
@@ -811,8 +811,8 @@ MStatus tCameraMgr::getCameraData( structJob &iter__ , const int sample__)
 		{
 			// We are writing z-buffer info
 			//
-			iter__.imageMode = "z";
-			iter__.format = "zfile";
+			job__.imageMode = "z";
+			job__.format = "zfile";
 		}else
 			liquidMessage( "Cannot render depth for stereo camera.", messageWarning );
 	}// isOn && !isStereoCamera
