@@ -69,21 +69,18 @@ liqRibCameraData::liqRibCameraData( MObject obj )
 {
 	CM_TRACE_FUNC("liqRibCameraData::liqRibCameraData("<<MFnDagNode(obj).fullPathName().asChar()<<")");
 
-  LIQDEBUGPRINTF( "-> creating camera\n" );
-  MFnCamera fnCamera( obj );
-  objDagPath = fnCamera.dagPath();
-  MStatus astatus;
-  
-  name = fnCamera.name();
-  
+	LIQDEBUGPRINTF( "-> creating camera\n" );
+	MStatus astatus;
 
-    MDagPath cameraDagPath;
-    cameraDagPath = fnCamera.dagPath();
-    MTransformationMatrix worldMatrix = cameraDagPath.inclusiveMatrix();
-    MMatrix worldMatrixM = worldMatrix.asMatrix();
-    worldMatrixM.get( transformationMatrix );
+	MFnCamera fnCamera( obj );
+	fnCamera.getPath(objDagPath);
+	name = fnCamera.name();
 
-
+	MString fullpathname(objDagPath.fullPathName());
+	MTransformationMatrix worldMatrix = objDagPath.inclusiveMatrix();
+	//MMatrix invmatrix(worldMatrix.asMatrixInverse());
+	MMatrix worldMatrixM = worldMatrix.asMatrix();
+	worldMatrixM.get( transformationMatrix );
 }
 
 
