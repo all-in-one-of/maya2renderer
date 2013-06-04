@@ -24,7 +24,7 @@ public:
 	void getCameraFilmOffset(const MFnCamera& cam, structCamera &camStruct );
 	void getCameraInfo(const MFnCamera& cam, structCamera &camStruct )const;
 	MStatus getCameraData( std::vector<structJob>::iterator &iter__ , const int sample__);
-
+	MStatus getCameraData( structJob &iter__ , const int sample__);
 
 private:
 	tCameraMgr(const tCameraMgr&);
