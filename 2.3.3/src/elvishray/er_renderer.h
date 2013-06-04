@@ -457,6 +457,8 @@ namespace elvishray
 		void _write_shavehair(liqRibShaveData* pData, const structJob &currentJob__);
 		void generate_shavehair(liqRibNodePtr &ribNode__, liqRibShaveData* pData, const int degree);
 		void _write_camera(liqRibCameraData* pData, const structJob &currentJob__);
+		void _write_camera_maya(liqRibCameraData* pData, const structJob &currentJob__);
+		void _write_camera_structjob(liqRibCameraData* pData, const structJob &currentJob__);
 
 		void cameraOutput(const structJob &currentJob);
 
