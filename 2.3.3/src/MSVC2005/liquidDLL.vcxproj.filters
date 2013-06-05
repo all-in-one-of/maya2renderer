@@ -597,9 +597,6 @@
     <ClInclude Include="..\..\include\liqRibCameraData.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\liq_math.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\liqCameraMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,12 +1,13 @@
-#ifndef _LIQMATH_H_
-#define _LIQMATH_H_
+#ifndef _LIQ_MATH_H_
+#define _LIQ_MATH_H_
 
-#include <common/prerequest_std.h>
+#include <cmath>
+
 #ifndef MM_TO_INCH
 #  define MM_TO_INCH 0.03937
 #endif
 
-
+#define LIQ_SCALAR_ALMOST_ZERO (0.0001f)
 #define FLOAT_EPSILON 0.0001
 
 inline bool equiv( float val1, float val2 )
@@ -18,4 +19,4 @@ inline bool equiv( float val1, float val2 )
 #  define M_PI 3.1415926535897932384626433832795
 #endif
 
-#endif//_LIQMATH_H_
+#endif//_LIQ_MATH_H_

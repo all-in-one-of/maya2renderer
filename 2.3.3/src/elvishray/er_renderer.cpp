@@ -24,7 +24,7 @@
 #include <liqRibCamera.h>
 #include <liqRibTranslator.h>
 #include <liqShader.h>
-#include "../liq_math.h"
+#include <liqMath.h>
 
 #include "../renderermgr.h"
 #include <common/mayacheck.h>

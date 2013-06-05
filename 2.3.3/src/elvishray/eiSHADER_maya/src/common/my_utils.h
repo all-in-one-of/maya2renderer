@@ -4,7 +4,7 @@
 #include <eiAPI/ei_shaderx.h>
 #include <new>
 
-#include "../../../../liq_math.h"
+#include <liqMath.h>
 
 // a->x<b && a->y<b && a->z <b
 eiBool less_than(const eiVector *a, const scalar b);
