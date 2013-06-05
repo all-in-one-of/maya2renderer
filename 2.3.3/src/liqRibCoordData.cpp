@@ -29,17 +29,17 @@
 ** Liquid Rib Locator Data Source
 ** ______________________________________________________________________
 */
-
+#include <liqRibCoordData.h>
 // Renderman Headers
 //extern "C" {
 //  #include "ri_interface.h"
 //}
 
-#include <maya/MFnDependencyNode.h>
+//#include <maya/MFnDependencyNode.h>
 
-#include <liquid.h>
-#include <liqRibCoordData.h>
-#include <liqGlobalVariable.h>
+//#include <liquid.h>
+#include <liqlog.h>
+//#include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 /** Create a RIB compatible representation of a Maya coordinate system.

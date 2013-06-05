@@ -33,29 +33,15 @@
 ** ______________________________________________________________________
 */
 
-#include <string>
-#include <vector>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
-#include <maya/MString.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MObject.h>
-#include <maya/MDagPath.h>
-#include <maya/MVector.h>
-#include <maya/MIntArray.h>
-
+//#include <liqtypes.h>
 #include <liquid.h>
+#include <liqStructJob.h>
 #include <liqTokenPointer.h>
 
-enum liquidVerbosityType 
-{
-  verbosityOff = 0,
-  verbosityErrors = 1,
-  messageError = 1,
-  verbosityErrorsWarnings = 2,
-  messageWarning = 2,
-  verbosityAll = 3,
-  messageInfo = 3
-};
+
 
 // Moritz: basename() is missing in Windoze, we define our own in liqGlobalHelpers.cpp
 #ifdef _WIN32
@@ -112,7 +98,7 @@ LIQUID_EXPORT std::string sanitizeNodeName2( const std::string& name );
 //replace ':' with '=', and '|' with '/'
 LIQUID_EXPORT std::string sanitizeNodeName2_ToFileSystemPath(const std::string &name);
 LIQUID_EXPORT liqString& getLiquidRibName( const std::string& name );
-LIQUID_EXPORT void liquidMessage( const MString &msg, liquidVerbosityType type );
+
 LIQUID_EXPORT MString parseLiquidRibRequest( MStringArray requestArray, MString attr );
 
 LIQUID_EXPORT void initalizeShaderHandlerGenerator();
@@ -174,14 +160,8 @@ LIQUID_EXPORT bool doesPlugExist(const MString& node, const MString& plug);
 //
 LIQUID_EXPORT MString getLightGroupName(const MString& meshShapeNodes);
 //
-LIQUID_EXPORT bool liqAssert(const MString & msg);
-LIQUID_EXPORT bool liqAssert(const MString &title, const MString & msg, const MString &bYes);
-LIQUID_EXPORT bool liqAssert(const MString &title, const MString & msg, const MString &bYes, const MString &bNo);
-//
 LIQUID_EXPORT MString getFileNodeImageName(const MString &node);
 
-LIQUID_EXPORT MString liqMerge(const MStringArray& sa, const char split);
-#define liqM(msa) liqMerge(msa,'|').asChar()
 //
 LIQUID_EXPORT bool isZero(const float r, const float g, const float b);
 //

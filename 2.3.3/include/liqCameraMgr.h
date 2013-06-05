@@ -3,7 +3,7 @@
 
 #include <common/prerequest_std.h>
 #include <common/prerequest_maya.h>
-#include <liqRibHT.h>
+#include <liqStructJob.h>
 
 class tCameraMgr
 {

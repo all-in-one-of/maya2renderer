@@ -32,30 +32,16 @@
 ** ______________________________________________________________________
 */
 #include <liqRibMeshData.h>
-// Standard/Boost headers
-#include <vector>
-#include <iostream>
-#include <boost/scoped_array.hpp>
 // Renderman Headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
-
-// Maya headers
-#include <maya/MPlug.h>
-#include <maya/MFloatVectorArray.h>
-#include <maya/MGlobal.h>
-#include <maya/MItMeshPolygon.h>
-#include <maya/MIntArray.h>
-#include <maya/MFnMesh.h>
-#include <maya/MTransformationMatrix.h>
-#include <maya/MMatrix.h>
-#include <maya/MFloatPointArray.h>
+#include <common/prerequest_maya.h>
 
 // Liquid headers
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 #include "renderermgr.h"
 //#include "renderman/rm_renderer.h"
 

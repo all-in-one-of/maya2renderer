@@ -29,7 +29,7 @@
 #ifndef __LIQ_PARSE_STRING_H__
 #define __LIQ_PARSE_STRING_H__
 
-#include <maya/MPxCommand.h>
+#include <common/prerequest_maya.h>
 
 class liqParseString : public MPxCommand
 {

@@ -1,7 +1,7 @@
 #ifndef _RM_GlobalsNode_H_
 #define _RM_GlobalsNode_H_
 
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 
 namespace renderman
 {

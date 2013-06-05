@@ -27,7 +27,7 @@ History		:	Created by yaoyansi, 2010.04.16.
 #include "MayaConnection.h"
 
 //#include "../common/prerequest_local.h"
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 #include "liqRibTranslator.h"
 #	pragma comment( lib, "eiAPI.lib" )
 

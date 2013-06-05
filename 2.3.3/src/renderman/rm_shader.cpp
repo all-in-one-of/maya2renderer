@@ -1,8 +1,11 @@
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include "ri_interface.h"
 #include "rm_renderer.h"
 #include <liqShader.h>
 #include <liqShaderFactory.h>
+#include <liqlog.h>
+#include <liqGlobalHelpers.h>
+
 namespace renderman
 {
 	void Renderer::shader_transformBegin(const liqString  shaderSpace)

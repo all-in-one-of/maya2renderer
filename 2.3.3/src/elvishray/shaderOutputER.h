@@ -1,7 +1,7 @@
 #ifndef _SHADER_OUTPUT_ER_H_
 #define _SHADER_OUTPUT_ER_H_
 
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include "../shadergraph/shaderOutput.h"
 
 namespace elvishray{

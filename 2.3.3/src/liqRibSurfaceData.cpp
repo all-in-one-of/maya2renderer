@@ -32,22 +32,12 @@
 ** ______________________________________________________________________
 */
 #include <liqRibSurfaceData.h>
-// Boost headers
-#include <boost/scoped_array.hpp>
-#include <boost/shared_array.hpp>
-// RenderMan headers
-//extern "C" {
-//#include "ri_interface.h"
-//}
-
-// Maya headers
-#include<maya/MPlug.h>
-#include<maya/MFnNurbsCurve.h>
-#include<maya/MDoubleArray.h>
-#include<maya/MItSurfaceCV.h>
-#include<maya/MFnNurbsSurface.h>
 
 // Liquid headers
+#include <liqMath.h>
+#include <liqlog.h>
+#include <liqDebug.h>
+
 #include <liqGlobalHelpers.h>
 #include <liqRenderer.h>
 #include <liqGlobalVariable.h>

@@ -26,19 +26,7 @@
 */
 #include <liqTokenPointer.h>
 
-//#include <liquid.h>
-#include <stdio.h>
-#include <string>
-#include <sstream>
-
-//extern "C" {
-//#include "ri_interface.h"
-//}
-
-#include <liquid.h>
-
-#include <string>
-#include <boost/shared_array.hpp>
+#include <liqlog.h>
 
 using namespace std;
 using namespace boost;

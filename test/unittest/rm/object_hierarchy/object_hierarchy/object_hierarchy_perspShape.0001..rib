@@ -24,7 +24,7 @@ FrameBegin 1
     Format 400 300 1.000000
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
-    #camera: |persp|perspShape
+    #exportJobCamera: |persp|perspShape
     Projection "perspective" "fov" [ 42.184677 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000

@@ -1,10 +1,12 @@
 //-
 
 #include "liqIPRNodeMessageCmd.h"
-#include "common/mayacheck.h"
+#include <liqGlobalHelpers.h>
+#include <common/mayacheck.h>
 #include "renderermgr.h"
 #include "liqRibTranslator.h"
 #include "shadergraph/shadermgr.h"
+
 
 #define kRegisterFlagLong		"-register"
 #define kRegisterFlag			"-rgt"

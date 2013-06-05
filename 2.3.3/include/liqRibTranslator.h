@@ -34,34 +34,34 @@
 ** Liquid Rib Translator Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <map>
-#include <boost/shared_ptr.hpp>
-
-#include <maya/M3dView.h>
-#include <maya/MComputation.h>
-#include <maya/MPxCommand.h>
-#include <maya/MFnCamera.h>
-#include <maya/MArgList.h>
-#include <maya/MIntArray.h>
-#include <maya/MStringArray.h>
-#include <maya/MTime.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include <liquid.h>
 #include <liqRibHT.h>
-#include <liqShader.h>
+//#include <liqShader.h>
 #include <liqRenderScript.h>
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 
 
 class liqRibLightData;
 class liqRenderScript;
+class liqShader;
 
 typedef enum {
 	liqRegularShaderNode = 0,     // A regular Liquid node, keep it 0 to evaluate to false in conditions
 	liqCustomPxShaderNode = 1,     // A custom MPxNode inheriting from liqCustomNode
 	liqRibBoxShader = 2          // A rib box attached to the shader
 } liqDetailShaderKind;
+
+enum fileGenMode {
+	fgm_shadow_tex,
+	fgm_shadow_rib,
+	fgm_shadow_archive,
+	fgm_scene_archive,
+	fgm_hero_rib,
+	fgm_image
+};
 
 class LIQUID_EXPORT liqRibTranslator : public MPxCommand {
 public:

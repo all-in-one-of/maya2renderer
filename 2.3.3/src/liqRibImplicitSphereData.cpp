@@ -32,26 +32,18 @@
 ** ______________________________________________________________________
 */
 #include <liqRibImplicitSphereData.h>
-// Boost headers
-#include <boost/scoped_array.hpp>
+#include <common/prerequest_std.h>
 
 // Renderman Headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
-
-// Maya headers
-//#include <maya/MPoint.h>
-//#include <maya/MBoundingBox.h>
-#include <maya/MPlug.h>
-#include <maya/MFnDagNode.h>
-//#include <maya/MFnDagNode.h>
-//#include <maya/MStringArray.h>
+#include <common/prerequest_maya.h>
 
 // Liquid headers
-#include <liquid.h>
-#include <liqGlobalHelpers.h>
-#include <liqGlobalVariable.h>
+#include <liqlog.h>
+//#include <liqGlobalHelpers.h>
+//#include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 

@@ -33,15 +33,9 @@
 ** ______________________________________________________________________
 */
 
-#include <string>
-#include <vector>
 
-#include <maya/MString.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MObject.h>
-#include <maya/MDagPath.h>
-#include <maya/MVector.h>
-#include <maya/MIntArray.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include <liquid.h>
 #include <liqTokenPointer.h>

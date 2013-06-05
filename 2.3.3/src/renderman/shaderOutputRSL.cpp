@@ -3,9 +3,10 @@
 #include <liqShader.h>
 #include <liqShaderFactory.h>
 #include <liqGlobalVariable.h>
-#include "../common/mayacheck.h"
-#include "../shadergraph/convertShadingNetwork.h"
-#include "../shadergraph/shadermgr.h"
+#include <liqGlobalHelpers.h>
+#include <common/mayacheck.h>
+#include <shadergraph/convertShadingNetwork.h>
+#include <shadergraph/shadermgr.h>
 #include "ri_interface.h"
 #include "rm_helper.h"
 

@@ -1,8 +1,8 @@
 #ifndef _SHADER_OUTPUT_MGR_H_
 #define _SHADER_OUTPUT_MGR_H_
 
-#include "../common/prerequest_std.h"
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 #include "liqtypes.h"
 
 namespace liquidmaya{

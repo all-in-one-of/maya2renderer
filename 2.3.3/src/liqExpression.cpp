@@ -26,7 +26,7 @@
 */
 #include <liqExpression.h>
 
-#include <liqIOStream.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
 

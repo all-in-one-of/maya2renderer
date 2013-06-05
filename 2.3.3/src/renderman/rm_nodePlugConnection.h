@@ -1,8 +1,8 @@
 #ifndef RM_NODE_PLUG_CONNECTION_H
 #define RM_NODE_PLUG_CONNECTION_H
 
-#include "../common/prerequest_std.h"
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 namespace renderman
 {
 	class NodePlugInfo;

@@ -30,11 +30,9 @@
 ** ______________________________________________________________________
 */
 
-#include <maya/MDagPath.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MStringArray.h>
+#include <common/prerequest_maya.h>
 
-#include <liquid.h>
+//#include <liquid.h>
 #include <liqRibData.h>
 #include <liqCustomNode.h>
 //#include "../src/renderman/rm_helper.h"

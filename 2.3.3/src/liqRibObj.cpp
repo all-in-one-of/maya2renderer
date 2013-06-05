@@ -34,15 +34,10 @@
 */
 #include <liqRibObj.h>
 
-// Maya's Headers
-#include <maya/MFnDagNode.h>
-#include <maya/MDagPathArray.h>
-#include <maya/MPlug.h>
-#include <maya/MPxNode.h>
-#include <maya/MGlobal.h>
-
-#include <liquid.h>
+#include <liqlog.h>
+//#include <liqGlobalVariable.h>
 #include <liqGlobalHelpers.h>
+
 #include <liqRibSurfaceData.h>
 #include <liqRibLightData.h>
 #include <liqRibLocatorData.h>
@@ -68,8 +63,7 @@
 #endif
 #include <liqRibCameraData.h>
 #include <liqRibData.h>
-#include <liqGlobalVariable.h>
-#include <liqGlobalHelpers.h>
+
 
 using namespace boost;
 

@@ -33,31 +33,18 @@
 ** ______________________________________________________________________
 */
 #include <liqRibMayaSubdivisionData.h>
-// Standard/Boost headers
-#include <boost/scoped_array.hpp>
+
 // Renderman headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
 
-// Maya headers
-#include <maya/MPlug.h>
-#include <maya/MPlugArray.h>
-#include <maya/MItSubdFace.h>
-#include <maya/MItSubdEdge.h>
-#include <maya/MFnSubdNames.h>
-#include <maya/MUint64Array.h>
-
-#include <maya/MFnSubd.h>
-#include <maya/MFnSet.h>
-#include <maya/MGlobal.h>
-#include <maya/MSelectionList.h>
-#include <maya/MUintArray.h>
+#include <common/prerequest_maya.h>
 
 // Liquid headers
-#include <liquid.h>
-#include <liqGlobalHelpers.h>
-#include <liqGlobalVariable.h>
+#include <liqlog.h>
+//#include <liqGlobalHelpers.h>
+//#include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 

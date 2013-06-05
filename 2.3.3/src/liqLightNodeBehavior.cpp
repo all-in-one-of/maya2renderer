@@ -34,10 +34,6 @@
 
 
 #include <liqLightNodeBehavior.h>
-#include <maya/MGlobal.h>
-#include <maya/MPlugArray.h>
-#include <maya/MFnDagNode.h>
-#include <maya/MObjectArray.h>
 #include <liqlog.h>
 
 

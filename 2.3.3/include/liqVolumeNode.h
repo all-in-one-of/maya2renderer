@@ -36,27 +36,9 @@
 #ifndef liqVolumeNode_H
 #define liqVolumeNode_H
 
-
-
-
-#include <maya/MPxNode.h>
-
-// #include <maya/MIOStream.h>
-// #include <maya/MString.h>
-// #include <maya/MTypeId.h>
-// #include <maya/MPlug.h>
-// #include <maya/MDataBlock.h>
-// #include <maya/MDataHandle.h>
-// #include <maya/MFnTypedAttribute.h>
-// #include <maya/MFnNumericAttribute.h>
-// #include <maya/MImage.h>
-// #include <maya/MSwatchRenderBase.h>
-// #include <maya/MFnDependencyNode.h>
+#include <common/prerequest_maya.h>
 
 class liqNodeSwatch;
-
-
-
 
 class liqVolumeNode : public MPxNode
 {

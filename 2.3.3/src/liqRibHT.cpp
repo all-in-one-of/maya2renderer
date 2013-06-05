@@ -42,15 +42,11 @@
 //#include "ri_interface.h"
 //}
 
-// Maya's Headers
-#include <maya/MFnDagNode.h>
-#include <maya/MColor.h>
-#include <maya/MObject.h>
-#include <maya/MObjectArray.h>
+#include <common/prerequest_maya.h>
 
-#include <liquid.h>
-#include <liqRibNode.h>
-#include <liqGlobalHelpers.h>
+#include <liqlog.h>
+//#include <liqRibNode.h>
+//#include <liqGlobalHelpers.h>
 
 using namespace boost;
 using namespace std;

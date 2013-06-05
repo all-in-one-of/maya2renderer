@@ -1,4 +1,4 @@
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 #include "er_helper.h"
 
 

@@ -34,18 +34,10 @@
 //extern "C" {
 //#include "ri_interface.h"
 //}
-// Maya's Headers
-#include <maya/MDoubleArray.h>
-#include <maya/MFnDoubleArrayData.h>
-#include <maya/MPointArray.h>
-#include <maya/MPlug.h>
-#include <maya/MFnPointArrayData.h>
-#include <maya/MFnVectorArrayData.h>
-#include <maya/MVectorArray.h>
-#include <maya/MFnMesh.h>
-#include <maya/MStringArray.h>
 
-#include <liquid.h>
+//#include <liquid.h>
+#include <liqEnum.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 #include "common/mayacheck.h"
 
@@ -66,7 +58,7 @@ liqRibData::~liqRibData()
 
 inline unsigned liqRibData::granularity() const 
 {
-  return 1;
+	return 1;
 }
 
 // inline void liqRibData::writeNextGrain(const MString& ribFileFullPath, const structJob &currentJob) 

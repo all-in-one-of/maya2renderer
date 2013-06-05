@@ -1,17 +1,16 @@
 #ifndef _RendererInterface_H_
 #define _RendererInterface_H_
 
-#include <string>
-#include <maya/MStatus.h>
-#include <maya/MNodeMessage.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
+
 #include <liqRibNode.h>
 #include <liqRibMeshData.h>
 #include <liqTokenPointer.h>
 #include <liqRibHT.h>
 #include "liqtypes.h"
-#include "./common/prerequest_std.h"
 
-struct structJob;
+//struct structJob;
 class liqRibLightData;
 class liqShader;
 class liqRibMeshData;

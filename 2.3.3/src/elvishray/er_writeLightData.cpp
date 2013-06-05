@@ -1,10 +1,11 @@
 #include "er_renderer.h"
-#include "../common/prerequest_maya.h"
-#include "../common/mayacheck.h"
+#include <common/prerequest_maya.h>
+#include <common/mayacheck.h>
 #include <liqRibLightData.h>
-#include "ercall.h"
-
 #include <liqGlobalVariable.h>
+#include <liqGlobalHelpers.h>
+#include <liqShader.h>
+#include "ercall.h"
 #include "../renderermgr.h"
 
 namespace elvishray

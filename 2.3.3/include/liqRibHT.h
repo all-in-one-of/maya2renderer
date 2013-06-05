@@ -36,25 +36,10 @@
 ** ______________________________________________________________________
 */
 
-
+#include <common/prerequest_std.h>
+#include <liqtypes.h>
 #include <liqRibNode.h>
-
-#ifdef OSX
-  #ifndef ulong
-    typedef unsigned long ulong;
-  #endif
-#endif
-
-#ifndef ulong
-    typedef unsigned long ulong;
-#endif
-
-#ifndef uint
-    typedef unsigned int uint;
-#endif
-
-#include <map>
-#include <vector>
+#include <liqRefactoring.h>
 
 	typedef std::multimap< ulong, liqRibNodePtr > RNMAP;
 	typedef std::vector< MString > str_Vector;
@@ -89,6 +74,6 @@ private:
 	liqRibHT& operator=(const liqRibHT&);
 };
 
-static const uint MR_HASHSIZE = 65536;
+//static const uint MR_HASHSIZE = 65536;
 
 #endif

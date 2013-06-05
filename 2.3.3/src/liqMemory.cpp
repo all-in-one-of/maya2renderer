@@ -38,15 +38,10 @@
 ** shortened to just an l, ie.  lmemusage etc.  
 **/
 
-// Standard Headers
-#include <stdlib.h>
-#include <sys/types.h>
-#include <string>
-#include <list>
+#include <liqMemory.h>
 
-// maya headers
-#include <maya/MString.h>
-#include <maya/MGlobal.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 #include <liqGlobalVariable.h>
 
 

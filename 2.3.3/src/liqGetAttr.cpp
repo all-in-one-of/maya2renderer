@@ -30,15 +30,6 @@
 ** ______________________________________________________________________
 */
 #include <liqGetAttr.h>
-// Maya's Headers
-#include <maya/MCommandResult.h>
-#include <maya/MDoubleArray.h>
-#include <maya/MFnDoubleArrayData.h>
-#include <maya/MPlug.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MArgList.h>
-#include <maya/MString.h>
-#include <maya/MSelectionList.h>
 #include <liqlog.h>
 
 

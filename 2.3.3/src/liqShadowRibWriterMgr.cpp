@@ -1,11 +1,10 @@
 #include <liqShadowRibWriterMgr.h>
 
-#include <string>
 #include "liqtypes.h"
 //#include "ri_interface.h"
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
-#include <liqProcessLauncher.h>
+//#include <liqProcessLauncher.h>
 #include "renderermgr.h"
 
 tShadowRibWriterMgr::tShadowRibWriterMgr()

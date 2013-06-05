@@ -1,17 +1,8 @@
 #include <liqLightMgr.h>
 
-#include <maya/MItDag.h>
-#include <maya/MFnDagNode.h>
-#include <maya/MDagModifier.h>
-#include <maya/MFnLight.h>
-#include <maya/MPlug.h>
-#include <maya/MPlugArray.h>
-#include <maya/MDagPathArray.h>
-#include <maya/MSelectionList.h>
-
-#include <liqRibHT.h>
 #include <liqRibTranslator.h>
-
+#include <liqStructJob.h>
+#include <liqGlobalHelpers.h>
 //
 tLightMgr::tLightMgr()
 {

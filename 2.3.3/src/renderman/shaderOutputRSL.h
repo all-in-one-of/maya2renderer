@@ -1,8 +1,8 @@
 #ifndef _SHADER_OUTPUT_RSL_H_
 #define _SHADER_OUTPUT_RSL_H_
 
-#include "../common/prerequest_std.h"
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 #include "../shadergraph/shaderOutput.h"
 #include "rm_nodePlugInfo.h"
 #include "rm_nodePlugConnection.h"

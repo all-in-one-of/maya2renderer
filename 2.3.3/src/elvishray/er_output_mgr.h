@@ -1,7 +1,7 @@
 #ifndef _ER_OUTPUT_MGR_H_
 #define _ER_OUTPUT_MGR_H_
-#include "../common/prerequest_std.h"
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 #include <eiAPI/ei.h>
 
 namespace elvishray

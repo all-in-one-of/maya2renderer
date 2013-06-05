@@ -25,19 +25,12 @@
 */
 #include <liqJobList.h>
 
-#include <maya/MArgList.h>
-#include <maya/MSyntax.h>
-#include <maya/MStringArray.h>
-#include <maya/MGlobal.h>
-#include <maya/MArgParser.h>
-#include <maya/MAnimControl.h>
-
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 #include <liqIOStream.h>
 #include <liqRibTranslator.h>
 #include "liqtypes.h"//#include "ri_interface.h"
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 
 // RI_VERBATIM is in the current RenderMan spec but
 // some RIB libraries don't know about it

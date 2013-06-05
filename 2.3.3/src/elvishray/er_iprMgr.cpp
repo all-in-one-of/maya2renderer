@@ -1,6 +1,7 @@
 #include "er_iprMgr.h"
 
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
+#include <liqGlobalHelpers.h>
 #include "er_log.h"
 
 #include "ercall.h"

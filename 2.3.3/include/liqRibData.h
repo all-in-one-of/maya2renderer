@@ -33,15 +33,12 @@
 ** Liquid RibData Header File
 ** ______________________________________________________________________
 */
-// Standard headers
-#include <vector>
-// Maya headers
-#include <maya/MDagPath.h>
-#include <maya/MFnDependencyNode.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include <liqTokenPointer.h>
+#include <liqStructJob.h>
 
-struct structJob;
 //typedef shared_ptr< liqRibData > liqRibDataPtr;
 enum ObjectType;
 

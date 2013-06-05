@@ -1,6 +1,7 @@
 #include "shaderOutputER.h"
 #include <liqlog.h>
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
+#include <liqGlobalHelpers.h>
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
 #include "er_output_mgr.h"

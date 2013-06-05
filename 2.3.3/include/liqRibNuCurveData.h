@@ -35,8 +35,7 @@
 ** Liquid Rib Nurbs Curve Data Header File
 ** ______________________________________________________________________
 */
-
-#include <boost/shared_array.hpp>
+#include <common/prerequest_std.h>
 #include <liqRibData.h>
 
 class liqRibNuCurveData : public liqRibData {

@@ -27,11 +27,8 @@
 #ifndef liqShaderFactory_H
 #define liqShaderFactory_H
 
-
-#include <vector>
-
-#include <maya/MObject.h>
-#include <maya/MString.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 #include "liqtypes.h"
 
 class liqShader;//#include <liqShader.h>

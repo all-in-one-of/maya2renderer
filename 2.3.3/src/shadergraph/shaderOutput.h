@@ -1,7 +1,7 @@
 #ifndef _SHADER_OUTPUT_H_
 #define _SHADER_OUTPUT_H_
 
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include "liqtypes.h"
 
 namespace liquidmaya{

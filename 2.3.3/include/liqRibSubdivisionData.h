@@ -35,10 +35,6 @@
 ** Liquid Rib Mesh Data Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <boost/shared_array.hpp>
-
-#include <liquid.h>
 #include <liqRibData.h>
 
 #ifndef liqSubdivStructs_H

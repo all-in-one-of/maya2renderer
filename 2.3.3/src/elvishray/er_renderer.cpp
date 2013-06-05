@@ -1,9 +1,7 @@
 #include "er_renderer.h"
 
-#include "boost/format.hpp"
-
-// Maya headers
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 // Liquid headers
 #include <liquid.h>
 #include <liqRibHT.h>
@@ -25,10 +23,11 @@
 #include <liqHeroRibWriterMgr.h>
 #include <liqRibCamera.h>
 #include <liqRibTranslator.h>
+#include <liqShader.h>
 #include "../liq_math.h"
 
 #include "../renderermgr.h"
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 #include "ercall.h"
 #include "MayaConnection.h"
 #include "er_groupmgr.h"

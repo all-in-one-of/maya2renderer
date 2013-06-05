@@ -1,6 +1,6 @@
 #include "shaderOutput.h"
 #include <liqlog.h>
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 
 namespace liquidmaya{
 

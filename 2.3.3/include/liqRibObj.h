@@ -34,15 +34,22 @@
 ** Liquid Rib Object Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <boost/shared_ptr.hpp>
-
-#include <maya/MDagPath.h>
-#include <maya/MMatrix.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 // Renderman Headers
 //extern "C" {
 #include "liqtypes.h"//#include "ri_interface.h"
 //}
+#include "liqStructJob.h"
+#include "liqEnum.h"
+
+enum AnimType {
+	MRX_Const         = 0,
+	MRX_Animated      = 1,
+	MRX_Incompatible  = 2
+};
+
+
 
 enum ObjectType;
 enum AnimType;
@@ -51,7 +58,7 @@ class liqRibData;
 typedef boost::shared_ptr< liqRibObj > liqRibObjPtr;
 typedef boost::shared_ptr< liqRibData > liqRibDataPtr;
 
-struct structJob;
+//struct structJob;
 
 class LIQUID_EXPORT liqRibObj {
 public:

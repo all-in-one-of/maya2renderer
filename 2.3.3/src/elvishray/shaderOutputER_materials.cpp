@@ -1,5 +1,5 @@
 #include "shaderOutputER.h"
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 //#include "../shadergraph/convertShadingNetwork.h"
 //#include "../shadergraph/shadermgr.h"
 #include <liqShader.h>

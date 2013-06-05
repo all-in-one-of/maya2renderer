@@ -30,8 +30,8 @@
 #ifndef liqRibCurvesData_H
 #define liqRibCurvesData_H
 
-#include <boost/shared_array.hpp>
 #include <liqRibData.h>
+
 class liqRibCurvesData : public liqRibData {
 public: // Methods
 

@@ -1,7 +1,7 @@
 #ifndef _ER_IPRMGR_H_
 #define _ER_IPRMGR_H_
 
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 
 namespace elvishray
 {	

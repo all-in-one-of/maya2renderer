@@ -36,12 +36,8 @@
 #ifndef liqMayaRenderView_H
 #define liqMayaRenderView_H
 
-#include <vector>
-#include <deque>
-
-#include <maya/MPxCommand.h>
-#include <maya/MSyntax.h>
-#include <maya/MObject.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include "liqBucket.h"
 
@@ -85,20 +81,7 @@ private:
 	liqMayaRenderCmd& operator=(const liqMayaRenderCmd&);
 };
 
-MObject getNode(MString name,MStatus *returnStatus);
 
-#undef LIQ_ERROR
-#define LIQ_ERROR(MSG) MGlobal::displayError(MString("")+MSG);
-
-
-#define INFO(EXPR,ENDL) {cout<<#EXPR<<" "<<EXPR<<" ";if(ENDL)cout<<endl;}
-#define CHECKERR(STAT,MSG)       \
-    if ( MS::kSuccess != STAT ) {   \
-	cerr <<"Failed: " <<MSG << " : "<<STAT<< endl;        \
-            return MS::kFailure;    \
-    }
-
-#define CHECKERRNO(STATUS,MSG,ACTION){ if(STATUS == -1){perror(MSG); ACTION; return MS::kFailure;}}
 
 #endif// liqMayaRenderView_H
 

@@ -1,8 +1,9 @@
 #ifndef liqRibCamera_H
 #define liqRibCamera_H
 
-#include <vector>
-#include <liquid.h>
+#include <common/prerequest_std.h>
+#include <liqtypes.h>
+#include <liqStructJob.h>
 
 
 struct liqGlobalVariable;

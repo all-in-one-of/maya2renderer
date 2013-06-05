@@ -1,9 +1,12 @@
 
 #include <liqFrameScriptMgr.h>
 
-#include <sstream>
+#include <common/prerequest_maya.h>
+
 #include <liqRenderScript.h>
+#include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
+#include <liqDefine.h>
 
 tFrameScriptJobMgr::tFrameScriptJobMgr(liqRenderScript::Job& script)
 :m_frameScriptJob(script)
@@ -47,7 +50,7 @@ void tFrameScriptJobMgr::addInstanceJob(  const bool isInstance,
 // }
 
 void tFrameScriptJobMgr::makeTexture(
-	std::vector<structJob>  &txtList___,
+	std::vector<struct structJob>  &txtList___,
 	bool &alf_textures__,
 	bool &alf_shadows__,
 	bool &alf_refmaps__
@@ -68,7 +71,7 @@ void tFrameScriptJobMgr::makeTexture(
 }
 //
 void tFrameScriptJobMgr::makeTexturePass(
-									   std::vector<structJob> &txtList__, 
+									   std::vector<struct structJob> &txtList__, 
 									   liqRenderScript::Job &textureJob__,
 									   bool &alf_textures__,
 									   bool &alf_shadows__,
@@ -114,7 +117,7 @@ void tFrameScriptJobMgr::makeTexturePass(
 }
 //
 void tFrameScriptJobMgr::makeShadow(
-				std::vector<structJob> &shadowList__,
+				std::vector<struct structJob> &shadowList__,
 				bool &alf_textures__,
 				bool &alf_shadows__,
 				bool &alf_refmaps__,
@@ -145,7 +148,7 @@ void tFrameScriptJobMgr::makeShadow(
 }
 //
 void tFrameScriptJobMgr::makeShadowPass(
-										std::vector<structJob> &shadowList__, 
+										std::vector<struct structJob> &shadowList__, 
 										liqRenderScript::Job &shadowJob__,
 										bool &alf_textures__,
 										bool &alf_shadows__,
@@ -158,7 +161,7 @@ void tFrameScriptJobMgr::makeShadowPass(
 	CM_TRACE_FUNC("tFrameScriptJobMgr::makeShadowPass(shadowList__,shadowJob__,"<<alf_textures__<<","<<alf_shadows__<<","<<alf_refmaps__<<","
 		<<framePreCommand__.asChar()<<", "<<frameRenderCommand__.asChar()<<", "<<currentBlock__<<")");
 
-	std::vector< structJob >::iterator iter = shadowList__.begin();
+	std::vector<struct structJob >::iterator iter = shadowList__.begin();
 
 	alf_shadows__ = true;
 	std::stringstream ts;
@@ -236,7 +239,7 @@ void tFrameScriptJobMgr::makeShadowPass(
 }
 //
 void tFrameScriptJobMgr::makeReflection(
-					std::vector<structJob> &refList__,
+					std::vector<struct structJob> &refList__,
 					bool &alf_textures__,
 					bool &alf_shadows__,
 					bool &alf_refmaps__
@@ -256,7 +259,7 @@ void tFrameScriptJobMgr::makeReflection(
 }
 //
 void tFrameScriptJobMgr::makeReflectionPass(
-	std::vector<structJob> &refList__, 
+	std::vector<struct structJob> &refList__, 
 	liqRenderScript::Job &reflectJob__,
 	bool &alf_textures__,
 	bool &alf_shadows__,
@@ -266,7 +269,7 @@ void tFrameScriptJobMgr::makeReflectionPass(
 	CM_TRACE_FUNC("tFrameScriptJobMgr::makeReflectionPass(refList__,reflectJob__,"<<alf_textures__<<","<<alf_shadows__<<","<<alf_refmaps__<<")");
 
 	LIQDEBUGPRINTF( "-> Generating job for ReflectionMap pass\n" );
-	std::vector<structJob>::iterator iter = refList__.begin();
+	std::vector<struct structJob>::iterator iter = refList__.begin();
 
 	alf_refmaps__ = true;
 

@@ -35,10 +35,9 @@
 ** Liquid Rib Mesh Data Header File
 ** ______________________________________________________________________
 */
-
+#include <common/prerequest_std.h>
 #include <liqRibData.h>
 
-#include <boost/shared_array.hpp>
 
 class liqRibMeshData : public liqRibData {
 public: // Methods

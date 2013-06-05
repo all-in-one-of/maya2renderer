@@ -2,6 +2,7 @@
 #include <liqRibCurvesData.h>
 #include "rm_helper.h"
 #include <liqGlobalVariable.h>
+#include <liqGlobalHelpers.h>
 
 namespace renderman
 {

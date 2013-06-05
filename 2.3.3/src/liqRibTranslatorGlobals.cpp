@@ -1,14 +1,7 @@
-// Maya headers
-#include <maya/MGlobal.h>
-#include <maya/MSyntax.h>
-#include <maya/MAnimControl.h>
-#include <maya/MSelectionList.h>
-#include <maya/MPlug.h>
-#include <maya/MFnStringArrayData.h>
-#include <maya/MFnIntArrayData.h>
 
+#include <common/prerequest_maya.h>
 // Liquid headers
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqRibTranslator.h>
 #include <liqGlobalHelpers.h>
 #include <liqRenderer.h>

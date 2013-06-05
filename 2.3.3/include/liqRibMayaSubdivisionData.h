@@ -35,10 +35,9 @@
 ** Liquid Rib Maya Subdivision Data Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <boost/shared_array.hpp>
+#include <common/prerequest_std.h>
 
-#include <liquid.h>
+#include <liqtypes.h>
 #include <liqRibData.h>
 
 

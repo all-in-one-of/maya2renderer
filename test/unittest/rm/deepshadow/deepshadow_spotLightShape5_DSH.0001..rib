@@ -25,7 +25,7 @@ FrameBegin 1
     Hider "hidden" "depthfilter" [ "midpoint" ] 
     #Display 4
     Display "R:/MyDocuments/maya/projects/default/rmantex/deepshadow_spotLightShape5_DSH.0001.tdl" "deepshad" "deepopacity" "int aggregate" [ 0 ] 
-    #camera: |spotLight5|spotLightShape5
+    #exportJobCamera: |spotLight5|spotLightShape5
     Projection "perspective" "fov" [ 40.000000 ] 
     ScreenWindow -1.000000 1.000000 -1.000000 1.000000
     Clipping 0.010000 25000.000000

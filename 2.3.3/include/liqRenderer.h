@@ -31,9 +31,7 @@
 
 #include<iosfwd>
 
-#include <maya/MString.h>
-#include <maya/MStringArray.h>
-#include <maya/MObject.h>
+#include <common/prerequest_maya.h>
 
 #include "liqtypes.h"
 

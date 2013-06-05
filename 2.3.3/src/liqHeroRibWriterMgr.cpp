@@ -1,7 +1,6 @@
 #include <liqHeroRibWriterMgr.h>
 
-#include <string>
-#include "./common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>

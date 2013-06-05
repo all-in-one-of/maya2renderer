@@ -35,44 +35,27 @@
 #include "liqMayaRenderView.h"
 //#pragma options align=reset
 
-#include <stdio.h>
-#include <errno.h>
-
-#include <maya/MArgDatabase.h>
-#include <maya/MGlobal.h>
-#include <maya/MGlobal.h>
-#include <maya/MRenderView.h>
-#include <maya/MSelectionList.h>
-#include <maya/MComputation.h>
-#include <maya/M3dView.h>
-
 #ifndef _WIN32
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-//#include <iostream.h>
-//#include <bzlib.h>
-
-#define closesocket close
-
+	//#include <sys/types.h>
+	#include <sys/socket.h>
+	#include <netinet/in.h>
+	#include <netinet/tcp.h>
+	#include <arpa/inet.h>
+	#include <netdb.h>
+	#include <unistd.h>
+	#include <fcntl.h>
+	#include <stdlib.h>
+	//#include <iostream.h>
+	//#include <bzlib.h>
+	#define closesocket close
 #else
-#include <winsock.h>
-#include <io.h>
-typedef int socklen_t;
+	#include <winsock.h>
+	#include <io.h>
+	typedef int socklen_t;
 #endif
 
-#include <vector>
-#include <string>
-#include <iostream>
-
-#include <liquid.h>
-#include <liqGlobalHelpers.h>
+//#include <liquid.h>
+#include <liqlog.h>
 
 using namespace std;
 
@@ -82,6 +65,8 @@ std::deque<string> liqMayaRenderCmd::m_lastBucketFiles;
 
 inline int quantize(const float value, const float zero,const float one,const float min, const float max, const float dither);
 int waitSocket(const int fd,const int seconds, const bool check_readable = true);
+
+MObject getNode(MString name,MStatus *returnStatus);
 
 liqMayaRenderCmd::liqMayaRenderCmd()
 {

@@ -26,12 +26,8 @@
 #ifndef liqShader_H
 #define liqShader_H
 
-#include <string>
-#include <vector>
-
-#include <maya/MFnDependencyNode.h>
-#include <maya/MString.h>
-#include <maya/MObject.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include "liqtypes.h"//#include "ri_interface.h"
 

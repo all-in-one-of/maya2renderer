@@ -1,9 +1,10 @@
 #ifndef liqShadowRibWriterMgr_H
 #define liqShadowRibWriterMgr_H
 
-#include <vector>
-#include <liquid.h>
-
+#include <common/prerequest_std.h>
+#include <liqtypes.h>
+#include <liqRefactoring.h>
+#include <liqStructJob.h>
 
 struct liqGlobalVariable;
 

@@ -17,11 +17,12 @@
 */
 
 #include "liqProcessLauncher.h"
-#include <boost/algorithm/string/replace.hpp>
-#include <maya/MString.h>
-#include <maya/MGlobal.h>
-#include "common/mayacheck.h"
 
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
+#include "common/mayacheck.h"
+#include <liqlog.h>
+#include <liqGlobalHelpers.h>
 /* ______________________________________________________________________
 **
 ** Linux implementation of liqProcessLauncher::execute()
@@ -29,9 +30,9 @@
 */
 #if defined(LINUX) || defined(OSX)
 
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdlib.h>
+// #include <sys/types.h>
+// #include <unistd.h>
+// #include <stdlib.h>
 
 bool liqProcessLauncher::_execute( const MString &command, const MString &arguments, const MString &path, const bool wait )
 {
@@ -54,8 +55,8 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
 */
 #if defined(IRIX)
 
-#include <sys/types.h>
-#include <unistd.h>
+// #include <sys/types.h>
+// #include <unistd.h>
 
 bool liqProcessLauncher::_execute( const MString &command, const MString &arguments, const MString &path, const bool wait )
 {
@@ -72,12 +73,12 @@ bool liqProcessLauncher::_execute( const MString &command, const MString &argume
 ** ______________________________________________________________________
 */
 #if defined(_WIN32)
-#include <stdio.h>
-#include <direct.h>
-#include <process.h>
-#include <windows.h>
-#include <liqlog.h>
-#include<iostream>
+// #include <stdio.h>
+// #include <direct.h>
+// #include <process.h>
+// #include <windows.h>
+// #include <liqlog.h>
+// #include<iostream>
 
 bool liqProcessLauncher::_execute( const MString &command, const MString &arguments, const MString &path, const bool wait )
 {

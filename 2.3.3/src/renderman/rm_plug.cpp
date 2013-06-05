@@ -33,18 +33,14 @@
 */
 
 #include "liq_plug.h"
-
+#include <liqDefine.h>
 // Renderman Headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
 
-// Maya's Headers
+#include <common/prerequest_maya.h>
 #include <maya/MFnPlugin.h>
-#include <maya/MGlobal.h>
-#include <maya/MPxCommand.h>
-#include <maya/MSwatchRenderRegister.h>
-
 #include "../renderermgr.h"
 #include "../renderman/rm_factory.h"
 #include "liqRiCommands.h"

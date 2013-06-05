@@ -35,27 +35,11 @@
 
 #ifdef _USE_SHAVE_
 
-// Boost headers
-#include <boost/scoped_array.hpp>
-#include <boost/shared_array.hpp>
-// RenderMan headers
-//extern "C" {
-//#include "ri_interface.h"
-//}
-
-// Maya headers
-#include<maya/MPlug.h>
-#include<maya/MFnNurbsCurve.h>
-#include<maya/MDoubleArray.h>
-#include<maya/MItSurfaceCV.h>
-#include<maya/MFnNurbsSurface.h>
-#include<maya/shaveAPI.h>
-#include<maya/shaveItHair.h>
-#include<maya/MGlobal.h>
 // Liquid headers
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 #include <liqRenderer.h>
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"

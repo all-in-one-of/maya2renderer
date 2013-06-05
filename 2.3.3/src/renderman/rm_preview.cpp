@@ -1,12 +1,12 @@
-#include <maya/MGlobal.h>
-#include <maya/MSelectionList.h>
-#include <maya/MPlug.h>
-#include <maya/MFnMesh.h>
+
+#include <common/prerequest_maya.h>>
 
 #include "rm_renderer.h"
 #include <liqPreviewShader.h>
+#include <liqShader.h>
 #include "rm_helper.h"
 #include <liqGlobalVariable.h>
+#include <liqGlobalHelpers.h>
 
 namespace renderman
 {

@@ -30,24 +30,12 @@
 //extern "C" {
 #include "liqtypes.h"//#include "ri_interface.h"
 //}
-#ifdef _WIN32
-  #include <process.h>
-#else
-  #include <sys/wait.h>
-#endif
-// Standard/Boost headers
-#include <boost/scoped_array.hpp>
-// Maya headers
-#include <maya/MArgList.h>
-#include <maya/MGlobal.h>
-#include <maya/MSelectionList.h>
-#include <maya/MPlug.h>
-#include <maya/MFnMesh.h>
 
+#include <liqlog.h>
 #include <liqRenderer.h>
 #include <liqProcessLauncher.h>
 #include <liqGlobalHelpers.h>
-#include <liqShader.h>
+//#include <liqShader.h>
 #include <liqGlobalVariable.h>
 #include <liqShaderFactory.h>
 #include <liqRibTranslator.h>

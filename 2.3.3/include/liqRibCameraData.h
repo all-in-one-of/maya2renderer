@@ -38,8 +38,6 @@
 
 #include <liqRibData.h>
 
-#include <boost/shared_array.hpp>
-
 class liqRibCameraData : public liqRibData {
 public: // Methods
 

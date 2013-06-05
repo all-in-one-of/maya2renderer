@@ -33,27 +33,7 @@
 */
 #include <liqGlobalsNode.h>
 
-#include <maya/MGlobal.h>
-#include <maya/MCommandResult.h>
-#include <maya/MIOStream.h>
-#include <maya/MString.h>
-#include <maya/MTypeId.h>
-#include <maya/MDataBlock.h>
-#include <maya/MDataHandle.h>
-#include <maya/MArrayDataHandle.h>
-#include <maya/MFnTypedAttribute.h>
-#include <maya/MFnNumericAttribute.h>
-#include <maya/MFnEnumAttribute.h>
-#include <maya/MFnCompoundAttribute.h>
-#include <maya/MFloatVector.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MSwatchRenderBase.h>
-#include <maya/MSwatchRenderRegister.h>
-#include <maya/MImage.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MFnStringData.h>
-
-#include <liquid.h>
+//#include <liquid.h>
 #include <liqMayaNodeIds.h>
 #include <liqIOStream.h>
 

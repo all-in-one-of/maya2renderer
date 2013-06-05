@@ -33,32 +33,10 @@
 */
 #include <liqRibPfxData.h>
 
-#include <stdlib.h>
-#include <cassert>
-
-// Standard/Boost headers
-#include <boost/scoped_array.hpp>
-// Renderman headers
-//extern "C" {
-//#include "ri_interface.h"
-//}
-// Maya headers
-#include <maya/MDoubleArray.h>
-#include <maya/MGlobal.h>
-#include <maya/MVectorArray.h>
-#include <maya/MItCurveCV.h>
-#include <maya/MPoint.h>
-#include <maya/MRenderLineArray.h>
-#include <maya/MRenderLine.h>
-#include <maya/MFnNurbsCurve.h>
-#include <maya/MFnPfxGeometry.h>
-#include <maya/MPlug.h>
-#include <maya/MPlugArray.h>
-
-#include <liquid.h>
-#include <liqGlobalHelpers.h>
-#include <liqRibNode.h>
-#include <liqGlobalVariable.h>
+#include <liqlog.h>
+//#include <liqGlobalHelpers.h>
+//#include <liqRibNode.h>
+//#include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 

@@ -3,4 +3,4 @@
 
 #define LIQ_SCALAR_ALMOST_ZERO (0.0001f)
 
-#endif//
+#endif//_LIQ_MATH_H_

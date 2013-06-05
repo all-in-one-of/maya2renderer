@@ -35,7 +35,7 @@
 #ifndef liqLightNodeBehavior_H
 #define liqLightNodeBehavior_H
 
-#include <maya/MPxDragAndDropBehavior.h>
+#include <common/prerequest_maya.h>
 
 class liqLightNodeBehavior : public MPxDragAndDropBehavior
 {

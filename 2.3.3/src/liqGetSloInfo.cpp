@@ -54,22 +54,11 @@
 //#include <sdr.h>
 //#endif
 #include <liqGetSloInfo.h>
-// Maya's Headers
-#include <maya/MFn.h>
-#include <maya/MCommandResult.h>
-#include <maya/MStringArray.h>
-#include <maya/MFnStringArrayData.h>
-#include <maya/MIntArray.h>
-#include <maya/MFnIntArrayData.h>
-#include <maya/MArgList.h>
-#include <maya/MGlobal.h>
-#include <maya/MPlug.h>
-#include <maya/MSelectionList.h>
 
 #include <liquid.h>
 #include <liqGlobalHelpers.h>
-#include "./common/mayacheck.h"
-
+#include <common/mayacheck.h>
+#include <liqMemory.h>
 
 
 // Entropy to PRman type conversion : numbering has a break between

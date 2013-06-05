@@ -1,13 +1,7 @@
 #include <liqRibCamera.h>
-
-#include <string>
-
-#include <maya/MSelectionList.h>
-#include <maya/M3dView.h>
-#include <maya/MDagPath.h>
-#include <maya/MString.h>
+#include <common/prerequest_maya.h>
 //#include "ri_interface.h"
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 
 tRibCameraMgr::tRibCameraMgr()

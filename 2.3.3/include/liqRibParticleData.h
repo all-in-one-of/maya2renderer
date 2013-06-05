@@ -32,10 +32,7 @@
 ** Liquid Rib Nurbs Curve Data Header File
 ** ______________________________________________________________________
 */
-#include <vector>
 #include <liqRibData.h>
-#include <maya/MIntArray.h>
-#include <maya/MFnDependencyNode.h>
 
 class liqRibParticleData : public liqRibData {
 public:

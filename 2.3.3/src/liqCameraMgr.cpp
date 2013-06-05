@@ -1,5 +1,4 @@
 #include <liqCameraMgr.h>
-
 #include <liqRibTranslator.h>
 //
 tCameraMgr::tCameraMgr()

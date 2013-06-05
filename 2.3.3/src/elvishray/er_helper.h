@@ -1,6 +1,6 @@
 #ifndef _ER_HELPER_H_
 #define _ER_HELPER_H_
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 
 namespace elvishray
 {	

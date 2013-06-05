@@ -1,7 +1,7 @@
 #ifndef RM_NODE_PLUG_INFO_H
 #define RM_NODE_PLUG_INFO_H
 
-#include "../common/prerequest_std.h"
+#include <common/prerequest_std.h>
 
 namespace renderman
 {

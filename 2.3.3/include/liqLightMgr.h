@@ -1,8 +1,8 @@
 #ifndef liqLightMgr_H
 #define liqLightMgr_H
 
-#include <boost/shared_ptr.hpp>
-#include <maya/MStatus.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 #include <liqRibHT.h>
 
 class MFnLight;

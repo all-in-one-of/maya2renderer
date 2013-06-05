@@ -27,10 +27,8 @@
 #ifndef liqExpression_H
 #define liqExpression_H
 
-#include <string>
-
-#include <maya/MString.h>
-#include <maya/MStringArray.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 
 #define IS_EXPRESSION( s ) ( strlen( s ) > 2 && s[0] == '[' && s[ strlen( s ) - 1 ] == ']' )? true : false

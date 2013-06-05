@@ -70,6 +70,23 @@ typedef	char*	liqString;
 typedef	void*	liqPointer;
 typedef	void	liqVoid;
 
+/* between Maya 3.0 /4.0/Linux/Other Platforms some functions changed their input type from long to int so
+a stand-in type called liquidlong was created to get around the problem */
+#ifdef LINUX
+typedef int liquidlong;
+#else
+#if MAYA_API_VERSION > 300
+typedef int liquidlong;
+#else
+typedef long liquidlong;
+#endif
+#endif
+
+typedef unsigned long		ulong;
+typedef unsigned int		uint;
+
+
+
 typedef	liqFloat	( *liqFilterFunc ) ( liqFloat, liqFloat, liqFloat, liqFloat );
 typedef	liqFloat	( *liqFloatFunc ) ();
 typedef	liqVoid	( *liqFunc ) ();
@@ -99,4 +116,4 @@ LIQUID_EXPORT void setColor(liqColor& to, const liqColor& from );
 LIQUID_EXPORT liqFloat toRadians(const liqFloat &angle);
 
 
-#endif 
+#endif//LIQUID_TYPES_H_INCLUDED

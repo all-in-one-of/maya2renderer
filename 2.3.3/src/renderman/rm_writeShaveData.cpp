@@ -3,7 +3,7 @@
 #ifdef _USE_SHAVE_
 #include <liqGlobalVariable.h>
 #include "rm_helper.h"
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include "../common/mayacheck.h"
 
 namespace renderman

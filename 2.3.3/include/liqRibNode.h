@@ -36,20 +36,13 @@
 ** ______________________________________________________________________
 */
 
-// Standard headers
-#include <map>
-// Boost headers
-#include <boost/shared_ptr.hpp>
-// Maya headers
-#include <maya/MColor.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MDagPath.h>
-#include <maya/MObjectArray.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 // Liquid headers
-#include <liquid.h>
-#include <liqRibData.h>
+//#include <liquid.h>
+//#include <liqRibData.h>
 #include <liqRibObj.h>
-//#include <liqTokenPointer.h>
+#include <liqTokenPointer.h>
 //#include <liqRibNode.h>
 
 //enum transmissions {TRANS, OPAQUE, OS, SHADER};

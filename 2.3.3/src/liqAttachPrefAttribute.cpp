@@ -32,23 +32,6 @@
 ** ______________________________________________________________________
 */
 #include <liqAttachPrefAttribute.h>
-// Maya's Headers
-#include <maya/MSelectionList.h>
-#include <maya/MFnTypedAttribute.h>
-#include <maya/MArgList.h>
-#include <maya/MArgParser.h>
-#include <maya/MGlobal.h>
-#include <maya/MSyntax.h>
-#include <maya/MPlug.h>
-#include <maya/MItMeshPolygon.h>
-#include <maya/MItSurfaceCV.h>
-#include <maya/MPointArray.h>
-#include <maya/MFnPointArrayData.h>
-#include <maya/MFnVectorArrayData.h>
-#include <maya/MFnMesh.h>
-#include <maya/MFnNurbsCurve.h>
-#include <maya/MFnNurbsSurface.h>
-#include <maya/MDagPath.h>
 
 #include <liqRenderer.h>
 #include <liqGlobalVariable.h>

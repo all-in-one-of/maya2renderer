@@ -1,9 +1,8 @@
 #ifndef liqHeroRibWriterMgr_H
 #define liqHeroRibWriterMgr_H
 
-#include <vector>
+#include <common/prerequest_std.h>
 #include <liquid.h>
-#include "liqtypes.h"
 
 struct liqGlobalVariable;
 

@@ -32,33 +32,16 @@
 ** ______________________________________________________________________
 */
 #include <liqRibLightData.h>
-// Standard/Boost headers
-#include <boost/scoped_array.hpp>
+#include <common/prerequest_std.h>
 // Renderman headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
 
-// Maya headers
-#include <maya/MFnDependencyNode.h>
-#include <maya/MFnLight.h>
-#include <maya/MPlug.h>
-#include <maya/MPlugArray.h>
-#include <maya/MSelectionList.h>
-#include <maya/MFnDoubleArrayData.h>
-#include <maya/MDoubleArray.h>
-#include <maya/MTransformationMatrix.h>
-#include <maya/MFnSpotLight.h>
-#include <maya/MFnAreaLight.h>
-#include <maya/MFnVolumeLight.h>
-#include <maya/MColor.h>
-#include <maya/MString.h>
-#include <maya/MStringArray.h>
-
 // Liquid headers
 #include <liqGlobalHelpers.h>
-//#include <liqGetSloInfo.h>
-#include <liqRenderer.h>
+#include <liqShader.h>
+//#include <liqRenderer.h>
 #include <liqShaderFactory.h>
 #include <liqGlobalVariable.h>
 #include "renderermgr.h"

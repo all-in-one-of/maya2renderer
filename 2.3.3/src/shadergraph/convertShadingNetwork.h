@@ -1,8 +1,8 @@
 #ifndef _CONVERT_SHADING_NETWORK_H_
 #define _CONVERT_SHADING_NETWORK_H_
 
-#include "../common/prerequest_maya.h"
-#include "../common/prerequest_std.h"
+#include <common/prerequest_maya.h>
+#include <common/prerequest_std.h>
 #include "liqtypes.h"
 
 namespace liquidmaya

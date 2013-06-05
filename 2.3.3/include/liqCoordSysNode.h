@@ -2,8 +2,7 @@
 #ifndef liqCoordSysNode_H
 #define liqCoordSysNode_H
 
-#include <maya/MPxLocatorNode.h>
-#include <maya/MColor.h>
+#include <common/prerequest_maya.h>
 
 class liqCoordSysNode : public MPxLocatorNode
 {

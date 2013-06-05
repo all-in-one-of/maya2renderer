@@ -1,11 +1,14 @@
 #include "convertShadingNetwork.h"
-#include "../common/mayacheck.h"
+
+#include <common/mayacheck.h>
+#include <liqGlobalHelpers.h>
 #include <liqShader.h>
 #include <liqShaderFactory.h>
 #include <liqlog.h>
 #include "shadermgr.h"
 #include "shaderOutputMgr.h"
 #include "../renderermgr.h"
+
 
 //#include "../renderman/rm_helper.h"
 

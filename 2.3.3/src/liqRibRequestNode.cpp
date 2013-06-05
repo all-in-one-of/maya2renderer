@@ -34,8 +34,6 @@
 
 #include <liqRibRequestNode.h>
 
-#include <maya/MFnTypedAttribute.h>
-
 #include <liqMayaNodeIds.h>
 
 

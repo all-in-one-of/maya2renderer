@@ -1,6 +1,7 @@
 #include "rm_renderer.h"
 #include <liqRibPfxHairData.h>
 #include <liqGlobalVariable.h>
+#include <liqGlobalHelpers.h>
 #include "rm_helper.h"
 
 namespace renderman

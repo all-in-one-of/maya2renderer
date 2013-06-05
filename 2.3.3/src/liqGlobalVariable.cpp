@@ -1,6 +1,6 @@
 
 #include <liqGlobalVariable.h>
-#include <sstream>
+#include <liqGlobalHelpers.h>
 
 LIQUID_EXPORT struct liqGlobalVariable liqglo;
 LIQUID_EXPORT liquidVerbosityType liqglo_verbosity( verbosityAll );

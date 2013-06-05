@@ -1,7 +1,7 @@
 #include "er_renderer.h"
 #include <liqRibClipPlaneData.h>
-#include "../common/prerequest_maya.h"
-#include "../common/mayacheck.h"
+#include <common/prerequest_maya.h>
+#include <common/mayacheck.h>
 #include "ercall.h"
 
 //#include <liqRibNode.h>

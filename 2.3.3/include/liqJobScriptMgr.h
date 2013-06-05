@@ -1,9 +1,9 @@
 #ifndef liqJobScriptMgr_H
 #define liqJobScriptMgr_H
 
-#include <string>
-
-#include <liquid.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
+#include <liqtypes.h>
 #include <liqRenderScript.h>
 
 class tJobScriptMgr

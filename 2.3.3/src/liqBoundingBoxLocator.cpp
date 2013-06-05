@@ -27,12 +27,6 @@
 */
 
 #include "liqBoundingBoxLocator.h"
-#include <maya/MDagPath.h>
-#include <maya/MColor.h>
-#include <maya/MFnDagNode.h>
-#include <maya/MFnNumericAttribute.h>
-#include <maya/MGlobal.h>
-#include <maya/MMatrix.h>
 #include <liqMayaNodeIds.h>
 
 using namespace boost;

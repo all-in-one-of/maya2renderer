@@ -34,8 +34,7 @@
 ** ______________________________________________________________________
 */
 
-#include <maya/MPxCommand.h>
-#include <maya/MStringArray.h>
+#include <common/prerequest_maya.h>
 
 class liqAttachPrefAttribute: public MPxCommand
 {

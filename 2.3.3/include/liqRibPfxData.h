@@ -33,11 +33,7 @@
 ** Liquid Rib Paint Effects Data Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <boost/shared_array.hpp>
-
-#include <maya/MPlug.h>
-
+#include <liqRefactoring.h>
 #include <liqRibData.h>
 
 class liqRibPfxData : public liqRibData {

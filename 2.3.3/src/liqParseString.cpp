@@ -30,9 +30,6 @@
 #include <liqParseString.h>
 #include <liqGlobalHelpers.h>
 
-#include <maya/MArgList.h>
-#include <maya/MString.h>
-
 
 liqParseString::liqParseString()
 {

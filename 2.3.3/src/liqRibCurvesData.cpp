@@ -32,29 +32,16 @@
 ** ______________________________________________________________________
 */
 #include <liqRibCurvesData.h>
-// Boost headers
-#include <boost/scoped_array.hpp>
-#include <boost/shared_array.hpp>
 // Renderman Headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
 
-// Maya headers
-#include <maya/MDoubleArray.h>
-#include <maya/MItCurveCV.h>
-#include <maya/MPoint.h>
-#include <maya/MObjectArray.h>
-#include <maya/MSelectionList.h>
-#include <maya/MFnNurbsCurve.h>
-#include <maya/MPlug.h>
-#include <maya/MGlobal.h>
-#include <maya/MDagPathArray.h>
-
 // Liquid headers
-#include <liquid.h>
+//#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 

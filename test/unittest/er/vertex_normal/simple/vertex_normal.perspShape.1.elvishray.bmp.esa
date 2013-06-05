@@ -170,10 +170,10 @@ ei_end_light();
 ei_instance("|pointLight1|pointLightShape1");
 ei_element("|pointLight1|pointLightShape1_object");
 ei_transform(1,0,0,0,   0,1,0,0,   0,0,1,0,   -2.10242,2.86003,1.07926,1);
-ei_declare("|pSphere2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pCube1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pPlane1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|pSphere1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|pSphere2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
 
 // maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333

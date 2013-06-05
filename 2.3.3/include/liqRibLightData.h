@@ -34,10 +34,24 @@
 ** Liquid Rib Light Data Header File
 ** ______________________________________________________________________
 */
-#include <liquid.h>
+#include <common/prerequest_maya.h>
 #include <liqRibData.h>
-#include <liqShader.h>
+//#include <liqShader.h>
 #include "liqtypes.h"
+#include <liqRefactoring.h>
+
+enum LightType {
+	MRLT_Unknown  = 0,
+	MRLT_Ambient  = 1,
+	MRLT_Distant  = 2,
+	MRLT_Point    = 3,
+	MRLT_Spot     = 4,
+	MRLT_Rman     = 5,//user defined light shader
+	MRLT_Area     = 6,
+	MRLT_Volume	= 7
+};
+
+class liqShader;
 
 class LIQUID_EXPORT liqRibLightData : public liqRibData {
 public:

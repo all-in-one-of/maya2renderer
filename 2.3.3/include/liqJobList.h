@@ -27,8 +27,7 @@
 #ifndef liqJobList_H
 #define liqJobList_H
 
-#include <maya/MPxCommand.h>
-#include <maya/MStringArray.h>
+#include <common/prerequest_maya.h>
 
 class liqJobList : public MPxCommand {
 public:

@@ -32,12 +32,8 @@
 ** Liquid Get .slo Info Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <map>
-
-#include <maya/MString.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MPxCommand.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include "liqShaderParameterType.h"
 

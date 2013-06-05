@@ -1,5 +1,5 @@
 #include "shadermgr.h"
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 #include <liqlog.h>
 
 namespace liquidmaya{

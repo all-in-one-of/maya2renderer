@@ -32,19 +32,12 @@
 ** ______________________________________________________________________
 */
 #include <liq_plug.h>
-// Renderman Headers
-//extern "C" {
-//#include "ri_interface.h"
-//}
 
-// Maya's Headers
 #define MNoVersionString
 #define MNoPluginEntry
-#include <maya/MFnPlugin.h>
 
-#include <maya/MGlobal.h>
-#include <maya/MPxCommand.h>
-#include <maya/MSwatchRenderRegister.h>
+#include <common/prerequest_maya.h>
+#include <maya/MFnPlugin.h>
 
 #include <liquid.h>
 #include <liqRibTranslator.h>
@@ -74,11 +67,6 @@
 #include <liqGetSloInfo.h>
 #include <liqParseString.h>
 #include <liqIPRNodeMessageCmd.h>
-
-// #include "renderermgr.h"
-// #include "./renderman/rm_factory.h"
-// #include "./elvishray/er_factory.h"
-// #include "./appleseed/as_factory.h"
 
 #define LIQVENDOR "http://liquidmaya.sourceforge.net/"
 

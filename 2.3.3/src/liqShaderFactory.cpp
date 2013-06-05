@@ -27,13 +27,9 @@
 
 #include <liqShaderFactory.h>
 
-#include <string>
-
-#include <maya/MFnDependencyNode.h>
-#include <maya/MPlug.h>
-
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqShader.h>
+#include <liqGlobalHelpers.h>
 
 using namespace std;
 

@@ -1,9 +1,10 @@
 #include "rm_helper.h"
 
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include "../common/mayacheck.h"
-#include "liqGlobalHelpers.h"
+#include <liqGlobalHelpers.h>
 #include <liqRibTranslator.h>
+#include <liqShader.h>
 #include "ri_interface.h"
 
 namespace renderman

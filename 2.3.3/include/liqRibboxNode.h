@@ -2,7 +2,7 @@
 #ifndef liqRibboxNode_H
 #define liqRibboxNode_H
 
-#include <maya/MPxNode.h>
+#include <common/prerequest_maya.h>
 
 class liqNodeSwatch;
 

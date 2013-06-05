@@ -38,7 +38,7 @@
 #ifndef liqRibRequestNode_H
 #define liqRibRequestNode_H
 
-#include <maya/MPxNode.h>
+#include <common/prerequest_maya.h>
 
 class liqRibRequestNode : public MPxNode
 {

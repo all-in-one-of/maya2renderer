@@ -39,11 +39,7 @@
 //#include "ri_interface.h"
 //}
 
-// Maya's Headers
-#include <maya/MFnPlugin.h>
-#include <maya/MGlobal.h>
-#include <maya/MPxCommand.h>
-#include <maya/MSwatchRenderRegister.h>
+#include <common/prerequest_maya.h>
 
 
 

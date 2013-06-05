@@ -2,8 +2,8 @@
 #ifndef _SHADER_MGR_H_
 #define _SHADER_MGR_H_
 
-#include "../common/prerequest_maya.h"
-#include "../common/prerequest_std.h"
+#include <common/prerequest_maya.h>
+#include <common/prerequest_std.h>
 #include "liqtypes.h"
 #include "convertShadingNetwork.h"
 #include "shaderValidConnection.h"

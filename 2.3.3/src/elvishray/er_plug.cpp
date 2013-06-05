@@ -39,12 +39,9 @@
 //#include "ri_interface.h"
 //}
 
-// Maya's Headers
+#include <common/prerequest_maya.h>
 #include <maya/MFnPlugin.h>
-#include <maya/MGlobal.h>
-#include <maya/MPxCommand.h>
-#include <maya/MSwatchRenderRegister.h>
-
+#include <liqDefine.h>
 #include "../renderermgr.h"
 #include "../elvishray/er_factory.h"
 #include "er_globalnode.h"

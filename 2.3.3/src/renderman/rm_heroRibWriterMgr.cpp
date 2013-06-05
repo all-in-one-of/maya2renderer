@@ -1,8 +1,8 @@
 #include "rm_heroRibWriterMgr.h"
 
 #include <string>
-#include "../common/prerequest_maya.h"
-
+#include <common/prerequest_maya.h>
+#include <liqGlobalHelpers.h>
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
 #include "../shadergraph/shadermgr.h"

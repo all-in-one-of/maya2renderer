@@ -25,19 +25,7 @@
 */
 #include <liqShader.h>
 
-#include <algorithm>
-#include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
-
-#include <maya/MPlug.h>
-#include <maya/MDoubleArray.h>
-#include <maya/MFnDoubleArrayData.h>
-#include <maya/MGlobal.h>
-#include <maya/MPlugArray.h>
-#include <maya/MFnMatrixData.h>
-
-//#include <core/lights.h>
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 #include <liqMayaNodeIds.h>
 #include <liqShaderFactory.h>

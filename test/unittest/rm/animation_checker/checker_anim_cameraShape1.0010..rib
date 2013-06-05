@@ -24,7 +24,7 @@ FrameBegin 10
     Format 200 150 1.000000
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
-    #camera: |camera1_group|camera1|cameraShape1
+    #exportJobCamera: |camera1_group|camera1|cameraShape1
     Projection "perspective" "fov" [ 37.994007 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000

@@ -34,10 +34,8 @@
 ** ______________________________________________________________________
 */
 
-#include <string>
-
-#include <maya/MPxCommand.h>
-#include <maya/MSyntax.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 enum PrimitiveType {
   SPHERE       = 0,

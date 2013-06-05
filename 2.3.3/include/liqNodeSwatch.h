@@ -36,10 +36,9 @@
 #ifndef liqNodeSwatch_H
 #define liqNodeSwatch_H
 
-#include <maya/MSwatchRenderBase.h>
-#include <maya/MFnDependencyNode.h>
+#include <common/prerequest_maya.h>
 
-#define NODE_NAME(OBJ) {cout<<#OBJ <<":"<<MFnDependencyNode(OBJ).name()<<endl;}
+//#define NODE_NAME(OBJ) {cout<<#OBJ <<":"<<MFnDependencyNode(OBJ).name()<<endl;}
 
 class liqNodeSwatch : public MSwatchRenderBase
 {

@@ -1,6 +1,6 @@
 #include "shaderValidConnection.h"
 #include <liqlog.h>
-#include "../common/mayacheck.h"
+#include <common/mayacheck.h>
 #include <liqShader.h>
 #include <liqShaderFactory.h>
 

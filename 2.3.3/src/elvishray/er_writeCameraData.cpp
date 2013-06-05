@@ -1,11 +1,13 @@
 #include "er_renderer.h"
 #include <liqRibCameraData.h>
-#include "../common/prerequest_maya.h"
-#include "../common/mayacheck.h"
+#include <common/prerequest_maya.h>
+#include <common/mayacheck.h>
 #include "ercall.h"
 
 //#include <liqRibNode.h>
 #include <liqRibTranslator.h>
+#include <liqGlobalHelpers.h>
+
 namespace elvishray
 {
 	void Renderer::write(

@@ -29,7 +29,7 @@ History		:	Created by yaoyansi, 2010.04.16.
 #ifndef _MAYA_CONNECTION_
 #define _MAYA_CONNECTION_
 #include "../common/prerequest_std.h"
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include <eiAPI/ei_connection.h>
 
 class MayaConnection;

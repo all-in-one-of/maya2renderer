@@ -1,10 +1,9 @@
 
 #include <liqJobScriptMgr.h>
- 
-#include <sstream>
+#include <liqGlobalHelpers.h>
 #include <liqRenderScript.h>
 #include <liqGlobalVariable.h>
-
+#include <liqDefine.h>
 
 tJobScriptMgr::tJobScriptMgr(liqRenderScript& script)
 :m_jobScript(script)

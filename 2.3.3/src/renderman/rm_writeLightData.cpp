@@ -1,6 +1,8 @@
 #include "rm_renderer.h"
 #include <liqRibLightData.h>
 #include <liqGlobalVariable.h>
+#include <liqGlobalHelpers.h>
+#include <liqShader.h>
 #include "rm_helper.h"
 #include "../renderermgr.h"
 namespace renderman

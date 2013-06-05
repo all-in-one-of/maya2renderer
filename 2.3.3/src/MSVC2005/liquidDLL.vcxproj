@@ -2633,12 +2633,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\liqCameraMgr.h" />
+    <ClInclude Include="..\..\include\liqDebug.h" />
+    <ClInclude Include="..\..\include\liqDefine.h" />
+    <ClInclude Include="..\..\include\liqEnum.h" />
     <ClInclude Include="..\..\include\liqGlobalHelpers_refactor.h" />
     <ClInclude Include="..\..\include\liqIPRNodeMessageCmd.h" />
+    <ClInclude Include="..\..\include\liqMath.h" />
     <ClInclude Include="..\..\include\liqParseString.h" />
+    <ClInclude Include="..\..\include\liqRefactoring.h" />
     <ClInclude Include="..\..\include\liqRibCameraData.h" />
     <ClInclude Include="..\..\include\liqRibHierarchicalSubdivisionData.h" />
     <ClInclude Include="..\..\include\liqShaderNode.h" />
+    <ClInclude Include="..\..\include\liqStructJob.h" />
     <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
@@ -2652,7 +2658,6 @@
     <ClInclude Include="..\..\include\liqAttachPrefAttribute.h" />
     <ClInclude Include="..\..\include\liqBoundingBoxLocator.h" />
     <ClInclude Include="..\..\include\liqBucket.h" />
-    <ClInclude Include="..\..\include\liqConfig.h" />
     <ClInclude Include="..\..\include\liqCoordSysNode.h" />
     <ClInclude Include="..\..\include\liqCoShaderNode.h" />
     <ClInclude Include="..\..\include\liqCustomNode.h" />

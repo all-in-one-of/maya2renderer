@@ -1,13 +1,5 @@
 #include <liqLocatorMgr.h>
-
-#include <maya/MItDag.h>
-#include <maya/MFnDagNode.h>
-#include <maya/MDagModifier.h>
-#include <maya/MPlug.h>
-
-#include <liqRibHT.h>
-
-
+#include <liqGlobalHelpers.h>
 //
 tLocatorMgr::tLocatorMgr()
 {

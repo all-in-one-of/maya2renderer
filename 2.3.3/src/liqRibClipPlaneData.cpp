@@ -31,13 +31,14 @@
 */
 #include <liqRibClipPlaneData.h>
 
-#include <maya/MFnDependencyNode.h>
+#include <common/prerequest_maya.h>
 
 // Renderman Headers
 //extern "C" {
 //  #include "ri_interface.h"
 //}
-#include <liquid.h>
+//#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"

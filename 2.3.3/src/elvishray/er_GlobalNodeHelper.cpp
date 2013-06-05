@@ -1,6 +1,6 @@
 #include"er_GlobalNodeHelper.h"
-#include "../common/prerequest_std.h"
-#include "../common/mayacheck.h"
+#include <common/prerequest_std.h>
+#include <common/mayacheck.h>
 #include <liqGlobalHelpers.h>
 #include <liqlog.h>
 

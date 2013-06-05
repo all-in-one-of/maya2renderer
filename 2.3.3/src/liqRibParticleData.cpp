@@ -31,43 +31,25 @@
 */
 #include <liqRibParticleData.h>
 
-#include <boost/shared_ptr.hpp>
-#include <boost/scoped_array.hpp>
-
 // Renderman Headers
 //extern "C" {
 //#include "ri_interface.h"
 //}
 
-#ifdef _WIN32
-#ifdef MSVC6
-#  include <map>
-#  include <algorithm>
-#else
-#  include <hash_map>
-#  include <algorithm>
-#endif
-#else
-#  include <ext/hash_map>
-using namespace __gnu_cxx;
-#endif
+//#ifdef _WIN32
+//#ifdef MSVC6
+//#  include <map>
+//#else
+//#  include <hash_map>
+//#endif
+//#else
+//#  include <ext/hash_map>
+//using namespace __gnu_cxx;
+//#endif
 
-// Maya's Headers
-#include <maya/MFnVectorArrayData.h>
-#include <maya/MFnDoubleArrayData.h>
-#include <maya/MFnStringArrayData.h>
-#include <maya/MFnIntArrayData.h>
-#include <maya/MPlug.h>
-#include <maya/MVectorArray.h>
-#include <maya/MFloatArray.h>
-#include <maya/MAnimControl.h>
-#include <maya/MGlobal.h>
-#include <maya/MFnParticleSystem.h>
-#include <maya/MQuaternion.h>
-
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
-#include <liqGlobalVariable.h>
+//#include <liqGlobalVariable.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"
 

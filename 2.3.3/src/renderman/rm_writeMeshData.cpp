@@ -2,6 +2,7 @@
 #include <liqRibMeshData.h>
 #include <liqGlobalVariable.h>
 #include "rm_helper.h"
+#include <liqGlobalHelpers.h>
 
 namespace renderman
 {

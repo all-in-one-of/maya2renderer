@@ -30,12 +30,9 @@
 ** ______________________________________________________________________
 */
 #include <liqGlobalHelpers_refactor.h>
-//
-#include "./common/prerequest_maya.h"
-#include "./common/prerequest_std.h"
 #include "common/mayacheck.h"
 
-#include <liqShader.h>
+#include <liqGlobalHelpers.h>
 #include <liqMayaNodeIds.h>
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>

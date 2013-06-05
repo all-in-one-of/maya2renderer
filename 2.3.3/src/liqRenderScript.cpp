@@ -1,14 +1,10 @@
 
 #include <liqRenderScript.h>
 
-#include <cassert>
-#include <sstream>
-#include <fstream>
-#include <boost/bind.hpp>
+#include <common/prerequest_maya.h>
 
-#include <maya/MString.h>
-
-#include <liquid.h>
+//#include <liquid.h>
+#include <liqlog.h>
 #include <liqIOStream.h>
 
 

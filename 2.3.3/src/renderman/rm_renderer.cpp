@@ -1,6 +1,6 @@
 #include "rm_renderer.h"
 
-#include "../common/prerequest_std.h"
+#include <common/prerequest_std.h>
 
 // Renderman Headers
 //extern "C" {
@@ -8,7 +8,7 @@
 //}
 
 // Maya headers
-#include "../common/prerequest_maya.h"
+#include <common/prerequest_maya.h>
 #include "../common/mayacheck.h"
 // Liquid headers
 #include <liquid.h>
@@ -30,7 +30,7 @@
 #include "rm_heroRibWriterMgr.h"//#include <liqHeroRibWriterMgr.h>
 #include <liqRibCamera.h>
 #include <liqRibTranslator.h>
-
+#include <liqShader.h>
 #include "../renderermgr.h"
 #include "rm_helper.h"
 #include "shaderOutputRSL.h"

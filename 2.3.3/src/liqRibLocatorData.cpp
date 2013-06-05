@@ -37,15 +37,9 @@
 //#include "ri_interface.h"
 //}
 
-// Maya's Headers
-#include <maya/MPoint.h>
-#include <maya/MBoundingBox.h>
-#include <maya/MPlug.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MFnDagNode.h>
-#include <maya/MStringArray.h>
+#include <common/prerequest_maya.h>
 
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 //#include "renderman/rm_helper.h"
 #include "renderermgr.h"

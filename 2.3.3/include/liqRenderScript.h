@@ -30,11 +30,7 @@
 #define liqRenderScript_H
 
 
-#include <string>
-#include <map>
-#include <vector>
-#include <iosfwd>
-
+#include <common/prerequest_std.h>
 
 
 /* ______________________________________________________________________

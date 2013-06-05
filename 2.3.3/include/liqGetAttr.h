@@ -32,7 +32,7 @@
 ** Liquid Get Attribute Header File
 ** ______________________________________________________________________
 */
-#include <maya/MPxCommand.h>
+#include <common/prerequest_maya.h>
 
 class liqGetAttr : public MPxCommand {
 public:

@@ -2,7 +2,8 @@
 #include <liqRibParticleData.h>
 #include "rm_helper.h"
 #include <liqGlobalVariable.h>
-#include <maya/MQuaternion.h>
+#include <common/prerequest_maya.h>
+#include <liqGlobalHelpers.h>
 
 #define DELIGHT
 

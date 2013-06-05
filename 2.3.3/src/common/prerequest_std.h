@@ -4,6 +4,7 @@
 #include <sys/types.h>
 
 #ifndef _WIN32
+	#include <sys/param.h>
 	#include <sys/time.h>
 	#include <sys/stat.h>
 	// Dynamic Object Headers
@@ -24,12 +25,23 @@
 	#include <unistd.h>
 	#include <stdlib.h>
 	#include <pwd.h>
+	#include <sys/wait.h>
 #endif
 
-#include <stddef.h>
-#include <math.h>
-#include <float.h>
+#ifdef OSX
+#  include <stdlib.h>
+#else
+#  include <malloc.h>
+#endif
 
+
+
+#include <stddef.h>
+#include <float.h>
+#include <stdio.h>
+#include <errno.h>
+
+#include <cmath>
 #include <cassert>
 #include <ctime>
 
@@ -39,6 +51,7 @@
 #include <stack>
 #include <set>
 #include <map>
+#include <hash_map>
 #include <string>
 #include <sstream>
 #include <fstream>

@@ -1,7 +1,8 @@
 #ifndef liqFrameScriptMgr_H
 #define liqFrameScriptMgr_H
 
-#include <liquid.h>
+#include <common/prerequest_std.h>
+#include <liqStructJob.h>
 #include <liqRenderScript.h>
 
 class tFrameScriptJobMgr
@@ -15,20 +16,20 @@ public:
 	void addInstanceJob( const bool isInstance,
 		const std::string &title
 		);
-	void makeTexture(std::vector<structJob>  &txtList__,
+	void makeTexture(std::vector<struct structJob>  &txtList__,
 		bool &alf_textures__,
 		bool &alf_shadows__,
 		bool &alf_refmaps__
 	);
 	void makeTexturePass(
-		std::vector<structJob> &shadowList__, 
+		std::vector<struct structJob> &shadowList__, 
 		liqRenderScript::Job &shadowJob__,
 		bool &alf_textures__,
 		bool &alf_shadows__,
 		bool &alf_refmaps__
 		);
 	void makeShadow(
-		std::vector<structJob> &shadowList__,
+		std::vector<struct structJob> &shadowList__,
 		bool &alf_textures__,
 		bool &alf_shadows__,
 		bool &alf_refmaps__,
@@ -36,7 +37,7 @@ public:
 		const MString& m_renderCommand__
 		);
 	void makeShadowPass(
-		std::vector<structJob> &shadowList__, 
+		std::vector<struct structJob> &shadowList__, 
 		liqRenderScript::Job &shadowJob__,
 		bool &alf_textures__,
 		bool &alf_shadows__,
@@ -46,13 +47,13 @@ public:
 		const int currentBlock__
 		);
 	void makeReflection(
-		std::vector<structJob> &refList__,
+		std::vector<struct structJob> &refList__,
 		bool &alf_textures__,
 		bool &alf_shadows__,
 		bool &alf_refmaps__
 		);
 	void makeReflectionPass(
-		std::vector<structJob> &refList__, 
+		std::vector<struct structJob> &refList__, 
 		liqRenderScript::Job &reflectJob__,
 		bool &alf_textures__,
 		bool &alf_shadows__,

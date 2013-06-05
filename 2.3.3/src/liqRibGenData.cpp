@@ -38,8 +38,8 @@
 #ifndef _WIN32
 #  include <dlfcn.h> // dlopen() etc
 #endif
-#include <stdio.h>
-#include <stdarg.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 
 // RenderMan headers
@@ -47,21 +47,10 @@
 //#include "ri_interface.h"
 //}
 
-// Maya headers
-#include <maya/MDagPath.h>
-#include <maya/MObject.h>
-#include <maya/MPlug.h>
-#include <maya/MFnDependencyNode.h>
-#include <maya/MFnDagNode.h>
-#include <maya/MGlobal.h>
-#include <maya/MCommandResult.h>
-#include <maya/MSelectionList.h>
-#include <maya/MPlugArray.h>
-
 #include<windows.h>
 
 // Liquid headers
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqGlobalHelpers.h>
 #include <liqRibGen.h>
 #include <liqGlobalVariable.h>

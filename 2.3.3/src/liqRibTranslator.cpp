@@ -29,9 +29,6 @@
 
 #include <liqRibTranslator.h>
 
-
-#include "./common/prerequest_std.h"
-
 // Renderman Headers
 //extern "C" {
 #include "liqtypes.h"
@@ -40,27 +37,28 @@
 
 
 // Maya headers
-#include "./common/prerequest_maya.h"
-#include "./common/mayacheck.h"
+#include <liqDefine.h>
+#include <common/mayacheck.h>
 // Liquid headers
-#include <liquid.h>
+#include <liqlog.h>
 #include <liqRibHT.h>
 #include <liqRenderer.h>
-#include <liqRibLightData.h>
+//#include <liqRibLightData.h>
 #include <liqGlobalHelpers.h>
-#include <liqProcessLauncher.h>
-#include <liqCustomNode.h>
-#include <liqShaderFactory.h>
-#include <liqExpression.h>
+//#include <liqProcessLauncher.h>
+//#include <liqCustomNode.h>
+//#include <liqShaderFactory.h>
+//#include <liqExpression.h>
 #include <liqCameraMgr.h>
+#include <liqShader.h>
 #include "renderermgr.h"
-#include "shadergraph/shadermgr.h"
+//#include "shadergraph/shadermgr.h"
 
 
 using namespace boost;
 using namespace std;
 
-typedef int RtError;
+//typedef int RtError;
 
 
 #if defined(_WIN32)/* && !defined(DEFINED_LIQUIDVERSION)*/

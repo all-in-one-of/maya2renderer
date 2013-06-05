@@ -1,17 +1,23 @@
 #ifndef _liqGlobalVariable_H
 #define _liqGlobalVariable_H
 
-#include <vector>
-
-#include <maya/MString.h>
-#include <maya/MStringArray.h>
-#include <maya/MIntArray.h>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 #include "liqtypes.h"//#include "ri_interface.h"
-
+#include "liqStructJob.h"
 #include <liquid.h>
 #include <liqRenderer.h>
-#include <liqGlobalHelpers.h>
+//#include <liqGlobalHelpers.h>
+
+enum HiderType {
+	htHidden    = 0,
+	htPhoton    = 1,
+	htZbuffer   = 2,
+	htRaytrace  = 3,
+	htOpenGL    = 4,
+	htDepthMask = 5
+};
 
 enum ShutterConfig {
 	OPEN_ON_FRAME         = 0,

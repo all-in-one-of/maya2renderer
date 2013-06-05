@@ -36,7 +36,7 @@
 #ifndef liqLightNode_H
 #define liqLightNode_H
 
-#include <maya/MPxNode.h>
+#include <common/prerequest_maya.h>
 
 class liqNodeSwatch;
 

@@ -1,7 +1,7 @@
 #ifndef RM_HELPER_H
 #define RM_HELPER_H
 
-#include "../common/prerequest_std.h"
+#include <common/prerequest_std.h>
 
 #include "ri_interface.h"
 #include "liqRibLightData.h"

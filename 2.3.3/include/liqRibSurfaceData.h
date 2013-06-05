@@ -33,9 +33,6 @@
 ** Liquid Rib Surface Data Header File
 ** ______________________________________________________________________
 */
-#include <vector>
-#include <boost/shared_array.hpp>
-
 #include <liqRibData.h>
 
 class liqRibSurfaceData : public liqRibData {

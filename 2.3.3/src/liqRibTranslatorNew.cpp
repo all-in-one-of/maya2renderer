@@ -30,55 +30,20 @@
 
 #include <liqRibTranslator.h>
 
-#include <sys/types.h>
-
-#ifndef _WIN32
-#include <sys/time.h>
-#include <sys/stat.h>
-// Dynamic Object Headers
-#include <dlfcn.h>
-#endif
-
-#ifdef _WIN32
-#pragma warning(disable:4786)
-#endif
-
-#ifdef _WIN32
-#include <process.h>
-#include <io.h>
-#include <direct.h>
-#else
-#include <unistd.h>
-#include <stdlib.h>
-#include <pwd.h>
-#endif
-#include <time.h>
-#include <algorithm>
-#include <sstream>
-
-#include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/tokenizer.hpp>
-#include <boost/algorithm/string/case_conv.hpp>
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
+#include <common/mayacheck.h>
 
 // Renderman Headers
 //extern "C" {
-#include "liqtypes.h"
+#include <liqtypes.h>
 //#include "ri_interface.h"
 //}
 
-#ifdef _WIN32
-#  define RM_CMD "cmd.exe /c del"
-#else
-#  define RM_CMD "/bin/rm"
-#endif
+#include <liqDefine.h>
 
-
-// Maya headers
-#include "./common/prerequest_maya.h"
 // Liquid headers
 #include <liquid.h>
-#include <liqRibHT.h>
 #include <liqRenderer.h>
 #include <liqRibLightData.h>
 #include <liqGlobalHelpers.h>
@@ -86,7 +51,6 @@
 #include <liqCustomNode.h>
 #include <liqShaderFactory.h>
 #include <liqExpression.h>
-#include <liqRenderScript.h>
 #include <liqGlobalVariable.h>
 #include <liqJobScriptMgr.h>
 #include <liqFrameScriptMgr.h>
@@ -96,17 +60,18 @@
 #include <liqHeroRibWriterMgr.h>
 #include <liqRibCamera.h>
 #include <liqCameraMgr.h>
+#include <liqShader.h>
 
-#include "common/mayacheck.h"
 #include "renderermgr.h"
 #include "shadergraph/shadermgr.h"
 
 #define _Refactor_doTexure_doShadow
 
+
 using namespace boost;
 using namespace std;
 
-typedef int RtError;
+//typedef int RtError;
 
 
 

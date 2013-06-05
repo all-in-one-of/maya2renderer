@@ -36,7 +36,7 @@
 #ifndef liqCoShaderNode_H
 #define liqCoShaderNode_H
 
-#include <maya/MPxNode.h>
+#include <common/prerequest_maya.h>
 
 class liqNodeSwatch;
 

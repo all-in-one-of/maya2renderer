@@ -28,11 +28,8 @@
 #ifndef liqBoundingBoxLocator_H
 #define liqBoundingBoxLocator_H
 
-
-#include <maya/MPxLocatorNode.h> 
-#include <boost/shared_array.hpp>
-
-
+#include <common/prerequest_std.h>
+#include <common/prerequest_maya.h>
 
 class liqBoundingBoxLocator : public MPxLocatorNode
 {

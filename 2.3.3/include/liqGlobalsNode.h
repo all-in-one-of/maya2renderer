@@ -35,7 +35,7 @@
 #ifndef liqGlobalsNode_H
 #define liqGlobalsNode_H
 
-#include <maya/MPxNode.h>
+#include <common/prerequest_maya.h>
 
 class liqGlobalsNode : public MPxNode
 {

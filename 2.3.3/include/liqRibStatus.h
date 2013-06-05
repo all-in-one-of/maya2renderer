@@ -30,20 +30,14 @@
 #ifndef liqRibStatus_H
 #define liqRibStatus_H
 
-#include <string>
-#include <vector>
+#include <common/prerequest_std.h>
 /* ______________________________________________________________________
 **
 ** Liquid RIBStatus Header File
 ** ______________________________________________________________________
 */
 
-//#include <zlib.h>
-#include <string>
-
-//#include <maya/MGlobal.h>
-#include <maya/MCommandResult.h>
-//#include <maya/MDagPath.h>
+#include <common/prerequest_maya.h>
 
 //extern "C" {
 	#include "ri_interface.h"
