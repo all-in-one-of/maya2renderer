@@ -374,7 +374,7 @@ SURFACE(maya_lambert_transparent)
 			out->Ci += sum;
 
 
-		if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &transparency(), LIQ_SCALAR_EPSILON ) )
 		{
 			out->Ci = out->Ci * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 		}

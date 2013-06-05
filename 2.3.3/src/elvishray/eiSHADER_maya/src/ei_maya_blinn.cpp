@@ -173,7 +173,7 @@ SURFACE(maya_blinn)
 		vector H, Ln, V, Nn;
 		float NH, NH2, NHSQR, Dd, Gg, VN, VH, LN, Ff, tmp;
 
-		if( !almost_equal(i_eccentricity, 1.0f, LIQ_SCALAR_ALMOST_ZERO ) )
+		if( !almost_equal(i_eccentricity, 1.0f, LIQ_SCALAR_EPSILON ) )
 			E = 1.0f / (SQR(i_eccentricity) - 1.0f);
 		else
 			E = -1.0 * 100000.0f;
@@ -201,7 +201,7 @@ SURFACE(maya_blinn)
 					NH = i_Nf % H;
 					NHSQR = SQR(NH);
 					NH2 = NH * 2.0f;
-					if( abs(NHSQR + E) < LIQ_SCALAR_ALMOST_ZERO ){//avoid dividing zero
+					if( abs(NHSQR + E) < LIQ_SCALAR_EPSILON ){//avoid dividing zero
 						continue;
 					}
 					Dd = (E + 1.0f) / (NHSQR + E);
@@ -283,7 +283,7 @@ SURFACE(maya_blinn)
 		color ray_coloration = i_specularColor * i_reflectivity;
 		color reflected = i_reflectedColor;
 
-// 		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_ALMOST_ZERO) 
+// 		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_EPSILON) 
 // 			&&
 // 			/*raySpecularDepth() < i_reflectionLimit*/eiTRUE )
 // 		{
@@ -411,7 +411,7 @@ SURFACE(maya_blinn)
 		o_outColor() *= (Ia + Id + Itr);
 		o_outColor() += Ir + Is + i_incandescence() + refraction;
 
-		if ( ! less_than( &i_transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &i_transparency(), LIQ_SCALAR_EPSILON ) )
 		{//transparent
 			o_outColor() *= ( 1.0f - i_transparency() ) + trace_transparent() * i_transparency();
 		}//else{ opacity }

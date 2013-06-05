@@ -219,7 +219,7 @@ SURFACE(maya_phong_architectural)
 		int diffuse_samples = 8;
 		int reflection_samples= 4;
 		int refraction_samples= 4;
-		scalar cutoff_threshold = LIQ_SCALAR_ALMOST_ZERO;
+		scalar cutoff_threshold = LIQ_SCALAR_EPSILON;
 		eiTag bump_shader = eiNULL_TAG;
 		scalar bump_factor= 0.3f;
 
@@ -579,7 +579,7 @@ SURFACE(maya_phong_architectural)
 #endif
 
 
-		if ( ! less_than( &i_transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &i_transparency(), LIQ_SCALAR_EPSILON ) )
 		{//transparent
 			out->Ci = out->Ci * ( 1.0f - i_transparency() ) + trace_transparent() * i_transparency();
 		}//else{ opacity }

@@ -1288,7 +1288,7 @@ namespace elvishray
 		{
 			double eccentricity;
 			IfMErrorWarn(MGlobal::executeCommand("getAttr "+blinns[i]+".eccentricity", eccentricity));
-			if( eccentricity < LIQ_SCALAR_ALMOST_ZERO )
+			if( eccentricity < LIQ_SCALAR_EPSILON )
 			{
 				liquidMessage2(messageError,"blinn.eccentricity should not be 0, or the maya_blinn shader may generate black points. [%s]", blinns[i].asChar());
 				return false;
@@ -1313,7 +1313,7 @@ namespace elvishray
 			if( srcNodes.length() == 0 )
 			{
 				IfMErrorWarn(MGlobal::executeCommand("getAttr "+transforms[i]+".scaleX", scale.x));
-				if( fabs(scale.x) < LIQ_SCALAR_ALMOST_ZERO )
+				if( fabs(scale.x) < LIQ_SCALAR_EPSILON )
 				{
 					liquidMessage2(messageError,"transfrom.scaleX should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
@@ -1324,7 +1324,7 @@ namespace elvishray
 			if( srcNodes.length() == 0 )
 			{
 				IfMErrorWarn(MGlobal::executeCommand("getAttr "+transforms[i]+".scaleY", scale.y));
-				if( fabs(scale.y) < LIQ_SCALAR_ALMOST_ZERO )
+				if( fabs(scale.y) < LIQ_SCALAR_EPSILON )
 				{
 					liquidMessage2(messageError,"transfrom.scaleY should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;
@@ -1335,7 +1335,7 @@ namespace elvishray
 			if( srcNodes.length() == 0 )
 			{
 				IfMErrorWarn(MGlobal::executeCommand("getAttr "+transforms[i]+".scaleZ", scale.z));
-				if( fabs(scale.z) < LIQ_SCALAR_ALMOST_ZERO )
+				if( fabs(scale.z) < LIQ_SCALAR_EPSILON )
 				{
 					liquidMessage2(messageError,"transfrom.scaleZ should not be 0, or degenerated polygon will occur. [%s]", transforms[i].asChar());
 					return false;

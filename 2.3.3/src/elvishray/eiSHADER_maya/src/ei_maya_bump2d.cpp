@@ -205,7 +205,7 @@ SURFACE(maya_bump2d)
 
 			vector udir, vdir;
 
-			if( ! less_than(&stangent, LIQ_SCALAR_ALMOST_ZERO) )
+			if( ! less_than(&stangent, LIQ_SCALAR_EPSILON) )
 			{
 				vdir = stangent ^ i_normalCamera();
 			}

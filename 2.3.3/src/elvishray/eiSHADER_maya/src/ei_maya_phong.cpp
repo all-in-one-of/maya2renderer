@@ -151,7 +151,7 @@ SURFACE(maya_phong)
 	//		Ci() += C;
 	//	}
 
-	//	if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+	//	if ( ! less_than( &transparency(), LIQ_SCALAR_EPSILON ) )
 	//	{//transparent
 	//		Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 	//	}//else{ opacity }
@@ -177,7 +177,7 @@ SURFACE(maya_phong)
 	//		Ci() += C;
 	//	}
 
-	//	if ( ! less_than( &transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+	//	if ( ! less_than( &transparency(), LIQ_SCALAR_EPSILON ) )
 	//	{//transparent
 	//		Ci() = Ci() * ( 1.0f - transparency() ) + trace_transparent() * transparency();
 	//	}//else{ opacity }
@@ -348,7 +348,7 @@ SURFACE(maya_phong)
 		color ray_coloration = i_specularColor * i_reflectivity;
 		color reflected = i_reflectedColor;
 
-// 		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_ALMOST_ZERO) 
+// 		if( /*ray_coloration != color(0)*/!less_than(&ray_coloration, LIQ_SCALAR_EPSILON) 
 // 			&&
 // 			/*raySpecularDepth() < i_reflectionLimit*/eiTRUE )
 // 		{
@@ -495,7 +495,7 @@ SURFACE(maya_phong)
 		o_outColor() *= (Cdiffuse + Cambient + Ctransl);
 		o_outColor() += Creflect +  Cspecular + i_incandescence() + refraction;
 
-		if ( ! less_than( &i_transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &i_transparency(), LIQ_SCALAR_EPSILON ) )
 		{//transparent
 			o_outColor() = o_outColor() * ( 1.0f - i_transparency() ) + trace_transparent() * i_transparency();
 		}//else{ opacity }

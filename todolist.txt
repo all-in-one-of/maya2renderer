@@ -8,8 +8,8 @@
 - learn katana
 
 liq|:把nodeid放到一个文件里
-liq| liqMath.h 和liq_math.h合并
-liq|er|: bug： 打开camera film gate后，渲染结果和maya software不一致
+-done)liq| liqMath.h 和liq_math.h合并
+-liq|er|: bug： 打开camera film gate后，渲染结果和maya software不一致
 -done)liq|rm|:简化place2dTexture里的rsl参数传递
 -done)liq|:优化编译速度，整理#include文件（liqGlobalHelpers.h ）
 -done)liq| er| place2dTexture|: maya是按（0.5，0.5）旋转的，er现在是按（0，0）旋转的

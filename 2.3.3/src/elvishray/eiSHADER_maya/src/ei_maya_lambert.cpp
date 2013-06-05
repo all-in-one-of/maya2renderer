@@ -246,7 +246,7 @@ SURFACE(maya_lambert)
 
 		o_outColor() = o_outColor() * (Ia + Id + Itr) + i_incandescence() + refraction;
 
-		if ( ! less_than( &i_transparency(), LIQ_SCALAR_ALMOST_ZERO ) )
+		if ( ! less_than( &i_transparency(), LIQ_SCALAR_EPSILON ) )
 		{//transparent
 			o_outColor() *= ( 1.0f - i_transparency() ) + trace_transparent() * i_transparency();
 		}//else{ opacity }
