@@ -1,5 +1,140 @@
+////System
+displayString -replace -value "System" 
+	m_AEelvishrayGlobals.kSystem;
+displayString -replace -value "Output API Calls" 
+	m_AEelvishrayGlobals.kSystem_OutputCall;
+displayString -replace -value "Output C Source File (.esa)"
+	m_AEelvishrayGlobals.kSystem_OutputESA;
+displayString -replace -value "Output Scene Script File (.ess)"
+	m_AEelvishrayGlobals.kSystem_OutputESS;
 
-displayString -replace -value "Verbosity" m_AEelvishrayGlobals.kVerbose;
-displayString -replace -value "Filter" m_AEelvishrayGlobals.kFilterType;
-displayString -replace -value "Face" m_AEelvishrayGlobals.kFace;
-displayString -replace -value "Approx. Method" m_AEelvishrayGlobals.kApproxMethod;
+////Processing
+displayString -replace -value "Processing" 
+	m_AEelvishrayGlobals.kProcessing;
+//Processing>Verbose
+displayString -replace -value "Verbosity" 
+	m_AEelvishrayGlobals.kProcessing_Verbose;
+displayString -replace -value "None" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_None;
+displayString -replace -value "Fatal" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_Fatal;
+displayString -replace -value "Error" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_Error;
+displayString -replace -value "Warning" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_Warning;
+displayString -replace -value "Info" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_Info;
+displayString -replace -value "Debug" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_Debug;
+displayString -replace -value "All" 
+	m_AEelvishrayGlobals.kProcessing_Verbose_All;
+//Processing>Library
+displayString -replace -value "Image Library (eiIMG)"
+	m_AEelvishrayGlobals.kProcessing_Library_eiIMG;
+displayString -replace -value "Shader Library (eiSHADER)"
+	m_AEelvishrayGlobals.kProcessing_Library_eiSHADER;
+displayString -replace -value "Maya Shader Library (eiSHADER_maya)"
+	m_AEelvishrayGlobals.kProcessing_Library_eiSHADER_maya;
+
+////Options
+displayString -replace -value "Contrast"
+	m_AEelvishrayGlobals.kOptions_contrast;
+displayString -replace -value "Min. Samples"
+	m_AEelvishrayGlobals.kOptions_samples_min;
+displayString -replace -value "Max. Samples"
+	m_AEelvishrayGlobals.kOptions_samples_max;
+//Options>Filter
+displayString -replace -value "Filter"
+	m_AEelvishrayGlobals.kOptions_FilterType;
+displayString -replace -value "None"
+	m_AEelvishrayGlobals.kOptions_FilterType_None;
+displayString -replace -value "Box"
+	m_AEelvishrayGlobals.kOptions_FilterType_Box;
+displayString -replace -value "Triangle"
+	m_AEelvishrayGlobals.kOptions_FilterType_Triangle;
+displayString -replace -value "Catmull-rom"
+	m_AEelvishrayGlobals.kOptions_FilterType_Catmull;
+displayString -replace -value "Gaussian"
+	m_AEelvishrayGlobals.kOptions_FilterType_Gaussian;
+displayString -replace -value "Sinc"
+	m_AEelvishrayGlobals.kOptions_FilterType_Sinc;
+//Options>FilterSize
+displayString -replace -value "Filter Size"
+	m_AEelvishrayGlobals.kOptions_FilterSize;
+//Options>Progressive
+displayString -replace -value "Progressive"
+	m_AEelvishrayGlobals.kOptions_Progressive;
+
+////Trace Depth
+displayString -replace -value "Transparency"
+	m_AEelvishrayGlobals.kTraceDepth_Transparency;
+displayString -replace -value "Glossy Reflections"
+	m_AEelvishrayGlobals.kTraceDepth_GlossyReflections;
+displayString -replace -value "Diffuse Reflections"
+	m_AEelvishrayGlobals.kTraceDepth_DiffuseReflections;
+displayString -replace -value "Glossy Refractions"
+	m_AEelvishrayGlobals.kTraceDepth_GlossyRefractions;
+displayString -replace -value "Diffuse Refractions"
+	m_AEelvishrayGlobals.kTraceDepth_DiffuseRefractions;
+displayString -replace -value "Sum Depth"
+	m_AEelvishrayGlobals.kTraceDepth_SumDepth;
+
+////Displacement
+displayString -replace -value "Displacement"
+	m_AEelvishrayGlobals.kDisplacement;
+////Max. Displacement
+displayString -replace -value "Max. Displacement"
+	m_AEelvishrayGlobals.kMaxDisplacement;
+////Face
+displayString -replace -value "Face"
+	m_AEelvishrayGlobals.kFace;
+displayString -replace -value "None"
+	m_AEelvishrayGlobals.kFace_None;
+displayString -replace -value "Front"
+	m_AEelvishrayGlobals.kFace_Front;
+displayString -replace -value "Back"
+	m_AEelvishrayGlobals.kFace_Back;
+displayString -replace -value "Both"
+	m_AEelvishrayGlobals.kFace_Both;
+
+
+////Geometry Approximation
+displayString -replace -value "Approx. Method" 
+	m_AEelvishrayGlobals.kApproxMethod;
+displayString -replace -value "None" 
+	m_AEelvishrayGlobals.kApproxMethod_None;
+displayString -replace -value "Regular" 
+	m_AEelvishrayGlobals.kApproxMethod_Regular;
+displayString -replace -value "Length" 
+	m_AEelvishrayGlobals.kApproxMethod_Length;
+displayString -replace -value "Any" 
+	m_AEelvishrayGlobals.kApprox_Any;
+displayString -replace -value "View-dependent" 
+	m_AEelvishrayGlobals.kApprox_ViewDependent;
+//Geometry Approximation>Args
+displayString -replace -value "Arg0" 
+	m_AEelvishrayGlobals.kApprox_Arg0;
+displayString -replace -value "Arg1" 
+	m_AEelvishrayGlobals.kApprox_Arg1;
+displayString -replace -value "Arg2" 
+	m_AEelvishrayGlobals.kApprox_Arg2;
+displayString -replace -value "Arg3" 
+	m_AEelvishrayGlobals.kApprox_Arg3;
+displayString -replace -value "Sharp" 
+	m_AEelvishrayGlobals.kApprox_Sharp;
+displayString -replace -value "Min. Subdiv." 
+	m_AEelvishrayGlobals.kApprox_MinSubdiv;
+displayString -replace -value "Max. Subdiv." 
+	m_AEelvishrayGlobals.kApprox_MaxSubdiv;
+displayString -replace -value "Max. Grid Size" 
+	m_AEelvishrayGlobals.kApprox_MaxGridSize;
+displayString -replace -value "Motion Factor" 
+	m_AEelvishrayGlobals.kApprox_MotionFactor;
+
+
+
+
+
+
+
+

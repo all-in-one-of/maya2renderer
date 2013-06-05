@@ -10,15 +10,15 @@ global proc AEEIVerboseNew( string $messageAttr )
 
 	setUITemplate -pushTemplate attributeEditorTemplate;
 	attrEnumOptionMenuGrp
-				-label (uiRes("m_AEelvishrayGlobals.kVerbose"))
+				-label (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose"))
 				-at ($node+".verbose")
-				-ei 0 "None"
-				-ei 1 "Fatal"
-				-ei 2 "Error"
-				-ei 3 "Warning"
-				-ei 4 "Info"
-				-ei 5 "Debug"
-				-ei 6 "All"
+				-ei 0 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_None"))
+				-ei 1 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Fatal"))
+				-ei 2 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Error"))
+				-ei 3 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Warning"))
+				-ei 4 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Info"))
+				-ei 5 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Debug"))
+				-ei 6 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_All"))
 				EIVerboseMenu;
     AEEIVerboseReplace($messageAttr);
 
@@ -37,14 +37,14 @@ global proc AEEIFilterTypeNew( string $messageAttr )
 
 	setUITemplate -pushTemplate attributeEditorTemplate;
 	attrEnumOptionMenuGrp
-				-label (uiRes("m_AEelvishrayGlobals.kFilterType"))
+				-label (uiRes("m_AEelvishrayGlobals.kOptions_FilterType"))
 				-at ($node+".filterType")
-				-ei 0 "None"
-				-ei 1 "Box"
-				-ei 2 "Triangle"
-				-ei 3 "Catmull-rom"
-				-ei 4 "Gaussian"
-				-ei 5 "Sinc"
+				-ei 0 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_None"))
+				-ei 1 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Box"))
+				-ei 2 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Triangle"))
+				-ei 3 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Catmull"))
+				-ei 4 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Gaussian"))
+				-ei 5 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Sinc"))
 				EIFilterTypeMenu;
     AEEIFilterTypeReplace($messageAttr);
 
@@ -65,10 +65,10 @@ global proc AEEIFaceNew( string $messageAttr )
 	attrEnumOptionMenuGrp
 				-label (uiRes("m_AEelvishrayGlobals.kFace"))
 				-at ($node+".face")
-				-ei 0 "None"
-				-ei 1 "Front"
-				-ei 2 "Back"
-				-ei 3 "Both"
+				-ei 0 (uiRes("m_AEelvishrayGlobals.kFace_None"))
+				-ei 1 (uiRes("m_AEelvishrayGlobals.kFace_Front"))
+				-ei 2 (uiRes("m_AEelvishrayGlobals.kFace_Back"))
+				-ei 3 (uiRes("m_AEelvishrayGlobals.kFace_Both"))
 				EIFaceMenu;
     AEEIFaceReplace($messageAttr);
 
@@ -89,9 +89,9 @@ global proc AEEIApproxMethodNew( string $messageAttr )
 	attrEnumOptionMenuGrp
 				-label (uiRes("m_AEelvishrayGlobals.kApproxMethod"))
 				-at ($node+".approx_method")
-				-ei 0 "None"
-				-ei 1 "Regular"
-				-ei 2 "Length"
+				-ei 0 (uiRes("m_AEelvishrayGlobals.kApproxMethod_None"))
+				-ei 1 (uiRes("m_AEelvishrayGlobals.kApproxMethod_Regular"))
+				-ei 2 (uiRes("m_AEelvishrayGlobals.kApproxMethod_Length"))
 				EIApproxMethodMenu;
     AEEIApproxMethodReplace($messageAttr);
 
@@ -110,56 +110,86 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 
 	editorTemplate -beginScrollLayout;
  		//--------------------------------------------------
-	 	editorTemplate -beginLayout "System" -collapse 1;
- 		  editorTemplate -label "Output API Calls"					-addDynamicControl "output_call";
- 		  editorTemplate -label "Output C Source File (.esa)"		-addDynamicControl "output_esa";
- 		  editorTemplate -label "Output Scene Script File (.ess)"	-addDynamicControl "output_ess";
- 		editorTemplate -endLayout;//dev
+	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kSystem")) -collapse 1;
+ 		  editorTemplate -label (uiRes("m_AEelvishrayGlobals.kSystem_OutputCall"))
+						 -addDynamicControl "output_call";
+ 		  editorTemplate -label (uiRes("m_AEelvishrayGlobals.kSystem_OutputESA"))
+						 -addDynamicControl "output_esa";
+ 		  editorTemplate -label (uiRes("m_AEelvishrayGlobals.kSystem_OutputESS"))
+						 -addDynamicControl "output_ess";
+ 		editorTemplate -endLayout;//System
  		//--------------------------------------------------
-	 	editorTemplate -beginLayout "Processing" -collapse 1;
+	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kProcessing")) -collapse 1;
 			editorTemplate -callCustom AEEIVerboseNew AEEIVerboseReplace "message";
-			editorTemplate -label "Image Library (eiIMG)"				-addDynamicControl "eiIMG";
-			editorTemplate -label "Shader Library (eiSHADER)"			-addDynamicControl "eiSHADER";
-			editorTemplate -label "Maya Shader Library (eiSHADER_maya)"	-addDynamicControl "eiSHADER_maya";
- 		editorTemplate -endLayout;//dev
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_eiIMG"))
+						   -addDynamicControl "eiIMG";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_eiSHADER"))
+						   -addDynamicControl "eiSHADER";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_eiSHADER_maya"))
+						   -addDynamicControl "eiSHADER_maya";
+ 		editorTemplate -endLayout;//Processing
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout "Options" -collapse 1;
-			editorTemplate -label "Contrast" -addDynamicControl "contrast";
-			editorTemplate -label "Min. Samples" -addDynamicControl "samples_min";
-			editorTemplate -label "Max. Samples" -addDynamicControl "samples_max";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_contrast")) 
+				-addDynamicControl "contrast";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_samples_min")) 
+				-addDynamicControl "samples_min";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_samples_max")) 
+				-addDynamicControl "samples_max";
 			editorTemplate -callCustom AEEIFilterTypeNew AEEIFilterTypeReplace "message";
- 			editorTemplate -label "Filter Size" -addDynamicControl "filterSize";	
- 			editorTemplate -label "Progressive" -addDynamicControl "progressive";	
+ 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_FilterSize"))  
+				-addDynamicControl "filterSize";	
+ 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_Progressive")) 
+				-addDynamicControl "progressive";	
 			//editorTemplate -label ("motion:see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
-		editorTemplate -endLayout;//option
+		editorTemplate -endLayout;//Options
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout "Trace Depth" -collapse 1;
-			editorTemplate -label "Transparency"		-addDynamicControl "trace_depth_transp";
-			editorTemplate -label "Glossy Reflections"	-addDynamicControl "trace_depth_glossy_reflect";
-			editorTemplate -label "Diffuse Reflections"	-addDynamicControl "trace_depth_diffuse_reflect";
-			editorTemplate -label "Glossy Refractions"	-addDynamicControl "trace_depth_glossy_refract";
-			editorTemplate -label "Diffuse Refractions"	-addDynamicControl "trace_depth_diffuse_refract";
-			editorTemplate -label "Sum Depth"			-addDynamicControl "trace_depth_sum";
-		editorTemplate -endLayout;//trace_depth
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_Transparency"))	
+				-addDynamicControl "trace_depth_transp";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_GlossyReflections"))
+				-addDynamicControl "trace_depth_glossy_reflect";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_DiffuseReflections"))
+				-addDynamicControl "trace_depth_diffuse_reflect";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_GlossyRefractions"))
+				-addDynamicControl "trace_depth_glossy_refract";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_DiffuseRefractions"))
+				-addDynamicControl "trace_depth_diffuse_refract";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_SumDepth"))
+				-addDynamicControl "trace_depth_sum";
+		editorTemplate -endLayout;//Trace Depth
  		//--------------------------------------------------
-		editorTemplate -label "Displacement" -addDynamicControl "displace";
-		editorTemplate -label "Max. Displacement" -addDynamicControl "max_displace";
+		editorTemplate -label (uiRes("m_AEelvishrayGlobals.kDisplacement"))
+			-addDynamicControl "displace";
+		editorTemplate -label (uiRes("m_AEelvishrayGlobals.kMaxDisplacement"))
+			-addDynamicControl "max_displace";
 		editorTemplate -callCustom AEEIFaceNew AEEIFaceReplace "message";
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout "Geometry Approximation" -collapse 1;
 			editorTemplate-callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
-			editorTemplate -label "Any" -addDynamicControl "approx_any";
-			editorTemplate -label "View-dependent" -addDynamicControl "approx_view_dep";
-			editorTemplate -label "Arg0" -addDynamicControl "approx_args0";
-			editorTemplate -label "Arg1" -addDynamicControl "approx_args1";
-			editorTemplate -label "Arg2" -addDynamicControl "approx_args2";
-			editorTemplate -label "Arg3" -addDynamicControl "approx_args3";
-			editorTemplate -label "Sharp" -addDynamicControl "approx_sharp";
-			editorTemplate -label "Min. Subdiv." -addDynamicControl "approx_min_subdiv";
-			editorTemplate -label "Max. Subdiv." -addDynamicControl "approx_max_subdiv";
-			editorTemplate -label "Max. Grid Size" -addDynamicControl "approx_max_grid_size";
-			editorTemplate -label "Motion Factor" -addDynamicControl "approx_motion_factor";
-		editorTemplate -endLayout;//approx
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Any"))
+				-addDynamicControl "approx_any";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_ViewDependent"))
+				-addDynamicControl "approx_view_dep";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
+				-addDynamicControl "approx_args0";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg1"))
+				-addDynamicControl "approx_args1";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg2"))
+				-addDynamicControl "approx_args2";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg3"))
+				-addDynamicControl "approx_args3";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Sharp"))
+				-addDynamicControl "approx_sharp";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_MinSubdiv"))
+				-addDynamicControl "approx_min_subdiv";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_MaxSubdiv"))
+				-addDynamicControl "approx_max_subdiv";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_MaxGridSize"))
+				-addDynamicControl "approx_max_grid_size";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_MotionFactor"))
+				-addDynamicControl "approx_motion_factor";
+		editorTemplate -endLayout;//Geometry Approximation
  		//--------------------------------------------------
 		// include/call base class/node attributes
 		AEdependNodeTemplate($node);
