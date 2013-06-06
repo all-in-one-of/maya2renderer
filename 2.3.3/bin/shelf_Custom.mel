@@ -38,10 +38,10 @@ global proc shelf_Custom () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "load elvishray" 
+        -annotation "load ElvishRender" 
         -enableBackground 0
         -align "center" 
-        -label "if ( `pluginInfo -q -loaded -name \"elvishray\"` )\n{\n    unloadPlu..." 
+        -label "if ( `pluginInfo -q -loaded -name \"ElvishRender\"` )\n{\n    unloadPlu..." 
         -labelOffset 0
         -font "plainLabelFont" 
         -imageOverlayLabel "ER" 
@@ -52,7 +52,7 @@ global proc shelf_Custom () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "if ( `pluginInfo -q -loaded -name \"elvishray\"` )\n{\n    unloadPlugin \"elvishray\";\n}else{\n    loadPlugin \"elvishray\";\n}" 
+        -command "if ( `pluginInfo -q -loaded -name \"ElvishRender\"` )\n{\n    unloadPlugin \"ElvishRender\";\n}else{\n    loadPlugin \"ElvishRender\";\n}" 
         -sourceType "mel" 
         -commandRepeatable 1
     ;

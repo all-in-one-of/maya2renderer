@@ -1,0 +1,12 @@
+source xxliquidutility.mel;
+
+global proc AEliquidShaderTemplate_ElvishRender( string $node, string $attr )
+
+{
+	liqPushIdent();
+	liqAElog("AEliquidShaderTemplate_ElvishRender("+$node+","+$attr+")");
+
+	AEliquidShaderTemplate_elvishray( $node, $attr );
+
+	liqPopIdent();
+}

@@ -1,6 +1,6 @@
 #include "er_nodeId.h"
-
+#include "er_.h"
 namespace elvishray
 {
-	const char *TN_GLOBAL_NODE		= "elvishrayGlobals";
+
 }//namespace elvishray

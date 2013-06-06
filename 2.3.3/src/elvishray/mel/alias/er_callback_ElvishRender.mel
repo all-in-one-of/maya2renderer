@@ -1,0 +1,24 @@
+
+source xxliquidutility.mel;
+
+global proc int isValidShaderTypeForPL_ElvishRender(string $shaderType)
+{
+	liqPushIdent();
+	liqlog("isValidShaderTypeForPL_ElvishRender("+$shaderType+")");
+
+	int $ret = isValidShaderTypeForPL_elvishray($shaderType);
+
+	liqPopIdent();
+	return $ret;
+}
+//
+global proc int isSurfaceShader_ElvishRender(string $shaderType)
+{
+	liqPushIdent();
+	liqlog("isSurfaceShader_ElvishRender("+$shaderType+")");
+
+	int $ret = isSurfaceShader_elvishray($shaderType);
+
+	liqPopIdent();
+	return $ret;
+}

@@ -1,0 +1,334 @@
+source xxliquidutility.mel;
+//------------------------------------------------------------
+//     General User Defined MEL Procedures
+//------------------------------------------------------------
+global proc LIQUID_userStartup_ElvishRender ()
+//This procedure is called as the last step of the initialization procedure that is run when the 3Delight for Maya plugin is loaded.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userStartup_ElvishRender()");
+	LIQUID_userStartup_elvishray();
+	liqPopIdent();
+}
+
+global proc LIQUID_userGetExpandedString_ElvishRender (string $str, string $shape_name, string $pass_name)
+//This procedure is called when a string attribute is parsed, offering the opportunity to completely 
+//replace the default string expansion in 3Delight for Maya. LIQUID_ userGetExpandedString is passed the 
+//string to expand, a string that contains the shape name (or an empty string), and a string containing 
+//the render pass name (or an empty string). The last two parameters are usually used to replace 
+//the ¡®<shape>¡¯ and ¡®<pass>¡¯ tokens, respectively. The procedure should return a string that requires
+//no further expansion, as there will be no further subsitution attempts done on it.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGetExpandedString_ElvishRender("+$str+","+$shape_name+","+$pass_name+")");
+	LIQUID_userGetExpandedString_elvishray($str, $shape_name, $pass_name);
+	liqPopIdent();
+}
+
+global proc LIQUID_userGetStringTokens_ElvishRender (string $tokens[], string $values[])
+//This procedure is called when a string attribute is parsed by LIQUID_expandString() to expand
+//the tokens and environment variables the attribute may contain. LIQUID_userGetString is passed
+//two empty string arrays and it is expected to fill the first one with the tokens to look for and
+//the second one with their replacement strings. The user defined token substitution is done
+//after the built-in tokens substitution.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGetStringTokens_ElvishRender({"+stringArrayToString($tokens,",")+"}, {"+stringArrayToString($values,",")+"})");
+	LIQUID_userGetStringTokens_elvishray($tokens, $values);
+	liqPopIdent();
+}
+
+global proc string LIQUID_userConvertTexture_ElvishRender (string $src, string $dst)
+//This procedure is called when a texture file, such as one referenced by the ¡®file¡¯ 2D texture
+//node, needs to be converted to a tdl texture file. The procedure is passed the full path to
+//the source file and the full path to the desired tdl file. The returned string is expected to
+//contained an error message, or an empty string if the conversion completed successfully. The
+//default behaviour is to call LIQUID_defaultConvertTexture.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userConvertTexture_ElvishRender("+$src+","+$dst+")");
+	LIQUID_userConvertTexture_elvishray($src, $dst);
+	liqPopIdent();
+	return "";
+}
+
+global proc string[] LIQUID_userGetNodesForRibArchiveBBox_ElvishRender (string $nodes[], string $pass_name)
+//This procedure is called when computing the bounding box of a RIB archive being written.
+//It will receieve the list of nodes being considered for bounding box evaluation, and the anme
+//of the render pass being rendered. The procedure returns the objects that must be used for
+//bounding box evaluation, so it can arbitrarily add or exclude specific nodes from that list.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGetNodesForRibArchiveBBox_ElvishRender({"+stringArrayToString($nodes,",")+"},"+$pass_name+")");
+	LIQUID_userGetNodesForRibArchiveBBox_elvishray($nodes, $pass_name);
+	liqPopIdent();
+	return {""};
+}
+
+
+//------------------------------------------------------------
+//     Procedures Related To MEL Script Attributes
+//------------------------------------------------------------
+global proc LIQUID_userPreRenderMel_ElvishRender (string $render_pass)
+//This procedure is called right before the Pre Render Mel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPreRenderMel_ElvishRender("+$render_pass+")");
+	
+	LIQUID_userPreRenderMel_elvishray($render_pass);
+
+	liqPopIdent();
+}
+
+global proc LIQUID_userPostRenderMel_ElvishRender (string $render_pass)
+//This procedure is called right before the Post Render Mel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPostRenderMel_ElvishRender("+$render_pass+")");
+
+	LIQUID_userPostRenderMel_elvishray($render_pass);
+	
+	liqPopIdent();
+}
+
+global proc LIQUID_userPreFrameMel_ElvishRender (string $render_pass)
+//This procedure is called right before the Pre Frame Mel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPreFrameMel_elvishray("+$render_pass+")");
+	LIQUID_userPreFrameMel_elvishray($render_pass);
+	liqPopIdent();
+}
+
+global proc LIQUID_userPostFrameMel_ElvishRender (string $render_pass)
+//This procedure is called right before the Post Frame Mel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPostFrameMel_ElvishRender("+$render_pass+")");
+	LIQUID_userPostFrameMel_elvishray($render_pass);
+	liqPopIdent();
+}
+
+global proc LIQUID_userPostOptionMel_ElvishRender (string $render_pass)
+//This procedure is called right before the Post Option Mel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPostOptionMel_ElvishRender("+$render_pass+")");
+	LIQUID_userPostOptionMel_elvishray($render_pass);
+	liqPopIdent();
+
+}
+
+global proc LIQUID_userPreWorldMel_ElvishRender (string $render_pass)
+//This procedure is called right before the PreWorldMel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPreWorldMel_ElvishRender("+$render_pass+")");
+	LIQUID_userPreWorldMel_elvishray($render_pass);
+	liqPopIdent();
+}
+
+global proc LIQUID_userPostWorldMel_ElvishRender (string $render_pass)
+//This procedure is called right before the Post World Mel script of the render pass being rendered is executed.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPostWorldMel_ElvishRender("+$render_pass+")");
+	LIQUID_userPostWorldMel_elvishray($render_pass);
+	liqPopIdent();
+}
+
+global proc LIQUID_userPreGeoMel_ElvishRender (string $render_pass, string $geometry_name, string $visible_lights[], 
+	int $is_shadow, string $geo_attrib_nodes[])
+//This procedure is called right before the Pre Geo Mel script attribute of related geometry attribute nodes is called. 
+//The parameters passed to this procedure are:
+//¡®string $render_pass¡¯
+//             The render pass node name
+//¡®string $geometry_name¡¯
+//             The name of the geometric object about to be output
+//¡®string $visible_lights[]¡¯
+//             The list of renderable, visible light shapes.
+//¡®int $is_shadow¡¯
+//             This parameter is set to ¡®1¡¯ when this procedure is called during a shadow map rendering. 
+//             It is set to ¡®0¡¯ when called during a regular frame rendering. It can also be set to ¡®-1¡¯ when it is called 
+//             outside of a Frame Begin / End block. Currently this can only happen when outputting geometry instances connected to a particle instancer.
+//¡®string $geo_attrib_nodes[]¡¯
+//             The list of geometry attribute nodes that are either connected or inherited by the current object.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPreGeoMel_ElvishRender("+$render_pass+", "+$geometry_name+",{"+stringArrayToString($visible_lights,",")+"}, "+
+		$is_shadow+", {"+stringArrayToString($geo_attrib_nodes,",")+"})");
+	LIQUID_userPreGeoMel_elvishray($render_pass, $geometry_name, $visible_lights, $is_shadow, $geo_attrib_nodes);
+	liqPopIdent();
+}
+
+global proc LIQUID_userPostGeoMel_ElvishRender (string $render_pass, string $geometry_name, string $visible_lights[], 
+	int $is_shadow, string $geo_attrib_nodes[])
+//This procedure is called right before the Post Geo Mel script attribute of related geometry attribute nodes is called. The parameter list is identical to LIQUID_userPreGeoMel.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userPostGeoMel_ElvishRender("+$render_pass+", "+$geometry_name+",{"+stringArrayToString($visible_lights,",")+"}, "+
+		$is_shadow+", {"+stringArrayToString($geo_attrib_nodes,",")+"})");
+	LIQUID_userPostGeoMel_elvishray($render_pass, $geometry_name, $visible_lights, $is_shadow, $geo_attrib_nodes);
+	liqPopIdent();
+}
+
+global proc LIQUID_userLightPreRenderMel_ElvishRender (string $render_pass, string $light_name, string $light_attribs_nodes[])
+//This procedure is called just before the Pre Render MEL script defined in light attribs node attached to the light source shape. The parameters passed to this procedure are:
+//¡®string $render_pass¡¯
+//             The render pass node name
+//¡®string $light_name¡¯ 
+//             The light source shape name
+//¡®string $light_attribs_nodes[]¡¯
+//             The list of light attributes nodes attached to the light source shape.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userLightPreRenderMel_ElvishRender("+$render_pass+", "+$light_name+",{"+stringArrayToString($light_attribs_nodes,",")+")");
+	LIQUID_userLightPreRenderMel_elvishray($render_pass, $light_name, $light_attribs_nodes);
+	liqPopIdent();
+}
+
+global proc LIQUID_userLightPostRenderMel_ElvishRender (string $render_pass, string $light_name, string $light_attribs_nodes[])
+//This procedure is called just before the Post Render MEL script defined in light attribs node attached to the light source shape.
+//The parameters list is identical to LIQUID_userLightPreRenderMel.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userLightPostRenderMel_ElvishRender("+$render_pass+", "+$light_name+",{"+stringArrayToString($light_attribs_nodes,",")+")");
+	LIQUID_userLightPostRenderMel_elvishray($render_pass, $light_name, $light_attribs_nodes);
+	liqPopIdent();
+}
+
+
+//------------------------------------------------------------
+//    Customizing Render Pass Nodes
+//------------------------------------------------------------
+global proc LIQUID_userRenderPassInit_ElvishRender (string $render_pass)
+//This procedure is called as the last step of the render pass node creation procedure. It is also
+//called as the last step of the DRP_Init() procedure. It could be used to configure a render pass
+//node with different values than the default ones. It can also be used to add various custom
+//attributes, in which case it might be useful to also define LIQUID_userRenderPassAEtemplate().
+//Finally, it can be used to updat4e custom render pass attributes of older scenes. It should
+//be desgined so that it can be called several times with the same render pass node during a
+//session.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userRenderPassInit_ElvishRender("+$render_pass+")");
+	LIQUID_userRenderPassInit_ElvishRender($render_pass);
+	liqPopIdent();
+}
+
+global proc LIQUID_userRenderPassAEtemplate_ElvishRender (string $render_pass)
+//This procedure is called at the end of AEdelightRenderPassTemplate(), which is
+//responsible for defining the attribute editor template for render pass nodes. LIQUID_
+//userRenderPassAEtemplate can be used to define editor template command for user-defined
+//attributes added to the render pass nodes.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userRenderPassAEtemplate_ElvishRender("+$render_pass+")");
+	LIQUID_userRenderPassAEtemplate_elvishray($render_pass);
+	liqPopIdent();
+}
+
+global proc string[] LIQUID_userGetAllDisplayDrivers_ElvishRender ()
+//This procedure is called whenever the list of display drivers is needed. The list of the display
+//drivers packaged with 3Delight can be retrieved with DRP_getDefaultDisplayDrivers.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGetAllDisplayDrivers_ElvishRender()");
+	LIQUID_userGetAllDisplayDrivers_elvishray();
+	liqPopIdent();
+	return {""};
+}
+
+global proc string[] LIQUID_userGetAllDisplayAOVs_ElvishRender ()
+//This procedure is called whenever the list of arbitrary output variables is needed. It is expected
+//to return an array of strings that will be used to build the user interface corresponding to
+//the AOV declarations returned by LIQUID_userGetAllDisplayAOVDeclarations. Note that both
+//LIQUID_userGetAllDisplayAOVs and LIQUID_userGetAllDisplayAOVDeclarations procedures must
+//be defined to be used; they are assumed to return arrays of the same size. The built-in AOVs
+//can be retrieved by calling DRP_getDefaultDisplayAOVs.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGetAllDisplayAOVs_ElvishRender()");
+	LIQUID_userGetAllDisplayAOVs_elvishray();
+	liqPopIdent();
+	return {""};
+}
+
+global proc string[] LIQUID_userGetAllDisplayAOVDeclarations_ElvishRender ()
+//This procedure is called to retrieve an AOV declaration to pass to the display. 3Delight
+//for Maya looks for the currently selected AOV, figure its index in the array returned
+//by LIQUID_userGetAllDisplayAOVs(), and uses that index on the array returned by
+//LIQUID_userGetAllDisplayAOVDeclarations to provide the display driver an output
+//variable. Inline declarations are allowed. Note that both LIQUID_userGetAllDisplayAOVs and
+//LIQUID_userGetAllDisplayAOVDeclarations procedures must be defined to be used; they are
+//assumed to return arrays of the same size. The built-in AOV declarations can be retrieved
+//by calling DRP getDefaultDisplayAOVDeclarations.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGetAllDisplayAOVDeclarations_ElvishRender()");
+	LIQUID_userGetAllDisplayAOVDeclarations_elvishray();
+	liqPopIdent();
+	return {""};
+}
+
+
+//------------------------------------------------------------
+//    Customizing Geometry Attribute Nodes
+//------------------------------------------------------------
+global proc LIQUID_userGeoAttribsInit_ElvishRender (string $geo_attr_node_name)
+//This procedure is called when a geometry attribute node is created using DGA_create()
+//(the 3Delight for Maya user interface always create geometry attributes nodes using that
+//procedure). Invoking LIQUID_userGeoAttribsInit is also the last thing done by DGA_Init().
+//This procedure can be used to add extra attributes to a newly-created geometry attributes
+//node, or to update these custom attributes when an older scene is loaded. It should be
+//desgined so that it can be called several times with the same geometry attribute node during
+//a session.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGeoAttribsInit_ElvishRender("+$geo_attr_node_name+")");
+	LIQUID_userGeoAttribsInit_elvishray($geo_attr_node_name);
+	liqPopIdent();
+}
+
+global proc LIQUID_userGeoAttribsAEtemplate_ElvishRender (string $geo_attr_node_name)
+//This procedure is called at the end of AEdelightGeoAttribsTemplate(), which is
+//responsible for defining the attribute editor template for geometry attributes nodes.
+//LIQUID_userGeoAttribsAEtemplate can be used to define editor template command for
+//user-defined attributes added to the geometry attribute nodes.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userGeoAttribsAEtemplate_ElvishRender("+$geo_attr_node_name+")");
+	LIQUID_userGeoAttribsAEtemplate_elvishray($geo_attr_node_name);
+	liqPopIdent();
+}
+
+
+//------------------------------------------------------------
+//    Customizing Light Attribute Nodes
+//------------------------------------------------------------
+global proc LIQUID_userLightAttribsInit_ElvishRender (string $light_attr_node_name)
+//This procedure is called when a light attribute node is created using DLA_create() (the
+//3Delight for Maya user interface always create light attribute nodes using that procedure).
+//Invoking LIQUID_userLightAttribsInit is also the last thing done by DLA_Init(). This procedure
+//can be used to add extra attributes to a newly-created light attribute node, or to update
+//these custom attributes when an older scene is loaded. It should be desgined so that it can
+//be called several times with the same light attribute node during a session.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userLightAttribsInit_ElvishRender("+$light_attr_node_name+")");
+	LIQUID_userLightAttribsInit_elvishray($light_attr_node_name);
+	liqPopIdent();
+}
+
+global proc LIQUID_userLightAttribsAEtemplate_ElvishRender (string $light_attr_node_name)
+//This procedure is called at the end of AEdelightLightAttribsTemplate(), which
+//is responsible for defining the attribute editor template for light attribute nodes.
+//LIQUID_userLightAttribsAEtemplate can be used to define editor template command for
+//user-defined attributes added to the light attribute nodes.
+{
+	liqPushIdent();
+	liqlog("LIQUID_userLightAttribsAEtemplate_ElvishRender("+$light_attr_node_name+")");
+	LIQUID_userLightAttribsAEtemplate_elvishray($light_attr_node_name);
+	liqPopIdent();
+}
+

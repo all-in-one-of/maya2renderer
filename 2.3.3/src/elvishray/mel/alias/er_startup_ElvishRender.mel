@@ -1,0 +1,13 @@
+
+source xxliquidutility.mel;
+
+
+global proc liquidCreateMenus_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liquidCreateMenus_ElvishRender()");
+
+	liquidCreateMenus_elvishray();
+
+	liqPopIdent();
+}

@@ -1,0 +1,15 @@
+source xxliquidutility.mel;
+
+//============================================================
+global proc AEElvishRenderGlobalsTemplate( string $node )
+{
+
+	liqPushIdent();
+	
+	liqAElog("AEElvishRenderGlobalsTemplate("+$node+")");
+	
+	
+	AEelvishrayGlobalsTemplate($node);
+	
+	liqPopIdent();
+}

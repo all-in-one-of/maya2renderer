@@ -10,6 +10,9 @@
     <Filter Include="src\output">
       <UniqueIdentifier>{06192d00-48fa-4463-a4bd-684ea5592f93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mel\alias">
+      <UniqueIdentifier>{7db93218-8c9e-401a-8264-2bc50f55b637}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\elvishray\er_factory.cpp">
@@ -194,6 +197,9 @@
     <ClInclude Include="..\elvishray\er_nodeId.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\elvishray\er_.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">
@@ -231,6 +237,27 @@
     </None>
     <None Include="..\elvishray\mel\er_CameraVisibility.mel">
       <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\AEElvishRenderGlobalsTemplate.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\AEliquidShaderTemplate_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\er_AEliquidInstanceFlags_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\er_callback_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\er_startup_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\userSetup.mel">
+      <Filter>mel\alias</Filter>
     </None>
   </ItemGroup>
 </Project>

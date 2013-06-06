@@ -42,6 +42,7 @@
 #include <common/prerequest_maya.h>
 #include <maya/MFnPlugin.h>
 #include <liqDefine.h>
+#include "er_.h"
 #include "../renderermgr.h"
 #include "../elvishray/er_factory.h"
 #include "er_globalnode.h"
@@ -57,14 +58,15 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	//_initializePlugin(obj);
 
 	// register the Globals node
+	assert( elvishray::GlobalNode::getTypeName().length() );
 	status = plugin.registerNode( 
-		elvishray::GlobalNode::typeName, 
-		elvishray::GlobalNode::typeId, 
+		elvishray::GlobalNode::getTypeName(), 
+		elvishray::GlobalNode::getTypeId(), 
 		elvishray::GlobalNode::creator, elvishray::GlobalNode::initialize, MPxNode::kDependNode );
-	LIQCHECKSTATUS( status, "Can't register elvishray::GlobalNode node" );
+	LIQCHECKSTATUS( status, "Can't register "+elvishray::GlobalNode::getTypeName()+" node" );
 	status.clear();
 
-  liquid::RendererMgr::registFactory("elvishray", new elvishray::Factory());
+  liquid::RendererMgr::registFactory(elvishray::RENDER_NAME.asChar(), new elvishray::Factory());
   
   return MS::kSuccess;
 }
@@ -75,10 +77,10 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 {
 	MStatus status;
 	MFnPlugin plugin(obj);
-	liquid::RendererMgr::unregistFactory("elvishray");
+	liquid::RendererMgr::unregistFactory(elvishray::RENDER_NAME.asChar());
 
-	status = plugin.deregisterNode( elvishray::GlobalNode::typeId );
-	LIQCHECKSTATUS( status, "Can't deregister elvishray::GlobalNode node" );
+	status = plugin.deregisterNode( elvishray::GlobalNode::getTypeId() );
+	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::GlobalNode::getTypeName()+" node" );
 
 	//_uninitializePlugin(obj);
 

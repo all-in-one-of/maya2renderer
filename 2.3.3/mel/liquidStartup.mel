@@ -209,7 +209,7 @@ global proc liquidLoadScripts()
   string $liquidHome = liquidGetHome();
   for( $r in $g_liqRenderer )
   {
-	  $usersetup = $liquidHome+"/src/"+$r+"/mel/userSetup.mel";
+	  $usersetup = liquidGetUserSetupMelFullPath($r);
 	  if( `filetest -e $usersetup` ){
 		  string $cmd = "source \""+$usersetup+"\"";
 		  print ($cmd+"\n");
@@ -1258,4 +1258,16 @@ liquidBuildChooseRendererMenuCB(string $renderer)
 
 
 	liqPopIdent();
+}
+//
+global proc string liquidGetUserSetupMelFullPath(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liquidGetUserSetupMelFullPath("+$renderer+")");
+
+	string $env_usersetup = "USERSETUP_"+$renderer;
+	string $ret = getenv($env_usersetup);
+
+	liqPopIdent();
+	return $ret;
 }

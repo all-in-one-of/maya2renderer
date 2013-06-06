@@ -14,8 +14,9 @@ namespace elvishray
 		static  void *    creator();
 		static  MStatus   initialize();
 
-		static  const MTypeId   typeId;
-		static  const MString   typeName;
+		static  const MTypeId   getTypeId();
+		static  const MString   getTypeName();
+
 	private:
 		//dev
 		static MObject aoutput_call;

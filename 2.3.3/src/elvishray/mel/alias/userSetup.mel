@@ -1,0 +1,67 @@
+source xxliquidutility.mel;
+///////////////////////////////////////////////////////////////////////////////////
+//return the current path of this file
+global proc string er_whereIAm_ElvishRender()
+{
+	liqPushIdent();	
+	liqAElog("er_whereIAm_ElvishRender()");
+	
+	string $result = `whatIs "er_whereIAm_ElvishRender"`;
+	//print("["+$result+"]\n");
+	string $ret;
+
+	if( startsWith($result, "Mel procedure found in: ") )
+	{
+	    string $path = substring( $result, size("Mel procedure found in:  "), size($result) );
+	    $ret = $path;
+	}else{
+	    print("Mel procedure 'er_whereIAm_ElvishRender' NOT found.\n"); 
+	    $ret = "";
+	}
+	liqPopIdent();
+	return $ret;
+}
+//
+proc string RelativePathToElvishray()
+{
+    return "../..";
+}
+//
+proc string getThisDirectory()
+{
+	liqPushIdent();	
+	liqAElog("getThisDirectory()");
+
+	string $thisPath = er_whereIAm_ElvishRender();
+	string $thisDir = dirname($thisPath);
+
+	liqPopIdent();
+	return $thisDir;
+}
+//
+proc string getElvishrayDir()
+{
+	liqPushIdent();	
+	liqAElog("getElvishrayDir()");
+
+	string $elvishrayDir = getThisDirectory() + "/" + RelativePathToElvishray();
+	liqPopIdent();
+	return $elvishrayDir;
+}
+///////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+
+print "This is ElvishRender /2.3.3/src/elvishray/alias/usersetup.mel.\n";
+// source elvishray/userSetup.mel
+eval( "source \"" + getElvishrayDir() + "/mel/userSetup.mel\"" );
+
+// source ElvishRender scripts
+source er_AEliquidInstanceFlags_ElvishRender.mel;
+source AEliquidShaderTemplate_ElvishRender.mel;
+source er_callback_ElvishRender.mel;
+source er_UserCallbackInterface_ElvishRender.mel;
+source er_startup_ElvishRender.mel;
+source AEElvishRenderGlobalsTemplate.mel;
+//source AEElvishRenderGlobalsTemplate.res.mel;

@@ -351,7 +351,7 @@ global proc registerLiquidSubRenderer(string $rnd)
 		$g_liqRenderer[$i] = $rnd;//append value
 	}
 
-	string $file = getenv("LIQUID_ROOT")+"/2.3.3/src/"+$rnd+"/mel/usersetup.mel";
+	string $file = liquidGetUserSetupMelFullPath($rnd);
 	eval("source \""+$file+"\"");
 
 	liqPopIdent();

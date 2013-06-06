@@ -28,11 +28,13 @@
 
 #include "../renderermgr.h"
 #include <common/mayacheck.h>
+#include "er_.h"
 #include "ercall.h"
 #include "MayaConnection.h"
 #include "er_groupmgr.h"
 
 #include "er_GlobalNodeHelper.h"
+#include "er_globalnode.h"
 #include "er_iprMgr.h"
 #include "er_helper.h"
 
@@ -47,9 +49,9 @@ namespace elvishray
 		m_groupMgr = new GroupMgr(this);
 
 // 		liquid::RendererMgr::getInstancePtr()->registerRenderer(
-// 			"elvishray", this
+// 			RendererName, this
 // 			);
-		m_gnode = new GlobalNodeHelper("elvishrayGlobals1");
+		m_gnode = new GlobalNodeHelper( liqGetRendererGlobalsNodeInst(RENDER_NAME).asChar() );
 		m_iprMgr = NULL;
 
 		//ei_context();
@@ -70,7 +72,7 @@ namespace elvishray
 	//
 	void Renderer::test()
 	{
-		liquidMessage2(messageInfo, "this is %s.", "elvishray" );
+		liquidMessage2(messageInfo, "this is %s.", RENDER_NAME.asChar() );
 
 	}
 	//

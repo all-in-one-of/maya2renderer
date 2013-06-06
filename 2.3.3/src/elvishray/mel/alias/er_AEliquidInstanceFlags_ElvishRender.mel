@@ -1,0 +1,32 @@
+source xxliquidutility.mel;
+
+//
+global proc AEliquidInstanceFlags_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqlog("AEliquidInstanceFlags_ElvishRender("+$node+")");
+
+	AEliquidInstanceFlags_elvishray( $node );
+
+	liqPopIdent();
+}
+//
+global proc AEliquidCreateMenus_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("AEliquidCreateMenus_ElvishRender()");
+
+	AEliquidCreateMenus_elvishray();
+
+	liqPopIdent();
+}
+//
+global proc liquidEditorTemplate_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidEditorTemplate_ElvishRender("+$node+")");
+
+	liquidEditorTemplate_elvishray( $node );
+
+	liqPopIdent();
+}

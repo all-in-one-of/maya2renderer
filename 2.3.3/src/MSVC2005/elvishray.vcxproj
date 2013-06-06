@@ -2189,7 +2189,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\Prman\win32/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/elvishray.mll</OutputFile>
+      <OutputFile>../../bin/prman/win32/ElvishRender.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/elvishray/r274/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -2590,6 +2590,7 @@
     <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\elvishray\er_.h" />
     <ClInclude Include="..\elvishray\er_factory.h" />
     <ClInclude Include="..\elvishray\er_globalnode.h" />
     <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
@@ -2616,6 +2617,13 @@
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.res.mel" />
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
+    <None Include="..\elvishray\mel\alias\AEElvishRenderGlobalsTemplate.mel" />
+    <None Include="..\elvishray\mel\alias\AEliquidShaderTemplate_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\er_AEliquidInstanceFlags_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\er_callback_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\er_startup_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\userSetup.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
     <None Include="..\elvishray\mel\er_CameraVisibility.mel" />

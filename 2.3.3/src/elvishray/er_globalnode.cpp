@@ -1,12 +1,11 @@
 #include "er_globalnode.h"
 
 #include <liquid.h>
+#include "er_.h"
 #include "er_nodeId.h"
 
 namespace elvishray
 {
-const MTypeId GlobalNode::typeId(TI_GLOBAL_NODE);
-const MString GlobalNode::typeName(TN_GLOBAL_NODE);
 //dev
 MObject GlobalNode::aoutput_call;
 MObject GlobalNode::aoutput_esa;
@@ -193,6 +192,14 @@ GlobalNode::GlobalNode()
 
 GlobalNode::~GlobalNode()
 {
+}
+const MTypeId GlobalNode::getTypeId()
+{ 
+	return TI_GLOBAL_NODE;
+}
+const MString GlobalNode::getTypeName()
+{ 
+	return (RENDER_NAME+"Globals");
 }
 
 void* GlobalNode::creator()
