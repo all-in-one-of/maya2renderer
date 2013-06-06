@@ -189,4 +189,8 @@ LIQUID_EXPORT std::string convertMayaTypeToRSLFloat(const std::string &mayaTypeS
 //get shadingGroup nodes name on shapeNode
 //return the shadingGroup nodes size.
 LIQUID_EXPORT int getShadingGroups(const MString& shapeNode, std::vector<std::string> &ret);
+//
+LIQUID_EXPORT MString liqGetRendererGlobalsNodeType(const MString &renderer);
+LIQUID_EXPORT MString liqGetRendererGlobalsNodeInst(const MString &renderer);
+//
 #endif

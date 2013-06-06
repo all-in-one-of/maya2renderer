@@ -1965,3 +1965,16 @@ LIQUID_EXPORT int getShadingGroups(const MString& shapeNode, std::vector<std::st
 
 	return ret.size();
 }
+//
+LIQUID_EXPORT MString liqGetRendererGlobalsNodeType(const MString &renderer)
+{
+	MString ret;
+	IfMErrorWarn(MGlobal::executeCommand("liqGetRendererGlobalsNodeType(\""+renderer+"\")", ret));
+	return ret;
+}
+LIQUID_EXPORT MString liqGetRendererGlobalsNodeInst(const MString &renderer)
+{
+	MString ret;
+	IfMErrorWarn(MGlobal::executeCommand("liqGetRendererGlobalsNodeInst(\""+renderer+"\")", ret));
+	return ret;
+}

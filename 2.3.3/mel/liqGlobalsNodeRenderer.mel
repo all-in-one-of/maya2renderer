@@ -80,8 +80,8 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 	if ( isRendererLoaded($rnd) )
 	{
 		// select $rndGlobalNode node
-		string $rndGlobalNodeType = $rnd +"Globals";
-		string $rndGlobalNodeInst = $rndGlobalNodeType+"1";
+		string $rndGlobalNodeType = liqGetRendererGlobalsNodeType($rnd);
+		string $rndGlobalNodeInst = liqGetRendererGlobalsNodeInst($rnd);
 		if( !`objExists $rndGlobalNodeInst`)
 		{
 			createNode -name $rndGlobalNodeInst $rndGlobalNodeType;
@@ -93,4 +93,24 @@ global proc liqGlobalsNodeRendererMain(string $cmd)
 
 
 	liqPopIdent();
+}
+global proc string liqGetRendererGlobalsNodeType(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liqGetRendererGlobalsNodeType("+$renderer+")");
+
+	string $ret = $renderer + "Globals";
+
+	liqPopIdent();
+	return $ret;
+}
+global proc string liqGetRendererGlobalsNodeInst(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liqGetRendererGlobalsNodeInst("+$renderer+")");
+
+	string $ret = liqGetRendererGlobalsNodeType($renderer) + "1";
+
+	liqPopIdent();
+	return $ret;
 }
