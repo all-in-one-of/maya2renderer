@@ -2312,7 +2312,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\Prman\win32/M2R2012Release/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/M2R2012Release/elvishray.mll</OutputFile>
+      <OutputFile>../../bin/prman/win32/M2R2012Release/ElvishRender.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/elvishray/r274/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
