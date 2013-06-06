@@ -353,7 +353,7 @@ global proc int isCurrentRenderer(string $renderer)
 	if( !`objExists liquidGlobals` )
 		return 0;
 
-	string $currentRenderer = `getAttr liquidGlobals.renderer`;
+	string $currentRenderer = liqGetRendererName();
 	int $ret = ($currentRenderer == $renderer);
 
 	liqPopIdent();

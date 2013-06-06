@@ -1238,7 +1238,7 @@ liquidBuildChooseRendererMenuCB(string $renderer)
 	liqPushIdent();
 	liqlog("liquidBuildChooseRendererMenuCB("+$renderer+")");
 		
-	setAttr -type "string" liquidGlobals.renderer "";//clear
+	liqSetRendererName("");//clear
 
 	if( !isRendererLoaded($renderer) )
 	{
@@ -1249,7 +1249,7 @@ liquidBuildChooseRendererMenuCB(string $renderer)
 		}
 	}
 
-	setAttr -type "string" liquidGlobals.renderer $renderer;
+	liqSetRendererName($renderer);
 	registerLiquidSubRenderer($renderer);
 
 	//string $prefix = `liquidGetCurrentRenderLayerName`;

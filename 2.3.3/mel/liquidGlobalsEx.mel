@@ -1644,7 +1644,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //
 //  for ( $i=0; $i<size($g_liqRenderer); $i++ ) {
 //    menuItem -parent ($prefix+"LG_RendererMenuCtl") -label $g_liqRenderer[$i] 
-//	         -c ("{setAttr -type \"string\" liquidGlobals.renderer "+$g_liqRenderer[$i]+";}");
+//	         -c ("{liqSetRendererName("+$g_liqRenderer[$i]+");}");
 //  }
 //  liqPopIdent();
 //}

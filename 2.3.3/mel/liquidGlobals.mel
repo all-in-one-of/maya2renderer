@@ -3770,7 +3770,7 @@ global proc liquidUpdateRenderer( string $renderer )
 	liqlog("liquidUpdateRenderer("+$renderer+")");
 
 	//set liquidGlobals.renderer
-	setAttr -type "string" liquidGlobals.renderer $renderer;
+	liqSetRendererName($renderer);
 	//create global node for this renderer
 	liqGlobalsNodeRendererMain("create");
 

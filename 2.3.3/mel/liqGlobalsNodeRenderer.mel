@@ -35,6 +35,11 @@
 //
 source xxliquidutility.mel;
 
+global proc liqSetRendererName(string $renderer)
+{
+	setAttr -type "string" liquidGlobals.renderer $renderer;
+}
+
 global proc string liqGetRendererName()
 {
 	return  `getAttr liquidGlobals.renderer`;
@@ -42,7 +47,7 @@ global proc string liqGetRendererName()
 
 global proc string getGlobalNodeName()
 {
-    return "liqGlobalsNodeRenderer_"+`getAttr liquidGlobals.renderer`;
+    return "liqGlobalsNodeRenderer_"+liqGetRendererName();
 }
 
 // global proc addParameter(string $node, string $attrName, string $attrType, string $attrValue)
