@@ -212,7 +212,7 @@ global proc LIQUID_userRenderPassInit_elvishray (string $render_pass)
 //session.
 {
 	liqPushIdent();
-	liqlog("LIQUID_userLightPostRenderMel_elvishray("+$render_pass+")");
+	liqlog("LIQUID_userRenderPassInit_elvishray("+$render_pass+")");
 	liqPopIdent();
 }
 
