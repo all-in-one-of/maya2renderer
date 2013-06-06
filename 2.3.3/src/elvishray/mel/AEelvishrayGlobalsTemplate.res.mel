@@ -37,6 +37,8 @@ displayString -replace -value "Maya Shader Library (eiSHADER_maya)"
 	m_AEelvishrayGlobals.kProcessing_Library_eiSHADER_maya;
 
 ////Options
+displayString -replace -value "Options"
+	m_AEelvishrayGlobals.kOptions;
 displayString -replace -value "Contrast"
 	m_AEelvishrayGlobals.kOptions_contrast;
 displayString -replace -value "Min. Samples"
@@ -61,11 +63,24 @@ displayString -replace -value "Sinc"
 //Options>FilterSize
 displayString -replace -value "Filter Size"
 	m_AEelvishrayGlobals.kOptions_FilterSize;
+//Options>Face
+displayString -replace -value "Face"
+	m_AEelvishrayGlobals.kFace;
+displayString -replace -value "None"
+	m_AEelvishrayGlobals.kFace_None;
+displayString -replace -value "Front"
+	m_AEelvishrayGlobals.kFace_Front;
+displayString -replace -value "Back"
+	m_AEelvishrayGlobals.kFace_Back;
+displayString -replace -value "Both"
+	m_AEelvishrayGlobals.kFace_Both;
 //Options>Progressive
 displayString -replace -value "Progressive"
 	m_AEelvishrayGlobals.kOptions_Progressive;
 
 ////Trace Depth
+displayString -replace -value "Trace Depth"
+	m_AEelvishrayGlobals.kTraceDepth;
 displayString -replace -value "Transparency"
 	m_AEelvishrayGlobals.kTraceDepth_Transparency;
 displayString -replace -value "Glossy Reflections"
@@ -81,24 +96,18 @@ displayString -replace -value "Sum Depth"
 
 ////Displacement
 displayString -replace -value "Displacement"
+	m_AEelvishrayGlobals.kDisplacementCategory;
+displayString -replace -value "Displacement"
 	m_AEelvishrayGlobals.kDisplacement;
 ////Max. Displacement
 displayString -replace -value "Max. Displacement"
 	m_AEelvishrayGlobals.kMaxDisplacement;
-////Face
-displayString -replace -value "Face"
-	m_AEelvishrayGlobals.kFace;
-displayString -replace -value "None"
-	m_AEelvishrayGlobals.kFace_None;
-displayString -replace -value "Front"
-	m_AEelvishrayGlobals.kFace_Front;
-displayString -replace -value "Back"
-	m_AEelvishrayGlobals.kFace_Back;
-displayString -replace -value "Both"
-	m_AEelvishrayGlobals.kFace_Both;
+
 
 
 ////Geometry Approximation
+displayString -replace -value "Geometry Approximation" 
+	m_AEelvishrayGlobals.kGeometryApproximation;
 displayString -replace -value "Approx. Method" 
 	m_AEelvishrayGlobals.kApproxMethod;
 displayString -replace -value "None" 

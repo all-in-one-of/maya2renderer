@@ -129,7 +129,7 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 						   -addDynamicControl "eiSHADER_maya";
  		editorTemplate -endLayout;//Processing
  		//--------------------------------------------------
-	 	editorTemplate -beginLayout "Options" -collapse 1;
+	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kOptions")) -collapse 1;
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_contrast")) 
 				-addDynamicControl "contrast";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_samples_min")) 
@@ -138,13 +138,14 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 				-addDynamicControl "samples_max";
 			editorTemplate -callCustom AEEIFilterTypeNew AEEIFilterTypeReplace "message";
  			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_FilterSize"))  
-				-addDynamicControl "filterSize";	
+				-addDynamicControl "filterSize";
+			editorTemplate -callCustom AEEIFaceNew AEEIFaceReplace "message";
  			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_Progressive")) 
 				-addDynamicControl "progressive";	
 			//editorTemplate -label ("motion:see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
 		editorTemplate -endLayout;//Options
  		//--------------------------------------------------
-	 	editorTemplate -beginLayout "Trace Depth" -collapse 1;
+	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kTraceDepth")) -collapse 1;
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_Transparency"))	
 				-addDynamicControl "trace_depth_transp";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_GlossyReflections"))
@@ -159,13 +160,14 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 				-addDynamicControl "trace_depth_sum";
 		editorTemplate -endLayout;//Trace Depth
  		//--------------------------------------------------
+	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kDisplacementCategory")) -collapse 1;
 		editorTemplate -label (uiRes("m_AEelvishrayGlobals.kDisplacement"))
 			-addDynamicControl "displace";
 		editorTemplate -label (uiRes("m_AEelvishrayGlobals.kMaxDisplacement"))
 			-addDynamicControl "max_displace";
-		editorTemplate -callCustom AEEIFaceNew AEEIFaceReplace "message";
+		editorTemplate -endLayout;//Displacement
  		//--------------------------------------------------
-	 	editorTemplate -beginLayout "Geometry Approximation" -collapse 1;
+	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kGeometryApproximation")) -collapse 1;
 			editorTemplate-callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Any"))
 				-addDynamicControl "approx_any";

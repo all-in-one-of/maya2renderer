@@ -7,34 +7,38 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
-liq|:把nodeid放到一个文件里
--done)liq| liqMath.h 和liq_math.h合并
+-liq| er| particle|: 某些particle类型数据的导出
+-liq| er| pfxhair|: pfxHair数据导出
+
+-liq|:把nodeid放到一个文件里
 -liq|er|: bug： 打开camera film gate后，渲染结果和maya software不一致
--done)liq|rm|:简化place2dTexture里的rsl参数传递
--done)liq|:优化编译速度，整理#include文件（liqGlobalHelpers.h ）
--done)liq| er| place2dTexture|: maya是按（0.5，0.5）旋转的，er现在是按（0，0）旋转的
 -liq|er|: top,side,front,渲染不出图像
 -liq:加载后，切换至liquid，
 -liq|: 打开有些场景的时候，先加载renderman，后加载liquid，所以提示renderman加载不了
 -liq| ui|: 集成3de的mel
--done)liq| mel|: global string $renderer[]改成$g_liqRenderer[]
 -liq| er|: blinn 透明材质不透明
--done)liq|: cancle batch rendering
 -liq|er|: 资源（test texture，pl,dll,lif）整理
--done)liq|:liquidMessage2(里的‘\n’，\"\"去掉
 -liq|: bug:maya_physicalsky.type的UI无法显示(需要删掉节点，新建个节点)
--done)liq：渲染时scriptEditor提示：Error while parsing arguments
 -liq|er|: bug:ERROR> Cannot find instance |light:liq_skylight_group
+-liq| tst|: glossy reflect,diffuse reflect设置为2，2看看性能提高多少
+-liq| tst|: 设置sample(32,32)，看看某些帧的mb区域噪点会不会小很多
+
+-done)liq| tst|: 设置eiShader_maya的优化选项，看看性能提高多少
 -done)liq|er|: bug:toElvic\r647\blinn_transparent.ma\, 由于pCube2 scale.y为0导致的(solution：check场景的transform.scale不为0)
--liq|： LIQ_SCALAR_ALMOST_ZERO --》 LIQ_EPSILON
+-done)liq|： LIQ_SCALAR_ALMOST_ZERO --》 LIQ_EPSILON
 -done)liq|： liqAssert 里用liqglo.m_showliquidMessage屏蔽
 -done)liq| tst|: -frame 140，141 有膝有一个黑点；
 -done)liq| tst|: - frame 104 右臂上臂有一个亮点(调材质)
--liq| tst|: glossy reflect,diffuse reflect设置为2，2看看性能提高多少
--liq| tst|: 设置sample(32,32)，看看某些帧的mb区域噪点会不会小很多
--done)liq| tst|: 设置eiShader_maya的优化选项，看看性能提高多少
-
+-done)liq：渲染时scriptEditor提示：Error while parsing arguments
+-done)liq|:liquidMessage2(里的‘\n’，\"\"去掉
+-done)liq|: cancle batch rendering
+-done)liq| mel|: global string $renderer[]改成$g_liqRenderer[]
+-done)liq|rm|:简化place2dTexture里的rsl参数传递
+-done)liq|:优化编译速度，整理#include文件（liqGlobalHelpers.h ）
+-done)liq| er| place2dTexture|: maya是按（0.5，0.5）旋转的，er现在是按（0，0）旋转的
+-done)liq| liqMath.h 和liq_math.h合并
 -(done)liq| ipr|: 选择mesh，把mesh相关的shader加入更新列表
+
 -liq|: UI不够友好
 -liq|ui|: bug: liqAE_renderman will appear on main menu bar.
 -（done）liq|ui|: bug: Cannot find procedure "liquidEditorTemplate_elvishray"，另一个同名的er_AEliquidInstanceFlags.mel文件里不包含liquidEditorTemplate_elvishray（）
