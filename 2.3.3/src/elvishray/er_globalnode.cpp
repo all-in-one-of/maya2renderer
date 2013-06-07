@@ -250,8 +250,8 @@ MStatus GlobalNode::initialize()
 
 	////approx
 	CREATE_INT(  nAttr,	aapprox_method,		"approx_method",	"amd",	1);
-	CREATE_INT(  nAttr,	aapprox_any,		"approx_any",	"aay",	0);
-	CREATE_INT(  nAttr,	aapprox_view_dep,	"approx_view_dep",	"avd",	0);
+	CREATE_BOOL(  nAttr,	aapprox_any,		"approx_any",	"aay",	0);
+	CREATE_BOOL(  nAttr,	aapprox_view_dep,	"approx_view_dep",	"avd",	0);
 	//MObject GlobalNode::aapprox_args;
 	CREATE_INT(  nAttr,	aapprox_args0,		"approx_args0",	"ag0",	0);
 	CREATE_INT(  nAttr,	aapprox_args1,		"approx_args1",	"ag1",	0);

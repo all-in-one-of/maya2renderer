@@ -7,6 +7,7 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq| er|: 整理tst case
 -liq| er| particle|: 某些particle类型数据的导出
 -liq| er| pfxhair|: pfxHair数据导出
 
