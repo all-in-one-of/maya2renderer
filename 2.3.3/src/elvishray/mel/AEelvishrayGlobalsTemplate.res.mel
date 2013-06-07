@@ -120,6 +120,15 @@ displayString -replace -value "Any"
 	m_AEelvishrayGlobals.kApprox_Any;
 displayString -replace -value "View-dependent" 
 	m_AEelvishrayGlobals.kApprox_ViewDependent;
+
+//Geometry Approximation>Args
+displayString -replace -value "U Subdiv" 
+	m_AEelvishrayGlobals.kApproxRegularUSubdiv;
+displayString -replace -value "V Subdiv" 
+	m_AEelvishrayGlobals.kApproxRegularVSubdiv;
+displayString -replace -value "Edge Length" 
+	m_AEelvishrayGlobals.kApproxLengthEdgeLength;
+
 //Geometry Approximation>Args
 displayString -replace -value "Arg0" 
 	m_AEelvishrayGlobals.kApprox_Arg0;

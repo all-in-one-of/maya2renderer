@@ -644,10 +644,29 @@ namespace elvishray
 				approx.method	= m_gnode->getInt("approx_method") ;//EI_APPROX_METHOD_LENGTH
 				approx.any		= m_gnode->getInt("approx_any");
 				approx.view_dep = m_gnode->getInt("approx_view_dep");//eiTRUE
-				approx.args[0]	= m_gnode->getFloat("approx_args0");
-				approx.args[1]	= m_gnode->getFloat("approx_args1");
-				approx.args[2]	= m_gnode->getFloat("approx_args2");
-				approx.args[3]	= m_gnode->getFloat("approx_args3");
+				switch(approx.method)
+				{
+				case EI_APPROX_METHOD_NONE:
+					approx.args[0]	= 0.0f;
+					approx.args[1]	= 0.0f;
+					approx.args[2]	= 0.0f;
+					approx.args[3]	= 0.0f;
+					break;
+				case EI_APPROX_METHOD_REGULAR:
+					approx.args[0]	= m_gnode->getInt("approx_regular_usubdiv");
+					approx.args[1]	= m_gnode->getInt("approx_regular_vsubdiv");
+					approx.args[2]	= 0.0f;
+					approx.args[3]	= 0.0f;
+					break;
+				case EI_APPROX_METHOD_LENGTH:
+					approx.args[0]	= m_gnode->getFloat("approx_length_edgelength");
+					approx.args[1]	= 0.0f;
+					approx.args[2]	= 0.0f;
+					approx.args[3]	= 0.0f;
+					break;
+				default:
+					liquidMessage2(messageError, "approx_method's value(%d) is illegal", approx.method);
+				}
 				approx.sharp	= m_gnode->getFloat("approx_sharp");
 				approx.min_subdiv		= m_gnode->getInt("approx_min_subdiv");
 				approx.max_subdiv		= m_gnode->getInt("approx_max_subdiv");

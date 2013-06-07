@@ -50,10 +50,13 @@ namespace elvishray
 		static MObject aapprox_method;
 		static MObject aapprox_any;
 		static MObject aapprox_view_dep;
-		static MObject aapprox_args0;
-		static MObject aapprox_args1;
-		static MObject aapprox_args2;
-		static MObject aapprox_args3;
+		static MObject aapprox_regular_usubdiv;
+		static MObject aapprox_regular_vsubdiv;
+		static MObject aapprox_length_edgelength;
+		//static MObject aapprox_args0;
+		//static MObject aapprox_args1;
+		//static MObject aapprox_args2;
+		//static MObject aapprox_args3;
 		static MObject aapprox_sharp;
 		static MObject aapprox_min_subdiv;
 		static MObject aapprox_max_subdiv;

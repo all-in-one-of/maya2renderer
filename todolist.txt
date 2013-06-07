@@ -7,6 +7,12 @@
 - install maya1012 x64, learn Arnold
 - learn katana
 
+-liq|er:Approx.Method现在只有两种模式，regular和length
+当regular模式的时候，args[0]表示"U Subdiv", args[1]表示"V Subdiv"，就是均匀细分
+当length模式的时候，args[0]表示"Edge Length"，就是细分到Edge在屏幕空间有这么小，类似于RenderMan的Shading Rate
+其他数字是预留的
+-liq|er|:用NSI制作安装包
+
 -liq| er|: 整理tst case
 -liq| er| particle|: 某些particle类型数据的导出
 -liq| er| pfxhair|: pfxHair数据导出

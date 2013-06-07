@@ -38,10 +38,13 @@ MObject GlobalNode::aface;
 MObject GlobalNode::aapprox_method;
 MObject GlobalNode::aapprox_any;
 MObject GlobalNode::aapprox_view_dep;
-MObject GlobalNode::aapprox_args0;
-MObject GlobalNode::aapprox_args1;
-MObject GlobalNode::aapprox_args2;
-MObject GlobalNode::aapprox_args3;
+MObject GlobalNode::aapprox_regular_usubdiv;
+MObject GlobalNode::aapprox_regular_vsubdiv;
+MObject GlobalNode::aapprox_length_edgelength;
+//MObject GlobalNode::aapprox_args0;
+//MObject GlobalNode::aapprox_args1;
+//MObject GlobalNode::aapprox_args2;
+//MObject GlobalNode::aapprox_args3;
 MObject GlobalNode::aapprox_sharp;
 MObject GlobalNode::aapprox_min_subdiv;
 MObject GlobalNode::aapprox_max_subdiv;
@@ -178,12 +181,24 @@ MObject GlobalNode::aapprox_motion_factor;
 #define CREATE_COLOR( attr, obj, name, shortName, default1, default2, default3 )    \
 	obj = attr.createColor( name, shortName, &status ); \
 	CHECK_MSTATUS(attr.setDefault( default1, default2, default3 )); \
-    CHECK_MSTATUS(attr.setKeyable(true));     \
-    CHECK_MSTATUS(attr.setStorable(true));    \
-    CHECK_MSTATUS(attr.setReadable(true));    \
-    CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
-    CHECK_MSTATUS(addAttribute(obj));
+	CHECK_MSTATUS(attr.setKeyable(true));     \
+	CHECK_MSTATUS(attr.setStorable(true));    \
+	CHECK_MSTATUS(attr.setReadable(true));    \
+	CHECK_MSTATUS(attr.setWritable(true));    \
+	CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
+	CHECK_MSTATUS(addAttribute(obj));
+
+#define CREATE_ENUM(attr, obj, name, shortName, default, values, N)    \
+    obj = attr.create( name, shortName, default, &status);  \
+	for(int i=0; i<N; ++i){									\
+		CHECK_MSTATUS(attr.addField( values[i], i ));\
+	}														\
+	CHECK_MSTATUS(attr.setKeyable(true));					\
+	CHECK_MSTATUS(attr.setStorable(true));					\
+	CHECK_MSTATUS(attr.setReadable(true));					\
+	CHECK_MSTATUS(attr.setWritable(true));					\
+	CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));\
+	CHECK_MSTATUS(addAttribute( obj ));	
 
 
 GlobalNode::GlobalNode()
@@ -212,6 +227,7 @@ MStatus GlobalNode::initialize()
 	MFnTypedAttribute     tAttr;
 	MFnNumericAttribute   nAttr;
 	MFnCompoundAttribute  cAttr;
+	MFnEnumAttribute    eAttr;
 	MStatus status, sstat;
 
 	MFnStringData stringData;
@@ -249,14 +265,18 @@ MStatus GlobalNode::initialize()
 	CREATE_INT(  nAttr,  aface,				"face",				"fac",	3);
 
 	////approx
-	CREATE_INT(  nAttr,	aapprox_method,		"approx_method",	"amd",	1);
+	const char* const values[3]={"None", "Regular", "Length"};
+	CREATE_ENUM(  eAttr,	aapprox_method,		"approx_method",	"amd",	1, values, 3);
 	CREATE_BOOL(  nAttr,	aapprox_any,		"approx_any",	"aay",	0);
 	CREATE_BOOL(  nAttr,	aapprox_view_dep,	"approx_view_dep",	"avd",	0);
+	CREATE_INT(  nAttr,	aapprox_regular_usubdiv,		"approx_regular_usubdiv",	"usd",	0);
+	CREATE_INT(  nAttr,	aapprox_regular_vsubdiv,		"approx_regular_vsubdiv",	"vsd",	0);
+	CREATE_FLOAT(  nAttr,	aapprox_length_edgelength,	"approx_length_edgelength",	"eln",	0.0f);
 	//MObject GlobalNode::aapprox_args;
-	CREATE_INT(  nAttr,	aapprox_args0,		"approx_args0",	"ag0",	0);
-	CREATE_INT(  nAttr,	aapprox_args1,		"approx_args1",	"ag1",	0);
-	CREATE_INT(  nAttr,	aapprox_args2,		"approx_args2",	"ag2",	0);
-	CREATE_INT(  nAttr,	aapprox_args3,		"approx_args3",	"ag3",	0);
+	//CREATE_INT(  nAttr,	aapprox_args0,		"approx_args0",	"ag0",	0);
+	//CREATE_INT(  nAttr,	aapprox_args1,		"approx_args1",	"ag1",	0);
+	//CREATE_INT(  nAttr,	aapprox_args2,		"approx_args2",	"ag2",	0);
+	//CREATE_INT(  nAttr,	aapprox_args3,		"approx_args3",	"ag3",	0);
 	CREATE_FLOAT( nAttr, aapprox_sharp,		"approx_sharp",		"ash",	0.0f);
 	CREATE_INT(  nAttr,	aapprox_min_subdiv,		"approx_min_subdiv",	"ais",	0);
 	CREATE_INT(  nAttr,	aapprox_max_subdiv,		"approx_max_subdiv",	"aas",	5);

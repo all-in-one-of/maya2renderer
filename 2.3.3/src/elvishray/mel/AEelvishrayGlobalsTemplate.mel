@@ -3,6 +3,9 @@ source xxliquidutility.mel;
 //- verbose --------------------------------------------------
 global proc AEEIVerboseNew( string $messageAttr )
 {
+	liqPushIdent();
+	liqlog("AEEIVerboseNew("+$messageAttr+")");
+
 	string $buffer[];
     tokenize($messageAttr, ".", $buffer);
     if (size($buffer) == 0) return;
@@ -23,13 +26,20 @@ global proc AEEIVerboseNew( string $messageAttr )
     AEEIVerboseReplace($messageAttr);
 
 	setUITemplate -popTemplate;
+	liqPopIdent();
 }
 global proc AEEIVerboseReplace( string $messageAttr )
 {
+	liqPushIdent();
+	liqlog("AEEIVerboseReplace("+$messageAttr+")");
+	liqPopIdent();
 }
 // filter type -----------------------------------------------
 global proc AEEIFilterTypeNew( string $messageAttr )
 {
+	liqPushIdent();
+	liqlog("AEEIFilterTypeNew("+$messageAttr+")");
+
 	string $buffer[];
     tokenize($messageAttr, ".", $buffer);
     if (size($buffer) == 0) return;
@@ -49,13 +59,20 @@ global proc AEEIFilterTypeNew( string $messageAttr )
     AEEIFilterTypeReplace($messageAttr);
 
 	setUITemplate -popTemplate;
+	liqPopIdent();
 }
 global proc AEEIFilterTypeReplace( string $messageAttr )
 {
+	liqPushIdent();
+	liqlog("AEEIFilterTypeReplace("+$messageAttr+")");
+	liqPopIdent();
 }
 // face -----------------------------------------------
 global proc AEEIFaceNew( string $messageAttr )
 {
+	liqPushIdent();
+	liqlog("AEEIFaceNew("+$messageAttr+")");
+
 	string $buffer[];
     tokenize($messageAttr, ".", $buffer);
     if (size($buffer) == 0) return;
@@ -73,32 +90,98 @@ global proc AEEIFaceNew( string $messageAttr )
     AEEIFaceReplace($messageAttr);
 
 	setUITemplate -popTemplate;
+	liqPopIdent();
 }
 global proc AEEIFaceReplace( string $messageAttr )
 {
+	liqPushIdent();
+	liqlog("AEEIFaceReplace("+$messageAttr+")");
+	liqPopIdent();
 }
 // approx method -----------------------------------------------
-global proc AEEIApproxMethodNew( string $messageAttr )
+//global proc AEEIApproxMethodNew( string $messageAttr )
+//{
+//	liqPushIdent();
+//	liqlog("AEEIApproxMethodNew("+$messageAttr+")");
+//
+//	string $buffer[];
+//    tokenize($messageAttr, ".", $buffer);
+//    if (size($buffer) == 0) return;
+//    string $node = $buffer[0];
+//
+//	setUITemplate -pushTemplate attributeEditorTemplate;
+//	attrEnumOptionMenuGrp
+//				-label (uiRes("m_AEelvishrayGlobals.kApproxMethod"))
+//				-at ($node+".approx_method")
+//				-ei 0 (uiRes("m_AEelvishrayGlobals.kApproxMethod_None"))
+//				-ei 1 (uiRes("m_AEelvishrayGlobals.kApproxMethod_Regular"))
+//				-ei 2 (uiRes("m_AEelvishrayGlobals.kApproxMethod_Length"))
+//				-dropCallback "EIApproxMethodDropCallback"
+//				EIApproxMethodMenu;
+//    AEEIApproxMethodReplace($messageAttr);
+//
+//	setUITemplate -popTemplate;
+//	liqPopIdent();
+//}
+//global proc EIApproxMethodDropCallback(string $dragControl, string $dropControl, string $msgs[], int $x, int $y, int $type) 
+//{
+//	liqPushIdent();
+//	liqlog("EIApproxMethodDropCallback("+$dragControl+","+$dropControl+","+stringArrayToString($msgs,",")+","+$x+","+$y+","+$type+")");
+//
+//	liqPopIdent();
+//}
+//global proc AEEIApproxMethodReplace( string $messageAttr )
+//{
+//	liqPushIdent();
+//	liqlog("AEEIApproxMethodReplace("+$messageAttr+")");
+//
+//	string $buffer[];
+//    tokenize($messageAttr, ".", $buffer);
+//    if (size($buffer) == 0) return;
+//    string $node = $buffer[0];
+//
+//	int $method = `getAttr ($node + ".approx_method")`;
+//	liqlog("$method = ("+$method+")");
+//
+//	if ( $method == 0 ) {
+//		// in black hole mode, dim slider
+//		editorTemplate -dimControl $node "approx_regular_usubdiv" true;
+//		editorTemplate -dimControl $node "approx_regular_vsubdiv" true;
+//		editorTemplate -dimControl $node "approx_length_edgelength" true;
+//	} else if( $method == 1 ) {
+//		editorTemplate -dimControl $node "approx_regular_usubdiv" false;
+//		editorTemplate -dimControl $node "approx_regular_vsubdiv" false;
+//		editorTemplate -dimControl $node "approx_length_edgelength" true;
+//	} else if( $method == 2 ){
+//		editorTemplate -dimControl $node "approx_regular_usubdiv" true;
+//		editorTemplate -dimControl $node "approx_regular_vsubdiv" true;
+//		editorTemplate -dimControl $node "approx_length_edgelength" false;
+//	}
+//	liqPopIdent();
+//}
+global proc AEEIApproxMethodControl( string $node )
 {
-	string $buffer[];
-    tokenize($messageAttr, ".", $buffer);
-    if (size($buffer) == 0) return;
-    string $node = $buffer[0];
+	liqPushIdent();
+	liqlog("AEEIApproxMethodControl("+$node+")");
 
-	setUITemplate -pushTemplate attributeEditorTemplate;
-	attrEnumOptionMenuGrp
-				-label (uiRes("m_AEelvishrayGlobals.kApproxMethod"))
-				-at ($node+".approx_method")
-				-ei 0 (uiRes("m_AEelvishrayGlobals.kApproxMethod_None"))
-				-ei 1 (uiRes("m_AEelvishrayGlobals.kApproxMethod_Regular"))
-				-ei 2 (uiRes("m_AEelvishrayGlobals.kApproxMethod_Length"))
-				EIApproxMethodMenu;
-    AEEIApproxMethodReplace($messageAttr);
+	int $method = `getAttr ($node + ".approx_method")`;
+	liqlog("$method = ("+$method+")");
 
-	setUITemplate -popTemplate;
-}
-global proc AEEIApproxMethodReplace( string $messageAttr )
-{
+	if ( $method == 0 ) {
+		editorTemplate -dimControl $node "approx_regular_usubdiv" true;
+		editorTemplate -dimControl $node "approx_regular_vsubdiv" true;
+		editorTemplate -dimControl $node "approx_length_edgelength" true;
+	} else if( $method == 1 ) {
+		editorTemplate -dimControl $node "approx_regular_usubdiv" false;
+		editorTemplate -dimControl $node "approx_regular_vsubdiv" false;
+		editorTemplate -dimControl $node "approx_length_edgelength" true;
+
+	} else if( $method == 2 ){
+		editorTemplate -dimControl $node "approx_regular_usubdiv" true;
+		editorTemplate -dimControl $node "approx_regular_vsubdiv" true;
+		editorTemplate -dimControl $node "approx_length_edgelength" false;
+	}
+	liqPopIdent();
 }
 //============================================================
 global proc AEelvishrayGlobalsTemplate( string $node )
@@ -168,19 +251,37 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 		editorTemplate -endLayout;//Displacement
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kGeometryApproximation")) -collapse 1;
-			editorTemplate-callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
+			//editorTemplate -callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
+			editorTemplate -addControl "approx_method" "AEEIApproxMethodControl";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Any"))
 				-addDynamicControl "approx_any";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_ViewDependent"))
 				-addDynamicControl "approx_view_dep";
-			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
-				-addDynamicControl "approx_args0";
-			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg1"))
-				-addDynamicControl "approx_args1";
-			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg2"))
-				-addDynamicControl "approx_args2";
-			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg3"))
-				-addDynamicControl "approx_args3";
+
+			editorTemplate -addSeparator;
+
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApproxRegularUSubdiv"))
+				-annotation (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
+				-addControl "approx_regular_usubdiv";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApproxRegularVSubdiv"))
+				-annotation (uiRes("m_AEelvishrayGlobals.kApprox_Arg1"))
+				-addControl "approx_regular_vsubdiv";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApproxLengthEdgeLength"))
+				-annotation (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
+				-addControl "approx_length_edgelength";
+			
+			editorTemplate -addSeparator;
+
+			//editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
+			//	-addDynamicControl "approx_args0";
+			//editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg1"))
+			//	-addDynamicControl "approx_args1";
+			//editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg2"))
+			//	-addDynamicControl "approx_args2";
+			//editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Arg3"))
+			//	-addDynamicControl "approx_args3";
+			//editorTemplate -addSeparator;
+
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Sharp"))
 				-addDynamicControl "approx_sharp";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_MinSubdiv"))
