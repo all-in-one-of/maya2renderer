@@ -210,7 +210,7 @@ global proc liquidLoadScripts()
   for( $r in $g_liqRenderer )
   {
 	  $usersetup = liquidGetUserSetupMelFullPath($r);
-	  if( `filetest -e $usersetup` ){
+	  if( `filetest -e ("\""+$usersetup+"\"")` ){
 		  string $cmd = "source \""+$usersetup+"\"";
 		  print ($cmd+"\n");
 		  eval($cmd);
