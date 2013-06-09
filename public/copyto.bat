@@ -26,7 +26,7 @@ xcopy    /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\icons\*.*             
 xcopy /s /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\mel\*.*                    %DES_ROOT%\2.3.3\mel\
 xcopy    /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\rendererDesc\*.*           %DES_ROOT%\2.3.3\rendererDesc\
 xcopy    /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\renderers\*.*              %DES_ROOT%\2.3.3\renderers\
-xcopy    /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\src\elvishray\mel\*.mel    %DES_ROOT%\2.3.3\src\elvishray\mel\
+xcopy /s /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\src\elvishray\mel\*.mel    %DES_ROOT%\2.3.3\src\elvishray\mel\
 xcopy    /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\src\renderman\mel\*.mel    %DES_ROOT%\2.3.3\src\renderman\mel\
 xcopy /s /d /y /i /EXCLUDE:exclude.txt   %SRC_ROOT%\2.3.3\lib\shaders\*.*            %DES_ROOT%\2.3.3\lib\shaders\
 
