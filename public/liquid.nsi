@@ -83,11 +83,17 @@ FileWrite $1 "$\r$\nsearchpath       $INSTDIR/dependence/elvishray/r274/bin"
 FileClose $1
 
 
+; copy Maya.env to 
+MessageBox MB_OK "Maya.env will be copyed to $DOCUMENTS\maya\2012, please backup your own Maya.env"
+setOutPath $DOCUMENTS\maya\2012
+file ${LIQUID_ROOT}\2.3.3\bin\Maya.env
+
 
 ; set env "LIQUID_ROOT"
 WriteRegExpandStr HKCU "Environment" "LIQUID_ROOT" "$INSTDIR"
 SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment"
 ;ReadEnvStr $9 'test2'
 ;MessageBox MB_OK "variable test2 has value $9"
+
 
 sectionEnd
