@@ -84,6 +84,9 @@
     <ClCompile Include="..\src\ei_maya_lambert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ei_maya_volumelight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ei_shader_maya.h">

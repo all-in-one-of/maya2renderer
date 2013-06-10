@@ -751,6 +751,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     <ClCompile Include="..\src\common\_3delight\noise_utils.cpp" />
     <ClCompile Include="..\src\common\_3delight\shading_utils.cpp" />
     <ClCompile Include="..\src\common\_3delight\utils.cpp" />
+    <ClCompile Include="..\src\ei_maya_volumelight.cpp" />
     <ClCompile Include="..\src\ei_test_type_pl.cpp" />
   </ItemGroup>
   <ItemGroup>
