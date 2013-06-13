@@ -1222,7 +1222,7 @@ liquidBuildChooseRendererMenu(string $parent_menu)
 	for($rnd in $renderer)
 	{
 		menuItem 
-			-label $rnd
+			-label (interToUI($rnd))
 			-radioButton (isCurrentRenderer($rnd))
 			-command ("liquidBuildChooseRendererMenuCB(\""+$rnd+"\")")
 			-parent $parent_menu;
