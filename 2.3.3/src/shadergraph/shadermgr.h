@@ -26,9 +26,12 @@ namespace liquidmaya
 		//
 		ConnectionType convertibleConnection(const char*plugname);
 
+		void setValidConnection();
 		// @nodename	e.g. "lambert1","blinn1",...
 		void getValidConnection(const char* nodename, MStringArray& connections) const;
 		bool hasShaderType(const char* shadertype)const;
+		ShaderConnectionMap& getShaderConnectionMap();
+		void clearValidConnection();
 
 	private:
 		ShaderMgr();

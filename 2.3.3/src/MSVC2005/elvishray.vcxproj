@@ -2549,10 +2549,12 @@
     <ClCompile Include="..\elvishray\er_globalnode.cpp" />
     <ClCompile Include="..\elvishray\er_helper.cpp" />
     <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
+    <ClCompile Include="..\elvishray\er_NodeAddCallback.cpp" />
     <ClCompile Include="..\elvishray\er_output_mgr.cpp" />
     <ClCompile Include="..\elvishray\er_plug.cpp" />
     <ClCompile Include="..\elvishray\er_preview.cpp" />
     <ClCompile Include="..\elvishray\er_nodeId.cpp" />
+    <ClCompile Include="..\elvishray\er_rnode_visitor.cpp" />
     <ClCompile Include="..\elvishray\er_writeCameraData.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
@@ -2584,10 +2586,12 @@
     <ClCompile Include="..\elvishray\output\er_output_esa.cpp" />
     <ClCompile Include="..\elvishray\output\er_output_ess.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER.cpp" />
+    <ClCompile Include="..\elvishray\shaderOutputER_er.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_materials.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
+    <ClCompile Include="..\elvishray\shader_node\er_physicalsky_node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_.h" />
@@ -2599,16 +2603,20 @@
     <ClInclude Include="..\elvishray\er_helper.h" />
     <ClInclude Include="..\elvishray\er_iprMgr.h" />
     <ClInclude Include="..\elvishray\er_log.h" />
+    <ClInclude Include="..\elvishray\er_NodeAddCallback.h" />
     <ClInclude Include="..\elvishray\er_output_mgr.h" />
     <ClInclude Include="..\elvishray\er_renderer.h" />
     <ClInclude Include="..\elvishray\ercall.h" />
     <ClInclude Include="..\elvishray\er_nodeId.h" />
+    <ClInclude Include="..\elvishray\er_rnode_visitor.h" />
+    <ClInclude Include="..\elvishray\er_shader_node.h" />
     <ClInclude Include="..\elvishray\MayaConnection.h" />
     <ClInclude Include="..\elvishray\output\er_output_base.h" />
     <ClInclude Include="..\elvishray\output\er_output_call.h" />
     <ClInclude Include="..\elvishray\output\er_output_esa.h" />
     <ClInclude Include="..\elvishray\output\er_output_ess.h" />
     <ClInclude Include="..\elvishray\shaderOutputER.h" />
+    <ClInclude Include="..\elvishray\shader_node\er_physicalsky_node.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
@@ -2616,6 +2624,7 @@
     </CustomBuildStep>
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.res.mel" />
+    <None Include="..\elvishray\mel\AEer_physicalskyTemplate.mel" />
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
     <None Include="..\elvishray\mel\alias\AEElvishRenderGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\alias\AEliquidShaderTemplate_ElvishRender.mel" />

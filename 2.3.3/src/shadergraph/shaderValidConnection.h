@@ -18,6 +18,7 @@ namespace liquidmaya
 		void end();
 		bool hasShaderType(const char* shadertype)const;
 		void getValidConnection(const char* nodename, MStringArray& connections) const;
+		void clear();
 
 	protected:
 		std::map<const std::string, MStringArray> validConnectionMap;
@@ -31,13 +32,16 @@ public:
 	ShaderValidConnection();
 	~ShaderValidConnection();
 
-
+	void setValidConnection();
+	void clearValidConnection();
 	// @nodename	e.g. "lambert1","blinn1",...
 	void getValidConnection(const char* nodename,  MStringArray& connections)const;
 	bool hasShaderType(const char* shadertype)const;
+	
+	ShaderConnectionMap& getShaderConnectionMap(){return validConnectionMap; }
 
 protected:
-	void setValidConnection();
+	void setValidConnection_maya();
 	void setValidConnection_mi();
 
 	ShaderConnectionMap validConnectionMap;

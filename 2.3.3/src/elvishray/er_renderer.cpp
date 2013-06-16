@@ -738,6 +738,7 @@ namespace elvishray
 
 
 		o.ei_end_options();
+		o.ln();
 
 		return MStatus::kSuccess;
 	}
@@ -1083,17 +1084,7 @@ namespace elvishray
 				cmd = "nodeType \""+startingNode+"\"";
 				IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
 
-				if(nodetype=="liquidSurface" || nodetype=="liquidShader")
-				{
-					//liquidMessage2(messageInfo, (startingNode+"'s type is "+nodetype+", no need to convert").asChar());
-					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
-					currentShader.write();
-
-					IfMErrorWarn( cameraShaders.append(startingNode) );
-				}else{
-					//convertShadingNetworkToRSL(startingNode, node);
-					liquidMessage2(messageError,"[%s.%s] is not liquidSurface and liquidShader.",node.asChar(), plug_.c_str());
-				}
+				IfMErrorWarn( cameraShaders.append(startingNode) );
 			}
 		}
 	}

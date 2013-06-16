@@ -256,6 +256,9 @@ public:
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node) = 0;
 
+	//return true if the nodetype is one type render node of subrenderer
+	virtual bool visit_render_node_in_subrenderer(const char* shaderNodeName, const char* nodetype) = 0;
+
 protected:
 	void _outputUpstreamShader(const char* shaderNodeName, const char* nodetype);
 

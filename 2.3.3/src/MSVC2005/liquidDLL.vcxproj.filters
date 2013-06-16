@@ -618,6 +618,9 @@
     <ClInclude Include="..\..\include\liqDefine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\rnode_visitor_interface.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">

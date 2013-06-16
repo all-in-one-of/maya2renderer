@@ -5,6 +5,7 @@
 #include <map>
 #include "rendererinterface.h"
 #include "liqAbstractFactory.h"
+#include "./shadergraph/shadermgr.h"
 
 namespace liquid
 {
@@ -46,6 +47,8 @@ protected:
 	AbstractFactory* m_factory;
 	static std::map<std::string, AbstractFactory*> m_factories;
 
+	RenderNodeVisitorInterface* m_rendernode_visitor;
+	liquidmaya::ShaderMgr* m_shadermgr;
 };
 
 }

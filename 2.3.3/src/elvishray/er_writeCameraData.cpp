@@ -187,107 +187,107 @@ namespace elvishray
 		o.ei_end_camera();
 
 	}
-	void Renderer::_write_camera_structjob(liqRibCameraData* pData, const structJob &currentJob)
-	{
-		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_structjob("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
-		OutputMgr &o = Renderer::o;
-
-		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
-			pData->objDagPath.fullPathName(), 
-			pData->objDagPath,
-			MRT_Unknown
-			);
-		assert( ribNode__!=0 );
-		assert( ribNode__->path().fullPathName() == pData->objDagPath.fullPathName() );
-
-		const bool bMotionBlur =
-			ribNode__->motion.transformationBlur &&
-			( ribNode__->object( 1 ) ) &&
-			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
-			( currentJob.pass != rpShadowMap || currentJob.shadowType == stDeep );
-
-		bool bGeometryMotion = 
-			liqglo.liqglo_doDef 
-			&& bMotionBlur
-			&& ( ribNode__->object(0)->type != MRT_RibGen );
-
-		unsigned int sample_first = 0;
-		unsigned int sample_last = bGeometryMotion? (liqglo.liqglo_motionSamples - 1):sample_first;
-		
-		unsigned int sample = sample_first;
-
-		o.ln();
-
-		const liqRibDataPtr camera = ribNode__->object(sample_first)->getDataPtr();
-
-		//
-		MStatus status;
-		MFnCamera fnCamera(currentJob.path, &status);
-		IfMErrorMsgWarn(status, ribNode__->name);
-		o.a(boost::str(boost::format("structJob path [%s]") %currentJob.path.fullPathName().asChar()));
-
-		const double INCHES_TO_MM = 25.4f;// 1inches = 25.4mm
-		const double CM_TO_MM = 10.0f;//
-
-		bool bDepthOfField;//enable DOF on this camera?
-		liquidGetPlugValue(fnCamera,"depthOfField", bDepthOfField, status);
-		o.a(boost::str(boost::format("Depth of Field on camera \"%s\" is turned %s in Maya") %currentJob.camera[0].name.asChar() %(bDepthOfField?"on":"off")));
-		bDepthOfField = bDepthOfField && liqglo.doDof && currentJob.pass != rpShadowMap;
-
-		MStringArray LensShaders, EnvironmentShaders;
-		{
-			//lens shader
-			if(bDepthOfField)
-			{
-				gatherCameraShaders(LensShaders, currentJob.camera[0].name, "liqLensShader");
-
-			}
-			//env shader
-			gatherCameraShaders(EnvironmentShaders, currentJob.camera[0].name, "liqEnvironmentShader");
-		}
-
-		o.ln();
-		o.a("############################### camera #");
-#ifdef TRANSFORM_SHAPE_PAIR
-		const std::string objectName(ribNode__->name.asChar());//shape
-#else// SHAPE SHAPE_object PAIR
-		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
-#endif
-
-		o.ei_camera( objectName.c_str() );
-		//_S( ei_frame( lframe, off ) );
-
-		cameraOutput(currentJob);
-
-		o.ei_focal( currentJob.camera[sample].focalLength * CM_TO_MM );
-		o.ei_aperture( currentJob.camera[sample].hFOV );
-		o.ei_aspect( currentJob.camera[sample].fov_ratio );
-		if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true ) {
-			o.ei_resolution(currentJob.height, currentJob.width);
-		}else{ 
-			o.ei_resolution(currentJob.width, currentJob.height);
-		}
-
-		if( liqglo.m_renderViewCrop )
-		{
-			unsigned int left, right, bottom, top;
-			MRenderView::getRenderRegion(left, right, bottom, top);
-			o.ei_window(left, right+1, currentJob.height-top, currentJob.height-bottom+1);
-		} 
-
-		o.ei_clip( currentJob.camera[0].neardb*CM_TO_MM, currentJob.camera[0].fardb*CM_TO_MM);
-
-		//lens shader
-		for( std::size_t i = 0; i<LensShaders.length(); ++i)
-		{
-			o.ei_lens_shader( LensShaders[i].asChar() );
-		}
-		//env shader
-		for( std::size_t i = 0; i<EnvironmentShaders.length(); ++i)
-		{
-			o.ei_environment_shader(EnvironmentShaders[i].asChar());
-		}
-		o.ei_end_camera();
-
-	}
+//	void Renderer::_write_camera_structjob(liqRibCameraData* pData, const structJob &currentJob)
+//	{
+//		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_structjob("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+//		OutputMgr &o = Renderer::o;
+//
+//		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
+//			pData->objDagPath.fullPathName(), 
+//			pData->objDagPath,
+//			MRT_Unknown
+//			);
+//		assert( ribNode__!=0 );
+//		assert( ribNode__->path().fullPathName() == pData->objDagPath.fullPathName() );
+//
+//		const bool bMotionBlur =
+//			ribNode__->motion.transformationBlur &&
+//			( ribNode__->object( 1 ) ) &&
+//			//( ribNode__->object(0)->type != MRT_Locator ) && // Why the fuck do we not allow motion blur for locators?
+//			( currentJob.pass != rpShadowMap || currentJob.shadowType == stDeep );
+//
+//		bool bGeometryMotion = 
+//			liqglo.liqglo_doDef 
+//			&& bMotionBlur
+//			&& ( ribNode__->object(0)->type != MRT_RibGen );
+//
+//		unsigned int sample_first = 0;
+//		unsigned int sample_last = bGeometryMotion? (liqglo.liqglo_motionSamples - 1):sample_first;
+//		
+//		unsigned int sample = sample_first;
+//
+//		o.ln();
+//
+//		const liqRibDataPtr camera = ribNode__->object(sample_first)->getDataPtr();
+//
+//		//
+//		MStatus status;
+//		MFnCamera fnCamera(currentJob.path, &status);
+//		IfMErrorMsgWarn(status, ribNode__->name);
+//		o.a(boost::str(boost::format("structJob path [%s]") %currentJob.path.fullPathName().asChar()));
+//
+//		const double INCHES_TO_MM = 25.4f;// 1inches = 25.4mm
+//		const double CM_TO_MM = 10.0f;//
+//
+//		bool bDepthOfField;//enable DOF on this camera?
+//		liquidGetPlugValue(fnCamera,"depthOfField", bDepthOfField, status);
+//		o.a(boost::str(boost::format("Depth of Field on camera \"%s\" is turned %s in Maya") %currentJob.camera[0].name.asChar() %(bDepthOfField?"on":"off")));
+//		bDepthOfField = bDepthOfField && liqglo.doDof && currentJob.pass != rpShadowMap;
+//
+//		MStringArray LensShaders, EnvironmentShaders;
+//		{
+//			//lens shader
+//			if(bDepthOfField)
+//			{
+//				gatherCameraShaders(LensShaders, currentJob.camera[0].name, "liqLensShader");
+//
+//			}
+//			//env shader
+//			gatherCameraShaders(EnvironmentShaders, currentJob.camera[0].name, "liqEnvironmentShader");
+//		}
+//
+//		o.ln();
+//		o.a("############################### camera #");
+//#ifdef TRANSFORM_SHAPE_PAIR
+//		const std::string objectName(ribNode__->name.asChar());//shape
+//#else// SHAPE SHAPE_object PAIR
+//		const std::string objectName(getObjectName(ribNode__->name.asChar()));//shape+"_object"
+//#endif
+//
+//		o.ei_camera( objectName.c_str() );
+//		//_S( ei_frame( lframe, off ) );
+//
+//		cameraOutput(currentJob);
+//
+//		o.ei_focal( currentJob.camera[sample].focalLength * CM_TO_MM );
+//		o.ei_aperture( currentJob.camera[sample].hFOV );
+//		o.ei_aspect( currentJob.camera[sample].fov_ratio );
+//		if( currentJob.pass != rpShadowMap && liqglo.liqglo_rotateCamera  == true ) {
+//			o.ei_resolution(currentJob.height, currentJob.width);
+//		}else{ 
+//			o.ei_resolution(currentJob.width, currentJob.height);
+//		}
+//
+//		if( liqglo.m_renderViewCrop )
+//		{
+//			unsigned int left, right, bottom, top;
+//			MRenderView::getRenderRegion(left, right, bottom, top);
+//			o.ei_window(left, right+1, currentJob.height-top, currentJob.height-bottom+1);
+//		} 
+//
+//		o.ei_clip( currentJob.camera[0].neardb*CM_TO_MM, currentJob.camera[0].fardb*CM_TO_MM);
+//
+//		//lens shader
+//		for( std::size_t i = 0; i<LensShaders.length(); ++i)
+//		{
+//			o.ei_lens_shader( LensShaders[i].asChar() );
+//		}
+//		//env shader
+//		for( std::size_t i = 0; i<EnvironmentShaders.length(); ++i)
+//		{
+//			o.ei_environment_shader(EnvironmentShaders[i].asChar());
+//		}
+//		o.ei_end_camera();
+//
+//	}
 }//namespace elvishray

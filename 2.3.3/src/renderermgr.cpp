@@ -7,6 +7,7 @@
 #include "./renderman/rm_factory.h"
 #include "./elvishray/er_factory.h"
 #include "./appleseed/as_factory.h"
+#include "./shadergraph/shadermgr.h"
 
 namespace liquid
 {
@@ -15,7 +16,9 @@ namespace liquid
 	//
 	RendererMgr::RendererMgr()
 	:m_renderer(0),
-	m_factory(0)
+	m_factory(0),
+	m_rendernode_visitor(0),
+	m_shadermgr(0)
 	{
 
 	}
@@ -85,12 +88,21 @@ namespace liquid
 
 		m_renderer = m_factory->createRenderer();
 		m_factory->createOutputReceiver();
-
+		m_rendernode_visitor = m_factory->createRenderNodeVisitor();
+		liquidmaya::ShaderMgr::getSingletonPtr()->setValidConnection();
+		m_rendernode_visitor->setValidConnection_SubRenderer(
+			liquidmaya::ShaderMgr::getSingletonPtr()->getShaderConnectionMap()
+		);
 	}
 	void RendererMgr::uninstall()
 	{
 		CM_TRACE_FUNC("RendererMgr::uninstall()");
 		assert(m_factory);
+		liquidmaya::ShaderMgr::getSingletonPtr()->clearValidConnection();
+		m_rendernode_visitor = m_factory->deleteRenderNodeVisitor();
+		if( m_rendernode_visitor != NULL ){
+			liquidMessage2(messageError,"memory leak in RendererMgr::uninstall()");
+		}
 		m_factory->deleteOutputReceiver();
 		m_factory->deleteRenderer();
 		m_renderer = NULL;

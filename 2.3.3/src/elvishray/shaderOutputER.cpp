@@ -434,6 +434,7 @@ void Visitor::outputShadingGroup(const char* shadingGroupNode)
 		out.ei_environment_shader( environmentShaders[0].asChar() );
 	}
 	out.ei_end_material();
+	out.ln();
 //	shadingGroupFile.close();
 
 	

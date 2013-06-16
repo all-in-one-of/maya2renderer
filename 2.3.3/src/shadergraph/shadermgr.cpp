@@ -37,10 +37,25 @@ ConnectionType ShaderMgr::convertibleConnection(const char*plugname)
 	return shadingnetwork.convertibleConnection(plugname);
 }
 //
+void ShaderMgr::setValidConnection()
+{
+	CM_TRACE_FUNC("ShaderMgr::setValidConnection()");
+	shaderValidConnection.setValidConnection();
+}
+void ShaderMgr::clearValidConnection()
+{
+	CM_TRACE_FUNC("ShaderMgr::clearValidConnection()");
+	shaderValidConnection.clearValidConnection();
+}
 void ShaderMgr::getValidConnection(const char* nodename, MStringArray& connections) const
 {
 	CM_TRACE_FUNC("ShaderMgr::getValidConnection("<<nodename<<")");
 	shaderValidConnection.getValidConnection(nodename, connections);
+}
+ShaderConnectionMap& ShaderMgr::getShaderConnectionMap()
+{
+	CM_TRACE_FUNC("ShaderMgr::getShaderConnectionMap()");
+	return shaderValidConnection.getShaderConnectionMap();
 }
 bool ShaderMgr::hasShaderType(const char* shadertype)const
 {

@@ -7,7 +7,7 @@
 
 - learn katana
 
-
+- namespace liquidmaya --> liquid
 - install maya1012 x64, learn Arnold
 - maya test cases, the process of maya testing.
   maya main/test/buttontest/common/melscriptsÖ»ÓĞÄ¿Â¼

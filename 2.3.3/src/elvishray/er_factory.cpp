@@ -2,6 +2,7 @@
 #include "shaderOutputER.h"
 #include "er_renderer.h"
 #include "../shadergraph/shaderOutputMgr.h"
+#include "er_rnode_visitor.h"
 
 namespace elvishray
 {
@@ -40,6 +41,17 @@ namespace elvishray
 	{
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->deleteReceivers();
 	}
-
+	//
+	liquid::RenderNodeVisitorInterface* Factory::createRenderNodeVisitor()
+	{
+		m_rendernode_visitor = new RenderNodeVisitor();
+		return m_rendernode_visitor;
+	}
+	liquid::RenderNodeVisitorInterface* Factory::deleteRenderNodeVisitor()
+	{
+		delete m_rendernode_visitor;
+		m_rendernode_visitor = NULL;
+		return m_rendernode_visitor;
+	}
 
 }//namespace elvishray

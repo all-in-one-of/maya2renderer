@@ -1,0 +1,10 @@
+global proc AEer_physicalskyTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEer_physicalskyTemplate("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	AEliquidShaderTemplate($nodeName);
+
+	liqPopIdent();
+}

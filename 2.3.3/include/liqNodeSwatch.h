@@ -37,10 +37,11 @@
 #define liqNodeSwatch_H
 
 #include <common/prerequest_maya.h>
+#include "liqtypes.h"
 
 //#define NODE_NAME(OBJ) {cout<<#OBJ <<":"<<MFnDependencyNode(OBJ).name()<<endl;}
 
-class liqNodeSwatch : public MSwatchRenderBase
+class LIQUID_EXPORT liqNodeSwatch : public MSwatchRenderBase
 {
   public:
 	  explicit 

@@ -9,4 +9,5 @@ source er_UserCallbackInterface.mel;
 source er_startup.mel;
 source AEelvishrayGlobalsTemplate.mel;
 source AEelvishrayGlobalsTemplate.res.mel;
+source AEer_physicalskyTemplate.mel;
 source er_CameraVisibility.mel;

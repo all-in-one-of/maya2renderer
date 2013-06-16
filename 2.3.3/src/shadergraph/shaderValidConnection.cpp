@@ -45,15 +45,18 @@ namespace liquidmaya
 				connections = validConnectionMap.find(shadertype.asChar())->second;
 			}
 		}else{
-			liquidMessage2(messageError, "shader type [%s] is not supported.", shadertype.asChar());
+			liquidMessage2(messageError, "ShaderConnectionMap::getValidConnection(), shader type [%s] is not supported.", shadertype.asChar());
 			assert(0&&"shader type is not supported.");
 			connections = validConnectionMap.find("null")->second;
 		}
 	}
+	void ShaderConnectionMap::clear()
+	{
+		validConnectionMap.clear();	
+	}
 	//////////////////////////////////////////////////////////////////////////
 ShaderValidConnection::ShaderValidConnection()
 {
-	setValidConnection();
 }
 //
 ShaderValidConnection::~ShaderValidConnection()
@@ -62,6 +65,15 @@ ShaderValidConnection::~ShaderValidConnection()
 }
 //
 void ShaderValidConnection::setValidConnection()
+{
+	setValidConnection_maya();
+	setValidConnection_mi();
+}
+void ShaderValidConnection::clearValidConnection()
+{
+	validConnectionMap.clear();
+}
+void ShaderValidConnection::setValidConnection_maya()
 {
 	MStringArray validConnection;
 	
@@ -609,13 +621,12 @@ void ShaderValidConnection::setValidConnection()
 	/// glow ///
 	//opticalFX
 
-	setValidConnection_mi();
+
 
 	///  liquidShader  ///
 	validConnectionMap.begin("liquidShader");
 	validConnectionMap.append("");
 	validConnectionMap.end();	
-
 
 }
 //

@@ -2648,6 +2648,7 @@
     <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\rnode_visitor_interface.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
     <ClInclude Include="..\shadergraph\shadermgr.h" />
     <ClInclude Include="..\shadergraph\shaderOutput.h" />

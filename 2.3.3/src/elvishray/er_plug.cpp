@@ -46,7 +46,9 @@
 #include "../renderermgr.h"
 #include "../elvishray/er_factory.h"
 #include "er_globalnode.h"
-
+#include "er_shader_node.h"
+#include "er_nodeId.h"
+#include "er_NodeAddCallback.h"
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
 PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
@@ -65,10 +67,20 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		elvishray::GlobalNode::creator, elvishray::GlobalNode::initialize, MPxNode::kDependNode );
 	LIQCHECKSTATUS( status, "Can't register "+elvishray::GlobalNode::getTypeName()+" node" );
 	status.clear();
-
-  liquid::RendererMgr::registFactory(elvishray::RENDER_NAME.asChar(), new elvishray::Factory());
-  
-  return MS::kSuccess;
+	//
+	status = plugin.registerNode( 
+		elvishray::PhysicalskyNode::getTypeName(), 
+		elvishray::PhysicalskyNode::getTypeId(), 
+		elvishray::PhysicalskyNode::creator, elvishray::PhysicalskyNode::initialize, MPxNode::kDependNode,
+		&elvishray::env_classification);
+	LIQCHECKSTATUS( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+" node" );
+	status.clear();
+	//
+	liquid::RendererMgr::registFactory(elvishray::RENDER_NAME.asChar(), new elvishray::Factory());
+	//
+	elvishray::NodeAddCallback::registCallback();
+	//
+	return MS::kSuccess;
 }
 
 PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
@@ -78,7 +90,14 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 	liquid::RendererMgr::unregistFactory(elvishray::RENDER_NAME.asChar());
+	
+	//
+	elvishray::NodeAddCallback::removeCallback();
+	//
+	status = plugin.deregisterNode( elvishray::PhysicalskyNode::getTypeId() );
+	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+" node" );
 
+	//
 	status = plugin.deregisterNode( elvishray::GlobalNode::getTypeId() );
 	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::GlobalNode::getTypeName()+" node" );
 

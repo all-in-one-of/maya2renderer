@@ -2,6 +2,7 @@
 #define _LIQ_CREATE_ABSTRACT_FACTORY_H_
 
 #include "rendererinterface.h"
+#include "rnode_visitor_interface.h"
 
 namespace liquid
 {
@@ -17,6 +18,9 @@ namespace liquid
 
 		virtual void createOutputReceiver() = 0;
 		virtual void deleteOutputReceiver() = 0;
+
+		virtual RenderNodeVisitorInterface* createRenderNodeVisitor() = 0;
+		virtual RenderNodeVisitorInterface* deleteRenderNodeVisitor() = 0;
 
 	private:
 		AbstractFactory(const AbstractFactory&);
