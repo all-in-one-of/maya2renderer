@@ -4,21 +4,26 @@
 - TODO List
 - DONE List
 
-- install maya1012 x64, learn Arnold
+
 - learn katana
 
--liq|er:Approx.Method现在只有两种模式，regular和length
-当regular模式的时候，args[0]表示"U Subdiv", args[1]表示"V Subdiv"，就是均匀细分
-当length模式的时候，args[0]表示"Edge Length"，就是细分到Edge在屏幕空间有这么小，类似于RenderMan的Shading Rate
-其他数字是预留的
--liq|er|:用NSI制作安装包
+
+- install maya1012 x64, learn Arnold
+- maya test cases, the process of maya testing.
+  maya main/test/buttontest/common/melscripts只有目录
+
+- maya pfxHair/shaveHair/yetiHair/procuduralHair
+- 编译mtoa，问elvic如何更新mtoa
+-  mia_physicalsun/mia_physicalsky --> er_skylight
+-done)liq|er:Approx.Method现在只有两种模式，regular和length当regular模式的时候，args[0]表示"U Subdiv", args[1]表示"V Subdiv"，就是均匀细分当length模式的时候，args[0]表示"Edge Length"，就是细分到Edge在屏幕空间有这么小，类似于RenderMan的Shading Rate其他数字是预留的
+-done)liq|er|:用NSI制作安装包
 
 -liq| er|: 整理tst case
 -liq| er| particle|: 某些particle类型数据的导出
 -liq| er| pfxhair|: pfxHair数据导出
 
 -liq|:把nodeid放到一个文件里
--liq|er|: bug： 打开camera film gate后，渲染结果和maya software不一致
+-liq|er|: bug: 打开camera film gate后，渲染结果和maya software不一致
 -liq|er|: top,side,front,渲染不出图像
 -liq:加载后，切换至liquid，
 -liq|: 打开有些场景的时候，先加载renderman，后加载liquid，所以提示renderman加载不了

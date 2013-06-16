@@ -136,10 +136,11 @@ namespace elvishray
 			if(bDepthOfField)
 			{
 				gatherCameraShaders(LensShaders, currentJob.camera[0].name, "liqLensShader");
-
+				gatherCameraShaders(LensShaders, currentJob.camera[0].name, "miLensShader");
 			}
 			//env shader
 			gatherCameraShaders(EnvironmentShaders, currentJob.camera[0].name, "liqEnvironmentShader");
+			gatherCameraShaders(EnvironmentShaders, currentJob.camera[0].name, "miEnvironmentShader");
 		}
 
 		o.ln();

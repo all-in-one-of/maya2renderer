@@ -657,7 +657,48 @@ void ConvertShadingNetwork::__export()
 		}else{
 			liquidMessage2(messageInfo, ("["+node +"] has not shading group, skip.").asChar() );
 		}
+	}//for(std::size_t i=0; i<geometryArray.length(); ++i)
+
+	//////////////////////////////////////////////////////////////////////////
+	//export the shaders which are attached to liquidGlobals.renderCamera
+	MStringArray renderCamera;
+	IfMErrorWarn(MGlobal::executeCommand( "getAttr liquidGlobals.renderCamera", renderCamera));
+
+	MStringArray cameraEnvShader;
+	IfMErrorWarn(MGlobal::executeCommand( "listConnections -source on \""+renderCamera[0]+".miEnvironmentShader\"", cameraEnvShader));
+
+	MStringArray shaders(cameraEnvShader);
+	MString plug("miEnvironmentShader");
+	if( shaders.length() != 0 )
+	{
+		const MString startingNode(shaders[0]);
+
+		if( canShaderExported(startingNode) )
+		{
+			//1.begin
+			exportShaderBegin(startingNode);
+
+			//2.export shader
+			MString nodetype;
+			cmd = "nodeType \""+startingNode+"\"";
+			IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
+
+			if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
+				//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
+				liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
+				currentShader.write();
+			}else{
+				convertShadingNetworkToRSL(startingNode, plug);
+			}
+
+			//3.end
+			exportShaderEnd(startingNode);
+		}
+	}else{
+		liquidMessage2(messageWarning, "[%s].miEnvironmentShader is empty.", renderCamera[0].asChar());
 	}
+	//////////////////////////////////////////////////////////////////////////
+
 
 }
 //

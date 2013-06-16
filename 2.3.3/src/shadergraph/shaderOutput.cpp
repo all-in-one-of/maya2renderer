@@ -341,6 +341,12 @@ namespace liquidmaya{
 		else if( strcmp("mib_amb_occlusion", nodetype) == 0 ){
 			visit_mib_amb_occlusion(shaderNodeName);
 		}
+		else if( strcmp("mia_physicalsky", nodetype) == 0 ){
+			visit_mia_physicalsky(shaderNodeName);
+		}
+		else if( strcmp("mia_physicalsun", nodetype) == 0 ){
+			visit_mia_physicalsun(shaderNodeName);
+		}
 		else if( strcmp("liquidShader", nodetype) == 0 ){
 			visit_liquidShader(shaderNodeName);
 		}

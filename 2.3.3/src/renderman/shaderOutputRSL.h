@@ -304,7 +304,11 @@ public:
 	///mentalray shaders
 	/// mib_amb_occlusion ///
 	virtual void visit_mib_amb_occlusion(const char* node);
-	
+	/// mia_physicalsky ///
+	virtual void visit_mia_physicalsky(const char* node);
+	/// mia_physicalsun ///
+	virtual void visit_mia_physicalsun(const char* node);
+
 	///liquid shaders
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
