@@ -33,6 +33,25 @@ void Visitor::visit_er_physicalsky(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_physicalsky", node);
+
+	o.addRSLVariable("vector",	"sun_dir",			"sun_dir",				node);
+	o.addRSLVariable("float",	"sun_disk_size",	"sun_disk_size",		node);
+	o.addRSLVariable("float",	"sun_disk_intensity","sun_disk_intensity",	node);
+	o.addRSLVariable("float",	"sun_glow_size",	"sun_glow_size",		node);
+	o.addRSLVariable("float",	"sun_glow_intensity","sun_glow_intensity",	node);
+	o.addRSLVariable("float",	"sun_glow_falloff",	"sun_glow_falloff",		node);
+	o.addRSLVariable("color",	"ground_color",		"ground_color",			node);
+	o.addRSLVariable("float",	"ground_blur",		"ground_blur",			node);
+	o.addRSLVariable("int",		"type",				"type",					node);
+	o.addRSLVariable("float",	"haze",				"haze",					node);
+	o.addRSLVariable("color",	"zenith_color",		"zenith_color",			node);
+	o.addRSLVariable("float",	"a",				"a",					node);
+	o.addRSLVariable("float",	"b",				"b",					node);
+	o.addRSLVariable("float",	"c",				"c",					node);
+	o.addRSLVariable("float",	"d",				"d",					node);
+	o.addRSLVariable("float",	"e",				"e",					node);
+	o.addRSLVariable("float",	"intensity","intensity",					node);
+
 	o.endRSL();
 }
 

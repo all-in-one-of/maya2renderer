@@ -142,30 +142,7 @@
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
                         >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
-            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
-            >6 liqRibTranslator::scanSceneNodes(&currentNode, &path,1,0,&count)
-              >7 liqRibHT::insert(|pSphere1|pSphereShape1,lframe,0,0,5,matrix,,-1)
-                >8 liqRibHT::hash(|pSphere1|pSphereShape1,5)
-                >8 liqRibHT::find(|pSphere1|pSphereShape1,|pSphere1|pSphereShape1,0)
-                >8 liqRibNode::liqRibNode(instanceOfNode,)
-                >8 liqRibNode::set(|pSphere1|pSphereShape1,0,0,-1)
-                  >9 liqRibNode::parseVectorAttributes(pSphere1,,2)
-                  >9 liqRibNode::parseVectorAttributes(pSphere1,,3)
-                  >9 liqRibNode::parseVectorAttributes(pSphere1,,4)
-                  >9 liqRibNode::findShadingGroup(|pSphere1|pSphereShape1,0)
-                  >9 liqRibNode::findShader()
-                  >9 liqRibNode::findDisp()
-                  >9 liqRibNode::findVolume()
-                  >9 liqRibNode::getColor(&shader,&color)
-                  >9 liqRibNode::getOpacity(&shader,&color)
-                  >9 liqRibNode::getMatteMode(&shader)
-                  >9 liqRibObj::liqRibObj(|pSphere1|pSphereShape1,0)
-                    >10 liqRibMeshData::liqRibMeshData(|pSphere1|pSphereShape1)
-                      >11 liqRibData::addAdditionalSurfaceParameters(pSphereShape1)
-                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=2)
-                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=3)
-                        >12 liqRibData::parseVectorAttributes(&nodeFn, &strArray, pType=4)
-            >6 liqRibTranslatorNew::dealwithParticleInstancedObjects(0,1,6)
+            >6 liqRibTranslatorNew::dealwithParticleInstancedObjects(0,1,5)
             >6 tCameraMgr::getCameraData(perspShape,0)
               >7 tCameraMgr::getCameraInfo(|persp|perspShape,)
                 >8 tCameraMgr::portFieldOfView(768,576,&horizontal,&vertical,&fnCamera)
@@ -422,7 +399,6 @@
                   >9 ConvertShadingNetwork::outputShadingGroup(initialShadingGroup)
                     >10 Visitor::outputShadingGroup(initialShadingGroup)
                   >9 ConvertShadingNetwork::exportShadingGroupEnd(initialShadingGroup)
-                  >9 ConvertShadingNetwork::canShadingGroupExported(initialShadingGroup)
                   >9 ConvertShadingNetwork::canShaderExported(er_physicalsky1)
                   >9 ConvertShadingNetwork::exportShaderBegin(er_physicalsky1)
                   >9 ConvertShadingNetwork::convertShadingNetworkToRSL(er_physicalsky1,miEnvironmentShader)
@@ -491,6 +467,57 @@
                           >13 Visitor::visit_render_node_in_subrenderer(er_physicalsky1,er_physicalsky)
                             >14 Visitor::visit_er_physicalsky(er_physicalsky1)
                               >15 OutputHelper::beginRSL(maya_physicalsky,er_physicalsky1)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.sun_dir)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.sun_dir)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.sun_dir)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.sun_disk_size)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.sun_disk_size)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.sun_disk_size)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.sun_disk_intensity)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.sun_disk_intensity)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.sun_disk_intensity)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.sun_glow_size)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.sun_glow_size)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.sun_glow_size)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.sun_glow_intensity)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.sun_glow_intensity)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.sun_glow_intensity)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.sun_glow_falloff)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.sun_glow_falloff)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.sun_glow_falloff)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.ground_color)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.ground_color)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.ground_color)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.ground_blur)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.ground_blur)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.ground_blur)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.type)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.type)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.type)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.haze)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.haze)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.haze)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.zenith_color)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.zenith_color)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.zenith_color)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.a)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.a)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.a)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.b)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.b)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.b)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.c)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.c)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.c)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.d)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.d)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.d)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.e)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.e)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.e)
+                              >15 ShaderMgr::convertibleConnection(er_physicalsky1.intensity)
+                                >16 ConvertShadingNetwork::convertibleConnection(er_physicalsky1.intensity)
+                                  >17 ConvertShadingNetwork::ensurePlugExists(er_physicalsky1.intensity)
                               >15 OutputHelper::endRSL()
                       >11 ShaderMgr::getValidConnection(er_physicalsky1)
                       >11 ConvertShadingNetwork::decrementDownstreamConnections(er_physicalsky1, nodes, numConnections, validConnections)
@@ -683,114 +710,6 @@
 ,m_tokenFloats.use_count()=1
 
                               >15 liqRibData::getFullPathName()
-                >8 liqRibTranslatorNew::oneObjectBlock_data(|pSphere1|pSphereShape1,perspShape)
-                  >9 Renderer::exportOneObject_data(|pSphere1|pSphereShape1,perspShape)
-                    >10 Renderer::_writeObject(|pSphere1|pSphereShape1,perspShape,0,0,0)
-                      >11 liqRibObj::writeObject(R:/MyDocuments/maya/projects/default/rib/_pSphere1_pSphereShape1.1.rib,perspShape,0)
-                        >12 liqRibMeshData::write(R:/MyDocuments/maya/projects/default/rib/_pSphere1_pSphereShape1.1.rib,job=perspShape,0)
-                            >14 liqRibData::getFullPathName()
-                          >13 Renderer::write(|pSphere1|pSphereShape1,R:/MyDocuments/maya/projects/default/rib/_pSphere1_pSphereShape1.1.rib,perspShape,ref=0)
-                              >15 liqRibData::getFullPathName()
-                            >14 er_writeMeshData.cpp::_write1(|pSphere1|pSphereShape1,perspShape)
-                              >15 liqRibHT::find(|pSphere1|pSphereShape1,|pSphere1|pSphereShape1,0)
-                              >15 _exportVertexFromNodePlug(|pSphere1|pSphereShape1,0)
-                              >15 liqTokenPointer:getTokenFloatArraySize() 
-,m_pType=1
-,m_dType=2
-,m_tokenName=P
-,detailedTokenName=P
-,m_arraySize=382
-,m_uArraySize=0
-,m_eltSize=3
-,m_isArray=1
-,m_isUArray=0
-,m_isString=0
-,m_isFull=0
-,m_stringSize=0
-,m_tokenSize=1146
-,m_tokenFloats.use_count()=1
-
-                              >15 liqTokenPointer:getTokenFloatArraySize() 
-,m_pType=1
-,m_dType=2
-,m_tokenName=P
-,detailedTokenName=P
-,m_arraySize=382
-,m_uArraySize=0
-,m_eltSize=3
-,m_isArray=1
-,m_isUArray=0
-,m_isString=0
-,m_isFull=0
-,m_stringSize=0
-,m_tokenSize=1146
-,m_tokenFloats.use_count()=1
-
-                              >15 liqTokenPointer:getTokenFloatArraySize() 
-,m_pType=1
-,m_dType=2
-,m_tokenName=P
-,detailedTokenName=P
-,m_arraySize=382
-,m_uArraySize=0
-,m_eltSize=3
-,m_isArray=1
-,m_isUArray=0
-,m_isString=0
-,m_isFull=0
-,m_stringSize=0
-,m_tokenSize=1146
-,m_tokenFloats.use_count()=1
-
-                              >15 liqTokenPointer:getTokenFloatArraySize() 
-,m_pType=1
-,m_dType=2
-,m_tokenName=P
-,detailedTokenName=P
-,m_arraySize=382
-,m_uArraySize=0
-,m_eltSize=3
-,m_isArray=1
-,m_isUArray=0
-,m_isString=0
-,m_isFull=0
-,m_stringSize=0
-,m_tokenSize=1146
-,m_tokenFloats.use_count()=1
-
-                              >15 liqTokenPointer:getTokenFloatArraySize() 
-,m_pType=1
-,m_dType=2
-,m_tokenName=P
-,detailedTokenName=P
-,m_arraySize=382
-,m_uArraySize=0
-,m_eltSize=3
-,m_isArray=1
-,m_isUArray=0
-,m_isString=0
-,m_isFull=0
-,m_stringSize=0
-,m_tokenSize=1146
-,m_tokenFloats.use_count()=1
-
-                              >15 liqTokenPointer:getTokenFloatArraySize() 
-,m_pType=1
-,m_dType=2
-,m_tokenName=P
-,detailedTokenName=P
-,m_arraySize=382
-,m_uArraySize=0
-,m_eltSize=3
-,m_isArray=1
-,m_isUArray=0
-,m_isString=0
-,m_isFull=0
-,m_stringSize=0
-,m_tokenSize=1146
-,m_tokenFloats.use_count()=1
-
-                              >15 liqRibData::getFullPathName()
               >7 liqRibTranslatorNew::objectBlock_reference(perspShape)
                 >8 Renderer::objectBlock_reference_begin()
                 >8 liqRibTranslatorNew::preGeometryMel()
@@ -830,23 +749,6 @@
                     >10 liqRibData::getFullPathName()
                     >10 liqRibData::getFullPathName()
                   >9 Renderer::oneObjectBlock_reference_attribute_end(|pPlane1|pPlaneShape1,perspShape)
-                >8 liqRibTranslatorNew::oneObjectBlock_reference(|pSphere1|pSphereShape1,perspShape)
-                  >9 Renderer::oneObjectBlock_reference_attribute_begin(|pSphere1|pSphereShape1,perspShape)
-                  >9 Renderer::oneObjectBlock_reference_attribute_block0(|pSphere1|pSphereShape1,perspShape)
-                  >9 liqRibTranslatorNew::tRiIlluminate(perspShape,|pSphere1|pSphereShape1)
-                    >10 Renderer::exportLightLinks(perspShape,|pSphere1|pSphereShape1,lightedByWhichLightShapes.size=0)
-                  >9 liqRibTranslatorNew::checkSurfaceShader(|pSphere1|pSphereShape1,|pSphere1|pSphereShape1,,,)
-                  >9 liqRibTranslatorNew::checkDisplacementShader(|pSphere1|pSphereShape1,|pSphere1|pSphereShape1,,,)
-                  >9 liqRibTranslatorNew::checkVolumeShader(|pSphere1|pSphereShape1,|pSphere1|pSphereShape1,,,)
-                  >9 Renderer::oneObjectBlock_reference_attribute_block1(|pSphere1|pSphereShape1,perspShape)
-                  >9 liqRibTranslatorNew::writeShader_(1,|pSphere1|pSphereShape1,v=0,s=0,c=0,,|pSphere1|pSphereShape1,perspShape)
-                    >10 Renderer::oneObjectBlock_reference_attribute_block2_writeShader_HasNoSurfaceShaderORIngoreSurface(|pSphere1|pSphereShape1,|pSphere1|pSphereShape1,0)
-                  >9 Renderer::oneObjectBlock_reference_attribute_block3_ShadingGroup(|pSphere1|pSphereShape1)
-                  >9 Renderer::exportOneObject_reference(|pSphere1|pSphereShape1,perspShape)
-                    >10 liqRibData::getFullPathName()
-                    >10 liqRibData::getFullPathName()
-                    >10 liqRibData::getFullPathName()
-                  >9 Renderer::oneObjectBlock_reference_attribute_end(|pSphere1|pSphereShape1,perspShape)
                 >8 Renderer::objectBlock_reference_end()
             >6 liqRibTranslatorNew::worldEpilogue__()
               >7 liqRibTranslator::worldEpilogue()
