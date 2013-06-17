@@ -33,7 +33,7 @@ void Visitor::visit_er_physicalsky(const char* node)
 
 	OutputHelper o;
 	o.beginRSL("maya_physicalsky", node);
-
+#if 0
 	o.addRSLVariable("vector",	"sun_dir",			"sun_dir",				node);
 	o.addRSLVariable("float",	"sun_disk_size",	"sun_disk_size",		node);
 	o.addRSLVariable("float",	"sun_disk_intensity","sun_disk_intensity",	node);
@@ -51,7 +51,15 @@ void Visitor::visit_er_physicalsky(const char* node)
 	o.addRSLVariable("float",	"d",				"d",					node);
 	o.addRSLVariable("float",	"e",				"e",					node);
 	o.addRSLVariable("float",	"intensity","intensity",					node);
-
+#else
+	MStringArray rmanParams, rmanTypes;
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+MString(node)+".rmanParams\""), rmanParams ));
+	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+MString(node)+".rmanTypes\""),	rmanTypes ));
+	for(std::size_t i = 0; i < rmanParams.length(); ++i)
+	{
+		o.addRSLVariable(rmanTypes[i],	rmanParams[i],  rmanParams[i],	node);
+	}
+#endif
 	o.endRSL();
 }
 
