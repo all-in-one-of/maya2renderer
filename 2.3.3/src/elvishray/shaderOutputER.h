@@ -307,6 +307,8 @@ public:
 	void visit_er_physicalsky(const char* node);
 	/// er_skylight ///
 	void visit_er_skylight(const char* node);
+	/// er_flatcolor ///
+	void visit_er_flatcolor(const char* node);
 
 protected:
 	//std::ofstream file;

@@ -84,6 +84,14 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	LIQCHECKSTATUS( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+" node" );
 	status.clear();
 	//
+	status = plugin.registerNode( 
+		elvishray::FlatColorNode::getTypeName(), 
+		elvishray::FlatColorNode::getTypeId(), 
+		elvishray::FlatColorNode::creator, elvishray::FlatColorNode::initialize, MPxNode::kDependNode,
+		&elvishray::surface_classification);
+	LIQCHECKSTATUS( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+" node" );
+	status.clear();
+	//
 	liquid::RendererMgr::registFactory(elvishray::RENDER_NAME.asChar(), new elvishray::Factory());
 	//
 	elvishray::NodeAddCallback::registCallback();
@@ -102,12 +110,14 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	//
 	elvishray::NodeAddCallback::removeCallback();
 	//
+	status = plugin.deregisterNode( elvishray::FlatColorNode::getTypeId() );
+	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+" node" );
+	//
 	status = plugin.deregisterNode( elvishray::SkyLightNode::getTypeId() );
 	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+" node" );
 	//
 	status = plugin.deregisterNode( elvishray::PhysicalskyNode::getTypeId() );
 	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+" node" );
-
 	//
 	status = plugin.deregisterNode( elvishray::GlobalNode::getTypeId() );
 	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::GlobalNode::getTypeName()+" node" );

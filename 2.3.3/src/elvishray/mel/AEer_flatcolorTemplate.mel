@@ -1,0 +1,28 @@
+global proc AEer_flatcolorTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEer_flatcolorTemplate("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	//AEliquidShaderTemplate($nodeName);
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+				editorTemplate -addDynamicControl "inColor";
+				editorTemplate -addDynamicControl "inTransparency";
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

@@ -22,6 +22,9 @@ bool Visitor::visit_render_node_in_subrenderer(const char* shaderNodeName, const
 	else if( strcmp("er_skylight", nodetype) == 0 ){
 		visit_er_skylight(shaderNodeName);
 	}
+	else if( strcmp("er_flatcolor", nodetype) == 0 ){
+		visit_er_flatcolor(shaderNodeName);
+	}
 	else{
 		liquidMessage2(messageError, ("Visitor::visit_render_node_in_subrenderer(), shader type ["+std::string(nodetype)+"] is not supported.").c_str() );
 		assert( 0 && "shader type is not support.");
@@ -75,6 +78,18 @@ void Visitor::visit_er_skylight(const char* node)
 	o.addRSLVariable("shader",	"env_shader",	"env_shader",	node);
 	o.addRSLVariable("int",		"resolution",	"resolution",	node);
 	o.addRSLVariable("float",	"max_dist",		"max_dist",		node);
+
+	o.endRSL();
+}
+void Visitor::visit_er_flatcolor(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::visit_er_flatcolor("<<node<<")");
+
+	OutputHelper o;
+	o.beginRSL("liq_flatcolor", node);
+
+	o.addRSLVariable("color",	"inColor",			"inColor",			node);
+	o.addRSLVariable("color",	"inTransparency",	"inTransparency",	node);
 
 	o.endRSL();
 }

@@ -47,8 +47,15 @@ namespace elvishray
 		}
 		else if( typeName =="er_skylight" ){
 			MString cmd = 
-				 "setAttr -type \"string\" (\""+nodeName+".rmanShader\") \"liq_skylight\";"
+				"setAttr -type \"string\" (\""+nodeName+".rmanShader\") \"liq_skylight\";"
 				+"setAttr -type \"string\" (\""+nodeName+".rmanShaderType\") \"light\";"
+				;
+			MGlobal::executeCommandOnIdle(cmd, true);
+		}
+		else if( typeName =="er_flatcolor" ){
+			MString cmd = 
+				"setAttr -type \"string\" (\""+nodeName+".rmanShader\") \"liq_flatcolor\";"
+				+"setAttr -type \"string\" (\""+nodeName+".rmanShaderType\") \"surface\";"
 				;
 			MGlobal::executeCommandOnIdle(cmd, true);
 		}

@@ -13,3 +13,4 @@ source AEer_physicalskyTemplate.mel;
 source AEer_skylightTemplate.mel;
 source er_CameraVisibility.mel;
 source er_liquidProcedurals.mel;
+source AEer_flatcolorTemplate.mel;

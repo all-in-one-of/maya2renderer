@@ -51,6 +51,17 @@ namespace elvishray
 		validConnectionMap.append("max_dist");
 		validConnectionMap.end();
 
+		//er_flatcolor
+		validConnectionMap.begin("er_flatcolor");
+		validConnectionMap.append("inColorR");
+		validConnectionMap.append("inColorG");
+		validConnectionMap.append("inColorB");
+		validConnectionMap.append("inColor");
+		validConnectionMap.append("inTransparencyR");
+		validConnectionMap.append("inTransparencyG");
+		validConnectionMap.append("inTransparencyB");	
+		validConnectionMap.append("inTransparency");
+		validConnectionMap.end();
 	}
 
 }
