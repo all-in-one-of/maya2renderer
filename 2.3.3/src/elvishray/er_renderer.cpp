@@ -1288,7 +1288,7 @@ namespace elvishray
 		//-------------------------------------
 		int face = m_gnode->getInt("face");
 		if( face<=EI_FACE_NONE || EI_FACE_COUNT<=face ){
-			liquidMessage2(messageError,"face(%d), must in scope (%d,%d). make sure elvishrayGlobal1 is created.", face, EI_FACE_NONE, EI_FACE_COUNT);
+			liquidMessage2(messageError,"face(%d), must in scope (%d,%d). make sure %s1 is created.", face, EI_FACE_NONE, EI_FACE_COUNT, GlobalNode::getTypeName().asChar());
 			assert( 0 && "face is invalid." );
 			return false;
 		}
