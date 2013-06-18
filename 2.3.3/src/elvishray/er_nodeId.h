@@ -11,12 +11,15 @@ namespace elvishray
 
 		TI_GLOBAL_NODE			= 0xFFFFF360,
 		TI_Physicalsky_NODE		= 0xFFFFF361,
+		TI_SkyLight_NODE		= 0xFFFFF362,
 
 		TI_NUM,
 	};
 	//
 	const MString env_classification = 
-		"rendernode/"+RENDER_NAME+"/texture/environment:texture/environment:swatch/PhysicalskySwatch";
+		"rendernode/"+RENDER_NAME+"/texture/environment:texture/environment:swatch/PhysicalSkySwatch";
+	const MString light_classification = 
+		"rendernode/"+RENDER_NAME+"/light:light:swatch/SkyLightSwatch";
 
 	//
 }//namespace elvishray

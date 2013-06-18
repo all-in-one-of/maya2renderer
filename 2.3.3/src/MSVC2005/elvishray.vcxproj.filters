@@ -156,6 +156,9 @@
     <ClCompile Include="..\elvishray\shaderOutputER_er.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\shader_node\er_skylight_node.cpp">
+      <Filter>src\shader_node</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
@@ -227,6 +230,9 @@
     <ClInclude Include="..\elvishray\er_rnode_visitor.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\elvishray\shader_node\er_skylight_node.h">
+      <Filter>src\shader_node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">
@@ -288,6 +294,15 @@
     </None>
     <None Include="..\elvishray\mel\AEer_physicalskyTemplate.mel">
       <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\AEer_skylightTemplate.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\er_liquidProcedurals.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\er_liquidProcedurals_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
     </None>
   </ItemGroup>
 </Project>

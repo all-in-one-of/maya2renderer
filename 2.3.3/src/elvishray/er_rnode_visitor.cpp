@@ -43,6 +43,14 @@ namespace elvishray
 		validConnectionMap.append("e");
 		validConnectionMap.append("intensity");
 		validConnectionMap.end();
+
+		//er_physicalsky
+		validConnectionMap.begin("er_physicalsky");
+		validConnectionMap.append("env_shader");
+		validConnectionMap.append("resolution");
+		validConnectionMap.append("max_dist");
+		validConnectionMap.end();
+
 	}
 
 }

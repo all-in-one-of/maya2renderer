@@ -19,6 +19,9 @@ bool Visitor::visit_render_node_in_subrenderer(const char* shaderNodeName, const
 	if( strcmp("er_physicalsky", nodetype) == 0 ){
 		visit_er_physicalsky(shaderNodeName);
 	}
+	else if( strcmp("er_skylight", nodetype) == 0 ){
+		visit_er_skylight(shaderNodeName);
+	}
 	else{
 		liquidMessage2(messageError, ("Visitor::visit_render_node_in_subrenderer(), shader type ["+std::string(nodetype)+"] is not supported.").c_str() );
 		assert( 0 && "shader type is not support.");
@@ -62,5 +65,17 @@ void Visitor::visit_er_physicalsky(const char* node)
 #endif
 	o.endRSL();
 }
+void Visitor::visit_er_skylight(const char* node)
+{
+	CM_TRACE_FUNC("Visitor::visit_er_skylight("<<node<<")");
 
+	OutputHelper o;
+	o.beginRSL("liq_skylight", node);
+
+	o.addRSLVariable("shader",	"env_shader",	"env_shader",	node);
+	o.addRSLVariable("int",		"resolution",	"resolution",	node);
+	o.addRSLVariable("float",	"max_dist",		"max_dist",		node);
+
+	o.endRSL();
+}
 }//namespace ER

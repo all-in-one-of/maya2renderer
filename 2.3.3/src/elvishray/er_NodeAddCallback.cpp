@@ -39,10 +39,17 @@ namespace elvishray
 				"E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/test/test_er_env/maya_physicalsky.dll";
 
 			MString cmd = 
-			"setAttr -type \"string\" (\""+nodeName+".rmanShaderLong\") \""+$shaderFilePath+"\";"+
-			//"liquidShaderNodes_reloadAndRefresh(\""+nodeName+"\");"+
-			"liquidShaderNodes_initParams_pl(\""+nodeName+"\", \""+$shaderFilePath+"\");"
+			"setAttr -type \"string\" (\""+nodeName+".rmanShaderLong\") \""+$shaderFilePath+"\";"
+			//+"liquidShaderNodes_reloadAndRefresh(\""+nodeName+"\");"
+			+"liquidShaderNodes_initParams_pl(\""+nodeName+"\", \""+$shaderFilePath+"\");"
 			;
+			MGlobal::executeCommandOnIdle(cmd, true);
+		}
+		else if( typeName =="er_skylight" ){
+			MString cmd = 
+				 "setAttr -type \"string\" (\""+nodeName+".rmanShader\") \"liq_skylight\";"
+				+"setAttr -type \"string\" (\""+nodeName+".rmanShaderType\") \"light\";"
+				;
 			MGlobal::executeCommandOnIdle(cmd, true);
 		}
 		

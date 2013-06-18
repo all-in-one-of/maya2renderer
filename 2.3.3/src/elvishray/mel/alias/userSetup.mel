@@ -65,3 +65,4 @@ source er_UserCallbackInterface_ElvishRender.mel;
 source er_startup_ElvishRender.mel;
 source AEElvishRenderGlobalsTemplate.mel;
 //source AEElvishRenderGlobalsTemplate.res.mel;
+source er_liquidProcedurals_ElvishRender.mel;

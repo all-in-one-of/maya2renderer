@@ -1,0 +1,30 @@
+global proc AEer_skylightTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEer_skylightTemplate("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	//AEliquidShaderTemplate($nodeName);
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+				editorTemplate -addDynamicControl "env_shader";
+				//attrNavigationControlGrp -l "env_shader" -at ($nodeName+".env_shader");
+				editorTemplate -addDynamicControl "resolution";
+				editorTemplate -addDynamicControl "max_dist";
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

@@ -10,4 +10,6 @@ source er_startup.mel;
 source AEelvishrayGlobalsTemplate.mel;
 source AEelvishrayGlobalsTemplate.res.mel;
 source AEer_physicalskyTemplate.mel;
+source AEer_skylightTemplate.mel;
 source er_CameraVisibility.mel;
+source er_liquidProcedurals.mel;
