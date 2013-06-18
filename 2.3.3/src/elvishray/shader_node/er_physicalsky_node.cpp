@@ -36,7 +36,7 @@
 #include <liqlog.h>
 #include <liqNodeSwatch.h>
 #include <liqIOStream.h>
-
+#include <liqNodeSwatch.h>
 #include "../er_nodeId.h"
 
 namespace elvishray

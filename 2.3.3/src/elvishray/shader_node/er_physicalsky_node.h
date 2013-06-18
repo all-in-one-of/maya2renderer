@@ -36,7 +36,8 @@
 #define _ER_PHYSICAL_SKY_NODE_H_
 
 #include <common/prerequest_maya.h>
-#include <liqShaderNode.h>
+
+class liqNodeSwatch;
 
 namespace elvishray
 {
