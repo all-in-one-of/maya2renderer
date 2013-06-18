@@ -1,0 +1,12 @@
+source xxliquidutility.mel;
+
+global proc liquidAssignShaderToSelected_subrenderer(string $node)
+{
+	liqPushIdent();
+	liqlog("liquidAssignShaderToSelected_subrenderer("+$node+")");
+	
+	string $cmd = "liquidAssignShaderToSelected_"+liqGetRendererName()+"(\""+$node+"\")";
+	eval $cmd;
+
+	liqPopIdent();
+}

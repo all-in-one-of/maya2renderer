@@ -2775,6 +2775,7 @@
     <None Include="..\..\mel\liquidAttributeManager.mel" />
     <None Include="..\..\mel\liquidIpr.mel" />
     <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
+    <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel" />
     <None Include="..\..\mel\liquidUserCallbackInterface.mel" />
     <None Include="..\..\mel\liquid_FE.mel" />
     <None Include="..\..\mel\liquidAttachParams.mel" />

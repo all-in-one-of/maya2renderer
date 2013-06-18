@@ -1,0 +1,11 @@
+source xxliquidutility.mel;
+
+global proc liquidAssignShaderToSelected_ElvishRender(string $node)
+{
+	liqPushIdent();
+	liqlog("liquidAssignShaderToSelected_ElvishRender("+$node+")");
+	
+	liquidAssignShaderToSelected_elvishray($node);
+
+	liqPopIdent();
+}

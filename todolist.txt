@@ -7,6 +7,11 @@
 
 - learn katana
 
+- liq|er|: 有几种自定义shader： liquidShader，er_physicalsky, er_skylight
+  增加一个接口exportShaderNode()导出这几种类型的shader
+- 重构 void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString& node)
+  把这个函数的node参数去掉。
+- liq|er|:打开er场景时，er插件未加载，
 - namespace liquidmaya --> liquid
 - install maya1012 x64, learn Arnold
 - maya test cases, the process of maya testing.
@@ -133,8 +138,6 @@ liquid
      {  size(`ls -geometry -dag -sl`) 值为0，无法赋给物体
   2.er解析
   3.rm如何支持multiple material per mesh
-- 重构 void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString& node)
-  把这个函数的node参数去掉。
 - rm/er batch render 重构(::execute(),   )
 - 动画序列里，（er/rm）shader是否能正确输出
 - 重构 : move m_outputDebugMsgToRib to liqGlobalVariable,

@@ -215,7 +215,7 @@ global proc buildHypergraphNodePopupMenuItems(
 					-radialPosition "N"
 					-label $assignMaterial
 						-command ("duBuildHypergraphAssignCb( \""+$node+"\", \"assignOceanShader\")" );
-      }
+			}
 			else 
 			{
 				menuItem 
@@ -227,10 +227,10 @@ global proc buildHypergraphNodePopupMenuItems(
 					-label (uiRes("m_buildHypergraphNodePopupMenuItems.kPaintAssignShader"))
 					-command ("shaderPaintTool " + $node);
 			}
-				menuItem 
+			menuItem 
 				-radialPosition "E"
 				-label (uiRes("m_buildHypergraphNodePopupMenuItems.kSelectObjectsWithMaterial"))
-					-command ("hyperShade -objects " + $node);
+				-command ("hyperShade -objects " + $node);
 
 			menuItem 
 				-label (uiRes("m_buildHypergraphNodePopupMenuItems.kFrameObjectsWithMaterial"))
@@ -476,6 +476,11 @@ global proc buildHypergraphNodePopupMenuItems(
             -command ("lightlink -break -light "+$node+" -useActiveObjects");
 
         menuItem -divider true;
+
+		menuItem
+			-radialPosition "N"
+			-label "assign er_skylight to select object(s)(for er_skylight only, and this will be removed in the future)"
+			-command ("duBuildHypergraphAssignCb( \""+$node+"\", \"liquidAssignShaderToSelected\")" );
 
         menuItem
             -label (uiRes("m_buildHypergraphNodePopupMenuItems.kSelectObjectsIlluminatedByLight"))

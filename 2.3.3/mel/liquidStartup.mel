@@ -193,8 +193,8 @@ global proc liquidLoadScripts()
     "liqGlobalsNodeRenderer.mel",
     "GetPossibleTextures.mel",
     "liquidliquidShaderNodes.mel",
-	"liquidUserCallbackInterface.mel"
-	
+	"liquidUserCallbackInterface.mel",
+	"liquidProceduralsForSubRenderer.mel"
   };
 
   string $liquidHome = liquidGetHome();
