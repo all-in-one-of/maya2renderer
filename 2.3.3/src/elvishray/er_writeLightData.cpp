@@ -629,9 +629,7 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::exportAreaLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
 		MStatus status;
 		o.ln();
-		o.a(" Renderer::exportAreaLight()");
-		o.a(" NOTE: I export maya area light to ambient light temporarily, but how to deal with the \"spread\",\"deltaangle\" parameters?");
-
+		
 		std::string shaderinstanceFullPath( toFullDagPath(lightdata->lightName).asChar() );
 		const liqMatrix &t = lightdata->transformationMatrix;
 
