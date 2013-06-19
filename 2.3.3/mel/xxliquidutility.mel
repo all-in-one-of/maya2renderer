@@ -359,3 +359,17 @@ global proc int isCurrentRenderer(string $renderer)
 	liqPopIdent();
 	return $ret;
 }
+
+global proc myEvalDeferred(int $lowestPriority, string $cmd)
+{
+	liqPushIdent();
+	liqlog("myEvalDeferred("+$lowestPriority+",\""+$cmd+"\")");
+
+	if($lowestPriority)
+	{
+		evalDeferred -lowestPriority $cmd;
+	}else{
+		evalDeferred $cmd;
+	}
+	liqPopIdent();
+}

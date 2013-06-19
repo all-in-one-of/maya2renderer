@@ -102,11 +102,11 @@ global proc liquidSwitchGlobalsRenderLayer()
 	  	setParent $prevParent;
 	} else {
       		warning( "liquidSwitchGlobalsRenderLayer: size( $otherLayerTabLayouts ) == 0 !!!");
-      		// evalDeferred -lp "liquidCreateGlobalsTab";
+      		// myEvalDeferred(1, "liquidCreateGlobalsTab");
 	}
   } else {
     warning( "liquidSwitchGlobalsRenderLayer: " + $unifiedRendererTabName + " not exists");
-    // evalDeferred -lp "liquidCreateGlobalsTab";
+    // myEvalDeferred(1, "liquidCreateGlobalsTab");
   }
   liqPopIdent();
 }
@@ -217,7 +217,7 @@ global proc liquidCreateGlobalsTab()
   
   string $cmd;
   if ( `about -win` == true ) {
-    $cmd = ("evalDeferred -lp \"tabLayout -e -w (`window -q -w unifiedRenderGlobalsWindow`-12) -h (`window -q -h unifiedRenderGlobalsWindow`-200) "+$theTabLayout+"\";");
+    $cmd = ("myEvalDeferred( 1, \"tabLayout -e -w (`window -q -w unifiedRenderGlobalsWindow`-12) -h (`window -q -h unifiedRenderGlobalsWindow`-200) "+$theTabLayout+"\");");
   } else {
     $cmd = ("tabLayout -e -w (`window -q -w unifiedRenderGlobalsWindow`) -h (`window -q -h unifiedRenderGlobalsWindow`-170) "+$theTabLayout+";");
   }
@@ -247,7 +247,7 @@ global proc liquidCreateGlobalsTab()
   if ( `layout -q -ex liquidTabLayout` ) layout -e -vis true liquidTabLayout;
   
   evalEcho $cmd;
-  evalDeferred -lp $cmd;
+  myEvalDeferred( 1, $cmd);
 
   setUITemplate -popTemplate;
   setUITemplate -popTemplate;

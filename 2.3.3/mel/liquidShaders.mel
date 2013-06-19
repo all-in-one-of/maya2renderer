@@ -393,7 +393,7 @@ proc string liquidNewRibboxNode_old( string $nodename )
     addAttr -ln "liquidRibboxShaders" -at message liquidGlobals;
   }
   connectAttr -f "liquidGlobals.liquidRibboxShaders" ( $newNodeName + ".liquidShaderManager" );
-  evalDeferred("liquidFluidUpdateList");
+  myEvalDeferred(0, "liquidFluidUpdateList");
   liqPopIdent();
   return $returnValue;
 }

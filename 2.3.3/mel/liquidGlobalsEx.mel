@@ -1473,7 +1473,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //      string $thePreset = `fileDialog -dm ($liquidDirectory+"/*.lg")`;
 //
 //      if ( size($thePreset) ) {
-//          evalDeferred -lp (  "{"+
+//          myEvalDeferred( 1, (  "{"+
 //                              " select \"liquidGlobals\";"+
 //                              " source \""+$thePreset+"\";"+
 //                              " select \""+stringArrayToString( $oldSel, "\" \"")+"\";"+
@@ -1481,7 +1481,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //                              "   deleteUI \"unifiedRenderGlobalsWindow\";"+
 //                              "   unifiedRenderGlobalsWindow; "+
 //                              " }"+
-//                              "}");
+//                              "}"));
 //          liqPopIdent();
 //          return true;
 //      }  else warning ("Preset file not found! : you might not be able to render correctly...");
@@ -2090,12 +2090,12 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //
 //          checkBoxGrp   -label "Enabled"          -cc liquidDisplayDriverGuiUpdateList  LG_DDenableCtl;
 //          textFieldGrp  -label "Display Name"     
-//						-cc "evalDeferred -lp liquidDisplayDriverGuiUpdateList"  
+//						-cc "myEvalDeferred( 1, liquidDisplayDriverGuiUpdateList)"  
 //						LG_DDnameCtl;
 //
 //          formLayout LG_DDTypeFieldL;
 //            textFieldGrp  -label "Display Driver"   
-//						  -cc "evalDeferred -lp liquidDisplayDriverGuiUpdateList"  
+//						  -cc "myEvalDeferred( 1, liquidDisplayDriverGuiUpdateList)"  
 //						  LG_DDtypeCtl;
 //            iconTextButton -style "iconOnly" -w 19 -h 18 -mw 0 -mh 0 -image (liquidGetHome()+"/icons/liquidMenuButton.xpm") LG_DDtypeMenuCtl;
 //            setParent ..;
@@ -2108,7 +2108,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //
 //          formLayout LG_DDModeFieldL;
 //            textFieldGrp  -label "Channel(s)"       
-//						  -cc "evalDeferred -lp liquidDisplayDriverGuiUpdateList" 
+//						  -cc "myEvalDeferred( 1, liquidDisplayDriverGuiUpdateList)" 
 //						  LG_DDmodeCtl;
 //            iconTextButton -style "iconOnly" -w 19 -h 18 -mw 0 -mh 0 -image (liquidGetHome()+"/icons/liquidMenuButton.xpm") LG_DDmodeMenuCtl;
 //            setParent ..;
@@ -2123,7 +2123,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //			iconTextButton -e -en 0 LG_DDmodeMenuCtl;
 //
 //          textFieldGrp  -label "Parameter Type"       
-//						-cc "evalDeferred -lp liquidDisplayDriverGuiUpdateList"  
+//						-cc "myEvalDeferred( 1, liquidDisplayDriverGuiUpdateList)"  
 //						LG_DDparamtypeCtl;
 //
 //
@@ -2576,7 +2576,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //
 //  int $size = `getAttr -size liquidGlobals.channelName`;
 //
-//  evalDeferred -lp "liquidDisplayChannelsGuiUpdateList()";
+//  myEvalDeferred( 1, "liquidDisplayChannelsGuiUpdateList()");
 //  liqPopIdent();
 //}
 //
@@ -2636,7 +2636,7 @@ global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
 //    columnLayout -adj true;
 //
 //      textFieldGrp  -label "Channel Name"     
-//					-cc "evalDeferred -lowestPriority liquidDisplayChannelsGuiUpdateList" 
+//					-cc "myEvalDeferred( 1, liquidDisplayChannelsGuiUpdateList)" 
 //					LG_DCnameCtl;
 //
 //      optionMenuGrp -label "Channel Type"     -cc liquidDisplayChannelsGuiUpdateList  LG_DCtypeCtl;

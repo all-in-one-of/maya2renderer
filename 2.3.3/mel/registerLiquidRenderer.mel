@@ -190,7 +190,7 @@ global proc liquidRenderLogoCallback()
 	liqlog("liquidRenderLogoCallback()");
   string $url = `getenv "LIQUIDHELP"`;
   if ( $url == "" ) $url = "http://liquidmaya.sourceforge.net/liquidwiki/";
-  evalDeferred ("showHelp -absolute \""+$url+"\"" );
+  myEvalDeferred (0,"showHelp -absolute \""+$url+"\"" );
 
   liqPopIdent();
 }
@@ -291,7 +291,7 @@ global proc registerLiquidRenderer()
 		error ("Liquid is not tested for Maya "+$version+"\n");
 	}
 
-	evalDeferred liquidAddTabs;
+	myEvalDeferred(0, "liquidAddTabs()");
 
 	renderer -edit -addGlobalsNode "liquidGlobals" liquid;
   }
