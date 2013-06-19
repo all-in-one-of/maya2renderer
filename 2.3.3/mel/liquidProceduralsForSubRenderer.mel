@@ -10,3 +10,20 @@ global proc liquidAssignShaderToSelected_subrenderer(string $node)
 
 	liqPopIdent();
 }
+//
+global proc liquidCreateMenu_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liquidCreateMenu_subrenderer()");
+	
+	if( liquidGlobalsExists() )
+	{
+		if ( isRendererLoaded(liqGetRendererName()) )
+		{
+			string $cmd = "liquidCreateMenus_"+liqGetRendererName()+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
+}

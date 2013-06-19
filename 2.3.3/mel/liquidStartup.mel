@@ -624,14 +624,7 @@ global proc liquidCreateMenus()
 
 	  menuItem -d true;//------------------------------------
 
-	  if( liquidGlobalsExists() )
-	  {
-		  if ( isRendererLoaded(liqGetRendererName()) )
-		  {
-			  string $cmd = "liquidCreateMenus_"+liqGetRendererName()+"()";
-			  eval $cmd;
-		  }
-	  }
+	  liquidCreateMenu_subrenderer();
 
 	  //[refactor liq|ui|1 -beg]  moved to liquidCreateMenus_renderman()
       //menuItem -label "Attribute Manager..."   -command liquidAttributeManager -ann "Liquid attributes manager";
