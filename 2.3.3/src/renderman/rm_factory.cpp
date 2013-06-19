@@ -2,12 +2,14 @@
 #include "shaderOutputRSL.h"
 #include "rm_renderer.h"
 #include "../shadergraph/shaderOutputMgr.h"
+#include "rm_rnode_visitor.h"
 
 namespace renderman
 {
 	Factory::Factory()
 	{
 		m_renderer = 0;
+		m_rendernode_visitor = 0;
 	}
 	//
 	Factory::~Factory()
@@ -40,6 +42,17 @@ namespace renderman
 	{
 		liquidmaya::ShaderOutputMgr::getSingletonPtr()->deleteReceivers();
 	}
-
+	//
+	liquid::RenderNodeVisitorInterface* Factory::createRenderNodeVisitor()
+	{
+		m_rendernode_visitor = new RenderNodeVisitor();
+		return m_rendernode_visitor;
+	}
+	liquid::RenderNodeVisitorInterface* Factory::deleteRenderNodeVisitor()
+	{
+		delete m_rendernode_visitor;
+		m_rendernode_visitor = NULL;
+		return m_rendernode_visitor;
+	}
 
 }

@@ -9,6 +9,7 @@ namespace elvishray
 	Factory::Factory()
 	{
 		m_renderer = 0;
+		m_rendernode_visitor = 0;
 	}
 	//
 	Factory::~Factory()

@@ -45,6 +45,7 @@
 #include "../renderman/rm_factory.h"
 #include "liqRiCommands.h"
 #include "rm_globalnode.h"
+#include "rm_shader_node.h"
 
 MStatus registRiCommand(MFnPlugin& plugin)
 {

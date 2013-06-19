@@ -312,6 +312,10 @@ public:
 	///liquid shaders
 	/// liquidShader ///
 	virtual void visit_liquidShader(const char* node);
+
+	//return true if the nodetype is one type render node of ElvishRender
+	virtual bool visit_render_node_in_subrenderer(const char* shaderNodeName, const char* nodetype);
+
 protected:
 	std::ofstream RSLfile;
 private:

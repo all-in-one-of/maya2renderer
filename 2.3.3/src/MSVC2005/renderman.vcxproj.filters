@@ -123,6 +123,12 @@
     <ClCompile Include="..\renderman\rm_nodeId.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\shaderOutputRSL_rm.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\renderman\rm_rnode_visitor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -191,6 +197,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_globalnode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_rnode_visitor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_shader_node.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2555,6 +2555,7 @@
     <ClCompile Include="..\renderman\rm_plug.cpp" />
     <ClCompile Include="..\renderman\rm_preview.cpp" />
     <ClCompile Include="..\renderman\rm_renderer.cpp" />
+    <ClCompile Include="..\renderman\rm_rnode_visitor.cpp" />
     <ClCompile Include="..\renderman\rm_shader.cpp" />
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
     <ClCompile Include="..\renderman\rm_writeCameraData.cpp" />
@@ -2578,6 +2579,7 @@
     <ClCompile Include="..\renderman\shaderOutputRSL.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_materials.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_mi.cpp" />
+    <ClCompile Include="..\renderman\shaderOutputRSL_rm.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_textures.cpp" />
     <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp" />
   </ItemGroup>
@@ -2609,6 +2611,8 @@
     <ClInclude Include="..\renderman\rm_nodePlugConnection.h" />
     <ClInclude Include="..\renderman\rm_nodePlugInfo.h" />
     <ClInclude Include="..\renderman\rm_renderer.h" />
+    <ClInclude Include="..\renderman\rm_rnode_visitor.h" />
+    <ClInclude Include="..\renderman\rm_shader_node.h" />
     <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
     <ClInclude Include="..\renderman\shaderOutputRSL.h" />
   </ItemGroup>
