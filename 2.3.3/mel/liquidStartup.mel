@@ -598,7 +598,7 @@ global proc liquidCreateMenus()
 {
   liqPushIdent();
 	liqlog("liquidCreateMenus(...)");
-  global string $gMainWindow;
+  global string $gMainWindow;//MayaWindow
 
   string $iconPath = (liquidGetHome()+"/icons/");
 
@@ -1217,7 +1217,8 @@ liquidBuildChooseRendererMenu(string $parent_menu)
 
 	//get renderers
 	string $renderer[] = liquidGatherValidRenderers();
-
+	
+	radioMenuItemCollection -parent $parent_menu;
 	//build menu items
 	for($rnd in $renderer)
 	{
