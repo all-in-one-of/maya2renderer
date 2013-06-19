@@ -92,7 +92,7 @@ end output
     focal 35 
     aperture 36 
     aspect 1.33333 
-    resolution 768 576 
+    resolution 200 150 
     clip 1 100000 
 environment_shader "er_physicalsky1" 
 end camera

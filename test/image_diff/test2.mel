@@ -1,4 +1,17 @@
+global proc MainEntrance()
+{
 // ---- load liquid plugin -------
+//string $retButton = 
+//`confirmDialog 
+//    -title "Confirm" 
+//    -message "Make Sure liquid plug-in is set to `autoloaded`, \n or the tess cases of ElvishRender will fail."
+//    -button "Continue"
+//    -button "Quit" 
+//    -defaultButton "Continue"
+//    -cancelButton "Quit"
+//    -dismissString "Quit"`;
+//if( $retButton == "Quit" )
+//    return;
 loadPlugin liquid_2012x32d;
 
 // ---- load elvishray plugin ----
@@ -20,3 +33,10 @@ python("import sys");
 python("import os");
 python("sys.path.append(os.environ['LIQUID_AUTO_TEST_DIR'])");
 python("execfile(os.environ['LIQUID_AUTO_TEST_DIR']+'/testall.py')");
+
+}
+
+//////////////////////////////////////////////////
+//  MAIN
+//////////////////////////////////////////////////
+MainEntrance();

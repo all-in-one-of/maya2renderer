@@ -1,11 +1,12 @@
 //Maya ASCII 2012 scene
 //Name: volume_liquidShader.ma
-//Last modified: Thu, May 30, 2013 08:16:35 PM
+//Last modified: Wed, Jun 19, 2013 07:19:10 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5";
-requires "elvishray" "0.0.1";
+requires "ElvishRender" "0.0.1";
 requires "stereoCamera" "10.0";
+requires "elvishray" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -117,7 +118,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "prman";
 	setAttr ".prv" -type "string" "prman";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/volume_liquidShader4796.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/volume_liquidShader38.xml";
 	setAttr ".shi" -type "string" "sloinfo";
 	setAttr ".shcp" -type "string" "shader";
 	setAttr ".she" -type "string" "slo";
@@ -136,7 +137,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode script -n "uiConfigurationScriptNode";
 	setAttr ".b" -type "string" (
@@ -416,6 +417,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
 createNode elvishrayGlobals -n "elvishrayGlobals1";
+createNode ElvishRenderGlobals -n "ElvishRenderGlobals1";
+	setAttr ".esa" yes;
+	setAttr ".ess" yes;
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";

@@ -1,10 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: er_flatcolor.ma
-//Last modified: Tue, Jun 18, 2013 09:17:12 PM
+//Last modified: Wed, Jun 19, 2013 08:42:37 PM
 //Codeset: 936
 requires maya "2012";
-requires "ElvishRender" "0.0.1";
 requires "liquid_2012x32d" "2.3.5";
+requires "ElvishRender" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -100,7 +100,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/er_flatcolor188.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/er_flatcolor133.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";

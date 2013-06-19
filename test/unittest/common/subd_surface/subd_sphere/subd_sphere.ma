@@ -1,13 +1,14 @@
 //Maya ASCII 2012 scene
 //Name: subd_sphere.ma
-//Last modified: Thu, May 30, 2013 07:13:37 PM
+//Last modified: Wed, Jun 19, 2013 07:58:34 PM
 //Codeset: 936
 requires maya "2012";
+requires "liquid_2012x32d" "2.3.5";
+requires "ElvishRender" "0.0.1";
 requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "renderman" "0.0.1";
-requires "liquid_2012x32d" "2.3.5";
-requires "elvishray" "0.0.1";
 requires "stereoCamera" "10.0";
+requires "elvishray" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -72,6 +73,10 @@ createNode pointLight -n "pointLightShape2" -p "pointLight2";
 	setAttr -k off ".v";
 createNode transform -n "subdivSphere1";
 createNode subdiv -n "subdivSphere1Shape" -p "subdivSphere1";
+	addAttr -ci true -sn "mso" -ln "miShadingSamplesOverride" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "msh" -ln "miShadingSamples" -min 0 -smx 8 -at "float";
+	addAttr -ci true -sn "mdo" -ln "miMaxDisplaceOverride" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "mmd" -ln "miMaxDisplace" -min 0 -smx 1 -at "float";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -183,7 +188,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/subd_sphere4065.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/subd_sphere126.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -202,7 +207,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".rnd" -type "string" "ElvishRender";
 createNode script -n "uiConfigurationScriptNode";
 	setAttr ".b" -type "string" (
 		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `modelPanel -unParent -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels `;\n\t\t\t$editorName = $panelName;\n            modelEditor -e \n                -camera \"top\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n"
@@ -333,6 +338,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
 createNode rendermanGlobals -n "rendermanGlobals1";
 createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" 1;
+	setAttr ".ess" 1;
+createNode ElvishRenderGlobals -n "ElvishRenderGlobals1";
 	setAttr ".esa" yes;
 	setAttr ".ess" yes;
 select -ne :time1;

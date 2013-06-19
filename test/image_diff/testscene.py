@@ -250,16 +250,16 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-     
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/sequence/file_place2dTexture_seq.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/uvCoord/uvCoord.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture_con/file_place2dTexture_con.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/texture/bmp.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
 
@@ -332,6 +332,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/pointlight/pointlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/spotlight/spotlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
@@ -341,9 +342,21 @@ def test_all_scene():
     # er use skylight for ambient light, but skylight shader needs a env shader or it will lead a crash
     #testFile=LIQUID_ROOT+"/test/maya_shader/ambientlight/ambientlight.ma"
     #MyTestOne.test_one_scene(testFile, er.getRendererName())
+   
+    #it depends on mentralray, crash
+    testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
     
     testFile=LIQUID_ROOT+"/test/maya_shader/arealight/arealight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/maya_shader/checker/checker.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+
     testFile=LIQUID_ROOT+"/test/unittest/er/light/quardlight/quardlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
      
@@ -391,8 +404,9 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/unittest/er/env/simple_env/simple_env.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
-    testFile=LIQUID_ROOT+"/test/maya_shader/checker/checker.ma"
+    testFile=LIQUID_ROOT+"/test/unittest/er/env/er_physicalsky/camera_env.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
     
     testFile=LIQUID_ROOT+"/test/unittest/er/animation_checker/checker_anim.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
@@ -410,10 +424,7 @@ def test_all_scene():
     #testFile=LIQUID_ROOT+"/test/unittest/er/volume/animation/volume_liquidShader_anim.ma"
     #MyTestOne.test_one_scene(testFile, er.getRendererName())
     
-    #it depends on mentralray, crash
-    testFile=LIQUID_ROOT+"/test/maya_shader/mib_amb_occlusion/mib_amb_occlusion.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
+
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy/object_hierarchy.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     testFile=LIQUID_ROOT+"/test/unittest/er/object_hierarchy/object_hierarchy_mb/object_hierarchy_mb.ma"
@@ -423,7 +434,39 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/lightlink/lightlink.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
+
     
+    testFile=LIQUID_ROOT+"/test/unittest/er/aov/aov.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/procedural/simple_procedural/simple_procedural.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/surface_shader/architectural/architectural.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/er_flatcolor/er_flatcolor.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_surface/nurbs_surface.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+
+    
+    testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/blur_camera/blur_camera.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+
+        
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
@@ -434,35 +477,7 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
-    testFile=LIQUID_ROOT+"/test/unittest/er/aov/aov.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/unittest/er/procedural/simple_procedural/simple_procedural.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/unittest/er/surface_shader/architectural/architectural.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-
-    testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_surface/nurbs_surface.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/maya_shader/bump2d/colorbump/bump2d_colorbump.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/unittest/common/subd_surface/subd_sphere/subd_sphere.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
-    testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/blur_camera/blur_camera.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
     '''
-    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/er_flatcolor/er_flatcolor.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
 
     '''
     ------------------------ appleseed ----------------------------------

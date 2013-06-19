@@ -1,12 +1,13 @@
 //Maya ASCII 2012 scene
 //Name: shader_graph_phong_transparent.ma
-//Last modified: Thu, May 30, 2013 04:37:09 PM
+//Last modified: Wed, Jun 19, 2013 04:04:42 PM
 //Codeset: 936
 requires maya "2012";
-requires "renderman" "0.0.1";
 requires "liquid_2012x32d" "2.3.5";
-requires "elvishray" "0.0.1";
+requires "ElvishRender" "0.0.1";
 requires "stereoCamera" "10.0";
+requires "renderman" "0.0.1";
+requires "elvishray" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -236,9 +237,11 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".shdd" -type "string" "generatedShader";
 	setAttr ".unt" yes;
 	setAttr ".osg" yes;
+	setAttr ".xres" 200;
+	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/shader_graph_phong_transparent3291.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/shader_graph_phong_transparent156.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -257,7 +260,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_renderman";
 	addAttr -ci true -h true -sn "testBool0" -ln "testBool0" -min 0 -max 1 -at "bool";
@@ -419,9 +422,12 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
 createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" 1;
+	setAttr ".ess" 1;
+createNode rendermanGlobals -n "rendermanGlobals1";
+createNode ElvishRenderGlobals -n "ElvishRenderGlobals1";
 	setAttr ".esa" yes;
 	setAttr ".ess" yes;
-createNode rendermanGlobals -n "rendermanGlobals1";
 select -ne :time1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";
@@ -885,6 +891,8 @@ select -ne :defaultRenderGlobals;
 select -ne :defaultResolution;
 	setAttr -k on ".cch";
 	setAttr -k on ".nds";
+	setAttr ".w" 200;
+	setAttr ".h" 150;
 	setAttr ".pa" 1;
 	setAttr -k on ".al";
 	setAttr -k on ".off";

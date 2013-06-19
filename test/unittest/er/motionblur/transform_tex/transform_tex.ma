@@ -1,11 +1,12 @@
 //Maya ASCII 2012 scene
 //Name: transform_tex.ma
-//Last modified: Thu, May 30, 2013 07:52:07 PM
+//Last modified: Wed, Jun 19, 2013 02:38:39 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5";
-requires "elvishray" "0.0.1";
+requires "ElvishRender" "0.0.1";
 requires "stereoCamera" "10.0";
+requires "elvishray" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -212,7 +213,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".db" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/transform_tex4871.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/transform_tex139.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -231,7 +232,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 18 "bmp" "cineon" "dsm" "eps" "exr" "framebuffer" "idisplay" "iff" "jpeg" "liqmaya-" "liqmaya" "memory" "pic" "png" "psd" "radiance" "tiff" "zfile"  ;
 createNode animCurveTU -n "pPlane1_visibility";
 	setAttr ".tan" 9;
@@ -340,6 +341,9 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".samples" -type "string" "0|2";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
 createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" 1;
+	setAttr ".ess" 1;
+createNode ElvishRenderGlobals -n "ElvishRenderGlobals1";
 	setAttr ".esa" yes;
 	setAttr ".ess" yes;
 select -ne :time1;
@@ -395,6 +399,7 @@ select -ne :lightList1;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
+select -ne :lambert1;
 select -ne :postProcessList1;
 	setAttr -k on ".cch";
 	setAttr -cb on ".ihi";

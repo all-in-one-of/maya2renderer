@@ -1,10 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: transform.ma
-//Last modified: Thu, May 30, 2013 07:48:30 PM
+//Last modified: Wed, Jun 19, 2013 01:59:50 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5";
-requires "elvishray" "0.0.1";
+requires "ElvishRender" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -186,7 +186,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".db" yes;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/transform5462.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/transform214.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -205,7 +205,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 18 "bmp" "cineon" "dsm" "eps" "exr" "framebuffer" "idisplay" "iff" "jpeg" "liqmaya-" "liqmaya" "memory" "pic" "png" "psd" "radiance" "tiff" "zfile"  ;
 createNode animCurveTU -n "pPlane1_visibility";
 	setAttr ".tan" 9;
@@ -387,48 +387,7 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_appleseed";
 	setAttr ".export_mesh_materials" yes;
 	setAttr ".export_mesh_smoothing" yes;
 	setAttr ".export_mesh_normals" yes;
-createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
-	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
-	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
-	addAttr -ci true -h true -sn "contrast" -ln "contrast" -dt "string";
-	addAttr -ci true -h true -sn "samples" -ln "samples" -dt "string";
-	addAttr -ci true -h true -sn "filterType" -ln "filterType" -dv 4 -at "long";
-	addAttr -ci true -h true -sn "filterSize" -ln "filterSize" -dv 3 -at "float";
-	addAttr -ci true -h true -sn "trace_depth_transp" -ln "trace_depth_transp" -dv 4 
-		-at "long";
-	addAttr -ci true -h true -sn "trace_depth_glossy_reflect" -ln "trace_depth_glossy_reflect" 
-		-dv 4 -at "long";
-	addAttr -ci true -h true -sn "trace_depth_diffuse_reflect" -ln "trace_depth_diffuse_reflect" 
-		-dv 4 -at "long";
-	addAttr -ci true -h true -sn "trace_depth_glossy_refract" -ln "trace_depth_glossy_refract" 
-		-dv 4 -at "long";
-	addAttr -ci true -h true -sn "trace_depth_diffuse_refract" -ln "trace_depth_diffuse_refract" 
-		-dv 4 -at "long";
-	addAttr -ci true -h true -sn "trace_depth_sum" -ln "trace_depth_sum" -dv 4 -at "long";
-	addAttr -ci true -h true -sn "displace" -ln "displace" -min 0 -max 1 -at "bool";
-	addAttr -ci true -h true -sn "max_displace" -ln "max_displace" -at "float";
-	addAttr -ci true -h true -sn "face" -ln "face" -dv 3 -at "long";
-	addAttr -ci true -h true -sn "approx_method" -ln "approx_method" -dv 1 -at "long";
-	addAttr -ci true -h true -sn "approx_any" -ln "approx_any" -at "long";
-	addAttr -ci true -h true -sn "approx_view_dep" -ln "approx_view_dep" -at "long";
-	addAttr -ci true -h true -sn "approx_args" -ln "approx_args" -dt "string";
-	addAttr -ci true -h true -sn "approx_sharp" -ln "approx_sharp" -at "float";
-	addAttr -ci true -h true -sn "approx_min_subdiv" -ln "approx_min_subdiv" -at "long";
-	addAttr -ci true -h true -sn "approx_max_subdiv" -ln "approx_max_subdiv" -dv 5 -at "long";
-	addAttr -ci true -h true -sn "approx_max_grid_size" -ln "approx_max_grid_size" -dv 
-		65536 -at "long";
-	addAttr -ci true -h true -sn "approx_motion_factor" -ln "approx_motion_factor" -dv 
-		16 -at "float";
-	addAttr -ci true -h true -sn "output_call" -ln "output_call" -min 0 -max 1 -at "bool";
-	addAttr -ci true -h true -sn "output_esa" -ln "output_esa" -min 0 -max 1 -at "bool";
-	addAttr -ci true -h true -sn "output_ess" -ln "output_ess" -min 0 -max 1 -at "bool";
-	setAttr ".link" -type "string" "eiIMG|eiSHADER|eiSHADER_maya";
-	setAttr ".contrast" -type "string" "0.05|0.05|0.05|0.05";
-	setAttr ".samples" -type "string" "0|2";
-	setAttr ".approx_args" -type "string" "0|0|0|0";
-	setAttr ".output_call" yes;
-	setAttr ".output_esa" yes;
-createNode elvishrayGlobals -n "elvishrayGlobals1";
+createNode ElvishRenderGlobals -n "ElvishRenderGlobals1";
 	setAttr ".esa" yes;
 	setAttr ".ess" yes;
 select -ne :time1;

@@ -7,6 +7,8 @@
 
 - learn katana
 
+- ElvishRender.mll 依赖于liquid.mll, 这种dll级别的依赖是不正确的。应该使用node存储数据，解除这种dll级别的依赖
+- elvishrender.mll总是在liquid.mll之前先加载
 - liq|er|: 有几种自定义shader： liquidShader，er_physicalsky, er_skylight
   增加一个接口exportShaderNode()导出这几种类型的shader
 - 重构 void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString& node)

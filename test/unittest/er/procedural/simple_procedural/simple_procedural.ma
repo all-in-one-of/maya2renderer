@@ -1,11 +1,13 @@
 //Maya ASCII 2012 scene
 //Name: simple_procedural.ma
-//Last modified: Thu, May 30, 2013 08:32:37 PM
+//Last modified: Wed, Jun 19, 2013 07:47:53 PM
 //Codeset: 936
 requires maya "2012";
 requires "liquid_2012x32d" "2.3.5";
-requires "elvishray" "0.0.1";
+requires "ElvishRender" "0.0.1";
+requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "stereoCamera" "10.0";
+requires "elvishray" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -102,6 +104,7 @@ createNode transform -n "pointLight3";
 	setAttr ".t" -type "double3" 8.6635362745881253 8.6084790447415571 2.2549757371922512 ;
 createNode pointLight -n "pointLightShape3" -p "pointLight3";
 	setAttr -k off ".v";
+	setAttr ".us" no;
 createNode lookAt -n "camera1_group";
 	setAttr ".a" -type "double3" 0 0 -1 ;
 createNode transform -n "camera1" -p "camera1_group";
@@ -222,7 +225,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".yres" 150;
 	setAttr ".rdc" -type "string" "renderdl";
 	setAttr ".prv" -type "string" "renderdl";
-	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/simple_procedural5397.xml";
+	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/simple_procedural152.xml";
 	setAttr ".shi" -type "string" "shaderinfo";
 	setAttr ".shcp" -type "string" "shaderdl";
 	setAttr ".she" -type "string" "sdl";
@@ -241,7 +244,7 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
+	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode phong -n "phong1";
 	setAttr ".c" -type "float3" 1 0 0 ;
@@ -363,11 +366,17 @@ createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	setAttr ".approx_args" -type "string" "0|0|0|0";
 	setAttr ".approx_max_grid_size" 4096;
 createNode elvishrayGlobals -n "elvishrayGlobals1";
+	setAttr ".esa" 1;
+	setAttr ".ess" 1;
+	setAttr ".dis" 1;
+	setAttr ".ag0" 8;
+	setAttr ".ag1" 8;
+createNode ElvishRenderGlobals -n "ElvishRenderGlobals1";
 	setAttr ".esa" yes;
 	setAttr ".ess" yes;
 	setAttr ".dis" yes;
-	setAttr ".ag0" 8;
-	setAttr ".ag1" 8;
+	setAttr ".usd" 8;
+	setAttr ".vsd" 8;
 select -ne :time1;
 	setAttr -av -k on ".cch";
 	setAttr -cb on ".ihi";

@@ -726,7 +726,7 @@ void ConvertShadingNetwork::_exportShaderNodeInPlug(const MString& node, const M
 	IfMErrorWarn(MGlobal::executeCommand( "listConnections -source on \""+node+"."+plug+"\"", srcNodes));
 
 	if(srcNodes.length() == 0){
-		liquidMessage2(messageWarning, "[%s.%s] has no source connections, skip the export of this plug.", node.asChar(), plug.asChar());
+		liquidMessage2(messageInfo, "[%s.%s] has no source connections, skip the export of this plug.", node.asChar(), plug.asChar());
 		return;
 	}
 	assert(srcNodes.length() == 1);
