@@ -38,6 +38,11 @@ def parseString(strdata):
         strinfo = re.compile('\$RND')
         strdata = strinfo.sub( cmds.getAttr('liquidGlobals.renderer'), strdata)
 
+    if strdata.find('#')!=-1:
+        strinfo = re.compile('\#')
+        frame = "%4d" % cmds.currentTime( query=True ) 
+        strdata = strinfo.sub( frame, strdata)
+
     # TODO ...
 
     return strdata
