@@ -199,7 +199,7 @@ global proc liquidSLReplace()
 
   if(!`checkBoxGrp -q -v1 liquidSLDialogCheck`)
   {
-    myEvalDeferred(0, "deleteUI liquidSLEditorWindow");
+    evalDeferred("deleteUI liquidSLEditorWindow");
   }
 
   liqPopIdent();

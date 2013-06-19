@@ -2180,7 +2180,7 @@ global proc string liquidAE_LifArray(	string $type, string $label, string $descr
 		$gLiquid_currentAEParent = $arrayColumn;
 		setParent $arrayColumn;			
 		// Resize column
-		myEvalDeferred(0, "liquidAE_ReBuildColumnSize " + $rowColumnName);
+		evalDeferred("liquidAE_ReBuildColumnSize " + $rowColumnName);
 	}
 	// If we have more elements that we can display
 	if ($resizable)	{

@@ -1222,7 +1222,7 @@ global proc liquidShaderNodesParamsReplace ( string $msg )
     }
   }
   // restore the layout's visibility, must be deferred of AE duplicate tab won't show it correctly	
-  myEvalDeferred(0,"liquidAE_showCachedLayout( \""+$nodeType+"\", \""+$longShaderName+"\", \""+$window+"\")");
+  evalDeferred("liquidAE_showCachedLayout( \""+$nodeType+"\", \""+$longShaderName+"\", \""+$window+"\")");
 
   setParent $parent;
   string $time = `timerX -st $st`;
@@ -1323,7 +1323,7 @@ global proc liquidShaderPickerNew(  string $msg )
   string $myFileCommand = ( "{\n"
                             + "string $v = `getAttr "+$msg+"`+\"\";"
                             + "liquidChangeTextFileAttrPlus " + $theNode + " " + $theAttr + " " + $ctlName + " \"" + $shaderDir + "\" (\"*.\"+" + "`getAttr(\"liquidGlobals.shaderExt\")`" + ");"
-                            + "if ( `getAttr "+$msg+"`+\"\" != $v ) myEvalDeferred(0,\"liquidShaderNodes_reloadAndRefresh " + $theNode + "\");"
+                            + "if ( `getAttr "+$msg+"`+\"\" != $v ) evalDeferred(\"liquidShaderNodes_reloadAndRefresh " + $theNode + "\");"
                             + "}");
   string $form          = `formLayout`;
 
@@ -1375,7 +1375,7 @@ global proc liquidShaderPickerReplace( string $msg )
   string $myFileCommand = (   "{\n"
                             + "string $v = `getAttr "+$msg+"`+\"\";"
                             + "liquidChangeTextFileAttrPlus " + $theNode + " " + $theAttr + " " + $ctlName + " \"" + $shaderDir + "\" (\"*.\"+" + "`getAttr(\"liquidGlobals.shaderExt\")`" + ");"
-                            + "if ( `getAttr "+$msg+"`+\"\" != $v ) myEvalDeferred(0,\"liquidShaderNodes_reloadAndRefresh " + $theNode + "\");"
+                            + "if ( `getAttr "+$msg+"`+\"\" != $v ) evalDeferred(\"liquidShaderNodes_reloadAndRefresh " + $theNode + "\");"
                             + "}");
 
   ////trace $myFileCommand;
@@ -1393,7 +1393,7 @@ global proc liquidShaderNode_loadCMD( string $nodeDotAttr, string $longShaderNam
   liqPushIdent();
 	liqlog("liquidShaderNode_loadCMD("+$nodeDotAttr+","+$longShaderName+")");
   setAttr -type "string" $nodeDotAttr $longShaderName;
-  myEvalDeferred(0,"liquidShaderNodes_reloadAndRefresh "+basenameEx($nodeDotAttr));
+  evalDeferred("liquidShaderNodes_reloadAndRefresh "+basenameEx($nodeDotAttr));
   liqPopIdent();
 }
 
@@ -1868,7 +1868,7 @@ global proc string liquidShaderNodesFirstAvailableAttr ( string $node, string $p
     if ( gmatch( $j, "*liquidShaderUpdater*") ) 
       scriptJob -kill (int(match("[0-9]+", $j))) -force;
   
-  scriptJob -event "SceneOpened" "myEvalDeferred(0,\"liquidShaderUpdater 1\")" -protected;
+  scriptJob -event "SceneOpened" "evalDeferred(\"liquidShaderUpdater 1\")" -protected;
 }
 
 global proc string[] liquidGetShadingNodesFromContainer(string $node)

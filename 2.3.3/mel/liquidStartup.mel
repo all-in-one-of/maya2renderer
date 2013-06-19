@@ -1073,7 +1073,7 @@ global proc liquidStartup()
   registerLiquidRenderer();
 
   eval "liquidAETemplateOverwrite";
-  myEvalDeferred( 1, "liquidAETemplateOverwrite");
+  evalDeferred -lp "liquidAETemplateOverwrite";
   liqPopIdent();
 }
 

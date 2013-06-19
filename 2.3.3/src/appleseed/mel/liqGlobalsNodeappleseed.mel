@@ -329,7 +329,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 //
 //		string $cmd;
 //		if ( `about -win` == true ) {
-//			$cmd = ("myEvalDeferred( 1, \"tabLayout -e -w (`window -q -w unifiedRenderGlobalsWindow`-12) -h (`window -q -h unifiedRenderGlobalsWindow`-200) "+$theTabLayout+"\";"));
+//			$cmd = ("evalDeferred -lp \"tabLayout -e -w (`window -q -w unifiedRenderGlobalsWindow`-12) -h (`window -q -h unifiedRenderGlobalsWindow`-200) "+$theTabLayout+"\";");
 //		} else {
 //			$cmd = ("tabLayout -e -w (`window -q -w unifiedRenderGlobalsWindow`) -h (`window -q -h unifiedRenderGlobalsWindow`-170) "+$theTabLayout+";");
 //		}

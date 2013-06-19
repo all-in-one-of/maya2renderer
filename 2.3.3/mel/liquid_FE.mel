@@ -109,7 +109,7 @@ global proc update_FE(string $loc_shape)
 		$dens_fname = $base_fname + ".dens.dat";
 		if(!($lazy && $dens_exists)) 
 		{
-			myEvalDeferred (false, "fluid_data_export -node \"" + $fluid_shape + "\" -dens " + $dens + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
+			evalDeferred ("fluid_data_export -node \"" + $fluid_shape + "\" -dens " + $dens + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
 		}else
 		{
 			liqlog("Lazy on " + $dens_fname + " !!!\n");
@@ -121,7 +121,7 @@ global proc update_FE(string $loc_shape)
 		$fuel_fname = $base_fname + ".fuel.dat";
 		if(!($lazy && $fuel_exists)) 
 		{
-			myEvalDeferred (false, "fluid_data_export -node \"" + $fluid_shape + "\" -fuel " + $fuel + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
+			evalDeferred ("fluid_data_export -node \"" + $fluid_shape + "\" -fuel " + $fuel + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
 		}else
 		{
 			liqlog("Lazy on " + $fuel_fname + " !!!\n");
@@ -133,7 +133,7 @@ global proc update_FE(string $loc_shape)
 		$temp_fname = $base_fname + ".temp.dat";
 		if(!($lazy && $temp_exists)) 
 		{
-			myEvalDeferred (0, "fluid_data_export -node \"" + $fluid_shape + "\" -temp " + $temp + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
+			evalDeferred ("fluid_data_export -node \"" + $fluid_shape + "\" -temp " + $temp + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
 		}else
 		{
 			liqlog("Lazy on " + $temp_fname + " !!!\n");
@@ -145,7 +145,7 @@ global proc update_FE(string $loc_shape)
 		$velo_fname = $base_fname + ".velo.dat";
 		if(!($lazy && $velo_exists)) 
 		{
-			myEvalDeferred (0, "fluid_data_export -node \"" + $fluid_shape + "\" -velo " + $velo + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
+			evalDeferred ("fluid_data_export -node \"" + $fluid_shape + "\" -velo " + $velo + " -binary " + $binary + " -tofile \"" + $base_fname + "\"");
 		}else
 		{
 			liqlog("Lazy on " + $velo_fname + " !!!\n");
