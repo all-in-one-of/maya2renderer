@@ -102,11 +102,14 @@ public:
 
 	void outputShadingGroup(const MString& shadingGroupNode);
 
+	void exportShaderNodeInPlug(const MString& node, const MString& plug);
 
 protected:
 	void exportShaderInShadingGroup(
 		const MString& sgNode, //shading group node
 		const std::string& plug_);//plug in shading group, e.g. surface, displacement, volume,...
+	void _exportShaderNode(const MString& node, const MString& desPlug);
+	void _exportShaderNodeInPlug(const MString& node, const MString& plug);
 
 	//
 	bool canShaderExported(const MString& shaderName);

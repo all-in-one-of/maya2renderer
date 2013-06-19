@@ -661,42 +661,13 @@ void ConvertShadingNetwork::__export()
 
 	//////////////////////////////////////////////////////////////////////////
 	//export the shaders which are attached to liquidGlobals.renderCamera
-	MStringArray renderCamera;
+	MString renderCamera;
 	IfMErrorWarn(MGlobal::executeCommand( "getAttr liquidGlobals.renderCamera", renderCamera));
 
-	MStringArray cameraEnvShader;
-	IfMErrorWarn(MGlobal::executeCommand( "listConnections -source on \""+renderCamera[0]+".miEnvironmentShader\"", cameraEnvShader));
-
-	MStringArray shaders(cameraEnvShader);
-	MString plug("miEnvironmentShader");
-	if( shaders.length() != 0 )
-	{
-		const MString startingNode(shaders[0]);
-
-		if( canShaderExported(startingNode) )
-		{
-			//1.begin
-			exportShaderBegin(startingNode);
-
-			//2.export shader
-			MString nodetype;
-			cmd = "nodeType \""+startingNode+"\"";
-			IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
-
-			if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
-				//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
-				liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
-				currentShader.write();
-			}else{
-				convertShadingNetworkToRSL(startingNode, plug);
-			}
-
-			//3.end
-			exportShaderEnd(startingNode);
-		}
-	}else{
-		liquidMessage2(messageWarning, "[%s].miEnvironmentShader is empty.", renderCamera[0].asChar());
-	}
+	exportShaderNodeInPlug(renderCamera, "miEnvironmentShader");
+	exportShaderNodeInPlug(renderCamera, "liqVolumeShader");
+	exportShaderNodeInPlug(renderCamera, "liqEnvironmentShader");
+	exportShaderNodeInPlug(renderCamera, "liqLensShader");
 	//////////////////////////////////////////////////////////////////////////
 
 
@@ -716,44 +687,67 @@ void ConvertShadingNetwork::exportShaderInShadingGroup(
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::exportShaderInShadingGroup("<<sgNode.asChar()<<","<<plug_<<")");
 
-	const MString plug(plug_.c_str());
-	MString cmd;
+	exportShaderNodeInPlug(sgNode, plug_.c_str());
+}
+// export shader node $node
+// $node ---($node islinked to)----> $desPlug
+void ConvertShadingNetwork::_exportShaderNode(const MString& node, const MString& desPlug)
+{
+	CM_TRACE_FUNC("ConvertShadingNetwork::exportShaderNode("<<node.asChar()<<")");
 
-	int isShaderPlugExist;
-	cmd = "attributeQuery -node \""+sgNode+"\" -ex \""+plug+"\"";
-	IfMErrorMsgWarn(MGlobal::executeCommand( cmd, isShaderPlugExist), cmd);
-	if(isShaderPlugExist)
+	if( canShaderExported(node) )
 	{
-		MStringArray shaders;
-		cmd = "listConnections (\""+sgNode+"\" + \"."+plug+"\")";
-		IfMErrorMsgWarn(MGlobal::executeCommand( cmd, shaders), cmd);
+		//1.begin
+		exportShaderBegin(node);
 
-		if( shaders.length() != 0 )
-		{
-			const MString startingNode(shaders[0]);
+		//2.export shader
+		MString nodetype;
+		MString cmd("nodeType \""+node+"\"");
+		IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
 
-			if( canShaderExported(startingNode) )
-			{
-				//1.begin
-				exportShaderBegin(startingNode);
-
-				//2.export shader
-				MString nodetype;
-				cmd = "nodeType \""+startingNode+"\"";
-				IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
-
-				if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
-					//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
-					liqShader &currentShader = liqShaderFactory::instance().getShader( startingNode.asChar() );
-					currentShader.write();
-				}else{
-					convertShadingNetworkToRSL(startingNode, plug);
-				}
-
-				//3.end
-				exportShaderEnd(startingNode);
-			}
+		if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
+			//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
+			liqShader &currentShader = liqShaderFactory::instance().getShader( node.asChar() );
+			currentShader.write();
+		}else{
+			convertShadingNetworkToRSL(node, desPlug);
 		}
+
+		//3.end
+		exportShaderEnd(node);
+	}
+}
+// export the node which is linked to $node.$plug
+void ConvertShadingNetwork::_exportShaderNodeInPlug(const MString& node, const MString& plug)
+{
+	CM_TRACE_FUNC("ConvertShadingNetwork::_exportShaderNodeInPlug("<<node.asChar()<<","<<plug.asChar()<<")");
+
+	MStringArray srcNodes;
+	IfMErrorWarn(MGlobal::executeCommand( "listConnections -source on \""+node+"."+plug+"\"", srcNodes));
+
+	if(srcNodes.length() == 0){
+		liquidMessage2(messageWarning, "[%s.%s] has no source connections, skip the export of this plug.", node.asChar(), plug.asChar());
+		return;
+	}
+	assert(srcNodes.length() == 1);
+	const MString srcNode(srcNodes[0]);
+
+	_exportShaderNode(srcNode, plug);
+
+}
+//
+void ConvertShadingNetwork::exportShaderNodeInPlug(const MString& node, const MString& plug)
+{
+	CM_TRACE_FUNC("ConvertShadingNetwork::exportShaderNodeInPlug("<<node.asChar()<<","<<plug.asChar()<<")");
+	
+	int bPlugExist = false;
+	IfMErrorWarn(MGlobal::executeCommand( "attributeExists(\""+plug+"\", \""+node+"\") ", bPlugExist));
+
+	if(bPlugExist)
+	{
+		_exportShaderNodeInPlug(node, plug);
+	}else{
+		liquidMessage2(messageError, "[%s.%s] not exist, skip the export of it.", node.asChar(), plug.asChar());
 	}
 }
 //
