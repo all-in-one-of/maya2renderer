@@ -2204,7 +2204,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+      <OutputFile>.\../../bin/Prman/win32/Debug/Objects/liquid.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">
@@ -2316,7 +2316,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/M2R2012Release/liquid_2012x32.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/M2R2012Release/liquid_2012x32d.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
@@ -2326,7 +2326,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
+      <OutputFile>.\../../bin/3Delight/win32/M2R2012Release/Objects/liquid.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
