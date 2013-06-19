@@ -1,10 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: deepshadow.ma
-//Last modified: Mon, Jun 03, 2013 12:56:39 AM
+//Last modified: Thu, Jun 20, 2013 01:32:59 AM
 //Codeset: 936
 requires maya "2012";
-requires "renderman" "0.0.1";
 requires "liquid_2012x32d" "2.3.5";
+requires "renderman" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -537,11 +537,11 @@ select -ne :defaultResolution;
 	setAttr -k on ".ihi";
 	setAttr -av -k on ".nds";
 	setAttr -k on ".bnm";
-	setAttr ".w" 768;
-	setAttr ".h" 576;
+	setAttr -av ".w" 768;
+	setAttr -av ".h" 576;
 	setAttr -av ".pa" 1;
 	setAttr -av -k on ".al";
-	setAttr ".dar" 1.3333333730697632;
+	setAttr -av ".dar" 1.3333333730697632;
 	setAttr -av -k on ".ldar";
 	setAttr -k on ".dpi";
 	setAttr -av -k on ".off";

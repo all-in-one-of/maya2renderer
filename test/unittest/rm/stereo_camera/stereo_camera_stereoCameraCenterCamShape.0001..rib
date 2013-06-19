@@ -25,14 +25,14 @@ FrameBegin 1
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
     TransformBegin
-        #camera: stereoCameraRightShape
+        #exportJobCamera: stereoCameraRightShape
         Projection "perspective" "fov" [ 42.184677 ] 
         ScreenWindow -1.365741 1.300926 -1.000000 1.000000
         Clipping 0.100000 10000.000000
         Transform [ 1.000000 0.000000 0.000000 0.000000 0.000000 0.969300 -0.245882 0.000000 0.000000 -0.245882 -0.969300 0.000000 -15.216771 -18.356045 275.970245 1.000000 ]
 Camera "right"
     TransformEnd
-    #camera: stereoCameraLeftShape
+    #exportJobCamera: stereoCameraLeftShape
     Projection "perspective" "fov" [ 42.184677 ] 
     ScreenWindow -1.300926 1.365741 -1.000000 1.000000
     Clipping 0.100000 10000.000000

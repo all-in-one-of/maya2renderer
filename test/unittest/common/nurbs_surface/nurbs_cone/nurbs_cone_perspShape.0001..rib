@@ -24,11 +24,11 @@ FrameBegin 1
     Format 200 150 1.000000
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
-    #camera: |persp|perspShape
+    #exportJobCamera: |persp|perspShape
     Projection "perspective" "fov" [ 42.184677 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000
-    Transform [ 0.884581 0.299403 0.357595 0.000000 0.000000 0.766736 -0.641963 0.000000 0.466387 -0.567868 -0.678240 0.000000 -0.061521 -0.357973 15.556841 1.000000 ]
+    Transform [ 0.884581 0.299403 0.357595 0.000000 0.000000 0.766736 -0.641963 0.000000 0.466387 -0.567868 -0.678240 0.000000 -0.061521 -0.357973 20.651495 1.000000 ]
     #Display Drivers:
     #Display 6
     #Display 8
@@ -54,7 +54,7 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/nurbs_cone.perspShape.1.re
             Attribute "identifier" "name" [ "_persp_perspShape" ] 
             #				[DEBUG] |persp|perspShape is not lighted.
             #has no shadingEngine
-            Transform [ 0.884581 -0.000000 0.466387 0.000000 0.299403 0.766736 -0.567868 0.000000 -0.357595 0.641963 0.678240 0.000000 -5.401454 10.261387 10.376678 1.000000 ]
+            Transform [ 0.884581 -0.000000 0.466387 0.000000 0.299403 0.766736 -0.567868 0.000000 -0.357595 0.641963 0.678240 0.000000 -7.223278 13.531967 13.832076 1.000000 ]
             #_write(liqRibCameraData*...) not implemented yet.
         AttributeEnd
         AttributeBegin

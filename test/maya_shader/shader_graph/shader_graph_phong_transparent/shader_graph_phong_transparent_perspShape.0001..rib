@@ -21,7 +21,7 @@ Option "user" "string pass" [ "beauty" ]
 #Ray Tracing : OFF
 Option "trace" "int maxdepth" [ 0 ] 
 FrameBegin 1
-    Format 768 576 1.000000
+    Format 200 150 1.000000
     ShadingInterpolation "smooth"
     Quantize "rgba" 255 0 255 0.500000
     #exportJobCamera: |persp|perspShape

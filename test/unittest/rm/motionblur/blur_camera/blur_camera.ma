@@ -1,10 +1,10 @@
 //Maya ASCII 2012 scene
 //Name: blur_camera.ma
-//Last modified: Thu, May 30, 2013 03:12:54 PM
+//Last modified: Thu, Jun 20, 2013 01:17:53 AM
 //Codeset: 936
 requires maya "2012";
-requires "renderman" "0.0.1";
 requires "liquid_2012x32d" "2.3.5";
+requires "renderman" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
