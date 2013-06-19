@@ -1,8 +1,22 @@
+// ---- load liquid plugin -------
 loadPlugin liquid_2012x32d;
-loadPlugin elvishray;
+
+// ---- load elvishray plugin ----
+string $ERName = "ElvishRender";//modefy this plugin to render name of Elvishray
+loadPlugin $ERName;
+// write elvishray.py. 
+// Other py scripts will call getRendererName() to get the render name of Elvishray
+$fId = fopen("elvishray.py","w");
+fprint($fId, "\n# This file is generated automatically by test2.mel.\n\n");
+fprint($fId, "def getRendererName():\n");
+fprint($fId, "    return \""+$ERName+"\"\n");
+fclose($fId);
+
+// ---- load renderman plugin ----
 loadPlugin renderman;
 
-python( "import sys" );
-python( "import os" );
+//
+python("import sys");
+python("import os");
 python("sys.path.append(os.environ['LIQUID_AUTO_TEST_DIR'])");
 python("execfile(os.environ['LIQUID_AUTO_TEST_DIR']+'/testall.py')");

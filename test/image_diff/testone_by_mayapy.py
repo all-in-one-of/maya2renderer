@@ -7,6 +7,7 @@ import maya.mel         as mel
 import liqGlobalHelpers as gHelper
 import liqTestLog       as mLiqlog
 import render_tester    as rt
+import elvishray        as er
 
 def parseString(strdata):
     import maya.cmds as cmds
@@ -124,7 +125,7 @@ def test_one_scene(mayaFile, liqRenderer):
     tester.setProjectDirectory( getProjectDirectory(mayaFile) )
 
     if liqRenderer == "":
-        _test(mayaFile, "elvishray")
+        _test(mayaFile, er.getRendererName())
         _test(mayaFile, "renderman")
         _test(mayaFile, "appleseed")
     else:

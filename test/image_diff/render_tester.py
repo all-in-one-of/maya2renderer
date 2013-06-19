@@ -1,6 +1,7 @@
 import sys
 import os
 import cutResources
+import elvishray as er
 
 #-----------------
 class TestBase:
@@ -94,10 +95,9 @@ class ElvishrayTest(TestBase):
 
 #-----------------
 def createTestFactory ( renderer_ ):
-
-    if renderer_ == "renderman" :
-	return RendermanTest()
-
-    if renderer_ == "elvishray" :
-	return ElvishrayTest()
-
+    if (renderer_ == "renderman"):
+        return RendermanTest()
+    elif (renderer_ == er.getRendererName()):
+        return ElvishrayTest()
+    else:
+        print("ERROE>renderer <"+renderer_+"> is not found or supported.\n")
