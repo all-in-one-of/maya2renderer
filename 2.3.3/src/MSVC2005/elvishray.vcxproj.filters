@@ -162,6 +162,15 @@
     <ClCompile Include="..\elvishray\shader_node\er_flatcolor_node.cpp">
       <Filter>src\shader_node</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\shader_node\er_checker_node.cpp">
+      <Filter>src\shader_node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\shader_node\er_checker_node_visitor.cpp">
+      <Filter>src\shader_node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\elvishray\er_rnode_visitor_mgr.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
@@ -239,6 +248,15 @@
     <ClInclude Include="..\elvishray\shader_node\er_flatcolor_node.h">
       <Filter>src\shader_node</Filter>
     </ClInclude>
+    <ClInclude Include="..\elvishray\shader_node\er_checker_node.h">
+      <Filter>src\shader_node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\shader_node\er_checker_node_visitor.h">
+      <Filter>src\shader_node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\er_rnode_visitor_mgr.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">
@@ -311,6 +329,9 @@
       <Filter>mel\alias</Filter>
     </None>
     <None Include="..\elvishray\mel\AEer_flatcolorTemplate.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\AEer_checkerTemplate.mel">
       <Filter>mel</Filter>
     </None>
   </ItemGroup>

@@ -447,7 +447,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/er_flatcolor/er_flatcolor.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
+    '''
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/er_checker/er_checker.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     

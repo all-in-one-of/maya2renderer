@@ -1,6 +1,7 @@
 #include "er_NodeAddCallback.h"
 
 #include <liqlog.h>
+#include "er_rnode_visitor_mgr.h"
 
 namespace elvishray
 {
@@ -58,6 +59,10 @@ namespace elvishray
 				+"setAttr -type \"string\" (\""+nodeName+".rmanShaderType\") \"surface\";"
 				;
 			MGlobal::executeCommandOnIdle(cmd, true);
+		}
+		else {
+			//on other node types
+			RNodeVisitorMgr::getInstancePtr()->onCreateInstance(nodeName.asChar());
 		}
 		
 

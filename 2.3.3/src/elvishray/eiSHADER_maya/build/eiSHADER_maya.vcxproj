@@ -686,6 +686,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\ei_liq_checker.cpp" />
     <ClCompile Include="..\src\ei_liq_flatcolor.cpp" />
     <ClCompile Include="..\src\ei_liq_skylight.cpp" />
     <ClCompile Include="..\src\ei_maya_blinn.cpp" />

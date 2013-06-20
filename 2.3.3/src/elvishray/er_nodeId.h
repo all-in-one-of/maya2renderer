@@ -13,6 +13,7 @@ namespace elvishray
 		TI_Physicalsky_NODE		= 0xFFFFF361,
 		TI_SkyLight_NODE		= 0xFFFFF362,
 		TI_FlatColor_NODE		= 0xFFFFF363,
+		TI_Checker_NODE			= 0xFFFFF364,
 
 		TI_NUM,
 	};

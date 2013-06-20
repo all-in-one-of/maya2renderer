@@ -1,4 +1,5 @@
 #include "er_rnode_visitor.h"
+#include "er_rnode_visitor_mgr.h"
 
 namespace elvishray
 {
@@ -62,6 +63,9 @@ namespace elvishray
 		validConnectionMap.append("inTransparencyB");	
 		validConnectionMap.append("inTransparency");
 		validConnectionMap.end();
+
+		//
+		RNodeVisitorMgr::getInstancePtr()->setValidConnection(validConnectionMap);
 	}
 
 }

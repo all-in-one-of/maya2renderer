@@ -5,6 +5,7 @@
 //#include "../shadergraph/shadermgr.h"
 #include "er_log.h"
 #include "er_output_mgr.h"
+#include "er_rnode_visitor_mgr.h"
 
 namespace ER
 {
@@ -24,6 +25,9 @@ bool Visitor::visit_render_node_in_subrenderer(const char* shaderNodeName, const
 	}
 	else if( strcmp("er_flatcolor", nodetype) == 0 ){
 		visit_er_flatcolor(shaderNodeName);
+	}
+	else if( elvishray::RNodeVisitorMgr::getInstancePtr()->visit(shaderNodeName) ){
+		liquidMessage2(messageInfo, "RNodeVisitorMgr::visit(%s)", shaderNodeName );
 	}
 	else{
 		liquidMessage2(messageError, ("Visitor::visit_render_node_in_subrenderer(), shader type ["+std::string(nodetype)+"] is not supported.").c_str() );
