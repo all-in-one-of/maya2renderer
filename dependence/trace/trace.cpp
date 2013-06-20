@@ -35,15 +35,17 @@ namespace	cm
 		trace_file_ = "";
 	}
 	void Trace::LogMsg(int depth, int align, const char *msg)
-	{
+	{		
+		//printf("%s>%d %s\n", indent.c_str(), depth, msg);//for debug only.
 		if( !m_logfile.is_open() )
 		{
-			liquidMessage2(messageError,"[cm::Trace] can't open file: [%s]", trace_file_.c_str() );
+			liquidMessage2(messageError,"[cm::Trace] can't open file: [%s],  (%s)", trace_file_.c_str(),  msg);
 			assert(m_logfile.is_open()&&"[cm::Trace] file is not open. see script editor for more details.");
 		}
 		std::string indent(2*depth, ' ');
 		// only log the timestamp when the time changes
 		//unsigned int len = fprintf( fp, "%s>(%d)%s\n", indent.c_str(), depth, msg);
+
 		m_logfile<<indent<<">"<<depth<<" "<<msg<<std::endl;
 	}
 	void Trace::LogMsg(const std::string &msg)
