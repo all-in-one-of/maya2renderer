@@ -14,8 +14,8 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
-#include "common/_3delight/shading_utils.h"
-#include "common/_3delight/utils.h"
+#include <shader/_3delight/shading_utils.h>
+#include <shader/_3delight/utils.h>
 
 SURFACE(maya_mib_amb_occlusion)
 	DECLARE;

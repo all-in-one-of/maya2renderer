@@ -18,8 +18,8 @@
 
 #include <eiAPI/ei_shaderx.h>
 #include "ei_AOVMacroDef.h"
-#include "common/_3delight/shading_utils.h"
-#include "common/my_utils.h"
+#include <shader/_3delight/shading_utils.h>
+#include <shader/my_utils.h>
 #include <new>
 
 

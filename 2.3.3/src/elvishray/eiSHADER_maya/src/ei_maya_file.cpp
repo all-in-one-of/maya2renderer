@@ -1,6 +1,6 @@
 
 #include <eiAPI/ei_shaderx.h>
-#include "common/_3delight/utils.h"
+#include <shader/_3delight/utils.h>
 
 SURFACE(maya_file)
 	DECLARE;

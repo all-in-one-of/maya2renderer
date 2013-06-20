@@ -14,7 +14,7 @@
 */
 
 #include <eiAPI/ei_shaderx.h>
-#include "common/my_math.h"
+#include <shader/my_math.h>
 
 SURFACE(maya_bump3d)
 	// Inputs

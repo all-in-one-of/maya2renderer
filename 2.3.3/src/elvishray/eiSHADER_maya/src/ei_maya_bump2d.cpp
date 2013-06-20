@@ -14,8 +14,8 @@
 */
 
 #include <eiAPI/ei_shaderx.h>
-#include "common/my_math.h"
-#include "common/my_utils.h"
+#include <shader/my_math.h>
+#include <shader/my_utils.h>
 
 SURFACE(maya_bump2d)
 

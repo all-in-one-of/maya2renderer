@@ -51,21 +51,6 @@
     <ClCompile Include="..\src\ei_maya_transparent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\common\my_math.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\common\my_utils.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\common\_3delight\noise_utils.cpp">
-      <Filter>common\_3delight</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\common\_3delight\shading_utils.cpp">
-      <Filter>common\_3delight</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\common\_3delight\utils.cpp">
-      <Filter>common\_3delight</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ei_maya_phong_architectural.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,31 +87,44 @@
     <ClCompile Include="..\src\ei_liq_checker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp">
+      <Filter>common\_3delight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\_3delight\shading_utils.cpp">
+      <Filter>common\_3delight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\_3delight\utils.cpp">
+      <Filter>common\_3delight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\my_math.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\my_utils.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ei_shader_maya.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\common\my_math.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\common\my_utils.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\common\_3delight\noise_utils.h">
-      <Filter>common\_3delight</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\common\_3delight\utils.h">
-      <Filter>common\_3delight</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\ei_AOVMacroDef.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuildStep Include="..\src\common\_3delight\shading_utils.h">
+    <ClInclude Include="..\..\include\shader\_3delight\noise_utils.h">
       <Filter>common\_3delight</Filter>
-    </CustomBuildStep>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\_3delight\shading_utils.h">
+      <Filter>common\_3delight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\_3delight\utils.h">
+      <Filter>common\_3delight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\my_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\my_utils.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\readme.txt">

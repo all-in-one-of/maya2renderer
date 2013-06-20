@@ -252,7 +252,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;../../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;../../../../include;../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Debug";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -368,7 +368,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;../../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../dependence/elvishray/r274/include;../../../../../dependence/_3delight;../../../../include;../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_SECURE_SCL=0;CMAKE_INTDIR="Debug";eiSHADER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -686,6 +686,11 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\include\shader\my_math.cpp" />
+    <ClCompile Include="..\..\include\shader\my_utils.cpp" />
+    <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp" />
+    <ClCompile Include="..\..\include\shader\_3delight\shading_utils.cpp" />
+    <ClCompile Include="..\..\include\shader\_3delight\utils.cpp" />
     <ClCompile Include="..\src\ei_liq_checker.cpp" />
     <ClCompile Include="..\src\ei_liq_flatcolor.cpp" />
     <ClCompile Include="..\src\ei_liq_skylight.cpp" />
@@ -750,24 +755,20 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\common\my_math.cpp" />
-    <ClCompile Include="..\src\common\my_utils.cpp" />
-    <ClCompile Include="..\src\common\_3delight\noise_utils.cpp" />
-    <ClCompile Include="..\src\common\_3delight\shading_utils.cpp" />
-    <ClCompile Include="..\src\common\_3delight\utils.cpp" />
     <ClCompile Include="..\src\ei_maya_volumelight.cpp" />
     <ClCompile Include="..\src\ei_test_type_pl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\shader\my_math.h" />
+    <ClInclude Include="..\..\include\shader\my_utils.h" />
+    <ClInclude Include="..\..\include\shader\_3delight\noise_utils.h" />
+    <ClInclude Include="..\..\include\shader\_3delight\shading_utils.h" />
+    <ClInclude Include="..\..\include\shader\_3delight\utils.h" />
     <ClInclude Include="..\src\ei_AOVMacroDef.h" />
     <ClInclude Include="..\src\ei_shader_maya.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\src\common\my_math.h" />
-    <ClInclude Include="..\src\common\my_utils.h" />
-    <ClInclude Include="..\src\common\_3delight\noise_utils.h" />
     <CustomBuildStep Include="..\src\common\_3delight\shading_utils.h" />
-    <ClInclude Include="..\src\common\_3delight\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\readme.txt" />
