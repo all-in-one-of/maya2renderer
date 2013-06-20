@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{02cb469d-e6a3-4bbd-bf90-5563d151f5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{7f032b7d-a73a-4e3e-9d85-6a36e469a9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\_3delight">
+      <UniqueIdentifier>{e3050c87-1c0d-4fcf-bbed-567418ae6faf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ei_liq_checker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp">
+      <Filter>common\_3delight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\_3delight\shading_utils.cpp">
+      <Filter>common\_3delight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\_3delight\utils.cpp">
+      <Filter>common\_3delight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\my_math.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\shader\my_utils.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ei_AOVMacroDef.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\_3delight\noise_utils.h">
+      <Filter>common\_3delight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\_3delight\shading_utils.h">
+      <Filter>common\_3delight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\_3delight\utils.h">
+      <Filter>common\_3delight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\my_math.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\shader\my_utils.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\readme.txt">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
