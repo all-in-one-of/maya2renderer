@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ei_liq_checker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp">
       <Filter>common\_3delight</Filter>
     </ClCompile>
@@ -29,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="..\..\include\shader\my_utils.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\er_checker2\er_checker2.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

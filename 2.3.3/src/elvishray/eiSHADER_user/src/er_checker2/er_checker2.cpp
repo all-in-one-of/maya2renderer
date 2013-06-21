@@ -14,12 +14,12 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
-#include "ei_AOVMacroDef.h"
+#include "../ei_AOVMacroDef.h"
 #include <shader/_3delight/shading_utils.h>
 #include <shader/_3delight/utils.h>
 #include <shader/my_utils.h>
 
-SURFACE(er_checker)//CheckerNode::getTypeName()
+SURFACE(er_checker2)//Checker2Node::getTypeName()
 	DECLARE;
 	DECLARE_COLOR(color1, 0.0f, 0.0f, 0.0f);
 	DECLARE_COLOR(color2, 1.0f, 1.0f, 1.0f);
@@ -50,4 +50,4 @@ SURFACE(er_checker)//CheckerNode::getTypeName()
 		out->Oi = color2();
 	}
 
-END(er_checker)
+END(er_checker2)

@@ -3,6 +3,7 @@
 
 #include <common/prerequest_maya.h>
 #include "../shadergraph/shaderOutput.h"
+#include "er_export.h"
 
 namespace elvishray{
 	class OutputMgr;
@@ -10,7 +11,7 @@ namespace elvishray{
 
 namespace ER{
 
-class OutputHelper
+class ER_EXPORT OutputHelper
 {
 public:
 	OutputHelper();

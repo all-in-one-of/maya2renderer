@@ -147,7 +147,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{162E401F-7F1D-4E7F-B783-868FFF572F6A}</ProjectGuid>
+    <ProjectGuid>{C7282BBB-D261-474F-94CD-418DEC235FD4}</ProjectGuid>
     <RootNamespace>liquid</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -2168,7 +2168,7 @@
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/elvishray/r274/include;../../../dependence/;../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;LIQUID_SEPARATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -2189,17 +2189,18 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\Prman\win32/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/ElvishRender.mll</OutputFile>
+      <OutputFile>$(ProjectDir)/../bin/$(Configuration)/$(ProjectName).pdb</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/elvishray/r274/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/elvishray.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/prman/win32/ElvishRender.lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
@@ -2289,8 +2290,8 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/elvishray/r274/include;../../../dependence/;../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../../../dependence/zlib/include;../../../../../dependence/elvishray/r274/include;../../../../../dependence/;../../src;../../../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;LIQUID_SEPARATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -2310,18 +2311,19 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\Prman\win32/M2R2012Release/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/M2R2012Release/ElvishRender.mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\..\..\bin\Prman\win32/M2R2012Release/liquidDLL.lib;../../../../bin/prman/win32/M2R2012Release/ElvishRender.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(ProjectDir)/../bin/$(Configuration)/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/elvishray/r274/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../../../dependence/elvishray/r274/lib;../../../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/M2R2012Release/Objects/elvishray.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/prman/win32/M2R2012Release/ElvishRender.lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <Profile>true</Profile>
     </Link>
@@ -2544,118 +2546,19 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\elvishray\er_globalnode.cpp" />
-    <ClCompile Include="..\elvishray\er_helper.cpp" />
-    <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
-    <ClCompile Include="..\elvishray\er_NodeAddCallback.cpp" />
-    <ClCompile Include="..\elvishray\er_output_mgr.cpp" />
-    <ClCompile Include="..\elvishray\er_plug.cpp" />
-    <ClCompile Include="..\elvishray\er_preview.cpp" />
-    <ClCompile Include="..\elvishray\er_nodeId.cpp" />
-    <ClCompile Include="..\elvishray\er_rnode_visitor.cpp" />
-    <ClCompile Include="..\elvishray\er_rnode_visitor_mgr.cpp" />
-    <ClCompile Include="..\elvishray\er_writeCameraData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeCurvesData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeHSubdData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeImplicitSphereData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeMayaSubdData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeNuCurveData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeParticleData.cpp" />
-    <ClCompile Include="..\elvishray\er_writePfxToonData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeSubdData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeSurfaceData.cpp" />
-    <ClCompile Include="..\elvishray\er_factory.cpp" />
-    <ClCompile Include="..\elvishray\er_GlobalNodeHelper.cpp" />
-    <ClCompile Include="..\elvishray\er_group.cpp" />
-    <ClCompile Include="..\elvishray\er_groupmgr.cpp" />
-    <ClCompile Include="..\elvishray\er_renderer.cpp" />
-    <ClCompile Include="..\elvishray\er_shader.cpp" />
-    <ClCompile Include="..\elvishray\er_writeLightData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeLocatorData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeMeshData.cpp" />
-    <ClCompile Include="..\elvishray\er_writePfxData.cpp" />
-    <ClCompile Include="..\elvishray\er_writePfxHairData.cpp" />
-    <ClCompile Include="..\elvishray\er_writeShaveData.cpp" />
-    <ClCompile Include="..\elvishray\ercall.cpp" />
-    <ClCompile Include="..\elvishray\MayaConnection.cpp" />
-    <ClCompile Include="..\elvishray\output\er_output_base.cpp" />
-    <ClCompile Include="..\elvishray\output\er_output_call.cpp" />
-    <ClCompile Include="..\elvishray\output\er_output_esa.cpp" />
-    <ClCompile Include="..\elvishray\output\er_output_ess.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_er.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_materials.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp" />
-    <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_checker_node.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_checker_node_visitor.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_flatcolor_node.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_physicalsky_node.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_skylight_node.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\elvishray\er_.h" />
-    <ClInclude Include="..\elvishray\er_export.h" />
-    <ClInclude Include="..\elvishray\er_factory.h" />
-    <ClInclude Include="..\elvishray\er_globalnode.h" />
-    <ClInclude Include="..\elvishray\er_GlobalNodeHelper.h" />
-    <ClInclude Include="..\elvishray\er_group.h" />
-    <ClInclude Include="..\elvishray\er_groupmgr.h" />
-    <ClInclude Include="..\elvishray\er_helper.h" />
-    <ClInclude Include="..\elvishray\er_iprMgr.h" />
-    <ClInclude Include="..\elvishray\er_log.h" />
-    <ClInclude Include="..\elvishray\er_NodeAddCallback.h" />
-    <ClInclude Include="..\elvishray\er_output_mgr.h" />
-    <ClInclude Include="..\elvishray\er_renderer.h" />
-    <ClInclude Include="..\elvishray\ercall.h" />
-    <ClInclude Include="..\elvishray\er_nodeId.h" />
-    <ClInclude Include="..\elvishray\er_rnode_visitor.h" />
-    <ClInclude Include="..\elvishray\er_rnode_visitor_mgr.h" />
-    <ClInclude Include="..\elvishray\er_shader_node.h" />
-    <ClInclude Include="..\elvishray\MayaConnection.h" />
-    <ClInclude Include="..\elvishray\output\er_output_base.h" />
-    <ClInclude Include="..\elvishray\output\er_output_call.h" />
-    <ClInclude Include="..\elvishray\output\er_output_esa.h" />
-    <ClInclude Include="..\elvishray\output\er_output_ess.h" />
-    <ClInclude Include="..\elvishray\shaderOutputER.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_checker_node.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_checker_node_visitor.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_flatcolor_node.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_physicalsky_node.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_skylight_node.h" />
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
       <FileType>Document</FileType>
     </CustomBuildStep>
-    <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel" />
-    <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.res.mel" />
-    <None Include="..\elvishray\mel\AEer_checkerTemplate.mel" />
-    <None Include="..\elvishray\mel\AEer_flatcolorTemplate.mel" />
-    <None Include="..\elvishray\mel\AEer_physicalskyTemplate.mel" />
-    <None Include="..\elvishray\mel\AEer_skylightTemplate.mel" />
-    <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
-    <None Include="..\elvishray\mel\alias\AEElvishRenderGlobalsTemplate.mel" />
-    <None Include="..\elvishray\mel\alias\AEliquidShaderTemplate_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\er_AEliquidInstanceFlags_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\er_callback_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\er_liquidProcedurals_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\er_startup_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\userSetup.mel" />
-    <None Include="..\elvishray\mel\er_callback.mel" />
-    <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
-    <None Include="..\elvishray\mel\er_CameraVisibility.mel" />
-    <None Include="..\elvishray\mel\er_ConvertNurbs.mel" />
-    <None Include="..\elvishray\mel\er_ConvertSubdivs.mel" />
-    <None Include="..\elvishray\mel\er_CreateMenus.mel" />
-    <None Include="..\elvishray\mel\er_liquidProcedurals.mel" />
-    <None Include="..\elvishray\mel\er_startup.mel" />
-    <None Include="..\elvishray\mel\er_UserCallbackInterface.mel" />
-    <None Include="..\elvishray\mel\userSetup.mel" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp" />
+    <ClCompile Include="..\src\er_checker2\er_checker2_node.cpp" />
+    <ClCompile Include="..\src\er_checker2\er_checker2_node_visitor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\er_checker2\er_checker2_node.h" />
+    <ClInclude Include="..\src\er_checker2\er_checker2_node_visitor.h" />
+    <ClInclude Include="..\src\er_user_nodeId.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

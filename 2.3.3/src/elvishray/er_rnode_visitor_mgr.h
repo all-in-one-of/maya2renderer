@@ -3,11 +3,11 @@
 
 #include <common/prerequest_std.h>
 #include <rnode_visitor_interface.h>
-
+#include "er_export.h"
 
 namespace elvishray
 {
-	class RNodeVisitorMgr
+	class ER_EXPORT RNodeVisitorMgr
 	{
 	public:
 		static RNodeVisitorMgr* getInstancePtr();

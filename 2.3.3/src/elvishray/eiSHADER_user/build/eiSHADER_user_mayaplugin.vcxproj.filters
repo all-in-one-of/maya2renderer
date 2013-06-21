@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="mel">
+      <UniqueIdentifier>{91efda18-f028-4987-8ad7-85ef4f4bfe8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\er_checker2">
+      <UniqueIdentifier>{80eb3eeb-f885-432d-97a3-ee6708c9c56a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\er_checker2\er_checker2_node.cpp">
+      <Filter>src\er_checker2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\er_checker2\er_checker2_node_visitor.cpp">
+      <Filter>src\er_checker2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\er_checker2\er_checker2_node.h">
+      <Filter>src\er_checker2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\er_checker2\er_checker2_node_visitor.h">
+      <Filter>src\er_checker2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\er_user_nodeId.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

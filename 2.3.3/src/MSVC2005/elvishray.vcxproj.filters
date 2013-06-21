@@ -257,6 +257,9 @@
     <ClInclude Include="..\elvishray\er_rnode_visitor_mgr.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\elvishray\er_export.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel">
