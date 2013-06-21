@@ -98,14 +98,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	LIQCHECKSTATUS( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+" node" );
 	status.clear();
 	//
-	status = plugin.registerNode( 
-		elvishray::CheckerNode::getTypeName(), 
-		elvishray::CheckerNode::getTypeId(), 
-		elvishray::CheckerNode::creator, elvishray::CheckerNode::initialize, MPxNode::kDependNode,
-		&elvishray::surface_classification);
-	LIQCHECKSTATUS( status, "Can't register "+elvishray::CheckerNode::getTypeName()+" node" );
-	status.clear();
-	elvishray::CheckerNodeVisitor::regist();
+	elvishray::CheckerNodeVisitor::regist(plugin);
 
 	return MS::kSuccess;
 }
@@ -118,9 +111,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MFnPlugin plugin(obj);
 
 	//
-	elvishray::CheckerNodeVisitor::unregist();
-	status = plugin.deregisterNode( elvishray::CheckerNode::getTypeId() );
-	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::CheckerNode::getTypeName()+" node" );
+	elvishray::CheckerNodeVisitor::unregist(plugin);
 	//
 	status = plugin.deregisterNode( elvishray::FlatColorNode::getTypeId() );
 	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+" node" );

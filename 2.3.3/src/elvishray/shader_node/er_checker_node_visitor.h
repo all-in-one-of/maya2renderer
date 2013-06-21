@@ -4,6 +4,7 @@
 
 #include <rnode_visitor_interface.h>
 
+class MFnPlugin;
 
 namespace elvishray
 {
@@ -12,8 +13,8 @@ namespace elvishray
 	{
 	public:
 		static CheckerNodeVisitor* getInstancePtr();
-		static bool regist();
-		static bool unregist();
+		static bool regist(MFnPlugin &plugin);
+		static bool unregist(MFnPlugin &plugin);
 
 		virtual void setValidConnection(liquidmaya::ShaderConnectionMap& scmap);
 		virtual bool visit(const char *node);

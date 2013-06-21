@@ -1,11 +1,17 @@
 
 #include "er_checker_node_visitor.h"
 #include <common/mayacheck.h>
+
+#define MNoVersionString
+#define MNoPluginEntry
+#include <maya/MFnPlugin.h>
+
 #include "../er_log.h"
 #include "../er_output_mgr.h"
 #include "../shaderOutputER.h"
 #include "er_checker_node.h"
 #include "../er_rnode_visitor_mgr.h"
+#include "../er_nodeId.h"
 
 namespace elvishray
 {
@@ -77,9 +83,19 @@ namespace elvishray
 		return true;
 	}
 	//
-	bool  CheckerNodeVisitor::regist()
+	bool  CheckerNodeVisitor::regist(MFnPlugin &plugin)
 	{
 		CM_TRACE_FUNC("CheckerNodeVisitor::regist()");
+		
+		MStatus status;
+
+		status = plugin.registerNode( 
+			elvishray::CheckerNode::getTypeName(), 
+			elvishray::CheckerNode::getTypeId(), 
+			elvishray::CheckerNode::creator, elvishray::CheckerNode::initialize, MPxNode::kDependNode,
+			&elvishray::surface_classification);
+		LIQCHECKSTATUS( status, "Can't register "+elvishray::CheckerNode::getTypeName()+" node" );
+		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			CheckerNode::getTypeName().asChar(),
@@ -87,13 +103,18 @@ namespace elvishray
 			);
 		return true;
 	}
-	bool  CheckerNodeVisitor::unregist()
+	bool  CheckerNodeVisitor::unregist(MFnPlugin &plugin)
 	{
 		CM_TRACE_FUNC("CheckerNodeVisitor::unregist()");
+		
+		MStatus status;
 
 		RNodeVisitorMgr::getInstancePtr()->unregist(
 			CheckerNode::getTypeName().asChar()
-			);
+			);	
+		status = plugin.deregisterNode( elvishray::CheckerNode::getTypeId() );
+		LIQCHECKSTATUS( status, "Can't deregister "+elvishray::CheckerNode::getTypeName()+" node" );
+
 		return true;
 	}
 
