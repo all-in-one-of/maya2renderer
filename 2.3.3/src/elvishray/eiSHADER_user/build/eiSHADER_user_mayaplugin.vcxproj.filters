@@ -33,4 +33,15 @@
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\er_checker2\userSetup.mel">
+      <Filter>src\er_checker2</Filter>
+    </None>
+    <None Include="..\src\er_checker2\AEer_checker2Template.mel">
+      <Filter>src\er_checker2</Filter>
+    </None>
+    <None Include="..\src\userSetup.mel">
+      <Filter>src</Filter>
+    </None>
+  </ItemGroup>
 </Project>

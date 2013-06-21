@@ -1,0 +1,31 @@
+global proc AEer_checker2Template( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEer_checker2Template("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	//AEliquidShaderTemplate($nodeName);
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+				editorTemplate -addDynamicControl "color1";
+				editorTemplate -addDynamicControl "color2";
+				editorTemplate -addDynamicControl "xscale";
+				editorTemplate -addDynamicControl "yscale";
+				editorTemplate -addDynamicControl "result";
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

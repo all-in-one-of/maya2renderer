@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{02cb469d-e6a3-4bbd-bf90-5563d151f5b5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{7f032b7d-a73a-4e3e-9d85-6a36e469a9fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="common\_3delight">
       <UniqueIdentifier>{e3050c87-1c0d-4fcf-bbed-567418ae6faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{02cb469d-e6a3-4bbd-bf90-5563d151f5b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,12 +28,12 @@
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\src\er_checker2\er_checker2.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ei_AOVMacroDef.h">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\shader\_3delight\noise_utils.h">
       <Filter>common\_3delight</Filter>
@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\readme.txt">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
     </None>
   </ItemGroup>
 </Project>

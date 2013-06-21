@@ -2207,6 +2207,11 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).mll $(TargetDir)..\..\bin\$(TargetName).mll
+copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb $(TargetDir)..\..\bin\$(TargetName).pdb</Command>
+      <Message>copy eiSHADER_user_mayaplugin.mll/.pdb to eiSHADER_user/bin/</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">
     <PreBuildEvent>
@@ -2331,6 +2336,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\../../bin/3Delight/win32/Release/Objects/liquid.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).mll $(TargetDir)..\..\bin\$(TargetName).mll</Command>
+      <Message>copy eiSHADER_user_mayaplugin.mll/.pdb to eiSHADER_user/bin/</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
     <Midl>
@@ -2559,6 +2568,11 @@
     <ClInclude Include="..\src\er_checker2\er_checker2_node.h" />
     <ClInclude Include="..\src\er_checker2\er_checker2_node_visitor.h" />
     <ClInclude Include="..\src\er_user_nodeId.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\er_checker2\AEer_checker2Template.mel" />
+    <None Include="..\src\er_checker2\userSetup.mel" />
+    <None Include="..\src\userSetup.mel" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

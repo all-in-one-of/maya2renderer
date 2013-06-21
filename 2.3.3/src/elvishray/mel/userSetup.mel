@@ -16,3 +16,11 @@ source er_liquidProcedurals.mel;
 source AEer_flatcolorTemplate.mel;
 source AEer_checkerTemplate.mel;
 
+//-----------------------------------------------
+// source erSHADER_user scripts if any.
+string $erSHADER_user_DIR = getenv("ER_SHADER_USER");
+if( $erSHADER_user_DIR != "" )
+{
+    eval( "source \"" + $erSHADER_user_DIR + "/src/userSetup.mel\"" );
+}
+//-----------------------------------------------
