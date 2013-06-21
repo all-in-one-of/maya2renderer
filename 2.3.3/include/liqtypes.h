@@ -33,14 +33,10 @@
 
 // DLL export symbols must be specified under Win32
 #ifdef _WIN32
-#	ifdef LIQUID_SEPARATE
-#		ifdef LIQUID_EXPORT_DLL
-#			define LIQUID_EXPORT _declspec(dllexport)
-#		else
-#			define LIQUID_EXPORT _declspec(dllimport)
-#		endif
+#	ifdef LIQUID_EXPORT_DLL
+#		define LIQUID_EXPORT _declspec(dllexport)
 #	else
-#		define LIQUID_EXPORT
+#		define LIQUID_EXPORT _declspec(dllimport)
 #	endif
 #else
 #	define LIQUID_EXPORT

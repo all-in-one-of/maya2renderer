@@ -38,14 +38,10 @@ class's constructor and destructor. This rational is simple enough, but this way
 
 
 #ifdef _WIN32
-#	ifdef LIQUID_SEPARATE
-#		ifdef LIQUID_EXPORT_DLL
-#			define TRACE_EXPORT _declspec(dllexport)
-#		else
-#			define TRACE_EXPORT _declspec(dllimport)
-#		endif
+#	ifdef LIQUID_EXPORT_DLL
+#		define TRACE_EXPORT _declspec(dllexport)
 #	else
-#		define TRACE_EXPORT
+#		define TRACE_EXPORT _declspec(dllimport)
 #	endif
 #else
 #	define TRACE_EXPORT

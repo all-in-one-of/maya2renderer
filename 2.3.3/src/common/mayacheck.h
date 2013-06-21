@@ -26,14 +26,10 @@
 #include <maya/M3dView.h>
 
 #ifdef _WIN32
-#	ifdef LIQUID_SEPARATE
-#		ifdef LIQUID_EXPORT_DLL
-#			define MAYACHECK_EXPORT _declspec(dllexport)
-#		else
-#			define MAYACHECK_EXPORT _declspec(dllimport)
-#		endif
+#	ifdef LIQUID_EXPORT_DLL
+#		define MAYACHECK_EXPORT _declspec(dllexport)
 #	else
-#		define MAYACHECK_EXPORT
+#		define MAYACHECK_EXPORT _declspec(dllimport)
 #	endif
 #else
 #	define MAYACHECK_EXPORT
