@@ -507,7 +507,11 @@ namespace elvishray
 		if(m_gnode->getBool("eiSHADER_maya")){
 			o.ei_link( "eiSHADER_maya" );
 		}
-
+		MStringArray links = m_gnode->getStringArray("shader_plugin");
+		for(std::size_t i=0; i<links.length(); ++i)
+		{
+			o.ei_link( links[ i ].asChar() );
+		}
 
 		m_root_group = currentJob.name.asChar();
 		m_groupMgr->createGroup(m_root_group);//

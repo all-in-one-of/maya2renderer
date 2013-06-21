@@ -108,19 +108,35 @@ MFloatPoint GlobalNodeHelper::getVector(const MString& attrName )
 	}
 	return value;
 }
+//MStringArray GlobalNodeHelper::getStringToArray(const MString& attrName )
+//{
+//	MStatus status;
+//
+//	MString strValue;
+//	liquidGetPlugValue(m_GlobalNode, attrName.asChar(), strValue, status);
+//	IfMErrorMsgWarn(status,"elvishray::GlobalNodeHelper::getStringArray("+attrName+")");
+//	
+//	MStringArray value;
+//	status = strValue.split('|', value);
+//	IfMErrorMsgWarn(status,"elvishray::GlobalNodeHelper::getStringArray --> split["+strValue+"] error.");
+//
+//	return value;
+//}
 MStringArray GlobalNodeHelper::getStringArray(const MString& attrName )
 {
 	MStatus status;
+	MStringArray ret;
 
-	MString strValue;
-	liquidGetPlugValue(m_GlobalNode, attrName.asChar(), strValue, status);
-	IfMErrorMsgWarn(status,"elvishray::GlobalNodeHelper::getStringArray("+attrName+")");
-	
-	MStringArray value;
-	status = strValue.split('|', value);
-	IfMErrorMsgWarn(status,"elvishray::GlobalNodeHelper::getStringArray --> split["+strValue+"] error.");
+	unsigned int size = liquidGetPlugNumElements(m_GlobalNode, attrName.asChar(), &status);
+	IfMErrorMsgWarn(status,"elvishray::GlobalNodeHelper::getStringArray("+attrName+"), liquidGetPlugNumElements()");
 
-	return value;
+	for(unsigned int i=0; i < size; ++i)
+	{
+		MString val;
+		IfMErrorMsgWarn(liquidGetPlugElementValue(m_GlobalNode, i, attrName.asChar(), val, status),
+			"elvishray::GlobalNodeHelper::getStringArray("+attrName+"), liquidGetPlugElementValue()");
+		ret.append(val);
+	}
+	return ret;
 }
-
 }

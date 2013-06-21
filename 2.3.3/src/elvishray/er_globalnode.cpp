@@ -15,6 +15,7 @@ MObject GlobalNode::averbose;
 MObject GlobalNode::alink_eiIMG;
 MObject GlobalNode::alink_eiSHADER;
 MObject GlobalNode::alink_eiSHADER_maya;
+MObject GlobalNode::aotherlinks;
 //options
 MObject GlobalNode::acontrast;
 MObject GlobalNode::asamples_min;
@@ -141,14 +142,14 @@ MObject GlobalNode::aapprox_motion_factor;
     CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_MULTI_STRING(attr, obj, name, shortName, default)    \
-    obj = attr.create( name, shortName, MFnData::kString, obj, &status); \
-    CHECK_MSTATUS(attr.setArray(true));       \
-    CHECK_MSTATUS(attr.setKeyable(true));     \
-    CHECK_MSTATUS(attr.setStorable(true));    \
-    CHECK_MSTATUS(attr.setReadable(true));    \
-    CHECK_MSTATUS(attr.setWritable(true));    \
-    CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
-    CHECK_MSTATUS(addAttribute(obj));
+	obj = attr.create( name, shortName, MFnData::kString, obj, &status); \
+	CHECK_MSTATUS(attr.setArray(true));       \
+	CHECK_MSTATUS(attr.setKeyable(true));     \
+	CHECK_MSTATUS(attr.setStorable(true));    \
+	CHECK_MSTATUS(attr.setReadable(true));    \
+	CHECK_MSTATUS(attr.setWritable(true));    \
+	CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
+	CHECK_MSTATUS(addAttribute(obj));
 
 #define CREATE_COMP(attr, obj, name, shortName)    \
     obj = attr.create( name, shortName, &status); \
@@ -241,7 +242,16 @@ MStatus GlobalNode::initialize()
 	CREATE_BOOL( nAttr,  alink_eiIMG,			"eiIMG",		"li",	true );
 	CREATE_BOOL( nAttr,  alink_eiSHADER,		"eiSHADER",		"ls",	true );
 	CREATE_BOOL( nAttr,  alink_eiSHADER_maya,	"eiSHADER_maya","lsm",	true );
-
+	
+	//CREATE_MULTI_STRING(tAttr, alinks,		"eiOtherLinks",	"lnk",	"");
+	aotherlinks = tAttr.create( "shader_plugin"/*"eiOtherLinks"*/,	"sp"/*lnk*/, MFnData::kString, aotherlinks, &status);
+		CHECK_MSTATUS(tAttr.setArray(true)); 
+		CHECK_MSTATUS(tAttr.setKeyable(true));
+		CHECK_MSTATUS(tAttr.setStorable(true));
+		CHECK_MSTATUS(tAttr.setReadable(true));
+		CHECK_MSTATUS(tAttr.setWritable(true));
+		CHECK_MSTATUS(tAttr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));
+		CHECK_MSTATUS(addAttribute(aotherlinks));
 
 	//options
 	CREATE_FLOAT( nAttr,	acontrast,	"contrast",	"ctr",	0.05f);

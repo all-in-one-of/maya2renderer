@@ -28,6 +28,8 @@ public:
 	virtual MFloatPoint getVector(const MString& attrName);
 	virtual MStringArray getStringArray(const MString& attrName);
 
+	//MStringArray getStringToArray(const MString& attrName);
+
 protected:
 	MObject m_GlobalNode;
 

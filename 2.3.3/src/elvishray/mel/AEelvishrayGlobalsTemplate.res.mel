@@ -35,7 +35,8 @@ displayString -replace -value "Shader Library (eiSHADER)"
 	m_AEelvishrayGlobals.kProcessing_Library_eiSHADER;
 displayString -replace -value "Maya Shader Library (eiSHADER_maya)"
 	m_AEelvishrayGlobals.kProcessing_Library_eiSHADER_maya;
-
+displayString -replace -value "Other Libraries"
+	m_AEelvishrayGlobals.kProcessing_Library_others;
 ////Options
 displayString -replace -value "Options"
 	m_AEelvishrayGlobals.kOptions;

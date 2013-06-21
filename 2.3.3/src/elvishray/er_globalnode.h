@@ -27,6 +27,8 @@ namespace elvishray
 		static MObject alink_eiIMG;
 		static MObject alink_eiSHADER;
 		static MObject alink_eiSHADER_maya;
+		static MObject aotherlinks;
+
 		//options
 		static MObject acontrast;
 		static MObject asamples_min;
