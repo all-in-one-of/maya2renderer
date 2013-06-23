@@ -42,7 +42,7 @@ namespace elvishray
 	void Renderer::_write_camera_maya(liqRibCameraData* pData, const structJob &currentJob)
 	{
 		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_maya("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
 			pData->objDagPath.fullPathName(), 
@@ -190,7 +190,7 @@ namespace elvishray
 //	void Renderer::_write_camera_structjob(liqRibCameraData* pData, const structJob &currentJob)
 //	{
 //		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_structjob("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
-//		OutputMgr &o = Renderer::o;
+//		OutputMgr &o = Renderer::getOutputMgr();
 //
 //		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
 //			pData->objDagPath.fullPathName(), 

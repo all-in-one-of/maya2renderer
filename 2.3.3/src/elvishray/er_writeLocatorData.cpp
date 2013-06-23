@@ -38,7 +38,7 @@ namespace elvishray
 	static void _write(liqRibLocatorData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeLocatorData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		o.ln();
 		o.ln();

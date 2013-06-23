@@ -71,7 +71,7 @@ namespace elvishray
 	static void _write1(liqRibMeshData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeMeshData.cpp::_write1("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
 			pData->objDagPath.fullPathName(), 

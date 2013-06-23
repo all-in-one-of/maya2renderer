@@ -12,7 +12,7 @@ namespace ER
 {
 
 OutputHelper::OutputHelper()
-: out(elvishray::Renderer::o)
+: out(elvishray::Renderer::getOutputMgr())
 {
 }
 //
@@ -316,7 +316,7 @@ void OutputHelper::add_liq_UserDefinedNormal(const char* node)
 }
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
-	:out(elvishray::Renderer::o)
+	:out(elvishray::Renderer::getOutputMgr())
 {
 
 }

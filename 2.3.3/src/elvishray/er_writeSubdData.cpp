@@ -38,7 +38,7 @@ namespace elvishray
 	static void _write(liqRibSubdivisionData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeClipPlaneData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		o.a(boost::str(boost::format("Subd %s is not implemented yet.")%pData->getFullPathName()));
 		liquidMessage2(messageError, "Subd type is not implemented yet.[%s]", pData->getFullPathName());

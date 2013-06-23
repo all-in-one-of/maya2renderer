@@ -3,12 +3,13 @@
 #include <common/prerequest_std.h>
 #include <common/prerequest_maya.h>
 #include <eiAPI/ei.h>
+#include "er_export.h"
 
 namespace elvishray
 {	
 	class OutputBase;
 	//
-	class OutputMgr
+	class ER_EXPORT OutputMgr
 	{
 	public:
 		enum OutputType

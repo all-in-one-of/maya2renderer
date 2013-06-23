@@ -51,7 +51,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("IprMgr::updateCamera("<<plug.name().asChar()<<")");
 		MStatus status;
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		MStringArray strarray;
 		IfMErrorWarn( plug.name().split('.', strarray) );
@@ -108,7 +108,7 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("IprMgr::updateShader("<<plug.name().asChar()<<")");
 		MStatus status;
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		MStringArray strarray;
 		IfMErrorWarn( plug.name().split('.', strarray) );

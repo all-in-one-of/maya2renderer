@@ -388,7 +388,7 @@ namespace elvishray
 		boost::thread m_renderingThread;
 
 		//
-		static OutputMgr o;
+		static OutputMgr& getOutputMgr(){ return o;}
 
 	protected:
 		Renderer(const Renderer&);
@@ -470,6 +470,8 @@ namespace elvishray
 		liqGlobalNodeHelper *m_gnode;
 
 		eiContext *CONTEXT;
+
+		static OutputMgr o;
 	};
 
 #define TRANSFORM_SHAPE_PAIR

@@ -38,7 +38,7 @@ namespace elvishray
 	static void _write(liqRibParticleData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeParticleData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		o.a(boost::str(boost::format("particle %s is not implemented yet.")%pData->getFullPathName() ));
 		liquidMessage2(messageError, "Particle type is not implemented yet. [%s]", pData->getFullPathName());

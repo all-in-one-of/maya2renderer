@@ -38,7 +38,7 @@ namespace elvishray
 	static void _write(liqRibClipPlaneData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeClipPlaneData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		o.a(boost::str(boost::format("Locator(ClipPlane) is not implemented yet. [%s]")%pData->getFullPathName()));
 		liquidMessage2(messageError, "Locator(ClipPlane) is not implemented yet. [%s]", pData->getFullPathName());

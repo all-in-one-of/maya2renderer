@@ -38,7 +38,7 @@ namespace elvishray
 	static void _write(liqRibCurvesData* pData, const structJob &currentJob__)
 	{
 		CM_TRACE_FUNC("er_writeCurvesData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		o.a(boost::str(boost::format("curves %s is not implemented yet.") %pData->getFullPathName() ));
 		liquidMessage2(messageError, "Curve type is not implemented yet. [%s]", pData->getFullPathName());

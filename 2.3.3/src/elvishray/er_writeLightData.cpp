@@ -14,7 +14,7 @@ namespace elvishray
 	void addLightGroupForLight(const MString& lightTransformNode)
 	{
 		CM_TRACE_FUNC("addLightGroupForLight("<<lightTransformNode.asChar()<<")");
-		OutputMgr &o = Renderer::o;
+		OutputMgr &o = Renderer::getOutputMgr();
 
 		MStringArray meshNodes;
 #ifdef TRANSFORM_SHAPE_PAIR
