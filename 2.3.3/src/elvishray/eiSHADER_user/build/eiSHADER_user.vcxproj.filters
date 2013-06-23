@@ -30,6 +30,9 @@
     <ClCompile Include="..\src\er_checker2\er_checker2.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\er_architectural\er_architectural.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ei_AOVMacroDef.h">

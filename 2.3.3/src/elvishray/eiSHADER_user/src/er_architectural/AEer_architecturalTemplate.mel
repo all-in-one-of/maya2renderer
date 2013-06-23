@@ -1,0 +1,66 @@
+global proc AEer_architecturalTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEer_architecturalTemplate("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	//AEliquidShaderTemplate($nodeName);
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+
+				editorTemplate -addDynamicControl "surface_color";
+				editorTemplate -addDynamicControl "diffuse_color";
+				editorTemplate -addDynamicControl "diffuse_weight";
+				editorTemplate -addDynamicControl "specular_color";
+				editorTemplate -addDynamicControl "specular_weight";
+				editorTemplate -addDynamicControl "roughness";
+				editorTemplate -addDynamicControl "specular_mode";
+				editorTemplate -addDynamicControl "glossiness";
+				editorTemplate -addDynamicControl "reflection_color";
+				editorTemplate -addDynamicControl "reflection_weight";
+				editorTemplate -addDynamicControl "refraction_color";
+				editorTemplate -addDynamicControl "refraction_weight";
+				editorTemplate -addDynamicControl "refraction_glossiness";
+				editorTemplate -addDynamicControl "refraction_thickness";
+				editorTemplate -addDynamicControl "translucency_color";
+				editorTemplate -addDynamicControl "translucency_weight";
+				editorTemplate -addDynamicControl "translucency_mode";
+				editorTemplate -addDynamicControl "sss_color";
+				editorTemplate -addDynamicControl "sss_scale_color";
+				editorTemplate -addDynamicControl "sss_scale_weight";
+				editorTemplate -addDynamicControl "sss_phase";
+				editorTemplate -addDynamicControl "anisotropy";
+				editorTemplate -addDynamicControl "rotation";
+				editorTemplate -addDynamicControl "ior";
+				editorTemplate -addDynamicControl "fresnel_by_ior";
+				editorTemplate -addDynamicControl "fresnel_0_degree_refl";
+				editorTemplate -addDynamicControl "fresnel_90_degree_refl";
+				editorTemplate -addDynamicControl "fresnel_curve";
+				editorTemplate -addDynamicControl "is_metal";
+				editorTemplate -addDynamicControl "diffuse_samples";
+				editorTemplate -addDynamicControl "reflection_samples";
+				editorTemplate -addDynamicControl "refraction_samples";
+				editorTemplate -addDynamicControl "sss_samples";
+				editorTemplate -addDynamicControl "cutoff_threshold";
+				editorTemplate -addDynamicControl "bump_shader";
+				editorTemplate -addDynamicControl "bump_factor";
+				editorTemplate -addDynamicControl "displace_shader";
+				editorTemplate -addDynamicControl "displace_factor";
+
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

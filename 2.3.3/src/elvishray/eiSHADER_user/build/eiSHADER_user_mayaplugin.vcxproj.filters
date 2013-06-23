@@ -10,6 +10,9 @@
     <Filter Include="src\er_checker2">
       <UniqueIdentifier>{80eb3eeb-f885-432d-97a3-ee6708c9c56a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\er_architectural">
+      <UniqueIdentifier>{96fb6228-564a-49de-a728-cad790804691}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp">
@@ -20,6 +23,12 @@
     </ClCompile>
     <ClCompile Include="..\src\er_checker2\er_checker2_node_visitor.cpp">
       <Filter>src\er_checker2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\er_architectural\er_architectural_node.cpp">
+      <Filter>src\er_architectural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\er_architectural\er_architectural_node_visitor.cpp">
+      <Filter>src\er_architectural</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +41,12 @@
     <ClInclude Include="..\src\er_user_nodeId.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\er_architectural\er_architectural_node.h">
+      <Filter>src\er_architectural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\er_architectural\er_architectural_node_visitor.h">
+      <Filter>src\er_architectural</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\er_checker2\userSetup.mel">
@@ -42,6 +57,12 @@
     </None>
     <None Include="..\src\userSetup.mel">
       <Filter>src</Filter>
+    </None>
+    <None Include="..\src\er_architectural\AEer_architecturalTemplate.mel">
+      <Filter>src\er_architectural</Filter>
+    </None>
+    <None Include="..\src\er_architectural\userSetup.mel">
+      <Filter>src\er_architectural</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -42,5 +42,6 @@ print "This is erSHADER_user/usersetup.mel\n";
 
 // source subdirectoies scripts
 eval( "source \"" + getThisDirectory() + "/er_checker2/userSetup.mel\"" );
+eval( "source \"" + getThisDirectory() + "/er_architectural/userSetup.mel\"" );
 
  

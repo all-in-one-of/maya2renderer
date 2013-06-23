@@ -1,0 +1,9 @@
+print "This is $ER_SHADER_USER/src/er_architectural/userSetup.mel\n";
+
+string $erSHADER_user_DIR = getenv("ER_SHADER_USER");
+if( $erSHADER_user_DIR == "" )
+{
+    error("environment variable <ER_SHADER_USER> is not set in Maya.env");
+} else {
+    eval( "source \"" + $erSHADER_user_DIR + "/src/er_architectural/AEer_architecturalTemplate.mel\"" );
+}

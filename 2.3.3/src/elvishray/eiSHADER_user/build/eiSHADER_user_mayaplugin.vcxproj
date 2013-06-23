@@ -2561,15 +2561,21 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb $(TargetDir)..\..\
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp" />
+    <ClCompile Include="..\src\er_architectural\er_architectural_node.cpp" />
+    <ClCompile Include="..\src\er_architectural\er_architectural_node_visitor.cpp" />
     <ClCompile Include="..\src\er_checker2\er_checker2_node.cpp" />
     <ClCompile Include="..\src\er_checker2\er_checker2_node_visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\er_architectural\er_architectural_node.h" />
+    <ClInclude Include="..\src\er_architectural\er_architectural_node_visitor.h" />
     <ClInclude Include="..\src\er_checker2\er_checker2_node.h" />
     <ClInclude Include="..\src\er_checker2\er_checker2_node_visitor.h" />
     <ClInclude Include="..\src\er_user_nodeId.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\er_architectural\AEer_architecturalTemplate.mel" />
+    <None Include="..\src\er_architectural\userSetup.mel" />
     <None Include="..\src\er_checker2\AEer_checker2Template.mel" />
     <None Include="..\src\er_checker2\userSetup.mel" />
     <None Include="..\src\userSetup.mel" />

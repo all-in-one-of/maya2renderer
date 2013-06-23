@@ -13,6 +13,7 @@ namespace elvishray
 		UTI_START				= 0x00040000,
 
 		UTI_Checker2_NODE		= 0x00040000,
+		UTI_Architectural_NODE	= 0x00040001,
 
 		UTI_NUM,
 	};
