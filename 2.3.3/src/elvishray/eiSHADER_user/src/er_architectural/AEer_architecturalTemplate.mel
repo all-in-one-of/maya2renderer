@@ -47,12 +47,12 @@ global proc AEer_architecturalTemplate( string $nodeName )
 				editorTemplate -addDynamicControl "refraction_samples";
 				editorTemplate -addDynamicControl "sss_samples";
 				editorTemplate -addDynamicControl "cutoff_threshold";
-				//editorTemplate -addDynamicControl "bump_shader";
+				editorTemplate -addDynamicControl "bump_shader";
 				editorTemplate -addDynamicControl "bump_factor";
-				//editorTemplate -addDynamicControl "displace_shader";
+				editorTemplate -addDynamicControl "displace_shader";
 				editorTemplate -addDynamicControl "displace_factor";
-				editorTemplate -addDynamicControl "liq_bump_shader_token";
-				editorTemplate -addDynamicControl "liq_displace_shader_token";
+				//editorTemplate -addDynamicControl "liq_bump_shader_token";
+				//editorTemplate -addDynamicControl "liq_displace_shader_token";
 
 			editorTemplate -endLayout;
 		editorTemplate -endLayout;

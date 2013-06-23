@@ -12,6 +12,7 @@
 #include "er_architectural_node.h"
 #include "../er_rnode_visitor_mgr.h"
 #include "../er_nodeId.h"
+#include "../er_helper.h"
 
 namespace elvishray
 {
@@ -102,13 +103,15 @@ namespace elvishray
 		validConnectionMap.append("bump_factor");
 		validConnectionMap.append("displace_shader");
 		validConnectionMap.append("displace_factor");
-		validConnectionMap.append("liq_bump_shader_token");
-		validConnectionMap.append("liq_displace_shader_token");
+//		validConnectionMap.append("liq_bump_shader_token");
+//		validConnectionMap.append("liq_displace_shader_token");
 		validConnectionMap.end();
 	}
 	bool ArchitecturalNodeVisitor::visit(const char *node)
 	{
 		CM_TRACE_FUNC("ArchitecturalNodeVisitor::visit("<<node<<")");
+
+		OutputMgr &out = getOutputMgr();
 
 		ER::OutputHelper o;
 		o.beginRSL(ArchitecturalNode::getTypeName(), node);
@@ -118,42 +121,66 @@ namespace elvishray
 		o.addRSLVariable("float",	"diffuse_weight",	"diffuse_weight",		node);
 		o.addRSLVariable("color",	"specular_color",	"specular_color",		node);
 		o.addRSLVariable("float",	"specular_weight",	"specular_weight",		node);
-		o.addRSLVariable("float",	"roughness",	"roughness",		node);
-		o.addRSLVariable("int",	"specular_mode",	"specular_mode",		node);
-		o.addRSLVariable("float",	"glossiness",	"glossiness",		node);
+		o.addRSLVariable("float",	"roughness",		"roughness",			node);
+		o.addRSLVariable("int",		"specular_mode",	"specular_mode",		node);
+		o.addRSLVariable("float",	"glossiness",		"glossiness",			node);
 		o.addRSLVariable("color",	"reflection_color",	"reflection_color",		node);
-		o.addRSLVariable("float",	"reflection_weight",	"reflection_weight",		node);
+		o.addRSLVariable("float",	"reflection_weight","reflection_weight",	node);
 		o.addRSLVariable("color",	"refraction_color",	"refraction_color",		node);
-		o.addRSLVariable("float",	"refraction_weight",	"refraction_weight",		node);
-		o.addRSLVariable("float",	"refraction_glossiness",	"refraction_glossiness",		node);
-		o.addRSLVariable("float",	"refraction_thickness",	"refraction_thickness",		node);
-		o.addRSLVariable("color",	"translucency_color",	"translucency_color",		node);
-		o.addRSLVariable("float",	"translucency_weight",	"translucency_weight",		node);
-		o.addRSLVariable("int",	"translucency_mode",	"translucency_mode",		node);
-		o.addRSLVariable("color",	"sss_color",	"sss_color",		node);
-		o.addRSLVariable("color",	"sss_scale_color",	"sss_scale_color",		node);
-		o.addRSLVariable("float",	"sss_scale_weight",	"sss_scale_weight",		node);
-		o.addRSLVariable("float",	"sss_phase",	"sss_phase",		node);
-		o.addRSLVariable("float",	"anisotropy",	"anisotropy",		node);
-		o.addRSLVariable("float",	"rotation",	"rotation",		node);
-		o.addRSLVariable("float",	"ior",	"ior",		node);
-		o.addRSLVariable("bool",	"fresnel_by_ior",	"fresnel_by_ior",		node);
-		o.addRSLVariable("float",	"fresnel_0_degree_refl",	"fresnel_0_degree_refl",		node);
-		o.addRSLVariable("float",	"fresnel_90_degree_refl",	"fresnel_90_degree_refl",		node);
-		o.addRSLVariable("float",	"fresnel_curve",	"fresnel_curve",		node);
-		o.addRSLVariable("bool",	"is_metal",	"is_metal",		node);
-		o.addRSLVariable("int",	"diffuse_samples",	"diffuse_samples",		node);
-		o.addRSLVariable("int",	"reflection_samples",	"reflection_samples",		node);
-		o.addRSLVariable("int",	"refraction_samples",	"refraction_samples",		node);
-		o.addRSLVariable("int",	"sss_samples",	"sss_samples",		node);
-		o.addRSLVariable("float",	"cutoff_threshold",	"cutoff_threshold",		node);
-		//o.addRSLVariable("shader",	"bump_shader",	"bump_shader",		node);
-		o.addRSLVariable("float",	"bump_factor",	"bump_factor",		node);
-		//o.addRSLVariable("shader",	"displace_shader",	"displace_shader",		node);
-		o.addRSLVariable("float",	"displace_factor",	"displace_factor",		node);
+		o.addRSLVariable("float",	"refraction_weight","refraction_weight",	node);
+		o.addRSLVariable("float",	"refraction_glossiness",	"refraction_glossiness",node);
+		o.addRSLVariable("float",	"refraction_thickness",		"refraction_thickness",	node);
+		o.addRSLVariable("color",	"translucency_color",		"translucency_color",	node);
+		o.addRSLVariable("float",	"translucency_weight",		"translucency_weight",	node);
+		o.addRSLVariable("int",		"translucency_mode",		"translucency_mode",	node);
+		o.addRSLVariable("color",	"sss_color",				"sss_color",			node);
+		o.addRSLVariable("color",	"sss_scale_color",			"sss_scale_color",		node);
+		o.addRSLVariable("float",	"sss_scale_weight",			"sss_scale_weight",		node);
+		o.addRSLVariable("float",	"sss_phase",				"sss_phase",			node);
+		o.addRSLVariable("float",	"anisotropy",				"anisotropy",			node);
+		o.addRSLVariable("float",	"rotation",					"rotation",				node);
+		o.addRSLVariable("float",	"ior",						"ior",					node);
+		o.addRSLVariable("bool",	"fresnel_by_ior",			"fresnel_by_ior",		node);
+		o.addRSLVariable("float",	"fresnel_0_degree_refl",	"fresnel_0_degree_refl",node);
+		o.addRSLVariable("float",	"fresnel_90_degree_refl",	"fresnel_90_degree_refl",node);
+		o.addRSLVariable("float",	"fresnel_curve",			"fresnel_curve",		node);
+		o.addRSLVariable("bool",	"is_metal",					"is_metal",				node);
+		o.addRSLVariable("int",		"diffuse_samples",			"diffuse_samples",		node);
+		o.addRSLVariable("int",		"reflection_samples",		"reflection_samples",	node);
+		o.addRSLVariable("int",		"refraction_samples",		"refraction_samples",	node);
+		o.addRSLVariable("int",		"sss_samples",				"sss_samples",			node);
+		o.addRSLVariable("float",	"cutoff_threshold",			"cutoff_threshold",		node);
+		//o.addRSLVariable("shader","bump_shader",				"bump_shader",			node);
+		o.addRSLVariable("float",	"bump_factor",				"bump_factor",			node);
+		//o.addRSLVariable("shader","displace_shader",			"displace_shader",		node);
+		o.addRSLVariable("float",	"displace_factor",			"displace_factor",		node);
 		
-		o.addRSLVariable("string",	"liq_bump_shader_token",	"liq_bump_shader_token",		node);
-		o.addRSLVariable("string",	"liq_displace_shader_token","liq_displace_shader_token",	node);
+		//assign bump shader node name to "liq_bump_shader_token"
+		MString bumpSrcNode;
+		{
+			MString plug("liq_bump_shader_token");
+
+			MStringArray srcNodes;
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+MString(node)+"."+plug+"\"", srcNodes));
+			if( srcNodes.length() != 0 ){
+				bumpSrcNode = srcNodes[ 0 ];
+			}
+		}
+		out.ei_shader_param_token("liq_bump_shader_token",	ei_token(bumpSrcNode.asChar()) );
+		
+		//assign displace shader node name to "liq_displace_shader_token"
+		MString displaceSrcNode;
+		{
+			MString plug("liq_displace_shader_token");
+
+			MStringArray srcNodes;
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+MString(node)+"."+plug+"\"", srcNodes));
+			if( srcNodes.length() != 0 ){
+				displaceSrcNode = srcNodes[ 0 ];
+			}
+		}
+		out.ei_shader_param_token("liq_displace_shader_token",ei_token(displaceSrcNode.asChar()) );
+
 
 		o.endRSL();
 

@@ -1,6 +1,6 @@
 #include <common/mayacheck.h>
 #include "er_helper.h"
-
+#include "er_renderer.h"
 
 namespace elvishray
 {
@@ -51,6 +51,11 @@ namespace elvishray
 		return shaderParameterName;
 	}
 
+	//----------------------------------------------------
+	OutputMgr& getOutputMgr()
+	{
+		return Renderer::getOutputMgr();
+	}
 
 
 }//namespace elvishray

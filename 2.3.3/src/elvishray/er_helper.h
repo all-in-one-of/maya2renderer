@@ -1,6 +1,7 @@
 #ifndef _ER_HELPER_H_
 #define _ER_HELPER_H_
 #include <common/prerequest_maya.h>
+#include "er_export.h"
 
 namespace elvishray
 {	
@@ -15,6 +16,12 @@ namespace elvishray
 	MString getTestMaterialName();
 	//
 	MString convertMayaPlugNameToERShaderParameterName(const MString& attr);
+
+	//----------------------------------------------------
+	//            Expport Interfaces
+	//----------------------------------------------------
+	class OutputMgr;
+	ER_EXPORT OutputMgr& getOutputMgr();
 }
 
 #endif//_ER_HELPER_H_

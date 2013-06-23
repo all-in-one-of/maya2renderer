@@ -101,8 +101,8 @@ MObject ArchitecturalNode::abump_shader;
 MObject ArchitecturalNode::abump_factor;
 MObject ArchitecturalNode::adisplace_shader;
 MObject ArchitecturalNode::adisplace_factor;
-MObject ArchitecturalNode::aliq_bump_shader_token;
-MObject ArchitecturalNode::aliq_displace_shader_token;
+//MObject ArchitecturalNode::aliq_bump_shader_token;
+//MObject ArchitecturalNode::aliq_displace_shader_token;
 
 #define MAKE_INPUT(attr)		\
 	IfMErrorWarn(attr.setKeyable(true ) ); 		\
@@ -387,10 +387,10 @@ MStatus ArchitecturalNode::initialize_shader_parameters()
 	adisplace_factor = nAttr.create("displace_factor", "dsp", MFnNumericData::kDouble, 1.0, &status);
 	MAKE_INPUT(nAttr);
 
-	aliq_bump_shader_token = tAttr.create( MString("liq_bump_shader_token"), MString("bto"), MFnData::kString, aliq_bump_shader_token, &status );
-	MAKE_INPUT(tAttr);
-	aliq_displace_shader_token = tAttr.create( MString("liq_displace_shader_token"), MString("dto"), MFnData::kString, aliq_displace_shader_token, &status );
-	MAKE_INPUT(tAttr);
+	//aliq_bump_shader_token = tAttr.create( MString("liq_bump_shader_token"), MString("bto"), MFnData::kString, aliq_bump_shader_token, &status );
+	//MAKE_INPUT(tAttr);
+	//aliq_displace_shader_token = tAttr.create( MString("liq_displace_shader_token"), MString("dto"), MFnData::kString, aliq_displace_shader_token, &status );
+	//MAKE_INPUT(tAttr);
 
 	IfMErrorWarn( addAttribute( asurface_color ) );
 	IfMErrorWarn( addAttribute( adiffuse_color ) );
@@ -430,8 +430,8 @@ MStatus ArchitecturalNode::initialize_shader_parameters()
 	IfMErrorWarn( addAttribute(abump_factor  ) );
 	IfMErrorWarn( addAttribute( adisplace_shader ) );
 	IfMErrorWarn( addAttribute( adisplace_factor ) );
-	IfMErrorWarn( addAttribute( aliq_bump_shader_token ) );
-	IfMErrorWarn( addAttribute( aliq_displace_shader_token ) );
+	//IfMErrorWarn( addAttribute( aliq_bump_shader_token ) );
+	//IfMErrorWarn( addAttribute( aliq_displace_shader_token ) );
 
 	IfMErrorWarn( attributeAffects( asurface_color,			aOutColor ) );
 	IfMErrorWarn( attributeAffects( adiffuse_color,			aOutColor ) );
@@ -471,8 +471,8 @@ MStatus ArchitecturalNode::initialize_shader_parameters()
 	IfMErrorWarn( attributeAffects( abump_factor,			aOutColor ) );
 	IfMErrorWarn( attributeAffects( adisplace_shader,		aOutColor ) );
 	IfMErrorWarn( attributeAffects( adisplace_factor,		aOutColor ) );
-	IfMErrorWarn( attributeAffects( aliq_bump_shader_token,		aOutColor ) );
-	IfMErrorWarn( attributeAffects( aliq_displace_shader_token,		aOutColor ) );
+	//IfMErrorWarn( attributeAffects( aliq_bump_shader_token,		aOutColor ) );
+	//IfMErrorWarn( attributeAffects( aliq_displace_shader_token,		aOutColor ) );
 
 	return MS::kSuccess;
 }
