@@ -102,6 +102,8 @@ namespace elvishray
 		validConnectionMap.append("bump_factor");
 		validConnectionMap.append("displace_shader");
 		validConnectionMap.append("displace_factor");
+		validConnectionMap.append("liq_bump_shader_token");
+		validConnectionMap.append("liq_displace_shader_token");
 		validConnectionMap.end();
 	}
 	bool ArchitecturalNodeVisitor::visit(const char *node)
@@ -145,11 +147,14 @@ namespace elvishray
 		o.addRSLVariable("int",	"refraction_samples",	"refraction_samples",		node);
 		o.addRSLVariable("int",	"sss_samples",	"sss_samples",		node);
 		o.addRSLVariable("float",	"cutoff_threshold",	"cutoff_threshold",		node);
-		o.addRSLVariable("shader",	"bump_shader",	"bump_shader",		node);
+		//o.addRSLVariable("shader",	"bump_shader",	"bump_shader",		node);
 		o.addRSLVariable("float",	"bump_factor",	"bump_factor",		node);
-		o.addRSLVariable("shader",	"displace_shader",	"displace_shader",		node);
+		//o.addRSLVariable("shader",	"displace_shader",	"displace_shader",		node);
 		o.addRSLVariable("float",	"displace_factor",	"displace_factor",		node);
-	
+		
+		o.addRSLVariable("string",	"liq_bump_shader_token",	"liq_bump_shader_token",		node);
+		o.addRSLVariable("string",	"liq_displace_shader_token","liq_displace_shader_token",	node);
+
 		o.endRSL();
 
 		return true;

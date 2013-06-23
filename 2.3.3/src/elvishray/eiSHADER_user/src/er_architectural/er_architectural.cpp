@@ -18,7 +18,7 @@
 
 #include <eiAPI/ei_shaderx.h>
 #include <new>
-
+#include <cassert>
 
 class FresnelByIOR : public Fresnel {
 public:
@@ -225,6 +225,8 @@ SURFACE(er_architectural)
 	DECLARE_SCALAR(bump_factor, 0.3f);
 	DECLARE_TAG(displace_shader, eiNULL_TAG);
 	DECLARE_SCALAR(displace_factor, 1.0f);
+	DECLARE_TOKEN(liq_bump_shader_token, NULL);
+	DECLARE_TOKEN(liq_displace_shader_token, NULL);
 	END_DECLARE;
 
 	static const char *u_result;
@@ -240,6 +242,27 @@ SURFACE(er_architectural)
 
 	void init_node()
 	{
+		if( liq_bump_shader_token().str == NULL )
+		{
+			bump_shader() = ei_find_node( liq_bump_shader_token().str ) ;
+			if (bump_shader() == eiNULL_TAG)
+			{
+				printf("ERROR> er_architectural, liq_bump_shader_token().str=\"%s\", it can't be found\n", liq_bump_shader_token().str);
+				assert(0 && "er_architectural's liq_bump_shader_token() node is not found");
+				//return;
+			}
+		}
+		if( liq_displace_shader_token().str == NULL )
+		{
+			displace_shader() = ei_find_node( liq_displace_shader_token().str ) ;
+			if (displace_shader() == eiNULL_TAG)
+			{
+				printf("ERROR> er_architectural, liq_displace_shader_token().str=\"%s\", it can't be found\n", liq_displace_shader_token().str);
+				assert(0 && "er_architectural's liq_displace_shader_token() node is not found");
+				//return;
+			}
+		}
+
 	}
 
 	void exit_node()
