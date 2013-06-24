@@ -240,13 +240,12 @@ global proc liquidMayaVersionOverwrite()
 
   if ( $liq_maya_version_int >= 2011 )
   {	
-  	liqlog("source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"");
-  	eval( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
+  	evalEcho( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
   } 
   if ( $liq_maya_version_int >= 2012 )
   {	
-  	liqlog("source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"");
-  	eval( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"" );
+  	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"" );
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel"  + "\"" );
   } 
   liqPopIdent();
 }
