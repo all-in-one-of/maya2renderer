@@ -197,7 +197,8 @@ global proc liquidLoadScripts()
 	"liquidProceduralsForSubRenderer.mel",
 	"liquidCustomNodeUI.mel",
 	"liquidCustomNodeUI.res.mel",
-	"liquidHyperShadePanel.mel"
+	"liquidHyperShadePanel.mel",
+	"liquidBuildShaderMenus.mel"
   };
 
   string $liquidHome = liquidGetHome();
