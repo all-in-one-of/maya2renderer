@@ -221,16 +221,32 @@ SURFACE(er_architectural)
 	DECLARE_INT(refraction_samples, 4);
 	DECLARE_INT(sss_samples, 64);
 	DECLARE_SCALAR(cutoff_threshold, 0.01f);
-	DECLARE_TAG(bump_shader, eiNULL_TAG);
+	DECLARE_TOKEN(liq_bump_shader_token, NULL);//DECLARE_TAG(bump_shader, eiNULL_TAG);
 	DECLARE_SCALAR(bump_factor, 0.3f);
-	DECLARE_TAG(displace_shader, eiNULL_TAG);
+	DECLARE_TOKEN(liq_displace_shader_token, NULL);//DECLARE_TAG(displace_shader, eiNULL_TAG);
 	DECLARE_SCALAR(displace_factor, 1.0f);
-	DECLARE_TOKEN(liq_bump_shader_token, NULL);
-	DECLARE_TOKEN(liq_displace_shader_token, NULL);
 	END_DECLARE;
 
 	static const char *u_result;
 
+	//////////////////////////////////////////////////////////////////////////
+	class Globals
+	{
+	public:
+		Globals()
+		{
+			bump_shader     = eiNULL_TAG;
+			displace_shader = eiNULL_TAG;
+		}
+		~Globals()
+		{
+			bump_shader     = eiNULL_TAG;
+			displace_shader = eiNULL_TAG;
+		}
+		eiTag bump_shader;
+		eiTag displace_shader;
+	};
+	//////////////////////////////////////////////////////////////////////////
 	static void init()
 	{
 		u_result = ei_token("result");
@@ -242,26 +258,11 @@ SURFACE(er_architectural)
 
 	void init_node()
 	{
-		if( liq_bump_shader_token().str == NULL )
-		{
-			bump_shader() = ei_find_node( liq_bump_shader_token().str ) ;
-			if (bump_shader() == eiNULL_TAG)
-			{
-				printf("ERROR> er_architectural, liq_bump_shader_token().str=\"%s\", it can't be found\n", liq_bump_shader_token().str);
-				assert(0 && "er_architectural's liq_bump_shader_token() node is not found");
-				//return;
-			}
-		}
-		if( liq_displace_shader_token().str == NULL )
-		{
-			displace_shader() = ei_find_node( liq_displace_shader_token().str ) ;
-			if (displace_shader() == eiNULL_TAG)
-			{
-				printf("ERROR> er_architectural, liq_displace_shader_token().str=\"%s\", it can't be found\n", liq_displace_shader_token().str);
-				assert(0 && "er_architectural's liq_displace_shader_token() node is not found");
-				//return;
-			}
-		}
+		Globals *g = new Globals;
+		glob = (void *)g;
+		//
+		setBumpShader(liq_bump_shader_token().str);
+		setDisplaceShader(liq_displace_shader_token().str);
 
 	}
 
@@ -397,7 +398,7 @@ SURFACE(er_architectural)
 
 	void main_displace(void *arg)
 	{
-		eiTag shader = displace_shader();
+		eiTag shader = getDisplaceShader();
 		if (shader != eiNULL_TAG)
 		{
 			color	C;
@@ -449,7 +450,7 @@ SURFACE(er_architectural)
 		const scalar refl = clamp(reflection_weight(), 0.0f, 1.0f);
 
 		// for surface shader, we call bump shader
-		eiTag shader = bump_shader();
+		eiTag shader = getBumpShader();
 		if (shader != eiNULL_TAG)
 		{
 			call_bump_shader(shader, bump_factor());
@@ -744,6 +745,47 @@ SURFACE(er_architectural)
 
 		Rs->~BSDF();
 		Rts->~BSDF();
+	}
+
+	eiTag setBumpShader(const char *bump_shader_name)
+	{
+		Globals *g = (Globals *)glob ;
+		//
+		if( bump_shader_name == NULL )
+		{
+			g->bump_shader = ei_find_node( bump_shader_name ) ;
+			if (g->bump_shader == eiNULL_TAG)
+			{
+				printf("ERROR> er_architectural, bump_shader_name=\"%s\", it can't be found\n", bump_shader_name);
+				assert(0 && "er_architectural's bump_shader_name node is not found");
+			}
+		}
+		return g->bump_shader;
+	}
+	eiTag getBumpShader()
+	{
+		Globals *g = (Globals *)glob ;
+		return g->bump_shader;
+	}
+	eiTag setDisplaceShader(const char *displace_shader_name)
+	{
+		Globals *g = (Globals *)glob ;
+		//
+		if( displace_shader_name == NULL )
+		{
+			g->displace_shader = ei_find_node( displace_shader_name ) ;
+			if (g->displace_shader == eiNULL_TAG)
+			{
+				printf("ERROR> er_architectural, displace_shade_name=\"%s\", it can't be found\n", displace_shader_name);
+				assert(0 && "er_architectural's displace_shade_name node is not found");
+			}
+		}
+		return g->displace_shader;
+	}
+	eiTag getDisplaceShader()
+	{
+		Globals *g = (Globals *)glob ;
+		return g->displace_shader;
 	}
 
 END(er_architectural)

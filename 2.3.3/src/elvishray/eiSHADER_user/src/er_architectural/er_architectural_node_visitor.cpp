@@ -103,8 +103,6 @@ namespace elvishray
 		validConnectionMap.append("bump_factor");
 		validConnectionMap.append("displace_shader");
 		validConnectionMap.append("displace_factor");
-//		validConnectionMap.append("liq_bump_shader_token");
-//		validConnectionMap.append("liq_displace_shader_token");
 		validConnectionMap.end();
 	}
 	bool ArchitecturalNodeVisitor::visit(const char *node)
@@ -150,18 +148,14 @@ namespace elvishray
 		o.addRSLVariable("int",		"refraction_samples",		"refraction_samples",	node);
 		o.addRSLVariable("int",		"sss_samples",				"sss_samples",			node);
 		o.addRSLVariable("float",	"cutoff_threshold",			"cutoff_threshold",		node);
-		//o.addRSLVariable("shader","bump_shader",				"bump_shader",			node);
 		o.addRSLVariable("float",	"bump_factor",				"bump_factor",			node);
-		//o.addRSLVariable("shader","displace_shader",			"displace_shader",		node);
 		o.addRSLVariable("float",	"displace_factor",			"displace_factor",		node);
 		
 		//assign bump shader node name to "liq_bump_shader_token"
 		MString bumpSrcNode;
 		{
-			MString plug("liq_bump_shader_token");
-
 			MStringArray srcNodes;
-			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+MString(node)+"."+plug+"\"", srcNodes));
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+MString(node)+".bump_shader\"", srcNodes));
 			if( srcNodes.length() != 0 ){
 				bumpSrcNode = srcNodes[ 0 ];
 			}
@@ -171,10 +165,8 @@ namespace elvishray
 		//assign displace shader node name to "liq_displace_shader_token"
 		MString displaceSrcNode;
 		{
-			MString plug("liq_displace_shader_token");
-
 			MStringArray srcNodes;
-			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+MString(node)+"."+plug+"\"", srcNodes));
+			IfMErrorWarn(MGlobal::executeCommand("listConnections -source true -destination off -plugs off \""+MString(node)+".displace_shader\"", srcNodes));
 			if( srcNodes.length() != 0 ){
 				displaceSrcNode = srcNodes[ 0 ];
 			}

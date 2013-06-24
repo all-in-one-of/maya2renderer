@@ -121,8 +121,6 @@ class ArchitecturalNode : public MPxNode
 	  static MObject abump_factor;
 	  static MObject adisplace_shader;
 	  static MObject adisplace_factor;
-	  //static MObject aliq_bump_shader_token;
-	  //static MObject aliq_displace_shader_token;
 
 	bool    swatchInit;
 
