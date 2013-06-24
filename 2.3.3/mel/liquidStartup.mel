@@ -194,7 +194,10 @@ global proc liquidLoadScripts()
     "GetPossibleTextures.mel",
     "liquidliquidShaderNodes.mel",
 	"liquidUserCallbackInterface.mel",
-	"liquidProceduralsForSubRenderer.mel"
+	"liquidProceduralsForSubRenderer.mel",
+	"liquidCustomNodeUI.mel",
+	"liquidCustomNodeUI.res.mel",
+	"liquidHyperShadePanel.mel"
   };
 
   string $liquidHome = liquidGetHome();
@@ -857,8 +860,8 @@ global proc liquidmayaBatchRender( string $options )
 {
   liqPushIdent();
 	liqlog("liquidmayaBatchRender("+$options+")");
-  //if( ! `pluginInfo -q -l "liquid"` ) loadPlugin "liquid";
-  if( ! `pluginInfo -q -l "liquid_2008x32d"` ) loadPlugin "liquid_2008x32d";
+  string $liquidPluginName = liquidGetPluginName();
+  if( ! `pluginInfo -q -l $liquidPluginName` ) loadPlugin $liquidPluginName;
   string $cmd = ( "liquid -GL " + $options );
   LIQUID_userPreRenderMel("");
   eval $cmd;

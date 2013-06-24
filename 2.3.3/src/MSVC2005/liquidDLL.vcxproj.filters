@@ -872,6 +872,18 @@
     <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel">
       <Filter>MEL Scripts</Filter>
     </None>
+    <None Include="..\..\mel\2012\hyperShadePanel.mel">
+      <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\liquidHyperShadePanel.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCustomNodeUI.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCustomNodeUI.res.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">

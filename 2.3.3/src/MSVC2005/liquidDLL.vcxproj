@@ -2747,6 +2747,7 @@
   <ItemGroup>
     <None Include="..\..\mel\2011\liquidFileBrowser.mel" />
     <None Include="..\..\mel\2011\liquidParamDialogWindow.mel" />
+    <None Include="..\..\mel\2012\hyperShadePanel.mel" />
     <None Include="..\..\mel\2012\liquidBuildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\..\mel\AEdagNodeInclude.mel" />
     <None Include="..\..\mel\AEdependNodeTemplate.mel" />
@@ -2773,6 +2774,9 @@
     <None Include="..\..\mel\getMultiListerSelection.mel" />
     <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
     <None Include="..\..\mel\liquidAttributeManager.mel" />
+    <None Include="..\..\mel\liquidCustomNodeUI.mel" />
+    <None Include="..\..\mel\liquidCustomNodeUI.res.mel" />
+    <None Include="..\..\mel\liquidHyperShadePanel.mel" />
     <None Include="..\..\mel\liquidIpr.mel" />
     <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
     <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel" />
