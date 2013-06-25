@@ -2544,6 +2544,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\elvishray\er_classification.cpp" />
     <ClCompile Include="..\elvishray\er_globalnode.cpp" />
     <ClCompile Include="..\elvishray\er_helper.cpp" />
     <ClCompile Include="..\elvishray\er_iprMgr.cpp" />
@@ -2598,6 +2599,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_.h" />
+    <ClInclude Include="..\elvishray\er_classification.h" />
     <ClInclude Include="..\elvishray\er_export.h" />
     <ClInclude Include="..\elvishray\er_factory.h" />
     <ClInclude Include="..\elvishray\er_globalnode.h" />

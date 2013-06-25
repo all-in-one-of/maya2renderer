@@ -171,6 +171,9 @@
     <ClCompile Include="..\elvishray\er_rnode_visitor_mgr.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\elvishray\er_classification.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\elvishray\er_factory.h">
@@ -258,6 +261,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_export.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\elvishray\er_classification.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

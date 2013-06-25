@@ -11,7 +11,7 @@
 #include "../shaderOutputER.h"
 #include "er_checker_node.h"
 #include "../er_rnode_visitor_mgr.h"
-#include "../er_nodeId.h"
+#include "../er_classification.h"
 
 namespace elvishray
 {

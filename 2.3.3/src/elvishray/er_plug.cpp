@@ -47,7 +47,7 @@
 #include "../elvishray/er_factory.h"
 #include "er_globalnode.h"
 #include "er_shader_node.h"
-#include "er_nodeId.h"
+#include "er_classification.h"
 #include "er_NodeAddCallback.h"
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
