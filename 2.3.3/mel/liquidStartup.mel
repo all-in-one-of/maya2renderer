@@ -197,7 +197,9 @@ global proc liquidLoadScripts()
 	"liquidProceduralsForSubRenderer.mel",
 	"liquidCustomNodeUI.mel",
 	"liquidCustomNodeUI.res.mel",
-	"liquidHyperShadePanel.mel"
+	"liquidHyperShadePanel.mel",
+	"liquidBuildShaderMenus.mel",
+	"liquidRenderCreateBarUI.mel"
   };
 
   string $liquidHome = liquidGetHome();
@@ -250,6 +252,7 @@ global proc liquidMayaVersionOverwrite()
   	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"" );
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel"  + "\"" );
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildShaderMenus.mel"  + "\"" );
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/renderCreateBarUI.mel"  + "\"" );
   } 
   liqPopIdent();
 }

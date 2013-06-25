@@ -5826,6 +5826,8 @@ global proc hyperShadePanelBuildCreateMenu(string $panel, string $parent)
 		menuItem -divider true;
 	}
 
+	LIQUID_HyperShadeCreateMenu_BuildMenu($panel, $parent);
+
 	menuItem
 		-label (uiRes("m_hyperShadePanel.kCreateRenderNode"))
 		-annotation (uiRes("m_hyperShadePanel.kCreateRenderNodeAnnot"))
@@ -6944,7 +6946,10 @@ global proc hyperShadePanelMenuCommand(
             warning( (uiRes("m_hyperShadePanel.kNotASceneTabWarn")));
         }
 	}
-
+	else if( LIQUID_hyperShadePanelMenuCommand($panel, $command) )
+	{
+		//the command is handled by Liquid in LIQUID_hyperShadePanelMenuCommand()
+	}
 	else
 	{
 		string $errorMsg = (uiRes("m_hyperShadePanel.kCommandNotImplemented"));
@@ -7743,6 +7748,9 @@ proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 						+ "\", \"asList\")")
 				asListColumnButton;
 
+			string $LiquidControl = LIQUID_createButtonsColumnContent($panel, $buttonsColumn,
+				$iconSize
+			);
 			separator -height $iconSize -visible false separator1;
 
 			// Buttons for View as Small/Medium/Large Swatches
@@ -7853,7 +7861,16 @@ proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 				-af asListColumnButton left 0
 				-af asListColumnButton right 0
 
-				-ac separator1 top 0 asListColumnButton
+				// modified by liquid, begin
+				-ac $LiquidControl top 0 asListColumnButton
+				-an $LiquidControl bottom
+				-af $LiquidControl left 0
+				-af $LiquidControl right 0
+
+				-ac separator1 top 0 $LiquidControl
+				//-ac separator1 top 0 asListColumnButton
+				// modified by liquid, end
+
 				-an separator1 bottom
 				-af separator1 left 0
 				-af separator1 right 0

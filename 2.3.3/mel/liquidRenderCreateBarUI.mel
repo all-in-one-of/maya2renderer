@@ -1,0 +1,17 @@
+// extentions from maya2012/scripts/others/renderCreateBarUI.mel
+// these functions are called from liquid/mel/2012/renderCreateBarUI.mel
+source xxliquidutility.mel;
+
+global proc LIQUID_buildRenderNodeTreeListerContent(string $renderNodeTreeLister, string $postCommand, string $filterClassArray[])
+{
+	liqPushIdent();
+	liqlog("LIQUID_buildRenderNodeTreeListerContent("+$renderNodeTreeLister+","+$postCommand+", $filterClassArray[])");
+
+
+	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
+	{
+		// this proc created inside mtoa.ui.nodeTreeLister
+		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray);
+	}
+    liqPopIdent();
+}

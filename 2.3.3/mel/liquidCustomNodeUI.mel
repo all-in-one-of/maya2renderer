@@ -145,141 +145,159 @@
 source misssLightMapFunctions.mel;
 
 
-global proc initializeMentalRayNodeTypeInfo ()
+global proc initializeLiquidNodeTypeInfo ()
 {
-    global string $mrNodeTypeInfo[];
+	liqPushIdent();
+	liqlog("initializeLiquidNodeTypeInfo()");
+
+    global string $liqNodeTypeInfo[];
     
-    if( size( $mrNodeTypeInfo ) == 0 ) 
+    if( size( $liqNodeTypeInfo ) == 0 ) 
     {
         int $index = 0;
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kMaterials"));
-        $mrNodeTypeInfo[$index++] = "mrMaterials";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/material";
-        $mrNodeTypeInfo[$index++] = "-asShader";
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kMaterials"));
+        $liqNodeTypeInfo[$index++] = "liqMaterials";
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/surface";
+        $liqNodeTypeInfo[$index++] = "-asShader";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kShadowShaders"));
-        $mrNodeTypeInfo[$index++] = "mrShadow";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/shadow";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kShadowShaders"));
+        //$liqNodeTypeInfo[$index++] = "liqShadow";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/shadow";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kVolumetricMaterials"));
-        $mrNodeTypeInfo[$index++] = "mrVolume";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/volume";
-        $mrNodeTypeInfo[$index++] = "-asShader";
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kVolumetricMaterials"));
+        $liqNodeTypeInfo[$index++] = "liqVolume";
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/volume";//"rendernode/liquid/volume";
+        $liqNodeTypeInfo[$index++] = "-asShader";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kDisplacementShaders"));
-        $mrNodeTypeInfo[$index++] = "mrDisplacement";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/displace";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kDisplacementShaders"));
+        $liqNodeTypeInfo[$index++] = "liqDisplacement";
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/displacement";//"rendernode/liquid/displace";
+        $liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kPhotonicMaterials"));
-        $mrNodeTypeInfo[$index++] = "mrPhoton";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/photon";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonicMaterials"));
+        //$liqNodeTypeInfo[$index++] = "liqPhoton";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/photon";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kPhotonVolumetricMaterials"));
-        $mrNodeTypeInfo[$index++] = "mrPhotonVolume";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/photonvol";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonVolumetricMaterials"));
+        //$liqNodeTypeInfo[$index++] = "liqPhotonVolume";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/photonvol";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kTextures"));
-        $mrNodeTypeInfo[$index++] = "mrTexture";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/texture";
-        $mrNodeTypeInfo[$index++] = "-asTexture";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kTextures"));
+        //$liqNodeTypeInfo[$index++] = "liqTexture";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/texture";
+        //$liqNodeTypeInfo[$index++] = "-asTexture";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kEnvironments"));
-        $mrNodeTypeInfo[$index++] = "mrEnvironment";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/environment";
-        $mrNodeTypeInfo[$index++] = "-asShader";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kEnvironments"));
+        //$liqNodeTypeInfo[$index++] = "liqEnvironment";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/environment";
+        //$liqNodeTypeInfo[$index++] = "-asShader";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kMentalRayLights"));
-        $mrNodeTypeInfo[$index++] = "mrLight";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/light";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLiquidLights"));
+        $liqNodeTypeInfo[$index++] = "liqLight";
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/light";
+        $liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kPhotonEmitters"));
-        $mrNodeTypeInfo[$index++] = "mrEmitter";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/emitter";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonEmitters"));
+        //$liqNodeTypeInfo[$index++] = "liqEmitter";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/emitter";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kLightMaps"));
-        $mrNodeTypeInfo[$index++] = "mrLightmap"; 
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/lightmap";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLightMaps"));
+        //$liqNodeTypeInfo[$index++] = "liqLightmap"; 
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/lightmap";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kLenses"));
-        $mrNodeTypeInfo[$index++] = "mrLens";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/lens";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLenses"));
+        //$liqNodeTypeInfo[$index++] = "liqLens";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/lens";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kOutputShaders"));
-        $mrNodeTypeInfo[$index++] = "mrOutput";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/output";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kOutputShaders"));
+        //$liqNodeTypeInfo[$index++] = "liqOutput";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/output";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kGeometry"));
-        $mrNodeTypeInfo[$index++] = "mrGeometry";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/geometry";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kGeometry"));
+        //$liqNodeTypeInfo[$index++] = "liqGeometry";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/geometry";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kContourStore"));
-        $mrNodeTypeInfo[$index++] = "mrContourStore";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/contour/store";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourStore"));
+        //$liqNodeTypeInfo[$index++] = "liqContourStore";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/store";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kContourContrast"));
-        $mrNodeTypeInfo[$index++] = "mrContourContrast";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/contour/contrast";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourContrast"));
+        //$liqNodeTypeInfo[$index++] = "liqContourContrast";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/contrast";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kContourShader"));
-        $mrNodeTypeInfo[$index++] = "mrContourShader";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/contour/shader";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourShader"));
+        //$liqNodeTypeInfo[$index++] = "liqContourShader";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/shader";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kContourOutput"));
-        $mrNodeTypeInfo[$index++] = "mrContourOutput";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/contour/output";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourOutput"));
+        //$liqNodeTypeInfo[$index++] = "liqContourOutput";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/output";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kSampleCompositing"));
-        $mrNodeTypeInfo[$index++] = "mrCompositing";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/composite";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kSampleCompositing"));
+        //$liqNodeTypeInfo[$index++] = "liqCompositing";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/composite";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kDataConversion"));
-        $mrNodeTypeInfo[$index++] = "mrConversion";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/conversion";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kDataConversion"));
+        //$liqNodeTypeInfo[$index++] = "liqConversion";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/conversion";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kStateShaders"));
-        $mrNodeTypeInfo[$index++] = "mrState";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/state";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kStateShaders"));
+        //$liqNodeTypeInfo[$index++] = "liqState";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/state";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
     
-        $mrNodeTypeInfo[$index++] = (uiRes("m_mentalrayCustomNodeUI.kMiscellaneous"));
-        $mrNodeTypeInfo[$index++] = "mrMisc";
-        $mrNodeTypeInfo[$index++] = "rendernode/mentalray/misc";
-        $mrNodeTypeInfo[$index++] = "-asUtility";
+        //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kMiscellaneous"));
+        //$liqNodeTypeInfo[$index++] = "liqMisc";
+        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/misc";
+        //$liqNodeTypeInfo[$index++] = "-asUtility";
+
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kUtilityGeneral"));
+        $liqNodeTypeInfo[$index++] = "liqUtilityGeneral";
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/utility/general";
+        $liqNodeTypeInfo[$index++] = "-asUtility";
+
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kUtilityColor"));
+        $liqNodeTypeInfo[$index++] = "liqUtilityColor";
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/utility/color";
+        $liqNodeTypeInfo[$index++] = "-asUtility";
     }    
+    liqPopIdent();
 }
 
-global proc int mrNumNodeCategories()
+global proc int liqNumNodeCategories()
 //
 //	Function:	mrNumNodeCategories()
 //	Purpose:	Returns the number of mental ray node categories.
 //
 {
+	liqPushIdent();
+	liqlog("liqNumNodeCategories()");
+
 	//
 	// Make sure all the mental ray node categories are filled in before we use them.
 	//
-	initializeMentalRayNodeTypeInfo();
-	global string $mrNodeTypeInfo[];
-
-	return( size($mrNodeTypeInfo)/4 );
+	initializeLiquidNodeTypeInfo();
+	global string $liqNodeTypeInfo[];
+   
+	liqPopIdent();
+	return( size($liqNodeTypeInfo)/4 );
 }
 
-global proc string[] mrGetNodeCategory( int $whichCat )
+global proc string[] liqGetNodeCategory( int $whichCat )
 //
 //	Function:	mrGetNodeCategory
 //	Purpose:	Retrieves information about the specified category.
@@ -289,17 +307,21 @@ global proc string[] mrGetNodeCategory( int $whichCat )
 //				for the category.
 //
 {
+	liqPushIdent();
+	liqlog("liqGetNodeCategory("+$whichCat+")");
+
 	//
 	// Make sure all the mental ray node categories are filled in before we use them.
 	//
-	initializeMentalRayNodeTypeInfo();
-	global string $mrNodeTypeInfo[];
+	initializeLiquidNodeTypeInfo();
+	global string $liqNodeTypeInfo[];
 
-	string $categoryName = $mrNodeTypeInfo[4*$whichCat];
-	string $categoryUiName = $mrNodeTypeInfo[4*$whichCat+1];
-	string $categoryStaticClassification = $mrNodeTypeInfo[4*$whichCat+2];
-	string $categoryRuntimeClassification = $mrNodeTypeInfo[4*$whichCat+3];
+	string $categoryName = $liqNodeTypeInfo[4*$whichCat];
+	string $categoryUiName = $liqNodeTypeInfo[4*$whichCat+1];
+	string $categoryStaticClassification = $liqNodeTypeInfo[4*$whichCat+2];
+	string $categoryRuntimeClassification = $liqNodeTypeInfo[4*$whichCat+3];
 
+   liqPopIdent();
 	return	{	$categoryName, 
 				$categoryUiName, 
 				$categoryStaticClassification, 
@@ -315,7 +337,7 @@ global proc string[] mrGetNodeCategory( int $whichCat )
 //
 //*****************************************************************************
 
-global proc string mrCreateCustomNode(	string $runtimeClassification, 
+global proc string liqCreateCustomNode(	string $runtimeClassification, 
 										string $postCommand , string $nodeType)
 //
 //	Function:	mrCreateCustomNode
@@ -329,6 +351,9 @@ global proc string mrCreateCustomNode(	string $runtimeClassification,
 //	Returns:	The name of the newly created node.
 //
 {
+	liqPushIdent();
+	liqlog("liqCreateCustomNode("+$runtimeClassification+","+$postCommand+","+$nodeType+")");
+
 	// Use the shadingNode command to create the node and assign its 
 	// runtime classification.
 	//
@@ -343,7 +368,7 @@ global proc string mrCreateCustomNode(	string $runtimeClassification,
 	}
 
 	// attach shading group if the it is material shader and surface shader.
-	if( isClassified($node, "rendernode/mentalray/material") && isClassified($node, "shader/surface"))
+	if( isClassified($node, "rendernode/liquid/shader/surface") && isClassified($node, "shader/surface"))
 	{
 		string $cmd = "sets -renderable true -noSurfaceShader true -empty -name "+$node+"SG";
 		string $group = `evalEcho $cmd`;
@@ -355,20 +380,22 @@ global proc string mrCreateCustomNode(	string $runtimeClassification,
 			$outAttr += ".message ";
 		}
 		
-		$cmd = "connectAttr " + $outAttr + $group + ".miMaterialShader";
+		$cmd = "connectAttr " + $outAttr + $group + ".liqMaterialShader";
 		evalEcho $cmd;
 
 		// hook up extra shading group connections for appropriate materials
-		if (isClassified($node, "connection/mentalray/photon")) {
-			$cmd = "connectAttr " + $outAttr + $group + ".miPhotonShader";
+		if (isClassified($node, "connection/liquid/photon")) {
+			$cmd = "connectAttr " + $outAttr + $group + ".liqPhotonShader";
 			evalEcho $cmd;
 		}
-		if (isClassified($node, "connection/mentalray/shadow")) {
-			$cmd = "connectAttr " + $outAttr + $group + ".miShadowShader";
+		if (isClassified($node, "connection/liquid/shadow")) {
+			$cmd = "connectAttr " + $outAttr + $group + ".liqShadowShader";
 			evalEcho $cmd;
 		}
 	}
 
+	//NOTE: custom the following code for liquid
+	liqWarn("liqCreateCustomNode()> custom the following code for liquid");
 	if ($nodeType=="misss_fast_simple_maya" ||
 		$nodeType=="misss_fast_skin_maya" ||
 		$nodeType=="misss_fast_shader" ||
@@ -378,7 +405,7 @@ global proc string mrCreateCustomNode(	string $runtimeClassification,
 		createAndAssignLightMap($node +".lightmap");
 		select $node;
 	}
-
+    liqPopIdent();
 	return $node;
 }
 
@@ -402,7 +429,7 @@ global proc string mrCreateCustomNode(	string $runtimeClassification,
 //
 //*****************************************************************************
 
-global proc mrCreateNodeWindow_BuildTab()
+global proc liqCreateNodeWindow_BuildTab()
 //
 //	Function:	mrCreateNodeWindow_BuildTab()
 //	Purpose:	mental ray equivalent of the various build*() functions in
@@ -413,19 +440,22 @@ global proc mrCreateNodeWindow_BuildTab()
 //	Notes:	When the function is invoked, it is inside a new tab that has
 //			been created for mental ray nodes.
 {
+	liqPushIdent();
+	liqlog("liqCreateNodeWindow_BuildTab()");
+
 	// we are inside the new tab, so create a layout for the node categories 
 	//
-	columnLayout -adj true mentalRayTab;
+	columnLayout -adj true liquidTab;
 
 		// iterate through the categories
 		//
-		int $numCategories = mrNumNodeCategories();
+		int $numCategories = liqNumNodeCategories();
 		int $i;
 		for( $i = 0; $i < $numCategories; $i++ )
 		{
 			// get the info about this category
 			//
-			string $categoryInfo[] = mrGetNodeCategory( $i );
+			string $categoryInfo[] = liqGetNodeCategory( $i );
 			string $title = $categoryInfo[0];
 			string $uiBaseName = $categoryInfo[1];
 			string $staticClassification = $categoryInfo[2];
@@ -454,10 +484,11 @@ global proc mrCreateNodeWindow_BuildTab()
 		}
 
 		setParent ..;
+    liqPopIdent();
 }
 
 
-global proc mrCreateNodeWindow_SetupTab( string $postCommand, string $flag )
+global proc liqCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 //
 //	Function:	mrCreateNodeWindow_SetupTab()
 //	Purpose:	mental ray equivalent of the various setup*() functions in
@@ -487,17 +518,20 @@ global proc mrCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 //			create render node window.
 //
 {
+	liqPushIdent();
+	liqlog("liqCreateNodeWindow_SetupTab("+$postCommand+","+$flag+")");
+
 	// go to the mental ray node tab
 	//
-    setParent mentalRayTab;
+    setParent liquidTab;
 
 	// set up the buttons for each mental ray node category
 	//
-	int $numCategories = mrNumNodeCategories();
+	int $numCategories = liqNumNodeCategories();
 	int $i;
 	for( $i = 0; $i < $numCategories; $i++ )
 	{
-		string $categoryInfo[] = mrGetNodeCategory( $i );
+		string $categoryInfo[] = liqGetNodeCategory( $i );
 
 		string $staticClassification = $categoryInfo[2];
 		string $runtimeClassification = $categoryInfo[3];
@@ -511,7 +545,7 @@ global proc mrCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 		{
 			if( `nodeIconButton -exists ($name+"Btn")` ) 
 			{
-				string $command =	("mrCreateCustomNode " 
+				string $command =	("liqCreateCustomNode " 
 									+ $runtimeClassification 
 									+ " \"" + $postCommand + "\""
 									+ " " + $name);
@@ -520,6 +554,7 @@ global proc mrCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 			}
 		}
 	}
+    liqPopIdent();
 }
 
 //*****************************************************************************
@@ -532,7 +567,7 @@ global proc mrCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 //
 //*****************************************************************************
 
-global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[])
+global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[])
 //
 //	Function:	mrRenderNode_CreateTreeLister_Content()
 //	Purpose:	Does the actual job for mrRenderCreateBar_CreateTab.
@@ -542,14 +577,17 @@ global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 //
 
 {
+	liqPushIdent();
+	liqlog("liqRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", $filterClasses[])");
+
 	if(size($filterClasses) == 0) {
 		// Create all categories
 		//
-		int $numCategories = mrNumNodeCategories();
+		int $numCategories = liqNumNodeCategories();
 		int $i;
 		for( $i = 0; $i < $numCategories; $i++ )
 		{
-			string $categoryInfo[] = mrGetNodeCategory( $i );
+			string $categoryInfo[] = liqGetNodeCategory( $i );
 			string $title = $categoryInfo[0];
 			string $uiBaseName = $categoryInfo[1];
 			string $staticClassification = $categoryInfo[2];
@@ -557,7 +595,7 @@ global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 
 			// add to the treeLister
 			//
-			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "mental ray/" + $title,
+			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "liquid/" + $title,
 				$staticClassification, $runtimeClassification, "" );
 
 		}
@@ -565,11 +603,11 @@ global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 		// Create only the categories in the filter array
 		//
 		for($filterClass in $filterClasses) {
-			int $numCategories = mrNumNodeCategories();
+			int $numCategories = liqNumNodeCategories();
 			int $i;
 			for( $i = 0; $i < $numCategories; $i++ )
 			{
-				string $categoryInfo[] = mrGetNodeCategory( $i );
+				string $categoryInfo[] = liqGetNodeCategory( $i );
 				string $title = $categoryInfo[0];
 				string $uiBaseName = $categoryInfo[1];
 				string $staticClassification = $categoryInfo[2];
@@ -580,7 +618,7 @@ global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 					// a default, only add the subclass nodes to the
 					// treeLister.
 					//
-					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "mental ray/" + $title,
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "liquid/" + $title,
 						$filterClass, $runtimeClassification, "" );
 					break;
 				} else if(startsWith($staticClassification, $filterClass)) {
@@ -588,13 +626,14 @@ global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 					// a default, we can add all the default nodes to the
 					// treeLister.
 					//
-					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "mental ray/" + $title,
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "liquid/" + $title,
 						$staticClassification, $runtimeClassification, "" );
 					break;
 				}
 			}
 		}
 	}
+    liqPopIdent();
 }
 
 //*****************************************************************************
@@ -606,7 +645,7 @@ global proc mrRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 //
 //*****************************************************************************
 
-global proc mrHyperShadeCreateMenu_BuildMenu()
+global proc liqHyperShadeCreateMenu_BuildMenu()
 //
 //	Function:	mrHyperShadeCreateMenu_BuildMenu()
 //	Purpose:	Builds menu items for creating mental ray nodes, organized
@@ -620,20 +659,23 @@ global proc mrHyperShadeCreateMenu_BuildMenu()
 //			mrCreateCustomNode() function for node creation.
 //
 {
+	liqPushIdent();
+	liqlog("liqHyperShadeCreateMenu_BuildMenu()");
+
 	// build a submenu for each node category
 	//
-	int $numCategories = mrNumNodeCategories();
+	int $numCategories = liqNumNodeCategories();
 	int $i;
 	for( $i = 0; $i < $numCategories; $i++ )
 	{
-		string $categoryInfo[] = mrGetNodeCategory( $i );
+		string $categoryInfo[] = liqGetNodeCategory( $i );
 		string $title = $categoryInfo[0];
 		string $uiBaseName = $categoryInfo[1];
 		string $staticClassification = $categoryInfo[2];
 		string $runtimeClassification = $categoryInfo[3];
 		
-		string $mentalrayMenu = (uiRes("m_mentalrayCustomNodeUI.kMentalrayMenu"));
-		menuItem -label `format -s $title $mentalrayMenu` -tearOff true -subMenu true;
+		string $liquidMenu = (uiRes("m_liquidCustomNodeUI.kLiquidMenu"));
+		menuItem -label `format -s $title $liquidMenu` -tearOff true -subMenu true;
 		
 		// call buildCreateSubMenu() to create the menu entries.  The specified 
 		// creation command is mrCreateCustomNode $runtimeClassification.  The
@@ -641,9 +683,10 @@ global proc mrHyperShadeCreateMenu_BuildMenu()
 		// node type, thereby completing the correct argument list for the 
 		// creation routine.
 		//
-		buildCreateSubMenu( $staticClassification, 
-							("mrCreateCustomNode " + $runtimeClassification + " \"\" ") );
+		liquidBuildCreateSubMenu( $staticClassification, 
+							("liqCreateCustomNode " + $runtimeClassification + " \"\" ") );
 		
 		setParent -menu ..;
 	}
+    liqPopIdent();
 }

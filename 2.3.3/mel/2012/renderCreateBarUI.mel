@@ -84,15 +84,23 @@ global proc addToRenderNodeTreeLister(
 
 	string $nodes[];
 	string $mentalrayClassfication = "rendernode/mentalray";
+	// Liquid -----------------------------
+	string $liquidClassfication = "rendernode/liquid/shader";
 
-	if( startsWith($classification, $mentalrayClassfication) ) 
+	if( startsWith($classification, $mentalrayClassfication) ||
+		startsWith($classification, $liquidClassfication)) 
 	{
 		$nodes = `listNodeTypes $classification`;
 	}
 	else
 	{
 		$nodes = `listNodeTypes -ex $mentalrayClassfication $classification`;
+		// Chad: can't figure out how to exclude multiple classifcation types in one go. tried multi-use and joining with ":"
+		// have to exclude as a post-op:
+		string $exclNodes[] = `listNodeTypes $liquidClassfication`;
+		$nodes = stringArrayRemove($exclNodes, $nodes);
 	}
+	// Liquid -----------------------------
 
 	int $dynamicsIsLicensed = `licenseCheck -mode edit -type fx`;
 	int $completeLicense = `licenseCheck -mode edit -type complete`;
@@ -503,14 +511,16 @@ global proc buildRenderNodeTreeListerContent(string $renderNodeTreeLister, strin
 
 	string $filterClassArray[];
 	$filterClassArray = stringToStringArray($filterString, " ");
-	
+		
 	createMayaNodesTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray);
 
 	if (`pluginInfo -query -loaded Mayatomr`)
 	{
 		mrRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray);
 	}
-	
+
+	LIQUID_buildRenderNodeTreeListerContent($renderNodeTreeLister, $postCommand, $filterClassArray);
+
 	if(`adskAssetListUI -q -materialLoaded`) 
     {
 		$createContentProc = "adskAssetListUI -uiCommand \"nodeTreeLister -e -add\" -commandSuffix \"" + $renderNodeTreeLister + "\"";

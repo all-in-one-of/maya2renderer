@@ -7,7 +7,12 @@
 
 - learn katana
 
+-liq| createBar|:
+bug: 先打开hypherShaderPanel，后加载liquid，CreateBar里显示不出liquid categary
+bug：CreateBar的里menu如何嵌套？
+bug：如何为ER建立categary？
 
+-liq| procedural node
 - MRB 赋值er_checker/er_arch/er_physicalsky/er_skylight
 - ElvishRender.mll 依赖于liquid.mll, 这种dll级别的依赖是不正确的。应该使用node存储数据，解除这种dll级别的依赖
 - elvishrender.mll总是在liquid.mll之前先加载
