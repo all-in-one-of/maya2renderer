@@ -303,10 +303,10 @@ global proc string[] getChildren(string $node, string $plug)
 	return $child;
 }
 //
-global proc int isRendererLoaded(string $renderer)
+global proc int isSubRendererLoaded(string $renderer)
 {
 	liqPushIdent();
-	liqlog("isRendererLoaded("+$renderer+")");
+	liqlog("isSubRendererLoaded("+$renderer+")");
 
 	int $ret = `pluginInfo -q -loaded -name $renderer`;
 
@@ -319,8 +319,8 @@ global proc int isRendererValid()
 	liqPushIdent();
 	liqlog("isRendererValid()");
 
-	string $rnd = liqGetRendererName();
-	int $ret = isRendererLoaded($rnd);
+	string $rnd = liqGetSubRendererName();
+	int $ret = isSubRendererLoaded($rnd);
 
 	liqPopIdent();
 	return $ret;
@@ -331,9 +331,9 @@ global proc string getValidRenderer()
 	liqPushIdent();
 	liqlog("getValidRenderer()");
 
-	string $rnd = liqGetRendererName();
+	string $rnd = liqGetSubRendererName();
 
-	if( isRendererLoaded($rnd) ){
+	if( isSubRendererLoaded($rnd) ){
 		liqPopIdent();
 		return $rnd;
 	}else{
@@ -345,15 +345,15 @@ global proc string getValidRenderer()
 	liqPopIdent();
 }
 //
-global proc int isCurrentRenderer(string $renderer)
+global proc int isCurrentSubRenderer(string $renderer)
 {
 	liqPushIdent();
-	liqlog("isCurrentRenderer("+$renderer+")");
+	liqlog("isCurrentSubRenderer("+$renderer+")");
 
 	if( !`objExists liquidGlobals` )
 		return 0;
 
-	string $currentRenderer = liqGetRendererName();
+	string $currentRenderer = liqGetSubRendererName();
 	int $ret = ($currentRenderer == $renderer);
 
 	liqPopIdent();

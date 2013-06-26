@@ -5,7 +5,7 @@ global proc liquidAssignShaderToSelected_subrenderer(string $node)
 	liqPushIdent();
 	liqlog("liquidAssignShaderToSelected_subrenderer("+$node+")");
 	
-	string $cmd = "liquidAssignShaderToSelected_"+liqGetRendererName()+"(\""+$node+"\")";
+	string $cmd = "liquidAssignShaderToSelected_"+liqGetSubRendererName()+"(\""+$node+"\")";
 	eval $cmd;
 
 	liqPopIdent();
@@ -18,9 +18,9 @@ global proc liquidCreateMenu_subrenderer()
 	
 	if( liquidGlobalsExists() )
 	{
-		if ( isRendererLoaded(liqGetRendererName()) )
+		if ( isSubRendererLoaded(liqGetSubRendererName()) )
 		{
-			string $cmd = "liquidCreateMenus_"+liqGetRendererName()+"()";
+			string $cmd = "liquidCreateMenus_"+liqGetSubRendererName()+"()";
 			eval $cmd;
 		}
 	}

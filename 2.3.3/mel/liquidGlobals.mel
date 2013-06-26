@@ -1615,7 +1615,7 @@ global proc liquidBuildRendererMenu( string $prefix )
 		menuItem	
 			-parent ($prefix+"LG_RendererMenuCtl") 
 			-label   $g_liqRenderer[$i]
-			-c      ("liquidUpdateRenderer "+$g_liqRenderer[$i]);
+			-c      ("liquidUpdateSubRenderer "+$g_liqRenderer[$i]);
   }
   liqPopIdent();
 }
@@ -3764,13 +3764,13 @@ global proc liquidGlobalsAdvanceTab_buildIt( string $prefix )
 
   liqPopIdent();
 }
-global proc liquidUpdateRenderer( string $renderer )
+global proc liquidUpdateSubRenderer( string $renderer )
 {
 	liqPushIdent();
-	liqlog("liquidUpdateRenderer("+$renderer+")");
+	liqlog("liquidUpdateSubRenderer("+$renderer+")");
 
 	//set liquidGlobals.renderer
-	liqSetRendererName($renderer);
+	liqSetSubRendererName($renderer);
 	//create global node for this renderer
 	liqGlobalsNodeRendererMain("create");
 

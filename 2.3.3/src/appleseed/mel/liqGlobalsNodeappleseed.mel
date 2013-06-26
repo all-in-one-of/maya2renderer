@@ -106,7 +106,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
   ////setUITemplate -pushTemplate attributeEditorTemplate;
   string $previousParent = `setParent -q`;
 
-  columnLayout -adj true -vis false ($prefix + "liquidGlobalsFrameSet"+liqGetRendererName());
+  columnLayout -adj true -vis false ($prefix + "liquidGlobalsFrameSet"+liqGetSubRendererName());
     
 	//evironment
     frameLayout -bs "etchedIn" -l "environment" -cll true -cl false;
@@ -275,7 +275,7 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
   setParent ..;
   //setParent ..;
 
-  columnLayout -e -vis true ($prefix + "liquidGlobalsFrameSet"+liqGetRendererName());
+  columnLayout -e -vis true ($prefix + "liquidGlobalsFrameSet"+liqGetSubRendererName());
   setParent $previousParent;
 
   //if ( `layout -q -ex liquidGlobalsTab` ) setParent liquidGlobalsTab;
@@ -293,8 +293,8 @@ proc liquidGlobalsTab_appleseed_AA( string $prefix )
 //  string $theTabLayout = ( $prefix + "liquidGlobalNode_appleseed_TabLayout" );
 //
 //  setParent $theTabLayout;
-//  evalEcho($tabCallback); //evalEcho ("liquidGlobals"+$name+"Tab_"+liqGetRendererName()+"( \""+$prefix+"\");");//tab callback
-//  string $newlayout = ($prefix+"liquidGlobals"+$name+"Set"+liqGetRendererName());
+//  evalEcho($tabCallback); //evalEcho ("liquidGlobals"+$name+"Tab_"+liqGetSubRendererName()+"( \""+$prefix+"\");");//tab callback
+//  string $newlayout = ($prefix+"liquidGlobals"+$name+"Set"+liqGetSubRendererName());
 //  if ( `layout -q -ex $newlayout` ) tabLayout -e -tabLabel $newlayout $name $theTabLayout;
 //
 //  liqPopIdent();

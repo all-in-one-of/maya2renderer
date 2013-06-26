@@ -82,10 +82,10 @@ global proc string liquidGetPluginName()
 //===========================================================================================
 //
 //===========================================================================================
-global proc string[] liquidGatherValidRenderers()
+global proc string[] liquidGatherValidSubRenderers()
 {
 	liqPushIdent();
-	liqlog("liquidGatherValidRenderers()");
+	liqlog("liquidGatherValidSubRenderers()");
 
 	string $ret[];
 
@@ -108,19 +108,19 @@ global proc string[] liquidGatherValidRenderers()
 //===========================================================================================
 //
 //===========================================================================================
-global proc string[] liquidGatherLoadedRenderers()
+global proc string[] liquidGatherLoadedSubRenderers()
 {
 	liqPushIdent();
-	liqlog("liquidGatherLoadedRenderers()");
+	liqlog("liquidGatherLoadedSubRenderers()");
 
 	string $ret[];
 
-	string $vrenderer[] = liquidGatherValidRenderers();
+	string $vrenderer[] = liquidGatherValidSubRenderers();
 	for($vrnd in $vrenderer)
 	{
 		if(`pluginInfo -query -loaded $vrnd`)
 		{
-			$ret[size($ret)] = $rnd;
+			$ret[size($ret)] = $vrnd;
 		}
 	}
 	
@@ -642,7 +642,7 @@ global proc liquidCreateMenus()
                -subMenu true
                -tearOff false
                -postMenuCommand 
-                ("liquidBuildChooseRendererMenu liquidChooseRendererMenu")
+                ("liquidBuildChooseSubRendererMenu liquidChooseRendererMenu")
                liquidChooseRendererMenu;
 		setParent -menu ..; // from submenu 
 
@@ -1229,15 +1229,15 @@ global proc liquidRenderingEditorsSubMenu(string $parentMenuItem)
 
 //
 global proc
-liquidBuildChooseRendererMenu(string $parent_menu)
+liquidBuildChooseSubRendererMenu(string $parent_menu)
 {
 	liqPushIdent();
-	liqlog("liquidBuildChooseRendererMenu("+$parent_menu+")");
+	liqlog("liquidBuildChooseSubRendererMenu("+$parent_menu+")");
 		
 	menu -edit -deleteAllItems $parent_menu;
 
 	//get renderers
-	string $renderer[] = liquidGatherValidRenderers();
+	string $renderer[] = liquidGatherValidSubRenderers();
 	
 	radioMenuItemCollection -parent $parent_menu;
 	//build menu items
@@ -1245,8 +1245,8 @@ liquidBuildChooseRendererMenu(string $parent_menu)
 	{
 		menuItem 
 			-label (interToUI($rnd))
-			-radioButton (isCurrentRenderer($rnd))
-			-command ("liquidBuildChooseRendererMenuCB(\""+$rnd+"\")")
+			-radioButton (isCurrentSubRenderer($rnd))
+			-command ("liquidBuildChooseSubRendererMenuCB(\""+$rnd+"\")")
 			-parent $parent_menu;
 	}
 	menuItem -divider true -parent $parent_menu;//----------------------
@@ -1255,14 +1255,14 @@ liquidBuildChooseRendererMenu(string $parent_menu)
 	liqPopIdent();
 }
 global proc
-liquidBuildChooseRendererMenuCB(string $renderer)
+liquidBuildChooseSubRendererMenuCB(string $renderer)
 {
 	liqPushIdent();
-	liqlog("liquidBuildChooseRendererMenuCB("+$renderer+")");
+	liqlog("liquidBuildChooseSubRendererMenuCB("+$renderer+")");
 		
-	liqSetRendererName("");//clear
+	liqSetSubRendererName("");//clear
 
-	if( !isRendererLoaded($renderer) )
+	if( !isSubRendererLoaded($renderer) )
 	{
 		if(catch(`loadPlugin $renderer`)){
 			liqError("load "+$renderer+" fails");
@@ -1271,12 +1271,12 @@ liquidBuildChooseRendererMenuCB(string $renderer)
 		}
 	}
 
-	liqSetRendererName($renderer);
+	liqSetSubRendererName($renderer);
 	registerLiquidSubRenderer($renderer);
 
 	//string $prefix = `liquidGetCurrentRenderLayerName`;
 	//liquidBuildRendererMenu("");
-	liquidUpdateRenderer($renderer);
+	liquidUpdateSubRenderer($renderer);
 
 
 	liqPopIdent();

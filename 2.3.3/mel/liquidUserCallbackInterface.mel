@@ -71,7 +71,7 @@ global proc LIQUID_userPreRenderMel (string $render_pass)
 	liqPushIdent();
 	liqlog("LIQUID_userPreRenderMel("+$render_pass+")");
 
-	string $cmd = "LIQUID_userPreRenderMel_"+liqGetRendererName()+"(\""+$render_pass+"\")";
+	string $cmd = "LIQUID_userPreRenderMel_"+liqGetSubRendererName()+"(\""+$render_pass+"\")";
 	eval $cmd;
 
 	liqPopIdent();
@@ -83,7 +83,7 @@ global proc LIQUID_userPostRenderMel (string $render_pass)
 	liqPushIdent();
 	liqlog("LIQUID_userPostRenderMel("+$render_pass+")");
 
-	string $cmd = "LIQUID_userPostRenderMel_"+liqGetRendererName()+"(\""+$render_pass+"\")";
+	string $cmd = "LIQUID_userPostRenderMel_"+liqGetSubRendererName()+"(\""+$render_pass+"\")";
 	eval $cmd;
 
 	liqPopIdent();

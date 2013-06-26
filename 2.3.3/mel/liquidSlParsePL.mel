@@ -436,7 +436,7 @@ global proc int isValidShaderTypeForPL(string $shaderType)
     liqPushIdent();
     liqlog("isValidShaderTypeForPL("+$shaderType+")");
 
-	string $rnd = liqGetRendererName();
+	string $rnd = liqGetSubRendererName();
 	string $fn;
 	$fn = "isValidShaderTypeForPL_"+$rnd+"(\""+$shaderType+"\")";
 	

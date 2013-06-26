@@ -8,19 +8,19 @@ global proc AEliquidCreateMenu()
   global string $gAERootLayoutName;
 
 //	if( liquidGlobalsExists() ) {
-//		if ( isRendererLoaded(liqGetRendererName()) ) {
+//		if ( isSubRendererLoaded(liqGetSubRendererName()) ) {
 
   if ( $gAERootLayoutName == "" ) {  liqPopIdent(); return ; }
 
   string $parent = `setParent -q`;
   setParent $gAERootLayoutName;
 
-  string $liquidAEMenuName="liquidAEMenu_"+liqGetRendererName();
+  string $liquidAEMenuName="liquidAEMenu_"+liqGetSubRendererName();
   if ( `menu -q -ex $liquidAEMenuName` ){  liqPopIdent(); return ;}
 
-  menu -label ("liqAE_"+liqGetRendererName()) $liquidAEMenuName;
+  menu -label ("liqAE_"+liqGetSubRendererName()) $liquidAEMenuName;
 
-			  string $cmd = "AEliquidCreateMenus_"+liqGetRendererName()+"()";
+			  string $cmd = "AEliquidCreateMenus_"+liqGetSubRendererName()+"()";
 			  eval $cmd;
 
 	  //[refactor liq|ui|4 -beg]  moved to AEliquidCreateMenu_renderman()
@@ -315,7 +315,7 @@ global proc AEliquidInstanceFlags( string $node )
     editorTemplate -label "Ignore Shapes" -addDynamicControl "liqIgnoreShapes";
 
 	//editorTemplate for each renderer
-	string $cmd = "liquidEditorTemplate_"+liqGetRendererName()+"(\""+$node+"\")";
+	string $cmd = "liquidEditorTemplate_"+liqGetSubRendererName()+"(\""+$node+"\")";
 	eval $cmd;
 
 	

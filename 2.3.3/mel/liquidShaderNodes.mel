@@ -2810,7 +2810,7 @@ global proc int isSurfaceShader(string $shaderType)
     liqPushIdent();
     liqlog("isSurfaceShader("+$shaderType+")");
 
-	string $rnd = liqGetRendererName();
+	string $rnd = liqGetSubRendererName();
 	string $fn;
 	$fn = "isSurfaceShader_"+$rnd+"(\""+$shaderType+"\")";
 
