@@ -108,6 +108,28 @@ global proc string[] liquidGatherValidRenderers()
 //===========================================================================================
 //
 //===========================================================================================
+global proc string[] liquidGatherLoadedRenderers()
+{
+	liqPushIdent();
+	liqlog("liquidGatherLoadedRenderers()");
+
+	string $ret[];
+
+	string $vrenderer[] = liquidGatherValidRenderers();
+	for($vrnd in $vrenderer)
+	{
+		if(`pluginInfo -query -loaded $vrnd`)
+		{
+			$ret[size($ret)] = $rnd;
+		}
+	}
+	
+	liqPopIdent();
+	return $ret;
+}
+//===========================================================================================
+//
+//===========================================================================================
 global proc liquidLoadScripts()
 {
   liqPushIdent();
