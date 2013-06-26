@@ -599,7 +599,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_BOOL( nAttr,  alogFunctionCall,			  "logFunctionCall",			  "lfc",    false );
 	CREATE_BOOL( nAttr,  alogMsgFlush,			      "logMsgFlush",				  "lmf",    false );
 	CREATE_BOOL( nAttr,  alogTraceFunction,			  "logTraceFunction",			  "ltf",    true );
-	CREATE_BOOL( nAttr,  ashowMelCallStack,			  "showMelCallStack",			  "mcs",    false );
+	CREATE_BOOL( nAttr,  ashowMelCallStack,			  "showMelCallStack",			  "mcs",    true/*don't forget to update the $g_ShowliqLog's default value in xxliquidutility.mel*/ );
 	CREATE_BOOL( nAttr,  ashowliquidMessageBox,		  "showliquidMessageBox",		  "slm",    true );
 	CREATE_BOOL( nAttr,  aOutputShadowPass,           "outputShadowPass",             "osp",    false );
 	CREATE_BOOL( nAttr,  aOutputHeroPass,             "outputHeroPass",               "ohp",    true  );

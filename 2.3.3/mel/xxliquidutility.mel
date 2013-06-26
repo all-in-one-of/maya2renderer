@@ -1,6 +1,6 @@
 global int $g_IndentNum = 0;
 global int $g_ShowAELog = 1;
-global int $g_ShowliqLog = 0;
+global int $g_ShowliqLog = 1;/*don't forget to update the "showMelCallStack"'s default value in liqGlobalsNode.cpp*/
 
 global int $g_LogFileId = 0;
 global string $g_LogFileFullPath="d:/liquidDebug.log";
