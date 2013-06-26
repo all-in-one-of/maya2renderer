@@ -11,7 +11,25 @@ global proc LIQUID_buildRenderNodeTreeListerContent(string $renderNodeTreeLister
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{
 		// this proc created inside mtoa.ui.nodeTreeLister
-		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray);
+		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, "liquid");
 	}
     liqPopIdent();
+}
+//
+global proc string[] LIQUID_excludeClassficationNodes(string $classification)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getClassficationNodes("+$classification+")");
+
+	string $exclude[];
+
+	string $liquidClassfication = "rendernode/liquid/shader";
+	if( !startsWith($classification, $liquidClassfication) )
+	{
+		string $exclNodes[];
+		$exclude = `listNodeTypes $liquidClassfication`;
+	}
+
+    liqPopIdent();
+	return $exclude;
 }

@@ -96,22 +96,20 @@ global proc addToRenderNodeTreeLister(
 
 	string $nodes[];
 	$nodes = `listNodeTypes $classification`;
+	string $exclude[];
+	
 	// exclude mentalray shader nodes
 	string $mentalrayClassfication = "rendernode/mentalray";
 	if( !startsWith($classification, $mentalrayClassfication) )
 	{
-		string $exclNodes[];
-		$exclNodes = `listNodeTypes $mentalrayClassfication`;
-		$nodes = stringArrayRemove($exclNodes, $nodes);
+		$exclude = `listNodeTypes $mentalrayClassfication`;
 	}
+	$nodes = stringArrayRemove($exclude, $nodes);
+
 	// exclude liquid shader nodes
-	string $liquidClassfication = "rendernode/liquid/shader";
-	if( !startsWith($classification, $liquidClassfication) )
-	{
-		string $exclNodes[];
-		$exclNodes = `listNodeTypes $liquidClassfication`;
-		$nodes = stringArrayRemove($exclNodes, $nodes);
-	}
+	$exclude = LIQUID_excludeClassficationNodes($classification);
+	$nodes = stringArrayRemove($exclude, $nodes);
+
 
 
 	int $dynamicsIsLicensed = `licenseCheck -mode edit -type fx`;
