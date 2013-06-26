@@ -95,28 +95,24 @@ global proc addToRenderNodeTreeLister(
 	// We want to create buttons/menus in mental ray section
 
 	string $nodes[];
-	// mentalray (original code in Maya2012) begin
+	$nodes = `listNodeTypes $classification`;
+	// exclude mentalray shader nodes
 	string $mentalrayClassfication = "rendernode/mentalray";
-	if( startsWith($classification, $mentalrayClassfication) ) 
+	if( !startsWith($classification, $mentalrayClassfication) )
 	{
-		$nodes = `listNodeTypes $classification`;
+		string $exclNodes[];
+		$exclNodes = `listNodeTypes $mentalrayClassfication`;
+		$nodes = stringArrayRemove($exclNodes, $nodes);
 	}
-	else
-	{
-		$nodes = `listNodeTypes -ex $mentalrayClassfication $classification`;
-	}
-	// mentalray (original code in Maya2012) end
-	// Liquid -----------------------------
+	// exclude liquid shader nodes
 	string $liquidClassfication = "rendernode/liquid/shader";
-	if( startsWith($classification, $liquidClassfication)) 
+	if( !startsWith($classification, $liquidClassfication) )
 	{
-		$nodes = `listNodeTypes $classification`;
+		string $exclNodes[];
+		$exclNodes = `listNodeTypes $liquidClassfication`;
+		$nodes = stringArrayRemove($exclNodes, $nodes);
 	}
-	else
-	{
-		$nodes = `listNodeTypes -ex $liquidClassfication $classification`;
-	}
-	// Liquid -----------------------------
+
 
 	int $dynamicsIsLicensed = `licenseCheck -mode edit -type fx`;
 	int $completeLicense = `licenseCheck -mode edit -type complete`;
