@@ -28,6 +28,9 @@ global proc renderCreateBarUIManage(
 	string $renderCreateBarUI,
 	int $manage)
 {
+	liqPushIdent();
+	liqlog("renderCreateBarUIManage("+$renderCreateBarUI+","+$manage+")");
+
 	//
 	// Description:
 	//	This procedure is called to cause the render create bar UI to be shown
@@ -39,11 +42,15 @@ global proc renderCreateBarUIManage(
 		-edit
 		-manage $manage
 		$renderCreateBarUI;
+    liqPopIdent();
 }
 
 global proc int renderCreateBarUIIsManaged(
 	string $renderCreateBarUI)
 {
+	liqPushIdent();
+	liqlog("renderCreateBarUIIsManaged("+$renderCreateBarUI+")");
+
 	//
 	// Description:
 	//	This procedure is called to determine whether or not the create bar UI
@@ -52,8 +59,9 @@ global proc int renderCreateBarUIIsManaged(
 	// Returns: 
 	//	true if the render create bar UI is shown, false if not.
 	//
-
-	return (`formLayout -query -manage $renderCreateBarUI`);
+	int $ret = (`formLayout -query -manage $renderCreateBarUI`);
+    liqPopIdent();
+	return $ret;
 
 }
 
@@ -65,6 +73,10 @@ global proc addToRenderNodeTreeLister(
 	string $as,
 	string $flag)
 {
+	liqPushIdent();
+	liqlog("addToRenderNodeTreeLister("+$renderNodeTreeLister+","+$postCommand+","
+		+$frame+","+$classification+","+$as+","+$flag+")");
+
 	//
 	// Description:
 	//	This procedure is called as the render create bar UI is
@@ -188,6 +200,7 @@ global proc addToRenderNodeTreeLister(
 //		}
 	}
     python ("del _fav");
+    liqPopIdent();
 }
 
 global proc initializeMayaNodeTypeInfo ()
@@ -197,6 +210,9 @@ global proc initializeMayaNodeTypeInfo ()
 //               each type.
 //
 {
+	liqPushIdent();
+	liqlog("initializeMayaNodeTypeInfo( )");
+
     global string $mayaNodeTypeInfo[];
     
     if( size( $mayaNodeTypeInfo ) == 0 ) 
@@ -270,7 +286,8 @@ global proc initializeMayaNodeTypeInfo ()
         $mayaNodeTypeInfo[$index++] = "rendering";
         $mayaNodeTypeInfo[$index++] = "-asRendering";
         $mayaNodeTypeInfo[$index++] = "";
-    }    
+    } 
+    liqPopIdent();   
 }
 
 global proc int mayaNumNodeCategories()
@@ -278,12 +295,16 @@ global proc int mayaNumNodeCategories()
 //	Description: Returns the number of Maya node categories.
 //
 {
+	liqPushIdent();
+	liqlog("mayaNumNodeCategories( )");
+
 	//
 	// Make sure all the Maya node categories are filled in before we use them.
 	//
 	initializeMayaNodeTypeInfo();
 	global string $mayaNodeTypeInfo[];
-
+	
+    liqPopIdent();
 	return( size($mayaNodeTypeInfo)/4 );
 }
 
@@ -298,6 +319,9 @@ global proc string[] mayaGetNodeCategory( int $whichCat )
 //				for the category.
 //
 {
+	liqPushIdent();
+	liqlog("mayaGetNodeCategory("+$whichCat+")");
+
 	//
 	// Make sure all the Maya node categories are filled in before we use them.
 	//
@@ -308,7 +332,8 @@ global proc string[] mayaGetNodeCategory( int $whichCat )
 	string $categoryClassification = $mayaNodeTypeInfo[4*$whichCat+1];
 	string $categoryAs = $mayaNodeTypeInfo[4*$whichCat+2];
 	string $categoryFlag = $mayaNodeTypeInfo[4*$whichCat+3];
-
+	
+    liqPopIdent();
 	return	{	$categoryName, 
 				$categoryClassification, 
 				$categoryAs, 
@@ -322,6 +347,9 @@ global proc createMayaNodesTreeLister_Content(string $renderNodeTreeLister, stri
 //		This procedure contains code for adding Maya nodes
 //		to the treeLister.
 {
+	liqPushIdent();
+	liqlog("createMayaNodesTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+",["+stringArrayToString($filterClasses,",")+"])");
+
     // use the shortname of the tree control for faster lookups 
     // since we know it's under the current parent
     string $buff[];
@@ -380,19 +408,28 @@ global proc createMayaNodesTreeLister_Content(string $renderNodeTreeLister, stri
 			}
 		}
 	}
+    liqPopIdent();
 }
 
 proc string renderCreateBarFavoritesFile()
 // Description: Returns the full path to the favorites file
 //
 {
-	return (`internalVar -userPrefDir` + "renderNodeTypeFavorites");
+	liqPushIdent();
+	liqlog("LIQUID_HyperShadeCreateMenu_BuildMenu()");
+	 
+	string $ret = (`internalVar -userPrefDir` + "renderNodeTypeFavorites");
+	liqPopIdent();
+	return $ret;
 }
 
 proc renderCreateBarInitDefaultFavorites(string $fname)
 // Description:  Create the default favorites file
 //
 {
+	liqPushIdent();
+	liqlog("renderCreateBarInitDefaultFavorites("+$fname+")");
+
     // This default set is only created if the file doesn't already exist.
     string $defaultNodeTypes[] = {"blinn","lambert","layeredShader", "phong","phongE","rampShader","surfaceShader","useBackground"};
     string $defaultFavs = "[";
@@ -411,6 +448,7 @@ proc renderCreateBarInitDefaultFavorites(string $fname)
         fprint $fileId $defaultFavs;
         fclose $fileId;
     }
+    liqPopIdent();
 }
 
 global proc string[] renderCreateBarFavorites()
@@ -418,6 +456,9 @@ global proc string[] renderCreateBarFavorites()
 //              as a list like: {"Maya/Surface/Blinn","blinn","Maya/Volume/... }
 //
 {
+	liqPushIdent();
+	liqlog("renderCreateBarFavorites( )");
+
     string $fname = renderCreateBarFavoritesFile();
     if (!`file -q -ex $fname`) {
         // No favorites.  Create a default set
@@ -426,6 +467,7 @@ global proc string[] renderCreateBarFavorites()
     string $fnameenc = `encodeString $fname`;
     string $favs[] = python("import maya.app.general.tlfavorites as _fav;_fav.readFavorites(\"" + $fnameenc + "\")");
     python("del _fav");
+    liqPopIdent();
     return $favs;
 }
 
@@ -434,6 +476,9 @@ proc renderCreateBarInitFavorites(string $lister)
 // a Favorites store.
 //
 {
+	liqPushIdent();
+	liqlog("renderCreateBarInitFavorites("+$lister+")");
+
     string $fname = renderCreateBarFavoritesFile();
     if (!`file -q -ex $fname`) {
         // No favorites.  Create a default set
@@ -444,6 +489,7 @@ proc renderCreateBarInitFavorites(string $lister)
                    "_fav.attachStore('" + $lister + "',\"" + $fnameenc + "\");" + 
                    "del _fav");
     python($py);
+    liqPopIdent();
 }
 
 global proc renderCreateBarPopupCreate2DTexture(string $path, string $lister, string $texType)
@@ -451,11 +497,15 @@ global proc renderCreateBarPopupCreate2DTexture(string $path, string $lister, st
 //               type by temporarily changing create2DTextureType optionVar
 //
 {
+	liqPushIdent();
+	liqlog("renderCreateBarPopupCreate2DTexture("+$path+","+$lister+","+$texType+")");
+
     string $oldTexType = `optionVar -query create2dTextureType`;
     optionVar -stringValue create2dTextureType $texType;
     treeLister -e -executeItem $path $lister;
     optionVar -stringValue create2dTextureType $oldTexType;
     refreshCreateNodeUI();
+    liqPopIdent();
 }
     
 global proc renderCreateBarPopupMenuCB(string $lister, string $menu)
@@ -463,6 +513,9 @@ global proc renderCreateBarPopupMenuCB(string $lister, string $menu)
 //               result items RMB menu. 
 //
 {
+	liqPushIdent();
+	liqlog("renderCreateBarPopupMenuCB("+$lister+","+$menu+")");
+
     // delete our old items first
     string $items[] = `menu -q -ia $menu`;
     if (`size $items` >= 3) {
@@ -490,6 +543,7 @@ global proc renderCreateBarPopupMenuCB(string $lister, string $menu)
                       + $path + "\" " + $lister + "\"stencil\"" )
             stencilItem2;
     }
+    liqPopIdent();
 }
 
 proc renderCreateBarInitPopupMenu(string $lister)
@@ -497,8 +551,13 @@ proc renderCreateBarInitPopupMenu(string $lister)
 // on the treelister to handle creation options.
 //
 {
+	liqPushIdent();
+	liqlog("renderCreateBarInitPopupMenu("+$lister+")");
+
     string $menuName = "renderCreateBarPopupMenu";
     popupMenu -parent $lister -pmc ("renderCreateBarPopupMenuCB \""+ $lister + "\" \"" + $menuName +"\"") $menuName;
+
+    liqPopIdent();
 }
 
 global proc buildRenderNodeTreeListerContent(string $renderNodeTreeLister, string $postCommand, string $filterString)
@@ -506,6 +565,9 @@ global proc buildRenderNodeTreeListerContent(string $renderNodeTreeLister, strin
 // Description:  This procedure is to populate the treeLister with render nodes.      
 //
 {
+	liqPushIdent();
+	liqlog("buildRenderNodeTreeListerContent("+$renderNodeTreeLister+","+$postCommand+","+$filterString+")");
+
     string $createContentProc;
     global int $WantProtein; // TO DO: Bug 339986 Temporary code until we can check if the library is loaded
 
@@ -544,6 +606,7 @@ global proc buildRenderNodeTreeListerContent(string $renderNodeTreeLister, strin
     catch( renderCreateBarInitFavorites($renderNodeTreeLister) );
 
     treeLister -e -expandToDepth 0 $renderNodeTreeLister;
+    liqPopIdent();
 }
 
 global proc string createRenderNodeTreeLister(string $postCommand, string $filterString)
@@ -551,9 +614,14 @@ global proc string createRenderNodeTreeLister(string $postCommand, string $filte
 // Description:  This procedure is to create a new treeLister for render nodes.
 //
 {
+	liqPushIdent();
+	liqlog("createRenderNodeTreeLister("+$postCommand+","+$filterString+")");
+
 	string $renderNodeTreeLister = `nodeTreeLister`;
 	buildRenderNodeTreeListerContent($renderNodeTreeLister, $postCommand, $filterString);
+    liqPopIdent();	
 	return $renderNodeTreeLister;
+
 }
 
 global proc refreshRenderNodeTreeLister(string $renderNodeTreeLister, string $postCommand, string $filterString)
@@ -562,13 +630,21 @@ global proc refreshRenderNodeTreeLister(string $renderNodeTreeLister, string $po
 //               by clearing its contents and repopulating it.
 //
 {
+	liqPushIdent();
+	liqlog("refreshRenderNodeTreeLister("+$renderNodeTreeLister+","+$postCommand+","+$filterString+")");
+
 	treeLister -e -clearContents $renderNodeTreeLister;
 	buildRenderNodeTreeListerContent($renderNodeTreeLister, $postCommand, $filterString);
+
+    liqPopIdent();
 }
 
 global proc string renderCreateBarUI(
 	string $parentForm)
 {
+	liqPushIdent();
+	liqlog("renderCreateBarUI("+$parentForm+")");
+
 	//
 	// Description:
 	//	This procedure is called to build the UI on the left of the Hypershade
@@ -610,6 +686,7 @@ global proc string renderCreateBarUI(
     // layout.
     // 
     formLayout -edit -manage true $renderCreateBarUI;
-
+	
+    liqPopIdent();
 	return $renderCreateBarUI;
 }

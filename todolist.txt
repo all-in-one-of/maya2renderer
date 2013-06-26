@@ -9,8 +9,8 @@
 
 -liq| createBar|:
 bug: 先打开hypherShaderPanel，后加载liquid，CreateBar里显示不出liquid categary
-bug：CreateBar的里menu如何嵌套？
-bug：如何为ER建立categary？
+todo:CreateBar的里menu如何嵌套？
+todo:如何为ER建立categary？
 
 -liq| procedural node
 - MRB 赋值er_checker/er_arch/er_physicalsky/er_skylight
