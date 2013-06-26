@@ -338,7 +338,8 @@ global proc string[] liqGetNodeCategory( int $whichCat )
 //*****************************************************************************
 
 global proc string liqCreateCustomNode(	string $runtimeClassification, 
-										string $postCommand , string $nodeType)
+										string $postCommand , string $nodeType,
+										string $renderer)
 //
 //	Function:	mrCreateCustomNode
 //	Purpose:	Callback routine to create a mental ray custom node.
@@ -352,7 +353,7 @@ global proc string liqCreateCustomNode(	string $runtimeClassification,
 //
 {
 	liqPushIdent();
-	liqlog("liqCreateCustomNode("+$runtimeClassification+","+$postCommand+","+$nodeType+")");
+	liqlog("liqCreateCustomNode("+$runtimeClassification+","+$postCommand+","+$nodeType+","+$renderer+")");
 
 	// Use the shadingNode command to create the node and assign its 
 	// runtime classification.
@@ -368,7 +369,7 @@ global proc string liqCreateCustomNode(	string $runtimeClassification,
 	}
 
 	// attach shading group if the it is material shader and surface shader.
-	if( isClassified($node, "rendernode/liquid/shader/surface") && isClassified($node, "shader/surface"))
+	if( isClassified($node, "rendernode/"+$renderer+"/shader/surface") && isClassified($node, "shader/surface"))
 	{
 		string $cmd = "sets -renderable true -noSurfaceShader true -empty -name "+$node+"SG";
 		string $group = `evalEcho $cmd`;
@@ -384,11 +385,11 @@ global proc string liqCreateCustomNode(	string $runtimeClassification,
 		evalEcho $cmd;
 
 		// hook up extra shading group connections for appropriate materials
-		if (isClassified($node, "connection/liquid/photon")) {
+		if (isClassified($node, "connection/"+$renderer+"/photon")) {
 			$cmd = "connectAttr " + $outAttr + $group + ".liqPhotonShader";
 			evalEcho $cmd;
 		}
-		if (isClassified($node, "connection/liquid/shadow")) {
+		if (isClassified($node, "connection/"+$renderer+"/shadow")) {
 			$cmd = "connectAttr " + $outAttr + $group + ".liqShadowShader";
 			evalEcho $cmd;
 		}
@@ -548,7 +549,8 @@ global proc liqCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 				string $command =	("liqCreateCustomNode " 
 									+ $runtimeClassification 
 									+ " \"" + $postCommand + "\""
-									+ " " + $name);
+									+ " " + $name 
+									+ " " + "\"liquid\"");
 
 				nodeIconButton -e -command $command ($name+"Btn");
 			}
@@ -567,7 +569,7 @@ global proc liqCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 //
 //*****************************************************************************
 
-global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[])
+global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[], string $renderer)
 //
 //	Function:	mrRenderNode_CreateTreeLister_Content()
 //	Purpose:	Does the actual job for mrRenderCreateBar_CreateTab.
@@ -578,7 +580,7 @@ global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister,
 
 {
 	liqPushIdent();
-	liqlog("liqRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", $filterClasses[])");
+	liqlog("liqRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", $filterClasses[], "+$renderer+")");
 
 	if(size($filterClasses) == 0) {
 		// Create all categories
@@ -595,7 +597,7 @@ global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister,
 
 			// add to the treeLister
 			//
-			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "liquid/" + $title,
+			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
 				$staticClassification, $runtimeClassification, "" );
 
 		}
@@ -618,7 +620,7 @@ global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister,
 					// a default, only add the subclass nodes to the
 					// treeLister.
 					//
-					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "liquid/" + $title,
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
 						$filterClass, $runtimeClassification, "" );
 					break;
 				} else if(startsWith($staticClassification, $filterClass)) {
@@ -626,7 +628,7 @@ global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister,
 					// a default, we can add all the default nodes to the
 					// treeLister.
 					//
-					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, "liquid/" + $title,
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
 						$staticClassification, $runtimeClassification, "" );
 					break;
 				}
@@ -645,7 +647,7 @@ global proc liqRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister,
 //
 //*****************************************************************************
 
-global proc liqHyperShadeCreateMenu_BuildMenu()
+global proc liqHyperShadeCreateMenu_BuildMenu(string $renderer)
 //
 //	Function:	mrHyperShadeCreateMenu_BuildMenu()
 //	Purpose:	Builds menu items for creating mental ray nodes, organized
@@ -660,7 +662,7 @@ global proc liqHyperShadeCreateMenu_BuildMenu()
 //
 {
 	liqPushIdent();
-	liqlog("liqHyperShadeCreateMenu_BuildMenu()");
+	liqlog("liqHyperShadeCreateMenu_BuildMenu("+$renderer+")");
 
 	// build a submenu for each node category
 	//
@@ -684,7 +686,8 @@ global proc liqHyperShadeCreateMenu_BuildMenu()
 		// creation routine.
 		//
 		liquidBuildCreateSubMenu( $staticClassification, 
-							("liqCreateCustomNode " + $runtimeClassification + " \"\" ") );
+							("liqCreateCustomNode " + $runtimeClassification + " \"\" "),
+							$renderer);
 		
 		setParent -menu ..;
 	}

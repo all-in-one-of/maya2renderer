@@ -10,7 +10,7 @@ global proc LIQUID_HyperShadeCreateMenu_BuildMenu(string $panel, string $parent)
 
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{
-		liqHyperShadeCreateMenu_BuildMenu();
+		liqHyperShadeCreateMenu_BuildMenu("liquid");
 		menuItem -divider true;
 	}
     liqPopIdent();
@@ -66,15 +66,16 @@ global proc string LIQUID_createButtonsColumnContent(string $panel, string $butt
     liqPopIdent();
 	return $control;
 }
-//
+//liquidBuildCreateSubMenu() is called in liqHyperShadeCreateMenu_BuildMenu()
 global proc liquidBuildCreateSubMenu(
 	string $classification,
-	string $callback)
+	string $callback,
+	string $renderer)
 //mimic hpyerShadePanel.mel>buildCreateSubMenu()
 {
 
 	liqPushIdent();
-	liqlog("liquidBuildCreateSubMenu("+$classification+", ["+$callback+"])");
+	liqlog("liquidBuildCreateSubMenu("+$classification+", ["+$callback+"],"+$renderer+")");
 
 	//
 	// Description:
@@ -93,7 +94,7 @@ global proc liquidBuildCreateSubMenu(
 	// We want to create buttons/menus in mental ray section
 
 	string $types[];
-	string $liquidClassfication = "rendernode/liquid";
+	string $liquidClassfication = "rendernode/"+$renderer;
 
 	if( startsWith($classification, $liquidClassfication) )
 	{
@@ -122,75 +123,3 @@ global proc liquidBuildCreateSubMenu(
 	liqPopIdent();
 }
 //
-
-global proc string liqCreateCustomNode(	string $runtimeClassification, 
-										string $postCommand , string $nodeType)
-//mimic mentralrayCustomNodeUI.mel>mrCreateCustomNode()
-//
-//	Function:	mrCreateCustomNode
-//	Purpose:	Callback routine to create a mental ray custom node.
-//	Arguments:
-//				$runtimeClassification - the runtime classification to be
-//										 assigned to the node
-//				$nodeType - the type of node to be created.
-//				$postCommand - command to be executed after node creation
-//
-//	Returns:	The name of the newly created node.
-//
-{
-
-	liqPushIdent();
-	liqlog("liqCreateCustomNode("+$runtimeClassification+","+$postCommand+","+$nodeType+")");
-
-	// Use the shadingNode command to create the node and assign its 
-	// runtime classification.
-	//
-	string $node = `shadingNode $runtimeClassification $nodeType`;
-
-	select $node;
-
-	if ($postCommand != "") {
-		string $cmd = substitute("%node", $postCommand, $node);
-		$cmd = substitute("%type", $cmd, ("\"" + $nodeType + "\""));
-		evalEcho $cmd;
-	}
-
-	// attach shading group if the it is material shader and surface shader.
-	if( isClassified($node, "rendernode/liquid/shader/surface") && isClassified($node, "shader/surface"))
-	{
-		string $cmd = "sets -renderable true -noSurfaceShader true -empty -name "+$node+"SG";
-		string $group = `evalEcho $cmd`;
-
-		string $outAttr = $node;
-		if (attributeExists("outValue", $node)) {
-			$outAttr += ".outValue ";
-		} else {
-			$outAttr += ".message ";
-		}
-		
-		$cmd = "connectAttr " + $outAttr + $group + ".miMaterialShader";
-		evalEcho $cmd;
-
-		// hook up extra shading group connections for appropriate materials
-		if (isClassified($node, "connection/liquid/photon")) {
-			$cmd = "connectAttr " + $outAttr + $group + ".miPhotonShader";
-			evalEcho $cmd;
-		}
-		if (isClassified($node, "connection/liquid/shadow")) {
-			$cmd = "connectAttr " + $outAttr + $group + ".miShadowShader";
-			evalEcho $cmd;
-		}
-	}
-
-	if ($nodeType=="misss_fast_simple_maya" ||
-		$nodeType=="misss_fast_skin_maya" ||
-		$nodeType=="misss_fast_shader" ||
-		$nodeType=="misss_fast_shader_x" ||
-		$nodeType=="misss_fast_shader_x_passes")
-	{
-		createAndAssignLightMap($node +".lightmap");
-		select $node;
-	}
-    liqPopIdent();
-	return $node;
-}

@@ -875,12 +875,6 @@
     <None Include="..\..\mel\2012\hyperShadePanel.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidCustomNodeUI.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
-    <None Include="..\..\mel\liquidCustomNodeUI.res.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
     <None Include="..\..\mel\2012\buildShaderMenus.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
@@ -894,6 +888,12 @@
       <Filter>MEL Scripts\2012</Filter>
     </None>
     <None Include="..\..\mel\liquidRenderCreateBarUI.mel">
+      <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCustomNodeUI.mel">
+      <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCustomNodeUI.res.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
   </ItemGroup>

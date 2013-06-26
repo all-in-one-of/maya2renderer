@@ -617,7 +617,7 @@ global proc createAssignNewMaterialTreeLister(string $item)
         $filterString = ($filterString + " rendernode/mentalray/material");
 	}
 	
-	$filterString = $filterString + LIQUID_getRenderNodeFilterString();
+	$filterString = $filterString + LIQUID_getRenderNodeFilterString("liquid");
 
 	// Create the window and treeLister.
 	//
