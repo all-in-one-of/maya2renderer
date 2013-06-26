@@ -1,5 +1,6 @@
 source xxliquidutility.mel;
 
+//
 global proc liquidAssignShaderToSelected_elvishray(string $node)
 {
 	liqPushIdent();
@@ -36,6 +37,16 @@ global proc liquidAssignShaderToSelected_elvishray(string $node)
 
 
 
+
+	liqPopIdent();
+}
+//
+global proc liqHyperShadeCreateMenu_BuildMenu_elvishray()
+{
+	liqPushIdent();
+	liqlog("liquidAssignShaderToSelected_elvishray()");
+	
+	erHyperShadeCreateMenu_BuildMenu( er_getRendererName() );
 
 	liqPopIdent();
 }

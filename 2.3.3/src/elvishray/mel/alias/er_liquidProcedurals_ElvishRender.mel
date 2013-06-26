@@ -9,3 +9,13 @@ global proc liquidAssignShaderToSelected_ElvishRender(string $node)
 
 	liqPopIdent();
 }
+//
+global proc liqHyperShadeCreateMenu_BuildMenu_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liqHyperShadeCreateMenu_BuildMenu_ElvishRender()");
+	
+	liqHyperShadeCreateMenu_BuildMenu_elvishray();
+
+	liqPopIdent();
+}

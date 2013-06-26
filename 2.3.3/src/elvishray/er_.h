@@ -6,7 +6,7 @@
 namespace elvishray
 {
 
-	const MString RENDER_NAME("ElvishRender");
+	const MString RENDER_NAME("ElvishRender");//update with er_RendererName.mel er_getRendererName()
 }
 
 #endif//_ER_H_

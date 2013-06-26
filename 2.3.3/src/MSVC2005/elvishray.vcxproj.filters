@@ -343,5 +343,14 @@
     <None Include="..\elvishray\mel\AEer_checkerTemplate.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\elvishray\mel\er_CustomNodeUI.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\er_CustomNodeUI.res.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\er_RendererName.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -15,6 +15,9 @@ source er_CameraVisibility.mel;
 source er_liquidProcedurals.mel;
 source AEer_flatcolorTemplate.mel;
 source AEer_checkerTemplate.mel;
+source er_RendererName.mel;
+source er_CustomNodeUI.mel;
+source er_CustomNodeUI.res.mel;
 
 //-----------------------------------------------
 // source erSHADER_user scripts if any.

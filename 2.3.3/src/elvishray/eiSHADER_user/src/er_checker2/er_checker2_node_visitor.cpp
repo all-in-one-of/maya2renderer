@@ -93,7 +93,7 @@ namespace elvishray
 			elvishray::Checker2Node::getTypeName(), 
 			elvishray::Checker2Node::getTypeId(), 
 			elvishray::Checker2Node::creator, elvishray::Checker2Node::initialize, MPxNode::kDependNode,
-			&elvishray::surface_classification);
+			&elvishray::texture2d_classification);
 		LIQCHECKSTATUS( status, "Can't register "+elvishray::Checker2Node::getTypeName()+" node" );
 		status.clear();
 

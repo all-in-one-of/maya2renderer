@@ -12,6 +12,8 @@ global proc LIQUID_HyperShadeCreateMenu_BuildMenu(string $panel, string $parent)
 	{
 		liqHyperShadeCreateMenu_BuildMenu("liquid");
 		menuItem -divider true;
+		liqHyperShadeCreateMenu_BuildMenu_subrenderer();
+		menuItem -divider true;
 	}
     liqPopIdent();
 }
@@ -118,7 +120,7 @@ global proc liquidBuildCreateSubMenu(
 		menuItem
 			-label $typeString
 			-annotation `format -s $typeString $annotMsg`
-			-command ($callback + " " + $type );
+			-command ($callback + " " + $type + " \""+$renderer+"\" ");
 	}
 	liqPopIdent();
 }

@@ -2654,7 +2654,10 @@
     <None Include="..\elvishray\mel\er_ConvertNurbs.mel" />
     <None Include="..\elvishray\mel\er_ConvertSubdivs.mel" />
     <None Include="..\elvishray\mel\er_CreateMenus.mel" />
+    <None Include="..\elvishray\mel\er_CustomNodeUI.mel" />
+    <None Include="..\elvishray\mel\er_CustomNodeUI.res.mel" />
     <None Include="..\elvishray\mel\er_liquidProcedurals.mel" />
+    <None Include="..\elvishray\mel\er_RendererName.mel" />
     <None Include="..\elvishray\mel\er_startup.mel" />
     <None Include="..\elvishray\mel\er_UserCallbackInterface.mel" />
     <None Include="..\elvishray\mel\userSetup.mel" />

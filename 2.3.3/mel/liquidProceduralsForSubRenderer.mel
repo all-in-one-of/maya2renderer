@@ -27,3 +27,21 @@ global proc liquidCreateMenu_subrenderer()
 
 	liqPopIdent();
 }
+//
+global proc liqHyperShadeCreateMenu_BuildMenu_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liqHyperShadeCreateMenu_BuildMenu_subrenderer()");
+	
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd = "liqHyperShadeCreateMenu_BuildMenu_"+$rnd+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
+}
