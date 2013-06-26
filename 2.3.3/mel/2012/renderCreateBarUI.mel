@@ -95,22 +95,26 @@ global proc addToRenderNodeTreeLister(
 	// We want to create buttons/menus in mental ray section
 
 	string $nodes[];
+	// mentalray (original code in Maya2012) begin
 	string $mentalrayClassfication = "rendernode/mentalray";
-	// Liquid -----------------------------
-	string $liquidClassfication = "rendernode/liquid/shader";
-
-	if( startsWith($classification, $mentalrayClassfication) ||
-		startsWith($classification, $liquidClassfication)) 
+	if( startsWith($classification, $mentalrayClassfication) ) 
 	{
 		$nodes = `listNodeTypes $classification`;
 	}
 	else
 	{
 		$nodes = `listNodeTypes -ex $mentalrayClassfication $classification`;
-		// Chad: can't figure out how to exclude multiple classifcation types in one go. tried multi-use and joining with ":"
-		// have to exclude as a post-op:
-		string $exclNodes[] = `listNodeTypes $liquidClassfication`;
-		$nodes = stringArrayRemove($exclNodes, $nodes);
+	}
+	// mentalray (original code in Maya2012) end
+	// Liquid -----------------------------
+	string $liquidClassfication = "rendernode/liquid/shader";
+	if( startsWith($classification, $liquidClassfication)) 
+	{
+		$nodes = `listNodeTypes $classification`;
+	}
+	else
+	{
+		$nodes = `listNodeTypes -ex $liquidClassfication $classification`;
 	}
 	// Liquid -----------------------------
 
