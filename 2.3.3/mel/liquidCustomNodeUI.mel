@@ -155,10 +155,10 @@ global proc initializeLiquidNodeTypeInfo ()
     if( size( $liqNodeTypeInfo ) == 0 ) 
     {
         int $index = 0;
-        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kMaterials"));
-        $liqNodeTypeInfo[$index++] = "liqMaterials";
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/surface";
-        $liqNodeTypeInfo[$index++] = "-asShader";
+        $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kMaterials"));//categoryName
+        $liqNodeTypeInfo[$index++] = "liqMaterials";//categoryUiName
+        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/surface";//categoryStaticClassification
+        $liqNodeTypeInfo[$index++] = "-asShader";//categoryRuntimeClassification
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kShadowShaders"));
         //$liqNodeTypeInfo[$index++] = "liqShadow";
@@ -173,7 +173,7 @@ global proc initializeLiquidNodeTypeInfo ()
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kDisplacementShaders"));
         $liqNodeTypeInfo[$index++] = "liqDisplacement";
         $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/displacement";//"rendernode/liquid/displace";
-        $liqNodeTypeInfo[$index++] = "-asUtility";
+        $liqNodeTypeInfo[$index++] = "-asShader";//"-asUtility"
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonicMaterials"));
         //$liqNodeTypeInfo[$index++] = "liqPhoton";
@@ -198,7 +198,7 @@ global proc initializeLiquidNodeTypeInfo ()
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLiquidLights"));
         $liqNodeTypeInfo[$index++] = "liqLight";
         $liqNodeTypeInfo[$index++] = "rendernode/liquid/light";
-        $liqNodeTypeInfo[$index++] = "-asUtility";
+        $liqNodeTypeInfo[$index++] = "-asLight";//"-asUtility"
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonEmitters"));
         //$liqNodeTypeInfo[$index++] = "liqEmitter";
@@ -381,7 +381,7 @@ global proc string liqCreateCustomNode(	string $runtimeClassification,
 			$outAttr += ".message ";
 		}
 		
-		$cmd = "connectAttr " + $outAttr + $group + ".liqMaterialShader";
+		$cmd = "connectAttr " + $outAttr + $group + ".surfaceShader";
 		evalEcho $cmd;
 
 		// hook up extra shading group connections for appropriate materials
@@ -394,6 +394,8 @@ global proc string liqCreateCustomNode(	string $runtimeClassification,
 			evalEcho $cmd;
 		}
 	}
+	//TODO: connect volume shader node to $shadingGroup.volumeShader
+	//TODO: connect displace shader node to $shadingGroup.displacementShader
 
 	//NOTE: custom the following code for liquid
 	liqWarn("liqCreateCustomNode()> custom the following code for liquid");

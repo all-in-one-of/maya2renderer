@@ -155,10 +155,10 @@ global proc initializeERNodeTypeInfo ()
     if( size( $erNodeTypeInfo ) == 0 ) 
     {
         int $index = 0;
-        $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kMaterials"));
-        $erNodeTypeInfo[$index++] = "liqMaterials";
-        $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/shader/surface";
-        $erNodeTypeInfo[$index++] = "-asShader";
+        $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kMaterials"));//categoryName
+        $erNodeTypeInfo[$index++] = "liqMaterials";//categoryUiName
+        $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/shader/surface";//categoryStaticClassification
+        $erNodeTypeInfo[$index++] = "-asShader";//categoryRuntimeClassification
     
         //$erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kShadowShaders"));
         //$erNodeTypeInfo[$index++] = "liqShadow";
@@ -173,7 +173,7 @@ global proc initializeERNodeTypeInfo ()
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kDisplacementShaders"));
         $erNodeTypeInfo[$index++] = "liqDisplacement";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/shader/displacement";//"rendernode/"+er_getRendererName()+"/displace";
-        $erNodeTypeInfo[$index++] = "-asUtility";
+        $erNodeTypeInfo[$index++] = "-asShader";//asUtility
     
         //$erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kPhotonicMaterials"));
         //$erNodeTypeInfo[$index++] = "liqPhoton";
@@ -198,7 +198,7 @@ global proc initializeERNodeTypeInfo ()
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kERLights"));
         $erNodeTypeInfo[$index++] = "liqLight";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/light";
-        $erNodeTypeInfo[$index++] = "-asUtility";
+        $erNodeTypeInfo[$index++] = "-asLight";//-asUtility
     
         //$erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kPhotonEmitters"));
         //$erNodeTypeInfo[$index++] = "liqEmitter";
@@ -381,7 +381,7 @@ global proc string erCreateCustomNode(	string $runtimeClassification,
 			$outAttr += ".message ";
 		}
 		
-		$cmd = "connectAttr " + $outAttr + $group + ".liqMaterialShader";
+		$cmd = "connectAttr " + $outAttr + $group + ".surfaceShader";
 		evalEcho $cmd;
 
 		// hook up extra shading group connections for appropriate materials
@@ -394,6 +394,8 @@ global proc string erCreateCustomNode(	string $runtimeClassification,
 			evalEcho $cmd;
 		}
 	}
+	//TODO: connect volume shader node to $shadingGroup.volumeShader
+	//TODO: connect displace shader node to $shadingGroup.displacementShader
 
 	//NOTE: custom the following code for liquid
 	liqWarn("erCreateCustomNode()> custom the following code for liquid");
@@ -580,7 +582,7 @@ global proc erRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, 
 
 {
 	liqPushIdent();
-	liqlog("erRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", $filterClasses[], "+$renderer+")");
+	liqlog("erRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", ["+stringArrayToString($filterClasses,",")+"], "+$renderer+")");
 
 	if(size($filterClasses) == 0) {
 		// Create all categories
