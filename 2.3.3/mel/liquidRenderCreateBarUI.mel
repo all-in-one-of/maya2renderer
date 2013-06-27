@@ -5,17 +5,16 @@ source xxliquidutility.mel;
 global proc LIQUID_buildRenderNodeTreeListerContent(string $renderNodeTreeLister, string $postCommand, string $filterClassArray[])
 {
 	liqPushIdent();
-	liqlog("LIQUID_buildRenderNodeTreeListerContent("+$renderNodeTreeLister+","+$postCommand+", $filterClassArray[])");
+	liqlog("LIQUID_buildRenderNodeTreeListerContent("+$renderNodeTreeLister+","+$postCommand+", ["+stringArrayToString($filterClassArray,",")+"])");
 
 
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{
 		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, "liquid");
 	}
-	if ( isSubRendererLoaded(er_getRendererName()) )
-	{
-		erRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, er_getRendererName());
-	}
+
+	liqRenderNode_CreateTreeLister_Content_subrenderer($renderNodeTreeLister, $postCommand, $filterClassArray);
+
     liqPopIdent();
 }
 //

@@ -30,3 +30,12 @@ global proc string[] liqExcludeClassficationNodes_ElvishRender(string $classific
 	liqPopIdent();
 	return $exclude;
 }
+//
+global proc liqRenderNode_CreateTreeLister_Content_ElvishRender(string $renderNodeTreeLister, string $postCommand, string $filterClassArray[])
+{
+	liqPushIdent();
+	liqlog("liqRenderNode_CreateTreeLister_Content_ElvishRender("+$renderNodeTreeLister+","+$postCommand+", ["+stringArrayToString($filterClassArray,",")+"])");
+	liqRenderNode_CreateTreeLister_Content_elvishray($renderNodeTreeLister, $postCommand, $filterClassArray);
+	liqPopIdent();
+	return;
+}

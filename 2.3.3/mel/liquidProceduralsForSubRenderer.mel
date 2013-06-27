@@ -64,3 +64,27 @@ global proc string[] LIQUID_excludeClassficationNodes_subrenderer(string $classi
 	liqPopIdent();
 	return $exclude;
 }
+//
+global proc liqRenderNode_CreateTreeLister_Content_subrenderer(string $renderNodeTreeLister, string $postCommand, string $filterClassArray[])
+{
+	liqPushIdent();
+	liqlog("liqRenderNode_CreateTreeLister_Content_subrenderer("+$renderNodeTreeLister+","+$postCommand+", ["+stringArrayToString($filterClassArray,",")+"])");
+
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd;
+			if( size($filterClassArray)==0 ){
+				$cmd = "liqRenderNode_CreateTreeLister_Content_"+$rnd+"(\""+$renderNodeTreeLister+"\", \""+$postCommand+"\", {})";
+			}else{
+				$cmd = "liqRenderNode_CreateTreeLister_Content_"+$rnd+"(\""+$renderNodeTreeLister+"\", \""+$postCommand+"\", {\""+stringArrayToString($filterClassArray,"\", \"")+"\"})";
+			}
+			$exclude = `eval $cmd`;
+		}
+	}
+
+	liqPopIdent();
+	return;
+}
