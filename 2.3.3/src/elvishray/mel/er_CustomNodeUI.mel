@@ -446,7 +446,7 @@ global proc string erCreateCustomNode(	string $runtimeClassification,
 //
 //	// we are inside the new tab, so create a layout for the node categories 
 //	//
-//	columnLayout -adj true liquidTab;
+//	columnLayout -adj true erTab;
 //
 //		// iterate through the categories
 //		//
@@ -524,7 +524,7 @@ global proc string erCreateCustomNode(	string $runtimeClassification,
 //
 //	// go to the mental ray node tab
 //	//
-//    setParent liquidTab;
+//    setParent erTab;
 //
 //	// set up the buttons for each mental ray node category
 //	//
@@ -569,74 +569,74 @@ global proc string erCreateCustomNode(	string $runtimeClassification,
 //
 //*****************************************************************************
 
-//global proc erRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[], string $renderer)
-////
-////	Function:	mrRenderNode_CreateTreeLister_Content()
-////	Purpose:	Does the actual job for mrRenderCreateBar_CreateTab.
-////				Refactored into a separate procedure
-////				so othat "Create All Nodes" tab shows
-////				both maya and mental ray nodes
-////
+global proc erRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[], string $renderer)
 //
-//{
-//	liqPushIdent();
-//	liqlog("erRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", $filterClasses[], "+$renderer+")");
+//	Function:	mrRenderNode_CreateTreeLister_Content()
+//	Purpose:	Does the actual job for mrRenderCreateBar_CreateTab.
+//				Refactored into a separate procedure
+//				so othat "Create All Nodes" tab shows
+//				both maya and mental ray nodes
 //
-//	if(size($filterClasses) == 0) {
-//		// Create all categories
-//		//
-//		int $numCategories = liqNumNodeCategories();
-//		int $i;
-//		for( $i = 0; $i < $numCategories; $i++ )
-//		{
-//			string $categoryInfo[] = liqGetNodeCategory( $i );
-//			string $title = $categoryInfo[0];
-//			string $uiBaseName = $categoryInfo[1];
-//			string $staticClassification = $categoryInfo[2];
-//			string $runtimeClassification = $categoryInfo[3];
-//
-//			// add to the treeLister
-//			//
-//			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
-//				$staticClassification, $runtimeClassification, "" );
-//
-//		}
-//	} else {
-//		// Create only the categories in the filter array
-//		//
-//		for($filterClass in $filterClasses) {
-//			int $numCategories = erNumNodeCategories();
-//			int $i;
-//			for( $i = 0; $i < $numCategories; $i++ )
-//			{
-//				string $categoryInfo[] = erGetNodeCategory( $i );
-//				string $title = $categoryInfo[0];
-//				string $uiBaseName = $categoryInfo[1];
-//				string $staticClassification = $categoryInfo[2];
-//				string $runtimeClassification = $categoryInfo[3];
-//
-//				if(startsWith($filterClass, $staticClassification)) {
-//					// If the filter classification is a subclass of
-//					// a default, only add the subclass nodes to the
-//					// treeLister.
-//					//
-//					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
-//						$filterClass, $runtimeClassification, "" );
-//					break;
-//				} else if(startsWith($staticClassification, $filterClass)) {
-//					// If the filter classification is a superclass of
-//					// a default, we can add all the default nodes to the
-//					// treeLister.
-//					//
-//					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
-//						$staticClassification, $runtimeClassification, "" );
-//					break;
-//				}
-//			}
-//		}
-//	}
-//    liqPopIdent();
-//}
+
+{
+	liqPushIdent();
+	liqlog("erRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", $filterClasses[], "+$renderer+")");
+
+	if(size($filterClasses) == 0) {
+		// Create all categories
+		//
+		int $numCategories = erNumNodeCategories();
+		int $i;
+		for( $i = 0; $i < $numCategories; $i++ )
+		{
+			string $categoryInfo[] = erGetNodeCategory( $i );
+			string $title = $categoryInfo[0];
+			string $uiBaseName = $categoryInfo[1];
+			string $staticClassification = $categoryInfo[2];
+			string $runtimeClassification = $categoryInfo[3];
+
+			// add to the treeLister
+			//
+			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
+				$staticClassification, $runtimeClassification, "" );
+
+		}
+	} else {
+		// Create only the categories in the filter array
+		//
+		for($filterClass in $filterClasses) {
+			int $numCategories = erNumNodeCategories();
+			int $i;
+			for( $i = 0; $i < $numCategories; $i++ )
+			{
+				string $categoryInfo[] = erGetNodeCategory( $i );
+				string $title = $categoryInfo[0];
+				string $uiBaseName = $categoryInfo[1];
+				string $staticClassification = $categoryInfo[2];
+				string $runtimeClassification = $categoryInfo[3];
+
+				if(startsWith($filterClass, $staticClassification)) {
+					// If the filter classification is a subclass of
+					// a default, only add the subclass nodes to the
+					// treeLister.
+					//
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
+						$filterClass, $runtimeClassification, "" );
+					break;
+				} else if(startsWith($staticClassification, $filterClass)) {
+					// If the filter classification is a superclass of
+					// a default, we can add all the default nodes to the
+					// treeLister.
+					//
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
+						$staticClassification, $runtimeClassification, "" );
+					break;
+				}
+			}
+		}
+	}
+    liqPopIdent();
+}
 
 //*****************************************************************************
 //

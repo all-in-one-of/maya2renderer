@@ -19,3 +19,14 @@ global proc liqHyperShadeCreateMenu_BuildMenu_ElvishRender()
 
 	liqPopIdent();
 }
+//
+global proc string[] liqExcludeClassficationNodes_ElvishRender(string $classification, string $exclude[])
+{
+	liqPushIdent();
+	liqlog("liqExcludeClassficationNodes_ElvishRender("+$classification+", $exclude[])");
+	
+	$exclude = liqExcludeClassficationNodes_elvishray($classification, $exclude);
+
+	liqPopIdent();
+	return $exclude;
+}

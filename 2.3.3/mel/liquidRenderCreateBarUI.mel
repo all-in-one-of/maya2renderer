@@ -10,8 +10,11 @@ global proc LIQUID_buildRenderNodeTreeListerContent(string $renderNodeTreeLister
 
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{
-		// this proc created inside mtoa.ui.nodeTreeLister
 		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, "liquid");
+	}
+	if ( isSubRendererLoaded(er_getRendererName()) )
+	{
+		erRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, er_getRendererName());
 	}
     liqPopIdent();
 }
@@ -27,8 +30,12 @@ global proc string[] LIQUID_excludeClassficationNodes(string $classification)
 	if( !startsWith($classification, $liquidClassfication) )
 	{
 		string $exclNodes[];
-		$exclude = `listNodeTypes $liquidClassfication`;
+		string $tmp[] = `listNodeTypes $liquidClassfication`;
+		$exclude = stringArrayCatenate($exclude, $tmp);
+		$exclude = stringArrayRemoveDuplicates($exclude);
 	}
+	
+	$exclude = LIQUID_excludeClassficationNodes_subrenderer($classification, $exclude);
 
     liqPopIdent();
 	return $exclude;

@@ -45,3 +45,22 @@ global proc liqHyperShadeCreateMenu_BuildMenu_subrenderer()
 
 	liqPopIdent();
 }
+//
+global proc string[] LIQUID_excludeClassficationNodes_subrenderer(string $classification, string $exclude[])
+{
+	liqPushIdent();
+	liqlog("LIQUID_excludeClassficationNodes_subrenderer("+$classification+", $exclude[])");
+
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd = "liqExcludeClassficationNodes_"+$rnd+"(\""+$classification+"\", {\""+stringArrayToString($exclude,"\", \"")+"\"})";
+			$exclude = `eval $cmd`;
+		}
+	}
+
+	liqPopIdent();
+	return $exclude;
+}

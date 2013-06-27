@@ -50,3 +50,21 @@ global proc liqHyperShadeCreateMenu_BuildMenu_elvishray()
 
 	liqPopIdent();
 }
+//
+global proc string[] liqExcludeClassficationNodes_elvishray(string $classification, string $exclude[])
+{
+	liqPushIdent();
+	liqlog("liqExcludeClassficationNodes_elvishray(string $exclude[])");
+	
+	string $erClassfication = "rendernode/"+er_getRendererName()+"/shader";
+	if( !startsWith($classification, $erClassfication) )
+	{
+		string $exclNodes[];
+		string $tmp[] = `listNodeTypes $erClassfication`;
+		$exclude = stringArrayCatenate($exclude, $tmp);
+		$exclude = stringArrayRemoveDuplicates($exclude);
+	}
+
+	liqPopIdent();
+	return $exclude;
+}
