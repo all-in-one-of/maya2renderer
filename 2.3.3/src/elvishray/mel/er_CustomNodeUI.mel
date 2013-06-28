@@ -155,8 +155,8 @@ global proc initializeERNodeTypeInfo ()
     if( size( $erNodeTypeInfo ) == 0 ) 
     {
         int $index = 0;
-        $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kMaterials"));//categoryName
-        $erNodeTypeInfo[$index++] = "liqMaterials";//categoryUiName
+        $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kSurface"));//categoryName
+        $erNodeTypeInfo[$index++] = "erSurface";//categoryUiName
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/shader/surface";//categoryStaticClassification
         $erNodeTypeInfo[$index++] = "-asShader";//categoryRuntimeClassification
     
@@ -166,12 +166,12 @@ global proc initializeERNodeTypeInfo ()
         //$erNodeTypeInfo[$index++] = "-asUtility";
     
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kVolumetricMaterials"));
-        $erNodeTypeInfo[$index++] = "liqVolume";
+        $erNodeTypeInfo[$index++] = "erVolume";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/shader/volume";//"rendernode/"+er_getRendererName()+"/volume";
         $erNodeTypeInfo[$index++] = "-asShader";
     
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kDisplacementShaders"));
-        $erNodeTypeInfo[$index++] = "liqDisplacement";
+        $erNodeTypeInfo[$index++] = "erDisplacement";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/shader/displacement";//"rendernode/"+er_getRendererName()+"/displace";
         $erNodeTypeInfo[$index++] = "-asShader";//asUtility
     
@@ -186,17 +186,17 @@ global proc initializeERNodeTypeInfo ()
         //$erNodeTypeInfo[$index++] = "-asUtility";
     
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kTextures"));
-        $erNodeTypeInfo[$index++] = "liqTexture";
+        $erNodeTypeInfo[$index++] = "erTexture";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/texture";
         $erNodeTypeInfo[$index++] = "-asTexture";
     
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kEnvironments"));
-        $erNodeTypeInfo[$index++] = "liqEnvironment";
+        $erNodeTypeInfo[$index++] = "erEnvironment";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/environment";
         $erNodeTypeInfo[$index++] = "-asShader";
     
-        $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kERLights"));
-        $erNodeTypeInfo[$index++] = "liqLight";
+        $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kLights"));
+        $erNodeTypeInfo[$index++] = "erLight";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/light";
         $erNodeTypeInfo[$index++] = "-asLight";//-asUtility
     
@@ -221,7 +221,7 @@ global proc initializeERNodeTypeInfo ()
         //$erNodeTypeInfo[$index++] = "-asUtility";
     
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kGeometry"));
-        $erNodeTypeInfo[$index++] = "liqGeometry";
+        $erNodeTypeInfo[$index++] = "erGeometry";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/geometry";
         $erNodeTypeInfo[$index++] = "-asUtility";
     
@@ -266,12 +266,12 @@ global proc initializeERNodeTypeInfo ()
         //$erNodeTypeInfo[$index++] = "-asUtility";
 
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kUtilityGeneral"));
-        $erNodeTypeInfo[$index++] = "liqUtilityGeneral";
+        $erNodeTypeInfo[$index++] = "erUtilityGeneral";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/utility/general";
         $erNodeTypeInfo[$index++] = "-asUtility";
 
         $erNodeTypeInfo[$index++] = (uiRes("m_erCustomNodeUI.kUtilityColor"));
-        $erNodeTypeInfo[$index++] = "liqUtilityColor";
+        $erNodeTypeInfo[$index++] = "erUtilityColor";
         $erNodeTypeInfo[$index++] = "rendernode/"+er_getRendererName()+"/utility/color";
         $erNodeTypeInfo[$index++] = "-asUtility";
     }

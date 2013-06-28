@@ -79,3 +79,42 @@ global proc liqRenderNode_CreateTreeLister_Content_elvishray(string $renderNodeT
 	liqPopIdent();
 	return;
 }
+//
+global proc int LIQUID_isLiquidClassification_ElvishRender(string $classification)
+{
+	liqPushIdent();
+	liqlog("LIQUID_isLiquidClassification_ElvishRender("+$classification+")");
+
+	string $erClassfication = "rendernode/"+er_getRendererName()+"/shader";
+	if( startsWith($classification, $erClassfication) )
+	{
+		return 1;
+	}
+
+	liqPopIdent();
+	return 0;
+}
+//
+global proc string LIQUID_getCreateBarItemCallbackCmd_elvishray(
+	string $classification,
+	string $as,
+	string $postCommand,
+	string $type)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getCreateBarItemCallbackCmd_elvishray("+$classification+","+$as+","+$postCommand+","+$type+")");
+	
+	string $command = 
+				("erCreateCustomNode"
+					+ " "
+					+ $as 
+					+ " \""
+					+ encodeString($postCommand)
+					+ "\" "
+					+ $type
+					+ " \""+er_getRendererName()+"\" "
+					);
+	
+	liqPopIdent();
+	return $command;
+}

@@ -39,3 +39,43 @@ global proc string[] LIQUID_excludeClassficationNodes(string $classification)
     liqPopIdent();
 	return $exclude;
 }
+//
+global proc int LIQUID_isLiquidClassification(string $classification)
+{
+	liqPushIdent();
+	liqlog("LIQUID_isLiquidClassification("+$classification+")");
+
+	int $processed = 0;// processed by liquidor not
+
+	string $liquidClassfication = "rendernode/liquid/shader";
+	if( startsWith($classification, $liquidClassfication) )
+	{
+		return 1;
+	}
+
+	$processed = LIQUID_isLiquidClassification_subrenderer($classification);
+	
+    liqPopIdent();
+	return $processed;
+}
+//
+global proc string LIQUID_getCreateBarItemCallbackCmd(
+	string $classification,
+	string $as,
+	string $postCommand,
+	string $type
+	)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getCreateBarItemCallbackCmd("+$classification+","+$as+","+$postCommand+","+$type+")");
+
+	string $command;
+
+	if( LIQUID_isLiquidClassification($classification) )
+	{
+		$command = LIQUID_getCreateBarItemCallbackCmd_subrenderer($classification, $as, $postCommand, $type);
+	}
+	
+    liqPopIdent();
+	return $command;
+}

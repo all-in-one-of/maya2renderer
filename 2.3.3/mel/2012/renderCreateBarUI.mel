@@ -143,6 +143,11 @@ global proc addToRenderNodeTreeLister(
 					+ $type);
 			$labelName = $type;
         }
+		else if( LIQUID_isLiquidClassification($classification) ){
+			$command = LIQUID_getCreateBarItemCallbackCmd($classification, 
+				$as, $postCommand, $type);
+			$labelName = `nodeTypeNiceName $type`;
+		}
         else
         {
 			$command = 

@@ -88,3 +88,57 @@ global proc liqRenderNode_CreateTreeLister_Content_subrenderer(string $renderNod
 	liqPopIdent();
 	return;
 }
+//
+global proc int LIQUID_isLiquidClassification_subrenderer(string $classification)
+{
+	liqPushIdent();
+	liqlog("LIQUID_isLiquidClassification_subrenderer("+$classification+"])");
+		
+	int $processed = 0;
+	
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			$cmd = "LIQUID_isLiquidClassification_"+$rnd+"(\""+$classification+"\")";
+			$processed = `eval $cmd`;
+
+			if( $processed == 1 )
+				return 1;
+		}
+	}
+	liqPopIdent();
+	return 0;
+}
+//
+global proc string LIQUID_getCreateBarItemCallbackCmd_subrenderer(
+	string $classification,
+	string $as,
+	string $postCommand,
+	string $type)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getCreateBarItemCallbackCmd_subrenderer("+$classification+","+$as+","+$postCommand+","+$type+")");
+		
+	string $command;
+	
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			$cmd = "LIQUID_isLiquidClassification_"+$rnd+"(\""+$classification+"\")";
+			int $processed = `eval $cmd`;
+
+			if( $processed == 1 )
+			{
+				$cmd = "LIQUID_getCreateBarItemCallbackCmd_"+$rnd+"(\""+$classification+"\",\""+$as+"\",\""+$postCommand+"\",\""+$type+"\")";
+				$command = `eval $cmd`;
+				return $command;
+			}
+		}
+	}
+	liqPopIdent();
+	return $command;
+}

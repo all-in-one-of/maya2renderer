@@ -39,3 +39,29 @@ global proc liqRenderNode_CreateTreeLister_Content_ElvishRender(string $renderNo
 	liqPopIdent();
 	return;
 }
+//
+global proc int LIQUID_isLiquidClassification_ElvishRender(string $classification)
+{
+	liqPushIdent();
+	liqlog("LIQUID_isLiquidClassification_ElvishRender("+$classification+")");
+	int $ret;
+	$ret = LIQUID_isLiquidClassification_elvishray($classification);
+	liqPopIdent();
+	return $ret;
+}
+//
+global proc string LIQUID_getCreateBarItemCallbackCmd_ElvishRender(
+	string $classification,
+	string $as,
+	string $postCommand,
+	string $type)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getCreateBarItemCallbackCmd_ElvishRender("+$classification+","+$as+","+$postCommand+","+$type+")");
+	
+	string $ret;
+	$ret = LIQUID_getCreateBarItemCallbackCmd_elvishray($classification, $as, $postCommand, $type);
+	
+	liqPopIdent();
+	return $ret;
+}

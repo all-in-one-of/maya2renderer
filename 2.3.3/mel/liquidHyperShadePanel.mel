@@ -117,6 +117,9 @@ global proc liquidBuildCreateSubMenu(
 		}
 
 		string $typeString = nodeTypeNiceName( $type );
+		
+		liqlog(">menuItem "+$typeString+" , cmd:"+$callback+" "+$type+" \""+$renderer+"\"");
+		
 		menuItem
 			-label $typeString
 			-annotation `format -s $typeString $annotMsg`
