@@ -5,17 +5,37 @@
       <Configuration>DebugDLL_Liquid</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDLL_Liquid|x64">
+      <Configuration>DebugDLL_Liquid</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugLib_Liquid|Win32">
       <Configuration>DebugLib_Liquid</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugLib_Liquid|x64">
+      <Configuration>DebugLib_Liquid</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseLib_Liquid|Win32">
       <Configuration>ReleaseLib_Liquid</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseLib_Liquid|x64">
+      <Configuration>ReleaseLib_Liquid</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -25,9 +45,17 @@
       <Configuration>MinSizeRel</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="RelWithDebInfo|Win32">
       <Configuration>RelWithDebInfo</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -42,7 +70,17 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
@@ -52,7 +90,17 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
@@ -62,12 +110,27 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
@@ -82,49 +145,138 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Release_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">miqser.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">miqser.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">miqser.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">miqser.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">miqser.dir\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">miqser.dir\Release_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">miqser.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">miqser.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">miqser</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">miqser</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">miqser</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">miqser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">.exe</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">true</GenerateManifest>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">miqser.dir\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">miqser.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">miqser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">miqser.dir\MinSizeRel\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">miqser.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">miqser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">miqser.dir\RelWithDebInfo\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">miqser.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">miqser</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">miqser</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\Debug\aqsis_util.lib;..\..\libs\ribparse\Debug\aqsis_ribparse.lib;..\..\libs\ri2rib\Debug\aqsis_ri2rib.lib;..\..\libs\riutil\Debug\aqsis_riutil.lib;..\..\libs\util\Debug\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-gd-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-gd-1_47.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-gd-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.lib</ImportLibrary>
+      <LinkIncremental>true</LinkIncremental>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -218,6 +370,53 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\Debug\aqsis_util.lib;..\..\libs\ribparse\Debug\aqsis_ribparse.lib;..\..\libs\ri2rib\Debug\aqsis_ri2rib.lib;..\..\libs\riutil\Debug\aqsis_riutil.lib;..\..\libs\util\Debug\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-gd-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-gd-1_47.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-gd-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.lib</ImportLibrary>
+      <LinkIncremental>true</LinkIncremental>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">
     <ClCompile>
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
@@ -265,7 +464,101 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Release_x64/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\Release_x64\aqsis_util.lib;..\..\libs\ribparse\Release_x64\aqsis_ribparse.lib;..\..\libs\ri2rib\Release_x64\aqsis_ri2rib.lib;..\..\libs\riutil\Release_x64\aqsis_riutil.lib;E:\dev\boost\1_47\stage\lib64\libboost_filesystem-vc100-mt-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib64\libboost_system-vc100-mt-1_47.lib;E:\dev\boost\1_47\stage\lib64\libboost_iostreams-vc100-mt-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Release_x64/miqser.lib</ImportLibrary>
+      <LinkIncremental>true</LinkIncremental>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Release_x64/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\Debug\aqsis_util.lib;..\..\libs\ribparse\Debug\aqsis_ribparse.lib;..\..\libs\ri2rib\Debug\aqsis_ri2rib.lib;..\..\libs\riutil\Debug\aqsis_riutil.lib;..\..\libs\util\Debug\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-gd-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-gd-1_47.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-gd-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.lib</ImportLibrary>
+      <LinkIncremental>true</LinkIncremental>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Debug/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">
     <ClCompile>
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -358,7 +651,99 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Release/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\Release\aqsis_util.lib;..\..\libs\ribparse\Release\aqsis_ribparse.lib;..\..\libs\ri2rib\Release\aqsis_ri2rib.lib;..\..\libs\riutil\Release\aqsis_riutil.lib;..\..\libs\util\Release\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-1_47.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Release/miqser.lib</ImportLibrary>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/Release/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>MinSizeRel</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/MinSizeRel/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\MinSizeRel\aqsis_util.lib;..\..\libs\ribparse\MinSizeRel\aqsis_ribparse.lib;..\..\libs\ri2rib\MinSizeRel\aqsis_ri2rib.lib;..\..\libs\riutil\MinSizeRel\aqsis_riutil.lib;..\..\libs\util\MinSizeRel\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-1_47.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/MinSizeRel/miqser.lib</ImportLibrary>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/MinSizeRel/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
       <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -450,13 +835,73 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>RelWithDebInfo</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/RelWithDebInfo/miqser.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:/dev/render/renderer/aqsis/trunk/win32libs/GnuWin32/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/include;E:/dev/boost/1_47;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri;E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\util\RelWithDebInfo\aqsis_util.lib;..\..\libs\ribparse\RelWithDebInfo\aqsis_ribparse.lib;..\..\libs\ri2rib\RelWithDebInfo\aqsis_ri2rib.lib;..\..\libs\riutil\RelWithDebInfo\aqsis_riutil.lib;..\..\libs\util\RelWithDebInfo\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-1_47.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/RelWithDebInfo/miqser.lib</ImportLibrary>
+      <LinkIncremental>true</LinkIncremental>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/miqser/RelWithDebInfo/miqser.pdb</ProgramDataBaseFile>
+      <StackReserveSize>10000000</StackReserveSize>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\src\tools\miqser\CMakeLists.txt">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
@@ -476,6 +921,16 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
@@ -486,7 +941,27 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
@@ -497,15 +972,34 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
@@ -516,9 +1010,22 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
@@ -529,8 +1036,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 "D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
@@ -541,17 +1051,43 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+"D:\Program Files\CMake 2.8\bin\cmake.exe" -HE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src -BE:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build --check-stamp-file E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser/CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\libs\rib2ri\project.cmake;E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\src\tools\miqser\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\miqser\CMakeFiles\generate.stamp</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\libs\rib2ri\requesthandler_method_impl.inl.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -571,6 +1107,16 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
@@ -581,7 +1127,27 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -592,15 +1158,34 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -611,9 +1196,22 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -624,8 +1222,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating requesthandler_method_impl.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
@@ -636,17 +1237,43 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_impl.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_impl.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_impl.inl</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\libs\rib2ri\requestlists.inl.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -666,6 +1293,16 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
@@ -676,7 +1313,27 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -687,14 +1344,23 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
@@ -705,9 +1371,22 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
@@ -718,9 +1397,22 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Generating requestlists.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating requestlists.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
@@ -731,17 +1423,43 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requestlists.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requestlists.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requestlists.inl</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\libs\rib2ri\requesthandler_method_defs.inl.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -761,7 +1479,27 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
 if %errorlevel% neq 0 goto :cmEnd
@@ -781,15 +1519,34 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
@@ -800,9 +1557,22 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
@@ -813,9 +1583,22 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating requesthandler_method_defs.inl via XSL transformation...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
 set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
 E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
@@ -826,8 +1609,20 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+set PATH=;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin;%PATH%
+E:\dev\render\renderer\aqsis\trunk\win32libs\GnuWin32\bin\xsltproc.exe -o E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl --path E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/tools/miqser:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/libs/rib2ri:E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/src/include/aqsis/ri requesthandler_method_defs.xsl ri.xml
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/rib2ri/requesthandler_method_defs.inl.rule;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\rib2ri\requesthandler_method_defs.inl</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
