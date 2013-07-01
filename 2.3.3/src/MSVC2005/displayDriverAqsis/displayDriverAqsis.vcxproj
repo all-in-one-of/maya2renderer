@@ -1296,15 +1296,15 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>$(AQSIS)/include;../../../include;E:\dev\tools\pixar\renderman\13.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;DEBUG;_WINDOWS;_USRDLL;DISPLAYDRIVERAQSIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../include;../../../../dependence/prman/13.5/include;../../../src;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DISPLAYDRIVERAQSIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeaderOutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/displayDriverAqsis.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
@@ -1314,20 +1314,23 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../../displayDrivers/aqsis/liqmaya_x32.dll</OutputFile>
+      <OutputFile>../../../displayDrivers/Aqsis/$(Platform)/liqmaya_2012x64.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(AQSIS)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ProgramDatabaseFile>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya_x32.pdb</ProgramDatabaseFile>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)/stage/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/liqmaya_x64.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya.lib</ImportLibrary>
+      <ImportLibrary>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/liqmaya.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.bsc</OutputFile>
+      <OutputFile>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/displayDriverAqsis.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>xcopy /f /y "..\..\..\displayDrivers\Aqsis\$(Platform)\liqmaya_2012x64.dll" "$(DELIGHT)\displays\liqmaya.dpy"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\liqMayaDisplayDriverAqsis.cpp">

@@ -7,6 +7,11 @@
 
 - learn katana
 
+liq| x64|:
+-update test case, 
+-liquid_root/bin/x64, liquid_root/bin/x32
+
+
 -liq| createBar|:
 done)bug: 先打开hypherShaderPanel，后加载liquid，CreateBar里显示不出liquid categary
 todo:CreateBar的里menu如何嵌套？

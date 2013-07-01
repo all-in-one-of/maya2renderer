@@ -1,5 +1,5 @@
 
-#include <common/prerequest_maya.h>>
+#include <common/prerequest_maya.h>
 
 #include "rm_renderer.h"
 #include <liqPreviewShader.h>

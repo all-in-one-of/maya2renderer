@@ -1279,7 +1279,7 @@ namespace elvishray
 			liquidMessage2(messageError,
 				"%s/bin/manager.ini is not found. Please copy Elvishray's manager.ini to %s/bin/, "
 				"Make sure the searchpath in manager.ini is set to the directory which contains eiIMG.dll and eiSHADER.dll. "
-				"e.g. searchpath <LiquidRoot>/dependence/elvishray/bin",
+				"e.g. searchpath <LiquidRoot>/dependence/elvishray/bin (or <LiquidRoot>/dependence/elvishray/bin_x64 on 64bit OS)",
 				MAYA_PATH.asChar(),
 				MAYA_PATH.asChar()
 				);
