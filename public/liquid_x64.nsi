@@ -1,11 +1,14 @@
 
 !include WinMessages.nsh
 
+!define LiqPlatform	 "x64"
+!define LiqConfiguration "M2R2012Release"
+
 !define LIQUID_ROOT "E:\dev\autodesk\maya\myplugin\project\liquid_"
 !define MyInstallDir "E:\maya2renderer_install_root"
 !define /date CUR_TIME "%Y_%m_%d__%H_%M_%S"
 
-outfile "liquid_${CUR_TIME}.exe"
+outfile "liquid_${LiqPlatform}_${LiqConfiguration}_${CUR_TIME}.exe"
 ;installDir "$PROGRAMFILES\liquid_install_root" 
 installDir ${MyInstallDir}
 
@@ -14,16 +17,13 @@ Page directory
 Page instfiles
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 section
-setOutPath $INSTDIR\2.3.3\bin
-file ${LIQUID_ROOT}\2.3.3\bin\*.*
+
+setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}
+file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\*.*
 
 
-setOutPath $INSTDIR\2.3.3\bin\Prman\win32
-file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\Prman\win32\*.*
-
-
-setOutPath $INSTDIR\2.3.3\bin\Prman\win32\M2R2012Release
-file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\Prman\win32\M2R2012Release\*.*
+setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}
+file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\*.*
 
 
 setOutPath $INSTDIR\2.3.3\doc
@@ -64,29 +64,29 @@ file /r ${LIQUID_ROOT}\2.3.3\lib\shaders\*.*
 setOutPath $INSTDIR\dependence\_3delight
 file ${LIQUID_ROOT}\dependence\_3delight\*.*
 
-setOutPath $INSTDIR\dependence\elvishray\r274\bin
-file ${LIQUID_ROOT}\dependence\elvishray\r274\bin\*.*
+setOutPath $INSTDIR\dependence\elvishray\r274\bin_x64
+file ${LIQUID_ROOT}\dependence\elvishray\r274\bin_x64\*.*
 
 
 
 ;copy manage.ini to $(MAYA_ROOT)/bin
 ;read env MAYA_PATH2012
-ReadRegStr $0 HKCU "Environment" "MAYA_PATH2012"
+ReadRegStr $0 HKCU "Environment" "MAYA_PATH2012_X64"
 setOutPath $0\bin
-file ${LIQUID_ROOT}\dependence\elvishray\r274\bin\manager.ini
+file ${LIQUID_ROOT}\dependence\elvishray\r274\bin_x64\manager.ini
 
 ;append searchpath to manager.ini
 Sleep 100
 FileOpen  $1 $0\bin\manager.ini a
 FileSeek  $1 0 END
-FileWrite $1 "$\r$\nsearchpath       $INSTDIR/dependence/elvishray/r274/bin"
+FileWrite $1 "$\r$\nsearchpath       $INSTDIR/dependence/elvishray/r274/bin_x64"
 FileClose $1
 
 
 ; copy Maya.env to 
 MessageBox MB_OK "Maya.env will be copyed to $DOCUMENTS\maya\2012, please backup your own Maya.env"
 setOutPath $DOCUMENTS\maya\2012
-file ${LIQUID_ROOT}\2.3.3\bin\Maya.env
+file ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\Maya.env
 
 
 ; set env "LIQUID_ROOT"

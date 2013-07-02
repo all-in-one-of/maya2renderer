@@ -310,13 +310,13 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2008Debug|x64'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">$(Configuration)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">$(Configuration)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='M2R2012Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='M2R2012Debug|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">false</LinkIncremental>
@@ -1017,9 +1017,9 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeaderOutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\../../../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
@@ -1029,22 +1029,23 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../../displayDrivers/Aqsis/win32/liqmaya_2012x32d.dll</OutputFile>
+      <OutputFile>../../../bin/$(Platform)/$(Configuration)/$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)/stage/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ProgramDatabaseFile>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya.lib</ImportLibrary>
+      <ImportLibrary>.\../../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.bsc</OutputFile>
+      <OutputFile>.\../../../bin/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /f /y "..\..\..\displayDrivers\Aqsis\win32\liqmaya_2012x32d.dll" "$(DELIGHT)\displays\liqmaya.dpy"</Command>
+      <Command>xcopy /f /y "..\..\..\bin\$(Platform)\$(Configuration)\$(ProjectName).dll" "$(DELIGHT_X32)\displays\liqmaya.dpy"</Command>
+      <Message>xcopy $(ProjectName).dll to $(DELIGHT_X32)\displays\liqmaya.dpy</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">
@@ -1115,9 +1116,9 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeaderOutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\../../../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
@@ -1127,22 +1128,23 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../../displayDrivers/Aqsis/win32/liqmaya_2012x32d.dll</OutputFile>
+      <OutputFile>../../../bin/$(Platform)/$(Configuration)/$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)/stage/lib</AdditionalLibraryDirectories>
-      <ProgramDatabaseFile>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya.lib</ImportLibrary>
+      <ImportLibrary>.\../../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.bsc</OutputFile>
+      <OutputFile>.\../../../bin/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /f /y "..\..\..\displayDrivers\Aqsis\win32\liqmaya_2012x32d.dll" "$(DELIGHT)\displays\liqmaya.dpy"</Command>
+      <Command>xcopy /f /y "..\..\..\bin\$(Platform)\$(Configuration)\$(ProjectName).dll" "$(DELIGHT_X32)\displays\liqmaya.dpy"</Command>
+      <Message>xcopy $(ProjectName).dll to $(DELIGHT_X32)\displays\liqmaya.dpy</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
@@ -1202,17 +1204,18 @@
       </HeaderFileName>
     </Midl>
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>$(AQSIS)/include;../../../include;E:\dev\tools\pixar\renderman\13.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;DEBUG;_WINDOWS;_USRDLL;DISPLAYDRIVERAQSIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../../include;../../../../dependence/prman/13.5/include;../../../src;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DISPLAYDRIVERAQSIS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeaderOutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../bin/Aqsis/win32/Release/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../bin/Aqsis/win32/Release/Objects/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
@@ -1222,20 +1225,26 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../../displayDrivers/aqsis/liqmaya_x32.dll</OutputFile>
+      <OutputFile>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(AQSIS)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ProgramDatabaseFile>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya_x32.pdb</ProgramDatabaseFile>
+      <AdditionalLibraryDirectories>$(BOOST_ROOT)/stage/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\../../../bin/Aqsis/win32/Release/Objects/liqmaya.lib</ImportLibrary>
+      <ImportLibrary>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../../bin/Aqsis/win32/Release/Objects/displayDriverAqsis.bsc</OutputFile>
+      <OutputFile>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>xcopy /f /y "../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.dll" "$(DELIGHT_X64)\displays\liqmaya.dpy"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>xcopy $(ProjectName).dll to $(DELIGHT_X64)\displays\liqmaya.dpy</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|x64'">
     <Midl>
@@ -1301,10 +1310,11 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeaderOutputFile>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/displayDriverAqsis.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\../../../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
@@ -1314,22 +1324,24 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../../displayDrivers/Aqsis/$(Platform)/liqmaya_2012x64.dll</OutputFile>
+      <OutputFile>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(BOOST_ROOT)/stage/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ProgramDatabaseFile>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/liqmaya_x64.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/liqmaya.lib</ImportLibrary>
+      <ImportLibrary>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../../bin/Aqsis/$(Platform)/$(Configuration)/Objects/displayDriverAqsis.bsc</OutputFile>
+      <OutputFile>../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /f /y "..\..\..\displayDrivers\Aqsis\$(Platform)\liqmaya_2012x64.dll" "$(DELIGHT)\displays\liqmaya.dpy"</Command>
+      <Command>xcopy /f /y "../../../displayDrivers/3delight/$(Platform)/$(Configuration)/liqmaya.dll" "$(DELIGHT_X64)\displays\liqmaya.dpy"
+</Command>
+      <Message>xcopy $(ProjectName).dll to $(DELIGHT_X64)\displays\liqmaya.dpy</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
