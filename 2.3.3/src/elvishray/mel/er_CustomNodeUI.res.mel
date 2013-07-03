@@ -39,7 +39,7 @@ displayString -replace -value "Photon Emitters" m_erCustomNodeUI.kPhotonEmitters
 displayString -replace -value "Photon Volumetric Materials" m_erCustomNodeUI.kPhotonVolumetricMaterials;
 displayString -replace -value "Photonic Materials" m_erCustomNodeUI.kPhotonicMaterials;
 displayString -replace -value "Sample Compositing" m_erCustomNodeUI.kSampleCompositing;
-displayString -replace -value "Shadow Shaders" m_lerCustomNodeUI.kShadowShaders;
+displayString -replace -value "Shadow Shaders" m_erCustomNodeUI.kShadowShaders;
 displayString -replace -value "State Shaders" m_erCustomNodeUI.kStateShaders;
 displayString -replace -value "Textures" m_erCustomNodeUI.kTextures;
 displayString -replace -value "Volumetric Materials" m_erCustomNodeUI.kVolumetricMaterials;

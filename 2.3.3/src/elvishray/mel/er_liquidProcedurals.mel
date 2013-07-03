@@ -80,10 +80,10 @@ global proc liqRenderNode_CreateTreeLister_Content_elvishray(string $renderNodeT
 	return;
 }
 //
-global proc int LIQUID_isLiquidClassification_ElvishRender(string $classification)
+global proc int LIQUID_isLiquidClassification_elvishray(string $classification)
 {
 	liqPushIdent();
-	liqlog("LIQUID_isLiquidClassification_ElvishRender("+$classification+")");
+	liqlog("LIQUID_isLiquidClassification_elvishray("+$classification+")");
 
 	string $erClassfication = "rendernode/"+er_getRendererName()+"/shader";
 	if( startsWith($classification, $erClassfication) )
