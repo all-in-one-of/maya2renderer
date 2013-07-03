@@ -10,6 +10,9 @@
     <Filter Include="src\aov">
       <UniqueIdentifier>{3e06f1c7-f667-4f3a-a085-bbe9050205a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mel\NewFilter1">
+      <UniqueIdentifier>{3c4a528d-d7ef-4dce-aef2-f5d15d7105c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\renderman\rm_factory.cpp">
@@ -163,6 +166,18 @@
     </None>
     <None Include="..\renderman\mel\AErendermanGlobalsTemplate.res.mel">
       <Filter>mel</Filter>
+    </None>
+    <None Include="..\renderman\mel\rm_CustomNodeUI.mel">
+      <Filter>mel\NewFilter1</Filter>
+    </None>
+    <None Include="..\renderman\mel\rm_CustomNodeUI.res.mel">
+      <Filter>mel\NewFilter1</Filter>
+    </None>
+    <None Include="..\renderman\mel\rm_liquidProcedurals.mel">
+      <Filter>mel\NewFilter1</Filter>
+    </None>
+    <None Include="..\renderman\mel\rm_RendererName.mel">
+      <Filter>mel\NewFilter1</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

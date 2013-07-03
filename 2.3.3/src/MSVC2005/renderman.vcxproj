@@ -2595,6 +2595,10 @@
     <None Include="..\renderman\mel\AErendermanGlobalsTemplate.mel" />
     <None Include="..\renderman\mel\AErendermanGlobalsTemplate.res.mel" />
     <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel" />
+    <None Include="..\renderman\mel\rm_CustomNodeUI.mel" />
+    <None Include="..\renderman\mel\rm_CustomNodeUI.res.mel" />
+    <None Include="..\renderman\mel\rm_liquidProcedurals.mel" />
+    <None Include="..\renderman\mel\rm_RendererName.mel" />
     <None Include="..\renderman\mel\rm_startup.mel" />
     <None Include="..\renderman\mel\rm_UserCallbackInterface.mel" />
     <None Include="..\renderman\mel\rm_callback.mel" />

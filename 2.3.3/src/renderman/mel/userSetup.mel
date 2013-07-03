@@ -8,6 +8,10 @@ source rm_UserCallbackInterface.mel;
 source rm_startup.mel;
 source AErendermanGlobalsTemplate.mel;
 source AErendermanGlobalsTemplate.res.mel;
+source rm_CustomNodeUI.mel;
+source rm_CustomNodeUI.res.mel;
+source rm_liquidProcedurals.mel;
+source rm_RendererName.mel;
 
 //-----------------------------------------------
 // source erSHADER_user scripts if any.

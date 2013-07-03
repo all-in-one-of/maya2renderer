@@ -1,0 +1,4 @@
+global proc string rm_getRendererName()//update with rm_.h RENDER_NAME
+{
+	return "renderman";
+}

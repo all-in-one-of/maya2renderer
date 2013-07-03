@@ -46,7 +46,7 @@
 #include "renderman/rm_factory.h"
 #include "../../rm_globalnode.h"
 #include "rm_user_nodeId.h"
-#include "rm_flat/rm_flat_node_visitor.h"
+#include "rmFlat/rmFlat_node_visitor.h"
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
 PLUGIN_EXPORT MStatus initializePlugin(MObject obj)

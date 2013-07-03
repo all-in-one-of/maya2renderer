@@ -2572,18 +2572,18 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\rmFlat\rmFlat_node.cpp" />
+    <ClCompile Include="..\src\rmFlat\rmFlat_node_visitor.cpp" />
     <ClCompile Include="..\src\rmSHADER_user_mayaplugin.cpp" />
-    <ClCompile Include="..\src\rm_flat\rm_flat_node.cpp" />
-    <ClCompile Include="..\src\rm_flat\rm_flat_node_visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\rm_flat\rm_flat_node.h" />
-    <ClInclude Include="..\src\rm_flat\rm_flat_node_visitor.h" />
+    <ClInclude Include="..\src\rmFlat\rmFlat_node.h" />
+    <ClInclude Include="..\src\rmFlat\rmFlat_node_visitor.h" />
     <ClInclude Include="..\src\rm_user_nodeId.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\rm_flat\AErm_flatTemplate.mel" />
-    <None Include="..\src\rm_flat\userSetup.mel" />
+    <None Include="..\src\rmFlat\AErmFlatTemplate.mel" />
+    <None Include="..\src\rmFlat\userSetup.mel" />
     <None Include="..\src\userSetup.mel" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

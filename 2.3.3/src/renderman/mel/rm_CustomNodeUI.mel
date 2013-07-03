@@ -1,0 +1,697 @@
+// Copyright (C) 1997-2011 Autodesk, Inc., and/or its licensors.
+// All rights reserved.
+//
+// The coded instructions, statements, computer programs, and/or related
+// material (collectively the "Data") in these files contain unpublished
+// information proprietary to Autodesk, Inc. ("Autodesk") and/or its licensors,
+// which is protected by U.S. and Canadian federal copyright law and by
+// international treaties.
+//
+// The Data is provided for use exclusively by You. You have the right to use,
+// modify, and incorporate this Data into other products for purposes authorized 
+// by the Autodesk software license agreement, without fee.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. AUTODESK
+// DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES
+// INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT,
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ARISING FROM A COURSE 
+// OF DEALING, USAGE, OR TRADE PRACTICE. IN NO EVENT WILL AUTODESK AND/OR ITS
+// LICENSORS BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+// DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF AUTODESK AND/OR ITS
+// LICENSORS HAS BEEN ADVISED OF THE POSSIBILITY OR PROBABILITY OF SUCH DAMAGES.
+
+//
+//	Script: mentalrayCustomNodeUI.mel
+//
+//	Purpose: 
+//		This script contains code to add all mental ray custom shader 
+//		types to Maya's HyperShade UI.  There are 3 parts of the 
+//		HyperShade UI that are affected:
+//
+//		1) Create Bar: There is a new tab for creating mental
+//		   ray custom shaders, with an expandable frame
+//		   for each type of mental ray shader.  Nodes can
+//		   be created by either clicking on the buttons
+//		   in the frames, or by dragging and dropping from
+//		   the buttons into the Work Area.
+//
+//		2) Create Menu: There are new submenus for creating each type
+//		   of mental ray shader node.  Nodes are created by
+//		   selecting the menu items.
+//
+//		3) Create Render Node Window:
+//
+//	There is a new tab for mental ray shaders, with an
+//	expandable frame for each type of shader.  Nodes 
+//	can be created by clicking the buttons or by 
+//	dragging and dropping from the buttons into the Work Area.
+//
+//	Modified Files:
+//
+//	In addition to this file, modified versions of the following scripts
+//	are required in order for the HyperShade additions to work properly:
+//
+//		- createRenderNode.mel
+//		- hyperShadePanel.mel
+//		- renderCreateBarUI.mel
+//
+//	Limitations:	
+//
+//	- currently, there are no additional HyperShade tabs to display 
+//	  mental ray nodes.  They are all displayed in one of the existing
+//	  Maya tabs (Shaders, Textures, Lights, or Utilities).  This is an
+//	  area that we must explore to decide the best course of action.
+//
+//	- currently, mental ray light shaders do not show up in the "Lights"
+//	  tab (they should).  The cause of this is under investigation.
+//
+//	- currently, the UI does not dynamically update to reflect the load 
+//	  status of the mental ray for Maya plugin, nor does it react to the
+//	  addition/deletion of mental ray custom shader node types.  Make sure 
+//	  that any custom shaders are already loaded when the HyperShade is
+//	  created.
+//
+//	History:
+//
+//	02.05.02 steve:	add 'rendernode' prefix to mental ray classification
+//			to support correct default handling by Maya
+//	16.08.02 thasc:	integrate A|w changes
+//
+//
+//	To Do:
+//
+//		1) Augment mrCustomNodeUI proc to refresh Create menu and 
+//		   Create Render Node dialog as well as Create Bar.
+//		
+//
+//	Details:
+//
+//	In Maya, there are two mechanisms for classifying shading nodes, static
+//	classification and runtime classification.  Static classifications are
+//	per-class, and are declared when a new node type is loaded into Maya.
+//	These classifications are used to build all of Maya's shading node 
+//	creation UI.
+//
+//	Runtime classifications are per-node, and are assigned when a node is
+//	created.  A node can be created as a shader, texture, light, utility, or
+//	postprocess.  These classifications are assigned via the "shadingNode" 
+//	node creation command, and are implemented as a connection to one of the
+//	5 list nodes (one for each runtime classification type).  All the 
+//	rendering UI for displaying existing nodes (the HyperShade tabs, for 
+//	example) are built based on these runtime classifications.
+//
+//	To add mental ray nodes to Maya, we created a table listing all the
+//	mental ray node categories, along with static and runtime
+//	classifications for each category.  We then modified the appropriate
+//	UI scripts to add sections for all the mental ray node types.
+//	We were able to separate out the UI creation functionality into
+//	functions that live in this file, with a few calls to these functions
+//	inserted into the rendering UI scripts.
+//
+//	The scripts are set up so that all node creation filters back to the
+//	single function mrCreateCustomNode().  Any mental ray-specific
+//	functionality that needs to be done on node creation should probably
+//	be done there.
+//
+//	Though new static classifications were created, we have reused the
+//	existing Maya runtime classifications for now.  We are investigating
+//	how difficult it is to add new runtime classifications.
+//
+//
+
+//*****************************************************************************
+//
+//	1. Definition of mental ray node categories and classifications.
+//
+//*****************************************************************************
+
+//
+//	This table defines the mental ray node categories.
+//	Each category has 4 pieces of information:
+//
+//		1) a title string for the category
+//		2) a string that can be used as a basis for
+//		   naming Ui controls for the category
+//		3) the static classification for the category
+//		4) the Maya runtime classification for the category
+//
+//	The order of categories in the table dictates the order in which
+//	they will be displayed in the UI (currently just alphabetical).
+//	The global functions mrNumNodeCategories() and mrGetNodeCategory()
+//	are used to access the node category information.
+//	The categories should match mentalrayCustomNodeClassificationString.mel
+
+
+
+source misssLightMapFunctions.mel;
+
+
+global proc initializeRMNodeTypeInfo ()
+{
+	liqPushIdent();
+	liqlog("initializeRMNodeTypeInfo()");
+
+    global string $rmNodeTypeInfo[];
+    
+    if( size( $rmNodeTypeInfo ) == 0 ) 
+    {
+        int $index = 0;
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kSurface"));//categoryName
+        $rmNodeTypeInfo[$index++] = "rmSurface";//categoryUiName
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/shader/surface";//categoryStaticClassification
+        $rmNodeTypeInfo[$index++] = "-asShader";//categoryRuntimeClassification
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kShadowShaders"));
+        //$rmNodeTypeInfo[$index++] = "liqShadow";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/shadow";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kVolumetricMaterials"));
+        $rmNodeTypeInfo[$index++] = "rmVolume";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/shader/volume";//"rendernode/"+rm_getRendererName()+"/volume";
+        $rmNodeTypeInfo[$index++] = "-asShader";
+    
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kDisplacementShaders"));
+        $rmNodeTypeInfo[$index++] = "rmDisplacement";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/shader/displacement";//"rendernode/"+rm_getRendererName()+"/displace";
+        $rmNodeTypeInfo[$index++] = "-asShader";//asUtility
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kPhotonicMaterials"));
+        //$rmNodeTypeInfo[$index++] = "liqPhoton";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/photon";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kPhotonVolumetricMaterials"));
+        //$rmNodeTypeInfo[$index++] = "liqPhotonVolume";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/photonvol";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kTextures"));
+        $rmNodeTypeInfo[$index++] = "rmTexture";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/texture";
+        $rmNodeTypeInfo[$index++] = "-asTexture";
+    
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kEnvironments"));
+        $rmNodeTypeInfo[$index++] = "rmEnvironment";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/environment";
+        $rmNodeTypeInfo[$index++] = "-asShader";
+    
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kLights"));
+        $rmNodeTypeInfo[$index++] = "rmLight";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/light";
+        $rmNodeTypeInfo[$index++] = "-asLight";//-asUtility
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kPhotonEmitters"));
+        //$rmNodeTypeInfo[$index++] = "liqEmitter";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/emitter";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kLightMaps"));
+        //$rmNodeTypeInfo[$index++] = "liqLightmap"; 
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/lightmap";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kLenses"));
+        //$rmNodeTypeInfo[$index++] = "liqLens";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/lens";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kOutputShaders"));
+        //$rmNodeTypeInfo[$index++] = "liqOutput";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/output";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kGeometry"));
+        $rmNodeTypeInfo[$index++] = "rmGeometry";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/geometry";
+        $rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kContourStore"));
+        //$rmNodeTypeInfo[$index++] = "liqContourStore";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/contour/store";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kContourContrast"));
+        //$rmNodeTypeInfo[$index++] = "liqContourContrast";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/contour/contrast";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kContourShader"));
+        //$rmNodeTypeInfo[$index++] = "liqContourShader";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/contour/shader";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kContourOutput"));
+        //$rmNodeTypeInfo[$index++] = "liqContourOutput";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/contour/output";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kSampleCompositing"));
+        //$rmNodeTypeInfo[$index++] = "liqCompositing";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/composite";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kDataConversion"));
+        //$rmNodeTypeInfo[$index++] = "liqConversion";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/conversion";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kStateShaders"));
+        //$rmNodeTypeInfo[$index++] = "liqState";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/state";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+    
+        //$rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kMiscellaneous"));
+        //$rmNodeTypeInfo[$index++] = "liqMisc";
+        //$rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/misc";
+        //$rmNodeTypeInfo[$index++] = "-asUtility";
+
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kUtilityGeneral"));
+        $rmNodeTypeInfo[$index++] = "erUtilityGeneral";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/utility/general";
+        $rmNodeTypeInfo[$index++] = "-asUtility";
+
+        $rmNodeTypeInfo[$index++] = (uiRes("m_rmCustomNodeUI.kUtilityColor"));
+        $rmNodeTypeInfo[$index++] = "erUtilityColor";
+        $rmNodeTypeInfo[$index++] = "rendernode/"+rm_getRendererName()+"/utility/color";
+        $rmNodeTypeInfo[$index++] = "-asUtility";
+    }
+    liqPopIdent();
+}
+
+global proc int rmNumNodeCategories()
+//
+//	Function:	mrNumNodeCategories()
+//	Purpose:	Returns the number of mental ray node categories.
+//
+{
+	liqPushIdent();
+	liqlog("rmNumNodeCategories()");
+
+	//
+	// Make sure all the mental ray node categories are filled in before we use them.
+	//
+	initializeRMNodeTypeInfo();
+	global string $rmNodeTypeInfo[];
+   
+	liqPopIdent();
+	return( size($rmNodeTypeInfo)/4 );
+}
+
+global proc string[] rmGetNodeCategory( int $whichCat )
+//
+//	Function:	mrGetNodeCategory
+//	Purpose:	Retrieves information about the specified category.
+//	Arguments:	$whichCat - the numeric identifier for the category.
+//	Returns:	A 4-element string array containing the title string, 
+//				ui base name, static classification, and runtime classification
+//				for the category.
+//
+{
+	liqPushIdent();
+	liqlog("rmGetNodeCategory("+$whichCat+")");
+
+	//
+	// Make sure all the mental ray node categories are filled in before we use them.
+	//
+	initializeRMNodeTypeInfo();
+	global string $rmNodeTypeInfo[];
+
+	string $categoryName = $rmNodeTypeInfo[4*$whichCat];
+	string $categoryUiName = $rmNodeTypeInfo[4*$whichCat+1];
+	string $categoryStaticClassification = $rmNodeTypeInfo[4*$whichCat+2];
+	string $categoryRuntimeClassification = $rmNodeTypeInfo[4*$whichCat+3];
+
+   liqPopIdent();
+	return	{	$categoryName, 
+				$categoryUiName, 
+				$categoryStaticClassification, 
+				$categoryRuntimeClassification 
+			};
+}
+
+//*****************************************************************************
+//
+//	2. Node creation callback function.  All create actions from the various
+//	   parts of the UI (create bar, create menu, create render node window)
+//	   call this function to actually create nodes.
+//
+//*****************************************************************************
+
+global proc string rmCreateCustomNode(	string $runtimeClassification, 
+										string $postCommand , string $nodeType,
+										string $renderer)
+//
+//	Function:	mrCreateCustomNode
+//	Purpose:	Callback routine to create a mental ray custom node.
+//	Arguments:
+//				$runtimeClassification - the runtime classification to be
+//										 assigned to the node
+//				$nodeType - the type of node to be created.
+//				$postCommand - command to be executed after node creation
+//
+//	Returns:	The name of the newly created node.
+//
+{
+	liqPushIdent();
+	liqlog("rmCreateCustomNode("+$runtimeClassification+","+$postCommand+","+$nodeType+","+$renderer+")");
+
+	// Use the shadingNode command to create the node and assign its 
+	// runtime classification.
+	//
+	string $node = `shadingNode $runtimeClassification $nodeType`;
+
+	select $node;
+
+	if ($postCommand != "") {
+		string $cmd = substitute("%node", $postCommand, $node);
+		$cmd = substitute("%type", $cmd, ("\"" + $nodeType + "\""));
+		evalEcho $cmd;
+	}
+
+	// attach shading group if the it is material shader and surface shader.
+	if( isClassified($node, "rendernode/"+$renderer+"/shader/surface") && isClassified($node, "shader/surface"))
+	{
+		string $cmd = "sets -renderable true -noSurfaceShader true -empty -name "+$node+"SG";
+		string $group = `evalEcho $cmd`;
+
+		string $outAttr = $node;
+		if (attributeExists("outValue", $node)) {
+			$outAttr += ".outValue ";
+		} else {
+			$outAttr += ".message ";
+		}
+		
+		$cmd = "connectAttr " + $outAttr + $group + ".surfaceShader";
+		evalEcho $cmd;
+
+		// hook up extra shading group connections for appropriate materials
+		if (isClassified($node, "connection/"+$renderer+"/photon")) {
+			$cmd = "connectAttr " + $outAttr + $group + ".liqPhotonShader";
+			evalEcho $cmd;
+		}
+		if (isClassified($node, "connection/"+$renderer+"/shadow")) {
+			$cmd = "connectAttr " + $outAttr + $group + ".liqShadowShader";
+			evalEcho $cmd;
+		}
+	}
+	//TODO: connect volume shader node to $shadingGroup.volumeShader
+	//TODO: connect displace shader node to $shadingGroup.displacementShader
+
+	//NOTE: custom the following code for liquid
+	liqWarn("rmCreateCustomNode()> custom the following code for liquid");
+	if ($nodeType=="misss_fast_simple_maya" ||
+		$nodeType=="misss_fast_skin_maya" ||
+		$nodeType=="misss_fast_shader" ||
+		$nodeType=="misss_fast_shader_x" ||
+		$nodeType=="misss_fast_shader_x_passes")
+	{
+		createAndAssignLightMap($node +".lightmap");
+		select $node;
+	}
+    liqPopIdent();
+	return $node;
+}
+
+
+//*****************************************************************************
+//
+//	3. Create Render Node window functions.  In this window, we inserted a
+//	   new tab for mental ray nodes.  Each category has its own collapsable
+//	   frame layout containing buttons to create the various node types within
+//	   that category.
+//
+//	   The UI for this window is created in two stages - first the tabs are
+//	   built, which involves creating the layouts and buttons in the appropriate
+//	   style, then they are set up, which involves assigning the callback commands
+//	   for each button.  The setup routine can be invoked multiple times in order
+//	   to update the button callbacks to respond to the different contexts in
+//	   which the window may be invoked.
+//
+//	   We have created our own tab build and setup routines here, and added calls
+//	   to them to the createRenderNode.mel script.
+//
+//*****************************************************************************
+
+//global proc rmCreateNodeWindow_BuildTab()
+////
+////	Function:	mrCreateNodeWindow_BuildTab()
+////	Purpose:	mental ray equivalent of the various build*() functions in
+////				createRenderNode.mel.  This function builds the mental ray
+////				node tab and all of its category sublayouts containing node
+////				creation buttons.
+////
+////	Notes:	When the function is invoked, it is inside a new tab that has
+////			been created for mental ray nodes.
+//{
+//	liqPushIdent();
+//	liqlog("rmCreateNodeWindow_BuildTab()");
+//
+//	// we are inside the new tab, so create a layout for the node categories 
+//	//
+//	columnLayout -adj true erTab;
+//
+//		// iterate through the categories
+//		//
+//		int $numCategories = rmNumNodeCategories();
+//		int $i;
+//		for( $i = 0; $i < $numCategories; $i++ )
+//		{
+//			// get the info about this category
+//			//
+//			string $categoryInfo[] = rmGetNodeCategory( $i );
+//			string $title = $categoryInfo[0];
+//			string $uiBaseName = $categoryInfo[1];
+//			string $staticClassification = $categoryInfo[2];
+//			string $runtimeClassification = $categoryInfo[3];
+//
+//			// create a frame layout to hold the buttons for the nodes in
+//			// this category.  Use the ui base name from the category info
+//			// to name the layouts.
+//			//
+//			frameLayout -l $title -borderVisible true -collapsable true 
+//				-borderStyle "etchedIn"
+//				-marginWidth 5
+//				-marginHeight 5
+//				-collapse false	($uiBaseName + "F");	
+//
+//				columnLayout ($uiBaseName + "C");
+//
+//					// build the buttons for this category.  This function is
+//					// in createRenderNode.mel.
+//					//
+//					refreshButtons($staticClassification,($uiBaseName+"RC"));
+//
+//				setParent ..;
+//
+//			setParent ..;
+//		}
+//
+//		setParent ..;
+//    liqPopIdent();
+//}
+
+
+//global proc rmCreateNodeWindow_SetupTab( string $postCommand, string $flag )
+////
+////	Function:	mrCreateNodeWindow_SetupTab()
+////	Purpose:	mental ray equivalent of the various setup*() functions in
+////				createRenderNode.mel.  This function assigns the callback
+////				commands to the node creation buttons that were created in
+////				mrCreateNodeWindow_BuildTab().
+////
+////	Arguments:	
+////				$postCommand - a command to be executed after the node is
+////							   created.  One use for this function is to
+////							   establish a connection from the new node to 
+////							   an existing node (this is used when the 
+////							   window is invoked in response to a click
+////							   on the "texture" button in another node's
+////							   attribute editor).  For the moment, we 
+////							   ignore this command for mental ray nodes.
+////
+////				$flag - a flag that has specific meaning for certain 
+////						creation operations in Maya.  Some possible 
+////						values of the flag are "asBump" and "asDisplacement",
+////						which indicate that a bump or displacement node should
+////						be created and connected to the node that the user
+////						selects.  We also ignore this flag for mental ray
+////						nodes for the moment.
+////
+////	Notes:	When the function is invoked, it is inside the layout for the
+////			create render node window.
+////
+//{
+//	liqPushIdent();
+//	liqlog("rmCreateNodeWindow_SetupTab("+$postCommand+","+$flag+")");
+//
+//	// go to the mental ray node tab
+//	//
+//    setParent erTab;
+//
+//	// set up the buttons for each mental ray node category
+//	//
+//	int $numCategories = rmNumNodeCategories();
+//	int $i;
+//	for( $i = 0; $i < $numCategories; $i++ )
+//	{
+//		string $categoryInfo[] = rmGetNodeCategory( $i );
+//
+//		string $staticClassification = $categoryInfo[2];
+//		string $runtimeClassification = $categoryInfo[3];
+//
+//		// for each node type in this category, assign the callback
+//		// command for its button to just call mrCreateCustomNode()
+//		// with the appropriate node type and runtime classification.
+//		//
+//		string $nodes[] = `listNodeTypes $staticClassification`;
+//		for( $name in $nodes ) 
+//		{
+//			if( `nodeIconButton -exists ($name+"Btn")` ) 
+//			{
+//				string $command =	("rmCreateCustomNode " 
+//									+ $runtimeClassification 
+//									+ " \"" + $postCommand + "\""
+//									+ " " + $name 
+//									+ " " + "\""+rm_getRendererName()+"\"");
+//
+//				nodeIconButton -e -command $command ($name+"Btn");
+//			}
+//		}
+//	}
+//    liqPopIdent();
+//}
+
+//*****************************************************************************
+//
+//	4. HyperShade Create Bar functions.  This UI looks much like the UI
+//	   in the Create Render Node window - a tab layout for mental ray with 
+//	   collapsable frame layouts for each of the node categories.  The 
+//	   mrRenderCreateBar_CreateTab() method mimics the create*Tab() routines
+//	   found in renderCreateBarUI.mel.
+//
+//*****************************************************************************
+
+global proc rmRenderNode_CreateTreeLister_Content(string $renderNodeTreeLister, string $postCommand, string $filterClasses[], string $renderer)
+//
+//	Function:	mrRenderNode_CreateTreeLister_Content()
+//	Purpose:	Does the actual job for mrRenderCreateBar_CreateTab.
+//				Refactored into a separate procedure
+//				so othat "Create All Nodes" tab shows
+//				both maya and mental ray nodes
+//
+
+{
+	liqPushIdent();
+	liqlog("rmRenderNode_CreateTreeLister_Content("+$renderNodeTreeLister+","+$postCommand+", ["+stringArrayToString($filterClasses,",")+"], "+$renderer+")");
+
+	if(size($filterClasses) == 0) {
+		// Create all categories
+		//
+		int $numCategories = rmNumNodeCategories();
+		int $i;
+		for( $i = 0; $i < $numCategories; $i++ )
+		{
+			string $categoryInfo[] = rmGetNodeCategory( $i );
+			string $title = $categoryInfo[0];
+			string $uiBaseName = $categoryInfo[1];
+			string $staticClassification = $categoryInfo[2];
+			string $runtimeClassification = $categoryInfo[3];
+
+			// add to the treeLister
+			//
+			addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
+				$staticClassification, $runtimeClassification, "" );
+
+		}
+	} else {
+		// Create only the categories in the filter array
+		//
+		for($filterClass in $filterClasses) {
+			int $numCategories = rmNumNodeCategories();
+			int $i;
+			for( $i = 0; $i < $numCategories; $i++ )
+			{
+				string $categoryInfo[] = rmGetNodeCategory( $i );
+				string $title = $categoryInfo[0];
+				string $uiBaseName = $categoryInfo[1];
+				string $staticClassification = $categoryInfo[2];
+				string $runtimeClassification = $categoryInfo[3];
+
+				if(startsWith($filterClass, $staticClassification)) {
+					// If the filter classification is a subclass of
+					// a default, only add the subclass nodes to the
+					// treeLister.
+					//
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
+						$filterClass, $runtimeClassification, "" );
+					break;
+				} else if(startsWith($staticClassification, $filterClass)) {
+					// If the filter classification is a superclass of
+					// a default, we can add all the default nodes to the
+					// treeLister.
+					//
+					addToRenderNodeTreeLister($renderNodeTreeLister, $postCommand, $renderer+"/" + $title,
+						$staticClassification, $runtimeClassification, "" );
+					break;
+				}
+			}
+		}
+	}
+    liqPopIdent();
+}
+
+//*****************************************************************************
+//
+//	5. HyperShade Create menu functions.  To the Create menu, we add a set of
+//	   submenus, one for each category of mental ray node.  The 
+//	   mrHyperShadeCreateMenu_BuildMenu() function mimics the buildCreateSubmenu()
+//	   function that lives in hyperShadePanel.mel.
+//
+//*****************************************************************************
+
+global proc rmHyperShadeCreateMenu_BuildMenu(string $renderer)
+//
+//	Function:	mrHyperShadeCreateMenu_BuildMenu()
+//	Purpose:	Builds menu items for creating mental ray nodes, organized
+//				into submenus by category.
+//
+//	Notes:	When this function is invoked, it is inside of the Create menu.
+//			This function mimics the buildCreateSubmenu() function in 
+//			hyperShadePanel.mel, and in fact calls that function with a slightly
+//			different set of arguments than the other Maya node types.  For 
+//			mental ray nodes, the menu items are set up to call back to the
+//			mrCreateCustomNode() function for node creation.
+//
+{
+	liqPushIdent();
+	liqlog("rmHyperShadeCreateMenu_BuildMenu("+$renderer+")");
+
+	// build a submenu for each node category
+	//
+	int $numCategories = rmNumNodeCategories();
+	int $i;
+	for( $i = 0; $i < $numCategories; $i++ )
+	{
+		string $categoryInfo[] = rmGetNodeCategory( $i );
+		string $title = $categoryInfo[0];
+		string $uiBaseName = $categoryInfo[1];
+		string $staticClassification = $categoryInfo[2];
+		string $runtimeClassification = $categoryInfo[3];
+		
+		string $rmMenu = (uiRes("m_rmCustomNodeUI.kERMenu"));
+		menuItem -label `format -s $title $rmMenu` -tearOff true -subMenu true;
+		
+		// call buildCreateSubMenu() to create the menu entries.  The specified 
+		// creation command is mrCreateCustomNode $runtimeClassification.  The
+		// buildCreateSubMenu will append to that argument list the name of the
+		// node type, thereby completing the correct argument list for the 
+		// creation routine.
+		//
+		liquidBuildCreateSubMenu( $staticClassification, 
+							("rmCreateCustomNode " + $runtimeClassification + " \"\" "),
+							$renderer);
+		
+		setParent -menu ..;
+	}
+    liqPopIdent();
+}

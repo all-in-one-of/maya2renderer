@@ -1,0 +1,115 @@
+source xxliquidutility.mel;
+
+//
+global proc liquidAssignShaderToSelected_renderman(string $node)
+{
+	liqPushIdent();
+	liqlog("liquidAssignShaderToSelected_renderman("+$node+")");
+	
+	string $nodeType = `nodeType $node`;
+
+	////env
+	//if( $nodeType == "er_physicalsky" )
+	//{
+	//}
+	////light
+	//else if( $nodeType == "er_skylight" )
+	//{
+	//	string $selected[] = `ls -l -lights -dag -sl`;
+
+	//	if ( !objExists( ($node + ".liqAssignedObjects") ) )
+	//		addAttr -ln liqAssignedObjects -at message $node;
+
+	//	for ( $sel in $selected ) 
+	//	{
+	//		if ( !objExists( ($sel + ".liquidLightShaderNode") ) ) 
+	//			addAttr -ln liquidLightShaderNode -at message $sel;
+	//		if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidLightShaderNode" ) ) )
+	//			connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidLightShaderNode");
+	//	}
+	//}
+	////surface
+	//else if( $nodeType == "er_flatcolor" )
+	//{
+	//}
+
+	liqPopIdent();
+}
+//
+global proc liqHyperShadeCreateMenu_BuildMenu_renderman()
+{
+	liqPushIdent();
+	liqlog("liquidAssignShaderToSelected_renderman()");
+	
+	rmHyperShadeCreateMenu_BuildMenu( rm_getRendererName() );
+
+	liqPopIdent();
+}
+//
+global proc string[] liqExcludeClassficationNodes_renderman(string $classification, string $exclude[])
+{
+	liqPushIdent();
+	liqlog("liqExcludeClassficationNodes_renderman(string $exclude[])");
+	
+	string $rmClassfication = "rendernode/"+rm_getRendererName()+"/shader";
+	if( !startsWith($classification, $rmClassfication) )
+	{
+		string $exclNodes[];
+		string $tmp[] = `listNodeTypes $rmClassfication`;
+		$exclude = stringArrayCatenate($exclude, $tmp);
+		$exclude = stringArrayRemoveDuplicates($exclude);
+	}
+
+	liqPopIdent();
+	return $exclude;
+}
+//
+global proc liqRenderNode_CreateTreeLister_Content_renderman(string $renderNodeTreeLister, string $postCommand, string $filterClassArray[])
+{
+	liqPushIdent();
+	liqlog("liqRenderNode_CreateTreeLister_Content_renderman("+$renderNodeTreeLister+","+$postCommand+", ["+stringArrayToString($filterClassArray,",")+"])");
+	
+	rmRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, rm_getRendererName());
+
+	liqPopIdent();
+	return;
+}
+//
+global proc int LIQUID_isLiquidClassification_renderman(string $classification)
+{
+	liqPushIdent();
+	liqlog("LIQUID_isLiquidClassification_renderman("+$classification+")");
+
+	string $rmClassfication = "rendernode/"+rm_getRendererName()+"/shader";
+	if( startsWith($classification, $rmClassfication) )
+	{
+		return 1;
+	}
+
+	liqPopIdent();
+	return 0;
+}
+//
+global proc string LIQUID_getCreateBarItemCallbackCmd_renderman(
+	string $classification,
+	string $as,
+	string $postCommand,
+	string $type)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getCreateBarItemCallbackCmd_renderman("+$classification+","+$as+","+$postCommand+","+$type+")");
+	
+	string $command = 
+				("rmCreateCustomNode"
+					+ " "
+					+ $as 
+					+ " \""
+					+ encodeString($postCommand)
+					+ "\" "
+					+ $type
+					+ " \""+rm_getRendererName()+"\" "
+					);
+	
+	liqPopIdent();
+	return $command;
+}

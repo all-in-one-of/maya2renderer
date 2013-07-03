@@ -41,6 +41,6 @@ proc string getThisDirectory()
 print "This is rmSHADER_user/usersetup.mel\n";
 
 // source subdirectoies scripts
-eval( "source \"" + getThisDirectory() + "/rm_flat/userSetup.mel\"" );
+eval( "source \"" + getThisDirectory() + "/rmFlat/userSetup.mel\"" );
 
  

@@ -1,0 +1,47 @@
+// Copyright (C) 1997-2011 Autodesk, Inc., and/or its licensors.
+// All rights reserved.
+//
+// The coded instructions, statements, computer programs, and/or related
+// material (collectively the "Data") in these files contain unpublished
+// information proprietary to Autodesk, Inc. ("Autodesk") and/or its licensors,
+// which is protected by U.S. and Canadian federal copyright law and by
+// international treaties.
+//
+// The Data is provided for use exclusively by You. You have the right to use,
+// modify, and incorporate this Data into other products for purposes authorized 
+// by the Autodesk software license agreement, without fee.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. AUTODESK
+// DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES
+// INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT,
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ARISING FROM A COURSE 
+// OF DEALING, USAGE, OR TRADE PRACTICE. IN NO EVENT WILL AUTODESK AND/OR ITS
+// LICENSORS BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+// DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF AUTODESK AND/OR ITS
+// LICENSORS HAS BEEN ADVISED OF THE POSSIBILITY OR PROBABILITY OF SUCH DAMAGES.
+
+displayString -replace -value "Contour Contrast" m_rmCustomNodeUI.kContourContrast;
+displayString -replace -value "Contour Output" m_rmCustomNodeUI.kContourOutput;
+displayString -replace -value "Contour Shader" m_rmCustomNodeUI.kContourShader;
+displayString -replace -value "Contour Store" m_rmCustomNodeUI.kContourStore;
+displayString -replace -value "Data Conversion" m_rmCustomNodeUI.kDataConversion;
+displayString -replace -value "Displacement Shaders" m_rmCustomNodeUI.kDisplacementShaders;
+displayString -replace -value "Environments" m_rmCustomNodeUI.kEnvironments;
+displayString -replace -value "Geometry" m_rmCustomNodeUI.kGeometry;
+displayString -replace -value "Lenses" m_rmCustomNodeUI.kLenses;
+displayString -replace -value "Light Maps" m_rmCustomNodeUI.kLightMaps;
+displayString -replace -value "Materials" m_rmCustomNodeUI.kMaterials;
+displayString -replace -value "Surface" m_rmCustomNodeUI.kSurface;
+displayString -replace -value "Lights" m_rmCustomNodeUI.kLights;
+displayString -replace -value "RM ^1s" m_rmCustomNodeUI.kERMenu;
+displayString -replace -value "Miscellaneous" m_rmCustomNodeUI.kMiscellaneous;
+displayString -replace -value "Output Shaders" m_rmCustomNodeUI.kOutputShaders;
+displayString -replace -value "Photon Emitters" m_rmCustomNodeUI.kPhotonEmitters;
+displayString -replace -value "Photon Volumetric Materials" m_rmCustomNodeUI.kPhotonVolumetricMaterials;
+displayString -replace -value "Photonic Materials" m_rmCustomNodeUI.kPhotonicMaterials;
+displayString -replace -value "Sample Compositing" m_rmCustomNodeUI.kSampleCompositing;
+displayString -replace -value "Shadow Shaders" m_rmCustomNodeUI.kShadowShaders;
+displayString -replace -value "State Shaders" m_rmCustomNodeUI.kStateShaders;
+displayString -replace -value "Textures" m_rmCustomNodeUI.kTextures;
+displayString -replace -value "Volumetric Materials" m_rmCustomNodeUI.kVolumetricMaterials;
+displayString -replace -value "UtilityGeneral" m_rmCustomNodeUI.kUtilityGeneral;
+displayString -replace -value "UtilityColor" m_rmCustomNodeUI.kUtilityColor;

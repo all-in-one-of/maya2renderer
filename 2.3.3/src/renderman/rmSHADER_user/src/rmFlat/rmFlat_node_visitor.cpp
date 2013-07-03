@@ -1,5 +1,5 @@
 
-#include "rm_flat_node_visitor.h"
+#include "rmFlat_node_visitor.h"
 #include <common/mayacheck.h>
 
 #define MNoVersionString
@@ -9,7 +9,7 @@
 #include "../rm_log.h"
 //#include "../rm_output_mgr.h"
 #include "../shaderOutputRSL.h"
-#include "rm_flat_node.h"
+#include "rmFlat_node.h"
 #include "../rm_rnode_visitor_mgr.h"
 #include "../rm_classification.h"
 #include "../rm_export.h"

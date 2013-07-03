@@ -1,7 +1,7 @@
-global proc AEer_checker2Template( string $nodeName )
+global proc AErmFlatTemplate( string $nodeName )
 {
 	liqPushIdent();
-	liqAElog("AEer_checker2Template("+$nodeName+")");
+	liqAElog("AErmFlatTemplate("+$nodeName+")");
 
 	//call AEliquidShaderTemplate()
 	//AEliquidShaderTemplate($nodeName);
@@ -12,11 +12,8 @@ global proc AEer_checker2Template( string $nodeName )
 		//--------------------------------------------------
 		editorTemplate -beginScrollLayout;
 		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
-				editorTemplate -addDynamicControl "color1";
-				editorTemplate -addDynamicControl "color2";
-				editorTemplate -addDynamicControl "xscale";
-				editorTemplate -addDynamicControl "yscale";
-				editorTemplate -addDynamicControl "result";
+				editorTemplate -addDynamicControl "icolor";
+				editorTemplate -addDynamicControl "iopacity";
 			editorTemplate -endLayout;
 		editorTemplate -endLayout;
 		//--------------------------------------------------

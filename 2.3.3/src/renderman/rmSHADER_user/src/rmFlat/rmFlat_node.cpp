@@ -31,7 +31,7 @@
 ** Liquid Surface Shader Node Source
 ** ______________________________________________________________________
 */
-#include "rm_flat_node.h"
+#include "rmFlat_node.h"
 
 #include <common/mayacheck.h>
 #include <liqlog.h>
