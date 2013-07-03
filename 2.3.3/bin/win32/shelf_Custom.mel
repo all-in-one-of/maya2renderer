@@ -66,7 +66,7 @@ global proc shelf_Custom () {
         -preventOverride 0
         -enableBackground 0
         -align "center" 
-        -label "if ( `pluginInfo -q -loaded -name \"liquid_2012x32d\"` )\n{\n    //l..." 
+        -label "if ( `pluginInfo -q -loaded -name \"liquidDLL\"` )\n{\n    //l..." 
         -labelOffset 0
         -font "plainLabelFont" 
         -imageOverlayLabel "Liq" 
@@ -77,7 +77,7 @@ global proc shelf_Custom () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "if ( `pluginInfo -q -loaded -name \"liquid_2012x32d\"` )\n{\n    //loaded\n}else{\n    loadPlugin \"liquid_2012x32d\";\n}" 
+        -command "if ( `pluginInfo -q -loaded -name \"liquidDLL\"` )\n{\n    //loaded\n}else{\n    loadPlugin \"liquidDLL\";\n}" 
         -sourceType "mel" 
         -commandRepeatable 1
     ;
