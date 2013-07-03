@@ -29,7 +29,7 @@ namespace elvishray
 	bool RNodeVisitorMgr::regist(const std::string &rnodetype, 
 		liquid::RenderNodeVisitorInterface2* mgr)
 	{
-		CM_TRACE_FUNC("RNodeVisitorMgr::regist("<<rnodetype<<")");
+		//CM_TRACE_FUNC("RNodeVisitorMgr::regist("<<rnodetype<<")");
 
 		if(m_map.find(rnodetype) == m_map.end())//not found
 		{
@@ -41,7 +41,7 @@ namespace elvishray
 	}
 	bool RNodeVisitorMgr::unregist(const std::string &rnodetype)
 	{
-		CM_TRACE_FUNC("RNodeVisitorMgr::unregist("<<rnodetype<<")");
+		//CM_TRACE_FUNC("RNodeVisitorMgr::unregist("<<rnodetype<<")");
 
 		m_map.erase(rnodetype);
 		return true;
