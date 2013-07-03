@@ -4,6 +4,8 @@
       >3 Renderer::Renderer()
       >3 ShaderMgr::setValidConnection()
       >3 ShaderMgr::getShaderConnectionMap()
+      >3 RNodeVisitorMgr::setValidConnection(...)
+        >4 CheckerNodeVisitor::setValidConnection(...)
     >2 RendererMgr::prologue()
     >2 Renderer::openLog(R:/MyDocuments/maya/projects/default/rib/liquidshader_cylinderlight.cameraShape1.1.ElvishRender.bmp)
       >3 OutputMgr::setOutputImagePath(R:/MyDocuments/maya/projects/default/rib/liquidshader_cylinderlight.cameraShape1.1.ElvishRender.bmp)

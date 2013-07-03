@@ -98,157 +98,103 @@ surface phong1
 
 // define the shaders --------------------------------------------------------------------------
 #include "place2dTexture.h"
-//shader name: place2dTexture1
-void place2dTexture1 (
- output float coverage[];
- output float mirrorU;
- output float mirrorV;
- output float noiseUV[];
- output float offset[];
- output float repeatUV[];
- output float rotateFrame;
- output float rotateUV;
- output float stagger;
- output float translateFrame[];
- output float wrapU;
- output float wrapV;
+//shader name: place2dTexture2
+void place2dTexture2 (
  output float outUV[];
 )
 {
  extern float s, t;
  float uvCoord[2];
- uvCoord[0] = s;
- uvCoord[1] = 1 - t;
- coverage[0] = float 1;  coverage[1] = float 1; ;
- mirrorU = float 0;
- mirrorV = float 0;
- noiseUV[0] = float 0;  noiseUV[1] = float 0; ;
- offset[0] = float 0;  offset[1] = float 0; ;
- repeatUV[0] = float 1;  repeatUV[1] = float 1; ;
- rotateFrame = float 0;
- rotateUV = float 0;
- stagger = float 0;
- translateFrame[0] = float 0;  translateFrame[1] = float 0; ;
- wrapU = float 1;
- wrapV = float 1;
- outUV[0] = float 0;  outUV[1] = float 0; ;
  {
- uniform float i_coverageU=1;
- uniform float i_coverageV=1;
- uniform float i_mirrorU=0;
- uniform float i_mirrorV=0;
- uniform float i_noiseU=0;
- uniform float i_noiseV=0;
- uniform float i_repeatU=1;
- uniform float i_repeatV=1;
- uniform float i_rotateFrame=0;
- uniform float i_rotateUV=0;
- uniform float i_stagger=0;
- uniform float i_translateFrameU=0;
- uniform float i_translateFrameV=0;
- uniform float i_wrapU=1;
- uniform float i_wrapV=1;
-   maya_place2dTexture(uvCoord,			
-	i_coverageU,       
-	i_coverageV,		
-	i_mirrorU,			
-	i_mirrorV,			
-	i_noiseU,			
-	i_noiseV,			
-	0,			
-	0,			
-	i_repeatU,			
-	i_repeatV,			
-	i_rotateFrame,		
-	i_rotateUV,		
-	i_stagger,			
-	i_translateFrameU,	
-	i_translateFrameV,	
-	i_wrapU,			
-	i_wrapV,			
+ //use renderman internal uv
+ uvCoord[0] = s;
+ uvCoord[1] = t;
+ }
+ uvCoord[1] = 1 - uvCoord[1];//adjust v for renderman
+ uniform float coverage[2] =  { 1, 1 };
+ uniform float mirrorU = float 0;
+ uniform float mirrorV = float 0;
+ uniform float noiseUV[2] =  { 0, 0 };
+  float offset[2] =  { 0, 0 };
+ uniform float repeatUV[2] =  { 4, 4 };
+ uniform float rotateFrame = float 0;
+ uniform float rotateUV = float 0;
+ uniform float stagger = float 0;
+ uniform float translateFrame[2] =  { 0, 0 };
+ uniform float wrapU = float 1;
+ uniform float wrapV = float 1;
+ outUV[0] = float 0;  outUV[1] = float 0; ;
+   maya_place2dTexture(
+	uvCoord,			
+	coverage[0],		
+	coverage[1],		
+	mirrorU,			
+	mirrorV,			
+	noiseUV[0],		
+	noiseUV[1],		
+	offset[0],			
+	offset[1],			
+	repeatUV[0],		
+	repeatUV[1],		
+	rotateFrame,		
+	rotateUV,			
+	stagger,			
+	translateFrame[0],	
+	translateFrame[1],	
+	wrapU,				
+	wrapV,				
 	outUV   
    );
- }
- coverage[0]=1;
- coverage[1]=1;
- mirrorU=0;
- mirrorV=0;
- noiseUV[0]=0;
- noiseUV[1]=0;
- offset[0]=0;
- offset[1]=0;
- repeatUV[0]=1;
- repeatUV[1]=1;
- rotateFrame=0;
- rotateUV=0;
- stagger=0;
- translateFrame[0]=0;
- translateFrame[1]=0;
- wrapU=1;
- wrapV=1;
 }
 
-#include "file.h"
-//shader name: file1
-void file1 (
+#include "checker.h"
+//shader name: checker2
+void checker2 (
  float uvCoord[];
- output float outAlpha;
  output color outColor;
 )
 {
   float alphaGain = float 1;
- uniform float alphaIsLuminance = float 1;
+ uniform float alphaIsLuminance = float 0;
   float alphaOffset = float 0;
+  color color1 = color (1,1,1);
+  color color2 = color (0,0,0);
   color colorGain = color (1,1,1);
   color colorOffset = color (0,0,0);
+ uniform float contrast = float 1;
   color defaultColor = color (0.5,0.5,0.5);
- uniform float filterType = float 3;
- uniform float filter = float 1;
+  float filter = float 1;
   float filterOffset = float 0;
- uniform float frameExtension = float 1;
- uniform float frameOffset = float 0;
  uniform float invert = float 0;
- uniform float useFrameExtension = float 0;
-//file1.uvCoord <-- place2dTexture1.outUV
- uniform float fileHasAlpha = float 0;
- outAlpha = float 1;
- outColor = color (0,0,0);
-  color outTransparency = color (0,0,0);
-   maya_file(alphaGain,         
+//checker2.uvCoord <-- place2dTexture2.outUV
+  float outAlpha = float 0.5;
+ outColor = color (0.5,0.5,0.5);
+   maya_checker(alphaGain,         
 	alphaIsLuminance,  
 	alphaOffset,       
+	color1,            
+	color2,            
 	colorGain,         
 	colorOffset,       
+	contrast,          
 	defaultColor,      
-	"E:/dev/Autodesk/maya/myplugin/project/liquid_/test/texture/200px-Heightmap.tif.tif",   
-	filterType,        
 	filter,            
 	filterOffset,      
-	frameExtension,	
-	frameOffset,		
 	invert,            
-	useFrameExtension,	
 	uvCoord,           
 	outAlpha,          
-	outColor,          
-	outTransparency    
-  );
-}
-
-//shader name: bump2d1
-void bump2d1 (
-)
-{
- //the type of node 'bump2d1' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()
+	outColor           
+   );
 }
 
 #include "phong.h"
 //shader name: phong1
 void phong1 (
+ color i_color;
 )
 {
   color ambientColor = color (0,0,0);
-  color i_color = color (0,1,0);
+//phong1.color <-- checker2.outColor
   float cosinePower = float 20;
   float diffuse = float 0.8;
   color incandescence = color (0,0,0);
@@ -313,41 +259,22 @@ void phong1 (
 
 
 // call the shaders ----------------------------------------------------------------------------
- float place2dTexture1_coverage[2];
- float place2dTexture1_mirrorU;
- float place2dTexture1_mirrorV;
- float place2dTexture1_noiseUV[2];
- float place2dTexture1_offset[2];
- float place2dTexture1_repeatUV[2];
- float place2dTexture1_rotateFrame;
- float place2dTexture1_rotateUV;
- float place2dTexture1_stagger;
- float place2dTexture1_translateFrame[2];
- float place2dTexture1_wrapU;
- float place2dTexture1_wrapV;
- float place2dTexture1_outUV[2];
- float file1_outAlpha;
- color file1_outColor;
- vector bump2d1_outNormal;
+ float place2dTexture2_outUV[2];
+ color checker2_outColor;
 
- //place2dTexture1
- place2dTexture1(place2dTexture1_coverage, place2dTexture1_mirrorU, place2dTexture1_mirrorV, place2dTexture1_noiseUV, place2dTexture1_offset, place2dTexture1_repeatUV, place2dTexture1_rotateFrame, place2dTexture1_rotateUV, place2dTexture1_stagger, place2dTexture1_translateFrame, place2dTexture1_wrapU, place2dTexture1_wrapV, place2dTexture1_outUV);
-//input: 
-//output:place2dTexture1_coverage,place2dTexture1_mirrorU,place2dTexture1_mirrorV,place2dTexture1_noiseUV,place2dTexture1_offset,place2dTexture1_repeatUV,place2dTexture1_rotateFrame,place2dTexture1_rotateUV,place2dTexture1_stagger,place2dTexture1_translateFrame,place2dTexture1_wrapU,place2dTexture1_wrapV,place2dTexture1_outUV,
+place2dTexture2(place2dTexture2_outUV);
+//inputSrc: 
+//inputDes: 
+//outputSrc: place2dTexture2.outUV, 
 
- //file1
- file1(place2dTexture1_outUV, file1_outAlpha, file1_outColor);
-//input: place2dTexture1_outUV,
-//output:file1_outAlpha,file1_outColor,
+checker2(place2dTexture2_outUV, checker2_outColor);
+//inputSrc: place2dTexture2.outUV, 
+//inputDes: checker2.uvCoord, 
+//outputSrc: checker2.outColor, 
 
- //bump2d1
- bump2d1(file1_outAlpha, bump2d1_outNormal);
-//input: file1_outAlpha,
-//output:bump2d1_outNormal,
-
- //phong1
- phong1(bump2d1_outNormal);
-//input: bump2d1_outNormal,
-//output:
+phong1(checker2_outColor);
+//inputSrc: checker2.outColor, 
+//inputDes: phong1.color, 
+//outputSrc: 
 
 }

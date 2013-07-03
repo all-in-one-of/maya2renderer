@@ -3,7 +3,7 @@
 //Last modified: Sun, Sep 16, 2012 09:25:30 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5 (buildtime= 0:29:12.04)";
+requires "liquidDLL" "2.3.5 (buildtime= 0:29:12.04)";
 requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t ntsc;

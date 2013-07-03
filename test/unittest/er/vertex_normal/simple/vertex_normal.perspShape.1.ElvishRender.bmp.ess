@@ -169,10 +169,10 @@ end light
 instance "|pointLight1|pointLightShape1" 
 element "|pointLight1|pointLightShape1_object" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    -2.10242 2.86003 1.07926 1 
+declare "|pSphere2_lightgroup" "const" "int" 
 declare "|pCube1_lightgroup" "const" "int" 
 declare "|pPlane1_lightgroup" "const" "int" 
 declare "|pSphere1_lightgroup" "const" "int" 
-declare "|pSphere2_lightgroup" "const" "int" 
 end instance
 
 ## maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333

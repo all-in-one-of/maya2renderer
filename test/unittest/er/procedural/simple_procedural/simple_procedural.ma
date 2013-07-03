@@ -3,7 +3,7 @@
 //Last modified: Wed, Jun 19, 2013 07:47:53 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5";
+requires "liquidDLL" "2.3.5";
 requires "ElvishRender" "0.0.1";
 requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "stereoCamera" "10.0";

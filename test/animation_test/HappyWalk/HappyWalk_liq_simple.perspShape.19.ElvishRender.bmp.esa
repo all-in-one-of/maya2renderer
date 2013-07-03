@@ -154,41 +154,22 @@ ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:ri
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
@@ -198,15 +179,27 @@ ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:x
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
@@ -215,8 +208,15 @@ ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:x
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
 
 // Renderer::exportLight("_pointLight2_pointLightShape2");
@@ -285,41 +285,22 @@ ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:ri
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
@@ -329,15 +310,27 @@ ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:x
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
@@ -346,8 +339,15 @@ ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:x
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
-ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
+ei_declare("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup", EI_CONSTANT, EI_TYPE_INT, &defaultInt);
 ei_end_instance();
 
 // maya settings: focal=35.000000, aperture = 46.799999, aspect=1.333333
@@ -402,90 +402,90 @@ eiTag tag;
 //vertex positions(required), size=84
 tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
-ei_tab_add_vector( -30.974854, -0.912308, -31.421265 );
-ei_tab_add_vector( -29.998384, -3.562625, -31.436432 );
-ei_tab_add_vector( -31.623121, -1.176939, -31.912642 );
-ei_tab_add_vector( -31.623121, -1.176939, -31.912642 );
-ei_tab_add_vector( -29.998384, -3.562625, -31.436432 );
-ei_tab_add_vector( -30.562029, -3.792704, -31.863724 );
-ei_tab_add_vector( -30.452002, -0.752431, -32.197159 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -30.974854, -0.912308, -31.421265 );
-ei_tab_add_vector( -30.974854, -0.912308, -31.421265 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -29.998384, -3.562625, -31.436432 );
-ei_tab_add_vector( -30.452002, -0.752431, -32.197159 );
-ei_tab_add_vector( -31.100271, -1.017061, -32.688534 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -31.100271, -1.017061, -32.688534 );
-ei_tab_add_vector( -30.201351, -3.682374, -32.398907 );
-ei_tab_add_vector( -31.100271, -1.017061, -32.688534 );
-ei_tab_add_vector( -31.623121, -1.176939, -31.912642 );
-ei_tab_add_vector( -30.201351, -3.682374, -32.398907 );
-ei_tab_add_vector( -30.201351, -3.682374, -32.398907 );
-ei_tab_add_vector( -31.623121, -1.176939, -31.912642 );
-ei_tab_add_vector( -30.562029, -3.792704, -31.863724 );
-ei_tab_add_vector( -30.454401, -4.291121, -31.835848 );
-ei_tab_add_vector( -29.804972, -4.026025, -31.343523 );
-ei_tab_add_vector( -30.041409, -4.164787, -32.448658 );
-ei_tab_add_vector( -30.041409, -4.164787, -32.448658 );
-ei_tab_add_vector( -29.804972, -4.026025, -31.343523 );
-ei_tab_add_vector( -29.391979, -3.899692, -31.956333 );
-ei_tab_add_vector( -31.100271, -1.017061, -32.688534 );
-ei_tab_add_vector( -30.452002, -0.752431, -32.197159 );
-ei_tab_add_vector( -31.623121, -1.176939, -31.912642 );
-ei_tab_add_vector( -31.623121, -1.176939, -31.912642 );
-ei_tab_add_vector( -30.452002, -0.752431, -32.197159 );
-ei_tab_add_vector( -30.974854, -0.912308, -31.421265 );
-ei_tab_add_vector( -30.562029, -3.792704, -31.863724 );
-ei_tab_add_vector( -30.601194, -3.898207, -31.853775 );
-ei_tab_add_vector( -30.201351, -3.682374, -32.398907 );
-ei_tab_add_vector( -30.201351, -3.682374, -32.398907 );
-ei_tab_add_vector( -30.601194, -3.898207, -31.853775 );
-ei_tab_add_vector( -30.188196, -3.771875, -32.466583 );
-ei_tab_add_vector( -30.201351, -3.682374, -32.398907 );
-ei_tab_add_vector( -30.188196, -3.771875, -32.466583 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -30.188196, -3.771875, -32.466583 );
-ei_tab_add_vector( -29.538767, -3.506780, -31.974260 );
-ei_tab_add_vector( -29.637709, -3.452295, -31.971613 );
-ei_tab_add_vector( -29.538767, -3.506780, -31.974260 );
-ei_tab_add_vector( -29.998384, -3.562625, -31.436432 );
-ei_tab_add_vector( -29.998384, -3.562625, -31.436432 );
-ei_tab_add_vector( -29.538767, -3.506780, -31.974260 );
-ei_tab_add_vector( -29.951763, -3.633113, -31.361450 );
-ei_tab_add_vector( -29.998384, -3.562625, -31.436432 );
-ei_tab_add_vector( -29.951763, -3.633113, -31.361450 );
-ei_tab_add_vector( -30.562029, -3.792704, -31.863724 );
-ei_tab_add_vector( -30.562029, -3.792704, -31.863724 );
-ei_tab_add_vector( -29.951763, -3.633113, -31.361450 );
-ei_tab_add_vector( -30.601194, -3.898207, -31.853775 );
-ei_tab_add_vector( -30.601194, -3.898207, -31.853775 );
-ei_tab_add_vector( -30.454401, -4.291121, -31.835848 );
-ei_tab_add_vector( -30.188196, -3.771875, -32.466583 );
-ei_tab_add_vector( -30.188196, -3.771875, -32.466583 );
-ei_tab_add_vector( -30.454401, -4.291121, -31.835848 );
-ei_tab_add_vector( -30.041409, -4.164787, -32.448658 );
-ei_tab_add_vector( -30.188196, -3.771875, -32.466583 );
-ei_tab_add_vector( -30.041409, -4.164787, -32.448658 );
-ei_tab_add_vector( -29.538767, -3.506780, -31.974260 );
-ei_tab_add_vector( -29.538767, -3.506780, -31.974260 );
-ei_tab_add_vector( -30.041409, -4.164787, -32.448658 );
-ei_tab_add_vector( -29.391979, -3.899692, -31.956333 );
-ei_tab_add_vector( -29.538767, -3.506780, -31.974260 );
-ei_tab_add_vector( -29.391979, -3.899692, -31.956333 );
-ei_tab_add_vector( -29.951763, -3.633113, -31.361450 );
-ei_tab_add_vector( -29.951763, -3.633113, -31.361450 );
-ei_tab_add_vector( -29.391979, -3.899692, -31.956333 );
-ei_tab_add_vector( -29.804972, -4.026025, -31.343523 );
-ei_tab_add_vector( -29.951763, -3.633113, -31.361450 );
-ei_tab_add_vector( -29.804972, -4.026025, -31.343523 );
-ei_tab_add_vector( -30.601194, -3.898207, -31.853775 );
-ei_tab_add_vector( -30.601194, -3.898207, -31.853775 );
-ei_tab_add_vector( -29.804972, -4.026025, -31.343523 );
-ei_tab_add_vector( -30.454401, -4.291121, -31.835848 );
+ei_tab_add_vector( -30.951866, -0.923873, -31.398104 );
+ei_tab_add_vector( -29.975407, -3.574148, -31.413277 );
+ei_tab_add_vector( -31.600132, -1.188500, -31.889486 );
+ei_tab_add_vector( -31.600132, -1.188500, -31.889486 );
+ei_tab_add_vector( -29.975407, -3.574148, -31.413277 );
+ei_tab_add_vector( -30.539049, -3.804225, -31.840572 );
+ei_tab_add_vector( -30.429010, -0.763990, -32.173992 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -30.951866, -0.923873, -31.398104 );
+ei_tab_add_vector( -30.951866, -0.923873, -31.398104 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -29.975407, -3.574148, -31.413277 );
+ei_tab_add_vector( -30.429010, -0.763990, -32.173992 );
+ei_tab_add_vector( -31.077278, -1.028616, -32.665375 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -31.077278, -1.028616, -32.665375 );
+ei_tab_add_vector( -30.178368, -3.693889, -32.375751 );
+ei_tab_add_vector( -31.077278, -1.028616, -32.665375 );
+ei_tab_add_vector( -31.600132, -1.188500, -31.889486 );
+ei_tab_add_vector( -30.178368, -3.693889, -32.375751 );
+ei_tab_add_vector( -30.178368, -3.693889, -32.375751 );
+ei_tab_add_vector( -31.600132, -1.188500, -31.889486 );
+ei_tab_add_vector( -30.539049, -3.804225, -31.840572 );
+ei_tab_add_vector( -30.431419, -4.302641, -31.812698 );
+ei_tab_add_vector( -29.781994, -4.037548, -31.320370 );
+ei_tab_add_vector( -30.018425, -4.176302, -32.425507 );
+ei_tab_add_vector( -30.018425, -4.176302, -32.425507 );
+ei_tab_add_vector( -29.781994, -4.037548, -31.320370 );
+ei_tab_add_vector( -29.368998, -3.911210, -31.933176 );
+ei_tab_add_vector( -31.077278, -1.028616, -32.665375 );
+ei_tab_add_vector( -30.429010, -0.763990, -32.173992 );
+ei_tab_add_vector( -31.600132, -1.188500, -31.889486 );
+ei_tab_add_vector( -31.600132, -1.188500, -31.889486 );
+ei_tab_add_vector( -30.429010, -0.763990, -32.173992 );
+ei_tab_add_vector( -30.951866, -0.923873, -31.398104 );
+ei_tab_add_vector( -30.539049, -3.804225, -31.840572 );
+ei_tab_add_vector( -30.578213, -3.909728, -31.830624 );
+ei_tab_add_vector( -30.178368, -3.693889, -32.375751 );
+ei_tab_add_vector( -30.178368, -3.693889, -32.375751 );
+ei_tab_add_vector( -30.578213, -3.909728, -31.830624 );
+ei_tab_add_vector( -30.165213, -3.783391, -32.443432 );
+ei_tab_add_vector( -30.178368, -3.693889, -32.375751 );
+ei_tab_add_vector( -30.165213, -3.783391, -32.443432 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -30.165213, -3.783391, -32.443432 );
+ei_tab_add_vector( -29.515787, -3.518298, -31.951101 );
+ei_tab_add_vector( -29.614727, -3.463813, -31.948454 );
+ei_tab_add_vector( -29.515787, -3.518298, -31.951101 );
+ei_tab_add_vector( -29.975407, -3.574148, -31.413277 );
+ei_tab_add_vector( -29.975407, -3.574148, -31.413277 );
+ei_tab_add_vector( -29.515787, -3.518298, -31.951101 );
+ei_tab_add_vector( -29.928787, -3.644636, -31.338293 );
+ei_tab_add_vector( -29.975407, -3.574148, -31.413277 );
+ei_tab_add_vector( -29.928787, -3.644636, -31.338293 );
+ei_tab_add_vector( -30.539049, -3.804225, -31.840572 );
+ei_tab_add_vector( -30.539049, -3.804225, -31.840572 );
+ei_tab_add_vector( -29.928787, -3.644636, -31.338293 );
+ei_tab_add_vector( -30.578213, -3.909728, -31.830624 );
+ei_tab_add_vector( -30.578213, -3.909728, -31.830624 );
+ei_tab_add_vector( -30.431419, -4.302641, -31.812698 );
+ei_tab_add_vector( -30.165213, -3.783391, -32.443432 );
+ei_tab_add_vector( -30.165213, -3.783391, -32.443432 );
+ei_tab_add_vector( -30.431419, -4.302641, -31.812698 );
+ei_tab_add_vector( -30.018425, -4.176302, -32.425507 );
+ei_tab_add_vector( -30.165213, -3.783391, -32.443432 );
+ei_tab_add_vector( -30.018425, -4.176302, -32.425507 );
+ei_tab_add_vector( -29.515787, -3.518298, -31.951101 );
+ei_tab_add_vector( -29.515787, -3.518298, -31.951101 );
+ei_tab_add_vector( -30.018425, -4.176302, -32.425507 );
+ei_tab_add_vector( -29.368998, -3.911210, -31.933176 );
+ei_tab_add_vector( -29.515787, -3.518298, -31.951101 );
+ei_tab_add_vector( -29.368998, -3.911210, -31.933176 );
+ei_tab_add_vector( -29.928787, -3.644636, -31.338293 );
+ei_tab_add_vector( -29.928787, -3.644636, -31.338293 );
+ei_tab_add_vector( -29.368998, -3.911210, -31.933176 );
+ei_tab_add_vector( -29.781994, -4.037548, -31.320370 );
+ei_tab_add_vector( -29.928787, -3.644636, -31.338293 );
+ei_tab_add_vector( -29.781994, -4.037548, -31.320370 );
+ei_tab_add_vector( -30.578213, -3.909728, -31.830624 );
+ei_tab_add_vector( -30.578213, -3.909728, -31.830624 );
+ei_tab_add_vector( -29.781994, -4.037548, -31.320370 );
+ei_tab_add_vector( -30.431419, -4.302641, -31.812698 );
 ei_end_tab();
 //### N ###(optional)
 //### N ### end
@@ -684,90 +684,90 @@ eiTag tag;
 //vertex positions(required), size=84
 tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
-ei_tab_add_vector( 22.709463, -5.214146, -25.298786 );
-ei_tab_add_vector( 22.724052, -5.219865, -24.555170 );
-ei_tab_add_vector( 24.357439, -2.921813, -25.336535 );
-ei_tab_add_vector( 24.357439, -2.921813, -25.336535 );
-ei_tab_add_vector( 22.724052, -5.219865, -24.555170 );
-ei_tab_add_vector( 24.374243, -2.928412, -24.481310 );
-ei_tab_add_vector( 22.724052, -5.219865, -24.555170 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 24.374243, -2.928412, -24.481310 );
-ei_tab_add_vector( 24.374243, -2.928412, -24.481310 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 25.123800, -3.510425, -24.500528 );
-ei_tab_add_vector( 25.123800, -3.510425, -24.500528 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 25.106997, -3.503826, -25.355751 );
-ei_tab_add_vector( 25.106997, -3.503826, -25.355751 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 23.226328, -5.615837, -25.312016 );
-ei_tab_add_vector( 25.106997, -3.503826, -25.355751 );
-ei_tab_add_vector( 23.226328, -5.615837, -25.312016 );
-ei_tab_add_vector( 24.357439, -2.921813, -25.336535 );
-ei_tab_add_vector( 24.357439, -2.921813, -25.336535 );
-ei_tab_add_vector( 23.226328, -5.615837, -25.312016 );
-ei_tab_add_vector( 22.709463, -5.214146, -25.298786 );
-ei_tab_add_vector( 22.360851, -5.583580, -25.351402 );
-ei_tab_add_vector( 22.952688, -6.043538, -25.366552 );
-ei_tab_add_vector( 22.377661, -5.590170, -24.494612 );
-ei_tab_add_vector( 22.377661, -5.590170, -24.494612 );
-ei_tab_add_vector( 22.952688, -6.043538, -25.366552 );
-ei_tab_add_vector( 22.969498, -6.050128, -24.509760 );
-ei_tab_add_vector( 25.106997, -3.503826, -25.355751 );
-ei_tab_add_vector( 24.357439, -2.921813, -25.336535 );
-ei_tab_add_vector( 25.123800, -3.510425, -24.500528 );
-ei_tab_add_vector( 25.123800, -3.510425, -24.500528 );
-ei_tab_add_vector( 24.357439, -2.921813, -25.336535 );
-ei_tab_add_vector( 24.374243, -2.928412, -24.481310 );
-ei_tab_add_vector( 22.709463, -5.214146, -25.298786 );
-ei_tab_add_vector( 23.226328, -5.615837, -25.312016 );
-ei_tab_add_vector( 22.618425, -5.252071, -25.353903 );
-ei_tab_add_vector( 22.618425, -5.252071, -25.353903 );
-ei_tab_add_vector( 23.226328, -5.615837, -25.312016 );
-ei_tab_add_vector( 23.210262, -5.712029, -25.369053 );
-ei_tab_add_vector( 23.226328, -5.615837, -25.312016 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 23.210262, -5.712029, -25.369053 );
-ei_tab_add_vector( 23.210262, -5.712029, -25.369053 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 23.227072, -5.718619, -24.512260 );
-ei_tab_add_vector( 23.240917, -5.621557, -24.568401 );
-ei_tab_add_vector( 22.724052, -5.219865, -24.555170 );
-ei_tab_add_vector( 23.227072, -5.718619, -24.512260 );
-ei_tab_add_vector( 23.227072, -5.718619, -24.512260 );
-ei_tab_add_vector( 22.724052, -5.219865, -24.555170 );
-ei_tab_add_vector( 22.635237, -5.258661, -24.497110 );
-ei_tab_add_vector( 22.724052, -5.219865, -24.555170 );
-ei_tab_add_vector( 22.709463, -5.214146, -25.298786 );
-ei_tab_add_vector( 22.635237, -5.258661, -24.497110 );
-ei_tab_add_vector( 22.635237, -5.258661, -24.497110 );
-ei_tab_add_vector( 22.709463, -5.214146, -25.298786 );
-ei_tab_add_vector( 22.618425, -5.252071, -25.353903 );
-ei_tab_add_vector( 22.618425, -5.252071, -25.353903 );
-ei_tab_add_vector( 23.210262, -5.712029, -25.369053 );
-ei_tab_add_vector( 22.360851, -5.583580, -25.351402 );
-ei_tab_add_vector( 22.360851, -5.583580, -25.351402 );
-ei_tab_add_vector( 23.210262, -5.712029, -25.369053 );
-ei_tab_add_vector( 22.952688, -6.043538, -25.366552 );
-ei_tab_add_vector( 23.210262, -5.712029, -25.369053 );
-ei_tab_add_vector( 23.227072, -5.718619, -24.512260 );
-ei_tab_add_vector( 22.952688, -6.043538, -25.366552 );
-ei_tab_add_vector( 22.952688, -6.043538, -25.366552 );
-ei_tab_add_vector( 23.227072, -5.718619, -24.512260 );
-ei_tab_add_vector( 22.969498, -6.050128, -24.509760 );
-ei_tab_add_vector( 23.227072, -5.718619, -24.512260 );
-ei_tab_add_vector( 22.635237, -5.258661, -24.497110 );
-ei_tab_add_vector( 22.969498, -6.050128, -24.509760 );
-ei_tab_add_vector( 22.969498, -6.050128, -24.509760 );
-ei_tab_add_vector( 22.635237, -5.258661, -24.497110 );
-ei_tab_add_vector( 22.377661, -5.590170, -24.494612 );
-ei_tab_add_vector( 22.635237, -5.258661, -24.497110 );
-ei_tab_add_vector( 22.618425, -5.252071, -25.353903 );
-ei_tab_add_vector( 22.377661, -5.590170, -24.494612 );
-ei_tab_add_vector( 22.377661, -5.590170, -24.494612 );
-ei_tab_add_vector( 22.618425, -5.252071, -25.353903 );
-ei_tab_add_vector( 22.360851, -5.583580, -25.351402 );
+ei_tab_add_vector( 22.686102, -5.225606, -25.275640 );
+ei_tab_add_vector( 22.700691, -5.231325, -24.532024 );
+ei_tab_add_vector( 24.334087, -2.933279, -25.313389 );
+ei_tab_add_vector( 24.334087, -2.933279, -25.313389 );
+ei_tab_add_vector( 22.700691, -5.231325, -24.532024 );
+ei_tab_add_vector( 24.350887, -2.939878, -24.458166 );
+ei_tab_add_vector( 22.700691, -5.231325, -24.532024 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 24.350887, -2.939878, -24.458166 );
+ei_tab_add_vector( 24.350887, -2.939878, -24.458166 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 25.100443, -3.521894, -24.477381 );
+ei_tab_add_vector( 25.100443, -3.521894, -24.477381 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 25.083641, -3.515295, -25.332605 );
+ei_tab_add_vector( 25.083641, -3.515295, -25.332605 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 23.202965, -5.627299, -25.288870 );
+ei_tab_add_vector( 25.083641, -3.515295, -25.332605 );
+ei_tab_add_vector( 23.202965, -5.627299, -25.288870 );
+ei_tab_add_vector( 24.334087, -2.933279, -25.313389 );
+ei_tab_add_vector( 24.334087, -2.933279, -25.313389 );
+ei_tab_add_vector( 23.202965, -5.627299, -25.288870 );
+ei_tab_add_vector( 22.686102, -5.225606, -25.275640 );
+ei_tab_add_vector( 22.337488, -5.595039, -25.328259 );
+ei_tab_add_vector( 22.929323, -6.054999, -25.343407 );
+ei_tab_add_vector( 22.354298, -5.601628, -24.471466 );
+ei_tab_add_vector( 22.354298, -5.601628, -24.471466 );
+ei_tab_add_vector( 22.929323, -6.054999, -25.343407 );
+ei_tab_add_vector( 22.946133, -6.061588, -24.486614 );
+ei_tab_add_vector( 25.083641, -3.515295, -25.332605 );
+ei_tab_add_vector( 24.334087, -2.933279, -25.313389 );
+ei_tab_add_vector( 25.100443, -3.521894, -24.477381 );
+ei_tab_add_vector( 25.100443, -3.521894, -24.477381 );
+ei_tab_add_vector( 24.334087, -2.933279, -25.313389 );
+ei_tab_add_vector( 24.350887, -2.939878, -24.458166 );
+ei_tab_add_vector( 22.686102, -5.225606, -25.275640 );
+ei_tab_add_vector( 23.202965, -5.627299, -25.288870 );
+ei_tab_add_vector( 22.595064, -5.263531, -25.330757 );
+ei_tab_add_vector( 22.595064, -5.263531, -25.330757 );
+ei_tab_add_vector( 23.202965, -5.627299, -25.288870 );
+ei_tab_add_vector( 23.186899, -5.723491, -25.345905 );
+ei_tab_add_vector( 23.202965, -5.627299, -25.288870 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 23.186899, -5.723491, -25.345905 );
+ei_tab_add_vector( 23.186899, -5.723491, -25.345905 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 23.203709, -5.730081, -24.489115 );
+ei_tab_add_vector( 23.217554, -5.633018, -24.545254 );
+ei_tab_add_vector( 22.700691, -5.231325, -24.532024 );
+ei_tab_add_vector( 23.203709, -5.730081, -24.489115 );
+ei_tab_add_vector( 23.203709, -5.730081, -24.489115 );
+ei_tab_add_vector( 22.700691, -5.231325, -24.532024 );
+ei_tab_add_vector( 22.611874, -5.270121, -24.473967 );
+ei_tab_add_vector( 22.700691, -5.231325, -24.532024 );
+ei_tab_add_vector( 22.686102, -5.225606, -25.275640 );
+ei_tab_add_vector( 22.611874, -5.270121, -24.473967 );
+ei_tab_add_vector( 22.611874, -5.270121, -24.473967 );
+ei_tab_add_vector( 22.686102, -5.225606, -25.275640 );
+ei_tab_add_vector( 22.595064, -5.263531, -25.330757 );
+ei_tab_add_vector( 22.595064, -5.263531, -25.330757 );
+ei_tab_add_vector( 23.186899, -5.723491, -25.345905 );
+ei_tab_add_vector( 22.337488, -5.595039, -25.328259 );
+ei_tab_add_vector( 22.337488, -5.595039, -25.328259 );
+ei_tab_add_vector( 23.186899, -5.723491, -25.345905 );
+ei_tab_add_vector( 22.929323, -6.054999, -25.343407 );
+ei_tab_add_vector( 23.186899, -5.723491, -25.345905 );
+ei_tab_add_vector( 23.203709, -5.730081, -24.489115 );
+ei_tab_add_vector( 22.929323, -6.054999, -25.343407 );
+ei_tab_add_vector( 22.929323, -6.054999, -25.343407 );
+ei_tab_add_vector( 23.203709, -5.730081, -24.489115 );
+ei_tab_add_vector( 22.946133, -6.061588, -24.486614 );
+ei_tab_add_vector( 23.203709, -5.730081, -24.489115 );
+ei_tab_add_vector( 22.611874, -5.270121, -24.473967 );
+ei_tab_add_vector( 22.946133, -6.061588, -24.486614 );
+ei_tab_add_vector( 22.946133, -6.061588, -24.486614 );
+ei_tab_add_vector( 22.611874, -5.270121, -24.473967 );
+ei_tab_add_vector( 22.354298, -5.601628, -24.471466 );
+ei_tab_add_vector( 22.611874, -5.270121, -24.473967 );
+ei_tab_add_vector( 22.595064, -5.263531, -25.330757 );
+ei_tab_add_vector( 22.354298, -5.601628, -24.471466 );
+ei_tab_add_vector( 22.354298, -5.601628, -24.471466 );
+ei_tab_add_vector( 22.595064, -5.263531, -25.330757 );
+ei_tab_add_vector( 22.337488, -5.595039, -25.328259 );
 ei_end_tab();
 //### N ###(optional)
 //### N ### end
@@ -966,258 +966,258 @@ eiTag tag;
 //vertex positions(required), size=252
 tag = ei_tab(EI_TYPE_VECTOR, 1, 1024);
 ei_pos_list( tag );
-ei_tab_add_vector( 10.543610, -0.937041, -11.438171 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.454860, -0.884329, -11.836963 );
-ei_tab_add_vector( 10.454860, -0.884329, -11.836963 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.212852, 0.001492, -11.792755 );
-ei_tab_add_vector( 10.797900, 1.670105, -11.837265 );
-ei_tab_add_vector( 10.979512, 1.525510, -11.360634 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 10.979512, 1.525510, -11.360634 );
-ei_tab_add_vector( 11.284150, 1.301966, -11.427973 );
-ei_tab_add_vector( 11.162881, 1.403771, -12.158494 );
-ei_tab_add_vector( 11.346195, 1.256437, -11.676209 );
-ei_tab_add_vector( 10.789732, 0.321815, -12.104504 );
-ei_tab_add_vector( 10.789732, 0.321815, -12.104504 );
-ei_tab_add_vector( 11.346195, 1.256437, -11.676209 );
-ei_tab_add_vector( 11.009477, 0.190994, -11.716378 );
-ei_tab_add_vector( 11.079775, -0.684977, -11.427841 );
-ei_tab_add_vector( 10.745569, -0.845161, -11.512444 );
-ei_tab_add_vector( 11.042207, -0.750391, -11.895988 );
-ei_tab_add_vector( 11.042207, -0.750391, -11.895988 );
-ei_tab_add_vector( 10.745569, -0.845161, -11.512444 );
-ei_tab_add_vector( 10.676878, -0.847199, -11.941706 );
-ei_tab_add_vector( 10.506171, -0.753629, -10.403330 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 10.718836, -0.255266, -10.477045 );
-ei_tab_add_vector( 10.718836, -0.255266, -10.477045 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 10.876982, -0.317004, -10.628299 );
-ei_tab_add_vector( 11.042207, -0.750391, -11.895988 );
-ei_tab_add_vector( 10.676878, -0.847199, -11.941706 );
-ei_tab_add_vector( 10.745741, -0.211288, -12.007153 );
-ei_tab_add_vector( 10.745741, -0.211288, -12.007153 );
-ei_tab_add_vector( 10.676878, -0.847199, -11.941706 );
-ei_tab_add_vector( 10.381337, -0.073792, -11.947173 );
-ei_tab_add_vector( 10.571337, 0.512744, -11.400587 );
-ei_tab_add_vector( 10.979512, 1.525510, -11.360634 );
-ei_tab_add_vector( 10.351592, 0.643566, -11.788713 );
-ei_tab_add_vector( 10.351592, 0.643566, -11.788713 );
-ei_tab_add_vector( 10.979512, 1.525510, -11.360634 );
-ei_tab_add_vector( 10.797900, 1.670105, -11.837265 );
-ei_tab_add_vector( 10.789732, 0.321815, -12.104504 );
-ei_tab_add_vector( 11.009477, 0.190994, -11.716378 );
-ei_tab_add_vector( 10.745741, -0.211288, -12.007153 );
-ei_tab_add_vector( 10.745741, -0.211288, -12.007153 );
-ei_tab_add_vector( 11.009477, 0.190994, -11.716378 );
-ei_tab_add_vector( 10.923265, -0.269972, -11.643154 );
-ei_tab_add_vector( 11.240726, 0.021586, -10.480238 );
-ei_tab_add_vector( 11.765752, 0.762431, -10.120872 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 11.765752, 0.762431, -10.120872 );
-ei_tab_add_vector( 11.458771, 0.987947, -10.059327 );
-ei_tab_add_vector( 10.789732, 0.321815, -12.104504 );
-ei_tab_add_vector( 10.541788, 0.503894, -11.911164 );
-ei_tab_add_vector( 11.162881, 1.403771, -12.158494 );
-ei_tab_add_vector( 11.162881, 1.403771, -12.158494 );
-ei_tab_add_vector( 10.541788, 0.503894, -11.911164 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.571337, 0.512744, -11.400587 );
-ei_tab_add_vector( 10.212852, 0.001492, -11.792755 );
-ei_tab_add_vector( 10.212852, 0.001492, -11.792755 );
-ei_tab_add_vector( 10.571337, 0.512744, -11.400587 );
-ei_tab_add_vector( 10.351592, 0.643566, -11.788713 );
-ei_tab_add_vector( 10.718836, -0.255266, -10.477045 );
-ei_tab_add_vector( 10.876982, -0.317004, -10.628299 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 10.876982, -0.317004, -10.628299 );
-ei_tab_add_vector( 11.240726, 0.021586, -10.480238 );
-ei_tab_add_vector( 10.745741, -0.211288, -12.007153 );
-ei_tab_add_vector( 10.381337, -0.073792, -11.947173 );
-ei_tab_add_vector( 10.789732, 0.321815, -12.104504 );
-ei_tab_add_vector( 10.789732, 0.321815, -12.104504 );
-ei_tab_add_vector( 10.381337, -0.073792, -11.947173 );
-ei_tab_add_vector( 10.541788, 0.503894, -11.911164 );
-ei_tab_add_vector( 10.745741, -0.211288, -12.007153 );
-ei_tab_add_vector( 10.923265, -0.269972, -11.643154 );
-ei_tab_add_vector( 11.042207, -0.750391, -11.895988 );
-ei_tab_add_vector( 11.042207, -0.750391, -11.895988 );
-ei_tab_add_vector( 10.923265, -0.269972, -11.643154 );
-ei_tab_add_vector( 11.079775, -0.684977, -11.427841 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 11.458771, 0.987947, -10.059327 );
-ei_tab_add_vector( 11.600695, 1.032857, -10.628932 );
-ei_tab_add_vector( 11.600695, 1.032857, -10.628932 );
-ei_tab_add_vector( 11.458771, 0.987947, -10.059327 );
-ei_tab_add_vector( 11.765752, 0.762431, -10.120872 );
-ei_tab_add_vector( 11.663235, 0.986916, -10.876130 );
-ei_tab_add_vector( 11.828334, 0.716457, -10.367966 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 11.828334, 0.716457, -10.367966 );
-ei_tab_add_vector( 11.488669, -0.160492, -10.673577 );
-ei_tab_add_vector( 11.040057, -0.365756, -11.049049 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 11.488669, -0.160492, -10.673577 );
-ei_tab_add_vector( 11.040057, -0.365756, -11.049049 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 11.013357, -0.579279, -10.881799 );
-ei_tab_add_vector( 11.013357, -0.579279, -10.881799 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 11.056681, -0.534848, -10.434682 );
-ei_tab_add_vector( 10.682638, -0.741633, -10.966394 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 10.483277, -0.835170, -10.892134 );
-ei_tab_add_vector( 10.483277, -0.835170, -10.892134 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 10.506171, -0.753629, -10.403330 );
-ei_tab_add_vector( 10.483277, -0.835170, -10.892134 );
-ei_tab_add_vector( 10.506171, -0.753629, -10.403330 );
-ei_tab_add_vector( 10.531349, -0.184085, -10.841796 );
-ei_tab_add_vector( 10.531349, -0.184085, -10.841796 );
-ei_tab_add_vector( 10.506171, -0.753629, -10.403330 );
-ei_tab_add_vector( 10.718836, -0.255266, -10.477045 );
-ei_tab_add_vector( 10.531349, -0.184085, -10.841796 );
-ei_tab_add_vector( 10.718836, -0.255266, -10.477045 );
-ei_tab_add_vector( 10.829268, 0.293370, -10.749740 );
-ei_tab_add_vector( 10.829268, 0.293370, -10.749740 );
-ei_tab_add_vector( 10.718836, -0.255266, -10.477045 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 10.829268, 0.293370, -10.749740 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 11.050529, 0.161258, -10.357786 );
-ei_tab_add_vector( 11.458771, 0.987947, -10.059327 );
-ei_tab_add_vector( 10.979512, 1.525510, -11.360634 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 11.284150, 1.301966, -11.427973 );
-ei_tab_add_vector( 11.284150, 1.301966, -11.427973 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 11.600695, 1.032857, -10.628932 );
-ei_tab_add_vector( 11.346195, 1.256437, -11.676209 );
-ei_tab_add_vector( 11.663235, 0.986916, -10.876130 );
-ei_tab_add_vector( 11.009477, 0.190994, -11.716378 );
-ei_tab_add_vector( 11.009477, 0.190994, -11.716378 );
-ei_tab_add_vector( 11.663235, 0.986916, -10.876130 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 11.009477, 0.190994, -11.716378 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 10.923265, -0.269972, -11.643154 );
-ei_tab_add_vector( 10.923265, -0.269972, -11.643154 );
-ei_tab_add_vector( 11.267407, -0.028381, -11.065531 );
-ei_tab_add_vector( 11.040057, -0.365756, -11.049049 );
-ei_tab_add_vector( 10.923265, -0.269972, -11.643154 );
-ei_tab_add_vector( 11.040057, -0.365756, -11.049049 );
-ei_tab_add_vector( 11.079775, -0.684977, -11.427841 );
-ei_tab_add_vector( 11.079775, -0.684977, -11.427841 );
-ei_tab_add_vector( 11.040057, -0.365756, -11.049049 );
-ei_tab_add_vector( 11.013357, -0.579279, -10.881799 );
-ei_tab_add_vector( 10.745569, -0.845161, -11.512444 );
-ei_tab_add_vector( 10.682638, -0.741633, -10.966394 );
-ei_tab_add_vector( 10.543610, -0.937041, -11.438171 );
-ei_tab_add_vector( 10.543610, -0.937041, -11.438171 );
-ei_tab_add_vector( 10.682638, -0.741633, -10.966394 );
-ei_tab_add_vector( 10.483277, -0.835170, -10.892134 );
-ei_tab_add_vector( 10.543610, -0.937041, -11.438171 );
-ei_tab_add_vector( 10.483277, -0.835170, -10.892134 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.483277, -0.835170, -10.892134 );
-ei_tab_add_vector( 10.531349, -0.184085, -10.841796 );
-ei_tab_add_vector( 10.571337, 0.512744, -11.400587 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.829268, 0.293370, -10.749740 );
-ei_tab_add_vector( 10.829268, 0.293370, -10.749740 );
-ei_tab_add_vector( 10.399562, -0.069011, -11.431471 );
-ei_tab_add_vector( 10.531349, -0.184085, -10.841796 );
-ei_tab_add_vector( 10.979512, 1.525510, -11.360634 );
-ei_tab_add_vector( 10.571337, 0.512744, -11.400587 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 11.293919, 1.258207, -10.566877 );
-ei_tab_add_vector( 10.571337, 0.512744, -11.400587 );
-ei_tab_add_vector( 10.829268, 0.293370, -10.749740 );
-ei_tab_add_vector( 11.284150, 1.301966, -11.427973 );
-ei_tab_add_vector( 11.346195, 1.256437, -11.676209 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 11.346195, 1.256437, -11.676209 );
-ei_tab_add_vector( 11.162881, 1.403771, -12.158494 );
-ei_tab_add_vector( 10.676878, -0.847199, -11.941706 );
-ei_tab_add_vector( 10.745569, -0.845161, -11.512444 );
-ei_tab_add_vector( 10.454860, -0.884329, -11.836963 );
-ei_tab_add_vector( 10.454860, -0.884329, -11.836963 );
-ei_tab_add_vector( 10.745569, -0.845161, -11.512444 );
-ei_tab_add_vector( 10.543610, -0.937041, -11.438171 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 11.056681, -0.534848, -10.434682 );
-ei_tab_add_vector( 10.876982, -0.317004, -10.628299 );
-ei_tab_add_vector( 10.876982, -0.317004, -10.628299 );
-ei_tab_add_vector( 11.056681, -0.534848, -10.434682 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 10.676878, -0.847199, -11.941706 );
-ei_tab_add_vector( 10.454860, -0.884329, -11.836963 );
-ei_tab_add_vector( 10.381337, -0.073792, -11.947173 );
-ei_tab_add_vector( 10.381337, -0.073792, -11.947173 );
-ei_tab_add_vector( 10.454860, -0.884329, -11.836963 );
-ei_tab_add_vector( 10.212852, 0.001492, -11.792755 );
-ei_tab_add_vector( 11.765752, 0.762431, -10.120872 );
-ei_tab_add_vector( 11.240726, 0.021586, -10.480238 );
-ei_tab_add_vector( 11.828334, 0.716457, -10.367966 );
-ei_tab_add_vector( 11.828334, 0.716457, -10.367966 );
-ei_tab_add_vector( 11.240726, 0.021586, -10.480238 );
-ei_tab_add_vector( 11.488669, -0.160492, -10.673577 );
-ei_tab_add_vector( 10.541788, 0.503894, -11.911164 );
-ei_tab_add_vector( 10.351592, 0.643566, -11.788713 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 11.101075, 1.448872, -11.909267 );
-ei_tab_add_vector( 10.351592, 0.643566, -11.788713 );
-ei_tab_add_vector( 10.797900, 1.670105, -11.837265 );
-ei_tab_add_vector( 10.876982, -0.317004, -10.628299 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 11.240726, 0.021586, -10.480238 );
-ei_tab_add_vector( 11.240726, 0.021586, -10.480238 );
-ei_tab_add_vector( 11.218268, -0.425004, -10.681558 );
-ei_tab_add_vector( 11.488669, -0.160492, -10.673577 );
-ei_tab_add_vector( 10.381337, -0.073792, -11.947173 );
-ei_tab_add_vector( 10.212852, 0.001492, -11.792755 );
-ei_tab_add_vector( 10.541788, 0.503894, -11.911164 );
-ei_tab_add_vector( 10.541788, 0.503894, -11.911164 );
-ei_tab_add_vector( 10.212852, 0.001492, -11.792755 );
-ei_tab_add_vector( 10.351592, 0.643566, -11.788713 );
-ei_tab_add_vector( 11.765752, 0.762431, -10.120872 );
-ei_tab_add_vector( 11.828334, 0.716457, -10.367966 );
-ei_tab_add_vector( 11.600695, 1.032857, -10.628932 );
-ei_tab_add_vector( 11.600695, 1.032857, -10.628932 );
-ei_tab_add_vector( 11.828334, 0.716457, -10.367966 );
-ei_tab_add_vector( 11.663235, 0.986916, -10.876130 );
-ei_tab_add_vector( 10.682638, -0.741633, -10.966394 );
-ei_tab_add_vector( 11.013357, -0.579279, -10.881799 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 10.712035, -0.671420, -10.492409 );
-ei_tab_add_vector( 11.013357, -0.579279, -10.881799 );
-ei_tab_add_vector( 11.056681, -0.534848, -10.434682 );
-ei_tab_add_vector( 11.600695, 1.032857, -10.628932 );
-ei_tab_add_vector( 11.663235, 0.986916, -10.876130 );
-ei_tab_add_vector( 11.284150, 1.301966, -11.427973 );
-ei_tab_add_vector( 11.284150, 1.301966, -11.427973 );
-ei_tab_add_vector( 11.663235, 0.986916, -10.876130 );
-ei_tab_add_vector( 11.346195, 1.256437, -11.676209 );
-ei_tab_add_vector( 10.745569, -0.845161, -11.512444 );
-ei_tab_add_vector( 11.079775, -0.684977, -11.427841 );
-ei_tab_add_vector( 10.682638, -0.741633, -10.966394 );
-ei_tab_add_vector( 10.682638, -0.741633, -10.966394 );
-ei_tab_add_vector( 11.079775, -0.684977, -11.427841 );
-ei_tab_add_vector( 11.013357, -0.579279, -10.881799 );
+ei_tab_add_vector( 10.534368, -0.941665, -11.428932 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.445610, -0.888937, -11.827721 );
+ei_tab_add_vector( 10.445610, -0.888937, -11.827721 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.203605, -0.003141, -11.783518 );
+ei_tab_add_vector( 10.788648, 1.665459, -11.828037 );
+ei_tab_add_vector( 10.970263, 1.520872, -11.351407 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 10.970263, 1.520872, -11.351407 );
+ei_tab_add_vector( 11.274899, 1.297327, -11.418746 );
+ei_tab_add_vector( 11.153628, 1.399124, -12.149267 );
+ei_tab_add_vector( 11.336945, 1.251798, -11.666983 );
+ei_tab_add_vector( 10.780484, 0.317178, -12.095269 );
+ei_tab_add_vector( 10.780484, 0.317178, -12.095269 );
+ei_tab_add_vector( 11.336945, 1.251798, -11.666983 );
+ei_tab_add_vector( 11.000230, 0.186361, -11.707143 );
+ei_tab_add_vector( 11.070533, -0.689599, -11.418604 );
+ei_tab_add_vector( 10.736327, -0.849783, -11.503205 );
+ei_tab_add_vector( 11.032958, -0.755006, -11.886751 );
+ei_tab_add_vector( 11.032958, -0.755006, -11.886751 );
+ei_tab_add_vector( 10.736327, -0.849783, -11.503205 );
+ei_tab_add_vector( 10.667628, -0.851809, -11.932467 );
+ei_tab_add_vector( 10.496929, -0.758234, -10.394092 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 10.709594, -0.259887, -10.467808 );
+ei_tab_add_vector( 10.709594, -0.259887, -10.467808 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 10.867740, -0.321624, -10.619061 );
+ei_tab_add_vector( 11.032958, -0.755006, -11.886751 );
+ei_tab_add_vector( 10.667628, -0.851809, -11.932467 );
+ei_tab_add_vector( 10.736495, -0.215921, -11.997916 );
+ei_tab_add_vector( 10.736495, -0.215921, -11.997916 );
+ei_tab_add_vector( 10.667628, -0.851809, -11.932467 );
+ei_tab_add_vector( 10.372090, -0.078425, -11.937937 );
+ei_tab_add_vector( 10.562090, 0.508112, -11.391354 );
+ei_tab_add_vector( 10.970263, 1.520872, -11.351407 );
+ei_tab_add_vector( 10.342343, 0.638930, -11.779479 );
+ei_tab_add_vector( 10.342343, 0.638930, -11.779479 );
+ei_tab_add_vector( 10.970263, 1.520872, -11.351407 );
+ei_tab_add_vector( 10.788648, 1.665459, -11.828037 );
+ei_tab_add_vector( 10.780484, 0.317178, -12.095269 );
+ei_tab_add_vector( 11.000230, 0.186361, -11.707143 );
+ei_tab_add_vector( 10.736495, -0.215921, -11.997916 );
+ei_tab_add_vector( 10.736495, -0.215921, -11.997916 );
+ei_tab_add_vector( 11.000230, 0.186361, -11.707143 );
+ei_tab_add_vector( 10.914020, -0.274602, -11.633917 );
+ei_tab_add_vector( 11.231482, 0.016964, -10.471002 );
+ei_tab_add_vector( 11.756508, 0.757810, -10.111641 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 11.756508, 0.757810, -10.111641 );
+ei_tab_add_vector( 11.449527, 0.983327, -10.050099 );
+ei_tab_add_vector( 10.780484, 0.317178, -12.095269 );
+ei_tab_add_vector( 10.532539, 0.499258, -11.901931 );
+ei_tab_add_vector( 11.153628, 1.399124, -12.149267 );
+ei_tab_add_vector( 11.153628, 1.399124, -12.149267 );
+ei_tab_add_vector( 10.532539, 0.499258, -11.901931 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.562090, 0.508112, -11.391354 );
+ei_tab_add_vector( 10.203605, -0.003141, -11.783518 );
+ei_tab_add_vector( 10.203605, -0.003141, -11.783518 );
+ei_tab_add_vector( 10.562090, 0.508112, -11.391354 );
+ei_tab_add_vector( 10.342343, 0.638930, -11.779479 );
+ei_tab_add_vector( 10.709594, -0.259887, -10.467808 );
+ei_tab_add_vector( 10.867740, -0.321624, -10.619061 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 10.867740, -0.321624, -10.619061 );
+ei_tab_add_vector( 11.231482, 0.016964, -10.471002 );
+ei_tab_add_vector( 10.736495, -0.215921, -11.997916 );
+ei_tab_add_vector( 10.372090, -0.078425, -11.937937 );
+ei_tab_add_vector( 10.780484, 0.317178, -12.095269 );
+ei_tab_add_vector( 10.780484, 0.317178, -12.095269 );
+ei_tab_add_vector( 10.372090, -0.078425, -11.937937 );
+ei_tab_add_vector( 10.532539, 0.499258, -11.901931 );
+ei_tab_add_vector( 10.736495, -0.215921, -11.997916 );
+ei_tab_add_vector( 10.914020, -0.274602, -11.633917 );
+ei_tab_add_vector( 11.032958, -0.755006, -11.886751 );
+ei_tab_add_vector( 11.032958, -0.755006, -11.886751 );
+ei_tab_add_vector( 10.914020, -0.274602, -11.633917 );
+ei_tab_add_vector( 11.070533, -0.689599, -11.418604 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 11.449527, 0.983327, -10.050099 );
+ei_tab_add_vector( 11.591448, 1.028230, -10.619704 );
+ei_tab_add_vector( 11.591448, 1.028230, -10.619704 );
+ei_tab_add_vector( 11.449527, 0.983327, -10.050099 );
+ei_tab_add_vector( 11.756508, 0.757810, -10.111641 );
+ei_tab_add_vector( 11.653988, 0.982290, -10.866901 );
+ei_tab_add_vector( 11.819090, 0.711836, -10.358734 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 11.819090, 0.711836, -10.358734 );
+ei_tab_add_vector( 11.479426, -0.165115, -10.664340 );
+ei_tab_add_vector( 11.030813, -0.370379, -11.039812 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 11.479426, -0.165115, -10.664340 );
+ei_tab_add_vector( 11.030813, -0.370379, -11.039812 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 11.004115, -0.583896, -10.872563 );
+ei_tab_add_vector( 11.004115, -0.583896, -10.872563 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 11.047438, -0.539452, -10.425447 );
+ei_tab_add_vector( 10.673397, -0.746251, -10.957157 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 10.474036, -0.839789, -10.882895 );
+ei_tab_add_vector( 10.474036, -0.839789, -10.882895 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 10.496929, -0.758234, -10.394092 );
+ei_tab_add_vector( 10.474036, -0.839789, -10.882895 );
+ei_tab_add_vector( 10.496929, -0.758234, -10.394092 );
+ei_tab_add_vector( 10.522106, -0.188709, -10.832559 );
+ei_tab_add_vector( 10.522106, -0.188709, -10.832559 );
+ei_tab_add_vector( 10.496929, -0.758234, -10.394092 );
+ei_tab_add_vector( 10.709594, -0.259887, -10.467808 );
+ei_tab_add_vector( 10.522106, -0.188709, -10.832559 );
+ei_tab_add_vector( 10.709594, -0.259887, -10.467808 );
+ei_tab_add_vector( 10.820024, 0.288744, -10.740504 );
+ei_tab_add_vector( 10.820024, 0.288744, -10.740504 );
+ei_tab_add_vector( 10.709594, -0.259887, -10.467808 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 10.820024, 0.288744, -10.740504 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 11.041286, 0.156636, -10.348551 );
+ei_tab_add_vector( 11.449527, 0.983327, -10.050099 );
+ei_tab_add_vector( 10.970263, 1.520872, -11.351407 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 11.274899, 1.297327, -11.418746 );
+ei_tab_add_vector( 11.274899, 1.297327, -11.418746 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 11.591448, 1.028230, -10.619704 );
+ei_tab_add_vector( 11.336945, 1.251798, -11.666983 );
+ei_tab_add_vector( 11.653988, 0.982290, -10.866901 );
+ei_tab_add_vector( 11.000230, 0.186361, -11.707143 );
+ei_tab_add_vector( 11.000230, 0.186361, -11.707143 );
+ei_tab_add_vector( 11.653988, 0.982290, -10.866901 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 11.000230, 0.186361, -11.707143 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 10.914020, -0.274602, -11.633917 );
+ei_tab_add_vector( 10.914020, -0.274602, -11.633917 );
+ei_tab_add_vector( 11.258163, -0.033007, -11.056294 );
+ei_tab_add_vector( 11.030813, -0.370379, -11.039812 );
+ei_tab_add_vector( 10.914020, -0.274602, -11.633917 );
+ei_tab_add_vector( 11.030813, -0.370379, -11.039812 );
+ei_tab_add_vector( 11.070533, -0.689599, -11.418604 );
+ei_tab_add_vector( 11.070533, -0.689599, -11.418604 );
+ei_tab_add_vector( 11.030813, -0.370379, -11.039812 );
+ei_tab_add_vector( 11.004115, -0.583896, -10.872563 );
+ei_tab_add_vector( 10.736327, -0.849783, -11.503205 );
+ei_tab_add_vector( 10.673397, -0.746251, -10.957157 );
+ei_tab_add_vector( 10.534368, -0.941665, -11.428932 );
+ei_tab_add_vector( 10.534368, -0.941665, -11.428932 );
+ei_tab_add_vector( 10.673397, -0.746251, -10.957157 );
+ei_tab_add_vector( 10.474036, -0.839789, -10.882895 );
+ei_tab_add_vector( 10.534368, -0.941665, -11.428932 );
+ei_tab_add_vector( 10.474036, -0.839789, -10.882895 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.474036, -0.839789, -10.882895 );
+ei_tab_add_vector( 10.522106, -0.188709, -10.832559 );
+ei_tab_add_vector( 10.562090, 0.508112, -11.391354 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.820024, 0.288744, -10.740504 );
+ei_tab_add_vector( 10.820024, 0.288744, -10.740504 );
+ei_tab_add_vector( 10.390317, -0.073641, -11.422234 );
+ei_tab_add_vector( 10.522106, -0.188709, -10.832559 );
+ei_tab_add_vector( 10.970263, 1.520872, -11.351407 );
+ei_tab_add_vector( 10.562090, 0.508112, -11.391354 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 11.284673, 1.253582, -10.557651 );
+ei_tab_add_vector( 10.562090, 0.508112, -11.391354 );
+ei_tab_add_vector( 10.820024, 0.288744, -10.740504 );
+ei_tab_add_vector( 11.274899, 1.297327, -11.418746 );
+ei_tab_add_vector( 11.336945, 1.251798, -11.666983 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 11.336945, 1.251798, -11.666983 );
+ei_tab_add_vector( 11.153628, 1.399124, -12.149267 );
+ei_tab_add_vector( 10.667628, -0.851809, -11.932467 );
+ei_tab_add_vector( 10.736327, -0.849783, -11.503205 );
+ei_tab_add_vector( 10.445610, -0.888937, -11.827721 );
+ei_tab_add_vector( 10.445610, -0.888937, -11.827721 );
+ei_tab_add_vector( 10.736327, -0.849783, -11.503205 );
+ei_tab_add_vector( 10.534368, -0.941665, -11.428932 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 11.047438, -0.539452, -10.425447 );
+ei_tab_add_vector( 10.867740, -0.321624, -10.619061 );
+ei_tab_add_vector( 10.867740, -0.321624, -10.619061 );
+ei_tab_add_vector( 11.047438, -0.539452, -10.425447 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 10.667628, -0.851809, -11.932467 );
+ei_tab_add_vector( 10.445610, -0.888937, -11.827721 );
+ei_tab_add_vector( 10.372090, -0.078425, -11.937937 );
+ei_tab_add_vector( 10.372090, -0.078425, -11.937937 );
+ei_tab_add_vector( 10.445610, -0.888937, -11.827721 );
+ei_tab_add_vector( 10.203605, -0.003141, -11.783518 );
+ei_tab_add_vector( 11.756508, 0.757810, -10.111641 );
+ei_tab_add_vector( 11.231482, 0.016964, -10.471002 );
+ei_tab_add_vector( 11.819090, 0.711836, -10.358734 );
+ei_tab_add_vector( 11.819090, 0.711836, -10.358734 );
+ei_tab_add_vector( 11.231482, 0.016964, -10.471002 );
+ei_tab_add_vector( 11.479426, -0.165115, -10.664340 );
+ei_tab_add_vector( 10.532539, 0.499258, -11.901931 );
+ei_tab_add_vector( 10.342343, 0.638930, -11.779479 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 11.091823, 1.444225, -11.900041 );
+ei_tab_add_vector( 10.342343, 0.638930, -11.779479 );
+ei_tab_add_vector( 10.788648, 1.665459, -11.828037 );
+ei_tab_add_vector( 10.867740, -0.321624, -10.619061 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 11.231482, 0.016964, -10.471002 );
+ei_tab_add_vector( 11.231482, 0.016964, -10.471002 );
+ei_tab_add_vector( 11.209026, -0.429624, -10.672319 );
+ei_tab_add_vector( 11.479426, -0.165115, -10.664340 );
+ei_tab_add_vector( 10.372090, -0.078425, -11.937937 );
+ei_tab_add_vector( 10.203605, -0.003141, -11.783518 );
+ei_tab_add_vector( 10.532539, 0.499258, -11.901931 );
+ei_tab_add_vector( 10.532539, 0.499258, -11.901931 );
+ei_tab_add_vector( 10.203605, -0.003141, -11.783518 );
+ei_tab_add_vector( 10.342343, 0.638930, -11.779479 );
+ei_tab_add_vector( 11.756508, 0.757810, -10.111641 );
+ei_tab_add_vector( 11.819090, 0.711836, -10.358734 );
+ei_tab_add_vector( 11.591448, 1.028230, -10.619704 );
+ei_tab_add_vector( 11.591448, 1.028230, -10.619704 );
+ei_tab_add_vector( 11.819090, 0.711836, -10.358734 );
+ei_tab_add_vector( 11.653988, 0.982290, -10.866901 );
+ei_tab_add_vector( 10.673397, -0.746251, -10.957157 );
+ei_tab_add_vector( 11.004115, -0.583896, -10.872563 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 10.702792, -0.676025, -10.483171 );
+ei_tab_add_vector( 11.004115, -0.583896, -10.872563 );
+ei_tab_add_vector( 11.047438, -0.539452, -10.425447 );
+ei_tab_add_vector( 11.591448, 1.028230, -10.619704 );
+ei_tab_add_vector( 11.653988, 0.982290, -10.866901 );
+ei_tab_add_vector( 11.274899, 1.297327, -11.418746 );
+ei_tab_add_vector( 11.274899, 1.297327, -11.418746 );
+ei_tab_add_vector( 11.653988, 0.982290, -10.866901 );
+ei_tab_add_vector( 11.336945, 1.251798, -11.666983 );
+ei_tab_add_vector( 10.736327, -0.849783, -11.503205 );
+ei_tab_add_vector( 11.070533, -0.689599, -11.418604 );
+ei_tab_add_vector( 10.673397, -0.746251, -10.957157 );
+ei_tab_add_vector( 10.673397, -0.746251, -10.957157 );
+ei_tab_add_vector( 11.070533, -0.689599, -11.418604 );
+ei_tab_add_vector( 11.004115, -0.583896, -10.872563 );
 ei_end_tab();
 //### N ###(optional)
 //### N ### end
@@ -8514,7 +8514,7 @@ ei_mtl("liquid_material_for_test");
 //shape name=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
 //shape full path name=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
 ei_element("|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1");
-ei_transform(0.114314,0.0940918,0.988979,0,   -0.298792,0.952668,-0.0561003,0,   -0.947447,-0.289086,0.137018,0,   20.2577,7.67716,-20.2204,1);
+ei_transform(0.114315,0.0940984,0.988978,0,   -0.298794,0.952667,-0.0561061,0,   -0.947446,-0.289087,0.13702,0,   20.2408,7.66879,-20.2035,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8536,7 +8536,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11");
-ei_transform(0.106157,0.0153087,0.0686668,0,   0.0601218,-0.00650133,-0.0914968,0,   -0.00749314,0.108685,-0.0126463,0,   20.6334,8.24647,-17.8545,1);
+ei_transform(0.106121,0.0153172,0.0687206,0,   0.0601683,-0.00649254,-0.0914669,0,   -0.00749762,0.108685,-0.0126468,0,   20.6154,8.23761,-17.8366,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8558,7 +8558,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10");
-ei_transform(0.114942,-0.00040118,-0.0746568,0,   -0.0638979,-0.01362,-0.0983043,0,   -0.00713107,0.117246,-0.0116091,0,   20.4383,8.2297,-17.8012,1);
+ei_transform(0.114928,-0.000395479,-0.0746776,0,   -0.0639145,-0.0136311,-0.0982919,0,   -0.00714334,0.117244,-0.0116145,0,   20.4203,8.22082,-17.7833,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8580,7 +8580,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9");
-ei_transform(-0.122134,-0.0679309,-0.256188,0,   -0.120844,-0.00634215,0.0592919,0,   -0.0193694,0.1309,-0.0254753,0,   20.4631,8.27648,-17.56,1);
+ei_transform(-0.122082,-0.0679492,-0.256208,0,   -0.120853,-0.00635488,0.0592715,0,   -0.01938,0.130897,-0.0254809,0,   20.4451,8.26761,-17.5421,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8602,7 +8602,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12");
-ei_transform(0.109161,0.017144,0.0729429,0,   0.0639874,-0.00697162,-0.0941202,0,   -0.00834619,0.112849,-0.0140331,0,   20.4552,8.38817,-17.9322,1);
+ei_transform(0.109118,0.0171538,0.0730053,0,   0.0640411,-0.00695707,-0.0940847,0,   -0.00835334,0.112849,-0.0140305,0,   20.4372,8.3793,-17.9144,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8624,7 +8624,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13");
-ei_transform(0.0988953,-0.0104064,-0.10003,0,   -0.0863506,-0.0181256,-0.0834853,0,   -0.00669502,0.119774,-0.0190796,0,   20.2906,8.39413,-17.8397,1);
+ei_transform(0.0988708,-0.0104058,-0.100054,0,   -0.0863708,-0.0181286,-0.0834638,0,   -0.00670226,0.119774,-0.0190797,0,   20.2726,8.38527,-17.8218,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8646,7 +8646,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14");
-ei_transform(-0.164423,-0.0896553,-0.338063,0,   -0.121477,0.00316174,0.0582438,0,   -0.010746,0.131041,-0.0295259,0,   20.3938,8.45213,-17.5973,1);
+ei_transform(-0.164352,-0.089668,-0.338094,0,   -0.121488,0.00315035,0.0582213,0,   -0.0107524,0.13104,-0.029527,0,   20.3758,8.44327,-17.5794,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8668,7 +8668,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15");
-ei_transform(0.167098,0.0134834,0.0110105,0,   0.00835565,-0.013218,-0.11062,0,   -0.00801179,0.110572,-0.0138175,0,   20.2625,8.58794,-18.0272,1);
+ei_transform(0.16709,0.0134934,0.0111091,0,   0.00842147,-0.0132143,-0.110615,0,   -0.00801051,0.110572,-0.013819,0,   20.2445,8.57907,-18.0094,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8690,7 +8690,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16");
-ei_transform(0.0695283,-0.00551616,-0.117412,0,   -0.100919,-0.0119292,-0.0592014,0,   -0.00786485,0.116906,-0.0101497,0,   20.1523,8.5846,-17.8781,1);
+ei_transform(0.0694859,-0.00551766,-0.117437,0,   -0.100941,-0.011933,-0.0591646,0,   -0.00787113,0.116905,-0.0101499,0,   20.1343,8.57573,-17.8603,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8712,7 +8712,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17");
-ei_transform(-0.236892,-0.0535237,-0.305162,0,   -0.105915,-0.00527765,0.0831454,0,   -0.0155402,0.133376,-0.0113298,0,   20.3323,8.63171,-17.6185,1);
+ei_transform(-0.236825,-0.0535281,-0.305213,0,   -0.105932,-0.00528418,0.083123,0,   -0.0155438,0.133375,-0.0113303,0,   20.3143,8.62285,-17.6006,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8734,7 +8734,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18");
-ei_transform(0.0988636,-0.00118157,-0.0942681,0,   -0.0807203,-0.0136845,-0.0844837,0,   -0.00871241,0.116843,-0.0106017,0,   20.0567,8.82911,-17.8758,1);
+ei_transform(0.0988122,-0.00118549,-0.0943219,0,   -0.0807664,-0.0136862,-0.0844393,0,   -0.00871692,0.116843,-0.0106004,0,   20.0387,8.82025,-17.8579,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8756,7 +8756,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19");
-ei_transform(0.0216154,-0.00176499,-0.137624,0,   -0.117404,-0.0167344,-0.018225,0,   -0.0162996,0.1188,-0.00408362,0,   20.0084,8.83546,-17.6682,1);
+ei_transform(0.0216642,-0.00175236,-0.137616,0,   -0.117396,-0.0167405,-0.0182679,0,   -0.0163057,0.1188,-0.00407968,0,   19.9903,8.8266,-17.6502,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8778,7 +8778,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20");
-ei_transform(-0.36993,-0.0144727,-0.123454,0,   -0.0428191,0.00563341,0.127647,0,   -0.00295174,0.134544,-0.00692798,0,   20.265,8.84563,-17.5528,1);
+ei_transform(-0.369943,-0.0144798,-0.123415,0,   -0.0428056,0.00562895,0.127652,0,   -0.0029562,0.134545,-0.00692421,0,   20.2469,8.83678,-17.5349,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8800,7 +8800,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21");
-ei_transform(-0.270259,-0.0208702,0.0383222,0,   0.0153869,0.0140527,0.116166,0,   -0.0108232,0.116835,-0.0127,0,   20.2248,8.99014,-17.65,1);
+ei_transform(-0.270271,-0.0207444,0.0383076,0,   0.0153875,0.0140422,0.116167,0,   -0.0107676,0.11684,-0.0126973,0,   20.2068,8.98119,-17.6321,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8822,7 +8822,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22");
-ei_transform(-0.269867,0.000669399,0.0446345,0,   0.0218961,0.0145131,0.13217,0,   -0.00204476,0.133971,-0.0143721,0,   20.5423,9.0049,-17.6977,1);
+ei_transform(-0.269865,0.000498005,0.0446517,0,   0.0218957,0.0145012,0.132171,0,   -0.00212654,0.133972,-0.0143466,0,   20.5242,8.99601,-17.6798,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8844,7 +8844,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23");
-ei_transform(-0.371459,0.0572741,-0.00639187,0,   0.000307411,0.0169137,0.133689,0,   0.020657,0.132103,-0.0167605,0,   20.9396,8.96742,-17.7254,1);
+ei_transform(-0.37145,0.0573366,-0.00639727,0,   0.000307113,0.0169059,0.13369,0,   0.0206795,0.132101,-0.0167525,0,   20.9215,8.95859,-17.7075,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8866,7 +8866,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25");
-ei_transform(-0.204612,-0.0149831,0.00231746,0,   0.000272581,0.0169547,0.133684,0,   -0.0271691,0.363897,-0.0460964,0,   21.3259,8.66269,-17.7294,1);
+ei_transform(-0.204612,-0.0149824,0.00231725,0,   0.000272509,0.0169546,0.133684,0,   -0.0271678,0.363897,-0.0460962,0,   21.3079,8.65383,-17.7115,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8888,7 +8888,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24");
-ei_transform(-0.669595,0.00518441,0.0629081,0,   0.0226059,0.0302925,0.238122,0,   -0.000997856,0.239185,-0.030333,0,   20.8907,8.57688,-17.5234,1);
+ei_transform(-0.669595,0.00518665,0.0629075,0,   0.0226058,0.0302922,0.238122,0,   -0.000997013,0.239185,-0.0303329,0,   20.8726,8.56803,-17.5055,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8910,7 +8910,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7");
-ei_transform(0.596332,-0.379784,0.173328,0,   -0.157931,0.0745363,0.706677,0,   -0.386441,-0.616521,-0.0213364,0,   21.3121,11.8296,-18.1399,1);
+ei_transform(0.596331,-0.379786,0.173328,0,   -0.157933,0.074533,0.706677,0,   -0.386442,-0.616521,-0.0213403,0,   21.2952,11.8212,-18.123,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8935,7 +8935,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11");
-ei_transform(0.0476048,0.1178,0.00869219,0,   0.0797796,-0.0270583,-0.0702256,0,   0.0631114,-0.0316957,0.08391,0,   16.2396,9.00165,-23.1551,1);
+ei_transform(0.0476041,0.117801,0.00869274,0,   0.0797801,-0.0270577,-0.0702253,0,   0.0631112,-0.0316956,0.0839103,0,   16.2219,8.9928,-23.1372,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8960,7 +8960,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10");
-ei_transform(0.111726,0.039452,-0.0688941,0,   0.00977382,-0.108212,-0.0461171,0,   0.0676681,-0.0326798,0.0910233,0,   16.0791,8.89301,-23.0877,1);
+ei_transform(0.111726,0.0394524,-0.0688936,0,   0.00977437,-0.108212,-0.0461172,0,   0.0676678,-0.0326797,0.0910236,0,   16.0614,8.88416,-23.0698,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -8985,7 +8985,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9");
-ei_transform(0.0728035,-0.222095,-0.174749,0,   -0.104707,-0.0709289,0.0465234,0,   0.0778792,-0.051093,0.097382,0,   15.9576,9.03661,-22.9199,1);
+ei_transform(0.072806,-0.222093,-0.17475,0,   -0.104707,-0.0709301,0.0465227,0,   0.0778795,-0.0510928,0.0973819,0,   15.9404,9.02776,-22.902,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9010,7 +9010,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12");
-ei_transform(0.0496464,0.122392,0.00927808,0,   0.0827941,-0.0280337,-0.0732178,0,   0.0657172,-0.0332557,0.0870454,0,   16.2746,8.77978,-23.0573,1);
+ei_transform(0.0496119,0.122404,0.00931321,0,   0.0828121,-0.0279944,-0.0732125,0,   0.0657139,-0.0332578,0.0870471,0,   16.2568,8.77092,-23.0394,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9035,7 +9035,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13");
-ei_transform(0.111304,0.0122664,-0.0857647,0,   -0.0143114,-0.11541,-0.0350793,0,   0.0732258,-0.0363839,0.0898274,0,   16.1222,8.71566,-22.9587,1);
+ei_transform(0.111302,0.0122349,-0.0857714,0,   -0.0143357,-0.115411,-0.0350657,0,   0.073223,-0.0363881,0.089828,0,   16.1044,8.70682,-22.9408,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9060,7 +9060,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14");
-ei_transform(0.0927136,-0.294379,-0.232604,0,   -0.100157,-0.0731639,0.0526732,0,   0.0841567,-0.0476451,0.093843,0,   16.0444,8.92253,-22.7917,1);
+ei_transform(0.0927424,-0.294352,-0.232627,0,   -0.100156,-0.0731743,0.0526605,0,   0.084154,-0.0476498,0.0938431,0,   16.0271,8.9137,-22.7738,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9085,7 +9085,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15");
-ei_transform(0.101366,0.131361,-0.026343,0,   0.0614776,-0.0615046,-0.0701355,0,   0.0644831,-0.0326772,0.0851788,0,   16.3692,8.5693,-22.9135,1);
+ei_transform(0.101289,0.131437,-0.0262598,0,   0.0615296,-0.0614323,-0.0701533,0,   0.0644869,-0.0326781,0.0851756,0,   16.3514,8.56039,-22.8957,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9110,7 +9110,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16");
-ei_transform(0.109014,-0.00874965,-0.0817896,0,   -0.0246629,-0.113102,-0.0207727,0,   0.0664063,-0.0313526,0.0918643,0,   16.2113,8.56475,-22.8123,1);
+ei_transform(0.108999,-0.00882798,-0.0818008,0,   -0.0247227,-0.113095,-0.0207375,0,   0.066402,-0.0313601,0.0918648,0,   16.1937,8.55594,-22.7944,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9135,7 +9135,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17");
-ei_transform(0.078048,-0.334975,-0.183866,0,   -0.110274,-0.0554013,0.0541231,0,   0.0726044,-0.0411566,0.1058,0,   16.1362,8.83485,-22.6506,1);
+ei_transform(0.0781375,-0.334925,-0.183919,0,   -0.110267,-0.0554347,0.0541021,0,   0.0726027,-0.0411604,0.1058,0,   16.1185,8.82601,-22.6327,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9160,7 +9160,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18");
-ei_transform(0.108133,0.0697899,-0.0458092,0,   0.0339531,-0.0936701,-0.062559,0,   0.0633704,-0.0381333,0.0914908,0,   16.247,8.432,-22.6011,1);
+ei_transform(0.108107,0.0698558,-0.0457697,0,   0.0340089,-0.0936349,-0.0625813,0,   0.0633732,-0.0381303,0.0914902,0,   16.2293,8.42309,-22.5833,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9185,7 +9185,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19");
-ei_transform(0.0944469,-0.0599208,-0.0830659,0,   -0.0659446,-0.100199,-0.00269952,0,   0.0585792,-0.0411471,0.0962873,0,   16.0969,8.49817,-22.4752,1);
+ei_transform(0.0944205,-0.0599562,-0.0830704,0,   -0.0659665,-0.100186,-0.00267059,0,   0.0585861,-0.0411422,0.0962853,0,   16.0792,8.4893,-22.4573,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9210,7 +9210,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20");
-ei_transform(-0.118276,-0.36991,-0.0384163,0,   -0.103653,0.0245713,0.08253,0,   0.0758089,-0.0352162,0.105696,0,   16.1601,8.77167,-22.4309,1);
+ei_transform(-0.11822,-0.369925,-0.0384469,0,   -0.103657,0.0245488,0.0825322,0,   0.0758144,-0.0352135,0.105693,0,   16.1423,8.76282,-22.413,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9235,7 +9235,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21");
-ei_transform(-0.148199,-0.229622,0.0159726,0,   -0.0737045,0.0528237,0.0755385,0,   0.0664416,-0.0365922,0.0904173,0,   16.3174,8.66925,-22.3748,1);
+ei_transform(-0.148138,-0.229655,0.0160507,0,   -0.0737103,0.0528256,0.0755316,0,   0.0664602,-0.0365505,0.0904205,0,   16.2996,8.66041,-22.357,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9260,7 +9260,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22");
-ei_transform(-0.140524,-0.23148,0.0386149,0,   -0.0828736,0.0644083,0.0845131,0,   0.0806122,-0.0317181,0.103221,0,   16.4878,8.94013,-22.4041,1);
+ei_transform(-0.140607,-0.231447,0.0385102,0,   -0.0828794,0.0644109,0.0845054,0,   0.0805713,-0.0317704,0.103237,0,   16.4701,8.93128,-22.3862,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9285,7 +9285,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23");
-ei_transform(-0.114235,-0.352953,0.0606432,0,   -0.0914114,0.0447597,0.0883144,0,   0.0901435,-0.0120913,0.0994327,0,   16.6479,9.30097,-22.469,1);
+ei_transform(-0.114206,-0.352957,0.0606761,0,   -0.091416,0.0447606,0.0883093,0,   0.0901436,-0.0120742,0.0994347,0,   16.6302,9.2921,-22.4511,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9310,7 +9310,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25");
-ei_transform(-0.0906007,-0.184075,-0.00198193,0,   -0.0915942,0.0441299,0.088442,0,   0.215413,-0.109013,0.277484,0,   16.6446,9.71052,-22.7414,1);
+ei_transform(-0.0906004,-0.184075,-0.00198278,0,   -0.0915942,0.0441293,0.0884422,0,   0.215413,-0.109014,0.277484,0,   16.6269,9.70166,-22.7235,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9335,7 +9335,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24");
-ei_transform(-0.309607,-0.59303,0.0692813,0,   -0.154348,0.0988786,0.156622,0,   0.148286,-0.0561995,0.181613,0,   16.2721,9.39979,-22.6784,1);
+ei_transform(-0.309606,-0.593031,0.0692786,0,   -0.154348,0.0988777,0.156622,0,   0.148286,-0.0562001,0.181613,0,   16.2543,9.39093,-22.6605,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9360,7 +9360,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7");
-ei_transform(-0.605771,-0.340817,-0.216276,0,   -0.364483,0.294255,0.557186,0,   0.173447,-0.571968,0.415522,0,   19.3184,13.3375,-22.1602,1);
+ei_transform(-0.605771,-0.340816,-0.216278,0,   -0.364483,0.29425,0.557189,0,   0.173448,-0.571972,0.415517,0,   19.3015,13.3291,-22.1434,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9382,7 +9382,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4");
-ei_transform(0.0793657,0.0862095,0.993111,0,   -0.878661,-0.464474,0.110539,0,   0.470803,-0.881381,0.0388856,0,   22.059,1.84305,-18.6169,1);
+ei_transform(0.0793739,0.086206,0.99311,0,   -0.878669,-0.464457,0.110544,0,   0.470787,-0.88139,0.0388807,0,   22.0562,1.84886,-18.6163,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9404,7 +9404,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3");
-ei_transform(0.0246522,0.000889178,0.999696,0,   -0.997492,-0.0663388,0.0246569,0,   0.0663405,-0.997797,-0.00074845,0,   21.718,3.04366,-18.6627,1);
+ei_transform(0.0246522,0.000890179,0.999696,0,   -0.997494,-0.0663214,0.024657,0,   0.0663231,-0.997798,-0.00074702,0,   21.7152,3.04942,-18.662,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9426,7 +9426,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2");
-ei_transform(0.106202,-0.01027,0.994292,0,   -0.894785,0.435139,0.100068,0,   -0.433683,-0.900305,0.0370233,0,   18.82,4.59391,-18.4166,1);
+ei_transform(0.109019,-0.0104616,0.993985,0,   -0.897353,0.429141,0.102938,0,   -0.427637,-0.903177,0.037397,0,   18.8117,4.58234,-18.4088,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9448,7 +9448,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1");
-ei_transform(0.187043,0.125873,0.974254,0,   0.586033,0.781654,-0.2135,0,   -0.788403,0.610879,0.0724372,0,   20.066,7.4499,-19.0436,1);
+ei_transform(0.187721,0.123226,0.974462,0,   0.584112,0.783602,-0.211615,0,   -0.789667,0.608919,0.0751209,0,   20.0499,7.44054,-19.0275,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9473,7 +9473,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4");
-ei_transform(0.402123,5.64677e-005,-0.915585,0,   -0.000908134,1,-0.000337177,0,   -0.915585,-0.000967061,-0.402123,0,   20.4295,0.50398,-20.5511,1);
+ei_transform(0.402165,6.19258e-005,-0.915567,0,   -0.000939781,1,-0.000345164,0,   -0.915567,-0.000999245,-0.402164,0,   20.4278,0.503495,-20.5493,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9498,7 +9498,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3");
-ei_transform(0.374648,-0.000594584,-0.927167,0,   0.000544937,1,-0.000421094,0,   -0.927167,0.000347486,-0.374648,0,   21.497,0.503347,-20.1018,1);
+ei_transform(0.375,-0.000319282,-0.927025,0,   0.00041892,1,-0.000174954,0,   -0.927025,0.000322741,-0.375,0,   21.4952,0.502807,-20.0997,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9523,7 +9523,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2");
-ei_transform(0.468392,0.00344051,-0.883514,0,   -0.340537,0.923432,-0.176939,0,   -0.815257,-0.383746,-0.4337,0,   20.8234,3.39351,-20.4644,1);
+ei_transform(0.467529,0.00890703,-0.883933,0,   -0.349057,0.92055,-0.175347,0,   -0.812143,-0.390523,-0.433493,0,   20.7986,3.384,-20.4585,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9548,7 +9548,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1");
-ei_transform(0.129513,-0.155117,-0.97937,0,   -0.100357,0.980566,-0.168578,0,   -0.986486,-0.120119,-0.111429,0,   20.1176,7.12257,-21.1622,1);
+ei_transform(0.129554,-0.152807,-0.979727,0,   -0.0968645,0.981378,-0.165873,0,   -0.98683,-0.11639,-0.11234,0,   20.0991,7.11389,-21.1466,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -9573,7 +9573,7 @@ ei_mtl("Man:lambert3SG");
 //shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 //shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 ei_element("|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5");
-ei_transform(0.208706,0.171785,1.8056,0,   -0.545511,1.73931,-0.102423,0,   -1.72977,-0.527791,0.250156,0,   19.9929,8.35256,-20.2233,1);
+ei_transform(0.208707,0.171797,1.8056,0,   -0.545515,1.7393,-0.102434,0,   -1.72977,-0.527792,0.250161,0,   19.976,8.34416,-20.2064,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)

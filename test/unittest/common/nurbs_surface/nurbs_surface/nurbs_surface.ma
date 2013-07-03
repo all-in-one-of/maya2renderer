@@ -7,7 +7,7 @@ file -rdi 1 -ns "nurbs_sphere" -rfn "nurbs_sphereRN" "E:/dev/Autodesk/maya/myplu
 file -r -ns "nurbs_cone" -dr 1 -rfn "nurbs_coneRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_cone/nurbs_cone.ma";
 file -r -ns "nurbs_sphere" -dr 1 -rfn "nurbs_sphereRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma";
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5";
+requires "liquidDLL" "2.3.5";
 requires "ElvishRender" "0.0.1";
 requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "stereoCamera" "10.0";

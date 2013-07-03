@@ -3,7 +3,7 @@
 //Last modified: Thu, May 30, 2013 03:03:28 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5";
+requires "liquidDLL" "2.3.5";
 requires "renderman" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";

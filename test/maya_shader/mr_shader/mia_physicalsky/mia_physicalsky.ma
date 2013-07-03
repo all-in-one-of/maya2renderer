@@ -5,7 +5,7 @@
 requires maya "2012";
 requires "ElvishRender" "0.0.1";
 requires "Mayatomr" "2012.0m - 3.9.1.36 ";
-requires "liquid_2012x32d" "2.3.5";
+requires "liquidDLL" "2.3.5";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";

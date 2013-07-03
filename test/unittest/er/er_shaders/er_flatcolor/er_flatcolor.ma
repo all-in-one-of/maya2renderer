@@ -3,7 +3,7 @@
 //Last modified: Wed, Jun 19, 2013 08:42:37 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquid_2012x32d" "2.3.5";
+requires "liquidDLL" "2.3.5";
 requires "ElvishRender" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
