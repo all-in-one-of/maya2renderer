@@ -147,7 +147,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1D422C54-6DA3-4D75-B9A0-7D4FC2D5C6D5}</ProjectGuid>
+    <ProjectGuid>{6A261D6D-9AA8-42A9-9AF1-320F65E87C69}</ProjectGuid>
     <RootNamespace>liquid</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -2167,8 +2167,8 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/aqsis/1.6.0/src/include;../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../../../dependence/zlib/include;../../../../../dependence/elvishray/r274/include;../../../../../dependence/;../../src;../../../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;LIQUID_SEPARATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -2188,25 +2188,31 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\$(Platform)/$(Configuration)/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;../../../../bin/$(Platform)/$(Configuration)/liquidDLL.lib;../../../../bin/$(Platform)/$(Configuration)/ElvishRender.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;eiAPI.lib;eiCORE.lib;eiIMG.lib;eiSHADER.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/zlib/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../../../dependence/elvishray/r274/lib;../../../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <Profile>false</Profile>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\../../bin/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|Win32'">
     <PreBuildEvent>
@@ -2228,7 +2234,7 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/aqsis/1.6.0/src/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/elvishray/r274/include;../../../dependence/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;LIQUID_SEPARATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -2249,20 +2255,21 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/prman/win32/renderman.mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;E:\dev\Autodesk\maya\myplugin\project\liquid_\2.3.3\bin\Prman\win32/liquidDLL.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/prman/win32/elvishray.mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/zlib/lib;../../../dependence/aqsis/1.6.0/build/DebugLib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/elvishray/r274/lib;../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/Prman/win32/renderman.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../bin/Prman/win32/Debug/Objects/elvishray.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImportLibrary>
       </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
+      <Profile>true</Profile>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -2289,8 +2296,8 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/aqsis/1.6.0/src/include;../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../../../dependence/zlib/include;../../../../../dependence/elvishray/r274/include;../../../../../dependence/;../../src;../../../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;LIQUID_SEPARATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -2310,24 +2317,32 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\$(Platform)/$(Configuration)/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;../../../../bin/$(Platform)/$(Configuration)/liquidDLL.lib;../../../../bin/$(Platform)/$(Configuration)/ElvishRender.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;eiAPI.lib;eiCORE.lib;eiIMG.lib;eiSHADER.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../dependence/zlib/lib;../../../dependence/aqsis/1.6.0/build/ReleaseLib;../../../dependence/libtiff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012)/lib;$(BOOST_ROOT)/stage/lib;../../../../../dependence/elvishray/r274/lib;../../../../../dependence/zlib/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
+      <Profile>true</Profile>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\../../bin/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|x64'">
     <Midl>
@@ -2396,7 +2411,7 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/aqsis/1.6.0/src/include;../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../include;$(MAYA_PATH2012_X64)/include;$(BOOST_ROOT);../../../../../dependence/zlib/include;../../../../../dependence/elvishray/r274/include;../../../../../dependence/;../../src;../../../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;_DEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -2416,22 +2431,23 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\$(Platform)\$(Configuration)/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\..\..\bin\$(Platform)\$(Configuration)\liquidDLL.lib;../../../../bin/$(Platform)/$(Configuration)/ElvishRender.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;eiAPI.lib;eiCORE.lib;eiIMG.lib;eiSHADER.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012_X64)/lib;$(BOOST_ROOT)/stage/lib64;../../../dependence/zlib/lib64;../../../dependence/aqsis/1.6.0/build/ReleaseLib_x64;../../../dependence/libtiff/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012_X64)/lib;$(BOOST_ROOT)/stage/lib64;../../../../../dependence/elvishray/r274/lib_x64;../../../../../dependence/zlib/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
+      <OutputFile>.\../../bin/3Delight/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ProfileDebug|x64'">
@@ -2501,7 +2517,7 @@
       <AdditionalOptions>/Zm800  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>../../include;$(MAYA_PATH2012)/include;$(BOOST_ROOT);../../../dependence/zlib/include;../../../dependence/;../../../dependence/aqsis/1.6.0/build/include;../../../dependence/aqsis/1.6.0/src/include;../../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../include;$(MAYA_PATH2012_X64)/include;$(BOOST_ROOT);../../../../../dependence/zlib/include;../../../../../dependence/;../../src;../../../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;PRMAN;NDEBUG;WIN32;_WINDOWS;_USRDLL;_BOOL;_WIN32;NT_PLUGIN;REQUIRE_IOSTREAM;HAVE_ZLIB;_USE_MATH_DEFINES;BOOST_LIB_DIAGNOSTIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -2509,9 +2525,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>
       </PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -2522,105 +2538,53 @@
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\bin\$(Platform)\$(Configuration)/liquidDLL.lib;aqsis_ri2rib.lib;aqsis_core.lib;aqsis_math.lib;aqsis_ribparse.lib;aqsis_riutil.lib;aqsis_shadervm.lib;aqsis_tex.lib;aqsis_util.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\..\..\bin\$(Platform)\$(Configuration)\liquidDLL.lib;../../../../bin/$(Platform)/$(Configuration)/renderman.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(MAYA_PATH2012_X64)/lib;$(BOOST_ROOT)/stage/lib64;../../../dependence/zlib/lib64;../../../dependence/aqsis/1.6.0/build/ReleaseLib_x64;../../../dependence/libtiff/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAYA_PATH2012_X64)/lib;$(BOOST_ROOT)/stage/lib64;../../../../../dependence/zlib/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>
+      </ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
-      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <Profile>true</Profile>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\../../bin/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
+      <OutputFile>.\../../bin/3Delight/$(Platform)/$(Configuration)/Objects/$(ProjectName).bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\renderman\liqRiCommands.cpp" />
-    <ClCompile Include="..\renderman\ri_interface.cpp" />
-    <ClCompile Include="..\renderman\rm_classification.cpp" />
-    <ClCompile Include="..\renderman\rm_export.cpp" />
-    <ClCompile Include="..\renderman\rm_factory.cpp" />
-    <ClCompile Include="..\renderman\rm_globalnode.cpp" />
-    <ClCompile Include="..\renderman\rm_helper.cpp" />
-    <ClCompile Include="..\renderman\rm_heroRibWriterMgr.cpp" />
-    <ClCompile Include="..\renderman\rm_nodeId.cpp" />
-    <ClCompile Include="..\renderman\rm_nodePlugConnection.cpp" />
-    <ClCompile Include="..\renderman\rm_nodePlugInfo.cpp" />
-    <ClCompile Include="..\renderman\rm_plug.cpp" />
-    <ClCompile Include="..\renderman\rm_preview.cpp" />
-    <ClCompile Include="..\renderman\rm_renderer.cpp" />
-    <ClCompile Include="..\renderman\rm_rnode_visitor.cpp" />
-    <ClCompile Include="..\renderman\rm_rnode_visitor_mgr.cpp" />
-    <ClCompile Include="..\renderman\rm_shader.cpp" />
-    <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
-    <ClCompile Include="..\renderman\rm_writeCameraData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeCoordData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeCurvesData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeHSubdData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeImplicitSphereData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeLightData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeLocatorData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeMayaSubdData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeMeshData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeNuCurveData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeParticleData.cpp" />
-    <ClCompile Include="..\renderman\rm_writePfxData.cpp" />
-    <ClCompile Include="..\renderman\rm_writePfxHairData.cpp" />
-    <ClCompile Include="..\renderman\rm_writePfxToonData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeShaveData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeSubdData.cpp" />
-    <ClCompile Include="..\renderman\rm_writeSurfaceData.cpp" />
-    <ClCompile Include="..\renderman\shaderOutputRSL.cpp" />
-    <ClCompile Include="..\renderman\shaderOutputRSL_materials.cpp" />
-    <ClCompile Include="..\renderman\shaderOutputRSL_mi.cpp" />
-    <ClCompile Include="..\renderman\shaderOutputRSL_rm.cpp" />
-    <ClCompile Include="..\renderman\shaderOutputRSL_textures.cpp" />
-    <ClCompile Include="..\renderman\shaderOutputRSL_utilities.cpp" />
-  </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
       <FileType>Document</FileType>
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel" />
-    <None Include="..\renderman\mel\AErendermanGlobalsTemplate.mel" />
-    <None Include="..\renderman\mel\AErendermanGlobalsTemplate.res.mel" />
-    <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel" />
-    <None Include="..\renderman\mel\rm_startup.mel" />
-    <None Include="..\renderman\mel\rm_UserCallbackInterface.mel" />
-    <None Include="..\renderman\mel\rm_callback.mel" />
-    <None Include="..\renderman\mel\userSetup.mel" />
+    <ClCompile Include="..\src\rmSHADER_user_mayaplugin.cpp" />
+    <ClCompile Include="..\src\rm_flat\rm_flat_node.cpp" />
+    <ClCompile Include="..\src\rm_flat\rm_flat_node_visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h" />
-    <ClInclude Include="..\renderman\liqRiCommands.h" />
-    <ClInclude Include="..\renderman\ri_interface.h" />
-    <ClInclude Include="..\renderman\rm_.h" />
-    <ClInclude Include="..\renderman\rm_classification.h" />
-    <ClInclude Include="..\renderman\rm_export.h" />
-    <ClInclude Include="..\renderman\rm_factory.h" />
-    <ClInclude Include="..\renderman\rm_globalnode.h" />
-    <ClInclude Include="..\renderman\rm_helper.h" />
-    <ClInclude Include="..\renderman\rm_heroRibWriterMgr.h" />
-    <ClInclude Include="..\renderman\rm_log.h" />
-    <ClInclude Include="..\renderman\rm_nodeId.h" />
-    <ClInclude Include="..\renderman\rm_nodePlugConnection.h" />
-    <ClInclude Include="..\renderman\rm_nodePlugInfo.h" />
-    <ClInclude Include="..\renderman\rm_renderer.h" />
-    <ClInclude Include="..\renderman\rm_rnode_visitor.h" />
-    <ClInclude Include="..\renderman\rm_rnode_visitor_mgr.h" />
-    <ClInclude Include="..\renderman\rm_shader_node.h" />
-    <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
-    <ClInclude Include="..\renderman\shaderOutputRSL.h" />
+    <ClInclude Include="..\src\rm_flat\rm_flat_node.h" />
+    <ClInclude Include="..\src\rm_flat\rm_flat_node_visitor.h" />
+    <ClInclude Include="..\src\rm_user_nodeId.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\rm_flat\AErm_flatTemplate.mel" />
+    <None Include="..\src\rm_flat\userSetup.mel" />
+    <None Include="..\src\userSetup.mel" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

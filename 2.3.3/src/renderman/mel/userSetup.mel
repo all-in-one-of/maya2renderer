@@ -8,3 +8,12 @@ source rm_UserCallbackInterface.mel;
 source rm_startup.mel;
 source AErendermanGlobalsTemplate.mel;
 source AErendermanGlobalsTemplate.res.mel;
+
+//-----------------------------------------------
+// source erSHADER_user scripts if any.
+string $rmSHADER_user_DIR = getenv("RM_SHADER_USER");
+if( $rmSHADER_user_DIR != "" )
+{
+    eval( "source \"" + $rmSHADER_user_DIR + "/src/userSetup.mel\"" );
+}
+//-----------------------------------------------

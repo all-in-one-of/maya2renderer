@@ -960,4 +960,21 @@ std::string Visitor::getAOVMacroDefineFileName()const
 	return "liquidAOVMacroDef.h";
 }
 //
+std::ofstream& Visitor::getOutfstreamRef()
+{
+	return RSLfile;
+}
+renderman::NodePlugInfo& Visitor::getNodePlugInfoRef()
+{
+	return m_NodePlugInfo;
+}
+Visitor* Visitor::m_instance = 0;
+Visitor* Visitor::getInstancePtr()
+{
+	if(m_instance==0)
+	{
+		m_instance = new Visitor();
+	}
+	return m_instance;
+}
 }//namespace RSL

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{7986ad3f-a0ee-444b-8896-cbed7be32c16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rm_flat">
+      <UniqueIdentifier>{80eb3eeb-f885-432d-97a3-ee6708c9c56a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\rmSHADER_user_mayaplugin.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rm_flat\rm_flat_node.cpp">
+      <Filter>src\rm_flat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rm_flat\rm_flat_node_visitor.cpp">
+      <Filter>src\rm_flat</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\rm_user_nodeId.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rm_flat\rm_flat_node.h">
+      <Filter>src\rm_flat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rm_flat\rm_flat_node_visitor.h">
+      <Filter>src\rm_flat</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\userSetup.mel">
+      <Filter>src</Filter>
+    </None>
+    <None Include="..\src\rm_flat\AErm_flatTemplate.mel">
+      <Filter>src\rm_flat</Filter>
+    </None>
+    <None Include="..\src\rm_flat\userSetup.mel">
+      <Filter>src\rm_flat</Filter>
+    </None>
+  </ItemGroup>
+</Project>

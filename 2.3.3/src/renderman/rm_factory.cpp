@@ -36,7 +36,7 @@ namespace renderman
 	//
 	void Factory::createOutputReceiver()
 	{
-		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new RSL::Visitor());
+		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(RSL::Visitor::getInstancePtr());
 	}
 	void Factory::deleteOutputReceiver()
 	{

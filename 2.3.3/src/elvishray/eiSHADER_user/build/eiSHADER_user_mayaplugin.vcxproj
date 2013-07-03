@@ -2419,9 +2419,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>
       </PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../bin/Prman/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../bin/Prman/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../bin/Prman/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\../../bin/$(Platform)/$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/$(Platform)/$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/$(Platform)/$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -2525,9 +2525,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>
       </PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\../../bin/Prman/$(Platform)\$(Configuration)/Objects/</AssemblerListingLocation>
-      <ObjectFileName>.\../../bin/Prman/$(Platform)\$(Configuration)/Objects/</ObjectFileName>
-      <ProgramDataBaseFileName>.\../../bin/Prman/$(Platform)\$(Configuration)/Objects/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\../../bin/$(Platform)\$(Configuration)/Objects/</AssemblerListingLocation>
+      <ObjectFileName>.\../../bin/$(Platform)\$(Configuration)/Objects/</ObjectFileName>
+      <ProgramDataBaseFileName>.\../../bin/$(Platform)\$(Configuration)/Objects/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>

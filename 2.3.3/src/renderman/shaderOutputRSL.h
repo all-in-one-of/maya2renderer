@@ -6,10 +6,11 @@
 #include "../shadergraph/shaderOutput.h"
 #include "rm_nodePlugInfo.h"
 #include "rm_nodePlugConnection.h"
+#include "rm_export.h"
 
 namespace RSL{
 
-class OutputHelper
+class RM_EXPORT OutputHelper
 {
 public:
 	OutputHelper(std::ofstream& RSLfile, renderman::NodePlugInfo& nodePlugMgr);
@@ -66,7 +67,7 @@ private:
 class Visitor : public liquidmaya::ShaderOutputVisitor
 {
 public:
-	Visitor();
+	//Visitor();
 	~Visitor();
 
 	virtual void initShaderData(const MString& startingNode, const MString &mayaplug);
@@ -316,9 +317,16 @@ public:
 	//return true if the nodetype is one type render node of ElvishRender
 	virtual bool visit_render_node_in_subrenderer(const char* shaderNodeName, const char* nodetype);
 
+	//
+	std::ofstream& getOutfstreamRef();
+	renderman::NodePlugInfo& getNodePlugInfoRef();
+
+	static Visitor* getInstancePtr();
+
 protected:
 	std::ofstream RSLfile;
 private:
+	Visitor();
 	Visitor(const Visitor&);
 	Visitor& operator=(const Visitor&);
 
@@ -337,6 +345,8 @@ protected:
 
 	renderman::NodePlugInfo m_NodePlugInfo;
 	renderman::NodePlugConnectionMgr m_NodePlugConnectionMgr;
+
+	static Visitor* m_instance;
 };
 //
 void _outputShadingGroup(const char* shadingGroupNode);

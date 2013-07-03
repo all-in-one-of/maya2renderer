@@ -1,0 +1,46 @@
+source xxliquidutility.mel;
+///////////////////////////////////////////////////////////////////////////////////
+//return the current path of this file
+global proc string rm_whereIAm_rmSHADER_user()
+{
+	liqPushIdent();	
+	liqAElog("rm_whereIAm_rmSHADER_user()");
+	
+	string $result = `whatIs "rm_whereIAm_rmSHADER_user"`;
+	//print("["+$result+"]\n");
+	string $ret;
+
+	if( startsWith($result, "Mel procedure found in: ") )
+	{
+	    string $path = substring( $result, size("Mel procedure found in:  "), size($result) );
+	    $ret = $path;
+	}else{
+	    print("Mel procedure 'rm_whereIAm_rmSHADER_user' NOT found.\n"); 
+	    $ret = "";
+	}
+	liqPopIdent();
+	return $ret;
+}
+//
+proc string getThisDirectory()
+{
+	liqPushIdent();	
+	liqAElog("getThisDirectory()");
+
+	string $thisPath = rm_whereIAm_rmSHADER_user();
+	string $thisDir = dirname($thisPath);
+
+	liqPopIdent();
+	return $thisDir;
+}
+///////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+
+print "This is rmSHADER_user/usersetup.mel\n";
+
+// source subdirectoies scripts
+eval( "source \"" + getThisDirectory() + "/rm_flat/userSetup.mel\"" );
+
+ 
