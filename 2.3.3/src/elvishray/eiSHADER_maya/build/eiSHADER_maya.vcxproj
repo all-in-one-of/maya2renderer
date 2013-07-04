@@ -548,7 +548,7 @@ copy $(TargetDir)..\..\bin\$(Platform)\$(Configuration)\$(TargetName).pdb ..\..\
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Link>
-      <AdditionalOptions> /STACK:10000000 /machine:I386 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> /STACK:10000000 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>../../../../../dependence/elvishray/r274/lib_x64/eiCORE.lib;../../../../../dependence/elvishray/r274/lib_x64/eiAPI.lib</AdditionalDependencies>
       <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).dll</OutputFile>
       <Version>0.0</Version>
@@ -557,6 +557,7 @@ copy $(TargetDir)..\..\bin\$(Platform)\$(Configuration)\$(TargetName).pdb ..\..\
       <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
       <AssemblyDebug>true</AssemblyDebug>
+      <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
       <Message>copy eiSHADER_maya.dll to ER/bin_x64/M2R2012Debug</Message>
