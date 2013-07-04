@@ -147,7 +147,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Debug\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Debug_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Release\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Release_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\aqsis\Debug\</OutDir>
@@ -155,7 +155,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">aqsis.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">aqsis.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">aqsis.dir\Debug\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">aqsis.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">aqsis.dir\Debug_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">aqsis.dir\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">aqsis.dir\Release_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">aqsis.dir\Debug\</IntDir>
@@ -384,9 +384,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <AssemblerListingLocation>Debug_x64</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/Debug/aqsis.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/Debug_x64/aqsis.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -402,12 +402,12 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\core\Debug\aqsis_core.lib;..\..\libs\util\Debug\aqsis_util.lib;..\..\libs\ribparse\Debug\aqsis_ribparse.lib;E:\dev\boost\1_47\stage\lib\libboost_iostreams-vc100-mt-gd-1_47.lib;..\..\libs\shadervm\Debug\aqsis_shadervm.lib;..\..\libs\math\Debug\aqsis_math.lib;E:\dev\boost\1_47\stage\lib\libboost_regex-vc100-mt-gd-1_47.lib;..\..\libs\tex\Debug\aqsis_tex.lib;..\..\libs\riutil\Debug\aqsis_riutil.lib;..\..\libs\util\Debug\aqsis_util.lib;E:\dev\boost\1_47\stage\lib\libboost_filesystem-vc100-mt-gd-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib\libboost_system-vc100-mt-gd-1_47.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1\libtiff.lib;E:\dev\boost\1_47\stage\lib\libboost_thread-vc100-mt-gd-1_47.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\libs\core\Debug_x64\aqsis_core.lib;..\..\libs\util\Debug_x64\aqsis_util.lib;..\..\libs\ribparse\Debug_x64\aqsis_ribparse.lib;E:\dev\boost\1_47\stage\lib64\libboost_iostreams-vc100-mt-gd-1_47.lib;..\..\libs\shadervm\Debug_x64\aqsis_shadervm.lib;..\..\libs\math\Debug_x64\aqsis_math.lib;E:\dev\boost\1_47\stage\lib64\libboost_regex-vc100-mt-gd-1_47.lib;..\..\libs\tex\Debug_x64\aqsis_tex.lib;..\..\libs\riutil\Debug_x64\aqsis_riutil.lib;E:\dev\boost\1_47\stage\lib64\libboost_filesystem-vc100-mt-gd-1_47.lib;ws2_32.lib;E:\dev\boost\1_47\stage\lib64\libboost_system-vc100-mt-gd-1_47.lib;E:\dev\render\renderer\aqsis\trunk\win32libs\libtiff\lib\vc9_sp1\libtiff.lib;E:\dev\boost\1_47\stage\lib64\libboost_thread-vc100-mt-gd-1_47.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib64;E:/dev/boost/1_47/stage/lib64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/Debug/aqsis.lib</ImportLibrary>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/Debug_x64/aqsis.lib</ImportLibrary>
       <LinkIncremental>true</LinkIncremental>
-      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/Debug/aqsis.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/aqsis/Debug_x64/aqsis.pdb</ProgramDataBaseFile>
       <StackReserveSize>10000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
       <Version>

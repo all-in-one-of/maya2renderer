@@ -147,7 +147,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Debug\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Debug_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Release\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Release_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\tools\displays\sdcBMP\Debug\</OutDir>
@@ -155,7 +155,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bmp_dspy.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">bmp_dspy.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">bmp_dspy.dir\Debug\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">bmp_dspy.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">bmp_dspy.dir\Debug_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">bmp_dspy.dir\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">bmp_dspy.dir\Release_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">bmp_dspy.dir\Debug\</IntDir>
@@ -384,9 +384,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR="Debug";bmp_dspy_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <AssemblerListingLocation>Debug_x64</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/Debug/bmp_dspy.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/Debug_x64/bmp_dspy.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;CMAKE_INTDIR=\"Debug\";bmp_dspy_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -403,11 +403,11 @@
     <Link>
       <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib;E:/dev/boost/1_47/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:/dev/boost/1_47/stage/lib64;E:/dev/boost/1_47/stage/lib64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/Debug/bmp_dspy.lib</ImportLibrary>
+      <ImportLibrary>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/Debug_x64/bmp_dspy.lib</ImportLibrary>
       <LinkIncremental>true</LinkIncremental>
-      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/Debug/bmp_dspy.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/tools/displays/sdcBMP/Debug_x64/bmp_dspy.pdb</ProgramDataBaseFile>
       <StackReserveSize>10000000</StackReserveSize>
       <SubSystem>Console</SubSystem>
       <Version>

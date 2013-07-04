@@ -147,7 +147,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Debug\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Debug\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Debug_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Release\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\Release_x64\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">E:\dev\Autodesk\maya\myplugin\project\liquid_\dependence\aqsis\1.6.0\build\libs\math\$(Configuration)\</OutDir>
@@ -155,7 +155,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">aqsis_math.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">aqsis_math.dir\Debug\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|Win32'">aqsis_math.dir\Debug\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">aqsis_math.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugLib_Liquid|x64'">aqsis_math.dir\Debug_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">aqsis_math.dir\Release\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|x64'">aqsis_math.dir\Release_x64\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DebugDLL_Liquid|Win32'">aqsis_math.dir\Debug\</IntDir>
@@ -387,9 +387,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;AQSIS_MATH_EXPORTS;CMAKE_INTDIR="Debug";aqsis_math_EXPORTS;DEBUG;AQSIS_STATIC_LINK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>Debug</AssemblerListingLocation>
+      <AssemblerListingLocation>Debug_x64</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/math/Debug/aqsis_math.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>E:/dev/Autodesk/maya/myplugin/project/liquid_/dependence/aqsis/1.6.0/build/libs/math/Debug_x64/aqsis_math.pdb</ProgramDataBaseFileName>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;NO_SYSLOG;_USE_MATH_DEFINES;AQSIS_MATH_EXPORTS;CMAKE_INTDIR=\"Debug\";aqsis_math_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -420,7 +420,8 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <OutputFile>..\..\..\build\DebugLib\$(ProjectName).lib</OutputFile>
+      <OutputFile>..\..\..\build\DebugLib_x64\$(ProjectName).lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLib_Liquid|Win32'">
