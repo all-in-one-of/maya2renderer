@@ -119,7 +119,10 @@ const MString FlatNode::getTypeName()
 { 
 	return ("rmFlat");
 }
-
+const MString FlatNode::getShaderClasscification()
+{
+	return "surface";
+}
 void* FlatNode::creator()
 {
 	return new FlatNode();
@@ -133,13 +136,13 @@ MStatus FlatNode::initialize()
 	MFnEnumAttribute    eAttr;
 	MFnLightDataAttribute lAttr;
 	MStatus status;
+	MObject string;
 
 	// Create input attributes
-
-	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, aRmanShader, &status );
+	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, tDefault.create(getTypeName()), &status );
 	MAKE_INPUT(tAttr);
 
-	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, aRmanShaderType, &status );
+	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, tDefault.create(getShaderClasscification()), &status );
 	MAKE_INPUT(tAttr);
 
 	aRmanShaderLong = tAttr.create( MString("rmanShaderLong"), MString("rml"), MFnData::kString, aRmanShaderLong, &status );

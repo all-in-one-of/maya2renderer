@@ -40,5 +40,11 @@
     <None Include="..\src\rmFlat\AErmFlatTemplate.mel">
       <Filter>src\rmFlat</Filter>
     </None>
+    <None Include="..\src\rmFlat\rmFlat.impl">
+      <Filter>src\rmFlat</Filter>
+    </None>
+    <None Include="..\src\rmFlat\rmFlat.sl">
+      <Filter>src\rmFlat</Filter>
+    </None>
   </ItemGroup>
 </Project>

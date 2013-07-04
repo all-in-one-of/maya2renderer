@@ -6,16 +6,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\er_checker2\er_checker2.cpp">
+    <None Include="..\src\rmFlat\rmFlat.impl">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\er_architectural\er_architectural.cpp">
+    </None>
+    <None Include="..\src\rmFlat\rmFlat.sl">
       <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\ei_AOVMacroDef.h">
-      <Filter>src</Filter>
-    </ClInclude>
+    </None>
   </ItemGroup>
 </Project>

@@ -800,6 +800,12 @@ copy $(ProjectDir)..\bin\$(Platform)\$(Configuration)\$(TargetName).pdb ..\..\..
 copy $(ProjectDir)..\bin\$(Platform)\$(Configuration)\$(TargetFileName) ..\..\..\..\..\dependence\elvishray\r274\bin_x64\$(TargetFileName)
 copy $(ProjectDir)..\bin\$(Platform)\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dependence\elvishray\r274\bin_x64\$(TargetName).pdb</Command>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>mybuild.bat</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Build *.sl with 3Delight</Message>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -1347,12 +1353,11 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\er_architectural\er_architectural.cpp" />
-    <ClCompile Include="..\src\er_checker2\er_checker2.cpp" />
+    <CustomBuildStep Include="..\src\common\_3delight\shading_utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\ei_AOVMacroDef.h" />
-    <CustomBuildStep Include="..\src\common\_3delight\shading_utils.h" />
+    <None Include="..\src\rmFlat\rmFlat.impl" />
+    <None Include="..\src\rmFlat\rmFlat.sl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

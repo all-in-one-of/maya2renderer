@@ -3,18 +3,20 @@ global proc AErmFlatTemplate( string $nodeName )
 	liqPushIdent();
 	liqAElog("AErmFlatTemplate("+$nodeName+")");
 
-	//call AEliquidShaderTemplate()
-	//AEliquidShaderTemplate($nodeName);
-
 	layout -e -vis false "AEcontrolFormLayout";
 
 		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
 		//--------------------------------------------------
 		editorTemplate -beginScrollLayout;
+		    //--------------------------------------------------
+			editorTemplate -ccu "liquidShaderPickerNew" "liquidShaderPickerReplace" "rmanShaderLong";
+			//editorTemplate -addControl "evaluateAtEveryFrame";
+			//--------------------------------------------------
 		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
 				editorTemplate -addDynamicControl "icolor";
 				editorTemplate -addDynamicControl "iopacity";
 			editorTemplate -endLayout;
+
 		editorTemplate -endLayout;
 		//--------------------------------------------------
 		editorTemplate -addExtraControls;

@@ -58,14 +58,15 @@ class FlatNode : public MPxNode
 
 	static  const MTypeId   getTypeId();
 	static  const MString   getTypeName();
+	static  const MString   getShaderClasscification();
 
     liqNodeSwatch*    renderSwatch;
 
   private:
 	  // Input attributes
-	  static MObject aRmanShader;
-	  static MObject aRmanShaderType;//for liqShader::shader_type_ex
-	  static MObject aRmanShaderLong;
+	  static MObject aRmanShader;//shader name, e.g. "plastic", "matte", ...
+	  static MObject aRmanShaderType;//e.g. "surface", "light", "volume",... //for liqShader::shader_type_ex
+	  static MObject aRmanShaderLong;//full path of shader file (*.slo, *.sdl, ...)
 	  static MObject aRmanShaderLif;
 	  static MObject aRmanParams;
 	  static MObject aRmanDetails;

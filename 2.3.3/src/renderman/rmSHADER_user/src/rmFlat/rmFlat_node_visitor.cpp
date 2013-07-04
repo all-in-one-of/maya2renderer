@@ -56,12 +56,27 @@ namespace renderman
 		CM_TRACE_FUNC("FlatNodeVisitor::visit("<<node<<")");
 
 		RSL::OutputHelper o(getOutfstreamRef(), getNodePlugInfoRef());
-		//o.addInclude("lambert.h");
+		
+		o.addInclude("rmFlat.impl");
+		
 		o.beginRSL(node);
 
 		o.addRSLVariable("",	"color",	"icolor",	"icolor",		node);
 		o.addRSLVariable("",	"color",	"iopacity",	"iopacity",		node);
 		
+		o.addToRSL(" color outColor;");
+		o.addToRSL(" color outTransparency;");
+		o.addToRSL(" rmFlat(					\n\t"
+						//Inputs
+						"icolor,				\n\t"
+						"iopacity,				\n\t"
+						//Outputs
+						"outColor,				\n\t"
+						"outTransparency		\n"
+					"  );");
+
+		o.addToRSL(" Oi = outTransparency;");
+		o.addToRSL(" Ci = outColor * outTransparency;");
 		o.endRSL();
 
 		return true;
@@ -78,7 +93,7 @@ namespace renderman
 	//
 	bool  FlatNodeVisitor::regist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("FlatNodeVisitor::regist()");
+		//CM_TRACE_FUNC("FlatNodeVisitor::regist()");
 
 		MStatus status;
 
@@ -98,7 +113,7 @@ namespace renderman
 	}
 	bool  FlatNodeVisitor::unregist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("FlatNodeVisitor::unregist()");
+		//CM_TRACE_FUNC("FlatNodeVisitor::unregist()");
 
 		MStatus status;
 

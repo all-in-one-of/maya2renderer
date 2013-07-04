@@ -67,7 +67,7 @@ private:
 class Visitor : public liquidmaya::ShaderOutputVisitor
 {
 public:
-	//Visitor();
+	Visitor();
 	~Visitor();
 
 	virtual void initShaderData(const MString& startingNode, const MString &mayaplug);
@@ -321,12 +321,9 @@ public:
 	std::ofstream& getOutfstreamRef();
 	renderman::NodePlugInfo& getNodePlugInfoRef();
 
-	static Visitor* getInstancePtr();
-
 protected:
 	std::ofstream RSLfile;
 private:
-	Visitor();
 	Visitor(const Visitor&);
 	Visitor& operator=(const Visitor&);
 
@@ -345,8 +342,6 @@ protected:
 
 	renderman::NodePlugInfo m_NodePlugInfo;
 	renderman::NodePlugConnectionMgr m_NodePlugConnectionMgr;
-
-	static Visitor* m_instance;
 };
 //
 void _outputShadingGroup(const char* shadingGroupNode);

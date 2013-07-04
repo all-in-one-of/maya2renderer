@@ -1,0 +1,17 @@
+/* renderman shader */
+#ifndef __rmFlat_h
+#define __rmFlat_h
+
+void rmFlat(
+	color icolor;
+	color iopacity;
+
+	output varying color o_outColor;
+	output varying color o_outTransparency;
+)
+{
+	o_outColor        = icolor;
+	o_outTransparency = 1.0 - iopacity;
+}
+
+#endif/*__rmFlat_h*/

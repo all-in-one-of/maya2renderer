@@ -489,7 +489,7 @@ void Visitor::postOutput()
 	//NOTE:
 	//     the include directory can't contain '.', so I move _3delight to %LIQUID_ROOT%\dependence
 	//"shader.exe -o \"outSLO\" -I\"%LIQUID_ROOT%\dependence\_3delight" \"srcSL\""
-	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" \\\""+srcSL+"\\\"\")", result, true));
+	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" -I\\\"%LIQUID_ROOT%/2.3.3/src/renderman/rmSHADER_user/src/rmFlat\\\" \\\""+srcSL+"\\\"\")", result, true));
 
 	MGlobal::displayInfo( "-------------------compile shader message begin ("+srcSL+")-------------------" );
 	MGlobal::displayError( result );
@@ -967,14 +967,5 @@ std::ofstream& Visitor::getOutfstreamRef()
 renderman::NodePlugInfo& Visitor::getNodePlugInfoRef()
 {
 	return m_NodePlugInfo;
-}
-Visitor* Visitor::m_instance = 0;
-Visitor* Visitor::getInstancePtr()
-{
-	if(m_instance==0)
-	{
-		m_instance = new Visitor();
-	}
-	return m_instance;
 }
 }//namespace RSL
