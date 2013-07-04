@@ -41,6 +41,15 @@ namespace liquidmaya{
 		void addReceiver(ShaderOutputVisitor* visitor);
 		void deleteReceivers();
 
+		ShaderOutputVisitor* getFirstReceiver_RM()//for renderman only, and this function will be removed in the future
+		{
+			if( receivers.size() > 0 ){
+				return receivers[0];
+			}
+			assert(0);
+			return 0;
+		}
+
 	private:
 		ShaderOutputMgr();
 

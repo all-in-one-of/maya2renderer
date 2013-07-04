@@ -3,6 +3,10 @@
 
 #include "../liqAbstractFactory.h"
 
+namespace RSL{
+	class Visitor;
+}
+
 namespace renderman
 {
 	class Renderer;
@@ -22,6 +26,8 @@ namespace renderman
 
 		virtual liquid::RenderNodeVisitorInterface* createRenderNodeVisitor();
 		virtual liquid::RenderNodeVisitorInterface* deleteRenderNodeVisitor();
+
+		RSL::Visitor* getVisitor();//this function will be removed in the future.
 
 	private:
 		Factory(const Factory&);

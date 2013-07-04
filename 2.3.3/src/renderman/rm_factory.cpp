@@ -36,7 +36,7 @@ namespace renderman
 	//
 	void Factory::createOutputReceiver()
 	{
-		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(RSL::Visitor::getInstancePtr());
+		liquidmaya::ShaderOutputMgr::getSingletonPtr()->addReceiver(new RSL::Visitor());
 	}
 	void Factory::deleteOutputReceiver()
 	{
@@ -54,5 +54,12 @@ namespace renderman
 		m_rendernode_visitor = NULL;
 		return m_rendernode_visitor;
 	}
-
+	//
+	RSL::Visitor* Factory::getVisitor()
+	{
+		RSL::Visitor *visitor = dynamic_cast<RSL::Visitor *>(
+			liquidmaya::ShaderOutputMgr::getSingletonPtr()->getFirstReceiver_RM()
+		);
+		return visitor;
+	}
 }

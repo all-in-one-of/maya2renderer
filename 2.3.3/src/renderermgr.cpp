@@ -80,6 +80,20 @@ namespace liquid
 
 		m_factory = 0;
 	}
+	AbstractFactory* RendererMgr::getFactory(const std::string& renderername)
+	{
+		CM_TRACE_FUNC("RendererMgr::getFactory("<<renderername<<")");
+		
+		std::map<std::string, AbstractFactory*>::iterator 
+			i = m_factories.find(renderername);
+		if( i != m_factories.end() )
+		{
+			return m_factory = i->second;
+		} else {
+			liquidMessage2(messageError, "Renderer is not found:%s.",renderername.c_str() );
+			return NULL;
+		}
+	}
 	//
 	void RendererMgr::install()
 	{

@@ -19,6 +19,7 @@ public:
 
 	bool setFactory(const std::string& renderername);
 	void unsetFactory();
+	AbstractFactory* getFactory(const std::string& renderername);//this function will be removed in the future.
 
 	static void registFactory(const std::string& renderername, AbstractFactory* factory);
 	static void unregistFactory(const std::string& renderername);
