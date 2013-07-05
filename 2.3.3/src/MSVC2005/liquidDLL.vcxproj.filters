@@ -621,6 +621,9 @@
     <ClInclude Include="..\rnode_visitor_interface.h">
       <Filter>renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\liqCreatePlug.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">

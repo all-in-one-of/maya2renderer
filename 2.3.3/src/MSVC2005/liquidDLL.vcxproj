@@ -2633,6 +2633,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\liqCameraMgr.h" />
+    <ClInclude Include="..\..\include\liqCreatePlug.h" />
     <ClInclude Include="..\..\include\liqDebug.h" />
     <ClInclude Include="..\..\include\liqDefine.h" />
     <ClInclude Include="..\..\include\liqEnum.h" />
