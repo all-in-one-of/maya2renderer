@@ -328,6 +328,15 @@ void OutputHelper::addInclude(const MString& file)
 	CM_TRACE_FUNC("OutputHelper::addInclude("<<file.asChar()<<")");
 	includedFiles.insert(file.asChar());
 }
+void OutputHelper::addIncludeUserShader(const MString &userShaderNodeType)
+{
+	CM_TRACE_FUNC("OutputHelper::addIncludeUserShader("<<userShaderNodeType.asChar()<<")");
+
+	MString RM_SHADER_USER;
+	IfMErrorWarn(MGlobal::executeCommand("getenv(\"RM_SHADER_USER\")", RM_SHADER_USER));
+	
+	addInclude(RM_SHADER_USER+"/src/"+userShaderNodeType+"/"+userShaderNodeType+".impl");
+}
 //////////////////////////////////////////////////////////////////////////
 Visitor::Visitor()
 {
@@ -489,7 +498,7 @@ void Visitor::postOutput()
 	//NOTE:
 	//     the include directory can't contain '.', so I move _3delight to %LIQUID_ROOT%\dependence
 	//"shader.exe -o \"outSLO\" -I\"%LIQUID_ROOT%\dependence\_3delight" \"srcSL\""
-	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" -I\\\"%LIQUID_ROOT%/2.3.3/src/renderman/rmSHADER_user/src/rmFlat\\\" \\\""+srcSL+"\\\"\")", result, true));
+	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" \\\""+srcSL+"\\\"\")", result, true));
 
 	MGlobal::displayInfo( "-------------------compile shader message begin ("+srcSL+")-------------------" );
 	MGlobal::displayError( result );

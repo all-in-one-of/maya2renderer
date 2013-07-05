@@ -57,8 +57,8 @@ namespace renderman
 
 		RSL::OutputHelper o(getOutfstreamRef(), getNodePlugInfoRef());
 		
-		o.addInclude("rmFlat.impl");
-		
+		o.addIncludeUserShader(FlatNode::getTypeName());
+
 		o.beginRSL(node);
 
 		o.addRSLVariable("",	"color",	"icolor",	"icolor",		node);

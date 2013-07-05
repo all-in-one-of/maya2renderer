@@ -48,6 +48,9 @@ public:
 
 	void addInclude(const MString& file);
 
+	//\p userShaderNodeType		e.g. rmFlat
+	void addIncludeUserShader(const MString &userShaderNodeType);
+
 protected:
 	void _addRSLVariable(const MString& inputQualifier, MString rslType, const MString& rslName,
 		const MString& mayaName, const MString& mayaNode);
