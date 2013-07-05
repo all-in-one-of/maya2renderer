@@ -12,7 +12,7 @@ liq| rm|: support RSL2.0!!!
 liq| x64|: M2R2012Debug里的displayDriverAqsis生成的liqmaya.dpy导致崩溃，但M2R2012Release里displayDriverAqsis生成的liqmaya.dpy不崩溃.
 目前M2R2012Debug里的displayDriverAqsis使用的是M2R2012Release配置
 -liq| rmShader_user| rm|:
-1.shaderdl 编译sl时，I选项把erFlat.impl所在路径加进去了（Visitor::postOutput()）。不合理
+done)1.shaderdl 编译sl时，I选项把erFlat.impl所在路径加进去了（Visitor::postOutput()）。不合理
 done)2.渲染第二次时崩溃
 3. 删去这些接口，用更好的设计代替：
 - renderman::Factory::getVisitor();
