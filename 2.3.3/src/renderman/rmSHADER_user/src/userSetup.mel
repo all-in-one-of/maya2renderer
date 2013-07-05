@@ -42,5 +42,6 @@ print "This is rmSHADER_user/usersetup.mel\n";
 
 // source subdirectoies scripts
 eval( "source \"" + getThisDirectory() + "/rmFlat/userSetup.mel\"" );
+eval( "source \"" + getThisDirectory() + "/rmPhysicalsun/userSetup.mel\"" );
 
  

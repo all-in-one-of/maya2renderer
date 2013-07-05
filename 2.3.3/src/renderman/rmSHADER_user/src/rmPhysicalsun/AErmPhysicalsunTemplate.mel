@@ -1,0 +1,38 @@
+global proc AErmPhysicalsunTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AErmPhysicalsunTemplate("+$nodeName+")");
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    //--------------------------------------------------
+			editorTemplate -ccu "liquidShaderPickerNew" "liquidShaderPickerReplace" "rmanShaderLong";
+			//editorTemplate -addControl "evaluateAtEveryFrame";
+			//--------------------------------------------------
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+				editorTemplate -addDynamicControl "multiplier";
+				editorTemplate -addDynamicControl "rgb_unit_conversion";
+				editorTemplate -addDynamicControl "haze";
+				editorTemplate -addDynamicControl "redblueshift";
+				editorTemplate -addDynamicControl "saturation";
+				editorTemplate -addDynamicControl "horizon_height";
+				editorTemplate -addDynamicControl "shadow_softness";
+				editorTemplate -addDynamicControl "shadowmap";
+				editorTemplate -addDynamicControl "shadow_samples";
+				editorTemplate -addDynamicControl "y_is_up";
+			editorTemplate -endLayout;
+
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

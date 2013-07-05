@@ -12,6 +12,7 @@ namespace renderman
 		UTI_START			= 0x00041000,
 
 		UTI_Flat_NODE		= 0x00041000,
+		UTI_Physicalsun_NODE= 0x00041001,
 
 		UTI_NUM,
 	};

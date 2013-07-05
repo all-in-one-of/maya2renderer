@@ -7,6 +7,9 @@
     <Filter Include="src\rmFlat">
       <UniqueIdentifier>{80eb3eeb-f885-432d-97a3-ee6708c9c56a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\rmPhysicalsun">
+      <UniqueIdentifier>{2a0afbbe-15b4-4c77-b591-f9f4fa15b9a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\rmSHADER_user_mayaplugin.cpp">
@@ -18,6 +21,12 @@
     <ClCompile Include="..\src\rmFlat\rmFlat_node_visitor.cpp">
       <Filter>src\rmFlat</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\rmPhysicalsun\rmPhysicalsun_node.cpp">
+      <Filter>src\rmPhysicalsun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rmPhysicalsun\rmPhysicalsun_node_visitor.cpp">
+      <Filter>src\rmPhysicalsun</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\rm_user_nodeId.h">
@@ -28,6 +37,12 @@
     </ClInclude>
     <ClInclude Include="..\src\rmFlat\rmFlat_node.h">
       <Filter>src\rmFlat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rmPhysicalsun\rmPhysicalsun_node.h">
+      <Filter>src\rmPhysicalsun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rmPhysicalsun\rmPhysicalsun_node_visitor.h">
+      <Filter>src\rmPhysicalsun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +60,18 @@
     </None>
     <None Include="..\src\rmFlat\rmFlat.sl">
       <Filter>src\rmFlat</Filter>
+    </None>
+    <None Include="..\src\rmPhysicalsun\rmPhysicalsun.impl">
+      <Filter>src\rmPhysicalsun</Filter>
+    </None>
+    <None Include="..\src\rmPhysicalsun\rmPhysicalsun.sl">
+      <Filter>src\rmPhysicalsun</Filter>
+    </None>
+    <None Include="..\src\rmPhysicalsun\userSetup.mel">
+      <Filter>src\rmPhysicalsun</Filter>
+    </None>
+    <None Include="..\src\rmPhysicalsun\AErmPhysicalsunTemplate.mel">
+      <Filter>src\rmPhysicalsun</Filter>
     </None>
   </ItemGroup>
 </Project>

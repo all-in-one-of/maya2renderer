@@ -8,30 +8,33 @@ global proc liquidAssignShaderToSelected_renderman(string $node)
 	
 	string $nodeType = `nodeType $node`;
 
-	////env
-	//if( $nodeType == "er_physicalsky" )
-	//{
-	//}
-	////light
-	//else if( $nodeType == "er_skylight" )
-	//{
-	//	string $selected[] = `ls -l -lights -dag -sl`;
+	//env
+	if( $nodeType == "your env shader" )
+	{
+	}
+	//light
+	else if( $nodeType == "rmPhysicalsun" )
+	{
+		string $selected[] = `ls -l -lights -dag -sl`;
 
-	//	if ( !objExists( ($node + ".liqAssignedObjects") ) )
-	//		addAttr -ln liqAssignedObjects -at message $node;
+		if ( !objExists( ($node + ".liqAssignedObjects") ) )
+			addAttr -ln liqAssignedObjects -at message $node;
 
-	//	for ( $sel in $selected ) 
-	//	{
-	//		if ( !objExists( ($sel + ".liquidLightShaderNode") ) ) 
-	//			addAttr -ln liquidLightShaderNode -at message $sel;
-	//		if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidLightShaderNode" ) ) )
-	//			connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidLightShaderNode");
-	//	}
-	//}
-	////surface
-	//else if( $nodeType == "er_flatcolor" )
-	//{
-	//}
+		for ( $sel in $selected ) 
+		{
+			if ( !objExists( ($sel + ".liquidLightShaderNode") ) ) 
+				addAttr -ln liquidLightShaderNode -at message $sel;
+			if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidLightShaderNode" ) ) )
+				connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidLightShaderNode");
+		}
+	}
+	//surface
+	else if( $nodeType == "your surface shader" )
+	{
+	}
+	else{
+		liqError("liquidAssignShaderToSelected_renderman():"+$node+"("+$nodeType+") is not handled.");
+	}
 
 	liqPopIdent();
 }
