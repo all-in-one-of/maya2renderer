@@ -13,16 +13,16 @@ global proc AErmPhysicalsunTemplate( string $nodeName )
 			//editorTemplate -addControl "evaluateAtEveryFrame";
 			//--------------------------------------------------
 		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
-				editorTemplate -addDynamicControl "multiplier";
-				editorTemplate -addDynamicControl "rgb_unit_conversion";
-				editorTemplate -addDynamicControl "haze";
-				editorTemplate -addDynamicControl "redblueshift";
-				editorTemplate -addDynamicControl "saturation";
-				editorTemplate -addDynamicControl "horizon_height";
-				editorTemplate -addDynamicControl "shadow_softness";
-				editorTemplate -addDynamicControl "shadowmap";
-				editorTemplate -addDynamicControl "shadow_samples";
-				editorTemplate -addDynamicControl "y_is_up";
+				editorTemplate -label "multiplier"		-addDynamicControl "multiplier";
+				editorTemplate -label "rgb_unit_conversion" -addDynamicControl "rgb_unit_conversion";
+				editorTemplate -label "haze"			-addDynamicControl "haze";
+				editorTemplate -label "redblueshift"	-addDynamicControl "redblueshift";
+				editorTemplate -label "saturation"		-addDynamicControl "saturation";
+				editorTemplate -label "horizon_height"	-addDynamicControl "horizon_height";
+				editorTemplate -label "shadow_softness" -addDynamicControl "shadow_softness";
+				editorTemplate -label "shadowmap"		-addDynamicControl "shadowmap";
+				editorTemplate -label "shadow_samples"	-addDynamicControl "shadow_samples";
+				editorTemplate -label "y_is_up"			-addDynamicControl "y_is_up";
 			editorTemplate -endLayout;
 
 		editorTemplate -endLayout;

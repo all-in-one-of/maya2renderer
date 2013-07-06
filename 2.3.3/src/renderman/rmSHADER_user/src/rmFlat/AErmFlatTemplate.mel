@@ -13,8 +13,8 @@ global proc AErmFlatTemplate( string $nodeName )
 			//editorTemplate -addControl "evaluateAtEveryFrame";
 			//--------------------------------------------------
 		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
-				editorTemplate -addDynamicControl "icolor";
-				editorTemplate -addDynamicControl "iopacity";
+				editorTemplate -label "icolor"   -addDynamicControl "icolor";
+				editorTemplate -label "iopacity" -addDynamicControl "iopacity";
 			editorTemplate -endLayout;
 
 		editorTemplate -endLayout;
