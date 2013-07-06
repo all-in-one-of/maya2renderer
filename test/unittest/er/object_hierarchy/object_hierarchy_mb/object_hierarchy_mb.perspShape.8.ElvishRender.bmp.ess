@@ -906,7 +906,7 @@ mtl "initialShadingGroup"
 ##shape full path name=|pCube1|pCone1|pPlane3|pPlaneShape3
 element "|pCube1|pCone1|pPlane3|pPlaneShape3" 
 transform 0.473804 4.44089e-016 -0.88063 0    0 1 4.44089e-016 0    0.88063 8.32667e-017 0.473804 0    -3.41263 4.44089e-016 -6.1925 1 
-motion_transform 0.436415 4.44089e-016 -0.899745 0    1.38778e-017 1 4.44089e-016 0    0.899745 8.32667e-017 0.436415 0    -3.64292 4.44089e-016 -5.98383 1 
+motion_transform 0.436415 4.44089e-016 -0.899745 0    -1.38778e-017 1 4.44089e-016 0    0.899745 8.32667e-017 0.436415 0    -3.64292 4.44089e-016 -5.98383 1 
 ##bMotionBlur=1, bGeometryMotion=1
     motion 1 
 declare "lightgroup"  "const"  "token" 
@@ -925,7 +925,7 @@ mtl "initialShadingGroup"
 ##shape full path name=|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4
 element "|pCube1|pCone1|pPlane3|pPlane4|pPlaneShape4" 
 transform 0.992067 2.37284e-016 0.125713 0    0 1 4.44089e-016 0    -0.125713 -3.84506e-016 0.992067 0    -4.55054 -2.56776e-016 -6.16305 1 
-motion_transform 0.99647 2.37284e-016 0.0839519 0    1.38778e-017 1 4.44089e-016 0    -0.0839519 -3.84506e-016 0.99647 0    -4.7786 -2.56776e-016 -5.90663 1 
+motion_transform 0.99647 2.37284e-016 0.0839519 0    -1.38778e-017 1 4.44089e-016 0    -0.0839519 -3.84506e-016 0.99647 0    -4.7786 -2.56776e-016 -5.90663 1 
 ##bMotionBlur=1, bGeometryMotion=1
     motion 1 
 declare "lightgroup"  "const"  "token" 
@@ -1020,7 +1020,7 @@ mtl "initialShadingGroup"
 ##shape full path name=|pCube1|group2|group3|pPlane8|pPlaneShape8
 element "|pCube1|group2|group3|pPlane8|pPlaneShape8" 
 transform -0.550609 1.30815e-016 -0.834763 0    1.73472e-016 1 4.16334e-017 0    0.834763 -1.0673e-016 -0.550609 0    7.31824 -6.93889e-018 -0.854931 1 
-motion_transform -0.695667 1.44799e-016 -0.718365 0    1.80411e-016 1 4.16334e-017 0    0.718365 -8.68156e-017 -0.695667 0    7.30257 -6.93889e-018 -1.10149 1 
+motion_transform -0.695667 1.44799e-016 -0.718365 0    1.80411e-016 1 4.85723e-017 0    0.718365 -8.68156e-017 -0.695667 0    7.30257 -6.93889e-018 -1.10149 1 
 ##bMotionBlur=1, bGeometryMotion=1
     motion 1 
 declare "lightgroup"  "const"  "token" 

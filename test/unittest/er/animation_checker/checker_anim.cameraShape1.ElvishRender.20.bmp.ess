@@ -935,7 +935,7 @@ mtl "liquid_material_for_test"
 ##shape name=|camera1_group|camera1|cameraShape1
 ##shape full path name=|camera1_group|camera1|cameraShape1
 element "|camera1_group|camera1|cameraShape1" 
-transform 0.9335 0 0.358578 0    0.320903 0.446204 -0.835418 0    -0.159999 0.894931 0.416531 0    -0.7556 8.74505 3.76869 1 
+transform 0.9335 2.77556e-017 0.358578 0    0.320903 0.446204 -0.835418 0    -0.159999 0.894931 0.416531 0    -0.7556 8.74505 3.76869 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -2615,7 +2615,7 @@ mtl "liquid_material_for_test"
 ##shape name=|camera1_group|camera1|cameraShape1
 ##shape full path name=|camera1_group|camera1|cameraShape1
 element "|camera1_group|camera1|cameraShape1" 
-transform 0.357762 -5.55112e-017 0.933813 0    0.546741 0.810677 -0.209467 0    -0.757021 0.585493 0.29003 0    -0.7556 8.74505 3.76869 1 
+transform 0.357762 5.55112e-017 0.933813 0    0.546741 0.810677 -0.209467 0    -0.757021 0.585493 0.29003 0    -0.7556 8.74505 3.76869 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -3335,7 +3335,7 @@ mtl "liquid_material_for_test"
 ##shape name=|camera1_group|camera1|cameraShape1
 ##shape full path name=|camera1_group|camera1|cameraShape1
 element "|camera1_group|camera1|cameraShape1" 
-transform 0.743412 0 0.668833 0    0.296095 0.896668 -0.329111 0    -0.599722 0.442703 0.666594 0    -0.7556 8.74505 3.76869 1 
+transform 0.743412 2.77556e-017 0.668833 0    0.296095 0.896668 -0.329111 0    -0.599722 0.442703 0.666594 0    -0.7556 8.74505 3.76869 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 

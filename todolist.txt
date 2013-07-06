@@ -18,6 +18,7 @@ done)2.渲染第二次时崩溃
 - renderman::Factory::getVisitor();
 - liquid::RendererMgr::getInstancePtr()->getFactory();
 4.添加rm的skylight
+5.自定义shader在hyperShade右侧窗口里看不到
 
 liq| x64|:
 -update test case, 

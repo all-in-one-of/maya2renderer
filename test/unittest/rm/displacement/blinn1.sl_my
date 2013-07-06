@@ -1,6 +1,6 @@
 #include <liquidAOVMacroDef.h>
 //surface shader name: blinn1
-displacement blinn1
+surface blinn1
 (
 #ifdef USE_AOV_aov_ambient
 		output varying color aov_ambient = 0;

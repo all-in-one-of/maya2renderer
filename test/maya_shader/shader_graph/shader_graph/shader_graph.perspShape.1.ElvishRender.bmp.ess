@@ -531,12 +531,12 @@ end light
 instance "|pointLight1|pointLightShape1" 
 element "|pointLight1|pointLightShape1_object" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    -12.379 34.7177 7 1 
+declare "|pCube6_lightgroup" "const" "int" 
 declare "|pCube1_lightgroup" "const" "int" 
 declare "|pCube2_lightgroup" "const" "int" 
 declare "|pCube3_lightgroup" "const" "int" 
 declare "|pCube4_lightgroup" "const" "int" 
 declare "|pCube5_lightgroup" "const" "int" 
-declare "|pCube6_lightgroup" "const" "int" 
 end instance
 
 ## Renderer::exportLight("_pointLight2_pointLightShape2");
@@ -553,11 +553,11 @@ end light
 instance "|pointLight2|pointLightShape2" 
 element "|pointLight2|pointLightShape2_object" 
 transform 1 0 0 0    0 1 0 0    0 0 1 0    3.96105 26.9826 7.93838 1 
+declare "|pCube6_lightgroup" "const" "int" 
 declare "|pCube2_lightgroup" "const" "int" 
 declare "|pCube3_lightgroup" "const" "int" 
 declare "|pCube4_lightgroup" "const" "int" 
 declare "|pCube5_lightgroup" "const" "int" 
-declare "|pCube6_lightgroup" "const" "int" 
 end instance
 
 ## maya settings: focal=35.000000, aperture = 36.000000, aspect=1.333333

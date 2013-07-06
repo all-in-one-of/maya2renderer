@@ -28,7 +28,7 @@ FrameBegin 11
     Projection "perspective" "fov" [ 37.994007 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000
-    Transform [ 0.357762 0.546741 0.757021 0.000000 -0.000000 0.810677 -0.585493 0.000000 0.933813 -0.209467 -0.290030 0.000000 -3.248925 -5.886879 6.785202 1.000000 ]
+    Transform [ 0.357762 0.546741 0.757021 0.000000 0.000000 0.810677 -0.585493 0.000000 0.933813 -0.209467 -0.290030 0.000000 -3.248925 -5.886879 6.785202 1.000000 ]
     #Display Drivers:
     #Display 6
     #Display 8
@@ -100,7 +100,7 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/checker_anim.cameraShape1.
             Attribute "identifier" "name" [ "_camera1_group_camera1_cameraShape1" ] 
             #				[DEBUG] |camera1_group|camera1|cameraShape1 is not lighted.
             #has no shadingEngine
-            Transform [ 0.357762 -0.000000 0.933813 0.000000 0.546741 0.810677 -0.209467 0.000000 -0.757021 0.585493 0.290030 0.000000 -0.755600 8.745049 3.768690 1.000000 ]
+            Transform [ 0.357762 0.000000 0.933813 0.000000 0.546741 0.810677 -0.209467 0.000000 -0.757021 0.585493 0.290030 0.000000 -0.755600 8.745049 3.768690 1.000000 ]
             #_write(liqRibCameraData*...) not implemented yet.
         AttributeEnd
     WorldEnd

@@ -149,28 +149,20 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:right
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1_lightgroup" "const" "int" 
@@ -178,14 +170,13 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1_lightgroup" "const" "int" 
@@ -193,7 +184,22 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3_lightgroup" "const" "int" 
@@ -201,17 +207,11 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup" "const" "int" 
 end instance
 
 ## Renderer::exportLight("_pointLight2_pointLightShape2");
@@ -280,28 +280,20 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:right
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1_lightgroup" "const" "int" 
@@ -309,14 +301,13 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1_lightgroup" "const" "int" 
@@ -324,7 +315,22 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3_lightgroup" "const" "int" 
@@ -332,17 +338,11 @@ declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1_lightgroup" "const" "int" 
+declare "|Man:JAP|Man:JapSkeleton|Man:hips_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy_lightgroup" "const" "int" 
 declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll_lightgroup" "const" "int" 
-declare "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand_lightgroup" "const" "int" 
 end instance
 
 ## maya settings: focal=35.000000, aperture = 46.799999, aspect=1.333333
@@ -393,90 +393,90 @@ end camera
 ### uvsetFamilyNames[0]=map1
 object "|Man:JAP|Man:JapMod|Man:pCube26|Man:pCubeShape26" "poly" 
 pos_list 84
--30.951866 -0.923873 -31.398104
--29.975407 -3.574148 -31.413277
--31.600132 -1.188500 -31.889486
--31.600132 -1.188500 -31.889486
--29.975407 -3.574148 -31.413277
--30.539049 -3.804225 -31.840572
--30.429010 -0.763990 -32.173992
--29.614727 -3.463813 -31.948454
--30.951866 -0.923873 -31.398104
--30.951866 -0.923873 -31.398104
--29.614727 -3.463813 -31.948454
--29.975407 -3.574148 -31.413277
--30.429010 -0.763990 -32.173992
--31.077278 -1.028616 -32.665375
--29.614727 -3.463813 -31.948454
--29.614727 -3.463813 -31.948454
--31.077278 -1.028616 -32.665375
--30.178368 -3.693889 -32.375751
--31.077278 -1.028616 -32.665375
--31.600132 -1.188500 -31.889486
--30.178368 -3.693889 -32.375751
--30.178368 -3.693889 -32.375751
--31.600132 -1.188500 -31.889486
--30.539049 -3.804225 -31.840572
--30.431419 -4.302641 -31.812698
--29.781994 -4.037548 -31.320370
--30.018425 -4.176302 -32.425507
--30.018425 -4.176302 -32.425507
--29.781994 -4.037548 -31.320370
--29.368998 -3.911210 -31.933176
--31.077278 -1.028616 -32.665375
--30.429010 -0.763990 -32.173992
--31.600132 -1.188500 -31.889486
--31.600132 -1.188500 -31.889486
--30.429010 -0.763990 -32.173992
--30.951866 -0.923873 -31.398104
--30.539049 -3.804225 -31.840572
--30.578213 -3.909728 -31.830624
--30.178368 -3.693889 -32.375751
--30.178368 -3.693889 -32.375751
--30.578213 -3.909728 -31.830624
--30.165213 -3.783391 -32.443432
--30.178368 -3.693889 -32.375751
--30.165213 -3.783391 -32.443432
--29.614727 -3.463813 -31.948454
--29.614727 -3.463813 -31.948454
--30.165213 -3.783391 -32.443432
--29.515787 -3.518298 -31.951101
--29.614727 -3.463813 -31.948454
--29.515787 -3.518298 -31.951101
--29.975407 -3.574148 -31.413277
--29.975407 -3.574148 -31.413277
--29.515787 -3.518298 -31.951101
--29.928787 -3.644636 -31.338293
--29.975407 -3.574148 -31.413277
--29.928787 -3.644636 -31.338293
--30.539049 -3.804225 -31.840572
--30.539049 -3.804225 -31.840572
--29.928787 -3.644636 -31.338293
--30.578213 -3.909728 -31.830624
--30.578213 -3.909728 -31.830624
--30.431419 -4.302641 -31.812698
--30.165213 -3.783391 -32.443432
--30.165213 -3.783391 -32.443432
--30.431419 -4.302641 -31.812698
--30.018425 -4.176302 -32.425507
--30.165213 -3.783391 -32.443432
--30.018425 -4.176302 -32.425507
--29.515787 -3.518298 -31.951101
--29.515787 -3.518298 -31.951101
--30.018425 -4.176302 -32.425507
--29.368998 -3.911210 -31.933176
--29.515787 -3.518298 -31.951101
--29.368998 -3.911210 -31.933176
--29.928787 -3.644636 -31.338293
--29.928787 -3.644636 -31.338293
--29.368998 -3.911210 -31.933176
--29.781994 -4.037548 -31.320370
--29.928787 -3.644636 -31.338293
--29.781994 -4.037548 -31.320370
--30.578213 -3.909728 -31.830624
--30.578213 -3.909728 -31.830624
--29.781994 -4.037548 -31.320370
--30.431419 -4.302641 -31.812698
+-30.928825 -0.935412 -31.374899
+-29.952372 -3.585618 -31.390066
+-31.577085 -1.200041 -31.866289
+-31.577085 -1.200041 -31.866289
+-29.952372 -3.585618 -31.390066
+-30.516006 -3.815696 -31.817369
+-30.405964 -0.775522 -32.150780
+-29.591686 -3.475279 -31.925238
+-30.928825 -0.935412 -31.374899
+-30.928825 -0.935412 -31.374899
+-29.591686 -3.475279 -31.925238
+-29.952372 -3.585618 -31.390066
+-30.405964 -0.775522 -32.150780
+-31.054222 -1.040150 -32.642170
+-29.591686 -3.475279 -31.925238
+-29.591686 -3.475279 -31.925238
+-31.054222 -1.040150 -32.642170
+-30.155321 -3.705356 -32.352543
+-31.054222 -1.040150 -32.642170
+-31.577085 -1.200041 -31.866289
+-30.155321 -3.705356 -32.352543
+-30.155321 -3.705356 -32.352543
+-31.577085 -1.200041 -31.866289
+-30.516006 -3.815696 -31.817369
+-30.408377 -4.314112 -31.789497
+-29.758957 -4.049018 -31.297157
+-29.995373 -4.187768 -32.402298
+-29.995373 -4.187768 -32.402298
+-29.758957 -4.049018 -31.297157
+-29.345955 -3.922675 -31.909960
+-31.054222 -1.040150 -32.642170
+-30.405964 -0.775522 -32.150780
+-31.577085 -1.200041 -31.866289
+-31.577085 -1.200041 -31.866289
+-30.405964 -0.775522 -32.150780
+-30.928825 -0.935412 -31.374899
+-30.516006 -3.815696 -31.817369
+-30.555172 -3.921200 -31.807423
+-30.155321 -3.705356 -32.352543
+-30.155321 -3.705356 -32.352543
+-30.555172 -3.921200 -31.807423
+-30.142164 -3.794857 -32.420223
+-30.155321 -3.705356 -32.352543
+-30.142164 -3.794857 -32.420223
+-29.591686 -3.475279 -31.925238
+-29.591686 -3.475279 -31.925238
+-30.142164 -3.794857 -32.420223
+-29.492744 -3.529763 -31.927885
+-29.591686 -3.475279 -31.925238
+-29.492744 -3.529763 -31.927885
+-29.952372 -3.585618 -31.390066
+-29.952372 -3.585618 -31.390066
+-29.492744 -3.529763 -31.927885
+-29.905752 -3.656107 -31.315083
+-29.952372 -3.585618 -31.390066
+-29.905752 -3.656107 -31.315083
+-30.516006 -3.815696 -31.817369
+-30.516006 -3.815696 -31.817369
+-29.905752 -3.656107 -31.315083
+-30.555172 -3.921200 -31.807423
+-30.555172 -3.921200 -31.807423
+-30.408377 -4.314112 -31.789497
+-30.142164 -3.794857 -32.420223
+-30.142164 -3.794857 -32.420223
+-30.408377 -4.314112 -31.789497
+-29.995373 -4.187768 -32.402298
+-30.142164 -3.794857 -32.420223
+-29.995373 -4.187768 -32.402298
+-29.492744 -3.529763 -31.927885
+-29.492744 -3.529763 -31.927885
+-29.995373 -4.187768 -32.402298
+-29.345955 -3.922675 -31.909960
+-29.492744 -3.529763 -31.927885
+-29.345955 -3.922675 -31.909960
+-29.905752 -3.656107 -31.315083
+-29.905752 -3.656107 -31.315083
+-29.345955 -3.922675 -31.909960
+-29.758957 -4.049018 -31.297157
+-29.905752 -3.656107 -31.315083
+-29.758957 -4.049018 -31.297157
+-30.555172 -3.921200 -31.807423
+-30.555172 -3.921200 -31.807423
+-29.758957 -4.049018 -31.297157
+-30.408377 -4.314112 -31.789497
 uv_list 84
 0.375000 0.250000 0.000000
 0.625000 0.250000 0.000000
@@ -603,90 +603,90 @@ end object
 ### uvsetFamilyNames[0]=map1
 object "|Man:JAP|Man:JapMod|Man:pCube8|Man:pCubeShape8" "poly" 
 pos_list 84
-22.686102 -5.225606 -25.275640
-22.700691 -5.231325 -24.532024
-24.334087 -2.933279 -25.313389
-24.334087 -2.933279 -25.313389
-22.700691 -5.231325 -24.532024
-24.350887 -2.939878 -24.458166
-22.700691 -5.231325 -24.532024
-23.217554 -5.633018 -24.545254
-24.350887 -2.939878 -24.458166
-24.350887 -2.939878 -24.458166
-23.217554 -5.633018 -24.545254
-25.100443 -3.521894 -24.477381
-25.100443 -3.521894 -24.477381
-23.217554 -5.633018 -24.545254
-25.083641 -3.515295 -25.332605
-25.083641 -3.515295 -25.332605
-23.217554 -5.633018 -24.545254
-23.202965 -5.627299 -25.288870
-25.083641 -3.515295 -25.332605
-23.202965 -5.627299 -25.288870
-24.334087 -2.933279 -25.313389
-24.334087 -2.933279 -25.313389
-23.202965 -5.627299 -25.288870
-22.686102 -5.225606 -25.275640
-22.337488 -5.595039 -25.328259
-22.929323 -6.054999 -25.343407
-22.354298 -5.601628 -24.471466
-22.354298 -5.601628 -24.471466
-22.929323 -6.054999 -25.343407
-22.946133 -6.061588 -24.486614
-25.083641 -3.515295 -25.332605
-24.334087 -2.933279 -25.313389
-25.100443 -3.521894 -24.477381
-25.100443 -3.521894 -24.477381
-24.334087 -2.933279 -25.313389
-24.350887 -2.939878 -24.458166
-22.686102 -5.225606 -25.275640
-23.202965 -5.627299 -25.288870
-22.595064 -5.263531 -25.330757
-22.595064 -5.263531 -25.330757
-23.202965 -5.627299 -25.288870
-23.186899 -5.723491 -25.345905
-23.202965 -5.627299 -25.288870
-23.217554 -5.633018 -24.545254
-23.186899 -5.723491 -25.345905
-23.186899 -5.723491 -25.345905
-23.217554 -5.633018 -24.545254
-23.203709 -5.730081 -24.489115
-23.217554 -5.633018 -24.545254
-22.700691 -5.231325 -24.532024
-23.203709 -5.730081 -24.489115
-23.203709 -5.730081 -24.489115
-22.700691 -5.231325 -24.532024
-22.611874 -5.270121 -24.473967
-22.700691 -5.231325 -24.532024
-22.686102 -5.225606 -25.275640
-22.611874 -5.270121 -24.473967
-22.611874 -5.270121 -24.473967
-22.686102 -5.225606 -25.275640
-22.595064 -5.263531 -25.330757
-22.595064 -5.263531 -25.330757
-23.186899 -5.723491 -25.345905
-22.337488 -5.595039 -25.328259
-22.337488 -5.595039 -25.328259
-23.186899 -5.723491 -25.345905
-22.929323 -6.054999 -25.343407
-23.186899 -5.723491 -25.345905
-23.203709 -5.730081 -24.489115
-22.929323 -6.054999 -25.343407
-22.929323 -6.054999 -25.343407
-23.203709 -5.730081 -24.489115
-22.946133 -6.061588 -24.486614
-23.203709 -5.730081 -24.489115
-22.611874 -5.270121 -24.473967
-22.946133 -6.061588 -24.486614
-22.946133 -6.061588 -24.486614
-22.611874 -5.270121 -24.473967
-22.354298 -5.601628 -24.471466
-22.611874 -5.270121 -24.473967
-22.595064 -5.263531 -25.330757
-22.354298 -5.601628 -24.471466
-22.354298 -5.601628 -24.471466
-22.595064 -5.263531 -25.330757
-22.337488 -5.595039 -25.328259
+22.662716 -5.237072 -25.252470
+22.677301 -5.242793 -24.508854
+24.310713 -2.944755 -25.290216
+24.310713 -2.944755 -25.290216
+22.677301 -5.242793 -24.508854
+24.327509 -2.951356 -24.434992
+22.677301 -5.242793 -24.508854
+23.194162 -5.644487 -24.522081
+24.327509 -2.951356 -24.434992
+24.327509 -2.951356 -24.434992
+23.194162 -5.644487 -24.522081
+25.077063 -3.533373 -24.454206
+25.077063 -3.533373 -24.454206
+23.194162 -5.644487 -24.522081
+25.060266 -3.526772 -25.309429
+25.060266 -3.526772 -25.309429
+23.194162 -5.644487 -24.522081
+23.179579 -5.638767 -25.265697
+25.060266 -3.526772 -25.309429
+23.179579 -5.638767 -25.265697
+24.310713 -2.944755 -25.290216
+24.310713 -2.944755 -25.290216
+23.179579 -5.638767 -25.265697
+22.662716 -5.237072 -25.252470
+22.314102 -5.606504 -25.305090
+22.905937 -6.066465 -25.320234
+22.330906 -5.613095 -24.448298
+22.330906 -5.613095 -24.448298
+22.905937 -6.066465 -25.320234
+22.922741 -6.073056 -24.463444
+25.060266 -3.526772 -25.309429
+24.310713 -2.944755 -25.290216
+25.077063 -3.533373 -24.454206
+25.077063 -3.533373 -24.454206
+24.310713 -2.944755 -25.290216
+24.327509 -2.951356 -24.434992
+22.662716 -5.237072 -25.252470
+23.179579 -5.638767 -25.265697
+22.571678 -5.274997 -25.307587
+22.571678 -5.274997 -25.307587
+23.179579 -5.638767 -25.265697
+23.163513 -5.734959 -25.322733
+23.179579 -5.638767 -25.265697
+23.194162 -5.644487 -24.522081
+23.163513 -5.734959 -25.322733
+23.163513 -5.734959 -25.322733
+23.194162 -5.644487 -24.522081
+23.180317 -5.741549 -24.465940
+23.194162 -5.644487 -24.522081
+22.677301 -5.242793 -24.508854
+23.180317 -5.741549 -24.465940
+23.180317 -5.741549 -24.465940
+22.677301 -5.242793 -24.508854
+22.588484 -5.281588 -24.450796
+22.677301 -5.242793 -24.508854
+22.662716 -5.237072 -25.252470
+22.588484 -5.281588 -24.450796
+22.588484 -5.281588 -24.450796
+22.662716 -5.237072 -25.252470
+22.571678 -5.274997 -25.307587
+22.571678 -5.274997 -25.307587
+23.163513 -5.734959 -25.322733
+22.314102 -5.606504 -25.305090
+22.314102 -5.606504 -25.305090
+23.163513 -5.734959 -25.322733
+22.905937 -6.066465 -25.320234
+23.163513 -5.734959 -25.322733
+23.180317 -5.741549 -24.465940
+22.905937 -6.066465 -25.320234
+22.905937 -6.066465 -25.320234
+23.180317 -5.741549 -24.465940
+22.922741 -6.073056 -24.463444
+23.180317 -5.741549 -24.465940
+22.588484 -5.281588 -24.450796
+22.922741 -6.073056 -24.463444
+22.922741 -6.073056 -24.463444
+22.588484 -5.281588 -24.450796
+22.330906 -5.613095 -24.448298
+22.588484 -5.281588 -24.450796
+22.571678 -5.274997 -25.307587
+22.330906 -5.613095 -24.448298
+22.330906 -5.613095 -24.448298
+22.571678 -5.274997 -25.307587
+22.314102 -5.606504 -25.305090
 uv_list 84
 0.625000 0.000000 0.000000
 0.625000 0.250000 0.000000
@@ -813,258 +813,258 @@ end object
 ### uvsetFamilyNames[0]=map1
 object "|Man:JAP|Man:JapMod|Man:pCube6|Man:pCubeShape6" "poly" 
 pos_list 252
-10.534368 -0.941665 -11.428932
-10.390317 -0.073641 -11.422234
-10.445610 -0.888937 -11.827721
-10.445610 -0.888937 -11.827721
-10.390317 -0.073641 -11.422234
-10.203605 -0.003141 -11.783518
-10.788648 1.665459 -11.828037
-10.970263 1.520872 -11.351407
-11.091823 1.444225 -11.900041
-11.091823 1.444225 -11.900041
-10.970263 1.520872 -11.351407
-11.274899 1.297327 -11.418746
-11.153628 1.399124 -12.149267
-11.336945 1.251798 -11.666983
-10.780484 0.317178 -12.095269
-10.780484 0.317178 -12.095269
-11.336945 1.251798 -11.666983
-11.000230 0.186361 -11.707143
-11.070533 -0.689599 -11.418604
-10.736327 -0.849783 -11.503205
-11.032958 -0.755006 -11.886751
-11.032958 -0.755006 -11.886751
-10.736327 -0.849783 -11.503205
-10.667628 -0.851809 -11.932467
-10.496929 -0.758234 -10.394092
-10.702792 -0.676025 -10.483171
-10.709594 -0.259887 -10.467808
-10.709594 -0.259887 -10.467808
-10.702792 -0.676025 -10.483171
-10.867740 -0.321624 -10.619061
-11.032958 -0.755006 -11.886751
-10.667628 -0.851809 -11.932467
-10.736495 -0.215921 -11.997916
-10.736495 -0.215921 -11.997916
-10.667628 -0.851809 -11.932467
-10.372090 -0.078425 -11.937937
-10.562090 0.508112 -11.391354
-10.970263 1.520872 -11.351407
-10.342343 0.638930 -11.779479
-10.342343 0.638930 -11.779479
-10.970263 1.520872 -11.351407
-10.788648 1.665459 -11.828037
-10.780484 0.317178 -12.095269
-11.000230 0.186361 -11.707143
-10.736495 -0.215921 -11.997916
-10.736495 -0.215921 -11.997916
-11.000230 0.186361 -11.707143
-10.914020 -0.274602 -11.633917
-11.231482 0.016964 -10.471002
-11.756508 0.757810 -10.111641
-11.041286 0.156636 -10.348551
-11.041286 0.156636 -10.348551
-11.756508 0.757810 -10.111641
-11.449527 0.983327 -10.050099
-10.780484 0.317178 -12.095269
-10.532539 0.499258 -11.901931
-11.153628 1.399124 -12.149267
-11.153628 1.399124 -12.149267
-10.532539 0.499258 -11.901931
-11.091823 1.444225 -11.900041
-10.390317 -0.073641 -11.422234
-10.562090 0.508112 -11.391354
-10.203605 -0.003141 -11.783518
-10.203605 -0.003141 -11.783518
-10.562090 0.508112 -11.391354
-10.342343 0.638930 -11.779479
-10.709594 -0.259887 -10.467808
-10.867740 -0.321624 -10.619061
-11.041286 0.156636 -10.348551
-11.041286 0.156636 -10.348551
-10.867740 -0.321624 -10.619061
-11.231482 0.016964 -10.471002
-10.736495 -0.215921 -11.997916
-10.372090 -0.078425 -11.937937
-10.780484 0.317178 -12.095269
-10.780484 0.317178 -12.095269
-10.372090 -0.078425 -11.937937
-10.532539 0.499258 -11.901931
-10.736495 -0.215921 -11.997916
-10.914020 -0.274602 -11.633917
-11.032958 -0.755006 -11.886751
-11.032958 -0.755006 -11.886751
-10.914020 -0.274602 -11.633917
-11.070533 -0.689599 -11.418604
-11.284673 1.253582 -10.557651
-11.449527 0.983327 -10.050099
-11.591448 1.028230 -10.619704
-11.591448 1.028230 -10.619704
-11.449527 0.983327 -10.050099
-11.756508 0.757810 -10.111641
-11.653988 0.982290 -10.866901
-11.819090 0.711836 -10.358734
-11.258163 -0.033007 -11.056294
-11.258163 -0.033007 -11.056294
-11.819090 0.711836 -10.358734
-11.479426 -0.165115 -10.664340
-11.030813 -0.370379 -11.039812
-11.258163 -0.033007 -11.056294
-11.209026 -0.429624 -10.672319
-11.209026 -0.429624 -10.672319
-11.258163 -0.033007 -11.056294
-11.479426 -0.165115 -10.664340
-11.030813 -0.370379 -11.039812
-11.209026 -0.429624 -10.672319
-11.004115 -0.583896 -10.872563
-11.004115 -0.583896 -10.872563
-11.209026 -0.429624 -10.672319
-11.047438 -0.539452 -10.425447
-10.673397 -0.746251 -10.957157
-10.702792 -0.676025 -10.483171
-10.474036 -0.839789 -10.882895
-10.474036 -0.839789 -10.882895
-10.702792 -0.676025 -10.483171
-10.496929 -0.758234 -10.394092
-10.474036 -0.839789 -10.882895
-10.496929 -0.758234 -10.394092
-10.522106 -0.188709 -10.832559
-10.522106 -0.188709 -10.832559
-10.496929 -0.758234 -10.394092
-10.709594 -0.259887 -10.467808
-10.522106 -0.188709 -10.832559
-10.709594 -0.259887 -10.467808
-10.820024 0.288744 -10.740504
-10.820024 0.288744 -10.740504
-10.709594 -0.259887 -10.467808
-11.041286 0.156636 -10.348551
-10.820024 0.288744 -10.740504
-11.041286 0.156636 -10.348551
-11.284673 1.253582 -10.557651
-11.284673 1.253582 -10.557651
-11.041286 0.156636 -10.348551
-11.449527 0.983327 -10.050099
-10.970263 1.520872 -11.351407
-11.284673 1.253582 -10.557651
-11.274899 1.297327 -11.418746
-11.274899 1.297327 -11.418746
-11.284673 1.253582 -10.557651
-11.591448 1.028230 -10.619704
-11.336945 1.251798 -11.666983
-11.653988 0.982290 -10.866901
-11.000230 0.186361 -11.707143
-11.000230 0.186361 -11.707143
-11.653988 0.982290 -10.866901
-11.258163 -0.033007 -11.056294
-11.000230 0.186361 -11.707143
-11.258163 -0.033007 -11.056294
-10.914020 -0.274602 -11.633917
-10.914020 -0.274602 -11.633917
-11.258163 -0.033007 -11.056294
-11.030813 -0.370379 -11.039812
-10.914020 -0.274602 -11.633917
-11.030813 -0.370379 -11.039812
-11.070533 -0.689599 -11.418604
-11.070533 -0.689599 -11.418604
-11.030813 -0.370379 -11.039812
-11.004115 -0.583896 -10.872563
-10.736327 -0.849783 -11.503205
-10.673397 -0.746251 -10.957157
-10.534368 -0.941665 -11.428932
-10.534368 -0.941665 -11.428932
-10.673397 -0.746251 -10.957157
-10.474036 -0.839789 -10.882895
-10.534368 -0.941665 -11.428932
-10.474036 -0.839789 -10.882895
-10.390317 -0.073641 -11.422234
-10.390317 -0.073641 -11.422234
-10.474036 -0.839789 -10.882895
-10.522106 -0.188709 -10.832559
-10.562090 0.508112 -11.391354
-10.390317 -0.073641 -11.422234
-10.820024 0.288744 -10.740504
-10.820024 0.288744 -10.740504
-10.390317 -0.073641 -11.422234
-10.522106 -0.188709 -10.832559
-10.970263 1.520872 -11.351407
-10.562090 0.508112 -11.391354
-11.284673 1.253582 -10.557651
-11.284673 1.253582 -10.557651
-10.562090 0.508112 -11.391354
-10.820024 0.288744 -10.740504
-11.274899 1.297327 -11.418746
-11.336945 1.251798 -11.666983
-11.091823 1.444225 -11.900041
-11.091823 1.444225 -11.900041
-11.336945 1.251798 -11.666983
-11.153628 1.399124 -12.149267
-10.667628 -0.851809 -11.932467
-10.736327 -0.849783 -11.503205
-10.445610 -0.888937 -11.827721
-10.445610 -0.888937 -11.827721
-10.736327 -0.849783 -11.503205
-10.534368 -0.941665 -11.428932
-10.702792 -0.676025 -10.483171
-11.047438 -0.539452 -10.425447
-10.867740 -0.321624 -10.619061
-10.867740 -0.321624 -10.619061
-11.047438 -0.539452 -10.425447
-11.209026 -0.429624 -10.672319
-10.667628 -0.851809 -11.932467
-10.445610 -0.888937 -11.827721
-10.372090 -0.078425 -11.937937
-10.372090 -0.078425 -11.937937
-10.445610 -0.888937 -11.827721
-10.203605 -0.003141 -11.783518
-11.756508 0.757810 -10.111641
-11.231482 0.016964 -10.471002
-11.819090 0.711836 -10.358734
-11.819090 0.711836 -10.358734
-11.231482 0.016964 -10.471002
-11.479426 -0.165115 -10.664340
-10.532539 0.499258 -11.901931
-10.342343 0.638930 -11.779479
-11.091823 1.444225 -11.900041
-11.091823 1.444225 -11.900041
-10.342343 0.638930 -11.779479
-10.788648 1.665459 -11.828037
-10.867740 -0.321624 -10.619061
-11.209026 -0.429624 -10.672319
-11.231482 0.016964 -10.471002
-11.231482 0.016964 -10.471002
-11.209026 -0.429624 -10.672319
-11.479426 -0.165115 -10.664340
-10.372090 -0.078425 -11.937937
-10.203605 -0.003141 -11.783518
-10.532539 0.499258 -11.901931
-10.532539 0.499258 -11.901931
-10.203605 -0.003141 -11.783518
-10.342343 0.638930 -11.779479
-11.756508 0.757810 -10.111641
-11.819090 0.711836 -10.358734
-11.591448 1.028230 -10.619704
-11.591448 1.028230 -10.619704
-11.819090 0.711836 -10.358734
-11.653988 0.982290 -10.866901
-10.673397 -0.746251 -10.957157
-11.004115 -0.583896 -10.872563
-10.702792 -0.676025 -10.483171
-10.702792 -0.676025 -10.483171
-11.004115 -0.583896 -10.872563
-11.047438 -0.539452 -10.425447
-11.591448 1.028230 -10.619704
-11.653988 0.982290 -10.866901
-11.274899 1.297327 -11.418746
-11.274899 1.297327 -11.418746
-11.653988 0.982290 -10.866901
-11.336945 1.251798 -11.666983
-10.736327 -0.849783 -11.503205
-11.070533 -0.689599 -11.418604
-10.673397 -0.746251 -10.957157
-10.673397 -0.746251 -10.957157
-11.070533 -0.689599 -11.418604
-11.004115 -0.583896 -10.872563
+10.525124 -0.946291 -11.419692
+10.381073 -0.078267 -11.412995
+10.436366 -0.893559 -11.818480
+10.436366 -0.893559 -11.818480
+10.381073 -0.078267 -11.412995
+10.194363 -0.007769 -11.774280
+10.779404 1.660834 -11.818799
+10.961019 1.516245 -11.342170
+11.082579 1.439601 -11.890802
+11.082579 1.439601 -11.890802
+10.961019 1.516245 -11.342170
+11.265656 1.292701 -11.409509
+11.144384 1.394500 -12.140029
+11.327702 1.247172 -11.657745
+10.771241 0.312550 -12.086031
+10.771241 0.312550 -12.086031
+11.327702 1.247172 -11.657745
+10.990987 0.181733 -11.697904
+11.061289 -0.694225 -11.409364
+10.727083 -0.854410 -11.493964
+11.023714 -0.759630 -11.877511
+11.023714 -0.759630 -11.877511
+10.727083 -0.854410 -11.493964
+10.658383 -0.856432 -11.923226
+10.487683 -0.762855 -10.384851
+10.693546 -0.680646 -10.473931
+10.700348 -0.264511 -10.458568
+10.700348 -0.264511 -10.458568
+10.693546 -0.680646 -10.473931
+10.858494 -0.326248 -10.609821
+11.023714 -0.759630 -11.877511
+10.658383 -0.856432 -11.923226
+10.727252 -0.220549 -11.988675
+10.727252 -0.220549 -11.988675
+10.658383 -0.856432 -11.923226
+10.362848 -0.083053 -11.928698
+10.552846 0.503485 -11.382115
+10.961019 1.516245 -11.342170
+10.333101 0.634302 -11.770243
+10.333101 0.634302 -11.770243
+10.961019 1.516245 -11.342170
+10.779404 1.660834 -11.818799
+10.771241 0.312550 -12.086031
+10.990987 0.181733 -11.697904
+10.727252 -0.220549 -11.988675
+10.727252 -0.220549 -11.988675
+10.990987 0.181733 -11.697904
+10.904777 -0.279229 -11.624677
+11.222237 0.012340 -10.461761
+11.747262 0.753182 -10.102404
+11.032041 0.152012 -10.339311
+11.032041 0.152012 -10.339311
+11.747262 0.753182 -10.102404
+11.440280 0.978700 -10.040863
+10.771241 0.312550 -12.086031
+10.523297 0.494630 -11.892694
+11.144384 1.394500 -12.140029
+11.144384 1.394500 -12.140029
+10.523297 0.494630 -11.892694
+11.082579 1.439601 -11.890802
+10.381073 -0.078267 -11.412995
+10.552846 0.503485 -11.382115
+10.194363 -0.007769 -11.774280
+10.194363 -0.007769 -11.774280
+10.552846 0.503485 -11.382115
+10.333101 0.634302 -11.770243
+10.700348 -0.264511 -10.458568
+10.858494 -0.326248 -10.609821
+11.032041 0.152012 -10.339311
+11.032041 0.152012 -10.339311
+10.858494 -0.326248 -10.609821
+11.222237 0.012340 -10.461761
+10.727252 -0.220549 -11.988675
+10.362848 -0.083053 -11.928698
+10.771241 0.312550 -12.086031
+10.771241 0.312550 -12.086031
+10.362848 -0.083053 -11.928698
+10.523297 0.494630 -11.892694
+10.727252 -0.220549 -11.988675
+10.904777 -0.279229 -11.624677
+11.023714 -0.759630 -11.877511
+11.023714 -0.759630 -11.877511
+10.904777 -0.279229 -11.624677
+11.061289 -0.694225 -11.409364
+11.275426 1.248955 -10.548414
+11.440280 0.978700 -10.040863
+11.582202 1.023602 -10.610466
+11.582202 1.023602 -10.610466
+11.440280 0.978700 -10.040863
+11.747262 0.753182 -10.102404
+11.644742 0.977662 -10.857664
+11.809844 0.707208 -10.349498
+11.248919 -0.037633 -11.047054
+11.248919 -0.037633 -11.047054
+11.809844 0.707208 -10.349498
+11.470181 -0.169740 -10.655099
+11.021569 -0.375005 -11.030571
+11.248919 -0.037633 -11.047054
+11.199781 -0.434249 -10.663078
+11.199781 -0.434249 -10.663078
+11.248919 -0.037633 -11.047054
+11.470181 -0.169740 -10.655099
+11.021569 -0.375005 -11.030571
+11.199781 -0.434249 -10.663078
+10.994871 -0.588521 -10.863322
+10.994871 -0.588521 -10.863322
+11.199781 -0.434249 -10.663078
+11.038191 -0.544074 -10.416205
+10.664152 -0.750876 -10.947916
+10.693546 -0.680646 -10.473931
+10.464791 -0.844414 -10.873655
+10.464791 -0.844414 -10.873655
+10.693546 -0.680646 -10.473931
+10.487683 -0.762855 -10.384851
+10.464791 -0.844414 -10.873655
+10.487683 -0.762855 -10.384851
+10.512861 -0.193334 -10.823319
+10.512861 -0.193334 -10.823319
+10.487683 -0.762855 -10.384851
+10.700348 -0.264511 -10.458568
+10.512861 -0.193334 -10.823319
+10.700348 -0.264511 -10.458568
+10.810778 0.284119 -10.731266
+10.810778 0.284119 -10.731266
+10.700348 -0.264511 -10.458568
+11.032041 0.152012 -10.339311
+10.810778 0.284119 -10.731266
+11.032041 0.152012 -10.339311
+11.275426 1.248955 -10.548414
+11.275426 1.248955 -10.548414
+11.032041 0.152012 -10.339311
+11.440280 0.978700 -10.040863
+10.961019 1.516245 -11.342170
+11.275426 1.248955 -10.548414
+11.265656 1.292701 -11.409509
+11.265656 1.292701 -11.409509
+11.275426 1.248955 -10.548414
+11.582202 1.023602 -10.610466
+11.327702 1.247172 -11.657745
+11.644742 0.977662 -10.857664
+10.990987 0.181733 -11.697904
+10.990987 0.181733 -11.697904
+11.644742 0.977662 -10.857664
+11.248919 -0.037633 -11.047054
+10.990987 0.181733 -11.697904
+11.248919 -0.037633 -11.047054
+10.904777 -0.279229 -11.624677
+10.904777 -0.279229 -11.624677
+11.248919 -0.037633 -11.047054
+11.021569 -0.375005 -11.030571
+10.904777 -0.279229 -11.624677
+11.021569 -0.375005 -11.030571
+11.061289 -0.694225 -11.409364
+11.061289 -0.694225 -11.409364
+11.021569 -0.375005 -11.030571
+10.994871 -0.588521 -10.863322
+10.727083 -0.854410 -11.493964
+10.664152 -0.750876 -10.947916
+10.525124 -0.946291 -11.419692
+10.525124 -0.946291 -11.419692
+10.664152 -0.750876 -10.947916
+10.464791 -0.844414 -10.873655
+10.525124 -0.946291 -11.419692
+10.464791 -0.844414 -10.873655
+10.381073 -0.078267 -11.412995
+10.381073 -0.078267 -11.412995
+10.464791 -0.844414 -10.873655
+10.512861 -0.193334 -10.823319
+10.552846 0.503485 -11.382115
+10.381073 -0.078267 -11.412995
+10.810778 0.284119 -10.731266
+10.810778 0.284119 -10.731266
+10.381073 -0.078267 -11.412995
+10.512861 -0.193334 -10.823319
+10.961019 1.516245 -11.342170
+10.552846 0.503485 -11.382115
+11.275426 1.248955 -10.548414
+11.275426 1.248955 -10.548414
+10.552846 0.503485 -11.382115
+10.810778 0.284119 -10.731266
+11.265656 1.292701 -11.409509
+11.327702 1.247172 -11.657745
+11.082579 1.439601 -11.890802
+11.082579 1.439601 -11.890802
+11.327702 1.247172 -11.657745
+11.144384 1.394500 -12.140029
+10.658383 -0.856432 -11.923226
+10.727083 -0.854410 -11.493964
+10.436366 -0.893559 -11.818480
+10.436366 -0.893559 -11.818480
+10.727083 -0.854410 -11.493964
+10.525124 -0.946291 -11.419692
+10.693546 -0.680646 -10.473931
+11.038191 -0.544074 -10.416205
+10.858494 -0.326248 -10.609821
+10.858494 -0.326248 -10.609821
+11.038191 -0.544074 -10.416205
+11.199781 -0.434249 -10.663078
+10.658383 -0.856432 -11.923226
+10.436366 -0.893559 -11.818480
+10.362848 -0.083053 -11.928698
+10.362848 -0.083053 -11.928698
+10.436366 -0.893559 -11.818480
+10.194363 -0.007769 -11.774280
+11.747262 0.753182 -10.102404
+11.222237 0.012340 -10.461761
+11.809844 0.707208 -10.349498
+11.809844 0.707208 -10.349498
+11.222237 0.012340 -10.461761
+11.470181 -0.169740 -10.655099
+10.523297 0.494630 -11.892694
+10.333101 0.634302 -11.770243
+11.082579 1.439601 -11.890802
+11.082579 1.439601 -11.890802
+10.333101 0.634302 -11.770243
+10.779404 1.660834 -11.818799
+10.858494 -0.326248 -10.609821
+11.199781 -0.434249 -10.663078
+11.222237 0.012340 -10.461761
+11.222237 0.012340 -10.461761
+11.199781 -0.434249 -10.663078
+11.470181 -0.169740 -10.655099
+10.362848 -0.083053 -11.928698
+10.194363 -0.007769 -11.774280
+10.523297 0.494630 -11.892694
+10.523297 0.494630 -11.892694
+10.194363 -0.007769 -11.774280
+10.333101 0.634302 -11.770243
+11.747262 0.753182 -10.102404
+11.809844 0.707208 -10.349498
+11.582202 1.023602 -10.610466
+11.582202 1.023602 -10.610466
+11.809844 0.707208 -10.349498
+11.644742 0.977662 -10.857664
+10.664152 -0.750876 -10.947916
+10.994871 -0.588521 -10.863322
+10.693546 -0.680646 -10.473931
+10.693546 -0.680646 -10.473931
+10.994871 -0.588521 -10.863322
+11.038191 -0.544074 -10.416205
+11.582202 1.023602 -10.610466
+11.644742 0.977662 -10.857664
+11.265656 1.292701 -11.409509
+11.265656 1.292701 -11.409509
+11.644742 0.977662 -10.857664
+11.327702 1.247172 -11.657745
+10.727083 -0.854410 -11.493964
+11.061289 -0.694225 -11.409364
+10.664152 -0.750876 -10.947916
+10.664152 -0.750876 -10.947916
+11.061289 -0.694225 -11.409364
+10.994871 -0.588521 -10.863322
 uv_list 252
 0.437364 0.000000 0.000000
 0.437364 0.068201 0.000000
@@ -6004,26 +6004,26 @@ pos_list 60
 -0.000000 0.511225 -0.403272
 -0.734637 0.511225 -0.403272
 -0.000000 0.511225 -0.403272
--0.816592 -0.338332 -0.472984
--0.816592 -0.338332 -0.472984
+-0.816592 -0.338333 -0.472984
+-0.816592 -0.338333 -0.472984
 -0.000000 0.511225 -0.403272
-0.000000 -0.591495 -0.472984
--0.816592 -0.338332 -0.472984
-0.000000 -0.591495 -0.472984
+0.000000 -0.591494 -0.472984
+-0.816592 -0.338333 -0.472984
+0.000000 -0.591494 -0.472984
 -0.816592 -0.338333 0.305625
 -0.816592 -0.338333 0.305625
-0.000000 -0.591495 -0.472984
+0.000000 -0.591494 -0.472984
 0.000001 -0.591495 0.305625
 0.816592 -0.338332 0.305625
 0.816592 -0.338332 -0.472984
 0.734637 0.511225 0.197223
 0.734637 0.511225 0.197223
 0.816592 -0.338332 -0.472984
-0.734637 0.511226 -0.403272
+0.734637 0.511225 -0.403272
 -0.816592 -0.338333 0.305625
 -0.734637 0.511225 0.197223
--0.816592 -0.338332 -0.472984
--0.816592 -0.338332 -0.472984
+-0.816592 -0.338333 -0.472984
+-0.816592 -0.338333 -0.472984
 -0.734637 0.511225 0.197223
 -0.734637 0.511225 -0.403272
 0.000001 -0.591495 0.305625
@@ -6034,21 +6034,21 @@ pos_list 60
 0.734637 0.511225 0.197223
 -0.000000 0.511225 -0.403272
 0.000000 0.511225 0.197223
-0.734637 0.511226 -0.403272
-0.734637 0.511226 -0.403272
+0.734637 0.511225 -0.403272
+0.734637 0.511225 -0.403272
 0.000000 0.511225 0.197223
 0.734637 0.511225 0.197223
-0.000000 -0.591495 -0.472984
+0.000000 -0.591494 -0.472984
 -0.000000 0.511225 -0.403272
 0.816592 -0.338332 -0.472984
 0.816592 -0.338332 -0.472984
 -0.000000 0.511225 -0.403272
-0.734637 0.511226 -0.403272
+0.734637 0.511225 -0.403272
 0.000001 -0.591495 0.305625
-0.000000 -0.591495 -0.472984
+0.000000 -0.591494 -0.472984
 0.816592 -0.338332 0.305625
 0.816592 -0.338332 0.305625
-0.000000 -0.591495 -0.472984
+0.000000 -0.591494 -0.472984
 0.816592 -0.338332 -0.472984
 uv_list 60
 0.497950 0.000000 0.000000
@@ -6261,7 +6261,7 @@ mtl "liquid_material_for_test"
 ##shape name=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
 ##shape full path name=|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1
 element "|Man:JAP|Man:JapCnt|Man:HipsEff|Man:hikFloorContactMarker1" 
-transform 0.114315 0.0940984 0.988978 0    -0.298794 0.952667 -0.0561061 0    -0.947446 -0.289087 0.13702 0    20.2408 7.66879 -20.2035 1 
+transform 0.114313 0.0941001 0.988978 0    -0.298795 0.952667 -0.0561084 0    -0.947446 -0.289087 0.137019 0    20.2239 7.66037 -20.1866 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6279,7 +6279,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:leftHandPinky3|Man:pCube11|Man:pCubeShape11" 
-transform 0.106121 0.0153172 0.0687206 0    0.0601683 -0.00649254 -0.0914669 0    -0.00749762 0.108685 -0.0126468 0    20.6154 8.23761 -17.8366 1 
+transform 0.106083 0.0153266 0.0687764 0    0.0602168 -0.00648365 -0.0914356 0    -0.00750258 0.108684 -0.0126477 0    20.5974 8.22873 -17.8187 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6297,7 +6297,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:leftHandPinky2|Man:pCube10|Man:pCubeShape10" 
-transform 0.114928 -0.000395479 -0.0746776 0    -0.0639145 -0.0136311 -0.0982919 0    -0.00714334 0.117244 -0.0116145 0    20.4203 8.22082 -17.7833 1 
+transform 0.114914 -0.000390093 -0.0746996 0    -0.0639322 -0.0136423 -0.0982789 0    -0.00715551 0.117243 -0.0116199 0    20.4023 8.21193 -17.7654 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6315,7 +6315,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint13|Man:leftHandPinky1|Man:pCube9|Man:pCubeShape9" 
-transform -0.122082 -0.0679492 -0.256208 0    -0.120853 -0.00635488 0.0592715 0    -0.01938 0.130897 -0.0254809 0    20.4451 8.26761 -17.5421 1 
+transform -0.122032 -0.0679678 -0.256227 0    -0.120862 -0.00636735 0.0592513 0    -0.0193904 0.130894 -0.0254866 0    20.427 8.25873 -17.5242 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6333,7 +6333,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:leftHandRing3|Man:pCube12|Man:pCubeShape12" 
-transform 0.109118 0.0171538 0.0730053 0    0.0640411 -0.00695707 -0.0940847 0    -0.00835334 0.112849 -0.0140305 0    20.4372 8.3793 -17.9144 1 
+transform 0.109072 0.0171647 0.0730705 0    0.0640973 -0.00694184 -0.0940475 0    -0.00836121 0.112849 -0.0140281 0    20.4192 8.3704 -17.8966 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6351,7 +6351,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:leftHandRing2|Man:pCube13|Man:pCubeShape13" 
-transform 0.0988708 -0.0104058 -0.100054 0    -0.0863708 -0.0181286 -0.0834638 0    -0.00670226 0.119774 -0.0190797 0    20.2726 8.38527 -17.8218 1 
+transform 0.0988463 -0.0104043 -0.100079 0    -0.086391 -0.0181324 -0.0834421 0    -0.00671053 0.119774 -0.0190797 0    20.2546 8.37637 -17.804 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6369,7 +6369,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint18|Man:leftHandRing1|Man:pCube14|Man:pCubeShape14" 
-transform -0.164352 -0.089668 -0.338094 0    -0.121488 0.00315035 0.0582213 0    -0.0107524 0.13104 -0.029527 0    20.3758 8.44327 -17.5794 1 
+transform -0.16428 -0.0896826 -0.338125 0    -0.121499 0.003138 0.0581985 0    -0.0107598 0.131039 -0.0295284 0    20.3578 8.43439 -17.5615 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6387,7 +6387,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:leftHandMiddle3|Man:pCube15|Man:pCubeShape15" 
-transform 0.16709 0.0134934 0.0111091 0    0.00842147 -0.0132143 -0.110615 0    -0.00801051 0.110572 -0.013819 0    20.2445 8.57907 -18.0094 1 
+transform 0.167085 0.0135005 0.0111795 0    0.0084685 -0.0132123 -0.110612 0    -0.00800949 0.110572 -0.0138207 0    20.2264 8.57019 -17.9915 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6405,7 +6405,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:leftHandMiddle2|Man:pCube16|Man:pCubeShape16" 
-transform 0.0694859 -0.00551766 -0.117437 0    -0.100941 -0.011933 -0.0591646 0    -0.00787113 0.116905 -0.0101499 0    20.1343 8.57573 -17.8603 1 
+transform 0.069456 -0.00551927 -0.117454 0    -0.100955 -0.0119361 -0.0591385 0    -0.00787571 0.116905 -0.0101507 0    20.1163 8.56685 -17.8424 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6423,7 +6423,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint23|Man:leftHandMiddle1|Man:pCube17|Man:pCubeShape17" 
-transform -0.236825 -0.0535281 -0.305213 0    -0.105932 -0.00528418 0.083123 0    -0.0155438 0.133375 -0.0113303 0    20.3143 8.62285 -17.6006 1 
+transform -0.236776 -0.0535335 -0.30525 0    -0.105945 -0.00528866 0.0831065 0    -0.0155467 0.133375 -0.0113314 0    20.2963 8.61397 -17.5827 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6441,7 +6441,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:leftHandIndex3|Man:pCube18|Man:pCubeShape18" 
-transform 0.0988122 -0.00118549 -0.0943219 0    -0.0807664 -0.0136862 -0.0844393 0    -0.00871692 0.116843 -0.0106004 0    20.0387 8.82025 -17.8579 1 
+transform 0.0988615 -0.00118077 -0.0942703 0    -0.0807222 -0.0136817 -0.0844823 0    -0.00871118 0.116843 -0.010599 0    20.0206 8.81137 -17.84 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6459,7 +6459,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:leftHandIndex2|Man:pCube19|Man:pCubeShape19" 
-transform 0.0216642 -0.00175236 -0.137616 0    -0.117396 -0.0167405 -0.0182679 0    -0.0163057 0.1188 -0.00407968 0    19.9903 8.8266 -17.6502 1 
+transform 0.0216191 -0.00176111 -0.137623 0    -0.117404 -0.0167325 -0.0182287 0    -0.016298 0.118801 -0.00408049 0    19.9723 8.81773 -17.6324 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6477,7 +6477,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:joint28|Man:leftHandIndex1|Man:pCube20|Man:pCubeShape20" 
-transform -0.369943 -0.0144798 -0.123415 0    -0.0428056 0.00562895 0.127652 0    -0.0029562 0.134545 -0.00692421 0    20.2469 8.83678 -17.5349 1 
+transform -0.36993 -0.0144705 -0.123453 0    -0.0428188 0.00563223 0.127647 0    -0.0029514 0.134545 -0.00692661 0    20.2289 8.82791 -17.517 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6495,7 +6495,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:leftHandThumb3|Man:pCube21|Man:pCubeShape21" 
-transform -0.270271 -0.0207444 0.0383076 0    0.0153875 0.0140422 0.116167 0    -0.0107676 0.11684 -0.0126973 0    20.2068 8.98119 -17.6321 1 
+transform -0.270268 -0.0208161 0.0382885 0    0.0153767 0.0140339 0.11617 0    -0.0107961 0.116839 -0.0126857 0    20.1887 8.97236 -17.6142 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6513,7 +6513,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:leftHandThumb2|Man:pCube22|Man:pCubeShape22" 
-transform -0.269865 0.000498005 0.0446517 0    0.0218957 0.0145012 0.132171 0    -0.00212654 0.133972 -0.0143466 0    20.5242 8.99601 -17.6798 1 
+transform -0.269864 0.000494935 0.0446539 0    0.0218968 0.0144938 0.132172 0    -0.00212694 0.133973 -0.014339 0    20.5062 8.98721 -17.6619 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6531,7 +6531,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:leftHandThumb1|Man:pCube23|Man:pCubeShape23" 
-transform -0.37145 0.0573366 -0.00639727 0    0.000307113 0.0169059 0.13369 0    0.0206795 0.132101 -0.0167525 0    20.9215 8.95859 -17.7075 1 
+transform -0.371442 0.0573851 -0.0064005 0    0.000307492 0.0169016 0.133691 0    0.0206969 0.132099 -0.016748 0    20.9035 8.94974 -17.6896 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6549,7 +6549,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube25|Man:pCubeShape25" 
-transform -0.204612 -0.0149824 0.00231725 0    0.000272509 0.0169546 0.133684 0    -0.0271678 0.363897 -0.0460962 0    21.3079 8.65383 -17.7115 1 
+transform -0.204612 -0.0149828 0.00231658 0    0.000272045 0.0169545 0.133684 0    -0.0271683 0.363897 -0.046096 0    21.2898 8.64496 -17.6936 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6567,7 +6567,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:leftForearm|Man:leftForeArmRoll|Man:leftHand|Man:pCube24|Man:pCubeShape24" 
-transform -0.669595 0.00518665 0.0629075 0    0.0226058 0.0302922 0.238122 0    -0.000997013 0.239185 -0.0303329 0    20.8726 8.56803 -17.5055 1 
+transform -0.669595 0.00518537 0.0629053 0    0.022605 0.0302921 0.238122 0    -0.000997352 0.239185 -0.0303326 0    20.8546 8.55915 -17.4876 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6585,7 +6585,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:leftShoulder|Man:leftArm|Man:pCube7|Man:pCubeShape7" 
-transform 0.596331 -0.379786 0.173328 0    -0.157933 0.074533 0.706677 0    -0.386442 -0.616521 -0.0213403 0    21.2952 11.8212 -18.123 1 
+transform 0.59633 -0.379787 0.173327 0    -0.157935 0.0745284 0.706677 0    -0.386442 -0.61652 -0.0213457 0    21.2783 11.8127 -18.1062 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6606,7 +6606,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:rightHandPinky3|Man:pCube11|Man:pCubeShape11" 
-transform 0.0476041 0.117801 0.00869274 0    0.0797801 -0.0270577 -0.0702253 0    0.0631112 -0.0316956 0.0839103 0    16.2219 8.9928 -23.1372 1 
+transform 0.0475917 0.117805 0.008708 0    0.0797828 -0.02704 -0.070229 0    0.0631148 -0.0316999 0.083906 0    16.2041 8.98398 -23.1193 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6627,7 +6627,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:rightHandPinky2|Man:pCube10|Man:pCubeShape10" 
-transform 0.111726 0.0394524 -0.0688936 0    0.00977437 -0.108212 -0.0461172 0    0.0676678 -0.0326797 0.0910236 0    16.0614 8.88416 -23.0698 1 
+transform 0.111721 0.0394554 -0.0688992 0    0.00977422 -0.108211 -0.0461187 0    0.0676733 -0.0326791 0.0910197 0    16.0436 8.87534 -23.0519 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6648,7 +6648,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint13|Man:rightHandPinky1|Man:pCube9|Man:pCubeShape9" 
-transform 0.072806 -0.222093 -0.17475 0    -0.104707 -0.0709301 0.0465227 0    0.0778795 -0.0510928 0.0973819 0    15.9404 9.02776 -22.902 1 
+transform 0.0727827 -0.222101 -0.174749 0    -0.104706 -0.0709246 0.0465336 0    0.0778855 -0.051093 0.097377 0    15.9231 9.01895 -22.8841 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6669,7 +6669,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:rightHandRing3|Man:pCube12|Man:pCubeShape12" 
-transform 0.0496119 0.122404 0.00931321 0    0.0828121 -0.0279944 -0.0732125 0    0.0657139 -0.0332578 0.0870471 0    16.2568 8.77092 -23.0394 1 
+transform 0.0496583 0.122389 0.00926157 0    0.0827866 -0.0280492 -0.0732203 0    0.06572 -0.0332524 0.0870446 0    16.239 8.76213 -23.0215 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6690,7 +6690,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:rightHandRing2|Man:pCube13|Man:pCubeShape13" 
-transform 0.111302 0.0122349 -0.0857714 0    -0.0143357 -0.115411 -0.0350657 0    0.073223 -0.0363881 0.089828 0    16.1044 8.70682 -22.9408 1 
+transform 0.111304 0.012278 -0.0857628 0    -0.0143024 -0.115409 -0.0350841 0    0.0732274 -0.036382 0.0898269 0    16.0866 8.69798 -22.9228 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6711,7 +6711,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint18|Man:rightHandRing1|Man:pCube14|Man:pCubeShape14" 
-transform 0.0927424 -0.294352 -0.232627 0    -0.100156 -0.0731743 0.0526605 0    0.084154 -0.0476498 0.0938431 0    16.0271 8.9137 -22.7738 1 
+transform 0.0926969 -0.294394 -0.232592 0    -0.100158 -0.073158 0.0526795 0    0.0841578 -0.0476436 0.0938428 0    16.0098 8.90487 -22.7558 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6732,7 +6732,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:rightHandMiddle3|Man:pCube15|Man:pCubeShape15" 
-transform 0.101289 0.131437 -0.0262598 0    0.0615296 -0.0614323 -0.0701533 0    0.0644869 -0.0326781 0.0851756 0    16.3514 8.56039 -22.8957 1 
+transform 0.101288 0.131438 -0.0262579 0    0.0615303 -0.0614308 -0.070154 0    0.0644871 -0.0326787 0.0851752 0    16.3336 8.55158 -22.8778 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6753,7 +6753,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:rightHandMiddle2|Man:pCube16|Man:pCubeShape16" 
-transform 0.108999 -0.00882798 -0.0818008 0    -0.0247227 -0.113095 -0.0207375 0    0.066402 -0.0313601 0.0918648 0    16.1937 8.55594 -22.7944 1 
+transform 0.108999 -0.00882706 -0.0818014 0    -0.0247221 -0.113095 -0.0207378 0    0.0664026 -0.03136 0.0918644 0    16.1759 8.54713 -22.7765 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6774,7 +6774,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint23|Man:rightHandMiddle1|Man:pCube17|Man:pCubeShape17" 
-transform 0.0781375 -0.334925 -0.183919 0    -0.110267 -0.0554347 0.0541021 0    0.0726027 -0.0411604 0.1058 0    16.1185 8.82601 -22.6327 1 
+transform 0.0781389 -0.334923 -0.183921 0    -0.110266 -0.0554358 0.0541029 0    0.072604 -0.04116 0.105799 0    16.1006 8.81721 -22.6148 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6795,7 +6795,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:rightHandIndex3|Man:pCube18|Man:pCubeShape18" 
-transform 0.108107 0.0698558 -0.0457697 0    0.0340089 -0.0936349 -0.0625813 0    0.0633732 -0.0381303 0.0914902 0    16.2293 8.42309 -22.5833 1 
+transform 0.108139 0.0697754 -0.045817 0    0.0339407 -0.0936775 -0.0625547 0    0.0633695 -0.0381349 0.0914908 0    16.2114 8.41434 -22.5653 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6816,7 +6816,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:rightHandIndex2|Man:pCube19|Man:pCubeShape19" 
-transform 0.0944205 -0.0599562 -0.0830704 0    -0.0659665 -0.100186 -0.00267059 0    0.0585861 -0.0411422 0.0962853 0    16.0792 8.4893 -22.4573 1 
+transform 0.09445 -0.059916 -0.0830659 0    -0.0659417 -0.100201 -0.00270312 0    0.0585788 -0.0411479 0.0962873 0    16.0613 8.48052 -22.4393 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6837,7 +6837,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:joint28|Man:rightHandIndex1|Man:pCube20|Man:pCubeShape20" 
-transform -0.11822 -0.369925 -0.0384469 0    -0.103657 0.0245488 0.0825322 0    0.0758144 -0.0352135 0.105693 0    16.1423 8.76282 -22.413 1 
+transform -0.11829 -0.369906 -0.0384102 0    -0.10365 0.0245759 0.082532 0    0.0758099 -0.035218 0.105695 0    16.1245 8.75401 -22.395 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6858,7 +6858,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:rightHandThumb3|Man:pCube21|Man:pCubeShape21" 
-transform -0.148138 -0.229655 0.0160507 0    -0.0737103 0.0528256 0.0755316 0    0.0664602 -0.0365505 0.0904205 0    16.2996 8.66041 -22.357 1 
+transform -0.1482 -0.229621 0.0159754 0    -0.0737011 0.0528232 0.0755422 0    0.066445 -0.0365939 0.0904141 0    16.2819 8.65156 -22.339 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6879,7 +6879,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:rightHandThumb2|Man:pCube22|Man:pCubeShape22" 
-transform -0.140607 -0.231447 0.0385102 0    -0.0828794 0.0644109 0.0845054 0    0.0805713 -0.0317704 0.103237 0    16.4701 8.93128 -22.3862 1 
+transform -0.140471 -0.2315 0.0386839 0    -0.0828703 0.0644075 0.0845169 0    0.0806378 -0.0316833 0.103212 0    16.4523 8.92245 -22.3683 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6900,7 +6900,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:rightHandThumb1|Man:pCube23|Man:pCubeShape23" 
-transform -0.114206 -0.352957 0.0606761 0    -0.091416 0.0447606 0.0883093 0    0.0901436 -0.0120742 0.0994347 0    16.6302 9.2921 -22.4511 1 
+transform -0.11428 -0.352947 0.060593 0    -0.0914108 0.0447594 0.0883152 0    0.0901368 -0.0121143 0.099436 0    16.6124 9.28329 -22.4332 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6921,7 +6921,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube25|Man:pCubeShape25" 
-transform -0.0906004 -0.184075 -0.00198278 0    -0.0915942 0.0441293 0.0884422 0    0.215413 -0.109014 0.277484 0    16.6269 9.70166 -22.7235 1 
+transform -0.0906013 -0.184075 -0.00198076 0    -0.0915931 0.0441303 0.0884429 0    0.215415 -0.109013 0.277482 0    16.609 9.69284 -22.7056 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6942,7 +6942,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:rightForearm|Man:rightForeArmRoll|Man:rightHand|Man:pCube24|Man:pCubeShape24" 
-transform -0.309606 -0.593031 0.0692786 0    -0.154348 0.0988777 0.156622 0    0.148286 -0.0562001 0.181613 0    16.2543 9.39093 -22.6605 1 
+transform -0.309608 -0.593029 0.0692853 0    -0.154346 0.0988793 0.156623 0    0.148288 -0.0561998 0.181612 0    16.2365 9.38211 -22.6426 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6963,7 +6963,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:spine|Man:spine1|Man:xxy|Man:xxx|Man:rightShoulder|Man:rightArm|Man:pCube7|Man:pCubeShape7" 
-transform -0.605771 -0.340816 -0.216278 0    -0.364483 0.29425 0.557189 0    0.173448 -0.571972 0.415517 0    19.3015 13.3291 -22.1434 1 
+transform -0.605773 -0.340815 -0.216274 0    -0.364477 0.29425 0.557193 0    0.173451 -0.571973 0.415515 0    19.2847 13.3206 -22.1265 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6981,7 +6981,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:joint86|Man:leftFootIndex1|Man:pCube4|Man:pCubeShape4" 
-transform 0.0793739 0.086206 0.99311 0    -0.878669 -0.464457 0.110544 0    0.470787 -0.88139 0.0388807 0    22.0562 1.84886 -18.6163 1 
+transform 0.0793811 0.0861972 0.993111 0    -0.878675 -0.464446 0.110546 0    0.470775 -0.881397 0.0388711 0    22.0534 1.85464 -18.6155 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -6999,7 +6999,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:leftFoot|Man:pCube3|Man:pCubeShape3" 
-transform 0.0246522 0.000890179 0.999696 0    -0.997494 -0.0663214 0.024657 0    0.0663231 -0.997798 -0.00074702 0    21.7152 3.04942 -18.662 1 
+transform 0.0246459 0.000889704 0.999696 0    -0.997495 -0.0663046 0.0246506 0    0.0663064 -0.997799 -0.000746662 0    21.7124 3.05515 -18.6612 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7017,7 +7017,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:leftLeg|Man:pCube2|Man:pCubeShape2" 
-transform 0.109019 -0.0104616 0.993985 0    -0.897353 0.429141 0.102938 0    -0.427637 -0.903177 0.037397 0    18.8117 4.58234 -18.4088 1 
+transform 0.111803 -0.0106329 0.993674 0    -0.899882 0.423111 0.105778 0    -0.421559 -0.906015 0.0377368 0    18.8035 4.57068 -18.4009 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7035,7 +7035,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:leftUpLeg|Man:pCube1|Man:pCubeShape1" 
-transform 0.187721 0.123226 0.974462 0    0.584112 0.783602 -0.211615 0    -0.789667 0.608919 0.0751209 0    20.0499 7.44054 -19.0275 1 
+transform 0.188403 0.120594 0.97466 0    0.582163 0.785557 -0.20973 0    -0.790943 0.606924 0.0777961 0    20.0339 7.43111 -19.0113 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7056,7 +7056,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:joint87|Man:rightFootIndex1|Man:pCube4|Man:pCubeShape4" 
-transform 0.402165 6.19258e-005 -0.915567 0    -0.000939781 1 -0.000345164 0    -0.915567 -0.000999245 -0.402164 0    20.4278 0.503495 -20.5493 1 
+transform 0.402207 6.82966e-005 -0.915549 0    -0.00100845 0.999999 -0.000368421 0    -0.915548 -0.00107146 -0.402207 0    20.4261 0.503074 -20.5474 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7077,7 +7077,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:rightFoot|Man:pCube3|Man:pCubeShape3" 
-transform 0.375 -0.000319282 -0.927025 0    0.00041892 1 -0.000174954 0    -0.927025 0.000322741 -0.375 0    21.4952 0.502807 -20.0997 1 
+transform 0.375171 -0.000212043 -0.926955 0    0.000377096 1 -7.6128e-005 0    -0.926955 0.00032099 -0.375171 0    21.4935 0.502343 -20.0977 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7098,7 +7098,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:rightLeg|Man:pCube2|Man:pCubeShape2" 
-transform 0.467529 0.00890703 -0.883933 0    -0.349057 0.92055 -0.175347 0    -0.812143 -0.390523 -0.433493 0    20.7986 3.384 -20.4585 1 
+transform 0.466429 0.0142812 -0.884444 0    -0.357409 0.917659 -0.173669 0    -0.809138 -0.397112 -0.433127 0    20.7743 3.37462 -20.4527 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7119,7 +7119,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:rightUpLeg|Man:pCube1|Man:pCubeShape1" 
-transform 0.129554 -0.152807 -0.979727 0    -0.0968645 0.981378 -0.165873 0    -0.98683 -0.11639 -0.11234 0    20.0991 7.11389 -21.1466 1 
+transform 0.129302 -0.150535 -0.980112 0    -0.0935523 0.982149 -0.163189 0    -0.987182 -0.112792 -0.112911 0    20.0807 7.10515 -21.131 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
@@ -7140,7 +7140,7 @@ mtl "Man:lambert3SG"
 ##shape name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 ##shape full path name=|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5
 element "|Man:JAP|Man:JapSkeleton|Man:hips|Man:pCube5|Man:pCubeShape5" 
-transform 0.208707 0.171797 1.8056 0    -0.545515 1.7393 -0.102434 0    -1.72977 -0.527792 0.250161 0    19.976 8.34416 -20.2064 1 
+transform 0.208704 0.171801 1.8056 0    -0.545515 1.7393 -0.102438 0    -1.72977 -0.527793 0.250158 0    19.9591 8.33573 -20.1895 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 
