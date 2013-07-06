@@ -7818,7 +7818,7 @@ bool liqRibTranslator::canExport()
 	if( liqglo.m_displays[0].name.length()==0 )
 	{
 		assert(0&&"liqglo.m_displays[ 0 ].name is empty. Please set the output image and render the scene again.");
-		liquidMessage2(messageError,"liqglo.m_displays[ 0 ].name is empty. Please set the output image and render the scene again.");
+		liquidMessage2(messageInfo,"liqglo.m_displays[ 0 ].name is empty. Please set the output image and render the scene again.");
 		return false;
 	}
 
