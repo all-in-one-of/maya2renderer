@@ -570,9 +570,9 @@ void ConvertShadingNetwork::outputShaderMethod()
 
 }
 //
-void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString &mayaplug)
+void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode)
 {
-	CM_TRACE_FUNC("ConvertShadingNetwork::convertShadingNetworkToRSL("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
+	CM_TRACE_FUNC("ConvertShadingNetwork::convertShadingNetworkToRSL("<<startingNode.asChar()<<")");
 
 	MString cmd;
 
@@ -580,7 +580,7 @@ void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNo
 	MIntArray numConnections;
 
 	liquidmaya::ShaderOutputMgr::getSingletonPtr()->
-		initShaderData(startingNode, mayaplug);
+		initShaderData(startingNode);
 
 	getUpstreamConvertibleNodes(startingNode, nodes, numConnections);
 	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
@@ -691,7 +691,7 @@ void ConvertShadingNetwork::exportShaderInShadingGroup(
 }
 // export shader node $node
 // $node ---($node islinked to)----> $desPlug
-void ConvertShadingNetwork::_exportShaderNode(const MString& node, const MString& desPlug)
+void ConvertShadingNetwork::_exportShaderNode(const MString& node)
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::exportShaderNode("<<node.asChar()<<")");
 
@@ -710,7 +710,7 @@ void ConvertShadingNetwork::_exportShaderNode(const MString& node, const MString
 			liqShader &currentShader = liqShaderFactory::instance().getShader( node.asChar() );
 			currentShader.write();
 		}else{
-			convertShadingNetworkToRSL(node, desPlug);
+			convertShadingNetworkToRSL(node);
 		}
 
 		//3.end
@@ -732,7 +732,7 @@ void ConvertShadingNetwork::_exportShaderNodeInPlug(const MString& node, const M
 	assert(srcNodes.length() == 1);
 	const MString srcNode(srcNodes[0]);
 
-	_exportShaderNode(srcNode, plug);
+	_exportShaderNode(srcNode);
 
 }
 //
@@ -747,7 +747,7 @@ void ConvertShadingNetwork::exportShaderNodeInPlug(const MString& node, const MS
 	{
 		_exportShaderNodeInPlug(node, plug);
 	}else{
-		liquidMessage2(messageError, "[%s.%s] not exist, skip the export of it.", node.asChar(), plug.asChar());
+		liquidMessage2(messageInfo, "[%s.%s] not exist, skip the export of it.", node.asChar(), plug.asChar());
 	}
 }
 //

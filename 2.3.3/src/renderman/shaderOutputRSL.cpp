@@ -348,11 +348,11 @@ Visitor::~Visitor()
 
 }
 //
-void Visitor::initShaderData(const MString& startingNode, const MString &mayaplug)
+void Visitor::initShaderData(const MString& startingNode)
 {
-	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
+	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<")");
 
-	shaderType = getRSLShaderType(mayaplug);
+	shaderType = getRSLShaderType(startingNode);
 
 	shaderData.setLength(3);
 	shaderData[SHADER_METHOD_VARIAVLES_I] = "";// shader method variables
@@ -604,19 +604,46 @@ void _outputShadingGroup(const char* shadingGroupNode)
 		RiArchiveRecord(RI_COMMENT, "no displacement shader.");
 	}
 }
-MString Visitor::getRSLShaderType(const MString &mayaplug)
+MString Visitor::getRSLShaderType(const MString &startingNode)
 {
 	MString shaderType;
 
-	if(mayaplug=="surfaceShader"){
-		shaderType = "surface";
-	}else if(mayaplug=="displacementShader"){
-		shaderType = "displacement";
-	}else if(mayaplug=="volumeShader"){
-		shaderType = "volume";
-	}else{
-		liquidMessage2(messageError,"unkown shader type for plug [%s]", mayaplug.asChar());
+	MString nodeType(getNodeType(startingNode));
+
+	//liquidShader
+	if(nodeType=="liquidShader"){
+		IfMErrorWarn(MGlobal::executeCommand("getAttr \""+startingNode+".rmanShaderType\";", shaderType));
 	}
+	//liquid Surface/Displacement/Volume/Light
+	else if(nodeType=="liquidSurface"){
+		shaderType = "surface";
+	}
+	else if(nodeType=="liquidDisplacement"){
+		shaderType = "displacement";
+	}
+	else if(nodeType=="liquidVolume"){
+		shaderType = "volume";
+	}
+	else if(nodeType=="liquidLight"){
+		shaderType = "light";
+	}
+	//maya shader
+	else{
+		if(renderman::isClassification(nodeType, "shader/surface")){
+			shaderType = "surface";
+		}else if(renderman::isClassification(nodeType, "shader/displacement")){
+			shaderType = "displacement";
+		}else if(renderman::isClassification(nodeType, "shader/volume")){
+			shaderType = "volume";
+		}else if(renderman::isClassification(nodeType, "light")){
+			shaderType = "light";
+		}else if(renderman::isClassification(nodeType, "imageplane")){
+			shaderType = "imager";
+		}else{
+			liquidMessage2(messageError,"don't know how to translate shader type[%s] of node[%s] to renderman", nodeType.asChar(), startingNode.asChar());
+		}
+	}
+
 	return shaderType;
 }
 void Visitor::defineAOVVariables()

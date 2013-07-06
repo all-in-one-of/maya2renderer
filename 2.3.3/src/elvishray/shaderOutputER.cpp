@@ -326,9 +326,9 @@ Visitor::~Visitor()
 
 }
 //
-void Visitor::initShaderData(const MString& startingNode, const MString &mayaplug)
+void Visitor::initShaderData(const MString& startingNode)
 {
-	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<","<<mayaplug.asChar()<<")");
+	CM_TRACE_FUNC("Visitor::initShaderData("<<startingNode.asChar()<<")");
 
 }
 void Visitor::preOutput(const char* shaderNodeName)

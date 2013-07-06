@@ -849,5 +849,12 @@ namespace renderman
 		IfMErrorWarn(MGlobal::executeCommand("listConnections -source on -destination off -plugs off \""+MString(nodename)+".normalCamera\"", srcNode));
 		return (srcNode.length()>0)? 1 : 0;
 	}
-
+	//
+	bool isClassification(const MString &nodeType, const MString &classification)
+	{
+		int ret = 0;
+		IfMErrorWarn(MGlobal::executeCommand("getClassification -satisfies \""+classification+"\" \""+nodeType+"\";", ret));
+		
+		return (ret!=0);
+	}
 }

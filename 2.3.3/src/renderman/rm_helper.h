@@ -53,6 +53,8 @@ namespace renderman
 	int isPlugConnectedIn(const MString &nodename, const MString &plugname);
 	//
 	int isBumpMapConnected(const char* nodename);
+	//
+	bool isClassification(const MString &nodeType, const MString &classification);
 
 }
 
