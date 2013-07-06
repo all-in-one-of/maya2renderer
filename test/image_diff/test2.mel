@@ -13,6 +13,12 @@ global proc MainEntrance()
 //if( $retButton == "Quit" )
 //    return;
 loadPlugin liquidDLL;
+source er_RendererName.mel;
+string $ername = er_getRendererName();
+loadPlugin $ername;
+loadPlugin renderman;
+loadPlugin eiSHADER_user_mayaplugin;
+loadPlugin rmSHADER_user_mayaplugin;
 
 // ---- load elvishray plugin ----
 string $ERName = "ElvishRender";//modefy this plugin to render name of Elvishray

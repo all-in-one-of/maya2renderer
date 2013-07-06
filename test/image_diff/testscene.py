@@ -227,6 +227,9 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/stereo_camera/stereo_camera.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+    
+    testFile=LIQUID_ROOT+"/test/unittest/rm/shader_user/occlight/rmOccLight.ma"
+    MyTestOne.test_one_scene(testFile, "renderman")
     '''
     
 

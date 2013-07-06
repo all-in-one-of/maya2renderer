@@ -1,0 +1,33 @@
+global proc AErmOccLightTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AErmOccLightTemplate("+$nodeName+")");
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    //--------------------------------------------------
+			editorTemplate -ccu "liquidShaderPickerNew" "liquidShaderPickerReplace" "rmanShaderLong";
+			//editorTemplate -addControl "evaluateAtEveryFrame";
+			//--------------------------------------------------
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+				editorTemplate -label "Kocc"		-addDynamicControl "Kocc";
+				editorTemplate -label "samples"		-addDynamicControl "samples";
+				editorTemplate -label "maxdist"		-addDynamicControl "maxdist";
+				editorTemplate -label "distribution" -addDynamicControl "distribution";
+				editorTemplate -label "__nonspecular" -addDynamicControl "__nonspecular";
+			editorTemplate -endLayout;
+
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

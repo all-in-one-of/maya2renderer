@@ -48,7 +48,7 @@
 #include "rm_user_nodeId.h"
 #include "rmFlat/rmFlat_node_visitor.h"
 #include "rmPhysicalsun/rmPhysicalsun_node_visitor.h"
-
+#include "rmOccLight/rmOccLight_node_visitor.h"
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
 PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 //  Description:
@@ -61,6 +61,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 
 	renderman::FlatNodeVisitor::regist(plugin);
 	renderman::PhysicalsunNodeVisitor::regist(plugin);
+	renderman::OccLightNodeVisitor::regist(plugin);
 
 	return MS::kSuccess;
 }
@@ -72,6 +73,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 
+	renderman::OccLightNodeVisitor::unregist(plugin);
 	renderman::PhysicalsunNodeVisitor::unregist(plugin);
 	renderman::FlatNodeVisitor::unregist(plugin);
 	

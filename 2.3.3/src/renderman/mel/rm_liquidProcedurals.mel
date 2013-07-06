@@ -13,7 +13,9 @@ global proc liquidAssignShaderToSelected_renderman(string $node)
 	{
 	}
 	//light
-	else if( $nodeType == "rmPhysicalsun" )
+	else if( $nodeType == "rmPhysicalsun" 
+		  || $nodeType == "rmOccLight" 
+		   )
 	{
 		string $selected[] = `ls -l -lights -dag -sl`;
 

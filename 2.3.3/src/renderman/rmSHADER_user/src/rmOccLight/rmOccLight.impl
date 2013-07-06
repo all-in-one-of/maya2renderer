@@ -1,0 +1,33 @@
+/* renderman shader */
+#ifndef __rmOccLight_h
+#define __rmOccLight_h
+
+void rmOccLight_impl(
+	float Kocc/* = 1.0*/;
+	float samples/* = 64*/;
+	float maxdist/* = 1e36*/;
+	string distribution/* = "cosine"*/;
+	float __nonspecular/* = 1*/; 
+)
+{
+	extern normal Ns;
+	extern vector I;
+	extern point  Ps;
+	extern color  Cl;
+
+	normal shading_normal = faceforward( Ns, I );
+
+	illuminate( Ps + shading_normal ) /* shade all surface points */
+	{
+		if( Kocc > 0.0 )
+		{
+			Cl = Kocc * (1.0 - occlusion(
+				Ps, normalize(shading_normal), samples,
+				"distribution", distribution, "maxdist", maxdist )); 
+		}
+		else
+			Cl = 0;
+	}
+}
+
+#endif/*__rmOccLight_h*/

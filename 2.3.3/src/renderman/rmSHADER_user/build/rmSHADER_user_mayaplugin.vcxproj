@@ -2575,6 +2575,8 @@
   <ItemGroup>
     <ClCompile Include="..\src\rmFlat\rmFlat_node.cpp" />
     <ClCompile Include="..\src\rmFlat\rmFlat_node_visitor.cpp" />
+    <ClCompile Include="..\src\rmOccLight\rmOccLight_node.cpp" />
+    <ClCompile Include="..\src\rmOccLight\rmOccLight_node_visitor.cpp" />
     <ClCompile Include="..\src\rmPhysicalsun\rmPhysicalsun_node.cpp" />
     <ClCompile Include="..\src\rmPhysicalsun\rmPhysicalsun_node_visitor.cpp" />
     <ClCompile Include="..\src\rmSHADER_user_mayaplugin.cpp" />
@@ -2582,6 +2584,8 @@
   <ItemGroup>
     <ClInclude Include="..\src\rmFlat\rmFlat_node.h" />
     <ClInclude Include="..\src\rmFlat\rmFlat_node_visitor.h" />
+    <ClInclude Include="..\src\rmOccLight\rmOccLight_node.h" />
+    <ClInclude Include="..\src\rmOccLight\rmOccLight_node_visitor.h" />
     <ClInclude Include="..\src\rmPhysicalsun\rmPhysicalsun_node.h" />
     <ClInclude Include="..\src\rmPhysicalsun\rmPhysicalsun_node_visitor.h" />
     <ClInclude Include="..\src\rm_user_nodeId.h" />
@@ -2591,6 +2595,10 @@
     <None Include="..\src\rmFlat\rmFlat.impl" />
     <None Include="..\src\rmFlat\rmFlat.sl" />
     <None Include="..\src\rmFlat\userSetup.mel" />
+    <None Include="..\src\rmOccLight\AErmOccLightTemplate.mel" />
+    <None Include="..\src\rmOccLight\rmOccLight.impl" />
+    <None Include="..\src\rmOccLight\rmOccLight.sl" />
+    <None Include="..\src\rmOccLight\userSetup.mel" />
     <None Include="..\src\rmPhysicalsun\AErmPhysicalsunTemplate.mel" />
     <None Include="..\src\rmPhysicalsun\rmPhysicalsun.impl" />
     <None Include="..\src\rmPhysicalsun\rmPhysicalsun.sl" />

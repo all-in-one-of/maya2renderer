@@ -10,6 +10,9 @@
     <Filter Include="src\rmPhysicalsun">
       <UniqueIdentifier>{2a0afbbe-15b4-4c77-b591-f9f4fa15b9a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\rmOccLight">
+      <UniqueIdentifier>{43eab9f2-5354-4147-857a-c8ecf745eb80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\rmSHADER_user_mayaplugin.cpp">
@@ -27,6 +30,12 @@
     <ClCompile Include="..\src\rmPhysicalsun\rmPhysicalsun_node_visitor.cpp">
       <Filter>src\rmPhysicalsun</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\rmOccLight\rmOccLight_node.cpp">
+      <Filter>src\rmOccLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rmOccLight\rmOccLight_node_visitor.cpp">
+      <Filter>src\rmOccLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\rm_user_nodeId.h">
@@ -43,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="..\src\rmPhysicalsun\rmPhysicalsun_node_visitor.h">
       <Filter>src\rmPhysicalsun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rmOccLight\rmOccLight_node.h">
+      <Filter>src\rmOccLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rmOccLight\rmOccLight_node_visitor.h">
+      <Filter>src\rmOccLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +87,18 @@
     </None>
     <None Include="..\src\rmPhysicalsun\AErmPhysicalsunTemplate.mel">
       <Filter>src\rmPhysicalsun</Filter>
+    </None>
+    <None Include="..\src\rmOccLight\rmOccLight.impl">
+      <Filter>src\rmOccLight</Filter>
+    </None>
+    <None Include="..\src\rmOccLight\rmOccLight.sl">
+      <Filter>src\rmOccLight</Filter>
+    </None>
+    <None Include="..\src\rmOccLight\userSetup.mel">
+      <Filter>src\rmOccLight</Filter>
+    </None>
+    <None Include="..\src\rmOccLight\AErmOccLightTemplate.mel">
+      <Filter>src\rmOccLight</Filter>
     </None>
   </ItemGroup>
 </Project>

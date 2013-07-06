@@ -1,0 +1,9 @@
+print "This is $RM_SHADER_USER/src/rmOccLight/userSetup.mel\n";
+
+string $rmSHADER_user_DIR = getenv("RM_SHADER_USER");
+if( $rmSHADER_user_DIR == "" )
+{
+    error("environment variable <RM_SHADER_USER> is not set in Maya.env");
+} else {
+    eval( "source \"" + $rmSHADER_user_DIR + "/src/rmOccLight/AErmOccLightTemplate.mel\"" );
+}
