@@ -16,7 +16,7 @@ void test_liquid2er()
 	//ei_shader_link_test(false, "suffix");
 	//ei_checker_uv();
 	//er_shader_transparent_test();
-#include "R:/MyDocuments/maya/projects/default/rib/er_architectural.esa"
+#include "R:/MyDocuments/maya/projects/default/rib/erTestLight.perspShape.ElvishRender.0000.bmp.esa"
 //#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/toElvic/r647/simple_procedural/simple_procedural.cameraShape1.1.elvishray.bmp.esa"
 //#include "E:/dev/Autodesk/maya/myplugin/project/liquid_/toElvic/r647/blinn_transparent.ma/blinn_transparent.cameraShape1.6.elvishray.bmp.esa"
 
