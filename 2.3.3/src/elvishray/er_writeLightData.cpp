@@ -637,8 +637,9 @@ namespace elvishray
 
 		//export shader
 		assert(lightdata->rmanLightShader);
-		liquid::RendererMgr::getInstancePtr()->
-			getRenderer()->shader_UserDefinedShader(lightdata->rmanLightShader);
+		//liquid::RendererMgr::getInstancePtr()->
+		//	getRenderer()->shader_UserDefinedShader(lightdata->rmanLightShader);
+		liquidmaya::ShaderMgr::getSingletonPtr()->exportShaderNode(lightdata->rmanLightShader->getName().c_str());
 
 		//object
 		std::string sLightObjectName(shaderinstanceFullPath+"_object");
