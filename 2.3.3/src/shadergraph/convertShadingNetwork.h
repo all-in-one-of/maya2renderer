@@ -103,6 +103,8 @@ public:
 	void outputShadingGroup(const MString& shadingGroupNode);
 
 	void exportShaderNodeInPlug(const MString& node, const MString& plug);
+	
+	void exportShaderNode(const MString& node);
 
 protected:
 	void exportShaderInShadingGroup(
@@ -124,6 +126,9 @@ protected:
 	//void exportShadingGroup(const MString& shadingGroupName);
 	void exportShadingGroupEnd(const MString& shadingGroupName);
 	std::vector<MString> exportedShadingGroup;
+
+	//
+	void exportLightShader();
 
 private:
 	ConvertShadingNetwork(const ConvertShadingNetwork&);

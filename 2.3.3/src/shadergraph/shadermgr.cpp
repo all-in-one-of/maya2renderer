@@ -30,6 +30,12 @@ void ShaderMgr::exportShaderGraph()
 
 	shadingnetwork.exportShaderGraph();
 }
+void ShaderMgr::exportShaderNode(const MString& node)
+{
+	CM_TRACE_FUNC("ShaderMgr::exportShaderNode("<<node.asChar()<<")");
+
+	shadingnetwork.exportShaderNode(node);
+}
 //
 ConnectionType ShaderMgr::convertibleConnection(const char*plugname)
 {

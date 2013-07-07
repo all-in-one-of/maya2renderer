@@ -669,7 +669,8 @@ void ConvertShadingNetwork::__export()
 	exportShaderNodeInPlug(renderCamera, "liqEnvironmentShader");
 	exportShaderNodeInPlug(renderCamera, "liqLensShader");
 	//////////////////////////////////////////////////////////////////////////
-
+	//export light shader
+	exportLightShader();
 
 }
 //
@@ -716,6 +717,10 @@ void ConvertShadingNetwork::_exportShaderNode(const MString& node)
 		//3.end
 		exportShaderEnd(node);
 	}
+}
+void ConvertShadingNetwork::exportShaderNode(const MString& node)
+{
+	_exportShaderNode(node);
 }
 // export the node which is linked to $node.$plug
 void ConvertShadingNetwork::_exportShaderNodeInPlug(const MString& node, const MString& plug)
@@ -810,5 +815,9 @@ void ConvertShadingNetwork::exportShadingGroupEnd(const MString& shadingGroupNam
 	//canShadingGroupExported() will return false, and exportShadingGroupEnd() will not called.
 	exportedShadingGroup.push_back(shadingGroupName);
 }
+void ConvertShadingNetwork::exportLightShader()
+{
+	CM_TRACE_FUNC("ConvertShadingNetwork::exportLightShader()");
 
+}
 }//namespace liquidmaya

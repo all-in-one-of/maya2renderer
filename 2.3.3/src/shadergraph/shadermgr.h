@@ -22,6 +22,7 @@ namespace liquidmaya
 
 		//
 		void exportShaderGraph();
+		void exportShaderNode(const MString& node);
 
 		//
 		ConnectionType convertibleConnection(const char*plugname);
