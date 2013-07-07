@@ -34,6 +34,13 @@ global proc liquidAssignShaderToSelected_elvishray(string $node)
 	{
 
 	}
+	// it maybe a user-defined shader
+	else if( 1 == liquidAssignUserShaderToSelected_elvishray($node) ) {
+		//This is a user-defined shader
+	}
+	else{
+		liqError("The shade type ["+$nodeType+"] of ["+$node+"] is unhandled.");
+	}
 
 
 

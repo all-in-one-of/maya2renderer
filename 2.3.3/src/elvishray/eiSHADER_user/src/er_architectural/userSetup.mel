@@ -7,3 +7,14 @@ if( $erSHADER_user_DIR == "" )
 } else {
     eval( "source \"" + $erSHADER_user_DIR + "/src/er_architectural/AEer_architecturalTemplate.mel\"" );
 }
+//
+global proc int liquidAssignUserShaderToSelected_elvishray_er_architectural(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_elvishray_er_architectural("+$node+")");
+	
+
+
+	liqPopIdent();
+	return 1;
+}

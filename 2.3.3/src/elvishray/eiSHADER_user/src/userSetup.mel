@@ -33,6 +33,37 @@ proc string getThisDirectory()
 	liqPopIdent();
 	return $thisDir;
 }
+//
+global proc int liquidAssignUserShaderToSelected_elvishray(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_elvishray("+$node+")");
+
+	int $visited = 0;
+
+	string $nodeType = `nodeType $node`;
+
+	if( $nodeType == "er_checker2" )
+	{
+		liquidAssignUserShaderToSelected_elvishray_er_checker2($node);
+		$visited = 1;
+	}
+	else if( $nodeType == "er_architectural" ){
+		liquidAssignUserShaderToSelected_elvishray_er_architectural($node);
+		$visited = 1;
+	}
+	else if( $nodeType == "erTestLight" ){
+		liquidAssignUserShaderToSelected_elvishray_erTestLight($node);
+		$visited = 1;
+	}
+	else{
+		liqWarn("The shade type ["+$nodeType+"] of ["+$node+"] is not erSHADER_user.");
+		$visited = 0;
+	}
+
+	liqPopIdent();
+	return $visited;
+}
 ///////////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -43,5 +74,5 @@ print "This is erSHADER_user/usersetup.mel\n";
 // source subdirectoies scripts
 eval( "source \"" + getThisDirectory() + "/er_checker2/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/er_architectural/userSetup.mel\"" );
-
+eval( "source \"" + getThisDirectory() + "/erTestLight/userSetup.mel\"" );
  
