@@ -1,0 +1,30 @@
+global proc AEerTestLightTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEerTestLightTemplate("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	//AEliquidShaderTemplate($nodeName);
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+
+				editorTemplate -label "lightcolor" -addDynamicControl "lightcolor";
+				editorTemplate -label "intensity"  -addDynamicControl "intensity";
+
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+
+	liqPopIdent();
+}

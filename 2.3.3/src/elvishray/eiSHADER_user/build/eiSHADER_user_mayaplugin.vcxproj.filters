@@ -13,6 +13,9 @@
     <Filter Include="src\er_architectural">
       <UniqueIdentifier>{96fb6228-564a-49de-a728-cad790804691}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\erTestLight">
+      <UniqueIdentifier>{a48e328c-b645-4e12-a130-0c5baf25c279}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp">
@@ -29,6 +32,12 @@
     </ClCompile>
     <ClCompile Include="..\src\er_architectural\er_architectural_node_visitor.cpp">
       <Filter>src\er_architectural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erTestLight\erTestLight_node.cpp">
+      <Filter>src\erTestLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erTestLight\erTestLight_node_visitor.cpp">
+      <Filter>src\erTestLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +56,12 @@
     <ClInclude Include="..\src\er_architectural\er_architectural_node_visitor.h">
       <Filter>src\er_architectural</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\erTestLight\erTestLight_node.h">
+      <Filter>src\erTestLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\erTestLight\erTestLight_node_visitor.h">
+      <Filter>src\erTestLight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\er_checker2\userSetup.mel">
@@ -63,6 +78,12 @@
     </None>
     <None Include="..\src\er_architectural\userSetup.mel">
       <Filter>src\er_architectural</Filter>
+    </None>
+    <None Include="..\src\erTestLight\AEerTestLightTemplate.mel">
+      <Filter>src\erTestLight</Filter>
+    </None>
+    <None Include="..\src\erTestLight\userSetup.mel">
+      <Filter>src\erTestLight</Filter>
     </None>
   </ItemGroup>
 </Project>

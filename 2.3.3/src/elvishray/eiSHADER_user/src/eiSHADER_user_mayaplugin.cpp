@@ -49,6 +49,7 @@
 #include "er_user_nodeId.h"
 #include "er_checker2/er_checker2_node_visitor.h"
 #include "er_architectural/er_architectural_node_visitor.h"
+#include "erTestLight/erTestLight_node_visitor.h"
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
 PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
@@ -62,6 +63,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 
 	elvishray::Checker2NodeVisitor::regist(plugin);
 	elvishray::ArchitecturalNodeVisitor::regist(plugin);
+	elvishray::TestLightNodeVisitor::regist(plugin);
 
 	return MS::kSuccess;
 }
@@ -73,6 +75,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 
+	elvishray::TestLightNodeVisitor::unregist(plugin);
 	elvishray::ArchitecturalNodeVisitor::unregist(plugin);
 	elvishray::Checker2NodeVisitor::unregist(plugin);
 	
