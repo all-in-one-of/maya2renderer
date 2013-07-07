@@ -9,7 +9,7 @@ Option "limits" "texturememory" [ 65536 ]
 Option "limits" "eyesplits" [ 10 ] 
 Option "limits" "othreshold" [ 0.996000 0.996000 0.996000 ] 
 Option "limits" "zthreshold" [ 0.996000 0.996000 0.996000 ] 
-Option "searchpath" "shader" [ "&:@:.:~:rmanshader://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/shaders://R/MyDocuments/maya/projects/default/" ] 
+Option "searchpath" "shader" [ "&:@:.:~:rmanshader://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/shaders://R/MyDocuments/maya/projects/default/:://R/MyDocuments/maya/projects/default/generatedShader" ] 
 Option "searchpath" "texture" [ "&:@:.:~://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/textures://R/MyDocuments/maya/projects/default/://R/MyDocuments/maya/projects/default/rmantex/" ] 
 Option "searchpath" "archive" [ "&:@:.:~://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/rib://R/MyDocuments/maya/projects/default/://R/MyDocuments/maya/projects/default/rib/" ] 
 Option "searchpath" "procedural" [ "&:@:.:~://E/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/lib/plugins://R/MyDocuments/maya/projects/default/" ] 
@@ -59,13 +59,13 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/rmOccLight.perspShape.rend
         AttributeBegin
             Attribute "identifier" "name" [ "_pointLight1_pointLightShape1" ] 
             ConcatTransform [ 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -0.000000 -0.000000 -1.000000 0.000000 0.000000 6.941246 0.000000 1.000000 ]
-            #writeRibAttributes() is omitted.
-            LightSource "E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3/src/renderman/rmSHADER_user/build/rmOccLight" 1 
+            #refer to the user-defined light shader [rmOccLight1]
+LightSource "rmOccLight1" 0 
         AttributeEnd
-        Illuminate 1 0
+        Illuminate 0 0
         AttributeBegin
             Attribute "identifier" "name" [ "_pPlane1_pPlaneShape1" ] 
-            Illuminate 1 1
+            Illuminate 0 1
             #mark14
             Color [ 0.500000 0.500000 0.500000 ]
             Opacity [ 1.000000 1.000000 1.000000 ]
@@ -78,7 +78,7 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/rmOccLight.perspShape.rend
         AttributeEnd
         AttributeBegin
             Attribute "identifier" "name" [ "_pCube1_pCubeShape1" ] 
-            Illuminate 1 1
+            Illuminate 0 1
             #mark14
             Color [ 0.500000 0.500000 0.500000 ]
             Opacity [ 1.000000 1.000000 1.000000 ]

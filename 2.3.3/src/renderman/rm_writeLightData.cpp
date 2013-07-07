@@ -405,13 +405,23 @@ namespace renderman
 	liqLightHandle Renderer::exportUserDefinedLight(const liqRibLightData *lightdata, const structJob &currentJob)
 	{
 		CM_TRACE_FUNC("Renderer::exportUserDefinedLight("<<lightdata->getName()<<","<<currentJob.name.asChar()<<")");
+		
+		//1.export the light shader first
+		assert(lightdata->rmanLightShader);
+		liquidmaya::ShaderMgr::getSingletonPtr()->exportShaderNode(lightdata->rmanLightShader->getName().c_str());
+
+		//2.refer to the light shader
 		const liqMatrix &t = lightdata->transformationMatrix;
 
 		liqMatrix transformationMatrixScaledZ;
 		liqRibLightData::scaleZ_forRenderman(
 			transformationMatrixScaledZ, t
 			);
-		RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );		lightdata->rmanLightShader->write();
+		RiConcatTransform( * const_cast< RtMatrix* >( &transformationMatrixScaledZ ) );		RiArchiveRecord(RI_COMMENT, "refer to the user-defined light shader [%s]", lightdata->rmanLightShader->getName().c_str(), RI_NULL );
+		RiArchiveRecord(RI_VERBATIM, "LightSource \"%s\" %d \n", 
+			lightdata->rmanLightShader->getName().c_str(), 
+			lightdata->rmanLightShader->shaderHandler.asUnsigned());
+		//lightdata->rmanLightShader->write();
 		
 #ifdef RIBLIB_AQSIS
 		return reinterpret_cast<RtLightHandle>(static_cast<ptrdiff_t>(lightdata->rmanLightShader->shaderHandler.asInt()));
