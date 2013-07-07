@@ -66,14 +66,14 @@ namespace renderman
 
 		o.addToRSL(" color outColor;");
 		o.addToRSL(" color outTransparency;");
-		o.addToRSL(" rmOcclight_impl(		\n\t"
+		o.addToRSL(" rmOccLight_impl(		\n\t"
 						//Inputs
 						"Kocc,				\n\t"
 						"samples,			\n\t"
 						//Outputs
 						"maxdist,			\n\t"
-						"distribution		\n\t"
-						"__nonspecular,		\n"
+						"distribution,		\n\t"
+						"__nonspecular		\n"
 					"  );");
 		o.endRSL();
 
