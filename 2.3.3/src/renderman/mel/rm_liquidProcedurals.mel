@@ -12,31 +12,18 @@ global proc liquidAssignShaderToSelected_renderman(string $node)
 	if( $nodeType == "your env shader" )
 	{
 	}
-	//light
-	else if( $nodeType == "rmPhysicalsun" 
-		  || $nodeType == "rmOccLight" 
-		   )
-	{
-		string $selected[] = `ls -l -lights -dag -sl`;
-
-		if ( !objExists( ($node + ".liqAssignedObjects") ) )
-			addAttr -ln liqAssignedObjects -at message $node;
-
-		for ( $sel in $selected ) 
-		{
-			if ( !objExists( ($sel + ".liquidLightShaderNode") ) ) 
-				addAttr -ln liquidLightShaderNode -at message $sel;
-			if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidLightShaderNode" ) ) )
-				connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidLightShaderNode");
-		}
-	}
 	//surface
 	else if( $nodeType == "your surface shader" )
 	{
 	}
-	else{
-		liqError("liquidAssignShaderToSelected_renderman():"+$node+"("+$nodeType+") is not handled.");
+	// it maybe a user-defined shader
+	else if( 1 == liquidAssignUserShaderToSelected_renderman($node) ) {
+		//This is a user-defined shader
 	}
+	else{
+		liqError("The shade type ["+$nodeType+"] of ["+$node+"] is unhandled.");
+	}
+
 
 	liqPopIdent();
 }

@@ -7,3 +7,25 @@ if( $rmSHADER_user_DIR == "" )
 } else {
     eval( "source \"" + $rmSHADER_user_DIR + "/src/rmOccLight/AErmOccLightTemplate.mel\"" );
 }
+//
+global proc int liquidAssignUserShaderToSelected_renderman_rmOccLight(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_elvishray_rmOccLight("+$node+")");
+	
+	string $selected[] = `ls -l -lights -dag -sl`;
+
+	if ( !objExists( ($node + ".liqAssignedObjects") ) )
+		addAttr -ln liqAssignedObjects -at message $node;
+
+	for ( $sel in $selected ) 
+	{
+		if ( !objExists( ($sel + ".liquidLightShaderNode") ) ) 
+			addAttr -ln liquidLightShaderNode -at message $sel;
+		if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidLightShaderNode" ) ) )
+			connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidLightShaderNode");
+	}
+
+	liqPopIdent();
+	return 1;
+}

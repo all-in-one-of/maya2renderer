@@ -33,6 +33,37 @@ proc string getThisDirectory()
 	liqPopIdent();
 	return $thisDir;
 }
+//
+global proc int liquidAssignUserShaderToSelected_renderman(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_renderman("+$node+")");
+
+	int $visited = 0;
+
+	string $nodeType = `nodeType $node`;
+
+	if( $nodeType == "rmFlat" )
+	{
+		liquidAssignUserShaderToSelected_renderman_rmFlat($node);
+		$visited = 1;
+	}
+	else if( $nodeType == "rmOccLight" ){
+		liquidAssignUserShaderToSelected_renderman_rmOccLight($node);
+		$visited = 1;
+	}
+	else if( $nodeType == "rmPhysicalsun" ){
+		liquidAssignUserShaderToSelected_renderman_rmPhysicalsun($node);
+		$visited = 1;
+	}
+	else{
+		liqWarn("The shade type ["+$nodeType+"] of ["+$node+"] is not rmSHADER_user.");
+		$visited = 0;
+	}
+
+	liqPopIdent();
+	return $visited;
+}
 ///////////////////////////////////////////////////////////////////////////////////
 //
 //

@@ -7,3 +7,14 @@ if( $rmSHADER_user_DIR == "" )
 } else {
     eval( "source \"" + $rmSHADER_user_DIR + "/src/rmFlat/AErmFlatTemplate.mel\"" );
 }
+//
+global proc int liquidAssignUserShaderToSelected_renderman_rmFlat(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_elvishray_rmFlat("+$node+")");
+	
+
+
+	liqPopIdent();
+	return 1;
+}
