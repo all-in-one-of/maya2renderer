@@ -4,9 +4,9 @@
 #include "./common/prerequest_maya.h"
 #include "./common/mayacheck.h"
 
-#include "./renderman/rm_factory.h"
-#include "./elvishray/er_factory.h"
-#include "./appleseed/as_factory.h"
+//#include "./renderman/rm_factory.h"
+//#include "./elvishray/er_factory.h"
+//#include "./appleseed/as_factory.h"
 #include "./shadergraph/shadermgr.h"
 
 namespace liquid
@@ -18,7 +18,8 @@ namespace liquid
 	:m_renderer(0),
 	m_factory(0),
 	m_rendernode_visitor(0),
-	m_shadermgr(0)
+	m_shadermgr(0),
+	m_shadingnetwork_user_Ref(0)
 	{
 
 	}
@@ -100,25 +101,40 @@ namespace liquid
 		CM_TRACE_FUNC("RendererMgr::install()");
 		assert(m_factory);
 
+		//
 		m_renderer = m_factory->createRenderer();
+		//
 		m_factory->createOutputReceiver();
+		//
 		m_rendernode_visitor = m_factory->createRenderNodeVisitor();
 		liquidmaya::ShaderMgr::getSingletonPtr()->setValidConnection();
 		m_rendernode_visitor->setValidConnection_SubRenderer(
 			liquidmaya::ShaderMgr::getSingletonPtr()->getShaderConnectionMap()
 		);
+		//
+		m_shadingnetwork_user_Ref = m_factory->createShadingNetworkUser();
 	}
 	void RendererMgr::uninstall()
 	{
 		CM_TRACE_FUNC("RendererMgr::uninstall()");
 		assert(m_factory);
+
+		//
+		m_shadingnetwork_user_Ref = m_factory->deleteShadingNetworkUser();
+		if( m_shadingnetwork_user_Ref != NULL ){
+			liquidMessage2(messageError,"memory leak in RendererMgr::uninstall(): m_shadingnetwork_user_Ref");
+		}
+		//
 		liquidmaya::ShaderMgr::getSingletonPtr()->clearValidConnection();
 		m_rendernode_visitor = m_factory->deleteRenderNodeVisitor();
 		if( m_rendernode_visitor != NULL ){
-			liquidMessage2(messageError,"memory leak in RendererMgr::uninstall()");
+			liquidMessage2(messageError,"memory leak in RendererMgr::uninstall(): m_rendernode_visitor");
 		}
+		//
 		m_factory->deleteOutputReceiver();
+		//
 		m_factory->deleteRenderer();
+		//
 		m_renderer = NULL;
 	}
 	void RendererMgr::registFactory(const std::string& renderername, AbstractFactory* factory)
@@ -154,5 +170,22 @@ namespace liquid
 	{
 		assert( getRenderer() );
 		getRenderer()->iprEnd();
+	}
+	//
+	//shading network stuff
+	bool RendererMgr::beforeExport_user()
+	{
+		assert(m_shadingnetwork_user_Ref);
+		return m_shadingnetwork_user_Ref->beforeExport_user();
+	}
+	void RendererMgr::export_user()
+	{
+		assert(m_shadingnetwork_user_Ref);
+		m_shadingnetwork_user_Ref->export_user();
+	}
+	void RendererMgr::afterExport_user()
+	{
+		assert(m_shadingnetwork_user_Ref);
+		m_shadingnetwork_user_Ref->afterExport_user();
 	}
 }

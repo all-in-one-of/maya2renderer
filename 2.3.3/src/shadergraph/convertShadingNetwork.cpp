@@ -8,7 +8,7 @@
 #include "shadermgr.h"
 #include "shaderOutputMgr.h"
 #include "../renderermgr.h"
-
+#include "ShadingNetworkUserBase.h"
 
 //#include "../renderman/rm_helper.h"
 
@@ -51,13 +51,14 @@ bool ConvertShadingNetwork::beforeExport()
 
 	exportedShader.clear();
 	exportedShadingGroup.clear();
-	return true;
+	return liquid::RendererMgr::getInstancePtr()->beforeExport_user();
 }
 //
 void ConvertShadingNetwork::afterExport()
 {
 	CM_TRACE_FUNC(" ConvertShadingNetwork::afterExport()");
 
+	liquid::RendererMgr::getInstancePtr()->afterExport_user();
 }
 //
 bool ConvertShadingNetwork::nodeIsConvertible ( const MString& node ) const
@@ -669,8 +670,9 @@ void ConvertShadingNetwork::__export()
 	exportShaderNodeInPlug(renderCamera, "liqEnvironmentShader");
 	exportShaderNodeInPlug(renderCamera, "liqLensShader");
 	//////////////////////////////////////////////////////////////////////////
-	//export light shader
-	exportLightShader();
+
+
+	liquid::RendererMgr::getInstancePtr()->export_user();
 
 }
 //
@@ -815,9 +817,9 @@ void ConvertShadingNetwork::exportShadingGroupEnd(const MString& shadingGroupNam
 	//canShadingGroupExported() will return false, and exportShadingGroupEnd() will not called.
 	exportedShadingGroup.push_back(shadingGroupName);
 }
-void ConvertShadingNetwork::exportLightShader()
-{
-	CM_TRACE_FUNC("ConvertShadingNetwork::exportLightShader()");
-
-}
+// void ConvertShadingNetwork::exportLightShader()
+// {
+// 	CM_TRACE_FUNC("ConvertShadingNetwork::exportLightShader()");
+// 
+// }
 }//namespace liquidmaya

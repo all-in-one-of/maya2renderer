@@ -624,6 +624,9 @@
     <ClInclude Include="..\..\include\liqCreatePlug.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\shadergraph\ShadingNetworkUserBase.h">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEdagNodeInclude.mel">

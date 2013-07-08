@@ -2581,6 +2581,7 @@
     <ClCompile Include="..\elvishray\er_nodeId.cpp" />
     <ClCompile Include="..\elvishray\er_rnode_visitor.cpp" />
     <ClCompile Include="..\elvishray\er_rnode_visitor_mgr.cpp" />
+    <ClCompile Include="..\elvishray\er_shadingnetwork.cpp" />
     <ClCompile Include="..\elvishray\er_writeCameraData.cpp" />
     <ClCompile Include="..\elvishray\er_writeClipPlaneData.cpp" />
     <ClCompile Include="..\elvishray\er_writeCoordData.cpp" />
@@ -2643,6 +2644,7 @@
     <ClInclude Include="..\elvishray\er_rnode_visitor.h" />
     <ClInclude Include="..\elvishray\er_rnode_visitor_mgr.h" />
     <ClInclude Include="..\elvishray\er_shader_node.h" />
+    <ClInclude Include="..\elvishray\er_shadingnetwork.h" />
     <ClInclude Include="..\elvishray\MayaConnection.h" />
     <ClInclude Include="..\elvishray\output\er_output_base.h" />
     <ClInclude Include="..\elvishray\output\er_output_call.h" />

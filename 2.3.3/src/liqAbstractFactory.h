@@ -3,6 +3,7 @@
 
 #include "rendererinterface.h"
 #include "rnode_visitor_interface.h"
+#include "shadergraph/ShadingNetworkUserBase.h"
 
 namespace liquid
 {
@@ -21,6 +22,9 @@ namespace liquid
 
 		virtual RenderNodeVisitorInterface* createRenderNodeVisitor() = 0;
 		virtual RenderNodeVisitorInterface* deleteRenderNodeVisitor() = 0;
+
+		virtual ShadingNetworkUserBase* createShadingNetworkUser() = 0;
+		virtual ShadingNetworkUserBase* deleteShadingNetworkUser() = 0;
 
 	private:
 		AbstractFactory(const AbstractFactory&);

@@ -128,7 +128,7 @@ protected:
 	std::vector<MString> exportedShadingGroup;
 
 	//
-	void exportLightShader();
+	//void exportLightShader();
 
 private:
 	ConvertShadingNetwork(const ConvertShadingNetwork&);

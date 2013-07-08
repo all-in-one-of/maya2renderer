@@ -141,6 +141,9 @@
     <ClCompile Include="..\renderman\rm_export.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\renderman\rm_shadingnetwork.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\renderman\mel\AEliquidShaderTemplate_renderman.mel">
@@ -239,6 +242,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\renderman\rm_export.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\renderman\rm_shadingnetwork.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2560,6 +2560,7 @@
     <ClCompile Include="..\renderman\rm_rnode_visitor.cpp" />
     <ClCompile Include="..\renderman\rm_rnode_visitor_mgr.cpp" />
     <ClCompile Include="..\renderman\rm_shader.cpp" />
+    <ClCompile Include="..\renderman\rm_shadingnetwork.cpp" />
     <ClCompile Include="..\renderman\rm_shadowRibWriterMgr.cpp" />
     <ClCompile Include="..\renderman\rm_writeCameraData.cpp" />
     <ClCompile Include="..\renderman\rm_writeClipPlaneData.cpp" />
@@ -2624,6 +2625,7 @@
     <ClInclude Include="..\renderman\rm_rnode_visitor.h" />
     <ClInclude Include="..\renderman\rm_rnode_visitor_mgr.h" />
     <ClInclude Include="..\renderman\rm_shader_node.h" />
+    <ClInclude Include="..\renderman\rm_shadingnetwork.h" />
     <ClInclude Include="..\renderman\rm_shadowRibWriterMgr.h" />
     <ClInclude Include="..\renderman\shaderOutputRSL.h" />
   </ItemGroup>

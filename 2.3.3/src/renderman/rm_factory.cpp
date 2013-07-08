@@ -3,6 +3,7 @@
 #include "rm_renderer.h"
 #include "../shadergraph/shaderOutputMgr.h"
 #include "rm_rnode_visitor.h"
+#include "rm_shadingnetwork.h"
 
 namespace renderman
 {
@@ -10,6 +11,7 @@ namespace renderman
 	{
 		m_renderer = 0;
 		m_rendernode_visitor = 0;
+		m_shadingnetwork_user = 0;
 	}
 	//
 	Factory::~Factory()
@@ -61,5 +63,17 @@ namespace renderman
 			liquidmaya::ShaderOutputMgr::getSingletonPtr()->getFirstReceiver_RM()
 		);
 		return visitor;
+	}
+	//
+	liquid::ShadingNetworkUserBase* Factory::createShadingNetworkUser()
+	{
+		m_shadingnetwork_user = new ShadingNetworkUser();
+		return m_shadingnetwork_user;
+	}
+	liquid::ShadingNetworkUserBase* Factory::deleteShadingNetworkUser()
+	{
+		delete m_shadingnetwork_user;
+		m_shadingnetwork_user = NULL;
+		return m_shadingnetwork_user;
 	}
 }
