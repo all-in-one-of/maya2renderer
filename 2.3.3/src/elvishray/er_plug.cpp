@@ -41,7 +41,7 @@
 
 #include <common/prerequest_maya.h>
 #include <maya/MFnPlugin.h>
-#include <liqDefine.h>
+#include <common/mayacheck.h>
 #include "er_.h"
 #include "../renderermgr.h"
 #include "../elvishray/er_factory.h"
@@ -70,7 +70,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		elvishray::GlobalNode::getTypeName(), 
 		elvishray::GlobalNode::getTypeId(), 
 		elvishray::GlobalNode::creator, elvishray::GlobalNode::initialize, MPxNode::kDependNode );
-	LIQCHECKSTATUS( status, "Can't register "+elvishray::GlobalNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::GlobalNode::getTypeName()+" node" );
 	status.clear();
 	//
 	//
@@ -79,7 +79,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		elvishray::PhysicalskyNode::getTypeId(), 
 		elvishray::PhysicalskyNode::creator, elvishray::PhysicalskyNode::initialize, MPxNode::kDependNode,
 		&elvishray::env_classification);
-	LIQCHECKSTATUS( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+" node" );
 	status.clear();
 	//
 	status = plugin.registerNode( 
@@ -87,7 +87,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		elvishray::SkyLightNode::getTypeId(), 
 		elvishray::SkyLightNode::creator, elvishray::SkyLightNode::initialize, MPxNode::kDependNode,
 		&elvishray::light_classification);
-	LIQCHECKSTATUS( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+" node" );
 	status.clear();
 	//
 	status = plugin.registerNode( 
@@ -95,7 +95,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		elvishray::FlatColorNode::getTypeId(), 
 		elvishray::FlatColorNode::creator, elvishray::FlatColorNode::initialize, MPxNode::kDependNode,
 		&elvishray::surface_classification);
-	LIQCHECKSTATUS( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+" node" );
 	status.clear();
 	//
 	elvishray::CheckerNodeVisitor::regist(plugin);
@@ -114,17 +114,17 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	elvishray::CheckerNodeVisitor::unregist(plugin);
 	//
 	status = plugin.deregisterNode( elvishray::FlatColorNode::getTypeId() );
-	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+" node" );
 	//
 	status = plugin.deregisterNode( elvishray::SkyLightNode::getTypeId() );
-	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+" node" );
 	//
 	status = plugin.deregisterNode( elvishray::PhysicalskyNode::getTypeId() );
-	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+" node" );
 	//
 	//
 	status = plugin.deregisterNode( elvishray::GlobalNode::getTypeId() );
-	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::GlobalNode::getTypeName()+" node" );
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::GlobalNode::getTypeName()+" node" );
 	//
 	elvishray::NodeAddCallback::removeCallback();
 	//

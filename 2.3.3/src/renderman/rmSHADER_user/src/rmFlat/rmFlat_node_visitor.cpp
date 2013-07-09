@@ -102,7 +102,7 @@ namespace renderman
 			renderman::FlatNode::getTypeId(), 
 			renderman::FlatNode::creator, renderman::FlatNode::initialize, MPxNode::kDependNode,
 			&renderman::surface_classification);
-		LIQCHECKSTATUS( status, "Can't register "+renderman::FlatNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't register "+renderman::FlatNode::getTypeName()+" node" );
 		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
@@ -122,7 +122,7 @@ namespace renderman
 			);
 
 		status = plugin.deregisterNode( renderman::FlatNode::getTypeId() );
-		LIQCHECKSTATUS( status, "Can't deregister "+renderman::FlatNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::FlatNode::getTypeName()+" node" );
 
 		return true;
 	}

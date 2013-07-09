@@ -115,7 +115,7 @@ namespace renderman
 			renderman::PhysicalsunNode::getTypeId(), 
 			renderman::PhysicalsunNode::creator, renderman::PhysicalsunNode::initialize, MPxNode::kDependNode,
 			&renderman::light_classification);
-		LIQCHECKSTATUS( status, "Can't register "+renderman::PhysicalsunNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't register "+renderman::PhysicalsunNode::getTypeName()+" node" );
 		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
@@ -135,7 +135,7 @@ namespace renderman
 			);
 
 		status = plugin.deregisterNode( renderman::PhysicalsunNode::getTypeId() );
-		LIQCHECKSTATUS( status, "Can't deregister "+renderman::PhysicalsunNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::PhysicalsunNode::getTypeName()+" node" );
 
 		return true;
 	}

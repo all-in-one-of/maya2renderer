@@ -100,7 +100,7 @@ namespace renderman
 			renderman::OccLightNode::getTypeId(), 
 			renderman::OccLightNode::creator, renderman::OccLightNode::initialize, MPxNode::kDependNode,
 			&renderman::light_classification);
-		LIQCHECKSTATUS( status, "Can't register "+renderman::OccLightNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't register "+renderman::OccLightNode::getTypeName()+" node" );
 		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
@@ -120,7 +120,7 @@ namespace renderman
 			);
 
 		status = plugin.deregisterNode( renderman::OccLightNode::getTypeId() );
-		LIQCHECKSTATUS( status, "Can't deregister "+renderman::OccLightNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::OccLightNode::getTypeName()+" node" );
 
 		return true;
 	}

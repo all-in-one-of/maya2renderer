@@ -94,7 +94,7 @@ namespace elvishray
 			elvishray::Checker2Node::getTypeId(), 
 			elvishray::Checker2Node::creator, elvishray::Checker2Node::initialize, MPxNode::kDependNode,
 			&elvishray::texture2d_classification);
-		LIQCHECKSTATUS( status, "Can't register "+elvishray::Checker2Node::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::Checker2Node::getTypeName()+" node" );
 		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
@@ -114,7 +114,7 @@ namespace elvishray
 			);
 
 		status = plugin.deregisterNode( elvishray::Checker2Node::getTypeId() );
-		LIQCHECKSTATUS( status, "Can't deregister "+elvishray::Checker2Node::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::Checker2Node::getTypeName()+" node" );
 
 		return true;
 	}

@@ -289,38 +289,38 @@ int liqGetSloInfo::setShader( MString shaderFileName )
 
     MString cmd = "liquidSlInfoReset();";
     cmdStat = MGlobal::executeCommand( cmd );
-    LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlInfoReset failed !" );
+    IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlInfoReset failed !" );
 
     cmd = "liquidSlSetShader \"" + shaderFileName + "\";";
     cmdStat = MGlobal::executeCommand( cmd );
-    LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> "+cmd+" failed !" );
+    IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> "+cmd+" failed !" );
 
     // get the shader name
     cmdStat = MGlobal::executeCommand( "liquidSlShaderName();", shaderName );
-    LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlShaderName failed !" );
+    IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlShaderName failed !" );
     //cout <<"setShader:  shaderName = "<<shaderName<<endl;
 
     // get the shader type  : Elvishray has shadow/photon/environment shader types //  [2/14/2012 yaoyansi]
     cmdStat = MGlobal::executeCommand( "liquidSlShaderType();", shaderTypeEx );
-    LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlShaderType() failed !" );
+    IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlShaderType() failed !" );
 
     // get the number of params
     cmdStat = MGlobal::executeCommand( "liquidSlNumParams();", numParam );
-    LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlnumParams failed !" );
+    IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlnumParams failed !" );
 
     // get the data from the arrays
     MStringArray shaderParams, shaderDetails, shaderTypes, shaderDefaults;
     MIntArray shaderArraySizes;
     cmdStat = MGlobal::executeCommand( "liquidSlAllParamNames();", shaderParams );
-    LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamNames failed !" );
+    IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamNames failed !" );
     //cmdStat = MGlobal::executeCommand( "liquidSlAllParamDetails();", shaderDetails );
-    //LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamDetails failed !" );
+    //IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamDetails failed !" );
     //cmdStat = MGlobal::executeCommand( "liquidSlAllParamTypes();", shaderTypes );
-    //LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamTypes failed !" );
+    //IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamTypes failed !" );
     //cmdStat = MGlobal::executeCommand( "liquidSlAllParamArraySizes();", shaderArraySizes );
-    //LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamArraySizes failed !" );
+    //IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamArraySizes failed !" );
     //cmdStat = MGlobal::executeCommand( "liquidSlAllParamDefaultsRaw();", shaderDefaults );
-    //LIQCHECKSTATUS( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamDefaultsRaw failed !" );
+    //IfMErrorMsgReturnIt( cmdStat, "liqGetSloInfo::setShader -> liquidSlAllParamDefaultsRaw failed !" );
     //
     //
     //for ( unsigned k = 0; k < numParam; k++ ) {
@@ -496,7 +496,7 @@ int liqGetSloInfo::setShaderNode( MFnDependencyNode &shaderNode )
     shaderPlug.getValue( arrayObject );
     MFnStringArrayData stringArrayData( arrayObject );//, &stat );
     stringArrayData.copyTo( shaderParams );
-//  LIQCHECKSTATUS( stat, "liqGetSloInfo::setShaderNode > could not store rmanParams string array" );
+//  IfMErrorMsgReturnIt( stat, "liqGetSloInfo::setShaderNode > could not store rmanParams string array" );
     //cout <<"setShaderNode:  shaderParams = "<<shaderParams<<endl;
 
     // get the number of parameters

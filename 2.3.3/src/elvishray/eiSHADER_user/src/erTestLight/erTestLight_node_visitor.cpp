@@ -85,7 +85,7 @@ namespace elvishray
 			elvishray::TestLightNode::getTypeId(), 
 			elvishray::TestLightNode::creator, elvishray::TestLightNode::initialize, MPxNode::kDependNode,
 			&elvishray::light_classification);
-		LIQCHECKSTATUS( status, "Can't register "+elvishray::TestLightNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::TestLightNode::getTypeName()+" node" );
 		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
@@ -105,7 +105,7 @@ namespace elvishray
 			);
 
 		status = plugin.deregisterNode( elvishray::TestLightNode::getTypeId() );
-		LIQCHECKSTATUS( status, "Can't deregister "+elvishray::TestLightNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::TestLightNode::getTypeName()+" node" );
 
 		return true;
 	}

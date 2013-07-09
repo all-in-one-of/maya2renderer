@@ -199,7 +199,7 @@ namespace elvishray
 			elvishray::ArchitecturalNode::getTypeId(), 
 			elvishray::ArchitecturalNode::creator, elvishray::ArchitecturalNode::initialize, MPxNode::kDependNode,
 			&elvishray::surface_classification);
-		LIQCHECKSTATUS( status, "Can't register "+elvishray::ArchitecturalNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::ArchitecturalNode::getTypeName()+" node" );
 		status.clear();
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
@@ -219,7 +219,7 @@ namespace elvishray
 			);
 
 		status = plugin.deregisterNode( elvishray::ArchitecturalNode::getTypeId() );
-		LIQCHECKSTATUS( status, "Can't deregister "+elvishray::ArchitecturalNode::getTypeName()+" node" );
+		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::ArchitecturalNode::getTypeName()+" node" );
 
 		return true;
 	}

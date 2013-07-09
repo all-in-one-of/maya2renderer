@@ -317,7 +317,7 @@ MStatus Checker2Node::compute( const MPlug& plug, MDataBlock& block )
 //		elvishray::Checker2Node::getTypeId(), 
 //		elvishray::Checker2Node::creator, elvishray::Checker2Node::initialize, MPxNode::kDependNode,
 //		&elvishray::surface_classification);
-//	LIQCHECKSTATUS( status, "Can't register "+elvishray::Checker2Node::getTypeName()+" node" );
+//	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::Checker2Node::getTypeName()+" node" );
 //	status.clear();
 //	elvishray::CheckerNodeVisitor::regist();
 //}
@@ -326,7 +326,7 @@ MStatus Checker2Node::compute( const MPlug& plug, MDataBlock& block )
 //	MStatus status;
 //	elvishray::CheckerNodeVisitor::unregist();
 //	status = plugin.deregisterNode( elvishray::Checker2Node::getTypeId() );
-//	LIQCHECKSTATUS( status, "Can't deregister "+elvishray::Checker2Node::getTypeName()+" node" );
+//	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::Checker2Node::getTypeName()+" node" );
 //
 //}
 }//namespace elvishray

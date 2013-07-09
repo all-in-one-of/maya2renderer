@@ -16,13 +16,7 @@
 #  define RM_CMD "/bin/rm"
 #endif
 
-//LIQCHECKSTATUS should be replaced by IfMErrorMsgReturnIt(stat, msg)
-#ifndef LIQCHECKSTATUS 
-#define LIQCHECKSTATUS(stat, msg) if (!(stat)) { \
-	stat.perror((msg)); \
-	return (stat); \
-}
-#endif
+//LIQCHECKSTATUS is replaced by IfMErrorMsgReturnIt(stat, msg)
 
 
 //#undef LIQ_ERROR

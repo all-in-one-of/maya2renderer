@@ -596,7 +596,7 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // 		MString arg = args.asString( i, &status );
 // 		MString err, err_fmt = "error in ^1s parameter";
 // 		err.format( err_fmt, arg);
-// 		LIQCHECKSTATUS(status, err );
+// 		IfMErrorMsgReturnIt(status, err );
 // 
 // 		if((arg == "-lr") || (arg == "-launchRender"))			liqglo.launchRender = true;
 // 		else if((arg == "-nolr") || (arg == "-noLaunchRender")) liqglo.launchRender = false;
@@ -644,13 +644,13 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // 		else if((arg == "-n") || (arg == "-sequence")) 
 //		{
 // 			int first( argValue.asInt() );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			int last( argValue.asInt() );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			int step( argValue.asInt() );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 			m_animation = true;
 // 			if( first > last ) 
 // 				step = -abs( step );
@@ -662,7 +662,7 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // 		else if((arg == "-fl") || (arg == "-frameList") || (arg == "-t") || (arg == "-timeRange") || (arg == "--timerange")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 			// fill our vector with frames
 // 			liqglo.frameNumbers = generateFrameNumbers( string( argValue.asChar() ) );
 // 			if( liqglo.frameNumbers.size() ) { 
@@ -677,27 +677,27 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.liqglo_motionSamples = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-dbs") || (arg == "-defBlock")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_deferredBlockSize = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-cam") || (arg == "-camera")) 
 //		{
 // 			MString parsingString = args.asString( ++i, &status );
 // 			liqglo.renderCamera = parseString( parsingString );
 // 			liqglo.liqglo_renderCamera = liqglo.renderCamera;
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 
 // 		else if((arg == "-s") || (arg == "-samples")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.pixelSamples = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-rnm") || (arg == "-ribName")) 
 //		{
@@ -712,7 +712,7 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // #else
 // 			liqglo.liqglo_ribName = parseString( parsingString );
 // #endif
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-pd") || (arg == "-projectDir")) 
 //		{
@@ -734,194 +734,194 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // 				liquidMessage( "Cannot find or access Maya project directory; defaulting to system temp directory!", messageWarning );
 // 				liqglo.liqglo_projectDir = m_systemTempDirectory;
 // 			}
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-prm") || (arg == "-preFrameMel")) 
 //		{
 // 			m_preFrameMel =  args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-pom") || (arg == "-postFrameMel")) 
 //		{
 // 			m_postFrameMel = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-rid") || (arg == "-ribdir")) 
 //		{
 // 			MString parsingString = args.asString( ++i, &status );
 // 			liqglo.liqglo_ribDir = parseString( parsingString, false );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-txd") || (arg == "-texdir")) 
 //		{
 // 			MString parsingString = args.asString( ++i, &status );
 // 			liqglo.liqglo_textureDir = parseString( parsingString, false );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-tmd") || (arg == "-tmpdir")) 
 //		{
 // 			MString parsingString = args.asString( ++i, &status );
 // 			m_tmpDir = parseString( parsingString, false );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-pid") || (arg == "-picdir")) 
 //		{
 // 			MString parsingString = args.asString( ++i, &status );
 // 			liqglo.m_pixDir = parseString( parsingString, false );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-pec") || (arg == "-preCommand")) 
 //		{
 // 			liqglo.m_preCommand = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-poc") || (arg == "-postJobCommand")) 
 //		{
 // 			MString varVal = args.asString( ++i, &status );
 // 			m_postJobCommand = parseString( varVal );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-pof") || (arg == "-postFrameCommand")) 
 //		{
 // 			m_postFrameCommand = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-prf") || (arg == "-preFrameCommand")) 
 //		{
 // 			m_preFrameCommand = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-rec") || (arg == "-renderCommand")) 
 //		{
 // 			m_renderCommand = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-rgc") || (arg == "-ribgenCommand")) 
 //		{
 // 			m_ribgenCommand = args.asString( ++i, &status );
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-blt") || (arg == "-blurTime")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			m_blurTime = argValue.asDouble();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-sr") || (arg == "-shadingRate")) 
 //		{ 
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.shadingRate = argValue.asDouble();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-bs") || (arg == "-bucketSize")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 //			liqglo.bucketSize[0] = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.bucketSize[1] = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-pf") || (arg == "-pixelFilter")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_rFilter = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_rFilterX = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_rFilterY = argValue.asInt();
-//			LIQCHECKSTATUS(status, err);
+//			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-gs") || (arg == "-gridSize")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.gridSize = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-txm") || (arg == "-texmem")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.textureMemory = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if ((arg == "-es") || (arg == "-eyeSplits")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.eyeSplits = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if ((arg == "-ar") || (arg == "-aspect")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.aspectRatio = argValue.asDouble();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if ((arg == "-x") || (arg == "-width")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			width = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if ((arg == "-y") || (arg == "-height")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			height = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // // 		else if((arg == "-def") || (arg == "-deferred")) {
-// //       		LIQCHECKSTATUS(status, "error in -deferred parameter");
+// //       		IfMErrorMsgReturnIt(status, "error in -deferred parameter");
 // //       		m_deferredGen = true;
 // //     	} 
 // // 		else if((arg == "-ndf") || (arg == "-noDef")) {
-// //       		LIQCHECKSTATUS(status, "error in -noDef parameter");
+// //       		IfMErrorMsgReturnIt(status, "error in -noDef parameter");
 // //       		m_deferredGen = false;
 // //     	} 
 // 		else if((arg == "-pad") || (arg == "-padding")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.liqglo_outPadding = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if((arg == "-rvp") || (arg == "-renderViewPort")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_renderViewPort = argValue.asInt();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 		} 
 // 		else if ((arg == "-cw") || (arg == "-cropWindow")) 
 //		{
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_cropX1 = argValue.asDouble();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_cropX2 = argValue.asDouble();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_cropY1 = argValue.asDouble();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 			argValue = args.asString( ++i, &status );
 // 			liqglo.m_cropY2 = argValue.asDouble();
-// 			LIQCHECKSTATUS(status, err);
+// 			IfMErrorMsgReturnIt(status, err);
 // 			if( liqglo.m_renderView ) 
 // 				liqglo.m_renderViewCrop = true;
 // 		}
 // // 		else if ((arg == "-shn") || (arg == "-shotName")) 
 // // 		{
 // // 			liqglo.liqglo_shotName = args.asString( ++i, &status );
-// // 			LIQCHECKSTATUS(status, err);
+// // 			IfMErrorMsgReturnIt(status, err);
 // // 		} 
 // // 		else if ((arg == "-shv") || (arg == "-shotVersion")) 
 // // 		{
 // // 			liqglo.liqglo_shotVersion = args.asString( ++i, &status );
-// // 			LIQCHECKSTATUS(status, err);
+// // 			IfMErrorMsgReturnIt(status, err);
 // // 		}
 // 		else if((arg == "-obl") || (arg == "-objectList")) {
-//       		LIQCHECKSTATUS(status, "error in -objectList parameter");
+//       		IfMErrorMsgReturnIt(status, "error in -objectList parameter");
 //       		i++;
 //       		m_objectListToExport = args.asStringArray( i, &status );
-//       		LIQCHECKSTATUS(status, "error in -objectList parameter 1");
+//       		IfMErrorMsgReturnIt(status, "error in -objectList parameter 1");
 //       		m_exportSpecificList = true;
 //     	}
 //     	else if((arg == "-oob") || (arg == "-onlyObjectBlock")) {
@@ -960,23 +960,23 @@ void liqRibTranslatorErrorHandler( liqInt code, liqInt severity, const char* mes
 // 		else if((arg == "-easp") || (arg == "-exportAllShadersParams")) {
 // 		  i++;
 // 		  argValue = args.asString( i, &status );
-// 		  LIQCHECKSTATUS(status, "error in -exportAllShadersParams parameter : -exportAllShadersParams 1/0");
+// 		  IfMErrorMsgReturnIt(status, "error in -exportAllShadersParams parameter : -exportAllShadersParams 1/0");
 // 		  liqglo.liqglo_exportAllShadersParams = args.asInt( i, &status );
-// 		  LIQCHECKSTATUS(status, "error in -exportAllShadersParams parameter (must be an integer) : -exportAllShadersParams 1/0");
+// 		  IfMErrorMsgReturnIt(status, "error in -exportAllShadersParams parameter (must be an integer) : -exportAllShadersParams 1/0");
 // 		}
 // 		else if((arg == "-rhcn") || (arg == "-ribHasCameraName")) {
 // 		  i++;
 // 		  argValue = args.asString( i, &status );
-// 		  LIQCHECKSTATUS(status, "error in -ribHasCameraName parameter : -ribHasCameraName 1/0");
+// 		  IfMErrorMsgReturnIt(status, "error in -ribHasCameraName parameter : -ribHasCameraName 1/0");
 // 		  liqglo.liqglo_beautyRibHasCameraName = args.asInt( i, &status );
-// 		  LIQCHECKSTATUS(status, "error in -ribHasCameraName parameter (must be an integer) :  1/0");
+// 		  IfMErrorMsgReturnIt(status, "error in -ribHasCameraName parameter (must be an integer) :  1/0");
 // 		}
 // 		else if((arg == "-sdm") || (arg == "-skipDefaultMatte")) {
 // 		  i++;
 // 		  argValue = args.asString( i, &status );
-// 		  LIQCHECKSTATUS(status, "error in -skipDefaultMatte parameter : -skipDefaultMatte 1/0");
+// 		  IfMErrorMsgReturnIt(status, "error in -skipDefaultMatte parameter : -skipDefaultMatte 1/0");
 // 		  liqglo.liqglo_skipDefaultMatte = args.asInt( i, &status );
-// 		  LIQCHECKSTATUS(status, "error in -skipDefaultMatte parameter (must be an integer) :  1/0");
+// 		  IfMErrorMsgReturnIt(status, "error in -skipDefaultMatte parameter (must be an integer) :  1/0");
 // 		}
 // 		else {
 // 			printf("[liqRibTranslator] undefined argument %d : '%s' \n", i, args.asString( i ).asChar());

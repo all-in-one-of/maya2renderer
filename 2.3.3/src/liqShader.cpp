@@ -1596,9 +1596,9 @@ void liqShader::write(/*, */)
 // 		MObject oMatrix;
 // 		matrixPlug.getValue(oMatrix);
 // 		MFnMatrixData fndMatrix(oMatrix, &status);
-// 		LIQCHECKSTATUS(status,"liqShader::liqShaderParseMatrixAttr(...) fndMatrix");
+// 		IfMErrorMsgReturnIt(status,"liqShader::liqShaderParseMatrixAttr(...) fndMatrix");
 // 		MMatrix matrix(fndMatrix.matrix(&status));
-// 		LIQCHECKSTATUS(status,"liqShader::liqShaderParseMatrixAttr(...) mmatrix");
+// 		IfMErrorMsgReturnIt(status,"liqShader::liqShaderParseMatrixAttr(...) mmatrix");
 // 		RtFloat mmatrixBuff[4][4];
 // 		matrix.get(mmatrixBuff);
 // 		matrixBuff[0 ] = mmatrixBuff[0][0];  matrixBuff[1 ] = mmatrixBuff[0][1];  matrixBuff[2 ] = mmatrixBuff[0][2];  matrixBuff[3 ] = mmatrixBuff[0][3];
