@@ -42,6 +42,7 @@
 #include <common/prerequest_maya.h>
 #include <maya/MFnPlugin.h>
 #include <common/mayacheck.h>
+#include <liqNodeSwatch.h>
 #include "er_.h"
 #include "../renderermgr.h"
 #include "../elvishray/er_factory.h"
@@ -81,6 +82,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		&elvishray::env_classification);
 	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+" node" );
 	status.clear();
+	status = MSwatchRenderRegister::registerSwatchRender( elvishray::PhysicalskyNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+"Swatch" );
 	//
 	status = plugin.registerNode( 
 		elvishray::SkyLightNode::getTypeName(), 
@@ -89,6 +92,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		&elvishray::light_classification);
 	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+" node" );
 	status.clear();
+	status = MSwatchRenderRegister::registerSwatchRender( elvishray::SkyLightNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+"Swatch" );
 	//
 	status = plugin.registerNode( 
 		elvishray::FlatColorNode::getTypeName(), 
@@ -97,6 +102,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 		&elvishray::surface_classification);
 	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+" node" );
 	status.clear();
+	status = MSwatchRenderRegister::registerSwatchRender( elvishray::FlatColorNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+"Swatch" );
 	//
 	elvishray::CheckerNodeVisitor::regist(plugin);
 
@@ -113,12 +120,18 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	//
 	elvishray::CheckerNodeVisitor::unregist(plugin);
 	//
+	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::FlatColorNode::getTypeName()+"Swatch");
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+"Swatch generator" );
 	status = plugin.deregisterNode( elvishray::FlatColorNode::getTypeId() );
 	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+" node" );
 	//
+	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::SkyLightNode::getTypeName()+"Swatch");
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+"Swatch generator" );
 	status = plugin.deregisterNode( elvishray::SkyLightNode::getTypeId() );
 	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+" node" );
 	//
+	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::PhysicalskyNode::getTypeName()+"Swatch");
+	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+"Swatch generator" );
 	status = plugin.deregisterNode( elvishray::PhysicalskyNode::getTypeId() );
 	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+" node" );
 	//

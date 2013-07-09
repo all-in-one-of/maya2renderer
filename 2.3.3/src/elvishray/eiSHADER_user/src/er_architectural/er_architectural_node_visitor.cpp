@@ -1,6 +1,7 @@
 
 #include "er_architectural_node_visitor.h"
 #include <common/mayacheck.h>
+#include <liqNodeSwatch.h>
 
 #define MNoVersionString
 #define MNoPluginEntry
@@ -201,6 +202,8 @@ namespace elvishray
 			&elvishray::surface_classification);
 		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::ArchitecturalNode::getTypeName()+" node" );
 		status.clear();
+		status = MSwatchRenderRegister::registerSwatchRender( elvishray::ArchitecturalNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::ArchitecturalNode::getTypeName()+"Swatch" );
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			ArchitecturalNode::getTypeName().asChar(),
@@ -218,6 +221,8 @@ namespace elvishray
 			ArchitecturalNode::getTypeName().asChar()
 			);
 
+		status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::ArchitecturalNode::getTypeName()+"Swatch");
+		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::ArchitecturalNode::getTypeName()+"Swatch generator" );
 		status = plugin.deregisterNode( elvishray::ArchitecturalNode::getTypeId() );
 		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::ArchitecturalNode::getTypeName()+" node" );
 

@@ -1,6 +1,7 @@
 
 #include "erTestLight_node_visitor.h"
 #include <common/mayacheck.h>
+#include <liqNodeSwatch.h>
 
 #define MNoVersionString
 #define MNoPluginEntry
@@ -87,6 +88,8 @@ namespace elvishray
 			&elvishray::light_classification);
 		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::TestLightNode::getTypeName()+" node" );
 		status.clear();
+		status = MSwatchRenderRegister::registerSwatchRender( elvishray::TestLightNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::TestLightNode::getTypeName()+"Swatch" );
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			TestLightNode::getTypeName().asChar(),
@@ -104,6 +107,8 @@ namespace elvishray
 			TestLightNode::getTypeName().asChar()
 			);
 
+		status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::TestLightNode::getTypeName()+"Swatch");
+		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::TestLightNode::getTypeName()+"Swatch generator" );
 		status = plugin.deregisterNode( elvishray::TestLightNode::getTypeId() );
 		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::TestLightNode::getTypeName()+" node" );
 

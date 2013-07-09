@@ -1,11 +1,13 @@
 
 #include "rmPhysicalsun_node_visitor.h"
 #include <common/mayacheck.h>
+#include <liqNodeSwatch.h>
 
 #define MNoVersionString
 #define MNoPluginEntry
 #include <maya/MFnPlugin.h>
 
+#include <liqNodeSwatch.h>
 #include "../rm_log.h"
 //#include "../rm_output_mgr.h"
 #include "../shaderOutputRSL.h"
@@ -117,6 +119,8 @@ namespace renderman
 			&renderman::light_classification);
 		IfMErrorMsgReturnIt( status, "Can't register "+renderman::PhysicalsunNode::getTypeName()+" node" );
 		status.clear();
+		status = MSwatchRenderRegister::registerSwatchRender( renderman::PhysicalsunNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+		IfMErrorMsgReturnIt( status, "Can't register "+renderman::PhysicalsunNode::getTypeName()+"Swatch" );
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			PhysicalsunNode::getTypeName().asChar(),
@@ -134,6 +138,8 @@ namespace renderman
 			PhysicalsunNode::getTypeName().asChar()
 			);
 
+		status = MSwatchRenderRegister::unregisterSwatchRender(renderman::PhysicalsunNode::getTypeName()+"Swatch");
+		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::PhysicalsunNode::getTypeName()+"Swatch generator" );
 		status = plugin.deregisterNode( renderman::PhysicalsunNode::getTypeId() );
 		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::PhysicalsunNode::getTypeName()+" node" );
 

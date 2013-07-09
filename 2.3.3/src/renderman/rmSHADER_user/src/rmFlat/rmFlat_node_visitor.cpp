@@ -5,6 +5,7 @@
 #define MNoVersionString
 #define MNoPluginEntry
 #include <maya/MFnPlugin.h>
+#include <liqNodeSwatch.h>
 
 #include "../rm_log.h"
 //#include "../rm_output_mgr.h"
@@ -104,6 +105,8 @@ namespace renderman
 			&renderman::surface_classification);
 		IfMErrorMsgReturnIt( status, "Can't register "+renderman::FlatNode::getTypeName()+" node" );
 		status.clear();
+		status = MSwatchRenderRegister::registerSwatchRender( renderman::FlatNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+		IfMErrorMsgReturnIt( status, "Can't register "+renderman::FlatNode::getTypeName()+"Swatch" );
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			FlatNode::getTypeName().asChar(),
@@ -121,6 +124,8 @@ namespace renderman
 			FlatNode::getTypeName().asChar()
 			);
 
+		status = MSwatchRenderRegister::unregisterSwatchRender(renderman::FlatNode::getTypeName()+"Swatch");
+		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::FlatNode::getTypeName()+"Swatch generator" );
 		status = plugin.deregisterNode( renderman::FlatNode::getTypeId() );
 		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::FlatNode::getTypeName()+" node" );
 

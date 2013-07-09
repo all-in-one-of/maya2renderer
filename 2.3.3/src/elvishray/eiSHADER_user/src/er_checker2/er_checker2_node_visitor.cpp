@@ -1,6 +1,7 @@
 
 #include "er_checker2_node_visitor.h"
 #include <common/mayacheck.h>
+#include <liqNodeSwatch.h>
 
 #define MNoVersionString
 #define MNoPluginEntry
@@ -96,7 +97,9 @@ namespace elvishray
 			&elvishray::texture2d_classification);
 		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::Checker2Node::getTypeName()+" node" );
 		status.clear();
-
+		status = MSwatchRenderRegister::registerSwatchRender( elvishray::Checker2Node::getTypeName()+"Swatch", liqNodeSwatch::creator );
+		IfMErrorMsgReturnIt( status, "Can't register "+elvishray::Checker2Node::getTypeName()+"Swatch" );
+		
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			Checker2Node::getTypeName().asChar(),
 			Checker2NodeVisitor::getInstancePtr()
@@ -113,6 +116,8 @@ namespace elvishray
 			Checker2Node::getTypeName().asChar()
 			);
 
+		status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::Checker2Node::getTypeName()+"Swatch");
+		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::Checker2Node::getTypeName()+"Swatch generator" );
 		status = plugin.deregisterNode( elvishray::Checker2Node::getTypeId() );
 		IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::Checker2Node::getTypeName()+" node" );
 

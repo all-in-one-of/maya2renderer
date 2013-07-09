@@ -5,6 +5,7 @@
 #define MNoVersionString
 #define MNoPluginEntry
 #include <maya/MFnPlugin.h>
+#include <liqNodeSwatch.h>
 
 #include "../rm_log.h"
 //#include "../rm_output_mgr.h"
@@ -102,6 +103,8 @@ namespace renderman
 			&renderman::light_classification);
 		IfMErrorMsgReturnIt( status, "Can't register "+renderman::OccLightNode::getTypeName()+" node" );
 		status.clear();
+		status = MSwatchRenderRegister::registerSwatchRender( renderman::OccLightNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
+		IfMErrorMsgReturnIt( status, "Can't register "+renderman::OccLightNode::getTypeName()+"Swatch" );
 
 		RNodeVisitorMgr::getInstancePtr()->regist(
 			OccLightNode::getTypeName().asChar(),
@@ -119,6 +122,8 @@ namespace renderman
 			OccLightNode::getTypeName().asChar()
 			);
 
+		status = MSwatchRenderRegister::unregisterSwatchRender(renderman::OccLightNode::getTypeName()+"Swatch");
+		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::OccLightNode::getTypeName()+"Swatch generator" );
 		status = plugin.deregisterNode( renderman::OccLightNode::getTypeId() );
 		IfMErrorMsgReturnIt( status, "Can't deregister "+renderman::OccLightNode::getTypeName()+" node" );
 
