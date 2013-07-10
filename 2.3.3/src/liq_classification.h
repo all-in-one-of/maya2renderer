@@ -22,9 +22,9 @@ namespace liquid
 	
 	const MString displacement_classification = 
 		"rendernode/"+CR_NAME+"/shader/displacement:shader/displacement:swatch/liquidSwatch";
-	
+	//It is wierd that liquidLight is not displayed in Hypershade tpo tab 'light', so I put liquidLight into surface tab temporarily.
 	const MString light_classification = 
-		"rendernode/"+CR_NAME+"/light:light:swatch/liquidSwatch";
+		"rendernode/"+CR_NAME+"/shader/surface:shader/surface:swatch/liquidSwatch";
 
 	const MString utility_general_classification = 
 		"rendernode/"+CR_NAME+"/utility/general:utility/general:swatch/liquidSwatch";
