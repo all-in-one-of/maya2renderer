@@ -403,7 +403,6 @@ MStatus _initializePlugin(MObject obj)
 
   // register the liquidLight node
 //  const MString UserClassify3( "rendernode/liquid/light:light:swatch/liqLightSwatch" );
-  //It is wierd that liquidLight is not displayed in Hypershade tpo tab 'light', so I put liquidLight into surface tab temporarily.
   //const MString UserClassify3( "rendernode/liquid/shader/surface:shader/surface:swatch/liqLightSwatch" );
   status = plugin.registerNode( "liquidLight", liqLightNode::id, liqLightNode::creator, liqLightNode::initialize, MPxNode::kDependNode, &liquid::light_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidLight node" );

@@ -629,8 +629,15 @@ MString Visitor::getRSLShaderType(const MString &startingNode)
 	}
 	//maya shader
 	else{
-		if(renderman::isClassification(nodeType, "shader/surface")){
+		if(renderman::isClassification(nodeType, "shader/surface"))
+		{
 			shaderType = "surface";
+			//It is weird that liquidLight is not displayed in Hypershade top tab 'light', 
+			//so I put liquidLight into surface tab temporarily.
+			if(nodeType=="light")
+			{
+				shaderType = "light";
+			}
 		}else if(renderman::isClassification(nodeType, "shader/displacement")){
 			shaderType = "displacement";
 		}else if(renderman::isClassification(nodeType, "shader/volume")){
