@@ -9,6 +9,9 @@
 
 liq| rm|: support RSL2.0!!!
 
+liq|: erLight/rmLight can;t be displayed in hypershade top tab
+done)liq|: hypershade>createBar>liquid, can;t create node .
+
 liq| x64|: M2R2012Debug里的displayDriverAqsis生成的liqmaya.dpy导致崩溃，但M2R2012Release里displayDriverAqsis生成的liqmaya.dpy不崩溃.
 目前M2R2012Debug里的displayDriverAqsis使用的是M2R2012Release配置
 -liq| rmShader_user| rm|:

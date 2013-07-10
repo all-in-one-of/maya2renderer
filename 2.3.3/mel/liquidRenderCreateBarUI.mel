@@ -45,9 +45,9 @@ global proc int LIQUID_isLiquidClassification(string $classification)
 	liqPushIdent();
 	liqlog("LIQUID_isLiquidClassification("+$classification+")");
 
-	int $processed = 0;// processed by liquidor not
+	int $processed = 0;// $classification is processed by liquid or not
 
-	string $liquidClassfication = "rendernode/liquid/shader";
+	string $liquidClassfication = "rendernode/liquid";
 	if( startsWith($classification, $liquidClassfication) )
 	{
 		return 1;
@@ -72,6 +72,19 @@ global proc string LIQUID_getCreateBarItemCallbackCmd(
 	string $command;
 
 	if( LIQUID_isLiquidClassification($classification) )
+	{
+		$command = 
+				("liqCreateCustomNode"
+					+ " "
+					+ $as 
+					+ " \""
+					+ encodeString($postCommand)
+					+ "\" "
+					+ $type
+					+ " \"liquid\" "
+					);
+	}
+	else if( LIQUID_isLiquidClassification_subrenderer($classification) )
 	{
 		$command = LIQUID_getCreateBarItemCallbackCmd_subrenderer($classification, $as, $postCommand, $type);
 	}
