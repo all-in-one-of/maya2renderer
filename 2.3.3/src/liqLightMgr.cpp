@@ -594,7 +594,8 @@ void tLightMgr::buildShadowJob_PointLight(
 
 	// check to see if the midpoint shadow option is used
 	bool isMidPointShadow = false;
-	liquidGetPlugValue( fnLightNode, "useMidDistDmap", isMidPointShadow, status__ );
+	MFnDependencyNode fnDepLightNode(fnLightNode.object());//Maya2013Bug:6512, see maya_2013_release_notes_en.pdf
+	liquidGetPlugValue( fnDepLightNode, "useMidDistDmap", isMidPointShadow, status__ );
 	if ( isMidPointShadow ) thisJob___.shadowType = stMidPoint;
 
 	//[refactor 2.1.2] begin

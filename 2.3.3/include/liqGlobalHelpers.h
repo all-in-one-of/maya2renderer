@@ -104,19 +104,19 @@ LIQUID_EXPORT MString parseLiquidRibRequest( MStringArray requestArray, MString 
 LIQUID_EXPORT void initalizeShaderHandlerGenerator();
 LIQUID_EXPORT std::string getUniqueShaderHandler();
 
-LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed = false );
-LIQUID_EXPORT MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status );
-LIQUID_EXPORT unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name, MStatus *status );
-LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MString &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, int &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, bool &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, float &value, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MStringArray &array, MStatus &status );
-LIQUID_EXPORT MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MIntArray &array, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, bool &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, int &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, liqFloat &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, double &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, MString &value, MStatus &status, bool parsed = false );
+LIQUID_EXPORT MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, MVector &value, MStatus &status );
+LIQUID_EXPORT unsigned int liquidGetPlugNumElements( const MFnDependencyNode &node, const char *name, MStatus *status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, MString &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, int &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, bool &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, float &value, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, MStringArray &array, MStatus &status );
+LIQUID_EXPORT MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, MIntArray &array, MStatus &status );
 
 class arrayDeleter // needed to free a shared/scoped/weak_ptr to an array
 {

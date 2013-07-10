@@ -651,7 +651,7 @@ void liqRibNode::set( const MDagPath &path, int sample, ObjectType objType, int 
       if( ignoreShapes == false )
         liquidGetPlugValue( nodePeeker, "liqIgnoreShapes", ignoreShapes, status );
  
-      MFnDependencyNode nodeFn( nodePeeker );
+      MFnDependencyNode nodeFn( nodePeeker.object() );
 
       // find the attributes
       MStringArray floatAttributesFound  = findAttributesByPrefix( "rmanF", nodeFn );

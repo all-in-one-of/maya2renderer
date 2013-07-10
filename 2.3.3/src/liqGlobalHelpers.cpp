@@ -1320,7 +1320,7 @@ MString parseLiquidRibRequest( MStringArray requestArray, MString attr )
   return combinedRequest;
 }
 // liquidGetPlugValue bool
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &value, MStatus &status )
+MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, bool &value, MStatus &status )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
@@ -1329,7 +1329,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, bool &valu
   return status;
 }
 // liquidGetPlugValue int
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value, MStatus &status )
+MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, int &value, MStatus &status )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
@@ -1338,7 +1338,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, int &value
   return status;
 }
 // liquidGetPlugValue liqFloat
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &value, MStatus &status )
+MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, liqFloat &value, MStatus &status )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
@@ -1347,7 +1347,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, liqFloat &
   return status;
 }
 // liquidGetPlugValue double
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &value, MStatus &status )
+MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, double &value, MStatus &status )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
@@ -1356,7 +1356,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, double &va
   return status;
 }
 // liquidGetPlugValue MString
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &value, MStatus &status, bool parsed )
+MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, MString &value, MStatus &status, bool parsed )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
@@ -1369,7 +1369,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MString &v
   return status;
 }
 // liquidGetPlugValue MVector
-MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &value, MStatus &status )
+MStatus liquidGetPlugValue( const MFnDependencyNode &node, const char *name, MVector &value, MStatus &status )
 {
   status.clear();
   MPlug plug = node.findPlug( name, &status );
@@ -1382,7 +1382,7 @@ MStatus liquidGetPlugValue( MFnDependencyNode node, const char *name, MVector &v
    return status;
 }
 // liquidGetPlugNumElements
-unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name, MStatus *status )
+unsigned int liquidGetPlugNumElements( const MFnDependencyNode &node, const char *name, MStatus *status )
 {
   unsigned int num = 0;
   status->clear();
@@ -1395,7 +1395,7 @@ unsigned int liquidGetPlugNumElements( MFnDependencyNode node, const char *name,
   return num;
 }
 // liquidGetPlugElementValue MString
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MString &value, MStatus &status )
+MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, MString &value, MStatus &status )
 {
 	status.clear();
 	MPlug plug = node.findPlug( name, &status );
@@ -1409,7 +1409,7 @@ MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, con
 	return status;
 }
 // liquidGetPlugElementValue int
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, int &value, MStatus &status )
+MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, int &value, MStatus &status )
 {
 	status.clear();
 	MPlug plug = node.findPlug( name, &status );
@@ -1423,7 +1423,7 @@ MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, con
 	return status;
 }
 // liquidGetPlugElementValue bool
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, bool &value, MStatus &status )
+MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, bool &value, MStatus &status )
 {
 	status.clear();
 	MPlug plug = node.findPlug( name, &status );
@@ -1437,7 +1437,7 @@ MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, con
 	return status;
 }
 // liquidGetPlugElementValue float
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, float &value, MStatus &status )
+MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, float &value, MStatus &status )
 {
 	status.clear();
 	MPlug plug = node.findPlug( name, &status );
@@ -1451,7 +1451,7 @@ MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, con
 	return status;
 }
 // liquidGetPlugElementValue MStringArray
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MStringArray &array, MStatus &status )
+MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, MStringArray &array, MStatus &status )
 {
 	status.clear();
 	MPlug plug = node.findPlug( name, &status );
@@ -1470,7 +1470,7 @@ MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, con
 	return status;
 }
 // liquidGetPlugElementValue MIntArray
-MStatus liquidGetPlugElementValue( MFnDependencyNode node, unsigned int ind, const char *name, MIntArray &array, MStatus &status )
+MStatus liquidGetPlugElementValue( const MFnDependencyNode &node, unsigned int ind, const char *name, MIntArray &array, MStatus &status )
 {
 	status.clear();
 	MPlug plug = node.findPlug( name, &status );
