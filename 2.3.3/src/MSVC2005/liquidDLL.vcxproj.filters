@@ -304,6 +304,9 @@
     <ClCompile Include="..\liqCameraMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\liq_classification.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -626,6 +629,9 @@
     </ClInclude>
     <ClInclude Include="..\shadergraph\ShadingNetworkUserBase.h">
       <Filter>Source Files\shadergraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\liq_classification.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2616,6 +2616,7 @@
     <ClCompile Include="..\liqSurfaceNode.cpp" />
     <ClCompile Include="..\liqTokenPointer.cpp" />
     <ClCompile Include="..\liqVolumeNode.cpp" />
+    <ClCompile Include="..\liq_classification.cpp" />
     <ClCompile Include="..\liq_plug.cpp" />
     <ClCompile Include="..\liq_plugdll.cpp" />
     <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp" />
@@ -2649,6 +2650,7 @@
     <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\liq_classification.h" />
     <ClInclude Include="..\rnode_visitor_interface.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
     <ClInclude Include="..\shadergraph\shadermgr.h" />

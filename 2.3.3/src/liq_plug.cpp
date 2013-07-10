@@ -68,6 +68,7 @@
 #include <liqGetSloInfo.h>
 #include <liqParseString.h>
 #include <liqIPRNodeMessageCmd.h>
+#include "liq_classification.h"
 
 #define LIQVENDOR "http://liquidmaya.sourceforge.net/"
 
@@ -377,24 +378,24 @@ MStatus _initializePlugin(MObject obj)
 //#endif
 
   // register the liquidShader node
-  const MString UserClassify( "rendernode/liquid/shader/surface:shader/surface:swatch/liqSurfSwatch" );
-  status = plugin.registerNode( "liquidSurface", liqSurfaceNode::id, liqSurfaceNode::creator, liqSurfaceNode::initialize, MPxNode::kDependNode, &UserClassify );
+  //const MString UserClassify( "rendernode/liquid/shader/surface:shader/surface:swatch/liqSurfSwatch" );
+  status = plugin.registerNode( "liquidSurface", liqSurfaceNode::id, liqSurfaceNode::creator, liqSurfaceNode::initialize, MPxNode::kDependNode, &liquid::surface_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidSurface node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqSurfSwatch", liqNodeSwatch::creator );
   IfMErrorMsgReturnIt( status, "Can't register liquidSurface swatch" );
 
   // register the liquidDisplacement node
-  const MString UserClassify1( "rendernode/liquid/shader/displacement:shader/displacement:swatch/liqDispSwatch" );
-  status = plugin.registerNode( "liquidDisplacement", liqDisplacementNode::id, liqDisplacementNode::creator, liqDisplacementNode::initialize, MPxNode::kDependNode, &UserClassify1 );
+  //const MString UserClassify1( "rendernode/liquid/shader/displacement:shader/displacement:swatch/liqDispSwatch" );
+  status = plugin.registerNode( "liquidDisplacement", liqDisplacementNode::id, liqDisplacementNode::creator, liqDisplacementNode::initialize, MPxNode::kDependNode, &liquid::displacement_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidDisp node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqDispSwatch", liqNodeSwatch::creator );
   IfMErrorMsgReturnIt( status, "Can't register liquidDisplacement swatch" );
 
   // register the liquidVolume node
-  const MString UserClassify2( "rendernode/liquid/shader/volume:shader/volume:swatch/liqVolSwatch" );
-  status = plugin.registerNode( "liquidVolume", liqVolumeNode::id, liqVolumeNode::creator, liqVolumeNode::initialize, MPxNode::kDependNode, &UserClassify2 );
+  //const MString UserClassify2( "rendernode/liquid/shader/volume:shader/volume:swatch/liqVolSwatch" );
+  status = plugin.registerNode( "liquidVolume", liqVolumeNode::id, liqVolumeNode::creator, liqVolumeNode::initialize, MPxNode::kDependNode, &liquid::volume_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidVolume node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqVolSwatch", liqNodeSwatch::creator );
@@ -402,8 +403,9 @@ MStatus _initializePlugin(MObject obj)
 
   // register the liquidLight node
 //  const MString UserClassify3( "rendernode/liquid/light:light:swatch/liqLightSwatch" );
-  const MString UserClassify3( "rendernode/liquid/shader/surface:shader/surface:swatch/liqLightSwatch" );
-  status = plugin.registerNode( "liquidLight", liqLightNode::id, liqLightNode::creator, liqLightNode::initialize, MPxNode::kDependNode, &UserClassify3 );
+  //It is wierd that liquidLight is not displayed in Hypershade tpo tab 'light', so I put liquidLight into surface tab temporarily.
+  //const MString UserClassify3( "rendernode/liquid/shader/surface:shader/surface:swatch/liqLightSwatch" );
+  status = plugin.registerNode( "liquidLight", liqLightNode::id, liqLightNode::creator, liqLightNode::initialize, MPxNode::kDependNode, &liquid::light_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidLight node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqLightSwatch", liqNodeSwatch::creator );
@@ -412,8 +414,8 @@ MStatus _initializePlugin(MObject obj)
   IfMErrorMsgReturnIt( status, "Can't register liquidLight behavior" );
 
   // register the liquidRibbox node
-  const MString UserClassify4( "rendernode/liquid/utility/general:utility/general:swatch/liqRibSwatch" );
-  status = plugin.registerNode( "liquidRibBox", liqRibboxNode::id, liqRibboxNode::creator, liqRibboxNode::initialize, MPxNode::kDependNode, &UserClassify4 );
+  //const MString UserClassify4( "rendernode/liquid/utility/general:utility/general:swatch/liqRibSwatch" );
+  status = plugin.registerNode( "liquidRibBox", liqRibboxNode::id, liqRibboxNode::creator, liqRibboxNode::initialize, MPxNode::kDependNode, &liquid::utility_general_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidRibbox node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqRibSwatch", liqNodeSwatch::creator );
@@ -440,8 +442,8 @@ MStatus _initializePlugin(MObject obj)
   status.clear();
 
   // register the liquidCoShader node
-  const MString UserClassifyCoShader( "rendernode/liquid/utility/general:utility/general:swatch/liqCoShaderSwatch" );
-  status = plugin.registerNode( "liquidCoShader", liqCoShaderNode::id, liqCoShaderNode::creator, liqCoShaderNode::initialize, MPxNode::kDependNode, &UserClassifyCoShader );
+  //const MString UserClassifyCoShader( "rendernode/liquid/utility/general:utility/general:swatch/liqCoShaderSwatch" );
+  status = plugin.registerNode( "liquidCoShader", liqCoShaderNode::id, liqCoShaderNode::creator, liqCoShaderNode::initialize, MPxNode::kDependNode, &liquid::utility_general_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidCoShader node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqCoShaderSwatch", liqNodeSwatch::creator );
@@ -456,8 +458,8 @@ MStatus _initializePlugin(MObject obj)
   status.clear();
 
   // register the liquidShader node
-  const MString UserClassifyShader( "rendernode/liquid/utility/color:utility/color:swatch/liqShaderSwatch" );
-  status = plugin.registerNode( "liquidShader", liqShaderNode::id, liqShaderNode::creator, liqShaderNode::initialize, MPxNode::kDependNode, &UserClassifyShader );
+  //const MString UserClassifyShader( "rendernode/liquid/utility/color:utility/color:swatch/liqShaderSwatch" );
+  status = plugin.registerNode( "liquidShader", liqShaderNode::id, liqShaderNode::creator, liqShaderNode::initialize, MPxNode::kDependNode, &liquid::utility_color_classification );
   IfMErrorMsgReturnIt( status, "Can't register liquidShader node" );
   status.clear();
   status = MSwatchRenderRegister::registerSwatchRender( "liqShaderSwatch", liqNodeSwatch::creator );
