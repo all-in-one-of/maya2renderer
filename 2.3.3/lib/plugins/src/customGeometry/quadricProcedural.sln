@@ -6,22 +6,37 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		aqsis_plugins|Win32 = aqsis_plugins|Win32
+		aqsis_plugins|x64 = aqsis_plugins|x64
 		delight_plugins|Win32 = delight_plugins|Win32
+		delight_plugins|x64 = delight_plugins|x64
 		liquid_plugins|Win32 = liquid_plugins|Win32
+		liquid_plugins|x64 = liquid_plugins|x64
 		prman_plugins|Win32 = prman_plugins|Win32
+		prman_plugins|x64 = prman_plugins|x64
 		rfm_plugins|Win32 = rfm_plugins|Win32
+		rfm_plugins|x64 = rfm_plugins|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.aqsis_plugins|Win32.ActiveCfg = aqsis_plugins|Win32
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.aqsis_plugins|Win32.Build.0 = aqsis_plugins|Win32
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.aqsis_plugins|x64.ActiveCfg = aqsis_plugins|x64
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.aqsis_plugins|x64.Build.0 = aqsis_plugins|x64
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.delight_plugins|Win32.ActiveCfg = delight_plugins|Win32
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.delight_plugins|Win32.Build.0 = delight_plugins|Win32
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.delight_plugins|x64.ActiveCfg = delight_plugins|x64
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.delight_plugins|x64.Build.0 = delight_plugins|x64
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.liquid_plugins|Win32.ActiveCfg = liquid_plugins|Win32
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.liquid_plugins|Win32.Build.0 = liquid_plugins|Win32
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.liquid_plugins|x64.ActiveCfg = liquid_plugins|x64
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.liquid_plugins|x64.Build.0 = liquid_plugins|x64
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.prman_plugins|Win32.ActiveCfg = prman_plugins|Win32
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.prman_plugins|Win32.Build.0 = prman_plugins|Win32
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.prman_plugins|x64.ActiveCfg = prman_plugins|x64
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.prman_plugins|x64.Build.0 = prman_plugins|x64
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.rfm_plugins|Win32.ActiveCfg = rfm_plugins|Win32
 		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.rfm_plugins|Win32.Build.0 = rfm_plugins|Win32
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.rfm_plugins|x64.ActiveCfg = rfm_plugins|x64
+		{B9652F87-0BB5-4FB0-85AC-862CA178DB01}.rfm_plugins|x64.Build.0 = rfm_plugins|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
