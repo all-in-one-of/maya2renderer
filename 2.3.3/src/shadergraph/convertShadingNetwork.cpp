@@ -708,7 +708,13 @@ void ConvertShadingNetwork::_exportShaderNode(const MString& node)
 		MString cmd("nodeType \""+node+"\"");
 		IfMErrorWarn(MGlobal::executeCommand( cmd, nodetype));
 
-		if(nodetype=="liquidSurface"||nodetype=="liquidVolume"||nodetype=="liquidDisplacement"){
+		if(   nodetype=="liquidSurface"
+			||nodetype=="liquidVolume"
+			||nodetype=="liquidLight"
+			||nodetype=="liquidDisplacement"
+			||nodetype=="liquidCoShader"
+			||nodetype=="liquidShader" )
+		{
 			//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
 			liqShader &currentShader = liqShaderFactory::instance().getShader( node.asChar() );
 			currentShader.write();

@@ -1156,8 +1156,9 @@ namespace renderman
 		displayCmd += (int)liqglo.m_renderViewTimeOut;
 		if ( liqglo.m_renderViewCrop ) 
 			displayCmd += " -doRegion";
-		displayCmd += ";liquidSaveRenderViewImage();";
-		MGlobal::executeCommand( displayCmd );
+		displayCmd += ";";
+		IfMErrorWarn(MGlobal::executeCommand( displayCmd ));
+		IfMErrorWarn(MGlobal::executeCommand( "liquidSaveRenderViewImage();" ));
 		//[refactor][1.21 ]
 
 		return MStatus::kSuccess;

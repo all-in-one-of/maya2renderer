@@ -54,6 +54,7 @@ material "lambert6SG"
 surface_shader "lambert6" 
 end material
 
+## shader(maya_physicalsky,...)
 shader "maya_physicalsky" "liquidShader2" 
     param_vector "sun_dir" 0.577000 0.577000 0.577000
     param_scalar "sun_disk_size" 2 
@@ -73,7 +74,6 @@ shader "maya_physicalsky" "liquidShader2"
     param_scalar "e" 0.45 
     param_scalar "intensity" 0.2 
 end shader
-
 
 ##worldPrologue
 
