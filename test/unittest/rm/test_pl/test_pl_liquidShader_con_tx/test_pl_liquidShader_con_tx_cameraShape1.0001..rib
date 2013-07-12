@@ -28,7 +28,7 @@ FrameBegin 1
     Projection "perspective" "fov" [ 37.994007 ] 
     ScreenWindow -1.333333 1.333333 -1.000000 1.000000
     Clipping 0.100000 10000.000000
-    Transform [ 0.427550 0.561847 0.708187 0.000000 0.000000 0.783400 -0.621517 0.000000 0.903992 -0.265730 -0.334943 0.000000 -0.815287 -1.071374 1.000936 1.000000 ]
+    Transform [ 0.427550 0.561847 0.708187 0.000000 -0.000000 0.783400 -0.621517 0.000000 0.903992 -0.265730 -0.334943 0.000000 -0.815287 -1.071374 1.000936 1.000000 ]
     #Display Drivers:
     #Display 6
     #Display 8
@@ -81,7 +81,7 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/test_pl_liquidShader_con_t
             Attribute "identifier" "name" [ "_camera1_group_camera1_cameraShape1" ] 
             #				[DEBUG] |camera1_group|camera1|cameraShape1 is not lighted.
             #has no shadingEngine
-            Transform [ 0.427550 0.000000 0.903992 0.000000 0.561847 0.783400 -0.265730 0.000000 -0.708187 0.621517 0.334943 0.000000 0.241674 1.461414 0.787573 1.000000 ]
+            Transform [ 0.427550 -0.000000 0.903992 0.000000 0.561847 0.783400 -0.265730 0.000000 -0.708187 0.621517 0.334943 0.000000 0.241674 1.461414 0.787573 1.000000 ]
             #_write(liqRibCameraData*...) not implemented yet.
         AttributeEnd
     WorldEnd

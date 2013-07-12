@@ -527,7 +527,7 @@ mtl "liquid_material_for_test"
 ##shape name=|persp|perspShape
 ##shape full path name=|persp|perspShape
 element "|persp|perspShape" 
-transform 0.999701 0 0.0244322 0    0.0212307 0.494877 -0.868704 0    -0.0120909 0.868963 0.494729 0    4.70507 112.27 76.251 1 
+transform 0.999701 1.73472e-018 0.0244322 0    0.0212307 0.494877 -0.868704 0    -0.0120909 0.868963 0.494729 0    4.70507 112.27 76.251 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 

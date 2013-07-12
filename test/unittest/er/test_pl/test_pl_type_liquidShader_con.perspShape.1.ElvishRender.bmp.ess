@@ -48,6 +48,18 @@ shader "test_type_pl" "test_pl_type_liquidShader_liquidShader2"
     link_param "i_bool_name" "test_pl_type_liquidShader_liquidShader1" "i_bool_name" 
 end shader
 
+##Visitor::outputEnd()
+## shader(test_type_pl,...)
+shader "test_type_pl" "test_pl_type_liquidShader_liquidShader2" 
+    param_int "i_int_name" 0 
+    param_scalar "i_scalar_name" 1 
+    param_vector "i_vector_name" 3.000000 3.000000 3.000000
+    param_vector "i_point_name" 2.000000 2.000000 2.000000
+    param_vector "i_normal_name" 4.000000 4.000000 4.000000
+    param_vector "i_color_name" 0.000000 1.000000 0.000000
+    param_bool "i_bool_name" 1 
+end shader
+##Visitor::postOutput()
 material "liquidShader2SG" 
 surface_shader "test_pl_type_liquidShader_liquidShader2" 
 end material

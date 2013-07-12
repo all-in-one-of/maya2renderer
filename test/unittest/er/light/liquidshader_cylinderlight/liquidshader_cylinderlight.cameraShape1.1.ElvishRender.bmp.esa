@@ -79,6 +79,8 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
+//Visitor::outputEnd()
+//Visitor::postOutput()
 ei_material("initialShadingGroup");
 ei_surface_shader("lambert1");
 ei_end_material();
@@ -88,6 +90,14 @@ ei_end_material();
 
 // Renderer::exportLight("_areaLight1_areaLightShape1");
 
+ei_shader("cylinderlight", "liquidShader1");
+ei_shader_param_scalar("intensity",5);
+ei_shader_param_vector("lightcolor",1,1,0);
+ei_shader_param_scalar("radius",1);
+ei_shader_param_scalar("height",10);
+ei_end_shader();
+
+//Visitor::outputEnd()
 // shader(cylinderlight,...)
 ei_shader("cylinderlight", "liquidShader1");
 ei_shader_param_scalar("intensity",5);
@@ -95,6 +105,7 @@ ei_shader_param_vector("lightcolor",1,1,0);
 ei_shader_param_scalar("radius",1);
 ei_shader_param_scalar("height",10);
 ei_end_shader();
+//Visitor::postOutput()
 ei_light("|areaLight1|areaLightShape1_object");
 ei_light_shader("liquidShader1");
 ei_origin(0,0,0);
@@ -558,7 +569,7 @@ ei_mtl("liquid_material_for_test");
 //shape name=|camera1|cameraShape1
 //shape full path name=|camera1|cameraShape1
 ei_element("|camera1|cameraShape1");
-ei_transform(0.999781,1.0842e-019,0.0209424,0,   0.00175242,0.996493,-0.0836595,0,   -0.020869,0.0836778,0.996274,0,   -0.710755,3.37804,26.2825,1);
+ei_transform(0.999781,0,0.0209424,0,   0.00175242,0.996493,-0.0836595,0,   -0.020869,0.0836778,0.996274,0,   -0.710755,3.37804,26.2825,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)

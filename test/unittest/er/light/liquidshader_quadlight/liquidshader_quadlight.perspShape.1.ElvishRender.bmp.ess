@@ -50,6 +50,8 @@ shader "maya_phong" "phong1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
+##Visitor::outputEnd()
+##Visitor::postOutput()
 material "phong1SG" 
 surface_shader "phong1" 
 end material
@@ -59,6 +61,17 @@ end material
 
 ## Renderer::exportLight("_spotLight3_spotLightShape3");
 
+shader "quadlight" "liquidShader1" 
+    param_scalar "intensity" 2 
+    param_vector "lightcolor" 0.000000 0.000000 1.000000
+    param_scalar "deltaangle" 1.5708 
+    param_vector "direction" 0.000000 0.000000 -1.000000
+    param_scalar "spread" 0.785398 
+    param_scalar "width" 1 
+    param_scalar "height" 1 
+end shader
+
+##Visitor::outputEnd()
 ## shader(quadlight,...)
 shader "quadlight" "liquidShader1" 
     param_scalar "intensity" 2 
@@ -69,6 +82,7 @@ shader "quadlight" "liquidShader1"
     param_scalar "width" 1 
     param_scalar "height" 1 
 end shader
+##Visitor::postOutput()
 light "|spotLight3|spotLightShape3_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 

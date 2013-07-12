@@ -55,6 +55,8 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
+//Visitor::outputEnd()
+//Visitor::postOutput()
 ei_material("phong1SG");
 ei_surface_shader("phong1");
 ei_end_material();
@@ -64,12 +66,20 @@ ei_end_material();
 
 // Renderer::exportLight("_spotLight3_spotLightShape3");
 
+ei_shader("spherelight", "liquidShader1");
+ei_shader_param_scalar("intensity",50);
+ei_shader_param_vector("lightcolor",0,0,1);
+ei_shader_param_scalar("radius",8);
+ei_end_shader();
+
+//Visitor::outputEnd()
 // shader(spherelight,...)
 ei_shader("spherelight", "liquidShader1");
 ei_shader_param_scalar("intensity",50);
 ei_shader_param_vector("lightcolor",0,0,1);
 ei_shader_param_scalar("radius",8);
 ei_end_shader();
+//Visitor::postOutput()
 ei_light("|spotLight3|spotLightShape3_object");
 ei_light_shader("liquidShader1");
 ei_origin(0,0,0);

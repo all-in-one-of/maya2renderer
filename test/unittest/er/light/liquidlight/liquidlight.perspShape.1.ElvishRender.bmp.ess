@@ -50,6 +50,8 @@ shader "maya_phong" "phong1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
+##Visitor::outputEnd()
+##Visitor::postOutput()
 material "phong1SG" 
 surface_shader "phong1" 
 end material

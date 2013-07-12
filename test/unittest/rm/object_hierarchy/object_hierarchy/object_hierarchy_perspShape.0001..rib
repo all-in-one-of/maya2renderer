@@ -95,7 +95,7 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/object_hierarchy.perspShap
             Surface "R:/MyDocuments/maya/projects/default/generatedShader/lambert1" 
             #no volume shader.
             #no displacement shader.
-            Transform [ 1.000000 0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.614277 0.000000 -7.364874 1.000000 ]
+            Transform [ 1.000000 0.000000 -0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.614277 0.000000 -7.364874 1.000000 ]
             PointsGeneralPolygons [ 1 ] [ 4 ] [ 0 1 3 2 ] "P" [ -0.949185 -0.000000 0.274776 0.949185 -0.000000 0.274776 -0.949185 0.000000 -0.274776 0.949185 0.000000 -0.274776 ] "vertex normal N" [ 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 ] "facevarying float[2] st" [ 0.000000 1.000000 1.000000 1.000000 1.000000 0.710514 0.000000 0.710514 ] 
         AttributeEnd
         AttributeBegin
@@ -109,7 +109,7 @@ Display "R:/MyDocuments/maya/projects/default/rmanpix/object_hierarchy.perspShap
             Surface "R:/MyDocuments/maya/projects/default/generatedShader/lambert1" 
             #no volume shader.
             #no displacement shader.
-            Transform [ 1.000000 0.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.700613 0.000000 -8.172530 1.000000 ]
+            Transform [ 1.000000 0.000000 -0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 0.700613 0.000000 -8.172530 1.000000 ]
             PointsGeneralPolygons [ 1 ] [ 4 ] [ 0 1 3 2 ] "P" [ -0.552456 -0.000000 0.210827 0.552456 -0.000000 0.210827 -0.552456 0.000000 -0.210827 0.552456 0.000000 -0.210827 ] "vertex normal N" [ 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 ] "facevarying float[2] st" [ 0.000000 1.000000 1.000000 1.000000 1.000000 0.618381 0.000000 0.618381 ] 
         AttributeEnd
         AttributeBegin

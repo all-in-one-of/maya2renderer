@@ -49,6 +49,12 @@ ei_shader("simple_env", "liquidShader1");
 ei_shader_param_vector("env_color",0.823529,0.5238,0.0807382);
 ei_end_shader();
 
+//Visitor::outputEnd()
+// shader(simple_env,...)
+ei_shader("simple_env", "liquidShader1");
+ei_shader_param_vector("env_color",0.823529,0.5238,0.0807382);
+ei_end_shader();
+//Visitor::postOutput()
 
 //worldPrologue
 

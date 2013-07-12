@@ -72,10 +72,10 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
+// shader(simple_displace,...)
 ei_shader("simple_displace", "liquidShader2");
 ei_shader_param_scalar("disp_dist",1);
 ei_end_shader();
-
 ei_material("phong1SG");
 ei_surface_shader("phong1");
 ei_displace_shader("liquidShader2" );

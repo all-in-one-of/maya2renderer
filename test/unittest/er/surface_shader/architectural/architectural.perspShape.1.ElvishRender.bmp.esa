@@ -33,6 +33,7 @@ ei_displace(0);
 ei_face(3);
 ei_end_options();
 
+// shader(architectural,...)
 ei_shader("architectural", "liquidShader2");
 ei_shader_param_vector("surface_color",0,1,0.962571);
 ei_shader_param_vector("diffuse_color",1,1,1);
@@ -64,11 +65,11 @@ ei_shader_param_int("refraction_samples",4);
 ei_shader_param_scalar("cutoff_threshold",0.01);
 ei_shader_param_scalar("bump_factor",0.3);
 ei_end_shader();
-
 ei_material("liquidShader2SG");
 ei_surface_shader("liquidShader2");
 ei_end_material();
 
+// shader(architectural,...)
 ei_shader("architectural", "liquidShader1");
 ei_shader_param_vector("surface_color",1,0,0);
 ei_shader_param_vector("diffuse_color",1,1,1);
@@ -100,7 +101,6 @@ ei_shader_param_int("refraction_samples",4);
 ei_shader_param_scalar("cutoff_threshold",0.01);
 ei_shader_param_scalar("bump_factor",0.3);
 ei_end_shader();
-
 ei_material("liquidShader1SG");
 ei_surface_shader("liquidShader1");
 ei_end_material();

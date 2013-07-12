@@ -50,11 +50,12 @@ shader "maya_lambert" "lambert6"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
+##Visitor::outputEnd()
+##Visitor::postOutput()
 material "lambert6SG" 
 surface_shader "lambert6" 
 end material
 
-## shader(maya_physicalsky,...)
 shader "maya_physicalsky" "liquidShader2" 
     param_vector "sun_dir" 0.577000 0.577000 0.577000
     param_scalar "sun_disk_size" 2 
@@ -75,10 +76,54 @@ shader "maya_physicalsky" "liquidShader2"
     param_scalar "intensity" 0.2 
 end shader
 
+##Visitor::outputEnd()
+## shader(maya_physicalsky,...)
+shader "maya_physicalsky" "liquidShader2" 
+    param_vector "sun_dir" 0.577000 0.577000 0.577000
+    param_scalar "sun_disk_size" 2 
+    param_scalar "sun_disk_intensity" 5 
+    param_scalar "sun_glow_size" 1 
+    param_scalar "sun_glow_intensity" 1 
+    param_scalar "sun_glow_falloff" 5 
+    param_vector "ground_color" 0.056517 0.058824 0.056517
+    param_scalar "ground_blur" 0.01 
+    param_int "type" 0 
+    param_scalar "haze" 5 
+    param_vector "zenith_color" 0.109000 0.109000 0.109000
+    param_scalar "a" -1 
+    param_scalar "b" -0.32 
+    param_scalar "c" 10 
+    param_scalar "d" -3 
+    param_scalar "e" 0.45 
+    param_scalar "intensity" 0.2 
+end shader
+##Visitor::postOutput()
+
 ##worldPrologue
 
 ## Renderer::exportLight("_spotLight3_spotLightShape3");
 
+shader "maya_physicalsky" "liquidShader2" 
+    param_vector "sun_dir" 0.577000 0.577000 0.577000
+    param_scalar "sun_disk_size" 2 
+    param_scalar "sun_disk_intensity" 5 
+    param_scalar "sun_glow_size" 1 
+    param_scalar "sun_glow_intensity" 1 
+    param_scalar "sun_glow_falloff" 5 
+    param_vector "ground_color" 0.056517 0.058824 0.056517
+    param_scalar "ground_blur" 0.01 
+    param_int "type" 0 
+    param_scalar "haze" 5 
+    param_vector "zenith_color" 0.109000 0.109000 0.109000
+    param_scalar "a" -1 
+    param_scalar "b" -0.32 
+    param_scalar "c" 10 
+    param_scalar "d" -3 
+    param_scalar "e" 0.45 
+    param_scalar "intensity" 0.2 
+end shader
+
+##Visitor::outputEnd()
 ## shader(maya_physicalsky,...)
 shader "maya_physicalsky" "liquidShader2" 
     param_vector "sun_dir" 0.577000 0.577000 0.577000
@@ -105,6 +150,7 @@ shader "liq_skylight" "liquidShader3"
     param_int "resolution" 32 
     param_scalar "max_dist" 10000 
 end shader
+##Visitor::postOutput()
 light "|spotLight3|spotLightShape3_object" 
 light_shader "liquidShader3" 
 origin 0 0 0 

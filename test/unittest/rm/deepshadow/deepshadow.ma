@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2012";
 requires "liquidDLL" "2.3.5";
-requires "stereoCamera" "10.0";
 requires "renderman" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";

@@ -53,6 +53,18 @@ ei_shader_link_param("i_color_name","test_pl_type_liquidShader_liquidShader1","i
 ei_shader_link_param("i_bool_name","test_pl_type_liquidShader_liquidShader1","i_bool_name");
 ei_end_shader();
 
+//Visitor::outputEnd()
+// shader(test_type_pl,...)
+ei_shader("test_type_pl", "test_pl_type_liquidShader_liquidShader2");
+ei_shader_param_int("i_int_name",0);
+ei_shader_param_scalar("i_scalar_name",1);
+ei_shader_param_vector("i_vector_name",3,3,3);
+ei_shader_param_vector("i_point_name",2,2,2);
+ei_shader_param_vector("i_normal_name",4,4,4);
+ei_shader_param_vector("i_color_name",0,1,0);
+ei_shader_param_bool("i_bool_name",1);
+ei_end_shader();
+//Visitor::postOutput()
 ei_material("liquidShader2SG");
 ei_surface_shader("test_pl_type_liquidShader_liquidShader2");
 ei_end_material();

@@ -9,6 +9,11 @@
 
 liq| rm|: support RSL2.0!!!
 
+liq|maya2013|: 回归测试
+liq| er|: shader graph 输出的shader有重复的
+liq|test|: def parseString(strdata):里输出的是   1而不是0001
+liq| maya2013|: bug: runprogram fails, crash
+
 liq|: erLight/rmLight can;t be displayed in hypershade top tab
 done)liq|: hypershade>createBar>liquid, can;t create node .
 

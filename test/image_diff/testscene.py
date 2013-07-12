@@ -179,12 +179,13 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/lightlink/lightlink.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+    '''
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
+    '''
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -206,7 +207,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/procedural/runprogram/runprogram_polygen.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/procedural/dynamicload/dynamicload.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -227,10 +228,10 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/stereo_camera/stereo_camera.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/shader_user/occlight/rmOccLight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    
+    '''
 
 
 
@@ -362,12 +363,12 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/light/quardlight/quardlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-     
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidlight/liquidlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_pointlight/liquidshader_pointlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_quadlight/liquidshader_quadlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
 
@@ -488,9 +489,10 @@ def test_all_scene():
     #right side of the body is almost black
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erTestLight/erTestLight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
+    '''
 
     '''
     ------------------------ appleseed ----------------------------------

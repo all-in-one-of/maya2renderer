@@ -55,6 +55,8 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
+//Visitor::outputEnd()
+//Visitor::postOutput()
 ei_material("phong2SG");
 ei_surface_shader("phong2");
 ei_end_material();
@@ -81,6 +83,8 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
+//Visitor::outputEnd()
+//Visitor::postOutput()
 ei_material("phong1SG");
 ei_surface_shader("phong1");
 ei_end_material();
@@ -107,6 +111,8 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
+//Visitor::outputEnd()
+//Visitor::postOutput()
 ei_material("initialShadingGroup");
 ei_surface_shader("lambert1");
 ei_end_material();
@@ -116,6 +122,15 @@ ei_end_material();
 
 // Renderer::exportLight("_pointLight1_pointLightShape1");
 
+ei_shader("spotlight", "liquidShader1");
+ei_shader_param_scalar("intensity",1);
+ei_shader_param_vector("lightcolor",0.901961,0.667526,0.176855);
+ei_shader_param_scalar("deltaangle",0.174533);
+ei_shader_param_vector("direction",0,0,-1);
+ei_shader_param_scalar("spread",0.349066);
+ei_end_shader();
+
+//Visitor::outputEnd()
 // shader(spotlight,...)
 ei_shader("spotlight", "liquidShader1");
 ei_shader_param_scalar("intensity",1);
@@ -124,6 +139,7 @@ ei_shader_param_scalar("deltaangle",0.174533);
 ei_shader_param_vector("direction",0,0,-1);
 ei_shader_param_scalar("spread",0.349066);
 ei_end_shader();
+//Visitor::postOutput()
 ei_light("|pointLight1|pointLightShape1_object");
 ei_light_shader("liquidShader1");
 ei_origin(0,0,0);

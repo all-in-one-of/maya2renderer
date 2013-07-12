@@ -1032,7 +1032,7 @@ ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pPlane2|pPlaneShape2
 //shape full path name=|pCube1|pCone1|pPlane2|pPlaneShape2
 ei_element("|pCube1|pCone1|pPlane2|pPlaneShape2");
-ei_transform(1,1.66533e-016,3.1225e-017,0,   -1.11022e-016,1,1.38778e-016,0,   -9.02056e-017,1.38778e-017,1,0,   0.614277,1.11022e-016,-7.36487,1);
+ei_transform(1,1.11022e-016,-2.25514e-017,0,   -5.55112e-017,1,1.52656e-016,0,   -3.46945e-017,0,1,0,   0.614277,3.33067e-016,-7.36487,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -1054,7 +1054,7 @@ ei_mtl("initialShadingGroup");
 //shape name=|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5
 //shape full path name=|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5
 ei_element("|pCube1|pCone1|pPlane2|pPlane5|pPlaneShape5");
-ei_transform(1,1.66533e-016,3.1225e-017,0,   -1.11022e-016,1,1.38778e-016,0,   -9.02056e-017,1.38778e-017,1,0,   0.700613,4.7926e-018,-8.17253,1);
+ei_transform(1,1.11022e-016,-2.25514e-017,0,   -5.55112e-017,1,1.52656e-016,0,   -3.46945e-017,0,1,0,   0.700613,2.33253e-016,-8.17253,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)
@@ -1211,7 +1211,7 @@ ei_mtl("initialShadingGroup");
 //shape name=|pCube1|group2|group3|pPlane8|pPlaneShape8
 //shape full path name=|pCube1|group2|group3|pPlane8|pPlaneShape8
 ei_element("|pCube1|group2|group3|pPlane8|pPlaneShape8");
-ei_transform(0.136262,0.990416,-0.0225651,0,   -0.977109,0.138118,0.16181,0,   0.163376,-1.66533e-016,0.986564,0,   4.78392,-8.08109e-016,4.75037,1);
+ei_transform(0.136262,0.990416,-0.0225651,0,   -0.977109,0.138118,0.16181,0,   0.163376,-1.80411e-016,0.986564,0,   4.78392,-9.11358e-016,4.75037,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)

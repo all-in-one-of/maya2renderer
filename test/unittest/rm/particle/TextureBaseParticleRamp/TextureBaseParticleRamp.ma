@@ -6,7 +6,6 @@ requires maya "2012";
 requires "nearestPointOnMesh" "4.0";
 requires "renderman" "0.0.1";
 requires "liquidDLL" "2.3.5";
-requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";

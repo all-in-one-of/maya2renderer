@@ -57,6 +57,16 @@ end material
 
 ## Renderer::exportLight("_areaLight1_areaLightShape1");
 
+shader "disclight" "liquidShader1" 
+    param_scalar "intensity" 3 
+    param_vector "lightcolor" 1.000000 1.000000 1.000000
+    param_scalar "deltaangle" 0.170819 
+    param_vector "direction" 0.000000 0.000000 -1.000000
+    param_scalar "spread" 0.698132 
+    param_scalar "radius" 2 
+end shader
+
+##Visitor::outputEnd()
 ## shader(disclight,...)
 shader "disclight" "liquidShader1" 
     param_scalar "intensity" 3 
@@ -66,6 +76,7 @@ shader "disclight" "liquidShader1"
     param_scalar "spread" 0.698132 
     param_scalar "radius" 2 
 end shader
+##Visitor::postOutput()
 light "|areaLight1|areaLightShape1_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 
