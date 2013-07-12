@@ -43,6 +43,10 @@
 liqShader::liqShader()
 {
 	CM_TRACE_FUNC("liqShader::liqShader()");
+	init();
+}
+void liqShader::init()
+{
 
   //numTPV                = 0;
   name                  = "";
@@ -138,7 +142,7 @@ liqShader & liqShader::operator=( const liqShader & src )
 liqShader::liqShader( MObject shaderObj )
 {
 	CM_TRACE_FUNC("liqShader::liqShader("<<MFnDependencyNode(shaderObj).name().asChar()<<")");
-
+	useVisiblePoints = false;//init();
 	forceAs = SHADER_TYPE_UNKNOWN;
 
     bool outputAllParameters = true;

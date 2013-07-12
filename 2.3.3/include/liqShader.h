@@ -73,6 +73,8 @@ public :
 	const MObject getMObject()const{ return m_mObject; }
 
 protected:
+	void init();
+
 	std::string      name;
 	std::string      file;
 
