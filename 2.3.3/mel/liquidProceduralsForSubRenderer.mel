@@ -11,23 +11,6 @@ global proc liquidAssignShaderToSelected_subrenderer(string $node)
 	liqPopIdent();
 }
 //
-global proc liquidCreateMenu_subrenderer()
-{
-	liqPushIdent();
-	liqlog("liquidCreateMenu_subrenderer()");
-	
-	if( liquidGlobalsExists() )
-	{
-		if ( isSubRendererLoaded(liqGetSubRendererName()) )
-		{
-			string $cmd = "liquidCreateMenus_"+liqGetSubRendererName()+"()";
-			eval $cmd;
-		}
-	}
-
-	liqPopIdent();
-}
-//
 global proc liqHyperShadeCreateMenu_BuildMenu_subrenderer()
 {
 	liqPushIdent();

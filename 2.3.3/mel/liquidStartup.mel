@@ -215,13 +215,7 @@ global proc liquidLoadScripts()
     "liqGlobalsNodeRenderer.mel",
     "GetPossibleTextures.mel",
     "liquidliquidShaderNodes.mel",
-	"liquidUserCallbackInterface.mel",
-	"liquidProceduralsForSubRenderer.mel",
-	"liquidCustomNodeUI.mel",
-	"liquidCustomNodeUI.res.mel",
-	"liquidHyperShadePanel.mel",
-	"liquidBuildShaderMenus.mel",
-	"liquidRenderCreateBarUI.mel"
+	"liquidUserCallbackInterface.mel"
   };
 
   string $liquidHome = liquidGetHome();
@@ -269,13 +263,24 @@ global proc liquidMayaVersionOverwrite()
   {	
   	evalEcho( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
   } 
-  if ( $liq_maya_version_int >= 2012 )
-  {	
-  	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel"  + "\"" );
-	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel"  + "\"" );
-	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildShaderMenus.mel"  + "\"" );
-	evalEcho( "source \"" + $liquidHome + "/mel/2012/renderCreateBarUI.mel"  + "\"" );
+  if ( $liq_maya_version_int == 2012 )
+  {
+  	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/renderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/liquidBuildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/liquidCustomNodeUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/liquidCustomNodeUI.res.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/liquidHyperShadePanel.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/liquidRenderCreateBarUI.mel\"");
   } 
+  if( $liq_maya_version_int == 2013 )
+  {
+	  liqlog("eval mel files for maya 2013");
+  }
+
   liqPopIdent();
 }
 //===========================================================================================
@@ -1292,4 +1297,21 @@ global proc string liquidGetUserSetupMelFullPath(string $renderer)
 
 	liqPopIdent();
 	return $ret;
+}
+//
+global proc liquidCreateMenu_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liquidCreateMenu_subrenderer()");
+	
+	if( liquidGlobalsExists() )
+	{
+		if ( isSubRendererLoaded(liqGetSubRendererName()) )
+		{
+			string $cmd = "liquidCreateMenus_"+liqGetSubRendererName()+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
 }

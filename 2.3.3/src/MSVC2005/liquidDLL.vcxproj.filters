@@ -881,9 +881,6 @@
     <None Include="..\..\mel\AEliquidGlobalsTemplate.mel">
       <Filter>MEL Scripts</Filter>
     </None>
-    <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
     <None Include="..\..\mel\2012\hyperShadePanel.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
@@ -906,6 +903,9 @@
       <Filter>MEL Scripts\2012</Filter>
     </None>
     <None Include="..\..\mel\liquidCustomNodeUI.res.mel">
+      <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
   </ItemGroup>
