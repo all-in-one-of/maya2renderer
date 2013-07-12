@@ -108,8 +108,8 @@ def _test(mayaFile, liqRenderer):
     #_render(mayaFile, liqRenderer)
     _render2(mayaFile, liqRenderer)
 
-    #import time
-    #time.sleep(4)
+    import time
+    time.sleep(4)
 
     std_image_fullpath = getStanderImage(mayaFile, liqRenderer);
     import imagediff
