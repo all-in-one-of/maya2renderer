@@ -10,6 +10,7 @@
 liq| rm|: support RSL2.0!!!
 
 liq| er|: reserve the code. the liquidShader3(liq_skylight) is not output. this bug must be fixed.
+liq| maya2013| rm|: bug: rumprogram test case fail, the display leads to a crash.
 
 liq|maya2013|: 回归测试
 liq| er|: shader graph 输出的shader有重复的

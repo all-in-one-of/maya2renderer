@@ -418,7 +418,7 @@ MStatus liqMayaRenderCmd::getBucket(const int socket,const unsigned int numChann
 }
 
 MStatus liqMayaRenderCmd::renderBucket(const bucket* b,const imageInfo &imgInfo){
-	CM_TRACE_FUNC("liqMayaRenderCmd::renderBucket(b,imgInfo)");
+	CM_TRACE_FUNC("liqMayaRenderCmd::renderBucket(b,imgInfo["<<imgInfo.channels<<"/"<<imgInfo.width<<"/"<<imgInfo.height<<"/"<<imgInfo.xo<<"/"<<imgInfo.yo<<"/"<<imgInfo.wo<<"/"<<imgInfo.ho<<"])");
 
 	MStatus status;
 	unsigned int nPixels,lineSize,n, x,y;
