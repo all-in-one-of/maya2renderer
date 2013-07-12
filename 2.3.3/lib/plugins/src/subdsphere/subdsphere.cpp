@@ -10,7 +10,7 @@
 
 using namespace std;
 
-#pragma comment(lib, "E:/dev/tools/pixar/renderman/13.5/lib/prman.lib")
+
 
 //
 #if defined(_Windows) || defined(_WIN32)
