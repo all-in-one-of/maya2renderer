@@ -713,7 +713,7 @@ void ConvertShadingNetwork::_exportShaderNode(const MString& node)
 			||nodetype=="liquidLight"
 			||nodetype=="liquidDisplacement"
 			||nodetype=="liquidCoShader"
-			||nodetype=="liquidShader" )
+			/*||nodetype=="liquidShader"*/)
 		{
 			//liquidMessage2(messageInfo, ("["+startingNode+"]'s type is ["+nodetype+"], no need to convert").asChar());
 			liqShader &currentShader = liqShaderFactory::instance().getShader( node.asChar() );

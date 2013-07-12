@@ -9,6 +9,8 @@
 
 liq| rm|: support RSL2.0!!!
 
+liq| er|: reserve the code. the liquidShader3(liq_skylight) is not output. this bug must be fixed.
+
 liq|maya2013|: 回归测试
 liq| er|: shader graph 输出的shader有重复的
 liq|test|: def parseString(strdata):里输出的是   1而不是0001

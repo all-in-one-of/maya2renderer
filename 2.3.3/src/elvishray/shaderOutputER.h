@@ -314,6 +314,7 @@ public:
 protected:
 	//std::ofstream file;
 	elvishray::OutputMgr &out;
+	//MString startingNode;
 private:
 	Visitor(const Visitor&);
 	Visitor& operator=(const Visitor&);

@@ -4,6 +4,8 @@
 #include <liqGlobalHelpers.h>
 #include <shadergraph/convertShadingNetwork.h>
 #include <shadergraph/shadermgr.h>
+//#include <liqShaderFactory.h>
+//#include <renderermgr.h>
 #include "er_renderer.h"
 #include "er_helper.h"
 #include "er_renderer.h"
@@ -339,6 +341,7 @@ void Visitor::outputBegin(const char* startingNode)
 {
 	CM_TRACE_FUNC("Visitor::outputBegin("<<startingNode<<")");
 	//file.open( (getShaderDirectory()+startingNode+".erapi").asChar() );
+//	this->startingNode = startingNode;
 }
 void Visitor::outputUpstreamShader(const char* shaderNodeName)
 {
@@ -380,11 +383,15 @@ void Visitor::addShaderMethodVariavles(
 void Visitor::outputEnd()
 {
 	CM_TRACE_FUNC("Visitor::outputEnd()");
-	//file.close();
+//	out.a("Visitor::outputEnd()");
+//	liqShader &coShader = liqShaderFactory::instance().getShader(this->startingNode.asChar());
+//	liquid::RendererMgr::getInstancePtr()->
+//		getRenderer()->shader_UserDefinedShader(&coShader);
 }
 void Visitor::postOutput()
 {
 	CM_TRACE_FUNC("Visitor::postOutput()");
+//	out.a("Visitor::postOutput()");
 }
 void Visitor::outputShadingGroup(const char* shadingGroupNode)
 {
