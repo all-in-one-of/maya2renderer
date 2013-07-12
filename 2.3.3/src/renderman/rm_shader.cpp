@@ -35,7 +35,7 @@ namespace renderman
 
 		if ( shader.useVisiblePoints ){
 			//RiVPSurfaceV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );
-			RiArchiveRecord( RI_COMMENT, "RiVPSurfaceV is not implemented in maya2renderer" );
+			RiArchiveRecord( RI_COMMENT, "RiVPSurfaceV is not implemented in maya2renderer, useVisiblePoints is added by ymesh in r777" );
 		}else{
 			RiSurfaceV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get() , pointerArray.get() );
 		}
@@ -87,26 +87,27 @@ namespace renderman
 		case VOLUME_TYPE_INTERIOR:
 			if ( shader.useVisiblePoints ){
 				//RiVPInteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
-				RiArchiveRecord( RI_COMMENT, "RiVPInteriorV is not implemented in maya2renderer" );
+				RiArchiveRecord( RI_COMMENT, "RiVPInteriorV is not implemented in maya2renderer, useVisiblePoints is added by ymesh in r777" );
 			}else{
 				RiInteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
 			}break;
 		case VOLUME_TYPE_EXTERIOR:
-			if ( shader.useVisiblePoints )
+			if ( shader.useVisiblePoints ){
+				RiArchiveRecord( RI_COMMENT, "useVisiblePoints is added by ymesh in r777" );
 #ifdef GENERIC            
 				RiVPExteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );
 #else
 				// Atleast Prman 16.x haven't this function
 				RiExteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() );  
 #endif  
-			else
+			}else{
 				RiExteriorV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
-			break;
+			}break;
 		case VOLUME_TYPE_ATMOSPHERE:
 		default:
 			if ( shader.useVisiblePoints ){
 				//RiVPAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
-				RiArchiveRecord( RI_COMMENT, "RiVPAtmosphereV is not implemented in maya2renderer" );
+				RiArchiveRecord( RI_COMMENT, "RiVPAtmosphereV is not implemented in maya2renderer, useVisiblePoints is added by ymesh in r777" );
 			}else{
 				RiAtmosphereV ( const_cast<char *>(shader.getShaderFileName().c_str()), shaderParamCount, tokenArray.get(), pointerArray.get() ); 
 			}break;
