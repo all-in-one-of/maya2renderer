@@ -3,10 +3,10 @@
 source xxliquidutility.mel;
 
 //This function is called by hyperShadePanel.mel>hyperShadePanelBuildCreateMenu() in Maya2012, 
-global proc LIQUID_HyperShadeCreateMenu_BuildMenu(string $panel, string $parent)
+global proc LIQUID_HyperShadeCreateMenu_BuildMenu()
 {
 	liqPushIdent();
-	liqlog("LIQUID_HyperShadeCreateMenu_BuildMenu("+$panel+","+$parent+")");
+	liqlog("LIQUID_HyperShadeCreateMenu_BuildMenu()");
 
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{

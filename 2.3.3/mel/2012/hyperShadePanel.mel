@@ -6190,7 +6190,7 @@ global proc hyperShadePanelBuildCreateMenu(string $panel, string $parent)
 		menuItem -divider true;
 	}
 
-	LIQUID_HyperShadeCreateMenu_BuildMenu($panel, $parent);
+	LIQUID_HyperShadeCreateMenu_BuildMenu();
 
 	menuItem
 		-label (uiRes("m_hyperShadePanel.kCreateRenderNode"))

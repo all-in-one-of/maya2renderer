@@ -419,7 +419,7 @@ proc string renderCreateBarFavoritesFile()
 //
 {
 	liqPushIdent();
-	liqlog("LIQUID_HyperShadeCreateMenu_BuildMenu()");
+	liqlog("renderCreateBarFavoritesFile()");
 	 
 	string $ret = (`internalVar -userPrefDir` + "renderNodeTypeFavorites");
 	liqPopIdent();
