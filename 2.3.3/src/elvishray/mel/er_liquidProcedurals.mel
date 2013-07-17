@@ -95,6 +95,7 @@ global proc int LIQUID_isLiquidClassification_elvishray(string $classification)
 	string $erClassfication = "rendernode/"+er_getRendererName()+"/shader";
 	if( startsWith($classification, $erClassfication) )
 	{
+		liqPopIdent();
 		return 1;
 	}
 

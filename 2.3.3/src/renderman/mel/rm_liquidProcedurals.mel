@@ -75,6 +75,7 @@ global proc int LIQUID_isLiquidClassification_renderman(string $classification)
 	string $rmClassfication = "rendernode/"+rm_getRendererName()+"/shader";
 	if( startsWith($classification, $rmClassfication) )
 	{
+		liqPopIdent();
 		return 1;
 	}
 

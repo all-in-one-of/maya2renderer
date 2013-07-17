@@ -1,0 +1,20 @@
+// extentions from maya2012/scripts/others/buildShaderMenus.mel, 
+// these functions are called from liquid/mel/2012/buildShaderMenus.mel
+source xxliquidutility.mel;
+
+global proc string LIQUID_getRenderNodeFilterString(string $renderer)
+{
+	liqPushIdent();
+	liqlog("LIQUID_getRenderNodeFilterString("+$renderer+")");
+
+	string $filterString;
+	// If shader/surface is of the classifications, add liquid
+	// material node to the classification array.
+	//if( `pluginInfo -query -loaded (liquidGetPluginName())` )
+	{
+		$filterString = " rendernode/"+$renderer+"/shader";
+	}
+
+    liqPopIdent();
+	return $filterString;
+}

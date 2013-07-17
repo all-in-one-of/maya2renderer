@@ -1,0 +1,46 @@
+// Copyright (C) 1997-2011 Autodesk, Inc., and/or its licensors.
+// All rights reserved.
+//
+// The coded instructions, statements, computer programs, and/or related
+// material (collectively the "Data") in these files contain unpublished
+// information proprietary to Autodesk, Inc. ("Autodesk") and/or its licensors,
+// which is protected by U.S. and Canadian federal copyright law and by
+// international treaties.
+//
+// The Data is provided for use exclusively by You. You have the right to use,
+// modify, and incorporate this Data into other products for purposes authorized 
+// by the Autodesk software license agreement, without fee.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. AUTODESK
+// DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES
+// INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT,
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ARISING FROM A COURSE 
+// OF DEALING, USAGE, OR TRADE PRACTICE. IN NO EVENT WILL AUTODESK AND/OR ITS
+// LICENSORS BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+// DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF AUTODESK AND/OR ITS
+// LICENSORS HAS BEEN ADVISED OF THE POSSIBILITY OR PROBABILITY OF SUCH DAMAGES.
+
+displayString -replace -value "Contour Contrast" m_liquidCustomNodeUI.kContourContrast;
+displayString -replace -value "Contour Output" m_liquidCustomNodeUI.kContourOutput;
+displayString -replace -value "Contour Shader" m_liquidCustomNodeUI.kContourShader;
+displayString -replace -value "Contour Store" m_liquidCustomNodeUI.kContourStore;
+displayString -replace -value "Data Conversion" m_liquidCustomNodeUI.kDataConversion;
+displayString -replace -value "Displacement Shaders" m_liquidCustomNodeUI.kDisplacementShaders;
+displayString -replace -value "Environments" m_liquidCustomNodeUI.kEnvironments;
+displayString -replace -value "Geometry" m_liquidCustomNodeUI.kGeometry;
+displayString -replace -value "Lenses" m_liquidCustomNodeUI.kLenses;
+displayString -replace -value "Light Maps" m_liquidCustomNodeUI.kLightMaps;
+displayString -replace -value "Materials" m_liquidCustomNodeUI.kMaterials;
+displayString -replace -value "Liquid Lights" m_liquidCustomNodeUI.kLiquidLights;
+displayString -replace -value "Liquid ^1s" m_liquidCustomNodeUI.kLiquidMenu;
+displayString -replace -value "Miscellaneous" m_liquidCustomNodeUI.kMiscellaneous;
+displayString -replace -value "Output Shaders" m_liquidCustomNodeUI.kOutputShaders;
+displayString -replace -value "Photon Emitters" m_liquidCustomNodeUI.kPhotonEmitters;
+displayString -replace -value "Photon Volumetric Materials" m_liquidCustomNodeUI.kPhotonVolumetricMaterials;
+displayString -replace -value "Photonic Materials" m_liquidCustomNodeUI.kPhotonicMaterials;
+displayString -replace -value "Sample Compositing" m_liquidCustomNodeUI.kSampleCompositing;
+displayString -replace -value "Shadow Shaders" m_liquidCustomNodeUI.kShadowShaders;
+displayString -replace -value "State Shaders" m_liquidCustomNodeUI.kStateShaders;
+displayString -replace -value "Textures" m_liquidCustomNodeUI.kTextures;
+displayString -replace -value "Volumetric Materials" m_liquidCustomNodeUI.kVolumetricMaterials;
+displayString -replace -value "UtilityGeneral" m_liquidCustomNodeUI.kUtilityGeneral;
+displayString -replace -value "UtilityColor" m_liquidCustomNodeUI.kUtilityColor;

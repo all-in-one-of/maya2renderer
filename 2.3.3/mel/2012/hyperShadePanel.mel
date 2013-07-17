@@ -9259,6 +9259,7 @@ proc enableActiveTabs(
 		string $collectionUI = lookupComponentName( $t );
 		collectionUIEnableFilter( $collectionUI, $enable );
 	}
+    liqPopIdent();
 }
 
 //	global variable indicates whether HyperShade is in a
@@ -9269,6 +9270,9 @@ global int $hsInConstruction = 0;
 global proc hyperShadeStartConstruction(
 	string $panel)
 {
+
+	liqPushIdent();
+	liqlog("liq/hyperShadeStartConstruction("+$panel+")");
 	//
 	// Description:
 	//	Signals that the HyperShade is about to start

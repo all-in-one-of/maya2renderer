@@ -282,6 +282,12 @@ global proc liquidMayaVersionOverwrite()
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/buildShaderMenus.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/hyperShadePanel.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/renderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidBuildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidCustomNodeUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidCustomNodeUI.res.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidHyperShadePanel.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRenderCreateBarUI.mel\"");
   }
 
   liqPopIdent();

@@ -1,0 +1,130 @@
+// extentions from maya2012/scripts/others/hyperShadePanel.mel, 
+// these functions are called from liquid/mel/2012/hyperShadePanel.mel
+source xxliquidutility.mel;
+
+//This function is called by hyperShadePanel.mel>hyperShadePanelBuildCreateMenu() in Maya2012, 
+global proc LIQUID_HyperShadeCreateMenu_BuildMenu()
+{
+	liqPushIdent();
+	liqlog("LIQUID_HyperShadeCreateMenu_BuildMenu()");
+
+	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
+	{
+		liqHyperShadeCreateMenu_BuildMenu("liquid");
+		menuItem -divider true;
+		liqHyperShadeCreateMenu_BuildMenu_subrenderer();
+		menuItem -divider true;
+	}
+    liqPopIdent();
+}
+//
+global proc int LIQUID_hyperShadePanelMenuCommand(
+	string $panel,
+	string $command)
+{
+	liqPushIdent();
+	liqlog("LIQUID_hyperShadePanelMenuCommand("+$panel+","+$command+")");
+
+	int $visited = false;
+
+	if ($command == "disableSwatches")
+	{
+		renderThumbnailUpdate 0;
+		$visited = true;
+	}
+	else if ($command == "enableSwatches")
+	{
+		renderThumbnailUpdate 1;
+		$visited = true;
+	}
+
+	liqPopIdent();
+	return $visited;
+}
+//
+global proc string LIQUID_createButtonsColumnContent(string $panel, string $buttonsColumn, int $iconSize)
+{
+	liqPushIdent();
+	liqlog("LIQUID_createButtonsColumnContent("+$panel+","+$buttonsColumn+","+$iconSize+")");
+
+	string $control = "toggleSwatchesColumnButton";
+
+	iconTextCheckBox
+		-image1 "autoload.png"
+		-width $iconSize
+		-height $iconSize
+		-annotation "Toggle Swatch Rendering"
+		-v `renderThumbnailUpdate -q`
+		-onCommand 
+			("hyperShadePanelMenuCommand(\"" 
+				+ $panel 
+				+ "\", \"enableSwatches\")")
+		-offCommand 
+			("hyperShadePanelMenuCommand(\"" 
+				+ $panel 
+				+ "\", \"disableSwatches\")")
+		$control;
+
+    liqPopIdent();
+	return $control;
+}
+//liquidBuildCreateSubMenu() is called in liqHyperShadeCreateMenu_BuildMenu()
+global proc liquidBuildCreateSubMenu(
+	string $classification,
+	string $callback,
+	string $renderer)
+//mimic hpyerShadePanel.mel>buildCreateSubMenu()
+{
+
+	liqPushIdent();
+	liqlog("liquidBuildCreateSubMenu("+$classification+", ["+$callback+"],"+$renderer+")");
+
+	//
+	// Description:
+	//	This procedure is called from buildMainMenu().
+	//	This procedure builds a menu which allows the user to create nodes of
+	//	the specified classification.
+	//	The specified callback script is the one which is called to do the
+	//	creation of a node of a particular type.
+	//
+
+	// some of mental ray shaders are registered as both
+	// rendernode/mentalray/material and shaders/surface
+	// For those node, this function is called twice :
+	// once with $classification = shader/surface,
+	// once with $classification = rendernode/mentalray/material
+	// We want to create buttons/menus in mental ray section
+
+	string $types[];
+	string $liquidClassfication = "rendernode/"+$renderer;
+
+	if( startsWith($classification, $liquidClassfication) )
+	{
+		$types = `listNodeTypes $classification`;
+	}
+	else
+	{
+		$types = `listNodeTypes -ex $liquidClassfication $classification`;
+	}
+
+	string $annotMsg = (uiRes("m_hyperShadePanel.kAnnotMsg"));
+	for($type in $types)
+	{
+		// Check whether node should appear in this UI, based on
+		// certain variables
+		if (!shouldAppearInNodeCreateUI($type)) {
+			continue;
+		}
+
+		string $typeString = nodeTypeNiceName( $type );
+		
+		liqlog(">menuItem "+$typeString+" , cmd:"+$callback+" "+$type+" \""+$renderer+"\"");
+		
+		menuItem
+			-label $typeString
+			-annotation `format -s $typeString $annotMsg`
+			-command ($callback + " " + $type + " \""+$renderer+"\" ");
+	}
+	liqPopIdent();
+}
+//

@@ -29,6 +29,8 @@
 //
 source hyperViewer;
 
+liqPushIdent();
+liqlog("liq/hyperShadepanel.mel> start...");
 global int $gRenderCreateBarIconsAndTextMinWidth = 70;
 global int $gRenderCreateBarIconsAndTextMaxWidth = 342;
 global string $gPreviousFilterBox = "";
@@ -120,6 +122,7 @@ if (!`scriptedPanelType -exists hyperShadePanel`)
 		hyperShadePanel;
 
 }
+liqPopIdent();
 
 // Description:  This procedure is used to get icon size for a scene
 //      tab.
@@ -128,6 +131,8 @@ if (!`scriptedPanelType -exists hyperShadePanel`)
 //
 proc string getIconSize(string $optionVar)
 {
+	liqPushIdent();
+	liqlog("liq/getIconSize("+$optionVar+")");
     string $iconSize = "mediumIcons";
     if (`optionVar -exists ($optionVar+"IconSize")`)
     {
@@ -137,6 +142,8 @@ proc string getIconSize(string $optionVar)
     {
         optionVar -stringValue ($optionVar+"IconSize") $iconSize;
     }
+
+    liqPopIdent();
     return $iconSize;
 }
 
@@ -152,9 +159,13 @@ global proc string hyperShadePanelName()
 //	shader editor open.
 //
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelName()");
+
 	string $hyperShadePanels[] =
 		`getPanel -scriptType "hyperShadePanel"`;
-
+		
+    liqPopIdent();
 	return $hyperShadePanels[0];
 }
 
@@ -168,6 +179,8 @@ global int $gHyperShadePanelLookupTableCreated = false;
 
 proc createHyperShadePanelLookupTable()
 {
+	liqPushIdent();
+	liqlog("liq/createHyperShadePanelLookupTable()");
 	//
 	// Description:
 	//	This procedure initializes the string array
@@ -192,6 +205,7 @@ proc createHyperShadePanelLookupTable()
 		lookupTable($gHyperShadePanelLookupTable, $columns);
 		$gHyperShadePanelLookupTableCreated = true;
 	}
+    liqPopIdent();
 }
 
 proc registerTab(
@@ -201,6 +215,8 @@ proc registerTab(
 	string $optionVar,
     string $tabLayout)
 {
+	liqPushIdent();
+	liqlog("liq/registerTab("+$tab+","+$type+","+$libraryUI+","+$optionVar+","+$tabLayout+")");
 	//
 	// Description:
 	//	This procedure enters information about the specified tab into the
@@ -228,11 +244,15 @@ proc registerTab(
 	$row[4] = $tabLayout;
 
 	lookupTableAddRow($gHyperShadePanelLookupTable, $row);
+	
+    liqPopIdent();
 }
 
 proc unregisterTab(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/unregisterTab("+$tab+")");
 	//
 	// Description:
 	//	This procedure removes information about the specified tab from the
@@ -245,11 +265,14 @@ proc unregisterTab(
 		$gHyperShadePanelLookupTable,
 		"tab",
 		$tab);
+    liqPopIdent();
 }
 
 proc string lookupComponentName(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/lookupComponentName("+$tab+")");
 	//
 	// Description:
 	//	This procedure uses the lookup table to look up the name of the
@@ -262,16 +285,22 @@ proc string lookupComponentName(
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return lookupTableLookup(
+
+	string $ret = lookupTableLookup(
 		$gHyperShadePanelLookupTable,
 		"tab",
 		$tab,
 		"componentName");
+  
+	liqPopIdent();
+	return $ret;
 }
 
 proc string lookupTabLayoutName(
     string $componentName)
 {
+	liqPushIdent();
+	liqlog("liq/lookupTabLayoutName("+$componentName+")");
     //
     // Description:
     //  This procedure uses the lookup table to look up the name of the
@@ -281,16 +310,21 @@ proc string lookupTabLayoutName(
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return lookupTableLookup(
+	string $ret = lookupTableLookup(
 		$gHyperShadePanelLookupTable,
 		"componentName",
 		$componentName,
 		"tabLayout");
+	
+    liqPopIdent();
+	return $ret;
 }
 
 proc updateComponentNameInTabRegistry(
 	string $tab, string $componentName)
 {
+	liqPushIdent();
+	liqlog("liq/updateComponentNameInTabRegistry("+$tab+","+$componentName+")");
 	//
 	// Description:
 	//	This procedure edit the lookup table to update the
@@ -306,11 +340,15 @@ proc updateComponentNameInTabRegistry(
 		$tab,
 		"componentName",
         $componentName);
+	
+    liqPopIdent();
 }
 
 proc string lookupTabOptionVar(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/lookupTabOptionVar("+$tab+")");
 	//
 	// Description:
 	//	This procedure uses the lookup table to look up the name of the
@@ -325,16 +363,21 @@ proc string lookupTabOptionVar(
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return lookupTableLookup(
+	string $ret = lookupTableLookup(
 		$gHyperShadePanelLookupTable,
 		"tab",
 		$tab,
 		"optionVar");
+	
+    liqPopIdent();
+	return $ret;
 }
 
 proc string lookupOptionVarTab(
 	string $optionVar)
 {
+	liqPushIdent();
+	liqlog("liq/lookupOptionVarTab("+$optionVar+")");
 	//
 	// Description:
 	//	This procedure uses the lookup table to look up the name of the tab
@@ -346,16 +389,20 @@ proc string lookupOptionVarTab(
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return lookupTableLookup(
+	string $ret = lookupTableLookup(
 		$gHyperShadePanelLookupTable,
 		"optionVar",
 		$optionVar,
 		"tab");
+    liqPopIdent();	 
+	return $ret;
 }
 
 proc string lookupTabType(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/lookupTabType("+$tab+")");
 	//
 	// Description:
 	//	This procedure uses the lookup table to look up the type (disk, scene,
@@ -367,21 +414,27 @@ proc string lookupTabType(
 
     if ($tab == "")
     {
+		liqPopIdent();
         return "";
     }
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return lookupTableLookup(
+	string $ret = lookupTableLookup(
 		$gHyperShadePanelLookupTable,
 		"tab",
 		$tab,
 		"type");
+	
+    liqPopIdent();
+	return $ret;
 }
 
 proc int isDiskTab(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/isDiskTab("+$tab+")");
 	//
 	// Description:
 	//	This procedure is used to query whether the specified tab is a disk
@@ -393,12 +446,17 @@ proc int isDiskTab(
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return (lookupTabType($tab) == "disk");
+	int $ret = (lookupTabType($tab) == "disk");
+
+    liqPopIdent();
+	return $ret;
 }
 
 proc int isGraphTab(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/isGraphTab("+$tab+")");
 	//
 	// Description:
 	//	This procedure is used to query whether the specified tab is a graph
@@ -412,12 +470,17 @@ proc int isGraphTab(
 
 	string $type = lookupTabType($tab);
 
-	return (($type == "graph") || ($type == "protected graph"));
+	int $ret = (($type == "graph") || ($type == "protected graph"));
+
+    liqPopIdent();
+	return $ret;
 }
 
 proc int isSceneTab(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/isSceneTab("+$tab+")");
 	//
 	// Description:
 	//	This procedure is used to query whether the specified tab is a scene
@@ -427,13 +490,17 @@ proc int isSceneTab(
 	//	True if the tab is a scene tab, false if not.
 	//
     if ($tab == "")
-    {
+    { 
+		liqPopIdent();
         return false;
     }
 
 	global string $gHyperShadePanelLookupTable[];
 
-	return (lookupTabType($tab) == "scene");
+	int $ret = (lookupTabType($tab) == "scene");
+	   
+	liqPopIdent();
+	return $ret;
 }
 
 // ---------------------------------------------------------------------------
@@ -442,6 +509,8 @@ proc int isSceneTab(
 proc int activePaneIndex(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/activePaneIndex("+$panel+")");
 	//
 	// Description:
 	//	This procedure determines what pane within the hypershade panel is the
@@ -461,13 +530,16 @@ proc int activePaneIndex(
 	int $activePaneIndex;
 
 	$activePaneIndex = `paneLayout -query -activePaneIndex $paneLayout`;
-
+		
+    liqPopIdent();
 	return $activePaneIndex;
 }
 
 proc string activeTabLayout(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/activeTabLayout("+$panel+")");
 	//
 	// Description:
 	//	This procedure determines the name of the tab layout in the active
@@ -508,13 +580,16 @@ proc string activeTabLayout(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
-
+	
+    liqPopIdent();
 	return $activeTabLayout;
 }
 
 proc string activeTab(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/activeTab("+$panel+")");
 	//
 	// Description:
 	//	This procedure determines the name of the frontmost tab in the tab
@@ -550,13 +625,16 @@ proc string activeTab(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
-
+	
+    liqPopIdent();
 	return $activeTab;
 }
 
 proc string activeTabIndex(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/activeTabIndex("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure determines the index of the frontmost tab in the tab
@@ -570,13 +648,16 @@ proc string activeTabIndex(
 
 	int $activeTabIndex;
 	$activeTabIndex = `tabLayout -query -selectTabIndex $activeTabLayout`;
-
+		
+    liqPopIdent();
 	return $activeTabIndex;
 }
 
 proc string activeTabLabel(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/activeTabLabel("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure determines the label of the frontmost tab in the tab
@@ -602,13 +683,16 @@ proc string activeTabLabel(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
-
+	
+    liqPopIdent();
 	return $tabLabelArray[$activeTabIndex - 1];
 }
 
 
 proc string workAreaTab()
 {
+	liqPushIdent();
+	liqlog("liq/workAreaTab( )");
 	//
 	// Description:
 	//	This procedure determines the name of the graph tab which is used as
@@ -630,13 +714,16 @@ proc string workAreaTab()
 			-showLineNumber true
 			(uiRes("m_hyperShadePanel.kWorkAreaGraphTabNotFound"));
 	}
-
+	
+    liqPopIdent();
 	return $workAreaTab;
 }
 
 proc int isGraphTabVisible(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/isGraphTabVisible("+$panel +")");
 	//
 	// Description:
 	//	This procedure determines if a graph tab (work area) is visible within
@@ -678,13 +765,16 @@ proc int isGraphTabVisible(
 
 	setParent $saveParent;
 	setParent -menu $saveParentMenu;
-
+	
+    liqPopIdent();
 	return $result;
 }
 
 proc string targetGraphTab(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/targetGraphTab("+$panel +")");
 	//
 	// Description:
 	//	This procedure is called when the user is performing an action which
@@ -759,13 +849,16 @@ proc string targetGraphTab(
 		//
 		$targetTab = workAreaTab();
 	}
-
+	
+    liqPopIdent();
 	return $targetTab;
 }
 
 proc string renderCreateBarUIName(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/renderCreateBarUIName("+$panel +")");
 	//
 	// Description:
 	//	This procedure determines and returns the name of the top level
@@ -792,6 +885,7 @@ proc string renderCreateBarUIName(
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
 
+    liqPopIdent();
 	return $renderCreateBarUIName;
 }
 
@@ -802,6 +896,8 @@ proc string renderCreateBarUIName(
 proc string tabLabel(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/tabLabel("+$tab+")");
 	//
 	// Description:
 	//	This procedure determines the label of the specified tab.
@@ -841,11 +937,14 @@ proc string tabLabel(
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
 
+    liqPopIdent();
 	return $tabLabel;
 }
 
 proc string generateUniqueTabOptionVarName()
 {
+	liqPushIdent();
+	liqlog("liq/generateUniqueTabOptionVarName( )");
 	//
 	// Description:
 	//	This procedure is used to create a unique name for an optionVar in
@@ -864,7 +963,8 @@ proc string generateUniqueTabOptionVarName()
 		$i++;
 	}
 	while (`optionVar -exists $optionVarName`);
-
+	
+    liqPopIdent();
 	return $optionVarName;
 }
 
@@ -872,6 +972,8 @@ proc updateTabOptionVar(
 	string $optionVar,
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/updateTabOptionVar("+$optionVar+","+$tab+")");
 	//
 	// Description:
 	//	This procedure is called from updateTabOptionVar() and from
@@ -947,12 +1049,15 @@ proc updateTabOptionVar(
 			-showLineNumber true
 			(`format -s $type $errorMsg`);
 	}
+    liqPopIdent();
 }
 
 proc setTabLabel(
 	string $tab,
 	string $label)
 {
+	liqPushIdent();
+	liqlog("liq/setTabLabel("+$tab+","+$label+")");
 	//
 	// Description:
 	//	This procedure sets the label of the specified tab.
@@ -1003,11 +1108,14 @@ proc setTabLabel(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
+    liqPopIdent();
 }
 
 proc string tabTypeFromOptionVar(
 	string $optionVar)
 {
+	liqPushIdent();
+	liqlog("liq/tabTypeFromOptionVar("+$optionVar+")");
 	//
 	// Description:
 	//	This procedure retrieves the type of the tab whose information is
@@ -1019,13 +1127,16 @@ proc string tabTypeFromOptionVar(
 
 	string $valueArray[];
 	$valueArray = `optionVar -query $optionVar`;
-
+		
+    liqPopIdent();
 	return $valueArray[0];
 }
 
 proc string tabLabelFromOptionVar(
 	string $optionVar)
 {
+	liqPushIdent();
+	liqlog("liq/tabLabelFromOptionVar("+$optionVar+")");
 	//
 	// Description:
 	//	This procedure retrieves the label of the tab whose information is
@@ -1038,12 +1149,15 @@ proc string tabLabelFromOptionVar(
 	string $valueArray[];
 	$valueArray = `optionVar -query $optionVar`;
 
+    liqPopIdent();
 	return $valueArray[1];
 }
 
 proc deleteOptionVar(
 	string $optionVar)
 {
+	liqPushIdent();
+	liqlog("liq/deleteOptionVar("+$optionVar+")");
 	//
 	// Description:
 	//	This method is called from deleteTabOptionVar() or from
@@ -1066,11 +1180,14 @@ proc deleteOptionVar(
 	optionVar -remove ($optionVar + "HypershadeName");
 	optionVar -remove ($optionVar + "Filter");
 	optionVar -remove ($optionVar + "IconSize");
+    liqPopIdent();
 }
 
 proc deleteTabOptionVar(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/deleteTabOptionVar("+$tab+")");
 	//
 	// Description:
 	//	This procedure deletes the optionVar associated with the specified tab.
@@ -1078,11 +1195,14 @@ proc deleteTabOptionVar(
 
 	string $optionVar = lookupTabOptionVar($tab);
 	deleteOptionVar($optionVar);
+    liqPopIdent();
 }
 
 proc deleteUnusedTabOptionVars(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/deleteUnusedTabOptionVars("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called the first time hypershade is opened each
@@ -1106,12 +1226,15 @@ proc deleteUnusedTabOptionVars(
 			}
 		}
 	}
+    liqPopIdent();
 }
 
 proc updateTabLayoutOptionVar(
 	string $panel,
 	string $tabLayout)
 {
+	liqPushIdent();
+	liqlog("liq/updateTabLayoutOptionVar("+$panel+","+$tabLayout+")");
 	//
 	// Description:
 	//	This procedure should be called whenever a change is made to the tab
@@ -1162,6 +1285,7 @@ proc updateTabLayoutOptionVar(
         // The tabLayout has no tabs in it.  Nothing to do.
         //
 	    if ($oldParent != "NONE") setParent $oldParent;
+		 liqPopIdent();
         return;
     }
 
@@ -1206,6 +1330,7 @@ proc updateTabLayoutOptionVar(
 	}
 
 	if ($oldParent != "NONE") setParent $oldParent;
+    liqPopIdent();
 }
 
 //
@@ -1214,11 +1339,15 @@ proc updateTabLayoutOptionVar(
 //
 proc applyHypergraphOptions(string $hypershadeName)
 {
+	liqPushIdent();
+	liqlog("liq/applyHypergraphOptions("+$hypershadeName+")");
     int $isMergeConnectionsSet = `optionVar -query hsMergeConnections`;
     hyperGraph -edit -mergeConnections $isMergeConnectionsSet $hypershadeName;
 
     int $isOpaqueContainersSet = `optionVar -query hsOpaqueContainers`;
     hyperGraph -edit -opaqueContainers $isOpaqueContainersSet $hypershadeName;
+
+    liqPopIdent();
 }
 
 // ---------------------------------------------------------------------------
@@ -1231,6 +1360,8 @@ proc string createGraphTab(
 	string $tabLabel,
 	int $protected)
 {
+	liqPushIdent();
+	liqlog("liq/createGraphTab("+$panel+","+$tabLayout+","+$tabLabel+","+$protected+")");
 	//
 	// Description:
 	//	This procedure is called when the user creates a new graph tab, or when
@@ -1331,6 +1462,7 @@ proc string createGraphTab(
 
 	// Return the name of the tab which was created.
 	//
+    liqPopIdent();
 	return $tab;
 }
 
@@ -1341,6 +1473,8 @@ proc string recreateGraphTab(
 	int $reuseEditors,
 	int $protected)
 {
+	liqPushIdent();
+	liqlog("liq/recreateGraphTab("+$panel+","+$tabLayout+","+$optionVar+","+$reuseEditors+","+$protected+")");
 	//
 	// Description:
 	//	This procedure is called when a graph tab is being recreated from an
@@ -1448,6 +1582,7 @@ proc string recreateGraphTab(
 
 	// Return the name of the tab which was created.
 	//
+    liqPopIdent();
 	return $tab;
 }
 
@@ -1457,6 +1592,8 @@ proc string createDiskTab(
 	string $tabLabel,
 	string $directory)
 {
+	liqPushIdent();
+	liqlog("liq/createDiskTab("+$panel+","+$tabLayout+","+$tabLabel+","+$directory+")");
 	//
 	// Description:
 	//	This procedure is called when the user creates a new disk tab, or when
@@ -1533,6 +1670,7 @@ proc string createDiskTab(
 
 	// Return the name of the tab which was created.
 	//
+    liqPopIdent();
 	return $tab;
 }
 
@@ -1542,6 +1680,8 @@ proc string recreateDiskTab(
 	string $optionVar,
 	int $reuseEditors)
 {
+	liqPushIdent();
+	liqlog("liq/recreateDiskTab("+$panel+","+$tabLayout+","+$optionVar+","+$reuseEditors+")");
 	//
 	// Description:
 	//	This procedure is called when a disk tab is being recreated from
@@ -1695,6 +1835,7 @@ proc string recreateDiskTab(
 
 	// Return the name of the tab which was created.
 	//
+    liqPopIdent();
 	return $tab;
 }
 
@@ -1704,6 +1845,8 @@ proc string createSceneTab(
 	string $tabLabel,
 	string $filter)
 {
+	liqPushIdent();
+	liqlog("liq/createSceneTab("+$panel+","+$tabLayout+","+$tabLabel+","+$filter+")");
 	//
 	// Description:
 	//	This procedure is called when the user creates a new scene tab, or when
@@ -1779,6 +1922,7 @@ proc string createSceneTab(
 
 	// Return the name of the tab which was created.
 	//
+    liqPopIdent();
 	return $tab;
 }
 
@@ -1788,6 +1932,9 @@ proc refreshSceneTabContent(
     string $tab,
 	int $reuseEditors)
 {
+	liqPushIdent();
+	liqlog("liq/refreshSceneTabContent("+$panel+","+$tabLayout+","+$tab+","+$reuseEditors+")");
+
 	//
 	// Description:
 	//	This procedure is called to refresh the scene tab content.
@@ -1798,6 +1945,7 @@ proc refreshSceneTabContent(
     //
     if (!isSceneTab($tab))
     {
+    liqPopIdent();
         return;
     }
 
@@ -1806,6 +1954,7 @@ proc refreshSceneTabContent(
         // The content of this tab has already been created.
         // We have nothing to do.
         //
+    liqPopIdent();
         return;
     }
 
@@ -1873,6 +2022,7 @@ proc refreshSceneTabContent(
 	//
 	string $implicitFilter = filteredCollection_RealFilterName( $filter );
 	showFilter( $panel, $tab, $implicitFilter );
+    liqPopIdent();
 }
 
 proc string recreateSceneTab(
@@ -1881,6 +2031,8 @@ proc string recreateSceneTab(
 	string $optionVar,
 	int $reuseEditors)
 {
+	liqPushIdent();
+	liqlog("liq/recreateSceneTab("+$panel+","+$tabLayout+","+$optionVar+","+$reuseEditors+")");
 	//
 	// Description:
 	//	This procedure is called when a scene tab is being recreated from an
@@ -1973,6 +2125,7 @@ proc string recreateSceneTab(
 
 	// Return the name of the tab which was created.
 	//
+    liqPopIdent();
 	return $tab;
 }
 
@@ -1983,6 +2136,8 @@ proc recreateTab(
 	string $optionVar,
 	int $reuseEditors)
 {
+	liqPushIdent();
+	liqlog("liq/recreateTab("+$panel+","+$tabLayout+","+$optionVar+","+$reuseEditors+")");
 	//
 	// Description:
 	//	This procedure is called by initTabs() when a tab is being recreated
@@ -2027,6 +2182,7 @@ proc recreateTab(
 			-showLineNumber true
 			(`format -s $type $errorMsg`);
 	}
+    liqPopIdent();
 }
 
 
@@ -2036,6 +2192,8 @@ proc recreateTab(
 //
 proc removeSceneTabFilterReference(string $panel, string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/removeSceneTabFilterReference("+$panel+","+$tab+")");
     // Delete the filterBox and filterButton associated with the scene.
     //
 	string $collection = lookupComponentName( $tab );
@@ -2060,6 +2218,7 @@ proc removeSceneTabFilterReference(string $panel, string $tab)
     {
         $gPreviousFilterButton = "";
     }
+    liqPopIdent();
 }
 
 // Description:  This procedure is called when we need to refresh
@@ -2068,6 +2227,8 @@ proc removeSceneTabFilterReference(string $panel, string $tab)
 //
 proc refreshSceneTabFilterForm(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/refreshSceneTabFilterForm("+$panel +")");
     // Check which is the top most pane.
     //
     string $tabSectionsShown =
@@ -2111,6 +2272,7 @@ proc refreshSceneTabFilterForm(string $panel)
         control -edit -manage true sceneTabFilterForm;
 
     }
+    liqPopIdent();
 }
 
 
@@ -2118,6 +2280,8 @@ proc moveTab(
 	string $panel,
 	string $direction)
 {
+	liqPushIdent();
+	liqlog("liq/moveTab("+$panel+","+$direction+")");
 	//
 	// Description:
 	//	This procedure moves a tab up, down, left or right within the
@@ -2362,11 +2526,14 @@ proc moveTab(
 	//	must be refreshed.
 	//
 	hyperShadeEndConstruction( $panel, 1 );
+    liqPopIdent();
 }
 
 proc removeTab(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/removeTab("+$tab+")");
 	//
 	// Description:
 	//	This procedure removes the specified tab from the hypershade panel.
@@ -2502,12 +2669,15 @@ proc removeTab(
 	{
 		hyperShadeEndConstruction( $panel, 1 );
 	}
+    liqPopIdent();
 
 }
 
 proc removeActiveTab(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/removeActiveTab("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure removes the active tab from the hypershade panel.
@@ -2528,6 +2698,7 @@ proc removeActiveTab(
 		// The active tab is marked as a protected graph, which means we don't
 		// want to allow it to be deleted or moved between tab layouts.
 		//
+    liqPopIdent();
 		return;
 	}
 
@@ -2586,6 +2757,7 @@ proc removeActiveTab(
 	updateTabLayoutOptionVar($panel, $tabLayout);
 
     refreshSceneTabFilterForm($panel);
+    liqPopIdent();
 }
 
 // Description:  This procedure is called to refresh the icon size
@@ -2593,6 +2765,8 @@ proc removeActiveTab(
 //
 proc refreshIconSize(string $panel, string $activeTab)
 {
+	liqPushIdent();
+	liqlog("liq/refreshIconSize("+$panel+","+$activeTab+")");
     int $isSceneTab = isSceneTab($activeTab);
 
     string $oldParent = `setParent -q`;
@@ -2638,10 +2812,13 @@ proc refreshIconSize(string $panel, string $activeTab)
     }
 
     setParent $oldParent;
+    liqPopIdent();
 }
 
 proc refreshViewOption(string $panel, string $activeTab)
 {
+	liqPushIdent();
+	liqlog("liq/refreshViewOption("+$panel+","+$activeTab+")");
     int $isSceneTab = isSceneTab($activeTab);
     int $isGraphTab = isGraphTab($activeTab);
 
@@ -2693,11 +2870,14 @@ proc refreshViewOption(string $panel, string $activeTab)
 
 	// disable/enable opaque-containers menu item
 	menuItem -edit -enable $isGraphTab opaqueContainersItem;
-
+	
+    liqPopIdent();
 }
 
 proc refreshSortOption(string $panel, string $activeTab)
 {
+	liqPushIdent();
+	liqlog("liq/refreshSortOption("+$panel+","+$activeTab+")");
     int $isSceneTab = isSceneTab($activeTab);
 
     string $oldParent = `setParent -q`;
@@ -2743,10 +2923,13 @@ proc refreshSortOption(string $panel, string $activeTab)
 		setParent ..; // from buttonsColumn
     }
     setParent $oldParent;
+    liqPopIdent();
 }
 
 proc refreshReverseOption(string $panel, string $activeTab)
 {
+	liqPushIdent();
+	liqlog("liq/refreshReverseOption("+$panel+","+$activeTab+")");
     int $isSceneTab = isSceneTab($activeTab);
 
     string $oldParent = `setParent -q`;
@@ -2786,11 +2969,14 @@ proc refreshReverseOption(string $panel, string $activeTab)
 		}
     }
     setParent $oldParent;
+    liqPopIdent();
 }
 
 proc refreshToolbar(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/refreshToolbar("+$panel+ ")");
 	setParent $panel;
 	setParent hyperShadeToolbarForm;
 
@@ -2839,11 +3025,14 @@ proc refreshToolbar(
 			-select
 			showTopAndBottomTabsButton;
 	}
+    liqPopIdent();
 }
 
 proc refreshCreateMenu(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/refreshCreateMenu("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called after a change is made which would require the
@@ -2917,11 +3106,14 @@ proc refreshCreateMenu(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
+    liqPopIdent();
 }
 
 proc refreshTabsMenu(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/refreshTabsMenu("+$panel +")");
 	//
 	// Description:
 	//	This procedure is called after a change is made which would require the
@@ -2993,11 +3185,14 @@ proc refreshTabsMenu(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
+    liqPopIdent();
 }
 
 proc refreshGraphMenu(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/refreshGraphMenu("+$panel +")");
 	//
 	// Description:
 	//	This procedure is called after a change is made which would require the
@@ -3053,12 +3248,15 @@ proc refreshGraphMenu(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
+    liqPopIdent();
 }
 
 global proc hyperShadePanelRefreshMenu(
 	string $panel,
 	string $menu)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelRefreshMenu("+$panel+","+$menu+")");
 	//
 	// Description:
 	//	This procedure is called whenever some procedure outside of this file
@@ -3086,6 +3284,7 @@ global proc hyperShadePanelRefreshMenu(
 		//
 		warning (uiRes("m_hyperShadePanel.kTryingToRefreshMenu"));
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelSetActiveTabLayout(
@@ -3093,6 +3292,8 @@ global proc hyperShadePanelSetActiveTabLayout(
     string $tabLayout,
     string $refreshFrontPane)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelSetActiveTabLayout("+$panel+","+$tabLayout+","+$refreshFrontPane+")");
 	//
 	// Description:
 	//	This procedure is invoked when the focus command on the hyper
@@ -3124,6 +3325,7 @@ global proc hyperShadePanelSetActiveTabLayout(
     {
         // There is no tab in this tabLayout.  Nothing to do.
         //
+    liqPopIdent();
         return;
     }
 
@@ -3168,11 +3370,14 @@ global proc hyperShadePanelSetActiveTabLayout(
 	refreshReverseOption($panel, $activeTab);
 	refreshToolbar($panel);
 	refreshGraphMenu($panel);
+    liqPopIdent();
 }
 
 proc int topTabsShown(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/topTabsShown("+$panel +")");
 	//
 	// Description:
 	//	This procedure determines whether the top tab section of the hypershade
@@ -3184,14 +3389,19 @@ proc int topTabsShown(
 	string $tabSectionsShown =
 		`optionVar -query hyperShadePanelTabSectionsShown`;
 
-	return (
+	int $ret = (
 			($tabSectionsShown == "showTopTabsOnly")
 		||	($tabSectionsShown == "showTopAndBottomTabs"));
+
+    liqPopIdent();
+	return $ret;
 }
 
 proc int bottomTabsShown(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/bottomTabsShown("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure determines whether the bottom tab section of the
@@ -3203,14 +3413,18 @@ proc int bottomTabsShown(
 	string $tabSectionsShown =
 		`optionVar -query hyperShadePanelTabSectionsShown`;
 
-	return (
-			($tabSectionsShown == "showBottomTabsOnly")
-		||	($tabSectionsShown == "showTopAndBottomTabs"));
+		int $ret = ($tabSectionsShown == "showBottomTabsOnly")
+		||	($tabSectionsShown == "showTopAndBottomTabs");
+	
+    liqPopIdent();
+	return $ret;
 }
 
 proc showTopTabsOnly(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/showTopTabsOnly("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure causes the hypershade to reconfigure so that only the
@@ -3237,11 +3451,14 @@ proc showTopTabsOnly(
     hyperShadePanelSetActiveTabLayout($panel, "firstPaneTabs", true);
 	refreshTabsMenu($panel);
 	refreshToolbar($panel);
+    liqPopIdent();
 }
 
 proc showBottomTabsOnly(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/showBottomTabsOnly("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure causes the hypershade to reconfigure so that only the
@@ -3268,11 +3485,14 @@ proc showBottomTabsOnly(
     hyperShadePanelSetActiveTabLayout($panel, "secondPaneTabs", true);
 	refreshTabsMenu($panel);
 	refreshToolbar($panel);
+    liqPopIdent();
 }
 
 proc showTopAndBottomTabs(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/showTopAndBottomTabs("+$panel +")");
 	//
 	// Description:
 	//	This procedure causes the hypershade to reconfigure so that both the
@@ -3316,12 +3536,15 @@ proc showTopAndBottomTabs(
     hyperShadePanelSetActiveTabLayout($panel, "secondPaneTabs", true);
 	refreshTabsMenu($panel);
 	refreshToolbar($panel);
+    liqPopIdent();
 }
 
 proc selectTab(
 	string $panel,
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/selectTab("+$panel+","+$tab+")");
 	//
 	// Description:
 	//	This procedure selects the specified tab, bringing it to the front of
@@ -3387,11 +3610,14 @@ proc selectTab(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
+    liqPopIdent();
 }
 
 proc revertToDefaultTabs(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/revertToDefaultTabs("+$panel +")");
 	//
 	// Description:
 	//	This procedure removes all tabs from the hypershade panel and creates
@@ -3611,10 +3837,13 @@ proc revertToDefaultTabs(
 	//	must be refreshed.
 	//
 	hyperShadeEndConstruction( $panel, 1 );
+    liqPopIdent();
 }
 
 proc initTabs(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/initTabs("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called the first time the hypershade panel is opened
@@ -3648,6 +3877,7 @@ proc initTabs(string $panel)
 		// consider to be useful and appropriate default tabs.
 		//
 		revertToDefaultTabs($panel);
+    liqPopIdent();
 		return;
 	}
 
@@ -3739,10 +3969,13 @@ proc initTabs(string $panel)
 	//
 	refreshToolbar($panel);
 	refreshGraphMenu($panel);
+    liqPopIdent();
 }
 
 global proc hyperShadePanelRootDirectoryBrowse()
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelRootDirectoryBrowse( )");
 	//
 	// Description:
 	//	This procedure is called when the user clicks on the browse button
@@ -3767,12 +4000,15 @@ global proc hyperShadePanelRootDirectoryBrowse()
 	}
 
 	fileBrowser("hyperShadePanelRefreshRootDirectoryBrowseField", "Open", "", 4);
+    liqPopIdent();
 }
 
 global proc int hyperShadePanelRefreshRootDirectoryBrowseField(
 	string $directory,
 	string $type)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelRefreshRootDirectoryBrowseField("+$directory+","+$type+")");
 	//
 	// Description:
 	//	This procedure is called by the file browser the user uses to choose a
@@ -3797,6 +4033,7 @@ global proc int hyperShadePanelRefreshRootDirectoryBrowseField(
 				-edit
 				-fileName $directory
 				rootDirectoryField;
+			liqPopIdent();
 			return 1;
 		}
 		else
@@ -3807,19 +4044,26 @@ global proc int hyperShadePanelRefreshRootDirectoryBrowseField(
 					(uiRes("m_hyperShadePanel.kRootDirectoryIsInvalid"))
 				-messageAlign center
 				-button (uiRes("m_hyperShadePanel.kRootDirectoryBrowserClose")) ;
+			
+			liqPopIdent();
 			return 0;
 		}
 	}
 	else
 	{
+		liqPopIdent();
 		return 1;
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelCreateNewTabFinish(
 	string $panel,
 	int $dismiss)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelCreateNewTabFinish("+$panel+","+$dismiss+")");
+
 	//
 	// Description:
 	//	This procedure is called when the user clicks on the Create button in
@@ -3841,6 +4085,7 @@ global proc hyperShadePanelCreateNewTabFinish(
         // Empty string is not allowed as tab label.
         //
         warning (uiRes("m_hyperShadePanel.kEmptyStringLabel"));
+		liqPopIdent();
         return;
     }
 
@@ -3893,6 +4138,8 @@ global proc hyperShadePanelCreateNewTabFinish(
 					-messageAlign center
 					-parent hyperShadePanelCreateNewTabWindow
 					-button (uiRes("m_hyperShadePanel.kCreateNewTabClose")) ;
+				
+				liqPopIdent();
 				return;
 			}
 			int $showFilesOnly =
@@ -3961,10 +4208,13 @@ global proc hyperShadePanelCreateNewTabFinish(
 		//
 		deleteUI hyperShadePanelCreateNewTabWindow;
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelRefreshCreateNewTabWindow()
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelRefreshCreateNewTabWindow( )");
 	//
 	// Description:
 	//	This procedure is called when the user changes the type of tab to be
@@ -4024,11 +4274,14 @@ global proc hyperShadePanelRefreshCreateNewTabWindow()
 		default:
 			break;
 	}
+    liqPopIdent();
 }
 
 proc createNewTab(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/createNewTab("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called when the user chooses Create New Tab... from
@@ -4039,6 +4292,7 @@ proc createNewTab(
 	if (`window -exists hyperShadePanelCreateNewTabWindow`)
 	{
 		showWindow hyperShadePanelCreateNewTabWindow;
+		liqPopIdent();
 		return;
 	}
 
@@ -4206,11 +4460,14 @@ proc createNewTab(
 	hyperShadePanelRefreshCreateNewTabWindow;
 
 	showWindow hyperShadePanelCreateNewTabWindow;
+    liqPopIdent();
 }
 
 global proc hyperShadePanelRenameTabFinish(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelRenameTabFinish("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called when the user clicks on the Rename button in
@@ -4226,11 +4483,14 @@ global proc hyperShadePanelRenameTabFinish(
 
 	setTabLabel(activeTab($panel), $tabLabel);
 	deleteUI hyperShadePanelRenameTabWindow;
+    liqPopIdent();
 }
 
 proc renameTab(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/renameTab("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called when the user chooses Rename Tab... from
@@ -4241,6 +4501,7 @@ proc renameTab(
 	if (`window -exists hyperShadePanelRenameTabWindow`)
 	{
 		showWindow hyperShadePanelRenameTabWindow;
+		liqPopIdent();
 		return;
 	}
 
@@ -4320,12 +4581,15 @@ proc renameTab(
 	setUITemplate -popTemplate;
 
 	showWindow hyperShadePanelRenameTabWindow;
+    liqPopIdent();
 }
 
 global proc string hyperShadePanelCreate(
 	string $as,
 	string $type)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelCreate("+$as+","+$type+")");
 	//
 	// Description:
 	//	This procedure is called when the user chooses to create a node from
@@ -4445,7 +4709,8 @@ global proc string hyperShadePanelCreate(
 	{
 		$name = `createNode $type`;
 	}
-
+	
+    liqPopIdent();
 	return $name;
 }
 
@@ -4453,6 +4718,8 @@ global proc buildCreateSubMenu(
 	string $classification,
 	string $callback)
 {
+	liqPushIdent();
+	liqlog("liq/buildCreateSubMenu("+$classification+","+$callback+")");
 	//
 	// Description:
 	//	This procedure is called from buildMainMenu().
@@ -4461,7 +4728,7 @@ global proc buildCreateSubMenu(
 	//	The specified callback script is the one which is called to do the
 	//	creation of a node of a particular type.
 	//
-
+    liqlog("diff with maya2012");
     // allow custom UI to filter out their node types based on classification
     // so they don't show up in two places if they are registered as both
     // shaders/surface and rendernode/myrenderer for example
@@ -4517,12 +4784,15 @@ global proc buildCreateSubMenu(
 			-annotation `format -s $typeString $annotMsg`
 			-command ($callback + " " + $type );
 	}
+    liqPopIdent();
 }
 
 proc buildCreateNodesSubMenu(
 	string $types[],
 	string $callback)
 {
+	liqPushIdent();
+	liqlog("liq/buildCreateNodesSubMenu(["+stringArrayToString($types, ",")+"],"+$callback+")");
 	//
 	// Description:
 	//	This procedure is called from buildMainMenu().
@@ -4541,6 +4811,7 @@ proc buildCreateNodesSubMenu(
 			-annotation `format -s $typeString $annotMsg`
 			-command ($callback + "(\"" + $type + "\")");
 	}
+    liqPopIdent();
 }
 
 proc buildMainMenu(
@@ -4552,6 +4823,8 @@ proc buildMainMenu(
 //	This procedure creates menus in the top menubar of the hypershade panel.
 //
 {
+	liqPushIdent();
+	liqlog("liq/buildMainMenu("+$panel+","+$isPopupMenu+")");
 	string $menuPrefix;
 
 	if ($isPopupMenu)
@@ -5358,12 +5631,15 @@ global proc hyperShadePanelBuildContextHelpItems(
 	menuItem -label (uiRes("m_hyperShadePanel.kHelpOnShaderLibrary"))
 		-enableCommandRepeat false
 		-command "showHelp ShaderLibrary";
+    liqPopIdent();
 }
 
 global proc hyperShadePanelBuildEditMenu(
 	string $panel,
 	string $parent)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelBuildEditMenu("+$panel+","+$parent+")");
 	//
 	// Description:
 	//	This procedure is called every time the Edit menu is opened.
@@ -5679,11 +5955,14 @@ global proc hyperShadePanelBuildEditMenu(
 		-optionBox true
 		-annotation (getRunTimeCommandAnnotation ("RenderTextureRangeOptions"))
 		-command "RenderTextureRangeOptions";
-
+	
+    liqPopIdent();
 }
 
 global proc hyperShadePanelBuildBookmarksMenu(string $panel, string $parent)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelBuildBookmarksMenu("+$panel+","+$parent+")");
 	string $activeTab = activeTab($panel);
 	string $component = lookupComponentName($activeTab);
 	string $editor = graphUIHypershadeName($component);
@@ -5698,10 +5977,13 @@ global proc hyperShadePanelBuildBookmarksMenu(string $panel, string $parent)
 			menuItem -edit -enable false $item;
 		}
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelBuildCreateMenu(string $panel, string $parent)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelBuildCreateMenu("+$panel+","+$parent+")");
 	//
 	// Description:
 	//	This procedure is called every time the Create menu is opened.
@@ -5838,10 +6120,13 @@ global proc hyperShadePanelBuildCreateMenu(string $panel, string $parent)
 
 	menuItem -divider true;
 
+    liqlog("diff with maya2012");
     // call the registered UI callbacks
     // note that each of these callbacks should end with 'menuItem -divider true;'
     // in order to preserve the expected look of the Maya UI
     callbacks -executeCallbacks -hook hyperShadePanelBuildCreateMenu;
+
+	LIQUID_HyperShadeCreateMenu_BuildMenu();
 
 	menuItem
 		-label (uiRes("m_hyperShadePanel.kCreateRenderNode"))
@@ -5892,12 +6177,15 @@ global proc hyperShadePanelBuildCreateMenu(string $panel, string $parent)
 
 	//setParent ..;
 	setParent -menu ..;
+    liqPopIdent();
 }
 
 global proc hyperShadePanelBuildCreateBarOptionsMenu(
 	string $panel,
 	string $menuParent)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelBuildCreateBarOptionsMenu("+$panel+","+$menuParent+")");
 	//
 	// Description:
 	//	This procedure is called every time the Create-> Create Bar menu
@@ -5923,13 +6211,17 @@ global proc hyperShadePanelBuildCreateBarOptionsMenu(
 					+ "\", \"toggleRenderCreateBar\")");
 
 	setParent -menu ..;
+    liqPopIdent();
 }
 
 global proc hyperShadePanelShapeDisplay()
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelShapeDisplay( )");
 	if( `optionVar -q hsNoShapes` )
 	{
 	}
+    liqPopIdent();
 }
 
 
@@ -5937,6 +6229,8 @@ global proc hyperShadePanelBuildDisplayOptionsMenu(
 	string $panel,
 	string $menuParent)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelBuildDisplayOptionsMenu("+$panel+","+$menuParent+")");
 	//
 	// Description:
 	//	This procedure is called every time the Options->Display menu
@@ -6005,6 +6299,7 @@ global proc hyperShadePanelBuildDisplayOptionsMenu(
 					+ "\", \"toggleTransformDisplay\")");
 
 	setParent -menu ..;
+    liqPopIdent();
 }
 
 
@@ -6013,6 +6308,8 @@ global proc hyperShadePanelBuildTabOptionsMenu(
 	string $panel,
 	string $menuParent)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelBuildTabOptionsMenu("+$panel+","+$menuParent+")");
 	//
 	// Description:
 	//	This procedure is called every time the Tabs->Current Tab Options menu
@@ -6123,12 +6420,15 @@ global proc hyperShadePanelBuildTabOptionsMenu(
 	}
 
 	setParent -menu ..;
+    liqPopIdent();
 }
 
 global proc hyperShadePanelGraphCommand(
 	string $panel,
 	string $command)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelGraphCommand("+$panel+","+$command+")");
 	// Determine which graph tab (work area) would be the most appropriate
 	// tab to perform this operation in. This will be called the target tab.
 	//
@@ -6235,12 +6535,15 @@ global proc hyperShadePanelGraphCommand(
 
 	refreshToolbar($panel);
 	refreshGraphMenu($panel);
+    liqPopIdent();
 }
 
 global proc hyperShadePanelMenuCommand(
 	string $panel,
 	string $command)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelMenuCommand("+$panel+","+$command+")");
 	//
 	// Description:
 	//	This procedure is called whenever a menu item is chosen from the
@@ -6961,7 +7264,10 @@ global proc hyperShadePanelMenuCommand(
             warning( (uiRes("m_hyperShadePanel.kNotASceneTabWarn")));
         }
 	}
-
+	else if( LIQUID_hyperShadePanelMenuCommand($panel, $command) )
+	{
+		//the command is handled by Liquid in LIQUID_hyperShadePanelMenuCommand()
+	}
 	else
 	{
 		string $errorMsg = (uiRes("m_hyperShadePanel.kCommandNotImplemented"));
@@ -6969,6 +7275,7 @@ global proc hyperShadePanelMenuCommand(
 			-showLineNumber true
 			(`format -s $command $errorMsg`);
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelGraphNodeNetwork(
@@ -6976,6 +7283,8 @@ global proc hyperShadePanelGraphNodeNetwork(
 	string $hypershade,
 	string $node)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelGraphNodeNetwork("+$panel+","+$hypershade+","+$node+")");
 	//
 	// Description:
 	//	This procedure is called from the RMB popup menu of a node in a
@@ -7069,6 +7378,7 @@ global proc hyperShadePanelGraphNodeNetwork(
 		//
 		selectTab($panel, $protectedGraphTab);
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelSceneAndGraphTabPopupMenu(
@@ -7076,6 +7386,8 @@ global proc hyperShadePanelSceneAndGraphTabPopupMenu(
 	string $hypershade,
 	string $popupMenuName)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelSceneAndGraphTabPopupMenu("+$panel+","+$hypershade+""+$popupMenuName+")");
 	//
 	// Description:
 	//	This procedure is called when the user RMB clicks in a scene or graph
@@ -7086,7 +7398,10 @@ global proc hyperShadePanelSceneAndGraphTabPopupMenu(
 	//	sceneAndGraphTabNodePopupMenu() to build the node-specific menu items.
 	//
 
-	if (!`popupMenu -e -exists $popupMenuName`) return;
+	if (!`popupMenu -e -exists $popupMenuName`){
+		liqPopIdent();
+		return;
+	}
 
 	// Delete the existing menu items from the popup menu.
 	//
@@ -7099,6 +7414,7 @@ global proc hyperShadePanelSceneAndGraphTabPopupMenu(
 	if ($gadget == "Outputs")
 	{
 		hypergraphOutputsMenu($hypershade, $popupMenuName, $node);
+		liqPopIdent();
 		return;
 	}
 
@@ -7134,6 +7450,7 @@ global proc hyperShadePanelSceneAndGraphTabPopupMenu(
 			$panel,
 			true); // popup menu
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadePanelDiskTabPopupMenu(
@@ -7141,6 +7458,8 @@ global proc hyperShadePanelDiskTabPopupMenu(
 	string $editor,
 	string $popupMenu)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelDiskTabPopupMenu("+$panel+","+$editor+","+$popupMenu+")");
 	//
 	// Description:
 	//	This procedure is called when the user RMB clicks in a disk tab visor.
@@ -7150,7 +7469,10 @@ global proc hyperShadePanelDiskTabPopupMenu(
 	//	is positioned over.
 	//
 
-	if (!`popupMenu -e -exists $popupMenu`) return;
+	if (!`popupMenu -e -exists $popupMenu`) {
+		liqPopIdent();
+		return;
+	}
 
 	// Delete the existing menu items from the popup menu.
 	//
@@ -7173,6 +7495,7 @@ global proc hyperShadePanelDiskTabPopupMenu(
 			$panel,
 			true); // popup menu
 	}
+    liqPopIdent();
 }
 
 proc framePane(
@@ -7180,6 +7503,8 @@ proc framePane(
     string $paneTabsName,
 	string $frameOperation)
 {
+	liqPushIdent();
+	liqlog("liq/framePane("+$panel+","+$paneTabsName+","+$frameOperation+")");
 	//
 	// Description:
 	//	This procedure is called from frame() when
@@ -7200,6 +7525,7 @@ proc framePane(
     {
         // No tab is in this pane.  Do nothing.
         //
+		liqPopIdent();
         return;
     }
 
@@ -7216,6 +7542,7 @@ proc framePane(
         // The component has not been created yet.  So this
         // can not be the hot key target.
         //
+		liqPopIdent();
         return;
     }
 
@@ -7253,12 +7580,15 @@ proc framePane(
 		//
 		hyperShadePanelSetActiveTabLayout($panel, $paneTabsName, false);
 	}
+    liqPopIdent();
 }
 
 proc frame(
 	string $panel,
 	string $frameOperation)
 {
+	liqPushIdent();
+	liqlog("liq/frame("+$panel+","+$frameOperation+")");
 	//
 	// Description:
 	//	This procedure is called from frameAll() or frameSelected() when
@@ -7271,11 +7601,14 @@ proc frame(
 
     framePane($panel, "firstPaneTabs", $frameOperation);
     framePane($panel, "secondPaneTabs", $frameOperation);
+    liqPopIdent();
 }
 
 global proc hyperShadePanelFrameAll(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelFrameAll("+$panel +")");
 	//
 	// Description:
 	//	This procedure is typically called from fitPanel() in fitPanel.mel when
@@ -7284,11 +7617,14 @@ global proc hyperShadePanelFrameAll(
 	//	This procedure calls frame() to perform the operation.
 	//
 	frame($panel, "all");
+    liqPopIdent();
 }
 
 global proc hyperShadePanelFrameSelected(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelFrameSelected("+$panel +")");
 	//
 	// Description:
 	//	This procedure is typically called from fitPanel() in fitPanel.mel when
@@ -7297,11 +7633,14 @@ global proc hyperShadePanelFrameSelected(
 	//	This procedure calls frame() to perform the operation.
 	//
 	frame($panel, "selected");
+    liqPopIdent();
 }
 
 global proc hyperShadePanelRebuildCreateBarUI(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelRebuildCreateBarUI("+$panel +")");
 	//
 	// Description:
 	//	This procedure is called when the contents of the hypershade create bar
@@ -7346,6 +7685,7 @@ global proc hyperShadePanelRebuildCreateBarUI(
 	{
 		formLayout -e -manage true createBarWrapForm;
 	}
+    liqPopIdent();
 }
 
 proc pluginChange(
@@ -7353,6 +7693,8 @@ proc pluginChange(
 	string $changeType,
 	string $plugin)
 {
+	liqPushIdent();
+	liqlog("liq/pluginChange("+$panel+","+$changeType+","+$plugin+")");
 	//
 	// Description:
 	//	This procedure is called from hyperShadePanelLoadPluginCallback() or
@@ -7389,6 +7731,7 @@ proc pluginChange(
 			{
 				string $tokenArray[];
 				int $numTokens = tokenize($classificationChunk, "/", $tokenArray);
+		liqlog("diff with maya2012");
                 // pass the classification chunk to the callbacks to see if a rebuild is required for a plugin
                 int $pluginRebuildRequiredResultArray[] = `callbacks -executeCallbacks -hook hyperShadePanelPluginChange $classificationChunk $changeType`;
                 int $callbackWantsRebuild = 0;
@@ -7421,6 +7764,7 @@ proc pluginChange(
 					if ($changeType == "loadPlugin")
 					{
 						hyperShadePanelRebuildCreateBarUI($panel);
+						liqPopIdent();
 						return;
 					}
 					else if ($changeType == "unloadPlugin")
@@ -7439,7 +7783,8 @@ proc pluginChange(
 						evalDeferred(
 							"hyperShadePanelRebuildCreateBarUI "
 							+ $panel);
-
+						
+						liqPopIdent();
 						return;
 					}
 				}
@@ -7452,6 +7797,8 @@ global proc hyperShadePanelLoadPluginCallback(
 	string $panel,
 	string $pluginName)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelLoadPluginCallback("+$panel+","+$pluginName+")");
 	//
 	// Description:
 	//	This procedure is called when a plugin has been loaded.
@@ -7460,12 +7807,15 @@ global proc hyperShadePanelLoadPluginCallback(
 	//
 
 	pluginChange($panel, "loadPlugin", $pluginName);
+    liqPopIdent();
 }
 
 global proc hyperShadePanelUnloadPluginCallback(
 	string $panel,
 	string $pluginName)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanelUnloadPluginCallback("+$panel+","+$pluginName+")");
 	//
 	// Description:
 	//	This procedure is called when a plugin is about to be unloaded.
@@ -7473,6 +7823,7 @@ global proc hyperShadePanelUnloadPluginCallback(
 	//	if necessary as a result of the unloading of the plugin.
 	//
 	pluginChange($panel, "unloadPlugin", $pluginName);
+    liqPopIdent();
 }
 
 
@@ -7482,12 +7833,15 @@ global proc hyperShadePanelUnloadPluginCallback(
 
 global proc createHyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/createHyperShadePanel("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called the first time the shader editor is opened.
 	//	This procedure creates the various UI entities that the shader
 	//	editor will use, except for those UI entities which are controls.
 	//
+    liqPopIdent();
 }
 
 // Description: Copy the bin list from the render globals attribute to
@@ -7495,14 +7849,19 @@ global proc createHyperShadePanel(string $panel)
 //
 proc initHyperShadeBinList()
 {
+	liqPushIdent();
+	liqlog("liq/initHyperShadeBinList()");
     if( !`optionVar -exists hsBinsSortShadingNodesOnly` )
     {
         optionVar -intValue hsBinsSortShadingNodesOnly 1;
     }
+    liqPopIdent();
 }
 
 global proc initHyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/initHyperShadePanel("+$panel+ ")");
     // Copy the bin list from the render globals attribute to
     // the mel global variable.
     //
@@ -7520,6 +7879,7 @@ global proc initHyperShadePanel(string $panel)
 	// and their associated components.
 	//
 	createHyperShadePanelLookupTable();
+    liqPopIdent();
 }
 
 global int $gHypershadePluginCallbacksRegistered = false;
@@ -7529,6 +7889,8 @@ global int $gHypershadePluginCallbacksRegistered = false;
 //
 proc createToolbarFormContent(string $panel, string $toolbarForm)
 {
+	liqPushIdent();
+	liqlog("liq/createToolbarFormContent("+$panel+","+$toolbarForm+")");
     string $oldParent = `setParent -q`;
 
             setParent $toolbarForm;
@@ -7736,6 +8098,7 @@ proc createToolbarFormContent(string $panel, string $toolbarForm)
             setParent ..;  // from sceneTabFilterForm
 
     setParent $oldParent;
+    liqPopIdent();
 }
 
 // Description:  This procedure is called to create the content for
@@ -7743,6 +8106,9 @@ proc createToolbarFormContent(string $panel, string $toolbarForm)
 //
 proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 {
+	liqPushIdent();
+	liqlog("liq/createButtonsColumnContent("+$panel+","+$buttonsColumn+")");
+
     string $oldParent = `setParent -q`;
 
             setParent $buttonsColumn;
@@ -7773,6 +8139,9 @@ proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 						+ "\", \"asList\")")
 				asListColumnButton;
 
+			string $LiquidControl = LIQUID_createButtonsColumnContent($panel, $buttonsColumn,
+				$iconSize
+			);
 			separator -height $iconSize -visible false separator1;
 
 			// Buttons for View as Small/Medium/Large Swatches
@@ -7883,7 +8252,15 @@ proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 				-af asListColumnButton left 0
 				-af asListColumnButton right 0
 
-				-ac separator1 top 0 asListColumnButton
+				// modified by liquid, begin
+				-ac $LiquidControl top 0 asListColumnButton
+				-an $LiquidControl bottom
+				-af $LiquidControl left 0
+				-af $LiquidControl right 0
+
+				-ac separator1 top 0 $LiquidControl
+				//-ac separator1 top 0 asListColumnButton
+				// modified by liquid, end
 				-an separator1 bottom
 				-af separator1 left 0
 				-af separator1 right 0
@@ -7936,6 +8313,7 @@ proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 				buttonsColumn;
 
     setParent $oldParent;
+    liqPopIdent();
 }
 
 
@@ -7945,6 +8323,8 @@ proc createButtonsColumnContent(string $panel, string $buttonsColumn)
 proc createCreateBarWrapFormContent(
     string $panel, string $createBarWrapForm)
 {
+	liqPushIdent();
+	liqlog("liq/createCreateBarWrapFormContent("+$panel+","+$createBarWrapForm+")");
 	// Create the CreateAndOrganizeForm content.
 	//
 	hyperShadeCreateAndOrganizeUI($panel, $createBarWrapForm);
@@ -7953,12 +8333,15 @@ proc createCreateBarWrapFormContent(
 	{
 		formLayout -e -manage false createBarWrapForm;
 	}
+    liqPopIdent();
 }
 
 
 
 global proc addHyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/addHyperShadePanel("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is called when the hypershade panel is first opened.
@@ -8047,6 +8430,7 @@ global proc addHyperShadePanel(string $panel)
 
 		// Set the create bar to the last saved size.
 		//
+		liqlog("diff with maya2012");
 		evalDeferred("setHyperShadePaneSizes " + $mainPane + " " + $paneLayout);
 
 		setParent ..; // from mainPane
@@ -8148,11 +8532,14 @@ global proc addHyperShadePanel(string $panel)
 	// Signal the end of the construciton operation
 	//
 	hyperShadeEndConstruction( $panel, 1 );
+    liqPopIdent();
 }
 
 proc deleteEditors(
 	string $tabLayout)
 {
+	liqPushIdent();
+	liqlog("liq/deleteEditors("+$tabLayout+")");
 	//
 	// Description:
 	//	This procedure is called from removeHyperShadePanel().
@@ -8218,6 +8605,9 @@ proc deleteEditors(
 
 proc saveHyperShadePaneSizes(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/saveHyperShadePaneSizes("+$panel +")");
+
 	//
 	// Save the percentage of the panels width that the create bar 
 	// takes up.  Will be used on the next open to restore the splitter
@@ -8264,10 +8654,13 @@ proc saveHyperShadePaneSizes(string $panel)
 
 	if ($oldParent != "NONE") 
 		setParent $oldParent;
+    liqPopIdent();		
 }
 
 global proc removeHyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/removeHyperShadePanel("+$panel +")");
 	//
 	// Description:
 	//	This procedure is called when the hypershade is being destroyed
@@ -8319,10 +8712,13 @@ global proc removeHyperShadePanel(string $panel)
 	// Signal end of the construction process
 	//
 	hyperShadeEndConstruction( $panel, 0 );
+    liqPopIdent();
 }
 
 global proc string saveStateHyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/saveStateHyperShadePanel("+$panel+ ")");
 	//
 	// Description:
 	//	This procedure is a required procedure for a scripted panel.
@@ -8334,11 +8730,15 @@ global proc string saveStateHyperShadePanel(string $panel)
 	//
 
 	string $stateStr = "";
+    liqPopIdent();
 	return $stateStr;
 }
 
 global proc deleteHyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/deleteHyperShadePanel("+$panel +")");
+
 	//
 	//  Description:
 	//    Final deletion of the panel.  Clean up any resources that need to be
@@ -8346,21 +8746,27 @@ global proc deleteHyperShadePanel(string $panel)
 	//
 
 	saveHyperShadePaneSizes($panel);
+    liqPopIdent();
 }
 
 global proc hyperShadePanel(string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePanel("+$panel+ ")");
 	global string $gMainPane;
 
 	// Instantiate a new hyperShadePanel
 	//
 	setParent $gMainPane;
 	scriptedPanel -unParent -type hyperShadePanel $panel;
+    liqPopIdent();
 }
 
 
 global proc hyperShadeSetShowRelationshipsCallback( string $itemName, string $panel )
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeSetShowRelationshipsCallback("+$itemName+","+$panel+")");
 	// Description:
 	//  This procedure is called when the show-relationships menu item is selected
 	//  It toggles the show-relationships setting in the corresponding hyperGraph editor
@@ -8375,10 +8781,13 @@ global proc hyperShadeSetShowRelationshipsCallback( string $itemName, string $pa
 		optionVar -intValue hsShowRelationships $state;
 		hyperGraph -e -showRelationships $state $editor;
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadeSetMergeConnectionsCallback( string $itemName, string $panel )
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeSetMergeConnectionsCallback("+$itemName+","+$panel+")");
 	// Description:
 	//  This procedure is called when the merge-connections menu item is selected
 	//  It toggles the mergeConnections setting in the corresponding hyperGraph editor
@@ -8393,10 +8802,13 @@ global proc hyperShadeSetMergeConnectionsCallback( string $itemName, string $pan
 		optionVar -intValue hsMergeConnections $state;
 		hyperGraph -e -mergeConnections $state $editor;
 	}
+    liqPopIdent();
 }
 
 global proc hyperShadeSetOpaqueContainersCallback( string $itemName, string $panel )
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeSetOpaqueContainersCallback("+$itemName+","+$panel+")");
 	// Description:
 	//  This procedure is called when the opaque-containers menu item is selected
 	//  It toggles the opaqueContainers setting in the corresponding hyperGraph editor
@@ -8411,6 +8823,7 @@ global proc hyperShadeSetOpaqueContainersCallback( string $itemName, string $pan
 		optionVar -intValue hsOpaqueContainers $state;
 		hyperGraph -e -opaqueContainers $state $editor;
 	}
+    liqPopIdent();
 }
 
 
@@ -8439,6 +8852,8 @@ global proc hyperShadeSetOpaqueContainersCallback( string $itemName, string $pan
 proc string[] findTabFilterControls(
 	string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/findTabFilterControls("+$tab+")");
 	//
 	// Description:
 	//	Locates the parent layout for a tab, as well as
@@ -8465,6 +8880,7 @@ proc string[] findTabFilterControls(
 	$res[1] = $hs;
 	$res[2] = $filterBox;
 	$res[3] = $filterButton;
+    liqPopIdent();
 	return $res;
 }
 
@@ -8473,6 +8889,9 @@ proc setTabFilterControls(
 	string $filterBox,
 	string $filterButton)
 {
+	liqPushIdent();
+	liqlog("liq/setTabFilterControls("+$tab+","+$filterBox+","+$filterButton+")");
+
 	//
 	// Description:
 	//	Records the names of the filter controls for the
@@ -8483,6 +8902,7 @@ proc setTabFilterControls(
 	collectionUISetFilterControls( $collection,
 								   $filterBox,
 								   $filterButton );
+    liqPopIdent();
 }
 
 // Description:  This procedure is called to show the given $tab's
@@ -8490,6 +8910,8 @@ proc setTabFilterControls(
 //
 global proc showCurrentFilterBoxAndButton(string $panel, string $tab)
 {
+	liqPushIdent();
+	liqlog("liq/showCurrentFilterBoxAndButton("+$panel+","+$tab+")");
 	string $controls[] = `findTabFilterControls( $tab )`;
 	string $filterBox = $controls[2];
 	string $filterButton = $controls[3];
@@ -8513,6 +8935,7 @@ global proc showCurrentFilterBoxAndButton(string $panel, string $tab)
 
     $gPreviousFilterBox = $filterBox;
     $gPreviousFilterButton = $filterButton;
+    liqPopIdent();
 }
 
 // Description:  This procedure is called to dim the given $tab's
@@ -8520,6 +8943,8 @@ global proc showCurrentFilterBoxAndButton(string $panel, string $tab)
 //
 global proc dimCurrentFilterBoxAndButton()
 {
+	liqPushIdent();
+	liqlog("liq/dimCurrentFilterBoxAndButton( )");
     // Dim the previous filterBox and filterButton.
     //
     global string $gPreviousFilterBox;
@@ -8529,6 +8954,7 @@ global proc dimCurrentFilterBoxAndButton()
         control -e -enable false $gPreviousFilterBox;
         control -e -enable false $gPreviousFilterButton;
     }
+    liqPopIdent();
 }
 
 global proc showFilter(
@@ -8536,6 +8962,8 @@ global proc showFilter(
 	string $tab,
 	string $implicit)
 {
+	liqPushIdent();
+	liqlog("liq/showFilter("+$panel+","+$tab+","+$implicit+")");
 	//
 	// Description:
 	//	Creates the user-defined filtering controls for the given tab.
@@ -8593,7 +9021,8 @@ global proc showFilter(
 	sceneTabFilterForm;
 
 	setParent $oldParent;
-
+	
+    liqPopIdent();
 }
 
 global proc addFilter(
@@ -8601,6 +9030,8 @@ global proc addFilter(
 	string $tab,
 	string $implicit )
 {
+	liqPushIdent();
+	liqlog("liq/addFilter("+$panel+","+$tab+","+$implicit+")");
 	//
 	// Description:
 	//	Creates filter controls for the specified tab and hooks
@@ -8673,6 +9104,7 @@ global proc addFilter(
 		setTabFilterControls( $tab, $filterBox, $filterButton );
 		setParent $oldParent;
 	}
+    liqPopIdent();
 }
 
 
@@ -8688,6 +9120,8 @@ proc string[] listSceneTabs(
 	string $panel,
 	int $active )
 {
+	liqPushIdent();
+	liqlog("liq/listSceneTabs("+$panel+","+$active+")");
 	//
 	// Description:
 	//	Lists the names of the scene tabs in the HyperShade.  If the
@@ -8737,6 +9171,7 @@ proc string[] listSceneTabs(
 	}
 
 	setParent $oldParent;
+    liqPopIdent();
 	return $tabs;
 }
 
@@ -8744,6 +9179,8 @@ proc enableTabs(
 	string $panel,
 	int $enable )
 {
+	liqPushIdent();
+	liqlog("liq/enableTabs("+$panel+","+$enable+")");
 	//
 	// Description:
 	//	Enables or disables all scene tabs in the HyperShade.
@@ -8756,12 +9193,15 @@ proc enableTabs(
 		string $collectionUI = lookupComponentName( $t );
 		collectionUIEnableFilter( $collectionUI, $enable );
 	}
+    liqPopIdent();
 }
 
 proc enableActiveTabs(
 	string $panel,
 	int $enable )
 {
+	liqPushIdent();
+	liqlog("liq/enableActiveTabs("+$panel+","+$enable+")");
 	//
 	// Description:
 	//	Enables or disables all active scene tabs in the HyperShade.
@@ -8774,6 +9214,7 @@ proc enableActiveTabs(
 		string $collectionUI = lookupComponentName( $t );
 		collectionUIEnableFilter( $collectionUI, $enable );
 	}
+    liqPopIdent();	
 }
 
 //	global variable indicates whether HyperShade is in a
@@ -8784,6 +9225,9 @@ global int $hsInConstruction = 0;
 global proc hyperShadeStartConstruction(
 	string $panel)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeStartConstruction("+$panel+")");
+
 	//
 	// Description:
 	//	Signals that the HyperShade is about to start
@@ -8797,12 +9241,16 @@ global proc hyperShadeStartConstruction(
 	$hsInConstruction = 1;
 
 	enableTabs( $panel, 0 );
+    liqPopIdent();
 }
 
 global proc hyperShadeEndConstruction(
 	string $panel,
 	int $stillAround)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeEndConstruction("+$panel+","+$stillAround+")");
+
 	//
 	// Description:
 	//	Signals the end of a HyperShade tab construction, destruction, or
@@ -8817,10 +9265,13 @@ global proc hyperShadeEndConstruction(
 	{
 		enableActiveTabs( $panel, 1 );
 	}
+    liqPopIdent();
 }
 
 global proc int hyperShadeIsInConstruction( string $panel )
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeIsInConstruction("+$panel +")");
 	//
 	// Description:
 	//	Indicates whether or not the HyperShade is in the
@@ -8830,12 +9281,15 @@ global proc int hyperShadeIsInConstruction( string $panel )
 	//	to refresh the contents of the tabs.
 	//
 	global int $hsInConstruction;
+    liqPopIdent();
 	return $hsInConstruction;
 }
 
 proc string paneActiveTab(
 	string $panel, string $tabLayout)
 {
+	liqPushIdent();
+	liqlog("liq/paneActiveTab("+$panel+","+$tabLayout+")");
 	//
 	// Description:
 	//	This procedure determines the name of the frontmost tab in the tab
@@ -8871,7 +9325,8 @@ proc string paneActiveTab(
 	//
 	if ($oldParent != "NONE") setParent $oldParent;
 	if ($oldMenuParent != "NONE") setParent -menu $oldMenuParent;
-
+	
+    liqPopIdent();
 	return $tab;
 }
 
@@ -8880,6 +9335,8 @@ proc string paneActiveTab(
 //
 global proc string hyperShadePaneSceneTabsCurrentView(string $tabLayout)
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadePaneSceneTabsCurrentView("+$tabLayout+")");
 	string $panel = hyperShadePanelName();
     setParent $panel;
 
@@ -8889,6 +9346,7 @@ global proc string hyperShadePaneSceneTabsCurrentView(string $tabLayout)
     //
     if ($tab == "")
     {
+		liqPopIdent();
         return "";
     }
 
@@ -8897,11 +9355,13 @@ global proc string hyperShadePaneSceneTabsCurrentView(string $tabLayout)
     //
     if (!isSceneTab($tab))
     {
+		liqPopIdent();
         return "";
     }
 
     string $controls[] = `findTabFilterControls($tab)`;
     string $view = $controls[1];
+    liqPopIdent();
     return $view;
 }
 
@@ -8910,6 +9370,8 @@ global proc string hyperShadePaneSceneTabsCurrentView(string $tabLayout)
 //
 global proc string hyperShadeCreateAndOrganizeFormName()
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeCreateAndOrganizeFormName( )");
     string $oldParent = `setParent -q`;
 
 	string $panel = hyperShadePanelName();
@@ -8918,12 +9380,15 @@ global proc string hyperShadeCreateAndOrganizeFormName()
     string $result = `setParent -q`;
 
     setParent $oldParent;
-
+	
+    liqPopIdent();
     return $result;
 }
 
 global proc hyperShadeEditTexture( string $node )
 {
+	liqPushIdent();
+	liqlog("liq/hyperShadeEditTexture("+$node+")");
 	string $cmd = "getAttr ";
 	$cmd += $node;
 	$cmd += ".fileTextureName";
@@ -8932,6 +9397,7 @@ global proc hyperShadeEditTexture( string $node )
 	if ( $fileName == "" ) {
 		string $errorStr = (uiRes("m_hyperShadePanel.kNoFileAssigned"));
 		error (`format -s $node $errorStr`);
+		liqPopIdent();
 		return;
 	}
 
@@ -8943,10 +9409,13 @@ global proc hyperShadeEditTexture( string $node )
 	else {
 		launchImageEditor -eif $fileName;
 	}
+    liqPopIdent();
 }
 
 global proc EditTexture()
 {
+	liqPushIdent();
+	liqlog("liq/EditTexture( )");
 	// Need to run a test to make sure something is selected
 	string $node[] = `ls -selection`;
 	if (`size ($node)` < 1) {
@@ -8968,6 +9437,7 @@ global proc EditTexture()
 	}
 
 	hyperShadeEditTexture( $node[0] );
+    liqPopIdent();
 
 }
 
@@ -8977,8 +9447,11 @@ global proc EditTexture()
 //
 global proc refreshHyperShadeAfterIconSizeChange(string $iconSizeName)
 {
+    liqPushIdent();
+    liqlog("liq/refreshHyperShadeAfterIconSizeChange("+$iconSizeName+")");
     string $panel = hyperShadePanelName();
     hyperShadePanelMenuCommand($panel, $iconSizeName);
+    liqPopIdent();
 }
 
 // Description:  This procedure is called to activate the tabLayout
@@ -8986,6 +9459,8 @@ global proc refreshHyperShadeAfterIconSizeChange(string $iconSizeName)
 //
 global proc activateCorrespondingTabLayout(string $collectionUI)
 {
+	liqPushIdent();
+	liqlog("liq/activateCorrespondingTabLayout("+$collectionUI+")");
     string $panel = hyperShadePanelName();
 
     string $correspondingTabLayout = lookupTabLayoutName($collectionUI);
@@ -8997,6 +9472,7 @@ global proc activateCorrespondingTabLayout(string $collectionUI)
     {
         hyperShadePanelSetActiveTabLayout( $panel, $correspondingTabLayout, false);
     }
+    liqPopIdent();
 }
 
 global proc setHyperShadePaneSizes(string $createNodePane, string $workAreaPane)
@@ -9006,6 +9482,8 @@ global proc setHyperShadePaneSizes(string $createNodePane, string $workAreaPane)
 //		saved or default values).
 //
 {
+	liqPushIdent();
+	liqlog("setHyperShadePaneSizes("+$createNodePane+","+$workAreaPane+")");
 	int $createBarProportion = 55;
 	int $workAreaProportion = 50;
 
@@ -9057,4 +9535,5 @@ global proc setHyperShadePaneSizes(string $createNodePane, string $workAreaPane)
 	// And for the work area...
 	//
 	paneLayout -e -paneSize 1 100 $workAreaProportion $workAreaPane;
+	liqPopIdent();
 }

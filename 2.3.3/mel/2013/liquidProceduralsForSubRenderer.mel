@@ -119,7 +119,7 @@ global proc string LIQUID_getCreateBarItemCallbackCmd_subrenderer(
 			if( $processed == 1 )
 			{
 				$cmd = "LIQUID_getCreateBarItemCallbackCmd_"+$rnd+"(\""+$classification+"\",\""+$as+"\",\""+$postCommand+"\",\""+$type+"\")";
-				$command = `eval $cmd`;
+				$command = `eval $cmd`;	
 				liqPopIdent();
 				return $command;
 			}

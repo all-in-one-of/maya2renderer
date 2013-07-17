@@ -923,6 +923,24 @@
     <None Include="..\..\mel\2013\renderCreateBarUI.mel">
       <Filter>MEL Scripts\2013</Filter>
     </None>
+    <None Include="..\..\mel\2013\liquidBuildShaderMenus.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\liquidCustomNodeUI.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\liquidCustomNodeUI.res.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\liquidHyperShadePanel.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\liquidProceduralsForSubRenderer.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\liquidRenderCreateBarUI.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">

@@ -29,6 +29,9 @@
 
 proc string[] classificationsSuitableFor(string $item)
 {
+	liqPushIdent();
+	liqlog("liq/classificationsSuitableFor("+$item+")");
+
 	//
 	// Description:
 	//	This procedure is called when building a menu of existing shaders or
@@ -123,11 +126,15 @@ proc string[] classificationsSuitableFor(string $item)
 		$classificationArray[1] = "shader/volume";
 	}
 
+    liqPopIdent();
 	return $classificationArray;
 }
 
 proc addFavouriteMenuItems(string $menuItems[], string $menuItemAnnotationFormat, string $item)
 {
+	liqPushIdent();
+	liqlog("liq/addFavouriteMenuItems(["+stringArrayToString($menuItems, ", ")+"], "+$menuItemAnnotationFormat+", "+$item+")");
+
     if(size($menuItems) > 1)
         menuItem -divider true;
         
@@ -154,6 +161,9 @@ proc addFavouriteMenuItems(string $menuItems[], string $menuItemAnnotationFormat
 
 global proc buildAssignFavouriteMenu(string $parent, string $item)
 {
+	liqPushIdent();
+	liqlog("liq/buildAssignFavouriteMenu("+$parent+","+$item+")");
+
 	//
 	// Description:
 	//	This procedure is called to build a menu of "favourite" shaders which can 
@@ -203,6 +213,7 @@ global proc buildAssignFavouriteMenu(string $parent, string $item)
 		}
 		else
 		{
+		liqlog("diff with maya2012");
             // Find out if at least one third party claimed that the current item can be
             // used as a material. If so, we're going to add to the favorite menu items.
             int $isThirdPartyMaterialResults[] = `callbacks -executeCallbacks -hook "nodeCanBeUsedAsMaterial" $materialNodeID $buffer[0]`;
@@ -237,6 +248,8 @@ global proc buildAssignFavouriteMenu(string $parent, string $item)
 
 global proc buildAssignShaderMenu(string $parent, string $item)
 {
+	liqPushIdent();
+	liqlog("liq/buildAssignShaderMenu("+$parent+","+$item+")");
 	//
 	// Description:
 	//	This procedure is called to build a menu of existing shaders which can
@@ -326,11 +339,14 @@ global proc buildAssignShaderMenu(string $parent, string $item)
 			}
 		}
 	}
-	
+	liqlog("diff with maya2012");
 	string $containers[] = `ls -type container -type dagContainer`;
 	string $containerMenu;
 	int $addedContainerParentMenu = 0;
 	for ($container in $containers) {
+		if (! `container -q -isContainer $container`) {
+			continue;
+		}
 		int $uiInfo = `getAttr ($container+".uiTreatment")`;
 		string $customUI = `getAttr ($container+".customTreatment")`;
 		if ($uiInfo == 1 || ($uiInfo == 1000 && (gmatch($customUI,"shader"))))
@@ -355,15 +371,21 @@ global proc buildAssignShaderMenu(string $parent, string $item)
 	if ($addedContainerParentMenu) {
 		setParent -menu ..;
 	}
+
+    liqPopIdent();
 }
 
 global proc updateAssignShaderMenu()
 {
+	liqPushIdent();
+	liqlog("liq/updateAssignShaderMenu()");
+
 // Make sure checkbox is in correct state
 //
 	menuItem -edit
 		-checkBox (`optionVar -q AEpopupWhenCreatingShaders`)
 		attrEdPopupItem;
+    liqPopIdent();
 }
 
 global proc buildShaderMenus (string $item)
@@ -374,6 +396,8 @@ global proc buildShaderMenus (string $item)
 //	$item = object to act on, or null string if selection list should be used
 //
 {
+	liqPushIdent();
+	liqlog("liq/buildShaderMenus("+$item+")");
 	// If there is a selection, it overrides item
 	if ( size(`ls -sl`) > 0 ) {
 		$item = "";
@@ -417,6 +441,7 @@ global proc buildShaderMenus (string $item)
 				+ " \""+$item+"\"")
 		$menuAssign;
 	setParent -menu ..;
+    liqPopIdent();
 }
 
 global proc refreshAssignNewMaterialTreeLister(string $item)
@@ -426,6 +451,9 @@ global proc refreshAssignNewMaterialTreeLister(string $item)
 //	assigned to those objects.
 //
 {
+	liqPushIdent();
+	liqlog("liq/refreshAssignNewMaterialTreeLister("+$item+")");
+
 	// We only want to refresh the treeLister if the
 	// window is actually open and not minimized.
 	//
@@ -449,6 +477,7 @@ global proc refreshAssignNewMaterialTreeLister(string $item)
 			createAssignNewMaterialTreeLister "";
 		}
 	}
+    liqPopIdent();
 }
 
 global proc createAssignNewMaterialTreeLister(string $item)
@@ -459,6 +488,8 @@ global proc createAssignNewMaterialTreeLister(string $item)
 //	$item = object to act on, or null string if selection list should be used
 //
 {
+	liqPushIdent();
+	liqlog("liq/createAssignNewMaterialTreeLister("+$item+")");
 	source "createAndAssignShader.mel";
 	
 	// Save the current selection list.
@@ -535,6 +566,7 @@ global proc createAssignNewMaterialTreeLister(string $item)
 		(!`window -exists assignNewMaterialWindow` || !`window -q -visible assignNewMaterialWindow`))
 	{
 		error((uiRes("m_buildShaderMenus.kNoObjectsSelected")));
+		liqPopIdent();
 		return;
 	}
 
@@ -545,7 +577,7 @@ global proc createAssignNewMaterialTreeLister(string $item)
 	// shader types most appropriate to assign to the item.
 	//
 	string $classificationArray[] = classificationsSuitableFor($item);
-
+	liqlog("diff with maya2012");
 	// Store classification array into a string to be passed on.
 	string $filterString = stringArrayToString($classificationArray, " ");
 
@@ -555,6 +587,7 @@ global proc createAssignNewMaterialTreeLister(string $item)
     {
 	    $filterString = $filterString + " " + $thirdPartiesClassificationString; 
     }
+	$filterString = $filterString + LIQUID_getRenderNodeFilterString("liquid");
 
 	// Create the window and treeLister.
 	//
@@ -643,4 +676,5 @@ global proc createAssignNewMaterialTreeLister(string $item)
 	window -e -restoreCommand $command assignNewMaterialWindow;
 
 	showWindow assignNewMaterialWindow;
+    liqPopIdent();
 }

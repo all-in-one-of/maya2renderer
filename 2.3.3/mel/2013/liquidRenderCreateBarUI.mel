@@ -21,7 +21,7 @@ global proc LIQUID_buildRenderNodeTreeListerContent(string $renderNodeTreeLister
 global proc string[] LIQUID_excludeClassficationNodes(string $classification)
 {
 	liqPushIdent();
-	liqlog("LIQUID_excludeClassficationNodes("+$classification+")");
+	liqlog("LIQUID_getClassficationNodes("+$classification+")");
 
 	string $exclude[];
 

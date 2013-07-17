@@ -663,4 +663,4 @@ global proc buildHypergraphNodePopupMenuItems(
   liqPopIdent();
 }
 
-print "> liquidBuildHypergraphNodePopupMenuItems.mel for Maya2012 loaded...\n";
+print "> buildHypergraphNodePopupMenuItems.mel for Maya2012 loaded...\n";

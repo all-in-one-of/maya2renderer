@@ -33,6 +33,39 @@ source clipMenuCommands.mel;
 source containerOperations.mel;
 source colorProfileProcedures.mel;
 
+//! Check if material container already assigned to selection and disconnect it before re-assigning
+//
+global proc duBuildHypergraphAssignCb( string $material, string $cmd )
+{
+	liqPushIdent();
+	liqlog("2013/duBuildHypergraphAssignCb("+$material+","+$cmd+")");
+
+	string $selected[] = `ls -sl`;
+	string $sel;
+	string $conns[];
+	string $shapes[];
+	string $shape;
+	string $conn;
+	for( $sel in $selected )
+	{
+		$shapes = `listRelatives -f -c -pa -type "mesh" $sel`;
+		$shapes[size($shapes)] = $sel;
+		for( $shape in $shapes )
+		{
+			if( `attributeQuery - exists -node $shape "liquidContainerShaderNode"` )
+			{
+				$conns = `listConnections -s 1 -d 0 -p 1 ($shape+".liquidContainerShaderNode")`;
+				for( $conn in $conns )
+				{
+					catch( `disconnectAttr $conn ($shape+".liquidContainerShaderNode")` );
+				}
+			}
+		}
+	}
+	eval( $cmd + " " + $material );
+    liqPopIdent();
+}
+
 //---------------------------------------------------------------------------
 // The procedure which builds the menu
 //
@@ -40,6 +73,8 @@ global proc buildHypergraphNodePopupMenuItems(
 	string $hypershade,
 	string $node)
 {
+	liqPushIdent();
+	liqlog("2013/buildHypergraphNodePopupMenuItems("+$hypershade+","+$node+")");
 	//
 	// Description:
 	//	This procedure is called when the user RMB clicks on a node in a scene 
@@ -112,6 +147,55 @@ global proc buildHypergraphNodePopupMenuItems(
 				-command ("hookShaderOverride(\""+$layer+"\",\"\",\""+$node+"\")");
 		}
 
+		if( gmatch( $nodeType, "liquid*" ) )
+		{
+			//if ( isClassified($node, "liq*Swatch" ) )
+			if( isLiquidAssignableShadingNode($node) )
+			{
+				string $label = "";
+				if( $groupSize <= 1)
+				{
+					$label = "Assign Shader To Selection";
+				}
+				else
+				{
+					$label = "Assign "+ $shadingGroupArray[$groupSize-1] +" To Selection";
+				}
+				menuItem
+					-radialPosition "N"
+					-label $label
+					-command ("duBuildHypergraphAssignCb( \""+$node+"\", \"liquidAssignShaderToSelected\")" );
+			}
+			if ( $nodeType == "liquidLight" )
+			{
+				menuItem
+					-radialPosition "E"
+					-label "Select Lights With Light Shader"
+					-command ("liquidSelectAssignedToLightShader " + $node);
+			}
+			else
+			{
+				string $label = "";
+				if( $groupSize <= 1)
+				{
+					$label = "Select Objects With Material";
+				}
+				else
+				{
+					$label = "Select Objects in "+ $shadingGroupArray[$groupSize-1];
+				}
+				menuItem
+					-radialPosition "E"
+					-label $label
+					-command ("liquidSelectShaderAssignedTo " + $node);
+			}
+			menuItem
+				-radialPosition "W"
+				-label "Preview"
+				-command ("liquidShaderNodePreview " + $node);
+		}
+		else
+		{
 		menuItem
 			-label (uiRes("m_buildHypergraphNodePopupMenuItems.kGenSwatch"))
 			-command ("updateFileNodeSwatch(\"" + $node + "\")")
@@ -127,14 +211,14 @@ global proc buildHypergraphNodePopupMenuItems(
 				menuItem 
 					-radialPosition "N"
 					-label $assignMaterial
-					-command ("assignOceanShader " + $node);
-			} 
+						-command ("duBuildHypergraphAssignCb( \""+$node+"\", \"assignOceanShader\")" );
+			}
 			else 
 			{
 				menuItem 
 					-radialPosition "N"
 					-label $assignMaterial
-					-command ("hyperShade -assign " + $node);
+						-command ("duBuildHypergraphAssignCb( \""+$node+"\", \"hyperShade -assign\")" );
 				menuItem 
 					-radialPosition "NE"
 					-label (uiRes("m_buildHypergraphNodePopupMenuItems.kPaintAssignShader"))
@@ -180,11 +264,11 @@ global proc buildHypergraphNodePopupMenuItems(
 					menuItem
 						-radialPosition "N"
 						-label `format -s $shadingGroupArray[$radialItem] $menuDisplayString`
-						-command ("hyperShade -assign " + $shadingGroupArray[$radialItem]);
+						-command ("duBuildHypergraphAssignCb( \""+$shadingGroupArray[$radialItem]+"\", \"hyperShade -assign\")" );
 				} else {
 					menuItem
 						-label `format -s $shadingGroupArray[$i] $menuDisplayString`
-						-command ("hyperShade -assign " + $shadingGroupArray[$i]);
+						-command ("duBuildHypergraphAssignCb( \""+$shadingGroupArray[$i]+"\", \"hyperShade -assign\")" );
 				}
 			}
 			
@@ -210,6 +294,7 @@ global proc buildHypergraphNodePopupMenuItems(
 							+ ";fitAllPanels -selected");
 			}
 			menuItem -divider true;
+			}
 		}
 	}
 	else if (isClassified($node, "texture"))
@@ -289,6 +374,19 @@ global proc buildHypergraphNodePopupMenuItems(
 	}
 	else if (isClassified($node, "utility"))
 	{
+		if( $nodeType == "liquidCoShader" )
+		{
+			menuItem
+				-radialPosition "W"
+				-label "Preview"
+				-command ("liquidShaderNodePreview " + $node);
+		}
+		else if( $nodeType == "liquidRibBox" )
+		{
+			// nothing ...
+		}
+		else
+		{
 		// test to make sure the utility node has an output connection
 		// if it does not, convertSolidTx will fail
 		//
@@ -320,6 +418,7 @@ global proc buildHypergraphNodePopupMenuItems(
 				-annotation (getRunTimeCommandAnnotation ("RenderTextureRange"))
 				;
 		}
+		}
 	}
 	else if (isClassified($node, "light")) 
     {
@@ -332,6 +431,11 @@ global proc buildHypergraphNodePopupMenuItems(
             -command ("lightlink -break -light "+$node+" -useActiveObjects");
 
         menuItem -divider true;
+
+	menuItem
+		-radialPosition "N"
+		-label "assign er_skylight to select object(s)(for er_skylight only, and this will be removed in the future)"
+		-command ("duBuildHypergraphAssignCb( \""+$node+"\", \"liquidAssignShaderToSelected\")" );
 
         menuItem
             -label (uiRes("m_buildHypergraphNodePopupMenuItems.kSelectObjectsIlluminatedByLight"))
@@ -427,7 +531,42 @@ global proc buildHypergraphNodePopupMenuItems(
         -command ("createContainerWithNodes(`ls -sl`)")
 		-annotation (uiRes("m_buildHypergraphNodePopupMenuItems.kCreateNewAssetAnnot"));
 
-	if( `container -q -isContainer $node` ) {
+	// if( `container -q -isContainer $node` ) {
+	if( $nodeType == "container")
+	{
+		string $rootShadingNodes[] = liquidGetShadingRootNodesFromContainer($node);
+		string $containerShadingNode = $node;
+		
+		if( !size($rootShadingNodes) )    // if not a shading container, look for a shading container inside
+		{
+			string $inside[] = `container -q -nodeList $node`;
+			string $subContainers[] = `ls -l -type "container" $inside`;
+			if( size($subContainers) == 1 )
+			{
+				$containerShadingNode = $subContainers[0];
+				$rootShadingNodes = liquidGetShadingRootNodesFromContainer($containerShadingNode);
+			}
+		}
+		if( size($rootShadingNodes) )    // if shading container, add menus
+		{
+			$label = "Assign Material To Selection";
+			menuItem
+				-radialPosition "N"
+				-label $label
+				-command ("liquidAssignMaterialContainer(\"" + $containerShadingNode + "\")");
+
+			$label = "Select Objects With Material";
+			menuItem
+				-radialPosition "E"
+				-label $label
+				-command ("liquidSelectAssignedToMaterialContainer " + $containerShadingNode);
+
+			menuItem
+				-radialPosition "W"
+				-label "Preview all nodes"
+				-command ("liquidPreviewAllNodesOnMaterialContainer " + $containerShadingNode);
+		}		
+
 		menuItem
 			-label (uiRes("m_buildHypergraphNodePopupMenuItems.kSelectAssetContent")) 
 			-command ("select -r `container -q -nl " + $node + "`")
@@ -478,4 +617,7 @@ global proc buildHypergraphNodePopupMenuItems(
 		-label (uiRes("m_buildHypergraphNodePopupMenuItems.kRemoveFromAsset"))
 		-enable (size($removeNodes) > 0)
 		-command ("removeNodesFromContainer("+$removeNodes+",\"\",0)");
+  liqPopIdent();
 }
+
+print "> buildHypergraphNodePopupMenuItems.mel for Maya2013 loaded...\n";
