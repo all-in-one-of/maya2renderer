@@ -44,6 +44,9 @@
     <Filter Include="MEL Scripts\2012">
       <UniqueIdentifier>{1295edd8-cd23-4f7b-bbb2-930ff8fe1964}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MEL Scripts\2013">
+      <UniqueIdentifier>{5bd498c4-850a-4106-abd5-34a65f9ee259}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\liqAttachPrefAttribute.cpp">
@@ -907,6 +910,18 @@
     </None>
     <None Include="..\..\mel\2012\buildHypergraphNodePopupMenuItems.mel">
       <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\2013\buildHypergraphNodePopupMenuItems.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\buildShaderMenus.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\hyperShadePanel.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\renderCreateBarUI.mel">
+      <Filter>MEL Scripts\2013</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
