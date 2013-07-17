@@ -890,22 +890,22 @@
     <None Include="..\..\mel\2012\renderCreateBarUI.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidBuildShaderMenus.mel">
+    <None Include="..\..\mel\2012\liquidBuildShaderMenus.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidHyperShadePanel.mel">
+    <None Include="..\..\mel\2012\liquidCustomNodeUI.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidRenderCreateBarUI.mel">
+    <None Include="..\..\mel\2012\liquidCustomNodeUI.res.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidCustomNodeUI.mel">
+    <None Include="..\..\mel\2012\liquidHyperShadePanel.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidCustomNodeUI.res.mel">
+    <None Include="..\..\mel\2012\liquidRenderCreateBarUI.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel">
+    <None Include="..\..\mel\2012\liquidProceduralsForSubRenderer.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
   </ItemGroup>

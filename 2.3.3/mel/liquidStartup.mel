@@ -269,12 +269,12 @@ global proc liquidMayaVersionOverwrite()
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildShaderMenus.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/renderCreateBarUI.mel\"");
-	evalEcho( "source \"" + $liquidHome + "/mel/liquidBuildShaderMenus.mel\"");
-	evalEcho( "source \"" + $liquidHome + "/mel/liquidCustomNodeUI.mel\"");
-	evalEcho( "source \"" + $liquidHome + "/mel/liquidCustomNodeUI.res.mel\"");
-	evalEcho( "source \"" + $liquidHome + "/mel/liquidHyperShadePanel.mel\"");
-	evalEcho( "source \"" + $liquidHome + "/mel/liquidProceduralsForSubRenderer.mel\"");
-	evalEcho( "source \"" + $liquidHome + "/mel/liquidRenderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidCustomNodeUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidCustomNodeUI.res.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidHyperShadePanel.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidRenderCreateBarUI.mel\"");
   } 
   if( $liq_maya_version_int == 2013 )
   {
