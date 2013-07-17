@@ -3057,9 +3057,9 @@
   <ItemGroup>
     <None Include="..\..\mel\2011\liquidFileBrowser.mel" />
     <None Include="..\..\mel\2011\liquidParamDialogWindow.mel" />
+    <None Include="..\..\mel\2012\buildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\..\mel\2012\buildShaderMenus.mel" />
     <None Include="..\..\mel\2012\hyperShadePanel.mel" />
-    <None Include="..\..\mel\2012\liquidBuildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\..\mel\2012\liquidBuildShaderMenus.mel" />
     <None Include="..\..\mel\2012\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\2012\liquidCustomNodeUI.res.mel" />

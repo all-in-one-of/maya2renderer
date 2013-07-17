@@ -863,9 +863,6 @@
     <None Include="..\..\mel\liquidliquidShaderNodes.mel">
       <Filter>MEL Scripts</Filter>
     </None>
-    <None Include="..\..\mel\2012\liquidBuildHypergraphNodePopupMenuItems.mel">
-      <Filter>MEL Scripts\2012</Filter>
-    </None>
     <None Include="..\..\mel\2011\liquidFileBrowser.mel">
       <Filter>MEL Scripts\2011</Filter>
     </None>
@@ -906,6 +903,9 @@
       <Filter>MEL Scripts\2012</Filter>
     </None>
     <None Include="..\..\mel\2012\liquidProceduralsForSubRenderer.mel">
+      <Filter>MEL Scripts\2012</Filter>
+    </None>
+    <None Include="..\..\mel\2012\buildHypergraphNodePopupMenuItems.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
   </ItemGroup>

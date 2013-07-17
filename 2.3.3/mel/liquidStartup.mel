@@ -265,7 +265,7 @@ global proc liquidMayaVersionOverwrite()
   } 
   if ( $liq_maya_version_int == 2012 )
   {
-  	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildHypergraphNodePopupMenuItems.mel\"");
+  	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildHypergraphNodePopupMenuItems.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildShaderMenus.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2012/renderCreateBarUI.mel\"");
