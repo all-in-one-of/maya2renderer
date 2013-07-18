@@ -3000,11 +3000,13 @@
     <None Include="..\elvishray\mel\alias\AEElvishRenderGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\alias\AEliquidShaderTemplate_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_AEliquidInstanceFlags_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\er_AETemplate_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_callback_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_liquidProcedurals_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_startup_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\userSetup.mel" />
+    <None Include="..\elvishray\mel\er_AETemplate.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
     <None Include="..\elvishray\mel\er_CameraVisibility.mel" />

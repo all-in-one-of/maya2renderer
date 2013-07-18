@@ -196,3 +196,4 @@ ER_createFullRenderPassNode()
   string $node = `createNode elvishrayGlobals`;
   return $node;
 }
+

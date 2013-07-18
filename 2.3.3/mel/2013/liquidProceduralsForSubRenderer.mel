@@ -1,5 +1,23 @@
 source xxliquidutility.mel;
 
+//
+global proc liquidCreateMenu_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liquidCreateMenu_subrenderer()");
+	
+	if( liquidGlobalsExists() )
+	{
+		if ( isSubRendererLoaded(liqGetSubRendererName()) )
+		{
+			string $cmd = "liquidCreateMenus_"+liqGetSubRendererName()+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
+}
+//
 global proc liquidAssignShaderToSelected_subrenderer(string $node)
 {
 	liqPushIdent();
@@ -127,4 +145,61 @@ global proc string LIQUID_getCreateBarItemCallbackCmd_subrenderer(
 	}
 	liqPopIdent();
 	return $command;
+}
+//
+global proc liquidAddAttributeExtension_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liquidAddAttributeExtension_subrenderer()");
+
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd;
+			$cmd = "liquidAddAttributeExtension_"+$rnd+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
+}
+//
+global proc liquidDeleteAttributeExtension_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liquidDeleteAttributeExtension_subrenderer()");
+
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd;
+			$cmd = "liquidDeleteAttributeExtension_"+$rnd+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
+}
+//
+global proc liquidStartup_subrenderer()
+{
+	liqPushIdent();
+	liqlog("liquidStartup_subrenderer()");
+	
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd;
+			$cmd = "liquidStartup_"+$rnd+"()";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
 }

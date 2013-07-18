@@ -3781,6 +3781,8 @@ global proc liquidUpdateSubRenderer( string $renderer )
 	//update AETemplate UI for this renderer
 	liquidShaderNodes_AERefresh();
 
+	liquidStartup_subrenderer();
+
 	liqPopIdent();
 }
 global proc liquidUpdateShowliqlog()

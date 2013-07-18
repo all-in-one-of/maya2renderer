@@ -65,3 +65,33 @@ global proc string LIQUID_getCreateBarItemCallbackCmd_ElvishRender(
 	liqPopIdent();
 	return $ret;
 }
+//
+global proc liquidAddAttributeExtension_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liquidAddAttributeExtension_ElvishRender()");
+
+	liquidAddAttributeExtension_elvishray();
+
+	liqPopIdent();
+}
+//
+global proc liquidDeleteAttributeExtension_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liquidDeleteAttributeExtension_ElvishRender()");
+
+	liquidDeleteAttributeExtension_elvishray();
+
+	liqPopIdent();
+}
+//
+global proc liquidStartup_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liquidStartup_ElvishRender()");
+	
+	liquidStartup_elvishray();
+
+	liqPopIdent();
+}

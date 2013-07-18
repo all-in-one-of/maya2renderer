@@ -3070,6 +3070,7 @@
     <None Include="..\..\mel\2013\buildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\..\mel\2013\buildShaderMenus.mel" />
     <None Include="..\..\mel\2013\hyperShadePanel.mel" />
+    <None Include="..\..\mel\2013\liquidAttributeExtension.mel" />
     <None Include="..\..\mel\2013\liquidBuildShaderMenus.mel" />
     <None Include="..\..\mel\2013\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\2013\liquidCustomNodeUI.res.mel" />

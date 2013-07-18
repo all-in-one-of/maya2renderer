@@ -457,3 +457,21 @@ global proc AEliquidAreaLight( string $node )
 
   liqPopIdent();
 }
+//
+global proc liquidAETemplate_pointLight( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_pointLight("+$node+")");
+
+	//string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_pointLight_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+

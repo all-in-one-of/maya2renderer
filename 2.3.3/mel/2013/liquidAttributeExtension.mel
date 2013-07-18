@@ -1,0 +1,22 @@
+source xxliquidutility.mel;
+
+//
+global proc liquidAddAttributeExtension()
+{
+	liqPushIdent();
+	liqlog("liquidAddAttributeExtension()");
+
+	liquidAddAttributeExtension_subrenderer();
+
+    liqPopIdent();
+}
+//
+global proc liquidDeleteAttributeExtension()
+{
+	liqPushIdent();
+	liqlog("liquidDeleteAttributeExtension()");
+
+	liquidDeleteAttributeExtension_subrenderer();
+
+    liqPopIdent();
+}

@@ -358,5 +358,11 @@
     <None Include="..\elvishray\mel\er_RendererName.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\elvishray\mel\er_AETemplate.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\er_AETemplate_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -106,3 +106,33 @@ global proc string LIQUID_getCreateBarItemCallbackCmd_renderman(
 	liqPopIdent();
 	return $command;
 }
+//
+global proc liquidAddAttributeExtension_renderman()
+{
+	liqPushIdent();
+	liqlog("liquidAddAttributeExtension_renderman()");
+
+	rmAddAttributeExtension_pointlight();
+
+	liqPopIdent();
+}
+//
+global proc liquidDeleteAttributeExtension_renderman()
+{
+	liqPushIdent();
+	liqlog("liquidDeleteAttributeExtension_renderman()");
+
+	rmDeleteAttributeExtension_pointlight();
+
+	liqPopIdent();
+}
+//
+global proc liquidStartup_renderman()
+{
+	liqPushIdent();
+	liqlog("liquidStartup_renderman()");
+
+	liquidAddAttributeExtension_renderman();
+
+	liqPopIdent();
+}

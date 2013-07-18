@@ -182,6 +182,9 @@
     <None Include="..\renderman\mel\rm_RendererName.mel">
       <Filter>mel\Hypershade</Filter>
     </None>
+    <None Include="..\renderman\mel\rm_AETemplate.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\renderman\rm_factory.h">

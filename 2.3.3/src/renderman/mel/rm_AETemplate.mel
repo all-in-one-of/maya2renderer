@@ -1,0 +1,44 @@
+source xxliquidutility.mel;
+
+//============================================================================
+//	light
+//============================================================================
+// point light
+global proc rmAddAttributeExtension_pointlight()
+{
+	liqPushIdent();
+	liqlog("rmAddAttributeExtension_pointlight()");
+
+	addExtension -nt "pointLight" -ln "rm_attr0" -sn "ra0" -at "long" -dv 16 -k true -s true -w true /*-fromPlugin rm_getRendererName()*/;
+	addExtension -nt "pointLight" -ln "rm_attr1" -sn "ra1" -at "bool" -dv 0  -k true -s true -w true /*-fromPlugin rm_getRendererName()*/;
+	
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttributeExtension_pointlight()
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttributeExtension_pointlight()");
+	
+	deleteExtension -nt "pointLight" -at "rm_attr0" -forceDelete on;
+	deleteExtension -nt "pointLight" -at "rm_attr1"     -forceDelete on;
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_pointLight_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_pointLight_elvishray("+$node+")");
+
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+		editorTemplate -addDynamicControl "rm_attr0";
+		editorTemplate -addDynamicControl "rm_attr1";	
+	editorTemplate -endLayout;
+
+
+	liqPopIdent();
+}
+
+// area light
+// spot light

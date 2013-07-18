@@ -289,6 +289,7 @@ global proc liquidMayaVersionOverwrite()
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidProceduralsForSubRenderer.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRenderCreateBarUI.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRendererCallbacks.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidAttributeExtension.mel\"");
   }
 
   liqPopIdent();
@@ -1102,11 +1103,13 @@ global proc liquidStartup()
   if ( !liquidGlobalsExists() ) {
     liquidCreateGlobals();
   }
+
   //liquidRegisterSlLib();
   liquidCreateMenus();
   liquidCreateScriptNode();
   liquidCreateScriptJobs();
   registerLiquidRenderer();
+  liquidAddAttributeExtension();
   liquidAddRendererCallbacks();
 
   eval "liquidAETemplateOverwrite";
@@ -1310,19 +1313,3 @@ global proc string liquidGetUserSetupMelFullPath(string $renderer)
 	return $ret;
 }
 //
-global proc liquidCreateMenu_subrenderer()
-{
-	liqPushIdent();
-	liqlog("liquidCreateMenu_subrenderer()");
-	
-	if( liquidGlobalsExists() )
-	{
-		if ( isSubRendererLoaded(liqGetSubRendererName()) )
-		{
-			string $cmd = "liquidCreateMenus_"+liqGetSubRendererName()+"()";
-			eval $cmd;
-		}
-	}
-
-	liqPopIdent();
-}

@@ -1,0 +1,18 @@
+source xxliquidutility.mel;
+source er_AETemplate.mel;
+
+//============================================================================
+//	light
+//============================================================================
+// point light
+global proc liquidAETemplate_pointLight_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_pointLight_ElvishRender("+$node+")");
+
+	liquidAETemplate_pointLight_elvishray($node);
+
+	liqPopIdent();
+}
+// area light
+// spot light

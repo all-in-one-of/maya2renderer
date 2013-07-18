@@ -2901,6 +2901,7 @@
     <None Include="..\renderman\mel\AErendermanGlobalsTemplate.mel" />
     <None Include="..\renderman\mel\AErendermanGlobalsTemplate.res.mel" />
     <None Include="..\renderman\mel\rm_AEliquidInstanceFlags.mel" />
+    <None Include="..\renderman\mel\rm_AETemplate.mel" />
     <None Include="..\renderman\mel\rm_CustomNodeUI.mel" />
     <None Include="..\renderman\mel\rm_CustomNodeUI.res.mel" />
     <None Include="..\renderman\mel\rm_liquidProcedurals.mel" />
