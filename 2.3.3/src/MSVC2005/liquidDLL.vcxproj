@@ -3076,9 +3076,8 @@
     <None Include="..\..\mel\2013\liquidHyperShadePanel.mel" />
     <None Include="..\..\mel\2013\liquidProceduralsForSubRenderer.mel" />
     <None Include="..\..\mel\2013\liquidRenderCreateBarUI.mel" />
+    <None Include="..\..\mel\2013\liquidRendererCallbacks.mel" />
     <None Include="..\..\mel\2013\renderCreateBarUI.mel" />
-    <None Include="..\..\mel\AEdagNodeInclude.mel" />
-    <None Include="..\..\mel\AEdependNodeTemplate.mel" />
     <None Include="..\..\mel\AEliquidCamera.mel" />
     <None Include="..\..\mel\AEliquidCoordSysTemplate.mel" />
     <None Include="..\..\mel\AEliquidCoShaderTemplate.mel" />
@@ -3102,6 +3101,7 @@
     <None Include="..\..\mel\getMultiListerSelection.mel" />
     <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
     <None Include="..\..\mel\liquidAttributeManager.mel" />
+    <None Include="..\..\mel\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\liquidIpr.mel" />
     <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
     <None Include="..\..\mel\liquidUserCallbackInterface.mel" />

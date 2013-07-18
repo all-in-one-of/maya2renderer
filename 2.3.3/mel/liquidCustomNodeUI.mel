@@ -1,0 +1,94 @@
+source xxliquidutility.mel;
+source AEliquidCamera.mel;
+source AEliquidInstanceFlags.mel;
+source AEliquidLightTemplate.mel;
+source AEliquidSubdivisionSurfaceShape.mel;
+
+global proc liqAETemplateCustomContentCallback(string $nodeName)
+{
+	liqPushIdent();
+	liqlog("liqAETemplateCustomContentCallback("+$nodeName+")");
+	
+	//editorTemplate -beginScrollLayout;
+	editorTemplate -beginLayout ("AELiquidCallback") -collapse 1;
+		editorTemplate -label ("attr0") -addDynamicControl "attr0";
+
+		editorTemplate -addSeparator;
+
+		editorTemplate -label ("attr1")	-addDynamicControl "attr1";
+
+
+	// include the correct code based on the node type
+    string $type = `nodeType $nodeName`;
+        
+    switch ($type)
+	{
+        case "pointLight":
+            AEliquidLightTemplate $nodeName;
+            break;
+        case "areaLight":
+            AEliquidLightTemplate $nodeName;
+            break;
+        case "directionalLight":
+            AEliquidLightTemplate $nodeName;
+            break;
+        case "spotLight":
+            AEliquidLightTemplate $nodeName;
+            break;
+        //case "file":
+        //    AEmentalrayFile $nodeName;
+        //    break;
+        //case "anisotropic":
+        //case "blinn":
+        //case "lambert":
+        //case "oceanShader":
+        //case "hairTubeShader":
+        //case "phong":
+        //case "phongE":
+        //case "rampShader":
+        //case "useBackground":
+        //case "layeredShader":
+        //case "oceanShader":
+        //case "shadingMap":
+        //case "surfaceShader":
+        //    AEmentalrayPhotonAttrs $nodeName;
+        //    break;
+        //case "shadingEngine":
+        //    AEmentalrayMaterial $nodeName;
+        //    break;
+        case "camera":
+            AEliquidCamera $nodeName;
+            break;
+        case "transform":
+            AEliquidInstanceFlags $nodeName;
+            break;
+        //case "mesh":
+        //case "nurbsSurface":
+        //case "fluidShape":
+        //case "hairSystem":
+        //case "nParticle":
+        //case "particle":
+        //case "FurFeedback":
+        //    AEmentalrayRenderStats $nodeName;
+        //    break;
+        case "subdiv":
+			AEliquidSubdivisionSurfaceShape $nodeName;
+            break;
+  //      case "renderLayer":
+  //          AEmentalrayRenderLayer $nodeName;
+  //          break;
+  //      case "FurGlobals":
+  //          AEmentalrayFur $nodeName;
+  //          break;
+  //      case "FurDescription":
+  //          AEmentalrayFurDescription $nodeName;
+  //          break;
+		//case "pfxHair":
+		//	AEmentalrayPfxHair $nodeName;
+			break;
+    }
+	editorTemplate -endLayout;//AECallbacksTest
+	//editorTemplate -endScrollLayout;
+
+	liqPopIdent();	
+}

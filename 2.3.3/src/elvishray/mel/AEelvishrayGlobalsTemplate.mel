@@ -300,7 +300,7 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 		editorTemplate -endLayout;//Geometry Approximation
  		//--------------------------------------------------
 		// include/call base class/node attributes
-		AEdependNodeTemplate($node);
+		//AEdependNodeTemplate($node);
 		
 		editorTemplate -addExtraControls;
 

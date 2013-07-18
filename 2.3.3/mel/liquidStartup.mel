@@ -135,7 +135,7 @@ global proc liquidLoadScripts()
   liqPushIdent();
 	liqlog("liquidLoadScripts()");
   string $mel_files[] = {
-    "AEdagNodeInclude.mel",
+    //"AEdagNodeInclude.mel",
     "AEliquidFGGIOverrideFlags.mel",
     "AEliquidInstanceFlags.mel",
     "AEliquidNurbsCurveShape.mel",
@@ -288,6 +288,7 @@ global proc liquidMayaVersionOverwrite()
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidHyperShadePanel.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidProceduralsForSubRenderer.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRenderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRendererCallbacks.mel\"");
   }
 
   liqPopIdent();
@@ -1106,6 +1107,7 @@ global proc liquidStartup()
   liquidCreateScriptNode();
   liquidCreateScriptJobs();
   registerLiquidRenderer();
+  liquidAddRendererCallbacks();
 
   eval "liquidAETemplateOverwrite";
   evalDeferred -lp "liquidAETemplateOverwrite";

@@ -1,0 +1,255 @@
+source xxliquidutility.mel;
+source liquidCustomNodeUI.mel;
+
+////
+//global proc liqHyperShadePanelBuildCreateMenu()
+//{
+//	liqPushIdent();
+//	liqlog("liqHyperShadePanelBuildCreateMenu()");
+//	
+//	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
+//	{
+//		liqHyperShadeCreateMenu_BuildMenu("liquid");
+//		menuItem -divider true;
+//		liqHyperShadeCreateMenu_BuildMenu_subrenderer();
+//		menuItem -divider true;
+//	}
+//	liqPopIdent();
+//}
+////
+//global proc string[] liqBuildCreateSubMenu()
+//{
+//	liqPushIdent();
+//	liqlog("liqBuildCreateSubMenu()");
+//	
+//	string $classification[];
+//	
+//	if( liquidGlobalsExists() )
+//	{
+//		$classification[`size($classification)`] = "rendernode/liquid";
+//
+//		string $lrnd[] = liquidGatherLoadedSubRenderers();
+//		for($rnd in $lrnd)
+//		{
+//			$classification[`size($classification)`] = "rendernode/"+$rnd;		
+//		}
+//	}
+//	liqPopIdent();
+//	return $classification;
+//}
+////
+//global proc liqCreateRenderNodeSelectNodeCategoriesCallback(string $flag, string $treeLister)
+//{
+//	liqPushIdent();
+//	liqlog("liqCreateRenderNodeSelectNodeCategoriesCallback("+$flag+", "+$treeLister+")");
+//	
+//	if($flag == "allWithliquidUp") {
+//        treeLister -e -selectPath "liquid" $treeLister;
+//    }
+//	liqPopIdent();
+//}
+////
+//global proc string[] liqRenderNodeClassificationCallback()
+//{
+//	liqPushIdent();
+//	liqlog("liqRenderNodeClassificationCallback()");
+//	
+//	string $classification[];
+//	
+//	if( liquidGlobalsExists() )
+//	{
+//		$classification[`size($classification)`] = "rendernode/liquid";
+//
+//		string $lrnd[] = liquidGatherLoadedSubRenderers();
+//		for($rnd in $lrnd)
+//		{
+//			$classification[`size($classification)`] = "rendernode/"+$rnd;		
+//		}
+//	}
+//	liqPopIdent();
+//	return $classification;
+//}
+////
+//global proc liqBuildRenderNodeTreeListerContentCallback(string $renderNodeTreeLister, string $postCommand, string $filterString)
+//{
+//	liqPushIdent();
+//	liqlog("liqBuildRenderNodeTreeListerContentCallback("+$renderNodeTreeLister+","+$postCommand+", "+$filterString+")");
+//
+//	string $filterClassArray[]; $filterClassArray[ 0 ] = $filterString;
+//	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
+//	{
+//		//we have to source liquidCustomNodeUI.mel and liquidCustomNodeUI.res.mel
+//		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, "liquid");
+//	}
+//	//we have to source liquidRendererCallbacks.mel
+//	liqRenderNode_CreateTreeLister_Content_subrenderer($renderNodeTreeLister, $postCommand, $filterClassArray);
+//
+//	liqPopIdent();
+//}
+////
+//global proc int liqCreateRenderNodePluginChangeCallback(string $classification)
+//{
+//	liqPushIdent();
+//	liqlog("liqCreateRenderNodePluginChangeCallback("+$classification+")");
+//
+//	int $processed = 0;
+//	
+//	if( liquidGlobalsExists() )
+//	{
+//		string $lrnd[] = liquidGatherLoadedSubRenderers();
+//		for($rnd in $lrnd)
+//		{
+//			$cmd = "LIQUID_isLiquidClassification_"+$rnd+"(\""+$classification+"\")";
+//			$processed = `eval $cmd`;
+//
+//			if( $processed == 1 )
+//				return 1;
+//		}
+//	}
+//	liqPopIdent();
+//	return 0;
+//
+//	liqPopIdent();
+//}
+//
+global proc liqLoadTemplate(string $node)
+{
+	liqPushIdent();
+	liqlog("liqLoadTemplate("+$node+")");
+
+	liqAETemplateCustomContentCallback($node);
+
+	liqPopIdent();	
+}
+////
+//global proc string liqProvideClassificationStringsForFilteredTreeListerCallback(string $currentFilterString)
+//{
+//	liqPushIdent();
+//	liqlog("liqProvideClassificationStringsForFilteredTreeListerCallback("+$currentFilterString+")");
+//
+//	string $exclude[];
+//
+//	string $liquidClassfication = "rendernode/liquid";
+//	if( !startsWith($currentFilterString, $liquidClassfication) )
+//	{
+//		string $exclNodes[];
+//		string $tmp[] = `listNodeTypes $liquidClassfication`;
+//		$exclude = stringArrayCatenate($exclude, $tmp);
+//		$exclude = stringArrayRemoveDuplicates($exclude);
+//	}
+//	
+//	$exclude = LIQUID_excludeClassficationNodes_subrenderer($currentFilterString, $exclude);
+//
+//    liqPopIdent();
+//	return stringArrayToString($exclude, " ");
+//}
+////
+//global proc int liqNodeCanBeUsedAsMaterialCallback(string $nodeId, string $nodeOwner)
+//{
+//	liqPushIdent();
+//	liqlog("liqNodeCanBeUsedAsMaterialCallback("+$nodeId+","+$nodeOwner+")");
+//
+//	int $ret = 1;
+//	if($nodeOwner == "liquid")
+//        $ret = 1;
+//    else
+//        $ret = 0;
+//
+//    liqPopIdent();
+//	return $ret;
+//}
+//------------------------------------------------------
+global proc liquidAddRendererCallbacks()
+{
+	liqPushIdent();
+	liqlog("liquidAddRendererCallbacks()");
+	
+//	callbacks -addCallback "liqHyperShadePanelBuildCreateMenu"
+//              -hook "hyperShadePanelBuildCreateMenu"
+//              -owner "liquid";
+//
+//	callbacks -addCallback "liqBuildCreateSubMenu"
+//              -hook "hyperShadePanelBuildCreateSubMenu" 
+//              -owner "liquid";
+//
+//	callbacks -addCallback "liqCreateRenderNodeSelectNodeCategoriesCallback"
+//              -hook "createRenderNodeSelectNodeCategories"
+//              -owner "liquid";
+//
+//// callbacks -addCallback "liqRenderNodeClassificationCallback"
+////           -hook "addToRenderNodeTreeLister"
+////           -owner "liquid";
+//	callbacks -addCallback "liqRenderNodeClassificationCallback"
+//              -hook "renderNodeClassification"
+//              -owner "liquid";
+//
+//	callbacks -addCallback "liqBuildRenderNodeTreeListerContentCallback"
+//              -hook "buildRenderNodeTreeListerContent"
+//              -owner "liquid";
+//
+//	callbacks -addCallback "liqCreateRenderNodePluginChangeCallback"
+//              -hook "createRenderNodePluginChange"
+//              -owner "liquid";
+
+	callbacks -addCallback "liqLoadTemplate"
+              -hook "AETemplateCustomContent"
+              -owner "liquid";
+
+//	callbacks -addCallback "liqProvideClassificationStringsForFilteredTreeListerCallback"
+//              -hook "provideClassificationStringsForFilteredTreeLister"
+//              -owner "liquid";
+
+//	callbacks -addCallback "liqNodeCanBeUsedAsMaterialCallback"
+//              -hook "nodeCanBeUsedAsMaterial"
+//              -owner "liquid";
+
+
+	liqPopIdent();
+}
+//
+global proc liquidRemoveRendererCallbacks()
+{
+	liqPushIdent();
+	liqlog("liquidRemoveRendererCallbacks()");
+	
+//	callbacks -removeCallback "liqHyperShadePanelBuildCreateMenuCallback"
+//              -hook "hyperShadePanelBuildCreateMenu"
+//              -owner "liquid";
+//
+//	callbacks -removeCallback "liqHyperShadePanelBuildCreateSubMenuCallback"
+//              -hook "hyperShadePanelBuildCreateSubMenu" 
+//              -owner "liquid";
+//
+//	callbacks -removeCallback "liqCreateRenderNodeSelectNodeCategoriesCallback"
+//              -hook "createRenderNodeSelectNodeCategories"
+//              -owner "liquid";
+//
+//// callbacks -removeCallback "liqRenderNodeClassificationCallback"
+////           -hook "addToRenderNodeTreeLister"
+////           -owner "liquid";
+//	callbacks -removeCallback "liqRenderNodeClassificationCallback"
+//              -hook "renderNodeClassification"
+//              -owner "liquid";
+//
+//	callbacks -removeCallback "liqBuildRenderNodeTreeListerContentCallback"
+//              -hook "buildRenderNodeTreeListerContent"
+//              -owner "liquid";
+//
+//	callbacks -removeCallback "liqCreateRenderNodePluginChangeCallback"
+//              -hook "createRenderNodePluginChange"
+//              -owner "liquid";
+
+	callbacks -removeCallback "templates.loadLiquidTemplate"
+              -hook "AETemplateCustomContent"
+              -owner "liquid";
+
+//	callbacks -removeCallback "liqProvideClassificationStringsForFilteredTreeListerCallback"
+//              -hook "provideClassificationStringsForFilteredTreeLister"
+//              -owner "liquid";
+
+//	callbacks -removeCallback "liqNodeCanBeUsedAsMaterialCallback"
+//              -hook "nodeCanBeUsedAsMaterial"
+//              -owner "liquid";	
+
+	liqPopIdent();
+}

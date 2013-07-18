@@ -18,7 +18,7 @@ global proc AErendermanGlobalsTemplate( string $node )
  		editorTemplate -endLayout;//verbose&link
  		//--------------------------------------------------
 		// include/call base class/node attributes
-		AEdependNodeTemplate($node);
+		//AEdependNodeTemplate($node);
 		
 		editorTemplate -addExtraControls;
 

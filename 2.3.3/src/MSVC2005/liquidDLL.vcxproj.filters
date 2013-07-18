@@ -638,12 +638,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\mel\AEdagNodeInclude.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
-    <None Include="..\..\mel\AEdependNodeTemplate.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
     <None Include="..\..\mel\AEliquidCamera.mel">
       <Filter>MEL Scripts</Filter>
     </None>
@@ -940,6 +934,12 @@
     </None>
     <None Include="..\..\mel\2013\liquidRenderCreateBarUI.mel">
       <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\2013\liquidRendererCallbacks.mel">
+      <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\liquidCustomNodeUI.mel">
+      <Filter>MEL Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
