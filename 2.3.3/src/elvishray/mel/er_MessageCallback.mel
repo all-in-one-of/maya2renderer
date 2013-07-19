@@ -4,7 +4,7 @@ source xxliquidutility.mel;
 global proc liqMDGMessage_addNodeAddedCallback_elvishray(string $node)
 {
 	liqPushIdent();
-	liqlog("liqMDGMessage_addNodeAddedCallback_ElvishRender("+$node+")");
+	liqlog("liqMDGMessage_addNodeAddedCallback_elvishray("+$node+")");
 
 	string $type = `nodeType $node`;
 	
@@ -12,7 +12,11 @@ global proc liqMDGMessage_addNodeAddedCallback_elvishray(string $node)
 	{
 		erAddAttribute_pointlight($node);
 	}
+	else if($type == "transform"){
+		erAddAttribute_transform($node);
+	}
 	else{
+		liqlog("$type=["+$type+"] is not supported.");
 	}
 
 	liqPopIdent();

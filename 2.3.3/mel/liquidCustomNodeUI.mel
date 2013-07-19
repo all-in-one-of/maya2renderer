@@ -4,6 +4,40 @@ source AEliquidInstanceFlags.mel;
 source AEliquidLightTemplate.mel;
 source AEliquidSubdivisionSurfaceShape.mel;
 
+//
+global proc liquidAETemplate_pointLight( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_pointLight("+$node+")");
+
+	//string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_pointLight_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
+global proc liquidAETemplate_transform( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_transform("+$node+")");
+
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_transform_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
 global proc liqAETemplateCustomContentCallback(string $nodeName)
 {
 	liqPushIdent();
@@ -54,7 +88,7 @@ global proc liqAETemplateCustomContentCallback(string $nodeName)
 				AEliquidCamera $nodeName;
 				break;
 			case "transform":
-				AEliquidInstanceFlags $nodeName;
+				liquidAETemplate_transform($nodeName);
 				break;
 			//case "mesh":
 			//case "nurbsSurface":

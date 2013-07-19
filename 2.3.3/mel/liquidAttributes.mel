@@ -1828,18 +1828,25 @@ global proc liquidDeleteAreaLightAttributes()
         deleteAttr ( $currentNode + "."+$a );
   liqPopIdent(); 
 }
-
 global proc liquidCreateLightShadowAttributes()
 {
   liqPushIdent();
   liqlog("liquidCreateLightShadowAttributes()");
 
   string $currentNode, $nodes[] = `ls -lights -dag -sl`;
-  
   for ( $currentNode in $nodes ) {
+	  _liquidCreateLightShadowAttributes($currentNode);
+  } 
+  liqPopIdent(); 
+}
+global proc _liquidCreateLightShadowAttributes(string $currentNode)
+{
+  liqPushIdent();
+  liqlog("_liquidCreateLightShadowAttributes("+$currentNode+")");
+
     if ( !( nodeType($currentNode) == "spotLight" || nodeType($currentNode) == "pointLight" || nodeType($currentNode) == "directionalLight" ) ) {
       warning ("These attributes can only be added to spotLights, directionalLights or pointLights !");
-      continue;
+      return;
     }
     if ( !objExists( ($currentNode+".liqShadowMapSamples") ) ) {
       addAttr -ln "liqShadowMapSamples" -at "short" -dv 16 $currentNode;
@@ -1874,7 +1881,7 @@ global proc liquidCreateLightShadowAttributes()
     if ( !objExists( ($currentNode+".farClipPlane") ) ) {
       addAttr -ln "farClipPlane" -at "float" -dv 25000.0 $currentNode;
     }
-  }
+
   liqPopIdent(); 
 }
 

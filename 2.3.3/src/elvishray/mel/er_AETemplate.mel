@@ -3,7 +3,7 @@ source xxliquidutility.mel;
 //============================================================================
 //	light
 //============================================================================
-// point light
+// --------------------------- point light -----------------------------------
 global proc erAddAttributeExtension_pointlight()
 {
 	liqPushIdent();
@@ -25,7 +25,7 @@ global proc erDeleteAttributeExtension_pointlight()
 
 	liqPopIdent();
 }
-//
+//invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
 global proc erAddAttribute_pointlight(string $node)
 {
 	liqPushIdent();
@@ -62,5 +62,48 @@ global proc liquidAETemplate_pointLight_elvishray( string $node )
 	liqPopIdent();
 }
 
-// area light
-// spot light
+// ------------------------------- area light -----------------------------
+// ------------------------------- spot light -----------------------------
+// ------------------------------- transform  -----------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
+global proc erAddAttribute_transform(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_transform("+$node+")");
+
+	if ( !`attributeQuery -node $node -ex "liqGeoShader"` ) {
+      addAttr -ln "liqGeoShader" -dt "float3" $node;
+    }
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_transform(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_transform("+$node+")");
+	
+	if ( `attributeQuery -node $node -ex "liqGeoShader"` ) 
+	{
+		// philippe: this is a fix to deal with a bug with compound attributes
+		renameAttr ( $node + ".liqGeoShader" ) "TO_BE_DELETED";
+		deleteAttr ( $node + ".TO_BE_DELETED" );
+	}
+
+	liqPopIdent();
+}
+global proc liquidAETemplate_transform_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_transform_elvishray("+$node+")");
+
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+      //editorTemplate -label "liqGeoShader"    -addDynamicControl "liqGeoShader";
+      editorTemplate 
+		  -callCustom 
+			"AEliqInstanceFlagsGeometryNew"
+			"AEliqInstanceFlagsGeometryReplace"
+			"message";
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}

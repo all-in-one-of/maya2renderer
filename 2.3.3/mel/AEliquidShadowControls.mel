@@ -66,7 +66,7 @@ global proc AEliquidShadowControls( string $node )
   liqPushIdent();
   liqAElog("AEliquidShadowControls("+$node+")");
 
-  editorTemplate -beginLayout "Liquid" -collapse false;
+  //editorTemplate -beginLayout "Liquid" -collapse false;
 
     editorTemplate -beginLayout "Output" -collapse false;
       editorTemplate -label "Light Category" -addDynamicControl "__category";
@@ -95,7 +95,7 @@ global proc AEliquidShadowControls( string $node )
       editorTemplate -label "Near Clip Plane"     -addDynamicControl "nearClipPlane";
       editorTemplate -label "Far Clip Plane"      -addDynamicControl "farClipPlane";
 
-    editorTemplate -endLayout;
+    editorTemplate -endLayout;//"Shadows"
 
     if ( nodeType($node) == "spotLight" ) {
 
@@ -126,7 +126,9 @@ global proc AEliquidShadowControls( string $node )
       editorTemplate -label "Automatic Shadows" -addDynamicControl "liqDelightLightShadows";
       editorTemplate -label "Automatic Shadows Samples" -addDynamicControl "liqDelightLightSamples";
       editorTemplate -label "Area Light Sampling Strategy" -addDynamicControl "liqDelightLightSamplingStrategy";
-  editorTemplate -endLayout;
+    editorTemplate -endLayout;//"3Delight"
+
+  //editorTemplate -endLayout;//"Liquid"
 
   liqPopIdent();
 }

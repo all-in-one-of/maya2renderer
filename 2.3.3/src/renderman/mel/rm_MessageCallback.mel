@@ -12,7 +12,11 @@ global proc liqMDGMessage_addNodeAddedCallback_renderman(string $node)
 	{
 		rmAddAttribute_pointlight($node);
 	}
+	else if($type == "transform"){
+		rmAddAttribute_transform($node);
+	}
 	else{
+		liqlog("$type=["+$type+"] is not supported.");
 	}
 
 	liqPopIdent();

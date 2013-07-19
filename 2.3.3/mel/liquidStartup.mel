@@ -137,7 +137,7 @@ global proc liquidLoadScripts()
   string $mel_files[] = {
     //"AEdagNodeInclude.mel",
     "AEliquidFGGIOverrideFlags.mel",
-    "AEliquidInstanceFlags.mel",
+    //"AEliquidInstanceFlags.mel",
     "AEliquidNurbsCurveShape.mel",
     "AEliquidSetFlags.mel",
     "AEliquidCamera.mel",

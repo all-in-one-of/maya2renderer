@@ -3,7 +3,7 @@ source xxliquidutility.mel;
 //============================================================================
 //	light
 //============================================================================
-// point light
+// --------------------------- point light -----------------------------------
 global proc rmAddAttributeExtension_pointlight()
 {
 	liqPushIdent();
@@ -11,7 +11,7 @@ global proc rmAddAttributeExtension_pointlight()
 
 	addExtension -nt "pointLight" -ln "rm_attr0" -sn "ra0" -at "long" -dv 16 -k true -s true -w true /*-fromPlugin rm_getRendererName()*/;
 	addExtension -nt "pointLight" -ln "rm_attr1" -sn "ra1" -at "bool" -dv 0  -k true -s true -w true /*-fromPlugin rm_getRendererName()*/;
-	
+
 	liqPopIdent();
 }
 //
@@ -21,7 +21,7 @@ global proc rmDeleteAttributeExtension_pointlight()
 	liqlog("rmDeleteAttributeExtension_pointlight()");
 	
 	deleteExtension -nt "pointLight" -at "rm_attr0" -forceDelete on;
-	deleteExtension -nt "pointLight" -at "rm_attr1"     -forceDelete on;
+	deleteExtension -nt "pointLight" -at "rm_attr1" -forceDelete on;
 
 	liqPopIdent();
 }
@@ -31,9 +31,8 @@ global proc rmAddAttribute_pointlight(string $node)
 	liqPushIdent();
 	liqlog("rmAddAttribute_pointlight("+$node+")");
 
-	addAttr -ln "rm_attr0" -sn "ra0" -at "long" -dv 16 -k true -s true -w true $node;
-	addAttr -ln "rm_attr1" -sn "ra1" -at "bool" -dv 0  -k true -s true -w true $node;
-	
+	_liquidCreateLightShadowAttributes($node);
+
 	liqPopIdent();
 }
 //
@@ -42,8 +41,7 @@ global proc rmDeleteAttribute_pointlight(string $node)
 	liqPushIdent();
 	liqlog("rmDeleteAttribute_pointlight("+$node+")");
 	
-	deleteAttr -at "rm_attr0" $node;
-	deleteAttr -at "rm_attr1" $node;
+	//liquidDeleteLightShadowAttributes()
 
 	liqPopIdent();
 }
@@ -54,13 +52,56 @@ global proc liquidAETemplate_pointLight_renderman( string $node )
 	liqAElog("liquidAETemplate_pointLight_elvishray("+$node+")");
 
 	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
-		editorTemplate -addDynamicControl "rm_attr0";
-		editorTemplate -addDynamicControl "rm_attr1";	
+		AEliquidShadowControls($node);
 	editorTemplate -endLayout;
-
 
 	liqPopIdent();
 }
 
-// area light
-// spot light
+// ------------------------------- area light -----------------------------
+// ------------------------------- spot light -----------------------------
+// ------------------------------- transform  -----------------------------
+global proc rmAddAttribute_transform(string $node)
+{
+	liqPushIdent();
+	liqlog("rmAddAttribute_transform("+$node+")");
+
+	if ( !`attributeQuery -node $node -ex "liqGeoShader"` ) {
+      addAttr -ln "liqGeoShader" -dt "float3" $node;
+    }
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttribute_transform(string $node)
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttribute_transform("+$node+")");
+	
+	if ( `attributeQuery -node $node -ex "liqGeoShader"` ) 
+	{
+		// philippe: this is a fix to deal with a bug with compound attributes
+		renameAttr ( $node + ".liqGeoShader" ) "TO_BE_DELETED";
+		deleteAttr ( $node + ".TO_BE_DELETED" );
+	}
+
+	liqPopIdent();
+}
+global proc liquidAETemplate_transform_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_transform_renderman("+$node+")");
+
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+      //editorTemplate -label "liqGeoShader"    -addDynamicControl "liqGeoShader";
+      editorTemplate 
+		  -callCustom 
+			"AEliqInstanceFlagsGeometryNew"
+			"AEliqInstanceFlagsGeometryReplace"
+			"message";
+	editorTemplate -endLayout;
+
+
+
+
+	liqPopIdent();
+}

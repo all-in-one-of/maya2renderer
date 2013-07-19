@@ -6,7 +6,7 @@
 
 
 - learn katana
-
+liq|: 把liquidDLL里自定义属性移到renderman工程里
 liq|: bug:addExtension 的attr无法保存到文件
 liq|:hyperShadePanel for  maya2013 没有使用callbacks, 这不够好;考虑用callbacks替换现有的代码
 liq| rm|: support RSL2.0!!!
