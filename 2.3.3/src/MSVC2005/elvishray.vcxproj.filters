@@ -364,5 +364,11 @@
     <None Include="..\elvishray\mel\alias\er_AETemplate_ElvishRender.mel">
       <Filter>mel\alias</Filter>
     </None>
+    <None Include="..\elvishray\mel\alias\er_MessageCallback_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
+    </None>
+    <None Include="..\elvishray\mel\er_MessageCallback.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>

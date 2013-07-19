@@ -310,6 +310,9 @@
     <ClCompile Include="..\liq_classification.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqMessageCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -636,6 +639,9 @@
     <ClInclude Include="..\liq_classification.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\liqMessageCallback.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mel\AEliquidCamera.mel">
@@ -943,6 +949,9 @@
     </None>
     <None Include="..\..\mel\2013\liquidAttributeExtension.mel">
       <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\liqMessageCallback.mel">
+      <Filter>MEL Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

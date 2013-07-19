@@ -1,0 +1,19 @@
+source xxliquidutility.mel;
+
+//
+global proc liqMDGMessage_addNodeAddedCallback_elvishray(string $node)
+{
+	liqPushIdent();
+	liqlog("liqMDGMessage_addNodeAddedCallback_ElvishRender("+$node+")");
+
+	string $type = `nodeType $node`;
+	
+	if($type == "pointLight")
+	{
+		erAddAttribute_pointlight($node);
+	}
+	else{
+	}
+
+	liqPopIdent();
+}

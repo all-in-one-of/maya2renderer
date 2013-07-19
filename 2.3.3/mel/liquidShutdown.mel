@@ -42,7 +42,7 @@ global proc liquidShutdown()
 	liqlog("liquidShutdown()");
     if ( `menu -exists liquidMainWindowMenu` ) deleteUI liquidMainWindowMenu;
 	liquidRemoveRendererCallbacks();
-	liquidDeleteAttributeExtension();
+	//liquidDeleteAttributeExtension();
     unregisterLiquidRenderer();
   liqPopIdent();
 }

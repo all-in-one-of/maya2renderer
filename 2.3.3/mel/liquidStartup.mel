@@ -215,7 +215,8 @@ global proc liquidLoadScripts()
     "liqGlobalsNodeRenderer.mel",
     "GetPossibleTextures.mel",
     "liquidliquidShaderNodes.mel",
-	"liquidUserCallbackInterface.mel"
+	"liquidUserCallbackInterface.mel",
+	"liqMessageCallback.mel"
   };
 
   string $liquidHome = liquidGetHome();
@@ -1109,7 +1110,7 @@ global proc liquidStartup()
   liquidCreateScriptNode();
   liquidCreateScriptJobs();
   registerLiquidRenderer();
-  liquidAddAttributeExtension();
+  //liquidAddAttributeExtension();
   liquidAddRendererCallbacks();
 
   eval "liquidAETemplateOverwrite";

@@ -2877,6 +2877,7 @@
     <ClCompile Include="..\liqlog.cpp" />
     <ClCompile Include="..\liqMayaRenderView.cpp" />
     <ClCompile Include="..\liqMemory.cpp" />
+    <ClCompile Include="..\liqMessageCallback.cpp" />
     <ClCompile Include="..\liqNodeSwatch.cpp" />
     <ClCompile Include="..\liqParseString.cpp" />
     <ClCompile Include="..\liqPreviewShader.cpp" />
@@ -2954,6 +2955,7 @@
     <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\liqMessageCallback.h" />
     <ClInclude Include="..\liq_classification.h" />
     <ClInclude Include="..\rnode_visitor_interface.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
@@ -3101,6 +3103,7 @@
     <None Include="..\..\mel\AEoldBlindDataBaseTemplate.mel" />
     <None Include="..\..\mel\getMultiListerSelection.mel" />
     <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
+    <None Include="..\..\mel\liqMessageCallback.mel" />
     <None Include="..\..\mel\liquidAttributeManager.mel" />
     <None Include="..\..\mel\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\liquidIpr.mel" />

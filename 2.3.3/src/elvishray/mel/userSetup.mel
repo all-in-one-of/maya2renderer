@@ -19,6 +19,7 @@ source er_RendererName.mel;
 source er_CustomNodeUI.mel;
 source er_CustomNodeUI.res.mel;
 source er_AETemplate.mel;
+source er_MessageCallback.mel;
 
 //-----------------------------------------------
 // source erSHADER_user scripts if any.

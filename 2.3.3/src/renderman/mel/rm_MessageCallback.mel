@@ -1,0 +1,19 @@
+source xxliquidutility.mel;
+
+//
+global proc liqMDGMessage_addNodeAddedCallback_renderman(string $node)
+{
+	liqPushIdent();
+	liqlog("liqMDGMessage_addNodeAddedCallback_renderman("+$node+")");
+
+	string $type = `nodeType $node`;
+	
+	if($type == "pointLight")
+	{
+		rmAddAttribute_pointlight($node);
+	}
+	else{
+	}
+
+	liqPopIdent();
+}

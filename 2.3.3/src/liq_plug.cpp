@@ -69,6 +69,7 @@
 #include <liqParseString.h>
 #include <liqIPRNodeMessageCmd.h>
 #include "liq_classification.h"
+#include "liqMessageCallback.h"
 
 #define LIQVENDOR "http://liquidmaya.sourceforge.net/"
 
@@ -498,7 +499,7 @@ MStatus _initializePlugin(MObject obj)
   IfMErrorMsgReturnIt( status, "Can't register liquidStartup and liquidShutdown interface scripts" );
   printf("Liquid %s registered\n", LIQUIDVERSION);
 
-
+  liquid::liqMessageCallback::registCallback();
 //  liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
 //  liquid::RendererMgr::registFactory("elvishray", new elvishray::Factory());
 //  liquid::RendererMgr::registFactory("appleseed", new appleseed::Factory());
@@ -516,6 +517,8 @@ MStatus _uninitializePlugin(MObject obj)
 
   MStatus status;
   MFnPlugin plugin(obj);
+
+  liquid::liqMessageCallback::removeCallback();
 
   status = plugin.deregisterCommand("liquid");
   IfMErrorMsgReturnIt( status, "Can't deregister liquid command" );

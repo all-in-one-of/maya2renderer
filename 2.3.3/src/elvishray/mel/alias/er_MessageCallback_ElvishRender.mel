@@ -1,0 +1,12 @@
+source xxliquidutility.mel;
+
+//invoked from liqMessageCallback::NodeAddCallbackFunc(...)
+global proc liqMDGMessage_addNodeAddedCallback_ElvishRender(string $node)
+{
+	liqPushIdent();
+	liqlog("liqMDGMessage_addNodeAddedCallback_ElvishRender("+$node+")");
+
+	liqMDGMessage_addNodeAddedCallback_elvishray($node);
+
+	liqPopIdent();
+}

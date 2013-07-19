@@ -1,0 +1,21 @@
+source xxliquidutility.mel;
+
+//invoked from liqMessageCallback::NodeAddCallbackFunc(...)
+global proc liqMDGMessage_addNodeAddedCallback(string $node)
+{
+	liqPushIdent();
+	liqlog("liqMDGMessage_addNodeAddedCallback("+$node+")");
+
+	if( liquidGlobalsExists() )
+	{
+		string $lrnd[] = liquidGatherLoadedSubRenderers();
+		for($rnd in $lrnd)
+		{
+			string $cmd;
+			$cmd = "liqMDGMessage_addNodeAddedCallback_"+$rnd+"(\""+$node+"\")";
+			eval $cmd;
+		}
+	}
+
+	liqPopIdent();
+}

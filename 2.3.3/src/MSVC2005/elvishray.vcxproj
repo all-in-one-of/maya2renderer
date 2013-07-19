@@ -3003,6 +3003,7 @@
     <None Include="..\elvishray\mel\alias\er_AETemplate_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_callback_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_liquidProcedurals_ElvishRender.mel" />
+    <None Include="..\elvishray\mel\alias\er_MessageCallback_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_startup_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\userSetup.mel" />
@@ -3016,6 +3017,7 @@
     <None Include="..\elvishray\mel\er_CustomNodeUI.mel" />
     <None Include="..\elvishray\mel\er_CustomNodeUI.res.mel" />
     <None Include="..\elvishray\mel\er_liquidProcedurals.mel" />
+    <None Include="..\elvishray\mel\er_MessageCallback.mel" />
     <None Include="..\elvishray\mel\er_RendererName.mel" />
     <None Include="..\elvishray\mel\er_startup.mel" />
     <None Include="..\elvishray\mel\er_UserCallbackInterface.mel" />

@@ -26,6 +26,28 @@ global proc erDeleteAttributeExtension_pointlight()
 	liqPopIdent();
 }
 //
+global proc erAddAttribute_pointlight(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_pointlight("+$node+")");
+
+	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
+	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
+
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_pointlight(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_pointlight("+$node+")");
+	
+	deleteAttr -at "ei_area_samples" $node;
+	deleteAttr -at "ei_adaptive"     $node;
+
+	liqPopIdent();
+}
+//
 global proc liquidAETemplate_pointLight_elvishray( string $node )
 {
 	liqPushIdent();

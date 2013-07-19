@@ -132,7 +132,7 @@ global proc liquidStartup_renderman()
 	liqPushIdent();
 	liqlog("liquidStartup_renderman()");
 
-	liquidAddAttributeExtension_renderman();
+	//liquidAddAttributeExtension_renderman();
 
 	liqPopIdent();
 }
