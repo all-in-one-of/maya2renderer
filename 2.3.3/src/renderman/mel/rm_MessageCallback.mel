@@ -12,6 +12,18 @@ global proc liqMDGMessage_addNodeAddedCallback_renderman(string $node)
 	{
 		rmAddAttribute_pointlight($node);
 	}
+	else if($type == "areaLight"){
+		rmAddAttribute_areaLight($node);
+	}
+	else if($type == "directionalLight"){
+		rmAddAttribute_directionalLight($node);
+	}
+	else if($type == "spotLight"){
+		rmAddAttribute_spotLight($node);
+	}
+	else if($type == "volumeLight"){
+		rmAddAttribute_volumeLight($node);
+	}
 	else if($type == "transform"){
 		rmAddAttribute_transform($node);
 	}

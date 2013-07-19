@@ -59,7 +59,133 @@ global proc liquidAETemplate_pointLight_renderman( string $node )
 }
 
 // ------------------------------- area light -----------------------------
+global proc rmAddAttribute_areaLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmAddAttribute_areaLight("+$node+")");
+
+	_liquidCreateLightShadowAttributes($node);
+
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttribute_areaLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttribute_areaLight("+$node+")");
+	
+	//liquidDeleteLightShadowAttributes()
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_areaLight_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_areaLight_renderman("+$node+")");
+
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+		AEliquidShadowControls($node);
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
+// ------------------------------- directional light ----------------------
+global proc rmAddAttribute_directionalLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmAddAttribute_directionalLight("+$node+")");
+
+	_liquidCreateLightShadowAttributes($node);
+
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttribute_directionalLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttribute_directionalLight("+$node+")");
+	
+	//liquidDeleteLightShadowAttributes()
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_directionalLight_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_directionalLight_renderman("+$node+")");
+
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+		AEliquidShadowControls($node);
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
 // ------------------------------- spot light -----------------------------
+global proc rmAddAttribute_spotLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmAddAttribute_spotLight("+$node+")");
+
+	_liquidCreateLightShadowAttributes($node);
+
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttribute_spotLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttribute_spotLight("+$node+")");
+	
+	//liquidDeleteLightShadowAttributes()
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_spotLight_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_spotLight_renderman("+$node+")");
+
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+		AEliquidShadowControls($node);
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
+// ------------------------------- volumeLight -----------------------------
+global proc rmAddAttribute_volumeLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmAddAttribute_volumeLight("+$node+")");
+
+	_liquidCreateLightShadowAttributes($node);
+
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttribute_volumeLight(string $node)
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttribute_volumeLight("+$node+")");
+	
+	//liquidDeleteLightShadowAttributes()
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_volumeLight_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_volumeLight_renderman("+$node+")");
+
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+		AEliquidShadowControls($node);
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
 // ------------------------------- transform  -----------------------------
 global proc rmAddAttribute_transform(string $node)
 {

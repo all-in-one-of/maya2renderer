@@ -22,6 +22,74 @@ global proc liquidAETemplate_pointLight( string $node )
   liqPopIdent();
 }
 //
+global proc liquidAETemplate_areaLight( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_areaLight("+$node+")");
+
+	//string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_areaLight_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
+global proc liquidAETemplate_directionalLight( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_directionalLight("+$node+")");
+
+	//string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_directionalLight_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
+global proc liquidAETemplate_spotLight( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_spotLight("+$node+")");
+
+	//string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_spotLight_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
+global proc liquidAETemplate_volumeLight( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_volumeLight("+$node+")");
+
+	//string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_volumeLight_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
 global proc liquidAETemplate_transform( string $node )
 {
   liqPushIdent();
@@ -55,13 +123,16 @@ global proc liqAETemplateCustomContentCallback(string $nodeName)
 				liquidAETemplate_pointLight($nodeName);
 				break;
 			case "areaLight":
-				//AEliquidLightTemplate $nodeName;
+				liquidAETemplate_areaLight($nodeName);
 				break;
 			case "directionalLight":
-				//AEliquidLightTemplate $nodeName;
+				liquidAETemplate_directionalLight($nodeName);
 				break;
 			case "spotLight":
-				//AEliquidLightTemplate $nodeName;
+				liquidAETemplate_spotLight($nodeName);
+				break;
+			case "volumeLight":
+				liquidAETemplate_volumeLight($nodeName);
 				break;
 			//case "file":
 			//    AEmentalrayFile $nodeName;
@@ -113,7 +184,9 @@ global proc liqAETemplateCustomContentCallback(string $nodeName)
 	        //    break;
 			//case "pfxHair":
 			//	AEmentalrayPfxHair $nodeName;
-				break;
+			//	break;
+			default:
+				liqlog($nodeName+"["+$type+"] is not supported.");
 		}
 	editorTemplate -endLayout;//AECallbacksTest
 	//editorTemplate -endScrollLayout;

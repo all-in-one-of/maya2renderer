@@ -15,7 +15,45 @@ global proc liquidAETemplate_pointLight_ElvishRender( string $node )
 	liqPopIdent();
 }
 // ------------------------------- area light -----------------------------
+global proc liquidAETemplate_areaLight_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_areaLight_ElvishRender("+$node+")");
+
+	liquidAETemplate_areaLight_elvishray($node);
+
+	liqPopIdent();
+}
+// --------------------------- directional Light ---------------------------
+global proc liquidAETemplate_directionalLight_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_directionalLight_ElvishRender("+$node+")");
+
+	liquidAETemplate_directionalLight_elvishray($node);
+
+	liqPopIdent();
+}
 // ------------------------------- spot light -----------------------------
+global proc liquidAETemplate_spotLight_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_spotLight_ElvishRender("+$node+")");
+
+	liquidAETemplate_spotLight_elvishray($node);
+
+	liqPopIdent();
+}
+// ------------------------------- volumeLight -----------------------------
+global proc liquidAETemplate_volumeLight_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_volumeLight_ElvishRender("+$node+")");
+
+	liquidAETemplate_volumeLight_elvishray($node);
+
+	liqPopIdent();
+}
 // ------------------------------- transform  -----------------------------
 global proc liquidAETemplate_transform_ElvishRender( string $node )
 {

@@ -61,9 +61,151 @@ global proc liquidAETemplate_pointLight_elvishray( string $node )
 
 	liqPopIdent();
 }
-
 // ------------------------------- area light -----------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
+global proc erAddAttribute_areaLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_areaLight("+$node+")");
+
+	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
+	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
+
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_areaLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_areaLight("+$node+")");
+	
+	deleteAttr -at "ei_area_samples" $node;
+	deleteAttr -at "ei_adaptive"     $node;
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_areaLight_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_areaLight_elvishray("+$node+")");
+
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+		editorTemplate -addDynamicControl "ei_area_samples";
+		editorTemplate -addDynamicControl "ei_adaptive";	
+	editorTemplate -endLayout;
+
+
+	liqPopIdent();
+}
+// ------------------------------- directional light ----------------------
+global proc erAddAttribute_directionalLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_directionalLight("+$node+")");
+
+	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
+	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
+
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_directionalLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_directionalLight("+$node+")");
+	
+	deleteAttr -at "ei_area_samples" $node;
+	deleteAttr -at "ei_adaptive"     $node;
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_directionalLight_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_directionalLight_elvishray("+$node+")");
+
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+		editorTemplate -addDynamicControl "ei_area_samples";
+		editorTemplate -addDynamicControl "ei_adaptive";	
+	editorTemplate -endLayout;
+
+
+	liqPopIdent();
+}
 // ------------------------------- spot light -----------------------------
+global proc erAddAttribute_spotLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_spotLight("+$node+")");
+
+	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
+	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
+
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_spotLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_spotLight("+$node+")");
+	
+	deleteAttr -at "ei_area_samples" $node;
+	deleteAttr -at "ei_adaptive"     $node;
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_spotLight_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_spotLight_elvishray("+$node+")");
+
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+		editorTemplate -addDynamicControl "ei_area_samples";
+		editorTemplate -addDynamicControl "ei_adaptive";	
+	editorTemplate -endLayout;
+
+
+	liqPopIdent();
+}
+// ------------------------------- volumeLight -----------------------------
+global proc erAddAttribute_volumeLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_volumeLight("+$node+")");
+
+	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
+	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
+
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_volumeLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_volumeLight("+$node+")");
+	
+	deleteAttr -at "ei_area_samples" $node;
+	deleteAttr -at "ei_adaptive"     $node;
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_volumeLight_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_volumeLight_elvishray("+$node+")");
+
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+		editorTemplate -addDynamicControl "ei_area_samples";
+		editorTemplate -addDynamicControl "ei_adaptive";	
+	editorTemplate -endLayout;
+
+
+	liqPopIdent();
+}
 // ------------------------------- transform  -----------------------------
 //invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
 global proc erAddAttribute_transform(string $node)
