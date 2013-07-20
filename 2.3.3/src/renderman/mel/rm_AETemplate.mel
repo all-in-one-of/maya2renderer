@@ -186,6 +186,31 @@ global proc liquidAETemplate_volumeLight_renderman( string $node )
 
 	liqPopIdent();
 }
+// ------------------------------- shadingEngine  ----------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_renderman()
+global proc rmAddAttribute_shadingEngine(string $node)
+{
+	liqPushIdent();
+	liqlog("rmAddAttribute_shadingEngine("+$node+")");
+	liqPopIdent();
+}
+//
+global proc rmDeleteAttribute_shadingEngine(string $node)
+{
+	liqPushIdent();
+	liqlog("rmDeleteAttribute_shadingEngine("+$node+")");
+	liqPopIdent();
+}
+global proc liquidAETemplate_shadingEngine_renderman( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_shadingEngine_renderman("+$node+")");
+		
+	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
 // ------------------------------- camera  -----------------------------
 //invoked from liqMDGMessage_addNodeAddedCallback_renderman()
 global proc rmAddAttribute_camera(string $node)

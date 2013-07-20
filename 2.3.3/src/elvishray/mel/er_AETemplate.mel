@@ -206,6 +206,34 @@ global proc liquidAETemplate_volumeLight_elvishray( string $node )
 
 	liqPopIdent();
 }
+// ------------------------------- shadingEngine  ----------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
+global proc erAddAttribute_shadingEngine(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_shadingEngine("+$node+")");
+
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_shadingEngine(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_shadingEngine("+$node+")");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_shadingEngine_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_shadingEngine_elvishray("+$node+")");
+		
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
 // ------------------------------- camera  -----------------------------
 //invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
 global proc erAddAttribute_camera(string $node)
