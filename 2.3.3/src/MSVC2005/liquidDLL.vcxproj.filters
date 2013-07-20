@@ -944,13 +944,13 @@
     <None Include="..\..\mel\2013\liquidRendererCallbacks.mel">
       <Filter>MEL Scripts\2013</Filter>
     </None>
-    <None Include="..\..\mel\liquidCustomNodeUI.mel">
-      <Filter>MEL Scripts</Filter>
-    </None>
     <None Include="..\..\mel\2013\liquidAttributeExtension.mel">
       <Filter>MEL Scripts\2013</Filter>
     </None>
     <None Include="..\..\mel\liqMessageCallback.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidAETemplate.mel">
       <Filter>MEL Scripts</Filter>
     </None>
   </ItemGroup>

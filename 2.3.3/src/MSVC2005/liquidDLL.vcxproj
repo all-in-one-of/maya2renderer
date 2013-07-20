@@ -3104,8 +3104,8 @@
     <None Include="..\..\mel\getMultiListerSelection.mel" />
     <None Include="..\..\mel\liqGlobalsNodeRenderer.mel" />
     <None Include="..\..\mel\liqMessageCallback.mel" />
+    <None Include="..\..\mel\liquidAETemplate.mel" />
     <None Include="..\..\mel\liquidAttributeManager.mel" />
-    <None Include="..\..\mel\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\liquidIpr.mel" />
     <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
     <None Include="..\..\mel\liquidUserCallbackInterface.mel" />

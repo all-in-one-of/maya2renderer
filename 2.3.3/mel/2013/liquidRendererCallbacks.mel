@@ -1,5 +1,5 @@
 source xxliquidutility.mel;
-source liquidCustomNodeUI.mel;
+source liquidAETemplate.mel;
 
 ////
 //global proc liqHyperShadePanelBuildCreateMenu()
