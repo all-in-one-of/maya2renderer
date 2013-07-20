@@ -90,6 +90,22 @@ global proc liquidAETemplate_volumeLight( string $node )
   liqPopIdent();
 }
 //
+global proc liquidAETemplate_camera( string $node )
+{
+  liqPushIdent();
+  liqAElog("liquidAETemplate_camera("+$node+")");
+
+	string $renderer[] = liquidGatherLoadedSubRenderers();
+	for($vrnd in $renderer)
+	{
+		string $cmd;
+		$cmd = "liquidAETemplate_camera_"+$vrnd+"(\""+$node+"\")";
+		eval $cmd;
+	}
+
+  liqPopIdent();
+}
+//
 global proc liquidAETemplate_transform( string $node )
 {
   liqPushIdent();
@@ -156,7 +172,7 @@ global proc liqAETemplateCustomContentCallback(string $nodeName)
 			//    AEmentalrayMaterial $nodeName;
 			//    break;
 			case "camera":
-				AEliquidCamera $nodeName;
+				liquidAETemplate_camera($nodeName);
 				break;
 			case "transform":
 				liquidAETemplate_transform($nodeName);

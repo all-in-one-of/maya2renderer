@@ -24,6 +24,9 @@ global proc liqMDGMessage_addNodeAddedCallback_elvishray(string $node)
 	else if($type == "volumeLight"){
 		erAddAttribute_volumeLight($node);
 	}
+	else if($type == "camera"){
+		erAddAttribute_camera($node);
+	}
 	else if($type == "transform"){
 		erAddAttribute_transform($node);
 	}

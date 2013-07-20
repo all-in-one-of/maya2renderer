@@ -24,6 +24,9 @@ global proc liqMDGMessage_addNodeAddedCallback_renderman(string $node)
 	else if($type == "volumeLight"){
 		rmAddAttribute_volumeLight($node);
 	}
+	else if($type == "camera"){
+		rmAddAttribute_camera($node);
+	}
 	else if($type == "transform"){
 		rmAddAttribute_transform($node);
 	}

@@ -359,3 +359,57 @@ global proc int isCurrentSubRenderer(string $renderer)
 	liqPopIdent();
 	return $ret;
 }
+//
+global proc liqDeleteAttr(string $node, string $plug)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttr("+$node+","+$plug+")");
+
+	if ( `attributeQuery -node $node -ex $plug` ) 
+	{
+		// philippe: this is a fix to deal with a bug with compound attributes
+		renameAttr ( $node + "."+$plug ) "TO_BE_DELETED";
+		deleteAttr ( $node + ".TO_BE_DELETED" );
+	}
+	liqPopIdent();
+}
+//-----------------------------------------------------------------
+//usage: editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" $plugName;
+global proc AEliqShaderNew(string $nodeDotPlug)
+{
+	liqPushIdent();
+	liqlog("AEliqShaderNew("+$nodeDotPlug+")");
+		
+	string $node;
+	string $plug;
+	string $buffer[];
+	tokenize($nodeDotPlug, ".", $buffer);
+	$node = (size($buffer) > 0) ? $buffer[0] : "";
+	$plug = (size($buffer) > 1) ? $buffer[1] : "";
+
+	string $plugCtrl = $plug + "Ctrl";
+	string $label = $plug;
+
+	attrNavigationControlGrp -label $label $plugCtrl;
+
+	AEliqShaderReplace($nodeDotPlug);
+
+	liqPopIdent();
+}
+//usage: editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" $plugName;
+global proc AEliqShaderReplace(string $nodeDotPlug)
+{
+	liqPushIdent();
+	liqlog("AEliqShaderReplace("+$nodeDotPlug+")");
+
+	string $plug;
+	string $buffer[];
+	tokenize($nodeDotPlug, ".", $buffer);
+	$plug = (size($buffer) > 1) ? $buffer[1] : "";
+
+	string $plugCtrl = $plug + "Ctrl";
+
+	attrNavigationControlGrp -e -at $nodeDotPlug $plugCtrl;
+
+	liqPopIdent();
+}

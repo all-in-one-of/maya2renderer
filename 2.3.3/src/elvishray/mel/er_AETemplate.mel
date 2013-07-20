@@ -206,6 +206,55 @@ global proc liquidAETemplate_volumeLight_elvishray( string $node )
 
 	liqPopIdent();
 }
+// ------------------------------- camera  -----------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
+global proc erAddAttribute_camera(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_camera("+$node+")");
+
+	if ( !`attributeQuery -node $node -ex "liqEnvironmentShader"` ) {
+	  addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $node;
+	  addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	  addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	  addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	}
+	if ( !`attributeQuery -node $node -ex "liqLensShader"` ) {
+	  addAttr -ln "liqLensShader" -usedAsColor -at "float3" -k true $node;
+	  addAttr -ln "liqLensShaderR" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
+	  addAttr -ln "liqLensShaderG" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
+	  addAttr -ln "liqLensShaderB" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
+	}
+	liqPopIdent();
+}
+//
+global proc erDeleteAttribute_camera(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_camera("+$node+")");
+	
+	liqDeleteAttr($node, "liqEnvironmentShader");
+	liqDeleteAttr($node, "liqLensShader");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_camera_elvishray( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_camera_elvishray("+$node+")");
+		
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+		editorTemplate -callCustom
+				"AEliqShaderNew" "AEliqShaderReplace" 
+				"liqEnvironmentShader";
+		editorTemplate -callCustom
+				"AEliqShaderNew" "AEliqShaderReplace" 
+				"liqLensShader";
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
 // ------------------------------- transform  -----------------------------
 //invoked from liqMDGMessage_addNodeAddedCallback_elvishray()
 global proc erAddAttribute_transform(string $node)

@@ -54,6 +54,16 @@ global proc liquidAETemplate_volumeLight_ElvishRender( string $node )
 
 	liqPopIdent();
 }
+// ------------------------------- camera  -----------------------------
+global proc liquidAETemplate_camera_ElvishRender( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_camera_ElvishRender("+$node+")");
+
+	liquidAETemplate_camera_elvishray($node);
+
+	liqPopIdent();
+}
 // ------------------------------- transform  -----------------------------
 global proc liquidAETemplate_transform_ElvishRender( string $node )
 {
