@@ -319,7 +319,7 @@ global proc AEliquidInstanceFlags( string $node )
 	eval $cmd;
 
 	
- 	//[refactor liq|ui|5 -beg] moved to AEliquidEditorTemplate_renderman()
+ 	//[refactor liq|ui|5 -beg] moved to liquidEditorTemplate_renderman()
 //	editorTemplate -beginLayout "Visibility" -collapse true;
 //
 //      editorTemplate -label "Camera" -addDynamicControl "liqVisibilityCamera";

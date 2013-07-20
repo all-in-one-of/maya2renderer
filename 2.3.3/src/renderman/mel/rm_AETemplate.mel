@@ -192,6 +192,20 @@ global proc rmAddAttribute_shadingEngine(string $node)
 {
 	liqPushIdent();
 	liqlog("rmAddAttribute_shadingEngine("+$node+")");
+
+	if ( !`attributeQuery -node $node -ex "liqShadowShader"` ) {
+		addAttr -ln "liqShadowShader" -usedAsColor -at "float3" -k true $node;
+		addAttr -ln "liqShadowShaderR" -at "float" -dv 1 -k true -parent "liqShadowShader" $node;
+		addAttr -ln "liqShadowShaderG" -at "float" -dv 1 -k true -parent "liqShadowShader" $node;
+		addAttr -ln "liqShadowShaderB" -at "float" -dv 1 -k true -parent "liqShadowShader" $node;
+	}
+	if ( !`attributeQuery -node $node -ex "liqEnvironmentShader"` ) {
+		addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $node;
+		addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+		addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+		addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	}
+
 	liqPopIdent();
 }
 //
@@ -199,6 +213,10 @@ global proc rmDeleteAttribute_shadingEngine(string $node)
 {
 	liqPushIdent();
 	liqlog("rmDeleteAttribute_shadingEngine("+$node+")");
+
+	liqDeleteAttr($node, "liqShadowShader");
+	liqDeleteAttr($node, "liqEnvironmentShader");
+
 	liqPopIdent();
 }
 global proc liquidAETemplate_shadingEngine_renderman( string $node )
@@ -207,6 +225,10 @@ global proc liquidAETemplate_shadingEngine_renderman( string $node )
 	liqAElog("liquidAETemplate_shadingEngine_renderman("+$node+")");
 		
 	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
+
+		editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqShadowShader";
+		editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqEnvironmentShader";
+
 	editorTemplate -endLayout;
 
 	liqPopIdent();
@@ -297,6 +319,7 @@ global proc rmAddAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("rmAddAttribute_transform("+$node+")");
 
+	//"Procedural"
 	if ( !`attributeQuery -node $node -ex "liqGeoShader"` ) {
       addAttr -ln "liqGeoShader" -dt "float3" $node;
     }
@@ -308,12 +331,8 @@ global proc rmDeleteAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("rmDeleteAttribute_transform("+$node+")");
 	
-	if ( `attributeQuery -node $node -ex "liqGeoShader"` ) 
-	{
-		// philippe: this is a fix to deal with a bug with compound attributes
-		renameAttr ( $node + ".liqGeoShader" ) "TO_BE_DELETED";
-		deleteAttr ( $node + ".TO_BE_DELETED" );
-	}
+	//"Procedural"
+	liqDeleteAttr($node, "liqGeoShader");
 
 	liqPopIdent();
 }
@@ -323,12 +342,14 @@ global proc liquidAETemplate_transform_renderman( string $node )
 	liqAElog("liquidAETemplate_transform_renderman("+$node+")");
 
 	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
-      //editorTemplate -label "liqGeoShader"    -addDynamicControl "liqGeoShader";
-      editorTemplate 
-		  -callCustom 
-			"AEliqInstanceFlagsGeometryNew"
-			"AEliqInstanceFlagsGeometryReplace"
-			"message";
+		
+		liquidEditorTemplate_renderman($node);
+
+		//"Procedural"
+		editorTemplate -beginLayout "Procedural" -collapse true;
+			editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqGeoShader";
+		editorTemplate -endLayout;//"Procedural"
+
 	editorTemplate -endLayout;
 
 

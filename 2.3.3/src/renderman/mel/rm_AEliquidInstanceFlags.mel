@@ -36,7 +36,7 @@ global proc liquidEditorTemplate_renderman( string $node )
 	liqPushIdent();
 	liqlog("liquidEditorTemplate_renderman("+$node+")");
 	
-	editorTemplate -beginLayout "renderman" -collapse true;
+	//editorTemplate -beginLayout "renderman" -collapse true;
 
 	//[refactor liq|ui|5 -beg] moved from AEliquidInstanceFlags()
 	editorTemplate -beginLayout "Visibility" -collapse true;
@@ -205,6 +205,7 @@ global proc liquidEditorTemplate_renderman( string $node )
       editorTemplate -label "extrapolate" -addDynamicControl "liqDerivativesExtrapolate";
     editorTemplate -endLayout;
 
+	if(0){//liqGeoShader is added
 	editorTemplate -beginLayout "Procedural" -collapse true;
       //editorTemplate -label "liqGeoShader"    -addDynamicControl "liqGeoShader";
       editorTemplate 
@@ -213,17 +214,19 @@ global proc liquidEditorTemplate_renderman( string $node )
 			"AEliqInstanceFlagsGeometryReplace"
 			"message";
 	editorTemplate -endLayout;
-
+	}
+	if(0){//liqShadowShader and liqEnvironmentShader are added to shadingEngine AE
 	editorTemplate -beginLayout "CustomShader" -collapse true;
 //    editorTemplate -label "SurfaceShader"			-addDynamicControl "liqSurfaceShader";
 //    editorTemplate -label "DisplacementShader"	-addDynamicControl "liqDisplacementShader";
       editorTemplate -label "ShadowShader"			-addDynamicControl "liqShadowShader";
 //    editorTemplate -label "VolumeShader"			-addDynamicControl "liqVolumeShader";
       editorTemplate -label "EnvironmentShader"	-addDynamicControl "liqEnvironmentShader";
-      editorTemplate -label "PhotonShader"			-addDynamicControl "liqPhotonShader";
+//    editorTemplate -label "PhotonShader"			-addDynamicControl "liqPhotonShader";
 	editorTemplate -endLayout;
+	}
 	//[refactor liq|ui|5 -end]
-	editorTemplate -endLayout;//renderman
+	//editorTemplate -endLayout;//renderman
 
 	liqPopIdent();
 }

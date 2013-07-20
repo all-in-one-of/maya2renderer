@@ -301,12 +301,7 @@ global proc erDeleteAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_transform("+$node+")");
 	
-	if ( `attributeQuery -node $node -ex "liqGeoShader"` ) 
-	{
-		// philippe: this is a fix to deal with a bug with compound attributes
-		renameAttr ( $node + ".liqGeoShader" ) "TO_BE_DELETED";
-		deleteAttr ( $node + ".TO_BE_DELETED" );
-	}
+	liqDeleteAttr($node, "liqGeoShader");
 
 	liqPopIdent();
 }
@@ -316,12 +311,12 @@ global proc liquidAETemplate_transform_elvishray( string $node )
 	liqAElog("liquidAETemplate_transform_elvishray("+$node+")");
 
 	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
-      //editorTemplate -label "liqGeoShader"    -addDynamicControl "liqGeoShader";
-      editorTemplate 
-		  -callCustom 
-			"AEliqInstanceFlagsGeometryNew"
-			"AEliqInstanceFlagsGeometryReplace"
-			"message";
+      	
+		//"Procedural"
+		editorTemplate -beginLayout "Procedural" -collapse true;
+			editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqGeoShader";
+		editorTemplate -endLayout;//"Procedural"
+
 	editorTemplate -endLayout;
 
 	liqPopIdent();
