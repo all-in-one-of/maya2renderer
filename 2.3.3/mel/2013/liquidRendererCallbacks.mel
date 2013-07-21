@@ -158,6 +158,16 @@ global proc liqLoadTemplate(string $node)
 //    liqPopIdent();
 //	return $ret;
 //}
+global proc liqAddItemsToHypergraphNodePopupMenuCB(string $nodeName)
+{
+	liqPushIdent();
+	liqlog("liqAddItemsToHypergraphNodePopupMenuCB("+$nodeName+")");
+
+	buildHypergraphNodePopupMenuItems_liquid($nodeName);
+
+    liqPopIdent();
+	return;
+}
 //------------------------------------------------------
 global proc liquidAddRendererCallbacks()
 {
@@ -203,6 +213,9 @@ global proc liquidAddRendererCallbacks()
 //              -hook "nodeCanBeUsedAsMaterial"
 //              -owner "liquid";
 
+	callbacks -addCallback "liqAddItemsToHypergraphNodePopupMenuCB"
+              -hook "addItemsToHypergraphNodePopupMenu"
+              -owner "liquid";
 
 	liqPopIdent();
 }
@@ -249,7 +262,11 @@ global proc liquidRemoveRendererCallbacks()
 
 //	callbacks -removeCallback "liqNodeCanBeUsedAsMaterialCallback"
 //              -hook "nodeCanBeUsedAsMaterial"
-//              -owner "liquid";	
+//              -owner "liquid";
+
+	callbacks -removeCallback "liqAddItemsToHypergraphNodePopupMenuCB"
+				-hook "addItemsToHypergraphNodePopupMenu"
+				-owner "liquid";
 
 	liqPopIdent();
 }

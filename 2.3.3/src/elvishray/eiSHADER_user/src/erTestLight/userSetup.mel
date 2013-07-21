@@ -29,3 +29,10 @@ global proc int liquidAssignUserShaderToSelected_elvishray_erTestLight(string $n
 	liqPopIdent();
 	return 1;
 }
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_erTestLight( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_erTestLight("+$node+")");
+	liqPopIdent();
+}

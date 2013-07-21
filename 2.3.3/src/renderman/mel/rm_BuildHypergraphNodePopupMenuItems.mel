@@ -1,0 +1,39 @@
+//
+//global proc int liquidBuildHypergraphNodePopupMenuItems_renderman( string $node )
+//{	
+//	liqPushIdent();
+//	liqlog("liquidBuildHypergraphNodePopupMenuItems_renderman("+$node+")");
+//	
+//	int $ret = 0;
+//		
+//	string $nodeType = `nodeType $node`;
+//
+//	if( $nodeType == "" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( $nodeType == "" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( $nodeType == "" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( $nodeType == "" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( erBuildHypergraphNodePopupMenuItems_user($node) == 1 )
+//	{
+//		liqlog($nodeType+" is handled by elvishray user shader.");
+//		$ret = 1;
+//	}
+//	else{
+//		liqlog($nodeType+" is not handled by elvishray.");
+//		$ret = 0;
+//	}
+//
+//	liqPopIdent();
+//	return $ret;
+//}

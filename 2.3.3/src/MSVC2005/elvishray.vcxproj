@@ -3008,6 +3008,7 @@
     <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\userSetup.mel" />
     <None Include="..\elvishray\mel\er_AETemplate.mel" />
+    <None Include="..\elvishray\mel\er_BuildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
     <None Include="..\elvishray\mel\er_AEliquidInstanceFlags.mel" />
     <None Include="..\elvishray\mel\er_CameraVisibility.mel" />

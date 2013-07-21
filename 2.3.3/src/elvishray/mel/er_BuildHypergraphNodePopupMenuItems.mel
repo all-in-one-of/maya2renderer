@@ -1,0 +1,66 @@
+//
+//global proc int liquidBuildHypergraphNodePopupMenuItems_elvishray( string $node )
+//{	
+//	liqPushIdent();
+//	liqlog("liquidBuildHypergraphNodePopupMenuItems_elvishray("+$node+")");
+//	
+//	int $ret = 0;
+//		
+//	string $nodeType = `nodeType $node`;
+//
+//	if( $nodeType == "er_checker" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( $nodeType == "er_flatcolor" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( $nodeType == "er_physicalsky" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( $nodeType == "er_skylight" )
+//	{
+//		$ret = 1;
+//	}
+//	else if( erBuildHypergraphNodePopupMenuItems_user($node) == 1 )
+//	{
+//		liqlog($nodeType+" is handled by elvishray user shader.");
+//		$ret = 1;
+//	}
+//	else{
+//		liqlog($nodeType+" is not handled by elvishray.");
+//		$ret = 0;
+//	}
+//
+//	liqPopIdent();
+//	return $ret;
+//}
+global proc liquidBuildHypergraphNodePopupMenuItems_er_checker( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_er_checker("+$node+")");
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_er_flatcolor( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_er_flatcolor("+$node+")");
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_er_physicalsky( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_er_physicalsky("+$node+")");
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_er_skylight( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_er_skylight("+$node+")");
+	liqPopIdent();
+}

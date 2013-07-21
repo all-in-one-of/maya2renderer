@@ -157,7 +157,7 @@ global proc liquidLoadScripts()
     "AEliquidCoordSysTemplate.mel",
     "AEliquidSurfaceRelated.mel",
     "AEliquidCoShaderRelated.mel",        
-    "liquidBuildHypergraphNodePopupMenuItems.mel",
+    //"liquidBuildHypergraphNodePopupMenuItems.mel",
     "getMultiListerSelection.mel",
     "connectNodeToAttrOverride.mel",
     "connectNodeToNodeOverride.mel",
@@ -279,10 +279,11 @@ global proc liquidMayaVersionOverwrite()
   } 
   if( $liq_maya_version_int == 2013 )
   {
-  	evalEcho( "source \"" + $liquidHome + "/mel/2013/buildHypergraphNodePopupMenuItems.mel\"");
+//  	evalEcho( "source \"" + $liquidHome + "/mel/2013/buildHypergraphNodePopupMenuItems.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/buildShaderMenus.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/hyperShadePanel.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/renderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidBuildHypergraphNodePopupMenuItems.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidBuildShaderMenus.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidCustomNodeUI.mel\"");
 	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidCustomNodeUI.res.mel\"");

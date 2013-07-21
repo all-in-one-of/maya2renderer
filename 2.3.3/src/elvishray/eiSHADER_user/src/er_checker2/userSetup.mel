@@ -18,3 +18,10 @@ global proc int liquidAssignUserShaderToSelected_elvishray_er_checker2(string $n
 	liqPopIdent();
 	return 1;
 }
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_er_checker2( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_er_checker2("+$node+")");
+	liqPopIdent();
+}

@@ -1,0 +1,211 @@
+// Copyright (C) 1997-2011 Autodesk, Inc., and/or its licensors.
+// All rights reserved.
+//
+// The coded instructions, statements, computer programs, and/or related
+// material (collectively the "Data") in these files contain unpublished
+// information proprietary to Autodesk, Inc. ("Autodesk") and/or its licensors,
+// which is protected by U.S. and Canadian federal copyright law and by
+// international treaties.
+//
+// The Data is provided for use exclusively by You. You have the right to use,
+// modify, and incorporate this Data into other products for purposes authorized 
+// by the Autodesk software license agreement, without fee.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. AUTODESK
+// DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES
+// INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT,
+// MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ARISING FROM A COURSE 
+// OF DEALING, USAGE, OR TRADE PRACTICE. IN NO EVENT WILL AUTODESK AND/OR ITS
+// LICENSORS BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+// DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF AUTODESK AND/OR ITS
+// LICENSORS HAS BEEN ADVISED OF THE POSSIBILITY OR PROBABILITY OF SUCH DAMAGES.
+
+//
+//
+//
+//  Creation Date:  Date
+//
+// Description:
+//
+//		description
+//												
+source xxliquidutility.mel;
+
+
+//! Check if material container already assigned to selection and disconnect it before re-assigning
+//
+global proc duBuildHypergraphAssignCb( string $material, string $cmd )
+{
+	liqPushIdent();
+	liqlog("2013/duBuildHypergraphAssignCb("+$material+","+$cmd+")");
+
+	string $selected[] = `ls -sl`;
+		string $sel;
+	string $conns[];
+	string $shapes[];
+	string $shape;
+	string $conn;
+	for( $sel in $selected )
+	{
+		$shapes = `listRelatives -f -c -pa -type "mesh" $sel`;
+			$shapes[size($shapes)] = $sel;
+		for( $shape in $shapes )
+		{
+			if( `attributeQuery - exists -node $shape "liquidContainerShaderNode"` )
+			{
+				$conns = `listConnections -s 1 -d 0 -p 1 ($shape+".liquidContainerShaderNode")`;
+					for( $conn in $conns )
+					{
+						catch( `disconnectAttr $conn ($shape+".liquidContainerShaderNode")` );
+					}
+			}
+		}
+	}
+	eval( $cmd + " " + $material );
+	liqPopIdent();
+}
+//
+global proc buildHypergraphNodePopupMenuItems_liquid(string $node)
+{
+	liqPushIdent();
+	liqlog("2013/buildHypergraphNodePopupMenuItems_liquid("+$node+")");
+
+	string $nodeType = `nodeType $node`;
+
+	string $cmd = "liquidBuildHypergraphNodePopupMenuItems_"+$nodeType+"(\""+$node+"\")";
+	evalEcho $cmd;
+
+	liqPopIdent();
+}
+//global proc liquidBuildHypergraphNodePopupMenuItems_subrenderer( string $node )
+//{
+//	liqPushIdent();
+//	liqAElog("liquidBuildHypergraphNodePopupMenuItems_subrenderer("+$node+")");
+//   
+//	int $handled = 0;
+//
+//	if( liquidGlobalsExists() )
+//	{
+//		if ( isSubRendererLoaded(liqGetSubRendererName()) )
+//		{
+//			string $cmd = "liquidBuildHypergraphNodePopupMenuItems_"+liqGetSubRendererName()+"(\""+$node+"\")";
+//			$handled = `eval $cmd`;
+//			if($handled == 1)
+//			{
+//				liqPopIdent();
+//				return $handled;
+//			}
+//		}
+//	}
+//	liqPopIdent();
+//	return $handled;
+//}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_liquidSurface( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_liquidSurface("+$node+")");
+
+	//menuItem -rp "N" -label $label
+	//	-command ("print liquidSurface N;" );
+	//menuItem -rp "E" -label $label
+	//	-command ("print liquidSurface E;" );
+	//menuItem -rp "S" -label $label
+	//	-command ("print liquidSurface S;" );
+	//menuItem -rp "W" -label $label
+	//	-command ("print liquidSurface W;" );
+	//menuItem -rp "NE" -label $label
+	//	-command ("print liquidSurface NE;" );
+	//menuItem -rp "NW" -label $label
+	//	-command ("print liquidSurface NW;" );
+	//menuItem -rp "SE" -label $label
+	//	-command ("print liquidSurface SE;" );
+	//menuItem -rp "SW" -label $label
+	//	-command ("print liquidSurface SW;" );
+	string $direction[] = {"N", "E", "S", "W", "NE", "NW", "SE", "SW"};
+	string $nodeType = `nodeType $node`;
+
+	for( $dir in $direction )
+	{
+		string $label = ($nodeType+" "+$dir);
+		menuItem  -rp $dir -label $label -bld 1
+			-command ("print(\""+$label+"\");" );
+	}
+
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_liquidDisplacement( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_liquidDisplacement("+$node+")");
+	
+	string $direction[] = {"N", "E", "S", "W", "NE", "NW", "SE", "SW"};
+	string $nodeType = `nodeType $node`;
+
+	for( $dir in $direction )
+	{
+		string $label = ($nodeType+" "+$dir);
+		menuItem -rp $dir -label $label -bld 1
+			-command ("print(\""+$label+"\");" );
+	}
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_liquidVolume( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_liquidVolume("+$node+")");
+
+	string $direction[] = {"N", "E", "S", "W", "NE", "NW", "SE", "SW"};
+	string $nodeType = `nodeType $node`;
+
+	for( $dir in $direction )
+	{
+		string $label = ($nodeType+" "+$dir);
+		menuItem -rp $dir -label $label -bld 1
+			-command ("print(\""+$label+"\");" );
+	}
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_liquidLight( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_liquidLight("+$node+")");
+
+	string $direction[] = {"N", "E", "S", "W", "NE", "NW", "SE", "SW"};
+	string $nodeType = `nodeType $node`;
+
+	//for( $dir in $direction )
+	//{
+	//	string $label = ($nodeType+" "+$dir);
+	//	menuItem -rp $dir -label $label -bld 1
+	//		-command ("print(\""+$label+"\");" );
+	//}
+
+	//avaiable radialPosition:W, NW, SE
+	//menuItem -rp "W" -label "" -bld 1 -command ("");
+	menuItem -rp "NW" -label "liquid: Assign Shader To Selection" -bld 1
+			 -command ("liquidAssignShaderToSelected(\""+$node+"\")");
+	menuItem -rp "SE" -label "liquid: Select Lights With This Shader" -bld 1
+			 -command ("liquidSelectAssignedToLightShader(\""+$node+"\")");
+
+	liqPopIdent();
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_liquidShader( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_liquidShader("+$node+")");
+
+	string $direction[] = {"N", "E", "S", "W", "NE", "NW", "SE", "SW"};
+	string $nodeType = `nodeType $node`;
+
+	for( $dir in $direction )
+	{
+		string $label = ($nodeType+" "+$dir);
+		menuItem -rp $dir -label $label -bld 1
+			-command ("print(\""+$label+"\");" );
+	}
+	liqPopIdent();
+}

@@ -20,6 +20,7 @@ source er_CustomNodeUI.mel;
 source er_CustomNodeUI.res.mel;
 source er_AETemplate.mel;
 source er_MessageCallback.mel;
+source er_BuildHypergraphNodePopupMenuItems.mel;
 
 //-----------------------------------------------
 // source erSHADER_user scripts if any.
@@ -29,3 +30,23 @@ if( $erSHADER_user_DIR != "" )
     eval( "source \"" + $erSHADER_user_DIR + "/src/userSetup.mel\"" );
 }
 //-----------------------------------------------
+//global string $g_LiquidUserShader_elvishray[];
+//global proc int isLiquidUserShader_elvishray(string $node)
+//{
+//	global string $g_LiquidUserShader_elvishray[];
+//	liqPushIdent();
+//	liqlog("isLiquidUserShader_elvishray("+$node+")");
+//   
+//	if( `size($g_LiquidUserShader_elvishray)` == 0 )
+//	{
+//		$found = 0;	
+//		liqPopIdent();
+//		return $found;
+//	}
+//
+//	string $nodeType = `nodeType $node`;
+//	int $found = stringArrayContains($nodeType, $g_LiquidUserShader_elvishray);
+//		
+//	liqPopIdent();
+//	return $found;
+//}

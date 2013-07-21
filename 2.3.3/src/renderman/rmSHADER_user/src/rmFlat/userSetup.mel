@@ -18,3 +18,10 @@ global proc int liquidAssignUserShaderToSelected_renderman_rmFlat(string $node)
 	liqPopIdent();
 	return 1;
 }
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_rmFlat( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_rmFlat("+$node+")");
+	liqPopIdent();
+}

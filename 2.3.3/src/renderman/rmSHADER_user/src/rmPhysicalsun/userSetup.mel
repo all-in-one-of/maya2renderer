@@ -29,3 +29,10 @@ global proc int liquidAssignUserShaderToSelected_renderman_rmPhysicalsun(string 
 	liqPopIdent();
 	return 1;
 }
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_rmPhysicalsun( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_rmPhysicalsun("+$node+")");
+	liqPopIdent();
+}

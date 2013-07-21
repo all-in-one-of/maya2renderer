@@ -29,3 +29,10 @@ global proc int liquidAssignUserShaderToSelected_renderman_rmOccLight(string $no
 	liqPopIdent();
 	return 1;
 }
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_rmOccLight( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_rmOccLight("+$node+")");
+	liqPopIdent();
+}

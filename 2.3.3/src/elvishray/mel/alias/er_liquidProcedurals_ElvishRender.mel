@@ -95,3 +95,14 @@ global proc liquidStartup_ElvishRender()
 
 	liqPopIdent();
 }
+//
+//global proc int liquidBuildHypergraphNodePopupMenuItems_ElvishRender( string $node )
+//{	
+//	liqPushIdent();
+//	liqlog("liquidBuildHypergraphNodePopupMenuItems_ElvishRender("+$node+")");
+//	
+//	int $ret = liquidBuildHypergraphNodePopupMenuItems_ElvishRender($node);
+//
+//	liqPopIdent();
+//	return $ret;
+//}

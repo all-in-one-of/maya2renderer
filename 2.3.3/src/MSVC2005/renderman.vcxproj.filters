@@ -188,6 +188,9 @@
     <None Include="..\renderman\mel\rm_MessageCallback.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\renderman\mel\rm_BuildHypergraphNodePopupMenuItems.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\renderman\rm_factory.h">

@@ -370,5 +370,8 @@
     <None Include="..\elvishray\mel\er_MessageCallback.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\elvishray\mel\er_BuildHypergraphNodePopupMenuItems.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
 </Project>
