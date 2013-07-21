@@ -655,12 +655,23 @@ global proc liquidCreateMenus()
   {
     setParent $gMainWindow;
     menu -label "Liquid" -tearOff true liquidMainWindowMenu;
+		string $menuName;
+		$menuName = "liquidChooseRendererMenu";
 	  	menuItem -label "Choose Renderer"
                -subMenu true
                -tearOff false
                -postMenuCommand 
-                ("liquidBuildChooseSubRendererMenu liquidChooseRendererMenu")
-               liquidChooseRendererMenu;
+                ("liquidBuildChooseSubRendererMenu "+$menuName)
+               $menuName;
+		setParent -menu ..; // from submenu 
+
+		$menuName = "liquidChooseCameraMenu";
+		menuItem -label "Choose Camera"
+               -subMenu true
+               -tearOff false
+               -postMenuCommand 
+                ("liquidBuildRenderCameraMenu "+$menuName)
+               $menuName;
 		setParent -menu ..; // from submenu 
 
       menuItem -label "Render" -ann "Render" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
