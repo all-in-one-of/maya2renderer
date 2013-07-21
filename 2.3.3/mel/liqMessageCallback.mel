@@ -6,6 +6,10 @@ global proc liqMDGMessage_addNodeAddedCallback(string $node)
 	liqPushIdent();
 	liqlog("liqMDGMessage_addNodeAddedCallback("+$node+")");
 
+	//on liquid
+	liqMDGMessage_addNodeAddedCallback_AddAttribute($node);
+
+	//on sub renderers
 	if( liquidGlobalsExists() )
 	{
 		string $lrnd[] = liquidGatherLoadedSubRenderers();
@@ -16,6 +20,316 @@ global proc liqMDGMessage_addNodeAddedCallback(string $node)
 			eval $cmd;
 		}
 	}
+
+	liqPopIdent();
+}
+//
+global proc liqMDGMessage_addNodeAddedCallback_AddAttribute(string $node)
+{
+	liqPushIdent();
+	liqlog("liqMDGMessage_addNodeAddedCallback_AddAttribute("+$node+")");
+
+	string $type = `nodeType $node`;
+	
+	if($type == "pointLight")
+	{
+		liqAddAttribute_pointlight($node);
+	}
+	else if($type == "areaLight"){
+		liqAddAttribute_areaLight($node);
+	}
+	else if($type == "directionalLight"){
+		liqAddAttribute_directionalLight($node);
+	}
+	else if($type == "spotLight"){
+		liqAddAttribute_spotLight($node);
+	}
+	else if($type == "volumeLight"){
+		liqAddAttribute_volumeLight($node);
+	}
+	else if($type == "shadingEngine"){
+		liqAddAttribute_shadingEngine($node);
+	}
+	else if($type == "camera"){
+		liqAddAttribute_camera($node);
+	}
+	else if($type == "transform"){
+		liqAddAttribute_transform($node);
+	}
+	else{
+		liqlog("$type=["+$type+"] is not supported.");
+	}
+
+
+	liqPopIdent();
+}
+//
+//============================================================================
+//	light
+//============================================================================
+// --------------------------- point light -----------------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_AddAttribute()
+global proc liqAddAttribute_pointlight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqAddAttribute_pointlight("+$node+")");
+	
+	if ( !objExists( ($node + ".liquidLightShaderNode") ) )
+		addAttr -ln "liquidLightShaderNode" -at message $node;
+
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_pointlight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_pointlight("+$node+")");
+	
+	liqDeleteAttr($node, "liquidLightShaderNode");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_pointLight_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_pointLight_liquid("+$node+")");
+
+	editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liquidLightShaderNode";
+
+	liqPopIdent();
+}
+// ------------------------------- area light -----------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_AddAttribute()
+global proc liqAddAttribute_areaLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqAddAttribute_areaLight("+$node+")");
+
+	if ( !objExists( ($node + ".liquidLightShaderNode") ) )
+		addAttr -ln "liquidLightShaderNode" -at message $node;
+
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_areaLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_areaLight("+$node+")");
+	
+	liqDeleteAttr($node, "liquidLightShaderNode");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_areaLight_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_areaLight("+$node+")");
+
+	editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liquidLightShaderNode";
+
+	liqPopIdent();
+}
+// ------------------------------- directional light ----------------------
+global proc liqAddAttribute_directionalLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqAddAttribute_directionalLight("+$node+")");
+
+	if ( !objExists( ($node + ".liquidLightShaderNode") ) )
+		addAttr -ln "liquidLightShaderNode" -at message $node;
+
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_directionalLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_directionalLight("+$node+")");
+	
+	liqDeleteAttr($node, "liquidLightShaderNode");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_directionalLight_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_directionalLight("+$node+")");
+
+	editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liquidLightShaderNode";
+
+	liqPopIdent();
+}
+// ------------------------------- spot light -----------------------------
+global proc liqAddAttribute_spotLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqAddAttribute_spotLight("+$node+")");
+		
+	if ( !objExists( ($node + ".liquidLightShaderNode") ) )
+		addAttr -ln "liquidLightShaderNode" -at message $node;
+
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_spotLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_spotLight("+$node+")");
+	
+	liqDeleteAttr($node, "liquidLightShaderNode");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_spotLight_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_spotLight("+$node+")");
+
+	editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liquidLightShaderNode";
+
+	liqPopIdent();
+}
+// ------------------------------- volumeLight -----------------------------
+global proc liqAddAttribute_volumeLight(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_volumeLight("+$node+")");
+
+	if ( !objExists( ($node + ".liquidLightShaderNode") ) )
+		addAttr -ln "liquidLightShaderNode" -at message $node;
+
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_volumeLight(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_volumeLight("+$node+")");
+	
+	liqDeleteAttr($node, "liquidLightShaderNode");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_volumeLight_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_volumeLight("+$node+")");
+
+	editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liquidLightShaderNode";
+
+	liqPopIdent();
+}
+// ------------------------------- shadingEngine  ----------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_AddAttribute()
+global proc liqAddAttribute_shadingEngine(string $node)
+{
+	liqPushIdent();
+	liqlog("liqAddAttribute_shadingEngine("+$node+")");
+
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_shadingEngine(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_shadingEngine("+$node+")");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_shadingEngine_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_shadingEngine("+$node+")");
+	
+
+	liqPopIdent();
+}
+// ------------------------------- camera  -----------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_AddAttribute()
+global proc liqAddAttribute_camera(string $node)
+{
+	liqPushIdent();
+	liqlog("erAddAttribute_camera("+$node+")");
+
+	if ( !`attributeQuery -node $node -ex "liqEnvironmentShader"` ) {
+	  addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $node;
+	  addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	  addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	  addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
+	}
+	if ( !`attributeQuery -node $node -ex "liqLensShader"` ) {
+	  addAttr -ln "liqLensShader" -usedAsColor -at "float3" -k true $node;
+	  addAttr -ln "liqLensShaderR" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
+	  addAttr -ln "liqLensShaderG" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
+	  addAttr -ln "liqLensShaderB" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
+	}
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_camera(string $node)
+{
+	liqPushIdent();
+	liqlog("liqDeleteAttribute_camera("+$node+")");
+	
+	liqDeleteAttr($node, "liqEnvironmentShader");
+	liqDeleteAttr($node, "liqLensShader");
+
+	liqPopIdent();
+}
+//
+global proc liquidAETemplate_camera_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_camera("+$node+")");
+		
+	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
+		editorTemplate -callCustom
+				"AEliqShaderNew" "AEliqShaderReplace" 
+				"liqEnvironmentShader";
+		editorTemplate -callCustom
+				"AEliqShaderNew" "AEliqShaderReplace" 
+				"liqLensShader";
+	editorTemplate -endLayout;
+
+	liqPopIdent();
+}
+// ------------------------------- transform  -----------------------------
+//invoked from liqMDGMessage_addNodeAddedCallback_AddAttribute()
+global proc liqAddAttribute_transform(string $node)
+{
+	liqPushIdent();
+	liqlog("liqAddAttribute_transform("+$node+")");
+
+	if ( !`attributeQuery -node $node -ex "liqGeoShader"` ) {
+      addAttr -ln "liqGeoShader" -dt "float3" $node;
+    }
+	liqPopIdent();
+}
+//
+global proc liqDeleteAttribute_transform(string $node)
+{
+	liqPushIdent();
+	liqlog("erDeleteAttribute_transform("+$node+")");
+	
+	liqDeleteAttr($node, "liqGeoShader");
+
+	liqPopIdent();
+}
+global proc liquidAETemplate_transform_liquid( string $node )
+{
+	liqPushIdent();
+	liqAElog("liquidAETemplate_transform("+$node+")");
+
+	//"Procedural"
+	editorTemplate -beginLayout "Procedural" -collapse true;
+		editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqGeoShader";
+	editorTemplate -endLayout;//"Procedural"
 
 	liqPopIdent();
 }

@@ -30,7 +30,7 @@ global proc erAddAttribute_pointlight(string $node)
 {
 	liqPushIdent();
 	liqlog("erAddAttribute_pointlight("+$node+")");
-
+	
 	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
 	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
 
@@ -42,8 +42,8 @@ global proc erDeleteAttribute_pointlight(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_pointlight("+$node+")");
 	
-	deleteAttr -at "ei_area_samples" $node;
-	deleteAttr -at "ei_adaptive"     $node;
+	liqDeleteAttr($node, "ei_area_samples");
+	liqDeleteAttr($node, "ei_adaptive");
 
 	liqPopIdent();
 }
@@ -79,8 +79,8 @@ global proc erDeleteAttribute_areaLight(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_areaLight("+$node+")");
 	
-	deleteAttr -at "ei_area_samples" $node;
-	deleteAttr -at "ei_adaptive"     $node;
+	liqDeleteAttr($node, "ei_area_samples");
+	liqDeleteAttr($node, "ei_adaptive");
 
 	liqPopIdent();
 }
@@ -115,8 +115,8 @@ global proc erDeleteAttribute_directionalLight(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_directionalLight("+$node+")");
 	
-	deleteAttr -at "ei_area_samples" $node;
-	deleteAttr -at "ei_adaptive"     $node;
+	liqDeleteAttr($node, "ei_area_samples");
+	liqDeleteAttr($node, "ei_adaptive");
 
 	liqPopIdent();
 }
@@ -139,7 +139,7 @@ global proc erAddAttribute_spotLight(string $node)
 {
 	liqPushIdent();
 	liqlog("erAddAttribute_spotLight("+$node+")");
-
+		
 	addAttr -ln "ei_area_samples" -sn "sam" -at "long" -dv 16 -k true -s true -w true $node;
 	addAttr -ln "ei_adaptive"     -sn "adp" -at "bool" -dv 0  -k true -s true -w true $node;
 
@@ -151,8 +151,8 @@ global proc erDeleteAttribute_spotLight(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_spotLight("+$node+")");
 	
-	deleteAttr -at "ei_area_samples" $node;
-	deleteAttr -at "ei_adaptive"     $node;
+	liqDeleteAttr($node, "ei_area_samples");
+	liqDeleteAttr($node, "ei_adaptive");
 
 	liqPopIdent();
 }
@@ -187,8 +187,8 @@ global proc erDeleteAttribute_volumeLight(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_volumeLight("+$node+")");
 	
-	deleteAttr -at "ei_area_samples" $node;
-	deleteAttr -at "ei_adaptive"     $node;
+	liqDeleteAttr($node, "ei_area_samples");
+	liqDeleteAttr($node, "ei_adaptive");
 
 	liqPopIdent();
 }
@@ -241,18 +241,6 @@ global proc erAddAttribute_camera(string $node)
 	liqPushIdent();
 	liqlog("erAddAttribute_camera("+$node+")");
 
-	if ( !`attributeQuery -node $node -ex "liqEnvironmentShader"` ) {
-	  addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $node;
-	  addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
-	  addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
-	  addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
-	}
-	if ( !`attributeQuery -node $node -ex "liqLensShader"` ) {
-	  addAttr -ln "liqLensShader" -usedAsColor -at "float3" -k true $node;
-	  addAttr -ln "liqLensShaderR" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
-	  addAttr -ln "liqLensShaderG" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
-	  addAttr -ln "liqLensShaderB" -at "float" -dv 1 -k true -parent "liqLensShader" $node;
-	}
 	liqPopIdent();
 }
 //
@@ -261,8 +249,6 @@ global proc erDeleteAttribute_camera(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_camera("+$node+")");
 	
-	liqDeleteAttr($node, "liqEnvironmentShader");
-	liqDeleteAttr($node, "liqLensShader");
 
 	liqPopIdent();
 }
@@ -273,12 +259,6 @@ global proc liquidAETemplate_camera_elvishray( string $node )
 	liqAElog("liquidAETemplate_camera_elvishray("+$node+")");
 		
 	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
-		editorTemplate -callCustom
-				"AEliqShaderNew" "AEliqShaderReplace" 
-				"liqEnvironmentShader";
-		editorTemplate -callCustom
-				"AEliqShaderNew" "AEliqShaderReplace" 
-				"liqLensShader";
 	editorTemplate -endLayout;
 
 	liqPopIdent();
@@ -290,9 +270,6 @@ global proc erAddAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("erAddAttribute_transform("+$node+")");
 
-	if ( !`attributeQuery -node $node -ex "liqGeoShader"` ) {
-      addAttr -ln "liqGeoShader" -dt "float3" $node;
-    }
 	liqPopIdent();
 }
 //
@@ -301,7 +278,6 @@ global proc erDeleteAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("erDeleteAttribute_transform("+$node+")");
 	
-	liqDeleteAttr($node, "liqGeoShader");
 
 	liqPopIdent();
 }
@@ -312,10 +288,6 @@ global proc liquidAETemplate_transform_elvishray( string $node )
 
 	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
       	
-		//"Procedural"
-		editorTemplate -beginLayout "Procedural" -collapse true;
-			editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqGeoShader";
-		editorTemplate -endLayout;//"Procedural"
 
 	editorTemplate -endLayout;
 

@@ -10,6 +10,9 @@ global proc liquidAETemplate_pointLight( string $node )
   liqPushIdent();
   liqAElog("liquidAETemplate_pointLight("+$node+")");
 
+	//liquid
+	liquidAETemplate_pointLight_liquid($node);
+
 	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
@@ -26,6 +29,9 @@ global proc liquidAETemplate_areaLight( string $node )
 {
   liqPushIdent();
   liqAElog("liquidAETemplate_areaLight("+$node+")");
+
+	//liquid
+	liquidAETemplate_areaLight_liquid($node);
 
 	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
@@ -44,6 +50,9 @@ global proc liquidAETemplate_directionalLight( string $node )
   liqPushIdent();
   liqAElog("liquidAETemplate_directionalLight("+$node+")");
 
+	//liquid
+	liquidAETemplate_directionalLight_liquid($node);
+
 	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
@@ -60,6 +69,9 @@ global proc liquidAETemplate_spotLight( string $node )
 {
   liqPushIdent();
   liqAElog("liquidAETemplate_spotLight("+$node+")");
+
+	//liquid
+	liquidAETemplate_spotLight_liquid($node);
 
 	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
@@ -78,6 +90,9 @@ global proc liquidAETemplate_volumeLight( string $node )
   liqPushIdent();
   liqAElog("liquidAETemplate_volumeLight("+$node+")");
 
+	//liquid
+	liquidAETemplate_volumeLight_liquid($node);
+
 	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
@@ -95,6 +110,8 @@ global proc liquidAETemplate_shadingEngine( string $node )
   liqPushIdent();
   liqAElog("liquidAETemplate_shadingEngine("+$node+")");
 
+	liquidAETemplate_shadingEngine_liquid($node);
+
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{
@@ -111,6 +128,8 @@ global proc liquidAETemplate_camera( string $node )
   liqPushIdent();
   liqAElog("liquidAETemplate_camera("+$node+")");
 
+	liquidAETemplate_camera_liquid($node);
+
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{
@@ -126,6 +145,8 @@ global proc liquidAETemplate_transform( string $node )
 {
   liqPushIdent();
   liqAElog("liquidAETemplate_transform("+$node+")");
+
+	liquidAETemplate_transform_liquid($node);
 
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)

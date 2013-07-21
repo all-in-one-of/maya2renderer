@@ -193,19 +193,6 @@ global proc rmAddAttribute_shadingEngine(string $node)
 	liqPushIdent();
 	liqlog("rmAddAttribute_shadingEngine("+$node+")");
 
-	if ( !`attributeQuery -node $node -ex "liqShadowShader"` ) {
-		addAttr -ln "liqShadowShader" -usedAsColor -at "float3" -k true $node;
-		addAttr -ln "liqShadowShaderR" -at "float" -dv 1 -k true -parent "liqShadowShader" $node;
-		addAttr -ln "liqShadowShaderG" -at "float" -dv 1 -k true -parent "liqShadowShader" $node;
-		addAttr -ln "liqShadowShaderB" -at "float" -dv 1 -k true -parent "liqShadowShader" $node;
-	}
-	if ( !`attributeQuery -node $node -ex "liqEnvironmentShader"` ) {
-		addAttr -ln "liqEnvironmentShader" -usedAsColor -at "float3" -k true $node;
-		addAttr -ln "liqEnvironmentShaderR" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
-		addAttr -ln "liqEnvironmentShaderG" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
-		addAttr -ln "liqEnvironmentShaderB" -at "float" -dv 1 -k true -parent "liqEnvironmentShader" $node;
-	}
-
 	liqPopIdent();
 }
 //
@@ -213,9 +200,6 @@ global proc rmDeleteAttribute_shadingEngine(string $node)
 {
 	liqPushIdent();
 	liqlog("rmDeleteAttribute_shadingEngine("+$node+")");
-
-	liqDeleteAttr($node, "liqShadowShader");
-	liqDeleteAttr($node, "liqEnvironmentShader");
 
 	liqPopIdent();
 }
@@ -225,10 +209,6 @@ global proc liquidAETemplate_shadingEngine_renderman( string $node )
 	liqAElog("liquidAETemplate_shadingEngine_renderman("+$node+")");
 		
 	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
-
-		editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqShadowShader";
-		editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqEnvironmentShader";
-
 	editorTemplate -endLayout;
 
 	liqPopIdent();
@@ -256,18 +236,39 @@ global proc rmAddAttribute_camera(string $node)
 	//	,"Geometry Set"           ,"liqGeometrySet",""			    ,"string" ,""      ,""         ,""  
 	//	,"Shading Rate Factor"    ,"liqShadingRateFactor",""    ,"float"  ,1.0     ,""         ,""     
 	//};
-	addAttr -ln "liqShadowResolution"		/*-sn ""*/ -at "short"  -dv 512	-k true -s true -w true $node;
-	addAttr -ln "liqMidPointShadow"			/*-sn ""*/ -at "bool"   -dv 0	-k true -s true -w true $node;
-	addAttr -ln "liqMidPointRatio"			/*-sn ""*/ -at "float"  -dv 0.1	-k true -s true -w true $node;
-	addAttr -ln "liqDeepShadows"			/*-sn ""*/ -at "bool"   -dv 0	-k true -s true -w true $node;
-	addAttr -ln "liqPixelSamples"			/*-sn ""*/ -at "short"  -dv 1	-k true -s true -w true $node;//"0:256:1"
-	addAttr -ln "liqVolumeInterpretation"   /*-sn ""*/ -at "enum"	-dv 0	-k true -s true -w true -enumName "Discreet=0:Continuous=1"       $node;//  
-	addAttr -ln "liqDeepShadowsDisplayMode" -sn "dshdm" -at "enum"	-dv 0	-k true -s true -w true -enumName "Default=0:deepprevdisttotal=1" $node;//
-	addAttr -ln "liqEveryFrame"				/*-sn ""*/ -at "bool"   -dv 1	-k true -s true -w true $node;
-	addAttr -ln "liqRenderAtFrame"			/*-sn ""*/ -at "short"  -dv 0	-k true -s true -w true $node;
-	addAttr -ln "liqGeometrySet"			/*-sn ""*/ -dt "string"	/*-dv ""*/ -k true -s true -w true $node;
-	addAttr -ln "liqShadingRateFactor"		/*-sn ""*/ -at "float"  -dv 1.0	-k true -s true -w true $node;
-
+	if ( !`attributeQuery -node $node -ex "liqShadowResolution"` ) {		
+		addAttr -ln "liqShadowResolution"		/*-sn ""*/ -at "short"  -dv 512	-k true -s true -w true $node;
+	}	
+	if ( !`attributeQuery -node $node -ex "liqMidPointShadow"` ) {		
+		addAttr -ln "liqMidPointShadow"			/*-sn ""*/ -at "bool"   -dv 0	-k true -s true -w true $node;
+	}	
+	if ( !`attributeQuery -node $node -ex "liqMidPointRatio"` ) {		
+		addAttr -ln "liqMidPointRatio"			/*-sn ""*/ -at "float"  -dv 0.1	-k true -s true -w true $node;
+	}	
+	if ( !`attributeQuery -node $node -ex "liqDeepShadows"` ) {		
+		addAttr -ln "liqDeepShadows"			/*-sn ""*/ -at "bool"   -dv 0	-k true -s true -w true $node;
+	}	
+	if ( !`attributeQuery -node $node -ex "liqPixelSamples"` ) {		
+		addAttr -ln "liqPixelSamples"			/*-sn ""*/ -at "short"  -dv 1	-k true -s true -w true $node;//"0:256:1"
+	}	
+	if ( !`attributeQuery -node $node -ex "liqVolumeInterpretation"` ) {		
+		addAttr -ln "liqVolumeInterpretation"   /*-sn ""*/ -at "enum"	-dv 0	-k true -s true -w true -enumName "Discreet=0:Continuous=1"       $node;//  
+	}	
+	if ( !`attributeQuery -node $node -ex "liqDeepShadowsDisplayMode"` ) {		
+		addAttr -ln "liqDeepShadowsDisplayMode" -sn "dshdm" -at "enum"	-dv 0	-k true -s true -w true -enumName "Default=0:deepprevdisttotal=1" $node;//
+	}	
+	if ( !`attributeQuery -node $node -ex "liqEveryFrame"` ) {		
+		addAttr -ln "liqEveryFrame"				/*-sn ""*/ -at "bool"   -dv 1	-k true -s true -w true $node;
+	}	
+	if ( !`attributeQuery -node $node -ex "liqRenderAtFrame"` ) {	
+		addAttr -ln "liqRenderAtFrame"			/*-sn ""*/ -at "short"  -dv 0	-k true -s true -w true $node;
+	}
+	if ( !`attributeQuery -node $node -ex "liqGeometrySet"` ) {
+		addAttr -ln "liqGeometrySet"			/*-sn ""*/ -dt "string"	/*-dv ""*/ -k true -s true -w true $node;
+	}
+	if ( !`attributeQuery -node $node -ex "liqShadingRateFactor"` ) {
+		addAttr -ln "liqShadingRateFactor"		/*-sn ""*/ -at "float"  -dv 1.0	-k true -s true -w true $node;
+	}
 	liqPopIdent();
 }
 //
@@ -276,17 +277,17 @@ global proc rmDeleteAttribute_camera(string $node)
 	liqPushIdent();
 	liqlog("rmDeleteAttribute_camera("+$node+")");
 
-	deleteAttr -at "liqShadowResolution"	$node;
-	deleteAttr -at "liqMidPointShadow"		$node;
-	deleteAttr -at "liqMidPointRatio"		$node;
-	deleteAttr -at "liqDeepShadows"			$node;
-	deleteAttr -at "liqPixelSamples"		$node;
-	deleteAttr -at "liqVolumeInterpretation"	$node;
-	deleteAttr -at "liqDeepShadowsDisplayMode"	$node;
-	deleteAttr -at "liqEveryFrame"			$node;
-	deleteAttr -at "liqRenderAtFrame"		$node;
-	deleteAttr -at "liqGeometrySet"			$node;
-	deleteAttr -at "liqShadingRateFactor"	$node;
+	liqDeleteAttr($node, "liqShadowResolution");
+	liqDeleteAttr($node, "liqMidPointShadow");
+	liqDeleteAttr($node, "liqMidPointRatio");
+	liqDeleteAttr($node, "liqDeepShadows");
+	liqDeleteAttr($node, "liqPixelSamples");
+	liqDeleteAttr($node, "liqVolumeInterpretation");
+	liqDeleteAttr($node, "liqDeepShadowsDisplayMode");
+	liqDeleteAttr($node, "liqEveryFrame");
+	liqDeleteAttr($node, "liqRenderAtFrame");
+	liqDeleteAttr($node, "liqGeometrySet");
+	liqDeleteAttr($node, "liqShadingRateFactor");
 
 	liqPopIdent();
 }
@@ -319,10 +320,6 @@ global proc rmAddAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("rmAddAttribute_transform("+$node+")");
 
-	//"Procedural"
-	if ( !`attributeQuery -node $node -ex "liqGeoShader"` ) {
-      addAttr -ln "liqGeoShader" -dt "float3" $node;
-    }
 	liqPopIdent();
 }
 //
@@ -331,9 +328,6 @@ global proc rmDeleteAttribute_transform(string $node)
 	liqPushIdent();
 	liqlog("rmDeleteAttribute_transform("+$node+")");
 	
-	//"Procedural"
-	liqDeleteAttr($node, "liqGeoShader");
-
 	liqPopIdent();
 }
 global proc liquidAETemplate_transform_renderman( string $node )
@@ -344,11 +338,6 @@ global proc liquidAETemplate_transform_renderman( string $node )
 	editorTemplate -beginLayout (rm_getRendererName()) -collapse 1;
 		
 		liquidEditorTemplate_renderman($node);
-
-		//"Procedural"
-		editorTemplate -beginLayout "Procedural" -collapse true;
-			editorTemplate -callCustom "AEliqShaderNew" "AEliqShaderReplace" "liqGeoShader";
-		editorTemplate -endLayout;//"Procedural"
 
 	editorTemplate -endLayout;
 
