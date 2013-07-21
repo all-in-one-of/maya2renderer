@@ -7,6 +7,8 @@
 
 - learn katana
 
+liq|: liqGlobal --> AE
+liq|: callback buildHyperShadeMenu()
 liq| er|: liquidAETemplate_shadingEngine, liquidAETemplate_camera, 
 liq|: 把liquidDLL里自定义属性移到renderman工程里
 done)liq|: bug:addExtension 的attr无法保存到文件

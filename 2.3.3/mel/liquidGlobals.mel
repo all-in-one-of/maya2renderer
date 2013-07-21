@@ -206,7 +206,7 @@ proc liquidShowBoolGlobal( string $name, string $label, string $prefix )
 //===========================================================================================
 //
 //===========================================================================================
-proc liquidShowBitFieldGlobal( string $attr )
+global proc liquidShowBitFieldGlobal( string $attr )
 {
   liqPushIdent();
 	liqlog("liquidShowBitFieldGlobal(...)");
@@ -2677,7 +2677,7 @@ global proc liquidDrawDisplayChannels( string $prefix )
 /* Globals Tabs --------------------------------------------------------------------------------- */
 
 
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsFrameTab( string $prefix )
 {
   liqPushIdent();
@@ -2779,7 +2779,7 @@ global proc liquidGlobalsFrameTab( string $prefix )
   ////setUITemplate -popTemplate;
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsFileTab( string $prefix )
 {
   liqPushIdent();
@@ -2787,7 +2787,7 @@ global proc liquidGlobalsFileTab( string $prefix )
   columnLayout -adj true ($prefix + "liquidGlobalsFileSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsFileTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -2860,7 +2860,7 @@ global proc liquidGlobalsFileTab_buildIt( string $prefix )
 
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsImageTab( string $prefix )
 {
   liqPushIdent();
@@ -2868,7 +2868,7 @@ global proc liquidGlobalsImageTab( string $prefix )
   columnLayout -adj true ($prefix + "liquidGlobalsImageSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidHiderOptions_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3063,7 +3063,7 @@ global proc liquidHiderOptions_buildIt( string $prefix )
   setParent $previousParent;
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsImageTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3152,6 +3152,7 @@ global proc liquidGlobalsImageTab_buildIt( string $prefix )
   liqPopIdent();
 }
 //===========================================================================================
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsDisplaysTab( string $prefix )
 {
   liqPushIdent();
@@ -3162,6 +3163,7 @@ global proc liquidGlobalsDisplaysTab( string $prefix )
 //===========================================================================================
 //
 //===========================================================================================
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsDisplaysTab_buildIt( string $prefix )
 {
 	liqPushIdent();
@@ -3243,7 +3245,7 @@ global proc liquidGlobalsDisplaysTab_buildIt( string $prefix )
   ////setUITemplate -ppt;
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsRaysTab( string $prefix )
 {
   liqPushIdent();
@@ -3251,7 +3253,7 @@ global proc liquidGlobalsRaysTab( string $prefix )
   columnLayout -adj true ($prefix + "liquidGlobalsRaysSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsRaysTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3320,7 +3322,7 @@ global proc liquidGlobalsRaysTab_buildIt( string $prefix )
   setParent $previousParent;
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsOptionsTab( string $prefix )
 {
   liqPushIdent();
@@ -3328,7 +3330,7 @@ global proc liquidGlobalsOptionsTab( string $prefix )
   columnLayout -adj true ($prefix + "liquidGlobalsOptionsSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsOptionsTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3455,7 +3457,7 @@ global proc liquidGlobalsOptionsTab_buildIt( string $prefix )
 
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsJobTab( string $prefix )
 {
 	liqPushIdent();
@@ -3464,7 +3466,7 @@ global proc liquidGlobalsJobTab( string $prefix )
 
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsJobTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3560,7 +3562,7 @@ global proc liquidGlobalsJobTab_buildIt( string $prefix )
 
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsRendererTab( string $prefix )
 {
   liqPushIdent();
@@ -3568,7 +3570,7 @@ global proc liquidGlobalsRendererTab( string $prefix )
   columnLayout -cat left 0 -adj true ($prefix + "liquidGlobalsRendererSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsRendererTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3658,7 +3660,7 @@ global proc liquidGlobalsRendererTab_buildIt( string $prefix )
 
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsFluidTab( string $prefix )
 {
   liqPushIdent();
@@ -3666,7 +3668,7 @@ global proc liquidGlobalsFluidTab( string $prefix )
   columnLayout -adj true ($prefix + "liquidGlobalsFluidSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsFluidTab_buildIt( string $prefix )
 {
   liqPushIdent();
@@ -3723,7 +3725,7 @@ global proc liquidGlobalsFluidTab_buildIt( string $prefix )
   liqPopIdent();
 }
 
-
+//called in liquidCreateMayaGlobalsTab()
 global proc liquidGlobalsAdvanceTab( string $prefix )
 {
   liqPushIdent();
@@ -3731,7 +3733,7 @@ global proc liquidGlobalsAdvanceTab( string $prefix )
   columnLayout -adj true ($prefix + "liquidGlobalsAdvanceSet" );
   liqPopIdent();
 }
-
+//called in liquidCreateMayaGlobalsTabContent()
 global proc liquidGlobalsAdvanceTab_buildIt( string $prefix )
 {
   liqPushIdent();

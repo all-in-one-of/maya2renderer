@@ -34,6 +34,7 @@
 //  Returns:
 //
 source xxliquidutility.mel;
+source liquidGlobals.mel;
 
 global proc AEliquidGlobalsTemplate( string $node )
 {
@@ -43,10 +44,16 @@ global proc AEliquidGlobalsTemplate( string $node )
 	AEswatchDisplay($node);
 
 	editorTemplate -beginScrollLayout;
-		//Frame
 		liquidGlobalsTemplateFrame( $node );
-		//
-		
+		liquidGlobalsTemplateFile($node);
+		liquidGlobalsTemplateImage($node);
+		liquidGlobalsTemplateDisplays($node);
+		liquidGlobalsTemplateRays($node);
+		liquidGlobalsTemplateOptions($node);
+		liquidGlobalsTemplateJob($node);
+		liquidGlobalsTemplateRenderer($node);
+		liquidGlobalsTemplateFluid($node);
+		liquidGlobalsTemplateAdvance($node);
 		// include/call base class/node attributes
 		//AEdependNodeTemplate($node);
 		
@@ -88,10 +95,703 @@ global proc liquidGlobalsTemplateFrame( string $node )
 		//-------------------------------------------------
 		editorTemplate -beginLayout "Camera" -collapse true;
 			editorTemplate -label "Render Camera" -addDynamicControl "renderCamera";
-			editorTemplate -label "Rotate Camera" -addDynamicControl "rotateCamera";
+			editorTemplate -label "Rotate Camera" 
+							-ann "This will rotate your final render by 90 degrees."
+							-addDynamicControl "rotateCamera";
 		editorTemplate -endLayout;//Camera
 		//-------------------------------------------------
+		editorTemplate -beginLayout "Animation" -collapse true;
+			editorTemplate -l "Animation" -adc "doAnimation";
+			editorTemplate -l "Frame Sequence" 
+							-ann "e.g. 1,2,3-4,5-8@2,10-14x3"
+							-adc "frameSequence";
+      	editorTemplate -endLayout;//Animation
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Motion Blur & Depth of Field" -collapse true;
+			editorTemplate -l "Transformation Blur" -adc "transformationBlur";
+			editorTemplate -l "Deformation Blur" -adc "deformationBlur";
+			editorTemplate -l "Motion Samples" -adc "motionBlurSamples";
+			editorTemplate -l "Stationary Shutter" 
+							-ann "Ignores the current frame time. I.e. the shutter will always be in the range 0..1."
+							-adc "relativeMotion";
+			editorTemplate -l "Motion Factor" -adc "motionFactor";
+			editorTemplate -l "Camera Blur"
+							-ann "This is a potentially expensive switch..."
+							-adc "cameraBlur"; 
+			editorTemplate -l "Shutter Configuration"
+							-ann (	"0:Open on Frame,\n"+
+									"1:Center on Frame,\n"+
+									"2:Center Between Frames,\n"+
+									"3:Close on Next Frame")
+							-adc "shutterConfig";
+			editorTemplate -l "Shutter Efficiency" 
+						   -ann ("Efficiency of the shutter.\n" +
+								 "1.0 is a perfect CG-like box filter.\n" +
+								 "0.5 is a real-world like triangle filter.")
+						   -adc "shutterEfficiency";
+			editorTemplate -l "Depth of Field" -adc "depthOfField";
+      	editorTemplate -endLayout;//Motion Blur & Depth of Field
+		//-------------------------------------------------
 	editorTemplate -endLayout;//Frame
+
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateFile( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateFile("+$node+")");
+
+	string $prefix = $node;
+
+	editorTemplate -beginLayout "File" -collapse true;
+		//-------------------------------------------------
+		editorTemplate -beginLayout "RIB Name" -collapse true;
+			editorTemplate -label "RIB Basename"			-adc "ribName";
+			editorTemplate -label "Include Camera Name"		-adc "beautyRibHasCameraName";
+			editorTemplate -label "RIB Extension Padding"	-adc "doPadding";
+			editorTemplate -label "Padding"					-adc "padding";
+		editorTemplate -endLayout;//RIB Name
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Shot Info" -collapse true;
+			editorTemplate -label "Shot Name"		-adc "shotName";
+			editorTemplate -label "Shot Version"	-adc "shotVersion";
+		editorTemplate -endLayout;//"Shot Info"
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Directories" -collapse true;
+			editorTemplate -label "Rendered Pictures"		-adc "pictureDirectory";
+			editorTemplate -label "Maps & Textures"	-adc "textureDirectory";
+			editorTemplate -label "RIBs"		-adc "ribDirectory";
+			editorTemplate -label "Generated Shaders"	-adc "shaderDirectory";
+			editorTemplate -label "Temporary Files"		-adc "tempDirectory";
+			editorTemplate -label "Create Missing Dirs."		-adc "createOutputDirectories";
+		editorTemplate -endLayout;//Directories
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Search Paths" -collapse true;
+			string $pathInfo = ("When this field is empty, it will be inited to 'sensible' defaults.\n"+
+							  "If you fill it, it will replace the defaults.\n"+
+							  "If your replacement end with ':', it will be added before the defaults.\n"+
+							  "If your replacement starts with ':', it will be added after the defaults.");
+			editorTemplate -label "Shaders"		-ann ($pathInfo) -adc "shaderPath";
+			editorTemplate -label "Textures"	-ann ($pathInfo) -adc "texturePath";
+			editorTemplate -label "Archives"	-ann ($pathInfo) -adc "archivePath";
+			editorTemplate -label "Procedurals"	-ann ($pathInfo) -adc "proceduralPath";
+		editorTemplate -endLayout;//Search Paths
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Before & After" -collapse true;
+			string $msg = ("# and @ must be escaped.\n[...] bounds an executable mel string.");
+			editorTemplate -label "Pre Frame MEL"	-ann ($msg) -adc "preframeMel";
+			editorTemplate -label "Post Frame MEL"	-ann ($msg) -adc "postframeMel";
+		editorTemplate -endLayout;//Before & After
+		//-------------------------------------------------
+	editorTemplate -endLayout;//File
+
+	liqPopIdent();
+}
+//
+//
+global proc AEliquidHiderNew(string $nodeDotPlug)
+{
+	liqPushIdent();
+	liqAElog("AEliquidHiderNew("+$nodeDotPlug+")");
+		
+	setUITemplate -pushTemplate attributeEditorTemplate;
+	attrEnumOptionMenuGrp
+		-cal 1 "right" 
+		-label "Hider"
+		-at "liquidGlobals.hider"
+		-ei 0 "HIDDEN"
+		-ei 1 "PHOTON"
+		-ei 2 "Z BUFFER"
+		-ei 3 "RAYTRACE"
+		-ei 4 "OPENGL"
+		-ei 5 "DEPTHMASK"
+		//-cc liquidHiderOptions_buildIt()
+		liquidHiderCtrl;
+    setUITemplate -popTemplate;
+
+	AEliquidHiderReplace($nodeDotPlug);
+
+	liqPopIdent();
+}
+global proc AEliquidHiderReplace(string $nodeDotPlug)
+{	
+	liqPushIdent();
+	liqAElog("AEliquidHiderReplace("+$nodeDotPlug+")");
+
+	int $hider = `getAttr liquidGlobals.hider`;
+
+	string $renderer = `getAttr liquidGlobals.renderCommand`;
+	if ( gmatch( $renderer, "*prman") )         $renderer = "prman";
+	else if ( gmatch( $renderer, "*renderdl") ) $renderer = "3delight";
+	else if ( gmatch( $renderer, "*rndr") )     $renderer = "pixie";
+	else if ( gmatch( $renderer, "*aqsis") )    $renderer = "aqsis";
+	else if ( gmatch( $renderer, "*air") )      $renderer = "air";
+
+	switch( $hider ) 
+	{
+	case 0:
+		// HIDDEN
+		if ( $renderer == "prman" )
+		{
+				editorTemplate -l "Jitter" -adc "jitter";
+				editorTemplate 
+					-l "Occlusion Bound"   
+					-ann ("Prman 11+ : use this option to force\n"+
+					"hiding-before-shading on displaced\n"+
+					"geometry. It should render faster but\n"+
+					"may create artefacts. The value\n"+
+					"specifies the maximum screen-space\n"+
+					"displacement distance beyond which\n"+
+					"the renderer should revert to shade\n"+
+					"before hide.") 
+					-adc "hiddenOcclusionBound";
+				editorTemplate 
+					-l "Sample Motion"
+					-ann ("PrMan11+ : This controls motion-blurred\n"+
+					"micro-polygon output. if set to OFF, the\n"+
+					"image will not be motion-blurred but\n"+
+					"dPdtime will be correctly computed/output\n"+
+					"for 2D post-processing.") 
+					-adc "hiddenSampleMotion";
+				editorTemplate 
+					-l "Sub-Pixel Output"
+					-ann "outputs the full unfiltered sample-resolution image."
+					-adc "hiddenSubPixel";
+				editorTemplate  
+					-l "Extreme Motion/DOF"  
+					-ann ("PrMan 11.5.3+ : if enabled, prman will use\n"+
+					"a more accurate but MUCH SLOWER sampling\n"+
+					"strategy. Use only if you get extremely nasty\n"+
+					"artefacts with the default method.")
+					-adc "hiddenExtremeMotionDof";
+				editorTemplate
+					-l "Max Visible Point Depth"
+					-ann ("control over the maximum number of visible\n"+
+					"points considered for compositing or deep\n"+
+					"shadow map creation")
+					-adc "hiddenMaxVPDepth"  ;
+				// PRMAN 13
+				editorTemplate -beginLayout "Aperture" -collapse true;
+				editorTemplate -l "N-Sides"		-adc "hiddenApertureNSides";
+				editorTemplate -l "Angle"		-adc "hiddenApertureAngle";
+				editorTemplate -l "Roundness"	-adc "hiddenApertureRoundness";
+				editorTemplate -l "Density"		-adc "hiddenApertureDensity";
+				editorTemplate -endLayout;
+
+				editorTemplate -beginLayout "Shutter Opening" -collapse true;
+				editorTemplate -l "Open"  -adc "hiddenShutterOpeningOpen";
+				editorTemplate -l "Close" -adc "hiddenShutterOpeningClose";
+				editorTemplate -endLayout;
+				// end PRMAN 13
+
+				editorTemplate -beginLayout "Micro-Polygon Cache" -collapse true;
+				editorTemplate -l "Enable"		-adc "hiddenMpCache";
+				editorTemplate -l "Memory"		-adc "hiddenMpMemory";
+				editorTemplate -l "Cache Dir"	-adc "hiddenMpCacheDir";
+				editorTemplate -endLayout;
+
+				// PRMAN 13
+				editorTemplate -beginLayout "Sigma Hiding" -collapse true;
+				editorTemplate -l "Enable"      -adc "hiddenSigmaHiding";
+				editorTemplate -l "Sigma Blur"  -adc "hiddenSigmaBlur";
+				editorTemplate -endLayout;
+				// end PRMAN 13
+		} else if ( $renderer == "pixie" ) {
+			editorTemplate -l "Jitter" -adc "jitter";
+		} else if ( $renderer == "3delight" ) {
+			editorTemplate -l "Jitter" -adc "jitter";
+			editorTemplate -l "Sample Motion"      
+				-ann ("This controls motion-blurred\n"+
+				"micro-polygon output. if set to OFF, the\n"+
+				"image will not be motion-blurred but\n"+
+				"dPdtime will be correctly computed/output\n"+
+				"for 2D post-processing.")
+				-adc "hiddenSampleMotion";
+			editorTemplate -l   "Extreme Motion/DOF"
+				-ann ("if enabled, 3delight will use\n"+
+				"a more accurate but MUCH SLOWER sampling\n"+
+				"strategy. Use only if you get extremely nasty\n"+
+				"artefacts with the default method.")
+				-adc "hiddenExtremeMotionDof";
+		}
+		break;
+	case 1:
+		// PHOTON
+		if ( $renderer == "prman" || $renderer == "3delight" || $renderer == "pixie" ) 
+		{
+			editorTemplate -l "Emit" -adc "photonEmit";
+			if ( $renderer == "pixie" ) {
+				editorTemplate -l "Sample Color Spectrum"    -adc "photonSampleSpectrum";
+			}
+		}    
+		break;
+	case 2:
+		// Z BUFFER
+		break;
+	case 3:
+		// RAYTRACE
+		if ( $renderer == "pixie" ) {
+			editorTemplate -l "False Color" -adc "raytraceFalseColor";
+		}
+		break;
+	case 4:
+		// OPENGL
+		break;
+	case 5:
+		// DEPTHMASK
+		if ( $renderer == "prman" )
+		{
+			editorTemplate -l "Z File" -adc "depthMaskZFile";
+			editorTemplate -l "Reverse Sign" -adc "depthMaskReverseSign";
+			editorTemplate -l "Depth Bias" -adc "depthMaskDepthBias";
+		}
+		break;
+	default:
+		break;
+	}
+	liqPopIdent();
+}
+//
+global proc AEliquidShowCropWindowViewerNew()
+{
+	liqPushIdent();
+	liqAElog("liquidGlobalsTemplateImage()");
+
+	checkBoxGrp -ncb 1
+                -label "Show in Viewport"
+                -cc1 ("liquidCropWindowViewer();") liquidShowCropWindowViewerCtrl;
+
+	AEliquidShowCropWindowViewerReplace();
+	liqPopIdent();
+}
+global proc AEliquidShowCropWindowViewerReplace()
+{
+	liqPushIdent();
+	liqAElog("liquidShowCropWindowViewerReplace()");
+	  
+	if ( objExists( "liqCropWindowViewer" ) ) 
+	{
+		checkBoxGrp -e -v1 1 liquidShowCropWindowViewerCtrl;
+	}
+
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateImage( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateImage("+$node+")");
+
+	string $prefix = $node;
+
+	editorTemplate -beginLayout "Image" -collapse true;
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Sampling & Shading" -collapse true;
+			editorTemplate -label "Shading Rate"		-adc "shadingRate";
+			editorTemplate -label "Pixel Samples"		-adc "pixelSamples";
+		editorTemplate -endLayout;//Sampling & Shading
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Hider Options" -collapse true;
+			string $error="\nFIXME: hider attribute can't be displayed in AE";
+			editorTemplate -label "Hider"	-ann ("bits_hiders"+$error)	-adc "hider";
+			//editorTemplate 
+			//	-ann ("0:HIDDEN,\n"+
+			//		"1:PHOTON,\n"+
+			//		"2:Z BUFFER,\n"+
+			//		"3:RAYTRACE,\n"+
+			//		"4:OPENGL,\n"+
+			//		"5:DEPTHMASK") 
+			//	-callCustom "AEliquidHiderNew" "AEliquidHiderReplace" "hider";
+		editorTemplate -endLayout;//Hider Options
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Filtering" -collapse true;
+			editorTemplate -l "Pixel Filter"	-ann "bits_filters"	-adc "ddPixelFilter[0]";
+			editorTemplate -l "Filter Width"	-adc "ddPixelFilterX[0]";
+			editorTemplate -l "Filter Height"	-adc "ddPixelFilterY[0]";
+		editorTemplate -endLayout;//Filtering
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Reyes" -collapse true;
+			editorTemplate -l  "Eye Splits" -adc "limitsEyeSplits";
+			editorTemplate -l  "Geometry Splits" -adc "limitsGPrimSplits";
+			separator;
+			editorTemplate -l  "Bucket Width" -adc "limitsBucketXSize";
+			editorTemplate -l  "Bucket Height" -adc "limitsBucketYSize";
+			editorTemplate -l  "Grid Size" -adc "limitsGridSize";
+			editorTemplate -l  "Texture Memory (Kb)" -adc "limitsTextureMemory";			
+			separator;
+			editorTemplate -l  "O Threshold" -adc "limitsOThreshold";
+			editorTemplate -l  "Z Threshold" -adc "limitsZThreshold";
+		editorTemplate -endLayout;//Reyes
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Image" -collapse true;
+			editorTemplate -l "Bit Depth" -adc "ddBitDepth[0]";
+			separator;
+			editorTemplate -l "Gain" -adc "gain";
+			editorTemplate -l "Gamma" -adc "gamma";
+
+			editorTemplate -beginLayout "Crop Window" -collapse true;
+				editorTemplate -ccu "AEliquidShowCropWindowViewerNew" "AEliquidShowCropWindowViewerReplace";
+				editorTemplate -l "Left" -adc "cropX1";
+				editorTemplate -l "Top"  -adc "cropY1";
+				editorTemplate -l "Right" -adc "cropX2";
+				editorTemplate -l "Bottom" -adc "cropY2";
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;//Image
+		//-------------------------------------------------
+	editorTemplate -endLayout;//Image
+
+	liqPopIdent();
+}
+//
+global proc liquidGlobalsTemplateDisplays( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateDisplays("+$node+")");
+	
+	editorTemplate -beginLayout "Displays" -collapse true;
+	editorTemplate -endLayout;//Displays	
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateRays( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateRays("+$node+")");
+	
+	editorTemplate -beginLayout "Rays" -collapse true;
+		editorTemplate -beginLayout "Ray Tracing" -collapse true;
+			editorTemplate -l "Enable" -adc "useRayTracing";
+			separator;
+			editorTemplate -l "Trace Breadth Factor"  -adc "traceBreadthFactor";
+			editorTemplate -l "Trace Depth Factor" -adc "traceDepthFactor";
+			separator;
+			editorTemplate -l "Max. Ray Depth" -adc "traceMaxDepth";
+			editorTemplate -l "Specular Threshold"  -adc "traceSpecularThreshold";
+			separator;
+			editorTemplate -l "Ray Continuation" -adc "traceRayContinuation";
+			editorTemplate -l "Geo Cache Size" -adc "traceCacheMemory";
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "General" -collapse true;
+			editorTemplate -l "Trace Displacements"  -adc "traceDisplacements";
+			editorTemplate -l "Sample Motion" -adc "traceSampleMotion";
+			separator;
+			editorTemplate -l "Trace Bias" -adc "traceBias";
+			separator;
+			editorTemplate -l "Max. Specular Depth" -adc "traceMaxSpecularDepth";
+			editorTemplate -l "Max. Diffuse Depth" -adc "traceMaxDiffuseDepth";
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Global Illumination" -collapse true;
+			editorTemplate -l "Max. Error"  -adc "irradianceMaxError";
+			editorTemplate -l "Max. Pixel Distance" -adc "irradianceMaxPixelDist";
+			separator;
+
+			editorTemplate -beginLayout "Irradiance Cache" -collapse true;
+				editorTemplate -l "File" -adc "irradianceHandle";
+				editorTemplate -l "Mode"
+					-ann ("0:Ignore,\n1:Read,\n2:Write")
+					-adc "irradianceFileMode";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Photon Map" -collapse true;
+				editorTemplate -l "Global Photon Map" -adc "photonGlobalHandle";
+				editorTemplate -l "Global Caustic Map" -adc "causticGlobalHandle";
+				editorTemplate -l "Shading Model" 
+					-ann ("0:Matte,\n1:Glass,\n2:Water,\n3:Chrome,\n4:Transparent,\n5:Dialectric")
+					-adc "photonShadingModel";
+				editorTemplate -l "Estimator" -adc "photonEstimator";
+			editorTemplate -endLayout;
+
+		editorTemplate -endLayout;
+	editorTemplate -endLayout;//Rays	
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateOptions( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateOptions("+$node+")");
+
+	editorTemplate -beginLayout "Options" -collapse true;
+		editorTemplate -beginLayout "Shadow Maps" -collapse true;
+			editorTemplate -l "Omit Shadow RIBs" -adc "ignoreShadows";
+			editorTemplate -l "Write Full Shadow RIBs" -adc "fullShadowRibs";
+			editorTemplate -l "MtoR Shadow Names"
+				-ann "Omits the scene name in the shadow file name."
+				-adc "shapeOnlyInShadowNames";
+			editorTemplate -l "Lazy Compute" 
+				-ann "If your shadow maps are already available, they will not be recomputed."
+				-adc "lazyCompute";
+
+			editorTemplate -beginLayout "Depth Shadows" -collapse true;			
+				editorTemplate -l "O Threshold" -adc "limitsOThreshold";
+				editorTemplate -l "Z Threshold" -adc "limitsZThreshold";
+				editorTemplate -l "Output Tagged Shaders" -adc "outputShadersInShadows";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Deep Shadows" -collapse true;			
+				editorTemplate -l "Output Tagged Shaders" -adc "outputShadersInDeepShadows";
+				editorTemplate -l "Output Lightsources" -adc "outputLightsInDeepShadows";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "RIB" -collapse true;	
+				editorTemplate -l "Read-Archivable RIB" -adc "exportReadArchive";
+				editorTemplate -l "Use Maya Poly Creases" -adc "outputMayaPolyCreases";
+				editorTemplate -l "Render All Curves" -adc "renderAllCurves";
+				editorTemplate -l "Extra MtoR Mesh UVs" -adc "outputMeshUVs";
+				editorTemplate -l "Write Mesh UVs as RMS arrays" -adc "outputMeshAsRMSArrays";
+				//editorTemplate -l "Export all shaders parameters" -adc "exportAllShadersParameters";
+				editorTemplate -l "Relative Transforms" -adc "ribRelativeTransforms";
+				editorTemplate -l "Detailed Comments" -adc "outputComments";		
+			editorTemplate -endLayout;
+			editorTemplate -beginLayout "Light Linking" -collapse true;	
+				editorTemplate -l "Illuminate By Default" -adc "illuminateByDefault";
+				editorTemplate -l "Liquid Set Light Linking" -adc "liquidSetLightLinking";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Omit Shaders" -collapse true;	
+				editorTemplate -l "No Surfaces" -adc "ignoreSurfaces";
+				editorTemplate -l "No Displacements" -adc "ignoreDisplacements";
+				editorTemplate -l "No Lightsources" -adc "ignoreLights";
+				editorTemplate -l "No Volumes" -adc "ignoreVolumes";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Resource Paths" -collapse true;	
+				editorTemplate -l "Project-Relative Paths" -adc "relativeFileNames";
+				editorTemplate -l "No Shader Paths" 
+					-ann "Do not output path names with shaders"
+					-adc "shortShaderNames";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Shaders" -collapse true;	
+				editorTemplate -l "Expand Shader Arrays" -adc "expandShaderArrays";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Baking" -collapse true;	
+				editorTemplate -l "Raster-Oriented Dicing" -adc "bakeRasterOrient";
+				editorTemplate -l "Cull Backfacing Grids" -adc "bakeCullBackface";
+				editorTemplate -l "Cull Hidden Grids" -adc "bakeCullHidden";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "PrePosterous MEL Scripts" -collapse true;
+				string $msg = "Enter Mel script to generate RIB calls";
+				editorTemplate -l "Pre Frame Begin Mel" -ann $msg -adc "preFrameBeginMel";
+				editorTemplate -l "Pre World Mel" -ann $msg -adc "preWorldMel";
+				editorTemplate -l "Post World Mel" -ann $msg -adc "postWorldMel";
+				editorTemplate -l "Pre Geom Mel" -ann $msg -adc "preGeomMel";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Before & After RIB Requests" -collapse true;
+				$msg = "You must escape # @ if you don't want them to be substituted";
+				editorTemplate -l "Before FrameBegin" -ann $msg -adc "preFrameBegin";
+				editorTemplate -l "Before WorldBegin" -ann $msg -adc "preWorld";
+				editorTemplate -l "After WorldBegin" -ann $msg -adc "postWorld";
+				editorTemplate -l "Before Primitives" -ann $msg -adc "preGeom";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "RIB Format" -collapse true;
+				$msg = "You must escape # @ if you don't want them to be substituted";
+				editorTemplate -l "Binary" -ann $msg -adc "binaryOutput";
+				editorTemplate -l "GZip Compressed" -ann $msg -adc "compressedOutput";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Clean Up" -collapse true;
+				editorTemplate -l "Clean RIBs" -ann $msg -adc "cleanRib";
+				editorTemplate -l "Clean Texture Maps" -ann $msg -adc "cleanTex";
+				editorTemplate -l "Clean Shadow Maps" -ann $msg -adc "cleanShad";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Feedback" -collapse true;
+				editorTemplate -l "Verbosity" 
+					-ann ("0:Sewn-Up Lips,\n1:Errors Only,\n2:Warnings & Errors,\n3:Aunt Carla")
+					-adc "verbosity";
+				editorTemplate -l "Statistics" 
+					-ann ("0:None,\n1:Simple,\n2:Detailed,\n3:Overwhelming,\n4:XML") 
+					-adc "statistics";
+				editorTemplate -l "Statistics File" 
+					-ann "enter the full path to the xml statistics file" 
+					-adc "statisticsFile";
+				editorTemplate -l "Show Progress"
+					-adc "showProgress";
+				editorTemplate -l "Shader Debugging" 
+					-adc "shaderDebug";
+			editorTemplate -endLayout;
+
+		editorTemplate -endLayout;
+	editorTemplate -endLayout;//Options	
+
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateJob( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateJob("+$node+")");
+
+	editorTemplate -beginLayout "Job" -collapse true;
+		editorTemplate -beginLayout "Global" -collapse true;
+			editorTemplate -l "Launch Render" -adc "launchRender";
+			editorTemplate -l "Only Generate RIBs" -adc "justRib";
+			editorTemplate -l "Use Render Job Script" -adc "useRenderScript";
+			editorTemplate -l "Job Script Format"
+				-ann ("0:None,\n1:Alfred,\n2:XML")
+				-adc "renderScriptFormat";
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Job Script Options" -collapse true;
+			editorTemplate -l "Job Name" -adc "renderJobName";
+			editorTemplate -l "Script File Name" -adc "renderScriptFileName";
+			separator;
+			editorTemplate -l "Deferred RIB Generation" -adc "deferredGen";
+			editorTemplate -l "Deferred Block Size" -adc "deferredBlock";
+			editorTemplate -l "Remote Render" -adc "remoteRender";
+			editorTemplate -l "Net RenderMan" -adc "netRManRender";
+			separator;
+			editorTemplate -l "Min CPU" -adc "minCPU";
+			editorTemplate -l "Max CPU" -adc "maxCPU";
+			
+			editorTemplate -beginLayout "Commands" -collapse true;
+				editorTemplate -l "Job Script Interpreter" -adc "renderScriptCommand";
+				editorTemplate -l "RIB Generator" -adc "ribgenCommand";
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Before" -collapse true;
+				editorTemplate -l "Pre Command" -adc "preCommand";
+				editorTemplate -l "Pre Job Command" -adc "preJobCommand";
+				editorTemplate -l "Pre Frame Command" -adc "preFrameCommand";
+			editorTemplate -endLayout;
+			editorTemplate -beginLayout "After" -collapse true;
+				editorTemplate -l "Post Frame Command" -adc "postFrameCommand";
+				editorTemplate -l "Post Job Command" -adc "postJobCommand"; 
+			editorTemplate -endLayout;
+			editorTemplate -beginLayout "Deferred" -collapse true;
+				editorTemplate -l "Deferred Tag" -adc "key";
+				editorTemplate -l "Deferred Service" -adc "service"; 
+			editorTemplate -endLayout;
+
+			editorTemplate -beginLayout "Clean Up" -collapse true;
+				editorTemplate -l "Clean Job Script" -adc "cleanRenderScript"; 
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Alfred Specific" -collapse true;
+			editorTemplate -l "Alfred Tags" -adc "alfredTags"; 
+			editorTemplate -l "Alfred Services" -adc "alfredServices"; 
+			editorTemplate -l "Alfred Expand Support" -adc "expandAlfred"; 
+			//text  -align "left" -label " DirMaps format: { FromPath ToPath Zone } Zone = UNC or NFS";
+          	editorTemplate -l "Alfred dirmaps" 
+				-ann "You must escape # @ if you don't want them to be substituted "
+				-adc "dirmaps"; 
+		editorTemplate -endLayout;
+	editorTemplate -endLayout;//Job	
+
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateRenderer( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateRenderer("+$node+")");
+
+	editorTemplate -beginLayout "Renderer" -collapse true;
+		editorTemplate -beginLayout "Commands" -collapse true;
+			editorTemplate -l "Renderer" -adc "renderCommand"; 
+			editorTemplate -l "Flags" -adc "renderCmdFlags"; 
+			separator;
+			editorTemplate -l "Previewer" -adc "previewer"; 
+			editorTemplate -l "Shader Info" -adc "shaderInfo"; 	
+			editorTemplate -l "Shader Compiler" -adc "shaderComp"; 
+			editorTemplate -l "Make Texture" -adc "makeTexture"; 
+			editorTemplate -l "Default Texture Viewer" -adc "viewTexture"; 
+			separator;
+			//liquidShowViewerDefinition()
+			separator;
+			editorTemplate -l "Shader Extension" -adc "shaderExt"; 
+			editorTemplate -l "Texture Extension" -adc "textureExt"; 
+		editorTemplate -endLayout;//Commands
+
+		editorTemplate -beginLayout "Hiders" -collapse true;
+			editorTemplate -l "bits_hiders" -adc "bits_hiders"; 
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Pixel Filters" -collapse true;
+			editorTemplate -l "bits_filters" -adc "bits_filters"; 
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Features" -collapse true;
+			editorTemplate -l "bits_features" -adc "bits_features"; 
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Requirements" -collapse true;
+			editorTemplate -l "bits_required" -adc "bits_required"; 
+		editorTemplate -endLayout;
+
+		editorTemplate -beginLayout "Deep Shadow Display Driver" -collapse true;
+			editorTemplate -l "Display Name" -adc "dshDisplayName"; 
+			editorTemplate -l "Image Mode" -adc "dshImageMode"; 
+		editorTemplate -endLayout;
+	editorTemplate -endLayout;//Renderer	
+	
+	string $parent = `setParent -q`;
+	// set off scriptJob to update pixelfilter menu
+	int $num = `scriptJob -parent $parent
+					-allChildren
+					-attributeChange "liquidGlobals.bits_filters" "liquidGlobalsUpdateBitsMenus bits_filters"`;
+
+	// set off scriptJob to update hider menu
+	int $num = `scriptJob -parent $parent
+					-allChildren
+                    -attributeChange "liquidGlobals.bits_hiders" "liquidGlobalsUpdateBitsMenus bits_hiders"`;
+
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateFluid( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateFluid("+$node+")");
+
+	editorTemplate -beginLayout "Fluid" -collapse true;
+		editorTemplate -beginLayout "Shader Preview" -collapse true;
+			editorTemplate -l "Preview Type" 
+				-ann ("0:Fluid Window,\n1:External Window")
+				-adc "previewType"; 
+			editorTemplate -l "Size" -adc "previewSize"; 
+			editorTemplate -l "Primitive" 
+				-ann ("0:Sphere,\n1:Cube,\n2:Cylinder,\n3:Torus,\n4:Plane,\n5:Teapot")
+				-adc "previewPrimitive"; 
+			editorTemplate -l "Display Driver" -adc "previewDisplayDriver"; 
+			editorTemplate -l "Connection Type" 
+				-ann ("0:RIB,\n1:Pipe")
+				-adc "previewConnectionType"; 
+			editorTemplate -l "Render Command" -adc "previewRenderer"; 
+		editorTemplate -endLayout;//Shader Preview
+
+		editorTemplate -beginLayout "Shader Browser" -collapse true;
+			editorTemplate -l "Default Path" -adc "fluidShaderBrowserDefaultPath"; 
+		editorTemplate -endLayout;//Shader Browser
+
+		editorTemplate -beginLayout "Render View" -collapse true;
+			editorTemplate -l "Local Render" -adc "renderViewLocal"; 
+			editorTemplate -l "Port" -adc "renderViewPort"; 
+			editorTemplate -l "Time-Out" -adc "renderViewTimeOut";
+		editorTemplate -endLayout;//Render View
+
+		editorTemplate -beginLayout "Shaders" -collapse true;
+			editorTemplate -l "Ignore Output Params" -adc "shadersIgnoreOutputParams"; 
+			editorTemplate -l "Output Params filter" -adc "shadersOutputParamsFilter"; 
+			editorTemplate -l "AE Cache Limit" -adc "shadersMaxCachedAELayouts";
+		editorTemplate -endLayout;//Render View
+
+	editorTemplate -endLayout;//Fluid
+
+	liqPopIdent();
+}
+global proc liquidGlobalsTemplateAdvance( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidGlobalsTemplateAdvance("+$node+")");
+
+	editorTemplate -beginLayout "Advance" -collapse true;
+		editorTemplate -beginLayout "Rif" -collapse true;
+			editorTemplate -l "Rif Parameters" -adc "currentLayerRifParameters";
+		editorTemplate -endLayout;//Rif	
+	editorTemplate -endLayout;//Advance	
 
 	liqPopIdent();
 }
