@@ -413,3 +413,10 @@ global proc AEliqShaderReplace(string $nodeDotPlug)
 
 	liqPopIdent();
 }
+//
+global proc string[] LRP_getAllRenderPasses()
+{
+  string $render_passes[] = `ls -type (getValidRenderer()+"Globals")`;
+
+  return $render_passes;
+}

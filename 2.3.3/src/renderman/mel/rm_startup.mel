@@ -429,14 +429,6 @@ rendermanBuildAddRenderPassMenu(string $menu)
   //delightBuildRenderPassTemplatesMenuItems($menu);
 }
 //
-//global proc string[]
-//LRP_getAllRenderPasses()
-//{
-//  string $render_passes[] = `ls -type "elvishrayGlobals"`;
-//
-//  return $render_passes;
-//}
-//
 global proc string
 RM_createFullRenderPassNode()
 {
