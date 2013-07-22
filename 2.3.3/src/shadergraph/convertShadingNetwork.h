@@ -47,8 +47,8 @@ public:
 	// Generate a list of upstream nodes that we can convert to RSL, and
 	// note the number of incoming connections for each.
 	//--------------------------------------------------------------------
-	int getUpstreamConvertibleNodes ( const MString& currentNode, 
-		MStringArray& nodes, MIntArray& numConnections);
+	void getUpstreamConvertibleNodes ( const MString& currentNode, 
+		MStringArray& nodes/*, MIntArray& numConnections*/);
 
 	//--------------------------------------------------------------------
 	// Adds all of the valid input nodes for the given plug to the input
@@ -79,16 +79,15 @@ public:
 	// all of the convertible nodes downstream of it and decrements their
 	// number of connections.
 	//--------------------------------------------------------------------
-	void decrementDownstreamConnections(
-		const MString& node, const MStringArray& nodes, 
-		MIntArray& numConnections, const MStringArray& validConnections);
+	//void decrementDownstreamConnections(
+	//	const MString& node, const MStringArray& nodes, 
+	//	MIntArray& numConnections, const MStringArray& validConnections);
 	
 	//--------------------------------------------------------------------
 	// traverse the graph outputing functions for nodes that have received
 	// all of their respective inputs.
 	//--------------------------------------------------------------------
-	void traverseGraphAndOutputNodeFunctions( const MStringArray& nodes, 
-		MIntArray& numConnections);
+	void traverseGraphAndOutputNodeFunctions( const MStringArray& nodes/*, MIntArray& numConnections*/);
 		
 	//--------------------------------------------------------------------
 	// Outputs the shader method.

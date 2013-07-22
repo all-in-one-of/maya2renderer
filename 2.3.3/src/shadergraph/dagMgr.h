@@ -15,6 +15,7 @@ namespace liquidmaya
 
 		//get the upstream of 'node' in maya shader graph
 		//'result' does not contain 'node'
+		//result[0] is the highest dependency node
 		void BreadthFirstTraversal(const MString &startNode, MStringArray& result);
 
 	protected:

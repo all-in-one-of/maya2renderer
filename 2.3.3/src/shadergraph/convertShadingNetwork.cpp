@@ -162,84 +162,85 @@ ConvertShadingNetwork::convertibleConnection(const MString& plug)
 //addToRSL
 //endRSL ()
 //beginRSL ( string $name )
-int ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentNode, 
-								 MStringArray& nodes, MIntArray& numConnections)
+void ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentNode, 
+								 MStringArray& nodes/*, MIntArray& numConnections*/)
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::getUpstreamConvertibleNodes("<<currentNode.asChar()<<", nodes, numConnections)");
 
-	MStringArray  upnodes;
 	DagMgr dagmgr;
-	dagmgr.BreadthFirstTraversal(currentNode, upnodes);
-	std::cout<< currentNode.asChar() << "'s upstream nodes are("<<upnodes.length()<<"): ["<< upnodes <<"]"<<std::endl;
+	dagmgr.BreadthFirstTraversal(currentNode, nodes);
+	std::cout<< currentNode.asChar() << "'s upstream nodes are("<<nodes.length()<<"): ["<< nodes <<"]"<<std::endl;
+	nodes.append(currentNode);
 
-	// If the current node has already been visited
-	for(std::size_t i=0; i<nodes.length(); ++i)
-	{
-		if( nodes[i]==currentNode)
-			return 1;
-	}
 
-	// If the node is not supported
-	if( !nodeIsConvertible( currentNode ) )
-	{
-		return 0;
-	}
+	//// If the current node has already been visited
+	//for(std::size_t i=0; i<nodes.length(); ++i)
+	//{
+	//	if( nodes[i]==currentNode)
+	//		return 1;
+	//}
 
-	const int index = nodes.length();
+	//// If the node is not supported
+	//if( !nodeIsConvertible( currentNode ) )
+	//{
+	//	return 0;
+	//}
 
-	// Append the current node to the list of nodes
-	if( nodes.length()<(index+1) ){
-		nodes.setLength(index+1);
-	}
-	nodes[index] = currentNode;
-	
-	// Initialize the number of input connections to 0 for the newly found node
-	if( numConnections.length()<(index+1) ){
-		numConnections.setLength(index+1);
-	}
-	numConnections[index] = 0;//numConnections.set(0, index);//
-	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
+	//const int index = nodes.length();
 
-	// Get the list of supported connections from the current node
-	MStringArray validConnections;
-	ShaderMgr::getSingletonPtr()->getValidConnection(currentNode.asChar(), validConnections);
-	// Get the list of up stream nodes along supported connections
-	std::set<const std::string> upstreamNodes;
-	for(size_t i=0; i < validConnections.length(); ++i)
-	{
-		const MString validConnection( validConnections[i] );
-		const MString plug(currentNode+"."+validConnection);
-		
-		if( convertibleConnection(plug) != CT_None )
-		{
-			MStringArray connection;
-			IfMErrorWarn(MGlobal::executeCommand( ("listConnections -source on -destination off \""+plug+"\""), connection));
-		
-			//append connection to upstreamNodes
-			for(std::size_t i=0; i<connection.length(); ++i){
-				upstreamNodes.insert(connection[i].asChar());
-			}
-		}
-	}
-
-	// Remove duplicate nodes from the upstreamNodes
-	// upstreamNodes is std::set, so no need to remove the duplicate
-
+	//// Append the current node to the list of nodes
+	//if( nodes.length()<(index+1) ){
+	//	nodes.setLength(index+1);
+	//}
+	//nodes[index] = currentNode;
 	//
-	std::set<const std::string>::const_iterator i2 = upstreamNodes.begin();
-	std::set<const std::string>::const_iterator e2 = upstreamNodes.end();
-	for(; i2 != e2; ++i2)
-	{
-		MString node( i2->c_str() );
+	//// Initialize the number of input connections to 0 for the newly found node
+	//if( numConnections.length()<(index+1) ){
+	//	numConnections.setLength(index+1);
+	//}
+	//numConnections[index] = 0;//numConnections.set(0, index);//
+	////std::cout<<"numConnections[]="<<numConnections<<std::endl;
 
-		if( numConnections.length()<(index+1) ){
-			numConnections.setLength(index+1);
-		}
-		numConnections[index] += 
-			getUpstreamConvertibleNodes(node, nodes, numConnections);
-	}
-	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
-	return 1;
+	//// Get the list of supported connections from the current node
+	//MStringArray validConnections;
+	//ShaderMgr::getSingletonPtr()->getValidConnection(currentNode.asChar(), validConnections);
+	//// Get the list of up stream nodes along supported connections
+	//std::set<const std::string> upstreamNodes;
+	//for(size_t i=0; i < validConnections.length(); ++i)
+	//{
+	//	const MString validConnection( validConnections[i] );
+	//	const MString plug(currentNode+"."+validConnection);
+	//	
+	//	if( convertibleConnection(plug) != CT_None )
+	//	{
+	//		MStringArray connection;
+	//		IfMErrorWarn(MGlobal::executeCommand( ("listConnections -source on -destination off \""+plug+"\""), connection));
+	//	
+	//		//append connection to upstreamNodes
+	//		for(std::size_t i=0; i<connection.length(); ++i){
+	//			upstreamNodes.insert(connection[i].asChar());
+	//		}
+	//	}
+	//}
+
+	//// Remove duplicate nodes from the upstreamNodes
+	//// upstreamNodes is std::set, so no need to remove the duplicate
+
+	////
+	//std::set<const std::string>::const_iterator i2 = upstreamNodes.begin();
+	//std::set<const std::string>::const_iterator e2 = upstreamNodes.end();
+	//for(; i2 != e2; ++i2)
+	//{
+	//	MString node( i2->c_str() );
+
+	//	if( numConnections.length()<(index+1) ){
+	//		numConnections.setLength(index+1);
+	//	}
+	//	numConnections[index] += 
+	//		getUpstreamConvertibleNodes(node, nodes, numConnections);
+	//}
+	////std::cout<<"numConnections[]="<<numConnections<<std::endl;
+	//return 1;
 }
 //
 void ConvertShadingNetwork::addNodeInputVariable(const MString& plug, MStringArray& inputSrc, MStringArray& inputDes)
@@ -467,52 +468,52 @@ void ConvertShadingNetwork::getNodeVariables(
 	}
 }
 //
-void ConvertShadingNetwork::decrementDownstreamConnections(
-	const MString& node, const MStringArray& nodes, 
-	MIntArray& numConnections, const MStringArray& validConnections
-	)
-{
-	CM_TRACE_FUNC("ConvertShadingNetwork::decrementDownstreamConnections("<<node.asChar()<<", nodes, numConnections, validConnections)");
-
-	std::set<const std::string> downstreamNodes;
-
-	// Get the list of down stream nodes along supported connections
-	for(std::size_t i=0; i<validConnections.length(); ++i)
-	{
-		const MString validConnection(validConnections[i]);
-		const MString plug(node+"."+validConnection);
-
-		MStringArray con;
-		IfMErrorWarn(MGlobal::executeCommand( "listConnections -source off -destination on \""+plug+"\"", con));
-		for(std::size_t i=0; i<con.length(); ++i)
-		{
-			downstreamNodes.insert(con[i].asChar());
-		}
-	}
-	// Remove duplicate nodes from the list
-	// Because downstreamNodes is std::set, no need to remove duplicate
-
-	// For each down stream node, decrement the number of connections
-	int numNodes = nodes.length();
-	std::set<const std::string>::const_iterator i = downstreamNodes.begin();
-	std::set<const std::string>::const_iterator e = downstreamNodes.end();
-	for( ; i != e; ++i )
-	{
-		MString downstreamNode( i->c_str() );
-		for(int index = 0; index<numNodes; ++index)
-		{
-			if(downstreamNode==nodes[index])
-			{
-				(numConnections[index])--;
-				break;
-			}
-		}
-	}
-	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
-	downstreamNodes.clear();
-}
+//void ConvertShadingNetwork::decrementDownstreamConnections(
+//	const MString& node, const MStringArray& nodes, 
+//	MIntArray& numConnections, const MStringArray& validConnections
+//	)
+//{
+//	CM_TRACE_FUNC("ConvertShadingNetwork::decrementDownstreamConnections("<<node.asChar()<<", nodes, numConnections, validConnections)");
+//
+//	std::set<const std::string> downstreamNodes;
+//
+//	// Get the list of down stream nodes along supported connections
+//	for(std::size_t i=0; i<validConnections.length(); ++i)
+//	{
+//		const MString validConnection(validConnections[i]);
+//		const MString plug(node+"."+validConnection);
+//
+//		MStringArray con;
+//		IfMErrorWarn(MGlobal::executeCommand( "listConnections -source off -destination on \""+plug+"\"", con));
+//		for(std::size_t i=0; i<con.length(); ++i)
+//		{
+//			downstreamNodes.insert(con[i].asChar());
+//		}
+//	}
+//	// Remove duplicate nodes from the list
+//	// Because downstreamNodes is std::set, no need to remove duplicate
+//
+//	// For each down stream node, decrement the number of connections
+//	int numNodes = nodes.length();
+//	std::set<const std::string>::const_iterator i = downstreamNodes.begin();
+//	std::set<const std::string>::const_iterator e = downstreamNodes.end();
+//	for( ; i != e; ++i )
+//	{
+//		MString downstreamNode( i->c_str() );
+//		for(int index = 0; index<numNodes; ++index)
+//		{
+//			if(downstreamNode==nodes[index])
+//			{
+//				(numConnections[index])--;
+//				break;
+//			}
+//		}
+//	}
+//	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
+//	downstreamNodes.clear();
+//}
 void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions( 
-	const MStringArray& nodes, MIntArray& numConnections)
+	const MStringArray& nodes/*, MIntArray& numConnections*/)
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions( nodes, numConnections)");
 
@@ -520,7 +521,7 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 
 	//test
 	int n0 = nodes.length();
-	int n1 = numConnections.length();
+	//int n1 = numConnections.length();
 
 	for(size_t index = 0; index< nodes.length(); ++index)
 	{
@@ -529,7 +530,7 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 		// write out the information for the current node and decrement
 		// the number of inputs for all nodes awaiting the completion of
 		// the current node
-		if( numConnections[index] == 0 )
+		//if( numConnections[index] == 0 )
 		{
 			// write out the current node's function
 			ShaderOutputMgr::getSingletonPtr()->outputUpstreamShader(currentNode.asChar());//shader->writeRSL(currentNode.asChar());
@@ -538,10 +539,10 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 			MStringArray validConnections;
 			ShaderMgr::getSingletonPtr()->getValidConnection(currentNode.asChar(), validConnections);
 
-			decrementDownstreamConnections( currentNode,
-				nodes,
-				numConnections,
-				validConnections );
+			//decrementDownstreamConnections( currentNode,
+			//	nodes,
+			//	numConnections,
+			//	validConnections );
 
 			MStringArray inputSrc; 
 			MStringArray inputDes;
@@ -558,10 +559,10 @@ void ConvertShadingNetwork::traverseGraphAndOutputNodeFunctions(
 
 
 			// We are done with the current node
-			numConnections[ index ] = -1;
+			//numConnections[ index ] = -1;
 
 			// Start back at the beginning
-			index = -1;
+			//index = -1;
 		}
 		//std::cout<<"numConnections[]="<<numConnections<<std::endl;
 	}
@@ -583,12 +584,12 @@ void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNo
 	MString cmd;
 
 	MStringArray nodes;
-	MIntArray numConnections;
+	//MIntArray numConnections;
 
 	liquidmaya::ShaderOutputMgr::getSingletonPtr()->
 		initShaderData(startingNode);
 
-	getUpstreamConvertibleNodes(startingNode, nodes, numConnections);
+	getUpstreamConvertibleNodes(startingNode, nodes/*, numConnections*/);
 	//std::cout<<"numConnections[]="<<numConnections<<std::endl;
 	liquidmaya::ShaderOutputMgr::getSingletonPtr()->
 		preOutput(startingNode.asChar());
@@ -597,7 +598,7 @@ void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNo
 
 	// Traverse the graph outputing functions for nodes that have received all
 	// of their respective inputs
-	traverseGraphAndOutputNodeFunctions(nodes, numConnections);
+	traverseGraphAndOutputNodeFunctions(nodes/*, numConnections*/);
 	
 	// Output the shader method
 	outputShaderMethod();

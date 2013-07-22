@@ -46,18 +46,18 @@ namespace liquidmaya
 	//
 	bool DagMgr::isVisited(const std::string &node)
 	{
-		CM_TRACE_FUNC("DagMgr::isVisited("<<node<<", ret)");
+		CM_TRACE_FUNC("DagMgr::isVisited("<<node<<")");
 		
 		return ( std::find( m_result.begin(), m_result.end(), node ) != m_result.end() );
 	}
 	void DagMgr::visit(const std::string &node)
 	{
-		CM_TRACE_FUNC("DagMgr::visit("<<node<<", ret)");
+		CM_TRACE_FUNC("DagMgr::visit("<<node<<")");
 		m_result.push_back(node);
 	}
 	void DagMgr::pushInputPlugs(const MString &node)
 	{
-		CM_TRACE_FUNC("DagMgr::pushInputPlugs("<<node.asChar()<<", ret)");
+		CM_TRACE_FUNC("DagMgr::pushInputPlugs("<<node.asChar()<<")");
 
 		MStringArray inputPlugs;
 		ShaderMgr::getSingletonPtr()->getValidConnection(node.asChar(), inputPlugs);
@@ -82,7 +82,7 @@ namespace liquidmaya
 	//
 	void DagMgr::begin(const MString &root)
 	{
-		CM_TRACE_FUNC("DagMgr::isVisited("<<root.asChar()<<")");
+		CM_TRACE_FUNC("DagMgr::begin("<<root.asChar()<<")");
 
 		m_UpStreamNodes.clear();
 		m_result.clear();
