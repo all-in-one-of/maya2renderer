@@ -29,19 +29,19 @@ public:
 	//--------------------------------------------------------------------
 	// Check to see if we know how to convert this node to RSL.
 	//--------------------------------------------------------------------
-	bool nodeIsConvertible( const MString& node ) const;
+	static bool nodeIsConvertible( const MString& node );
 
 	//--------------------------------------------------------------------
 	// Validate that a given plug exists.
 	//--------------------------------------------------------------------
-	bool ensurePlugExists(const MString& plug) const;
+	static bool ensurePlugExists(const MString& plug);
 
 	//--------------------------------------------------------------------
 	// Check to see if a plug (node and attribute) is connected to a node
 	// that we're able to convert to RSL and, if so, what the type of
 	// connection is. Preference is given to outgoing connections.
 	//--------------------------------------------------------------------
-	ConnectionType convertibleConnection(const MString& plug) const;
+	static ConnectionType convertibleConnection(const MString& plug);
 
 	//--------------------------------------------------------------------
 	// Generate a list of upstream nodes that we can convert to RSL, and

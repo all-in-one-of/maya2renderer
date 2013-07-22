@@ -47,6 +47,8 @@
 
 #include <iostream>
 #include <algorithm>
+#include <deque>
+#include <queue>
 #include <vector>
 #include <stack>
 #include <set>

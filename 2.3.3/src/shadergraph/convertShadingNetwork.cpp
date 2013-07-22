@@ -9,7 +9,7 @@
 #include "shaderOutputMgr.h"
 #include "../renderermgr.h"
 #include "ShadingNetworkUserBase.h"
-
+#include "dagMgr.h"
 //#include "../renderman/rm_helper.h"
 
 namespace liquidmaya{
@@ -61,7 +61,7 @@ void ConvertShadingNetwork::afterExport()
 	liquid::RendererMgr::getInstancePtr()->afterExport_user();
 }
 //
-bool ConvertShadingNetwork::nodeIsConvertible ( const MString& node ) const
+bool ConvertShadingNetwork::nodeIsConvertible ( const MString& node )
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::nodeIsConvertible("<<node.asChar()<<")");
 
@@ -80,7 +80,7 @@ bool ConvertShadingNetwork::nodeIsConvertible ( const MString& node ) const
 	}
 }
 //
-bool ConvertShadingNetwork::ensurePlugExists(const MString& plug) const
+bool ConvertShadingNetwork::ensurePlugExists(const MString& plug)
 {	
 	CM_TRACE_FUNC("ConvertShadingNetwork::ensurePlugExists("<<plug.asChar()<<")");
 
@@ -104,7 +104,7 @@ bool ConvertShadingNetwork::ensurePlugExists(const MString& plug) const
 }
 //
 ConnectionType 
-ConvertShadingNetwork::convertibleConnection(const MString& plug) const
+ConvertShadingNetwork::convertibleConnection(const MString& plug)
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::convertibleConnection("<<plug.asChar()<<")");
 
@@ -166,6 +166,11 @@ int ConvertShadingNetwork::getUpstreamConvertibleNodes ( const MString& currentN
 								 MStringArray& nodes, MIntArray& numConnections)
 {
 	CM_TRACE_FUNC("ConvertShadingNetwork::getUpstreamConvertibleNodes("<<currentNode.asChar()<<", nodes, numConnections)");
+
+	MStringArray  upnodes;
+	DagMgr dagmgr;
+	dagmgr.BreadthFirstTraversal(currentNode, upnodes);
+	std::cout<< currentNode.asChar() << "'s upstream nodes are("<<upnodes.length()<<"): ["<< upnodes <<"]"<<std::endl;
 
 	// If the current node has already been visited
 	for(std::size_t i=0; i<nodes.length(); ++i)

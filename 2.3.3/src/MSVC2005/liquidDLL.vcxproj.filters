@@ -313,6 +313,9 @@
     <ClCompile Include="..\liqMessageCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\shadergraph\dagMgr.cpp">
+      <Filter>Source Files\shadergraph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -641,6 +644,9 @@
     </ClInclude>
     <ClInclude Include="..\liqMessageCallback.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shadergraph\dagMgr.h">
+      <Filter>Source Files\shadergraph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

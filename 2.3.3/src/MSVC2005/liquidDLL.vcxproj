@@ -2925,6 +2925,7 @@
     <ClCompile Include="..\liq_plug.cpp" />
     <ClCompile Include="..\liq_plugdll.cpp" />
     <ClCompile Include="..\shadergraph\convertShadingNetwork.cpp" />
+    <ClCompile Include="..\shadergraph\dagMgr.cpp" />
     <ClCompile Include="..\shadergraph\shadermgr.cpp" />
     <ClCompile Include="..\shadergraph\shaderOutput.cpp" />
     <ClCompile Include="..\shadergraph\shaderOutputMgr.cpp" />
@@ -2959,6 +2960,7 @@
     <ClInclude Include="..\liq_classification.h" />
     <ClInclude Include="..\rnode_visitor_interface.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />
+    <ClInclude Include="..\shadergraph\dagMgr.h" />
     <ClInclude Include="..\shadergraph\shadermgr.h" />
     <ClInclude Include="..\shadergraph\shaderOutput.h" />
     <ClInclude Include="..\shadergraph\shaderOutputMgr.h" />
