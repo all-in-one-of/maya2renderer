@@ -45,8 +45,8 @@ namespace elvishray
 		validConnectionMap.append("intensity");
 		validConnectionMap.end();
 
-		//er_physicalsky
-		validConnectionMap.begin("er_physicalsky");
+		//er_skylight
+		validConnectionMap.begin("er_skylight");
 		validConnectionMap.append("env_shader");
 		validConnectionMap.append("resolution");
 		validConnectionMap.append("max_dist");
