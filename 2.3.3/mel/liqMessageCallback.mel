@@ -288,14 +288,12 @@ global proc liquidAETemplate_camera_liquid( string $node )
 	liqPushIdent();
 	liqAElog("liquidAETemplate_camera("+$node+")");
 		
-	editorTemplate -beginLayout (er_getRendererName()) -collapse 1;
-		editorTemplate -callCustom
-				"AEliqShaderNew" "AEliqShaderReplace" 
-				"liqEnvironmentShader";
-		editorTemplate -callCustom
-				"AEliqShaderNew" "AEliqShaderReplace" 
-				"liqLensShader";
-	editorTemplate -endLayout;
+	editorTemplate -callCustom
+			"AEliqShaderNew" "AEliqShaderReplace" 
+			"liqEnvironmentShader";
+	editorTemplate -callCustom
+			"AEliqShaderNew" "AEliqShaderReplace" 
+			"liqLensShader";
 
 	liqPopIdent();
 }
