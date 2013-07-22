@@ -1,7 +1,13 @@
 source xxliquidutility.mel;
+source AEliquidSurfaceTemplate.mel;
+source AEliquidDisplacementTemplate.mel;
+source AEliquidVolumeTemplate.mel;
+source AEliquidLightTemplate.mel;
+source AEliquidShaderTemplate.mel;
+source AEliquidRibBoxTemplate.mel;
+source AEliquidCoShaderTemplate.mel;
 source AEliquidCamera.mel;
 source AEliquidInstanceFlags.mel;
-source AEliquidLightTemplate.mel;
 source AEliquidSubdivisionSurfaceShape.mel;
 
 //
@@ -172,6 +178,30 @@ global proc liqAETemplateCustomContentCallback(string $nodeName)
         
 		switch ($type)
 		{
+			//liquid shader nodes
+			case "liquidSurface":
+				AEliquidSurfaceTemplate($nodeName);
+				break;
+			case "liquidDisplacement":
+				AEliquidDisplacementTemplate($nodeName);
+				break;
+			case "liquidVolume":
+				AEliquidVolumeTemplate($nodeName);
+				break;
+			case "liquidLight":
+				AEliquidLightTemplate($nodeName);
+				break;
+			case "liquidShader":
+				AEliquidShaderTemplate($nodeName);
+				break;
+			case "liquidCoShader":
+				AEliquidCoShaderTemplate($nodeName);
+				break;
+			case "liquidRibBox":
+				AEliquidRibBoxTemplate($nodeName);
+				break;
+
+			//
 			case "pointLight":
 				liquidAETemplate_pointLight($nodeName);
 				break;

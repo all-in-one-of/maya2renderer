@@ -1748,6 +1748,7 @@ global proc liquidAssignShaderToSelected( string $node )
   else if ( $nodetype == "liquidSurfaceSwitcher" ) liquidAssignSurfaceSwitcherShaderToSelected( $node );
   else if ( $nodetype == "liquidDisplacementSwitcher" ) liquidAssignDisplacementSwitcherShaderToSelected( $node );
   else if ( $nodetype == "liquidShader" ) liquidAssignLiquidShaderToSelected( $node );
+  else if ( $nodetype == "liquidRibbox" ) liquidAssignLiquidRibboxToSelected( $node );
   else {
 	  liquidAssignShaderToSelected_subrenderer($node);
   }

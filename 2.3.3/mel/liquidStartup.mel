@@ -151,6 +151,7 @@ global proc liquidLoadScripts()
     "AEliquidDisplacementTemplate.mel",
     "AEliquidVolumeTemplate.mel",
     "AEliquidLightTemplate.mel",
+    "AEliquidShaderTemplate.mel",
     "AEliquidRibBoxTemplate.mel",
     "AEliquidCoShaderTemplate.mel",
     //"AEliquidSLTemplate.mel",
