@@ -192,13 +192,8 @@ global proc liquidStartup_subrenderer()
 	
 	if( liquidGlobalsExists() )
 	{
-		string $lrnd[] = liquidGatherLoadedSubRenderers();
-		for($rnd in $lrnd)
-		{
-			string $cmd;
-			$cmd = "liquidStartup_"+$rnd+"()";
-			eval $cmd;
-		}
+		$cmd = "liquidStartup_"+liqGetSubRendererName()+"()";
+		eval $cmd;
 	}
 
 	liqPopIdent();

@@ -154,6 +154,7 @@ global proc liquidStartup_elvishray()
 	liqlog("liquidStartup_elvishray()");
 	
 	//liquidAddAttributeExtension_elvishray();
+	erLiquidLoadGlobals();
 
 	liqPopIdent();
 }

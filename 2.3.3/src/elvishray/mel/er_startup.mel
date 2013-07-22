@@ -188,4 +188,22 @@ ER_createFullRenderPassNode()
   string $node = `createNode elvishrayGlobals`;
   return $node;
 }
+//
+global proc erLiquidLoadGlobals()
+{
+	liqPushIdent();
+	liqlog("erLiquidLoadGlobals()");
 
+	//setAttr "liquidGlobals.renderer"		-type "string" (er_getRendererName());
+
+	setAttr "liquidGlobals.renderCommand"	-type "string" "er";
+	setAttr "liquidGlobals.previewer"		-type "string" "";
+	setAttr "liquidGlobals.shaderInfo"		-type "string" "";
+	setAttr "liquidGlobals.shaderComp"		-type "string" "";
+	setAttr "liquidGlobals.shaderExt"		-type "string" "dll";
+	setAttr "liquidGlobals.makeTexture"		-type "string" "";
+	setAttr "liquidGlobals.viewTexture"		-type "string" "";
+	setAttr "liquidGlobals.textureExt"		-type "string" "tex";
+
+	liqPopIdent();
+}

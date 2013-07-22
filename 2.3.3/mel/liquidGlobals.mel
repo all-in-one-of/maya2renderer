@@ -1444,11 +1444,19 @@ global proc liquidLoadGlobals2()
 	liqlog("liquidLoadGlobals2()");
 
 	string $oldSel[] = `ls -sl`;
-
 	select "liquidGlobals";
-	string $file=getenv("LIQUID_ROOT")+"/2.3.3/renderers/maya2renderer_3delight.lg";
-	evalEcho("source \""+$file+"\"");
+	{
+		string $file=getenv("LIQUID_ROOT")+"/2.3.3/renderers/maya2renderer_3delight.lg";
+		evalEcho("source \""+$file+"\"");
+		//setAttr ".useNewTranslator" true;
+		//setAttr ".outputShaderGraph" true;
+		//setAttr ".renderCamera"    -type "string" "perspShape";
+		//setAttr ".shaderDirectory" -type "string" "generatedShader";
+		//setAttr ".ddImageName[0]"  -type "string" "$SCN.$CAM.$RND.#.bmp";
 
+		//setAttr ".ddImageType[0]" -type "string" "bmp";
+		//setAttr ".ddImageMode[0]" -type "string" "rgb";
+	}
 	select $oldSel;
 
 	liqPopIdent();
