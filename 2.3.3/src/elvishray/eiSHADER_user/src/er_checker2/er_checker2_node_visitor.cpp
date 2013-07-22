@@ -86,7 +86,7 @@ namespace elvishray
 	//
 	bool  Checker2NodeVisitor::regist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("Checker2NodeVisitor::regist()");
+		//CM_TRACE_FUNC("Checker2NodeVisitor::regist()");
 
 		MStatus status;
 
@@ -108,7 +108,7 @@ namespace elvishray
 	}
 	bool  Checker2NodeVisitor::unregist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("Checker2NodeVisitor::unregist()");
+		//CM_TRACE_FUNC("Checker2NodeVisitor::unregist()");
 
 		MStatus status;
 

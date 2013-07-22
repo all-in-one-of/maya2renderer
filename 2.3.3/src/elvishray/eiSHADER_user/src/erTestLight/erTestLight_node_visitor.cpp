@@ -77,7 +77,7 @@ namespace elvishray
 	//
 	bool  TestLightNodeVisitor::regist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("TestLightNodeVisitor::regist()");
+		//CM_TRACE_FUNC("TestLightNodeVisitor::regist()");
 
 		MStatus status;
 
@@ -99,7 +99,7 @@ namespace elvishray
 	}
 	bool  TestLightNodeVisitor::unregist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("TestLightNodeVisitor::unregist()");
+		//CM_TRACE_FUNC("TestLightNodeVisitor::unregist()");
 
 		MStatus status;
 

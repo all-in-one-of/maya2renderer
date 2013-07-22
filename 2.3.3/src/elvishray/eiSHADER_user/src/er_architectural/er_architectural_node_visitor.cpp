@@ -191,7 +191,7 @@ namespace elvishray
 	//
 	bool  ArchitecturalNodeVisitor::regist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("ArchitecturalNodeVisitor::regist()");
+		//CM_TRACE_FUNC("ArchitecturalNodeVisitor::regist()");
 
 		MStatus status;
 
@@ -213,7 +213,7 @@ namespace elvishray
 	}
 	bool  ArchitecturalNodeVisitor::unregist(MFnPlugin &plugin)
 	{
-		CM_TRACE_FUNC("ArchitecturalNodeVisitor::unregist()");
+		//CM_TRACE_FUNC("ArchitecturalNodeVisitor::unregist()");
 
 		MStatus status;
 

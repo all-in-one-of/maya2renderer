@@ -26,6 +26,8 @@ OutputHelper::~OutputHelper()
 void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 					const MString& mayaName, const MString& mayaNode)
 {
+	CM_TRACE_FUNC("OutputHelper::addRSLVariable("<<rslType.asChar()<<","<<rslName.asChar()<<","<<mayaName.asChar()<<","<<mayaNode.asChar()<<")");
+
 	MString cmd;
 
 	// If the user specified that the type was an array of floats
@@ -286,7 +288,16 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 			//	}
 			//}
 			//else//the srcNode is NOT a texture
+			if( rslType=="string" )
 			{
+				MString val;
+				IfMErrorWarn(MGlobal::executeCommand("getAttr \""+plug+"\"", val));
+				out.ei_shader_param_token( rslName.asChar(), val.asChar());
+			}
+			else if( rslType=="shader" ){
+				out.ei_shader_param_token( rslName.asChar(), srcNode.asChar() );
+			} 
+			else {
 				out.ei_shader_link_param( rslName.asChar(), srcNode.asChar(), elvishray::convertMayaPlugNameToERShaderParameterName(srcAttr).asChar() );
 			}
 		}
