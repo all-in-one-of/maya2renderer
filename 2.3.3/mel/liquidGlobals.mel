@@ -1321,143 +1321,136 @@ global proc int liquidSaveGlobals( string $name, string $presetType, int $forceO
  *          If all fails (and provided you are not in batch mode),
  *          it will pop-up a dialog for you to choose a file.
  */
-global proc int liquidLoadGlobals( string $name, string $presetType ) 
-{
-    liqPushIdent();
-	liqlog("liquidLoadGlobals(...)");
-  // check the environment var
-  //
-  string $liquidDirectory = getenv( "LIQUID_GLOBALS_OVERRIDE" );
-  if ( $liquidDirectory == "" ) {
-	//$liquidDirectory = liquidGetUserHomeDir();//duran and xx
-    $liquidDirectory = liquidGetHome();//mesh
-  }
-
-  // check the preset type
-  //
-  switch ( $presetType ) //[merge] use mesh branch
-  {
-    case "renderer":
-      $liquidDirectory += "/renderers";
-      break;
-    
-    case "local":
-      $liquidDirectory = `workspace -q -rootDirectory`;
-      break;
-      
-    case "":
-    case "all":
-    case "global":
-    default:
-      break;
-  }
-
-  // allow the user to pass a qualified path
-  //
-  string $globalName = (`filetest -r $name` && `filetest -f $name`)? $name : ( $liquidDirectory + "/" + $name + ".lg" );
-
-  // remember the selection
-  //
-  string $oldSel[] = `ls -sl`;
-
-  // get the globals selected before applying the presets (setAttr .attr will fail otherwise)
-  //
-  select "liquidGlobals";
-
-  // try to read the file
-  print ( "[Liquid] loading preset file " + $globalName + " ...\n" );
-  if ( `filetest -r $globalName` ) 
-  {
-    // the file can be read : do it !
-    eval ("source \""+$globalName+"\"");
-    select $oldSel;
-    liqPopIdent();
-    return true;
-
-  } else {
-    // the file is not readable !
-
-    // check it is not in the user's home dir
-    //
-    $globalName = ( liquidGetUserHomeDir() + "/" + $name + ".lg" );
-    string $homeDirRendererPath = ( liquidGetUserHomeDir() + "/renderers/" + $name + ".lg" );
-
-    if  ( `filetest -r $globalName` ) {
-
-      // it is in the user's home dir !!
-      eval ("source \""+$globalName+"\"");
-      select $oldSel;
-      liqPopIdent();
-      return true;
-
-    } else if  ( `filetest -r $homeDirRendererPath` ) {
-
-      // it is in the renderer directory of the user's home dir.
-      eval ("source \""+$homeDirRendererPath+"\"");
-      select $oldSel;
-      liqPopIdent();
-      return true;
-
-    } else {
-      // we could not find it, so we are going to ask the user...
-
-      // if we are in batch mode this will compromise whatever you're trying to achieve...
-      if ( `about -batch` ) {
-        select $oldSel;
-        error ("Liquid : Preset file " + $name + " not found!");
-      }
-
-      // everything failed, force the user to select a preset file
-      warning ("Preset file " + $name + " not found! : please pick a preset file...");
-
-      confirmDialog -title "No renderer chosen..."
-                    -message ("Preset file " + $name + " not found! : please click OK and pick a preset file\n"+
-                              "You can then save this with the name 'default' in the preset menu...")
-                    -button "OK" -defaultButton "OK";
-
-      string $thePreset = `fileDialog -dm ($liquidDirectory+"/*.lg")`;
-
-      if ( size($thePreset) ) {
-          evalDeferred -lp (  "{"+
-                              " select \"liquidGlobals\";"+
-                              " source \""+$thePreset+"\";"+
-                              //" select \""+stringArrayToString( $oldSel, "\" \"")+"\";"+
-                              " if (`window -q -ex \"unifiedRenderGlobalsWindow\"`) {"+
-                              "   deleteUI \"unifiedRenderGlobalsWindow\";"+
-                              "   unifiedRenderGlobalsWindow; "+
-                              " }"+
-                              "}");
-          liqPopIdent();
-          return true;
-      }  else warning ("Preset file not found! : you might not be able to render correctly...");
-    }
-  }
-  select $oldSel;
-
-  liqPopIdent();
-  return false;
-}
+//global proc int liquidLoadGlobals( string $name, string $presetType ) 
+//{
+//    liqPushIdent();
+//	liqlog("liquidLoadGlobals(...)");
+//  // check the environment var
+//  //
+//  string $liquidDirectory = getenv( "LIQUID_GLOBALS_OVERRIDE" );
+//  if ( $liquidDirectory == "" ) {
+//	//$liquidDirectory = liquidGetUserHomeDir();//duran and xx
+//    $liquidDirectory = liquidGetHome();//mesh
+//  }
+//
+//  // check the preset type
+//  //
+//  switch ( $presetType ) //[merge] use mesh branch
+//  {
+//    case "renderer":
+//      $liquidDirectory += "/renderers";
+//      break;
+//    
+//    case "local":
+//      $liquidDirectory = `workspace -q -rootDirectory`;
+//      break;
+//      
+//    case "":
+//    case "all":
+//    case "global":
+//    default:
+//      break;
+//  }
+//
+//  // allow the user to pass a qualified path
+//  //
+//  string $globalName = (`filetest -r $name` && `filetest -f $name`)? $name : ( $liquidDirectory + "/" + $name + ".lg" );
+//
+//  // remember the selection
+//  //
+//  string $oldSel[] = `ls -sl`;
+//
+//  // get the globals selected before applying the presets (setAttr .attr will fail otherwise)
+//  //
+//  select "liquidGlobals";
+//
+//  // try to read the file
+//  print ( "[Liquid] loading preset file " + $globalName + " ...\n" );
+//  if ( `filetest -r $globalName` ) 
+//  {
+//    // the file can be read : do it !
+//    eval ("source \""+$globalName+"\"");
+//    select $oldSel;
+//    liqPopIdent();
+//    return true;
+//
+//  } else {
+//    // the file is not readable !
+//
+//    // check it is not in the user's home dir
+//    //
+//    $globalName = ( liquidGetUserHomeDir() + "/" + $name + ".lg" );
+//    string $homeDirRendererPath = ( liquidGetUserHomeDir() + "/renderers/" + $name + ".lg" );
+//
+//    if  ( `filetest -r $globalName` ) {
+//
+//      // it is in the user's home dir !!
+//      eval ("source \""+$globalName+"\"");
+//      select $oldSel;
+//      liqPopIdent();
+//      return true;
+//
+//    } else if  ( `filetest -r $homeDirRendererPath` ) {
+//
+//      // it is in the renderer directory of the user's home dir.
+//      eval ("source \""+$homeDirRendererPath+"\"");
+//      select $oldSel;
+//      liqPopIdent();
+//      return true;
+//
+//    } else {
+//      // we could not find it, so we are going to ask the user...
+//
+//      // if we are in batch mode this will compromise whatever you're trying to achieve...
+//      if ( `about -batch` ) {
+//        select $oldSel;
+//        error ("Liquid : Preset file " + $name + " not found!");
+//      }
+//
+//      // everything failed, force the user to select a preset file
+//      warning ("Preset file " + $name + " not found! : please pick a preset file...");
+//
+//      confirmDialog -title "No renderer chosen..."
+//                    -message ("Preset file " + $name + " not found! : please click OK and pick a preset file\n"+
+//                              "You can then save this with the name 'default' in the preset menu...")
+//                    -button "OK" -defaultButton "OK";
+//
+//      string $thePreset = `fileDialog -dm ($liquidDirectory+"/*.lg")`;
+//
+//      if ( size($thePreset) ) {
+//          evalDeferred -lp (  "{"+
+//                              " select \"liquidGlobals\";"+
+//                              " source \""+$thePreset+"\";"+
+//                              //" select \""+stringArrayToString( $oldSel, "\" \"")+"\";"+
+//                              " if (`window -q -ex \"unifiedRenderGlobalsWindow\"`) {"+
+//                              "   deleteUI \"unifiedRenderGlobalsWindow\";"+
+//                              "   unifiedRenderGlobalsWindow; "+
+//                              " }"+
+//                              "}");
+//          liqPopIdent();
+//          return true;
+//      }  else warning ("Preset file not found! : you might not be able to render correctly...");
+//    }
+//  }
+//  select $oldSel;
+//
+//  liqPopIdent();
+//  return false;
+//}
 //
 global proc liquidLoadGlobals2() 
 {
 	liqPushIdent();
 	liqlog("liquidLoadGlobals2()");
 
-	string $oldSel[] = `ls -sl`;
-	select "liquidGlobals";
-	{
-		string $file=getenv("LIQUID_ROOT")+"/2.3.3/renderers/maya2renderer_3delight.lg";
-		evalEcho("source \""+$file+"\"");
-		//setAttr ".useNewTranslator" true;
-		//setAttr ".outputShaderGraph" true;
-		//setAttr ".renderCamera"    -type "string" "perspShape";
-		//setAttr ".shaderDirectory" -type "string" "generatedShader";
-		//setAttr ".ddImageName[0]"  -type "string" "$SCN.$CAM.$RND.#.bmp";
+	setAttr "liquidGlobals.useNewTranslator" true;
+	setAttr "liquidGlobals.outputShaderGraph" true;
+	setAttr "liquidGlobals.renderCamera"    -type "string" "perspShape";
+	setAttr "liquidGlobals.shaderDirectory" -type "string" "generatedShader";
+	setAttr "liquidGlobals.ddImageName[0]"  -type "string" "$SCN.$CAM.$RND.#.bmp";
 
-		//setAttr ".ddImageType[0]" -type "string" "bmp";
-		//setAttr ".ddImageMode[0]" -type "string" "rgb";
-	}
-	select $oldSel;
+	setAttr "liquidGlobals.ddImageType[0]" -type "string" "bmp";
+	setAttr "liquidGlobals.ddImageMode[0]" -type "string" "rgb";
 
 	liqPopIdent();
 }
@@ -1468,7 +1461,8 @@ global proc liquidLoadPreset(string $preset, string $presetType )
 {
   liqPushIdent();
 	liqlog("liquidLoadPreset(...)");
-  liquidLoadGlobals $preset $presetType;
+  //liquidLoadGlobals $preset $presetType;
+  liquidLoadGlobals2();
   liqPopIdent();
 }
 
