@@ -14,6 +14,7 @@ namespace liquid
 	void liqMessageCallback::registCallback()
 	{
 		//CM_TRACE_FUNC("liqMessageCallback::registCallback()");
+		IfMErrorWarn(MGlobal::executeCommand("source \"liqMessageCallback.mel\";"));
 		liqMessageCallback::sNodeAddCallbackId = 
 			MDGMessage::addNodeAddedCallback( liqMessageCallback::NodeAddCallbackFunc );
 	}
