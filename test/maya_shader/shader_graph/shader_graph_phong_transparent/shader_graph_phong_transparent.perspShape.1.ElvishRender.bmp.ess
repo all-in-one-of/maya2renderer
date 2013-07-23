@@ -28,7 +28,7 @@ options "perspShape_option"
     face 3 
 end options
 
-shader "maya_place2dTexture" "place2dTexture1" 
+shader "maya_place2dTexture" "place2dTexture2" 
     param_int "liq_UserDefinedU" 0 
     param_int "liq_UserDefinedV" 0 
     param_vector "i_uvCoord" 0.000000 0.000000 0.000000
@@ -52,29 +52,7 @@ shader "maya_place2dTexture" "place2dTexture1"
     param_vector "o_outUV" 0.000000 0.000000 0.000000
 end shader
 
-texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
-file_texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif.tex" 0 
-end texture
-shader "maya_file" "file1" 
-    param_scalar "i_alphaGain" 1 
-    param_bool "i_alphaIsLuminance" 0 
-    param_scalar "i_alphaOffset" 0 
-    param_vector "i_colorGain" 1.000000 1.000000 1.000000
-    param_vector "i_colorOffset" 0.000000 0.000000 0.000000
-    param_vector "i_defaultColor" 0.500000 0.500000 0.500000
-    param_texture "i_fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
-    param_index "i_filterType" 3 
-    param_scalar "i_filter" 1 
-    param_scalar "i_filterOffset" 0 
-    param_bool "i_invert" 0 
-    link_param "i_uvCoord" "place2dTexture1" "o_outUV" 
-    param_bool "i_fileHasAlpha" 0 
-    param_scalar "o_outAlpha" 1 
-    param_vector "o_outColor" 0.000000 0.000000 0.000000
-    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
-end shader
-
-shader "maya_place2dTexture" "place2dTexture2" 
+shader "maya_place2dTexture" "place2dTexture1" 
     param_int "liq_UserDefinedU" 0 
     param_int "liq_UserDefinedV" 0 
     param_vector "i_uvCoord" 0.000000 0.000000 0.000000
@@ -114,6 +92,28 @@ shader "maya_file" "file2"
     param_scalar "i_filterOffset" 0 
     param_bool "i_invert" 0 
     link_param "i_uvCoord" "place2dTexture2" "o_outUV" 
+    param_bool "i_fileHasAlpha" 0 
+    param_scalar "o_outAlpha" 1 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
+end shader
+
+texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
+file_texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif.tex" 0 
+end texture
+shader "maya_file" "file1" 
+    param_scalar "i_alphaGain" 1 
+    param_bool "i_alphaIsLuminance" 0 
+    param_scalar "i_alphaOffset" 0 
+    param_vector "i_colorGain" 1.000000 1.000000 1.000000
+    param_vector "i_colorOffset" 0.000000 0.000000 0.000000
+    param_vector "i_defaultColor" 0.500000 0.500000 0.500000
+    param_texture "i_fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
+    param_index "i_filterType" 3 
+    param_scalar "i_filter" 1 
+    param_scalar "i_filterOffset" 0 
+    param_bool "i_invert" 0 
+    link_param "i_uvCoord" "place2dTexture1" "o_outUV" 
     param_bool "i_fileHasAlpha" 0 
     param_scalar "o_outAlpha" 1 
     param_vector "o_outColor" 0.000000 0.000000 0.000000
@@ -146,7 +146,7 @@ material "phong1SG"
 surface_shader "phong1" 
 end material
 
-shader "maya_place2dTexture" "place2dTexture1" 
+shader "maya_place2dTexture" "place2dTexture2" 
     param_int "liq_UserDefinedU" 0 
     param_int "liq_UserDefinedV" 0 
     param_vector "i_uvCoord" 0.000000 0.000000 0.000000
@@ -170,29 +170,7 @@ shader "maya_place2dTexture" "place2dTexture1"
     param_vector "o_outUV" 0.000000 0.000000 0.000000
 end shader
 
-texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
-file_texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif.tex" 0 
-end texture
-shader "maya_file" "file1" 
-    param_scalar "i_alphaGain" 1 
-    param_bool "i_alphaIsLuminance" 0 
-    param_scalar "i_alphaOffset" 0 
-    param_vector "i_colorGain" 1.000000 1.000000 1.000000
-    param_vector "i_colorOffset" 0.000000 0.000000 0.000000
-    param_vector "i_defaultColor" 0.500000 0.500000 0.500000
-    param_texture "i_fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
-    param_index "i_filterType" 3 
-    param_scalar "i_filter" 1 
-    param_scalar "i_filterOffset" 0 
-    param_bool "i_invert" 0 
-    link_param "i_uvCoord" "place2dTexture1" "o_outUV" 
-    param_bool "i_fileHasAlpha" 0 
-    param_scalar "o_outAlpha" 1 
-    param_vector "o_outColor" 0.000000 0.000000 0.000000
-    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
-end shader
-
-shader "maya_place2dTexture" "place2dTexture2" 
+shader "maya_place2dTexture" "place2dTexture1" 
     param_int "liq_UserDefinedU" 0 
     param_int "liq_UserDefinedV" 0 
     param_vector "i_uvCoord" 0.000000 0.000000 0.000000
@@ -232,6 +210,28 @@ shader "maya_file" "file2"
     param_scalar "i_filterOffset" 0 
     param_bool "i_invert" 0 
     link_param "i_uvCoord" "place2dTexture2" "o_outUV" 
+    param_bool "i_fileHasAlpha" 0 
+    param_scalar "o_outAlpha" 1 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
+end shader
+
+texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
+file_texture "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif.tex" 0 
+end texture
+shader "maya_file" "file1" 
+    param_scalar "i_alphaGain" 1 
+    param_bool "i_alphaIsLuminance" 0 
+    param_scalar "i_alphaOffset" 0 
+    param_vector "i_colorGain" 1.000000 1.000000 1.000000
+    param_vector "i_colorOffset" 0.000000 0.000000 0.000000
+    param_vector "i_defaultColor" 0.500000 0.500000 0.500000
+    param_texture "i_fileTextureName" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/maya_shader/shader_graph/shader_graph_phong_transparent/texture/check112.tif" 
+    param_index "i_filterType" 3 
+    param_scalar "i_filter" 1 
+    param_scalar "i_filterOffset" 0 
+    param_bool "i_invert" 0 
+    link_param "i_uvCoord" "place2dTexture1" "o_outUV" 
     param_bool "i_fileHasAlpha" 0 
     param_scalar "o_outAlpha" 1 
     param_vector "o_outColor" 0.000000 0.000000 0.000000

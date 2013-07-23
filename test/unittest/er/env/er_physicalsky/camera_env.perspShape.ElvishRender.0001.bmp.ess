@@ -50,8 +50,6 @@ shader "maya_lambert" "lambert1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "initialShadingGroup" 
 surface_shader "lambert1" 
 end material
@@ -76,28 +74,6 @@ shader "maya_physicalsky" "er_physicalsky1"
     param_scalar "intensity" 0.5 
 end shader
 
-##Visitor::outputEnd()
-## shader(maya_physicalsky,...)
-shader "maya_physicalsky" "er_physicalsky1" 
-    param_vector "sun_dir" 0.577000 0.577000 0.577000
-    param_scalar "sun_disk_size" 2 
-    param_scalar "sun_disk_intensity" 7 
-    param_scalar "sun_glow_size" 1 
-    param_scalar "sun_glow_intensity" 1 
-    param_scalar "sun_glow_falloff" 5 
-    param_vector "ground_color" 0.200000 0.200000 0.200000
-    param_scalar "ground_blur" 0.01 
-    param_int "type" 0 
-    param_scalar "haze" 5 
-    param_vector "zenith_color" 0.109000 0.109000 0.109000
-    param_scalar "a" -1 
-    param_scalar "b" -0.32 
-    param_scalar "c" 10 
-    param_scalar "d" -3 
-    param_scalar "e" 0.45 
-    param_scalar "intensity" 0.5 
-end shader
-##Visitor::postOutput()
 
 ##worldPrologue
 

@@ -62,13 +62,6 @@ shader "pointlight" "liquidShader1"
     param_vector "lightcolor" 0.941176 0.685834 0.405998
 end shader
 
-##Visitor::outputEnd()
-## shader(pointlight,...)
-shader "pointlight" "liquidShader1" 
-    param_scalar "intensity" 1 
-    param_vector "lightcolor" 0.941176 0.685834 0.405998
-end shader
-##Visitor::postOutput()
 light "|pointLight1|pointLightShape1_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 

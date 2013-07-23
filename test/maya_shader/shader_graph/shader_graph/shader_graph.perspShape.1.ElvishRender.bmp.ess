@@ -28,9 +28,9 @@ options "perspShape_option"
     face 3 
 end options
 
-shader "maya_lambert" "lambert2" 
+shader "maya_lambert" "lambert4" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
-    param_vector "i_color" 0.033884 0.826440 0.040885
+    param_vector "i_color" 0.500000 0.500000 0.500000
     param_scalar "i_diffuse" 0.8 
     param_vector "i_incandescence" 0.000000 0.000000 0.000000
     param_index "i_matteOpacityMode" 2 
@@ -72,9 +72,9 @@ shader "maya_lambert" "lambert3"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-shader "maya_lambert" "lambert4" 
+shader "maya_lambert" "lambert2" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
-    param_vector "i_color" 0.500000 0.500000 0.500000
+    param_vector "i_color" 0.033884 0.826440 0.040885
     param_scalar "i_diffuse" 0.8 
     param_vector "i_incandescence" 0.000000 0.000000 0.000000
     param_index "i_matteOpacityMode" 2 
@@ -216,7 +216,7 @@ shader "maya_blinn" "blinn3"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-shader "maya_blinn" "blinn4" 
+shader "maya_blinn" "blinn5" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
     param_vector "i_color" 0.500000 0.500000 0.500000
     param_scalar "i_diffuse" 0.8 
@@ -249,7 +249,7 @@ shader "maya_blinn" "blinn4"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-shader "maya_blinn" "blinn5" 
+shader "maya_blinn" "blinn4" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
     param_vector "i_color" 0.500000 0.500000 0.500000
     param_scalar "i_diffuse" 0.8 
@@ -319,6 +319,28 @@ material "blinn2SG"
 surface_shader "blinn2" 
 end material
 
+shader "maya_lambert" "lambert8" 
+    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
+    param_vector "i_color" 0.500000 0.500000 0.500000
+    param_scalar "i_diffuse" 0.8 
+    param_vector "i_incandescence" 0.000000 0.000000 0.000000
+    param_index "i_matteOpacityMode" 2 
+    param_scalar "i_matteOpacity" 1 
+    param_bool "i_refractions" 0 
+    param_scalar "i_refractiveIndex" 1 
+    param_index "i_refractionLimit" 6 
+    param_scalar "i_lightAbsorbance" 0 
+    param_scalar "i_shadowAttenuation" 0.5 
+    param_int "liq_UserDefinedNormal" 0 
+    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
+    param_vector "i_transparency" 0.000000 0.000000 0.000000
+    param_scalar "i_translucence" 0 
+    param_scalar "i_translucenceDepth" 0.5 
+    param_scalar "i_translucenceFocus" 0.5 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
+end shader
+
 shader "maya_blinn" "blinn6" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
     param_vector "i_color" 0.500000 0.500000 0.500000
@@ -352,28 +374,6 @@ shader "maya_blinn" "blinn6"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-shader "maya_lambert" "lambert8" 
-    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
-    param_vector "i_color" 0.500000 0.500000 0.500000
-    param_scalar "i_diffuse" 0.8 
-    param_vector "i_incandescence" 0.000000 0.000000 0.000000
-    param_index "i_matteOpacityMode" 2 
-    param_scalar "i_matteOpacity" 1 
-    param_bool "i_refractions" 0 
-    param_scalar "i_refractiveIndex" 1 
-    param_index "i_refractionLimit" 6 
-    param_scalar "i_lightAbsorbance" 0 
-    param_scalar "i_shadowAttenuation" 0.5 
-    param_int "liq_UserDefinedNormal" 0 
-    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
-    param_vector "i_transparency" 0.000000 0.000000 0.000000
-    param_scalar "i_translucence" 0 
-    param_scalar "i_translucenceDepth" 0.5 
-    param_scalar "i_translucenceFocus" 0.5 
-    param_vector "o_outColor" 0.000000 0.000000 0.000000
-    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
-end shader
-
 shader "maya_lambert" "lambert7" 
     link_param "i_ambientColor" "lambert8" "o_outColor" 
     param_vector "i_color" 0.500000 0.500000 0.500000
@@ -400,53 +400,31 @@ material "lambert7SG"
 surface_shader "lambert7" 
 end material
 
-shader "maya_lambert" "lambert11" 
-    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
-    param_vector "i_color" 0.000000 0.013750 0.500000
-    param_scalar "i_diffuse" 0.8 
-    param_vector "i_incandescence" 0.000000 0.000000 0.000000
-    param_index "i_matteOpacityMode" 2 
-    param_scalar "i_matteOpacity" 1 
-    param_bool "i_refractions" 0 
-    param_scalar "i_refractiveIndex" 1 
-    param_index "i_refractionLimit" 6 
-    param_scalar "i_lightAbsorbance" 0 
-    param_scalar "i_shadowAttenuation" 0.5 
-    param_int "liq_UserDefinedNormal" 0 
-    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
-    param_vector "i_transparency" 0.000000 0.000000 0.000000
-    param_scalar "i_translucence" 0 
-    param_scalar "i_translucenceDepth" 0.5 
-    param_scalar "i_translucenceFocus" 0.5 
-    param_vector "o_outColor" 0.000000 0.000000 0.000000
-    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
-end shader
-
-shader "maya_lambert" "lambert10" 
-    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
-    link_param "i_color" "lambert11" "o_outColor" 
-    param_scalar "i_diffuse" 0.8 
-    param_vector "i_incandescence" 0.000000 0.000000 0.000000
-    param_index "i_matteOpacityMode" 2 
-    param_scalar "i_matteOpacity" 1 
-    param_bool "i_refractions" 0 
-    param_scalar "i_refractiveIndex" 1 
-    param_index "i_refractionLimit" 6 
-    param_scalar "i_lightAbsorbance" 0 
-    param_scalar "i_shadowAttenuation" 0.5 
-    param_int "liq_UserDefinedNormal" 0 
-    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
-    param_vector "i_transparency" 0.000000 0.000000 0.000000
-    param_scalar "i_translucence" 0 
-    param_scalar "i_translucenceDepth" 0.5 
-    param_scalar "i_translucenceFocus" 0.5 
-    param_vector "o_outColor" 0.000000 0.000000 0.000000
-    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
-end shader
-
 shader "maya_lambert" "lambert13" 
     param_vector "i_ambientColor" 0.000000 0.000000 0.000000
     param_vector "i_color" 0.479667 0.500000 0.000000
+    param_scalar "i_diffuse" 0.8 
+    param_vector "i_incandescence" 0.000000 0.000000 0.000000
+    param_index "i_matteOpacityMode" 2 
+    param_scalar "i_matteOpacity" 1 
+    param_bool "i_refractions" 0 
+    param_scalar "i_refractiveIndex" 1 
+    param_index "i_refractionLimit" 6 
+    param_scalar "i_lightAbsorbance" 0 
+    param_scalar "i_shadowAttenuation" 0.5 
+    param_int "liq_UserDefinedNormal" 0 
+    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
+    param_vector "i_transparency" 0.000000 0.000000 0.000000
+    param_scalar "i_translucence" 0 
+    param_scalar "i_translucenceDepth" 0.5 
+    param_scalar "i_translucenceFocus" 0.5 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
+end shader
+
+shader "maya_lambert" "lambert11" 
+    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
+    param_vector "i_color" 0.000000 0.013750 0.500000
     param_scalar "i_diffuse" 0.8 
     param_vector "i_incandescence" 0.000000 0.000000 0.000000
     param_index "i_matteOpacityMode" 2 
@@ -481,6 +459,28 @@ shader "maya_lambert" "lambert12"
     param_int "liq_UserDefinedNormal" 0 
     param_vector "i_normalCamera" 1.000000 1.000000 1.000000
     link_param "i_transparency" "lambert13" "o_outColor" 
+    param_scalar "i_translucence" 0 
+    param_scalar "i_translucenceDepth" 0.5 
+    param_scalar "i_translucenceFocus" 0.5 
+    param_vector "o_outColor" 0.000000 0.000000 0.000000
+    param_vector "o_outTransparency" 0.000000 0.000000 0.000000
+end shader
+
+shader "maya_lambert" "lambert10" 
+    param_vector "i_ambientColor" 0.000000 0.000000 0.000000
+    link_param "i_color" "lambert11" "o_outColor" 
+    param_scalar "i_diffuse" 0.8 
+    param_vector "i_incandescence" 0.000000 0.000000 0.000000
+    param_index "i_matteOpacityMode" 2 
+    param_scalar "i_matteOpacity" 1 
+    param_bool "i_refractions" 0 
+    param_scalar "i_refractiveIndex" 1 
+    param_index "i_refractionLimit" 6 
+    param_scalar "i_lightAbsorbance" 0 
+    param_scalar "i_shadowAttenuation" 0.5 
+    param_int "liq_UserDefinedNormal" 0 
+    param_vector "i_normalCamera" 1.000000 1.000000 1.000000
+    param_vector "i_transparency" 0.000000 0.000000 0.000000
     param_scalar "i_translucence" 0 
     param_scalar "i_translucenceDepth" 0.5 
     param_scalar "i_translucenceFocus" 0.5 

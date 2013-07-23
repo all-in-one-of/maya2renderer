@@ -71,17 +71,6 @@ ei_shader_param_scalar("spread",0.698132);
 ei_shader_param_scalar("radius",2);
 ei_end_shader();
 
-//Visitor::outputEnd()
-// shader(disclight,...)
-ei_shader("disclight", "liquidShader1");
-ei_shader_param_scalar("intensity",3);
-ei_shader_param_vector("lightcolor",1,1,1);
-ei_shader_param_scalar("deltaangle",0.170819);
-ei_shader_param_vector("direction",0,0,-1);
-ei_shader_param_scalar("spread",0.698132);
-ei_shader_param_scalar("radius",2);
-ei_end_shader();
-//Visitor::postOutput()
 ei_light("|areaLight1|areaLightShape1_object");
 ei_light_shader("liquidShader1");
 ei_origin(0,0,0);

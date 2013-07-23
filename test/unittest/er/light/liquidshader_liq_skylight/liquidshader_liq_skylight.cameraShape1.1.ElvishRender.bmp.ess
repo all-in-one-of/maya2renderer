@@ -99,6 +99,12 @@ shader "maya_physicalsky" "liquidShader2"
     param_scalar "intensity" 0.2 
 end shader
 
+shader "liq_skylight" "liquidShader3" 
+    param_token "env_shader" "liquidShader2" 
+    param_int "resolution" 32 
+    param_scalar "max_dist" 10000 
+end shader
+
 light "|spotLight3|spotLightShape3_object" 
 light_shader "liquidShader3" 
 origin 0 0 0 

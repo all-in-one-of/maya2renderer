@@ -44,12 +44,6 @@ shader "simple_env" "liquidShader1"
     param_vector "env_color" 0.823529 0.523800 0.080738
 end shader
 
-##Visitor::outputEnd()
-## shader(simple_env,...)
-shader "simple_env" "liquidShader1" 
-    param_vector "env_color" 0.823529 0.523800 0.080738
-end shader
-##Visitor::postOutput()
 
 ##worldPrologue
 

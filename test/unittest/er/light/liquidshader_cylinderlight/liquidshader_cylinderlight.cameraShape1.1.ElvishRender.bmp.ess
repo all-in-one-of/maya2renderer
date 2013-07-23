@@ -74,8 +74,6 @@ shader "maya_lambert" "lambert1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "initialShadingGroup" 
 surface_shader "lambert1" 
 end material
@@ -92,15 +90,6 @@ shader "cylinderlight" "liquidShader1"
     param_scalar "height" 10 
 end shader
 
-##Visitor::outputEnd()
-## shader(cylinderlight,...)
-shader "cylinderlight" "liquidShader1" 
-    param_scalar "intensity" 5 
-    param_vector "lightcolor" 1.000000 1.000000 0.000000
-    param_scalar "radius" 1 
-    param_scalar "height" 10 
-end shader
-##Visitor::postOutput()
 light "|areaLight1|areaLightShape1_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 

@@ -85,7 +85,6 @@ end material
 
 ## Renderer::exportLight("_areaLight1_areaLightShape1");
 
-## shader(quadlight,...)
 shader "quadlight" "liquidShader1" 
     param_scalar "intensity" 20 
     param_vector "lightcolor" 1.000000 1.000000 0.000000
@@ -95,6 +94,7 @@ shader "quadlight" "liquidShader1"
     param_scalar "width" 1 
     param_scalar "height" 1 
 end shader
+
 light "|areaLight1|areaLightShape1_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 

@@ -247,6 +247,7 @@
                     >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape3,miEnvironmentShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape3,liqVolumeShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape3,liqEnvironmentShader)
+                    >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape3,liqEnvironmentShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape3,liqLensShader)
                     >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape3,liqLensShader)
                   >9 ShadingNetworkUser::export_user()

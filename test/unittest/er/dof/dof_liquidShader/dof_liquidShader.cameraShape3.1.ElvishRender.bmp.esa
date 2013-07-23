@@ -50,13 +50,6 @@ ei_shader_param_scalar("fstop",1);
 ei_shader_param_scalar("fplane",0.1);
 ei_end_shader();
 
-//Visitor::outputEnd()
-// shader(simple_dof,...)
-ei_shader("simple_dof", "liquidShader1");
-ei_shader_param_scalar("fstop",1);
-ei_shader_param_scalar("fplane",0.1);
-ei_end_shader();
-//Visitor::postOutput()
 
 //worldPrologue
 

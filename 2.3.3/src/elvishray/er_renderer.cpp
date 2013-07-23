@@ -147,11 +147,6 @@ namespace elvishray
 		//construct output mgr
 		o.setOutputImagePath(imageFullPath.asChar());
 
-		if(m_gnode->getBool("output_call"))
-		{
-			liquidMessage2(messageInfo,"Output::output_call");
-			o.add(OutputMgr::OT_CALL);
-		}
 		if(m_gnode->getBool("output_ess"))
 		{	
 			liquidMessage2(messageInfo,"Output::output_ess");
@@ -162,6 +157,12 @@ namespace elvishray
 			liquidMessage2(messageInfo,"Output::output_esa");
 			o.add(OutputMgr::OT_ESA);
 		}
+		if(m_gnode->getBool("output_call"))
+		{
+			liquidMessage2(messageInfo,"Output::output_call");
+			o.add(OutputMgr::OT_CALL);
+		}
+
 
 		o.init();
 

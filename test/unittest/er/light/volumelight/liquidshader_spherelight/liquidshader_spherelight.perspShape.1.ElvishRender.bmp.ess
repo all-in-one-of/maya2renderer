@@ -50,8 +50,6 @@ shader "maya_phong" "phong1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "phong1SG" 
 surface_shader "phong1" 
 end material
@@ -67,14 +65,6 @@ shader "spherelight" "liquidShader1"
     param_scalar "radius" 8 
 end shader
 
-##Visitor::outputEnd()
-## shader(spherelight,...)
-shader "spherelight" "liquidShader1" 
-    param_scalar "intensity" 50 
-    param_vector "lightcolor" 0.000000 0.000000 1.000000
-    param_scalar "radius" 8 
-end shader
-##Visitor::postOutput()
 light "|spotLight3|spotLightShape3_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 

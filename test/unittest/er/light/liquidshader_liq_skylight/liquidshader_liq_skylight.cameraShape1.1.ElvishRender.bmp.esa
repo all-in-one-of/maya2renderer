@@ -104,6 +104,12 @@ ei_shader_param_scalar("e",0.45);
 ei_shader_param_scalar("intensity",0.2);
 ei_end_shader();
 
+ei_shader("liq_skylight", "liquidShader3");
+ei_shader_param_token("env_shader", ei_token("liquidShader2") );
+ei_shader_param_int("resolution",32);
+ei_shader_param_scalar("max_dist",10000);
+ei_end_shader();
+
 ei_light("|spotLight3|spotLightShape3_object");
 ei_light_shader("liquidShader3");
 ei_origin(0,0,0);

@@ -53,10 +53,10 @@ shader "maya_phong" "phong1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-## shader(simple_displace,...)
 shader "simple_displace" "liquidShader2" 
     param_scalar "disp_dist" 1 
 end shader
+
 material "phong1SG" 
 surface_shader "phong1" 
 displace_shader "liquidShader2" 

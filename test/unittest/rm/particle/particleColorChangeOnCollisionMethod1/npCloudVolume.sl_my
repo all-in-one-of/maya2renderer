@@ -97,9 +97,21 @@ volume npCloudVolume
 
 
 // define the shaders --------------------------------------------------------------------------
+//shader name: npCloudVolume
+void npCloudVolume (
+)
+{
+ //the type of node 'npCloudVolume' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()
+}
+
 
 
 
 // call the shaders ----------------------------------------------------------------------------
+
+npCloudVolume();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }

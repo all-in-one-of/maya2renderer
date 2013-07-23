@@ -50,8 +50,6 @@ shader "maya_phong" "phong2"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "phong2SG" 
 surface_shader "phong2" 
 end material
@@ -78,8 +76,6 @@ shader "maya_phong" "phong1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "phong1SG" 
 surface_shader "phong1" 
 end material
@@ -106,8 +102,6 @@ shader "maya_lambert" "lambert1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "initialShadingGroup" 
 surface_shader "lambert1" 
 end material
@@ -125,16 +119,6 @@ shader "spotlight" "liquidShader1"
     param_scalar "spread" 0.349066 
 end shader
 
-##Visitor::outputEnd()
-## shader(spotlight,...)
-shader "spotlight" "liquidShader1" 
-    param_scalar "intensity" 1 
-    param_vector "lightcolor" 0.901961 0.667526 0.176855
-    param_scalar "deltaangle" 0.174533 
-    param_vector "direction" 0.000000 0.000000 -1.000000
-    param_scalar "spread" 0.349066 
-end shader
-##Visitor::postOutput()
 light "|pointLight1|pointLightShape1_object" 
 light_shader "liquidShader1" 
 origin 0 0 0 

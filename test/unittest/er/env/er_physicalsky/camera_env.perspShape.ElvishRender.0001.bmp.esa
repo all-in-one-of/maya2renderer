@@ -55,8 +55,6 @@ ei_shader_param_vector("o_outColor",0,0,0);
 ei_shader_param_vector("o_outTransparency",0,0,0);
 ei_end_shader();
 
-//Visitor::outputEnd()
-//Visitor::postOutput()
 ei_material("initialShadingGroup");
 ei_surface_shader("lambert1");
 ei_end_material();
@@ -81,28 +79,6 @@ ei_shader_param_scalar("e",0.45);
 ei_shader_param_scalar("intensity",0.5);
 ei_end_shader();
 
-//Visitor::outputEnd()
-// shader(maya_physicalsky,...)
-ei_shader("maya_physicalsky", "er_physicalsky1");
-ei_shader_param_vector("sun_dir",0.577,0.577,0.577);
-ei_shader_param_scalar("sun_disk_size",2);
-ei_shader_param_scalar("sun_disk_intensity",7);
-ei_shader_param_scalar("sun_glow_size",1);
-ei_shader_param_scalar("sun_glow_intensity",1);
-ei_shader_param_scalar("sun_glow_falloff",5);
-ei_shader_param_vector("ground_color",0.2,0.2,0.2);
-ei_shader_param_scalar("ground_blur",0.01);
-ei_shader_param_int("type",0);
-ei_shader_param_scalar("haze",5);
-ei_shader_param_vector("zenith_color",0.109,0.109,0.109);
-ei_shader_param_scalar("a",-1);
-ei_shader_param_scalar("b",-0.32);
-ei_shader_param_scalar("c",10);
-ei_shader_param_scalar("d",-3);
-ei_shader_param_scalar("e",0.45);
-ei_shader_param_scalar("intensity",0.5);
-ei_end_shader();
-//Visitor::postOutput()
 
 //worldPrologue
 

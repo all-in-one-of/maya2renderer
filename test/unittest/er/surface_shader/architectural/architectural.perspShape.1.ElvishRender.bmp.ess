@@ -28,7 +28,6 @@ options "perspShape_option"
     face 3 
 end options
 
-## shader(architectural,...)
 shader "architectural" "liquidShader2" 
     param_vector "surface_color" 0.000000 1.000000 0.962571
     param_vector "diffuse_color" 1.000000 1.000000 1.000000
@@ -60,11 +59,11 @@ shader "architectural" "liquidShader2"
     param_scalar "cutoff_threshold" 0.01 
     param_scalar "bump_factor" 0.3 
 end shader
+
 material "liquidShader2SG" 
 surface_shader "liquidShader2" 
 end material
 
-## shader(architectural,...)
 shader "architectural" "liquidShader1" 
     param_vector "surface_color" 1.000000 0.000000 0.000000
     param_vector "diffuse_color" 1.000000 1.000000 1.000000
@@ -96,6 +95,7 @@ shader "architectural" "liquidShader1"
     param_scalar "cutoff_threshold" 0.01 
     param_scalar "bump_factor" 0.3 
 end shader
+
 material "liquidShader1SG" 
 surface_shader "liquidShader1" 
 end material

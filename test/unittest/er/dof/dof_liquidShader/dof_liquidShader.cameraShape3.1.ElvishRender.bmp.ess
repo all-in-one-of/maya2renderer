@@ -45,13 +45,6 @@ shader "simple_dof" "liquidShader1"
     param_scalar "fplane" 0.1 
 end shader
 
-##Visitor::outputEnd()
-## shader(simple_dof,...)
-shader "simple_dof" "liquidShader1" 
-    param_scalar "fstop" 1 
-    param_scalar "fplane" 0.1 
-end shader
-##Visitor::postOutput()
 
 ##worldPrologue
 

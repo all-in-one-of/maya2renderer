@@ -28,10 +28,9 @@ options "perspShape_option"
     face 3 
 end options
 
-## shader(volume_shell,...)
 shader "volume_shell" "liquidShader3" 
 end shader
-## shader(simple_volume,...)
+
 shader "simple_volume" "liquidShader2" 
     param_vector "vol_color" 1.000000 1.000000 0.000000
     param_scalar "vol_density" 5 
@@ -41,9 +40,10 @@ shader "simple_volume" "liquidShader2"
     param_scalar "absorption" 0.3 
     param_scalar "anisotropic" 0.4 
 end shader
-## shader(shadowvol_shell,...)
+
 shader "shadowvol_shell" "liquidShader1" 
 end shader
+
 material "liquidSurface1SG" 
 surface_shader "liquidShader3" 
 volume_shader "liquidShader2" 

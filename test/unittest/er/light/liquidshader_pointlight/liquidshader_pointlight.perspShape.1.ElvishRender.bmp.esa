@@ -67,13 +67,6 @@ ei_shader_param_scalar("intensity",1);
 ei_shader_param_vector("lightcolor",0.941176,0.685834,0.405998);
 ei_end_shader();
 
-//Visitor::outputEnd()
-// shader(pointlight,...)
-ei_shader("pointlight", "liquidShader1");
-ei_shader_param_scalar("intensity",1);
-ei_shader_param_vector("lightcolor",0.941176,0.685834,0.405998);
-ei_end_shader();
-//Visitor::postOutput()
 ei_light("|pointLight1|pointLightShape1_object");
 ei_light_shader("liquidShader1");
 ei_origin(0,0,0);

@@ -36,8 +36,6 @@ FrameBegin 1
 DisplayChannel " rgba"
 Display "R:/MyDocuments/maya/projects/default/rmanpix/texture_liquidShader_png.perspShape.1.renderman.png" "png" "rgba"    
     Shutter 1.000000 1.000000
-    #writeRibAttributes() is omitted.
-    #RiVPSurfaceV is not implemented in maya2renderer
     WorldBegin
         TransformBegin
             CoordinateSystem "worldspace"

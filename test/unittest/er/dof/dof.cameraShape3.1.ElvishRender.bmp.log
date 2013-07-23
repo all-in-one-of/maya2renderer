@@ -263,6 +263,7 @@
                     >10 Visitor::outputShadingGroup(liquidSurface1SG)
                   >9 ConvertShadingNetwork::exportShadingGroupEnd(liquidSurface1SG)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape3,miEnvironmentShader)
+                    >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape3,miEnvironmentShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape3,liqVolumeShader)
                     >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape3,liqVolumeShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape3,liqEnvironmentShader)

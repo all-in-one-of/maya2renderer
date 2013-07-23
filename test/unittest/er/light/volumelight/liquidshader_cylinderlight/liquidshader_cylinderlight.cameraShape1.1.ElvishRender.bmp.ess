@@ -74,8 +74,6 @@ shader "maya_lambert" "lambert1"
     param_vector "o_outTransparency" 0.000000 0.000000 0.000000
 end shader
 
-##Visitor::outputEnd()
-##Visitor::postOutput()
 material "initialShadingGroup" 
 surface_shader "lambert1" 
 end material

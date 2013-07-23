@@ -6,7 +6,8 @@
 
 
 - learn katana
-
+liq|:menu>select render pass>liquidGlobals
+liq|: BreadthFirstTraversal回归测试
 liq|: 完善ipr
 liq|: liqGlobal --> AE
 liq|: callback buildHyperShadeMenu(),针对每一个shader完善之

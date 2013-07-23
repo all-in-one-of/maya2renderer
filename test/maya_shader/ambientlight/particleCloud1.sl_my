@@ -97,9 +97,21 @@ volume particleCloud1
 
 
 // define the shaders --------------------------------------------------------------------------
+//shader name: particleCloud1
+void particleCloud1 (
+)
+{
+ //the type of node 'particleCloud1' is not implemented yet. And don't forget to add the valid connections of this type to ShaderValidConnection::setValidConnection()
+}
+
 
 
 
 // call the shaders ----------------------------------------------------------------------------
+
+particleCloud1();
+//inputSrc: 
+//inputDes: 
+//outputSrc: 
 
 }
