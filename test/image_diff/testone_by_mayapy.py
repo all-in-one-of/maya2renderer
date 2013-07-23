@@ -40,7 +40,8 @@ def parseString(strdata):
 
     if strdata.find('#')!=-1:
         strinfo = re.compile('\#')
-        frame = "%4d" % cmds.currentTime( query=True ) 
+        frame = "%04d" % cmds.currentTime( query=True ) 
+        #frame = "{0:04d}".format(cmds.currentTime( query=True )) 
         strdata = strinfo.sub( frame, strdata)
 
     # TODO ...
