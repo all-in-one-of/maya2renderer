@@ -68,6 +68,8 @@ end shader
 light "|spotLight1|spotLightShape1_object" 
 light_shader "erTestLight1" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|spotLight1|spotLightShape1" 
 element "|spotLight1|spotLightShape1_object" 
@@ -90,7 +92,7 @@ end output
     focal 35 
     aperture 36 
     aspect 1.33333 
-    resolution 768 576 
+    resolution 200 150 
     clip 1 100000 
 end camera
 
@@ -169,7 +171,6 @@ instgroup "perspShape"
 ##camera
 add_instance "|persp" 
 ##light(s)
-add_instance "" 
 add_instance "|spotLight1|spotLightShape1" 
 ##mesh(s)
 add_instance "|pPlane1" 

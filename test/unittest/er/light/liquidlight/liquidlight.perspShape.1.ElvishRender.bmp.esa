@@ -72,6 +72,8 @@ ei_end_shader();
 ei_light("|spotLight3|spotLightShape3_object");
 ei_light_shader("liquidLight3");
 ei_origin(0,0,0);
+ei_area_samples(16);
+ei_adaptive(0);
 ei_end_light();
 ei_instance("|spotLight3|spotLightShape3");
 ei_element("|spotLight3|spotLightShape3_object");

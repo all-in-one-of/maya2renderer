@@ -1449,9 +1449,19 @@ MStatus liqRibTranslator::tRiIlluminate(const structJob &currentJob__, const liq
 	IfMErrorWarn(MGlobal::executeCommand( "lightlink -q -set 0 -t 0 -object "+mesh, lights));
 	toFullDagPath(lights);
 
+	//sometimes $lights contains user-defined light shader nodes,
+	//which are set to "" in toFullDagPath(), so we exclude "" in $lights
+	MStringArray lights_no_empty;
+	for(std::size_t i=0; i<lights.length(); ++i){
+		if(lights[i].length() == 0){
+			continue;
+		}
+		lights_no_empty.append(lights[i]);
+	}
+
 	liquid::RendererMgr::getInstancePtr()->
 		getRenderer()->exportLightLinks(
-		currentJob__, ribNode__, lights);
+		currentJob__, ribNode__, lights_no_empty);
 
 #endif
 	return MS::kSuccess;
