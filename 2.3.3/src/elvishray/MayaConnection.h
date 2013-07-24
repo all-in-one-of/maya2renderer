@@ -91,8 +91,8 @@ public:
 protected:
 	void setConnection();
 	void getMin(unsigned int &min_x, unsigned int &min_y,
-		unsigned int left, unsigned int right,
-		unsigned int bottom, unsigned int top);
+		const eiInt left, const eiInt right,
+		const eiInt bottom, const eiInt top);
 	eiScalar m_percent;//[0,1]
 };
 

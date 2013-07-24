@@ -108,8 +108,8 @@ void MayaConnection::ClearTile( const eiInt left, const eiInt right,
 	const RV_PIXEL BACKGROUND={         (1.0f-m_percent)*255.0f,   0.0f,   0.0f, 125.0f};
 	const RV_PIXEL MARK={fmodf(((float)host)/3.14f,1.0f)*255.0f, 255.0f, 255.0f, 255.0f};
 
-	unsigned int tile_width  = right - left;
-	unsigned int tile_height = bottom - top;
+	const unsigned int tile_width  = (right>left)?(right-left):(left-right);
+	const unsigned int tile_height = (bottom>top)?(bottom-top):(top-bottom);
 	assert( tile_width>=1 && tile_height>=1 );
 
 	unsigned int min_x, min_y, max_x, max_y;
@@ -131,30 +131,30 @@ void MayaConnection::ClearTile( const eiInt left, const eiInt right,
 	}
 
 	//set mark
-	IfErrorWarn(MRenderView::updatePixels(min_x, min_x, min_y, min_y+TARGET_LEN-1, pixels));
-	IfErrorWarn(MRenderView::updatePixels(min_x, min_x+TARGET_LEN-1, min_y, min_y, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(min_x, min_x, min_y, min_y+TARGET_LEN-1, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(min_x, min_x+TARGET_LEN-1, min_y, min_y, pixels));
 
-	IfErrorWarn(MRenderView::updatePixels(max_x-1, max_x-1, min_y, min_y+TARGET_LEN-1, pixels));
-	IfErrorWarn(MRenderView::updatePixels(max_x-TARGET_LEN, max_x-1, min_y, min_y, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(max_x-1, max_x-1, min_y, min_y+TARGET_LEN-1, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(max_x-TARGET_LEN, max_x-1, min_y, min_y, pixels));
 
-	IfErrorWarn(MRenderView::updatePixels(min_x, min_x, max_y-TARGET_LEN, max_y-1, pixels));
-	IfErrorWarn(MRenderView::updatePixels(min_x, min_x+TARGET_LEN-1, max_y-1, max_y-1, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(min_x, min_x, max_y-TARGET_LEN, max_y-1, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(min_x, min_x+TARGET_LEN-1, max_y-1, max_y-1, pixels));
 
-	IfErrorWarn(MRenderView::updatePixels(max_x-TARGET_LEN, max_x-1, max_y-1, max_y-1, pixels));
-	IfErrorWarn(MRenderView::updatePixels(max_x-1, max_x-1, max_y-TARGET_LEN, max_y-1, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(max_x-TARGET_LEN, max_x-1, max_y-1, max_y-1, pixels));
+	IfMErrorWarn(MRenderView::updatePixels(max_x-1, max_x-1, max_y-TARGET_LEN, max_y-1, pixels));
 
 	// Force the Render View to refresh the display of the affected region.
-	IfErrorWarn(MRenderView::refresh(min_x, min_x, min_y, min_y+TARGET_LEN-1));
-	IfErrorWarn(MRenderView::refresh(min_x, min_x+TARGET_LEN-1, min_y, min_y));
+	IfMErrorWarn(MRenderView::refresh(min_x, min_x, min_y, min_y+TARGET_LEN-1));
+	IfMErrorWarn(MRenderView::refresh(min_x, min_x+TARGET_LEN-1, min_y, min_y));
 
-	IfErrorWarn(MRenderView::refresh(max_x-1, max_x-1, min_y, min_y+TARGET_LEN-1));
-	IfErrorWarn(MRenderView::refresh(max_x-TARGET_LEN, max_x-1, min_y, min_y));
+	IfMErrorWarn(MRenderView::refresh(max_x-1, max_x-1, min_y, min_y+TARGET_LEN-1));
+	IfMErrorWarn(MRenderView::refresh(max_x-TARGET_LEN, max_x-1, min_y, min_y));
 
-	IfErrorWarn(MRenderView::refresh(min_x, min_x, max_y-TARGET_LEN, max_y-1));
-	IfErrorWarn(MRenderView::refresh(min_x, min_x+TARGET_LEN-1, max_y-1, max_y-1));
+	IfMErrorWarn(MRenderView::refresh(min_x, min_x, max_y-TARGET_LEN, max_y-1));
+	IfMErrorWarn(MRenderView::refresh(min_x, min_x+TARGET_LEN-1, max_y-1, max_y-1));
 
-	IfErrorWarn(MRenderView::refresh(max_x-TARGET_LEN, max_x-1, max_y-1, max_y-1));
-	IfErrorWarn(MRenderView::refresh(max_x-1, max_x-1, max_y-TARGET_LEN, max_y-1));
+	IfMErrorWarn(MRenderView::refresh(max_x-TARGET_LEN, max_x-1, max_y-1, max_y-1));
+	IfMErrorWarn(MRenderView::refresh(max_x-1, max_x-1, max_y-TARGET_LEN, max_y-1));
 #undef TARGET_LEN
 }
 // Note:
@@ -172,8 +172,8 @@ void MayaConnection::UpdateTile( const eiInt job_state,
 	if( !isInteractiveRenderingMode() )
 		return;
 
-	unsigned int tile_width  = right - left;
-	unsigned int tile_height = bottom - top;
+	const unsigned int tile_width  = (right>left)?(right-left):(left-right);
+	const unsigned int tile_height = (bottom>top)?(bottom-top):(top-bottom);
 	
 	assert( tile_width>=1 && tile_height>=1 );
 	//_LogDebug("tile<"<<tile_width <<", "<< tile_height<<">, w*h="<< tile_width*tile_height);
@@ -212,7 +212,8 @@ void MayaConnection::UpdateTile( const eiInt job_state,
 	// Send the data to the render view.
 	if ( (status = MRenderView::updatePixels(min_x, max_x-1, min_y, max_y-1, pixels)) != MS::kSuccess)
 	{
-		IfErrorWarn(status);
+		liquidMessage2(messageError, "MRenderView::updatePixels(%d,%d,%d,%d,...)", min_x, max_x-1, min_y, max_y-1);
+		IfMErrorWarn(status);
 		//_LogError( "MayaConnection: error occured in updatePixels." );
 		delete [] pixels;
 		return ;
@@ -221,7 +222,8 @@ void MayaConnection::UpdateTile( const eiInt job_state,
 	// Force the Render View to refresh the display of the affected region.
 	if ( (status = MRenderView::refresh(min_x, max_x-1, min_y, max_y-1)) != MS::kSuccess)
 	{
-		IfErrorWarn(status);
+		liquidMessage2(messageError, "MRenderView::refresh(%d,%d,%d,%d,...)", min_x, max_x-1, min_y, max_y-1);
+		IfMErrorWarn(status);
 		//_LogError( "MayaConnection: error occured in refresh." );
 		return ;
 	}
@@ -328,8 +330,8 @@ bool MayaConnection::isInteractiveRenderingMode()
 	return MRenderView::doesRenderEditorExist();
 }
 void MayaConnection::getMin(unsigned int &min_x, unsigned int &min_y,
-			unsigned int left, unsigned int right,
-			unsigned int bottom, unsigned int top)
+			const eiInt left, const eiInt right,
+			const eiInt bottom, const eiInt top)
 {
 #define ELIMINATE_OFFSET
 #if defined(ELIMINATE_OFFSET)

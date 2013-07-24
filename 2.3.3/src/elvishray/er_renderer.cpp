@@ -1510,9 +1510,9 @@ namespace elvishray
 		// start render - region render, don't clear background, don't immediate feedback
 		if (MayaConnection::getInstance()->startRender( width, height, doNotClearBackground, immediateFeedback) != MS::kSuccess)
 		{
-			assert(0&&"MayaConnection: error occured in startRenderRegion.");
+			liquidMessage2(messageError, "MayaConnection::getInstance()->startRender(%d, %d, %d, %d)", width, height, doNotClearBackground, immediateFeedback);
 			o.a("MayaConnection: error occured in startRenderRegion." );
-			//MayaConnection::delInstance();				
+			//MayaConnection::delInstance();
 			return /*MS::kFailure*/;
 		}
 
@@ -1533,7 +1533,7 @@ namespace elvishray
 		// end render
 		if (MayaConnection::getInstance()->endRender() != MS::kSuccess)
 		{
-			assert(0&&"MayaConnection: error occured in endRender.");
+			liquidMessage2(messageError, "MayaConnection::getInstance()->endRender()");
 			o.a( "MayaConnection: error occured in endRender." );
 			//MayaConnection::delInstance();
 			return /*MS::kFailure*/;
