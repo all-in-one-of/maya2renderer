@@ -15,6 +15,8 @@ namespace elvishray
 	MString getTestShaderName();
 	MString getTestMaterialName();
 	//
+	// outColor --> o_Color
+	// color    --> i_color
 	MString convertMayaPlugNameToERShaderParameterName(const MString& attr);
 
 	//----------------------------------------------------
@@ -23,5 +25,7 @@ namespace elvishray
 	class OutputMgr;
 	ER_EXPORT OutputMgr& getOutputMgr();
 }
+#define ER_SPN(maya_plug_name) \
+	elvishray::convertMayaPlugNameToERShaderParameterName(maya_plug_name)
 
 #endif//_ER_HELPER_H_

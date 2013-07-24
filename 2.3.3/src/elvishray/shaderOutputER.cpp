@@ -298,7 +298,7 @@ void OutputHelper::addRSLVariable(MString rslType, const MString& rslName,
 				out.ei_shader_param_token( rslName.asChar(), srcNode.asChar() );
 			} 
 			else {
-				out.ei_shader_link_param( rslName.asChar(), srcNode.asChar(), elvishray::convertMayaPlugNameToERShaderParameterName(srcAttr).asChar() );
+				out.ei_shader_link_param( rslName.asChar(), srcNode.asChar(), ER_SPN(srcAttr).asChar() );
 			}
 		}
 

@@ -389,10 +389,10 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/er/light/volumelight/liquidshader_cylinderlight/liquidshader_cylinderlight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_liq_skylight/liquidshader_liq_skylight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
     #crash, use liquidshader_liq_skylight.ma as a substitute
     #testFile=LIQUID_ROOT+"/test/unittest/er/light/liquidshader_skylight/liquidshader_skylight.ma"
     # MyTestOne.test_one_scene(testFile, er.getRendererName())
@@ -479,13 +479,13 @@ def test_all_scene():
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
 
-        
+    '''
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
+    '''
     #right side of the body is almost black
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())

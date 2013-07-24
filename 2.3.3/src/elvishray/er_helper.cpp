@@ -33,7 +33,8 @@ namespace elvishray
 	{
 		return "liquid_material_for_test";
 	}
-	//
+	// outColor --> o_Color
+	// color    --> i_color
 	MString convertMayaPlugNameToERShaderParameterName(const MString& attr)
 	{
 		MString shaderParameterName(attr);
