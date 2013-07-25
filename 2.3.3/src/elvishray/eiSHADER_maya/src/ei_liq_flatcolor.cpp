@@ -21,8 +21,8 @@
 
 SURFACE(liq_flatcolor)
 	DECLARE;
-	DECLARE_COLOR(inColor,			1.0f, 1.0f, 1.0f);
-	DECLARE_COLOR(inTransparency,	1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(i_color,			1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(i_transparency,	1.0f, 1.0f, 1.0f);
 	END_DECLARE;
 
 	static void init()
@@ -43,8 +43,8 @@ SURFACE(liq_flatcolor)
 
 	void main(void *arg)
 	{
-		out->Oi = inTransparency();
-		out->Ci = inColor() * out->Oi;
+		out->Oi = i_transparency();
+		out->Ci = i_color() * out->Oi;
 	}
 
 END(liq_flatcolor)

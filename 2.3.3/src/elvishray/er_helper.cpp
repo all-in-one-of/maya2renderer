@@ -40,12 +40,20 @@ namespace elvishray
 		MString shaderParameterName(attr);
 		if( shaderParameterName.substring(0, 2)=="out"  )//attr is an output plug
 		{
+			//e.g. outColor --> o_outColor
 			shaderParameterName = "o_" + shaderParameterName;
-		}else{//src attribute is an input plug
+		}
+		else{//src attribute is an input plug
 			if(shaderParameterName.substring(0, 1) == "i_")
-			{
+			{	
+				//e.g. i_color --> i_color
 				// do nothing
-			}else{
+			}
+			else if(shaderParameterName.substring(0, 1) == "in")
+			{	// e.g. inColor --> i_Color
+				shaderParameterName = "i_" + shaderParameterName.substring(2, shaderParameterName.length()-1);
+			}
+			else{// e.g. color --> i_color
 				shaderParameterName = "i_" + shaderParameterName;
 			}
 		}

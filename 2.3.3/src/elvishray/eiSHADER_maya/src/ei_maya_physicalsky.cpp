@@ -188,24 +188,24 @@ static color get_cie_standard_sky_color(
 
 ENVIRONMENT(maya_physicalsky)
 	DECLARE;
-	DECLARE_VECTOR(sun_dir, 0.577f, 0.577f, 0.577f);
-	DECLARE_SCALAR(sun_disk_size, 2.0f);
-	DECLARE_SCALAR(sun_disk_intensity, 7.0f);
-	DECLARE_SCALAR(sun_glow_size, 1.0f);
-	DECLARE_SCALAR(sun_glow_intensity, 1.0f);
-	DECLARE_SCALAR(sun_glow_falloff, 5.0f);
-	DECLARE_COLOR(ground_color, 0.2f, 0.2f, 0.2f);
-	DECLARE_SCALAR(ground_blur, 0.01f);
-	DECLARE_INT(type, 0);
-	DECLARE_SCALAR(haze, 5.0f);
-	DECLARE_COLOR(zenith_color, 0.109f, 0.109f, 0.109f);
-	DECLARE_SCALAR(a, -1.0f);
-	DECLARE_SCALAR(b, -0.32f);
-	DECLARE_SCALAR(c, 10.0f);
-	DECLARE_SCALAR(d, -3.0f);
-	DECLARE_SCALAR(e, 0.45f);
-	DECLARE_SCALAR(intensity, 0.5f);
-	DECLARE_OUT_COLOR(result, 0.0f, 0.0f, 0.0f);
+	DECLARE_VECTOR(i_sun_dir, 0.577f, 0.577f, 0.577f);
+	DECLARE_SCALAR(i_sun_disk_size, 2.0f);
+	DECLARE_SCALAR(i_sun_disk_intensity, 7.0f);
+	DECLARE_SCALAR(i_sun_glow_size, 1.0f);
+	DECLARE_SCALAR(i_sun_glow_intensity, 1.0f);
+	DECLARE_SCALAR(i_sun_glow_falloff, 5.0f);
+	DECLARE_COLOR(i_ground_color, 0.2f, 0.2f, 0.2f);
+	DECLARE_SCALAR(i_ground_blur, 0.01f);
+	DECLARE_INT(i_type, 0);
+	DECLARE_SCALAR(i_haze, 5.0f);
+	DECLARE_COLOR(i_zenith_color, 0.109f, 0.109f, 0.109f);
+	DECLARE_SCALAR(i_a, -1.0f);
+	DECLARE_SCALAR(i_b, -0.32f);
+	DECLARE_SCALAR(i_c, 10.0f);
+	DECLARE_SCALAR(i_d, -3.0f);
+	DECLARE_SCALAR(i_e, 0.45f);
+	DECLARE_SCALAR(i_intensity, 0.5f);
+	DECLARE_OUT_COLOR(o_result, 0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -226,10 +226,10 @@ ENVIRONMENT(maya_physicalsky)
 
 	color physicalsky_color(const vector & ray_dir)
 	{
-		scalar haze_val = max(haze() + 2.0f, 2.0f);
-		vector sun_dir_val(sun_dir());
+		scalar haze_val = max(i_haze() + 2.0f, 2.0f);
+		vector sun_dir_val(i_sun_dir());
 		color sky_color(0.0f);
-		switch (type())
+		switch (i_type())
 		{
 		case 0:
 			{
@@ -238,7 +238,7 @@ ENVIRONMENT(maya_physicalsky)
 			break;
 		case 1:
 			{
-				sky_color = get_cie_standard_sky_color(ray_dir, sun_dir_val, zenith_color(), a(), b(), c(), d(), e());
+				sky_color = get_cie_standard_sky_color(ray_dir, sun_dir_val, i_zenith_color(), i_a(), i_b(), i_c(), i_d(), i_e());
 			}
 			break;
 		default:
@@ -247,7 +247,7 @@ ENVIRONMENT(maya_physicalsky)
 			}
 		}
 		
-		return intensity() * sky_color * get_sun_intensity(ray_dir, sun_dir_val, haze_val, sun_disk_size(), sun_disk_intensity(), sun_glow_size(), sun_glow_intensity(), sun_glow_falloff());
+		return i_intensity() * sky_color * get_sun_intensity(ray_dir, sun_dir_val, haze_val, i_sun_disk_size(), i_sun_disk_intensity(), i_sun_glow_size(), i_sun_glow_intensity(), i_sun_glow_falloff());
 	}
 
 	void main(void *arg)
@@ -261,24 +261,24 @@ ENVIRONMENT(maya_physicalsky)
 		// (Y is 0.0), and after some transformations between internal 
 		// space and local frame, the precision will lose and result 
 		// in either +epsilon or -epsilon for Y component.
-		scalar blur = ground_blur();
+		scalar blur = i_ground_blur();
 		if (ray_dir.y >= blur)
 		{
-			result() = physicalsky_color(ray_dir);
+			o_result() = physicalsky_color(ray_dir);
 		}
 		else if (ray_dir.y <= 0.0f)
 		{
-			result() = ground_color();
+			o_result() = i_ground_color();
 		}
 		else
 		{
 			color sky_c(physicalsky_color(ray_dir));
-			color ground_c(ground_color());
+			color ground_c(i_ground_color());
 
 			scalar factor = curve(ray_dir.y / blur);
-			result() = ground_c * (1.0f - factor) + sky_c * factor;
+			o_result() = ground_c * (1.0f - factor) + sky_c * factor;
 		}
-		out->Ci = result();
+		out->Ci = o_result();
 		out->Oi = color(0.0f);
 	}
 

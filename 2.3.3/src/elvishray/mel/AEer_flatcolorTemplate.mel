@@ -12,8 +12,8 @@ global proc AEer_flatcolorTemplate( string $nodeName )
 		//--------------------------------------------------
 		editorTemplate -beginScrollLayout;
 		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
-				editorTemplate -addDynamicControl "inColor";
-				editorTemplate -addDynamicControl "inTransparency";
+				editorTemplate -addDynamicControl "color";
+				editorTemplate -addDynamicControl "transparency";
 			editorTemplate -endLayout;
 		editorTemplate -endLayout;
 		//--------------------------------------------------

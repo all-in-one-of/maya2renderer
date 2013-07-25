@@ -6,6 +6,7 @@
 #include "er_log.h"
 #include "er_output_mgr.h"
 #include "er_rnode_visitor_mgr.h"
+#include "er_helper.h"
 
 namespace ER
 {
@@ -44,30 +45,30 @@ void Visitor::visit_er_physicalsky(const char* node)
 	OutputHelper o;
 	o.beginRSL("maya_physicalsky", node);
 #if 0
-	o.addRSLVariable("vector",	"sun_dir",			"sun_dir",				node);
-	o.addRSLVariable("float",	"sun_disk_size",	"sun_disk_size",		node);
-	o.addRSLVariable("float",	"sun_disk_intensity","sun_disk_intensity",	node);
-	o.addRSLVariable("float",	"sun_glow_size",	"sun_glow_size",		node);
-	o.addRSLVariable("float",	"sun_glow_intensity","sun_glow_intensity",	node);
-	o.addRSLVariable("float",	"sun_glow_falloff",	"sun_glow_falloff",		node);
-	o.addRSLVariable("color",	"ground_color",		"ground_color",			node);
-	o.addRSLVariable("float",	"ground_blur",		"ground_blur",			node);
-	o.addRSLVariable("int",		"type",				"type",					node);
-	o.addRSLVariable("float",	"haze",				"haze",					node);
-	o.addRSLVariable("color",	"zenith_color",		"zenith_color",			node);
-	o.addRSLVariable("float",	"a",				"a",					node);
-	o.addRSLVariable("float",	"b",				"b",					node);
-	o.addRSLVariable("float",	"c",				"c",					node);
-	o.addRSLVariable("float",	"d",				"d",					node);
-	o.addRSLVariable("float",	"e",				"e",					node);
-	o.addRSLVariable("float",	"intensity","intensity",					node);
+	o.addRSLVariable("vector",	ER_SPN("sun_dir"),			"sun_dir",				node);
+	o.addRSLVariable("float",	ER_SPN("sun_disk_size"),	"sun_disk_size",		node);
+	o.addRSLVariable("float",	ER_SPN("sun_disk_intensity"),"sun_disk_intensity",	node);
+	o.addRSLVariable("float",	ER_SPN("sun_glow_size"),	"sun_glow_size",		node);
+	o.addRSLVariable("float",	ER_SPN("sun_glow_intensity"),"sun_glow_intensity",	node);
+	o.addRSLVariable("float",	ER_SPN("sun_glow_falloff"),	"sun_glow_falloff",		node);
+	o.addRSLVariable("color",	ER_SPN("ground_color"),		"ground_color",			node);
+	o.addRSLVariable("float",	ER_SPN("ground_blur"),		"ground_blur",			node);
+	o.addRSLVariable("int",		ER_SPN("type"),				"type",					node);
+	o.addRSLVariable("float",	ER_SPN("haze"),				"haze",					node);
+	o.addRSLVariable("color",	ER_SPN("zenith_color"),		"zenith_color",			node);
+	o.addRSLVariable("float",	ER_SPN("a"),				"a",					node);
+	o.addRSLVariable("float",	ER_SPN("b"),				"b",					node);
+	o.addRSLVariable("float",	ER_SPN("c"),				"c",					node);
+	o.addRSLVariable("float",	ER_SPN("d"),				"d",					node);
+	o.addRSLVariable("float",	ER_SPN("e"),				"e",					node);
+	o.addRSLVariable("float",	ER_SPN("intensity","intensity",					node);
 #else
 	MStringArray rmanParams, rmanTypes;
 	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+MString(node)+".rmanParams\""), rmanParams ));
 	IfMErrorWarn(MGlobal::executeCommand( ("getAttr \""+MString(node)+".rmanTypes\""),	rmanTypes ));
 	for(std::size_t i = 0; i < rmanParams.length(); ++i)
 	{
-		o.addRSLVariable(rmanTypes[i],	rmanParams[i],  rmanParams[i],	node);
+		o.addRSLVariable(rmanTypes[i],	ER_SPN(rmanParams[i]),  rmanParams[i],	node);
 	}
 #endif
 	o.endRSL();
@@ -79,9 +80,9 @@ void Visitor::visit_er_skylight(const char* node)
 	OutputHelper o;
 	o.beginRSL("liq_skylight", node);
 
-	o.addRSLVariable("shader",	"env_shader",	"env_shader",	node);
-	o.addRSLVariable("int",		"resolution",	"resolution",	node);
-	o.addRSLVariable("float",	"max_dist",		"max_dist",		node);
+	o.addRSLVariable("shader",	ER_SPN("env_shader"),	"env_shader",	node);
+	o.addRSLVariable("int",		ER_SPN("resolution"),	"resolution",	node);
+	o.addRSLVariable("float",	ER_SPN("max_dist"),		"max_dist",		node);
 
 	o.endRSL();
 }
@@ -92,8 +93,8 @@ void Visitor::visit_er_flatcolor(const char* node)
 	OutputHelper o;
 	o.beginRSL("liq_flatcolor", node);
 
-	o.addRSLVariable("color",	"inColor",			"inColor",			node);
-	o.addRSLVariable("color",	"inTransparency",	"inTransparency",	node);
+	o.addRSLVariable("color",	ER_SPN("color"),			"color",			node);
+	o.addRSLVariable("color",	ER_SPN("transparency"),	"transparency",	node);
 
 	o.endRSL();
 }

@@ -21,11 +21,11 @@
 
 SURFACE(er_checker)//CheckerNode::getTypeName()
 	DECLARE;
-	DECLARE_COLOR(color1, 0.0f, 0.0f, 0.0f);
-	DECLARE_COLOR(color2, 1.0f, 1.0f, 1.0f);
-	DECLARE_SCALAR(xscale, 2.0f);
-	DECLARE_SCALAR(yscale, 2.0f);
-	DECLARE_COLOR(result, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(i_color1, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(i_color2, 1.0f, 1.0f, 1.0f);
+	DECLARE_SCALAR(i_xscale, 2.0f);
+	DECLARE_SCALAR(i_yscale, 2.0f);
+	DECLARE_COLOR(o_result, 0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -46,8 +46,8 @@ SURFACE(er_checker)//CheckerNode::getTypeName()
 
 	void main(void *arg)
 	{
-		out->Ci = color1();
-		out->Oi = color2();
+		out->Ci = i_color1();
+		out->Oi = i_color2();
 	}
 
 END(er_checker)

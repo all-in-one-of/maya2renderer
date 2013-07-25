@@ -12,6 +12,7 @@
 #include "er_checker_node.h"
 #include "../er_rnode_visitor_mgr.h"
 #include "../er_classification.h"
+#include "../er_helper.h"
 
 namespace elvishray
 {
@@ -63,11 +64,11 @@ namespace elvishray
 		ER::OutputHelper o;
 		o.beginRSL(CheckerNode::getTypeName(), node);
 
-		o.addRSLVariable("color",	"color1",	"color1",		node);
-		o.addRSLVariable("color",	"color2",	"color2",		node);
-		o.addRSLVariable("float",	"xscale",	"xscale",		node);
-		o.addRSLVariable("float",	"yscale",	"yscale",		node);
-		//o.addRSLVariable("color",	"result",	"result",		node);
+		o.addRSLVariable("color",	ER_SPN("color1"),	"color1",		node);
+		o.addRSLVariable("color",	ER_SPN("color2"),	"color2",		node);
+		o.addRSLVariable("float",	ER_SPN("xscale"),	"xscale",		node);
+		o.addRSLVariable("float",	ER_SPN("yscale"),	"yscale",		node);
+		//o.addRSLVariable("color",	ER_SPN("result"),	"result",		node);
 		
 		o.endRSL();
 

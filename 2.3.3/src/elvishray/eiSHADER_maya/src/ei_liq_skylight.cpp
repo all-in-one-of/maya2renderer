@@ -24,9 +24,9 @@
 LIGHT(liq_skylight)
 
 	DECLARE;
-	DECLARE_TOKEN(env_shader, NULL);
-	DECLARE_INT(resolution, 1000);
-	DECLARE_SCALAR(max_dist, 10000.0f);
+	DECLARE_TOKEN(i_env_shader, NULL);
+	DECLARE_INT(i_resolution, 1000);
+	DECLARE_SCALAR(i_max_dist, 10000.0f);
 	END_DECLARE;
 		
 	static const char *u_result;
@@ -107,11 +107,11 @@ LIGHT(liq_skylight)
 		Globals *g = new Globals;
 		glob = (void *)g;
 
-		const eiTag shader = ei_find_node( env_shader().str ) ;
+		const eiTag shader = ei_find_node( i_env_shader().str ) ;
 		if (shader == eiNULL_TAG)
 		{
-			printf("ERROR> liq_skylight, env_shader().str=\"%s\", it can't be found\n", env_shader().str);
-			assert(0 && "liq_skylight's env_shader() node is not found");
+			printf("ERROR> liq_skylight, i_env_shader().str=\"%s\", it can't be found\n", i_env_shader().str);
+			assert(0 && "liq_skylight's i_env_shader() node is not found");
 			return;
 		}
 
@@ -119,7 +119,7 @@ LIGHT(liq_skylight)
 		ei_timer_reset(&timer);
 		ei_timer_start(&timer);
 
-		g->res = resolution();
+		g->res = i_resolution();
 		if (g->res < MIN_RESOLUTION) {
 			g->res = MIN_RESOLUTION; // validate
 		}
@@ -218,7 +218,7 @@ LIGHT(liq_skylight)
 		scalar pdf;
 		L = normalize(L);
 		const Globals *g = (const Globals *)glob;
-		Cl = trace_shadow(P, L * max_dist(), g->values[eval(g, vto_world(L), pdf)]);
+		Cl = trace_shadow(P, L * i_max_dist(), g->values[eval(g, vto_world(L), pdf)]);
 		Lpdf = pdf;
 
 		return eiTRUE;
@@ -233,7 +233,7 @@ LIGHT(liq_skylight)
 		const color result(g->values[sample(g, sampler->u1, sampler->u2, dir, pdf)]);
 		dir = vfrom_world(dir);
 		L = -dir;
-		Cl = trace_shadow(P, dir * max_dist(), result);
+		Cl = trace_shadow(P, dir * i_max_dist(), result);
 		Lpdf = pdf;
 	}
 

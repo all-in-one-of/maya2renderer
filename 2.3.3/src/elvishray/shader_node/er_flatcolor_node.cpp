@@ -110,8 +110,8 @@ MObject FlatColorNode::aRmanAccept;
 MObject FlatColorNode::aOutColor;
 MObject FlatColorNode::aOutTransparency;
 
-MObject FlatColorNode::ainColor;
-MObject FlatColorNode::ainTransparency;
+MObject FlatColorNode::acolor;
+MObject FlatColorNode::atransparency;
 
 #define MAKE_INPUT(attr)		\
 	IfMErrorWarn(attr.setKeyable(true ) ); 		\
@@ -558,22 +558,22 @@ MStatus FlatColorNode::initialize_shader_parameters()
 	MFnLightDataAttribute lAttr;
 	MStatus status;
 
-	ainColor = nAttr.createColor("inColor", "ic");
+	acolor = nAttr.createColor("color", "ic");
 	nAttr.setDefault( 1.0, 1.0, 1.0 );
 	nAttr.setDisconnectBehavior( MFnAttribute::kReset );
 	MAKE_INPUT(nAttr);
 
-	ainTransparency = nAttr.createColor("inTransparency", "it");
+	atransparency = nAttr.createColor("transparency", "it");
 	nAttr.setDefault( 1.0, 1.0, 1.0 );
 	nAttr.setDisconnectBehavior( MFnAttribute::kReset );
 	MAKE_INPUT(nAttr);
 
 
-	IfMErrorWarn( addAttribute( ainColor ) );
-	IfMErrorWarn( addAttribute( ainTransparency ) );
+	IfMErrorWarn( addAttribute( acolor ) );
+	IfMErrorWarn( addAttribute( atransparency ) );
 
-	IfMErrorWarn( attributeAffects( ainColor,			aOutColor ) );
-	IfMErrorWarn( attributeAffects( ainTransparency,	aOutTransparency ) );
+	IfMErrorWarn( attributeAffects( acolor,			aOutColor ) );
+	IfMErrorWarn( attributeAffects( atransparency,	aOutTransparency ) );
 
 	return MS::kSuccess;
 }
@@ -589,8 +589,8 @@ MStatus FlatColorNode::compute( const MPlug& plug, MDataBlock& block )
 
 		// init shader
 		MStatus status;
-		MFloatVector& cColor  = block.inputValue(ainColor).asFloatVector();
-		MFloatVector& cTrans  = block.inputValue(ainTransparency).asFloatVector();
+		MFloatVector& cColor  = block.inputValue(acolor).asFloatVector();
+		MFloatVector& cTrans  = block.inputValue(atransparency).asFloatVector();
 
 		//rendering begin (maya software)
 		MFloatVector resultColor( cColor );

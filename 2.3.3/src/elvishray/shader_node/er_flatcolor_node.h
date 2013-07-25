@@ -134,8 +134,8 @@ class FlatColorNode : public MPxNode
 //	  static MObject aAssignedObjects;
 
 	  //shader parameters
-	  static MObject ainColor;
-	  static MObject ainTransparency;
+	  static MObject acolor;
+	  static MObject atransparency;
 
 	bool    swatchInit;
 
