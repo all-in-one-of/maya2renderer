@@ -662,6 +662,7 @@ global proc liquidCreateMenus()
 	  	menuItem -label "Choose Renderer"
                -subMenu true
                -tearOff false
+			   -ann "liquidBuildChooseSubRendererMenu(...)"
                -postMenuCommand 
                 ("liquidBuildChooseSubRendererMenu "+$menuName)
                $menuName;
@@ -671,12 +672,20 @@ global proc liquidCreateMenus()
 		menuItem -label "Choose Camera"
                -subMenu true
                -tearOff false
+			   -ann "liquidBuildRenderCameraMenu()"
                -postMenuCommand 
                 ("liquidBuildRenderCameraMenu "+$menuName)
                $menuName;
 		setParent -menu ..; // from submenu 
 
-      menuItem -label "Render" -ann "Render" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
+		$menuName = "liquidSelectLiquidGlobals";
+		menuItem -label "Select liquidGlobals"
+				-ann "liquidSelectLiquidGlobalsMenu()"
+				-command ("liquidSelectLiquidGlobalsMenu")
+				$menuName;
+		//setParent -menu ..; // from submenu 
+
+      menuItem -label "Render" -ann "liquidRender()" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
       menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
       menuItem -d true;
 
@@ -1327,3 +1336,13 @@ global proc string liquidGetUserSetupMelFullPath(string $renderer)
 	return $ret;
 }
 //
+global proc liquidSelectLiquidGlobalsMenu()
+{
+	liqPushIdent();
+	liqlog("liquidSelectLiquidGlobalsMenu()");
+
+	select -r "liquidGlobals";
+	
+	liqPopIdent();
+	return ;
+}
