@@ -2984,10 +2984,6 @@
     </CustomBuildStep>
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\AEelvishrayGlobalsTemplate.res.mel" />
-    <None Include="..\elvishray\mel\AEer_checkerTemplate.mel" />
-    <None Include="..\elvishray\mel\AEer_flatcolorTemplate.mel" />
-    <None Include="..\elvishray\mel\AEer_physicalskyTemplate.mel" />
-    <None Include="..\elvishray\mel\AEer_skylightTemplate.mel" />
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel" />
     <None Include="..\elvishray\mel\alias\AEElvishRenderGlobalsTemplate.mel" />
     <None Include="..\elvishray\mel\alias\AEliquidShaderTemplate_ElvishRender.mel" />

@@ -53,6 +53,7 @@
 #include "erTestLight/erTestLight_node_visitor.h"
 #include "erFlatColor/erFlatColor_node_visitor.h"
 #include "erSkylight/erSkylight_node_visitor.h"
+#include "erPhysicalsky/erPhysicalsky_node_visitor.h"
 
 MString getShaderPluginName()
 {
@@ -75,6 +76,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	elvishray::TestLightNodeVisitor::regist(plugin);
 	elvishray::FlatColorNodeVisitor::regist(plugin);
 	elvishray::erSkylightNodeVisitor::regist(plugin);
+	elvishray::erPhysicalskyNodeVisitor::regist(plugin);
 
 	MGlobal::executeCommand("erAddShaderPlugin(\""+getShaderPluginName()+"\")");
 
@@ -90,6 +92,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 
 	MGlobal::executeCommand("erDelShaderPlugin(\""+getShaderPluginName()+"\")");
 
+	elvishray::erPhysicalskyNodeVisitor::unregist(plugin);	
 	elvishray::erSkylightNodeVisitor::unregist(plugin);	
 	elvishray::FlatColorNodeVisitor::unregist(plugin);
 	elvishray::TestLightNodeVisitor::unregist(plugin);

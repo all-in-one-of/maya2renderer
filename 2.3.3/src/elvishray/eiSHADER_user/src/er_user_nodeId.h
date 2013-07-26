@@ -18,6 +18,7 @@ namespace elvishray
 		UTI_Checker_NODE		= 0x00040003,
 		UTI_FlatColor_NODE		= 0x00040004,
 		UTI_Skylight_NODE		= 0x00040005,
+		UTI_erPhysicalsky_NODE	= 0x00040006,
 
 		UTI_NUM,
 	};

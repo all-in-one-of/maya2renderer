@@ -25,6 +25,9 @@
     <Filter Include="src\erSkylight">
       <UniqueIdentifier>{0fcf7d3d-7907-4edc-b5cc-fb9aff07be71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\erPhysicalsky">
+      <UniqueIdentifier>{b1e57810-8cee-4a2f-8a4e-e7ab5918688d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp">
@@ -60,14 +63,17 @@
     <ClCompile Include="..\src\erFlatColor\erFlatColor_node_visitor.cpp">
       <Filter>src\erFlatColor</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\erSkylight\erSkylight.cpp">
-      <Filter>src\erSkylight</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\erSkylight\erSkylight_node.cpp">
       <Filter>src\erSkylight</Filter>
     </ClCompile>
     <ClCompile Include="..\src\erSkylight\erSkylight_node_visitor.cpp">
       <Filter>src\erSkylight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erPhysicalsky\erPhysicalsky_node.cpp">
+      <Filter>src\erPhysicalsky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erPhysicalsky\erPhysicalsky_node_visitor.cpp">
+      <Filter>src\erPhysicalsky</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +116,12 @@
     <ClInclude Include="..\src\erSkylight\erSkylight_node_visitor.h">
       <Filter>src\erSkylight</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\erPhysicalsky\erPhysicalsky_node.h">
+      <Filter>src\erPhysicalsky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\erPhysicalsky\erPhysicalsky_node_visitor.h">
+      <Filter>src\erPhysicalsky</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\er_checker2\userSetup.mel">
@@ -150,6 +162,12 @@
     </None>
     <None Include="..\src\erSkylight\userSetup.mel">
       <Filter>src\erSkylight</Filter>
+    </None>
+    <None Include="..\src\erPhysicalsky\AEerPhysicalskyTemplate.mel">
+      <Filter>src\erPhysicalsky</Filter>
+    </None>
+    <None Include="..\src\erPhysicalsky\userSetup.mel">
+      <Filter>src\erPhysicalsky</Filter>
     </None>
   </ItemGroup>
 </Project>

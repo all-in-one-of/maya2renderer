@@ -307,23 +307,11 @@
     <None Include="..\elvishray\mel\alias\userSetup.mel">
       <Filter>mel\alias</Filter>
     </None>
-    <None Include="..\elvishray\mel\AEer_physicalskyTemplate.mel">
-      <Filter>mel</Filter>
-    </None>
-    <None Include="..\elvishray\mel\AEer_skylightTemplate.mel">
-      <Filter>mel</Filter>
-    </None>
     <None Include="..\elvishray\mel\er_liquidProcedurals.mel">
       <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\alias\er_liquidProcedurals_ElvishRender.mel">
       <Filter>mel\alias</Filter>
-    </None>
-    <None Include="..\elvishray\mel\AEer_flatcolorTemplate.mel">
-      <Filter>mel</Filter>
-    </None>
-    <None Include="..\elvishray\mel\AEer_checkerTemplate.mel">
-      <Filter>mel</Filter>
     </None>
     <None Include="..\elvishray\mel\er_CustomNodeUI.mel">
       <Filter>mel</Filter>

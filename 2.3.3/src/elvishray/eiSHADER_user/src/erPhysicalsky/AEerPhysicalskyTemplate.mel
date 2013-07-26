@@ -1,0 +1,44 @@
+global proc AEerPhysicalskyTemplate( string $nodeName )
+{
+	liqPushIdent();
+	liqAElog("AEerPhysicalskyTemplate("+$nodeName+")");
+
+	//call AEliquidShaderTemplate()
+	//AEliquidShaderTemplate($nodeName);
+
+	layout -e -vis false "AEcontrolFormLayout";
+
+		editorTemplate -callCustom "liquidPreviewSwatchNew" "liquidPreviewSwatchReplace" "message";
+		//--------------------------------------------------
+		editorTemplate -beginScrollLayout;
+		    editorTemplate -beginLayout "ShaderParameters" -collapse 0;
+				
+				editorTemplate -addDynamicControl "sun_dir";
+				editorTemplate -addDynamicControl "sun_disk_size";
+				editorTemplate -addDynamicControl "sun_disk_intensity";
+				editorTemplate -addDynamicControl "sun_glow_size";
+				editorTemplate -addDynamicControl "sun_glow_intensity";
+				editorTemplate -addDynamicControl "sun_glow_falloff";
+				editorTemplate -addDynamicControl "ground_color";
+				editorTemplate -addDynamicControl "ground_blur";
+				editorTemplate -addDynamicControl "type";
+				editorTemplate -addDynamicControl "haze";
+				editorTemplate -addDynamicControl "zenith_color";
+				editorTemplate -addDynamicControl "a";
+				editorTemplate -addDynamicControl "b";
+				editorTemplate -addDynamicControl "c";
+				editorTemplate -addDynamicControl "d";
+				editorTemplate -addDynamicControl "e";
+				editorTemplate -addDynamicControl "intensity";
+
+			editorTemplate -endLayout;
+		editorTemplate -endLayout;
+		//--------------------------------------------------
+		editorTemplate -addExtraControls;
+		//--------------------------------------------------
+		editorTemplate -endScrollLayout;
+
+	layout -e -vis true "AEcontrolFormLayout";
+
+	liqPopIdent();
+}

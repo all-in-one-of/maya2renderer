@@ -138,4 +138,25 @@
 	CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
 	CHECK_MSTATUS(addAttribute(obj));
 
+#define CREATE_POINT( attr, obj, name, shortName, default1, default2, default3 )    \
+	obj = attr.createPoint( name, shortName, &status ); \
+	CHECK_MSTATUS(attr.setDefault( default1, default2, default3 )); \
+	CHECK_MSTATUS(attr.setKeyable(true));     \
+	CHECK_MSTATUS(attr.setStorable(true));    \
+	CHECK_MSTATUS(attr.setReadable(true));    \
+	CHECK_MSTATUS(attr.setWritable(true));    \
+	CHECK_MSTATUS(attr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
+	CHECK_MSTATUS(addAttribute(obj));
+
+#define CREATE_ENUM_BEG( eattr, obj, name, shortName, default )    \
+	obj = eattr.create( name, shortName, default, &status );
+	//eattr.addField( "Sphere",   0 );
+	//eAttr.addField( "Cube",     1 );
+#define CREATE_ENUM_END( eattr, obj )		\
+	CHECK_MSTATUS(eattr.setKeyable(true));     \
+	CHECK_MSTATUS(eattr.setStorable(true));    \
+	CHECK_MSTATUS(eattr.setReadable(true));    \
+	CHECK_MSTATUS(eattr.setWritable(true));    \
+	CHECK_MSTATUS(eattr.setHidden(LIQ_GLOBALS_HIDE_ATTRIBUTES));      \
+	CHECK_MSTATUS(addAttribute(obj));
 #endif//_LIQ_CREATE_PLUG_H_

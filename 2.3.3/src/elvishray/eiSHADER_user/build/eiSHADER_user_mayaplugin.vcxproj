@@ -2904,7 +2904,8 @@
     <ClCompile Include="..\src\erChecker\erChecker_node_visitor.cpp" />
     <ClCompile Include="..\src\erFlatColor\erFlatColor_node_visitor.cpp" />
     <ClCompile Include="..\src\erFlatColor\erFlatColor_node.cpp" />
-    <ClCompile Include="..\src\erSkylight\erSkylight.cpp" />
+    <ClCompile Include="..\src\erPhysicalsky\erPhysicalsky_node.cpp" />
+    <ClCompile Include="..\src\erPhysicalsky\erPhysicalsky_node_visitor.cpp" />
     <ClCompile Include="..\src\erSkylight\erSkylight_node.cpp" />
     <ClCompile Include="..\src\erSkylight\erSkylight_node_visitor.cpp" />
     <ClCompile Include="..\src\erTestLight\erTestLight_node.cpp" />
@@ -2919,6 +2920,8 @@
     <ClInclude Include="..\src\erChecker\erChecker_node_visitor.h" />
     <ClInclude Include="..\src\erFlatColor\erFlatColor_node_visitor.h" />
     <ClInclude Include="..\src\erFlatColor\erFlatColor_node.h" />
+    <ClInclude Include="..\src\erPhysicalsky\erPhysicalsky_node.h" />
+    <ClInclude Include="..\src\erPhysicalsky\erPhysicalsky_node_visitor.h" />
     <ClInclude Include="..\src\erSkylight\erSkylight_node.h" />
     <ClInclude Include="..\src\erSkylight\erSkylight_node_visitor.h" />
     <ClInclude Include="..\src\erTestLight\erTestLight_node.h" />
@@ -2934,6 +2937,8 @@
     <None Include="..\src\erChecker\userSetup.mel" />
     <None Include="..\src\erFlatColor\AEerFlatColorTemplate.mel" />
     <None Include="..\src\erFlatColor\userSetup.mel" />
+    <None Include="..\src\erPhysicalsky\AEerPhysicalskyTemplate.mel" />
+    <None Include="..\src\erPhysicalsky\userSetup.mel" />
     <None Include="..\src\erSkylight\AEerSkylightTemplate.mel" />
     <None Include="..\src\erSkylight\userSetup.mel" />
     <None Include="..\src\erTestLight\AEerTestLightTemplate.mel" />
