@@ -49,10 +49,10 @@ namespace elvishray
 				//e.g. i_color --> i_color
 				// do nothing
 			}
-			else if(shaderParameterName.substring(0, 1) == "in")
-			{	// e.g. inColor --> i_Color
-				shaderParameterName = "i_" + shaderParameterName.substring(2, shaderParameterName.length()-1);
-			}
+			//else if(shaderParameterName.substring(0, 1) == "in")
+			//{	// e.g. inColor --> i_Color
+			//	shaderParameterName = "i_" + shaderParameterName.substring(2, shaderParameterName.length()-1);
+			//}
 			else{// e.g. color --> i_color
 				shaderParameterName = "i_" + shaderParameterName;
 			}
