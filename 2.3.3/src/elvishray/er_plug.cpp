@@ -105,7 +105,6 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	status = MSwatchRenderRegister::registerSwatchRender( elvishray::FlatColorNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
 	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::FlatColorNode::getTypeName()+"Swatch" );
 	//
-	elvishray::CheckerNodeVisitor::regist(plugin);
 
 	return MS::kSuccess;
 }
@@ -117,8 +116,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 
-	//
-	elvishray::CheckerNodeVisitor::unregist(plugin);
+
 	//
 	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::FlatColorNode::getTypeName()+"Swatch");
 	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::FlatColorNode::getTypeName()+"Swatch generator" );

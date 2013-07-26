@@ -36,6 +36,9 @@
     <ClCompile Include="..\src\erTestLight\erTestLight.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\erChecker\erChecker.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ei_AOVMacroDef.h">

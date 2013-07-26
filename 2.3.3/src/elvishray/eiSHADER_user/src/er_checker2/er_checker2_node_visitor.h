@@ -1,6 +1,6 @@
 
-#ifndef _ER_CHECKER_NODE_VISITOR_H_
-#define _ER_CHECKER_NODE_VISITOR_H_
+#ifndef _ER_CHECKER2_NODE_VISITOR_H_
+#define _ER_CHECKER2_NODE_VISITOR_H_
 
 #include <rnode_visitor_interface.h>
 
@@ -35,4 +35,4 @@ namespace elvishray
 
 }//namespace
 
-#endif//_ER_CHECKER_NODE_VISITOR_H_
+#endif//_ER_CHECKER2_NODE_VISITOR_H_

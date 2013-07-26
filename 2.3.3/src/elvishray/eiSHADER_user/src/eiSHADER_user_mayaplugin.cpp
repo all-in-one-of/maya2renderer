@@ -47,9 +47,15 @@
 #include "elvishray/er_factory.h"
 #include "../../er_globalnode.h"
 #include "er_user_nodeId.h"
+#include "erChecker/erChecker_node_visitor.h"
 #include "er_checker2/er_checker2_node_visitor.h"
 #include "er_architectural/er_architectural_node_visitor.h"
 #include "erTestLight/erTestLight_node_visitor.h"
+
+MString getShaderPluginName()
+{
+	return "eiSHADER_user";
+}
 
 ////////////////////// EXPORTS /////////////////////////////////////////////////////////
 PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
@@ -60,10 +66,13 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	MFnPlugin plugin( obj, "https://github.com/maya2renderer/maya2renderer", "0.0.1", "Any");
 	
 	//_initializePlugin(obj);
-
+	
+	elvishray::CheckerNodeVisitor::regist(plugin);
 	elvishray::Checker2NodeVisitor::regist(plugin);
 	elvishray::ArchitecturalNodeVisitor::regist(plugin);
 	elvishray::TestLightNodeVisitor::regist(plugin);
+
+	MGlobal::executeCommand("erAddShaderPlugin(\""+getShaderPluginName()+"\")");
 
 	return MS::kSuccess;
 }
@@ -75,9 +84,12 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 
+	MGlobal::executeCommand("erDelShaderPlugin(\""+getShaderPluginName()+"\")");
+
 	elvishray::TestLightNodeVisitor::unregist(plugin);
 	elvishray::ArchitecturalNodeVisitor::unregist(plugin);
 	elvishray::Checker2NodeVisitor::unregist(plugin);
+	elvishray::CheckerNodeVisitor::unregist(plugin);
 	
 	//_uninitializePlugin(obj);
 

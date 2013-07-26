@@ -56,8 +56,10 @@ class CheckerNode : public MPxNode
     static  MStatus   initialize_shader_parameters();
 
 
+
 	static  const MTypeId   getTypeId();
 	static  const MString   getTypeName();
+	static  const MString getShaderType();
 
     liqNodeSwatch*    renderSwatch;
 
@@ -80,7 +82,7 @@ class CheckerNode : public MPxNode
 
 	  static MObject aOutColor;
 	  static MObject aOutTransparency;
-//	  static MObject aAssignedObjects;
+	  static MObject aAssignedObjects;
 
 	  //shader parameters
 	  static MObject acolor1;

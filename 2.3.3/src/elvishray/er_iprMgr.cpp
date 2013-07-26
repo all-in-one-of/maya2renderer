@@ -2,8 +2,8 @@
 
 #include <common/mayacheck.h>
 #include <liqGlobalHelpers.h>
+#include <shadergraph/shadermgr.h>
 #include "er_log.h"
-
 #include "ercall.h"
 #include "er_renderer.h"
 #include "er_helper.h"
@@ -39,7 +39,8 @@ namespace elvishray
 		{
 			updateCamera(plug);
 		} 
-		//else /* if( nodtype is shader) */
+		
+		if( liquidmaya::ShaderMgr::getSingletonPtr()->hasShaderType(nodeType.asChar()) ) 
 		{
 			updateShader(plug);
 		}

@@ -1660,6 +1660,7 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp" />
     <ClCompile Include="..\..\include\shader\_3delight\shading_utils.cpp" />
     <ClCompile Include="..\..\include\shader\_3delight\utils.cpp" />
+    <ClCompile Include="..\src\erChecker\erChecker.cpp" />
     <ClCompile Include="..\src\erTestLight\erTestLight.cpp" />
     <ClCompile Include="..\src\er_architectural\er_architectural.cpp" />
     <ClCompile Include="..\src\er_checker2\er_checker2.cpp" />

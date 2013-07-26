@@ -207,3 +207,58 @@ global proc erLiquidLoadGlobals()
 
 	liqPopIdent();
 }
+//
+global proc erAddShaderPlugin(string $pluginname)
+{
+	liqPushIdent();
+	liqlog("erAddShaderPlugin("+$pluginname+")");
+
+	string $global = er_getRenderGlobalNode();
+	string $plug = ($global+".shader_plugin");
+	string $shaderPlugins[] = `getAttr $plug`;
+
+	if(1==stringArrayContains($pluginname, $shaderPlugins))
+		return;//already exists.
+
+	// Insert at (or after) the end of the sequence
+	stringArrayInsertAtIndex(size($shaderPlugins), $shaderPlugins, $pluginname );
+
+	//set new shade plugin array
+	int $size = size($shaderPlugins);
+	int $i;
+	for($i=0; $i<$size; $i++)
+	{
+		setAttr -type "string" ($plug+"["+$i+"]") ($shaderPlugins[$i]);
+	}
+
+
+	liqPopIdent();
+}
+//
+global proc erDelShaderPlugin(string $pluginname)
+{
+	liqPushIdent();
+	liqlog("erDelShaderPlugin("+$pluginname+")");
+
+
+	string $global = er_getRenderGlobalNode();
+	string $plug = ($global+".shader_plugin");
+	string $shaderPlugins[] = `getAttr $plug`;
+
+	if(0==stringArrayContains($pluginname, $shaderPlugins))
+		return;//not found
+
+	string $item[] = { $pluginname };
+	$shaderPlugins = stringArrayRemove($item, $shaderPlugins);
+
+	//set new shade plugin array
+	liqWarn("FIXME: UI is can't be updated.");
+	int $size = size($shaderPlugins);
+	int $i;
+	for($i=0; $i<$size; $i++)
+	{
+		setAttr -type "string" ($plug+"["+$i+"]") ($shaderPlugins[$i]);
+	}
+
+	liqPopIdent();
+}

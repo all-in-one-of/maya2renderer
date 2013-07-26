@@ -6,6 +6,7 @@
 
 
 - learn katana
+liq}:liquidShaderNode里增加aAssignedObjects属性
 liq|:menu>select render pass>liquidGlobals
 liq|: BreadthFirstTraversal回归测试(phong_tex失败,ei_make_texture()会崩溃)
 liq|: 完善ipr

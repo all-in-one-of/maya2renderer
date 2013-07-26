@@ -2947,8 +2947,6 @@
     <ClCompile Include="..\elvishray\shaderOutputER_mi.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_textures.cpp" />
     <ClCompile Include="..\elvishray\shaderOutputER_utilities.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_checker_node.cpp" />
-    <ClCompile Include="..\elvishray\shader_node\er_checker_node_visitor.cpp" />
     <ClCompile Include="..\elvishray\shader_node\er_flatcolor_node.cpp" />
     <ClCompile Include="..\elvishray\shader_node\er_physicalsky_node.cpp" />
     <ClCompile Include="..\elvishray\shader_node\er_skylight_node.cpp" />
@@ -2980,8 +2978,6 @@
     <ClInclude Include="..\elvishray\output\er_output_esa.h" />
     <ClInclude Include="..\elvishray\output\er_output_ess.h" />
     <ClInclude Include="..\elvishray\shaderOutputER.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_checker_node.h" />
-    <ClInclude Include="..\elvishray\shader_node\er_checker_node_visitor.h" />
     <ClInclude Include="..\elvishray\shader_node\er_flatcolor_node.h" />
     <ClInclude Include="..\elvishray\shader_node\er_physicalsky_node.h" />
     <ClInclude Include="..\elvishray\shader_node\er_skylight_node.h" />

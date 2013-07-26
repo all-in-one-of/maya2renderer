@@ -58,7 +58,7 @@ class TestLightNode : public MPxNode
 
 	static  const MTypeId   getTypeId();
 	static  const MString   getTypeName();
-	static  const MString getShaderClasscification();
+	static  const MString getShaderType();
 
     liqNodeSwatch*    renderSwatch;
 

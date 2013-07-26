@@ -31,14 +31,14 @@
 ** Liquid Surface Shader Node Source
 ** ______________________________________________________________________
 */
-#include "er_checker_node.h"
+#include "erChecker_node.h"
 
 #include <common/mayacheck.h>
 #include <liqlog.h>
 #include <liqNodeSwatch.h>
 #include <liqIOStream.h>
 #include <liqNodeSwatch.h>
-#include "../er_nodeId.h"
+#include "../er_user_nodeId.h"
 
 namespace elvishray
 {
@@ -115,14 +115,17 @@ CheckerNode::~CheckerNode()
 
 const MTypeId CheckerNode::getTypeId()
 { 
-	return TI_Checker_NODE;
+	return UTI_Checker_NODE;
 }
 
 const MString CheckerNode::getTypeName()
 { 
-	return ("er_checker");
+	return ("erChecker");
 }
-
+const MString CheckerNode::getShaderType()
+{
+	return "surface";
+}
 void* CheckerNode::creator()
 {
 	return new CheckerNode();
@@ -139,10 +142,10 @@ MStatus CheckerNode::initialize()
 
 	// Create input attributes
 
-	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, aRmanShader, &status );
+	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, tDefault.create(getTypeName()), &status );
 	MAKE_INPUT(tAttr);
 
-	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, aRmanShaderType, &status );
+	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, tDefault.create(getShaderType()), &status );
 	MAKE_INPUT(tAttr);
 
 	aRmanShaderLong = tAttr.create( MString("rmanShaderLong"), MString("rml"), MFnData::kString, aRmanShaderLong, &status );

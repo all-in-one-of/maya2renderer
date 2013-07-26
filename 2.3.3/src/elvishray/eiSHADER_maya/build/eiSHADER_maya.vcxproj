@@ -1654,7 +1654,6 @@ copy $(TargetDir)..\..\bin\$(Configuration)\$(TargetName).pdb ..\..\..\..\..\dep
     <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp" />
     <ClCompile Include="..\..\include\shader\_3delight\shading_utils.cpp" />
     <ClCompile Include="..\..\include\shader\_3delight\utils.cpp" />
-    <ClCompile Include="..\src\ei_liq_checker.cpp" />
     <ClCompile Include="..\src\ei_liq_flatcolor.cpp" />
     <ClCompile Include="..\src\ei_liq_skylight.cpp" />
     <ClCompile Include="..\src\ei_maya_blinn.cpp" />

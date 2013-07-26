@@ -120,7 +120,7 @@ const MString TestLightNode::getTypeName()
 { 
 	return ("erTestLight");
 }
-const MString TestLightNode::getShaderClasscification()
+const MString TestLightNode::getShaderType()
 {
 	return "light";
 }
@@ -144,7 +144,7 @@ MStatus TestLightNode::initialize()
 	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, tDefault.create(getTypeName()), &status );
 	MAKE_INPUT(tAttr);
 
-	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, tDefault.create(getShaderClasscification()), &status );
+	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, tDefault.create(getShaderType()), &status );
 	MAKE_INPUT(tAttr);
 
 	aRmanShaderLong = tAttr.create( MString("rmanShaderLong"), MString("rml"), MFnData::kString, aRmanShaderLong, &status );

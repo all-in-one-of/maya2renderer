@@ -14,18 +14,19 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
-#include "ei_AOVMacroDef.h"
+#include "../ei_AOVMacroDef.h"
 #include <shader/_3delight/shading_utils.h>
 #include <shader/_3delight/utils.h>
 #include <shader/my_utils.h>
 
-SURFACE(er_checker)//CheckerNode::getTypeName()
+SURFACE(erChecker)//CheckerNode::getTypeName()
 	DECLARE;
 	DECLARE_COLOR(i_color1, 0.0f, 0.0f, 0.0f);
 	DECLARE_COLOR(i_color2, 1.0f, 1.0f, 1.0f);
 	DECLARE_SCALAR(i_xscale, 2.0f);
 	DECLARE_SCALAR(i_yscale, 2.0f);
-	DECLARE_COLOR(o_result, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(o_outColor, 0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(o_outTransparency, 0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -48,6 +49,8 @@ SURFACE(er_checker)//CheckerNode::getTypeName()
 	{
 		out->Ci = i_color1();
 		out->Oi = i_color2();
+		o_outColor() = out->Ci;
+		o_outTransparency() = out->Oi;
 	}
 
-END(er_checker)
+END(erChecker)

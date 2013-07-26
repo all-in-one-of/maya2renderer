@@ -260,11 +260,15 @@ void liqIPRNodeMessage::gatherUpdateObjects(std::vector<MString>& objects)
 		else{
 			onOtherNode(nodeName, objects);
 		}
-
-
-
-
 	}
+
+	//add current camera shape node
+	MStringArray cameraShapeFullPaths;
+	IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`; ls -long $cam;", cameraShapeFullPaths));
+	objects.push_back(cameraShapeFullPaths[0]);
+
+	//add current camera transform node
+
 }
 //
 bool liqIPRNodeMessage::isShaderNode(const MString &node)const 

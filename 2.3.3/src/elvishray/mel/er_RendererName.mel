@@ -1,5 +1,8 @@
 global proc string er_getRendererName()//update with er_.h RENDER_NAME
 {
 	return "ElvishRender";
-//	return "liquid";
+}
+global proc string er_getRenderGlobalNode()
+{
+	return (er_getRendererName()+"Globals1");
 }

@@ -17,7 +17,7 @@ namespace elvishray
 	//
 	// outColor --> o_Color
 	// color    --> i_color
-	MString convertMayaPlugNameToERShaderParameterName(const MString& attr);
+	ER_EXPORT MString convertMayaPlugNameToERShaderParameterName(const MString& attr);
 
 	//----------------------------------------------------
 	//            Expport Interfaces
