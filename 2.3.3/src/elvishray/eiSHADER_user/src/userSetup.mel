@@ -76,4 +76,5 @@ eval( "source \"" + getThisDirectory() + "/erChecker/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/er_checker2/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/er_architectural/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/erTestLight/userSetup.mel\"" );
+eval( "source \"" + getThisDirectory() + "/erFlatColor/userSetup.mel\"" );
  

@@ -1,0 +1,27 @@
+print "This is $ER_SHADER_USER/src/erFlatColor/userSetup.mel\n";
+
+string $erSHADER_user_DIR = getenv("ER_SHADER_USER");
+if( $erSHADER_user_DIR == "" )
+{
+    error("environment variable <ER_SHADER_USER> is not set in Maya.env");
+} else {
+    eval( "source \"" + $erSHADER_user_DIR + "/src/erFlatColor/AEerFlatColorTemplate.mel\"" );
+}
+//
+global proc int liquidAssignUserShaderToSelected_elvishray_erFlatColor(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_elvishray_erFlatColor("+$node+")");
+	
+
+
+	liqPopIdent();
+	return 1;
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_erFlatColor( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_erFlatColor("+$node+")");
+	liqPopIdent();
+}

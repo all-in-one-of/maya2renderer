@@ -58,6 +58,7 @@ class FlatColorNode : public MPxNode
 
 	static  const MTypeId   getTypeId();
 	static  const MString   getTypeName();
+	static  const MString getShaderType();
 
     liqNodeSwatch*    renderSwatch;
 

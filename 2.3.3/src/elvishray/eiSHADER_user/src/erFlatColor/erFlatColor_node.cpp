@@ -31,14 +31,14 @@
 ** Liquid Surface Shader Node Source
 ** ______________________________________________________________________
 */
-#include "er_flatcolor_node.h"
+#include "erFlatColor_node.h"
 
 #include <common/mayacheck.h>
 #include <liqlog.h>
 #include <liqNodeSwatch.h>
 #include <liqIOStream.h>
 #include <liqNodeSwatch.h>
-#include "../er_nodeId.h"
+#include "../er_user_nodeId.h"
 
 namespace elvishray
 {
@@ -159,12 +159,17 @@ FlatColorNode::~FlatColorNode()
 
 const MTypeId FlatColorNode::getTypeId()
 { 
-	return TI_FlatColor_NODE;
+	return UTI_FlatColor_NODE;
 }
 
 const MString FlatColorNode::getTypeName()
 { 
-	return ("er_flatcolor");
+	return ("erFlatColor");
+}
+
+const MString FlatColorNode::getShaderType()
+{
+	return "surface";
 }
 
 void* FlatColorNode::creator()
@@ -183,10 +188,10 @@ MStatus FlatColorNode::initialize()
 
 	// Create input attributes
 
-	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, aRmanShader, &status );
+	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, tDefault.create(getTypeName()), &status );
 	MAKE_INPUT(tAttr);
 
-	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, aRmanShaderType, &status );
+	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, tDefault.create(getShaderType()), &status );
 	MAKE_INPUT(tAttr);
 
 	aRmanShaderLong = tAttr.create( MString("rmanShaderLong"), MString("rml"), MFnData::kString, aRmanShaderLong, &status );

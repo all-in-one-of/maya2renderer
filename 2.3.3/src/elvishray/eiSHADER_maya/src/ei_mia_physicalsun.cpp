@@ -125,8 +125,8 @@ LIGHT(mia_physicalsun)
 		const eiTag shader = ei_find_node( env_shader().str ) ;
 		if (shader == eiNULL_TAG)
 		{
-			printf("ERROR> liq_skylight, env_shader().str=\"%s\", it can't be found\n", env_shader().str);
-			assert(0 && "liq_skylight's env_shader() node is not found");
+			printf("ERROR> mia_physicalsun, env_shader().str=\"%s\", it can't be found\n", env_shader().str);
+			assert(0 && "mia_physicalsun's env_shader() node is not found");
 			return;
 		}
 

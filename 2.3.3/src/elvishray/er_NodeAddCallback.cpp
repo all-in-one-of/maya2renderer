@@ -53,13 +53,6 @@ namespace elvishray
 				;
 			MGlobal::executeCommandOnIdle(cmd, true);
 		}
-		else if( typeName =="er_flatcolor" ){
-			MString cmd = 
-				"setAttr -type \"string\" (\""+nodeName+".rmanShader\") \"liq_flatcolor\";"
-				+"setAttr -type \"string\" (\""+nodeName+".rmanShaderType\") \"surface\";"
-				;
-			MGlobal::executeCommandOnIdle(cmd, true);
-		}
 		else {
 			//on other node types
 			RNodeVisitorMgr::getInstancePtr()->onCreateInstance(nodeName.asChar());

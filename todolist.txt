@@ -6,11 +6,13 @@
 
 
 - learn katana
+-liq|er|:加载ElvishRenderer后建ElvishRenderGlobals1节点
 liq}:liquidShaderNode里增加aAssignedObjects属性
 liq|:menu>select render pass>liquidGlobals
 liq|: BreadthFirstTraversal回归测试(phong_tex失败,ei_make_texture()会崩溃)
 liq|: 完善ipr
 liq|: 完善aov
+学习 osl
 liq|: liqGlobal --> AE
 liq|: callback buildHyperShadeMenu(),针对每一个shader完善之
 liq| er|: liquidAETemplate_shadingEngine, liquidAETemplate_camera, 

@@ -19,6 +19,9 @@
     <Filter Include="src\erChecker">
       <UniqueIdentifier>{8d4da448-da04-4826-b83c-4fcc93612dad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\erFlatColor">
+      <UniqueIdentifier>{7ddbe25d-7a18-4698-9947-c949e12c63a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp">
@@ -47,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="..\src\erChecker\erChecker_node_visitor.cpp">
       <Filter>src\erChecker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erFlatColor\erFlatColor_node.cpp">
+      <Filter>src\erFlatColor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erFlatColor\erFlatColor_node_visitor.cpp">
+      <Filter>src\erFlatColor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +86,12 @@
     <ClInclude Include="..\src\erChecker\erChecker_node_visitor.h">
       <Filter>src\erChecker</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\erFlatColor\erFlatColor_node.h">
+      <Filter>src\erFlatColor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\erFlatColor\erFlatColor_node_visitor.h">
+      <Filter>src\erFlatColor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\er_checker2\userSetup.mel">
@@ -105,6 +120,12 @@
     </None>
     <None Include="..\src\erChecker\userSetup.mel">
       <Filter>src\erChecker</Filter>
+    </None>
+    <None Include="..\src\erFlatColor\userSetup.mel">
+      <Filter>src\erFlatColor</Filter>
+    </None>
+    <None Include="..\src\erFlatColor\AEerFlatColorTemplate.mel">
+      <Filter>src\erFlatColor</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -81,9 +81,6 @@
     <ClCompile Include="..\src\ei_mia_physicalsun.cpp">
       <Filter>Source Files\mentalray_shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ei_liq_flatcolor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\include\shader\_3delight\noise_utils.cpp">
       <Filter>common\_3delight</Filter>
     </ClCompile>

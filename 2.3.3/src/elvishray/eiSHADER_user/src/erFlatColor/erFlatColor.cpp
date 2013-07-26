@@ -14,15 +14,17 @@
  */
 
 #include <eiAPI/ei_shaderx.h>
-#include "ei_AOVMacroDef.h"
+#include "../ei_AOVMacroDef.h"
 #include <shader/_3delight/shading_utils.h>
 #include <shader/_3delight/utils.h>
 #include <shader/my_utils.h>
 
-SURFACE(liq_flatcolor)
+SURFACE(erFlatColor)
 	DECLARE;
 	DECLARE_COLOR(i_color,			1.0f, 1.0f, 1.0f);
 	DECLARE_COLOR(i_transparency,	1.0f, 1.0f, 1.0f);
+	DECLARE_COLOR(o_outColor,		0.0f, 0.0f, 0.0f);
+	DECLARE_COLOR(o_outTransparency,0.0f, 0.0f, 0.0f);
 	END_DECLARE;
 
 	static void init()
@@ -45,6 +47,9 @@ SURFACE(liq_flatcolor)
 	{
 		out->Oi = i_transparency();
 		out->Ci = i_color() * out->Oi;
+
+		o_outColor() = out->Ci;
+		o_outTransparency() = out->Oi;
 	}
 
-END(liq_flatcolor)
+END(erFlatColor)
