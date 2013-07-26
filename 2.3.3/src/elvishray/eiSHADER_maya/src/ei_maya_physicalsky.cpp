@@ -205,7 +205,7 @@ ENVIRONMENT(maya_physicalsky)
 	DECLARE_SCALAR(i_d, -3.0f);
 	DECLARE_SCALAR(i_e, 0.45f);
 	DECLARE_SCALAR(i_intensity, 0.5f);
-	DECLARE_OUT_COLOR(o_result, 0.0f, 0.0f, 0.0f);
+	DECLARE_OUT_COLOR(o_result, 0.0f, 0.0f, 0.0f);//update with liq_skylight::init() ei_token("o_result")
 	END_DECLARE;
 
 	static void init()

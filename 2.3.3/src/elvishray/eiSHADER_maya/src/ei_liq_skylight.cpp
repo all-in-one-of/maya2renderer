@@ -58,7 +58,8 @@ LIGHT(liq_skylight)
 
 	static void init()
 	{
-		u_result = ei_token("result");
+		printf("WARN> make sure i_env_shader() has the 'o_result' parameter\n");
+		u_result = ei_token("o_result");
 	}
 
 	static void exit()
