@@ -461,6 +461,23 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/er_architectural/er_architectural.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erChecker/erChecker.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erFlatColor/erFlatColor.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erPhysicalsky/erPhysicalsky.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erSkylight/erSkylight.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erTestLight/erTestLight.ma"
+    MyTestOne.test_one_scene(testFile, er.getRendererName())
+    
+
+    
     testFile=LIQUID_ROOT+"/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
@@ -479,13 +496,13 @@ def test_all_scene():
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
 
-    '''
+    
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim2/texture_anim2.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
     testFile=LIQUID_ROOT+"/test/animation_test/MoxMotionMeetsFBIK/MoxMotionMeetsFBIK/scenes/texture_anim1/texture_anim1.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
     #right side of the body is almost black
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
