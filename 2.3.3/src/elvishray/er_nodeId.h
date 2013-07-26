@@ -11,7 +11,6 @@ namespace elvishray
 
 		TI_GLOBAL_NODE			= 0xFFFFF360,
 		TI_Physicalsky_NODE		= 0xFFFFF361,
-		TI_SkyLight_NODE		= 0xFFFFF362,
 
 
 		TI_NUM,

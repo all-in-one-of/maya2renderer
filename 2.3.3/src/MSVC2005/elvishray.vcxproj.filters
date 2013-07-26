@@ -156,9 +156,6 @@
     <ClCompile Include="..\elvishray\shaderOutputER_er.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\elvishray\shader_node\er_skylight_node.cpp">
-      <Filter>src\shader_node</Filter>
-    </ClCompile>
     <ClCompile Include="..\elvishray\er_rnode_visitor_mgr.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -238,9 +235,6 @@
     </ClInclude>
     <ClInclude Include="..\elvishray\er_rnode_visitor.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\elvishray\shader_node\er_skylight_node.h">
-      <Filter>src\shader_node</Filter>
     </ClInclude>
     <ClInclude Include="..\elvishray\er_rnode_visitor_mgr.h">
       <Filter>src</Filter>

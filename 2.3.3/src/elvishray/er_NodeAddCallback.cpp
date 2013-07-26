@@ -46,13 +46,6 @@ namespace elvishray
 			;
 			MGlobal::executeCommandOnIdle(cmd, true);
 		}
-		else if( typeName =="er_skylight" ){
-			MString cmd = 
-				"setAttr -type \"string\" (\""+nodeName+".rmanShader\") \"liq_skylight\";"
-				+"setAttr -type \"string\" (\""+nodeName+".rmanShaderType\") \"light\";"
-				;
-			MGlobal::executeCommandOnIdle(cmd, true);
-		}
 		else {
 			//on other node types
 			RNodeVisitorMgr::getInstancePtr()->onCreateInstance(nodeName.asChar());

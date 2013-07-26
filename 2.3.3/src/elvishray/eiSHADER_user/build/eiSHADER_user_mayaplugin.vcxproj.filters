@@ -22,6 +22,9 @@
     <Filter Include="src\erFlatColor">
       <UniqueIdentifier>{7ddbe25d-7a18-4698-9947-c949e12c63a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\erSkylight">
+      <UniqueIdentifier>{0fcf7d3d-7907-4edc-b5cc-fb9aff07be71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\eiSHADER_user_mayaplugin.cpp">
@@ -56,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="..\src\erFlatColor\erFlatColor_node_visitor.cpp">
       <Filter>src\erFlatColor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erSkylight\erSkylight.cpp">
+      <Filter>src\erSkylight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erSkylight\erSkylight_node.cpp">
+      <Filter>src\erSkylight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\erSkylight\erSkylight_node_visitor.cpp">
+      <Filter>src\erSkylight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +104,12 @@
     <ClInclude Include="..\src\erFlatColor\erFlatColor_node_visitor.h">
       <Filter>src\erFlatColor</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\erSkylight\erSkylight_node.h">
+      <Filter>src\erSkylight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\erSkylight\erSkylight_node_visitor.h">
+      <Filter>src\erSkylight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\er_checker2\userSetup.mel">
@@ -126,6 +144,12 @@
     </None>
     <None Include="..\src\erFlatColor\AEerFlatColorTemplate.mel">
       <Filter>src\erFlatColor</Filter>
+    </None>
+    <None Include="..\src\erSkylight\AEerSkylightTemplate.mel">
+      <Filter>src\erSkylight</Filter>
+    </None>
+    <None Include="..\src\erSkylight\userSetup.mel">
+      <Filter>src\erSkylight</Filter>
     </None>
   </ItemGroup>
 </Project>

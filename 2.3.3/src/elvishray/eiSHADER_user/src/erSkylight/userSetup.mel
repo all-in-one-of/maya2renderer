@@ -1,0 +1,48 @@
+print "This is $ER_SHADER_USER/src/erSkylight/userSetup.mel\n";
+
+string $erSHADER_user_DIR = getenv("ER_SHADER_USER");
+if( $erSHADER_user_DIR == "" )
+{
+    error("environment variable <ER_SHADER_USER> is not set in Maya.env");
+} else {
+    eval( "source \"" + $erSHADER_user_DIR + "/src/erSkylight/AEerSkylightTemplate.mel\"" );
+}
+//
+global proc int liquidAssignUserShaderToSelected_elvishray_erSkylight(string $node)
+{
+	liqPushIdent();	
+	liqAElog("liquidAssignUserShaderToSelected_elvishray_erSkylight("+$node+")");
+	
+	string $selected[] = `ls -l -lights -dag -sl`;
+
+	if ( !objExists( ($node + ".liqAssignedObjects") ) )
+		addAttr -ln liqAssignedObjects -at message $node;
+
+	for ( $sel in $selected ) 
+	{
+		if ( !objExists( ($sel + ".liquidLightShaderNode") ) ) 
+			addAttr -ln liquidLightShaderNode -at message $sel;
+		if ( !isConnected( ($node + ".liqAssignedObjects"), ($sel + ".liquidLightShaderNode" ) ) )
+			connectAttr -f ($node + ".liqAssignedObjects") ($sel + ".liquidLightShaderNode");
+	}
+
+	liqPopIdent();
+	return 1;
+}
+//
+global proc liquidBuildHypergraphNodePopupMenuItems_erSkylight( string $node )
+{
+	liqPushIdent();
+	liqlog("liquidBuildHypergraphNodePopupMenuItems_erSkylight("+$node+")");
+	
+		
+	//avaiable radialPosition: "W",  "NW", "SE"
+	//menuItem -rp "W" -label "" -bld 1 -command ("");
+	menuItem -rp "NW" -label "liquid: Assign Shader To Selection" -bld 1
+			 -command ("liquidAssignShaderToSelected(\""+$node+"\")");
+	menuItem -rp "SE" -label "liquid: Select Lights With This Shader" -bld 1
+			 -command ("liquidSelectAssignedToLightShader(\""+$node+"\")");
+	//menuItem -rp "SW" -label "" -bld 1 -command ("");
+
+	liqPopIdent();
+}

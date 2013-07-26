@@ -56,6 +56,18 @@ global proc int liquidAssignUserShaderToSelected_elvishray(string $node)
 		liquidAssignUserShaderToSelected_elvishray_erTestLight($node);
 		$visited = 1;
 	}
+	else if( $nodeType == "erChecker" ){
+		liquidAssignUserShaderToSelected_elvishray_erChecker($node);
+		$visited = 1;
+	}
+	else if( $nodeType == "erFlatColor" ){
+		liquidAssignUserShaderToSelected_elvishray_erFlatColor($node);
+		$visited = 1;
+	}
+	else if( $nodeType == "erSkylight" ){
+		liquidAssignUserShaderToSelected_elvishray_erSkylight($node);
+		$visited = 1;
+	}
 	else{
 		liqWarn("The shade type ["+$nodeType+"] of ["+$node+"] is not erSHADER_user.");
 		$visited = 0;
@@ -77,4 +89,5 @@ eval( "source \"" + getThisDirectory() + "/er_checker2/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/er_architectural/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/erTestLight/userSetup.mel\"" );
 eval( "source \"" + getThisDirectory() + "/erFlatColor/userSetup.mel\"" );
+eval( "source \"" + getThisDirectory() + "/erSkylight/userSetup.mel\"" );
  

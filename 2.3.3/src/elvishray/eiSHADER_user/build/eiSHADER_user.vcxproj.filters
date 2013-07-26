@@ -42,6 +42,9 @@
     <ClCompile Include="..\src\erFlatColor\erFlatColor.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\erSkylight\erSkylight.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ei_AOVMacroDef.h">

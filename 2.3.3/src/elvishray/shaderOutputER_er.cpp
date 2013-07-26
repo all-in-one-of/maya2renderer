@@ -21,12 +21,6 @@ bool Visitor::visit_render_node_in_subrenderer(const char* shaderNodeName, const
 	if( strcmp("er_physicalsky", nodetype) == 0 ){
 		visit_er_physicalsky(shaderNodeName);
 	}
-	else if( strcmp("er_skylight", nodetype) == 0 ){
-		visit_er_skylight(shaderNodeName);
-	}
-	else if( strcmp("er_flatcolor", nodetype) == 0 ){
-		visit_er_flatcolor(shaderNodeName);
-	}
 	else if( elvishray::RNodeVisitorMgr::getInstancePtr()->visit(shaderNodeName) ){
 		liquidMessage2(messageInfo, "RNodeVisitorMgr::visit(%s)", shaderNodeName );
 	}
@@ -71,31 +65,6 @@ void Visitor::visit_er_physicalsky(const char* node)
 		o.addRSLVariable(rmanTypes[i],	ER_SPN(rmanParams[i]),  rmanParams[i],	node);
 	}
 #endif
-	o.endRSL();
-}
-void Visitor::visit_er_skylight(const char* node)
-{
-	CM_TRACE_FUNC("Visitor::visit_er_skylight("<<node<<")");
-
-	OutputHelper o;
-	o.beginRSL("liq_skylight", node);
-
-	o.addRSLVariable("shader",	ER_SPN("env_shader"),	"env_shader",	node);
-	o.addRSLVariable("int",		ER_SPN("resolution"),	"resolution",	node);
-	o.addRSLVariable("float",	ER_SPN("max_dist"),		"max_dist",		node);
-
-	o.endRSL();
-}
-void Visitor::visit_er_flatcolor(const char* node)
-{
-	CM_TRACE_FUNC("Visitor::visit_er_flatcolor("<<node<<")");
-
-	OutputHelper o;
-	o.beginRSL("liq_flatcolor", node);
-
-	o.addRSLVariable("color",	ER_SPN("color"),			"color",			node);
-	o.addRSLVariable("color",	ER_SPN("transparency"),	"transparency",	node);
-
 	o.endRSL();
 }
 }//namespace ER

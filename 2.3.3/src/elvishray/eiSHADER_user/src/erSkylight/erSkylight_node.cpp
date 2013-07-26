@@ -31,87 +31,87 @@
 ** Liquid Surface Shader Node Source
 ** ______________________________________________________________________
 */
-#include "er_skylight_node.h"
+#include "erSkylight_node.h"
 
 #include <liqlog.h>
 #include <liqNodeSwatch.h>
 #include <liqIOStream.h>
 #include <liqNodeSwatch.h>
-#include "../er_nodeId.h"
+#include "../er_user_nodeId.h"
 
 namespace elvishray
 {
 
 // static data
 // Attributes
-MObject SkyLightNode::aRmanShader;
-MObject SkyLightNode::aRmanShaderType;
-MObject SkyLightNode::aRmanShaderLong;
-MObject SkyLightNode::aRmanShaderLif;
-MObject SkyLightNode::aRmanParams;
-MObject SkyLightNode::aRmanDetails;
-MObject SkyLightNode::aRmanTypes;
-MObject SkyLightNode::aRmanDefaults;
-MObject SkyLightNode::aRmanArraySizes;
-MObject SkyLightNode::aRmanLifCmds;
-MObject SkyLightNode::aRmanMethods;
-MObject SkyLightNode::aRmanIsOutput;  
-MObject SkyLightNode::aRmanAccept;
+MObject erSkyLightNode::aRmanShader;
+MObject erSkyLightNode::aRmanShaderType;
+MObject erSkyLightNode::aRmanShaderLong;
+MObject erSkyLightNode::aRmanShaderLif;
+MObject erSkyLightNode::aRmanParams;
+MObject erSkyLightNode::aRmanDetails;
+MObject erSkyLightNode::aRmanTypes;
+MObject erSkyLightNode::aRmanDefaults;
+MObject erSkyLightNode::aRmanArraySizes;
+MObject erSkyLightNode::aRmanLifCmds;
+MObject erSkyLightNode::aRmanMethods;
+MObject erSkyLightNode::aRmanIsOutput;  
+MObject erSkyLightNode::aRmanAccept;
 
-MObject SkyLightNode::aPreviewPrimitive;
-MObject SkyLightNode::aPreviewCustomPrimitive;
-MObject SkyLightNode::aPreviewCustomBackplane;
-MObject SkyLightNode::aPreviewCustomLightRig;
-MObject SkyLightNode::aColor;
-MObject SkyLightNode::aTransparency;
-MObject SkyLightNode::aOpacity;
-MObject SkyLightNode::aShaderSpace;
-MObject SkyLightNode::aDisplacementBound;
-MObject SkyLightNode::aDisplacementBoundSpace;
-MObject SkyLightNode::aOutputInShadow;
+MObject erSkyLightNode::aPreviewPrimitive;
+MObject erSkyLightNode::aPreviewCustomPrimitive;
+MObject erSkyLightNode::aPreviewCustomBackplane;
+MObject erSkyLightNode::aPreviewCustomLightRig;
+MObject erSkyLightNode::aColor;
+MObject erSkyLightNode::aTransparency;
+MObject erSkyLightNode::aOpacity;
+MObject erSkyLightNode::aShaderSpace;
+MObject erSkyLightNode::aDisplacementBound;
+MObject erSkyLightNode::aDisplacementBoundSpace;
+MObject erSkyLightNode::aOutputInShadow;
 
-//MObject SkyLightNode::aResolution;
-MObject SkyLightNode::aRefreshPreview;
-MObject SkyLightNode::aPreviewObjectSize;
-MObject SkyLightNode::aPreviewShadingRate;
-MObject SkyLightNode::aPreviewBackplane;
-MObject SkyLightNode::aPreviewIntensity;
-MObject SkyLightNode::aGLPreviewTexture;
-//MObject SkyLightNode::aCi;
-//MObject SkyLightNode::aOi;
+//MObject erSkyLightNode::aResolution;
+MObject erSkyLightNode::aRefreshPreview;
+MObject erSkyLightNode::aPreviewObjectSize;
+MObject erSkyLightNode::aPreviewShadingRate;
+MObject erSkyLightNode::aPreviewBackplane;
+MObject erSkyLightNode::aPreviewIntensity;
+MObject erSkyLightNode::aGLPreviewTexture;
+//MObject erSkyLightNode::aCi;
+//MObject erSkyLightNode::aOi;
 
-MObject SkyLightNode::aMayaIgnoreLights;
-MObject SkyLightNode::aMayaKa;
-MObject SkyLightNode::aMayaKd;
-MObject SkyLightNode::aNormalCameraX;
-MObject SkyLightNode::aNormalCameraY;
-MObject SkyLightNode::aNormalCameraZ;
-MObject SkyLightNode::aNormalCamera;
-MObject SkyLightNode::aLightDirectionX;
-MObject SkyLightNode::aLightDirectionY;
-MObject SkyLightNode::aLightDirectionZ;
-MObject SkyLightNode::aLightDirection;
-MObject SkyLightNode::aLightIntensityR;
-MObject SkyLightNode::aLightIntensityG;
-MObject SkyLightNode::aLightIntensityB;
-MObject SkyLightNode::aLightIntensity;
-MObject SkyLightNode::aLightAmbient;
-MObject SkyLightNode::aLightDiffuse;
-MObject SkyLightNode::aLightSpecular;
-MObject SkyLightNode::aLightShadowFraction;
-MObject SkyLightNode::aPreShadowIntensity;
-MObject SkyLightNode::aLightBlindData;
-MObject SkyLightNode::aLightData;
+MObject erSkyLightNode::aMayaIgnoreLights;
+MObject erSkyLightNode::aMayaKa;
+MObject erSkyLightNode::aMayaKd;
+MObject erSkyLightNode::aNormalCameraX;
+MObject erSkyLightNode::aNormalCameraY;
+MObject erSkyLightNode::aNormalCameraZ;
+MObject erSkyLightNode::aNormalCamera;
+MObject erSkyLightNode::aLightDirectionX;
+MObject erSkyLightNode::aLightDirectionY;
+MObject erSkyLightNode::aLightDirectionZ;
+MObject erSkyLightNode::aLightDirection;
+MObject erSkyLightNode::aLightIntensityR;
+MObject erSkyLightNode::aLightIntensityG;
+MObject erSkyLightNode::aLightIntensityB;
+MObject erSkyLightNode::aLightIntensity;
+MObject erSkyLightNode::aLightAmbient;
+MObject erSkyLightNode::aLightDiffuse;
+MObject erSkyLightNode::aLightSpecular;
+MObject erSkyLightNode::aLightShadowFraction;
+MObject erSkyLightNode::aPreShadowIntensity;
+MObject erSkyLightNode::aLightBlindData;
+MObject erSkyLightNode::aLightData;
 
-MObject SkyLightNode::aEvaluateAtEveryFrame;
-MObject SkyLightNode::aPreviewGamma;
+MObject erSkyLightNode::aEvaluateAtEveryFrame;
+MObject erSkyLightNode::aPreviewGamma;
 
-MObject SkyLightNode::aOutColor;
-MObject SkyLightNode::aOutTransparency;
+MObject erSkyLightNode::aOutColor;
+MObject erSkyLightNode::aOutTransparency;
 
-MObject SkyLightNode::aenv_shader;
-MObject SkyLightNode::aresolution;
-MObject SkyLightNode::amax_dist;
+MObject erSkyLightNode::aenv_shader;
+MObject erSkyLightNode::aresolution;
+MObject erSkyLightNode::amax_dist;
 
 #define MAKE_INPUT(attr)		\
 	CHECK_MSTATUS(attr.setKeyable(true ) ); 		\
@@ -131,7 +131,7 @@ MObject SkyLightNode::amax_dist;
 	CHECK_MSTATUS(attr.setReadable(true ) ); 		\
 	CHECK_MSTATUS(attr.setWritable(false ) );
 
-void SkyLightNode::postConstructor( )
+void erSkyLightNode::postConstructor( )
 {
 	setMPSafe(true);
 
@@ -144,46 +144,49 @@ void SkyLightNode::postConstructor( )
 
 	MGlobal::executeCommandOnIdle( "liquidCheckGlobals()", false );
 
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), typeId=%d", typeId().id());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), typeName=%s", typeName().asChar());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), name=%s", name().asChar());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), type=%d", type());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), typeId=%d", typeId().id());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), typeName=%s", typeName().asChar());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), name=%s", name().asChar());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), type=%d", type());
 
 	//MFnDependencyNode depNode(MPxNode::thisMObject());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), depNode.typeId=%d", depNode.typeId().id());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), depNode.typeName=%s", depNode.typeName().asChar());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), depNode.name=%s", depNode.name().asChar());
-	//liquidMessage2(messageInfo, "SkyLightNode::postConstructor(), depNode.type=%d", depNode.type());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), depNode.typeId=%d", depNode.typeId().id());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), depNode.typeName=%s", depNode.typeName().asChar());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), depNode.name=%s", depNode.name().asChar());
+	//liquidMessage2(messageInfo, "erSkyLightNode::postConstructor(), depNode.type=%d", depNode.type());
 }
 
-SkyLightNode::SkyLightNode()
+erSkyLightNode::erSkyLightNode()
 {
 	swatchInit = false;
 	renderSwatch = NULL;
 }
 
-SkyLightNode::~SkyLightNode()
+erSkyLightNode::~erSkyLightNode()
 {
 	if (renderSwatch != NULL) 
 		delete renderSwatch;
 }
 
-const MTypeId SkyLightNode::getTypeId()
+const MTypeId erSkyLightNode::getTypeId()
 { 
-	return TI_SkyLight_NODE;
+	return UTI_Skylight_NODE;
 }
 
-const MString SkyLightNode::getTypeName()
+const MString erSkyLightNode::getTypeName()
 { 
-	return ("er_skylight");
+	return ("erSkylight");
 }
-
-void* SkyLightNode::creator()
+const MString erSkyLightNode::getShaderType()
+{ 
+	return ("light");
+}
+void* erSkyLightNode::creator()
 {
-	return new SkyLightNode();
+	return new erSkyLightNode();
 }
 
-MStatus SkyLightNode::initialize()
+MStatus erSkyLightNode::initialize()
 {
 	MFnTypedAttribute   tAttr;
 	MFnStringData       tDefault;
@@ -194,10 +197,10 @@ MStatus SkyLightNode::initialize()
 
 	// Create input attributes
 
-	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, aRmanShader, &status );
+	aRmanShader = tAttr.create( MString("rmanShader"), MString("rms"), MFnData::kString, tDefault.create(getTypeName()), &status );
 	MAKE_INPUT(tAttr);
 
-	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString, aRmanShaderType, &status );
+	aRmanShaderType = tAttr.create( MString("rmanShaderType"), MString("rst"), MFnData::kString,  tDefault.create(getShaderType()), &status );
 	MAKE_INPUT(tAttr);
 
 	aRmanShaderLong = tAttr.create( MString("rmanShaderLong"), MString("rml"), MFnData::kString, aRmanShaderLong, &status );
@@ -559,9 +562,9 @@ MStatus SkyLightNode::initialize()
 	return MS::kSuccess;
 }
 
-MStatus SkyLightNode::initialize_shader_parameters()
+MStatus erSkyLightNode::initialize_shader_parameters()
 {
-	//CM_TRACE_FUNC("SkyLightNode::initialize_shader_parameters()");
+	//CM_TRACE_FUNC("erSkyLightNode::initialize_shader_parameters()");
 	MFnTypedAttribute   tAttr;
 	MFnStringData       tDefault;
 	MFnNumericAttribute nAttr;
@@ -590,9 +593,9 @@ MStatus SkyLightNode::initialize_shader_parameters()
 	return MS::kSuccess;
 }
 
-MStatus SkyLightNode::compute( const MPlug& plug, MDataBlock& block )
+MStatus erSkyLightNode::compute( const MPlug& plug, MDataBlock& block )
 {
-	//CM_TRACE_FUNC("SkyLightNode::compute(job="<<plug.name()<<",block)");
+	//CM_TRACE_FUNC("erSkyLightNode::compute(job="<<plug.name()<<",block)");
 
 	// outColor or individual R, G, B channel
 	if(   (plug == aOutColor) || (plug.parent() == aOutColor)||

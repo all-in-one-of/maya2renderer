@@ -306,10 +306,6 @@ public:
 	virtual bool visit_render_node_in_subrenderer(const char* shaderNodeName, const char* nodetype);
 	/// er_physicalsky ///
 	void visit_er_physicalsky(const char* node);
-	/// er_skylight ///
-	void visit_er_skylight(const char* node);
-	/// er_flatcolor ///
-	void visit_er_flatcolor(const char* node);
 
 protected:
 	//std::ofstream file;

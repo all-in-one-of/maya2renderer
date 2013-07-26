@@ -32,8 +32,8 @@
 ** ______________________________________________________________________
 */
 
-#ifndef _ER_SKY_LIGHT_NODE_H_
-#define _ER_SKY_LIGHT_NODE_H_
+#ifndef _ER_ER_SKY_LIGHT_NODE_H_
+#define _ER_ER_SKY_LIGHT_NODE_H_
 
 #include <common/prerequest_maya.h>
 //#include <liqShaderNode.h>
@@ -42,11 +42,11 @@ class liqNodeSwatch;
 namespace elvishray
 {
 
-class SkyLightNode : public MPxNode
+class erSkyLightNode : public MPxNode
 {
   public:
-                      SkyLightNode();
-    virtual          ~SkyLightNode();
+                      erSkyLightNode();
+    virtual          ~erSkyLightNode();
 
     virtual MStatus   compute( const MPlug&, MDataBlock& );
     virtual void      postConstructor();
@@ -58,6 +58,7 @@ class SkyLightNode : public MPxNode
 
 	static  const MTypeId   getTypeId();
 	static  const MString   getTypeName();
+	static  const MString   getShaderType();
 
     liqNodeSwatch*    renderSwatch;
 
@@ -141,11 +142,11 @@ class SkyLightNode : public MPxNode
 	bool    swatchInit;
 
 private:
-	SkyLightNode(const SkyLightNode&);
-	SkyLightNode& operator=(const SkyLightNode&);
+	erSkyLightNode(const erSkyLightNode&);
+	erSkyLightNode& operator=(const erSkyLightNode&);
 };
 
 
 }//namespace
 
-#endif//_ER_SKY_LIGHT_NODE_H_
+#endif//_ER_ER_SKY_LIGHT_NODE_H_

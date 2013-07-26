@@ -85,16 +85,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	status = MSwatchRenderRegister::registerSwatchRender( elvishray::PhysicalskyNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
 	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+"Swatch" );
 	//
-	status = plugin.registerNode( 
-		elvishray::SkyLightNode::getTypeName(), 
-		elvishray::SkyLightNode::getTypeId(), 
-		elvishray::SkyLightNode::creator, elvishray::SkyLightNode::initialize, MPxNode::kDependNode,
-		&elvishray::light_classification);
-	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+" node" );
-	status.clear();
-	status = MSwatchRenderRegister::registerSwatchRender( elvishray::SkyLightNode::getTypeName()+"Swatch", liqNodeSwatch::creator );
-	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::SkyLightNode::getTypeName()+"Swatch" );
-	//
+
 
 	return MS::kSuccess;
 }
@@ -107,11 +98,6 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MFnPlugin plugin(obj);
 
 
-	//
-	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::SkyLightNode::getTypeName()+"Swatch");
-	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+"Swatch generator" );
-	status = plugin.deregisterNode( elvishray::SkyLightNode::getTypeId() );
-	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::SkyLightNode::getTypeName()+" node" );
 	//
 	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::PhysicalskyNode::getTypeName()+"Swatch");
 	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+"Swatch generator" );
