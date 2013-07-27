@@ -11,3 +11,23 @@ global proc liquidCreateMenus_ElvishRender()
 
 	liqPopIdent();
 }
+//
+global proc liquidStartup_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liquidStartup_ElvishRender()");
+	
+	liquidStartup_elvishray();
+
+	liqPopIdent();
+}
+//
+global proc liquidShutdown_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liquidShutdown_ElvishRender()");
+	
+	liquidShutdown_elvishray();
+
+	liqPopIdent();
+}

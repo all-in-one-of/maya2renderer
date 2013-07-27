@@ -147,14 +147,3 @@ global proc liquidDeleteAttributeExtension_elvishray()
 
 	liqPopIdent();
 }
-//
-global proc liquidStartup_elvishray()
-{
-	liqPushIdent();
-	liqlog("liquidStartup_elvishray()");
-	
-	//liquidAddAttributeExtension_elvishray();
-	erLiquidLoadGlobals();
-
-	liqPopIdent();
-}

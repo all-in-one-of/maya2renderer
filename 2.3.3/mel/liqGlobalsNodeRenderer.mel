@@ -35,19 +35,13 @@
 //
 source xxliquidutility.mel;
 
-global proc liqSetSubRendererName(string $renderer)
-{
-	setAttr -type "string" liquidGlobals.renderer $renderer;
-}
-
-global proc string liqGetSubRendererName()
-{
-	return  `getAttr liquidGlobals.renderer`;
-}
-
 global proc string getGlobalNodeName()
 {
-    return "liqGlobalsNodeRenderer_"+liqGetSubRendererName();
+	liqPushIdent();
+	liqlog("getGlobalNodeName()");
+    string $globalname = "liqGlobalsNodeRenderer_"+liqGetSubRendererName();
+	liqPopIdent();
+	return $globalname;
 }
 
 // global proc addParameter(string $node, string $attrName, string $attrType, string $attrValue)
@@ -71,10 +65,10 @@ global proc string getGlobalNodeName()
 // 	addParameter($gGlobal, "tStringAttr1", "string", "tDefaultVale1");
 // }
 
-global proc liqGlobalsNodeRendererMain(string $cmd)
+global proc liqGlobalsNodeRendererMain()
 {
 	liqPushIdent();
-	liqlog("liqGlobalsNodeRendererMain("+$cmd+")");
+	liqlog("liqGlobalsNodeRendererMain()");
 
 	$rnd = liqGetSubRendererName();
 	if ( isSubRendererLoaded($rnd) )

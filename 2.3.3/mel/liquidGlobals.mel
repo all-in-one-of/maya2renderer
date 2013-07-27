@@ -1603,24 +1603,24 @@ global proc liquidBuildRenderCameraMenu( string $parent )
   liqPopIdent();
 }
 
-global proc liquidBuildRendererMenu( string $prefix )
-{
-  global string $g_liqRenderer[];
-
-  liqPushIdent();
-	liqlog("liquidBuildRendererMenu()");
-  popupMenu -e -deleteAllItems ($prefix + "LG_RendererMenuCtl");
-  int $i;
-
-  for ( $i=0; $i<size($g_liqRenderer); $i++ ) 
-  {
-		menuItem	
-			-parent ($prefix+"LG_RendererMenuCtl") 
-			-label   $g_liqRenderer[$i]
-			-c      ("liquidUpdateSubRenderer "+$g_liqRenderer[$i]);
-  }
-  liqPopIdent();
-}
+//global proc liquidBuildRendererMenu( string $prefix )
+//{
+//  global string $g_liqRenderer[];
+//
+//  liqPushIdent();
+//	liqlog("liquidBuildRendererMenu()");
+//  popupMenu -e -deleteAllItems ($prefix + "LG_RendererMenuCtl");
+//  int $i;
+//
+//  for ( $i=0; $i<size($g_liqRenderer); $i++ ) 
+//  {
+//		menuItem	
+//			-parent ($prefix+"LG_RendererMenuCtl") 
+//			-label   $g_liqRenderer[$i]
+//			-c      ("liquidUpdateSubRenderer "+$g_liqRenderer[$i]);
+//  }
+//  liqPopIdent();
+//}
 
 /* Crop Window --------------------------------------------------------------------------------- */
 
@@ -3768,27 +3768,27 @@ global proc liquidGlobalsAdvanceTab_buildIt( string $prefix )
 
   liqPopIdent();
 }
-global proc liquidUpdateSubRenderer( string $renderer )
-{
-	liqPushIdent();
-	liqlog("liquidUpdateSubRenderer("+$renderer+")");
-
-	//set liquidGlobals.renderer
-	liqSetSubRendererName($renderer);
-	//create global node for this renderer
-	liqGlobalsNodeRendererMain("create");
-
-	//update menu
-	liquidCreateMenus();
-	//AEliquidCreateMenu();
-
-	//update AETemplate UI for this renderer
-	liquidShaderNodes_AERefresh();
-
-	liquidStartup_subrenderer();
-
-	liqPopIdent();
-}
+//global proc liquidUpdateSubRenderer( string $renderer )
+//{
+//	liqPushIdent();
+//	liqlog("liquidUpdateSubRenderer("+$renderer+")");
+//
+//	//set liquidGlobals.renderer
+//	//liqSetSubRendererName($renderer);
+//	//create global node for this renderer
+//	//liqGlobalsNodeRendererMain();
+//
+//	//update menu
+//	//liquidCreateMenus();
+//	//AEliquidCreateMenu();
+//
+//	//update AETemplate UI for this renderer
+//	//liquidShaderNodes_AERefresh();
+//
+//	//liquidStartup_subrenderer();
+//
+//	liqPopIdent();
+//}
 global proc liquidUpdateShowliqlog()
 {
 	liqPushIdent();

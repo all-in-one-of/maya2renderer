@@ -126,14 +126,3 @@ global proc liquidDeleteAttributeExtension_renderman()
 
 	liqPopIdent();
 }
-//
-global proc liquidStartup_renderman()
-{
-	liqPushIdent();
-	liqlog("liquidStartup_renderman()");
-
-	//liquidAddAttributeExtension_renderman();
-	rmLiquidLoadGlobals();
-
-	liqPopIdent();
-}

@@ -1314,12 +1314,12 @@ liquidBuildChooseSubRendererMenuCB(string $renderer)
 	}
 
 	liqSetSubRendererName($renderer);
-	registerLiquidSubRenderer($renderer);
+	//registerLiquidSubRenderer($renderer);
 
 	//string $prefix = `liquidGetCurrentRenderLayerName`;
 	//liquidBuildRendererMenu("");
-	liquidUpdateSubRenderer($renderer);
-
+	//liquidUpdateSubRenderer($renderer);
+	liquidStartup_subrenderer();
 
 	liqPopIdent();
 }

@@ -497,3 +497,33 @@ global proc rmLiquidLoadGlobals()
 
 	liqPopIdent();
 }
+//
+global proc liquidStartup_renderman()
+{
+	liqPushIdent();
+	liqlog("liquidStartup_renderman()");
+
+	//set liquidGlobals.renderer
+	liqSetSubRendererName(rm_getRendererName());
+	//create global node for this renderer
+	liqGlobalsNodeRendererMain();
+
+	rmLiquidLoadGlobals();
+
+	//update menu
+	liquidCreateMenus();
+	liquidShaderNodes_AERefresh();
+
+	liqPopIdent();
+}
+//
+global proc liquidShutdown_renderman()
+{
+	liqPushIdent();
+	liqlog("liquidShutdown_renderman()");
+
+	//liquidAddAttributeExtension_renderman();
+	//rmLiquidUnloadGlobals();
+
+	liqPopIdent();
+}

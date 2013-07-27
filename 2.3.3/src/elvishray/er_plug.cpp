@@ -86,6 +86,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	IfMErrorMsgReturnIt( status, "Can't register "+elvishray::PhysicalskyNode::getTypeName()+"Swatch" );
 	//
 
+	//
+	MGlobal::executeCommand("liquidStartup_"+elvishray::RENDER_NAME+"()");
 
 	return MS::kSuccess;
 }
@@ -97,7 +99,8 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 
-
+	//
+	MGlobal::executeCommand("liquidShutdown_"+elvishray::RENDER_NAME+"()");
 	//
 	status = MSwatchRenderRegister::unregisterSwatchRender(elvishray::PhysicalskyNode::getTypeName()+"Swatch");
 	IfMErrorMsgReturnIt( status, "Can't deregister "+elvishray::PhysicalskyNode::getTypeName()+"Swatch generator" );

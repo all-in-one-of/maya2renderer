@@ -1,6 +1,23 @@
 source xxliquidutility.mel;
 
 //
+global proc liqSetSubRendererName(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liqSetSubRendererName("+$renderer+")");
+	setAttr -type "string" liquidGlobals.renderer $renderer;
+	liqPopIdent();
+}
+
+global proc string liqGetSubRendererName()
+{
+	liqPushIdent();
+	liqlog("liqGetSubRendererName()");
+	string $rnd =  `getAttr liquidGlobals.renderer`;
+	liqPopIdent();
+	return $rnd;
+}
+//
 global proc liquidCreateMenu_subrenderer()
 {
 	liqPushIdent();
@@ -198,3 +215,4 @@ global proc liquidStartup_subrenderer()
 
 	liqPopIdent();
 }
+

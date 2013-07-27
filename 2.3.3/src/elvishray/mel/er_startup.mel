@@ -262,3 +262,33 @@ global proc erDelShaderPlugin(string $pluginname)
 
 	liqPopIdent();
 }
+//
+global proc liquidStartup_elvishray()
+{
+	liqPushIdent();
+	liqlog("liquidStartup_elvishray()");
+	
+	//set liquidGlobals.renderer
+	liqSetSubRendererName(er_getRendererName());
+	//create global node for this renderer
+	liqGlobalsNodeRendererMain();
+
+	erLiquidLoadGlobals();
+		
+	//update menu
+	liquidCreateMenus();
+	liquidShaderNodes_AERefresh();
+
+	liqPopIdent();
+}
+//
+global proc liquidShutdown_elvishray()
+{
+	liqPushIdent();
+	liqlog("liquidShutdown_elvishray()");
+	
+	//liquidAddAttributeExtension_elvishray();
+	//erLiquidUnlLoadGlobals();
+
+	liqPopIdent();
+}

@@ -46,6 +46,7 @@
 #include "liqRiCommands.h"
 #include "rm_globalnode.h"
 #include "rm_shader_node.h"
+#include "rm_.h"
 
 MStatus registRiCommand(MFnPlugin& plugin)
 {
@@ -503,7 +504,10 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 {
 	MStatus status;
 	MFnPlugin plugin(obj, "https://github.com/maya2renderer/maya2renderer", "0.0.1", "Any");
-
+	//
+	liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
+	
+	//
 	registRiCommand(plugin);
 	//_initializePlugin(obj);
 
@@ -515,7 +519,9 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	IfMErrorMsgReturnIt( status, "Can't register elvishray::GlobalNode node" );
 	status.clear();
 
-	liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
+	//
+	//
+	MGlobal::executeCommand("liquidStartup_"+renderman::RENDER_NAME+"()");
 
 	return MS::kSuccess;
 }
@@ -527,7 +533,8 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	MStatus status;
 	MFnPlugin plugin(obj);
 
-	liquid::RendererMgr::unregistFactory("renderman");
+	//
+	MGlobal::executeCommand("liquidShutdown_"+renderman::RENDER_NAME+"()");
 	
 	//
 	status = plugin.deregisterNode( renderman::GlobalNode::typeId );
@@ -535,6 +542,9 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 
 	//_uninitializePlugin(obj);
 	deregistRiCommand(plugin);
+
+	//
+	liquid::RendererMgr::unregistFactory("renderman");
 
 	return MS::kSuccess;
 }
