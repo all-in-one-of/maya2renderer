@@ -684,10 +684,11 @@ global proc liquidCreateMenus()
 				-command ("liquidSelectLiquidGlobalsMenu")
 				$menuName;
 		//setParent -menu ..; // from submenu 
-
-      menuItem -label "Render" -ann "liquidRender()" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
-      menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
       menuItem -d true;
+
+      //menuItem -label "Render" -ann "liquidRender()" -command "liquidRender" -image ($iconPath+"liquidRender.xpm");
+      //menuItem -label "Render Selected" -ann "Render only Selected Objects" -command "liquidRenderSelected";
+      //menuItem -d true;
 
 	  menuItem -d true;//------------------------------------
 
