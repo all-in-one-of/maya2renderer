@@ -973,7 +973,7 @@ global proc liquidShaderBrowserShaderMenu()
   // menuItem -parent $menu[0] -label "Remove Unused" -command liquidFluidRemoveUnusedCMD liquidFluidRemoveUnusedButton;
 
    menuItem -parent $menu[0] -d true liquidFluidShaderSeparator4;
-   menuItem -parent $menu[0] -label "Render" -command "liquid -GL" liquidFluidRender;
+   menuItem -parent $menu[0] -label "Render" -command "liquidRender()" liquidFluidRender;
    menuItem -parent $menu[0] -label "Select Shader Node" -command liquidSelectNodeCMD liquidFluidSelectNode;
 
    //menuItem -parent $menu[0] -d true liquidFluidShaderSeparator5;
@@ -1233,7 +1233,7 @@ global proc liquidFluid ()
      button -label "Remove" -command liquidFluidRemoveCMD liquidFluidRemoveButton;
      //button -label "Remove Unused" -command liquidFluidRemoveUnusedCMD liquidFluidRemoveUnusedButton;
 
-     button -label "Render" -command "liquid -GL" liquidFluidRender;
+     button -label "Render" -command "liquidRender()" liquidFluidRender;
      button -label "Select Shader Node" -command liquidSelectNodeCMD liquidFluidSelectNode;
 
      setParent ..;
