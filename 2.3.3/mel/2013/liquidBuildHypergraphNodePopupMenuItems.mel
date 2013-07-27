@@ -42,6 +42,17 @@ global proc buildHypergraphNodePopupMenuItems_liquid(string $node)
 
 	string $nodeType = `nodeType $node`;
 
+	if( liq_isMayaInternalRenderNode($nodeType) )
+	{
+		liqPopIdent();
+		return;
+	}
+	if( liq_isMentalrayRenderNode($nodeType) )
+	{
+		liqPopIdent();
+		return;
+	}
+
 	string $cmd = "liquidBuildHypergraphNodePopupMenuItems_"+$nodeType+"(\""+$node+"\")";
 	evalEcho $cmd;
 

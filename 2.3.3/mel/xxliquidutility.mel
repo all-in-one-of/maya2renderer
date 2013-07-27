@@ -420,3 +420,152 @@ global proc string[] LRP_getAllRenderPasses()
 
   return $render_passes;
 }
+//
+global proc int liq_isMayaInternalRenderNode(string $nodeType)
+{
+	liqPushIdent();
+	liqlog("liq_isMayaInternalRenderNode("+$nodeType+")");
+
+	int $ret = 0;
+	if( /// surface ///
+		   $nodeType == "anisotropic"
+		|| $nodeType == "blinn"
+		|| $nodeType == "hairTubeShader"
+		|| $nodeType == "lambert"
+		|| $nodeType == "layeredShader"
+		|| $nodeType == "oceanShader"
+		|| $nodeType == "phong"
+		|| $nodeType == "phongE"
+		|| $nodeType == "rampShader"
+		|| $nodeType == "shadingMap"
+		|| $nodeType == "surfaceShader"
+		|| $nodeType == "useBackground"
+		/// Volumetric ///
+		|| $nodeType == "envFog"
+		|| $nodeType == "fluidShape"
+		|| $nodeType == "lightFog"
+		|| $nodeType == "particleCloud"
+		|| $nodeType == "volumeFog"
+		|| $nodeType == "volumeShader"
+		/// DISPLACEMENT ///
+		|| $nodeType == "displacement"
+		/// 2D Texture (normal)///
+		|| $nodeType == "bulge"
+		|| $nodeType == "checker"
+		|| $nodeType == "cloth"
+		|| $nodeType == "file"
+		|| $nodeType == "fluidTexture2D"
+		|| $nodeType == "fractal"
+		|| $nodeType == "grid"
+		|| $nodeType == "mountain"
+		|| $nodeType == "movie"
+		|| $nodeType == "noise"
+		|| $nodeType == "ocean"
+		|| $nodeType == "psdFileTex"
+		|| $nodeType == "ramp"
+		|| $nodeType == "water"
+		/// 3D Textures ///
+		|| $nodeType == "brownian"
+		|| $nodeType == "cloud"
+		|| $nodeType == "crater"
+		|| $nodeType == "fluidTexture3D"
+		|| $nodeType == "granite"
+		|| $nodeType == "leather"
+		|| $nodeType == "marble"
+		|| $nodeType == "rock"
+		|| $nodeType == "snow"
+		|| $nodeType == "solidFractal"
+		|| $nodeType == "stucco"
+		|| $nodeType == "volumeNoise"
+		|| $nodeType == "wood"
+		/// Env Textures ///
+		|| $nodeType == "envBall"
+		|| $nodeType == "envChrome"
+		|| $nodeType == "envCube"
+		|| $nodeType == "envSky"
+		|| $nodeType == "envSphere"
+		/// other textures ///
+		|| $nodeType == "layeredTexture"
+		/// Lights ///
+		|| $nodeType == "ambientLight"
+		|| $nodeType == "areaLight"
+		|| $nodeType == "directionalLight"
+		|| $nodeType == "pointLight"
+		|| $nodeType == "spotLight"
+		|| $nodeType == "volumeLight"
+		/// General utilities ///
+		|| $nodeType == "arrayMapper"
+		|| $nodeType == "bump2d"
+		|| $nodeType == "bump3d"
+		|| $nodeType == "condition"
+		|| $nodeType == "distanceBetween"
+		|| $nodeType == "heightField"
+		|| $nodeType == "lightInfo"
+		|| $nodeType == "multiplyDivide"
+		|| $nodeType == "place2dTexture"
+		|| $nodeType == "place3dTexture"
+		|| $nodeType == "plusMinusAverage"
+		|| $nodeType == "projection"
+		|| $nodeType == "reverse"
+		|| $nodeType == "samplerInfo"
+		|| $nodeType == "setRange"
+		|| $nodeType == "stencil"
+		|| $nodeType == "studioClearCoat"
+		|| $nodeType == "uvChooser"
+		|| $nodeType == "vectorProduct"
+		/// color utilities ///
+		|| $nodeType == "blendColors"
+		|| $nodeType == "clamp"
+		|| $nodeType == "contrast"
+		|| $nodeType == "gammaCorrect"
+		|| $nodeType == "hsvToRgb"
+		|| $nodeType == "luminance"
+		|| $nodeType == "remapColor"
+		|| $nodeType == "remapHsv"
+		|| $nodeType == "remapValue"
+		|| $nodeType == "rgbToHsv"
+		|| $nodeType == "smear"
+		|| $nodeType == "surfaceLuminance"
+		/// switch utilities ///
+		|| $nodeType == "doubleShadingSwitch"
+		|| $nodeType == "quadShadingSwitch"
+		|| $nodeType == "singleShadingSwitch"
+		|| $nodeType == "tripleShadingSwitch"
+		/// particle utilities ///
+		|| $nodeType == "particleSamplerInfo"
+		/// image planes ///
+		|| $nodeType == "imagePlane"
+		/// glow ///
+		|| $nodeType == "opticalFX"
+		) 
+	{
+		$ret = 1;
+	}else {
+		$ret = 0;
+	}
+	liqPopIdent();
+	return $ret;
+}
+//
+global proc int liq_isMentalrayRenderNode(string $nodeType)
+{
+	liqPushIdent();
+	liqlog("liq_isMentalrayRenderNode("+$nodeType+")");
+
+	int $ret = 0;
+	string $classification[] = `getClassification $nodeType`;
+	
+	if( size($classification) != 1 )
+	{
+		liqPopIdent();
+		return 0;
+	}
+
+	if(`gmatch $classification[0] "*mentalray*"`){
+		$ret = 1;
+	}else {
+		$ret = 0;
+	}
+	liqPopIdent();
+	return $ret;
+}
