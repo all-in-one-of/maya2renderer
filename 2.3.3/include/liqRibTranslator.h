@@ -38,7 +38,9 @@
 #include <common/prerequest_maya.h>
 
 #include <liquid.h>
-#include <liqRibHT.h>
+#include <liqTokenParameterType.h>
+#include <liqRibNode.h>
+//#include <liqRibHT.h>
 //#include <liqShader.h>
 #include <liqRenderScript.h>
 //#include <liqGlobalVariable.h>
@@ -230,12 +232,12 @@ public:
 	// MString riboutput;                           // UN-USED GLOBAL
 
 
-protected:
-	// Hash table for scene
-	boost::shared_ptr< liqRibHT > htable_;
-public:
-	boost::shared_ptr< liqRibHT >& getHTable(){ return htable_; }
-	void newHTable(){ htable_ = boost::shared_ptr< liqRibHT >( new liqRibHT() ); }
+//protected:
+//	// Hash table for scene
+//	boost::shared_ptr< liqRibHT > htable_;
+//public:
+//	boost::shared_ptr< liqRibHT >& getHTable(){ return htable_; }
+//	void newHTable(){ htable_ = boost::shared_ptr< liqRibHT >( new liqRibHT() ); }
 #ifdef Refactoring 
 public: 
 #endif

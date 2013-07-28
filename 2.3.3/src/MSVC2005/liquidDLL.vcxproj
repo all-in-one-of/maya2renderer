@@ -2894,6 +2894,7 @@
     <ClCompile Include="..\liqRibGenData.cpp" />
     <ClCompile Include="..\liqRibHierarchicalSubdivisionData.cpp" />
     <ClCompile Include="..\liqRibHT.cpp" />
+    <ClCompile Include="..\liqRibHTMgr.cpp" />
     <ClCompile Include="..\liqRibImplicitSphereData.cpp" />
     <ClCompile Include="..\liqRibLightData.cpp" />
     <ClCompile Include="..\liqRibLocatorData.cpp" />
@@ -2957,6 +2958,7 @@
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
     <ClInclude Include="..\liqMessageCallback.h" />
+    <ClInclude Include="..\liqRibHTMgr.h" />
     <ClInclude Include="..\liq_classification.h" />
     <ClInclude Include="..\rnode_visitor_interface.h" />
     <ClInclude Include="..\shadergraph\convertShadingNetwork.h" />

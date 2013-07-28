@@ -5,6 +5,7 @@
 #include "ercall.h"
 
 //#include <liqRibNode.h>
+#include <liqRibHTMgr.h>
 #include <liqRibTranslator.h>
 #include <liqGlobalHelpers.h>
 
@@ -44,7 +45,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_maya("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
 		OutputMgr &o = Renderer::getOutputMgr();
 
-		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->getHTable()->find(
+		liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
 			pData->objDagPath.fullPathName(), 
 			pData->objDagPath,
 			MRT_Unknown

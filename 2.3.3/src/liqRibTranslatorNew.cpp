@@ -61,9 +61,10 @@
 #include <liqRibCamera.h>
 #include <liqCameraMgr.h>
 #include <liqShader.h>
-
+#include <liqRibHTMgr.h>
 #include "renderermgr.h"
 #include "shadergraph/shadermgr.h"
+
 
 #define _Refactor_doTexure_doShadow
 
@@ -409,7 +410,7 @@ TempControlBreak liqRibTranslator::processOneFrame(
 			{
 				LIQDEBUGPRINTF( "Scanning at time: %u \n", scanTime );
 
-				newHTable();
+				liqRibHTMgr::getInstancePtr()->createHTable();
 				//hashTableInited = true;
 				LIQDEBUGPRINTF( "Created hash table...\n" );
 
@@ -616,11 +617,11 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 		// scanScene: Scan the scene for lights
 		{
 			tLightMgr lightMgr;
-			lightMgr.scanScene(lframe, sample,getHTable(), count, returnStatus);
+			lightMgr.scanScene(lframe, sample,liqRibHTMgr::getInstancePtr()->getHTable(), count, returnStatus);
 		}
 		{
 			tLocatorMgr locatorMgr;
-			locatorMgr.scanScene(lframe, sample,getHTable(), count, returnStatus);
+			locatorMgr.scanScene(lframe, sample,liqRibHTMgr::getInstancePtr()->getHTable(), count, returnStatus);
 		}
 		
 		//[refactor 11] 
@@ -739,7 +740,7 @@ void liqRibTranslator::dealwithParticleInstancedObjects(
 		MMatrix instanceMatrix( instancerIter.matrix() );
 
 		bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
-		getHTable()->insert( path, lframe__, 
+		liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe__, 
 			( useSamples )? sample__ : 0,	
 			MRT_Unknown, count__++, 
 			&instanceMatrix, instanceStr, instancerIter.particleId() );
@@ -1272,7 +1273,7 @@ MStatus liqRibTranslator::lightBlock__(const structJob &currentJob)
 	{
 		RNMAP::iterator rniter;
 		int nbLight = 0;
-		for ( rniter = getHTable()->RibNodeMap.begin(); rniter != getHTable()->RibNodeMap.end(); rniter++ )
+		for ( rniter = liqRibHTMgr::getInstancePtr()->getHTable()->RibNodeMap.begin(); rniter != liqRibHTMgr::getInstancePtr()->getHTable()->RibNodeMap.end(); rniter++ )
 		{
 			LIQ_CHECK_CANCEL_REQUEST;
 			liqRibNodePtr   ribNode = (*rniter).second;
@@ -1332,7 +1333,7 @@ MStatus liqRibTranslator::coordSysBlock__(const structJob &currentJob)
 	//	RiAttributeEnd();
 	//}
 	//return returnStatus;
-	return liquid::RendererMgr::getInstancePtr()->getRenderer()->coordSysBlock__(currentJob, getHTable());
+	return liquid::RendererMgr::getInstancePtr()->getRenderer()->coordSysBlock__(currentJob, liqRibHTMgr::getInstancePtr()->getHTable());
 }
 
 //
@@ -2484,7 +2485,7 @@ MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 	MFnSet shadowSet( shadowSetObj, &status );
 
 	//MMatrix matrix;
-	for ( RNMAP::iterator rniter( getHTable()->RibNodeMap.begin() ); rniter != getHTable()->RibNodeMap.end(); rniter++ ) 
+	for ( RNMAP::iterator rniter( liqRibHTMgr::getInstancePtr()->getHTable()->RibNodeMap.begin() ); rniter != liqRibHTMgr::getInstancePtr()->getHTable()->RibNodeMap.end(); rniter++ ) 
 	{
 		LIQ_CHECK_CANCEL_REQUEST;
 
@@ -2539,7 +2540,7 @@ MStatus liqRibTranslator::objectBlock_data(const structJob &currentJob)
 	MFnSet shadowSet( shadowSetObj, &status );
 
 	//MMatrix matrix;
-	for ( RNMAP::iterator rniter( getHTable()->RibNodeMap.begin() ); rniter != getHTable()->RibNodeMap.end(); rniter++ ) 
+	for ( RNMAP::iterator rniter( liqRibHTMgr::getInstancePtr()->getHTable()->RibNodeMap.begin() ); rniter != liqRibHTMgr::getInstancePtr()->getHTable()->RibNodeMap.end(); rniter++ ) 
 	{
 		LIQ_CHECK_CANCEL_REQUEST;
 

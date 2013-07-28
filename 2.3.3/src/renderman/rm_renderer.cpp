@@ -13,6 +13,7 @@
 // Liquid headers
 #include <liquid.h>
 #include <liqRibHT.h>
+#include <liqRibHTMgr.h>
 #include <liqRenderer.h>
 #include <liqRibLightData.h>
 #include <liqGlobalHelpers.h>
@@ -151,7 +152,7 @@ namespace renderman
 			}
 			// output the arbitrary clipping planes here /////////////
 			//
-			boost::shared_ptr< liqRibHT > &htable = liqRibTranslator::getInstancePtr()->getHTable();
+			boost::shared_ptr< liqRibHT > &htable = liqRibHTMgr::getInstancePtr()->getHTable();
 			{
 				for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
 				{
@@ -1215,7 +1216,7 @@ namespace renderman
 			return;
 		}
 
-		boost::shared_ptr< liqRibHT > &htable = liqRibTranslator::getInstancePtr()->getHTable();
+		boost::shared_ptr< liqRibHT > &htable = liqRibHTMgr::getInstancePtr()->getHTable();
 		for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
 		{
 			liqRibNodePtr   ribNode = (*rniter).second;

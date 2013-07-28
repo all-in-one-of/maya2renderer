@@ -5,6 +5,7 @@
 #include "ercall.h"
 
 //#include <liqRibNode.h>
+#include <liqRibHTMgr.h>
 #include <liqRibTranslator.h>
 #include <liqGlobalHelpers.h>
 #include <eiCORE/ei_data_table.h>
@@ -46,7 +47,7 @@ namespace elvishray
 		}
 
 		//
- 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->getHTable()->find(
+ 		liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
  			pData->objDagPath.fullPathName(), 
  			pData->objDagPath,
  			MRT_Unknown

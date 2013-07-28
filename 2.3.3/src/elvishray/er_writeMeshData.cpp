@@ -5,6 +5,7 @@
 #include "ercall.h"
 
 //#include <liqRibNode.h>
+#include <liqRibHTMgr.h>
 #include <liqRibTranslator.h>
 namespace elvishray
 {
@@ -73,7 +74,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeMeshData.cpp::_write1("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 		OutputMgr &o = Renderer::getOutputMgr();
 
-		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->getHTable()->find(
+		liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
 			pData->objDagPath.fullPathName(), 
 			pData->objDagPath,
 			MRT_Unknown
