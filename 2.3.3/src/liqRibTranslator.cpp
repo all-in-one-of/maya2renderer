@@ -4442,12 +4442,12 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 			MSelectionList ribGenList;
 			MStatus ribGenAddStatus = ribGenList.add( ribGenNode );
 			if( ribGenAddStatus == MS::kSuccess )
-				htable->insert( path, lframe, sample, MRT_RibGen, count++ );
+				getHTable()->insert( path, lframe, sample, MRT_RibGen, count++ );
 		}
 		else
 		{
 			if( ribGenPlug.isConnected() )
-				htable->insert( path, lframe, sample, MRT_RibGen, count++ );
+				getHTable()->insert( path, lframe, sample, MRT_RibGen, count++ );
 		}
 
 	}
@@ -4480,12 +4480,12 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		|| currentNode.hasFn( MFn::kPluginShape ) ) // include plugin shapes as placeholders
 	{
 		LIQDEBUGPRINTF( "==> inserting obj to htable %s\n", path.fullPathName().asChar() );
-    	htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
+    	getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
 		LIQDEBUGPRINTF( "==> %s inserted\n", path.fullPathName().asChar() );
 	}
 	else if(currentNode.hasFn( MFn::kCamera ))
 	{
-    	htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
+    	getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
 	}
 	else if(currentNode.hasFn( MFn::kPfxHair ))//added by yaoyansi for maya2renderer
 	{
@@ -4505,15 +4505,15 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 
 		if( tube.length() )
 		{
-			htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxTube, count++ );
+			getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxTube, count++ );
 		}
 		if( leaf.length() )
 		{
-			htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxLeaf, count++ );
+			getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxLeaf, count++ );
 		}
 		if( petal.length() )
 		{
-			htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxPetal, count++ );
+			getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxPetal, count++ );
 		}
 		tube.deleteArray(); 
 		leaf.deleteArray(); 
@@ -4531,7 +4531,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 			renderCurvePlug.getValue( renderCurve );
 			if( renderCurve )
 			{
-				htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_NuCurve, count++ );
+				getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_NuCurve, count++ );
 			}
 		}
 	}
@@ -4637,7 +4637,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 						}
 					}
 
-					htable->insert( path, lframe, ( useSamples )? sample : 0, MRT_Light,	count++ );
+					getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_Light,	count++ );
 
 					continue;
 				}
@@ -4675,7 +4675,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 
 					bool useSamples( ( sample > 0 ) && isObjectMotionBlur( path ) );
 
-					htable->insert( path, 
+					getHTable()->insert( path, 
 						lframe, 
 						( useSamples )? sample : 0, 
 						( coordType == 5 )? MRT_ClipPlane : MRT_Coord, 
@@ -4715,7 +4715,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				MMatrix instanceMatrix( instancerIter.matrix() );
     
 				bool useSamples( ( sample > 0 ) && isObjectMotionBlur( path ) );
-				htable->insert( path, lframe, ( useSamples )? sample : 0,	MRT_Unknown, count++, 
+				getHTable()->insert( path, lframe, ( useSamples )? sample : 0,	MRT_Unknown, count++, 
 					&instanceMatrix, instanceStr, instancerIter.particleId() );
 
 				instancerIter.next();
@@ -4773,7 +4773,7 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 
 		    	bool useSamples( ( sample > 0 ) && isObjectMotionBlur( path ) );
 
-				htable->insert( path, lframe, ( useSamples )? sample :	0, 
+				getHTable()->insert( path, lframe, ( useSamples )? sample :	0, 
 					 						 MRT_Unknown, count++, 
 											 &instanceMatrix, instanceStr, instancerIter.particleId() );
 				instancerIter.next();

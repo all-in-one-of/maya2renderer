@@ -230,12 +230,15 @@ public:
 	// MString riboutput;                           // UN-USED GLOBAL
 
 
+protected:
+	// Hash table for scene
+	boost::shared_ptr< liqRibHT > htable_;
+public:
+	boost::shared_ptr< liqRibHT >& getHTable(){ return htable_; }
+	void newHTable(){ htable_ = boost::shared_ptr< liqRibHT >( new liqRibHT() ); }
 #ifdef Refactoring 
 public: 
 #endif
-	// Hash table for scene
-	boost::shared_ptr< liqRibHT > htable;
-
 	// Depth in attribute blocking
 	// NOTE : used in liqRibTranslator::doAttributeBlocking,
 	// but this method isn't called anywhere.

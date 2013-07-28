@@ -44,7 +44,7 @@ namespace elvishray
 		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_maya("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
 		OutputMgr &o = Renderer::getOutputMgr();
 
-		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
+		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->getHTable()->find(
 			pData->objDagPath.fullPathName(), 
 			pData->objDagPath,
 			MRT_Unknown

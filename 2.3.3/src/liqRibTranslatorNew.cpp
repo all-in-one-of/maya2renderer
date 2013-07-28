@@ -409,7 +409,7 @@ TempControlBreak liqRibTranslator::processOneFrame(
 			{
 				LIQDEBUGPRINTF( "Scanning at time: %u \n", scanTime );
 
-				htable = boost::shared_ptr< liqRibHT >( new liqRibHT() );
+				newHTable();
 				//hashTableInited = true;
 				LIQDEBUGPRINTF( "Created hash table...\n" );
 
@@ -616,11 +616,11 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 		// scanScene: Scan the scene for lights
 		{
 			tLightMgr lightMgr;
-			lightMgr.scanScene(lframe, sample,htable, count, returnStatus);
+			lightMgr.scanScene(lframe, sample,getHTable(), count, returnStatus);
 		}
 		{
 			tLocatorMgr locatorMgr;
-			locatorMgr.scanScene(lframe, sample,htable, count, returnStatus);
+			locatorMgr.scanScene(lframe, sample,getHTable(), count, returnStatus);
 		}
 		
 		//[refactor 11] 
@@ -739,7 +739,7 @@ void liqRibTranslator::dealwithParticleInstancedObjects(
 		MMatrix instanceMatrix( instancerIter.matrix() );
 
 		bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
-		htable->insert( path, lframe__, 
+		getHTable()->insert( path, lframe__, 
 			( useSamples )? sample__ : 0,	
 			MRT_Unknown, count__++, 
 			&instanceMatrix, instanceStr, instancerIter.particleId() );
@@ -1272,7 +1272,7 @@ MStatus liqRibTranslator::lightBlock__(const structJob &currentJob)
 	{
 		RNMAP::iterator rniter;
 		int nbLight = 0;
-		for ( rniter = htable->RibNodeMap.begin(); rniter != htable->RibNodeMap.end(); rniter++ )
+		for ( rniter = getHTable()->RibNodeMap.begin(); rniter != getHTable()->RibNodeMap.end(); rniter++ )
 		{
 			LIQ_CHECK_CANCEL_REQUEST;
 			liqRibNodePtr   ribNode = (*rniter).second;
@@ -1332,7 +1332,7 @@ MStatus liqRibTranslator::coordSysBlock__(const structJob &currentJob)
 	//	RiAttributeEnd();
 	//}
 	//return returnStatus;
-	return liquid::RendererMgr::getInstancePtr()->getRenderer()->coordSysBlock__(currentJob, htable);
+	return liquid::RendererMgr::getInstancePtr()->getRenderer()->coordSysBlock__(currentJob, getHTable());
 }
 
 //
@@ -2484,7 +2484,7 @@ MStatus liqRibTranslator::objectBlock_reference(const structJob &currentJob)
 	MFnSet shadowSet( shadowSetObj, &status );
 
 	//MMatrix matrix;
-	for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
+	for ( RNMAP::iterator rniter( getHTable()->RibNodeMap.begin() ); rniter != getHTable()->RibNodeMap.end(); rniter++ ) 
 	{
 		LIQ_CHECK_CANCEL_REQUEST;
 
@@ -2539,7 +2539,7 @@ MStatus liqRibTranslator::objectBlock_data(const structJob &currentJob)
 	MFnSet shadowSet( shadowSetObj, &status );
 
 	//MMatrix matrix;
-	for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
+	for ( RNMAP::iterator rniter( getHTable()->RibNodeMap.begin() ); rniter != getHTable()->RibNodeMap.end(); rniter++ ) 
 	{
 		LIQ_CHECK_CANCEL_REQUEST;
 

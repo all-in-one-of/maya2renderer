@@ -46,7 +46,7 @@ namespace elvishray
 		}
 
 		//
- 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
+ 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->getHTable()->find(
  			pData->objDagPath.fullPathName(), 
  			pData->objDagPath,
  			MRT_Unknown

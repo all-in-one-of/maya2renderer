@@ -225,7 +225,7 @@ namespace appleseed
 	{
 		CM_TRACE_FUNC("as_writeMeshData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
 
- 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->htable->find(
+ 		liqRibNodePtr ribNode__ = liqRibTranslator::getInstancePtr()->getHTable()->find(
  			pData->objDagPath.fullPathName(), 
  			pData->objDagPath,
  			MRT_Unknown

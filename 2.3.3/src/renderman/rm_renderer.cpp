@@ -151,7 +151,7 @@ namespace renderman
 			}
 			// output the arbitrary clipping planes here /////////////
 			//
-			boost::shared_ptr< liqRibHT > &htable = liqRibTranslator::getInstancePtr()->htable;
+			boost::shared_ptr< liqRibHT > &htable = liqRibTranslator::getInstancePtr()->getHTable();
 			{
 				for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
 				{
@@ -1215,7 +1215,7 @@ namespace renderman
 			return;
 		}
 
-		boost::shared_ptr< liqRibHT > &htable = liqRibTranslator::getInstancePtr()->htable;
+		boost::shared_ptr< liqRibHT > &htable = liqRibTranslator::getInstancePtr()->getHTable();
 		for ( RNMAP::iterator rniter( htable->RibNodeMap.begin() ); rniter != htable->RibNodeMap.end(); rniter++ ) 
 		{
 			liqRibNodePtr   ribNode = (*rniter).second;
