@@ -503,6 +503,8 @@ global proc liquidStartup_renderman()
 	liqPushIdent();
 	liqlog("liquidStartup_renderman()");
 
+	evalEcho( "source \""+liquidGetHome()+"/mel/2013/liquidProceduralsForSubRenderer.mel\"");
+
 	//set liquidGlobals.renderer
 	liqSetSubRendererName(rm_getRendererName());
 	//create global node for this renderer
