@@ -2775,65 +2775,65 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 // 		jobList.clear();
 // 		jobScript.clear();
 
-		// set the attributes on the liquidGlobals for the last rib file and last alfred script name
-		LIQDEBUGPRINTF( "-> setting lastAlfredScript and lastRibFile.\n" );
-		MGlobal::executeCommand("if(!attributeExists(\"lastRenderScript\",\"liquidGlobals\")) { addAttr -ln \"lastRenderScript\" -dt \"string\" liquidGlobals; }");
-		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
-		MPlug nPlug;
-		nPlug = rGlobalNode.findPlug( "lastRenderScript" );
-		nPlug.setValue( renderScriptName );
-#if (Refactoring == 0)
-		nPlug = rGlobalNode.findPlug( "lastRibFile" );
-		nPlug.setValue( lastRibName );
-#endif
-		LIQDEBUGPRINTF( "-> spawning command.\n" );
-		if( liqglo.launchRender ) 
-		{
-			{
-				//[refactor][1.16 ]
-				// launch renders directly
-				liquidMessage( "", messageInfo ); // emit a '\n'
-				//int exitstat = 0;
-#ifndef _Refactor_doTexure_doShadow
-				// write out make texture pass
-				doTextures(txtList);
-
-				if( liqglo.liqglo_doShadows ) 
-				{
-					doShadows(shadowList);
-				}
-#endif
-				//if( !exitstat ){
-				liquidMessage( "Rendering hero pass... ", messageInfo );
-				if(liqglo.m_logMsgFlush)
-					cerr << "liquidBin = " <<  liqglo.liquidBin << endl <<flush; 
-				else
-					cerr << "liquidBin = " <<  liqglo.liquidBin << endl <<"(no flush)"; 
-
-// moved to ...
-// 				if( isBatchMode() )//batch mode
-// 				{
-// 					std::size_t SIZE = getRibFileListSize();
-// 					for(std::size_t i=0; i<SIZE; ++i)
-// 					{
-// 						liquidMessage2(messageInfo, "rendering frame %d ...", i);
-// 						liquid::RendererMgr::getInstancePtr()->getRenderer()->renderAll_local( getRibFile(i) );
-// 					}
-// 				}else{//interactive mode
-// 					//structJob &currentJob____ = *(jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
-// 					if( currentJob____.skip ) 
-// 					{
-// 						printf("    - skipping '%s'\n", currentJob____.ribFileName.asChar() );
-// 						liquidMessage( "    - skipping '" + string( currentJob____.ribFileName.asChar() ) + "'", messageInfo );
-// 					}else {
-// 						liquid::RendererMgr::getInstancePtr()->getRenderer()->renderAll_local(currentJob____.ribFileName);
-// 					}
-// 				}//if( isBatchMode() )
-
-				//}//if( !exitstat )
-
-			}
-		} // if( launchRender )
+//		// set the attributes on the liquidGlobals for the last rib file and last alfred script name
+//		LIQDEBUGPRINTF( "-> setting lastAlfredScript and lastRibFile.\n" );
+//		MGlobal::executeCommand("if(!attributeExists(\"lastRenderScript\",\"liquidGlobals\")) { addAttr -ln \"lastRenderScript\" -dt \"string\" liquidGlobals; }");
+//		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
+//		MPlug nPlug;
+//		nPlug = rGlobalNode.findPlug( "lastRenderScript" );
+//		nPlug.setValue( renderScriptName );
+//#if (Refactoring == 0)
+//		nPlug = rGlobalNode.findPlug( "lastRibFile" );
+//		nPlug.setValue( lastRibName );
+//#endif
+//		LIQDEBUGPRINTF( "-> spawning command.\n" );
+//		if( liqglo.launchRender ) 
+//		{
+//			{
+//				//[refactor][1.16 ]
+//				// launch renders directly
+//				liquidMessage( "", messageInfo ); // emit a '\n'
+//				//int exitstat = 0;
+//#ifndef _Refactor_doTexure_doShadow
+//				// write out make texture pass
+//				doTextures(txtList);
+//
+//				if( liqglo.liqglo_doShadows ) 
+//				{
+//					doShadows(shadowList);
+//				}
+//#endif
+//				//if( !exitstat ){
+//				liquidMessage( "Rendering hero pass... ", messageInfo );
+//				if(liqglo.m_logMsgFlush)
+//					cerr << "liquidBin = " <<  liqglo.liquidBin << endl <<flush; 
+//				else
+//					cerr << "liquidBin = " <<  liqglo.liquidBin << endl <<"(no flush)"; 
+//
+//// moved to ...
+//// 				if( isBatchMode() )//batch mode
+//// 				{
+//// 					std::size_t SIZE = getRibFileListSize();
+//// 					for(std::size_t i=0; i<SIZE; ++i)
+//// 					{
+//// 						liquidMessage2(messageInfo, "rendering frame %d ...", i);
+//// 						liquid::RendererMgr::getInstancePtr()->getRenderer()->renderAll_local( getRibFile(i) );
+//// 					}
+//// 				}else{//interactive mode
+//// 					//structJob &currentJob____ = *(jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
+//// 					if( currentJob____.skip ) 
+//// 					{
+//// 						printf("    - skipping '%s'\n", currentJob____.ribFileName.asChar() );
+//// 						liquidMessage( "    - skipping '" + string( currentJob____.ribFileName.asChar() ) + "'", messageInfo );
+//// 					}else {
+//// 						liquid::RendererMgr::getInstancePtr()->getRenderer()->renderAll_local(currentJob____.ribFileName);
+//// 					}
+//// 				}//if( isBatchMode() )
+//
+//				//}//if( !exitstat )
+//
+//			}
+//		} // if( launchRender )
 		
 		LIQDEBUGPRINTF( "-> clearing job list.\n" );
 		liqJobListMgr::getInstancePtr()->jobList.clear();
