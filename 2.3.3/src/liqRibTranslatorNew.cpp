@@ -179,9 +179,11 @@ MStatus liqRibTranslator::buildJobs__()
 	MObject cameraNode;
 	//MDagPath lightPath;
 
-	liqJobListMgr::getInstancePtr()->jobList.clear();
-	liqJobListMgr::getInstancePtr()->shadowList.clear();
-	liqJobListMgr::getInstancePtr()->txtList.clear();
+	//[refactor 38] begin to processOneFrame()
+	//liqJobListMgr::getInstancePtr()->jobList.clear();
+	//liqJobListMgr::getInstancePtr()->shadowList.clear();
+	//liqJobListMgr::getInstancePtr()->txtList.clear();
+	//[refactor 38] end
 
 	//[refactor 35] begin from liqRibTranslator.buildJobs()
 	structJob thisJob;
@@ -341,6 +343,12 @@ TempControlBreak liqRibTranslator::processOneFrame(
 
 	//[refactor][1.6 begin] from _doIt()
 	liqShaderFactory::instance().clearShaders();
+
+	//[refactor 38] from to buildJobs__()
+	liqJobListMgr::getInstancePtr()->jobList.clear();
+	liqJobListMgr::getInstancePtr()->shadowList.clear();
+	liqJobListMgr::getInstancePtr()->txtList.clear();
+	//[refactor 38] end
 
 	liqglo__.liqglo_lframe = liqglo.frameNumbers[ frameIndex ];
 
