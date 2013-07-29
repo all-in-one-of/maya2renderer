@@ -2768,7 +2768,8 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 		if( !liqglo.m_deferredGen ) 
 			liquidMessage( "Finished creating RIB", messageInfo );
 		
-		structJob currentJob____ = *(liqJobListMgr::getInstancePtr()->jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
+		//currentJob____ is not used.
+		//structJob currentJob____ = *(liqJobListMgr::getInstancePtr()->jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
 
 // 		LIQDEBUGPRINTF( "-> clearing job list.\n" );
 // 		jobList.clear();
