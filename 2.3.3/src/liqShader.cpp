@@ -34,6 +34,7 @@
 #include <liqExpression.h>
 //#include <liqTokenPointer.h>
 #include <liqGetSloInfo.h>
+#include <liqJobListMgr.h>
 #include "renderermgr.h"
 #include "common/mayacheck.h"
 //using namespace std;
@@ -1736,13 +1737,13 @@ void liqShader::processExpression( liqTokenPointer *token, const liqRibLightData
 						}
 						thisJob.skip = (getTextureExt().asChar()==extention);
 
-						std::vector<structJob>::iterator iter = liqRibTranslator::getInstancePtr()->txtList.begin();
-						while ( iter != liqRibTranslator::getInstancePtr()->txtList.end() ) {
+						std::vector<structJob>::iterator iter = liqJobListMgr::getInstancePtr()->txtList.begin();
+						while ( iter != liqJobListMgr::getInstancePtr()->txtList.end() ) {
 							if( iter->imageName == thisJob.imageName )
 								break; // already have this job
 							++iter;
 						}
-						liqRibTranslator::getInstancePtr()->txtList.push_back( thisJob );
+						liqJobListMgr::getInstancePtr()->txtList.push_back( thisJob );
 
 					}
 				}

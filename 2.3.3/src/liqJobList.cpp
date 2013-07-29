@@ -29,6 +29,7 @@
 #include <liqGlobalHelpers.h>
 #include <liqIOStream.h>
 #include <liqRibTranslator.h>
+#include <liqJobListMgr.h>
 #include "liqtypes.h"//#include "ri_interface.h"
 //#include <liqGlobalVariable.h>
 
@@ -193,10 +194,10 @@ MStatus liqJobList::redoIt()
     //
     if ( info ) 
     {
-      std::vector<structJob>::iterator iterJob = ribTranslator.jobList.begin();
+      std::vector<structJob>::iterator iterJob = liqJobListMgr::getInstancePtr()->jobList.begin();
       //LIQDEBUGPRINTF( "  do jobs info ..." );
       int i = 0;
-      while ( iterJob != ribTranslator.jobList.end() )
+      while ( iterJob != liqJobListMgr::getInstancePtr()->jobList.end() )
       {
         result.append( "\n>> JOB (" + ( MString("") += (int)( i ) ) + ")\n" );
 
@@ -323,10 +324,10 @@ MStatus liqJobList::redoIt()
     //
     if ( doShadows || doSingleShadows ) 
 	{
-      std::vector<structJob>::iterator iterShad = ribTranslator.jobList.begin();
+      std::vector<structJob>::iterator iterShad = liqJobListMgr::getInstancePtr()->jobList.begin();
       //LIQDEBUGPRINTF("  do shadows...");
 
-      while ( iterShad != ribTranslator.jobList.end() ) {
+      while ( iterShad != liqJobListMgr::getInstancePtr()->jobList.end() ) {
         if ( doShadows && iterShad->pass == rpShadowMap && iterShad->everyFrame ) 
 			result.append( liquidGetRelativePath(fullPath, iterShad->ribFileName, liqglo.liqglo_projectDir) );
         if ( doSingleShadows && iterShad->pass == rpShadowMap && !iterShad->everyFrame ) {
@@ -341,7 +342,7 @@ MStatus liqJobList::redoIt()
     // get the camera
     //
     if ( doCamera ) {
-      std::vector<structJob>::iterator iterShad = ribTranslator.jobList.end();
+      std::vector<structJob>::iterator iterShad = liqJobListMgr::getInstancePtr()->jobList.end();
       //LIQDEBUGPRINTF("  do camera...");
 
       --iterShad;

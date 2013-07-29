@@ -62,6 +62,7 @@
 #include <liqCameraMgr.h>
 #include <liqShader.h>
 #include <liqRibHTMgr.h>
+#include <liqJobListMgr.h>
 #include "renderermgr.h"
 #include "shadergraph/shadermgr.h"
 
@@ -178,9 +179,9 @@ MStatus liqRibTranslator::buildJobs__()
 	MObject cameraNode;
 	//MDagPath lightPath;
 
-	jobList.clear();
-	shadowList.clear();
-	txtList.clear();
+	liqJobListMgr::getInstancePtr()->jobList.clear();
+	liqJobListMgr::getInstancePtr()->shadowList.clear();
+	liqJobListMgr::getInstancePtr()->txtList.clear();
 
 	//[refactor 35] begin from liqRibTranslator.buildJobs()
 	structJob thisJob;
@@ -235,14 +236,14 @@ MStatus liqRibTranslator::buildJobs__()
 
 	{
 		tRibCameraMgr::gatherDataForJob(
-			liqglo, thisJob, jobList,
+			liqglo, thisJob, liqJobListMgr::getInstancePtr()->jobList,
 			m_outputShadowPass, m_outputHeroPass
 		);
 	}
 		
 	//[refactor 4] begin from buildJobs()
 	// If we didn't find a renderable camera then give up
-	if( jobList.size() == 0 ) 
+	if( liqJobListMgr::getInstancePtr()->jobList.size() == 0 ) 
 	{
 		liquidMessage ( "No Renderable Jobs in the list", messageWarning );
 		// MString cError( "No Renderable Camera Found!" );
@@ -254,8 +255,8 @@ MStatus liqRibTranslator::buildJobs__()
 	//cerr << "step through the jobs and setup their names..." << endl << flush;
 
 	// step through the jobs and setup their names
-	vector<structJob>::iterator iter = jobList.begin();
-	while ( iter != jobList.end() )
+	vector<structJob>::iterator iter = liqJobListMgr::getInstancePtr()->jobList.begin();
+	while ( iter != liqJobListMgr::getInstancePtr()->jobList.end() )
 	{
 		LIQ_CHECK_CANCEL_REQUEST;
 		thisJob = *iter;
@@ -308,20 +309,20 @@ MStatus liqRibTranslator::buildJobs__()
 				iter->skip   = true;
 			}
 			thisJob = *iter;
-			shadowList.push_back( thisJob );
+			liqJobListMgr::getInstancePtr()->shadowList.push_back( thisJob );
 		}
 		++iter;
 	}//while ( iter != jobList.end() )
 
 	// sort the shadow jobs to put the reference frames first
 #ifndef _WIN32
-	sort( jobList.begin(), jobList.end(), renderFrameSort );
-	sort( shadowList.begin(), shadowList.end(), renderFrameSort );
-	sort( txtList.begin(), txtList.end(), renderFrameSort );
+	sort( liqJobListMgr::getInstancePtr()->jobList.begin(),    liqJobListMgr::getInstancePtr()->jobList.end(), renderFrameSort );
+	sort( liqJobListMgr::getInstancePtr()->shadowList.begin(), liqJobListMgr::getInstancePtr()->shadowList.end(), renderFrameSort );
+	sort( liqJobListMgr::getInstancePtr()->txtList.begin(),    liqJobListMgr::getInstancePtr()->txtList.end(), renderFrameSort );
 #else
-	sort( jobList.begin(), jobList.end(), renderFrameSort );
-	sort( shadowList.begin(), shadowList.end(), renderFrameSort );
-	sort( txtList.begin(), txtList.end(), renderFrameSort );
+	sort( liqJobListMgr::getInstancePtr()->jobList.begin(),    liqJobListMgr::getInstancePtr()->jobList.end(), renderFrameSort );
+	sort( liqJobListMgr::getInstancePtr()->shadowList.begin(), liqJobListMgr::getInstancePtr()->shadowList.end(), renderFrameSort );
+	sort( liqJobListMgr::getInstancePtr()->txtList.begin(),    liqJobListMgr::getInstancePtr()->txtList.end(), renderFrameSort );
 #endif
 	ribStatus = kRibBegin;
 	return MS::kSuccess;
@@ -382,15 +383,18 @@ TempControlBreak liqRibTranslator::processOneFrame(
 		//
 		// start iterating through the job list   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 		//
-		if( jobList.size() == 0 ) 
+		if( liqJobListMgr::getInstancePtr()->jobList.size() == 0 ) 
 		{
 			liquidMessage( "Nothing to render!", messageWarning );
 			return TCB_MS_Success;//return MS::kSuccess;
 		}
 		//cout <<"Job iteration start -------------------------------------"<<endl;
 		//cout <<"    nsfs:"<<liqglo_noSingleFrameShadows<<"  sfso:"<<liqglo_singleFrameShadowsOnly<<endl;
-		vector< structJob >::iterator iter( jobList.begin() );
-		for (; iter != jobList.end(); ++iter ) 
+		//DEBUG:
+		std::size_t size = liqJobListMgr::getInstancePtr()->jobList.size();
+
+		vector< structJob >::iterator iter( liqJobListMgr::getInstancePtr()->jobList.begin() );
+		for (; iter != liqJobListMgr::getInstancePtr()->jobList.end(); ++iter ) 
 		{
 			m_currentMatteMode = false;
 			//[refactor] [1.9.1 begin] from _doIt()
@@ -443,11 +447,11 @@ TempControlBreak liqRibTranslator::processOneFrame(
 			{
 #ifdef _Refactor_doTexure_doShadow
 				// write out make texture pass
-				doTextures(txtList);
+				doTextures(liqJobListMgr::getInstancePtr()->txtList);
 
 				if( liqglo.liqglo_doShadows ) 
 				{
-					doShadows(shadowList);
+					doShadows(liqJobListMgr::getInstancePtr()->shadowList);
 				}
 #endif
 			}else{
@@ -481,7 +485,7 @@ TempControlBreak liqRibTranslator::processOneFrame(
 					/*liqglo__.liqglo_*/currentJob, 
 					scanTime,
 					m_outputLightsInDeepShadows,
-					jobList);
+					liqJobListMgr::getInstancePtr()->jobList);
 				PROCESS_TEMP_CONTROL_BREAK_CONTINUE(tcb)
 			}//if( liqglo_currentJob.isShadow && !fullShadowRib ) 
 			//[refactor][37] end
@@ -681,8 +685,8 @@ MStatus liqRibTranslator::scanScene__(float lframe, int sample )
 
 
 
-		vector<structJob>::iterator iter = jobList.begin();
-		while ( iter != jobList.end() ) 
+		vector<structJob>::iterator iter = liqJobListMgr::getInstancePtr()->jobList.begin();
+		while ( iter != liqJobListMgr::getInstancePtr()->jobList.end() ) 
 		{
 			LIQ_CHECK_CANCEL_REQUEST;
 			// scanScene: Get the camera/light info for this job at this frame
@@ -2764,7 +2768,7 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 		if( !liqglo.m_deferredGen ) 
 			liquidMessage( "Finished creating RIB", messageInfo );
 		
-		structJob currentJob____ = *(jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
+		structJob currentJob____ = *(liqJobListMgr::getInstancePtr()->jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
 
 // 		LIQDEBUGPRINTF( "-> clearing job list.\n" );
 // 		jobList.clear();
@@ -2831,7 +2835,7 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 		} // if( launchRender )
 		
 		LIQDEBUGPRINTF( "-> clearing job list.\n" );
-		jobList.clear();
+		liqJobListMgr::getInstancePtr()->jobList.clear();
 		jobScript.clear();
 
 		postActions(originalLayer);
@@ -3075,21 +3079,21 @@ MStatus liqRibTranslator::_doItNewWithRenderScript( const MString& originalLayer
 				// write out make texture pass
 				LIQDEBUGPRINTF( "-> Generating job for MakeTexture pass\n");
 
-				frameScriptJobMgr.makeTexture(txtList, 
+				frameScriptJobMgr.makeTexture(liqJobListMgr::getInstancePtr()->txtList, 
 					alf_textures, alf_shadows, alf_refmaps);
 
 				// write out shadows
 				if( liqglo.liqglo_doShadows ) 
 				{
 					LIQDEBUGPRINTF( "-> writing out shadow information to alfred file.\n" );
-					frameScriptJobMgr.makeShadow(shadowList, 
+					frameScriptJobMgr.makeShadow(liqJobListMgr::getInstancePtr()->shadowList, 
 						alf_textures, alf_shadows, alf_refmaps, currentBlock, m_renderCommand);
 
 				}//if( liqglo__.liqglo_doShadows ) 
 				LIQDEBUGPRINTF( "-> finished writing out shadow information to render script file.\n" );
 
 				// write out make reflection pass
-				frameScriptJobMgr.makeReflection(refList,
+				frameScriptJobMgr.makeReflection(liqJobListMgr::getInstancePtr()->refList,
 					alf_textures, alf_shadows, alf_refmaps
 					);
 
@@ -3098,15 +3102,15 @@ MStatus liqRibTranslator::_doItNewWithRenderScript( const MString& originalLayer
 				structJob *shadowPassJob = NULL;
 				LIQDEBUGPRINTF( "-> setting hero pass.\n" );
 				if( m_outputHeroPass && !m_outputShadowPass ){
-					frameJob = &jobList[jobList.size() - 1];
+					frameJob = &liqJobListMgr::getInstancePtr()->jobList[liqJobListMgr::getInstancePtr()->jobList.size() - 1];
 				}
 				else if( m_outputShadowPass && m_outputHeroPass ) 
 				{
-					frameJob = &jobList[jobList.size() - 1];
-					shadowPassJob = &jobList[jobList.size() - 2];
+					frameJob = &liqJobListMgr::getInstancePtr()->jobList[liqJobListMgr::getInstancePtr()->jobList.size() - 1];
+					shadowPassJob = &liqJobListMgr::getInstancePtr()->jobList[liqJobListMgr::getInstancePtr()->jobList.size() - 2];
 				} 
 				else if( m_outputShadowPass && !m_outputHeroPass ){
-					shadowPassJob = &jobList[jobList.size() - 1];
+					shadowPassJob = &liqJobListMgr::getInstancePtr()->jobList[liqJobListMgr::getInstancePtr()->jobList.size() - 1];
 				}
 
 				LIQDEBUGPRINTF( "-> hero pass set.\n" );
@@ -3146,7 +3150,7 @@ MStatus liqRibTranslator::_doItNewWithRenderScript( const MString& originalLayer
 					}
 					if( liqglo.m_alfShadowRibGen ) 
 					{
-						structJob &currentJob____ = *(jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
+						structJob &currentJob____ = *(liqJobListMgr::getInstancePtr()->jobList.rbegin());//I guess liqglo.liqglo_currentJob is jobList.rbegin()
 						MString     baseShadowName(getBaseShadowName(currentJob____));//[refactor][1.10.11]
 						frameScriptJobMgr.cleanShadowRibGen(framePreCommand, baseShadowName);
 					}
@@ -3214,7 +3218,7 @@ MStatus liqRibTranslator::_doItNewWithRenderScript( const MString& originalLayer
 		if( !liqglo.m_deferredGen ) 
 			liquidMessage( "Finished creating RIB", messageInfo );
 		LIQDEBUGPRINTF( "-> clearing job list.\n" );
-		jobList.clear();
+		liqJobListMgr::getInstancePtr()->jobList.clear();
 		jobScript.clear();
 
 		// set the attributes on the liquidGlobals for the last rib file and last alfred script name

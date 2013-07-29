@@ -7,6 +7,10 @@
 #include "ercall.h"
 #include "er_renderer.h"
 #include "er_helper.h"
+#include <liqRibHTMgr.h>
+#include <liqRibTranslator.h>
+#include <liqJobListMgr.h>
+#include <liqStructJob.h>
 
 namespace elvishray
 {
@@ -43,6 +47,39 @@ namespace elvishray
 		if( liquidmaya::ShaderMgr::getSingletonPtr()->hasShaderType(nodeType.asChar()) ) 
 		{
 			updateShader(plug);
+		}else if( nodeType == "pointLight" ) {
+			MDagPath dagPath;
+			getDagPathByName(dagPath, toFullDagPath(nodeName).asChar());
+			liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
+				dagPath.fullPathName(), dagPath, MRT_Unknown
+				);
+
+			structJob *temp_currentJob = NULL;
+			std::size_t size = liqJobListMgr::getInstancePtr()->jobList.size();
+			int currentTime = ( int ) MAnimControl::currentTime().as( MTime::uiUnit() );
+			std::vector< structJob >::iterator i( liqJobListMgr::getInstancePtr()->jobList.begin() );
+			std::vector< structJob >::iterator e( liqJobListMgr::getInstancePtr()->jobList.end() );
+			for (; i != e; ++i ) 
+			{
+				structJob/*liqglo__.liqglo_*/ &currentJob = *i;
+				if( /*liqglo__.liqglo_*/currentJob.skip ) 
+					continue;
+				if( currentTime != currentJob.renderFrame)
+					continue;
+
+				temp_currentJob = &currentJob;
+				break;
+			}
+
+			if(temp_currentJob)
+			{
+				const liqRibDataPtr data = ribNode__->object(0)->getDataPtr();
+				data->write("", *temp_currentJob, false);
+			}else{
+				liquidMessage2(messageError, "currentJob not found");
+			}
+						
+			liquidMessage2(messageError, "nodeType is not supported.[%s] [%s]", nodeName.asChar(), nodeType.asChar());
 		}
 
 		//todo....

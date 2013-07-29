@@ -319,6 +319,9 @@
     <ClCompile Include="..\liqRibHTMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\liqJobListMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\liqGlobalNodeRenderer.h">
@@ -652,6 +655,9 @@
       <Filter>Source Files\shadergraph</Filter>
     </ClInclude>
     <ClInclude Include="..\liqRibHTMgr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\liqJobListMgr.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -156,15 +156,15 @@ public:
 	bool m_isStereoCamera;//r773
 	// Render Globals and RIB Export Options
 
-	std::vector<structJob>  jobList;
-	std::vector<structJob>  shadowList;
-
-	std::vector<structJob>  refList;  // reflections list
-	std::vector<structJob>  envList;  // environments list
-#ifdef Refactoring 
-public: 
-#endif
-	std::vector<structJob>  txtList;  // make textures list
+//	std::vector<structJob>  jobList;
+//	std::vector<structJob>  shadowList;
+//
+//	std::vector<structJob>  refList;  // reflections list
+//	std::vector<structJob>  envList;  // environments list
+//#ifdef Refactoring 
+//public: 
+//#endif
+//	std::vector<structJob>  txtList;  // make textures list
 
 	// MDagPathArray shadowLightArray;            //  UN-USED GLOBAL
 	// MDagPath activeCamera;                     //  UN-USED GLOBAL

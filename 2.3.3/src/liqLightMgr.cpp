@@ -3,6 +3,7 @@
 #include <liqRibTranslator.h>
 #include <liqStructJob.h>
 #include <liqGlobalHelpers.h>
+#include <liqJobListMgr.h>
 //
 tLightMgr::tLightMgr()
 {
@@ -345,7 +346,7 @@ MStatus tLightMgr::buildShadowJob(
 					if( fileExists( fileName ) )
 						continue;
 				}
-				liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
+				liqJobListMgr::getInstancePtr()->jobList.push_back( thisJob___ );
 			}//for( unsigned i( 0 ); i < shadowCamPath.length(); i++ )
 			//[refactor][2.1.3 end] from buildJobs()
 			}//if( lightHasShadowCam )
@@ -442,7 +443,7 @@ MStatus tLightMgr::buildShadowCameraJob(
 			}
 
 			if( computeShadow ) 
-				liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
+				liqJobListMgr::getInstancePtr()->jobList.push_back( thisJob___ );
 		}
 		//[refactor][2.1.4 end] from buildJob()
 	} // camera dagIterator
@@ -566,7 +567,7 @@ void tLightMgr::buildShadowJob_SpotAndDirectionLight(
 	// store the main shadow map    *****************************
 	//
 	if( computeShadow )
-		liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
+		liqJobListMgr::getInstancePtr()->jobList.push_back( thisJob___ );
 	// We have to handle point lights differently as they need 6 shadow maps!
 
 	//[refactor 2.1.1] end
@@ -658,7 +659,7 @@ void tLightMgr::buildShadowJob_PointLight(
 				computeShadow = false;
 		}
 		if( computeShadow ) 
-			liqRibTranslator::getInstancePtr()->jobList.push_back( thisJob___ );
+			liqJobListMgr::getInstancePtr()->jobList.push_back( thisJob___ );
 	}//for ( unsigned dirOn( 0 ); dirOn < 6; dirOn++ )  
 	//[refactor 2.1.2] end
 }

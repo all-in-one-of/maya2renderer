@@ -52,6 +52,7 @@
 //#include <liqExpression.h>
 #include <liqCameraMgr.h>
 #include <liqShader.h>
+#include <liqJobListMgr.h>
 #include "renderermgr.h"
 //#include "shadergraph/shadermgr.h"
 
@@ -4782,8 +4783,8 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 			//[refactor 11.1] end
 		}//  if ( !m_renderSelected && !m_exportSpecificList )
 
-		vector<structJob>::iterator iter = jobList.begin();
-		while ( iter != jobList.end() ) 
+		vector<structJob>::iterator iter = liqJobListMgr::getInstancePtr()->jobList.begin();
+		while ( iter != liqJobListMgr::getInstancePtr()->jobList.end() ) 
 		{
 			LIQ_CHECK_CANCEL_REQUEST;
 			// scanScene: Get the camera/light info for this job at this frame

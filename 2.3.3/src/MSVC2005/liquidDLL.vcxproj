@@ -2869,6 +2869,7 @@
     <ClCompile Include="..\liqJobList.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\liqJobListMgr.cpp" />
     <ClCompile Include="..\liqJobScriptMgr.cpp" />
     <ClCompile Include="..\liqLightMgr.cpp" />
     <ClCompile Include="..\liqLightNode.cpp" />
@@ -2957,6 +2958,7 @@
     <ClInclude Include="..\..\include\liqtypes.h" />
     <ClInclude Include="..\liqGlobalNodeRenderer.h" />
     <ClInclude Include="..\..\include\liqRibCamera.h" />
+    <ClInclude Include="..\liqJobListMgr.h" />
     <ClInclude Include="..\liqMessageCallback.h" />
     <ClInclude Include="..\liqRibHTMgr.h" />
     <ClInclude Include="..\liq_classification.h" />
