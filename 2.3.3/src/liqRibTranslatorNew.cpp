@@ -534,6 +534,11 @@ TempControlBreak liqRibTranslator::processOneFrame(
 	}//if( !m_deferredGen ) 
 	//[refactor][1.9 end] from ribOutput()
 	
+	//[refactor 38.1] begin from _doItNewWithoutRenderScript()
+	LIQDEBUGPRINTF( "-> clearing job list.\n" );
+	liqJobListMgr::getInstancePtr()->jobList.clear();
+	//[refactor 38.1] end
+
 	//[refactor][1.9.3 begin] from _doIt()
 	// set the rib file for the 'view last rib' menu command
 	// NOTE: this may be overridden later on in certain code paths
@@ -2842,9 +2847,12 @@ MStatus liqRibTranslator::_doItNewWithoutRenderScript( const MString& originalLa
 //
 //			}
 //		} // if( launchRender )
-		
-		LIQDEBUGPRINTF( "-> clearing job list.\n" );
-		liqJobListMgr::getInstancePtr()->jobList.clear();
+		;
+		//[refactor 38.1] begin to processOneFrame()
+		//LIQDEBUGPRINTF( "-> clearing job list.\n" );
+		//liqJobListMgr::getInstancePtr()->jobList.clear();
+		//[refactor 38.1] end
+
 		jobScript.clear();
 
 		postActions(originalLayer);
