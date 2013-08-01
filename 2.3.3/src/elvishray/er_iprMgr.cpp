@@ -79,7 +79,7 @@ namespace elvishray
 				liquidMessage2(messageError, "currentJob not found");
 			}
 						
-			liquidMessage2(messageError, "nodeType is not supported.[%s] [%s]", nodeName.asChar(), nodeType.asChar());
+			//liquidMessage2(messageError, "nodeType is not supported.[%s] [%s]", nodeName.asChar(), nodeType.asChar());
 		}
 
 		//todo....
