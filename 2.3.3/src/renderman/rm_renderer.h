@@ -409,6 +409,8 @@ namespace renderman
 		virtual MStatus IPR_NodeDirtyCallback( MObject& node,void *userData );
 		virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData );
 
+		virtual void afterAllFrames();
+
 	private:
 
 	};

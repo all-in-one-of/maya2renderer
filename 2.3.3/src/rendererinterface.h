@@ -404,7 +404,7 @@ public:
 	virtual MStatus IPR_NodeDirtyCallback( MObject& node,void *userData ) = 0;
 	virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData ) = 0;
 
-
+	virtual void afterAllFrames() = 0;
 
 protected:
 

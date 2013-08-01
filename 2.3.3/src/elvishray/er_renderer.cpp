@@ -1598,5 +1598,9 @@ namespace elvishray
 
 		return MS::kSuccess;
 	}
+	void Renderer::afterAllFrames()
+	{
+		CM_TRACE_FUNC("Renderer::afterAllFrames()");
 
+	}
 }//namespace

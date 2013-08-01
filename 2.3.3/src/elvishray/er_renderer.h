@@ -384,6 +384,8 @@ namespace elvishray
 		virtual MStatus IPR_NodeDirtyPlugCallback( MObject& node,MPlug& plug,void* userData );
 		IprMgr *m_iprMgr;
 
+		virtual void afterAllFrames();
+
 		//render thread
 		boost::thread m_renderingThread;
 
