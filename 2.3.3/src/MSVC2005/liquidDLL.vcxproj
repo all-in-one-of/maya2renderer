@@ -2668,16 +2668,16 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <OutputFile>../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)/lib;$(BOOST_ROOT)/stage/lib64;../../../dependence/zlib/lib64;../../../dependence/libtiff/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
@@ -2828,16 +2828,16 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <OutputFile>../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)/lib;$(BOOST_ROOT)/stage/lib64;../../../dependence/zlib/lib64;../../../dependence/libtiff/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
       <Profile>true</Profile>
     </Link>
