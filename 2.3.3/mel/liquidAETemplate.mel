@@ -19,7 +19,6 @@ global proc liquidAETemplate_pointLight( string $node )
 	//liquid
 	liquidAETemplate_pointLight_liquid($node);
 
-	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{
@@ -39,7 +38,6 @@ global proc liquidAETemplate_areaLight( string $node )
 	//liquid
 	liquidAETemplate_areaLight_liquid($node);
 
-	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{
@@ -59,7 +57,6 @@ global proc liquidAETemplate_directionalLight( string $node )
 	//liquid
 	liquidAETemplate_directionalLight_liquid($node);
 
-	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{
@@ -79,7 +76,6 @@ global proc liquidAETemplate_spotLight( string $node )
 	//liquid
 	liquidAETemplate_spotLight_liquid($node);
 
-	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{
@@ -99,7 +95,6 @@ global proc liquidAETemplate_volumeLight( string $node )
 	//liquid
 	liquidAETemplate_volumeLight_liquid($node);
 
-	//string $renderer[] = liquidGatherValidSubRenderers();
 	string $renderer[] = liquidGatherLoadedSubRenderers();
 	for($vrnd in $renderer)
 	{

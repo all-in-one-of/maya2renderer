@@ -82,54 +82,6 @@ global proc string liquidGetPluginName()
 //===========================================================================================
 //
 //===========================================================================================
-global proc string[] liquidGatherValidSubRenderers()
-{
-	liqPushIdent();
-	liqlog("liquidGatherValidSubRenderers()");
-
-	string $ret[];
-
-
-	string $LIQUID_MLL = getenv("LIQUID_MLL")+"/";
-	string $all_mlls[] = `getFileList -folder ($LIQUID_MLL) -filespec "*.mll"`;
-	for($mll in $all_mlls)
-	{
-		if( `gmatch $mll "liquid*"` )
-		{
-			//skip "liquid*.mll"
-		}else{
-			$ret[size($ret)] = substring($mll, 1, (size($mll)-4));//trim ".mll"
-		}
-	}
-	
-	liqPopIdent();
-	return $ret;
-}
-//===========================================================================================
-//
-//===========================================================================================
-global proc string[] liquidGatherLoadedSubRenderers()
-{
-	liqPushIdent();
-	liqlog("liquidGatherLoadedSubRenderers()");
-
-	string $ret[];
-
-	string $vrenderer[] = liquidGatherValidSubRenderers();
-	for($vrnd in $vrenderer)
-	{
-		if(`pluginInfo -query -loaded $vrnd`)
-		{
-			$ret[size($ret)] = $vrnd;
-		}
-	}
-	
-	liqPopIdent();
-	return $ret;
-}
-//===========================================================================================
-//
-//===========================================================================================
 global proc liquidLoadScripts()
 {
   liqPushIdent();
@@ -1280,7 +1232,7 @@ liquidBuildChooseSubRendererMenu(string $parent_menu)
 	menu -edit -deleteAllItems $parent_menu;
 
 	//get renderers
-	string $renderer[] = liquidGatherValidSubRenderers();
+	string $renderer[] = liquidGatherLoadedSubRenderers();
 	
 	radioMenuItemCollection -parent $parent_menu;
 	//build menu items

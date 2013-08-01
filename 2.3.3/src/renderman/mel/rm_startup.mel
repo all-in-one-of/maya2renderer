@@ -504,6 +504,8 @@ global proc liquidStartup_renderman()
 	liqlog("liquidStartup_renderman()");
 
 	evalEcho( "source \""+liquidGetHome()+"/mel/2013/liquidProceduralsForSubRenderer.mel\"");
+		
+	liquidAddSubRenderer(rm_getRendererName());
 
 	//set liquidGlobals.renderer
 	liqSetSubRendererName(rm_getRendererName());
@@ -526,6 +528,8 @@ global proc liquidShutdown_renderman()
 
 	//liquidAddAttributeExtension_renderman();
 	//rmLiquidUnloadGlobals();
+	
+	liquidDelSubRenderer(rm_getRendererName());
 
 	liqPopIdent();
 }

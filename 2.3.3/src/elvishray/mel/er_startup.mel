@@ -213,7 +213,10 @@ global proc erAddShaderPlugin(string $pluginname)
 	string $shaderPlugins[] = `getAttr $plug`;
 
 	if(1==stringArrayContains($pluginname, $shaderPlugins))
+	{	
+		liqPopIdent();
 		return;//already exists.
+	}
 
 	// Insert at (or after) the end of the sequence
 	stringArrayInsertAtIndex(size($shaderPlugins), $shaderPlugins, $pluginname );
@@ -241,7 +244,10 @@ global proc erDelShaderPlugin(string $pluginname)
 	string $shaderPlugins[] = `getAttr $plug`;
 
 	if(0==stringArrayContains($pluginname, $shaderPlugins))
+	{
+		liqPopIdent();
 		return;//not found
+	}
 
 	string $item[] = { $pluginname };
 	$shaderPlugins = stringArrayRemove($item, $shaderPlugins);
@@ -265,6 +271,8 @@ global proc liquidStartup_elvishray()
 
 	evalEcho( "source \""+liquidGetHome()+"/mel/2013/liquidProceduralsForSubRenderer.mel\"");
 
+	liquidAddSubRenderer(er_getRendererName());
+
 	//set liquidGlobals.renderer
 	liqSetSubRendererName(er_getRendererName());
 	//create global node for this renderer
@@ -286,6 +294,8 @@ global proc liquidShutdown_elvishray()
 	
 	//liquidAddAttributeExtension_elvishray();
 	//erLiquidUnlLoadGlobals();
+
+	liquidDelSubRenderer(er_getRendererName());
 
 	liqPopIdent();
 }

@@ -1,6 +1,63 @@
 source xxliquidutility.mel;
+//-----------------------------------------------------
+global string $g_SubRenderers[]={};
+//-----------------------------------------------------
+global proc liquidAddSubRenderer(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liquidAddSubRenderer("+$renderer+")");
 
+	global string $g_SubRenderers[];
+
+	if(1==stringArrayContains($renderer, $g_SubRenderers))
+	{
+		liqlog("renderer ["+$renderer+"] already exists");
+		liqPopIdent();
+		return;
+	}
+
+	// Insert at (or after) the end of the sequence
+	stringArrayInsertAtIndex(size($g_SubRenderers), $g_SubRenderers, $renderer );
+	
+	liqPopIdent();
+}
 //
+global proc liquidDelSubRenderer(string $renderer)
+{
+	liqPushIdent();
+	liqlog("liquidDelSubRenderer("+$renderer+")");
+
+	global string $g_SubRenderers[];
+
+	if(0==stringArrayContains($renderer, $g_SubRenderers))
+	{
+		liqlog("renderer ["+$renderer+"] is not found");
+		liqPopIdent();
+		return;
+	}
+
+	string $item[] = { $renderer };
+	$g_SubRenderers = stringArrayRemove($item, $g_SubRenderers);
+	
+	liqPopIdent();
+}
+//
+//===========================================================================================
+//
+//===========================================================================================
+global proc string[] liquidGatherLoadedSubRenderers()
+{
+	liqPushIdent();
+	liqlog("liquidGatherLoadedSubRenderers()");
+
+	global string $g_SubRenderers[];
+
+	liqPopIdent();
+	return $g_SubRenderers;
+}
+//===========================================================================================
+//
+//===========================================================================================
 global proc liqSetSubRendererName(string $renderer)
 {
 	liqPushIdent();
