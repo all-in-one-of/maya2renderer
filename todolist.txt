@@ -6,6 +6,7 @@
 
 
 - learn katana
+liq|: mod
 done)-liq|er|:加载ElvishRenderer后建ElvishRenderGlobals1节点
 liq}:liquidShaderNode里增加aAssignedObjects属性
 done)liq|:menu>select render pass>liquidGlobals

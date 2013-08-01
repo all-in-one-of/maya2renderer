@@ -1,8 +1,9 @@
+RequestExecutionLevel user
 
 !include WinMessages.nsh
 
 !define LiqPlatform	 "x64"
-!define LiqConfiguration "M2R2012Release"
+!define LiqConfiguration "M2R2013Release"
 
 !define LIQUID_ROOT "E:\dev\autodesk\maya\myplugin\project\liquid_"
 !define MyInstallDir "E:\maya2renderer_install_root"
@@ -18,7 +19,7 @@ Page instfiles
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 section
 
-setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}
+setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}
 file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\*.*
 
 
@@ -45,15 +46,19 @@ file ${LIQUID_ROOT}\2.3.3\mel\2011\*.mel
 setOutPath $INSTDIR\2.3.3\mel\2012
 file ${LIQUID_ROOT}\2.3.3\mel\2012\*.mel
 
+setOutPath $INSTDIR\2.3.3\mel\2013
+file ${LIQUID_ROOT}\2.3.3\mel\2013\*.mel
 
 setOutPath $INSTDIR\2.3.3\rendererDesc
 file ${LIQUID_ROOT}\2.3.3\rendererDesc\liquidRenderer.xml
 
-setOutPath $INSTDIR\2.3.3\renderers
-file ${LIQUID_ROOT}\2.3.3\renderers\maya2renderer_3delight.lg
-
 setOutPath    $INSTDIR\2.3.3\src\elvishray\mel
 file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\mel\*.mel
+setOutPath    $INSTDIR\2.3.3\src\elvishray\mel\alias
+file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\mel\alias\*.mel
+
+setOutPath    $INSTDIR\2.3.3\src\elvishray\eiSHADER_user\src
+file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\eiSHADER_user\src\*.*
 
 setOutPath    $INSTDIR\2.3.3\src\renderman\mel
 file /r ${LIQUID_ROOT}\2.3.3\src\renderman\mel\*.mel
@@ -70,8 +75,8 @@ file ${LIQUID_ROOT}\dependence\elvishray\r274\bin_x64\*.*
 
 
 ;copy manage.ini to $(MAYA_ROOT)/bin
-;read env MAYA_PATH2012
-ReadRegStr $0 HKCU "Environment" "MAYA_PATH2012_X64"
+;read env MAYA_PATH2013
+ReadRegStr $0 HKCU "Environment" "MAYA_PATH2013"
 setOutPath $0\bin
 file ${LIQUID_ROOT}\dependence\elvishray\r274\bin_x64\manager.ini
 
@@ -84,8 +89,8 @@ FileClose $1
 
 
 ; copy Maya.env to 
-MessageBox MB_OK "Maya.env will be copyed to $DOCUMENTS\maya\2012, please backup your own Maya.env"
-setOutPath $DOCUMENTS\maya\2012
+MessageBox MB_OK "Maya.env will be copyed to $DOCUMENTS\maya\2013-x64, please backup your own Maya.env"
+setOutPath $DOCUMENTS\maya\2013-x64
 file ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\Maya.env
 
 
