@@ -53,7 +53,7 @@ proc string getElvishrayDir()
 //
 //
 
-print "This is ElvishRender /2.3.3/src/elvishray/alias/usersetup.mel.\n";
+print "This is ElvishRender /2.3.3/src/elvishray/alias/userSetup_ElvishRender.mel.\n";
 // source elvishray/userSetup.mel
 eval( "source \"" + getElvishrayDir() + "/mel/userSetup.mel\"" );
 

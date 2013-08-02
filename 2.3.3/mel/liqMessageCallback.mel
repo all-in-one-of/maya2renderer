@@ -1,5 +1,6 @@
 source xxliquidutility.mel;
 source liquidGlobals.mel;
+source liquidProceduralsForSubRenderer.mel;
 
 //invoked from liqMessageCallback::NodeAddCallbackFunc(...)
 global proc liqMDGMessage_addNodeAddedCallback(string $node)

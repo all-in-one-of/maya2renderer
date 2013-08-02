@@ -87,6 +87,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	//
 
 	//
+	MGlobal::executeCommand("source userSetup_"+elvishray::RENDER_NAME+".mel;");
+	//
 	MGlobal::executeCommand("liquidStartup_"+elvishray::RENDER_NAME+"()");
 
 	return MS::kSuccess;

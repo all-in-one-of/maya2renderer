@@ -269,7 +269,7 @@ global proc liquidStartup_elvishray()
 	liqPushIdent();
 	liqlog("liquidStartup_elvishray()");
 
-	evalEcho( "source \""+liquidGetHome()+"/mel/2013/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \""+liquidGetHome()+"/mel/liquidProceduralsForSubRenderer.mel\"");
 
 	liquidAddSubRenderer(er_getRendererName());
 

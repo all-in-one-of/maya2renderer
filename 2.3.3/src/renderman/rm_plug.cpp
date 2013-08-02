@@ -520,6 +520,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	status.clear();
 
 	//
+	MGlobal::executeCommand("source userSetup_"+renderman::RENDER_NAME+".mel;");
 	//
 	MGlobal::executeCommand("liquidStartup_"+renderman::RENDER_NAME+"()");
 

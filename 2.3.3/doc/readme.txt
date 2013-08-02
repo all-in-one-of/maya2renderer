@@ -47,9 +47,9 @@ RenderMan (R) is a registered trademark of Pixar
 - Development environment
    - msvc 2010(sp1)
    - Boost(1.47 or later), set BOOST_ROOT in system environment variables, e.g. BOOST_ROOT=E:/dev/boost/1_47
-   - Maya2012 x32, set MAYA_PATH2012 in system environment variables, e.g. MAYA_PATH2012=D:\Program Files\Autodesk\Maya2012,
-   and add D:\Program Files\Autodesk\Maya2012\bin to PATH.
-   - (For renderman renderer only) Renderman Pro Server.
+   - Maya2013 x64, set MAYA_PATH2012 in system environment variables, e.g. MAYA_PATH2013=C:\Program Files\Autodesk\Maya2013,
+   and add C:\Program Files\Autodesk\Maya2013\bin to PATH.
+   - (For 3delight renderer only) 3delight for maya.
 - Build Dependence
    - aqsis
      - open liquid_\dependence\aqsis\1.6.0\build\aqsis_all.sln, set 'Win32','DebugLib_liquid' in Configuration Manager,
@@ -66,6 +66,7 @@ RenderMan (R) is a registered trademark of Pixar
        $(LiquidRoot)\dependence\aqsis\1.6.0\build\DebugLib\
 - Build
   - access https://github.com/maya2renderer/maya2renderer, check out the code to your local directory, say it $(LiquidRoot).
+    (In the liquidDLL.mod I set $(LIQUIDHOME) to $(LiquidRoot)/2.3.3)
     The directory structure should be£º
        $(LiquidRoot)\
                  +---2.3.3\
@@ -112,11 +113,10 @@ RenderMan (R) is a registered trademark of Pixar
     - build renderman or elvishray or appleseed project.
 
 - Install
-  - backup your original (My_Documents_DIR)\maya\2009\Maya.env
-  - copy $(LiquidRoot)\2.3.3\bin\Maya.env to (My_Documents_DIR)\maya\2009\Maya.env
+  - copy $(LIQUIDHOME)\bin\x64\M2R2013Debug\liquidDLL.mod to (My_Documents_DIR)\maya\2013-x64\modules\liquidDLL.mod
     make sure ELVISHRAY_BIN point to the ER's DLL directory which you are using.
-  - open (My_Documents_DIR)\maya\2009\Maya.env, set LIQUID_ROOT to your liquid directory $(LiquidRoot),
-     e.g.  LIQUID_ROOT = E:/dev/autodesk/maya/myplugin/project/liquid_
+  - open (My_Documents_DIR)\maya\2009\Maya.env, set LIQUIDHOME to your liquid directory $(LiquidRoot)/2.3.3,
+     e.g.  LIQUIDHOME = E:/dev/autodesk/maya/myplugin/project/liquid_/2.3.3
   - copy $(LiquidRoot)\2.3.3\rendererDesc\liquidRenderer.xml to $(MayaRoot)\bin\rendererDesc\liquidRenderer.xml
   - (For Elvishray renderer only)
     you must copy manager.ini of Elvishray to $(MAYA_PATH2009)/bin/
@@ -254,8 +254,8 @@ RenderMan (R) is a registered trademark of Pixar
   - first, render you scene(test_motionblur\transform\deform.ma) manully, 
     and save the image as stander image to the sub-directory(output_img_std/) of your scene file, e.g. test_motionblur\transform\output_img_std/.
   - add your test scene in testall.py.test_all_scene()
-        LIQUID_ROOT="E:/dev/Autodesk/maya/myplugin/project/liquid_"
-        testFile=LIQUID_ROOT+"/2.3.3/test/test_motionblur/transform/deform.ma"
+        LIQUIDHOME="E:/dev/Autodesk/maya/myplugin/project/liquid_/2.3.3
+        testFile=$(LIQUIDHOME)+"/test/test_motionblur/transform/deform.ma"
         liqRenderer=""
         MyTestOne.test_one_scene(testFile, liqRenderer)
     - if you set liqRenderer="elvishray", the test file will rendered with elvishray only,

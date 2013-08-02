@@ -503,7 +503,7 @@ global proc liquidStartup_renderman()
 	liqPushIdent();
 	liqlog("liquidStartup_renderman()");
 
-	evalEcho( "source \""+liquidGetHome()+"/mel/2013/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \""+liquidGetHome()+"/mel/liquidProceduralsForSubRenderer.mel\"");
 		
 	liquidAddSubRenderer(rm_getRendererName());
 

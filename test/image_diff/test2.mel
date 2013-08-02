@@ -37,8 +37,9 @@ loadPlugin renderman;
 //
 python("import sys");
 python("import os");
-python("sys.path.append(os.environ['LIQUID_AUTO_TEST_DIR'])");
-python("execfile(os.environ['LIQUID_AUTO_TEST_DIR']+'/testall.py')");
+python("LIQUID_AUTO_TEST_DIR = os.environ['LIQUIDHOME']+'/../test/image_diff'");
+python("sys.path.append(LIQUID_AUTO_TEST_DIR)");
+python("execfile(LIQUID_AUTO_TEST_DIR+'/testall.py')");
 
 }
 

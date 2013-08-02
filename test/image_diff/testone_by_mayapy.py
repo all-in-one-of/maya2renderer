@@ -80,7 +80,7 @@ def getStanderImage(mayaFile, liqRenderer):
 
 def _render(mayaFile, liqRenderer):
     batchRenderCmd="mayabatch.exe "
-    command = """ "source \\"registerLiquidRenderer.mel\\"; registerLiquidRenderer(); catch(`loadPlugin """+liqRenderer+"""`); setAttr -type \\"string\\" liquidGlobals.renderer """+liqRenderer+"""; mayaBatchRenderProcedure(0,\\"\\",\\"\\",\\"liquid\\",\\"\\");" """;
+    command = """ "source \\"liquidStartup.mel\\"; liquidStartup(); catch(`loadPlugin """+liqRenderer+"""`); setAttr -type \\"string\\" liquidGlobals.renderer """+liqRenderer+"""; mayaBatchRenderProcedure(0,\\"\\",\\"\\",\\"liquid\\",\\"\\");" """;
     cmd = batchRenderCmd+" -file "+mayaFile+" -command "+command;
 
     #mLiqlog.flog("batchRenderCmd="+cmd)

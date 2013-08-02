@@ -472,30 +472,24 @@ MStatus _initializePlugin(MObject obj)
   IfMErrorMsgReturnIt( status, "Can't register liqIPRNodeMessage command" );
 
   // setup all of the base liquid interface
-  MString sourceLine("source ");
+  MString sourceLine;
   char *tmphomeChar;
-  if( ( tmphomeChar = getenv( "LIQUIDHOME" ) ) ) {
-
-#ifndef WIN32
-
-    MString tmphome( tmphomeChar );
-    sourceLine += "\"" + liquidSanitizePath( tmphome ) + "/mel/" + "liquidStartup.mel\"";
-#else
+  if( (tmphomeChar = getenv( "LIQUIDHOME" )) == 0 ){
+	  liquidMessage2(messageError, "env LIQUIDHOME is not found, it is set in liquidDLL.mod by default. make sure liquidDLL.mod is copied to your <MyDocuments>/maya/<version>/modules");
+	  return MS::kFailure;
+  }
 	for (unsigned k( 0 ); k < strlen(tmphomeChar); k++ ) 
 	{
-		if ( tmphomeChar[ k ] == '\\' ) tmphomeChar[ k ] = '/';
+		if ( tmphomeChar[ k ] == '\\' )
+			tmphomeChar[ k ] = '/';
 	}
+    sourceLine += "source \""+MString(tmphomeChar)+"/mel/liquidLoadScripts.mel\"; liquidLoadScripts(); ";
+    sourceLine += "source \""+MString(tmphomeChar)+"/mel/liquidStartup.mel\"; ";
+	status = MGlobal::executeCommand(sourceLine);
+	IfMErrorMsgReturnIt( status, "executeCommand() fails: "+sourceLine );
 
-	MString tmphome( tmphomeChar );
-	sourceLine += "\"" + tmphome + "/mel/" + "liquidStartup.mel\"";
-#endif
-  } else {
-    sourceLine += "\"liquidStartup.mel\"";
-  }
-
-  status = MGlobal::executeCommand(sourceLine);
-
-  status = plugin.registerUI("liquidStartup", "liquidShutdown");
+  status = plugin.registerUI("liquidStartup", "liquidShutdown", 
+							 "liquidStartup", "liquidShutdown");
   IfMErrorMsgReturnIt( status, "Can't register liquidStartup and liquidShutdown interface scripts" );
   printf("Liquid %s registered\n", LIQUIDVERSION);
 

@@ -145,8 +145,6 @@ namespace liquid
 		}
 
 		m_factories.insert(std::make_pair(renderername, factory));
-
-		IfMErrorWarn(MGlobal::executeCommand("print(\"RendererMgr::registFactory()\");\n registerLiquidSubRenderer(\""+MString(renderername.c_str())+"\")",  true));
 	}
 	void RendererMgr::unregistFactory(const std::string& renderername)
 	{
@@ -158,8 +156,6 @@ namespace liquid
 		}
 		delete i->second;
 		m_factories.erase(renderername);
-		
-		IfMErrorWarn(MGlobal::executeCommand("unregisterLiquidSubRenderer(\""+MString(renderername.c_str())+"\")",  true));
 	}
 	void RendererMgr::iprBegin()
 	{

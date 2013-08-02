@@ -264,10 +264,15 @@ global proc liquidStartup_subrenderer()
 	liqPushIdent();
 	liqlog("liquidStartup_subrenderer()");
 	
+
+
 	if( liquidGlobalsExists() )
 	{
+		string $file = liquidGetUserSetupMelFullPath(liqGetSubRendererName());
+		evalEcho("source \""+$file+"\"");
+
 		$cmd = "liquidStartup_"+liqGetSubRendererName()+"()";
-		eval $cmd;
+		evalEcho $cmd;
 	}
 
 	liqPopIdent();

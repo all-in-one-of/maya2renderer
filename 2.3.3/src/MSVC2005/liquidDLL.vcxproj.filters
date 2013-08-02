@@ -923,9 +923,6 @@
     <None Include="..\..\mel\2012\liquidRenderCreateBarUI.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
-    <None Include="..\..\mel\2012\liquidProceduralsForSubRenderer.mel">
-      <Filter>MEL Scripts\2012</Filter>
-    </None>
     <None Include="..\..\mel\2012\buildHypergraphNodePopupMenuItems.mel">
       <Filter>MEL Scripts\2012</Filter>
     </None>
@@ -953,9 +950,6 @@
     <None Include="..\..\mel\2013\liquidHyperShadePanel.mel">
       <Filter>MEL Scripts\2013</Filter>
     </None>
-    <None Include="..\..\mel\2013\liquidProceduralsForSubRenderer.mel">
-      <Filter>MEL Scripts\2013</Filter>
-    </None>
     <None Include="..\..\mel\2013\liquidRenderCreateBarUI.mel">
       <Filter>MEL Scripts\2013</Filter>
     </None>
@@ -973,6 +967,12 @@
     </None>
     <None Include="..\..\mel\2013\liquidBuildHypergraphNodePopupMenuItems.mel">
       <Filter>MEL Scripts\2013</Filter>
+    </None>
+    <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel">
+      <Filter>MEL Scripts</Filter>
+    </None>
+    <None Include="..\..\mel\liquidLoadScripts.mel">
+      <Filter>MEL Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

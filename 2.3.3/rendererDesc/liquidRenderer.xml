@@ -28,7 +28,7 @@
 -->
 <renderer desc="liquid batch rendering">
 	<melheader s='print("This is liquidRenderer.xml\n"); string $opt = ""; string $rl=""; string $rp=""; float $resize=-1.; int $interactive=0; select defaultRenderGlobals; setAttr .renderAll 1'/>
-	<meltrailer s='setMayaSoftwareLayers($rl, $rp);setImageSizePercent($resize); source "registerLiquidRenderer.mel"; registerLiquidRenderer(); string $renderer = `getAttr liquidGlobals.renderer`; catch(`loadPlugin $renderer`); mayaBatchRenderProcedure(0, "", "", "liquid", $opt);'/>
+	<meltrailer s='setMayaSoftwareLayers($rl, $rp);setImageSizePercent($resize); source "liquidStartup.mel"; liquidStartup(); string $renderer = `getAttr liquidGlobals.renderer`; catch(`loadPlugin $renderer`); mayaBatchRenderProcedure(0, "", "", "liquid", $opt);'/>
 	<sep/>
 	<!-- only one flag currently needed, and only used by software render -->
 	<mel n="n" s="setAttr .numCpusToUse %1; if(!`about -mac`) { threadCount -n %1; }" p="1" t="int" h="Number of processors to use (0 indicates use all\n\tavailable)"/>

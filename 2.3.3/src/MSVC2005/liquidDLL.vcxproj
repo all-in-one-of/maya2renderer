@@ -3072,7 +3072,6 @@
     <None Include="..\..\mel\2012\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\2012\liquidCustomNodeUI.res.mel" />
     <None Include="..\..\mel\2012\liquidHyperShadePanel.mel" />
-    <None Include="..\..\mel\2012\liquidProceduralsForSubRenderer.mel" />
     <None Include="..\..\mel\2012\liquidRenderCreateBarUI.mel" />
     <None Include="..\..\mel\2012\renderCreateBarUI.mel" />
     <None Include="..\..\mel\2013\buildHypergraphNodePopupMenuItems.mel" />
@@ -3084,7 +3083,6 @@
     <None Include="..\..\mel\2013\liquidCustomNodeUI.mel" />
     <None Include="..\..\mel\2013\liquidCustomNodeUI.res.mel" />
     <None Include="..\..\mel\2013\liquidHyperShadePanel.mel" />
-    <None Include="..\..\mel\2013\liquidProceduralsForSubRenderer.mel" />
     <None Include="..\..\mel\2013\liquidRenderCreateBarUI.mel" />
     <None Include="..\..\mel\2013\liquidRendererCallbacks.mel" />
     <None Include="..\..\mel\2013\renderCreateBarUI.mel" />
@@ -3115,6 +3113,7 @@
     <None Include="..\..\mel\liquidAttributeManager.mel" />
     <None Include="..\..\mel\liquidIpr.mel" />
     <None Include="..\..\mel\liquidliquidShaderNodes.mel" />
+    <None Include="..\..\mel\liquidProceduralsForSubRenderer.mel" />
     <None Include="..\..\mel\liquidUserCallbackInterface.mel" />
     <None Include="..\..\mel\liquid_FE.mel" />
     <None Include="..\..\mel\liquidAttachParams.mel" />
@@ -3167,6 +3166,7 @@
     <None Include="..\..\mel\liquidWriteRSL_utilities.mel" />
     <None Include="..\..\mel\mmm.liquidMenu.mel" />
     <None Include="..\..\mel\registerLiquidRenderer.mel" />
+    <None Include="..\..\mel\liquidLoadScripts.mel" />
     <None Include="..\..\rendererDesc\liquidRenderer.xml" />
     <None Include="..\..\mel\liquidCheck.mel" />
     <None Include="..\..\mel\xxliquidutility.mel" />

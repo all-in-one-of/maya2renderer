@@ -3,7 +3,7 @@ import testone_by_mayapy as MyTestOne
 import elvishray as er
 
 def test_all_scene():
-    LIQUID_ROOT= os.environ["LIQUID_ROOT"]
+    LIQUID_ROOT= os.environ["LIQUIDHOME"] + '/..'
     '''
     ------------------------ renderman ----------------------------------
     '''
@@ -239,10 +239,10 @@ def test_all_scene():
     ------------------------ elvishray ----------------------------------
     '''
 
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     

@@ -1,0 +1,102 @@
+source xxliquidutility.mel;
+
+global proc liquidLoadScripts()
+{
+  liqPushIdent();
+	liqlog("liquidLoadScripts()");
+  string $mel_files[] = {
+    //"AEdagNodeInclude.mel",
+    "AEliquidFGGIOverrideFlags.mel",
+    //"AEliquidInstanceFlags.mel",
+    "AEliquidNurbsCurveShape.mel",
+    "AEliquidSetFlags.mel",
+    "AEliquidCamera.mel",
+	"AEliquidGlobalsTemplate.mel",
+    "AEliquidPaintEffects.mel",
+    "AEliquidShadowControls.mel",
+    "AEliquidSubdivisionSurfaceShape.mel",
+    "AEobjectSetTemplate.mel",
+    "AEoldBlindDataBaseTemplate.mel",
+    "AEliquidSurfaceTemplate.mel",
+    "AEliquidDisplacementTemplate.mel",
+    "AEliquidVolumeTemplate.mel",
+    "AEliquidLightTemplate.mel",
+    "AEliquidShaderTemplate.mel",
+    "AEliquidRibBoxTemplate.mel",
+    "AEliquidCoShaderTemplate.mel",
+    //"AEliquidSLTemplate.mel",
+    "AEliquidCoordSysTemplate.mel",
+    "AEliquidSurfaceRelated.mel",
+    "AEliquidCoShaderRelated.mel",        
+    //"liquidBuildHypergraphNodePopupMenuItems.mel",
+    "getMultiListerSelection.mel",
+    "connectNodeToAttrOverride.mel",
+    "connectNodeToNodeOverride.mel",
+    "liquidIni.mel",
+	"liquidSlParsePL.mel",
+    "liquidSlParseSdl.mel",
+    "liquidSlParseSdr.mel",
+    "liquidSlParseSlo.mel",
+    "liquidSlParseSlx.mel",
+    "liquidSlParseSlb.mel",
+    "liquidSlParseLif.mel",
+    "liquidSlInfo.mel",
+    "liquidAttachParams.mel",
+    //"liquidAttrWindow.mel",
+    //"liquidAttributes.mel",
+	"liquidCheck.mel",
+    "liquidCommon.mel",
+    "liquidConvMTOR.mel",
+    "liquidConvertMtor.mel",
+    "liquidDelayedReadArchive.mel",
+    "liquidFileBrowser.mel",
+    "liquidFluid.mel",
+    //"liquidFluidOutliner.mel",
+    "liquidGlobals.mel",
+    "liquidGlobalsEx.mel",
+    "liquidHelpers.mel",
+    "liquidMenuHelp.mel",
+    "liquidPaintEffects.mel",
+    "liquidParamDialogWindow.mel",
+    "liquidPrefAttribute.mel",
+    "liquidReAttachParams.mel",
+    "liquidReadArchive.mel",
+    "liquidRenderCurve.mel",
+    "liquidRibBox.mel",
+    "liquidRibGen.mel",
+    "liquidShaders.mel",
+    "liquidShutdown.mel",
+    "liquidSubdiv.mel",
+    "liquidSubdivInspector.mel",
+    "liquidWriteRSL_materials.mel",
+    "liquidWriteRSL_textures.mel",
+    "liquidWriteRSL_utilities.mel",
+    "liquidConvertShadingNetworkToRSL.mel",
+    "liquidLifWidgets.mel",
+    "liquidShaderNodes.mel",
+    "registerLiquidRenderer.mel",
+    "liquidCreateGlobalsTab.mel",
+    "liquidRenderView.mel",
+    "liquidLightLinker.mel",
+    //"AEliquidSurfaceSwitcherTemplate.mel",
+    //"AEliquidDisplacementSwitcherTemplate.mel",
+    //"AEliquidSwitcherRelatedTemplate.mel",
+    //"liquidSwitcherNodes.mel",
+    "liquidAttributeManager.mel",
+    "liqGlobalsNodeRenderer.mel",
+    "GetPossibleTextures.mel",
+    "liquidliquidShaderNodes.mel",
+	"liquidUserCallbackInterface.mel",
+	"liqMessageCallback.mel",
+	"liquidProceduralsForSubRenderer.mel"
+  };
+
+  string $liquidHome = liquidGetHome();
+  int $i;
+  for ( $i = 0; $i < size($mel_files); $i++) {
+	liqlog( "source \"" + $liquidHome + "/mel/" + $mel_files[$i]  + "\"");
+    eval( "source \"" + $liquidHome + "/mel/" + $mel_files[$i]  + "\"" );
+  }
+
+  liqPopIdent();
+}
