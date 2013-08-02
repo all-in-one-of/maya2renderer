@@ -1603,27 +1603,6 @@ global proc liquidBuildRenderCameraMenu( string $parent )
   liqPopIdent();
 }
 
-//global proc liquidBuildRendererMenu( string $prefix )
-//{
-//  global string $g_liqRenderer[];
-//
-//  liqPushIdent();
-//	liqlog("liquidBuildRendererMenu()");
-//  popupMenu -e -deleteAllItems ($prefix + "LG_RendererMenuCtl");
-//  int $i;
-//
-//  for ( $i=0; $i<size($g_liqRenderer); $i++ ) 
-//  {
-//		menuItem	
-//			-parent ($prefix+"LG_RendererMenuCtl") 
-//			-label   $g_liqRenderer[$i]
-//			-c      ("liquidUpdateSubRenderer "+$g_liqRenderer[$i]);
-//  }
-//  liqPopIdent();
-//}
-
-/* Crop Window --------------------------------------------------------------------------------- */
-
 global proc liquidShowCropWindowViewer()
 {
   liqPushIdent();
