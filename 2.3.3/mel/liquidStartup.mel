@@ -1263,18 +1263,6 @@ liquidBuildChooseSubRendererMenuCB(string $renderer)
 	liqPopIdent();
 }
 //
-global proc string liquidGetUserSetupMelFullPath(string $renderer)
-{
-	liqPushIdent();
-	liqlog("liquidGetUserSetupMelFullPath("+$renderer+")");
-
-	string $env_usersetup = "USERSETUP_"+$renderer;
-	string $ret = getenv($env_usersetup);
-
-	liqPopIdent();
-	return $ret;
-}
-//
 global proc liquidSelectLiquidGlobalsMenu()
 {
 	liqPushIdent();
