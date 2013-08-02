@@ -7,7 +7,7 @@ def test_all_scene():
     '''
     ------------------------ renderman ----------------------------------
     '''
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -231,7 +231,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/shader_user/occlight/rmOccLight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
 
 
 
@@ -242,7 +242,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/transform/transform.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
@@ -451,13 +451,13 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/er_flatcolor/er_flatcolor.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/er_checker/er_checker.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/er_checker2/er_checker2.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
+    '''
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/er_architectural/er_architectural.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
@@ -509,7 +509,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erTestLight/erTestLight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
 
     '''
     ------------------------ appleseed ----------------------------------

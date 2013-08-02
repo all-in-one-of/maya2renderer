@@ -2696,12 +2696,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\..\..\bin\$(Platform)\$(Configuration)\plug-ins\liquidDLL.lib;../../../../bin/$(Platform)/$(Configuration)/plug-ins/ElvishRender.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;eiAPI.lib;eiCORE.lib;eiIMG.lib;eiSHADER.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)/lib;$(BOOST_ROOT)/stage/lib64;../../../../../dependence/elvishray/r274/lib_x64;../../../../../dependence/zlib/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
-      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
@@ -2866,12 +2866,12 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>glu32.lib;opengl32.lib;netapi32.lib;ws2_32.lib;..\..\..\..\bin\$(Platform)\$(Configuration)\plug-ins\liquidDLL.lib;../../../../bin/$(Platform)/$(Configuration)/plug-ins/ElvishRender.lib;Foundation.lib;OpenMayaFX.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaRender.lib;eiAPI.lib;eiCORE.lib;eiIMG.lib;eiSHADER.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).mll</OutputFile>
+      <OutputFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)/lib;$(BOOST_ROOT)/stage/lib64;../../../../../dependence/elvishray/r274/lib_x64;../../../../../dependence/zlib/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AssemblyDebug>false</AssemblyDebug>
-      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/$(ProjectName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(ProjectDir)/../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
@@ -2947,7 +2947,7 @@
     <None Include="..\src\er_architectural\userSetup.mel" />
     <None Include="..\src\er_checker2\AEer_checker2Template.mel" />
     <None Include="..\src\er_checker2\userSetup.mel" />
-    <None Include="..\src\userSetup.mel" />
+    <None Include="..\src\userSetup_eiSHADER_user.mel" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

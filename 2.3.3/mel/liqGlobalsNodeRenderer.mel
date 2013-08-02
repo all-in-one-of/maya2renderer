@@ -65,12 +65,11 @@ global proc string getGlobalNodeName()
 // 	addParameter($gGlobal, "tStringAttr1", "string", "tDefaultVale1");
 // }
 
-global proc liqGlobalsNodeRendererMain()
+global proc liqGlobalsNodeRendererMain(string $rnd)
 {
 	liqPushIdent();
-	liqlog("liqGlobalsNodeRendererMain()");
+	liqlog("liqGlobalsNodeRendererMain("+$rnd+")");
 
-	$rnd = liqGetSubRendererName();
 	if ( isSubRendererLoaded($rnd) )
 	{
 		// select $rndGlobalNode node

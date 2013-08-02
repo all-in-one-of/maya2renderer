@@ -85,7 +85,7 @@ global proc int liquidAssignUserShaderToSelected_elvishray(string $node)
 //
 //
 
-print "This is erSHADER_user/usersetup.mel\n";
+print "This is erSHADER_user/src/userSetup_eiSHADER_user.mel\n";
 
 // source subdirectoies scripts
 eval( "source \"" + getThisDirectory() + "/erChecker/userSetup.mel\"" );

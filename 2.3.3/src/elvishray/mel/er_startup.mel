@@ -189,17 +189,20 @@ global proc erLiquidLoadGlobals()
 	liqPushIdent();
 	liqlog("erLiquidLoadGlobals()");
 
-	//setAttr "liquidGlobals.renderer"		-type "string" (er_getRendererName());
-
-	setAttr "liquidGlobals.renderCommand"	-type "string" "er";
-	setAttr "liquidGlobals.previewer"		-type "string" "";
-	setAttr "liquidGlobals.shaderInfo"		-type "string" "";
-	setAttr "liquidGlobals.shaderComp"		-type "string" "";
-	setAttr "liquidGlobals.shaderExt"		-type "string" "dll";
-	setAttr "liquidGlobals.makeTexture"		-type "string" "";
-	setAttr "liquidGlobals.viewTexture"		-type "string" "";
-	setAttr "liquidGlobals.textureExt"		-type "string" "tex";
-
+	if( liquidGlobalsExists() )
+	{
+		//setAttr "liquidGlobals.renderer"		-type "string" (er_getRendererName());
+		setAttr "liquidGlobals.renderCommand"	-type "string" "er";
+		setAttr "liquidGlobals.previewer"		-type "string" "";
+		setAttr "liquidGlobals.shaderInfo"		-type "string" "";
+		setAttr "liquidGlobals.shaderComp"		-type "string" "";
+		setAttr "liquidGlobals.shaderExt"		-type "string" "dll";
+		setAttr "liquidGlobals.makeTexture"		-type "string" "";
+		setAttr "liquidGlobals.viewTexture"		-type "string" "";
+		setAttr "liquidGlobals.textureExt"		-type "string" "tex";
+	}else{
+		liqWarn("liquidGlobals NOT exists!");
+	}
 	liqPopIdent();
 }
 //
@@ -273,13 +276,12 @@ global proc liquidStartup_elvishray()
 
 	liquidAddSubRenderer(er_getRendererName());
 
+	//create global node for this renderer
+	liqGlobalsNodeRendererMain(er_getRendererName());
+	erLiquidLoadGlobals();
 	//set liquidGlobals.renderer
 	liqSetSubRendererName(er_getRendererName());
-	//create global node for this renderer
-	liqGlobalsNodeRendererMain();
 
-	erLiquidLoadGlobals();
-		
 	//update menu
 	liquidCreateMenus();
 	liquidShaderNodes_AERefresh();

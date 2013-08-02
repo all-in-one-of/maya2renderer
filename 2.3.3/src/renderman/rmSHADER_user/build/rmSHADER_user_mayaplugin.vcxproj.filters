@@ -61,9 +61,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\userSetup.mel">
-      <Filter>src</Filter>
-    </None>
     <None Include="..\src\rmFlat\userSetup.mel">
       <Filter>src\rmFlat</Filter>
     </None>
@@ -94,11 +91,14 @@
     <None Include="..\src\rmOccLight\rmOccLight.sl">
       <Filter>src\rmOccLight</Filter>
     </None>
+    <None Include="..\src\rmOccLight\AErmOccLightTemplate.mel">
+      <Filter>src\rmOccLight</Filter>
+    </None>
     <None Include="..\src\rmOccLight\userSetup.mel">
       <Filter>src\rmOccLight</Filter>
     </None>
-    <None Include="..\src\rmOccLight\AErmOccLightTemplate.mel">
-      <Filter>src\rmOccLight</Filter>
+    <None Include="..\src\userSetup_rmSHADER_user.mel">
+      <Filter>src</Filter>
     </None>
   </ItemGroup>
 </Project>

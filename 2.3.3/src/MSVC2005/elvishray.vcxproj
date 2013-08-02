@@ -2994,7 +2994,7 @@
     <None Include="..\elvishray\mel\alias\er_MessageCallback_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_startup_ElvishRender.mel" />
     <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel" />
-    <None Include="..\elvishray\mel\alias\userSetup.mel" />
+    <None Include="..\elvishray\mel\alias\userSetup_ElvishRender.mel" />
     <None Include="..\elvishray\mel\er_AETemplate.mel" />
     <None Include="..\elvishray\mel\er_BuildHypergraphNodePopupMenuItems.mel" />
     <None Include="..\elvishray\mel\er_callback.mel" />
@@ -3010,7 +3010,7 @@
     <None Include="..\elvishray\mel\er_RendererName.mel" />
     <None Include="..\elvishray\mel\er_startup.mel" />
     <None Include="..\elvishray\mel\er_UserCallbackInterface.mel" />
-    <None Include="..\elvishray\mel\userSetup.mel" />
+    <None Include="..\elvishray\mel\userSetup_elvishray.mel" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

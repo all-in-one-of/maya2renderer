@@ -256,9 +256,6 @@
     <None Include="..\elvishray\mel\er_CreateMenus.mel">
       <Filter>mel</Filter>
     </None>
-    <None Include="..\elvishray\mel\userSetup.mel">
-      <Filter>mel</Filter>
-    </None>
     <None Include="..\elvishray\mel\AEliquidShaderTemplate_elvishray.mel">
       <Filter>mel</Filter>
     </None>
@@ -304,9 +301,6 @@
     <None Include="..\elvishray\mel\alias\er_UserCallbackInterface_ElvishRender.mel">
       <Filter>mel\alias</Filter>
     </None>
-    <None Include="..\elvishray\mel\alias\userSetup.mel">
-      <Filter>mel\alias</Filter>
-    </None>
     <None Include="..\elvishray\mel\er_liquidProcedurals.mel">
       <Filter>mel</Filter>
     </None>
@@ -336,6 +330,12 @@
     </None>
     <None Include="..\elvishray\mel\er_BuildHypergraphNodePopupMenuItems.mel">
       <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\userSetup_elvishray.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\elvishray\mel\alias\userSetup_ElvishRender.mel">
+      <Filter>mel\alias</Filter>
     </None>
   </ItemGroup>
 </Project>

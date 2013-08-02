@@ -130,9 +130,6 @@
     <None Include="..\src\er_checker2\AEer_checker2Template.mel">
       <Filter>src\er_checker2</Filter>
     </None>
-    <None Include="..\src\userSetup.mel">
-      <Filter>src</Filter>
-    </None>
     <None Include="..\src\er_architectural\AEer_architecturalTemplate.mel">
       <Filter>src\er_architectural</Filter>
     </None>
@@ -168,6 +165,9 @@
     </None>
     <None Include="..\src\erPhysicalsky\userSetup.mel">
       <Filter>src\erPhysicalsky</Filter>
+    </None>
+    <None Include="..\src\userSetup_eiSHADER_user.mel">
+      <Filter>src</Filter>
     </None>
   </ItemGroup>
 </Project>

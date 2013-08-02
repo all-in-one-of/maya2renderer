@@ -2911,7 +2911,7 @@
     <None Include="..\renderman\mel\rm_startup.mel" />
     <None Include="..\renderman\mel\rm_UserCallbackInterface.mel" />
     <None Include="..\renderman\mel\rm_callback.mel" />
-    <None Include="..\renderman\mel\userSetup.mel" />
+    <None Include="..\renderman\mel\userSetup_renderman.mel" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\dependence\_3delight\liquidAOVMacroDef.h" />

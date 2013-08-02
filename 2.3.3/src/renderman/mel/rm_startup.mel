@@ -449,52 +449,56 @@ global proc rmLiquidLoadGlobals()
 {
 	liqPushIdent();
 	liqlog("rmLiquidLoadGlobals()");
+		
+	if( liquidGlobalsExists() )
+	{
+		//setAttr "liquidGlobals.renderer"		-type "string" (rm_getRendererName());
 
-	//setAttr "liquidGlobals.renderer"		-type "string" (rm_getRendererName());
+		setAttr "liquidGlobals.renderCommand"	-type "string" "renderdl";
+		setAttr "liquidGlobals.previewer"		-type "string" "renderdl";
+		setAttr "liquidGlobals.shaderInfo"		-type "string" "shaderinfo";
+		setAttr "liquidGlobals.shaderComp"		-type "string" "shaderdl";
+		setAttr "liquidGlobals.shaderExt"		-type "string" "sdl";
+		setAttr "liquidGlobals.makeTexture"		-type "string" "tdlmake";
+		setAttr "liquidGlobals.viewTexture"		-type "string" "i-display";
+		setAttr "liquidGlobals.textureExt"		-type "string" "tdl";
 
-	setAttr "liquidGlobals.renderCommand"	-type "string" "renderdl";
-	setAttr "liquidGlobals.previewer"		-type "string" "renderdl";
-	setAttr "liquidGlobals.shaderInfo"		-type "string" "shaderinfo";
-	setAttr "liquidGlobals.shaderComp"		-type "string" "shaderdl";
-	setAttr "liquidGlobals.shaderExt"		-type "string" "sdl";
-	setAttr "liquidGlobals.makeTexture"		-type "string" "tdlmake";
-	setAttr "liquidGlobals.viewTexture"		-type "string" "i-display";
-	setAttr "liquidGlobals.textureExt"		-type "string" "tdl";
+		setAttr "liquidGlobals.dshDisplayName"	-type "string" "deepshad";
+		setAttr "liquidGlobals.dshImageMode"		-type "string" "deepopacity";
 
-	setAttr "liquidGlobals.dshDisplayName"	-type "string" "deepshad";
-	setAttr "liquidGlobals.dshImageMode"		-type "string" "deepopacity";
+		setAttr "liquidGlobals.Hidden" yes;
+		setAttr "liquidGlobals.Photon" yes;
+		setAttr "liquidGlobals.ZBuffer" no;
+		setAttr "liquidGlobals.Raytrace" no;
+		setAttr "liquidGlobals.OpenGL" no;
+		setAttr "liquidGlobals.DepthMask" yes;
 
-	setAttr "liquidGlobals.Hidden" yes;
-	setAttr "liquidGlobals.Photon" yes;
-	setAttr "liquidGlobals.ZBuffer" no;
-	setAttr "liquidGlobals.Raytrace" no;
-	setAttr "liquidGlobals.OpenGL" no;
-	setAttr "liquidGlobals.DepthMask" yes;
+		setAttr "liquidGlobals.Box" yes;
+		setAttr "liquidGlobals.Triangle" yes;
+		setAttr "liquidGlobals.Catmull_Rom" yes;
+		setAttr "liquidGlobals.Gaussian" yes;
+		setAttr "liquidGlobals.Sinc" yes;
+		setAttr "liquidGlobals.Blackman_Harris" yes;
+		setAttr "liquidGlobals.Mitchell" yes;
+		setAttr "liquidGlobals.SeparableCatmull_Rom" yes;
+		setAttr "liquidGlobals.Lanczos" no;
+		setAttr "liquidGlobals.Bessel" no;
+		setAttr "liquidGlobals.Disk" no;
 
-	setAttr "liquidGlobals.Box" yes;
-	setAttr "liquidGlobals.Triangle" yes;
-	setAttr "liquidGlobals.Catmull_Rom" yes;
-	setAttr "liquidGlobals.Gaussian" yes;
-	setAttr "liquidGlobals.Sinc" yes;
-	setAttr "liquidGlobals.Blackman_Harris" yes;
-	setAttr "liquidGlobals.Mitchell" yes;
-	setAttr "liquidGlobals.SeparableCatmull_Rom" yes;
-	setAttr "liquidGlobals.Lanczos" no;
-	setAttr "liquidGlobals.Bessel" no;
-	setAttr "liquidGlobals.Disk" no;
+		setAttr "liquidGlobals.Blobbies" yes;
+		setAttr "liquidGlobals.Points" yes;
+		setAttr "liquidGlobals.Eyesplits" yes;
+		setAttr "liquidGlobals.Raytracing" yes;
+		setAttr "liquidGlobals.DepthOfField" yes;
+		setAttr "liquidGlobals.AdvancedVisibility" yes;
+		setAttr "liquidGlobals.DisplayChannels" no;
 
-	setAttr "liquidGlobals.Blobbies" yes;
-	setAttr "liquidGlobals.Points" yes;
-	setAttr "liquidGlobals.Eyesplits" yes;
-	setAttr "liquidGlobals.Raytracing" yes;
-	setAttr "liquidGlobals.DepthOfField" yes;
-	setAttr "liquidGlobals.AdvancedVisibility" yes;
-	setAttr "liquidGlobals.DisplayChannels" no;
-
-	setAttr "liquidGlobals.Swap_UV" no;
-	setAttr "liquidGlobals.__Pref" no;
-	setAttr "liquidGlobals.MakeShadow" no;
-
+		setAttr "liquidGlobals.Swap_UV" no;
+		setAttr "liquidGlobals.__Pref" no;
+		setAttr "liquidGlobals.MakeShadow" no;
+	}else{
+		liqWarn("liquidGlobals NOT exists!");
+	}
 	liqPopIdent();
 }
 //
@@ -507,12 +511,11 @@ global proc liquidStartup_renderman()
 		
 	liquidAddSubRenderer(rm_getRendererName());
 
+	//create global node for this renderer
+	liqGlobalsNodeRendererMain(rm_getRendererName());
+	rmLiquidLoadGlobals();
 	//set liquidGlobals.renderer
 	liqSetSubRendererName(rm_getRendererName());
-	//create global node for this renderer
-	liqGlobalsNodeRendererMain();
-
-	rmLiquidLoadGlobals();
 
 	//update menu
 	liquidCreateMenus();

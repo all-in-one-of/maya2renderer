@@ -152,9 +152,6 @@
     <None Include="..\renderman\mel\rm_callback.mel">
       <Filter>mel</Filter>
     </None>
-    <None Include="..\renderman\mel\userSetup.mel">
-      <Filter>mel</Filter>
-    </None>
     <None Include="..\renderman\mel\rm_UserCallbackInterface.mel">
       <Filter>mel</Filter>
     </None>
@@ -189,6 +186,9 @@
       <Filter>mel</Filter>
     </None>
     <None Include="..\renderman\mel\rm_BuildHypergraphNodePopupMenuItems.mel">
+      <Filter>mel</Filter>
+    </None>
+    <None Include="..\renderman\mel\userSetup_renderman.mel">
       <Filter>mel</Filter>
     </None>
   </ItemGroup>

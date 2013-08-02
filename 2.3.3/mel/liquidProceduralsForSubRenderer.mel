@@ -62,7 +62,12 @@ global proc liqSetSubRendererName(string $renderer)
 {
 	liqPushIdent();
 	liqlog("liqSetSubRendererName("+$renderer+")");
-	setAttr -type "string" liquidGlobals.renderer $renderer;
+	if( liquidGlobalsExists() )
+	{
+		setAttr -type "string" liquidGlobals.renderer $renderer;
+	}else{
+		liqWarn("liquidGlobals NOT exists!");
+	}
 	liqPopIdent();
 }
 
@@ -70,7 +75,15 @@ global proc string liqGetSubRendererName()
 {
 	liqPushIdent();
 	liqlog("liqGetSubRendererName()");
-	string $rnd =  `getAttr liquidGlobals.renderer`;
+	
+	string $rnd;
+	if( liquidGlobalsExists() )
+	{
+		$rnd =  `getAttr liquidGlobals.renderer`;
+	}else{
+		liqWarn("liquidGlobals NOT exists!");
+		$rnd = "";
+	}
 	liqPopIdent();
 	return $rnd;
 }
