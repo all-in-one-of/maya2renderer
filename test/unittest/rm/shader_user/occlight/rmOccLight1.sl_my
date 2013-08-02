@@ -97,7 +97,7 @@ light rmOccLight1
 
 
 // define the shaders --------------------------------------------------------------------------
-#include "E:/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/src/renderman/rmSHADER_user/src/rmOccLight/rmOccLight.impl"
+#include "E:/dev/autodesk/maya/myplugin/project/liquid_/2.3.3/bin/x64/M2R2013Debug/../../../src/renderman/rmSHADER_user/src/rmOccLight/rmOccLight.impl"
 //shader name: rmOccLight1
 void rmOccLight1 (
 )
