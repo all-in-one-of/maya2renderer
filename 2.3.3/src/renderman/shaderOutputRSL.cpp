@@ -496,9 +496,9 @@ void Visitor::postOutput()
 
 	MString result;
 	//NOTE:
-	//     the include directory can't contain '.', so I move _3delight to %LIQUID_ROOT%\dependence
-	//"shader.exe -o \"outSLO\" -I\"%LIQUID_ROOT%\dependence\_3delight" \"srcSL\""
-	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUID_ROOT%/dependence/_3delight\\\" -I\\\"%LIQUID_ROOT%/2.3.3/lib/shaders/prman13.5\\\" \\\""+srcSL+"\\\"\")", result, true));
+	//     the include directory can't contain '.' in PRman, so I move _3delight to %LIQUIDHOME%\..\dependence
+	//"shader.exe -o \"outSLO\" -I\"%LIQUIDHOME%\..\dependence\_3delight" \"srcSL\""
+	IfMErrorWarn(MGlobal::executeCommand("system(\""+liqglo.liquidRenderer.shaderCompiler+" -o \\\""+outSLO+"\\\" -I\\\"%LIQUIDHOME%/../dependence/_3delight\\\" -I\\\"%LIQUIDHOME%/lib/shaders/prman13.5\\\" \\\""+srcSL+"\\\"\")", result, true));
 
 	MGlobal::displayInfo( "-------------------compile shader message begin ("+srcSL+")-------------------" );
 	MGlobal::displayError( result );

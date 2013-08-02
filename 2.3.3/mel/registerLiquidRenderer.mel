@@ -298,7 +298,7 @@ global proc registerLiquidRenderer()
   }
 
   // can't override maya original mayaBatchRenderProcedure(). Strange!
-  // so, we run LIQUID_ROOT\mel\replace_mayaBatchRenderProcedure.bat manully 
+  // so, we run $(LIQUIDHOME)\mel\replace_mayaBatchRenderProcedure.bat manully 
   // to replace MAYA_ROOT\scripts\other\mayaBatchRenderProcedure.mel
   //replaceMayaBatchRenderProcedure(1);
   updateRendererUI();
