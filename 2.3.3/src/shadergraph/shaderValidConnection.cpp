@@ -45,9 +45,8 @@ namespace liquidmaya
 				connections = validConnectionMap.find(shadertype.asChar())->second;
 			}
 		}else{
-			liquidMessage2(messageError, "ShaderConnectionMap::getValidConnection(), shader type [%s] is not supported.", shadertype.asChar());
-			assert(0&&"shader type is not supported.");
-			connections = validConnectionMap.find("null")->second;
+			liquidMessage2(messageError, "ShaderConnectionMap::getValidConnection(), shader type is not supported. [%s]", shadertype.asChar());
+			//assert(0&&"shader type is not supported.");
 		}
 	}
 	void ShaderConnectionMap::clear()
@@ -76,11 +75,6 @@ void ShaderValidConnection::clearValidConnection()
 void ShaderValidConnection::setValidConnection_maya()
 {
 	MStringArray validConnection;
-	
-	//null (dummy shader)
-	validConnectionMap.begin("null");
-	validConnectionMap.append("");
-	validConnectionMap.end();	
 
 	// MATERIAL -----------------------------------
 	/// surface ///
