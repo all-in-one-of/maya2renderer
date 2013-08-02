@@ -1255,10 +1255,10 @@ liquidBuildChooseSubRendererMenuCB(string $renderer)
 
 	liqSetSubRendererName($renderer);
 
-	//string $prefix = `liquidGetCurrentRenderLayerName`;
-	//liquidBuildRendererMenu("");
-	//liquidUpdateSubRenderer($renderer);
-	liquidStartup_subrenderer();
+	
+	//liquidStartup_subrenderer();
+	$cmd = "liquidStartup_"+liqGetSubRendererName()+"()";
+	evalEcho $cmd;
 
 	liqPopIdent();
 }
