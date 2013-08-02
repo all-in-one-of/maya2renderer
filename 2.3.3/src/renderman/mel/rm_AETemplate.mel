@@ -1,4 +1,5 @@
 source xxliquidutility.mel;
+source liquidAttributes.mel;
 
 //============================================================================
 //	light
