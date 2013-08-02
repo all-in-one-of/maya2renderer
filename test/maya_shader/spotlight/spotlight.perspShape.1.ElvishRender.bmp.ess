@@ -70,6 +70,8 @@ end shader
 light "|spotLight3|spotLightShape3_object" 
 light_shader "|spotLight3|spotLightShape3_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|spotLight3|spotLightShape3" 
 element "|spotLight3|spotLightShape3_object" 

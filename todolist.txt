@@ -6,10 +6,13 @@
 
 
 - learn katana
-liq| mel|: liquidLoadScripts()里$g_liqRenderer要删去
-liq| mel|: $g_liqRenderer要删去, 用$g_SubRenderer代替
-liq|: 删除ER_SHADER_USER, RM_SHADER_USER环境变量, 否则自定义shader无法编译(include头文件找不到)
+liq| 
+ambientlight, 
+rm/particle/simple/particle.ma, 
+rm/particle/ParticleColorChangeOnCollision
+rm/particle/ParticleColorChangeOnCollisionMethod1 有assert提示
 liq| liquid_root --> liquidhome, 精简getenv(), 删去不必要的环境变量
+liq|: // Warning: file: /mel/liquidCreateGlobalsTab.mel line 108: liquidSwitchGlobalsRenderLayer: liquidLiquidTab not exists // 
 liq|: mod
 done)-liq|er|:加载ElvishRenderer后建ElvishRenderGlobals1节点
 liq}:liquidShaderNode里增加aAssignedObjects属性

@@ -77,6 +77,8 @@ ei_end_shader();
 ei_light("|directionalLight1|directionalLightShape1_object");
 ei_light_shader("|directionalLight1|directionalLightShape1_shader");
 ei_origin(0,0,0);
+ei_area_samples(16);
+ei_adaptive(0);
 ei_end_light();
 ei_instance("|directionalLight1|directionalLightShape1");
 ei_element("|directionalLight1|directionalLightShape1_object");

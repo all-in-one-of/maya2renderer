@@ -72,6 +72,8 @@ end shader
 light "|directionalLight1|directionalLightShape1_object" 
 light_shader "|directionalLight1|directionalLightShape1_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|directionalLight1|directionalLightShape1" 
 element "|directionalLight1|directionalLightShape1_object" 

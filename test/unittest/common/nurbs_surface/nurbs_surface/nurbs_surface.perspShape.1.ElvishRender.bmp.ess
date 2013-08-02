@@ -67,6 +67,8 @@ end shader
 light "|pointLight1|pointLightShape1_object" 
 light_shader "|pointLight1|pointLightShape1_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight1|pointLightShape1" 
 element "|pointLight1|pointLightShape1_object" 
@@ -92,6 +94,8 @@ end shader
 light "|pointLight2|pointLightShape2_object" 
 light_shader "|pointLight2|pointLightShape2_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight2|pointLightShape2" 
 element "|pointLight2|pointLightShape2_object" 
@@ -117,6 +121,8 @@ end shader
 light "|nurbs_cone:pointLight1|nurbs_cone:pointLightShape1_object" 
 light_shader "|nurbs_cone:pointLight1|nurbs_cone:pointLightShape1_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|nurbs_cone:pointLight1|nurbs_cone:pointLightShape1" 
 element "|nurbs_cone:pointLight1|nurbs_cone:pointLightShape1_object" 
@@ -142,6 +148,8 @@ end shader
 light "|nurbs_sphere:pointLight1|nurbs_sphere:pointLightShape1_object" 
 light_shader "|nurbs_sphere:pointLight1|nurbs_sphere:pointLightShape1_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|nurbs_sphere:pointLight1|nurbs_sphere:pointLightShape1" 
 element "|nurbs_sphere:pointLight1|nurbs_sphere:pointLightShape1_object" 
@@ -167,6 +175,8 @@ end shader
 light "|nurbs_sphere:pointLight2|nurbs_sphere:pointLightShape2_object" 
 light_shader "|nurbs_sphere:pointLight2|nurbs_sphere:pointLightShape2_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|nurbs_sphere:pointLight2|nurbs_sphere:pointLightShape2" 
 element "|nurbs_sphere:pointLight2|nurbs_sphere:pointLightShape2_object" 

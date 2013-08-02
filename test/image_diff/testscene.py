@@ -201,7 +201,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/unittest/rm/particle/particleColorChangeOnCollisionMethod1/particleColorChangeOnCollisionMethod1.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/unittest/rm/aov/aov.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
 
@@ -504,7 +504,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erTestLight/erTestLight.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
-    
+    '''
 
     '''
     ------------------------ appleseed ----------------------------------

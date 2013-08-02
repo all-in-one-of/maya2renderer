@@ -67,6 +67,8 @@ end shader
 light "|pointLight1|pointLightShape1_object" 
 light_shader "|pointLight1|pointLightShape1_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight1|pointLightShape1" 
 element "|pointLight1|pointLightShape1_object" 
@@ -86,6 +88,8 @@ end shader
 light "|pointLight2|pointLightShape2_object" 
 light_shader "|pointLight2|pointLightShape2_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight2|pointLightShape2" 
 element "|pointLight2|pointLightShape2_object" 

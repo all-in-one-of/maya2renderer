@@ -96,6 +96,8 @@ end shader
 light "|pointLight2|pointLightShape2_object" 
 light_shader "|pointLight2|pointLightShape2_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight2|pointLightShape2" 
 element "|pointLight2|pointLightShape2_object" 
@@ -114,6 +116,8 @@ end shader
 light "|pointLight3|pointLightShape3_object" 
 light_shader "|pointLight3|pointLightShape3_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight3|pointLightShape3" 
 element "|pointLight3|pointLightShape3_object" 

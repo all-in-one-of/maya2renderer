@@ -154,6 +154,8 @@ ei_end_shader();
 ei_light("|pointLight3|pointLightShape3_object");
 ei_light_shader("|pointLight3|pointLightShape3_shader");
 ei_origin(0,0,0);
+ei_area_samples(16);
+ei_adaptive(0);
 ei_end_light();
 ei_instance("|pointLight3|pointLightShape3");
 ei_element("|pointLight3|pointLightShape3_object");
