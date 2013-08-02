@@ -55,9 +55,15 @@ namespace renderman
 		LIQDEBUGPRINTF( "-> writing particles\n");
 
 #ifdef DEBUG
-		RiArchiveRecord( RI_COMMENT, "Number of Particles: %d", pData->m_numValidParticles );
+		RiArchiveRecord( RI_COMMENT, "Number of Valid Particles: %d", pData->m_numValidParticles );
 		RiArchiveRecord( RI_COMMENT, "Number of Discarded Particles: %d", pData->m_numParticles - pData->m_numValidParticles );
 #endif
+		MString notes("Make sure the particle is generated(e.g. sometimes particle is not generated, drag the time slider from frame0 to generate particles.)");
+		if(pData->m_numValidParticles <= 0 ){
+			RiArchiveRecord( RI_COMMENT, "Number of Valid Particles: %d. %s", pData->m_numValidParticles, notes.asChar() );
+			liquidMessage2(messageError, "%s. [%s]", notes.asChar(), pData->getFullPathName());
+			return;
+		}
 
 		unsigned numTokens( pData->tokenPointerArray.size() );
 		boost::scoped_array< RtToken > tokenArray( new RtToken[ numTokens ] );
