@@ -1677,6 +1677,9 @@ global proc liquidGlobalsGetAvailableDisplayDrivers()
   string $renderer = `getAttr liquidGlobals.renderCommand`;
   string $rendermnIni = "";
 
+  if ( !objExists( "liquidGlobals.displayList" ) ) 
+      addAttr -dt "stringArray" -ln displayList liquidGlobals;
+
   // PRMAN
   //
   if ( gmatch( $renderer, "*prman*") ) {
@@ -1743,8 +1746,6 @@ global proc liquidGlobalsGetAvailableDisplayDrivers()
       fclose $fh;
 
       // store the result
-      if ( !objExists( "liquidGlobals.displayList" ) ) 
-         addAttr -dt "stringArray" -ln displayList liquidGlobals;
       $ddlist = strip( $ddlist );
       string $cmd = ("setAttr -type stringArray liquidGlobals.displayList "+$numberOfDD+" "+$ddlist);
       eval $cmd;
@@ -1803,9 +1804,6 @@ global proc liquidGlobalsGetAvailableDisplayDrivers()
       fclose $fh;
 
       // store the result
-      if ( !objExists( "liquidGlobals.displayList" ) ) {
-        addAttr -dt "stringArray" -ln displayList liquidGlobals;
-	  }
       $ddlist = strip( $ddlist );
       string $cmd = ("setAttr -type stringArray liquidGlobals.displayList "+$numberOfDD+" "+$ddlist);
       eval $cmd;
