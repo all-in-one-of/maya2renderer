@@ -1,5 +1,6 @@
 
 source xxliquidutility.mel;
+source rm_GlobalTab.mel;
 
 global proc liquidCreateMenus_renderman()
 {
@@ -520,6 +521,12 @@ global proc liquidStartup_renderman()
 	//update menu
 	liquidCreateMenus();
 	liquidShaderNodes_AERefresh();
+
+	//
+	if( `about -batch`== false )
+	{
+		rmGlobalTab();
+	}
 
 	liqPopIdent();
 }

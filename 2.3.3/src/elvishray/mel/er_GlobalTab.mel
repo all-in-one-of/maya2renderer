@@ -1,0 +1,30 @@
+//
+global proc erGlobalTab()
+{
+	liqPushIdent();
+	liqlog("erGlobalTab()");
+
+	if ( `renderer -exists "liquid"`)
+	{
+		renderer -edit
+				-addGlobalsTab (er_getRendererName())
+						"erCreateGlobalsTab"
+						"erUpdateGlobalsTab"
+		liquid;
+	}
+	liqPopIdent();
+}
+global proc erCreateGlobalsTab()
+{
+	liqPushIdent();
+	liqlog("erCreateGlobalsTab()");
+
+	liqPopIdent();
+}
+global proc erUpdateGlobalsTab()
+{
+	liqPushIdent();
+	liqlog("erUpdateGlobalsTab()");
+
+	liqPopIdent();
+}

@@ -14,5 +14,5 @@ source rm_liquidProcedurals.mel;
 source rm_RendererName.mel;
 source rm_AETemplate.mel;
 source rm_MessageCallback.mel;
-
+source rm_GlobalTab.mel;
 //-----------------------------------------------

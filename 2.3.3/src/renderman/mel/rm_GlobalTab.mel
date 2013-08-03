@@ -1,0 +1,100 @@
+
+source xxliquidutility.mel;
+source liq_util_widget.mel;
+source liq_util_widget2.mel;
+//
+global proc rmGlobalTab()
+{
+	liqPushIdent();
+	liqlog("rmGlobalTab()");
+
+	if ( `renderer -exists "liquid"`)
+	{
+		renderer -edit
+				-addGlobalsTab (rm_getRendererName()) "rmCreateGlobalsTab" "rmUpdateGlobalsTab"
+		liquid;
+	}else{
+		liqError("liquid is not registed.");
+	}
+	liqPopIdent();
+}
+//
+global proc rmCreateGlobalsTab()
+{
+	liqPushIdent();
+	liqlog("rmCreateGlobalsTab()");
+	
+	string $parent = `setParent -q`;
+	setParent $parent;
+
+	// Call the maya proc to ensure we setparent correctly
+	//	This means we can leverage the update proc to create the tabs for
+	//	New layers.  We should use a scriptJob, but the layer is not yet
+	//	set on all oses.
+	//string $unifiedRendererTabName = rendererTabName("liquid", rm_getRendererName());
+	//setParent $unifiedRendererTabName;
+
+	//string $prefix = `liquidGetCurrentRenderLayerName`;
+	// push the correct templates to create widgets
+	//setUITemplate -pushTemplate renderGlobalsTemplate;
+	//	setUITemplate -pushTemplate attributeEditorTemplate;
+
+ 		scrollLayout -horizontalScrollBarThickness 0 mypassesScrollLayout;
+		string $commonTabColumn = 
+			`columnLayout -adjustableColumn true mycommonTabColumn`;
+
+			 // test
+            frameLayout
+                -label ("test")
+                -collapsable true -collapse false
+                "myTest";
+
+               	rmCreateGlobalsTab_test();
+
+            setParent $commonTabColumn;
+
+
+
+		//rmUpdateGlobalsTab();
+
+	//	setUITemplate -popTemplate;
+	//setUITemplate -popTemplate;
+
+	// exit the layouts
+	setParent $parent;
+
+	formLayout -edit
+		-af mypassesScrollLayout "top" 0
+		-af mypassesScrollLayout "bottom" 0
+		-af mypassesScrollLayout "left" 0
+		-af mypassesScrollLayout "right" 0
+			$parent;
+
+	liqPopIdent();
+}
+global proc rmUpdateGlobalsTab()
+{
+	liqPushIdent();
+	liqlog("rmUpdateGlobalsTab()");
+		
+	rmUpdateGlobalsTab_test();
+
+	liqPopIdent();
+}
+//------------------test--------------------
+global proc rmCreateGlobalsTab_test()
+{
+	liqPushIdent();
+	liqlog("rmCreateGlobalsTab_test()");
+		
+	string $parent = `setParent -query`;
+
+	setUITemplate -pushTemplate attributeEditorTemplate;
+		columnLayout "Test";
+			liq_createUI_checkBox("liquidGlobals.logMsgFlush", "my test");
+			liq_createUI("liquidGlobals.logFunctionCall", "my test2");
+		setParent $parent;
+	setUITemplate -popTemplate;
+
+	liqPopIdent();
+}

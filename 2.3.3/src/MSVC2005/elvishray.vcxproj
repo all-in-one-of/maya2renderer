@@ -3005,6 +3005,7 @@
     <None Include="..\elvishray\mel\er_CreateMenus.mel" />
     <None Include="..\elvishray\mel\er_CustomNodeUI.mel" />
     <None Include="..\elvishray\mel\er_CustomNodeUI.res.mel" />
+    <None Include="..\elvishray\mel\er_GlobalTab.mel" />
     <None Include="..\elvishray\mel\er_liquidProcedurals.mel" />
     <None Include="..\elvishray\mel\er_MessageCallback.mel" />
     <None Include="..\elvishray\mel\er_RendererName.mel" />

@@ -191,6 +191,9 @@
     <None Include="..\renderman\mel\userSetup_renderman.mel">
       <Filter>mel</Filter>
     </None>
+    <None Include="..\renderman\mel\rm_GlobalTab.mel">
+      <Filter>mel</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\renderman\rm_factory.h">

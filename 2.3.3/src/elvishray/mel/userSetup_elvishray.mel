@@ -18,7 +18,7 @@ source er_CustomNodeUI.res.mel;
 source er_AETemplate.mel;
 source er_MessageCallback.mel;
 source er_BuildHypergraphNodePopupMenuItems.mel;
-
+source er_GlobalTab.mel;
 
 //-----------------------------------------------
 //global string $g_LiquidUserShader_elvishray[];
