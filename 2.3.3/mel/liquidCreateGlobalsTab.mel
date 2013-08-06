@@ -229,16 +229,16 @@ global proc liquidCreateGlobalsTab()
 
   if ( `layout -q -ex liquidTabLayout` ) layout -e -vis false liquidTabLayout;
 
-  liquidCreateMayaGlobalsTab( $prefix, "Frame" );
-  //liquidCreateMayaGlobalsTab( $prefix, "File" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Image" );
-  liquidCreateMayaGlobalsTab( $prefix, "Displays" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Rays" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Options" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Job" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Renderer" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Fluid" );
-  //liquidCreateMayaGlobalsTab( $prefix, "Advance" );
+  liquidCreateMayaGlobalsTab( $prefix, "Frame" );//liquidGlobalsFrameTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "File" );//liquidGlobalsFileTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Image" );//liquidGlobalsImageTab()
+  liquidCreateMayaGlobalsTab( $prefix, "Displays" );//liquidGlobalsDisplaysTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Rays" );//liquidGlobalsRaysTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Options" );//liquidGlobalsOptionsTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Job" );//liquidGlobalsJobTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Renderer" );//liquidGlobalsRendererTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Fluid" );//liquidGlobalsFluidTab()
+  //liquidCreateMayaGlobalsTab( $prefix, "Advance" );//liquidGlobalsAdvanceTab()
 
   // set up the tab so that it may resize and auto-build.
   if ( `layout -q -ex liquidTabLayout` ) tabLayout -e -cc $cmd -sc $cmd -dcc $cmd liquidTabLayout;

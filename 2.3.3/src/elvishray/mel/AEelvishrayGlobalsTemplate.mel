@@ -163,7 +163,8 @@ global proc AEelvishrayGlobalsTemplate( string $node )
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kGeometryApproximation")) -collapse 1;
 			//editorTemplate -callCustom AEEIApproxMethodNew AEEIApproxMethodReplace "message";
-			editorTemplate -addControl "approx_method" "AEEIApproxMethodControl";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApproxMethod"))
+				-addControl "approx_method" "AEEIApproxMethodControl";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_Any"))
 				-addDynamicControl "approx_any";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kApprox_ViewDependent"))

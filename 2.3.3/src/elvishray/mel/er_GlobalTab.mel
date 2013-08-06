@@ -1,3 +1,6 @@
+source liqGlobalsNodeRenderer.mel;
+source AEelvishrayGlobalsTemplate.res.mel;
+
 //
 global proc erGlobalTab()
 {
@@ -19,6 +22,49 @@ global proc erCreateGlobalsTab()
 	liqPushIdent();
 	liqlog("erCreateGlobalsTab()");
 
+	// $parent
+	//    |__$rootform
+	//           |__$roottab
+	//                  |__$rootcol
+	//                        |___ your ui	
+
+	string $parent = `setParent -q`;
+	//liqlog("$parent="+$parent);
+
+	int $w = `window -q -w unifiedRenderGlobalsWindow`;
+	int $h = `window -q -h unifiedRenderGlobalsWindow`;
+	//liqlog("unifiedRenderGlobalsWindow: w=,"+$w+", h="+$h);
+
+	string $rootform = `formLayout -w $w -h ($h-150) -parent $parent`;
+	{
+		string $roottab = `tabLayout -scrollable true -childResizable true -parent $rootform`;
+		//$tw = `tabLayout -q -w $tabs`;  $th = `tabLayout -q -h $tabs`;
+		//liqlog("tabLayout: w=,"+$tw+", h="+$th);
+		{
+			//tab1: "Globals"
+			string $col1 = `columnLayout -adj true  -parent ($roottab)`;
+			$child = erCreateGlobalsTab1($col1);
+			tabLayout -e -tabLabel $col1  "Globals" $roottab;
+
+			//tab2: "AOV"
+			string $col2 = `columnLayout -adj true  -parent ($roottab)`;
+			$child = erCreateGlobalsTab2($col2);
+			tabLayout -e -tabLabel $col2  "AOV" $roottab;
+
+			//new tab....
+
+		}//$roottab
+
+		formLayout -edit
+			 -attachForm $roottab "top"    0
+			 -attachForm $roottab "left"   0
+			 -attachForm $roottab "bottom" 0
+			 -attachForm $roottab "right"  0
+			 $rootform;
+	}//$rootform
+
+	setParent $parent;
+
 	liqPopIdent();
 }
 global proc erUpdateGlobalsTab()
@@ -26,5 +72,175 @@ global proc erUpdateGlobalsTab()
 	liqPushIdent();
 	liqlog("erUpdateGlobalsTab()");
 
+	liqPopIdent();
+}
+global proc erCreateGlobalsTab1(string $parent)
+{
+	liqPushIdent();
+	liqlog("erCreateGlobalsTab1(...)");
+	//string $oldparent = `setParent -q`;
+
+	string $rndGlobalNodeInst = liqGetRendererGlobalsNodeInst(er_getRendererName());
+
+	{
+	//System
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kSystem"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true;
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kSystem_OutputCall"))
+							-attribute ($rndGlobalNodeInst+".output_call");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kSystem_OutputESA"))
+							-attribute ($rndGlobalNodeInst+".output_esa");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kSystem_OutputESS"))
+							-attribute ($rndGlobalNodeInst+".output_ess");			
+		setParent ..;
+    setParent ..;
+	//Processing
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kProcessing"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true  -width 500 -columnWidth 500;
+			attrEnumOptionMenuGrp -label (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose"))
+							-attribute ($rndGlobalNodeInst+".verbose");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_eiIMG"))
+							-attribute ($rndGlobalNodeInst+".eiIMG");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_eiSHADER"))
+							-attribute ($rndGlobalNodeInst+".eiSHADER");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_eiSHADER_maya"))
+							-attribute ($rndGlobalNodeInst+".eiSHADER_maya");
+			liqlog("FIXME: the ui of shader_plugin is not good enough.");
+			//attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kProcessing_Library_others"))
+			//				-attribute ($rndGlobalNodeInst+".shader_plugin");
+		setParent ..;
+    setParent ..;
+	//Options
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kOptions"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true  -width 500 -columnWidth 500; 
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kOptions_contrast"))
+							-attribute ($rndGlobalNodeInst+".contrast");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kOptions_samples_min"))
+							-attribute ($rndGlobalNodeInst+".samples_min");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kOptions_samples_max"))
+							-attribute ($rndGlobalNodeInst+".samples_max");
+			attrControlGrp -label (uiRes("m_AEelvishrayGlobals.kOptions_FilterType"))
+							-attribute ($rndGlobalNodeInst+".filterType");
+ 			attrControlGrp -label (uiRes("m_AEelvishrayGlobals.kOptions_FilterSize")) 
+							-attribute ($rndGlobalNodeInst+".filterSize");
+ 			attrControlGrp -label (uiRes("m_AEelvishrayGlobals.kFace")) 
+							-attribute ($rndGlobalNodeInst+".face");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kOptions_Progressive"))
+							-attribute ($rndGlobalNodeInst+".progressive");
+		setParent ..;
+    setParent ..;
+	//Trace Depth
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kTraceDepth"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true  -width 500 -columnWidth 500; 
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kTraceDepth_Transparency"))
+							-attribute ($rndGlobalNodeInst+".trace_depth_transp");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kTraceDepth_GlossyReflections"))
+							-attribute ($rndGlobalNodeInst+".trace_depth_glossy_reflect");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kTraceDepth_DiffuseReflections"))
+							-attribute ($rndGlobalNodeInst+".trace_depth_diffuse_reflect");
+			attrControlGrp -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_GlossyRefractions"))
+							-attribute ($rndGlobalNodeInst+".trace_depth_glossy_refract");
+ 			attrControlGrp -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_DiffuseRefractions")) 
+							-attribute ($rndGlobalNodeInst+".trace_depth_diffuse_refract");
+ 			attrControlGrp -label (uiRes("m_AEelvishrayGlobals.kTraceDepth_SumDepth")) 
+							-attribute ($rndGlobalNodeInst+".trace_depth_sum");
+		setParent ..;
+    setParent ..;
+	//Displacement
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kDisplacementCategory"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true  -width 500 -columnWidth 500; 
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kDisplacement"))
+							-attribute ($rndGlobalNodeInst+".displace");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kMaxDisplacement"))
+							-attribute ($rndGlobalNodeInst+".max_displace");
+		setParent ..;
+    setParent ..;
+	//Displacement
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kGeometryApproximation"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true  -width 500 -columnWidth 500;
+			attrControlGrp  -label (uiRes("m_AEelvishrayGlobals.kApproxMethod"))
+							-cc "erGlobalTabApproxMethodChangeCB"
+							-attribute ($rndGlobalNodeInst+".approx_method");
+
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_Any"))
+							-attribute ($rndGlobalNodeInst+".approx_any");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_ViewDependent"))
+							-attribute ($rndGlobalNodeInst+".approx_view_dep");
+			
+			separator;
+
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApproxRegularUSubdiv"))
+							-annotation (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
+							-attribute ($rndGlobalNodeInst+".approx_regular_usubdiv") "erGlobalTab_approx_regular_usubdiv";
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApproxRegularVSubdiv"))
+							-annotation (uiRes("m_AEelvishrayGlobals.kApprox_Arg1"))
+							-attribute ($rndGlobalNodeInst+".approx_regular_vsubdiv") "erGlobalTab_approx_regular_vsubdiv";
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApproxLengthEdgeLength"))
+							-annotation (uiRes("m_AEelvishrayGlobals.kApprox_Arg0"))
+							-attribute ($rndGlobalNodeInst+".approx_length_edgelength") "erGlobalTab_approx_length_edgelength";
+			
+			separator;
+
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_Sharp"))
+							-attribute ($rndGlobalNodeInst+".approx_sharp");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_MinSubdiv"))
+							-attribute ($rndGlobalNodeInst+".approx_min_subdiv");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_MaxSubdiv"))
+							-attribute ($rndGlobalNodeInst+".approx_max_subdiv");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_MaxGridSize"))
+							-attribute ($rndGlobalNodeInst+".approx_max_grid_size");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kApprox_MotionFactor"))
+							-attribute ($rndGlobalNodeInst+".approx_motion_factor");		
+		setParent ..;
+    setParent ..;
+	}
+	liqPopIdent();
+}
+global proc erCreateGlobalsTab2(string $parent)
+{
+	liqPushIdent();
+	liqlog("erCreateGlobalsTab2(...)");
+
+	string $rndGlobalNodeInst = liqGetRendererGlobalsNodeInst(er_getRendererName());
+
+	{
+	//System
+    frameLayout -bs "etchedIn" -l (uiRes("m_AEelvishrayGlobals.kSystem"))  -cll true -cl false -parent $parent;
+		columnLayout -adj true;
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kSystem_OutputCall"))
+							-attribute ($rndGlobalNodeInst+".output_call");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kSystem_OutputESA"))
+							-attribute ($rndGlobalNodeInst+".output_esa");
+			attrControlGrp	-label (uiRes("m_AEelvishrayGlobals.kSystem_OutputESS"))
+							-attribute ($rndGlobalNodeInst+".output_ess");			
+		setParent ..;
+    setParent ..;
+	}
+
+	liqPopIdent();
+}
+global proc erGlobalTabApproxMethodChangeCB()
+{
+	liqPushIdent();
+	liqlog("erGlobalTabApproxMethodChangeCB(...)");
+	
+	string $rndGlobalNodeInst = liqGetRendererGlobalsNodeInst(er_getRendererName());
+
+	int $method = `getAttr ($rndGlobalNodeInst + ".approx_method")`;
+	liqlog("$method = ("+$method+")");
+
+	if ( $method == 0 ) {
+		control -edit -enable false "erGlobalTab_approx_regular_usubdiv";
+		control -edit -enable false "erGlobalTab_approx_regular_vsubdiv";
+		control -edit -enable false "erGlobalTab_approx_length_edgelength";
+	} else if( $method == 1 ) {
+		control -edit -enable true "erGlobalTab_approx_regular_usubdiv";
+		control -edit -enable true "erGlobalTab_approx_regular_vsubdiv";
+		control -edit -enable false "erGlobalTab_approx_length_edgelength";
+	} else if( $method == 2 ){
+		control -edit -enable false "erGlobalTab_approx_regular_usubdiv";
+		control -edit -enable false "erGlobalTab_approx_regular_vsubdiv";
+		control -edit -enable true "erGlobalTab_approx_length_edgelength";
+	}
 	liqPopIdent();
 }
