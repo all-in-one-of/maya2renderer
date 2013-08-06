@@ -974,12 +974,6 @@
     <None Include="..\..\mel\liquidLoadScripts.mel">
       <Filter>MEL Scripts</Filter>
     </None>
-    <None Include="..\..\mel\liq_util_widget.mel">
-      <Filter>xx</Filter>
-    </None>
-    <None Include="..\..\mel\liq_util_widget2.mel">
-      <Filter>xx</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\..\mel\liquidSlParseSdl.mel">
