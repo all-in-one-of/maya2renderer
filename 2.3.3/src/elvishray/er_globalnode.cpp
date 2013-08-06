@@ -1,6 +1,7 @@
 #include "er_globalnode.h"
 
 #include <liquid.h>
+#include <liqCreatePlug.h>
 #include "er_.h"
 #include "er_nodeId.h"
 
@@ -238,7 +239,16 @@ MStatus GlobalNode::initialize()
 	CREATE_BOOL( nAttr,  aoutput_esa,	"output_esa",	"esa",    false );
 	CREATE_BOOL( nAttr,  aoutput_ess,	"output_ess",	"ess",    false );
 	//verose&link
-	CREATE_INT(  nAttr,  averbose,				"verbose",		"vrb",	6);
+	CREATE_ENUM_BEG(eAttr, averbose,	"verbose",		"vrb", 6);
+		eAttr.addField("None",	0);
+		eAttr.addField("Fatal",	1);
+		eAttr.addField("Error",	2);
+		eAttr.addField("Warning",3);
+		eAttr.addField("Info",	4);
+		eAttr.addField("Debug",	5);
+		eAttr.addField("All",	6);
+	CREATE_ENUM_END(eAttr, averbose);
+
 	CREATE_BOOL( nAttr,  alink_eiIMG,			"eiIMG",		"li",	true );
 	CREATE_BOOL( nAttr,  alink_eiSHADER,		"eiSHADER",		"ls",	true );
 	CREATE_BOOL( nAttr,  alink_eiSHADER_maya,	"eiSHADER_maya","lsm",	true );
@@ -257,8 +267,21 @@ MStatus GlobalNode::initialize()
 	CREATE_FLOAT( nAttr,	acontrast,	"contrast",	"ctr",	0.05f);
 	CREATE_INT( nAttr,	asamples_min,	"samples_min",	"smn",	0);
 	CREATE_INT( nAttr,	asamples_max,	"samples_max",	"smx",	16);
-	CREATE_INT( nAttr,  afilterType,	"filterType",	"ft",	4);
+	CREATE_ENUM_BEG(eAttr, afilterType,	"filterType",	"ft",	4);
+		eAttr.addField("None",		0);
+		eAttr.addField("Box",		1);
+		eAttr.addField("Triangle",	2);
+		eAttr.addField("Catmull",	3);
+		eAttr.addField("Gaussian",	4);
+		eAttr.addField("Sinc",		5);
+	CREATE_ENUM_END(eAttr, afilterType);
 	CREATE_FLOAT( nAttr,afilterSize,	"filterSize",	"fs",	3.0f);
+	CREATE_ENUM_BEG(eAttr, aface,	"face",		"fac", 3);
+		eAttr.addField("None",	0);
+		eAttr.addField("Front",	1);
+		eAttr.addField("Back",	2);
+		eAttr.addField("Both",	3);
+	CREATE_ENUM_END(eAttr, aface);
 	CREATE_BOOL( nAttr,  aprogressive,	"progressive",	"prg",	true );
 
 	////motion
@@ -272,7 +295,6 @@ MStatus GlobalNode::initialize()
 
 	CREATE_BOOL( nAttr,  adisplace,			"displace",			"dis",	false);
 	CREATE_FLOAT( nAttr, amax_displace,		"max_displace",		"mdi",	false);
-	CREATE_INT(  nAttr,  aface,				"face",				"fac",	3);
 
 	////approx
 	const char* const values[3]={"None", "Regular", "Length"};

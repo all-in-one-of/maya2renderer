@@ -1,103 +1,6 @@
 source xxliquidutility.mel;
 
-//- verbose --------------------------------------------------
-global proc AEEIVerboseNew( string $messageAttr )
-{
-	liqPushIdent();
-	liqlog("AEEIVerboseNew("+$messageAttr+")");
 
-	string $buffer[];
-    tokenize($messageAttr, ".", $buffer);
-    if (size($buffer) == 0) return;
-    string $node = $buffer[0];
-
-	setUITemplate -pushTemplate attributeEditorTemplate;
-	attrEnumOptionMenuGrp
-				-label (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose"))
-				-at ($node+".verbose")
-				-ei 0 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_None"))
-				-ei 1 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Fatal"))
-				-ei 2 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Error"))
-				-ei 3 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Warning"))
-				-ei 4 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Info"))
-				-ei 5 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_Debug"))
-				-ei 6 (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose_All"))
-				EIVerboseMenu;
-    AEEIVerboseReplace($messageAttr);
-
-	setUITemplate -popTemplate;
-	liqPopIdent();
-}
-global proc AEEIVerboseReplace( string $messageAttr )
-{
-	liqPushIdent();
-	liqlog("AEEIVerboseReplace("+$messageAttr+")");
-	liqPopIdent();
-}
-// filter type -----------------------------------------------
-global proc AEEIFilterTypeNew( string $messageAttr )
-{
-	liqPushIdent();
-	liqlog("AEEIFilterTypeNew("+$messageAttr+")");
-
-	string $buffer[];
-    tokenize($messageAttr, ".", $buffer);
-    if (size($buffer) == 0) return;
-    string $node = $buffer[0];
-
-	setUITemplate -pushTemplate attributeEditorTemplate;
-	attrEnumOptionMenuGrp
-				-label (uiRes("m_AEelvishrayGlobals.kOptions_FilterType"))
-				-at ($node+".filterType")
-				-ei 0 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_None"))
-				-ei 1 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Box"))
-				-ei 2 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Triangle"))
-				-ei 3 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Catmull"))
-				-ei 4 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Gaussian"))
-				-ei 5 (uiRes("m_AEelvishrayGlobals.kOptions_FilterType_Sinc"))
-				EIFilterTypeMenu;
-    AEEIFilterTypeReplace($messageAttr);
-
-	setUITemplate -popTemplate;
-	liqPopIdent();
-}
-global proc AEEIFilterTypeReplace( string $messageAttr )
-{
-	liqPushIdent();
-	liqlog("AEEIFilterTypeReplace("+$messageAttr+")");
-	liqPopIdent();
-}
-// face -----------------------------------------------
-global proc AEEIFaceNew( string $messageAttr )
-{
-	liqPushIdent();
-	liqlog("AEEIFaceNew("+$messageAttr+")");
-
-	string $buffer[];
-    tokenize($messageAttr, ".", $buffer);
-    if (size($buffer) == 0) return;
-    string $node = $buffer[0];
-
-	setUITemplate -pushTemplate attributeEditorTemplate;
-	attrEnumOptionMenuGrp
-				-label (uiRes("m_AEelvishrayGlobals.kFace"))
-				-at ($node+".face")
-				-ei 0 (uiRes("m_AEelvishrayGlobals.kFace_None"))
-				-ei 1 (uiRes("m_AEelvishrayGlobals.kFace_Front"))
-				-ei 2 (uiRes("m_AEelvishrayGlobals.kFace_Back"))
-				-ei 3 (uiRes("m_AEelvishrayGlobals.kFace_Both"))
-				EIFaceMenu;
-    AEEIFaceReplace($messageAttr);
-
-	setUITemplate -popTemplate;
-	liqPopIdent();
-}
-global proc AEEIFaceReplace( string $messageAttr )
-{
-	liqPushIdent();
-	liqlog("AEEIFaceReplace("+$messageAttr+")");
-	liqPopIdent();
-}
 // approx method -----------------------------------------------
 //global proc AEEIApproxMethodNew( string $messageAttr )
 //{
@@ -203,7 +106,8 @@ global proc AEelvishrayGlobalsTemplate( string $node )
  		editorTemplate -endLayout;//System
  		//--------------------------------------------------
 	 	editorTemplate -beginLayout (uiRes("m_AEelvishrayGlobals.kProcessing")) -collapse 1;
-			editorTemplate -callCustom AEEIVerboseNew AEEIVerboseReplace "message";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kProcessing_Verbose"))
+						   -addDynamicControl "verbose";
 			
 			editorTemplate -addSeparator;
 
@@ -224,10 +128,12 @@ global proc AEelvishrayGlobalsTemplate( string $node )
 				-addDynamicControl "samples_min";
 			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_samples_max")) 
 				-addDynamicControl "samples_max";
-			editorTemplate -callCustom AEEIFilterTypeNew AEEIFilterTypeReplace "message";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_FilterType"))
+				-addDynamicControl "filterType";
  			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_FilterSize"))  
 				-addDynamicControl "filterSize";
-			editorTemplate -callCustom AEEIFaceNew AEEIFaceReplace "message";
+			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kFace"))
+				-addDynamicControl "face";
  			editorTemplate -label (uiRes("m_AEelvishrayGlobals.kOptions_Progressive")) 
 				-addDynamicControl "progressive";	
 			//editorTemplate -label ("motion:see RenderSettings->liquid->Frame->MotionBlur&DepthOfField");
