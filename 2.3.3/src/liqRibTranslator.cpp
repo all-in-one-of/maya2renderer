@@ -7836,7 +7836,7 @@ std::string liqRibTranslator::getFunctionTraceLogFileName() const
 	{
 		//fullpath name
 #ifndef _DEBUG
-		liquidMessage2(messageError, "liqglo.liqglo_lframe is not initilized in Release mode. so when the program goes here liqglo.liqglo_lframe is random value, I set it to 0 manully. You can ingore this error.");
+		liquidMessage2(messageInfo, "liqglo.liqglo_lframe is not initilized in Release mode. so when the program goes here liqglo.liqglo_lframe is random value, I set it to 0 manully. You can ingore this error.");
 		liqglo.liqglo_lframe = 0;
 #endif
 		MString imageName( liqglo.liqglo_projectDir+"rmanpix/"/*liqglo.m_pixDir*/ );
