@@ -23,7 +23,9 @@ setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}
 file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\*.*
 
 ; copy liquidDLL.mod to 
-setOutPath $DOCUMENTS\maya\2013-x64\modules
+;setOutPath $DOCUMENTS\maya\2013-x64\modules
+;file ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\liquidDLL.mod
+setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}
 file ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\liquidDLL.mod
 
 setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins
@@ -35,7 +37,7 @@ file ${LIQUID_ROOT}\2.3.3\doc\*.pdf
 file ${LIQUID_ROOT}\2.3.3\doc\*.ma
 
 
-setOutPath $INSTDIR\2.3.3\icon
+setOutPath $INSTDIR\2.3.3\icons
 file ${LIQUID_ROOT}\2.3.3\icons\*.*
 
 
@@ -61,7 +63,9 @@ setOutPath    $INSTDIR\2.3.3\src\elvishray\mel\alias
 file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\mel\alias\*.mel
 
 ; mod file
-setOutPath $DOCUMENTS\maya\2013-x64\modules
+;setOutPath $DOCUMENTS\maya\2013-x64\modules
+;file    ${LIQUID_ROOT}\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\eiSHADER_user_mayaplugin.mod
+setOutPath    $INSTDIR\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}
 file    ${LIQUID_ROOT}\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\eiSHADER_user_mayaplugin.mod
 
 setOutPath    $INSTDIR\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins
@@ -79,7 +83,9 @@ setOutPath    $INSTDIR\2.3.3\src\renderman\mel
 file /r ${LIQUID_ROOT}\2.3.3\src\renderman\mel\*.mel
 
 ; mod file
-setOutPath $DOCUMENTS\maya\2013-x64\modules
+;setOutPath $DOCUMENTS\maya\2013-x64\modules
+;file    ${LIQUID_ROOT}\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\rmSHADER_user_mayaplugin.mod
+setOutPath    $INSTDIR\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}
 file    ${LIQUID_ROOT}\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\rmSHADER_user_mayaplugin.mod
 
 setOutPath    $INSTDIR\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins
