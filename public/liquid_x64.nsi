@@ -22,10 +22,12 @@ section
 setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}
 file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\*.*
 
+; copy liquidDLL.mod to 
+setOutPath $DOCUMENTS\maya\2013-x64\modules
+file ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\liquidDLL.mod
 
-setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}
-file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\*.*
-
+setOutPath $INSTDIR\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins
+file /x *.pdb /x *.lib /x *.exp   ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins\*.*
 
 setOutPath $INSTDIR\2.3.3\doc
 file ${LIQUID_ROOT}\2.3.3\doc\*.txt
@@ -52,25 +54,45 @@ file ${LIQUID_ROOT}\2.3.3\mel\2013\*.mel
 setOutPath $INSTDIR\2.3.3\rendererDesc
 file ${LIQUID_ROOT}\2.3.3\rendererDesc\liquidRenderer.xml
 
+;---------------- ElvishRenderer -----------------------
 setOutPath    $INSTDIR\2.3.3\src\elvishray\mel
 file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\mel\*.mel
 setOutPath    $INSTDIR\2.3.3\src\elvishray\mel\alias
 file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\mel\alias\*.mel
 
+; mod file
+setOutPath $DOCUMENTS\maya\2013-x64\modules
+file    ${LIQUID_ROOT}\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\eiSHADER_user_mayaplugin.mod
+
+setOutPath    $INSTDIR\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins
+file    ${LIQUID_ROOT}\2.3.3\src\elvishray\eiSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins\*.*
+
 setOutPath    $INSTDIR\2.3.3\src\elvishray\eiSHADER_user\src
 file /r ${LIQUID_ROOT}\2.3.3\src\elvishray\eiSHADER_user\src\*.*
 
+setOutPath $INSTDIR\dependence\elvishray\r274\bin_x64
+file ${LIQUID_ROOT}\dependence\elvishray\r274\bin_x64\*.*
+
+
+;---------------- 3delight ----------------------------
 setOutPath    $INSTDIR\2.3.3\src\renderman\mel
 file /r ${LIQUID_ROOT}\2.3.3\src\renderman\mel\*.mel
 
-setOutPath    $INSTDIR\2.3.3\src\shaders\mel
+; mod file
+setOutPath $DOCUMENTS\maya\2013-x64\modules
+file    ${LIQUID_ROOT}\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\rmSHADER_user_mayaplugin.mod
+
+setOutPath    $INSTDIR\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins
+file    ${LIQUID_ROOT}\2.3.3\src\renderman\rmSHADER_user\bin\${LiqPlatform}\${LiqConfiguration}\plug-ins\*.*
+
+setOutPath    $INSTDIR\2.3.3\src\renderman\rmSHADER_user\src
+file /r ${LIQUID_ROOT}\2.3.3\src\renderman\rmSHADER_user\src\*.*
+
+setOutPath    $INSTDIR\2.3.3\lib\shaders
 file /r ${LIQUID_ROOT}\2.3.3\lib\shaders\*.*
 
 setOutPath $INSTDIR\dependence\_3delight
 file ${LIQUID_ROOT}\dependence\_3delight\*.*
-
-setOutPath $INSTDIR\dependence\elvishray\r274\bin_x64
-file ${LIQUID_ROOT}\dependence\elvishray\r274\bin_x64\*.*
 
 
 
@@ -86,19 +108,6 @@ FileOpen  $1 $0\bin\manager.ini a
 FileSeek  $1 0 END
 FileWrite $1 "$\r$\nsearchpath       $INSTDIR/dependence/elvishray/r274/bin_x64"
 FileClose $1
-
-
-; copy Maya.env to 
-MessageBox MB_OK "Maya.env will be copyed to $DOCUMENTS\maya\2013-x64, please backup your own Maya.env"
-setOutPath $DOCUMENTS\maya\2013-x64
-file ${LIQUID_ROOT}\2.3.3\bin\${LiqPlatform}\Maya.env
-
-
-; set env "LIQUID_ROOT"
-WriteRegExpandStr HKCU "Environment" "LIQUID_ROOT" "$INSTDIR"
-SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment"
-;ReadEnvStr $9 'test2'
-;MessageBox MB_OK "variable test2 has value $9"
 
 
 sectionEnd
