@@ -2715,6 +2715,29 @@ global proc liquidGlobalsFrameTab( string $prefix )
         }
       setParent ..;
     setParent ..;
+
+    frameLayout -bs "etchedIn" -l "Image" -cll true -cl false;
+      columnLayout -adj true ;
+        string $ddImageName_Note= "e.g. img_$LYR_$CAM_$F_$RND.tif;\\n"+
+								  "$F    - frame number;\\n"+
+								  "#     - frame number with padding;\\n"+
+								  "$SCN  - scene name;\\n"+
+								  "$SHOT - shot name;\\n"+
+								  "$VER  - shot version;\\n"+
+								  "$LYR  - render layer name;\\n"+
+								  "$RND  - subrenderer name, e.g. ElvishRender;\\n"+
+								  "$CAM  - render camera;\\n";
+		attrControlGrp	-label ("Display Name") -ann ($ddImageName_Note)
+						-attribute ("liquidGlobals.ddImageName[0]");
+		attrControlGrp	-label ("Display Driver")
+						-attribute ("liquidGlobals.ddImageType[0]");
+		attrControlGrp	-label ("Channel(s)")
+						-attribute ("liquidGlobals.ddImageMode[0]");
+		attrControlGrp	-label ("Parameter Type")
+						-attribute ("liquidGlobals.ddParamType[0]");
+      setParent ..;
+    setParent ..;
+
     frameLayout -bs "etchedIn" -l "Resolution" -cll true -cl false;
       columnLayout -adj true ;
         liquidShowIntGlobalPlus "xResolution" "Width"  "" "setAttr defaultResolution.width (`getAttr liquidGlobals.xResolution`);";
@@ -3159,9 +3182,17 @@ global proc liquidGlobalsDisplaysTab_buildIt( string $prefix )
     string $t1 = `tabLayout -cr false ($prefix + "liquidGlobalsDisplaysSubTabs")`;
     // print( ">> created : " + $t1 + "\n" );
       string $c1 = `columnLayout -adj true ($prefix + "liquidGlobalsDisplaysSetPrimary")`;
-      // print( ">> created : " + $c1 + "\n" );
-
-        liquidShowStringGlobalPlus( "ddImageName[0]", "Display Name", "e.g. img_$LYR_$CAM_$F_$RND.tif", $prefix );
+      // print( ">> created : " + $c1 + "\n" );	  
+        string $ddImageName_Note= "e.g. img_$LYR_$CAM_$F_$RND.tif;\\n"+
+								  "$F    - frame number; "+
+								  "#     - frame number with padding; "+
+								  "$SCN  - scene name; "+
+								  "$SHOT - shot name; "+
+								  "$VER  - shot version; "+
+								  "$LYR  - render layer name; "+
+								  "$RND  - subrenderer name, e.g. ElvishRender; "+
+								  "$CAM  - render camera; ";
+        liquidShowStringGlobalPlus( "ddImageName[0]", "Display Name", $ddImageName_Note, $prefix );
 	string $dd_ctl = liquidShowStringGlobal( "ddImageType[0]", "Display Driver", $prefix );
         // print ( "$dd_ctl = " +  $dd_ctl + "\n");
         liquidShowStringGlobal( "ddImageMode[0]", "Channel(s)", $prefix );

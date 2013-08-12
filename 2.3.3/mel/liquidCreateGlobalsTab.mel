@@ -130,8 +130,18 @@ global proc liquidCreateMayaGlobalsTabContent( string $prefix )
   }
   liqPopIdent();
 }
-
-
+/*
+liquidGlobalsFrameTab()
+liquidGlobalsFileTab(), liquidGlobalsFileTab_buildIt()
+liquidGlobalsImageTab(), liquidGlobalsImageTab_buildIt()
+liquidGlobalsDisplaysTab(), liquidGlobalsDisplaysTab_buildIt()
+liquidGlobalsRaysTab(), liquidGlobalsRaysTab_buildIt()
+liquidGlobalsOptionsTab(), liquidGlobalsOptionsTab_buildIt()
+liquidGlobalsJobTab(), liquidGlobalsJobTab_buildIt()
+liquidGlobalsRendererTab(), liquidGlobalsRendererTab_buildIt()
+liquidGlobalsFluidTab(), liquidGlobalsFluidTab_buildIt()
+liquidGlobalsAdvanceTab(), liquidGlobalsAdvanceTab_buildIt()
+*/
 global proc liquidCreateMayaGlobalsTab( string $prefix, string $name )
 {
   liqPushIdent();
