@@ -29,19 +29,13 @@ History		:	Created by yaoyansi, 2010.04.16.
 //#include "../common/prerequest_local.h"
 #include <common/mayacheck.h>
 #include "liqRibTranslator.h"
-#	pragma comment( lib, "eiAPI.lib" )
 
 typedef float ChannelType;
 
-void color128to64( eiVector & color, ChannelType &r, ChannelType &g, ChannelType &b, ChannelType &a )
+void color128to64( eiScalar & from, ChannelType &to )
 {
-	clampi( color.r, 0.0f, 1.0f );
-	clampi( color.g, 0.0f, 1.0f );
-	clampi( color.b, 0.0f, 1.0f );
-	r = ( 255.0f * color.r );
-	g = ( 255.0f * color.g );
-	b = ( 255.0f * color.b );
-	a = 255.0f;
+	clampi( from, 0.0f, 1.0f );
+	to = ( 255.0f * from );
 }
 //
 void setPixel(RV_PIXEL*pixels, 
@@ -186,12 +180,16 @@ void MayaConnection::UpdateTile( const eiInt job_state,
 	{
 		for (int i = 0; i < ei_framebuffer_cache_get_width(colorFrameBuffer); ++i)
 		{
-			ChannelType r,g,b,a;
-			eiVector		color;
-
+			eiVector color;
+			eiScalar opacity;
 			ei_framebuffer_cache_get_final(colorFrameBuffer, i, j, &color);
+			ei_framebuffer_cache_get_final(opacityFrameBuffer, i, j, &opacity);
 
-			color128to64(color, r,g,b,a);
+			ChannelType r,g,b,a;
+			color128to64(color.r, r);
+			color128to64(color.g, g);
+			color128to64(color.b, b);
+			color128to64(opacity, a);
 
 			setPixel(pixels, tile_width, tile_height,
 				i, tile_height-j-1,
