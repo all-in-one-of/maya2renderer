@@ -32,6 +32,7 @@
 #include <liqRibCamera.h>
 #include <liqRibTranslator.h>
 #include <liqShader.h>
+#include <liqMayaRenderView.h>
 #include "../renderermgr.h"
 #include "rm_helper.h"
 #include "shaderOutputRSL.h"
@@ -1149,7 +1150,7 @@ namespace renderman
 		CM_TRACE_FUNC("Renderer::doRenderView()");
 
 		//[refactor][1.21 ]
-		MString displayCmd = "liquidRenderView -c " + liqglo.liqglo_renderCamera;
+		MString displayCmd = liqMayaRenderCmd::getName()+" -c " + liqglo.liqglo_renderCamera;
 		displayCmd += " -l " + MString( ( liqglo.m_renderViewLocal )? "1":"0" );
 		displayCmd += " -port ";
 		displayCmd += (int)liqglo.m_renderViewPort;
@@ -1182,7 +1183,7 @@ namespace renderman
 			false
 		);
 		//[refactor][1.20 ]
-		/*  philippe: here we launch the liquidRenderView command which will listen to the liqmaya display driver
+		/*  philippe: here we launch the liqMayaRenderCmd::getName() command which will listen to the liqmaya display driver
 		to display buckets in the renderview.
 		*/
 		if( liqglo.m_renderView ) 

@@ -2974,12 +2974,12 @@ MStatus liqRibTranslator::doIt()
 //				}//if( !exitstat ) 
 //			}//if( useRenderScript ) else
 //			//
-//			//  philippe: here we launch the liquidRenderView command which will listen to the liqmaya display driver
+//			//  philippe: here we launch the liqMayaRenderCmd::getName() command which will listen to the liqmaya display driver
 //			//  to display buckets in the renderview.
 //			if ( liqglo.m_renderView ) 
 //			{
 //				//[refactor][1.21 ]
-//				MString displayCmd = "liquidRenderView -c " + liqglo.liqglo_renderCamera;
+//				MString displayCmd = liqMayaRenderCmd::getName()+" -c " + liqglo.liqglo_renderCamera;
 //				displayCmd += " -l " + MString( ( liqglo.m_renderViewLocal )? "1":"0" );
 //				displayCmd += " -port ";
 //				displayCmd += (int)liqglo.m_renderViewPort;

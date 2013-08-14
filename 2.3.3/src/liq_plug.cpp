@@ -144,7 +144,7 @@ MStatus _initializePlugin(MObject obj)
 	//}
 
 	if( ! isCommandRegistered(liqMayaRenderCmd::getName()) ){
-		// register the liquidRenderView command
+		// register the liquidRenderViewCmd command
 		status = plugin.registerCommand( liqMayaRenderCmd::getName(), liqMayaRenderCmd::creator ,liqMayaRenderCmd::newSyntax);
 		IfMErrorMsgReturnIt( status, "Can't register command:"+liqMayaRenderCmd::getName() );
 	}else{

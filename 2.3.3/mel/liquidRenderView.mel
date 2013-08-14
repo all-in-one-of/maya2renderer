@@ -184,7 +184,7 @@ global proc liqRVExposure( float $val )
   global float $gLiqLastExposure;
   string $cam = `getAttr liquidGlobals.renderCamera`;
 
-  string $lastRenders[] = `liquidRenderView -lr`;
+  string $lastRenders[] = `liquidRenderViewCmd -lr`;
   string $last = $lastRenders[ size( $lastRenders ) - 1 ];
   if ( $gLiqLastExposed != $last || $val == 0 ) $gLiqLastExposure = 0;
 
@@ -199,9 +199,9 @@ global proc liqRVExposure( float $val )
 
 	if ( `filetest -r $last` ) {
 		if( size($cam)==0 )
-			liquidRenderView              -renderFromFile 1 -bucketFile $last -quantize 0 $exposure 0 255 -timeout 10;
+			liquidRenderViewCmd              -renderFromFile 1 -bucketFile $last -quantize 0 $exposure 0 255 -timeout 10;
 		else
-			liquidRenderView -camera $cam -renderFromFile 1 -bucketFile $last -quantize 0 $exposure 0 255 -timeout 10;
+			liquidRenderViewCmd -camera $cam -renderFromFile 1 -bucketFile $last -quantize 0 $exposure 0 255 -timeout 10;
 	}
 
     $caption = "Exposure : " + $newExp + " f-stop";

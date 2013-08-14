@@ -833,7 +833,7 @@ global proc float[] liquidPreview_getRenderViewCropWindow()
 	liqlog("liquidPreview_getRenderViewCropWindow(...)");
   int $imageSize[] = liquidPreview_getRenderViewResolution();
   //liqlog("$imageSize={"+$imageSize[0]+","+$imageSize[1]+"}");
-  int $renderRegion[] = `liquidRenderView -rg`;
+  int $renderRegion[] = `liquidRenderViewCmd -rg`;
   //liqlog("$renderRegion={"+$renderRegion[0]+","+$renderRegion[1]+","+$renderRegion[2]+","+$renderRegion[3]+"}");
   float $x1, $x2, $y1, $y2;
 
