@@ -1269,17 +1269,19 @@ namespace elvishray
 	{
 		CM_TRACE_FUNC("Renderer::canExport()");
 
-		//whether manager.ini exist---------------------------------------
+		//check manager.ini ---------------------------------------
+		// 1.check mnager.ini exists or not
 		MString MAYA_PATH;
 		IfMErrorWarn(MGlobal::executeCommand( "getenv(\"MAYA_LOCATION\")", MAYA_PATH));
 		MString manager_ini_path(MAYA_PATH+"/bin/manager.ini");
 
-		FILE *manager_ini = NULL;
-		if( !(manager_ini = fopen(manager_ini_path.asChar(),"r")) )
+		std::ifstream manager_ini;
+		manager_ini.open(manager_ini_path.asChar());
+		if( !manager_ini.is_open() )
 		{
 			liquidMessage2(messageError,
 				"%s/bin/manager.ini is not found. Please copy Elvishray's manager.ini to %s/bin/, "
-				"Make sure the searchpath in manager.ini is set to the directory which contains eiIMG.dll and eiSHADER.dll. "
+				"Make sure the 'searchpath' in manager.ini is set to the directory which contains eiIMG.dll and eiSHADER.dll. "
 				"e.g. searchpath <LiquidRoot>/dependence/elvishray/bin (or <LiquidRoot>/dependence/elvishray/bin_x64 on 64bit OS)",
 				MAYA_PATH.asChar(),
 				MAYA_PATH.asChar()
@@ -1289,7 +1291,44 @@ namespace elvishray
 			//	"See Maya Script Editor Window for more details.");
 			return false;
 		}
-		fclose(manager_ini);
+		
+		// 2.check the searchpath value
+		const std::string searchpath_key("searchpath");
+		const std::size_t searchpath_key_len = searchpath_key.size();
+		std::string line;
+		while( std::getline(manager_ini, line) )
+		{
+			//std::string key(line.substr(0, 10));//debug
+			if(line.substr(0, searchpath_key_len) != searchpath_key)
+				continue;
+			//get the searchpath value
+			std::size_t i = searchpath_key_len;//search the value after "searchpath"
+			const char *buffer = line.c_str();
+			for(; i<line.size(); ++i )
+			{
+				if( buffer[i] != ' ' && buffer[i] != '\t' )//skip ' ' and '\t'
+					break;
+			}
+			std::string searchpath_value(line.substr(i));//get "searchpath" value 
+
+			//open eiIMG.dll to test the searchpath is correct
+			if( searchpath_value.back() != '/' || searchpath_value.back() != '\\' ){
+				searchpath_value += "/";
+			}
+			std::ifstream eiIMG_dll;
+			eiIMG_dll.open(searchpath_value+"eiIMG.dll");
+			if( !eiIMG_dll.is_open() )
+			{
+				liquidMessage2(messageError,
+					"%seiIMG.dll is not found. Please check the 'searchpath' in %s/bin/manager.ini, and make sure the directory contains the eiIMG.dll",
+					searchpath_value.c_str(),
+					MAYA_PATH.asChar() );
+				return false;
+			}
+			eiIMG_dll.close();
+		}
+		manager_ini.close();
+
 
 		//-------------------------------------
 		int face = m_gnode->getInt("face");
