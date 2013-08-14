@@ -53,7 +53,8 @@ class liqDisplacementNode : public MPxNode
     static  MStatus   initialize();
 
     //  Id tag for use with binary file format
-    static  MTypeId   id;
+	static  MTypeId   id;
+	static MString getTypeName(){ return "liquidDisplacement"; }
     liqNodeSwatch*    renderSwatch;
 
   private:

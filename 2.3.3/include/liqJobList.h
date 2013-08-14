@@ -36,6 +36,7 @@ public:
 
   static void* creator();
   static MSyntax syntax();
+  static MString getName(){ return "liquidJobList";}
 
   MStatus doIt(const MArgList& args);
   MStatus redoIt();

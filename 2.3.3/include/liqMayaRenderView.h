@@ -55,6 +55,8 @@ public:
 	bool		isUndoable() const;
 	static MSyntax newSyntax();
 	static		void* creator();
+	static MString getName(){ return "liquidRenderView";}
+
 	static std::deque<std::string> m_lastBucketFiles;
 
 private:

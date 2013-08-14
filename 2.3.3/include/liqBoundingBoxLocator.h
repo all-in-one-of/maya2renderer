@@ -41,7 +41,8 @@ public:
 	static void *creator();
     static MStatus initialize();
 
-    static const MTypeId id;
+	static const MTypeId id;
+	static MString getTypeName(){ return "liqBoundingBoxLocator"; }
     static const MString typeName;
 
 	boost::shared_array< MPoint > pts;

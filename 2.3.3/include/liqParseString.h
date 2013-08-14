@@ -37,6 +37,7 @@ public:
 	liqParseString();
 	virtual ~liqParseString();
 	static void *creator();
+	static MString getName(){ return "liqParseString";}
 	MStatus doIt(const MArgList& args );
 };
 

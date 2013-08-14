@@ -54,6 +54,7 @@ public:
   static void* creator();
 
   static MSyntax syntax();
+  static MString getName(){ return "liquidPreviewShader";}
   MStatus doIt( const MArgList& args );
 
 private:

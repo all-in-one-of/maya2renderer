@@ -19,7 +19,8 @@ class liqRibboxNode : public MPxNode
     static  MStatus   initialize();
 
     //  Id tag for use with binary file format
-    static  MTypeId   id;
+	static  MTypeId   id;
+	static MString getTypeName(){ return "liquidRibBox"; }
     liqNodeSwatch*    renderSwatch;
 
 	private:

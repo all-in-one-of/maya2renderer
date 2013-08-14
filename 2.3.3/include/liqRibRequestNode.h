@@ -50,7 +50,7 @@ public:
 	static  MStatus initialize();
 
 	static MTypeId id;
-
+	static MString getTypeName(){ return "liquidRibRequest"; }
 private:
 	static MObject aPreFrame;
 	static MObject aPreWorld;

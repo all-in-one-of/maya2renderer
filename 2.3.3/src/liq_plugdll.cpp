@@ -50,7 +50,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 //  Description:
 //      Register the command when the plug-in is loaded
 {
-	_initializePlugin(obj);
+	//_initializePlugin(obj);
   
   return MS::kSuccess;
 }
@@ -59,7 +59,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 //  Description:
 //      Deregister the command when the plug-in is unloaded
 {
-	_uninitializePlugin(obj);
+	//_uninitializePlugin(obj);
 
   return MS::kSuccess;
 }

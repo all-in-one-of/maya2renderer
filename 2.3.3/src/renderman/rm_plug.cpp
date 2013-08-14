@@ -504,12 +504,14 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 {
 	MStatus status;
 	MFnPlugin plugin(obj, "https://github.com/maya2renderer/maya2renderer", "0.0.1", "Any");
+
+	_initializePlugin(obj);	
 	//
 	liquid::RendererMgr::registFactory("renderman", new renderman::Factory());
 	
 	//
 	registRiCommand(plugin);
-	//_initializePlugin(obj);
+
 
 	// register the Globals node
 	status = plugin.registerNode( 
@@ -541,11 +543,12 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	status = plugin.deregisterNode( renderman::GlobalNode::typeId );
 	IfMErrorMsgReturnIt( status, "Can't deregister elvishray::GlobalNode node" );
 
-	//_uninitializePlugin(obj);
+
 	deregistRiCommand(plugin);
 
 	//
 	liquid::RendererMgr::unregistFactory("renderman");
-
+	
+	_uninitializePlugin(obj);
 	return MS::kSuccess;
 }

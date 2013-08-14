@@ -43,6 +43,7 @@ public:
   liqGetSloInfo();
   virtual       ~liqGetSloInfo();
   static void*  creator();
+  static MString getCommandName(){ return "liquidGetSloInfo";}
   int           setShader( MString shaderName );
   int           setShaderNode( MFnDependencyNode &shaderNode );
   void          resetIt();

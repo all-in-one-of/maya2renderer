@@ -33,6 +33,9 @@
 #include <liqGlobalHelpers_refactor.h>
 
 #include "common/mayacheck.h"
+#define MNoVersionString
+#define MNoPluginEntry
+#include <maya/MFnPlugin.h>
 
 //#include <liqShader.h>
 #include <liqMayaNodeIds.h>
@@ -1977,4 +1980,14 @@ LIQUID_EXPORT MString liqGetRendererGlobalsNodeInst(const MString &renderer)
 	MString ret;
 	IfMErrorWarn(MGlobal::executeCommand("liqGetRendererGlobalsNodeInst(\""+renderer+"\")", ret));
 	return ret;
+}
+LIQUID_EXPORT  bool isNodeRegistered(const MString &nodeTypeName)
+{
+	return MFnPlugin::isNodeRegistered(nodeTypeName);
+}
+LIQUID_EXPORT  bool isCommandRegistered(const MString &commandName)
+{
+	MString result;
+	IfMErrorWarn(MGlobal::executeCommand("whatIs "+commandName, result));
+	return (result != "Unknown");
 }

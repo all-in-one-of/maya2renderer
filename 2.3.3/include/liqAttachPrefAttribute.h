@@ -44,6 +44,7 @@ public:
 
   static void*      creator();
   static MSyntax    syntax();
+  static MString getName(){ return "liquidAttachPrefAttribute";}
 
   MStatus           doIt( const MArgList& );
   MStatus           redoIt();

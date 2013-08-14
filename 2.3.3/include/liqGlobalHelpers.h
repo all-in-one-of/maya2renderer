@@ -193,4 +193,6 @@ LIQUID_EXPORT int getShadingGroups(const MString& shapeNode, std::vector<std::st
 LIQUID_EXPORT MString liqGetRendererGlobalsNodeType(const MString &renderer);
 LIQUID_EXPORT MString liqGetRendererGlobalsNodeInst(const MString &renderer);
 //
+LIQUID_EXPORT  bool isNodeRegistered(const MString &typeName);
+LIQUID_EXPORT  bool isCommandRegistered(const MString &typeName);
 #endif

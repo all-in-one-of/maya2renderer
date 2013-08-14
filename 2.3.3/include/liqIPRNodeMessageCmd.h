@@ -17,6 +17,7 @@ public:
 	virtual	~liqIPRNodeMessage(); 
 	virtual MStatus	doIt( const MArgList& args );
 	static void*	creator();
+	static MString getName(){ return "liqIPRNodeMessage";}
 	virtual bool	isUndoable() const{ return false; }
 	virtual bool	hasSyntax() const{ return true; }
 

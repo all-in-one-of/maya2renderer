@@ -72,6 +72,7 @@ public:
 
 	static void * creator();
 	static MSyntax syntax();
+	static MString getName(){ return "liquid";}
 
 	MStatus doIt(const MArgList& args );
 	MStatus doIt();

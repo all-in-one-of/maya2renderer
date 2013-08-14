@@ -40,7 +40,8 @@ public:
 	virtual ~liqGetAttr();
   
 	static void*	    creator();
-			    
+	static MString getName(){ return "liquidGetAttr";}
+
 	virtual MStatus	    doIt(const MArgList& args );
 private:
 	liqGetAttr(const liqGetAttr&);

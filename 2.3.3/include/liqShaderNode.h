@@ -53,6 +53,7 @@ class liqShaderNode : public MPxNode
 
     //  Id tag for use with binary file format
     static  MTypeId   id;
+	static MString getTypeName(){ return "liquidShader"; }
     liqNodeSwatch*    renderSwatch;
 
   private:

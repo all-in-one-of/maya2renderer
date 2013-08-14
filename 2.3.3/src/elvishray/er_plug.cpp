@@ -58,7 +58,7 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 {
 	MStatus status;
 	MFnPlugin plugin( obj, "https://github.com/maya2renderer/maya2renderer", "0.0.1", "Any");
-	//_initializePlugin(obj);
+	_initializePlugin(obj);
 
 	//
 	liquid::RendererMgr::registFactory(elvishray::RENDER_NAME.asChar(), new elvishray::Factory());
@@ -117,7 +117,7 @@ PLUGIN_EXPORT MStatus uninitializePlugin(MObject obj)
 	//
 	liquid::RendererMgr::unregistFactory(elvishray::RENDER_NAME.asChar());
 	//
-	//_uninitializePlugin(obj);
+	_uninitializePlugin(obj);
 
   return MS::kSuccess;
 }

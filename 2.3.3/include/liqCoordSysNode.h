@@ -29,6 +29,7 @@ class liqCoordSysNode : public MPxLocatorNode
 
   public:
     static	MTypeId		      id;
+	static MString getTypeName(){ return "liquidCoordSys"; }
 
   private:
     int     m_coordType;
