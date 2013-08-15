@@ -77,6 +77,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	elvishray::FlatColorNodeVisitor::regist(plugin);
 	elvishray::erSkylightNodeVisitor::regist(plugin);
 	elvishray::erPhysicalskyNodeVisitor::regist(plugin);
+	
+	MGlobal::executeCommand("source \"userSetup_eiSHADER_user.mel\";");
 
 	MGlobal::executeCommand("erAddShaderPlugin(\""+getShaderPluginName()+"\")");
 
