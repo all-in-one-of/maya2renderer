@@ -857,6 +857,7 @@
                       >11 Visitor::outputShadingGroup(initialParticleSE,0)
                   >9 ConvertShadingNetwork::exportShadingGroupEnd(initialParticleSE)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(perspShape,miEnvironmentShader)
+                    >10 ConvertShadingNetwork::_exportShaderNodeInPlug(perspShape,miEnvironmentShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(perspShape,liqVolumeShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(perspShape,liqEnvironmentShader)
                     >10 ConvertShadingNetwork::_exportShaderNodeInPlug(perspShape,liqEnvironmentShader)
