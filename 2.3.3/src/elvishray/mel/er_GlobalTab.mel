@@ -7,13 +7,17 @@ global proc erGlobalTab()
 	liqPushIdent();
 	liqlog("erGlobalTab()");
 
-	if ( `renderer -exists (liq_getRendererName())`)
+	string $rendererName = liq_getRendererName();
+
+	if ( `renderer -exists ($rendererName)`)
 	{
 		renderer -edit
-				-addGlobalsTab (er_getRendererName())
+				-addGlobalsTab ($rendererName)
 						"erCreateGlobalsTab"
 						"erUpdateGlobalsTab"
-		(liq_getRendererName());
+		($rendererName);
+	}else{
+		liqError($rendererName+" is not registed.");
 	}
 	liqPopIdent();
 }

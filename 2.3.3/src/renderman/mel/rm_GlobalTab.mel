@@ -9,13 +9,17 @@ global proc rmGlobalTab()
 	liqPushIdent();
 	liqlog("rmGlobalTab()");
 
-	if ( `renderer -exists (liq_getRendererName())`)
+	string $rendererName = liq_getRendererName();
+
+	if ( `renderer -exists ($rendererName)`)
 	{
 		renderer -edit
-				-addGlobalsTab (rm_getRendererName()) "rmCreateGlobalsTab" "rmUpdateGlobalsTab"
-		(liq_getRendererName());
+				-addGlobalsTab ($rendererName) 
+				"rmCreateGlobalsTab" 
+				"rmUpdateGlobalsTab"
+		($rendererName);
 	}else{
-		liqError("liquid is not registed.");
+		liqError($rendererName+" is not registed.");
 	}
 	liqPopIdent();
 }
