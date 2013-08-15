@@ -31,3 +31,12 @@ global proc liquidShutdown_ElvishRender()
 
 	liqPopIdent();
 }
+//
+global proc liqUpdateSubRendererGlobalNodeSetting_ElvishRender()
+{
+	liqPushIdent();
+	liqlog("liqUpdateSubRendererGlobalNodeSetting_ElvishRender()");
+	
+	liqUpdateSubRendererGlobalNodeSetting_elvishray();
+	liqPopIdent();
+}

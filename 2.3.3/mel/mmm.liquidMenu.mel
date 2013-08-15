@@ -6,6 +6,7 @@ source xxliquidutility.mel;
 //	liqlog("mmm.liquidMenu(...)");
 //
 //    liquidInitCFD;
-//    liquidStartup();
+//    liquidStartupNoUI();
+//    liquidStartupUI();
 //  liqPopIdent();
 //}

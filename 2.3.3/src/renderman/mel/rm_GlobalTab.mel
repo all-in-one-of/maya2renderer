@@ -9,10 +9,12 @@ global proc rmGlobalTab()
 	liqPushIdent();
 	liqlog("rmGlobalTab()");
 
-	string $rendererName = liq_getRendererName();
+	string $rendererName = rm_getRendererName();
 
 	if ( `renderer -exists ($rendererName)`)
 	{
+		liquidAddTabs($rendererName);//moved from registerLiquidRenderer()
+
 		renderer -edit
 				-addGlobalsTab ($rendererName) 
 				"rmCreateGlobalsTab" 

@@ -570,14 +570,16 @@ MStatus _initializePlugin(MObject obj)
 		if ( tmphomeChar[ k ] == '\\' )
 			tmphomeChar[ k ] = '/';
 	}
-	sourceLine += "source \""+MString(tmphomeChar)+"/mel/liquidLoadScripts.mel\"; liquidLoadScripts(); ";
+	sourceLine += "source \""+MString(tmphomeChar)+"/mel/liquidLoadScripts.mel\";";
 	sourceLine += "source \""+MString(tmphomeChar)+"/mel/liquidStartup.mel\"; ";
 	status = MGlobal::executeCommand(sourceLine);
 	IfMErrorMsgReturnIt( status, "executeCommand() fails: "+sourceLine );
 
-	status = plugin.registerUI("liquidStartup", "liquidShutdown", 
-		"liquidStartup", "liquidShutdown");
-	IfMErrorMsgReturnIt( status, "Can't register liquidStartup and liquidShutdown interface scripts" );
+	status = MGlobal::executeCommand("liquidStartupNoUI();");
+	IfMErrorMsgReturnIt( status, "liquidStartupNoUI() fails");
+
+	status = plugin.registerUI("liquidStartupUI", "liquidShutdownUI");
+	IfMErrorMsgReturnIt( status, "Can't register liquidStartupUI and liquidShutdownUI interface scripts" );
 	printf("Liquid %s registered\n", LIQUIDVERSION);
 
 	liquid::liqMessageCallback::registCallback();

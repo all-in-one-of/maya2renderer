@@ -36,13 +36,11 @@
 //
 source xxliquidutility.mel;
 
-global proc liquidShutdown()
+
+global proc liquidShutdownNoUI()
 {
   liqPushIdent();
-	liqlog("liquidShutdown()");
-
-	//UI
-    if ( `menu -exists liquidMainWindowMenu` ) deleteUI liquidMainWindowMenu;
+	liqlog("liquidShutdownNoUI()");
 
 	////unregister renderer//moved to liquidShutdown_renderman() and liquidShutdown_elvishray()
 	//liquidRemoveRendererCallbacks();
@@ -53,4 +51,13 @@ global proc liquidShutdown()
 
   liqPopIdent();
 }
+global proc liquidShutdownUI()
+{
+	liqPushIdent();
+	liqlog("liquidShutdownUI()");
 
+	//UI
+	liquidRemoveMenusIfAny();
+
+	liqPopIdent();
+}

@@ -498,7 +498,7 @@ global proc rmLiquidLoadGlobals()
 		setAttr "liquidGlobals.__Pref" no;
 		setAttr "liquidGlobals.MakeShadow" no;
 	}else{
-		liqWarn("liquidGlobals NOT exists!");
+		liqError("liquidGlobals NOT exists!");
 	}
 	liqPopIdent();
 }
@@ -510,9 +510,9 @@ global proc liquidStartup_renderman()
 
 	evalEcho( "source \""+liquidGetHome()+"/mel/liquidProceduralsForSubRenderer.mel\"");
 		
-	{//moved from liquidStartup()
+	{//moved from liquidStartupNoUI()
 	//register renderer
-	registerLiquidRenderer();
+	registerLiquidRenderer(rm_getRendererName());
 	//liquidAddAttributeExtension();
 	liquidAddRendererCallbacks();
 	}
@@ -521,17 +521,16 @@ global proc liquidStartup_renderman()
 
 	//create global node for this renderer
 	liqGlobalsNodeRendererMain(rm_getRendererName());
-	rmLiquidLoadGlobals();
-	//set liquidGlobals.renderer
-	liqSetSubRendererName(rm_getRendererName());
+	liqUpdateSubRendererGlobalNodeSetting_renderman();
 
-	//update menu
-	liquidCreateMenus();
-	liquidShaderNodes_AERefresh();
 
 	//
 	if( `about -batch`== false )
 	{
+		//update menu
+		liquidCreateMenus();
+		liquidShaderNodes_AERefresh();
+
 		rmGlobalTab();
 	}
 
@@ -548,12 +547,24 @@ global proc liquidShutdown_renderman()
 	
 	liquidDelSubRenderer(rm_getRendererName());
 
-	{//moved from liquidShutdown()
+	{//moved from liquidShutdownNoUI()
 	//unregister renderer
 	liquidRemoveRendererCallbacks();
 	//liquidDeleteAttributeExtension();
-    unregisterLiquidRenderer();
+    unregisterLiquidRenderer(rm_getRendererName());
 	}
+
+	liqPopIdent();
+}
+//
+global proc liqUpdateSubRendererGlobalNodeSetting_renderman()
+{
+	liqPushIdent();
+	liqlog("liqUpdateSubRendererGlobalNodeSetting_renderman()");
+	
+	rmLiquidLoadGlobals();
+	//set liquidGlobals.renderer
+	liqSetSubRendererName(rm_getRendererName());
 
 	liqPopIdent();
 }

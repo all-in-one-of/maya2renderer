@@ -275,9 +275,9 @@ global proc liquidStartup_elvishray()
 
 	evalEcho( "source \""+liquidGetHome()+"/mel/liquidProceduralsForSubRenderer.mel\"");
 
-	{//moved from liquidStartup()
+	{//moved from liquidStartupNoUI()
 	//register renderer
-	registerLiquidRenderer();
+	registerLiquidRenderer(er_getRendererName());
 	//liquidAddAttributeExtension();
 	liquidAddRendererCallbacks();
 	}
@@ -286,17 +286,16 @@ global proc liquidStartup_elvishray()
 
 	//create global node for this renderer
 	liqGlobalsNodeRendererMain(er_getRendererName());
-	erLiquidLoadGlobals();
-	//set liquidGlobals.renderer
-	liqSetSubRendererName(er_getRendererName());
+	liqUpdateSubRendererGlobalNodeSetting_elvishray();
 
-	//update menu
-	liquidCreateMenus();
-	liquidShaderNodes_AERefresh();
-		
+	
 	//
 	if( `about -batch`== false )
 	{
+		//update menu
+		liquidCreateMenus();
+		liquidShaderNodes_AERefresh();
+
 		erGlobalTab();
 	}
 
@@ -313,13 +312,25 @@ global proc liquidShutdown_elvishray()
 
 	liquidDelSubRenderer(er_getRendererName());
 
-	{//moved from liquidShutdown()
+	{//moved from liquidShutdownNoUI()
 	//unregister renderer
 	liquidRemoveRendererCallbacks();
 	//liquidDeleteAttributeExtension();
-    unregisterLiquidRenderer();
+    unregisterLiquidRenderer(er_getRendererName());
 	}
 
+
+	liqPopIdent();
+}
+//
+global proc liqUpdateSubRendererGlobalNodeSetting_elvishray()
+{
+	liqPushIdent();
+	liqlog("liqUpdateSubRendererGlobalNodeSetting_elvishray()");
+	
+	erLiquidLoadGlobals();
+	//set liquidGlobals.renderer
+	liqSetSubRendererName(er_getRendererName());
 
 	liqPopIdent();
 }

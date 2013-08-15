@@ -257,7 +257,7 @@ global proc liquidAETemplateOverwrite()
 global proc liquidShowAbout()
 {
   liqPushIdent();
-	liqlog("liquidShowAbout(...)");
+	liqlog("liquidShowAbout()");
   if (`window -exists liquidAbout`) {
     deleteUI liquidAbout;
   }
@@ -589,23 +589,22 @@ global proc liquidCreateMenus()
   string $iconPath = (liquidGetHome()+"/icons/");
 
   // keep it nice and clean
-  if ( `menu -exists liquidMainWindowMenu` ) 
-	deleteUI liquidMainWindowMenu;
+  liquidRemoveMenusIfAny();
 
   if ( $gMainWindow != "" )
   {
     setParent $gMainWindow;
     menu -label "Liquid" -tearOff true liquidMainWindowMenu;
 		string $menuName;
-		$menuName = "liquidChooseRendererMenu";
-	  	menuItem -label "Choose Renderer"
-               -subMenu true
-               -tearOff false
-			   -ann "liquidBuildChooseSubRendererMenu(...)"
-               -postMenuCommand 
-                ("liquidBuildChooseSubRendererMenu "+$menuName)
-               $menuName;
-		setParent -menu ..; // from submenu 
+		//$menuName = "liquidChooseRendererMenu";
+		//menuItem -label "Choose Renderer"
+		//		-subMenu true
+		//		-tearOff false
+		//		-ann "liquidBuildChooseSubRendererMenu(...)"
+		//		-postMenuCommand 
+		//		("liquidBuildChooseSubRendererMenu "+$menuName)
+		//		$menuName;
+		//setParent -menu ..; // from submenu 
 
 		$menuName = "liquidChooseCameraMenu";
 		menuItem -label "Choose Camera"
@@ -752,11 +751,14 @@ global proc liquidCreateMenus()
 //===========================================================================================
 // Destroy the liquid menu interface
 //===========================================================================================
-global proc liquidRemoveMenus()
+global proc liquidRemoveMenusIfAny()
 {
   liqPushIdent();
-	liqlog("liquidRemoveMenus(...)");
-  deleteUI liquidMainWindowMenu;
+	liqlog("liquidRemoveMenus()");
+	if ( `menu -exists liquidMainWindowMenu` ) 
+	{
+		deleteUI liquidMainWindowMenu;
+	}
   liqPopIdent();
 }
 //===========================================================================================
@@ -1055,10 +1057,10 @@ global proc liquidCreateScriptJobs()
 //===========================================================================================
 //Initializes the Liquid User Interface.
 //===========================================================================================
-global proc liquidStartup()
+global proc liquidStartupNoUI()
 {
   liqPushIdent();
-	liqlog("liquidStartup()");
+	liqlog("liquidStartupNoUI()");
   // BT: the module manager takes care of sourcing so we dont want to be sourcing this lot twice
   // MM: We need to add code that checks the environment to see if we are at RSP.
   // We can't just break Liquid for everyone but ourselves -- particularly not if we really have
@@ -1077,17 +1079,24 @@ global proc liquidStartup()
 
   //UI
   //liquidRegisterSlLib();
-  liquidCreateMenus();
+  //liquidCreateMenus();
   liquidCreateScriptNode();
   liquidCreateScriptJobs();
 
-  eval "liquidAETemplateOverwrite"; //evalDeferred -lp "liquidAETemplateOverwrite";
 
 
 
   liqPopIdent();
 }
+global proc liquidStartupUI()
+{
+	liqPushIdent();
+	liqlog("liquidStartupUI()");
 
+	eval "liquidAETemplateOverwrite"; //evalDeferred -lp "liquidAETemplateOverwrite";
+
+	liqPopIdent();
+}
 global proc liquidmayaBatchRenderOptions()
 {
   liqPushIdent();
@@ -1218,37 +1227,36 @@ global proc liquidRenderingEditorsSubMenu(string $parentMenuItem)
 }
 
 //
+//global proc liquidBuildChooseSubRendererMenu(string $parent_menu)
+//{
+//	liqPushIdent();
+//	liqlog("liquidBuildChooseSubRendererMenu("+$parent_menu+")");
+//		
+//	menu -edit -deleteAllItems $parent_menu;
+//
+//	//get renderers
+//	string $renderer[] = liquidGatherLoadedSubRenderers();
+//	
+//	radioMenuItemCollection -parent $parent_menu;
+//	//build menu items
+//	for($rnd in $renderer)
+//	{
+//		menuItem 
+//			-label (interToUI($rnd))
+//			-radioButton (isCurrentSubRenderer($rnd))
+//			-command ("liquidBuildChooseSubRenderer(\""+$rnd+"\")")
+//			-parent $parent_menu;
+//	}
+//	menuItem -divider true -parent $parent_menu;//----------------------
+//  
+//  //delightBuildRenderPassTemplatesMenuItems($menu);
+//	liqPopIdent();
+//}
 global proc
-liquidBuildChooseSubRendererMenu(string $parent_menu)
+liquidBuildChooseSubRenderer(string $renderer)
 {
 	liqPushIdent();
-	liqlog("liquidBuildChooseSubRendererMenu("+$parent_menu+")");
-		
-	menu -edit -deleteAllItems $parent_menu;
-
-	//get renderers
-	string $renderer[] = liquidGatherLoadedSubRenderers();
-	
-	radioMenuItemCollection -parent $parent_menu;
-	//build menu items
-	for($rnd in $renderer)
-	{
-		menuItem 
-			-label (interToUI($rnd))
-			-radioButton (isCurrentSubRenderer($rnd))
-			-command ("liquidBuildChooseSubRendererMenuCB(\""+$rnd+"\")")
-			-parent $parent_menu;
-	}
-	menuItem -divider true -parent $parent_menu;//----------------------
-  
-  //delightBuildRenderPassTemplatesMenuItems($menu);
-	liqPopIdent();
-}
-global proc
-liquidBuildChooseSubRendererMenuCB(string $renderer)
-{
-	liqPushIdent();
-	liqlog("liquidBuildChooseSubRendererMenuCB("+$renderer+")");
+	liqlog("liquidBuildChooseSubRenderer("+$renderer+")");
 		
 	liqSetSubRendererName("");//clear
 

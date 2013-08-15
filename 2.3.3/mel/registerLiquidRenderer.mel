@@ -189,14 +189,14 @@ global proc liquidRenderLogoCallback()
   liqPopIdent();
 }
 
-global proc registerLiquidRenderer()
+global proc registerLiquidRenderer(string $renderer)
 {
   liqPushIdent();
-	liqlog("registerLiquidRenderer()");
+	liqlog("registerLiquidRenderer("+$renderer+")");
   //eval "source createMayaSoftwareCommonGlobalsTab.mel";
   eval("source liquidIpr.mel");
 
-	string $rendererName   = liq_getRendererName();
+	string $rendererName   = $renderer;
 	string $rendererUIName = interToUI($rendererName);
 
   if ( !`renderer -q -ex ($rendererName)` ) 
@@ -288,7 +288,8 @@ global proc registerLiquidRenderer()
 		error ("Liquid is not tested for Maya "+$version+"\n");
 	}
 
-	evalEcho liquidAddTabs;//evalDeferred liquidAddTabs;
+	//moved to erGlobalTab()/rmGlobalTab()
+	//liquidAddTabs($rendererName);//evalEcho liquidAddTabs;//evalDeferred liquidAddTabs;
 
 	renderer -edit -addGlobalsNode "liquidGlobals" ($rendererName);
   }
@@ -302,33 +303,37 @@ global proc registerLiquidRenderer()
   liqPopIdent();
 }
 
-global proc liquidAddTabs()
+global proc liquidAddTabs(string $renderer)
 {
   liqPushIdent();
-	liqlog("liquidAddTabs()");
-  if ( `renderer -exists (liq_getRendererName())`)
+	liqlog("liquidAddTabs("+$renderer+")");
+
+	string $rendererName   = $renderer;
+	string $rendererUIName = interToUI($rendererName);
+
+  if ( `renderer -exists ($rendererName)`)
   {
     renderer -edit
              -addGlobalsTab "Common"
                             "createMayaSoftwareCommonGlobalsTab"
                             "updateMayaSoftwareCommonGlobalsTab"
-             (liq_getRendererName());
+             ($rendererName);
           
     renderer -edit
-             -addGlobalsTab (liq_getRendererUIName())
+             -addGlobalsTab (liq_getRendererUIName())//liquidTab
                             "liquidCreateGlobalsTab"
                             "liquidUpdateMayaGlobals"
-             (liq_getRendererName());
+             ($rendererName);
   }
   liqPopIdent();
 }
 
-global proc unregisterLiquidRenderer()
+global proc unregisterLiquidRenderer(string $renderer)
 {
   liqPushIdent();
-	liqlog("unregisterLiquidRenderer(...)");
+	liqlog("unregisterLiquidRenderer("+$renderer+")");
 	
-	string $rendererName   = liq_getRendererName();
+	string $rendererName   = $renderer;
 
   if ( `renderer -q -ex ($rendererName)` ) 
 	  renderer -unregisterRenderer ($rendererName);

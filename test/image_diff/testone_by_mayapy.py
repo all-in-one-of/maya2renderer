@@ -89,10 +89,10 @@ def _render(mayaFile, liqRenderer):
 
 def _render2(mayafile, liqRenderer):
     cmds.file( mayafile, f=True,  options="v=0", typ="mayaAscii", o=True)
-    command = 'source "liq_RendererName.mel"; source "registerLiquidRenderer.mel"; registerLiquidRenderer(); catch(`loadPlugin '+liqRenderer+'`); setAttr -type "string" liquidGlobals.renderer '+liqRenderer+';'
+    command = 'catch(`loadPlugin '+liqRenderer+'`); setAttr -type "string" liquidGlobals.renderer '+liqRenderer+';'
     mel.eval(command)
     
-    mel.eval('mayaBatchRenderProcedure(0,"","",liq_getRendererName(),"")')
+    mel.eval('mayaBatchRenderProcedure(0,"","","'+liqRenderer+'","")')
 
 
 def _test(mayaFile, liqRenderer):

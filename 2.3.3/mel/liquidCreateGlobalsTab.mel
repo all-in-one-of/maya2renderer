@@ -74,9 +74,18 @@ global proc liquidSwitchGlobalsRenderLayer()
   liqPushIdent();
 	liqlog("liquidSwitchGlobalsRenderLayer()");
   string $prefix = `liquidGetCurrentRenderLayerName`;
-  string $unifiedRendererTabName = rendererTabName(liq_getRendererName(),liq_getRendererUIName());
+  string $unifiedRendererTabName = rendererTabName(liqGetSubRendererName(),liq_getRendererUIName());
+  liqlog("$unifiedRendererTabName="+$unifiedRendererTabName);
   string $ourUberLayout = ($prefix+"liquidUberLayout");
-  
+
+	//string $t = rendererTabName(liqGetSubRendererName(), interToUI(liqGetSubRendererName()));
+	//if(`layout -q -ex $t`) 
+	//{
+	//	liqlog($t + " EXIST!!!");
+	//}else{
+	//	liqlog($t + " NOT EXIST!!!");
+	//}
+
   if(`layout -q -ex $unifiedRendererTabName`) 
   {
   	  // only if maya created our tab yet
@@ -171,6 +180,7 @@ global proc liquidCreateGlobalsTab()
    
   // make sure the maya globals are correctly initialized.
   if ( !`layout -q -ex commonTabColumn` ) {
+	  liqlog("commonTabColumn NOT EXIST");
     setCurrentRenderer mayaSoftware;
     addRendererTabsToGlobalsWindow mayaSoftware;
     addMasterLayerTabsToGlobalsWindow;				// This one creates the common tab
@@ -179,13 +189,22 @@ global proc liquidCreateGlobalsTab()
 
   if ( !liquidGlobalsExists() ) liquidCreateGlobals();
     
+ // 	string $t = rendererTabName(liqGetSubRendererName(), liq_getRendererUIName());
+	//if(`layout -q -ex $t`) 
+	//{
+	//	liqlog(">>>>>>>>>>>>>>>>>>>>"+$t+" EXIST!!!");
+	//}else{
+	//	liqlog(">>>>>>>>>>>>>>>>>>>>"+$t+" NOT EXIST!!!");
+	//}
+	string $parent = `setParent -q`;
+	liqlog("$parent="+$parent);
   // Call the maya proc to ensure we setparent correctly
   //	This means we can leverage the update proc to create the tabs for
   //	New layers.  We should use a scriptJob, but the layer is not yet
   //	set on all oses.
-  string $unifiedRendererTabName = rendererTabName(liq_getRendererName(),liq_getRendererUIName());
+  string $unifiedRendererTabName = rendererTabName(liqGetSubRendererName(),liq_getRendererUIName());
   setParent $unifiedRendererTabName;
-
+  liqlog("setParent "+$unifiedRendererTabName);
   // find out if we are going to display the masterLayer's globals or regular globals
   string $prefix = `liquidGetCurrentRenderLayerName`;
   

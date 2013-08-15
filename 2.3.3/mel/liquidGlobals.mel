@@ -1682,7 +1682,8 @@ global proc liquidGlobalsGetAvailableDisplayDrivers()
 
   // PRMAN
   //
-  if ( gmatch( $renderer, "*prman*") ) {
+  if ( gmatch( $renderer, "*prman*") ) 
+  {
 
     string $ddlist = "\"framebuffer\" ";
     int $numberOfDD = 0;
@@ -1754,7 +1755,8 @@ global proc liquidGlobalsGetAvailableDisplayDrivers()
 
   // 3DELIGHT
   //
-  if ( gmatch( $renderer, "*renderdl*") ) {
+  else if ( gmatch( $renderer, "*renderdl*") ) 
+  {
 
     int $numberOfDD = 0;
 	string $ddlist;
@@ -1813,7 +1815,13 @@ global proc liquidGlobalsGetAvailableDisplayDrivers()
 
   // PIXIE
   //
-  if ( gmatch( $renderer, "*rndr*") ) {
+  else if ( gmatch( $renderer, "*rndr*") ) {
+  }
+
+  //unsupported
+  else
+  {
+	  liqError("display drivers is not designed to support: "+$renderer);
   }
   liqPopIdent();
 }
