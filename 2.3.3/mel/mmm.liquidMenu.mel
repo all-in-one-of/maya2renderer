@@ -1,11 +1,11 @@
 source xxliquidutility.mel;
 
-global proc mmm.liquidMenu(string $parent)
-{
-  liqPushIdent();
-	liqlog("mmm.liquidMenu(...)");
-
-    liquidInitCFD;
-    liquidStartup();
-  liqPopIdent();
-}
+//global proc mmm.liquidMenu(string $parent)
+//{
+//  liqPushIdent();
+//	liqlog("mmm.liquidMenu(...)");
+//
+//    liquidInitCFD;
+//    liquidStartup();
+//  liqPopIdent();
+//}
