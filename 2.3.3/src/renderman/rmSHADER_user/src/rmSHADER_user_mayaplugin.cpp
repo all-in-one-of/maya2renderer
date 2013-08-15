@@ -62,6 +62,8 @@ PLUGIN_EXPORT MStatus initializePlugin(MObject obj)
 	renderman::FlatNodeVisitor::regist(plugin);
 	renderman::PhysicalsunNodeVisitor::regist(plugin);
 	renderman::OccLightNodeVisitor::regist(plugin);
+	
+	MGlobal::executeCommand("source \"userSetup_rmSHADER_user.mel\";");
 
 	return MS::kSuccess;
 }
