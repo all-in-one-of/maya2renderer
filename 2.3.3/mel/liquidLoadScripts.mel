@@ -99,5 +99,58 @@ global proc liquidLoadScripts()
     eval( "source \"" + $liquidHome + "/mel/" + $mel_files[$i]  + "\"" );
   }
 
+  liquidMayaVersionOverwrite();
+
+  liqPopIdent();
+}
+
+global proc liquidMayaVersionOverwrite()
+{
+  liqPushIdent();
+	liqlog("liquidMayaVersionOverwrite()");
+	global string $liq_maya_version;
+  
+  string $maya_version_str[] = stringToStringArray( `about -version`, " " );
+  $liq_maya_version = $maya_version_str[0];
+  
+  string $liquidHome = liquidGetHome();
+  
+
+  int $liq_maya_version_int = $liq_maya_version;
+
+  if ( $liq_maya_version_int >= 2011 )
+  {	
+  	evalEcho( "source \"" + $liquidHome + "/mel/2011/liquidParamDialogWindow.mel"  + "\"" );
+  } 
+  if ( $liq_maya_version_int == 2012 )
+  {
+  	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildHypergraphNodePopupMenuItems.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/buildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/hyperShadePanel.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/renderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidBuildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidCustomNodeUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidCustomNodeUI.res.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidHyperShadePanel.mel\"");
+	//evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2012/liquidRenderCreateBarUI.mel\"");
+  } 
+  if( $liq_maya_version_int == 2013 )
+  {
+//  	evalEcho( "source \"" + $liquidHome + "/mel/2013/buildHypergraphNodePopupMenuItems.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/buildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/hyperShadePanel.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/renderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidBuildHypergraphNodePopupMenuItems.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidBuildShaderMenus.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidCustomNodeUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidCustomNodeUI.res.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidHyperShadePanel.mel\"");
+	//evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidProceduralsForSubRenderer.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRenderCreateBarUI.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidRendererCallbacks.mel\"");
+	evalEcho( "source \"" + $liquidHome + "/mel/2013/liquidAttributeExtension.mel\"");
+  }
+
   liqPopIdent();
 }
