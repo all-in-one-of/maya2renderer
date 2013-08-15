@@ -80,7 +80,7 @@ def getStanderImage(mayaFile, liqRenderer):
 
 def _render(mayaFile, liqRenderer):
     batchRenderCmd="mayabatch.exe "
-    command = """ "source \\"liquidStartup.mel\\"; liquidStartup(); catch(`loadPlugin """+liqRenderer+"""`); setAttr -type \\"string\\" liquidGlobals.renderer """+liqRenderer+"""; mayaBatchRenderProcedure(0,\\"\\",\\"\\",\\"liquid\\",\\"\\");" """;
+    command = """ "source \\"liquidStartup.mel\\"; "source \\"liq_RendererName.mel\\"; liquidStartup(); catch(`loadPlugin """+liqRenderer+"""`); setAttr -type \\"string\\" liquidGlobals.renderer """+liqRenderer+"""; mayaBatchRenderProcedure(0,\\"\\",\\"\\",liq_getRendererName(),\\"\\");" """;
     cmd = batchRenderCmd+" -file "+mayaFile+" -command "+command;
 
     #mLiqlog.flog("batchRenderCmd="+cmd)
@@ -89,10 +89,10 @@ def _render(mayaFile, liqRenderer):
 
 def _render2(mayafile, liqRenderer):
     cmds.file( mayafile, f=True,  options="v=0", typ="mayaAscii", o=True)
-    command = 'source "registerLiquidRenderer.mel"; registerLiquidRenderer(); catch(`loadPlugin '+liqRenderer+'`); setAttr -type "string" liquidGlobals.renderer '+liqRenderer+';'
+    command = 'source "liq_RendererName.mel"; source "registerLiquidRenderer.mel"; registerLiquidRenderer(); catch(`loadPlugin '+liqRenderer+'`); setAttr -type "string" liquidGlobals.renderer '+liqRenderer+';'
     mel.eval(command)
     
-    mel.eval('mayaBatchRenderProcedure(0,"","","liquid","")')
+    mel.eval('mayaBatchRenderProcedure(0,"","",liq_getRendererName(),"")')
 
 
 def _test(mayaFile, liqRenderer):
