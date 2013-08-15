@@ -44,10 +44,10 @@ global proc liquidShutdown()
 	//UI
     if ( `menu -exists liquidMainWindowMenu` ) deleteUI liquidMainWindowMenu;
 
-	//unregister renderer
-	liquidRemoveRendererCallbacks();
-	//liquidDeleteAttributeExtension();
-    unregisterLiquidRenderer();
+	////unregister renderer//moved to liquidShutdown_renderman() and liquidShutdown_elvishray()
+	//liquidRemoveRendererCallbacks();
+	////liquidDeleteAttributeExtension();
+	//unregisterLiquidRenderer();
 
 
 

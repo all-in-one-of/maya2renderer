@@ -510,6 +510,13 @@ global proc liquidStartup_renderman()
 
 	evalEcho( "source \""+liquidGetHome()+"/mel/liquidProceduralsForSubRenderer.mel\"");
 		
+	{//moved from liquidStartup()
+	//register renderer
+	registerLiquidRenderer();
+	//liquidAddAttributeExtension();
+	liquidAddRendererCallbacks();
+	}
+
 	liquidAddSubRenderer(rm_getRendererName());
 
 	//create global node for this renderer
@@ -540,6 +547,13 @@ global proc liquidShutdown_renderman()
 	//rmLiquidUnloadGlobals();
 	
 	liquidDelSubRenderer(rm_getRendererName());
+
+	{//moved from liquidShutdown()
+	//unregister renderer
+	liquidRemoveRendererCallbacks();
+	//liquidDeleteAttributeExtension();
+    unregisterLiquidRenderer();
+	}
 
 	liqPopIdent();
 }

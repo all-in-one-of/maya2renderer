@@ -275,6 +275,13 @@ global proc liquidStartup_elvishray()
 
 	evalEcho( "source \""+liquidGetHome()+"/mel/liquidProceduralsForSubRenderer.mel\"");
 
+	{//moved from liquidStartup()
+	//register renderer
+	registerLiquidRenderer();
+	//liquidAddAttributeExtension();
+	liquidAddRendererCallbacks();
+	}
+
 	liquidAddSubRenderer(er_getRendererName());
 
 	//create global node for this renderer
@@ -305,6 +312,14 @@ global proc liquidShutdown_elvishray()
 	//erLiquidUnlLoadGlobals();
 
 	liquidDelSubRenderer(er_getRendererName());
+
+	{//moved from liquidShutdown()
+	//unregister renderer
+	liquidRemoveRendererCallbacks();
+	//liquidDeleteAttributeExtension();
+    unregisterLiquidRenderer();
+	}
+
 
 	liqPopIdent();
 }
