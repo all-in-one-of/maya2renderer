@@ -1025,113 +1025,113 @@ global proc liquidShowTextGlobal2(string $node,  string $name, string $msg )
 // 
 //   Check and add the default render globals attributes to the Liquid Render Globals node.
 //  
-global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
-{  
-	liqPushIdent();
-	liqlog("liquidAddGlobals2("+$node+",...)");
-
-  int $liquidGlobalsNumber = size( $liquidGlobalsVals ) / 3;
-  int $i;
-
-  for ( $i = 0; $i < $liquidGlobalsNumber; $i++ ) 
-  {
-    string $name = $liquidGlobalsVals[ $i * 3 ];
-	liqlog($node+"."+$name+":");
-    if ( !`attributeQuery -node $node -ex ( $name ) ` ) 
-	{
-      string $type = $liquidGlobalsVals[ $i * 3 + 1 ];
-      string $val  = $liquidGlobalsVals[ $i * 3 + 2 ];
-
-      switch( $type ) 
-	  {
-
-        case "string":
-          addAttr -ln $name -dt "string" -hidden true $node;
-          setAttr ( $node+"."+$name ) -type "string" $val;
-          break;
-          
-        case "color":
-			string $array[];
-			$array = stringToStringArray($val, "|");
-			if(size($array) != 3){
-				liqError($name+"'s value has not 3 elements.");
-			}
-			float $v0=$array[0];
-			float $v1=$array[1];
-			float $v2=$array[2];
-          addAttr -ln $name -usedAsColor -hidden true -at float3 $node;
-            addAttr -ln ($name+"R") -attributeType "float" -parent $name $node;
-            addAttr -ln ($name+"G") -attributeType "float" -parent $name $node;
-            addAttr -ln ($name+"B") -attributeType "float" -parent $name $node;
-            setAttr ( $node+"."+$name ) -type float3  $v0 $v1 $v2;
-          break;
-
-        case "stringArray":
-          string $tmp[] = stringToStringArray( $val, "|");
-          int $arraySize = size( $tmp );
-          addAttr -ln $name -dt "stringArray" -hidden true $node;
-          string $cmd = ("setAttr "+$node+"."+$name+" -type \"stringArray\" "+$arraySize);
-          for ( $i=0; $i<$arraySize; $i++ ) {
-            $cmd += (" \""+$tmp[$i]+"\"");
-          }
-          eval $cmd;
-          break;
-
-        case "bool":
-          addAttr -ln $name -at bool -hidden true $node;
-          eval ( "setAttr "+$node+"." + $name + " " + $val );
-          break;
-
-        case "long":
-          eval ( "addAttr -ln " + $name + " -at long -dv " + $val + " -hidden true "+$node );
-          break;
-
-        case "float":
-          eval ( "addAttr -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true "+$node );
-          if ( gmatch( $name, "crop??") ) {
-            addAttr -e -min 0 -max 1 ($node+"."+$name);
-          }
-          break;
-
-        case "boolArray":
-          string $tmp[] = stringToStringArray( $val, "|");
-          int $size = size( $tmp );
-          eval ( "addAttr -ln " + $name + " -at compound -numberOfChildren " + $size + " -hidden true "+$node );
-          for ( $i=0; $i<$size; $i++ ) {
-            eval ( "addAttr -ln \""+$tmp[$i]+"\" -at bool -parent "+$name+" -hidden true "+$node);
-          }
-          break;
-
-        case "multiString":
-          eval ( "addAttr -multi -ln "+$name+" -dt \"string\" -hidden true "+$node);
-          break;
-
-        case "multiLong":
-          eval ( "addAttr -multi -ln " + $name + " -at long -dv " + $val + " -hidden true "+$node );
-          break;
-
-        case "multiFloat":
-          eval ( "addAttr -multi -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true "+$node );
-          break;
-
-        case "multiBool":
-          eval ( "addAttr -multi -ln " + $name + " -at bool -hidden true "+$node);
-          break;
-
-
-        default:
-          error ("liquidAddGlobals: unknown attribute type : "+$type);
-          break;
-      }//switch( $type ) 
-
-    }//if ( !`attributeQuery -node $node -ex ( $name ) ` ) 
-	else{
-		liqlog($node+"."+$name+" already exist.");
-	}
-  }//for
-
-  liqPopIdent();
-}
+//global proc liquidAddGlobals2(string $node, string $liquidGlobalsVals[])
+//{  
+//	liqPushIdent();
+//	liqlog("liquidAddGlobals2("+$node+",...)");
+//
+//  int $liquidGlobalsNumber = size( $liquidGlobalsVals ) / 3;
+//  int $i;
+//
+//  for ( $i = 0; $i < $liquidGlobalsNumber; $i++ ) 
+//  {
+//    string $name = $liquidGlobalsVals[ $i * 3 ];
+//	liqlog($node+"."+$name+":");
+//    if ( !`attributeQuery -node $node -ex ( $name ) ` ) 
+//	{
+//      string $type = $liquidGlobalsVals[ $i * 3 + 1 ];
+//      string $val  = $liquidGlobalsVals[ $i * 3 + 2 ];
+//
+//      switch( $type ) 
+//	  {
+//
+//        case "string":
+//          addAttr -ln $name -dt "string" -hidden true $node;
+//          setAttr ( $node+"."+$name ) -type "string" $val;
+//          break;
+//          
+//        case "color":
+//			string $array[];
+//			$array = stringToStringArray($val, "|");
+//			if(size($array) != 3){
+//				liqError($name+"'s value has not 3 elements.");
+//			}
+//			float $v0=$array[0];
+//			float $v1=$array[1];
+//			float $v2=$array[2];
+//          addAttr -ln $name -usedAsColor -hidden true -at float3 $node;
+//            addAttr -ln ($name+"R") -attributeType "float" -parent $name $node;
+//            addAttr -ln ($name+"G") -attributeType "float" -parent $name $node;
+//            addAttr -ln ($name+"B") -attributeType "float" -parent $name $node;
+//            setAttr ( $node+"."+$name ) -type float3  $v0 $v1 $v2;
+//          break;
+//
+//        case "stringArray":
+//          string $tmp[] = stringToStringArray( $val, "|");
+//          int $arraySize = size( $tmp );
+//          addAttr -ln $name -dt "stringArray" -hidden true $node;
+//          string $cmd = ("setAttr "+$node+"."+$name+" -type \"stringArray\" "+$arraySize);
+//          for ( $i=0; $i<$arraySize; $i++ ) {
+//            $cmd += (" \""+$tmp[$i]+"\"");
+//          }
+//          eval $cmd;
+//          break;
+//
+//        case "bool":
+//          addAttr -ln $name -at bool -hidden true $node;
+//          eval ( "setAttr "+$node+"." + $name + " " + $val );
+//          break;
+//
+//        case "long":
+//          eval ( "addAttr -ln " + $name + " -at long -dv " + $val + " -hidden true "+$node );
+//          break;
+//
+//        case "float":
+//          eval ( "addAttr -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true "+$node );
+//          if ( gmatch( $name, "crop??") ) {
+//            addAttr -e -min 0 -max 1 ($node+"."+$name);
+//          }
+//          break;
+//
+//        case "boolArray":
+//          string $tmp[] = stringToStringArray( $val, "|");
+//          int $size = size( $tmp );
+//          eval ( "addAttr -ln " + $name + " -at compound -numberOfChildren " + $size + " -hidden true "+$node );
+//          for ( $i=0; $i<$size; $i++ ) {
+//            eval ( "addAttr -ln \""+$tmp[$i]+"\" -at bool -parent "+$name+" -hidden true "+$node);
+//          }
+//          break;
+//
+//        case "multiString":
+//          eval ( "addAttr -multi -ln "+$name+" -dt \"string\" -hidden true "+$node);
+//          break;
+//
+//        case "multiLong":
+//          eval ( "addAttr -multi -ln " + $name + " -at long -dv " + $val + " -hidden true "+$node );
+//          break;
+//
+//        case "multiFloat":
+//          eval ( "addAttr -multi -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true "+$node );
+//          break;
+//
+//        case "multiBool":
+//          eval ( "addAttr -multi -ln " + $name + " -at bool -hidden true "+$node);
+//          break;
+//
+//
+//        default:
+//          error ("liquidAddGlobals: unknown attribute type : "+$type);
+//          break;
+//      }//switch( $type ) 
+//
+//    }//if ( !`attributeQuery -node $node -ex ( $name ) ` ) 
+//	else{
+//		liqlog($node+"."+$name+" already exist.");
+//	}
+//  }//for
+//
+//  liqPopIdent();
+//}
 //
 //global proc int liquidGlobalsAvailable()
 //{

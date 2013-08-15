@@ -524,7 +524,7 @@ proc liquidShowBitsIntGlobalMenu( string $name, string $label, string $attr, str
 
 
 //  set's up all the default liquid globals
-global string $liquidGlobalsVals[];
+//global string $liquidGlobalsVals[];
 global string $liqHidersList[];
 global string $liqFeaturesList[];
 global string $liqRequiredList[];
@@ -843,41 +843,41 @@ global proc int liquidGlobalsFeatureQuery( string $feature )
 
 // REVIEW : do we need this ?
 // WETA SPECIFIC: Start
-global proc liquidAddNimbusLightParam()
-{
-  liqPushIdent();
-	liqlog("liquidAddNimbusLightParam()");
-  global string $liquidGlobalsVals[];
-  string $selected[] = `ls -sl -dag -lights`;
-  string $current;
-  for( $current in $selected ) {
-    int $liquidNumber = size( $liquidGlobalsVals ) / 3;
-    int $i;
-    for ( $i = 0; $i < $liquidNumber; $i++ ) {
-      string $name = $liquidGlobalsVals[ $i * 3 ];
-      string $shortname = `substring $name 1 6`;
-      if ( !`attributeQuery -node ( $current ) -ex ( $name ) ` && ( $shortname == "nimbus" ) ) {
-        string $type = $liquidGlobalsVals[ $i * 3 + 1 ];
-        string $val = $liquidGlobalsVals[ $i * 3 + 2 ];
-        if ( $type == "string" ) {
-          addAttr -ln $name -dt "string" ( $current );
-          setAttr ( $current +"."+$name ) -type "string" $val;
-        }
-        if ( $type == "bool" ) {
-          addAttr -ln $name -at bool ( $current );
-          eval ( "setAttr " + $current + "." + $name + " " + $val );
-        }
-        if ( $type == "long" ) {
-          eval ( "addAttr -ln " + $name + " -at long -dv " + $val + " " + $current );
-        }
-        if ( $type == "float" ) {
-          eval ( "addAttr -ln " + $name + " -at \"float\" -dv " + $val + " " + $current );
-        }
-      }
-    }
-  }
-  liqPopIdent();
-}
+//global proc liquidAddNimbusLightParam()
+//{
+//  liqPushIdent();
+//	liqlog("liquidAddNimbusLightParam()");
+//  global string $liquidGlobalsVals[];
+//  string $selected[] = `ls -sl -dag -lights`;
+//  string $current;
+//  for( $current in $selected ) {
+//    int $liquidNumber = size( $liquidGlobalsVals ) / 3;
+//    int $i;
+//    for ( $i = 0; $i < $liquidNumber; $i++ ) {
+//      string $name = $liquidGlobalsVals[ $i * 3 ];
+//      string $shortname = `substring $name 1 6`;
+//      if ( !`attributeQuery -node ( $current ) -ex ( $name ) ` && ( $shortname == "nimbus" ) ) {
+//        string $type = $liquidGlobalsVals[ $i * 3 + 1 ];
+//        string $val = $liquidGlobalsVals[ $i * 3 + 2 ];
+//        if ( $type == "string" ) {
+//          addAttr -ln $name -dt "string" ( $current );
+//          setAttr ( $current +"."+$name ) -type "string" $val;
+//        }
+//        if ( $type == "bool" ) {
+//          addAttr -ln $name -at bool ( $current );
+//          eval ( "setAttr " + $current + "." + $name + " " + $val );
+//        }
+//        if ( $type == "long" ) {
+//          eval ( "addAttr -ln " + $name + " -at long -dv " + $val + " " + $current );
+//        }
+//        if ( $type == "float" ) {
+//          eval ( "addAttr -ln " + $name + " -at \"float\" -dv " + $val + " " + $current );
+//        }
+//      }
+//    }
+//  }
+//  liqPopIdent();
+//}
 // WETA SPECIFIC: End
 
 global proc liquidChangeTextAttr ( string $selectedObj, string $argName, string $fieldName )
@@ -972,110 +972,110 @@ global proc liquidCreateGlobals()
 /**
  *  Check and add the default render globals attributes to the Liquid Render Globals node.
  */
-global proc liquidAddGlobals()
-{  
-	liqPushIdent();
-	liqlog("liquidAddGlobals()");
-  global string $liquidGlobalsVals[];
-  int $liquidGlobalsNumber = size( $liquidGlobalsVals ) / 3;
-  int $i;
-
-  for ( $i = 0; $i < $liquidGlobalsNumber; $i++ ) {
-    string $name = $liquidGlobalsVals[ $i * 3 ];
-    if ( !`attributeQuery -node liquidGlobals -ex ( $name ) ` ) {
-      string $type = $liquidGlobalsVals[ $i * 3 + 1 ];
-      string $val;
-      if ( `liquidINIGet "globals" $name` == "" ) {
-        $val = $liquidGlobalsVals[ $i * 3 + 2 ];
-      } else {
-        $val = `liquidINIGet "globals" $name`;
-      }
-
-      switch( $type ) {
-
-        case "string":
-          addAttr -ln $name -dt "string" -hidden true liquidGlobals;
-          setAttr ( "liquidGlobals."+$name ) -type "string" $val;
-          break;
-          
-        case "color":
-          addAttr -ln $name -usedAsColor -hidden true -at float3 liquidGlobals;
-            addAttr -ln ($name+"R") -attributeType "float" -parent $name;
-            addAttr -ln ($name+"G") -attributeType "float" -parent $name;
-            addAttr -ln ($name+"B") -attributeType "float" -parent $name;
-            eval( "setAttr ( \"cameraShape1.\"+$name ) " + $val );
-          break;
-
-        case "stringArray":
-          string $tmp[] = stringToStringArray( $val, ":");
-          int $arraySize = size( $tmp );
-          addAttr -ln $name -dt "stringArray" -hidden true liquidGlobals;
-          string $cmd = ("setAttr liquidGlobals."+$name+" -type \"stringArray\" "+$arraySize);
-          for ( $i=0; $i<$arraySize; $i++ ) {
-            $cmd += (" \""+$tmp[$i]+"\"");
-          }
-          eval $cmd;
-          break;
-
-        case "bool":
-          addAttr -ln $name -at bool -hidden true liquidGlobals;
-          eval ( "setAttr liquidGlobals." + $name + " " + $val );
-          break;
-
-        case "long":
-          eval ( "addAttr -ln " + $name + " -at long -dv " + $val + " -hidden true liquidGlobals" );
-          break;
-
-        case "float":
-          eval ( "addAttr -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true liquidGlobals" );
-          if ( gmatch( $name, "crop??") ) {
-            addAttr -e -min 0 -max 1 ("liquidGlobals."+$name);
-          }
-          break;
-
-        case "boolArray":
-          string $tmp[] = stringToStringArray( $val, " ");
-          int $size = size( $tmp );
-          eval ( "addAttr -ln " + $name + " -at compound -numberOfChildren " + $size + " -hidden true liquidGlobals" );
-          for ( $i=0; $i<$size; $i++ ) {
-            eval ( "addAttr -ln \""+$tmp[$i]+"\" -at bool -parent "+$name+" -hidden true liquidGlobals");
-          }
-          break;
-
-        case "multiString":
-          eval ( "addAttr -multi -ln "+$name+" -dt \"string\" -hidden true liquidGlobals");
-          break;
-
-        case "multiLong":
-          eval ( "addAttr -multi -ln " + $name + " -at long -dv " + $val + " -hidden true liquidGlobals" );
-          break;
-
-        case "multiFloat":
-          eval ( "addAttr -multi -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true liquidGlobals" );
-          break;
-
-        case "multiBool":
-          eval ( "addAttr -multi -ln " + $name + " -at bool -hidden true liquidGlobals");
-          break;
-
-        default:
-          error ("liquidAddGlobals: unknown attribute type : "+$type);
-          break;
-      }
-
-    }
-  }
-
-  // set the default display driver
-  if ( `getAttr liquidGlobals.ddImageName[0]` == "" ) {
-    //print "init default display driver";
-    setAttr -type "string" liquidGlobals.ddImageName[0] "liquid_image";
-    setAttr -type "string" liquidGlobals.ddImageType[0] "framebuffer";
-    setAttr -type "string" liquidGlobals.ddImageMode[0] "rgba";
-  }
-
-  liqPopIdent();
-}
+//global proc liquidAddGlobals()
+//{  
+//	liqPushIdent();
+//	liqlog("liquidAddGlobals()");
+//  global string $liquidGlobalsVals[];
+//  int $liquidGlobalsNumber = size( $liquidGlobalsVals ) / 3;
+//  int $i;
+//
+//  for ( $i = 0; $i < $liquidGlobalsNumber; $i++ ) {
+//    string $name = $liquidGlobalsVals[ $i * 3 ];
+//    if ( !`attributeQuery -node liquidGlobals -ex ( $name ) ` ) {
+//      string $type = $liquidGlobalsVals[ $i * 3 + 1 ];
+//      string $val;
+//      if ( `liquidINIGet "globals" $name` == "" ) {
+//        $val = $liquidGlobalsVals[ $i * 3 + 2 ];
+//      } else {
+//        $val = `liquidINIGet "globals" $name`;
+//      }
+//
+//      switch( $type ) {
+//
+//        case "string":
+//          addAttr -ln $name -dt "string" -hidden true liquidGlobals;
+//          setAttr ( "liquidGlobals."+$name ) -type "string" $val;
+//          break;
+//          
+//        case "color":
+//          addAttr -ln $name -usedAsColor -hidden true -at float3 liquidGlobals;
+//            addAttr -ln ($name+"R") -attributeType "float" -parent $name;
+//            addAttr -ln ($name+"G") -attributeType "float" -parent $name;
+//            addAttr -ln ($name+"B") -attributeType "float" -parent $name;
+//            eval( "setAttr ( \"cameraShape1.\"+$name ) " + $val );
+//          break;
+//
+//        case "stringArray":
+//          string $tmp[] = stringToStringArray( $val, ":");
+//          int $arraySize = size( $tmp );
+//          addAttr -ln $name -dt "stringArray" -hidden true liquidGlobals;
+//          string $cmd = ("setAttr liquidGlobals."+$name+" -type \"stringArray\" "+$arraySize);
+//          for ( $i=0; $i<$arraySize; $i++ ) {
+//            $cmd += (" \""+$tmp[$i]+"\"");
+//          }
+//          eval $cmd;
+//          break;
+//
+//        case "bool":
+//          addAttr -ln $name -at bool -hidden true liquidGlobals;
+//          eval ( "setAttr liquidGlobals." + $name + " " + $val );
+//          break;
+//
+//        case "long":
+//          eval ( "addAttr -ln " + $name + " -at long -dv " + $val + " -hidden true liquidGlobals" );
+//          break;
+//
+//        case "float":
+//          eval ( "addAttr -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true liquidGlobals" );
+//          if ( gmatch( $name, "crop??") ) {
+//            addAttr -e -min 0 -max 1 ("liquidGlobals."+$name);
+//          }
+//          break;
+//
+//        case "boolArray":
+//          string $tmp[] = stringToStringArray( $val, " ");
+//          int $size = size( $tmp );
+//          eval ( "addAttr -ln " + $name + " -at compound -numberOfChildren " + $size + " -hidden true liquidGlobals" );
+//          for ( $i=0; $i<$size; $i++ ) {
+//            eval ( "addAttr -ln \""+$tmp[$i]+"\" -at bool -parent "+$name+" -hidden true liquidGlobals");
+//          }
+//          break;
+//
+//        case "multiString":
+//          eval ( "addAttr -multi -ln "+$name+" -dt \"string\" -hidden true liquidGlobals");
+//          break;
+//
+//        case "multiLong":
+//          eval ( "addAttr -multi -ln " + $name + " -at long -dv " + $val + " -hidden true liquidGlobals" );
+//          break;
+//
+//        case "multiFloat":
+//          eval ( "addAttr -multi -ln " + $name + " -at \"float\" -dv " + $val + " -hidden true liquidGlobals" );
+//          break;
+//
+//        case "multiBool":
+//          eval ( "addAttr -multi -ln " + $name + " -at bool -hidden true liquidGlobals");
+//          break;
+//
+//        default:
+//          error ("liquidAddGlobals: unknown attribute type : "+$type);
+//          break;
+//      }
+//
+//    }
+//  }
+//
+//  // set the default display driver
+//  if ( `getAttr liquidGlobals.ddImageName[0]` == "" ) {
+//    //print "init default display driver";
+//    setAttr -type "string" liquidGlobals.ddImageName[0] "liquid_image";
+//    setAttr -type "string" liquidGlobals.ddImageType[0] "framebuffer";
+//    setAttr -type "string" liquidGlobals.ddImageMode[0] "rgba";
+//  }
+//
+//  liqPopIdent();
+//}
 
 global proc int liquidGlobalsAvailable()
 {
