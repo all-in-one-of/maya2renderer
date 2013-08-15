@@ -281,8 +281,7 @@ global proc int liqRendererChanged()
 	string $loadedRenderers[] = liquidGatherLoadedSubRenderers();
 	if( 1 == stringArrayContains($currentRenderer, $loadedRenderers) )
 	{
-		liqSetSubRendererName($currentRenderer);
-		string $cmd = "liqUpdateSubRendererGlobalNodeSetting_"+liqGetSubRendererName()+"()";
+		string $cmd = "liqUpdateSubRendererGlobalNodeSetting_"+$currentRenderer+"()";
 		evalEcho $cmd;
 	}else{
 		liqlog("current renderer "+$currentRenderer+" is not handled by liquid.");
