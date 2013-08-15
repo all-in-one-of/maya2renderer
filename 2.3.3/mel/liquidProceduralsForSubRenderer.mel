@@ -271,3 +271,21 @@ global proc liquidDeleteAttributeExtension_subrenderer()
 
 	liqPopIdent();
 }
+//
+global proc int liqRendererChanged()
+{
+	liqPushIdent();
+	liqlog("liqRendererChanged()");
+
+	string $currentRenderer = `getAttr "defaultRenderGlobals.currentRenderer"`;
+	string $loadedRenderers[] = liquidGatherLoadedSubRenderers();
+	if( 1 == stringArrayContains($currentRenderer, $loadedRenderers) )
+	{
+		liqSetSubRendererName($currentRenderer);
+	}else{
+		liqlog("current renderer "+$currentRenderer+" is not handled by liquid.");
+	}
+
+	liqPopIdent();
+	return 1;
+}

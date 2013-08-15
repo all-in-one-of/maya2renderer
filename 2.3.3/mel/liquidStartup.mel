@@ -1031,20 +1031,24 @@ global proc liquidCreateScriptNode()
 global proc liquidCreateScriptJobs()
 {
   liqPushIdent();
-	liqlog("liquidCreateScriptJobs(...)");
+	liqlog("liquidCreateScriptJobs()");
   // setup a scriptJob to update some widgets
   // when the renderlayers change
   string $jobs[] = `scriptJob -lj`;
   for ( $j in $jobs ) {
     if ( gmatch( $j, "*liquidLargeFieldUpdater*") ) 
 		scriptJob -kill (int(match("[0-9]+", $j))) -force;
-    if ( gmatch( $j, "*liquidSwitchGlobalsRenderLayer*") ) scriptJob -kill (int(match("[0-9]+", $j))) -force;
+    if ( gmatch( $j, "*liquidSwitchGlobalsRenderLayer*") ) 
+		scriptJob -kill (int(match("[0-9]+", $j))) -force;
+    if ( gmatch( $j, "*liqRendererChanged*") ) 
+		scriptJob -kill (int(match("[0-9]+", $j))) -force;
   }
 
   // switch layouts when the render layer changes
   scriptJob -event "renderLayerManagerChange" "eval(\"liquidSwitchGlobalsRenderLayer\")" -protected;
   scriptJob -event "renderLayerChange" "eval(\"liquidLargeFieldUpdater;liquidAE_LifStringOverrideDisplayAll\")" -protected;
   scriptJob -event "renderLayerManagerChange" "eval(\"liquidLargeFieldUpdater;liquidAE_LifStringOverrideDisplayAll\")" -protected;
+  scriptJob -killWithScene -attributeChange "defaultRenderGlobals.currentRenderer" "liqRendererChanged();";
 
   liqPopIdent();
 }
