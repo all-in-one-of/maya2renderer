@@ -6,6 +6,15 @@
 
 
 - learn katana
+- 定计划, 招聘
+done)- preview的alpha通道
+- 把liquidDLL.mll和elvishrender.mll合并为一个
+- liq|rm|: 先加载liquidDLL.mll,然后加载renderman.dll, 提示
+  >rmGlobalTab()
+      ERROR>liquid is not registed.
+
+- 评估借助abc做maya到er的插件, motion blur
+done)- liq|er|: manager.ini里searchpath如果不正确的话,提示并退出渲染
 liq| 
 ambientlight, 
 rm/particle/simple/particle.ma, 
