@@ -5,7 +5,7 @@
 
 namespace liquid
 {
-	const MString CR_NAME = "liquid";//update with liq_getRendererName() in liq_RendererName.mel
+	const MString CR_NAME = "liquidr";//update with liq_getRendererName() in liq_RendererName.mel
 
 	const MString texture2d_classification = 
 		"rendernode/"+CR_NAME+"/texture/2d:texture/2d:swatch/liquidSwatch";
