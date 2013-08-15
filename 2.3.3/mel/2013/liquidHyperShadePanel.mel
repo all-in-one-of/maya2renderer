@@ -10,7 +10,7 @@ global proc LIQUID_HyperShadeCreateMenu_BuildMenu()
 
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{
-		liqHyperShadeCreateMenu_BuildMenu("liquid");
+		liqHyperShadeCreateMenu_BuildMenu(liq_getRendererName());
 		menuItem -divider true;
 		liqHyperShadeCreateMenu_BuildMenu_subrenderer();
 		menuItem -divider true;

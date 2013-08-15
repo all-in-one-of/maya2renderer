@@ -1,0 +1,8 @@
+global proc string liq_getRendererName()//update with CR_NAME in liq_classification.h
+{
+	return "liquid";
+}
+global proc string liq_getRendererUIName()
+{
+	return interToUI(liq_getRendererName());
+}

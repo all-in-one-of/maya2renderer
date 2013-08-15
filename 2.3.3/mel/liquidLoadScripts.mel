@@ -88,7 +88,8 @@ global proc liquidLoadScripts()
     "liquidliquidShaderNodes.mel",
 	"liquidUserCallbackInterface.mel",
 	"liqMessageCallback.mel",
-	"liquidProceduralsForSubRenderer.mel"
+	"liquidProceduralsForSubRenderer.mel",
+	"liq_RendererName.mel"
   };
 
   string $liquidHome = liquidGetHome();

@@ -34,7 +34,7 @@
 //  Returns:
 //
 source xxliquidutility.mel;
-
+source liq_RendererName.mel;
 
 global proc liquidGlobalsUpdateBitsMenus( string $theAttr )
 {
@@ -677,7 +677,7 @@ global proc liquidInitGlobalVals()
     ,"preJobCommand",               "string", ""
     ,"postJobCommand",              "string", ""
     ,"key",                         "string", "maya"
-    ,"service",                     "string", "liquid"
+    ,"service",                     "string", "liquid"//(liq_getRendererName())
     ,"lastRenderScript",            "string", ""
     ,"lastRibFile",                 "string", ""
 

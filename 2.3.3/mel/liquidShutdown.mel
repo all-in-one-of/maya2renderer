@@ -40,10 +40,17 @@ global proc liquidShutdown()
 {
   liqPushIdent();
 	liqlog("liquidShutdown()");
+
+	//UI
     if ( `menu -exists liquidMainWindowMenu` ) deleteUI liquidMainWindowMenu;
+
+	//unregister renderer
 	liquidRemoveRendererCallbacks();
 	//liquidDeleteAttributeExtension();
     unregisterLiquidRenderer();
+
+
+
   liqPopIdent();
 }
 

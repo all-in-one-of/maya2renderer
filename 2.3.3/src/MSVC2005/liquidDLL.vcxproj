@@ -3164,6 +3164,7 @@
     <None Include="..\..\mel\liquidWriteRSL_materials.mel" />
     <None Include="..\..\mel\liquidWriteRSL_textures.mel" />
     <None Include="..\..\mel\liquidWriteRSL_utilities.mel" />
+    <None Include="..\..\mel\liq_RendererName.mel" />
     <None Include="..\..\mel\mmm.liquidMenu.mel" />
     <None Include="..\..\mel\registerLiquidRenderer.mel" />
     <None Include="..\..\mel\liquidLoadScripts.mel" />

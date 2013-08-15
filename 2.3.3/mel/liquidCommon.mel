@@ -165,7 +165,7 @@ global proc string liquidGetVersion()
   liqlog("liquidGetVersion()");
   global string $gLiquidVersion;
   if ( $gLiquidVersion == "" ) {
-    $gLiquidVersion = match("[0-9\\.]+", string( pluginInfo( "-q", "-v", "liquid" ) ) );
+    $gLiquidVersion = match("[0-9\\.]+", string( pluginInfo( "-q", "-v", liq_getRendererName() ) ) );
   	string $gLiquidVersionTokensA[]; tokenize $gLiquidVersion "\." $gLiquidVersionTokensA;
 	$gLiquidVersion = ( $gLiquidVersionTokensA[0] + $gLiquidVersionTokensA[1] );
   }

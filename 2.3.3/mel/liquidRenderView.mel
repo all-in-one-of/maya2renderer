@@ -296,7 +296,7 @@ global proc liqRenderViewMenu( string $editor)
 global proc string liquidmayaRender(int $resolution0, int $resolution1, int $doShadows, int $doGlowPass, string $camera, string $option)
 {
   liqPushIdent();
-	liqlog("liquidmayaRender()");
+	liqlog("liquidmayaRender("+$resolution0+","+$resolution1+","+$doShadows+","+$doGlowPass+","+$camera+","+$option+")");
 
 	if( liquidmayaIsRunningIpr() )
 	{

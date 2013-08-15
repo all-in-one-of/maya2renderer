@@ -196,7 +196,7 @@ global proc registerLiquidRenderer()
   //eval "source createMayaSoftwareCommonGlobalsTab.mel";
   eval("source liquidIpr.mel");
 
-  if ( !`renderer -q -ex liquid` ) 
+  if ( !`renderer -q -ex (liq_getRendererName())` ) 
   {
     string $icon = ( liquidGetHome() + "/icons/liquidIcon2.xpm" );
 
@@ -216,7 +216,7 @@ global proc registerLiquidRenderer()
 	case 7.0:
 	case 7.01:
 		eval (
-		"renderer  -rendererUIName                      \"Liquid\" "                          +
+		"renderer  -rendererUIName                      \""+liq_getRendererUIName()+"\" "     +
 				  "-renderProcedure                     \"liquidmayaRender\" "                +
 				  "-commandRenderProcedure              \"liquidmayaCmdlineRender\" "         +
 				  "-batchRenderProcedure                \"liquidmayaBatchRender\" "           +
@@ -226,13 +226,13 @@ global proc registerLiquidRenderer()
 				  "-setCommonGlobalValueProcedure       \"liquidmayaSetCommonGlobalValue\" "  +
 				  "-logoImageName                       \"" + $icon + "\" "                   +
 				  "-logoCallbackProcedure               \"liquidRenderLogoCallback\" "        +
-				  "liquid;");
+				  ""+liq_getRendererName()+";");
 		break;
 	case 8.0:
 	case 8.5:
 	case 2008.0:
 		eval  (
-		"renderer  -rendererUIName                        \"Liquid\" "                    +
+		"renderer  -rendererUIName                        \""+liq_getRendererUIName()+"\" "   +
 				  "-addGlobalsNode                        \"liquidGlobals\" "             +
 				  "-renderProcedure                       \"liquidmayaRender\" "          +
 				  "-commandRenderProcedure                \"liquidmayaCmdlineRender\" "   +
@@ -241,13 +241,13 @@ global proc registerLiquidRenderer()
 				  "-renderRegionProcedure                 \"liquidmayaRenderRegion\" "    +
 				  "-logoImageName                         \"" + $icon + "\" "             +
 				  "-logoCallbackProcedure                 \"liquidRenderLogoCallback\" "  +
-				  "liquid;");
+				  ""+liq_getRendererName()+";");
 		break;
 	case 2009.0:
 	case 2012.0:
 	case 2013.0:
 		eval  (
-		"renderer  -rendererUIName                        \"Liquid\" "                    +
+		"renderer  -rendererUIName                        \""+liq_getRendererUIName()+"\" "   +
 				  "-addGlobalsNode                        \"liquidGlobals\" "             +
 				  "-renderProcedure                       \"liquidmayaRender\" "          +
 				  "-renderDiagnosticsProcedure			  \"liquidDiagnostic\" "		  +
@@ -279,16 +279,15 @@ global proc registerLiquidRenderer()
 					"-textureBakingProcedure				\"liquidBakeToTexture\" "				+
 					"-polyPrelightProcedure					\"liquidBakeToVertices\" "				+
 					"-renderingEditorsSubMenuProcedure		\"liquidRenderingEditorsSubMenu\" "		+
-
-				  "liquid;");
+				  ""+liq_getRendererName()+";");
 		break;
 	default:
 		error ("Liquid is not tested for Maya "+$version+"\n");
 	}
 
-	evalDeferred liquidAddTabs;
+	evalEcho liquidAddTabs;//evalDeferred liquidAddTabs;
 
-	renderer -edit -addGlobalsNode "liquidGlobals" liquid;
+	renderer -edit -addGlobalsNode "liquidGlobals" (liq_getRendererName());
   }
 
   // can't override maya original mayaBatchRenderProcedure(). Strange!
@@ -304,19 +303,19 @@ global proc liquidAddTabs()
 {
   liqPushIdent();
 	liqlog("liquidAddTabs()");
-  if ( `renderer -exists "liquid"`)
+  if ( `renderer -exists (liq_getRendererName())`)
   {
     renderer -edit
              -addGlobalsTab "Common"
                             "createMayaSoftwareCommonGlobalsTab"
                             "updateMayaSoftwareCommonGlobalsTab"
-             liquid;
+             (liq_getRendererName());
           
     renderer -edit
-             -addGlobalsTab "Liquid"
+             -addGlobalsTab (liq_getRendererUIName())
                             "liquidCreateGlobalsTab"
                             "liquidUpdateMayaGlobals"
-             liquid;
+             (liq_getRendererName());
   }
   liqPopIdent();
 }
@@ -326,7 +325,8 @@ global proc unregisterLiquidRenderer()
   liqPushIdent();
 	liqlog("unregisterLiquidRenderer(...)");
 
-  if ( `renderer -q -ex liquid` ) renderer -unregisterRenderer liquid;
+  if ( `renderer -q -ex (liq_getRendererName())` ) 
+	  renderer -unregisterRenderer (liq_getRendererName());
   
   //replaceMayaBatchRenderProcedure(0);
   updateRendererUI();

@@ -157,122 +157,122 @@ global proc initializeLiquidNodeTypeInfo ()
         int $index = 0;
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kMaterials"));//categoryName
         $liqNodeTypeInfo[$index++] = "liqMaterials";//categoryUiName
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/surface";//categoryStaticClassification
+        $liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/shader/surface";//categoryStaticClassification
         $liqNodeTypeInfo[$index++] = "-asShader";//categoryRuntimeClassification
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kShadowShaders"));
         //$liqNodeTypeInfo[$index++] = "liqShadow";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/shadow";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/shadow";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kVolumetricMaterials"));
         $liqNodeTypeInfo[$index++] = "liqVolume";
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/volume";//"rendernode/liquid/volume";
+        $liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/shader/volume";//"rendernode/"+liq_getRendererName()+"/volume";
         $liqNodeTypeInfo[$index++] = "-asShader";
     
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kDisplacementShaders"));
         $liqNodeTypeInfo[$index++] = "liqDisplacement";
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/shader/displacement";//"rendernode/liquid/displace";
+        $liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/shader/displacement";//"rendernode/"+liq_getRendererName()+"/displace";
         $liqNodeTypeInfo[$index++] = "-asShader";//"-asUtility"
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonicMaterials"));
         //$liqNodeTypeInfo[$index++] = "liqPhoton";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/photon";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/photon";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonVolumetricMaterials"));
         //$liqNodeTypeInfo[$index++] = "liqPhotonVolume";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/photonvol";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/photonvol";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kTextures"));
         //$liqNodeTypeInfo[$index++] = "liqTexture";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/texture";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/texture";
         //$liqNodeTypeInfo[$index++] = "-asTexture";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kEnvironments"));
         //$liqNodeTypeInfo[$index++] = "liqEnvironment";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/environment";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/environment";
         //$liqNodeTypeInfo[$index++] = "-asShader";
     
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLiquidLights"));
         $liqNodeTypeInfo[$index++] = "liqLight";
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/light";
+        $liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/light";
         $liqNodeTypeInfo[$index++] = "-asLight";//"-asUtility"
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kPhotonEmitters"));
         //$liqNodeTypeInfo[$index++] = "liqEmitter";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/emitter";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/emitter";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLightMaps"));
         //$liqNodeTypeInfo[$index++] = "liqLightmap"; 
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/lightmap";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/lightmap";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kLenses"));
         //$liqNodeTypeInfo[$index++] = "liqLens";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/lens";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/lens";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kOutputShaders"));
         //$liqNodeTypeInfo[$index++] = "liqOutput";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/output";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/output";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kGeometry"));
         //$liqNodeTypeInfo[$index++] = "liqGeometry";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/geometry";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/geometry";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourStore"));
         //$liqNodeTypeInfo[$index++] = "liqContourStore";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/store";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/contour/store";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourContrast"));
         //$liqNodeTypeInfo[$index++] = "liqContourContrast";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/contrast";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/contour/contrast";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourShader"));
         //$liqNodeTypeInfo[$index++] = "liqContourShader";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/shader";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/contour/shader";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kContourOutput"));
         //$liqNodeTypeInfo[$index++] = "liqContourOutput";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/contour/output";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/contour/output";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kSampleCompositing"));
         //$liqNodeTypeInfo[$index++] = "liqCompositing";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/composite";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/composite";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kDataConversion"));
         //$liqNodeTypeInfo[$index++] = "liqConversion";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/conversion";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/conversion";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kStateShaders"));
         //$liqNodeTypeInfo[$index++] = "liqState";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/state";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/state";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
     
         //$liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kMiscellaneous"));
         //$liqNodeTypeInfo[$index++] = "liqMisc";
-        //$liqNodeTypeInfo[$index++] = "rendernode/liquid/misc";
+        //$liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/misc";
         //$liqNodeTypeInfo[$index++] = "-asUtility";
 
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kUtilityGeneral"));
         $liqNodeTypeInfo[$index++] = "liqUtilityGeneral";
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/utility/general";
+        $liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/utility/general";
         $liqNodeTypeInfo[$index++] = "-asUtility";
 
         $liqNodeTypeInfo[$index++] = (uiRes("m_liquidCustomNodeUI.kUtilityColor"));
         $liqNodeTypeInfo[$index++] = "liqUtilityColor";
-        $liqNodeTypeInfo[$index++] = "rendernode/liquid/utility/color";
+        $liqNodeTypeInfo[$index++] = "rendernode/"+liq_getRendererName()+"/utility/color";
         $liqNodeTypeInfo[$index++] = "-asUtility";
     }    
     liqPopIdent();
@@ -552,7 +552,7 @@ global proc liqCreateNodeWindow_SetupTab( string $postCommand, string $flag )
 									+ $runtimeClassification 
 									+ " \"" + $postCommand + "\""
 									+ " " + $name 
-									+ " " + "\"liquid\"");
+									+ " " + "\""+liq_getRendererName()+"\"");
 
 				nodeIconButton -e -command $command ($name+"Btn");
 			}

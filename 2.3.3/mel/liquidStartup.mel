@@ -1067,16 +1067,21 @@ global proc liquidStartup()
     liquidCreateGlobals();
   }
 
-  //liquidRegisterSlLib();
-  liquidCreateMenus();
-  liquidCreateScriptNode();
-  liquidCreateScriptJobs();
+  //register renderer
   registerLiquidRenderer();
   //liquidAddAttributeExtension();
   liquidAddRendererCallbacks();
 
-  eval "liquidAETemplateOverwrite";
-  //evalDeferred -lp "liquidAETemplateOverwrite";
+  //UI
+  //liquidRegisterSlLib();
+  liquidCreateMenus();
+  liquidCreateScriptNode();
+  liquidCreateScriptJobs();
+
+  eval "liquidAETemplateOverwrite"; //evalDeferred -lp "liquidAETemplateOverwrite";
+
+
+
   liqPopIdent();
 }
 

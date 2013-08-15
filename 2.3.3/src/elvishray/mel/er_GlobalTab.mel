@@ -1,19 +1,19 @@
 source liqGlobalsNodeRenderer.mel;
 source AEelvishrayGlobalsTemplate.res.mel;
-
+source liq_RendererName.mel;
 //
 global proc erGlobalTab()
 {
 	liqPushIdent();
 	liqlog("erGlobalTab()");
 
-	if ( `renderer -exists "liquid"`)
+	if ( `renderer -exists (liq_getRendererName())`)
 	{
 		renderer -edit
 				-addGlobalsTab (er_getRendererName())
 						"erCreateGlobalsTab"
 						"erUpdateGlobalsTab"
-		liquid;
+		(liq_getRendererName());
 	}
 	liqPopIdent();
 }

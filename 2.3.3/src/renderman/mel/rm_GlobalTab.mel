@@ -1,18 +1,19 @@
 
 source xxliquidutility.mel;
 source liq_util_widget.mel;
-source liq_util_widget2.mel;
+//source liq_util_widget2.mel;
+source liq_RendererName.mel;
 //
 global proc rmGlobalTab()
 {
 	liqPushIdent();
 	liqlog("rmGlobalTab()");
 
-	if ( `renderer -exists "liquid"`)
+	if ( `renderer -exists (liq_getRendererName())`)
 	{
 		renderer -edit
 				-addGlobalsTab (rm_getRendererName()) "rmCreateGlobalsTab" "rmUpdateGlobalsTab"
-		liquid;
+		(liq_getRendererName());
 	}else{
 		liqError("liquid is not registed.");
 	}
@@ -31,7 +32,7 @@ global proc rmCreateGlobalsTab()
 	//	This means we can leverage the update proc to create the tabs for
 	//	New layers.  We should use a scriptJob, but the layer is not yet
 	//	set on all oses.
-	//string $unifiedRendererTabName = rendererTabName("liquid", rm_getRendererName());
+	//string $unifiedRendererTabName = rendererTabName(liq_getRendererUIName(), rm_getRendererName());
 	//setParent $unifiedRendererTabName;
 
 	//string $prefix = `liquidGetCurrentRenderLayerName`;

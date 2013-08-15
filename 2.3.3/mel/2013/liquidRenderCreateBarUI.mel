@@ -10,7 +10,7 @@ global proc LIQUID_buildRenderNodeTreeListerContent(string $renderNodeTreeLister
 
 	if (`pluginInfo -query -loaded (liquidGetPluginName())`)
 	{
-		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, "liquid");
+		liqRenderNode_CreateTreeLister_Content($renderNodeTreeLister, $postCommand, $filterClassArray, liq_getRendererName());
 	}
 
 	liqRenderNode_CreateTreeLister_Content_subrenderer($renderNodeTreeLister, $postCommand, $filterClassArray);
@@ -25,7 +25,7 @@ global proc string[] LIQUID_excludeClassficationNodes(string $classification)
 
 	string $exclude[];
 
-	string $liquidClassfication = "rendernode/liquid/shader";
+	string $liquidClassfication = "rendernode/"+liq_getRendererName()+"/shader";
 	if( !startsWith($classification, $liquidClassfication) )
 	{
 		string $exclNodes[];
@@ -47,7 +47,7 @@ global proc int LIQUID_isLiquidClassification(string $classification)
 
 	int $processed = 0;// $classification is processed by liquid or not
 
-	string $liquidClassfication = "rendernode/liquid";
+	string $liquidClassfication = "rendernode/"+liq_getRendererName();
 	if( startsWith($classification, $liquidClassfication) )
 	{
 		liqPopIdent();
@@ -82,7 +82,7 @@ global proc string LIQUID_getCreateBarItemCallbackCmd(
 					+ encodeString($postCommand)
 					+ "\" "
 					+ $type
-					+ " \"liquid\" "
+					+ " \""+liq_getRendererName()+"\" "
 					);
 	}
 	else if( LIQUID_isLiquidClassification_subrenderer($classification) )

@@ -738,7 +738,7 @@ global proc liquidShowTextGlobal2(string $node,  string $name, string $msg )
 //    ,"preJobCommand",               "string", ""
 //    ,"postJobCommand",              "string", ""
 //    ,"key",                         "string", "maya"
-//    ,"service",                     "string", "liquid"
+//    ,"service",                     "string", (liq_getRendererName())
 //    ,"lastRenderScript",            "string", ""
 //    ,"lastRibFile",                 "string", ""
 //

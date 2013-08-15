@@ -587,7 +587,7 @@ global proc createAssignNewMaterialTreeLister(string $item)
     {
 	    $filterString = $filterString + " " + $thirdPartiesClassificationString; 
     }
-	$filterString = $filterString + LIQUID_getRenderNodeFilterString("liquid");
+	$filterString = $filterString + LIQUID_getRenderNodeFilterString(liq_getRendererName());
 
 	// Create the window and treeLister.
 	//

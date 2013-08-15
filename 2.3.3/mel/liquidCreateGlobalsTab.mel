@@ -74,7 +74,7 @@ global proc liquidSwitchGlobalsRenderLayer()
   liqPushIdent();
 	liqlog("liquidSwitchGlobalsRenderLayer()");
   string $prefix = `liquidGetCurrentRenderLayerName`;
-  string $unifiedRendererTabName = rendererTabName("liquid","Liquid");
+  string $unifiedRendererTabName = rendererTabName(liq_getRendererName(),liq_getRendererUIName());
   string $ourUberLayout = ($prefix+"liquidUberLayout");
   
   if(`layout -q -ex $unifiedRendererTabName`) 
@@ -174,7 +174,7 @@ global proc liquidCreateGlobalsTab()
     setCurrentRenderer mayaSoftware;
     addRendererTabsToGlobalsWindow mayaSoftware;
     addMasterLayerTabsToGlobalsWindow;				// This one creates the common tab
-    setCurrentRenderer liquid;
+    setCurrentRenderer (liq_getRendererName());
   }
 
   if ( !liquidGlobalsExists() ) liquidCreateGlobals();
@@ -183,7 +183,7 @@ global proc liquidCreateGlobalsTab()
   //	This means we can leverage the update proc to create the tabs for
   //	New layers.  We should use a scriptJob, but the layer is not yet
   //	set on all oses.
-  string $unifiedRendererTabName = rendererTabName("liquid","Liquid");
+  string $unifiedRendererTabName = rendererTabName(liq_getRendererName(),liq_getRendererUIName());
   setParent $unifiedRendererTabName;
 
   // find out if we are going to display the masterLayer's globals or regular globals
