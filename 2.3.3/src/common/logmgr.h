@@ -3,20 +3,11 @@
 
 #include <fstream>
 #include <string>
-
-#ifdef _WIN32
-#	ifdef LIQUID_EXPORT_DLL
-#		define LOGMGR_EXPORT _declspec(dllexport)
-#	else
-#		define LOGMGR_EXPORT _declspec(dllimport)
-#	endif
-#else
-#	define LOGMGR_EXPORT
-#endif
+#include <liqtypes.h>
 
 namespace liquid
 {
-	class LOGMGR_EXPORT LogMgr
+	class LIQUID_EXPORT LogMgr
 	{
 	public:
 		LogMgr();

@@ -33,23 +33,11 @@ class's constructor and destructor. This rational is simple enough, but this way
 #include <string>
 #include <fstream>
 #include <sstream>
-
-
-
-
-#ifdef _WIN32
-#	ifdef LIQUID_EXPORT_DLL
-#		define TRACE_EXPORT _declspec(dllexport)
-#	else
-#		define TRACE_EXPORT _declspec(dllimport)
-#	endif
-#else
-#	define TRACE_EXPORT
-#endif
+#include <liqtypes.h>
 
 namespace	cm
 {
-	class TRACE_EXPORT Trace
+	class LIQUID_EXPORT Trace
 	{
 	public:
 		explicit Trace();
