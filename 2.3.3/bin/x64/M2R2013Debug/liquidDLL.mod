@@ -9,4 +9,5 @@ XBMLANGPATH +:= ../../../icons;
 PATH +:= ../../../../test/image_diff;
 PATH +:= ../../../lib/plugins;
 PATH +:= ../../../../dependence/elvishray/r274/bin_x64;
+PATH +:= /plug-ins
 MAYA_RENDER_DESC_PATH+:=../../../rendererDesc
