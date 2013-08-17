@@ -731,14 +731,16 @@ global proc liquidCreateMenus()
      // setParent -menu ..;
 	 //[refactor liq|ui|1 -end]
 	  menuItem -d true;//------------------------------------
-	  
+	  menuItem -label "Create ScirptJobs" -ann "Create ScirptJobs" -command "liquidCreateScriptJobs();";
+ 	  menuItem -label "Remove ScirptJobs" -ann "Remove ScirptJobs" -command "liquidRemoveScriptJobs();";
+	  menuItem -d true;//------------------------------------
       menuItem -label "Clear Liquid..." -ann "Remove all Liquid nodes from the current scene" -command "liquidCleanup( 1 )";
-      menuItem -d true;
+      menuItem -d true;//------------------------------------
       menuItem -label "Liquid Light Linker" -ann "Use Liquids Set Light linking" -command LLL_lightCentricUI;
-      menuItem -d true;
+      menuItem -d true;//------------------------------------
       menuItem -label "Help" -ann "HTML Help" -command "liquidMenuHelp";
       menuItem -label "About..." -command "liquidShowAbout";
-	  menuItem -d true;
+	  menuItem -d true;//------------------------------------
 	  //
 // 	  menuItem -d true;
 // 	  er_CreateMenu("main");
@@ -1034,8 +1036,40 @@ global proc liquidCreateScriptJobs()
 {
   liqPushIdent();
 	liqlog("liquidCreateScriptJobs()");
-  // setup a scriptJob to update some widgets
-  // when the renderlayers change
+
+	if( `about -batch`== true ){
+		liqWarn("scriptJob command does nothing in batch mode, retun.");
+		return;
+	}
+
+  liquidRemoveScriptJobs();
+
+  int $jobNumber = -1;
+  // switch layouts when the render layer changes
+  $jobNumber = `scriptJob -event "renderLayerManagerChange" "eval(\"liquidSwitchGlobalsRenderLayer\")" -protected`;
+  liqlog("liquidSwitchGlobalsRenderLayer, $jobNumber="+$jobNumber);
+
+  $jobNumber = `scriptJob -event "renderLayerChange" "eval(\"liquidLargeFieldUpdater;liquidAE_LifStringOverrideDisplayAll\")" -protected`;
+  liqlog("renderLayerChange, liquidAE_LifStringOverrideDisplayAll, $jobNumber="+$jobNumber);
+
+  $jobNumber = `scriptJob -event "renderLayerManagerChange" "eval(\"liquidLargeFieldUpdater;liquidAE_LifStringOverrideDisplayAll\")" -protected`;
+  liqlog("renderLayerManagerChange, liquidAE_LifStringOverrideDisplayAll, $jobNumber="+$jobNumber);
+
+  $jobNumber = `scriptJob -killWithScene -attributeChange "defaultRenderGlobals.currentRenderer" "liqRendererChanged();" -protected`;
+  liqlog("liqRendererChanged, $jobNumber="+$jobNumber);
+
+  liqPopIdent();
+}
+global proc liquidRemoveScriptJobs()
+{
+  liqPushIdent();
+	liqlog("liquidRemoveScriptJobs()");
+
+	if( `about -batch`== true ){
+		liqWarn("scriptJob command does nothing in batch mode, retun.");
+		return;
+	}
+
   string $jobs[] = `scriptJob -lj`;
   for ( $j in $jobs ) {
     if ( gmatch( $j, "*liquidLargeFieldUpdater*") ) 
@@ -1045,12 +1079,6 @@ global proc liquidCreateScriptJobs()
     if ( gmatch( $j, "*liqRendererChanged*") ) 
 		scriptJob -kill (int(match("[0-9]+", $j))) -force;
   }
-
-  // switch layouts when the render layer changes
-  scriptJob -event "renderLayerManagerChange" "eval(\"liquidSwitchGlobalsRenderLayer\")" -protected;
-  scriptJob -event "renderLayerChange" "eval(\"liquidLargeFieldUpdater;liquidAE_LifStringOverrideDisplayAll\")" -protected;
-  scriptJob -event "renderLayerManagerChange" "eval(\"liquidLargeFieldUpdater;liquidAE_LifStringOverrideDisplayAll\")" -protected;
-  scriptJob -killWithScene -attributeChange "defaultRenderGlobals.currentRenderer" "liqRendererChanged();";
 
   liqPopIdent();
 }

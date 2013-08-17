@@ -59,5 +59,7 @@ global proc liquidShutdownUI()
 	//UI
 	liquidRemoveMenusIfAny();
 
+	liquidRemoveScriptJobs();
+
 	liqPopIdent();
 }
