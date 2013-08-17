@@ -13,26 +13,26 @@ global proc MainEntrance()
 //if( $retButton == "Quit" )
 //    return;
 //loadPlugin liquidDLL;
+
+// ---- load elvishray plugin ----
 source er_RendererName.mel;
 string $ername = er_getRendererName();
 loadPlugin $ername;
-loadPlugin renderman;
-loadPlugin eiSHADER_user_mayaplugin;
-loadPlugin rmSHADER_user_mayaplugin;
-
-// ---- load elvishray plugin ----
-string $ERName = "ElvishRender";//modefy this plugin to render name of Elvishray
-loadPlugin $ERName;
 // write elvishray.py. 
 // Other py scripts will call getRendererName() to get the render name of Elvishray
 $fId = fopen("elvishray.py","w");
 fprint($fId, "\n# This file is generated automatically by test2.mel.\n\n");
 fprint($fId, "def getRendererName():\n");
-fprint($fId, "    return \""+$ERName+"\"\n");
+fprint($fId, "    return \""+$ername+"\"\n");
 fclose($fId);
+
+loadPlugin eiSHADER_user_mayaplugin;
+
 
 // ---- load renderman plugin ----
 loadPlugin renderman;
+loadPlugin rmSHADER_user_mayaplugin;
+
 
 //
 python("import sys");
