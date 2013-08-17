@@ -17,7 +17,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -37,18 +37,18 @@ namespace elvishray
 	//
 	static void _write(liqRibLocatorData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("er_writeLocatorData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		CM_TRACE_FUNC("er_writeLocatorData.cpp::write("<<pData->getFullPathName().asChar()<<","<<currentJob__.name.asChar()<<",...)");
 		OutputMgr &o = Renderer::getOutputMgr();
 
 		o.ln();
 		o.ln();
 		o.ln();
-		o.a(boost::str(boost::format("locator %s")%pData->getFullPathName()));
+		o.a(boost::str(boost::format("locator %s")%pData->getFullPathName().asChar()));
 
 #ifdef TRANSFORM_SHAPE_PAIR
-		const std::string objectName(pData->getFullPathName());//shape
+		const std::string objectName(pData->getFullPathName().asChar());//shape
 #else// SHAPE SHAPE_object PAIR
-		const std::string objectName(getObjectName(pData->getFullPathName()));//shape+"_object"
+		const std::string objectName(getObjectName(pData->getFullPathName().asChar()));//shape+"_object"
 #endif
 
 		std::vector<MVector> POSITION;

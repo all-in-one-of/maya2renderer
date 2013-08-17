@@ -172,7 +172,7 @@ void liqRibCameraData::write(const MString &ribFileName, const structJob &curren
  */
 bool liqRibCameraData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibCameraData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibCameraData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> comparing camera\n" );
   if ( otherObj.type() != MRT_Camera ) 

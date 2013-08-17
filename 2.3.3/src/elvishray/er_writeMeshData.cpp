@@ -21,7 +21,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -71,7 +71,7 @@ namespace elvishray
 	//
 	static void _write1(liqRibMeshData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("er_writeMeshData.cpp::_write1("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<")");
+		CM_TRACE_FUNC("er_writeMeshData.cpp::_write1("<<pData->getFullPathName().asChar()<<","<<currentJob__.name.asChar()<<")");
 		OutputMgr &o = Renderer::getOutputMgr();
 
 		liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
@@ -240,7 +240,7 @@ namespace elvishray
 		// geometry data (shape)
 		o.ln();
 		o.a("############################### mesh #");
-		o.a("shape full path name="+std::string(mesh->getFullPathName()));
+		o.a("shape full path name="+std::string(mesh->getFullPathName().asChar()));
 #ifdef TRANSFORM_SHAPE_PAIR
 		const std::string objectName(ribNode__->name.asChar());//shape
 #else// SHAPE SHAPE_object PAIR

@@ -424,7 +424,7 @@ void liqRibHierarchicalSubdivisionData::write(const MString &ribFileName, const 
  */
 bool liqRibHierarchicalSubdivisionData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibHierarchicalSubdivisionData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   unsigned i;
   unsigned numFaceVertices = 0;

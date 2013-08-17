@@ -17,7 +17,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -42,7 +42,7 @@ namespace elvishray
 	}
 	void Renderer::_write_camera_maya(liqRibCameraData* pData, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_maya("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("er_writeCameraData.cpp::_write_camera_maya("<<pData->getFullPathName().asChar()<<","<<currentJob.name.asChar()<<")");
 		OutputMgr &o = Renderer::getOutputMgr();
 
 		liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(

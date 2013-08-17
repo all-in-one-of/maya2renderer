@@ -84,7 +84,7 @@ void liqRibLocatorData::write(const MString &ribFileName, const structJob &curre
  */
 bool liqRibLocatorData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibLocatorData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibLocatorData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> comparing locator\n" );
   if ( otherObj.type() != MRT_Locator ) return false;

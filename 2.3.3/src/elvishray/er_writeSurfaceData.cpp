@@ -17,7 +17,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -37,10 +37,10 @@ namespace elvishray
 	//
 	static void _write(liqRibSurfaceData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("er_writeSurfaceData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		CM_TRACE_FUNC("er_writeSurfaceData.cpp::write("<<pData->getFullPathName().asChar()<<","<<currentJob__.name.asChar()<<",...)");
 		OutputMgr &o = Renderer::getOutputMgr();
 
-		o.a(boost::str(boost::format("Nurbs surface %s is not implemented yet.")%pData->getFullPathName()));
-		liquidMessage2(messageError, "Nurbs surface [%s] is not implemented yet.", pData->getFullPathName());
+		o.a(boost::str(boost::format("Nurbs surface %s is not implemented yet.")%pData->getFullPathName().asChar()));
+		liquidMessage2(messageError, "Nurbs surface [%s] is not implemented yet.", pData->getFullPathName().asChar());
 	}
 }//namespace elvishray

@@ -521,7 +521,7 @@ unsigned liqRibSurfaceData::granularity() const
  */
 bool liqRibSurfaceData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibSurfaceData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibSurfaceData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> comparing nurbs surface\n" );
   if ( otherObj.type() != MRT_Nurbs ) return false;

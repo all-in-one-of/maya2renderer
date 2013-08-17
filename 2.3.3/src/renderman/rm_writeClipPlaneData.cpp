@@ -13,7 +13,7 @@ namespace renderman
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		assert(liqglo.m_ribFileOpen &&"rm_writeClipPlaneData.cpp");
 
@@ -46,7 +46,7 @@ namespace renderman
 	//
 	static void _write(liqRibClipPlaneData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("rm_writeClipPlaneData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		CM_TRACE_FUNC("rm_writeClipPlaneData.cpp::_write("<<pData->getFullPathName().asChar()<<","<<currentJob__.name.asChar()<<",...)");
 
 		LIQDEBUGPRINTF("-> writing clipPlane");
 		RiArchiveRecord( RI_VERBATIM, "ClippingPlane 0 0 -1 0 0 0\n" );

@@ -328,7 +328,7 @@ void liqRibPfxHairData::write(const MString &ribFileName, const structJob &curre
  */
 bool liqRibPfxHairData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibPfxHairData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibPfxHairData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> comparing pfxHair curves\n");
   //cout << "-> comparing pfxHair curves..." << endl;

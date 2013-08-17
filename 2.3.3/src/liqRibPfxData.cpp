@@ -524,7 +524,7 @@ unsigned liqRibPfxData::granularity() const
  */
 bool liqRibPfxData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibPfxData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibPfxData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
 	LIQDEBUGPRINTF( "-> comparing painteffects curves\n");
 

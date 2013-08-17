@@ -18,7 +18,7 @@ namespace elvishray
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<fileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		if( !bReference ){//write data at first time
 			assert(pData->getRibFileFullPath().length()==0);
@@ -38,11 +38,11 @@ namespace elvishray
 	//
 	void Renderer::_write_pfxhair(liqRibPfxHairData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("_write_pfxhair("<<pData->getFullPathName()<<","<<currentJob__.name<<")");
+		CM_TRACE_FUNC("_write_pfxhair("<<pData->getFullPathName().asChar()<<","<<currentJob__.name<<")");
 		//
 		if( pData->isEmpty() ) 
 		{
-			liquidMessage2(messageWarning, "pfxHair is empty: [%s]",  pData->getFullPathName());
+			liquidMessage2(messageWarning, "pfxHair is empty: [%s]",  pData->getFullPathName().asChar());
 			return;
 		}
 
@@ -93,7 +93,7 @@ namespace elvishray
 		// geometry data (shape)
 		o.ln();
 		o.a("############################### mesh #");
-		o.a(boost::str(boost::format("shape full path name=%s")%data->getFullPathName()));
+		o.a(boost::str(boost::format("shape full path name=%s")%data->getFullPathName().asChar()));
 #ifdef TRANSFORM_SHAPE_PAIR
 		const std::string objectName(ribNode__->name.asChar());//shape
 #else// SHAPE SHAPE_object PAIR

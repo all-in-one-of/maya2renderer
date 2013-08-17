@@ -14,7 +14,7 @@ namespace renderman
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		assert(liqglo.m_ribFileOpen&&"rm_writePfxHairData.cpp");
 
@@ -47,13 +47,13 @@ namespace renderman
 	//
 	static void _write(liqRibPfxHairData* pData, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("rm_writePfxHairData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("rm_writePfxHairData.cpp::_write("<<pData->getFullPathName().asChar()<<","<<currentJob.name.asChar()<<")");
 
 		//
 		if( pData->isEmpty() ) 
 		{
 			RiIdentity(); // In case we're in a motion block!
-			liquidMessage2(messageWarning, "pfxHair is empty. [%s]",  pData->getFullPathName());
+			liquidMessage2(messageWarning, "pfxHair is empty. [%s]",  pData->getFullPathName().asChar());
 			return;
 		}
 

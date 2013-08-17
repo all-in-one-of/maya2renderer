@@ -290,7 +290,7 @@ void liqRibData::addAdditionalSurfaceParameters( MObject node )
 // 	MFnDagNode fnDepNode(objDagPath);
 // 	return fnDepNode.name().asChar();
 // }
-const char* liqRibData::getFullPathName() const
+MString liqRibData::getFullPathName() const
 {
 	CM_TRACE_FUNC("liqRibData::getFullPathName()");
 
@@ -303,5 +303,5 @@ const char* liqRibData::getFullPathName() const
 		liquidMessage2(messageError,"liqRibData::getFullPathName() return empty string.");
 	}
 
-	return fnDepNode.fullPathName().asChar();
+	return fnDepNode.fullPathName();
 }

@@ -1033,7 +1033,7 @@ void liqRibLightData::write(const MString &ribFileName, const structJob &current
  */
 bool liqRibLightData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibLightData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibLightData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   otherObj.type(); // reference it to avoid unused param compiler warning
   LIQDEBUGPRINTF( "-> comparing light\n" );

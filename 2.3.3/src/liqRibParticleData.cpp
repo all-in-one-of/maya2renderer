@@ -1850,7 +1850,7 @@ unsigned liqRibParticleData::granularity() const
  */
 bool liqRibParticleData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibParticleData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibParticleData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   LIQDEBUGPRINTF( "-> comparing particles\n");
 

@@ -14,7 +14,7 @@ namespace renderman
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 	 	assert(liqglo.m_ribFileOpen&&"liqRibPfxData.cpp");
 	 
@@ -47,7 +47,7 @@ namespace renderman
 	//
 	static void _write(liqRibPfxData* pData, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("rm_writePfxData.cpp::_write("<<pData->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("rm_writePfxData.cpp::_write("<<pData->getFullPathName().asChar()<<","<<currentJob.name.asChar()<<")");
 
 		LIQDEBUGPRINTF( "-> writing painteffects curves\n" );
 

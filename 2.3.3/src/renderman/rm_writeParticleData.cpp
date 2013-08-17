@@ -17,7 +17,7 @@ namespace renderman
 		const structJob &currentJob,
 		const bool bReference)
 	{
-		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
+		CM_TRACE_FUNC("Renderer::write("<<pData->getFullPathName().asChar()<<","<<ribFileName.asChar()<<","<<currentJob.name.asChar()<<",ref="<<bReference<<")");
 
 		assert(liqglo.m_ribFileOpen &&"rm_writeParticleData.cpp");
 
@@ -50,7 +50,7 @@ namespace renderman
 	//
 	static void _write(liqRibParticleData* pData, const structJob &currentJob__)
 	{
-		CM_TRACE_FUNC("rm_writeParticleData.cpp::write("<<pData->getFullPathName()<<","<<currentJob__.name.asChar()<<",...)");
+		CM_TRACE_FUNC("rm_writeParticleData.cpp::write("<<pData->getFullPathName().asChar()<<","<<currentJob__.name.asChar()<<",...)");
 
 		LIQDEBUGPRINTF( "-> writing particles\n");
 
@@ -61,7 +61,7 @@ namespace renderman
 		MString notes("Make sure the particle is generated(e.g. sometimes particle is not generated, drag the time slider from frame0 to generate particles.)");
 		if(pData->m_numValidParticles <= 0 ){
 			RiArchiveRecord( RI_COMMENT, "Number of Valid Particles: %d. %s", pData->m_numValidParticles, notes.asChar() );
-			liquidMessage2(messageError, "%s. [%s]", notes.asChar(), pData->getFullPathName());
+			liquidMessage2(messageError, "%s. [%s]", notes.asChar(), pData->getFullPathName().asChar());
 			return;
 		}
 

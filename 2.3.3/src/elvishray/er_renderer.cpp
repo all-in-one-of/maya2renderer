@@ -247,7 +247,7 @@ namespace elvishray
 	}
 	MStatus Renderer::liqRibLightData_write(const liqRibLightData *lightdata, const structJob &currentJob)
 	{
-		CM_TRACE_FUNC("Renderer::liqRibLightData_write("<<lightdata->getFullPathName()<<","<<currentJob.name.asChar()<<")");
+		CM_TRACE_FUNC("Renderer::liqRibLightData_write("<<lightdata->getFullPathName().asChar()<<","<<currentJob.name.asChar()<<")");
 		return MS::kSuccess;
 	}
 
@@ -330,7 +330,7 @@ namespace elvishray
 					o.a(boost::str(boost::format("child(%d):%s")%i %childrenMsg[i].asChar()) );
 				}
 			}
-			o.a(boost::str(boost::format("ribNode->object(%d)->getDataPtr()->getFullPathName()=%s")%sample_first %ribNode__->object(sample_first)->getDataPtr()->getFullPathName()));
+			o.a(boost::str(boost::format("ribNode->object(%d)->getDataPtr()->getFullPathName()=%s")%sample_first %ribNode__->object(sample_first)->getDataPtr()->getFullPathName().asChar()));
 		
 		}
 
@@ -379,8 +379,8 @@ namespace elvishray
 		}
 		
 		//element
-		o.a("shape name="+std::string(mesh->getFullPathName()));
-		o.a("shape full path name="+std::string(mesh->getFullPathName()));
+		o.a("shape name="+std::string(mesh->getFullPathName().asChar()));
+		o.a("shape full path name="+std::string(mesh->getFullPathName().asChar()));
 		o.ei_element( objectName.c_str() );
 
 		MMatrix matrix;

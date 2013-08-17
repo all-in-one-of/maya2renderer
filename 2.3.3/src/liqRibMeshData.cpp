@@ -473,7 +473,7 @@ void liqRibMeshData::write(const MString &ribFileName, const structJob &currentJ
  */
 bool liqRibMeshData::compare( const liqRibData & otherObj ) const
 {
-	CM_TRACE_FUNC("liqRibMeshData::compare("<<otherObj.getFullPathName()<<")");
+	CM_TRACE_FUNC("liqRibMeshData::compare("<<otherObj.getFullPathName().asChar()<<")");
 
   unsigned numFaceVertices( 0 );
 
