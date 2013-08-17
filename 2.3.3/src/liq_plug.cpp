@@ -60,7 +60,7 @@
 #include <liqMayaRenderView.h>
 #include <liqGlobalsNode.h>
 #include "liqGlobalNodeRenderer.h"
-#include <liqJobList.h>
+//#include <liqJobList.h>
 #include <liqBoundingBoxLocator.h>
 #include <liqCoShaderNode.h>
 #include <liqShaderFactory.h>
@@ -151,13 +151,13 @@ MStatus _initializePlugin(MObject obj)
 		displayInfo(liqMayaRenderCmd::getName()+" already registered. skip");
 	}
 
-	if( ! isCommandRegistered(liqJobList::getName()) ){
-		// register the liquidJobList command
-		status = plugin.registerCommand( liqJobList::getName(), liqJobList::creator ,liqJobList::syntax);
-		IfMErrorMsgReturnIt( status, "Can't register command:"+liqJobList::getName() );
-	}else{
-		displayInfo(liqJobList::getName()+" already registered. skip");
-	}
+	//if( ! isCommandRegistered(liqJobList::getName()) ){
+	//	// register the liquidJobList command
+	//	status = plugin.registerCommand( liqJobList::getName(), liqJobList::creator ,liqJobList::syntax);
+	//	IfMErrorMsgReturnIt( status, "Can't register command:"+liqJobList::getName() );
+	//}else{
+	//	displayInfo(liqJobList::getName()+" already registered. skip");
+	//}
 
 	//#ifndef NO_RICMD
 	//  // register the RIArchiveBegin command
@@ -652,12 +652,12 @@ MStatus _uninitializePlugin(MObject obj)
 		displayInfo(liqMayaRenderCmd::getName()+" is deregisted. skip");
 	}
 
-	if( isCommandRegistered(liqJobList::getName()) ){
-		status = plugin.deregisterCommand(liqJobList::getName());
-		IfMErrorMsgReturnIt( status, "Can't deregister command:"+liqJobList::getName() );
-	}else{
-		displayInfo(liqJobList::getName()+" is deregisted. skip");
-	}
+	//if( isCommandRegistered(liqJobList::getName()) ){
+	//	status = plugin.deregisterCommand(liqJobList::getName());
+	//	IfMErrorMsgReturnIt( status, "Can't deregister command:"+liqJobList::getName() );
+	//}else{
+	//	displayInfo(liqJobList::getName()+" is deregisted. skip");
+	//}
 
 	//#ifndef NO_RICMD
 	//  status = plugin.deregisterCommand("RIArchiveBegin");

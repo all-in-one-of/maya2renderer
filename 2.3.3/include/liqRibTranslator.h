@@ -80,7 +80,7 @@ public:
 	MStatus _doItNew( const MString& originalLayer );
 	//MStatus _doIt(const MArgList& args, const MString& originalLayer );
 
-	friend class liqJobList;
+	//friend class liqJobList;
 
 private: // Methods
 //	MObject rGlobalObj;

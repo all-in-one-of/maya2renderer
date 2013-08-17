@@ -2868,6 +2868,7 @@
     <ClCompile Include="..\liqIPRNodeMessageCmd.cpp" />
     <ClCompile Include="..\liqJobList.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Prman2009Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='M2R2013Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\liqJobListMgr.cpp" />
     <ClCompile Include="..\liqJobScriptMgr.cpp" />
