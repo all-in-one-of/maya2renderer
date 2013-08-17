@@ -115,5 +115,6 @@ FileSeek  $1 0 END
 FileWrite $1 "$\r$\nsearchpath       $INSTDIR/dependence/elvishray/r274/bin_x64"
 FileClose $1
 
+MessageBox MB_OK "Please update your *.mod files(e.g. liquidDLL.mod, eiSHADER_user_mayaplugin.mod, rmSHADER_user_mayaplugin.mod)"
 
 sectionEnd
