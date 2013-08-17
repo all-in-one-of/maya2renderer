@@ -2874,8 +2874,8 @@
       <OutputFile>../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).mll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(MAYA_PATH2013)/lib;$(BOOST_ROOT)/stage/lib64;../../../dependence/elvishray/r274/lib_x64;../../../dependence/zlib/lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AssemblyDebug>false</AssemblyDebug>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
       <ProgramDatabaseFile>.\../../bin/$(Platform)/$(Configuration)/plug-ins/$(ProjectName).pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
