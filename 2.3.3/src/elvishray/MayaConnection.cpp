@@ -50,14 +50,6 @@ void setPixel(RV_PIXEL*pixels,
 	target->b = b;
 	target->a = a;
 }
-void setPixel(RV_PIXEL*pixels, 
-			  const unsigned int tile_width, 
-			  const unsigned int tile_height, 
-			  const int ix, const int iy, 
-			  const RV_PIXEL &color )
-{
-	setPixel(pixels, tile_width, tile_height, ix, iy, color.r, color.g, color.b, color.a );
-}
 //
 void MayaConnection::Print( const eiInt severity, const char *message )
 {
@@ -175,28 +167,52 @@ void MayaConnection::UpdateTile( const eiInt job_state,
 	
 	RV_PIXEL* pixels = new RV_PIXEL[(tile_width)*(tile_height)];
 
-	unsigned int index = 0;
-	for (int j = 0; j < ei_framebuffer_cache_get_height(colorFrameBuffer); ++j)
+	const eiInt colorBufH = ei_framebuffer_cache_get_height(colorFrameBuffer);
+	const eiInt colorBufW = ei_framebuffer_cache_get_width(colorFrameBuffer);
+	for (int j = 0; j < colorBufH; ++j)
 	{
-		for (int i = 0; i < ei_framebuffer_cache_get_width(colorFrameBuffer); ++i)
+		for (int i = 0; i < colorBufW; ++i)
 		{
+			//rgb
 			eiVector color;
-			eiScalar opacity;
+			ChannelType r,g,b;
 			ei_framebuffer_cache_get_final(colorFrameBuffer, i, j, &color);
-			ei_framebuffer_cache_get_final(opacityFrameBuffer, i, j, &opacity);
-
-			ChannelType r,g,b,a;
 			color128to64(color.r, r);
 			color128to64(color.g, g);
 			color128to64(color.b, b);
-			color128to64(opacity, a);
-
+			//alpha
+			eiVector opacity;
+			ChannelType a;
+			ei_framebuffer_cache_get_final(opacityFrameBuffer, i, j, &opacity);
+			eiScalar average((opacity.r+opacity.g+opacity.b)/3.0f);
+			color128to64( average, a);
+			//
 			setPixel(pixels, tile_width, tile_height,
 				i, tile_height-j-1,
 				r,g,b,a);
-			index++;
 		}
 	}
+	//const eiInt opacityBufH = ei_framebuffer_cache_get_height(opacityFrameBuffer);
+	//const eiInt opacityBufW = ei_framebuffer_cache_get_width(opacityFrameBuffer);
+	//if( colorBufH != opacityBufH ||  colorBufW != opacityBufW )
+	//{
+	//	liquidMessage2(messageError, "color tile<%f,%f>, opacity tile<%f, %f>",colorBufW, colorBufH, opacityBufW, opacityBufH);
+	//}
+	//for (int j = 0; j < opacityBufH; ++j)
+	//{
+	//	for (int i = 0; i < opacityBufW; ++i)
+	//	{
+	//		eiVector opacity;
+	//		ChannelType a;
+	//		ei_framebuffer_cache_get_final(opacityFrameBuffer, i, j, &opacity);
+	//		eiScalar average((opacity.r+opacity.g+opacity.b)/3.0f);
+	//		color128to64( average, a);
+
+	//		setPixelA(pixels, tile_width, tile_height,
+	//			i, tile_height-j-1,
+	//			a);
+	//	}
+	//}
 // 	_LogDebug("frame buffer<"<<colorFrameBuffer->get_width()<<","<<colorFrameBuffer->get_height()<<">" );
 // 	_LogDebug("width*height = "<<colorFrameBuffer->get_width() * colorFrameBuffer->get_height() );
 // 	_LogDebug("index = "<< index);
