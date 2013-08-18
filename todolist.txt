@@ -6,8 +6,11 @@
 
 
 - learn katana
-- 定计划, 招聘
-done)- preview的alpha通道
+done)- preview的alpha通道 
+-把liquiddll里只有renderman用到的代码,移到renderman工程里
+-liq|: liqRibTranslator::doIt()里的RendererMgr移出来
+- liq| er|: release mod僵死
+
 - 把liquidDLL.mll和elvishrender.mll合并为一个
 - liq|rm|: 先加载liquidDLL.mll,然后加载renderman.dll, 提示
   >rmGlobalTab()
