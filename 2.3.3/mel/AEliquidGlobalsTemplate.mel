@@ -100,6 +100,29 @@ global proc liquidGlobalsTemplateFrame( string $node )
 							-addDynamicControl "rotateCamera";
 		editorTemplate -endLayout;//Camera
 		//-------------------------------------------------
+		//editorTemplate -beginLayout "Image" -collapse true;
+		//    string $ddImageName_Note= "e.g. img_$LYR_$CAM_$F_$RND.tif;\\n"+
+		//						  "$F    - frame number;\\n"+
+		//						  "#     - frame number with padding;\\n"+
+		//						  "$SCN  - scene name;\\n"+
+		//						  "$SHOT - shot name;\\n"+
+		//						  "$VER  - shot version;\\n"+
+		//						  "$LYR  - render layer name;\\n"+
+		//						  "$RND  - subrenderer name, e.g. ElvishRender;\\n"+
+		//						  "$CAM  - render camera;\\n";
+		//	editorTemplate	-label ("Display Name") -ann ($ddImageName_Note)
+		//					-adc ("ddImageName[0]");
+		//	editorTemplate	-label ("Display Driver") -adc ("ddImageType[0]");
+		//	editorTemplate	-label ("Channel(s)")     -adc ("ddImageMode[0]");
+		//	editorTemplate	-label ("Parameter Type") -adc ("ddParamType[0]");
+		//editorTemplate -endLayout;//Image
+		//-------------------------------------------------
+		editorTemplate -beginLayout "Resolution" -collapse true;
+			editorTemplate -l "Width"  -adc "xResolution";
+			editorTemplate -l "Height" -adc "yResolution";
+			editorTemplate -l "Pixel Aspect Ratio" -adc "pixelAspectRatio";
+      	editorTemplate -endLayout;//Resolution
+		//-------------------------------------------------
 		editorTemplate -beginLayout "Animation" -collapse true;
 			editorTemplate -l "Animation" -adc "doAnimation";
 			editorTemplate -l "Frame Sequence" 
