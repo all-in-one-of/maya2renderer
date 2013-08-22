@@ -195,4 +195,7 @@ LIQUID_EXPORT MString liqGetRendererGlobalsNodeInst(const MString &renderer);
 //
 LIQUID_EXPORT  bool isNodeRegistered(const MString &typeName);
 LIQUID_EXPORT  bool isCommandRegistered(const MString &typeName);
+//
+//LIQUID_EXPORT  ObjectType getMRTType(const MString& mayaNodeType);
+LIQUID_EXPORT  ObjectType getMRTType(const MObject& mayaObject, int coordType = 0);
 #endif

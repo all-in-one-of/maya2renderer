@@ -49,10 +49,15 @@ void tLocatorMgr::scanScene(const float lframe__, const int sample__,
 
 			bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
 
+			ObjectType mrttype = getMRTType(currentNode, coordType);
+			ObjectType mrttype_shouldbe = ( coordType == 5 )? MRT_ClipPlane : MRT_Coord;
+			if( mrttype != mrttype_shouldbe ){
+				liquidMessage2(messageError, "mrttype[%d] should be %d", mrttype_shouldbe);
+			}
 			htable__->insert( path, 
 				lframe__, 
 				( useSamples )? sample__ : 0, 
-				( coordType == 5 )? MRT_ClipPlane : MRT_Coord, 
+				mrttype, //( coordType == 5 )? MRT_ClipPlane : MRT_Coord, 
 				count__++ );
 			continue;
 		}

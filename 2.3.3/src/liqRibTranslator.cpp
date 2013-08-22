@@ -4419,7 +4419,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 {
 	CM_TRACE_FUNC("liqRibTranslator::scanSceneNodes(&currentNode, &path,"<<lframe<<","<<sample<<",&count)");
 	//Debug
-	//MString pathname(path.fullPathName());
+	MString pathname(path.fullPathName());
 
 	MFnDagNode dagNode;
 	returnStatus = dagNode.setObject( currentNode );
@@ -4435,6 +4435,10 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 	MPlug ribGenPlug = dagNode.findPlug( "liquidRibGen", &plugStatus );
 	if( plugStatus == MS::kSuccess )
 	{
+		ObjectType mrttype = getMRTType(currentNode);
+		if( mrttype != MRT_RibGen ){
+			liquidMessage2(messageError, "mrttype[%d] should be MRT_RibGen", mrttype);
+		}
 		// scanScene: check the node to make sure it's not using the old ribGen assignment method, this is for backwards
 		// compatibility.  If it's a kTypedAttribute that it's more than likely going to be a string!
 		if( ribGenPlug.attribute().apiType() == MFn::kTypedAttribute )
@@ -4444,12 +4448,12 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 			MSelectionList ribGenList;
 			MStatus ribGenAddStatus = ribGenList.add( ribGenNode );
 			if( ribGenAddStatus == MS::kSuccess )
-				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, sample, MRT_RibGen, count++ );
+				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, sample, mrttype, count++ );
 		}
 		else
 		{
 			if( ribGenPlug.isConnected() )
-				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, sample, MRT_RibGen, count++ );
+				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, sample, mrttype, count++ );
 		}
 
 	}
@@ -4481,13 +4485,21 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		|| currentNode.hasFn( MFn::kImplicitSphere )
 		|| currentNode.hasFn( MFn::kPluginShape ) ) // include plugin shapes as placeholders
 	{
+		ObjectType mrttype = getMRTType(currentNode);
+		if( mrttype != MRT_Unknown ){
+			liquidMessage2(messageError, "scanSceneNodes()>mrttype[%d] should be MRT_Unknown", mrttype);
+		}
 		LIQDEBUGPRINTF( "==> inserting obj to htable %s\n", path.fullPathName().asChar() );
-    	liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
+    	liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, mrttype, count++ );
 		LIQDEBUGPRINTF( "==> %s inserted\n", path.fullPathName().asChar() );
 	}
 	else if(currentNode.hasFn( MFn::kCamera ))
 	{
-    	liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_Unknown, count++ );
+		ObjectType mrttype = getMRTType(currentNode);
+		if( mrttype != MRT_Unknown ){
+			liquidMessage2(messageError, "mrttype[%d] should be MRT_Unknown(camera)", mrttype);
+		}
+    	liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, mrttype, count++ );
 	}
 	else if(currentNode.hasFn( MFn::kPfxHair ))//added by yaoyansi for maya2renderer
 	{
@@ -4499,6 +4511,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 	{
 		LIQDEBUGPRINTF( "==> inserting kPfxGeometry\n" );
 
+		ObjectType mrttype_shouldbe;
 		MStatus status;
 		MRenderLineArray tube, leaf, petal;
 		MFnPfxGeometry pfx( path, &status );
@@ -4507,33 +4520,46 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 
 		if( tube.length() )
 		{
-			liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxTube, count++ );
+			mrttype_shouldbe = MRT_PfxTube;
 		}
 		if( leaf.length() )
 		{
-			liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxLeaf, count++ );
+			mrttype_shouldbe = MRT_PfxLeaf;
 		}
 		if( petal.length() )
 		{
-			liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_PfxPetal, count++ );
+			mrttype_shouldbe = MRT_PfxPetal;
 		}
 		tube.deleteArray(); 
 		leaf.deleteArray(); 
 		petal.deleteArray();
+
+		//
+		ObjectType mrttype = getMRTType(currentNode);
+		if( mrttype != mrttype_shouldbe ){
+			liquidMessage2(messageError, "mrttype[%d] should be %d", mrttype, mrttype_shouldbe);
+		}
+		//
+		liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, mrttype, count++ );
 	}
 	if( currentNode.hasFn( MFn::kNurbsCurve ) )
 	{
 		LIQDEBUGPRINTF( "==> inserting kNurbsCurve\n" );
-
 		MStatus plugStatus;
 		MPlug renderCurvePlug = dagNode.findPlug( "liquidCurve", &plugStatus );
+		
+		ObjectType mrttype = getMRTType(currentNode);
+		if( mrttype != MRT_NuCurve ){
+			liquidMessage2(messageError, "mrttype[%d] should be MRT_NuCurve", mrttype);
+		}
+
 		if( liqglo.liqglo_renderAllCurves || ( plugStatus == MS::kSuccess ) )// ymesh(r775) use ||, r773 use &&
 		{
 			bool renderCurve( false );
 			renderCurvePlug.getValue( renderCurve );
 			if( renderCurve )
 			{
-				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_NuCurve, count++ );
+				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, mrttype, count++ );
 			}
 		}
 	}
@@ -4639,7 +4665,12 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 						}
 					}
 
-					liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, MRT_Light,	count++ );
+					ObjectType mrttype = getMRTType(currentNode);
+					if( mrttype != MRT_Light ){
+						liquidMessage2(messageError, "mrttype[%d] should be MRT_Light", mrttype);
+					}
+
+					liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, mrttype,	count++ );
 
 					continue;
 				}
@@ -4677,10 +4708,16 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 
 					bool useSamples( ( sample > 0 ) && isObjectMotionBlur( path ) );
 
+					ObjectType mrttype = getMRTType(currentNode, coordType);
+					ObjectType mrttype_shouldbe = ( coordType == 5 )? MRT_ClipPlane : MRT_Coord;
+					if( mrttype != mrttype_shouldbe ){
+						liquidMessage2(messageError, "mrttype[%d] should be %d", mrttype_shouldbe);
+					}
+
 					liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, 
 						lframe, 
 						( useSamples )? sample : 0, 
-						( coordType == 5 )? MRT_ClipPlane : MRT_Coord, 
+						mrttype, //( coordType == 5 )? MRT_ClipPlane : MRT_Coord, 
 						count++ );
 					continue;
 				}
@@ -4717,7 +4754,13 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				MMatrix instanceMatrix( instancerIter.matrix() );
     
 				bool useSamples( ( sample > 0 ) && isObjectMotionBlur( path ) );
-				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0,	MRT_Unknown, count++, 
+				//
+				ObjectType mrttype = getMRTType(path.node());
+				if( mrttype != MRT_Unknown ){
+					liquidMessage2(messageError, "scanScene()>1.mrttype[%d] should be MRT_Unknown", mrttype);
+				}
+				//
+				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0,	mrttype, count++, 
 					&instanceMatrix, instanceStr, instancerIter.particleId() );
 
 				instancerIter.next();
@@ -4774,9 +4817,14 @@ MStatus liqRibTranslator::scanScene(float lframe, int sample )
 				MMatrix instanceMatrix( instancerIter.matrix() );
 
 		    	bool useSamples( ( sample > 0 ) && isObjectMotionBlur( path ) );
-
+				//
+				ObjectType mrttype = getMRTType(path.node());
+				if( mrttype != MRT_Unknown ){
+					liquidMessage2(messageError, "scanScene()>2.mrttype[%d] should be MRT_Unknown", mrttype);
+				}
+				//
 				liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample :	0, 
-					 						 MRT_Unknown, count++, 
+					 						 mrttype, count++, 
 											 &instanceMatrix, instanceStr, instancerIter.particleId() );
 				instancerIter.next();
 			}

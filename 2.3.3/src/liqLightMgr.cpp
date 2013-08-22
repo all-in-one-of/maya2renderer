@@ -90,8 +90,11 @@ void tLightMgr::scanScene(const float lframe__, const int sample__,
 					}
 				}
 			}
-
-			htable__->insert( path, lframe__, ( useSamples )? sample__ : 0, MRT_Light,	count__++ );
+			ObjectType mrttype = getMRTType(currentNode);
+			if( mrttype != MRT_Light ){
+				liquidMessage2(messageError, "mrttype[%d] should be MRT_Light", mrttype);
+			}
+			htable__->insert( path, lframe__, ( useSamples )? sample__ : 0, mrttype,	count__++ );
 
 			continue;
 		}

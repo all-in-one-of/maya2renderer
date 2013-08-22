@@ -761,9 +761,15 @@ void liqRibTranslator::dealwithParticleInstancedObjects(
 		MMatrix instanceMatrix( instancerIter.matrix() );
 
 		bool useSamples( ( sample__ > 0 ) && isObjectMotionBlur( path ) );
+		//
+		ObjectType mrttype = getMRTType(path.node());
+		if( mrttype != MRT_Unknown ){
+			liquidMessage2(messageError, "dealwithParticleInstancedObjects()>mrttype[%d] should be MRT_Unknown", mrttype);
+		}
+		//
 		liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe__, 
 			( useSamples )? sample__ : 0,	
-			MRT_Unknown, count__++, 
+			mrttype, count__++, 
 			&instanceMatrix, instanceStr, instancerIter.particleId() );
 
 		instancerIter.next();

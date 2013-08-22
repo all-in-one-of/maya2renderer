@@ -37,7 +37,6 @@
 #define MNoPluginEntry
 #include <maya/MFnPlugin.h>
 
-//#include <liqShader.h>
 #include <liqMayaNodeIds.h>
 #include <liqGlobalVariable.h>
 #include <liqRibTranslator.h>
@@ -1991,3 +1990,82 @@ LIQUID_EXPORT  bool isCommandRegistered(const MString &commandName)
 	IfMErrorWarn(MGlobal::executeCommand("whatIs "+commandName, result));
 	return (result != "Unknown");
 }
+LIQUID_EXPORT  ObjectType getMRTType(const MObject& mayaObject, int coordType)
+{
+	ObjectType ret = MRT_Unknown;
+
+	MFnDagNode dagNode;
+	MStatus status = dagNode.setObject( mayaObject );
+	//if(MS::kSuccess != returnStatus)
+	//	return returnStatus;
+
+	MDagPath path;
+	dagNode.getPath(path);
+
+	//Debug
+	MString pathname(path.fullPathName());
+
+	MStatus plugStatus;
+
+	if( mayaObject.hasFn( MFn::kLight ) ){
+		ret = MRT_Light;
+	}
+	else if( mayaObject.hasFn( MFn::kLocator ) ){
+		ret = ( coordType == 5 )? MRT_ClipPlane : MRT_Coord;
+	}
+	else if( dagNode.hasAttribute("liquidRibGen") ){
+		ret = MRT_RibGen;
+	}
+	else if(mayaObject.hasFn( MFn::kNurbsSurface )
+		|| mayaObject.hasFn( MFn::kMesh )
+		|| mayaObject.hasFn( MFn::kParticle )
+		|| mayaObject.hasFn( MFn::kNParticle)//r775 doesn't use this
+		|| mayaObject.hasFn( MFn::kLocator )
+		|| mayaObject.hasFn( MFn::kSubdiv )
+		//|| mayaObject.hasFn( MFn::kPfxHair )//Sometimes, pfxhair has both MFn::kPfxHair and MFn::kPfxGeometry, so I treat pfxhair as kPfxGeometry. If there is something wrong, check this section. // [10/30/2012 yaoyansi]
+		|| mayaObject.hasFn( MFn::kPfxToon )
+		|| mayaObject.hasFn( MFn::kImplicitSphere )
+		|| mayaObject.hasFn( MFn::kPluginShape )
+		|| mayaObject.hasFn( MFn::kCamera )
+		)
+	{
+		ret = MRT_Unknown;
+	}
+	else if( mayaObject.hasFn( MFn::kPfxGeometry ) )
+	{
+		MStatus status;
+		MRenderLineArray tube, leaf, petal;
+		MFnPfxGeometry pfx( path, &status );
+		if( status == MS::kSuccess )
+			pfx.getLineData( tube, leaf, petal,1,0,0,0,0,0,0,0,0 );
+
+		if( tube.length() )
+		{
+			ret = MRT_PfxTube;
+		}
+		if( leaf.length() )
+		{
+			ret = MRT_PfxLeaf;
+		}
+		if( petal.length() )
+		{
+			ret = MRT_PfxPetal;
+		}
+		tube.deleteArray(); 
+		leaf.deleteArray(); 
+		petal.deleteArray();
+	} 
+	else if( mayaObject.hasFn( MFn::kNurbsCurve ) )
+	{
+		if( dagNode.hasAttribute("liquidCurve") )
+		{
+			ret = MRT_NuCurve;
+		}
+	}
+	else{
+		ret = MRT_Unknown;
+	}
+
+	return ret;
+}
+
