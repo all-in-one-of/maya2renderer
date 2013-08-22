@@ -364,7 +364,7 @@ class liqGlobalsNode : public MPxNode
     static MObject aVerbosity;
 
 	static MObject aCurrentLayerRifParameters;
-	static MObject aRenderer;
+	//static MObject aRenderer;
 
 private:
 	liqGlobalsNode(const liqGlobalsNode&);

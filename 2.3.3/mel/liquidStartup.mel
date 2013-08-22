@@ -1277,32 +1277,32 @@ global proc liquidRenderingEditorsSubMenu(string $parentMenuItem)
 //  //delightBuildRenderPassTemplatesMenuItems($menu);
 //	liqPopIdent();
 //}
-global proc
-liquidBuildChooseSubRenderer(string $renderer)
-{
-	liqPushIdent();
-	liqlog("liquidBuildChooseSubRenderer("+$renderer+")");
-		
-	liqSetSubRendererName("");//clear
-
-	if( !isSubRendererLoaded($renderer) )
-	{
-		if(catch(`loadPlugin $renderer`)){
-			liqError("load "+$renderer+" fails");
-			liqPopIdent();
-			return;
-		}
-	}
-
-	liqSetSubRendererName($renderer);
-
-	
-	//liquidStartup_subrenderer();
-	$cmd = "liquidStartup_"+liqGetSubRendererName()+"()";
-	evalEcho $cmd;
-
-	liqPopIdent();
-}
+//global proc
+//liquidBuildChooseSubRenderer(string $renderer)
+//{
+//	liqPushIdent();
+//	liqlog("liquidBuildChooseSubRenderer("+$renderer+")");
+//		
+//	liqSetSubRendererName("");//clear
+//
+//	if( !isSubRendererLoaded($renderer) )
+//	{
+//		if(catch(`loadPlugin $renderer`)){
+//			liqError("load "+$renderer+" fails");
+//			liqPopIdent();
+//			return;
+//		}
+//	}
+//
+//	liqSetSubRendererName($renderer);
+//
+//	
+//	//liquidStartup_subrenderer();
+//	$cmd = "liquidStartup_"+liqGetSubRendererName()+"()";
+//	evalEcho $cmd;
+//
+//	liqPopIdent();
+//}
 //
 global proc liquidSelectLiquidGlobalsMenu()
 {

@@ -413,9 +413,10 @@ MString parseString( const MString& inString, bool doEscaped )
   MString tokenString;
   int escapedDollar = 0;
   bool inToken = false;
-  std::string prep_str ( inString.asChar() );
-  boost::trim( prep_str );
-  MString inputString( prep_str.c_str() );
+  //std::string prep_str ( inString.asChar() );
+  //boost::trim( prep_str );
+  //MString inputString( prep_str.c_str() );
+  MString inputString(inString);
   int sLength = inputString.length();
   int i;
 
@@ -520,7 +521,7 @@ MString parseString( const MString& inString, bool doEscaped )
 		  MStatus status;
 		  MString renderer;
 		  MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
-		  IfMErrorWarn(liquidGetPlugValue( rGlobalNode, "renderer", renderer, status ));
+		  IfMErrorWarn(MGlobal::executeCommand("liqGetSubRendererName()", renderer));
 
 		  ss << renderer.asChar();
 		  inToken = false;

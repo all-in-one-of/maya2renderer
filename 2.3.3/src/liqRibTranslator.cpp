@@ -1891,7 +1891,7 @@ MStatus liqRibTranslator::doIt()
 	{//set renderer
 		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 		MString renderer;
-		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
+		MGlobal::executeCommand("liqGetSubRendererName()", renderer);
 
 		bool bSetFactory 
 			= liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
@@ -7888,7 +7888,13 @@ std::string liqRibTranslator::getFunctionTraceLogFileName() const
 		liqglo.liqglo_lframe = 0;
 #endif
 		MString imageName( liqglo.liqglo_projectDir+"rmanpix/"/*liqglo.m_pixDir*/ );
-		imageName += parseString( liqglo.m_displays[ 0 ].name, false );
+		if( liqglo.m_displays.size() > 0 ){
+			imageName += parseString( liqglo.m_displays[ 0 ].name, false );
+		}else{
+			liquidMessage2(messageError, "liqglo.m_displays is empty");
+			imageName += "not_ready.png";
+		}
+
 
 
 		sslogFileName << boost::format("%s.log")%imageName.asChar();
@@ -7907,7 +7913,7 @@ void liqRibTranslator::IPRRenderBegin()
 	{//set renderer
 		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 		MString renderer;
-		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
+		IfMErrorWarn(MGlobal::executeCommand("liqGetSubRendererName()", renderer));
 
 		bool bSetFactory 
 			= liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());

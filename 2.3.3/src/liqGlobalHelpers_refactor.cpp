@@ -515,7 +515,7 @@ MString parseString_refactor( const MString& inString, bool doEscaped )
 		  MStatus status;
 		  MString renderer;
 		  MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
-		  IfMErrorWarn(liquidGetPlugValue( rGlobalNode, "renderer", renderer, status ));
+		  IfMErrorWarn(MGlobal::executeCommand("liqGetSubRendererName()", renderer));
 
 		  ss << renderer.asChar();
 		  inToken = false;

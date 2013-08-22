@@ -58,18 +58,24 @@ global proc string[] liquidGatherLoadedSubRenderers()
 //===========================================================================================
 //
 //===========================================================================================
-global proc liqSetSubRendererName(string $renderer)
-{
-	liqPushIdent();
-	liqlog("liqSetSubRendererName("+$renderer+")");
-	if( liquidGlobalsExists() )
-	{
-		setAttr -type "string" liquidGlobals.renderer $renderer;
-	}else{
-		liqWarn("liquidGlobals NOT exists!");
-	}
-	liqPopIdent();
-}
+//global proc liqSetSubRendererName(string $renderer)
+//{
+//	liqPushIdent();
+//	liqlog("liqSetSubRendererName("+$renderer+")");
+//	//if( liquidGlobalsExists() )
+//	//{
+//	//	setAttr -type "string" liquidGlobals.renderer $renderer;
+//	//}else{
+//	//	liqWarn("liquidGlobals NOT exists!");
+//	//}
+//	if( `renderer -q -exists $renderer` == 1 ){
+//		setAttr -type "string" defaultRenderGlobals.currentRenderer ($renderer);
+//	}else{
+//		liqWarn("renderer "+$renderer+" not exists.");
+//	}
+//
+//	liqPopIdent();
+//}
 
 global proc string liqGetSubRendererName()
 {
@@ -77,13 +83,15 @@ global proc string liqGetSubRendererName()
 	liqlog("liqGetSubRendererName()");
 	
 	string $rnd;
-	if( liquidGlobalsExists() )
-	{
-		$rnd =  `getAttr liquidGlobals.renderer`;
-	}else{
-		liqWarn("liquidGlobals NOT exists!");
-		$rnd = "";
-	}
+	//if( liquidGlobalsExists() )
+	//{
+	//	$rnd =  `getAttr liquidGlobals.renderer`;
+	//}else{
+	//	liqWarn("liquidGlobals NOT exists!");
+	//	$rnd = "";
+	//}
+	$rnd =  `getAttr defaultRenderGlobals.currentRenderer`;
+
 	liqPopIdent();
 	return $rnd;
 }

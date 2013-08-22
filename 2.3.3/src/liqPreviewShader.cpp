@@ -30,7 +30,7 @@
 //extern "C" {
 #include "liqtypes.h"//#include "ri_interface.h"
 //}
-
+#include <common/mayacheck.h>
 #include <liqlog.h>
 #include <liqRenderer.h>
 #include <liqProcessLauncher.h>
@@ -402,7 +402,8 @@ int liquidOutputPreviewShader( const string& fileName, const liqPreviewShaderOpt
 		MStatus status;
 		MFnDependencyNode rGlobalNode( liqglo.rGlobalObj );
 		MString renderer;
-		liquidGetPlugValue( rGlobalNode, "renderer", renderer, status );
+		IfMErrorWarn(MGlobal::executeCommand("liqGetSubRendererName()", renderer));
+
 		liquid::RendererMgr::getInstancePtr()->setFactory(renderer.asChar());
 		liquid::RendererMgr::getInstancePtr()->install();
 		liquid::RendererMgr::getInstancePtr()->prologue();

@@ -330,7 +330,7 @@ global proc liqUpdateSubRendererGlobalNodeSetting_elvishray()
 	
 	erLiquidLoadGlobals();
 	//set liquidGlobals.renderer
-	liqSetSubRendererName(er_getRendererName());
+	//liqSetSubRendererName(er_getRendererName());
 
 	liqPopIdent();
 }

@@ -564,7 +564,7 @@ global proc liqUpdateSubRendererGlobalNodeSetting_renderman()
 	
 	rmLiquidLoadGlobals();
 	//set liquidGlobals.renderer
-	liqSetSubRendererName(rm_getRendererName());
+	//liqSetSubRendererName(rm_getRendererName());
 
 	liqPopIdent();
 }

@@ -349,7 +349,7 @@ MObject liqGlobalsNode::aShadersMaxCachedAELayouts;
 
 MObject liqGlobalsNode::aVerbosity;
 MObject liqGlobalsNode::aCurrentLayerRifParameters;
-MObject liqGlobalsNode::aRenderer;
+//MObject liqGlobalsNode::aRenderer;
 
 
 
@@ -711,7 +711,7 @@ MStatus liqGlobalsNode::initialize()
 	CREATE_STRING( tAttr,  aShotVersion,                "shotVersion",                  "sv",     ""    );
 
 	CREATE_STRING( tAttr,  aCurrentLayerRifParameters,  "currentLayerRifParameters",    "lrp",     ""    );
-	CREATE_STRING( tAttr,  aRenderer,              "renderer",                "rnd",   "" );
+//	CREATE_STRING( tAttr,  aRenderer,              "renderer",                "rnd",   "" );
 
 	return MS::kSuccess;
 }

@@ -36,7 +36,7 @@ def parseString(strdata):
 
     if strdata.find('$RND')!=-1:
         strinfo = re.compile('\$RND')
-        strdata = strinfo.sub( cmds.getAttr('liquidGlobals.renderer'), strdata)
+        strdata = strinfo.sub( cmds.getAttr('defaultRenderGlobals.currentRenderer'), strdata)
 
     if strdata.find('#')!=-1:
         strinfo = re.compile('\#')
@@ -51,7 +51,6 @@ def parseString(strdata):
 
 def getOutputImageName(mayaFile, liqRenderer):
     cmds.file(mayaFile, force=True, open=True)
-    cmds.setAttr('liquidGlobals.renderer', liqRenderer, type="string")
     output_image_name = parseString( cmds.getAttr('liquidGlobals.ddImageName[0]') )
     #cmds.file(save=True, force=True)
     return output_image_name
@@ -80,7 +79,7 @@ def getStanderImage(mayaFile, liqRenderer):
 
 def _render(mayaFile, liqRenderer):
     batchRenderCmd="mayabatch.exe "
-    command = """ "source \\"liquidStartup.mel\\"; "source \\"liq_RendererName.mel\\"; liquidStartup(); catch(`loadPlugin """+liqRenderer+"""`); setAttr -type \\"string\\" liquidGlobals.renderer """+liqRenderer+"""; mayaBatchRenderProcedure(0,\\"\\",\\"\\",liq_getRendererName(),\\"\\");" """;
+    command = """ "source \\"liquidStartup.mel\\"; "source \\"liq_RendererName.mel\\"; liquidStartup(); catch(`loadPlugin """+liqRenderer+"""`); mayaBatchRenderProcedure(0,\\"\\",\\"\\",liq_getRendererName(),\\"\\");" """;
     cmd = batchRenderCmd+" -file "+mayaFile+" -command "+command;
 
     #mLiqlog.flog("batchRenderCmd="+cmd)
@@ -89,7 +88,7 @@ def _render(mayaFile, liqRenderer):
 
 def _render2(mayafile, liqRenderer):
     cmds.file( mayafile, f=True,  options="v=0", typ="mayaAscii", o=True)
-    command = 'catch(`loadPlugin '+liqRenderer+'`); setAttr -type "string" liquidGlobals.renderer '+liqRenderer+';'
+    command = 'catch(`loadPlugin '+liqRenderer+'`); '
     mel.eval(command)
     
     mel.eval('mayaBatchRenderProcedure(0,"","","'+liqRenderer+'","")')
