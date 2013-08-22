@@ -4487,7 +4487,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 	{
 		ObjectType mrttype = getMRTType(currentNode);
 		if( mrttype != MRT_Unknown ){
-			liquidMessage2(messageError, "scanSceneNodes()>mrttype[%d] should be MRT_Unknown", mrttype);
+			liquidMessage2(messageWarning, "scanSceneNodes()>mrttype[%d] should be MRT_Unknown", mrttype);
 		}
 		LIQDEBUGPRINTF( "==> inserting obj to htable %s\n", path.fullPathName().asChar() );
     	liqRibHTMgr::getInstancePtr()->getHTable()->insert( path, lframe, ( useSamples )? sample : 0, mrttype, count++ );
@@ -4550,7 +4550,7 @@ MStatus liqRibTranslator::scanSceneNodes( MObject &currentNode, MDagPath &path, 
 		
 		ObjectType mrttype = getMRTType(currentNode);
 		if( mrttype != MRT_NuCurve ){
-			liquidMessage2(messageError, "mrttype[%d] should be MRT_NuCurve", mrttype);
+			liquidMessage2(messageWarning, "mrttype[%d] should be MRT_NuCurve", mrttype);
 		}
 
 		if( liqglo.liqglo_renderAllCurves || ( plugStatus == MS::kSuccess ) )// ymesh(r775) use ||, r773 use &&
