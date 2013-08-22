@@ -13,6 +13,9 @@
     <Filter Include="mel\Hypershade">
       <UniqueIdentifier>{3c4a528d-d7ef-4dce-aef2-f5d15d7105c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\liquid">
+      <UniqueIdentifier>{d0e52d59-5d61-433f-817a-302b00618ad4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\renderman\rm_factory.cpp">
