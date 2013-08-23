@@ -8,7 +8,6 @@ file -r -ns "nurbs_cone" -dr 1 -rfn "nurbs_coneRN" "E:/dev/Autodesk/maya/myplugi
 file -r -ns "nurbs_sphere" -dr 1 -rfn "nurbs_sphereRN" "E:/dev/Autodesk/maya/myplugin/project/liquid_/test/unittest/common/nurbs_surface/nurbs_sphere/nurbs_sphere.ma";
 requires maya "2012";
 requires "ElvishRender" "0.0.1";
-requires "liquidDLL" "2.3.5";
 requires "renderman" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -142,7 +141,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode script -n "uiConfigurationScriptNode";
 	setAttr ".b" -type "string" (
@@ -371,7 +369,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";

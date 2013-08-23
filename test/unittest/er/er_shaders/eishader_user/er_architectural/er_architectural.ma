@@ -3,7 +3,6 @@
 //Last modified: Sun, Jun 23, 2013 10:34:01 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquidDLL" "2.3.5";
 requires "ElvishRender" "0.0.1";
 requires "eiSHADER_user_mayaplugin" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
@@ -131,7 +130,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "ElvishRender";
 createNode script -n "liquidCleanUpNode";
 	setAttr ".b" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCreateScriptNode;";
 	setAttr ".a" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCleanUp;";
@@ -276,7 +274,7 @@ select -ne :defaultRenderingList1;
 select -ne :renderGlobalsList1;
 select -ne :initialMaterialInfo;
 select -ne :defaultRenderGlobals;
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 select -ne :defaultResolution;
 	setAttr ".w" 200;
 	setAttr ".h" 150;

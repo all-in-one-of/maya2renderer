@@ -3,7 +3,6 @@
 //Last modified: Thu, Jul 11, 2013 05:51:50 PM
 //Codeset: 936
 requires maya "2013";
-requires "liquidDLL" "2.3.5";
 requires "renderman" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
@@ -267,7 +266,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "renderman";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode phong -n "phong1";
 createNode shadingEngine -n "phong1SG";
@@ -432,7 +430,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "renderman";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";

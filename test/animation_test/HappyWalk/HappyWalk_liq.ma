@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2009";
 requires "Mayatomr" "10.0.1.8m - 3.7.1.26 ";
-requires "liquid_2009x32d" "2.3.5 (buildtime=14:51:20.88)";
 currentUnit -l centimeter -a degree -t ntsc;
 fileInfo "application" "maya";
 fileInfo "product" "Maya Unlimited 2009";
@@ -16308,7 +16307,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";

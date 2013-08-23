@@ -132,6 +132,8 @@ end shader
 light "|pointLight1|pointLightShape1_object" 
 light_shader "|pointLight1|pointLightShape1_shader" 
 origin 0 0 0 
+area_samples 16 
+ei_adaptive 0 
 end light
 instance "|pointLight1|pointLightShape1" 
 element "|pointLight1|pointLightShape1_object" 
@@ -302,7 +304,7 @@ mtl "liquid_material_for_test"
 ##shape name=|persp|perspShape
 ##shape full path name=|persp|perspShape
 element "|persp|perspShape" 
-transform 0.707107 0 -0.707107 0    -0.331295 0.883452 -0.331295 0    0.624695 0.468521 0.624695 0    21.3427 16.007 21.3427 1 
+transform 0.707107 2.77556e-017 -0.707107 0    -0.331295 0.883452 -0.331295 0    0.624695 0.468521 0.624695 0    21.3427 16.007 21.3427 1 
 ##bMotionBlur=0, bGeometryMotion=0
     motion 0 
 declare "lightgroup"  "const"  "token" 

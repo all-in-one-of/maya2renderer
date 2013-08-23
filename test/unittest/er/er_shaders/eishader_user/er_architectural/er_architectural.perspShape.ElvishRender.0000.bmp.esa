@@ -137,6 +137,8 @@ ei_end_shader();
 ei_light("|pointLight1|pointLightShape1_object");
 ei_light_shader("|pointLight1|pointLightShape1_shader");
 ei_origin(0,0,0);
+ei_area_samples(16);
+ei_adaptive(0);
 ei_end_light();
 ei_instance("|pointLight1|pointLightShape1");
 ei_element("|pointLight1|pointLightShape1_object");
@@ -371,7 +373,7 @@ ei_mtl("liquid_material_for_test");
 //shape name=|persp|perspShape
 //shape full path name=|persp|perspShape
 ei_element("|persp|perspShape");
-ei_transform(0.707107,0,-0.707107,0,   -0.331295,0.883452,-0.331295,0,   0.624695,0.468521,0.624695,0,   21.3427,16.007,21.3427,1);
+ei_transform(0.707107,2.77556e-017,-0.707107,0,   -0.331295,0.883452,-0.331295,0,   0.624695,0.468521,0.624695,0,   21.3427,16.007,21.3427,1);
 //bMotionBlur=0, bGeometryMotion=0
 ei_motion(0);
 {//light group(light-link group)

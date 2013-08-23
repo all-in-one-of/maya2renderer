@@ -43,7 +43,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/uvCoord/uvCoord.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    
     testFile=LIQUID_ROOT+"/test/maya_shader/file_place2dTexture/file_place2dTexture_con/file_place2dTexture_con.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -130,7 +130,7 @@ def test_all_scene():
 
     testFile=LIQUID_ROOT+"/test/maya_shader/directionallight/directionallight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-
+    '''
     testFile=LIQUID_ROOT+"/test/maya_shader/ambientlight/ambientlight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
     
@@ -231,7 +231,7 @@ def test_all_scene():
     
     testFile=LIQUID_ROOT+"/test/unittest/rm/shader_user/occlight/rmOccLight.ma"
     MyTestOne.test_one_scene(testFile, "renderman")
-    '''
+    
 
 
 
@@ -239,7 +239,7 @@ def test_all_scene():
     ------------------------ elvishray ----------------------------------
     '''
 
-    '''
+    
     testFile=LIQUID_ROOT+"/test/unittest/er/motionblur/deform/deform.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
@@ -502,9 +502,7 @@ def test_all_scene():
     testFile=LIQUID_ROOT+"/test/animation_test/HappyWalk/HappyWalk_liq_simple.ma"
     MyTestOne.test_one_scene(testFile, er.getRendererName())
     
-    testFile=LIQUID_ROOT+"/test/unittest/er/er_shaders/eishader_user/erTestLight/erTestLight.ma"
-    MyTestOne.test_one_scene(testFile, er.getRendererName())
-    '''
+    
 
     '''
     ------------------------ appleseed ----------------------------------

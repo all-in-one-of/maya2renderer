@@ -3,7 +3,6 @@
 //Last modified: Fri, Mar 22, 2013 12:00:14 AM
 //Codeset: 936
 requires maya "2012";
-requires "liquidDLL" "2.3.5 (buildtime=20:51:12.30)";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -156,7 +155,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "renderman";
 	setAttr ".displayList" -type "stringArray" 18 "bmp" "cineon" "dsm" "eps" "exr" "framebuffer" "idisplay" "iff" "jpeg" "liqmaya-" "liqmaya" "memory" "pic" "png" "psd" "radiance" "tiff" "zfile"  ;
 createNode shadingEngine -n "liquidSurface11SG";
 	setAttr ".ihi" 0;

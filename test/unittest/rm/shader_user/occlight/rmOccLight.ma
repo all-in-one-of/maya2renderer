@@ -3,7 +3,6 @@
 //Last modified: Sun, Jul 07, 2013 10:12:11 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquidDLL" "2.3.5";
 requires "renderman" "0.0.1";
 requires "rmSHADER_user_mayaplugin" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
@@ -136,7 +135,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "renderman";
 	setAttr ".displayList" -type "stringArray" 18 "bmp" "cineon" "dsm" "eps" "exr" "framebuffer" "idisplay" "iff" "jpeg" "liqmaya" "liqmaya_d" "memory" "pic" "png" "psd" "radiance" "tiff" "zfile"  ;
 createNode script -n "liquidCleanUpNode";
 	setAttr ".b" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCreateScriptNode;";
@@ -253,7 +251,7 @@ select -ne :postProcessList1;
 select -ne :defaultRenderingList1;
 select -ne :renderGlobalsList1;
 select -ne :defaultRenderGlobals;
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "renderman";
 select -ne :defaultResolution;
 	setAttr ".w" 200;
 	setAttr ".h" 150;

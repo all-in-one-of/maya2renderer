@@ -3,7 +3,6 @@
 //Last modified: Fri, Apr 06, 2012 07:15:23 PM
 //Codeset: 936
 requires maya "2009";
-requires "liquid_2009x32d" "2.3.5 (buildtime=16:33:01.12)";
 requires "Mayatomr" "10.0.1.8m - 3.7.1.26 ";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t ntsc;
@@ -15712,7 +15711,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "elvishray";
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";

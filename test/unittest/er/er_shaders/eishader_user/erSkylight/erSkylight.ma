@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2013";
 requires "ElvishRender" "0.0.1";
-requires "liquidDLL" "2.3.5";
 requires "eiSHADER_user_mayaplugin" "0.0.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -190,7 +189,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/erSkylight982.xml";
 	setAttr ".she" -type "string" "dll";
 	setAttr ".txe" -type "string" "tex";
-	setAttr ".rnd" -type "string" "ElvishRender";
 createNode script -n "liquidCleanUpNode";
 	setAttr ".b" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCreateScriptNode;";
 	setAttr ".a" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCleanUp;";
@@ -366,7 +364,7 @@ select -ne :postProcessList1;
 select -ne :defaultRenderingList1;
 select -ne :renderGlobalsList1;
 select -ne :defaultRenderGlobals;
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 select -ne :defaultResolution;
 	setAttr ".w" 200;
 	setAttr ".h" 150;

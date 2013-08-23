@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2012";
 requires "ElvishRender" "0.0.1";
-requires "liquidDLL" "2.3.5";
 requires "renderman" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
@@ -245,7 +244,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 16 "framebuffer" "alias" "cineon" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode polyPlane -n "polyPlane2";
 	setAttr ".w" 3.0944287097721492;
@@ -361,7 +359,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";

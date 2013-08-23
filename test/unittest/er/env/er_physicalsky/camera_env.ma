@@ -3,7 +3,6 @@
 //Last modified: Wed, Jun 19, 2013 08:35:40 PM
 //Codeset: 936
 requires maya "2012";
-requires "liquidDLL" "2.3.5";
 requires "ElvishRender" "0.0.1";
 requires "Mayatomr" "2012.0m - 3.9.1.36 ";
 requires "stereoCamera" "10.0";
@@ -122,7 +121,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "ElvishRender";
 createNode script -n "liquidCleanUpNode";
 	setAttr ".b" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCreateScriptNode;";
 	setAttr ".a" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCleanUp;";
@@ -344,7 +342,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";

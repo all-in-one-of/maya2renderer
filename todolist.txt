@@ -6,12 +6,16 @@
 
 
 - learn katana
-done)- preview的alpha通道 
+
+-liq|: remove liquidGlobal.renderer in *.ma file
+
 -把liquiddll里只有renderman用到的代码,移到renderman工程里
 -liq|: liqRibTranslator::doIt()里的RendererMgr移出来
-- liq| er|: release mod僵死
 
-- 把liquidDLL.mll和elvishrender.mll合并为一个
+done)- liq| er|: release mod僵死
+done)bug:-liq| ipr|: 打开RenderSetting时, ipr也会刷新
+done)- preview的alpha通道
+done)- 把liquidDLL.mll和elvishrender.mll合并为一个
 - liq|rm|: 先加载liquidDLL.mll,然后加载renderman.dll, 提示
   >rmGlobalTab()
       ERROR>liquid is not registed.

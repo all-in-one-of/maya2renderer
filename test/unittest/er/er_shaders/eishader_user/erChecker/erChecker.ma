@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2013";
 requires "ElvishRender" "0.0.1";
-requires "liquidDLL" "2.3.5";
 requires "eiSHADER_user_mayaplugin" "0.0.1";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
@@ -261,7 +260,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".lrs" -type "string" "R:/MyDocuments/maya/projects/default/rmantmp/erChecker949.xml";
 	setAttr ".she" -type "string" "dll";
 	setAttr ".txe" -type "string" "tex";
-	setAttr ".rnd" -type "string" "ElvishRender";
 createNode script -n "liquidCleanUpNode";
 	setAttr ".b" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCreateScriptNode;";
 	setAttr ".a" -type "string" "if ( `whatIs liquid` == \"Command\" ) liquidCleanUp;";
@@ -425,7 +423,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";

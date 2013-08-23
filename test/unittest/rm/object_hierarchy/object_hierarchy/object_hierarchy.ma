@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2012";
 requires "renderman" "0.0.1";
-requires "liquidDLL" "2.3.5";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t ntsc;
 fileInfo "application" "maya";
@@ -389,7 +388,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "renderman";
 createNode liqGlobalsNodeRenderer -n "liqGlobalsNodeRenderer_elvishray";
 	addAttr -ci true -h true -sn "verbose" -ln "verbose" -dv 6 -at "long";
 	addAttr -ci true -h true -sn "link" -ln "link" -dt "string";
@@ -762,7 +760,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "renderman";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";

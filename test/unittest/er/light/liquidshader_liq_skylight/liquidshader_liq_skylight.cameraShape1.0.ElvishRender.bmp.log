@@ -483,6 +483,7 @@
                     >10 Visitor::outputShadingGroup(lambert6SG)
                   >9 ConvertShadingNetwork::exportShadingGroupEnd(lambert6SG)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape1,miEnvironmentShader)
+                    >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape1,miEnvironmentShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape1,liqVolumeShader)
                     >10 ConvertShadingNetwork::_exportShaderNodeInPlug(cameraShape1,liqVolumeShader)
                   >9 ConvertShadingNetwork::exportShaderNodeInPlug(cameraShape1,liqEnvironmentShader)

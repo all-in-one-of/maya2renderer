@@ -4,7 +4,6 @@
 //Codeset: 936
 requires maya "2012";
 requires "ElvishRender" "0.0.1";
-requires "liquidDLL" "2.3.5";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2012";
@@ -228,7 +227,6 @@ createNode liquidGlobals -n "liquidGlobals";
 	setAttr ".Points" yes;
 	setAttr ".Raytracing" yes;
 	setAttr ".AdvancedVisibility" yes;
-	setAttr ".rnd" -type "string" "ElvishRender";
 	setAttr ".displayList" -type "stringArray" 17 "framebuffer" "alias" "cineon" "liqmaya" "mayaiff" "openexr" "photoshop" "picio" "rib" "sgif" "softimage" "targa" "tiff" "wavefrontobj" "it" "combiner" "slim"  ;
 createNode shadingEngine -n "phong1SG";
 	setAttr ".ihi" 0;
@@ -736,7 +734,7 @@ select -ne :defaultRenderGlobals;
 	setAttr -k on ".clip";
 	setAttr -k on ".edm";
 	setAttr -k on ".edl";
-	setAttr ".ren" -type "string" "liquid";
+	setAttr ".ren" -type "string" "ElvishRender";
 	setAttr -av -k on ".esr";
 	setAttr -k on ".ors";
 	setAttr -cb on ".sdf";
