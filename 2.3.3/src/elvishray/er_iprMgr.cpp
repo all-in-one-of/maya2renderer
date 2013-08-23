@@ -39,6 +39,7 @@ namespace elvishray
 
 
 		MString nodeType( getNodeType(nodeName) );
+		
 		//if( nodeType == "camera" )
 		{
 			updateCamera(plug);
@@ -47,13 +48,9 @@ namespace elvishray
 		if( liquidmaya::ShaderMgr::getSingletonPtr()->hasShaderType(nodeType.asChar()) ) 
 		{
 			updateShader(plug);
-		}else if( nodeType == "pointLight" ) {
-			MDagPath dagPath;
-			getDagPathByName(dagPath, toFullDagPath(nodeName).asChar());
-			liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
-				dagPath.fullPathName(), dagPath, MRT_Unknown
-				);
+		}else{
 
+			//find currentJob
 			structJob *temp_currentJob = NULL;
 			std::size_t size = liqJobListMgr::getInstancePtr()->jobList.size();
 			int currentTime = ( int ) MAnimControl::currentTime().as( MTime::uiUnit() );
@@ -73,6 +70,19 @@ namespace elvishray
 
 			if(temp_currentJob)
 			{
+				MDagPath dagPath;
+				getDagPathByName(dagPath, toFullDagPath(nodeName).asChar());
+				
+				//ObjectType mrttype = getMRTType( dagPath.node() );//DEBUG
+
+				liqRibNodePtr ribNode__ = liqRibHTMgr::getInstancePtr()->getHTable()->find(
+					dagPath.fullPathName(), dagPath, getMRTType( dagPath.node() ) );
+				if( !ribNode__ )
+				{
+					liquidMessage2(messageError, "ipr: object not found. [%s]", dagPath.fullPathName().asChar());
+					return;
+				}
+
 				const liqRibDataPtr data = ribNode__->object(0)->getDataPtr();
 				data->write("", *temp_currentJob, false);
 			}else{
