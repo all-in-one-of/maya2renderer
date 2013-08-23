@@ -15,6 +15,8 @@ namespace elvishray
 
 		void onAttributeChanged(MNodeMessage::AttributeMessage msg, 
 			MPlug & plug, MPlug & otherPlug, void* userData);
+		bool needToUpdate(MNodeMessage::AttributeMessage msg, 
+			MPlug & plug, MPlug & otherPlug, void* userData);
 	protected:
 		void updateCamera(const MPlug &plug);
 		void updateShader(const MPlug &plug);

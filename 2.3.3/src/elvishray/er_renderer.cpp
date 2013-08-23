@@ -1604,23 +1604,27 @@ namespace elvishray
 		CM_TRACE_FUNC("Renderer::IPR_AttributeChangedCallback("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
 		liquidMessage2(messageInfo, "Renderer::IPR_AttributeChangedCallback()");
 		
-		o.ln();
-		o.ln();
-		o.ln();
-		o.ln();
-		o.a(" Renderer::IPR_AttributeChangedCallback");		
-		
-		m_iprMgr->onAttributeChanged(msg, plug, otherPlug, userData );
+		if( m_iprMgr->needToUpdate(msg, plug, otherPlug, userData) )
+		{
+			o.ln();
+			o.ln();
+			o.ln();
+			o.ln();
+			o.a(" Renderer::IPR_AttributeChangedCallback");		
+
+			m_iprMgr->onAttributeChanged(msg, plug, otherPlug, userData );
 
 
-		MString renderCamera;
-		IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`;", renderCamera));
+			MString renderCamera;
+			IfMErrorWarn(MGlobal::executeCommand("string $cam = `getAttr liquidGlobals.renderCamera`;", renderCamera));
 
-		m_root_group = renderCamera.asChar();
-		m_option     = (renderCamera+"_option").asChar();
+			m_root_group = renderCamera.asChar();
+			m_option     = (renderCamera+"_option").asChar();
 
-		render_ipr();
-
+			render_ipr();
+		}else{
+			liquidMessage2(messageInfo, "don't need to update ipr");
+		}
 		return MS::kSuccess;
 	}
 	MStatus Renderer::IPR_NodeDirtyCallback( MObject& node,void *userData )

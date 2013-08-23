@@ -25,6 +25,31 @@ namespace elvishray
 		CM_TRACE_FUNC("IprMgr::~IprMgr()");
 	}
 	//
+	bool IprMgr::needToUpdate(MNodeMessage::AttributeMessage msg, 
+		MPlug & plug, MPlug & otherPlug, void* userData)
+	{
+		CM_TRACE_FUNC("IprMgr::needToUpdate("<<msg<<","<<plug.name().asChar()<<","<<otherPlug.name().asChar()<<",userData)");
+		
+		MStringArray strarray;
+		IfMErrorWarn( plug.name().split('.', strarray) );
+		MString nodeName(strarray[0]);
+		MString plugName(strarray[1]);
+
+		MString nodeType( getNodeType(nodeName) );
+
+		if( nodeType == "camera" )
+		{
+			if( plugName == "depth" || plugName == "mask" )
+			{
+				//depth and mask are not used in elvishray,
+				//and these two attributes will be updated when I open "Render Settings" window
+				return false;
+			}
+		} 
+
+		return true;
+	}
+	//
 	void IprMgr::onAttributeChanged(MNodeMessage::AttributeMessage msg, 
 		MPlug &plug, MPlug &otherPlug, void *userData)
 	{
