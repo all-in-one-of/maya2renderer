@@ -7,21 +7,12 @@
 
 - learn katana
 
--liq|: remove liquidGlobal.renderer in *.ma file
-
 -把liquiddll里只有renderman用到的代码,移到renderman工程里
 -liq|: liqRibTranslator::doIt()里的RendererMgr移出来
 
-done)- liq| er|: release mod僵死
-done)bug:-liq| ipr|: 打开RenderSetting时, ipr也会刷新
-done)- preview的alpha通道
-done)- 把liquidDLL.mll和elvishrender.mll合并为一个
-- liq|rm|: 先加载liquidDLL.mll,然后加载renderman.dll, 提示
-  >rmGlobalTab()
-      ERROR>liquid is not registed.
+
 
 - 评估借助abc做maya到er的插件, motion blur
-done)- liq|er|: manager.ini里searchpath如果不正确的话,提示并退出渲染
 liq| 
 ambientlight, 
 rm/particle/simple/particle.ma, 
@@ -30,26 +21,27 @@ rm/particle/ParticleColorChangeOnCollisionMethod1 有assert提示
 liq| liquid_root --> liquidhome, 精简getenv(), 删去不必要的环境变量
 liq|: // Warning: file: /mel/liquidCreateGlobalsTab.mel line 108: liquidSwitchGlobalsRenderLayer: liquidLiquidTab not exists // 
 liq|: mod
-done)-liq|er|:加载ElvishRenderer后建ElvishRenderGlobals1节点
 liq}:liquidShaderNode里增加aAssignedObjects属性
 done)liq|:menu>select render pass>liquidGlobals
+
 liq|: BreadthFirstTraversal回归测试(phong_tex失败,ei_make_texture()会崩溃)
 liq|: 完善ipr
 liq|: 完善aov
 学习 osl
-liq|: liqGlobal --> AE
-liq|: callback buildHyperShadeMenu(),针对每一个shader完善之
+
 liq| er|: liquidAETemplate_shadingEngine, liquidAETemplate_camera, 
 liq|: 把liquidDLL里自定义属性移到renderman工程里
+
+done)liq|: callback buildHyperShadeMenu(),针对每一个shader完善之
 done)liq|: bug:addExtension 的attr无法保存到文件
 liq|:hyperShadePanel for  maya2013 没有使用callbacks, 这不够好;考虑用callbacks替换现有的代码
 liq| rm|: support RSL2.0!!!
 
-liq| shadergraph|: should be rewritten.
+done)liq| shadergraph|: should be rewritten.
 liq| er|: reserve the code. the liquidShader3(liq_skylight) is not output. this bug must be fixed.
 liq| maya2013| rm|: bug: runprogram test case fail, the display leads to a crash.
 _WIN32,_DEBUG, MultiThreadedDLL, <GenerateDebugInformation>true, <AssemblyDebug>true
-
+                               
 liq|maya2013|: 回归测试
 liq| er|: shader graph 输出的shader有重复的
 liq|test|: def parseString(strdata):里输出的是   1而不是0001
@@ -83,13 +75,8 @@ done)todo:如何为ER建立categary？
 
 -liq| procedural node
 - MRB 赋值er_checker/er_arch/er_physicalsky/er_skylight
-- ElvishRender.mll 依赖于liquid.mll, 这种dll级别的依赖是不正确的。应该使用node存储数据，解除这种dll级别的依赖
-- elvishrender.mll总是在liquid.mll之前先加载
 - liq|er|: 有几种自定义shader： liquidShader，er_physicalsky, er_skylight
   增加一个接口exportShaderNode()导出这几种类型的shader
-- 重构 void ConvertShadingNetwork::convertShadingNetworkToRSL(const MString& startingNode, const MString& node)
-  把这个函数的node参数去掉。
-- liq|er|:打开er场景时，er插件未加载，
 - namespace liquidmaya --> liquid
 - install maya1012 x64, learn Arnold
 - maya test cases, the process of maya testing.
@@ -101,15 +88,12 @@ done)todo:如何为ER建立categary？
 -done)liq|er:Approx.Method现在只有两种模式，regular和length当regular模式的时候，args[0]表示"U Subdiv", args[1]表示"V Subdiv"，就是均匀细分当length模式的时候，args[0]表示"Edge Length"，就是细分到Edge在屏幕空间有这么小，类似于RenderMan的Shading Rate其他数字是预留的
 -done)liq|er|:用NSI制作安装包
 
--liq| er|: 整理tst case
 -liq| er| particle|: 某些particle类型数据的导出
 -liq| er| pfxhair|: pfxHair数据导出
 
 -liq|:把nodeid放到一个文件里
 -liq|er|: bug: 打开camera film gate后，渲染结果和maya software不一致
 -liq|er|: top,side,front,渲染不出图像
--liq:加载后，切换至liquid，
--liq|: 打开有些场景的时候，先加载renderman，后加载liquid，所以提示renderman加载不了
 -liq| ui|: 集成3de的mel
 -liq| er|: blinn 透明材质不透明
 -liq|er|: 资源（test texture，pl,dll,lif）整理
