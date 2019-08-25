@@ -1,4 +1,6 @@
-                          License
+# [https://github.com/all-in-one-of/maya2renderer/blob/master/dependence/aqsis/1.6.0/src/tools/neqsus/houdini/hshaders.otl](https://github.com/all-in-one-of/maya2renderer/blob/master/dependence/aqsis/1.6.0/src/tools/neqsus/houdini/hshaders.otl) 
+ 
+ License
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"); you may not use this file except in compliance with the
@@ -13,7 +15,7 @@ The Initial Developer of the Original Code is Colin Doncaster. Portions created
 by Colin Doncaster are Copyright (C) 2002. All Rights Reserved.
 
 Contributor(s): Dan Bethell, Berj Bannayan, Andrew Chapman, Colin Doncaster,
-Stéphane Deverly, George Harker, Jamie McCarter, Ken McGaugh, Moritz Moeller,
+StÃ©phane Deverly, George Harker, Jamie McCarter, Ken McGaugh, Moritz Moeller,
 Michael Duffy, Richard Pickler, Rob Pieke, Paul Scruby, Yuri Meshalkin,
 Alf Kraus, Leon Tony Atkinson.
 
